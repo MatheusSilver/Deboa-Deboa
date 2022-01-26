@@ -1,0 +1,10 @@
+diff a/source/MusicBeatSubstate.hx b/source/MusicBeatSubstate.hx	(rejected hunks)
+@@ -3,6 +3,8 @@ package;
+ import Conductor.BPMChangeEvent;
+ import flixel.FlxG;
+ import flixel.FlxSubState;
++import flixel.input.actions.FlxActionInput;
++import ui.FlxVirtualPad;
+ 
+ class MusicBeatSubstate extends FlxSubState
+ {
