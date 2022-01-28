@@ -1,0 +1,71 @@
+{
+	"storyName": "so many souls to play with...",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"too slow",
+			"sonic",
+			[
+				255,
+				0,
+				0
+			],
+			"too slow"
+		],
+		[
+			"endless",
+			"funsonic",
+			[
+				255,
+				0,
+				0
+			],
+			"infinito"
+		],
+		[
+			"execution",
+			"lx",
+			[
+				255,
+				0,
+				0
+			],
+			"execuçao"
+		],
+		[
+			"milk",
+			"sunky",
+			[
+				255,
+				0,
+				0
+			],
+			"leite e cereal"
+		],
+		[
+			"you cant run",
+			"sonic",
+			[
+				255,
+				0,
+				0
+			],
+			"you cant run"
+		]
+	],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

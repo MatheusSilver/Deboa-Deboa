@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Sel.png"><SubTexture name="SelHappy-IDLE0000" x="0" y="0" width="274" height="309" frameX="0" frameY="0" frameWidth="274" frameHeight="309" />
+<SubTexture name="SelSmile-IDLE0000" x="274" y="0" width="274" height="309" frameX="0" frameY="0" frameWidth="274" frameHeight="309" />
+<SubTexture name="SelUpset-IDLE0000" x="0" y="309" width="274" height="309" frameX="0" frameY="0" frameWidth="274" frameHeight="309" />
+<SubTexture name="SelXD-IDLE0000" x="274" y="309" width="274" height="309" frameX="0" frameY="0" frameWidth="274" frameHeight="309" />
+<SubTexture name="SelAngery-IDLE0000" x="0" y="618" width="274" height="309" frameX="0" frameY="0" frameWidth="274" frameHeight="309" />
+</TextureAtlas>

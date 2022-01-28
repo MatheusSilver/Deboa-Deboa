@@ -1,22 +1,17 @@
 diff a/source/MainMenuState.hx b/source/MainMenuState.hx	(rejected hunks)
-@@ -13,7 +13,9 @@ import flixel.tweens.FlxEase;
- import flixel.tweens.FlxTween;
- import flixel.util.FlxColor;
- import flixel.util.FlxTimer;
-+#if newgrounds
- import io.newgrounds.NG;
-+#end
- import lime.app.Application;
+@@ -167,13 +167,13 @@ class MainMenuState extends MusicBeatState
+ 				}
+ 			}
  
- #if windows
-@@ -131,6 +133,10 @@ class MainMenuState extends MusicBeatState
+-			if (FlxG.keys.justPressed.UP)
++			if (controls.UP_P)
+ 			{
+ 				FlxG.sound.play(Paths.sound('scrollMenu'));
+ 				changeItem(-1);
+ 			}
  
- 		changeItem();
- 
-+		#if mobileC
-+		addVirtualPad(UP_DOWN, A_B);
-+		#end
-+
- 		super.create();
- 	}
- 
+-			if (FlxG.keys.justPressed.DOWN)
++			if (controls.DOWN_P)
+ 			{
+ 				FlxG.sound.play(Paths.sound('scrollMenu'));
+ 				changeItem(1);

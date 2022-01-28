@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Sarv.png"><SubTexture name="SarvHappy-IDLE0000" x="0" y="0" width="280" height="289" frameX="0" frameY="0" frameWidth="280" frameHeight="289" />
+<SubTexture name="SarvSad-IDLE0000" x="280" y="0" width="280" height="289" frameX="0" frameY="0" frameWidth="280" frameHeight="289" />
+<SubTexture name="SarvAngery-IDLE0000" x="0" y="289" width="285" height="291" frameX="0" frameY="0" frameWidth="285" frameHeight="291" />
+<SubTexture name="SarvUpset-IDLE0000" x="285" y="289" width="285" height="291" frameX="0" frameY="0" frameWidth="285" frameHeight="291" />
+<SubTexture name="SarvDevil-IDLE0000" x="0" y="580" width="321" height="331" frameX="0" frameY="0" frameWidth="321" frameHeight="331" />
+<SubTexture name="SarvSmile-IDLE0000" x="321" y="580" width="280" height="289" frameX="0" frameY="0" frameWidth="280" frameHeight="289" />
+</TextureAtlas>

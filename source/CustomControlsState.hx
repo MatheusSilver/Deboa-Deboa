@@ -7,7 +7,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import ui.FlxVirtualPad;
-import flixel.util.FlxSave;
 import flixel.math.FlxPoint;
 import haxe.Json;
 import ui.Hitbox;
@@ -38,7 +37,7 @@ class CustomControlsState extends MusicBeatSubstate
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 							//'hitbox',
-	var controlitems:Array<String> = ['right control', 'left control','keyboard','custom', 'hitbox'];
+	var controlitems:Array<String> = ['Controle Destro', 'Controle Canhoto','Teclado','Customizado', 'Hitbox'];
 
 	var curSelected:Int = 0;
 
@@ -106,22 +105,22 @@ class CustomControlsState extends MusicBeatSubstate
 
 		// buttons
 
-		exitbutton = new FlxUIButton(FlxG.width - 650,25,"exit");
+		exitbutton = new FlxUIButton(FlxG.width - 650,25,"Sair");
 		exitbutton.resize(125,50);
 		exitbutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
 
-		var savebutton = new FlxUIButton((exitbutton.x + exitbutton.width + 25),25,"exit and save",() -> {
+		var savebutton = new FlxUIButton((exitbutton.x + exitbutton.width + 25),25,"Sair e Salvar",() -> {
 			save();
-			FlxG.switchState(new OptionsMenu());
+			FlxG.switchState(new OptionsState());
 		});
 		savebutton.resize(250,50);
 		savebutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
 
-		exportbutton = new FlxUIButton(FlxG.width - 150, 25, "export", () -> { savetoclipboard(_pad); } );
+		exportbutton = new FlxUIButton(FlxG.width - 150, 25, "Exportar", () -> { savetoclipboard(_pad); } );
 		exportbutton.resize(125,50);
 		exportbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
 
-		importbutton = new FlxUIButton(exportbutton.x, 100, "import", () -> { loadfromclipboard(_pad); });
+		importbutton = new FlxUIButton(exportbutton.x, 100, "Importar", () -> { loadfromclipboard(_pad); });
 		importbutton.resize(125,50);
 		importbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
 
@@ -166,7 +165,7 @@ class CustomControlsState extends MusicBeatSubstate
 		var androidback:Bool = false;
 		#end
 		if (exitbutton.justReleased || androidback){
-			FlxG.switchState(new OptionsMenu());
+			FlxG.switchState(new OptionsState());
 		}
 
 		for (touch in FlxG.touches.list){
@@ -193,7 +192,7 @@ class CustomControlsState extends MusicBeatSubstate
 				curSelected = controlitems.length - 1;
 			if (curSelected >= controlitems.length)
 				curSelected = 0;
-			trace(curSelected);
+			//trace(curSelected);
 
 			if (forceChange != null)
 			{
@@ -227,10 +226,10 @@ class CustomControlsState extends MusicBeatSubstate
 					_pad.alpha = 0.75;
 					this.add(_pad);
 				case 2:
-					trace(2);
+					//trace(2);
 					_pad.alpha = 0;
 				case 3:
-					trace(3);
+					//trace(3);
 					this.add(_pad);
 					_pad.alpha = 0.75;
 					loadcustom();
@@ -333,7 +332,7 @@ class CustomControlsState extends MusicBeatSubstate
 	}
 
 	function savecustom() {
-		trace("saved");
+		//trace("saved");
 
 		//Config.setdata(55);
 
@@ -355,7 +354,7 @@ class CustomControlsState extends MusicBeatSubstate
 	}
 
 	function savetoclipboard(pad:FlxVirtualPad) {
-		trace("saved");
+		//trace("saved");
 
 		var json = {
 			buttonsarray : []
@@ -373,7 +372,7 @@ class CustomControlsState extends MusicBeatSubstate
 
 		json.buttonsarray = buttonsarray;
 
-		trace(json);
+		//trace(json);
 
 		var data:String = Json.stringify(json);
 

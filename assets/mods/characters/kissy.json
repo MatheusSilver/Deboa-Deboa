@@ -1,0 +1,113 @@
+{
+    "animations": [{
+            "loop": false,
+            "offsets": [-20,
+                207
+            ],
+            "anim": "idle",
+            "fps": 24,
+            "name": "kissyidle",
+            "indices": []
+        },
+        {
+            "loop": false,
+            "offsets": [-29,
+                268
+            ],
+            "anim": "singUP",
+            "fps": 24,
+            "name": "kissyup",
+            "indices": []
+        },
+        {
+            "loop": false,
+            "offsets": [
+                40,
+                7
+            ],
+            "anim": "singDOWN",
+            "fps": 24,
+            "name": "kissydown",
+            "indices": []
+        },
+        {
+            "loop": false,
+            "offsets": [-5,
+                198
+            ],
+            "anim": "singLEFT",
+            "fps": 24,
+            "name": "kissyleft",
+            "indices": []
+        },
+        {
+            "loop": false,
+            "offsets": [
+                118,
+                258
+            ],
+            "anim": "singRIGHT",
+            "fps": 24,
+            "name": "kissyright",
+            "indices": []
+        },
+        {
+            "offsets": [-20,
+                207
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singLEFTmiss",
+            "indices": [],
+            "name": "kissyidle"
+        },
+        {
+            "offsets": [-20,
+                207
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singDOWNmiss",
+            "indices": [],
+            "name": "kissyidle"
+        },
+        {
+            "offsets": [-20,
+                207
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singUPmiss",
+            "indices": [],
+            "name": "kissyidle"
+        },
+        {
+            "offsets": [-20,
+                207
+            ],
+            "loop": false,
+            "fps": 24,
+            "anim": "singRIGHTmiss",
+            "indices": [],
+            "name": "kissyidle"
+        }
+    ],
+    "no_antialiasing": false,
+    "image": "characters/kissy",
+    "position": [
+        0,
+        0
+    ],
+    "healthicon": "kissy",
+    "flip_x": true,
+    "healthbar_colors": [
+        216,
+        83,
+        112
+    ],
+    "camera_position": [
+        330, -240
+    ],
+    "sing_duration": 4,
+    "scale": 1.3
+}

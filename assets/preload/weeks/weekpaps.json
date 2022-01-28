@@ -1,0 +1,31 @@
+{
+	"storyName": "so many souls to play with...",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"songs": [
+		[
+			"downtothebone",
+			"paps",
+			[
+				235,
+				220,
+				215
+			],
+			"mal ate os ossos"
+		]
+	],
+	"hideStoryMode": false,
+	"weekCharacters": [
+		"papyrus",
+		"bf",
+		"gf"
+	],
+	"weekName": "Round 1"
+}

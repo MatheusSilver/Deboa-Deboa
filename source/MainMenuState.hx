@@ -151,6 +151,11 @@ class MainMenuState extends MusicBeatState
 		}
 		#end
 
+		#if mobileC
+		addVirtualPad(UP_DOWN, A);
+		#end
+
+
 		super.create();
 	}
 
@@ -232,9 +237,9 @@ class MainMenuState extends MusicBeatState
 								case 'freeplay':
 									MusicBeatState.switchState(new FreeplayState());
 								case 'awards':
-									MusicBeatState.switchState(new AchievementsMenuState());
+									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuState()));
 								case 'credits':
-									MusicBeatState.switchState(new CreditsState());
+									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuState()));
 								case 'options':
 									MusicBeatState.switchState(new OptionsState());
 							}

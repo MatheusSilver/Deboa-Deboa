@@ -30,7 +30,6 @@ class CreditsState extends MusicBeatState
 	var cr:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
-	var video:MP4Handler = new MP4Handler();
 
 	override function create()
 	{
@@ -48,8 +47,6 @@ class CreditsState extends MusicBeatState
 
 		FlxG.sound.music.volume = 0;	
 		var videoMenu:FlxSprite = new FlxSprite(0,0);
-		var video:MP4Handler = new MP4Handler();
-		video.playMP4(Paths.video('aviso'), new MainMenuState(), videoMenu);
 		add(videoMenu);
 
 		#if MODS_ALLOWED

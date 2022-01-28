@@ -110,8 +110,6 @@ class Character extends FlxSprite
 				}
 
 				#if MODS_ALLOWED
-				var rawJson = File.getContent(path);
-				#else
 				var rawJson = Assets.getText(path);
 				#end
 

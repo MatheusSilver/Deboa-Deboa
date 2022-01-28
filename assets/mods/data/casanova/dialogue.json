@@ -1,0 +1,144 @@
+{
+	"dialogue": [
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "angry",
+			"expression": "SelXD",
+			"text": "HAPPY APRIL FOOLS BITCHES!!"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "I felt like I needed to say that before ya start whining over the smallest shit"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "LOL yes, I see YOU"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelSmile",
+			"text": "But yeah, that's fine. Expect me to talk a lot but y'know I don't care if it annoys you a lot."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "angry",
+			"expression": "SelAngery",
+			"text": "So, let's have some Fun !"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelUpset",
+			"text": "Huh..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "bf",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "...?"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "gf",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "...?"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelUpset",
+			"text": "I see..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelUpset",
+			"text": "Tampering with my own parallel world..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "Lol, look dude, I don't know how the fuck you got here..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelAngery",
+			"text": "But the Demon and the Criminal you're \\nsearching for are probably making out right now"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "The Name's Selever by the way!"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "No need to introduce yourself, %user%, I've looked through your files to figure out your name."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelAngery",
+			"text": "So, in the mean time, I'll call you ''Roachy''!"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelSmile",
+			"text": "I'm kind of pissed you entered my parallel world, I made this temporarily so my sister can at least feel the warmth of our parents..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelUpset",
+			"text": "...Even if in this parallel universe I made, it's not the real them."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "normal",
+			"expression": "SelUpset",
+			"text": "So, while my power can keep this place\\ntogether..."
+		},
+		{
+			"speed": 0.05,
+			"portrait": "sel",
+			"boxState": "angry",
+			"expression": "SelAngery",
+			"text": "...I'll end y'all along with this place!!"
+		},
+		{
+			"speed": 0.05,
+			"portrait": "gf",
+			"boxState": "normal",
+			"expression": "talk",
+			"text": "...Ah shit here we go again"
+		}
+	]
+}

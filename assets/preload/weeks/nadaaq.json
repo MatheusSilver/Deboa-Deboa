@@ -1,0 +1,31 @@
+{
+	"storyName": "que",
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"songs": [
+		[
+			"",
+			"invisivel",
+			[
+				0,
+				0,
+				0
+			],
+			"invisivel"
+		]
+	],
+	"hideStoryMode": false,
+	"weekCharacters": [
+		"",
+		"bf",
+		""
+	],
+	"weekName": "que"
+}

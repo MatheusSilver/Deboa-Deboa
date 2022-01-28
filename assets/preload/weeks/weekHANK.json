@@ -1,0 +1,31 @@
+{
+	"storyName": "Challenge HANK ft. tricky",
+	"hideFreeplay": false,
+	"weekBackground": "hank",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"songs": [
+		[
+			"accelerant",
+			"hank",
+			[
+				35,
+				40,
+				80
+			],
+			"accelerant"
+		]
+	],
+	"hideStoryMode": false,
+	"weekCharacters": [
+		"hankmenu",
+		"bf",
+		"gf"
+	],
+	"weekName": "accelerant"
+}

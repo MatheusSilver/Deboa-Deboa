@@ -45,7 +45,6 @@ class TitleState extends MusicBeatState
 	var textGroup:FlxGroup;
 	var logoSpr:FlxSprite;
 	var videoMenu:FlxSprite;
-	var video:MP4Handler = new MP4Handler();
 
 	var curWacky:Array<String> = [];
 
@@ -60,6 +59,11 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#end
+	
 		#if (polymod && !html5)
 		if (sys.FileSystem.exists('mods/')) {
 			var folders:Array<String> = [];
@@ -562,7 +566,7 @@ class TitleState extends MusicBeatState
 			remove(credGroup);
 			skippedIntro = true;
 
-			if (!ClientPrefs.lowQuality)
+			/*if (!ClientPrefs.lowQuality)
 			{
 				var videoMenu:FlxSprite = new FlxSprite(0,0);
 				add(videoMenu);
@@ -572,7 +576,7 @@ class TitleState extends MusicBeatState
 			else
 			{
 				// nao renderiza o video
-			}
+			}*/ //Sorry dav, isso estava a um frame por semana.
 			
 		}
 	}
