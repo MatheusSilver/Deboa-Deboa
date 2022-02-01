@@ -1,21 +1,93 @@
 package;
 
+import flixel.text.FlxText;
 import lime.app.Promise;
+import flixel.util.FlxColor;
 import lime.app.Future;
 import flixel.FlxG;
+import openfl.utils.Assets as OpenFlAssets;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.util.FlxTimer;
-import flixel.math.FlxMath;
 
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
+import flixel.addons.transition.FlxTransitionableState;
 
 import haxe.io.Path;
 
+
+class LoadingsState extends MusicBeatSubstate
+{
+	public var instantAlpha:Bool = false;
+    var letext:FlxText;
+	var funkay:FlxSprite;
+	var art = new FlxSprite();
+	override function create()
+	{
+		//Basicamente este código vai invocar uma imagem que ficará atrás da arte principal do modboa
+		//durante a tela de carregamento, por fins de, É ESTRANHO PA CACETE ver aquela tela preta
+		//Enquanto o jogo carrega em celulares e pc's fracos (tipo o meu).
+		//Ele vai pegar o nome da week e vai procurar por daweekart"nome da week" na pasta preload/images
+		//Se o arquivo não existir, ele vai substituir pelo simpático menu do modboa comum
+		if(OpenFlAssets.exists('assets/images/daweekart' + WeekData.getWeekFileName())) { //anti crashing moment 
+			art.loadGraphic(Paths.image('daweekart' + WeekData.getWeekFileName()));
+		} else {
+			art.loadGraphic('assets/images/menuBG.png'); 
+		}
+		art.setGraphicSize(Std.int(FlxG.width * 1.0));
+		art.updateHitbox();
+		art.antialiasing = ClientPrefs.globalAntialiasing;
+		art.scrollFactor.set();
+		art.screenCenter();
+
+		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/ModboaMenu.png', IMAGE));
+		funkay.setGraphicSize(Std.int(FlxG.width * 1.0));
+		funkay.updateHitbox();
+		funkay.antialiasing = ClientPrefs.globalAntialiasing;
+		funkay.scrollFactor.set();
+		funkay.screenCenter();
+		add(art); //Haha isso não é um NFT
+		add(funkay);
+
+		var tip:FlxSprite = new FlxSprite(0, 590).loadGraphic(Paths.image('loading/' + FlxG.random.int(1, 9)));
+		if (FlxG.random.bool(0.5))
+			tip.loadGraphic(Paths.image('loading/10'));
+		tip.screenCenter(XY);
+		tip.y -= 150;
+		tip.setGraphicSize(Std.int(tip.width * 1.1), Std.int(tip.height * 0.9));
+		add(tip);
+		tip.antialiasing = true;
+
+		letext = new FlxText(50, FlxG.height - 100, FlxG.width - 800, "Carregando...", 32); //Achei cringe
+		letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		letext.scrollFactor.set();
+		add(letext);
+		super.create();
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		funkay.setGraphicSize(Std.int(FlxG.width * 1.0));
+		funkay.updateHitbox();
+		funkay.screenCenter(XY);
+		art.setGraphicSize(Std.int(FlxG.width * 1.0));
+		art.updateHitbox();
+		art.screenCenter(XY);
+		if(controls.ACCEPT)
+		{
+			funkay.setGraphicSize(Std.int(funkay.width + 60));
+			funkay.updateHitbox();
+			art.setGraphicSize(Std.int(art.width + 60));
+			art.updateHitbox();
+		}
+	}
+}
 class LoadingState extends MusicBeatState
 {
 	inline static var MIN_TIME = 1.0;
@@ -31,7 +103,7 @@ class LoadingState extends MusicBeatState
 	var directory:String;
 	var callbacks:MultiCallback;
 	var targetShit:Float = 0;
-
+	
 	function new(target:FlxState, stopMusic:Bool, directory:String)
 	{
 		super();
@@ -39,26 +111,10 @@ class LoadingState extends MusicBeatState
 		this.stopMusic = stopMusic;
 		this.directory = directory;
 	}
-
-	var funkay:FlxSprite;
-	var loadBar:FlxSprite;
+	
 	override function create()
 	{
-		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d);
-		add(bg);
-		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/funkay.png', IMAGE));
-		funkay.setGraphicSize(0, FlxG.height);
-		funkay.updateHitbox();
-		funkay.antialiasing = ClientPrefs.globalAntialiasing;
-		add(funkay);
-		funkay.scrollFactor.set();
-		funkay.screenCenter();
 
-		loadBar = new FlxSprite(0, FlxG.height - 20).makeGraphic(FlxG.width, 10, 0xffff16d2);
-		loadBar.screenCenter(X);
-		loadBar.antialiasing = ClientPrefs.globalAntialiasing;
-		add(loadBar);
-		
 		initSongsManifest().onComplete
 		(
 			function (lib)
@@ -66,20 +122,21 @@ class LoadingState extends MusicBeatState
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
 				if (PlayState.SONG != null) {
-					checkLoadSong(getSongPath());
-					if (PlayState.SONG.needsVoices)
-						checkLoadSong(getVocalPath());
-				}
+				checkLoadSong(getSongPath());
+				if (PlayState.SONG.needsVoices)
+					checkLoadSong(getVocalPath());
+			}
 				checkLibrary("shared");
 				if(directory != null && directory.length > 0 && directory != 'shared') {
 					checkLibrary(directory);
 				}
-
-				var fadeTime = 0.5;
+				
+				var fadeTime = 1.5;
 				FlxG.camera.fade(FlxG.camera.bgColor, fadeTime, true);
 				new FlxTimer().start(fadeTime + MIN_TIME, function(_) introComplete());
 			}
 		);
+		super.create();
 	}
 	
 	function checkLoadSong(path:String)
@@ -104,7 +161,7 @@ class LoadingState extends MusicBeatState
 			@:privateAccess
 			if (!LimeAssets.libraryPaths.exists(library))
 				throw "Missing library: " + library;
-
+			
 			var callback = callbacks.add("library:" + library);
 			Assets.loadLibrary(library).onComplete(function (_) { callback(); });
 		}
@@ -113,18 +170,10 @@ class LoadingState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		funkay.setGraphicSize(Std.int(0.88 * FlxG.width + 0.9 * (funkay.width - 0.88 * FlxG.width)));
-		funkay.updateHitbox();
-		if(controls.ACCEPT)
-		{
-			funkay.setGraphicSize(Std.int(funkay.width + 60));
-			funkay.updateHitbox();
-		}
-
-		if(callbacks != null) {
-			targetShit = FlxMath.remapToRange(callbacks.numRemaining / callbacks.length, 1, 0, 0, 1);
-			loadBar.scale.x += 0.5 * (targetShit - loadBar.scale.x);
-		}
+		#if debug
+		if (FlxG.keys.justPressed.SPACE)
+			trace('fired: ' + callbacks.getFired() + " unfired:" + callbacks.getUnfired());
+		#end
 	}
 	
 	function onLoad()
@@ -132,7 +181,7 @@ class LoadingState extends MusicBeatState
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 		
-		MusicBeatState.switchState(target);
+		FlxG.switchState(target);
 	}
 	
 	static function getSongPath()
@@ -145,36 +194,48 @@ class LoadingState extends MusicBeatState
 		return Paths.voices(PlayState.SONG.song);
 	}
 	
-	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
+	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false, ?waitForLoad:Bool = false)
 	{
-		MusicBeatState.switchState(getNextState(target, stopMusic));
+		var waitTime = 0.0;
+		if (waitForLoad)
+		{
+			FlxG.sound.music.fadeOut(1, 0);
+			waitTime = 1.6;
+		}
+
+		FlxTransitionableState.skipNextTransIn = true;
+		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
+			
+			FlxG.switchState(getNextState(target, stopMusic));
+		});
+		
 	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
-	{
-		var directory:String = 'shared';
-		var weekDir:String = StageData.forceNextDirectory;
-		StageData.forceNextDirectory = null;
-
-		if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
-
-		Paths.setCurrentLevel(directory);
-		trace('Setting asset folder to ' + directory);
-
-		#if NO_PRELOAD_ALL
-		var loaded:Bool = false;
-		if (PlayState.SONG != null) {
-			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
+		{
+			var directory:String = 'shared';
+			var weekDir:String = StageData.forceNextDirectory;
+			StageData.forceNextDirectory = null;
+	
+			if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
+	
+			Paths.setCurrentLevel(directory);
+			trace('Setting asset folder to ' + directory);
+	
+			#if NO_PRELOAD_ALL
+			var loaded:Bool = false;
+			if (PlayState.SONG != null) {
+				loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
+			}
+			
+			if (!loaded)
+				return new LoadingState(target, stopMusic, directory);
+			#end
+			if (stopMusic && FlxG.sound.music != null)
+				FlxG.sound.music.stop();
+			
+			return target;
 		}
-		
-		if (!loaded)
-			return new LoadingState(target, stopMusic, directory);
-		#end
-		if (stopMusic && FlxG.sound.music != null)
-			FlxG.sound.music.stop();
-		
-		return target;
-	}
 	
 	#if NO_PRELOAD_ALL
 	static function isSoundLoaded(path:String):Bool

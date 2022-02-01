@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Ruv.png"><SubTexture name="RuvNormal-IDLE0000" x="0" y="0" width="341" height="286" frameX="0" frameY="0" frameWidth="341" frameHeight="286" />
+<SubTexture name="RuvBruh-IDLE0000" x="0" y="286" width="341" height="286" frameX="0" frameY="0" frameWidth="341" frameHeight="286" />
+<SubTexture name="RuvAngery-IDLE0000" x="0" y="572" width="341" height="286" frameX="0" frameY="0" frameWidth="341" frameHeight="286" />
+</TextureAtlas>

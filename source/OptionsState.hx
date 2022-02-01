@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.FlxSound;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -292,7 +293,9 @@ class NotesSubstate extends MusicBeatSubstate
 		}
 
 		if (controls.BACK || (changingNote && controls.ACCEPT)) {
+			#if mobile
 			remove(_virtualpad);
+			#end
 			changeSelection();
 			if(!changingNote) {
 				grpNumbers.forEachAlive(function(spr:Alphabet) {
@@ -716,7 +719,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 	];
 	static var noCheckbox:Array<String> = [
 		'Framerate',
-		'Note Delay'
+		'Note Delay',
+		'Volume do Hitsound'
 	];
 
 	static var options:Array<String> = [
@@ -735,6 +739,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Note Splashes',
 		'Hide HUD',
 		'Hide Song Length',
+		'Hitsounds',
+		'Volume do Hitsound',
 		'Flashing Lights',
 		'Legendas',
 		'Camera Zooms'
@@ -841,7 +847,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {			remove(_virtualpad);
+		if (controls.BACK) {			
+			#if mobile 
+			remove(_virtualpad); 
+			#end
 
 			grpOptions.forEachAlive(function(spr:Alphabet) {
 				spr.alpha = 0;
@@ -901,6 +910,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'Flashing Lights':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
+
+					case 'Hitsounds':
+						ClientPrefs.hitSounds = !ClientPrefs.hitSounds;
 					
 					case 'Legendas':
 						ClientPrefs.legendas = !ClientPrefs.legendas;	
@@ -939,6 +951,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		} else {
 			if(controls.UI_LEFT || controls.UI_RIGHT) {
 				var add:Int = controls.UI_LEFT ? -1 : 1;
+				var addo:Float = controls.UI_LEFT ? -0.1 : 0.1;
 				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
 				switch(options[curSelected]) {
 					case 'Framerate':
@@ -961,6 +974,15 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.noteOffset += add * mult;
 						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
 						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
+					case 'Volume do Hitsound':
+						ClientPrefs.osusom += addo;
+						if(ClientPrefs.violence) {
+						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('hitsound'));
+						hitsound.volume = ClientPrefs.osusom;
+						hitsound.play();
+						}
+						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
+						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
 				}
 				reloadValues();
 
@@ -1007,6 +1029,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If unchecked, disables anti-aliasing, increases performance\nat the cost of the graphics not looking as smooth.";
 			case 'Downscroll':
 				daText = "If checked, notes go Down instead of Up, simple enough.";
+			case 'Hitsounds':
+				daText = "Tap Tap";
+			case 'Volume do Hitsound':
+				daText = "Volume do Tap Tap";
 			case 'Middlescroll':
 				daText = "If checked, hides Opponent's notes and your notes get centered.";
 			case 'Ghost Tapping':
@@ -1091,6 +1117,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.ghostTapping;
 					case 'Swearing':
 						daValue = ClientPrefs.cursing;
+					case 'Hitsounds':
+						daValue = ClientPrefs.hitSounds;
 					case 'Violence':
 						daValue = ClientPrefs.violence;
 					case 'Camera Zooms':
@@ -1114,6 +1142,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daText = '' + ClientPrefs.framerate;
 					case 'Note Delay':
 						daText = ClientPrefs.noteOffset + 'ms';
+					case 'Volume do Hitsound':
+						daText = ClientPrefs.osusom + '';
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;

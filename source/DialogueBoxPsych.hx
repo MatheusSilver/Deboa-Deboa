@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.text.FlxTypeText;
@@ -49,6 +50,8 @@ typedef DialogueLine = {
 	var text:Null<String>;
 	var boxState:Null<String>;
 	var speed:Null<Float>;
+	var audio:Bool;
+	var audiofile:String;
 }
 
 class DialogueCharacter extends FlxSprite
@@ -84,16 +87,16 @@ class DialogueCharacter extends FlxSprite
 		var characterPath:String = 'images/dialogue/' + character + '.json';
 		var rawJson = null;
 
-		#if MODS_ALLOWED
+		#if aMODS_ALLOWED
 		var path:String = Paths.modFolders(characterPath);
-		if (!FileSystem.exists(path)) {
+		if (!Assets.exists(path)) {
 			path = Paths.getPreloadPath(characterPath);
 		}
 
-		if(!FileSystem.exists(path)) {
+		if(!Assets.exists(path)) {
 			path = Paths.getPreloadPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
 		}
-		rawJson = File.getContent(path);
+		rawJson = Assets.getText(path);
 
 		#else
 		var path:String = Paths.getPreloadPath(characterPath);
@@ -167,6 +170,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	var bgFade:FlxSprite = null;
 	var box:FlxSprite;
 	var textToType:String = '';
+	var audioParaTocar:String = '';
 
 	var arrayCharacters:Array<DialogueCharacter> = [];
 
@@ -274,11 +278,27 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	public static var DEFAULT_TEXT_Y = 430;
 	var scrollSpeed = 4500;
 	var daText:Alphabet = null;
+	var daAudio:FlxSound;
 	var ignoreThisFrame:Bool = true; //First frame is reserved for loading dialogue images
 	override function update(elapsed:Float)
 	{
 		if(ignoreThisFrame) {
 			ignoreThisFrame = false;
+			CoolUtil.precacheSound('papsfala1');
+			CoolUtil.precacheSound('papsfala2');
+			CoolUtil.precacheSound('papsfala3');
+			/*
+			CoolUtil.precacheSound('papsfala4');
+			CoolUtil.precacheSound('papsfala5');
+			CoolUtil.precacheSound('papsfala6');
+			CoolUtil.precacheSound('papsfala7');
+			CoolUtil.precacheSound('papsfala8');
+			CoolUtil.precacheSound('papsfala9');
+			CoolUtil.precacheSound('papsfala10');
+			CoolUtil.precacheSound('papsfala11');
+			CoolUtil.precacheSound('papsfala12');
+			CoolUtil.precacheSound('papsfala13');
+			CoolUtil.precacheSound('papsfala14'); */
 			super.update(elapsed);
 			return;
 		}
@@ -294,9 +314,14 @@ class DialogueBoxPsych extends FlxSpriteGroup
 						daText.kill();
 						remove(daText);
 						daText.destroy();
+						daAudio.stop();
+						daAudio.destroy();
 					}
 					daText = new Alphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, textToType, false, true, 0.0, 0.7);
 					add(daText);
+
+					daAudio = new FlxSound().loadEmbedded(Paths.sound(audioParaTocar));
+					daAudio.play();
 					
 					if(skipDialogueThing != null) {
 						skipDialogueThing();
@@ -446,6 +471,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 		} while(curDialogue == null);
 
 		if(curDialogue.text == null || curDialogue.text.length < 1) curDialogue.text = ' ';
+		if(curDialogue.audiofile == null) curDialogue.audiofile = 'nada';
 		if(curDialogue.boxState == null) curDialogue.boxState = 'normal';
 		if(curDialogue.speed == null || Math.isNaN(curDialogue.speed)) curDialogue.speed = 0.05;
 
@@ -487,14 +513,17 @@ class DialogueBoxPsych extends FlxSpriteGroup
 			daText.destroy();
 		}
 
+		audioParaTocar = curDialogue.audiofile;
 		textToType = curDialogue.text;
 		daText = new Alphabet(DEFAULT_TEXT_X, DEFAULT_TEXT_Y, textToType, false, true, curDialogue.speed, 0.7);
-		add(daText);
+		add(daText);	
 
 		var char:DialogueCharacter = arrayCharacters[character];
 		if(char != null) {
 			char.playAnim(curDialogue.expression, daText.finishedText);
 			if(char.animation.curAnim != null) {
+				daAudio = new FlxSound().loadEmbedded(Paths.sound(audioParaTocar));
+				daAudio.play();	
 				var rate:Float = 24 - (((curDialogue.speed - 0.05) / 5) * 480);
 				if(rate < 12) rate = 12;
 				else if(rate > 48) rate = 48;
@@ -509,11 +538,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	}
 
 	public static function parseDialogue(path:String):DialogueFile {
-		#if MODS_ALLOWED
-		var rawJson = File.getContent(path);
-		#else
 		var rawJson = Assets.getText(path);
-		#end
 		return cast Json.parse(rawJson);
 	}
 

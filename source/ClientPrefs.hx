@@ -21,6 +21,8 @@ class ClientPrefs {
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
+	public static var hitSounds:Bool = false;
+	public static var osusom:Float = 0.5;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var imagesPersist:Bool = false;
@@ -57,7 +59,9 @@ class ClientPrefs {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.osusom = osusom;
 		FlxG.save.data.flashing = flashing;
+		FlxG.save.data.hitSounds = hitSounds;
 		FlxG.save.data.legendas = legendas;
 		FlxG.save.data.legendasporcima = legendasporcima;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
@@ -91,11 +95,17 @@ class ClientPrefs {
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;
 		}
+		if(FlxG.save.data.hitSounds != null) {
+			hitSounds = FlxG.save.data.hitSounds;
+		}
 		if(FlxG.save.data.showFPS != null) {
 			showFPS = FlxG.save.data.showFPS;
 			if(Main.fpsVar != null) {
 				Main.fpsVar.visible = showFPS;
 			}
+		}
+		if(FlxG.save.data.osusom != null) {
+			osusom = FlxG.save.data.osusom;
 		}
 		if(FlxG.save.data.flashing != null) {
 			flashing = FlxG.save.data.flashing;

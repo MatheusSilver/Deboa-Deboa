@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -37,12 +38,17 @@ class MainMenuState extends MusicBeatState
 	var machine:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
+	var logoBl:FlxSprite;
 
 	override function create()
 	{
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No maldito menu", null);
+		#end
+
+		#if MODS_ALLOWED
+		Main.dumpCache(); // What can go wrong?
 		#end
 
 		camGame = new FlxCamera();
@@ -61,7 +67,7 @@ class MainMenuState extends MusicBeatState
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
 		bg.scrollFactor.set(0, 0);
-		bg.setGraphicSize(Std.int(bg.width * 1));
+		bg.setGraphicSize(FlxG.width);
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -113,7 +119,7 @@ class MainMenuState extends MusicBeatState
 		machine = new FlxSprite(0).loadGraphic(Paths.image('ModboaMenu'));
 		machine.scrollFactor.x = 0;
 		machine.scrollFactor.y = 0;
-		machine.setGraphicSize(Std.int(magenta.width));
+		machine.setGraphicSize(FlxG.width);
 		machine.updateHitbox();
 		machine.screenCenter();
 		machine.visible = true;
@@ -247,7 +253,7 @@ class MainMenuState extends MusicBeatState
 					});
 				}
 			}
-			/*
+			
 			#if desktop
 			else if (FlxG.keys.justPressed.SEVEN)
 			{
@@ -255,7 +261,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
-			*/
+			
 		}
 
 		super.update(elapsed);

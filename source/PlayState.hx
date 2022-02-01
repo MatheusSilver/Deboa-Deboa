@@ -66,16 +66,16 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
-		['You Suck!', 0.2], //From 0% to 19%
-		['Shit', 0.4], //From 20% to 39%
-		['Bad', 0.5], //From 40% to 49%
+		['Horrível!', 0.2], //From 0% to 19%
+		['Merda', 0.4], //From 20% to 39%
+		['Ruim', 0.5], //From 40% to 49%
 		['Bruh', 0.6], //From 50% to 59%
 		['Meh', 0.69], //From 60% to 68%
-		['Nice', 0.7], //69%
-		['Good', 0.8], //From 70% to 79%
-		['Great', 0.9], //From 80% to 89%
-		['Sick!', 1], //From 90% to 99%
-		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		['Bom', 0.7], //69%
+		['Ótimo', 0.8], //From 70% to 79%
+		['Excelente', 0.9], //From 80% to 89%
+		['Foda!', 1], //From 90% to 99%
+		['Perfeito!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 	
 	
@@ -113,6 +113,8 @@ class PlayState extends MusicBeatState
 	public var DAD_Y:Float = 100;
 	public var GF_X:Float = 400;
 	public var GF_Y:Float = 130;
+
+	public static var somethinspecial:Bool = false;
 
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
@@ -231,6 +233,7 @@ class PlayState extends MusicBeatState
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
 	public static var deathCounter:Int = 0;
+	var ycrnbg:FlxSprite;
 
 	public var defaultCamZoom:Float = 1.05;
 
@@ -271,11 +274,6 @@ class PlayState extends MusicBeatState
 		giraArray = [272, 276, 336, 340, 400, 404, 464, 468, 528, 532, 592, 596, 656, 660, 720, 724, 789, 793, 863, 867, 937, 941, 1012, 1016, 1086, 1090, 1160, 1164, 1531, 1535, 1607, 1611, 1681, 1685, 1754, 1758];
 		
 		instance = this;
-
-		#if MODS_ALLOWED
-		Paths.destroyLoadedImages(resetSpriteCache);
-		#end
-		resetSpriteCache = false;
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -380,6 +378,16 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+
+			case 'ycrn':
+				ycrnbg = new FlxSprite(-428.5 + 50 + 700, -449.35 + 25 + 392 + 105 + 50).loadGraphic(Paths.image('GreenHill'));
+				ycrnbg.antialiasing = false;
+				ycrnbg.scrollFactor.set(1, 1);
+				ycrnbg.active = false;
+				ycrnbg.visible = false;
+				ycrnbg.scale.x = 8;
+				ycrnbg.scale.y = 8;
+			
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -685,14 +693,9 @@ class PlayState extends MusicBeatState
 		#if (MODS_ALLOWED && LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'stages/' + curStage + '.lua';
-		if(FileSystem.exists(Paths.modFolders(luaFile))) {
-			luaFile = Paths.modFolders(luaFile);
-			doPush = true;
-		} else {
 			luaFile = Paths.getPreloadPath(luaFile);
-			if(FileSystem.exists(luaFile)) {
+			if(Assets.exists(luaFile)) {
 				doPush = true;
-			}
 		}
 
 		if(curStage == 'philly') {
@@ -847,14 +850,14 @@ class PlayState extends MusicBeatState
 		generateSong(SONG.song);
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
-			var luaToLoad:String = Paths.modFolders('custom_notetypes/' + notetype + '.lua');
-			if(FileSystem.exists(luaToLoad)) {
+			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
+			if(Assets.exists(luaToLoad)) {
 				luaArray.push(new FunkinLua(luaToLoad));
 			}
 		}
 		for (event in eventPushedMap.keys()) {
-			var luaToLoad:String = Paths.modFolders('custom_events/' + event + '.lua');
-			if(FileSystem.exists(luaToLoad)) {
+			var luaToLoad:String = Paths.getPreloadPath('custom_events/' + event + '.lua');
+			if(Assets.exists(luaToLoad)) {
 				luaArray.push(new FunkinLua(luaToLoad));
 			}
 		}
@@ -986,15 +989,10 @@ class PlayState extends MusicBeatState
 		#if (MODS_ALLOWED && LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script.lua';
-		if(FileSystem.exists(Paths.modFolders(luaFile))) {
-			luaFile = Paths.modFolders(luaFile);
-			doPush = true;
-		} else {
 			luaFile = Paths.getPreloadPath(luaFile);
-			if(FileSystem.exists(luaFile)) {
+			if(Assets.exists(luaFile)) {
 				doPush = true;
 			}
-		}
 		
 		if(doPush) 
 			luaArray.push(new FunkinLua(luaFile));
@@ -1066,6 +1064,8 @@ class PlayState extends MusicBeatState
 					startCountdown();
 			}
 			seenCutscene = true;
+		} else if (curSong == 'downtothebone' && !seenCutscene && somethinspecial) {
+			startDialogue(dialogueJson);
 		} else {
 			startCountdown();
 		}
@@ -1659,8 +1659,6 @@ class PlayState extends MusicBeatState
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
 		#if sys
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
-		#else
 		if (OpenFlAssets.exists(file)) {
 		#end
 			var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
@@ -2177,7 +2175,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		/*
+		
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
 			{
 				persistentUpdate = false;
@@ -2190,7 +2188,7 @@ class PlayState extends MusicBeatState
 				DiscordClient.changePresence("Chartando uhul", null, null, true);
 				#end
 			}
-			*/
+			
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
@@ -3087,6 +3085,7 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
+		somethinspecial = false;
 
 		deathCounter = 0;
 		seenCutscene = false;
@@ -3669,6 +3668,8 @@ class PlayState extends MusicBeatState
 			}
 			health += note.hitHealth;
 
+			if (!note.isSustainNote && ClientPrefs.hitSounds) FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.osusom);
+
 			if(!note.noAnimation) {
 				var daAlt = '';
 				if(note.noteType == 'Alt Animation') daAlt = '-alt';
@@ -4003,13 +4004,26 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 
+		if (curSong == 'you-cant-run')
+			{
+				var vg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('RedVG'));
+				vg.alpha = 0;
+				vg.cameras = [camHUD];
+				add(vg);
+	
+				if (curStep == 528) // Entrada da parte pixelada
+				{
+					add(ycrnbg);
+					ycrnbg.visible = true;
+				}
+				else if (curStep == 784) // Volta ao normal, por favor que vocês não tenham trocado os tempos da música
+				{
+					ycrnbg.visible = false;
+				}
+			}
+
 		if (curSong == 'endless')
         {
-            switch (curStep)
-            {
-                 case 10:
-                	FlxG.sound.play(Paths.sound('laugh1', 'shared'), 0.7); //hahaha risadinhas
-            }
             if (giraArray.contains(curStep))
             {
                 strumLineNotes.forEach(function(tospin:FlxSprite)

@@ -54,6 +54,8 @@ class DialogueEditorState extends MusicBeatState
 			expression: 'talk',
 			text: DEFAULT_TEXT,
 			boxState: DEFAULT_BUBBLETYPE,
+			audio: DEFAULT_TEDORDEAUDIO,
+			audiofile: DEFAULT_AUDIO,
 			speed: 0.05
 		};
 
@@ -119,6 +121,8 @@ class DialogueEditorState extends MusicBeatState
 	var characterInputText:FlxUIInputText;
 	var lineInputText:FlxUIInputText;
 	var angryCheckbox:FlxUICheckBox;
+	var temAudio:FlxUICheckBox;
+	var nomeDoAudio:FlxUIInputText;
 	var speedStepper:FlxUINumericStepper;
 	function addDialogueLineUI() {
 		var tab_group = new FlxUI(null, UI_box);
@@ -135,9 +139,19 @@ class DialogueEditorState extends MusicBeatState
 			updateTextBox();
 			dialogueFile.dialogue[curSelected].boxState = (angryCheckbox.checked ? 'angry' : 'normal');
 		};
+
+		temAudio = new FlxUICheckBox(speedStepper.x + 120, characterInputText.y, null, null, "Audiozin", 200);
+		temAudio.callback = function()
+		{
+			updateTextBox();
+			dialogueFile.dialogue[curSelected].audio = (temAudio.checked ? true : false);
+		};
 		
 		lineInputText = new FlxUIInputText(10, speedStepper.y + 45, 200, DEFAULT_TEXT, 8);
 		blockPressWhileTypingOn.push(lineInputText);
+
+		nomeDoAudio = new FlxUIInputText(10, speedStepper.y + 45 + 90, 200, DEFAULT_AUDIO, 8);
+		blockPressWhileTypingOn.push(nomeDoAudio);
 
 		var loadButton:FlxButton = new FlxButton(20, lineInputText.y + 30, "Load Dialogue", function() {
 			loadDialogue();
@@ -149,11 +163,15 @@ class DialogueEditorState extends MusicBeatState
 		tab_group.add(new FlxText(10, speedStepper.y - 18, 0, 'Interval/Speed (ms):'));
 		tab_group.add(new FlxText(10, characterInputText.y - 18, 0, 'Character:'));
 		tab_group.add(new FlxText(10, lineInputText.y - 18, 0, 'Text:'));
+		tab_group.add(new FlxText(10, nomeDoAudio.y - 18, 0, 'Audio:'));
 		tab_group.add(characterInputText);
 		tab_group.add(angryCheckbox);
+		tab_group.add(temAudio);
 		tab_group.add(speedStepper);
 		tab_group.add(lineInputText);
 		tab_group.add(lineInputText);
+		tab_group.add(nomeDoAudio);
+		tab_group.add(nomeDoAudio);
 		tab_group.add(loadButton);
 		tab_group.add(saveButton);
 		UI_box.addGroup(tab_group);
@@ -165,6 +183,8 @@ class DialogueEditorState extends MusicBeatState
 			expression: defaultLine.expression,
 			text: defaultLine.text,
 			boxState: defaultLine.boxState,
+			audio: defaultLine.audio,
+			audiofile: defaultLine.audiofile,
 			speed: defaultLine.speed
 		};
 		return copyLine;
@@ -219,8 +239,10 @@ class DialogueEditorState extends MusicBeatState
 	}
 
 	private static var DEFAULT_TEXT:String = "coolswag";
+	private static var DEFAULT_AUDIO:String = "nada";
 	private static var DEFAULT_SPEED:Float = 0.05;
 	private static var DEFAULT_BUBBLETYPE:String = "normal";
+	private static var DEFAULT_TEDORDEAUDIO:Bool = false;
 	function reloadText(speed:Float = 0.05) {
 		if(daText != null) {
 			daText.killTheTimer();
@@ -273,6 +295,9 @@ class DialogueEditorState extends MusicBeatState
 			} else if(sender == lineInputText) {
 				reloadText(0);
 				dialogueFile.dialogue[curSelected].text = lineInputText.text;
+			} else if(sender == nomeDoAudio) {
+				reloadText(0);
+				dialogueFile.dialogue[curSelected].text = nomeDoAudio.text;
 			}
 		} else if(id == FlxUINumericStepper.CHANGE_EVENT && (sender == speedStepper)) {
 			reloadText(speedStepper.value);

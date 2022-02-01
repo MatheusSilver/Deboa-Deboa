@@ -1,7 +1,9 @@
+import flixel.util.FlxTimer;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.util.FlxColor;
+import LoadingState.LoadingsState;
 
 using StringTools;
 
@@ -10,6 +12,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 	var bg:FlxSprite;
 	var alphabetArray:Array<Alphabet> = [];
 	var icon:HealthIcon;
+	var confirmInt:Int;
 	var onYes:Bool = false;
 	var yesText:Alphabet;
 	var noText:Alphabet;
@@ -31,7 +34,6 @@ class ResetScoreSubState extends MusicBeatSubstate
 		if(week > -1) {
 			name = WeekData.weeksLoaded.get(WeekData.weeksList[week]).weekName;
 		}
-		name += ' (' + CoolUtil.difficultyStuff[difficulty][0] + ')?';
 
 		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
@@ -39,7 +41,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(bg);
 
 		var tooLong:Float = (name.length > 18) ? 0.8 : 1; //Fucking Winter Horrorland
-		var text:Alphabet = new Alphabet(0, 180, "Reset the score of", true);
+		var text:Alphabet = new Alphabet(0, 180, "Ver cutscene?", true);
 		text.screenCenter(X);
 		alphabetArray.push(text);
 		text.alpha = 0;
@@ -59,15 +61,19 @@ class ResetScoreSubState extends MusicBeatSubstate
 			add(icon);
 		}
 
-		yesText = new Alphabet(0, text.y + 150, 'Yes', true);
+		yesText = new Alphabet(0, text.y + 150, 'Sim', true);
 		yesText.screenCenter(X);
 		yesText.x -= 200;
 		add(yesText);
-		noText = new Alphabet(0, text.y + 150, 'No', true);
+		noText = new Alphabet(0, text.y + 150, 'Nope', true);
 		noText.screenCenter(X);
 		noText.x += 200;
 		add(noText);
 		updateOptions();
+
+		#if mobileC
+		addVirtualPad(LEFT_RIGHT, A_B);
+		#end
 	}
 
 	override function update(elapsed:Float)
@@ -87,18 +93,29 @@ class ResetScoreSubState extends MusicBeatSubstate
 			updateOptions();
 		}
 		if(controls.BACK) {
-			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			close();
+			FlxG.sound.play(Paths.sound('confirmMenu'), 1);
+			FlxG.camera.flash(FlxColor.WHITE, 0.5);
+			openSubState(new LoadingsState());
+			LoadingState.loadAndSwitchState(new PlayState());
 		} else if(controls.ACCEPT) {
 			if(onYes) {
-				if(week == -1) {
-					Highscore.resetSong(song, difficulty);
-				} else {
-					Highscore.resetWeek(WeekData.weeksList[week], difficulty);
-				}
+					PlayState.somethinspecial = true;
+					FlxG.camera.flash(bg.color, 1.0);
+					openSubState(new LoadingsState());
+					new FlxTimer().start(3.5, function(tmr:FlxTimer) {
+						LoadingState.loadAndSwitchState(new PlayState());
+					});
+					FlxG.sound.play(Paths.sound('secretSound'), 1);
 			}
-			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			close();
+			else if(confirmInt == 0) {
+				PlayState.somethinspecial = false;
+				FlxG.camera.flash(bg.color, 1.0);
+				openSubState(new LoadingsState());
+				new FlxTimer().start(3.5, function(tmr:FlxTimer) {
+					LoadingState.loadAndSwitchState(new PlayState());
+				});
+				FlxG.sound.play(Paths.sound('confirmMenu'), 1);
+		}
 		}
 		super.update(elapsed);
 	}
@@ -106,7 +123,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 	function updateOptions() {
 		var scales:Array<Float> = [0.75, 1];
 		var alphas:Array<Float> = [0.6, 1.25];
-		var confirmInt:Int = onYes ? 1 : 0;
+		confirmInt = onYes ? 0 : 1;
 
 		yesText.alpha = alphas[confirmInt];
 		yesText.scale.set(scales[confirmInt], scales[confirmInt]);
