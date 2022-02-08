@@ -1,7 +1,7 @@
 {
-	"storyName": "so many souls to play with...",
+	"storyName": "VS Calculos",
 	"hideFreeplay": false,
-	"weekBackground": "sonic",
+	"weekBackground": "Matematica",
 	"weekBefore": "tutorial",
 	"freeplayColor": [
 		146,
@@ -11,21 +11,21 @@
 	"startUnlocked": true,
 	"songs": [
 		[
-			"downtothebone",
-			"paps",
+			"bopeebo",
+			"",
 			[
-				235,
-				220,
-				215
+				0,
+				0,
+				0
 			],
-			"mal ate os ossos"
+			""
 		]
 	],
 	"hideStoryMode": false,
 	"weekCharacters": [
-		"papyrus",
+		"",
 		"bf",
-		"gf"
+		""
 	],
-	"weekName": "Round 1"
+	"weekName": "que"
 }

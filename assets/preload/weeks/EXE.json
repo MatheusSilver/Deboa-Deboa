@@ -1,5 +1,5 @@
 {
-	"storyName": "so many souls to play with...",
+	"storyName": "VS Sonic.EXE",
 	"hideFreeplay": false,
 	"weekBackground": "sonic",
 	"weekBefore": "tutorial",
@@ -64,8 +64,18 @@
 				0
 			],
 			"you cant run"
+		],
+		[
+				"Chaos",
+				"fleetway",
+				[
+					255,
+					215,
+					0
+				],
+				"Chaos"
 		]
-	],
+		],
 	"hideStoryMode": false,
 	"weekName": "Round 1"
 }

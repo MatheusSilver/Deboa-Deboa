@@ -33,8 +33,8 @@ class LoadingsState extends MusicBeatSubstate
 		//Enquanto o jogo carrega em celulares e pc's fracos (tipo o meu).
 		//Ele vai pegar o nome da week e vai procurar por daweekart"nome da week" na pasta preload/images
 		//Se o arquivo não existir, ele vai substituir pelo simpático menu do modboa comum
-		if(OpenFlAssets.exists('assets/images/daweekart' + WeekData.getWeekFileName())) { //anti crashing moment 
-			art.loadGraphic(Paths.image('daweekart' + WeekData.getWeekFileName()));
+		if(OpenFlAssets.exists(Paths.image('daweekart' + FreeplayState.dapreselected))) { //anti crashing moment 
+			art.loadGraphic(Paths.image('daweekart' + FreeplayState.dapreselected));
 		} else {
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}

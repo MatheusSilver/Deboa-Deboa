@@ -1,31 +1,31 @@
 {
-	"storyName": "que",
+	"storyName": "VS Hank Accelerant",
 	"hideFreeplay": false,
-	"weekBackground": "",
+	"weekBackground": "hank",
 	"weekBefore": "tutorial",
 	"freeplayColor": [
-		146,
-		113,
-		253
+		35,
+		40,
+		80
 	],
 	"startUnlocked": true,
 	"songs": [
 		[
-			"",
-			"invisivel",
+			"accelerant",
+			"hank",
 			[
-				0,
-				0,
-				0
+				35,
+				40,
+				80
 			],
-			"invisivel"
+			"accelerant"
 		]
 	],
 	"hideStoryMode": false,
 	"weekCharacters": [
-		"",
+		"hankmenu",
 		"bf",
-		""
+		"gf"
 	],
-	"weekName": "que"
+	"weekName": "accelerant"
 }

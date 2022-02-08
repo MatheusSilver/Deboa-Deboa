@@ -1,11 +1,11 @@
 {
-	"storyName": "Huggy Wuggy Wants to Play",
+	"storyName": "VS Huggy Wuggy",
 	"hideFreeplay": false,
 	"weekBackground": "funtime",
 	"freeplayColor": [
-		146,
-		113,
-		253
+		0, 
+		0, 
+		120
 	],
 	"weekBefore": "tutorial",
 	"startUnlocked": true,

@@ -1,31 +1,31 @@
 {
-	"storyName": "Challenge HANK ft. tricky",
+	"storyName": "VS Papyrus",
 	"hideFreeplay": false,
-	"weekBackground": "hank",
+	"weekBackground": "sonic",
 	"weekBefore": "tutorial",
 	"freeplayColor": [
-		146,
-		113,
-		253
+		235,
+		220,
+		215
 	],
 	"startUnlocked": true,
 	"songs": [
 		[
-			"accelerant",
-			"hank",
+			"downtothebone",
+			"paps",
 			[
-				35,
-				40,
-				80
+				235,
+				220,
+				215
 			],
-			"accelerant"
+			"mal ate os ossos"
 		]
 	],
 	"hideStoryMode": false,
 	"weekCharacters": [
-		"hankmenu",
+		"papyrus",
 		"bf",
 		"gf"
 	],
-	"weekName": "accelerant"
+	"weekName": "Round 1"
 }

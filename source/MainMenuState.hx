@@ -238,12 +238,10 @@ class MainMenuState extends MusicBeatState
 
 							switch (daChoice)
 							{
-								case 'story_mode':
-									MusicBeatState.switchState(new StoryMenuState());
 								case 'freeplay':
-									MusicBeatState.switchState(new FreeplayState());
-								case 'awards':
-									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuState()));
+									MusicBeatState.switchState(new PreFreeplayState());
+							//	case 'awards':
+							//		MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuState()));
 								case 'credits':
 									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuState()));
 								case 'options':

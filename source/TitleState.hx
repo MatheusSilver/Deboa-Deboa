@@ -472,7 +472,6 @@ class TitleState extends MusicBeatState
 					addMoreText('Shadow Mario', 45);
 					addMoreText('RiverOaken', 45);
 					addMoreText('(e modificada por dav)', 45);
-					addMoreText('parece mentira', 45);
 				// credTextShit.text += '\npresent...';
 				// credTextShit.addText();
 				case 4:

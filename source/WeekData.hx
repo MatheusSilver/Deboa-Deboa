@@ -111,7 +111,7 @@ class WeekData {
 
 	//To use on PlayState.hx or Highscore stuff
 	public static function getWeekFileName():String {
-		return weeksList[PlayState.storyWeek];
+		return FreeplayState.dapreselected;
 	}
 
 	//Used on LoadingState, nothing really too relevant
