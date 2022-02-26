@@ -91,6 +91,11 @@ class Paths
 		return 'assets/$file';
 	}
 
+	inline public static function getPreloadPathlua(file:String = '')
+	{
+		return Main.path + 'assets/$file';
+	}
+
 	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)
 	{
 		return getPath(file, type, library);
@@ -112,30 +117,16 @@ class Paths
 	}
 
 
-
+	
 	inline static public function lua(key:String, ?library:String)
 	{
-		return #if mobile Main.path + #end getPath('$key.lua', TEXT, library);
+		return Main.path + getPath('$key.lua', TEXT, library);
 	}
 
-		#if mobile
-	
-		inline static public function luaAsset(key:String, ?library:String)
-		{
-			return getPath('$key.lua', TEXT, library);
-		}
-
-		inline static public function getSparrowAtlaslua(key:String, ?library:String)
-			{
-				return FlxAtlasFrames.fromSparrow(image(key, library), file(Main.path + 'images/$key.xml', library));
-			}
-
-	inline public static function getPreloadPathlua(file:String = '')
-		{
-			return Main.path + 'assets/$file';
-		}
-
-		#end
+	inline static public function luaAsset(key:String, ?library:String)
+	{
+		return getPath('$key.lua', TEXT, library);
+	}
 
 	static public function video(key:String)
 	{
@@ -195,6 +186,10 @@ class Paths
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 
+	inline static public function getSparrowAtlaslua(key:String, ?library:String)
+	{
+		return FlxAtlasFrames.fromSparrow(image(key, library), file(Main.path + 'images/$key.xml', library));
+	}
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{

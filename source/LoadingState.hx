@@ -58,7 +58,7 @@ class LoadingsState extends MusicBeatSubstate
 			tip.loadGraphic(Paths.image('loading/10'));
 		tip.screenCenter(XY);
 		tip.y -= 150;
-		tip.setGraphicSize(Std.int(tip.width * 1.1), Std.int(tip.height * 0.9));
+		tip.setGraphicSize(Std.int(tip.width * 1.0), Std.int(tip.height * 0.9));
 		add(tip);
 		tip.antialiasing = true;
 
