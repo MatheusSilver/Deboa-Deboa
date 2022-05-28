@@ -30,6 +30,7 @@ class FreeplayState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	private static var canSelect:Bool = false;
 	private static var curDifficulty:Int = 1;
+	public static var infoextended:String = '';
 
 	public static var dapreselected:String = '';
 
@@ -305,6 +306,7 @@ class FreeplayState extends MusicBeatState
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
+			infoextended = songs[curSelected].display;
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
 			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
 				poop = songLowercase;

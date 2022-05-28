@@ -118,3 +118,10 @@ function onUpdate()
         removeLuaSprite('go', true)
     end
 end
+
+function onCreate()
+    precacheImage('three')
+    precacheImage('two')
+    precacheImage('one')
+    precacheImage('gofun')
+end

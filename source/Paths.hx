@@ -117,7 +117,7 @@ class Paths
 	}
 
 
-	
+
 	inline static public function lua(key:String, ?library:String)
 	{
 		return Main.path + getPath('$key.lua', TEXT, library);
@@ -198,5 +198,23 @@ class Paths
 
 	inline static public function formatToSongPath(path:String) {
 		return path.toLowerCase().replace(' ', '-');
+	}
+
+	public static var localTrackedAssets:Array<String> = [];
+	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
+
+	public static function returnGraphic(key:String) {
+
+		var path = getPath('images/$key.png', IMAGE, 'preload');
+		if (OpenFlAssets.exists(path, IMAGE)) {
+			if(!currentTrackedAssets.exists(path)) {
+				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
+				currentTrackedAssets.set(path, newGraphic);
+			}
+			localTrackedAssets.push(path);
+			return currentTrackedAssets.get(path);
+		}
+		trace('oh no its returning null NOOOO');
+		return null;
 	}
 }

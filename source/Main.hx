@@ -69,6 +69,8 @@ class Main extends Sprite
 					obj.destroy();
 				}
 			}
+			Paths.localTrackedAssets = [];
+			Paths.currentTrackedAssets = [];
 			Assets.cache.clear("songs");
 			// */
 		}
