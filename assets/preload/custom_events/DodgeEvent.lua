@@ -16,7 +16,7 @@ function onEvent(name, value1, value2)
 	makeAnimatedLuaSprite('spacebar', 'spacebar_icon', 420, 200);
     luaSpriteAddAnimationByPrefix('spacebar', 'spacebar', 'spacebar', 25, true);
 	luaSpritePlayAnimation('spacebar', 'spacebar');
-	setObjectCamera('spacebar', 'camhud');
+	setObjectCamera('spacebar', 'other');
 	scaleLuaSprite('spacebar', 0.4, 0.4); 
     addLuaSprite('spacebar', true); 
 	
@@ -28,7 +28,7 @@ function onEvent(name, value1, value2)
 end
 
 function onUpdate()
-   if canDodge == true and keyJustPressed('space') then
+   if canDodge == true and keyJustPressed('accept') then
    
    Dodged = true;
    
@@ -37,20 +37,10 @@ function onUpdate()
    canDodge = false
    
    end
-
-   if canDodge == true and botPlay == true then
-    canDodge = false
-    Dodged = true;
-    setProperty('boyfriend.specialAnim', true);
-   end
 end
 
 function onTimerCompleted(tag, loops, loopsLeft)
-   if botPlay == true then
-    characterPlayAnim('boyfriend', 'dodge', true);
-    Dodged = false
-    removeLuaSprite('spacebar');
-   elseif tag == 'Died' and Dodged == false then
+   if tag == 'Died' and Dodged == false then
    setProperty('health', 0);
    
    elseif tag == 'Died' and Dodged == true then

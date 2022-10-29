@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Sonic.png">
+	<!-- Created with Adobe Animate version 22.0.5.191 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Sonic instance 10000" x="10" y="10" width="271" height="413" frameX="0" frameY="-5" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10001" x="10" y="10" width="271" height="413" frameX="0" frameY="-5" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10002" x="282" y="10" width="269" height="416" frameX="-3" frameY="-2" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10003" x="282" y="10" width="269" height="416" frameX="-3" frameY="-2" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10004" x="552" y="10" width="269" height="417" frameX="-3" frameY="-1" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10005" x="552" y="10" width="269" height="417" frameX="-3" frameY="-1" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10006" x="10" y="428" width="269" height="417" frameX="-3" frameY="-1" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10007" x="10" y="428" width="269" height="417" frameX="-3" frameY="-1" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10008" x="280" y="428" width="270" height="418" frameX="-3" frameY="0" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10009" x="280" y="428" width="270" height="418" frameX="-3" frameY="0" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10010" x="280" y="428" width="270" height="418" frameX="-3" frameY="0" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10011" x="280" y="428" width="270" height="418" frameX="-3" frameY="0" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10012" x="280" y="428" width="270" height="418" frameX="-3" frameY="0" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10013" x="280" y="428" width="270" height="418" frameX="-3" frameY="0" frameWidth="273" frameHeight="418"/>
+	<SubTexture name="Sonic instance 10014" x="280" y="428" width="270" height="418" frameX="-3" frameY="0" frameWidth="273" frameHeight="418"/>
+</TextureAtlas>

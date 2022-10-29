@@ -1,0 +1,81 @@
+{
+	"storyName": "VS. Alternativos",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"sink",
+			"sonic",
+			[
+				255,
+				0,
+				0
+			],
+			"Profundezas"
+		],
+		[
+			"no-good",
+			"sonic",
+			[
+				255,
+				0,
+				0
+			],
+			"Não é Legal"
+		],
+		[
+			"green-hills",
+			"majin",
+			[
+				255,
+				0,
+				0
+			],
+			"Campos Verdes"
+		],
+		[
+			"",
+			"endless-cycles",
+			[
+				255,
+				0,
+				0
+			],
+			"Ciclos Infinitos"
+		],
+		[
+			"confronting-yourself",
+			"sunky",
+			[
+				255,
+				0,
+				0
+			],
+			"Contra Si Mesmo"
+		],		
+		[
+			"cross-console-clash",
+			"sunky",
+			[
+				255,
+				0,
+				0
+			],
+			"Cross Console Crash"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

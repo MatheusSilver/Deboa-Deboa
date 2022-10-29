@@ -242,7 +242,7 @@ class PreFreeplayState extends MusicBeatState
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 
-	function changeWeek(change:Int = 0):Void
+	public function changeWeek(change:Int = 0):Void
 	{
 		curWeek += change;
 

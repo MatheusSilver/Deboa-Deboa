@@ -79,6 +79,7 @@ class ChartingState extends MusicBeatState
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Adicionar Imagens', "Coloca Uma Imagem.\nValue 1: Nome Da Musica\nValue 2: Nome do arquivo"],
+		['Letras Japonesas fodas', "Foda!.\nValue 1: 1 - fecha o quadro 2 - fecha o quadro\nValue 2: Nome do arquivo"],
 		['Toggle Ghost Trail', 'Enables or disables a trail in the same fashion seen\nin Mid-Fight Masses and Week 6.\n\nValue 1: "bf", "dad" or a mixture of them, separated\nby commas.\nValue 2: "on"/"1"/"true" to enable the effect,\n"off"/"0"/"false" to disable it.']
 	];
 

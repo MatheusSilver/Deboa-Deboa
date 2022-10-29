@@ -25,6 +25,7 @@ class Alphabet extends FlxSpriteGroup
 	public var xAdd:Float = 0;
 	public var yAdd:Float = 0;
 	public var isMenuItem:Bool = false;
+	public var isMenuTrem:Bool = false;
 	public var textSize:Float = 1.0;
 
 	public var text:String = "";
@@ -74,6 +75,7 @@ class Alphabet extends FlxSpriteGroup
 
 	public function changeText(newText:String, newTypingSpeed:Float = -1)
 	{
+
 		for (i in 0...lettersArray.length) {
 			var letter = lettersArray[0];
 			remove(letter);
@@ -342,6 +344,12 @@ class Alphabet extends FlxSpriteGroup
 			} else {
 				x = FlxMath.lerp(x, (targetY * 20) + 90 + xAdd, lerpVal);
 			}
+		} else if (isMenuTrem)
+		{
+			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+
+			y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.16);
+			//x = FlxMath.lerp(x, (targetY * 20) + 90, 0.16);
 		}
 
 		super.update(elapsed);
@@ -358,11 +366,11 @@ class Alphabet extends FlxSpriteGroup
 
 class AlphaCharacter extends FlxSprite
 {
-	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyz";
+	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã";
 
 	public static var numbers:String = "1234567890";
 
-	public static var symbols:String = "|~#$%()*+-:;<=>@[]^_.,'!?";
+	public static var symbols:String = "#%()*+-:;<=>@[]^_.,'!?";
 
 	public var row:Int = 0;
 
@@ -378,6 +386,7 @@ class AlphaCharacter extends FlxSprite
 		updateHitbox();
 		this.textSize = textSize;
 		antialiasing = ClientPrefs.globalAntialiasing;
+
 	}
 
 	public function createBoldLetter(letter:String)
@@ -410,6 +419,10 @@ class AlphaCharacter extends FlxSprite
 				animation.addByPrefix(letter, 'bold (', 24);
 			case ")":
 				animation.addByPrefix(letter, 'bold )', 24);
+			case "+":
+				animation.addByPrefix(letter, '+ bold', 24);
+			case "|":
+				animation.addByPrefix(letter, '| bold', 24);
 			default:
 				animation.addByPrefix(letter, 'bold ' + letter, 24);
 		}

@@ -1,0 +1,41 @@
+{
+	"storyName": "VS EXE",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"faker",
+			"faker",
+			[
+				255,
+				0,
+				0
+			],
+			"Farsa"
+		],
+		[
+			"black-sun",
+			"exe",
+			[
+				255,
+				0,
+				0
+			],
+			"Sol Negro"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

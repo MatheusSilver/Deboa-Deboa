@@ -687,7 +687,7 @@ class FunkinLua {
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 			if(image != null && image.length > 0) {
-				leSprite.loadGraphic(Paths.image(image));
+				leSprite.loadGraphic(Paths.temporario(image));
 			}
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			lePlayState.modchartSprites.set(tag, leSprite);

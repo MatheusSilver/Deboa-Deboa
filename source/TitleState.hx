@@ -119,11 +119,11 @@ class TitleState extends MusicBeatState
 
 		Highscore.load();
 
-		if (FlxG.save.data.weekCompleted != null)
+	/*	if (FlxG.save.data.weekCompleted != null)
 		{
 			StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
 		}
-
+	*/
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
 		MusicBeatState.switchState(new FreeplayState());
@@ -212,11 +212,11 @@ class TitleState extends MusicBeatState
 
 		
 
-		logoBl1 = new FlxSprite(0, -50);
+		logoBl1 = new FlxSprite(150 - 140, 60 - 491 + 434 - 10);
 		logoBl1.frames = Paths.getSparrowAtlas('vioDanceTitle');
 		logoBl1.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl1.setGraphicSize(Std.int(logoBl1.width * 1.3));
-		logoBl1.animation.addByPrefix('bump', 'Menu', 24);
+		logoBl1.setGraphicSize(Std.int(logoBl1.width * 1.35));
+		logoBl1.animation.addByPrefix('bump', 'MODBOA inicio', 24);
 		logoBl1.animation.play('bump');
 		logoBl1.updateHitbox();
 
@@ -471,7 +471,7 @@ class TitleState extends MusicBeatState
 				case 3:
 					addMoreText('Shadow Mario', 45);
 					addMoreText('RiverOaken', 45);
-					addMoreText('(e modificada por dav)', 45);
+					addMoreText('e modificada por dav', 45);
 				// credTextShit.text += '\npresent...';
 				// credTextShit.addText();
 				case 4:

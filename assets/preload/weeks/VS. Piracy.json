@@ -1,0 +1,41 @@
+{
+	"storyName": "VS. Piracy",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"illegal_download",
+			"PIRACY_SONIC",
+			[
+				255,
+				0,
+				0
+			],
+			"illegal_download"
+		],
+		[
+			"Defender",
+			"TAILSD",
+			[
+				255,
+				0,
+				0
+			],
+			"Defender"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

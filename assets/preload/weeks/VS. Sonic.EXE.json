@@ -1,0 +1,61 @@
+{
+	"storyName": "VS Sonic.EXE",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"too slow",
+			"sonic",
+			[
+				255,
+				0,
+				0
+			],
+			"Lerdeza"
+		],
+		[
+			"you-cant-run",
+			"sonic",
+			[
+				255,
+				0,
+				0
+			],
+			"Não Pode Fugir"
+		],
+		[
+				"triple-trouble",
+				"Beast",
+				[
+					255,
+					215,
+					0
+				],
+				"Problema Triplo"
+		],
+		[
+			"final-escape",
+			"exe",
+			[
+				255,
+				215,
+				0
+			],
+			"Gran Finale"
+	]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

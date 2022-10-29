@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				-143,
+				2
+			],
+			"loop": false,
+			"fps": 27,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "tailsdollsingrightdark"
+		},
+		{
+			"offsets": [
+				-13,
+				-119
+			],
+			"loop": false,
+			"fps": 27,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "tailsdollsingdowndark"
+		},
+		{
+			"offsets": [
+				21,
+				108
+			],
+			"loop": false,
+			"fps": 27,
+			"anim": "singUP",
+			"indices": [],
+			"name": "tailsdollsingupdark"
+		},
+		{
+			"offsets": [
+				101,
+				-33
+			],
+			"loop": false,
+			"fps": 27,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "tailsdollsingleftdark"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": true,
+			"fps": 27,
+			"anim": "idle",
+			"indices": [],
+			"name": "tailsdollidledark"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/alt-tailsdoll",
+	"position": [
+		600,
+		600
+	],
+	"healthicon": "tailsdoll",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		165,
+		0
+	],
+	"camera_position": [
+		-180,
+		100
+	],
+	"sing_duration": 2.5,
+	"scale": 1.07
+}

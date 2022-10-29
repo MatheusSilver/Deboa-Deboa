@@ -76,6 +76,27 @@ class Paths
 		return getPreloadPath(file);
 	}
 
+	inline static public function temporario(key:String, ?library:String):Dynamic
+		{
+			var imageToReturn:FlxGraphic = addCustomGraphic(key);
+			if(imageToReturn != null) return imageToReturn;
+			return getPath('images/$key.png', IMAGE, library);
+		}
+
+	static public function addCustomGraphic(key:String):FlxGraphic {
+		if(FileSystem.exists('assets/images/'+ key + '.png')) {
+			if(!customImagesLoaded.exists(key)) {
+				var newBitmap:BitmapData = BitmapData.fromFile('assets/images/'+ key + '.png');
+				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, key);
+				newGraphic.persist = true;
+				FlxG.bitmap.addGraphic(newGraphic);
+				customImagesLoaded.set(key, true);
+			}
+			return FlxG.bitmap.get(key);
+		}
+		return null;
+	}
+
 	static public function getLibraryPath(file:String, library = "preload")
 	{
 		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);

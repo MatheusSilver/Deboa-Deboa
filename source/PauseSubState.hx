@@ -109,9 +109,10 @@ class PauseSubState extends MusicBeatSubstate
 
 		for (i in 0...menuItems.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menuItems[i], true, false);
-			songText.isMenuItem = true;
+			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menuItems[i], true);
+			songText.isMenuTrem = true;
 			songText.targetY = i;
+			songText.screenCenter(X);
 			grpMenuShit.add(songText);
 		}
 
@@ -247,9 +248,10 @@ class PauseSubState extends MusicBeatSubstate
 			this.grpMenuShit.remove(this.grpMenuShit.members[0], true);
 		}
 		for (i in 0...menuItems.length) {
-			var item = new Alphabet(0, 70 * i + 30, menuItems[i], true, false);
-			item.isMenuItem = true;
+			var item = new Alphabet(0, 70 * i + 30, menuItems[i], true);
+			item.isMenuTrem = true;
 			item.targetY = i;
+			item.screenCenter(X);
 			grpMenuShit.add(item);
 		}
 		curSelected = 0;

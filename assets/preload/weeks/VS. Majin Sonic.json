@@ -1,0 +1,31 @@
+{
+	"storyName": "VS. Majin Sonic",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"endless",
+			"funsonic",
+			[
+				255,
+				0,
+				0
+			],
+			"Infinito"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

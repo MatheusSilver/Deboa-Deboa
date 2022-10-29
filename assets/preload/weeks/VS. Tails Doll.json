@@ -1,0 +1,41 @@
+{
+	"storyName": "VS. Tails Doll",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"sunshine",
+			"tailsdoll-2d",
+			[
+				255,
+				0,
+				0
+			],
+			"Luz do Sol"
+		],
+		[
+			"Soulless",
+			"tailsdoll-2d",
+			[
+				255,
+				0,
+				0
+			],
+			"Vazio"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

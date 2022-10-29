@@ -1,0 +1,31 @@
+{
+	"storyName": "VS. Possessed Amy",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"possesed",
+			"amy",
+			[
+				255,
+				0,
+				0
+			],
+			"Possessão"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

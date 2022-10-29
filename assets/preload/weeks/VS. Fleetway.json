@@ -1,0 +1,41 @@
+{
+	"storyName": "VS. Fleetway",
+	"hideFreeplay": false,
+	"weekBackground": "sonic",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"chaos",
+			"fleetway",
+			[
+				255,
+				0,
+				0
+			],
+			"Caos"
+		],
+		[
+			"phantasm",
+			"sonicPHANTASM",
+			[
+				255,
+				0,
+				0
+			],
+			"Fantasmas"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Round 1"
+}

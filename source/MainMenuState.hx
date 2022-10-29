@@ -32,7 +32,9 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<String> = ['freeplay', 'credits', 'options'];
+	var daStatic:FlxSprite;
+	
+	var optionShit:Array<String> = ['story_mode','freeplay', 'credits', 'options'];
 
 	var magenta:FlxSprite;
 	var machine:FlxSprite;
@@ -47,9 +49,27 @@ class MainMenuState extends MusicBeatState
 		DiscordClient.changePresence("No maldito menu", null);
 		#end
 
-		#if MODS_ALLOWED
+
 		Main.dumpCache(); // What can go wrong?
-		#end
+
+		daStatic = new FlxSprite(0, 0);
+
+		daStatic.frames = Paths.getSparrowAtlas('exestuff/daSTAT');
+
+		daStatic.setGraphicSize(FlxG.width*2);
+
+		daStatic.alpha = 1;
+
+		daStatic.screenCenter(XY);
+
+		daStatic.x -= 1280;
+
+		daStatic.animation.addByPrefix('static', 'staticFLASH', 24, true);
+
+		daStatic.animation.play('static');
+
+		daStatic.alpha = 0;
+
 
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
@@ -78,24 +98,13 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.scrollFactor.set(0, 0);
-		magenta.setGraphicSize(Std.int(magenta.width * 1));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
-		// magenta.scrollFactor.set();
-
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
 		for (i in 0...optionShit.length)
 		{
-			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 180)  + offset);
+			var offset:Float = 60 - (Math.max(optionShit.length, 4) - 4) * 80;
+			var menuItem:FlxSprite = new FlxSprite(0, (i * 170)  + offset);
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
@@ -161,6 +170,19 @@ class MainMenuState extends MusicBeatState
 		addVirtualPad(UP_DOWN, A);
 		#end
 
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('ModboaMenuexe'));
+		magenta.scrollFactor.set(0, 0);
+		magenta.setGraphicSize(Std.int(magenta.width * 1));
+		magenta.updateHitbox();
+		magenta.screenCenter();
+		magenta.visible = false;
+		magenta.antialiasing = ClientPrefs.globalAntialiasing;
+
+		magenta.scrollFactor.set();
+		add(magenta);
+
+		add(daStatic);
+
 
 		super.create();
 	}
@@ -216,9 +238,21 @@ class MainMenuState extends MusicBeatState
 				else
 				{
 					selectedSomethin = true;
+					if (optionShit[curSelected] != 'story_mode'){
 					FlxG.sound.play(Paths.sound('confirmMenu'));
+					}else{
+						FlxG.sound.play(Paths.sound('estatica_cool'));
+						FlxG.sound.play(Paths.sound('risada_du_mal'));
+						daStatic.alpha = 1;
+						magenta.visible = true;
+						FlxG.sound.music.stop();
 
-					//if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+						new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+							daStatic.alpha = 0;
+						});
+
+					}
+
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -235,9 +269,11 @@ class MainMenuState extends MusicBeatState
 						else
 						{
 							var daChoice:String = optionShit[curSelected];
-
+							new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 							switch (daChoice)
 							{
+								case 'story_mode':
+									MusicBeatState.switchState(new StoryMenuState());
 								case 'freeplay':
 									MusicBeatState.switchState(new PreFreeplayState());
 							//	case 'awards':
@@ -247,7 +283,8 @@ class MainMenuState extends MusicBeatState
 								case 'options':
 									MusicBeatState.switchState(new OptionsState());
 							}
-						}
+						});
+					}
 					});
 				}
 			}

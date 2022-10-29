@@ -72,6 +72,8 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
+	var contador:Int = 0;
+
 	public static var ratingStuff:Array<Dynamic> = [
 		['Horrível!', 0.2], //From 0% to 19%
 		['Merda', 0.4], //From 20% to 39%
@@ -141,6 +143,8 @@ class PlayState extends MusicBeatState
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
 
+	var nomehistorico:String;
+
 	public var vocals:FlxSound;
 
 	public var dad:Character;
@@ -190,6 +194,7 @@ class PlayState extends MusicBeatState
 
 	var botplaySine:Float = 0;
 	var botplayTxt:FlxText;
+	var comecarmovimento:Bool = false;
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
@@ -247,6 +252,7 @@ class PlayState extends MusicBeatState
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
 	public static var deathCounter:Int = 0;
+	public static var letrinhas:FlxSprite;
 
 	public var defaultCamZoom:Float = 1.05;
 
@@ -268,11 +274,13 @@ class PlayState extends MusicBeatState
 	#end	
 
 	private var luaArray:Array<FunkinLua> = [];
-
 	//Achievement shit
 	var keysPressed:Array<Bool> = [false, false, false, false];
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
+
+	var barraSuperior:FlxSprite;
+	var barraInferior:FlxSprite;
 
 	// Lua shit
 	public static var instance:PlayState;
@@ -282,12 +290,21 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 
-		Main.dumpCache(); // What can go wrong?
-		
+				
 		giraArray = [272, 276, 336, 340, 400, 404, 464, 468, 528, 532, 592, 596, 656, 660, 720, 724, 789, 793, 863, 867, 937, 941, 1012, 1016, 1086, 1090, 1160, 1164, 1531, 1535, 1607, 1611, 1681, 1685, 1754, 1758];
-		
+
 		instance = this;
 
+		if(isStoryMode) { //trocar aqui
+			nomehistorico = StoryMenuState.nomedamusica[contador];
+		} else {
+			nomehistorico = FreeplayState.infoextended;
+		}
+
+		if(PlayState.SONG.splashSkin != null){
+			var preloadfast:FlxSprite = new FlxSprite();
+			preloadfast.frames = Paths.getSparrowAtlas('noteSplashes'); //isso é só pra mobile, não se incomode com isso...
+		}
 		sicks = 0;
 		bads = 0;
 		shits = 0;
@@ -331,7 +348,7 @@ class PlayState extends MusicBeatState
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
 		{
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
+			detailsText = "Story Mode: " + "VS. Sonic.EXE";
 		}
 		else
 		{
@@ -803,7 +820,6 @@ class PlayState extends MusicBeatState
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
-
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 20, 400, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
@@ -827,7 +843,7 @@ class PlayState extends MusicBeatState
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
 		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
+		timeBar.numDivisions = 200; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = !ClientPrefs.hideTime;
 		add(timeBar);
@@ -1071,6 +1087,14 @@ class PlayState extends MusicBeatState
 					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
 				default:
+					boyfriend.playAnim('singLEFTmiss', true);
+					boyfriend.playAnim('singDOWNmiss', true);
+					boyfriend.playAnim('singUPmiss', true);
+					boyfriend.playAnim('singRIGHTmiss', true);
+					boyfriend.playAnim('singLEFT', true);
+					boyfriend.playAnim('singDOWN', true);
+					boyfriend.playAnim('singUP', true);
+					boyfriend.playAnim('singRIGHT', true);
 					startCountdown();
 			}
 			seenCutscene = true;
@@ -1088,11 +1112,24 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 		
 		
 		callOnLuas('onCreatePost', []);
+
+		if (curSong == "endless") {
+			barraSuperior = new FlxSprite().makeGraphic(FlxG.width, 124, FlxColor.BLACK);
+			barraInferior = new FlxSprite().makeGraphic(FlxG.width, 124, FlxColor.BLACK);
+			barraSuperior.screenCenter(X);
+			barraInferior.screenCenter(X);
+			barraSuperior.y = 0 - barraSuperior.height;
+			barraInferior.y = FlxG.height;
+			barraSuperior.cameras = [camHUD];
+			barraInferior.cameras = [camHUD];
+			add(barraSuperior);
+			add(barraInferior);
+		}
 		
 		
 		super.create();
@@ -1625,7 +1662,7 @@ class PlayState extends MusicBeatState
 		
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -1925,11 +1962,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
 		}
@@ -1944,11 +1981,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 		}
 		#end
@@ -1961,7 +1998,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		}
 		#end
 
@@ -2161,7 +2198,7 @@ class PlayState extends MusicBeatState
 				}
 			
 				#if desktop
-				DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 			}
 		}
@@ -2188,6 +2225,15 @@ class PlayState extends MusicBeatState
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
+
+		if(comecarmovimento){
+			if(barraSuperior.y <= -450 && barraInferior.y >= FlxG.height + 450){
+				barraSuperior.y = barraSuperior.y + 5;
+				barraInferior.y = barraInferior.y - 5;
+			} else{
+				comecarmovimento = false;
+			}
+		}
 
 		var iconOffset:Int = 26;
 
@@ -2252,7 +2298,7 @@ class PlayState extends MusicBeatState
 					var secondsTotal:Int = Math.floor((songLength - curTime) / 1000);
 					if(secondsTotal < 0) secondsTotal = 0;
 
-					timeTxt.text = FreeplayState.infoextended;
+					timeTxt.text = nomehistorico;
 				}
 			}
 
@@ -2573,7 +2619,7 @@ class PlayState extends MusicBeatState
 				
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence("Game Over - " + detailsText, FreeplayState.infoextended + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -2792,6 +2838,24 @@ class PlayState extends MusicBeatState
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
 				}
+
+			case 'Letras Japonesas fodas':
+				if(curSong == 'endless'){
+				var barras:Float = Std.parseFloat(value1);
+				var letrasjaponesas:Float = Std.parseFloat(value2);
+				if (barras == 1) { //Quer dizer que elas vão entrar
+					comecarmovimento = true;
+				}
+				if (barras == 2) { //Quer dizer que elas vão sair
+					//barras.alpha = 0
+				}
+				if(letrasjaponesas != 0){
+					remove(letrinhas);
+					letrinhas = new FlxSprite(0, FlxG.height - 150).loadGraphic(Paths.image('endless/letrasjaponesasfodas/' + letrasjaponesas));
+					letrinhas.screenCenter(X);
+					add(letrinhas);
+				}
+			}
 
 			case 'Trigger BG Ghouls':
 				if(curStage == 'schoolEvil' && !ClientPrefs.lowQuality) {
@@ -3129,14 +3193,14 @@ class PlayState extends MusicBeatState
 
 					// if ()
 					if(!usedPractice) {
-						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+						//StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
 						if (SONG.validScore)
 						{
 							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 						}
 
-						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+						//FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 						FlxG.save.flush();
 					}
 					usedPractice = false;
@@ -3180,6 +3244,7 @@ class PlayState extends MusicBeatState
 					} else {
 						cancelFadeTween();
 						//resetSpriteCache = true;
+						contador++;
 						LoadingState.loadAndSwitchState(new PlayState());
 					}
 				}
@@ -3589,10 +3654,6 @@ class PlayState extends MusicBeatState
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
-			if (combo > 5 && gf.animOffsets.exists('sad'))
-			{
-				gf.playAnim('sad');
-			}
 			combo = 0;
 
 			if(!practiceMode) songScore -= 10;

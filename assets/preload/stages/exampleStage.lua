@@ -1,24 +1,14 @@
 function onCreate()
+	
+makeLuaSprite('MOONBACK','BG',-500,-500)
+	addLuaSprite('MOONBACK',false)
+	setLuaSpriteScrollFactor('MOONBACK',0,0)
 
-	makeLuaSprite('toyFactory','factory',-500,-330)
-	addLuaSprite('toyFactory',false)
-	setLuaSpriteScrollFactor('toyFactory', 0.9, 0.9);
-
-	makeLuaSprite('theShadow','shadow',-500,-100)
-	addLuaSprite('theShadow',true)
-	setLuaSpriteScrollFactor('theShadow', 0.5, 0.5);
-
-end
-
-
-function onBeatHit()-- for every beat
-	-- body
-end
-
-function onStepHit()-- for every step
-	-- body
-end
-
-function onUpdate()
-	-- body
-end
+		
+	makeLuaSprite('TREESBACK','BGTREES', -300,-0)
+	addLuaSprite('TREESBACK',false)
+	setLuaSpriteScrollFactor('TREESBG',0,0)
+	
+	makeLuaSprite('GROUND1','GROUND',-750,-200)
+	addLuaSprite('GROUND1', false)
+	end

@@ -1,80 +1,61 @@
+	-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
 
+function onCreate()
+    makeLuaSprite('sponge', 'SpingeBinge', 79.5, 467);
+	setProperty('sponge.visible', false)
+	addLuaSprite('sponge', true);
 
-function onUpdate(elapsed)
-        if curStep == 4 then
-            --startVideo('paaq') nunca faça isso
-        end
-        if curStep == 69 then
-            doTweenZoom('zoom', 'camGame', 1.3, 3, 'sineOut');
-            --setProperty('defaultCamZoom',1.0, 1)
-        end
-        if curStep == 71 then
-            --setProperty('defaultCamZoom',1.05, 1)
-        end
-        if curStep == 73 then
-            --setProperty('defaultCamZoom',1.1, 1)
-        end
-        if curStep == 75 then
-            --setProperty('defaultCamZoom',1.15, 1)
-        end
-        if curStep == 77 then
-            --setProperty('defaultCamZoom',1.2, 1)
-        end
-        if curStep == 79 then
-            --setProperty('defaultCamZoom',1.25, 1)
-        end
-        if curStep == 81 then
-           --setProperty('defaultCamZoom',1.3, 1)
-        end
-        if curStep == 83 then
-            --setProperty('defaultCamZoom',1.35, 1)
-        end
-        if curStep == 85 then
-            --setProperty('defaultCamZoom',1.4, 1)
-        end
-        if curStep == 87 then
-            --setProperty('defaultCamZoom',1.45, 1)
-        end
-        if curStep == 89 then
-            --setProperty('defaultCamZoom',1.5, 1)
-        end
-        if curStep == 91 then
-            --setProperty('defaultCamZoom',1.55, 1)
-        end
-        if curStep == 93 then
-            --setProperty('defaultCamZoom',1.6, 1)
-        end
-        if curStep == 95 then
-            --setProperty('defaultCamZoom',1.65, 1)
-        end
-        if curStep == 96 then
-            --setProperty('defaultCamZoom',0.9, 0)
-            doTweenZoom('zoom', 'camGame', 0.9, 0.05, 'sineOut');
-        end
-        if curStep == 537 then
-            setProperty('dad.alpha', 0);
-            makeLuaSprite('bob', 'malditobob', 100, 550)
-            setScrollFactor('bob', 1, 1);
-            scaleObject('bob', 0.5, 0.5);
-            addLuaSprite('bob', true);
-        end
-        if curStep == 558 then
-            removeLuaSprite('bob', true)
-            setProperty('dad.alpha', 1);
-        end
-        if curStep == 2272 then
-            setProperty('dad.alpha', 0);
-            makeLuaSprite('bob', 'malditobob', 100, 550)
-            setScrollFactor('bob', 1, 1);
-            scaleObject('bob', 0.5, 0.5);
-            addLuaSprite('bob', true);
-        end
-        if curStep == 2297 then
-            removeLuaSprite('bob', true)
-            setProperty('dad.alpha', 1);
-        end
+    makeLuaSprite('blackFuck', 'black', 0, 0);
+	scaleObject('blackFuck', 6.0, 6.0);
+	setObjectCamera('blackFuck', 'other');
+	addLuaSprite('blackFuck', true);
+
+	makeLuaSprite('startCircle', 'StartScreens/Sunky', 50, 0);
+	scaleObject('startCircle', 0, 0);
+	setObjectCamera('startCircle', 'other');
+	addLuaSprite('startCircle', true);
+
+	setProperty('gf.visible', false)
 end
 
+function onStartCountdown()
+	runTimer('textmove', 0.6)
+	runTimer('textfade', 1.9)
+end
+
+function onTimerCompleted(tag)
+    if tag == 'textmove' then
+		doTweenX('circleTween', 'startCircle', 1, 0.2, 'elasticOut');
+		scaleObject('startCircle', 1, 1);
+		playSound('flatBONK')
+	end
+	
+    if tag == 'textfade' then
+		doTweenAlpha('graphicAlpha', 'blackFuck', 0, 1, 'linear');
+		doTweenAlpha('circleAlpha', 'startCircle', 0, 1, 'linear');
+	end
+	
+    if tag == 'FatherReturn' then
+		setProperty('sponge.visible', false)
+		setProperty('dad.visible', true)
+	end
+end
+
+function onStepHit()
+	if curStep == 538 or curStep == 2273 then
+		setProperty('sponge.visible', true)
+		setProperty('dad.visible', false)
+		runTimer('FatherReturn', 0.7)
+	end
+
+	if curStep == 69 then
+        doTweenZoom('bruh', 'camGame', 2.2, 4, 'linear')
+	end
+
+	if curStep == 96 then
+        doTweenZoom('bruh', 'camGame', 0.9, 0.001, 'linear')
+	end
+end
 
 function onEvent(name, value1, value2)
 
@@ -86,60 +67,38 @@ function onEvent(name, value1, value2)
             setLuaSpriteCamera('exe', 'camhud');
             addLuaSprite('exe', true);
         else
-			if curStep < 2 then
-				if legendas == true then
-                    if downscroll == true then
+            if legendas == true then
+                if downscroll == true then
+                    if legendasporcima == true then
                         imagem = tostring(value1);
                         makeLuaSprite('exe', imagem, 0, -350)
                         setScrollFactor('exe', 0, 0);
-                        setProperty('exe.alpha', 0);
-                        doTweenAlpha('exe.alpha', 'exe', 1, 0.1, 'linear')
                         scaleObject('exe', 1, 1);
-                        setLuaSpriteCamera('exe', 'other');
+                        setLuaSpriteCamera('exe', 'camhud');
+                        addLuaSprite('exe', true);
+                    else
+                        imagem = tostring(value1);
+                        makeLuaSprite('exe', imagem, 0, -350)
+                        setScrollFactor('exe', 0, 0);
+                        scaleObject('exe', 1, 1);
+                        addLuaSprite('exe', true);
+                    end
+                else
+                    if legendasporcima == true then
+                        imagem = tostring(value1);
+                        makeLuaSprite('exe', imagem, 0, 0)
+                        setScrollFactor('exe', 0, 0);
+                        scaleObject('exe', 1, 1);
+                        setLuaSpriteCamera('exe', 'camhud');
                         addLuaSprite('exe', true);
                     else
                         imagem = tostring(value1);
                         makeLuaSprite('exe', imagem, 0, 0)
                         setScrollFactor('exe', 0, 0);
-                        setProperty('exe.alpha', 0);
-                        doTweenAlpha('exe.alpha', 'exe', 1, 0.1, 'linear')
                         scaleObject('exe', 1, 1);
-                        setLuaSpriteCamera('exe', 'other');
                         addLuaSprite('exe', true);
                     end
-				end
-            elseif legendas == true then
-                    if downscroll == true then
-                        if legendasporcima == true then
-                            imagem = tostring(value1);
-                            makeLuaSprite('exe', imagem, 0, -350)
-                            setScrollFactor('exe', 0, 0);
-                            scaleObject('exe', 1, 1);
-                            setLuaSpriteCamera('exe', 'camhud');
-                            addLuaSprite('exe', true);
-                        else
-                            imagem = tostring(value1);
-                            makeLuaSprite('exe', imagem, 0, -350)
-                            setScrollFactor('exe', 0, 0);
-                            scaleObject('exe', 1, 1);
-                            addLuaSprite('exe', true);
-                        end
-                    else
-                        if legendasporcima == true then
-                            imagem = tostring(value1);
-                            makeLuaSprite('exe', imagem, 0, 0)
-                            setScrollFactor('exe', 0, 0);
-                            scaleObject('exe', 1, 1);
-                            setLuaSpriteCamera('exe', 'camhud');
-                            addLuaSprite('exe', true);
-                        else
-                            imagem = tostring(value1);
-                            makeLuaSprite('exe', imagem, 0, 0)
-                            setScrollFactor('exe', 0, 0);
-                            scaleObject('exe', 1, 1);
-                            addLuaSprite('exe', true);
-                        end
-                    end
+                end
             else
                 --nada
             end
