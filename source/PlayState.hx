@@ -1117,19 +1117,6 @@ class PlayState extends MusicBeatState
 		
 		
 		callOnLuas('onCreatePost', []);
-
-		if (curSong == "endless") {
-			barraSuperior = new FlxSprite().makeGraphic(FlxG.width, 124, FlxColor.BLACK);
-			barraInferior = new FlxSprite().makeGraphic(FlxG.width, 124, FlxColor.BLACK);
-			barraSuperior.screenCenter(X);
-			barraInferior.screenCenter(X);
-			barraSuperior.y = 0 - barraSuperior.height;
-			barraInferior.y = FlxG.height;
-			barraSuperior.cameras = [camHUD];
-			barraInferior.cameras = [camHUD];
-			add(barraSuperior);
-			add(barraInferior);
-		}
 		
 		
 		super.create();
@@ -2838,24 +2825,6 @@ class PlayState extends MusicBeatState
 					FlxG.camera.zoom += camZoom;
 					camHUD.zoom += hudZoom;
 				}
-
-			case 'Letras Japonesas fodas':
-				if(curSong == 'endless'){
-				var barras:Float = Std.parseFloat(value1);
-				var letrasjaponesas:Float = Std.parseFloat(value2);
-				if (barras == 1) { //Quer dizer que elas vão entrar
-					comecarmovimento = true;
-				}
-				if (barras == 2) { //Quer dizer que elas vão sair
-					//barras.alpha = 0
-				}
-				if(letrasjaponesas != 0){
-					remove(letrinhas);
-					letrinhas = new FlxSprite(0, FlxG.height - 150).loadGraphic(Paths.image('endless/letrasjaponesasfodas/' + letrasjaponesas));
-					letrinhas.screenCenter(X);
-					add(letrinhas);
-				}
-			}
 
 			case 'Trigger BG Ghouls':
 				if(curStage == 'schoolEvil' && !ClientPrefs.lowQuality) {

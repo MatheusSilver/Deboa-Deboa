@@ -170,7 +170,9 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Voltar para a musica":
+					FlxG.sound.play(Paths.sound('unpause'), 0.4);
 					close();
+
 				case 'Mudar dificuldade':
 					menuItems = difficultyChoices;
 					regenMenu();

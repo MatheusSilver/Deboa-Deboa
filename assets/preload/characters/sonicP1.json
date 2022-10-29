@@ -68,12 +68,12 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/sonic",
+	"image": "characters/sonicP1",
 	"position": [
 		60,
 		150
 	],
-	"healthicon": "sonic",
+	"healthicon": "sonicP1",
 	"flip_x": false,
 	"healthbar_colors": [
 		0,
