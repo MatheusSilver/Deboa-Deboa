@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="fleetwayPHANTASM.png">
+<TextureAtlas imagePath="fleetway.png">
 	<!-- Created with Adobe Animate version 20.0.2.22168 -->
 	<!-- http://www.adobe.com/products/animate.html -->
 	<SubTexture name="Fleet down0000" x="0" y="0" width="361" height="537" frameX="0" frameY="-12" frameWidth="366" frameHeight="549"/>

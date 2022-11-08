@@ -1,7 +1,7 @@
 {
 	"song": {
 		"player1": "sink",
-		"gfVersion": "gf",
+		"gfVersion": "invisibru",
 		"notes": [
 			{
 				"endTime": 2201.83486238532,
@@ -29242,7 +29242,7 @@
 			}
 		],
 		"player2": "GHOUL",
-		"events": [],
+		"player3": "invisibru",
 		"chartVersion": "2",
 		"eventObjects": [
 			{

@@ -55,7 +55,11 @@ class PauseSubState extends MusicBeatSubstate
 		add(bg);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
+		if (PlayState.isStoryMode){
+			levelInfo.text += PlayState.nomehistorico;
+		} else {
 		levelInfo.text += FreeplayState.infoextended;
+		}
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
 		levelInfo.updateHitbox();
@@ -192,8 +196,9 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;
-					if(PlayState.isStoryMode) {
+					if(PlayState.isStoryMode || StoryMenuState.voltarparahistoria) {
 						MusicBeatState.switchState(new StoryMenuState());
+						StoryMenuState.voltarparahistoria = false;
 					} else {
 						MusicBeatState.switchState(new FreeplayState());
 					}
@@ -220,7 +225,7 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		curSelected += change;
 
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		FlxG.sound.play(Paths.sound('pausescrollmenu'), 0.4);
 
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;

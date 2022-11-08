@@ -18,6 +18,8 @@ function onCreate()
     makeAnimatedLuaSprite('daStatic', 'daSTAT', -500, -500)
     addAnimationByPrefix('daStatic', 'static', 'staticFLASH', 24, false)
 	objectPlayAnimation('daStatic', 'static', false)
+    addAnimationByPrefix('daStatic', 'sumidao', 'sumidao', 24, false)
+    objectPlayAnimation('daStatic', 'sumidao', false)
 	scaleObject('daStatic', 6, 6);
 	setObjectCamera('daStatic', 'camHUD2');
     addLuaSprite('daStatic', true)
@@ -62,6 +64,10 @@ function onStepHit()
 		objectPlayAnimation('daStatic', 'static', false)
 		playSound('staticBUZZ')
 	end
+
+    if curStep == 789 or curStep == 798 or curStep == 904 or curStep == 802 or curStep == 813 or curStep == 821 or curStep == 825 or curStep == 829 or curStep == 834 or curStep == 836 or curStep == 841 or curStep == 849 then
+        objectPlayAnimation('daStatic', 'sumidao', false)
+    end
 
 	if curStep == 801 then
 		setProperty('fakertransform.x', -72.65+20)

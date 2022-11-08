@@ -65,7 +65,11 @@ class ChartingState extends MusicBeatState
 
 	var eventStuff:Array<Dynamic> =
 	[
-		['', "Nothing. Yep, that's right."],
+		['', "Nothing. Yep, that's right."], 
+		['hudfade', 'value1 = opacidade \n value 2 = tempo de transição.'],
+		['strum swap1', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
+		['eventos-prey', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],
+		['Entrada Pixel', "Se igual a 1, entra em pixel, se é qualquer coisa, ele sai. Válido apenas para Value 1"],
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
 		['Blammed Lights', "Value 1: 0 = Turn off, 1 = Blue, 2 = Green,\n3 = Pink, 4 = Red, 5 = Orange, Anything else = Random."],
@@ -228,7 +232,8 @@ class ChartingState extends MusicBeatState
 				player3: 'gf',
 				speed: 1,
 				stage: 'stage',
-				validScore: false
+				validScore: false,
+				isRing: false
 			};
 		}
 		
@@ -274,7 +279,10 @@ class ChartingState extends MusicBeatState
 		UI_box = new FlxUITabMenu(null, tabs, true);
 
 		UI_box.resize(300, 400);
-		UI_box.x = FlxG.width / 2 + GRID_SIZE / 2;
+		if(_song.isRing)
+			UI_box.x = FlxG.width / 2 + (GRID_SIZE + 120) / 2;
+		else
+			UI_box.x = FlxG.width / 2 + GRID_SIZE / 2;
 		UI_box.y = 25;
 		UI_box.scrollFactor.set();
 
@@ -347,6 +355,15 @@ class ChartingState extends MusicBeatState
 		check_voices.callback = function()
 		{
 			_song.needsVoices = check_voices.checked;
+			trace('CHECKED!');
+		};
+		
+		var check_ring = new FlxUICheckBox(10, 45, null, null, "5k", 100);
+		check_ring.checked = _song.isRing;
+		// _song.needsVoices = check_voices.checked;
+		check_ring.callback = function()
+		{
+			_song.isRing = check_ring.checked;
 			trace('CHECKED!');
 		};
 
@@ -659,11 +676,13 @@ class ChartingState extends MusicBeatState
 
 		var swapSection:FlxButton = new FlxButton(10, 240, "Swap section", function()
 		{
+			var count:Int = 4;
+			if(_song.isRing)count =5;
 			for (i in 0..._song.notes[curSection].sectionNotes.length)
 			{
 				var note:Array<Dynamic> = _song.notes[curSection].sectionNotes[i];
 				if(note[1] > -1) {
-					note[1] = (note[1] + 4) % 8;
+					note[1] = (note[1] + count) % (count*2);
 					_song.notes[curSection].sectionNotes[i] = note;
 				}
 			}
@@ -736,7 +755,7 @@ class ChartingState extends MusicBeatState
 		}
 
 		#if LUA_ALLOWED
-		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/'), Paths.getPreloadPath(Paths.currentModDirectory + '/custom_notetypes/')];
+		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/'), Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
 			if(FileSystem.exists(directory)) {
@@ -789,7 +808,7 @@ class ChartingState extends MusicBeatState
 
 		#if LUA_ALLOWED
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
-		var directories:Array<String> = [Paths.getPreloadPath('custom_events/'), Paths.getPreloadPath(Paths.currentModDirectory + '/custom_events/')];
+		var directories:Array<String> = [Paths.getPreloadPath('custom_events/'), Paths.getPreloadPath('custom_events/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
 			if(FileSystem.exists(directory)) {
@@ -1480,7 +1499,10 @@ class ChartingState extends MusicBeatState
 
 	function reloadGridLayer() {
 		gridLayer.clear();
-		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 9, Std.int(GRID_SIZE * 32 * zoomList[curZoom]));
+		var lol:Int = 9;
+		if(_song.isRing)
+			lol = 11;
+		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * lol, Std.int(GRID_SIZE * 32 * zoomList[curZoom]));
 		gridLayer.add(gridBG);
 
 		#if desktop
@@ -1489,11 +1511,15 @@ class ChartingState extends MusicBeatState
 		}
 		#end
 
+		var poo = 4;
+		if(_song.isRing)
+			poo = 5;
+
 		var gridBlack:FlxSprite = new FlxSprite(0, gridBG.height / 2).makeGraphic(Std.int(GRID_SIZE * 9), Std.int(gridBG.height / 2), FlxColor.BLACK);
 		gridBlack.alpha = 0.4;
 		gridLayer.add(gridBlack);
 
-		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width - (GRID_SIZE * 4)).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
+		var gridBlackLine:FlxSprite = new FlxSprite(gridBG.x + gridBG.width - (GRID_SIZE * poo)).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		gridLayer.add(gridBlackLine);
 
 		gridBlackLine = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
@@ -1833,8 +1859,11 @@ class ChartingState extends MusicBeatState
 					curRenderedNoteType.add(daText);
 					daText.sprTracker = note;
 				}
+				var dthing = 3;
 				note.mustPress = _song.notes[curSection].mustHitSection;
-				if(i[1] > 3) note.mustPress = !note.mustPress;
+				if(_song.isRing )
+					dthing = 4;
+				if(i[1] > dthing) note.mustPress = !note.mustPress;
 			}
 		}
 
@@ -1858,6 +1887,9 @@ class ChartingState extends MusicBeatState
 		var daNoteInfo = i[1];
 		var daStrumTime = i[0];
 		var daSus:Dynamic = i[2];
+		var lol = 4;
+		if(_song.isRing)
+			lol = 5;
 
 		var note:Note = new Note(daStrumTime, daNoteInfo % 4, null, null, true);
 		if(daNoteInfo > -1) { //Common note
@@ -1939,7 +1971,10 @@ class ChartingState extends MusicBeatState
 	function deleteNote(note:Note):Void
 	{
 		var noteDataToCheck:Int = note.noteData;
-		if(noteDataToCheck > -1 && note.mustPress != _song.notes[curSection].mustHitSection) noteDataToCheck += 4;
+		var fucking:Int = 4;
+		if(_song.isRing)
+			fucking = 5;
+		if(noteDataToCheck > -1 && note.mustPress != _song.notes[curSection].mustHitSection) noteDataToCheck += fucking;
 
 		for (i in _song.notes[curSection].sectionNotes)
 		{
@@ -2130,6 +2165,7 @@ class ChartingState extends MusicBeatState
 			notes: events,
 			bpm: _song.bpm,
 			needsVoices: _song.needsVoices,
+			isRing: _song.isRing,
 			speed: _song.speed,
 			arrowSkin: _song.arrowSkin,
 			splashSkin: _song.splashSkin,

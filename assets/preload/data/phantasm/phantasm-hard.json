@@ -1,10 +1,10 @@
 {
 	"song": {
 		"sectionLengths": [],
-		"player1": "sonic",
+		"player1": "sonicPHANTASM",
 		"events": [],
-		"gfVersion": "gf",
-		"player2": "sonic",
+		"gfVersion": "invisibru",
+		"player2": "sonicPHANTASM",
 		"notes": [
 			{
 				"sectionNotes": [
@@ -6853,7 +6853,7 @@
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": true,
-		"stage": "fleet",
+		"stage": "fleetPHANTASM",
 		"speed": 2.8,
 		"bpm": 160
 	}

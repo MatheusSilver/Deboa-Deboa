@@ -2,7 +2,7 @@ local modchart = true
 
 function onCreate()
 
-	makeLuaSprite('sky','sky',-400,-200)
+	makeLuaSprite('sky','Cenarios/nogood/sky',-400,-200)
 	addLuaSprite('sky',false)
 	setLuaSpriteScrollFactor('sky', 0.5, 0.5);
 

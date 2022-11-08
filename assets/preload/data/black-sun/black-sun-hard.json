@@ -3,7 +3,7 @@
 		"player1": "bf",
 		"sectionLengths": [],
 		"events": [],
-		"player2": "exe",
+		"player2": "CHADexe",
 		"notes": [
 			{
 				"typeOfSection": 0,
@@ -8786,7 +8786,7 @@
 				"mustHitSection": true
 			}
 		],
-		"gfVersion": "gf-exe",
+		"player3": "gf-exe",
 		"mania": 3,
 		"isRing": false,
 		"song": "black-sun",

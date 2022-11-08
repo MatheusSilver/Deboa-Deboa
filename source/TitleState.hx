@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxGradient;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
@@ -39,6 +40,7 @@ class TitleState extends MusicBeatState
 	static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
+	var gradientBar:FlxSprite = new FlxSprite(0,0).makeGraphic(FlxG.width, 1, 0xFFFF0000);
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
@@ -195,11 +197,11 @@ class TitleState extends MusicBeatState
 		bg.screenCenter(XY);
 		add(bg);
 
-		var supbg:FlxSprite = new FlxSprite(FlxG.width, FlxG.height).loadGraphic(Paths.image('funMenu'));
+		var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('BGPrincipal'));
 		supbg.antialiasing = ClientPrefs.globalAntialiasing;
-		supbg.setGraphicSize(Std.int(supbg.width * 1.1));
+		supbg.setGraphicSize(Std.int(supbg.width * 0.60));
 		supbg.updateHitbox();
-		supbg.screenCenter(XY);
+		supbg.alpha = 1;
 
 		logoBl = new FlxSprite(50, -650).loadGraphic(Paths.image('logodeboa'));
 
@@ -209,6 +211,26 @@ class TitleState extends MusicBeatState
 		logoBl.setGraphicSize(Std.int(logoBl.width));
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
+
+		var logoBl2:FlxSprite;
+		logoBl2 = new FlxSprite(0, 0);
+		logoBl2.frames = Paths.getSparrowAtlas('effects/estatica');
+		logoBl2.antialiasing = ClientPrefs.globalAntialiasing;
+		logoBl2.scale.set(5, 1.95);
+		logoBl2.animation.addByPrefix('muitomedo', 'TitleMenuSSBG instance 1', 24);
+		logoBl2.animation.play('muitomedo');
+		logoBl2.updateHitbox();
+
+		var logoBl3:FlxSprite;
+		logoBl3 = new FlxSprite(0, 0);
+		logoBl3.frames = Paths.getSparrowAtlas('effects/Phase3Static');
+		logoBl3.antialiasing = ClientPrefs.globalAntialiasing;
+		logoBl3.setGraphicSize(Std.int(logoBl3.width * 5));
+		logoBl3.alpha = 0.5;
+		logoBl3.color = FlxColor.RED;
+		logoBl3.animation.addByPrefix('muitomuitomedo', 'Phase3Static instance 1', 24);
+		logoBl3.animation.play('muitomuitomedo');
+		logoBl3.updateHitbox();
 
 		
 
@@ -230,8 +252,11 @@ class TitleState extends MusicBeatState
 
 		swagShader = new ColorSwap();
 		//add(menuGif);
+		add(logoBl2);
 		add(supbg);
+		add(logoBl3);
 		add(logoBl1);
+
 		add(logoBl);
 		candothething = true;
 		//logoBl.shader = swagShader.shader;
@@ -255,6 +280,13 @@ class TitleState extends MusicBeatState
 		blackScreen = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackScreen.setGraphicSize(FlxG.width);
 		credGroup.add(blackScreen);
+
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00060A4D, 0xAAFF0000], 2, true); 
+		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.scale.y = 0;
+		gradientBar.updateHitbox();
+		add(gradientBar);
+		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 8, {ease: FlxEase.quadInOut}); // long gradient tween
 
 		credTextShit = new Alphabet(0, 0, "", true);
 		credTextShit.screenCenter();
@@ -312,6 +344,9 @@ class TitleState extends MusicBeatState
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
 		*/
+
+		gradientBar.updateHitbox();
+		gradientBar.y = FlxG.height - gradientBar.height;
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
@@ -524,6 +559,7 @@ class TitleState extends MusicBeatState
 
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);
+			remove(gradientBar);
 			skippedIntro = true;
 
 			FlxTween.tween(logoBl, {y: 20}, 1.4, {ease: FlxEase.expoInOut});

@@ -1,16 +1,16 @@
 -- Event notes hooks
 function onEvent(name, value1, value2)
 	if name == 'Hud Fade' then
-		duration = tonumber(value1);
+		duration = value1;
 		if duration < 0 then
 			duration = 0;
 		end
 
-		targetAlpha = tonumber(value2);
+		targetAlpha = value2;
 		if duration == 0 then
-			setProperty('camHUD.alpha', targetAlpha);
+			setProperty('camhud.alpha', targetAlpha);
 		else
-			doTweenAlpha('hudFadeEventTween', 'camHUD', targetAlpha, duration, 'linear');
+			doTweenAlpha('hudFadeEventTween', 'camhud', targetAlpha, duration, 'linear');
 		end
 		--debugPrint('Event triggered: ', name, duration, targetAlpha);
 	end

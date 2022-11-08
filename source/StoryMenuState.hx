@@ -39,6 +39,8 @@ class StoryMenuState extends MusicBeatState
 
 	var titulo3:FlxSprite;
 
+	public static var voltarparahistoria = false;
+
 	public static var nomedamusica = ['Lerdeza', 'Não Pode Fugir', 'Conflito Triplo', 'Gran Finale'];
 
 	var real:Int = 0;
@@ -265,6 +267,7 @@ class StoryMenuState extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson('final-escape' + '-hard', 'final-escape');
 				PlayState.isStoryMode = false;
 				MusicBeatState.switchState(new PlayState());
+				FreeplayState.infoextended = 'Gran Finale';
 			}
 
 		if (controls.BACK && oneclickpls)
@@ -283,6 +286,7 @@ class StoryMenuState extends MusicBeatState
 			if (oneclickpls)
 			{
 				oneclickpls = false;
+				voltarparahistoria = true;
 
 
 				FlxG.sound.play(Paths.sound('risada_du_mal'));
@@ -303,7 +307,9 @@ class StoryMenuState extends MusicBeatState
 				} else {
 					if (songArray[real] == 'you-cant-run'){
 						sonic2.animation.play("risada2");
+						FreeplayState.infoextended = 'Não Pode Fugir';
 					} else {
+						FreeplayState.infoextended = 'Conflito Triplo';
 						sonic3.animation.play("risada3");
 					}
 					new FlxTimer().start(1.5, function(tmr:FlxTimer)

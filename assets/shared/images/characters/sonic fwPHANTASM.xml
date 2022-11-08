@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="sonic fwPHANTASM.png">
+<TextureAtlas imagePath="sonic fw.png">
 	<!-- Created with Adobe Animate version 20.0.2.22168 -->
 	<!-- http://www.adobe.com/products/animate.html -->
 	<SubTexture name="GAME OVER0000" x="0" y="0" width="355" height="472" frameX="0" frameY="-7" frameWidth="367" frameHeight="522"/>

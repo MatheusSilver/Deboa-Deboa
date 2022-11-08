@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "no-bf",
+		"player1": "invisibru",
 		"notes": [
 			{
 				"sectionNotes": [
@@ -5036,10 +5036,10 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "sonic",
-		"gfVersion": "no-bf",
+		"player2": "nogood",
+		"gfVersion": "invisibru",
 		"events": [],
-		"player3": null,
+		"player3": "invisibru",
 		"song": "No Good",
 		"needsVoices": true,
 		"validScore": true,

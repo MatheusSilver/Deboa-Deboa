@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"sink",
-			"sonic",
+			"sink_icons",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"no-good",
-			"sonic",
+			"nogood",
 			[
 				255,
 				0,
@@ -46,8 +46,8 @@
 			"Campos Verdes"
 		],
 		[
-			"",
 			"endless-cycles",
+			"lord",
 			[
 				255,
 				0,

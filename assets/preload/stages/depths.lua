@@ -6,7 +6,7 @@ local dead = false
 local first = true
 local alphaLoop = true
 local followchars = true
-local zoomLock = true
+--local zoomLock = true
 local gravity = 9.8
 local xx2 = 1030
 local speed = 0
@@ -23,15 +23,18 @@ local ypos = {-80, 0, -50}
 function onCreate()
 	setPropertyFromClass('GameOverSubstate', 'characterName', 'dead')
 
+	setProperty("defaultCamZoom",1.3)
+    setProperty('camhud.visible', false)
+
 	for i = 1,#bgs do
-		makeLuaSprite(bgs[i], 'bg/sink'..bgs[i], xpos[i], ypos[i])
+		makeLuaSprite(bgs[i], 'Cenarios/depths/sink'..bgs[i], xpos[i], ypos[i])
 		scaleObject(bgs[i], 1.11, 1.1)
 		addLuaSprite(bgs[i])
 		if i == 1 then
 			for a = 1,10 do
 				local scale = getRandomFloat(0.1, 1)
 				ballScales[a] = scale
-				makeLuaSprite('ball'..a, 'bg/ball', -80 + 200*a, -380)
+				makeLuaSprite('ball'..a, 'Cenarios/depths/ball', -80 + 200*a, -380)
 				scaleObject('ball'..a, scale, scale)
 				addLuaSprite('ball'..a)
 			end
@@ -45,39 +48,36 @@ function onCreate()
 end
 
 function onCreatePost()
-	addCharacterToList('sinkless', 'boyfriend')
+	--addCharacterToList('sinkless', 'boyfriend')
 
 	setProperty('healthLoss', 0)
 
-    zoom = getProperty('camGame.zoom') + 0.36
+    --zoom = getProperty('camGame.zoom') + 0.36
 
-	makeAnimatedLuaSprite('waves', 'bg/waves', 0, 0)
+	makeAnimatedLuaSprite('waves', 'Cenarios/depths/waves', 0, 0)
 	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
-	setObjectCamera('waves', 'camHud')
-	setProperty('waves.alpha', 0.06 )
-	scaleObject('waves', 1280/512, 820/512)
+	setObjectCamera('waves', 'camhud')
+	setProperty('waves.alpha', 0.36 )
+	scaleObject('waves', 2.5, 1.6)
 	addLuaSprite('waves', true)
 	setBlendMode('waves', 'subtract')
+	objectPlayAnimation('waves','idle',true)
 
 	--[[ Might Use
-	makeAnimatedLuaSprite('waves', 'bg/waves', 0, 0)
+	makeAnimatedLuaSprite('waves', 'Cenarios/depths/waves', 0, 0)
 	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
-	setObjectCamera('waves', 'camHud')
+	setObjectCamera('waves', 'camhud')
 	setProperty('waves.alpha', 0.08)
 	scaleObject('waves', 1280/512, 820/512)
 	addLuaSprite('waves', true)
 	setBlendMode('waves', 'screen')
 	]]
 
-	makeLuaSprite('vignette', 'bg/vignette', 0, 0)
-	setObjectCamera('vignette', 'camHud')
+	makeLuaSprite('vignette', 'vignette', 0, 0)
+	setObjectCamera('vignette', 'camhud')
 	addLuaSprite('vignette', true)
 
 	--addLuaSprite('r', true)
-end
-
-function onSongStart()
-	--setProperty('health', 0.00001)
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
@@ -92,35 +92,9 @@ function noteMiss(id, direction, noteType, isSustainNote)
 	if getProperty('health') >= 0.20 then setProperty('health', getProperty('health') - 0.15) elseif getProperty('health') < 0.20 and dead == false then setProperty('health', 0.0001); die() end
 end
 
-function die()
-	makeLuaSprite('r', 'bg/r', 0, 200)
-	setProperty('r.alpha', 0.5)
-	setObjectCamera('r', 'camHud')
-	addLuaSprite('r', true)
-
-	triggerEvent('Change Character', 0, 'sinkless')
-
-	doTweenAlpha('r1', 'r', 1, 1, 'linear')
-
-	setProperty('boyfriend.stunned', true)
-
-	for i = 0, getProperty('notes.length')-1 do
-		if getPropertyFromGroup('notes', i, 'mustPress') == false then
-			setPropertyFromGroup('notes', i, 'ignoreNote', true)
-		end
-	end
-	for i = 0, getProperty('unspawnNotes.length')-1 do
-		if getPropertyFromGroup('unspawnNotes', i, 'mustPress') == false then
-			setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true)
-		end
-	end
-
-	dead = true
-end
-
 function onUpdate(elapsed)
 	if followchars == true then
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singLEFT' then
+		if getProperty('boyfriend.animation.curAnim.name') == 'singLEFT' then
 			triggerEvent('Camera Follow Pos',xx2-ofs,yy2)
 		  end
 		  if getProperty('boyfriend.animation.curAnim.name') == 'singRIGHT' then
@@ -130,7 +104,7 @@ function onUpdate(elapsed)
 			triggerEvent('Camera Follow Pos',xx2,yy2-ofs)
 		  end
 		  if getProperty('boyfriend.animation.curAnim.name') == 'singDOWN' then
-			triggerEvent('Camera Follow Pos',xx2,yy2+0)
+			triggerEvent('Camera Follow Pos',xx2,yy2+ofs)
 		  end
 		  if getProperty('boyfriend.animation.curAnim.name') == 'idle-alt' then
 			triggerEvent('Camera Follow Pos',xx2,yy2)
@@ -142,14 +116,14 @@ function onUpdate(elapsed)
 		triggerEvent('Camera Follow Pos','','')
 	end
 
-	if zoomLock then setProperty('camGame.zoom', zoom) end
+--	if zoomLock then setProperty('camGame.zoom', zoom) end
 
 	for i = 1,#fall do
 		moveBall(fall[i])
 	end
 end
 
-function moveBall(number)
+function moveBall(number) --ok
 	fallPos[number] = fallPos[number] + 0.003 * speed * ballScales[number]
 	local ypos = getHeight(-380, fallPos[number])
 	local xpos = math.sin(getSongPosition()/1000 + number * 0.45) * 50 * ballScales[number] + -80 + 200 * number
@@ -161,14 +135,11 @@ function moveBall(number)
 	setProperty('ball'..number..'.x', xpos)
 end
 
-function onStartCountdown()
+function onStartCountdown() --ok
 	setProperty('dad.alpha', 0)
 	setProperty('iconP2.alpha', 0)
+	doTweenAlpha('b', 'waves', 0.06, 0.6, 'linear')
 	return Function_Continue
-end
-
-function onCountdownTick(counter)
-	if counter == 1 then doTweenAlpha('b', 'waves', 0.06, 0.6, 'linear') end
 end
 
 function onStepHit()
@@ -183,13 +154,13 @@ function onTweenCompleted(tag)
 	if tag == 'a' and alphaLoop then doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
 	if tag == 'b' and alphaLoop then doTweenAlpha('a', 'waves', 0.12, 0.8, 'linear') end
 	if tag == 'first' then alphaLoop = true; doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
-	if tag == 'second' then zoom = zoom - 0.36/8; zoomLock = true end
+--	if tag == 'second' then zoom = zoom - 0.36/8; zoomLock = true end
 	if tag == 'r1' then doTweenAlpha('r2', 'r', 0.5, 1, 'linear') end
 	if tag == 'r2' then doTweenAlpha('r1', 'r', 1, 1, 'linear') end
 end
 
 function onBeatHit()
-	if dead == false and curBeat % 4 == 0 and curStep > 526 and curStep < 641 then zoomLock = false; doTweenZoom('second', 'camGame', zoom - (zoom-0.63)/8, 0.8, 'linear') end
+	--if dead == false and curBeat % 4 == 0 and curStep > 526 and curStep < 641 then zoomLock = false; doTweenZoom('second', 'camGame', zoom - (zoom-0.63)/8, 0.8, 'linear') end
 --[[
 	if curBeat % 36 == 0 then
 		local number = getRandomInt(1,10)

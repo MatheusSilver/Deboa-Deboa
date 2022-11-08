@@ -8,10 +8,10 @@ local yy2 = 660
 local ofs = 30
 local del = 0
 local del2 = 0
-local bgs = {'fleetPHANTASM', 'sonic'}
+local bgs = {'fleetPHANTASM', 'sonicPHANTASM'}
 
 function onCreate()
-	makeAnimatedLuaSprite('fx', 'bg/vintage', 0, 0)
+	makeAnimatedLuaSprite('fx', 'Cenarios/phantasm/vintage', 0, 0)
 	addAnimationByPrefix('fx', 'idle', 'idle', 16, true)
 	scaleObject('fx', 3, 3)
 	setObjectCamera('fx', 'camHud')
@@ -19,13 +19,13 @@ function onCreate()
 	setProperty('fx.alpha', 0)
 
 	for i = 1,2 do
-		makeLuaSprite(bgs[i], 'bg/'..bgs[i], 0, 0)
+		makeLuaSprite(bgs[i], 'Cenarios/phantasm/'..bgs[i], 0, 0)
 		addLuaSprite(bgs[i], false)
 	end
-	addCharacterToList('fleetway', 'boyfriend')
+	addCharacterToList('fleetwayPHANTASM', 'boyfriend')
 	precacheSound('stat')
 
-	setPropertyFromClass('GameOverSubstate', 'characterName', 'sonic')
+	setPropertyFromClass('GameOverSubstate', 'characterName', 'sonicPHANTASM')
 end
 
 function onSongStart()
@@ -117,18 +117,18 @@ end
 
 function fleetON()
 	setProperty('fx.alpha', 0.8)
-	setProperty('sonic.alpha', 0)
+	setProperty('sonicPHANTASM.alpha', 0)
 	doTweenAlpha('fleetON', 'fx', 0, 1, 'linear')
 	playSound('stat', 0.3)
-	triggerEvent('Change Character', 0, 'fleetway')
+	triggerEvent('Change Character', 0, 'fleetwayPHANTASM')
 end
 
 function fleetOFF()
 	setProperty('fx.alpha', 0.8)
-	setProperty('sonic.alpha', 1)
+	setProperty('sonicPHANTASM.alpha', 1)
 	doTweenAlpha('fleetON', 'fx', 0, 1, 'linear')
 	playSound('stat', 0.3)
-	triggerEvent('Change Character', 0, 'sonic')
+	triggerEvent('Change Character', 0, 'sonicPHANTASM')
 end
 
 function onGameOver()

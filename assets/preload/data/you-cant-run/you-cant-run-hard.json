@@ -1,7 +1,7 @@
 {
 	"song": {
 		"player1": "bf",
-		"player2": "sonicAzulxd",
+		"player2": "sonicP2",
 		"notes": [
 			{
 				"lengthInSteps": 16,
@@ -6062,7 +6062,7 @@
 		"song": "you-cant-run",
 		"needsVoices": true,
 		"validScore": true,
-		"stage": "sonicBlueStage",
+		"stage": "P2Stage",
 		"speed": 3.3,
 		"bpm": 140,
 		"noteStyle": null

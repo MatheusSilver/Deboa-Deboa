@@ -1,12 +1,14 @@
 	-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
 
 function onCreate()
-    makeAnimatedLuaSprite('daNoteStatic', 'hitStatic', 0, 0)
-    addAnimationByPrefix('daNoteStatic', 'static', 'staticANIMATION', 24, false)
-	objectPlayAnimation('daNoteStatic', 'static', false)
-	setObjectCamera('daNoteStatic', 'camHUD');
-    addLuaSprite('daNoteStatic', true)
 
+    makeAnimatedLuaSprite('teste1', 'PhantomNote', -9999, -9999); --preload purposes
+    makeAnimatedLuaSprite('teste2', 'staticNotes', -9999, -9999);
+
+    addLuaSprite('teste1', true);
+    addLuaSprite('teste2', true);
+    
+    
     makeLuaSprite('blackFuck', 'black', 0, 0);
 	scaleObject('blackFuck', 6.0, 6.0);
 	setObjectCamera('blackFuck', 'other');
@@ -27,7 +29,8 @@ function onCreate()
 
     makeAnimatedLuaSprite('daStatic', 'daSTAT', 0, 0)
     addAnimationByPrefix('daStatic', 'static', 'staticFLASH', 24, false)
-	objectPlayAnimation('daStatic', 'static', false)
+    addAnimationByPrefix('daStatic', 'sumidao', 'sumidao', 24, false)
+    objectPlayAnimation('daStatic', 'sumidao', false)
 	scaleObject('daStatic', 3.19, 2.41);
 	setObjectCamera('daStatic', 'camHUD');
     addLuaSprite('daStatic', true)
@@ -35,7 +38,7 @@ function onCreate()
     setScrollFactor('gf', 1.37, 1);
     setScrollFactor('dad', 1.37, 1);
     setScrollFactor('boyfriend', 1.37, 1);
-	addCharacterToList('sonic.exe alt', 'dad')
+	addCharacterToList('sonicP2Pixel', 'dad')
 	addCharacterToList('gf-pixel-sonic', 'gf')
 	addCharacterToList('bf-pixel-sonic', 'bf')
 end
@@ -82,39 +85,47 @@ function onStepHit()
 	if curStep == 528 then
 		objectPlayAnimation('daStatic', 'static', false)
 		playSound('staticBUZZ')
-		for i = 0, getProperty('playerStrums.length')-1 do
+		for i = 0, getProperty('playerStrums.length') do
 		end
-        triggerEvent('Change Character', 'dad', 'sonic.exe alt')
-        setProperty('dad.x', 100)
-        setProperty('dad.y', 350)
+        triggerEvent('Change Character', 'dad', 'sonicP2Pixel')
+        setProperty('dad.x', 600)
+        setProperty('dad.y', -750)
         triggerEvent('Change Character', 'gf', 'gf-pixel-sonic')
-        setProperty('girlfriend.x', 400)
-        setProperty('girlfriend.y', 130)
+        setProperty('girlfriend.x', 650)
+        setProperty('girlfriend.y', -1300)
+
         triggerEvent('Change Character', 'bf', 'bf-pixel-sonic')
-        setProperty('boyfriend.x', 630)
-        setProperty('boyfriend.y', 370)
-        setProperty('bgspec.visible', true)
+        setProperty('boyfriend.x', 1100)
+        setProperty('boyfriend.y', -830)
+
 	end
+
+    if curStep == 533 then
+        objectPlayAnimation('daStatic', 'sumidao', false)
+    end
 
 	if curStep == 784 then
 		objectPlayAnimation('daStatic', 'static', false)
 		playSound('staticBUZZ')
-		for i = 0, getProperty('playerStrums.length')-1 do
+		for i = 0, getProperty('playerStrums.length') do
 		end
-        triggerEvent('Change Character', 'dad', 'sonic.exe')
-        setProperty('dad.x', 96)
-        setProperty('dad.y', -18)
+        triggerEvent('Change Character', 'dad', 'sonicP2')
+        setProperty('dad.x', 50)
+        setProperty('dad.y', 130)
         triggerEvent('Change Character', 'gf', 'gf')
-        setProperty('girlfriend.x', 485.5)
-        setProperty('girlfriend.y', 15.1)
+        setProperty('girlfriend.x', 400)
+        setProperty('girlfriend.y', 130)
         triggerEvent('Change Character', 'bf', 'bf')
-        setProperty('boyfriend.x', 936)
-        setProperty('boyfriend.y', 300)
+        setProperty('boyfriend.x', 800)
+        setProperty('boyfriend.y', 450)
 		setScrollFactor('dad', 1.3, 1);
 		setScrollFactor('boyfriend', 1.3, 1);
 		setScrollFactor('gf', 1.25, 1);
-        setProperty('bgspec.visible', false)
 	end
+
+    if curStep == 790 then
+        objectPlayAnimation('daStatic', 'sumidao', false)
+    end
 
 	if curStep == 521 or curStep == 1160 then
 		triggerEvent('Screen Shake', '1.5, 0.03', '1, 0.05')

@@ -3,109 +3,17 @@
 local allowCountdown = false;
 local darknotevisibility = false;
 
-local usertimebar = '';
+--local usertimebar = '';
 function onCreate()
     setProperty('gf.visible', false);
 
     addCharacterToList('tailsdolldark', 'dad')
 
-    usertimebar = getPropertyFromClass('ClientPrefs', 'timeBarType');
+  --  usertimebar = getPropertyFromClass('ClientPrefs', 'timeBarType');
 
 end
 
-function onStartCountdown()
-    if allowCountdown == false then
-	    
-        runTimer('wait2', 0, 1)
-
-        allowCountdown = true
-	    return Function_Stop;
-    end
-    return Function_Continue;
-
-end
-
-function onCountdownTick(counter)
-    if counter == 0 then
-        playSound('intro3', 1)
-    end
-    if counter == 1 then
-        setProperty('countdownReady.x', -5000);
-        playSound('intro2', 1)
-    end
-    if counter == 2 then
-        setProperty('countdownSet.x', -5000);
-        playSound('intro1', 1)
-    end
-    if counter == 3 then
-        setProperty('countdownGo.x', -5000);
-        playSound('introGo', 1)
-    end
-end
-
-function onTimerCompleted(tag, loops, loopsLeft)
-
-    if tag == 'wait2' then
-        removeLuaSprite('', true);
-
-        makeAnimatedLuaSprite('intro', 'Sonicsus/saturn/TDollStart', -1, 0);
-        addAnimationByPrefix('intro', 'open', 'Start', 19, false);
-        setObjectCamera('intro', 'camother');
-        objectPlayAnimation('intro', 'open', true)
-        addLuaSprite('intro', true);
-
-        runTimer('wait1', 2, 1)
-    end
-
-	if tag == 'wait1' then
-        removeLuaSprite('intro', true);
-
-        setProperty('camOther.zoom', 0.5);
-
-        playSound('ready', 1)
-        makeLuaSprite('ready', 'Sonicsus/saturn/ready', 312, 178);
-        setObjectCamera('ready', 'camother');
-        addLuaSprite('ready', true);
-
-        doTweenZoom('ready', 'camOther', 1, 0.9, 'linear');
-        startCountdown()
-    end
-end
-
-function onTweenCompleted(tag)
-    if tag == 'ready' then
-        setProperty('camOther.zoom', 0.5);
-
-        removeLuaSprite('ready', true);
-
-        playSound('set', 1)
-        makeLuaSprite('set', 'Sonicsus/saturn/set', 289, 199);
-        setObjectCamera('set', 'camother');
-        addLuaSprite('set', true);
-
-        doTweenZoom('set', 'camOther', 1, 0.9, 'linear');
-
-        
-    end
-
-    if tag == 'set' then
-        setProperty('camOther.zoom', 0.7);
-
-        removeLuaSprite('set', true);
-
-        playSound('go', 1)
-        makeLuaSprite('go', 'Sonicsus/saturn/go', 361, 145);
-        setObjectCamera('go', 'camother');
-        addLuaSprite('go', true);
-
-        doTweenZoom('go', 'camOther', 1, 0.9, 'linear');
-    end
-
-    if tag == 'go' then
-        removeLuaSprite('go', true);
-        setProperty('camOther.zoom', 1);
-    end
-end
+--Lembrar de fazer o ínicio dessa música HARDCODE
 
 function opponentNoteHit()
     if darknotevisibility == true then
@@ -118,14 +26,13 @@ end
 
 function onUpdate()
 
-    if keyJustPressed('space') == true then
-        debugPrint('setting: ', getPropertyFromClass('ClientPrefs', 'timeBarType'))
-        debugPrint(usertimebar);
+ --  if keyJustPressed('space') == true then
+     --   debugPrint('setting: ', getPropertyFromClass('ClientPrefs', 'timeBarType'))
+      --  debugPrint(usertimebar);
         -- debugPrint(getPropertyFromGroup('strumLineNotes', 4, 'x'));
         -- debugPrint(getPropertyFromGroup('strumLineNotes', 5, 'x'));
         -- debugPrint(getPropertyFromGroup('strumLineNotes', 6, 'x'));
         -- debugPrint(getPropertyFromGroup('strumLineNotes', 7, 'x'));
-    end
 
     if darknotevisibility == true then
         if getPropertyFromGroup('strumLineNotes', 4, 'alpha') > 0 then
@@ -141,9 +48,9 @@ function onUpdate()
     end
 end
 
-function onDestroy()
-        setPropertyFromClass('ClientPrefs', 'timeBarType', usertimebar)
-end
+--function onDestroy()
+   --     setPropertyFromClass('ClientPrefs', 'timeBarType', usertimebar)
+--end
 
 function onStepHit()
     if curStep == 588 then
@@ -181,9 +88,9 @@ function onStepHit()
     end
 
     if curStep == 860 then
-            setPropertyFromClass('ClientPrefs', 'timeBarType', usertimebar)
+          --  setPropertyFromClass('ClientPrefs', 'timeBarType', usertimebar)
 
-        triggerEvent('Change Character', '1', 'tailsdoll');
+        triggerEvent('Change Character', '1', 'TailsDoll');
         setProperty('defaultCamZoom', 0.86);
         setProperty('stage.alpha', 1);
         setProperty('boyfriend.visible', true);

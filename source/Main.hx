@@ -56,7 +56,7 @@ class Main extends Sprite
 		setupGame();
 	}
 
-	public static function dumpCache() // THIS MOD WASTES 1-2 FUCKING G I G A B Y T E S OF MEMORY SO OF COURSE I COPIED KADE'S CODE FOR FUCKS SAKE
+		public static function dumpCache() // THIS MOD WASTES 1-2 FUCKING G I G A B Y T E S OF MEMORY SO OF COURSE I COPIED KADE'S CODE FOR FUCKS SAKE
 		{
 			@:privateAccess
 			for (key in FlxG.bitmap._cache.keys())

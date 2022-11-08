@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				11,
+				5
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Exe Idle"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				230,
+				22
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Exe left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				67,
+				61
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Exe Up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				173,
+				-190
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Exe Down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				10,
+				0
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Exe Right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				47,
+				99
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "attack",
+			"loop": false,
+			"name": "exe attack"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/CHADexe",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "CHADexe",
+	"flip_x": false,
+	"healthbar_colors": [
+		36,
+		84,
+		180
+	],
+	"camera_position": [
+		0,
+		50
+	],
+	"sing_duration": 6.1,
+	"scale": 0.999999999999999
+}

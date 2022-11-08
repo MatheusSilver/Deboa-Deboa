@@ -46,7 +46,7 @@ class MainMenuState extends MusicBeatState
 	{
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("No maldito menu", null);
+		DiscordClient.changePresence("Tentando conseguir um achievement", null);
 		#end
 
 

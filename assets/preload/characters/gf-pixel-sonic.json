@@ -53,8 +53,8 @@
 	"no_antialiasing": true,
 	"image": "characters/Gfque",
 	"position": [
-		-70,
-		80
+		295,
+		-1165
 	],
 	"healthicon": "face",
 	"flip_x": false,

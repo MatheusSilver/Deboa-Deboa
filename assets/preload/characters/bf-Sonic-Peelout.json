@@ -179,9 +179,9 @@
 	"image": "characters/peelout_sonic_sheet",
 	"position": [
 		-300,
-		0
+		450
 	],
-	"healthicon": "sonic",
+	"healthicon": "correnegada",
 	"flip_x": true,
 	"healthbar_colors": [
 		108,

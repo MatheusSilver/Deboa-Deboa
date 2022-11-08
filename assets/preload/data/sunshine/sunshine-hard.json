@@ -1,7 +1,7 @@
 {
 	"song": {
-		"player1": "bf",
-		"player2": "tailsdoll-2d",
+		"player1": "SSBF",
+		"player2": "TailsDoll",
 		"notes": [
 			{
 				"endTime": 2285.71428571429,
@@ -29539,7 +29539,7 @@
 		"sections": 45,
 		"needsVoices": true,
 		"uiType": "normal",
-		"gf": "gf",
+		"gf": "invisibru",
 		"bpm": 105,
 		"noteStyle": null
 	}

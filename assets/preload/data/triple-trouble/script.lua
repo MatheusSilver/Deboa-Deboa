@@ -33,15 +33,6 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	end
 end
 
-function onEndSong()
-	if not allowEnd then
-		startVideo('soundtestcodes');
-		allowEnd = true;
-		return Function_Stop;
-	end
-	return Function_Continue;
-end
-
 function onEvent(name, value1, value2)
 
     if name == 'Adicionar Imagens' then
