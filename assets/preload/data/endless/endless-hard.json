@@ -9740,10 +9740,10 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "majinold",
+		"player2": "majinfun",
 		"gfVersion": "invisibru",
 		"events": [],
-		"player3": null,
+		"player3": "invisibru",
 		"mania": 3,
 		"song": "endless",
 		"needsVoices": true,

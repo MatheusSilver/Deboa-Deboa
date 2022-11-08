@@ -1,10 +1,9 @@
 {
 	"song": {
 		"speed": 3,
-		"stage": "MajinStage",
+		"stage": "sonicfunStage",
 		"player1": "bf-blue",
-		"player2": "majin",
-		"player3": null,
+		"player2": "majinfun",
 		"events": [
 			[
 				26322.5806451613,
@@ -450,10 +449,11 @@
 		"notes": [],
 		"splashSkin": null,
 		"validScore": false,
-		"gfVersion": "nospeaker",
+		"gfVersion": "invisibru",
 		"bpm": 155,
 		"arrowSkin": null,
 		"needsVoices": true,
-		"song": "Endless"
+		"player3": "invisibru",
+		"song": "endless"
 	}
 }
