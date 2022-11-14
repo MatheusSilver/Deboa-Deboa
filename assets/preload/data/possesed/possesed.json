@@ -2,6 +2,7 @@
 	"song": {
 		"player1": "bfpa",
 		"gfVersion": "gfpa",
+		"player3": "gfpa",
 		"notes": [
 			{
 				"sectionNotes": [],
@@ -2454,7 +2455,6 @@
 			]
 		],
 		"player2": "amy",
-		"player3": null,
 		"splashSkin": "noteSplashes",
 		"song": "possesed",
 		"needsVoices": true,

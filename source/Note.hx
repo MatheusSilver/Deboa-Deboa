@@ -48,6 +48,7 @@ class Note extends FlxSprite
 	public var noteSplashHue:Float = 0;
 	public var noteSplashSat:Float = 0;
 	public var noteSplashBrt:Float = 0;
+	var jatrocou:Bool = true;
 
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
@@ -211,7 +212,7 @@ class Note extends FlxSprite
 		x += offsetX;
 	}
 
-	function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '') {
+	public function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '') {
 		if(prefix == null) prefix = '';
 		if(texture == null) texture = '';
 		if(suffix == null) suffix = '';
@@ -219,7 +220,12 @@ class Note extends FlxSprite
 		var skin:String = texture;
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
-			if(skin == null || skin.length < 1) {
+			if (PlayState.SONG.isRing){
+				skin = 'RING_assets';
+			} else if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
+				skin = 'Majin_Notes';
+			}
+			else if(skin == null || skin.length < 1) {
 				skin = 'NOTE_assets';
 			}
 		}
@@ -249,6 +255,10 @@ class Note extends FlxSprite
 			setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 			loadPixelNoteAnims();
 			antialiasing = false;
+		} else if (PlayState.majinstrums){
+			frames = Paths.getSparrowAtlas("Majin_Notes");
+			loadNoteAnims();
+			antialiasing = ClientPrefs.globalAntialiasing;
 		} else {
 			frames = Paths.getSparrowAtlas(blahblah);
 			loadNoteAnims();
@@ -314,6 +324,11 @@ class Note extends FlxSprite
 	{
 		super.update(elapsed);
 
+
+		if (PlayState.majinstrums && jatrocou){
+			reloadNote();
+			jatrocou = false;
+		}
 		if (mustPress)
 		{
 			// ok river

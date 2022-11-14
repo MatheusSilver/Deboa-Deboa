@@ -1,7 +1,7 @@
 {
 	"song": {
 		"player1": "sbf",
-		"player2": "Sunky",
+		"player2": "sunky",
 		"notes": [
 			{
 				"sectionNotes": [
@@ -8021,9 +8021,9 @@
 				"mustHitSection": true
 			}
 		],
-		"gfVersion": "gf",
+		"gfVersion": "invisibru",
+		"player3": "invisibru",
 		"events": [],
-		"player3": null,
 		"mania": 3,
 		"song": "milk",
 		"needsVoices": true,

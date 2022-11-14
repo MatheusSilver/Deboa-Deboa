@@ -66,6 +66,10 @@ class ChartingState extends MusicBeatState
 	var eventStuff:Array<Dynamic> =
 	[
 		['', "Nothing. Yep, that's right."], 
+		['Adicionar Imagens', "Coloca Uma Imagem.\nValue 1: Nome Da Musica\nValue 2: Nome do arquivo"],
+		['Spin', 'Bom... Spiiiiiiiiiiiiiiiiiiiiiin das setas'],
+		['comecarvideo', 'Value1 = nome do video \n value2 = "xPos", "yPos", "tamanho do video" \n use apenas números no value2.'],
+		['estatica brow', 'faz estaticazinha ahahahha'],
 		['hudfade', 'value1 = opacidade \n value 2 = tempo de transição.'],
 		['strum swap1', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
 		['eventos-prey', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],
@@ -82,7 +86,6 @@ class ChartingState extends MusicBeatState
 		['Alt Idle Animation', "Sets a speciied suffix after the idle animation name.\nYou can use this to trigger 'idle-alt' if you set\nValue 2 to -alt\n\nValue 1: Character to set (Dad, BF or GF)\nValue 2: New suffix (Leave it blank to disable)"],
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
-		['Adicionar Imagens', "Coloca Uma Imagem.\nValue 1: Nome Da Musica\nValue 2: Nome do arquivo"],
 		['Letras Japonesas fodas', "Foda!.\nValue 1: 1 - fecha o quadro 2 - fecha o quadro\nValue 2: Nome do arquivo"],
 		['Toggle Ghost Trail', 'Enables or disables a trail in the same fashion seen\nin Mid-Fight Masses and Week 6.\n\nValue 1: "bf", "dad" or a mixture of them, separated\nby commas.\nValue 2: "on"/"1"/"true" to enable the effect,\n"off"/"0"/"false" to disable it.']
 	];

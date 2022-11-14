@@ -16,17 +16,17 @@
 	],
 	"songs": [
 		[
-			"illegal_download",
-			"PIRACY_SONIC",
+			"illegal-download",
+			"piracy",
 			[
 				255,
 				0,
 				0
 			],
-			"illegal_download"
+			"Download Ilegal"
 		],
 		[
-			"Defender",
+			"defender",
 			"TAILSD",
 			[
 				255,

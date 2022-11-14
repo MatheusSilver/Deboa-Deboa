@@ -38,10 +38,6 @@
 	<SubTexture name="+0001" x="579" y="0" width="42" height="39"/>
 	<SubTexture name="+0002" x="625" y="0" width="42" height="39"/>
 	<SubTexture name="+0003" x="625" y="0" width="42" height="39"/>
-	<SubTexture name="bold +0000" x="671" y="0" width="50" height="47" pivotX="5" pivotY="4.2"/>
-	<SubTexture name="bold +0001" x="671" y="0" width="50" height="47"/>
-	<SubTexture name="bold +0002" x="725" y="0" width="49" height="47" frameX="-1" frameY="0" frameWidth="50" frameHeight="47"/>
-	<SubTexture name="bold +0003" x="725" y="0" width="49" height="47" frameX="-1" frameY="0" frameWidth="50" frameHeight="47"/>
 	<SubTexture name="-0000" x="778" y="0" width="37" height="13" pivotX="0" pivotY="0.5"/>
 	<SubTexture name="-0001" x="778" y="0" width="37" height="13"/>
 	<SubTexture name="-0002" x="819" y="0" width="37" height="13"/>
@@ -166,6 +162,14 @@
 	<SubTexture name="A bold0001" x="343" y="229" width="54" height="67"/>
 	<SubTexture name="A bold0002" x="401" y="229" width="54" height="67"/>
 	<SubTexture name="A bold0003" x="401" y="229" width="54" height="67"/>
+	<SubTexture name="Ã bold0000" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66" pivotX="0.1" pivotY="0.05"/>
+	<SubTexture name="Ã bold0001" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ã bold0002" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ã bold0003" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ã capital0000" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66" pivotX="0.1" pivotY="0.05"/>
+	<SubTexture name="Ã capital0001" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ã capital0002" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ã capital0003" x="265" y="915" width="54" height="83" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
 	<SubTexture name="A capital0000" x="459" y="229" width="45" height="59" pivotX="0.15" pivotY="0"/>
 	<SubTexture name="A capital0001" x="459" y="229" width="45" height="59"/>
 	<SubTexture name="A capital0002" x="508" y="229" width="45" height="59"/>
@@ -182,6 +186,14 @@
 	<SubTexture name="C bold0001" x="741" y="229" width="55" height="66"/>
 	<SubTexture name="C bold0002" x="800" y="229" width="54" height="65" frameX="0" frameY="-1" frameWidth="55" frameHeight="66"/>
 	<SubTexture name="C bold0003" x="800" y="229" width="54" height="65" frameX="0" frameY="-1" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ç bold0000" x="741" y="851" width="55" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66" pivotX="0.15" pivotY="0"/>
+	<SubTexture name="Ç bold0001" x="741" y="851" width="55" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ç bold0002" x="741" y="851" width="54" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ç bold0003" x="741" y="851" width="54" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ç capital0000" x="741" y="851" width="55" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66" pivotX="0.15" pivotY="0"/>
+	<SubTexture name="Ç capital0001" x="741" y="851" width="55" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ç capital0002" x="741" y="851" width="54" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
+	<SubTexture name="Ç capital0003" x="741" y="851" width="54" height="81" frameX="0" frameY="7" frameWidth="55" frameHeight="66"/>
 	<SubTexture name="C capital0000" x="858" y="229" width="45" height="57" pivotX="0.1" pivotY="0"/>
 	<SubTexture name="C capital0001" x="858" y="229" width="45" height="57"/>
 	<SubTexture name="C capital0002" x="907" y="229" width="45" height="57"/>
@@ -198,6 +210,14 @@
 	<SubTexture name="E bold0001" x="161" y="309" width="43" height="66"/>
 	<SubTexture name="E bold0002" x="208" y="309" width="43" height="66"/>
 	<SubTexture name="E bold0003" x="208" y="309" width="43" height="66"/>
+	<SubTexture name="É bold0000" x="161" y="309" width="43" height="84" pivotX="0" pivotY="0"/>
+	<SubTexture name="É bold0001" x="161" y="309" width="43" height="84"/>
+	<SubTexture name="É bold0002" x="208" y="309" width="43" height="84"/>
+	<SubTexture name="É bold0003" x="208" y="309" width="43" height="84"/>
+	<SubTexture name="É capital0000" x="161" y="309" width="43" height="84" pivotX="0" pivotY="0"/>
+	<SubTexture name="É capital0001" x="161" y="309" width="43" height="84"/>
+	<SubTexture name="É capital0002" x="208" y="309" width="43" height="84"/>
+	<SubTexture name="É capital0003" x="208" y="309" width="43" height="84"/>
 	<SubTexture name="E capital0000" x="255" y="309" width="34" height="53" pivotX="0" pivotY="0"/>
 	<SubTexture name="E capital0001" x="255" y="309" width="34" height="53"/>
 	<SubTexture name="E capital0002" x="293" y="309" width="34" height="53"/>

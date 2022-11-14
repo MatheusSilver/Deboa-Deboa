@@ -58,13 +58,16 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
-		WeekData.reloadWeekFiles(false);
+
+		Main.dumpCache(); // What can go wrong?
+
+		//WeekData.reloadWeekFiles(false);
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Escolhendo uma música da Week" + dapreselected, null);
 		#end
 
-		for (i in 0...1) {
+	//	for (i in 0...1) { //Isso é desnecessauro OOOOOOOOOOOOOOOOOOOOI
 			var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
@@ -81,9 +84,9 @@ class FreeplayState extends MusicBeatState
 				if(colors == null || colors.length < 3) {
 					colors = [146, 113, 253];
 				}
-				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]), song[3]);
+				addSong(song[0], /*dapreselected,*/ song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]), song[3]);
 			}
-		}
+	//	}
 		WeekData.setDirectoryFromWeek();
 
 	/*	var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
@@ -115,10 +118,11 @@ class FreeplayState extends MusicBeatState
 		add(engrenagem);
 
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 80, FlxColor.BLACK);
-		add(blackBarThingie);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
+
+		add(blackBarThingie);
 
 
 		nomeDaWeek = new FlxText(0, 20, 0, "", 40);
@@ -129,7 +133,7 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].display, true, false);
+			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].display, true);
 			songText.isMenuTrem = true;
 			songText.targetY = i;
 			songText.screenCenter(X);
@@ -221,9 +225,9 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
-	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int, display:String)
+	public function addSong(songName:String, /*weekNum:Int,*/ songCharacter:String, color:Int, display:String)
 		{
-			songs.push(new SongMetadata(songName, weekNum, songCharacter, color, display));
+			songs.push(new SongMetadata(songName, /*weekNum,*/ songCharacter, color, display));
 		}
 
 	/*public function addWeek(songs:Array<String>, weekNum:Int, weekColor:Int, ?songCharacters:Array<String>)
@@ -463,16 +467,16 @@ class FreeplayState extends MusicBeatState
 class SongMetadata
 {
 	public var songName:String = "";
-	public var week:Int = 0;
+	//public var week:Int = 0;
 	public var songCharacter:String = "";
 	public var display:String = ""; //vai se foder Marcos
 	public var color:Int = -7179779;
 	public var folder:String = "";
 
-	public function new(song:String, week:Int, songCharacter:String, color:Int, display:String)
+	public function new(song:String, /*week:Int,*/ songCharacter:String, color:Int, display:String)
 	{
 		this.songName = song;
-		this.week = week;
+		//this.week = week;
 		this.songCharacter = songCharacter;
 		this.display = display; //vai se foder Marcos
 		this.color = color;

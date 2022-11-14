@@ -1,10 +1,18 @@
 function onCreate()
-	-- background shit
-	makeLuaSprite('SunkBG', 'SunkBG', -470, -300);
-	setLuaSpriteScrollFactor('SunkBG', 1, 1);
-		
-	
-	addLuaSprite('SunkBG', false);
-	
-	close(true); --For performance reasons, close this script once the stage is fully loaded, as this script won't be used anymore after loading the stage
+
+     makeLuaSprite('theSky','Cenarios/sunk/SunkBG',-600,-400)
+	 addLuaSprite('theSky',false) 
+     setLuaSpriteScrollFactor('theSky', 1.0, 1.0);	 
+end
+
+function onBeatHit( ... )--for every beat
+    --body
+end
+
+function onStepHit( ... )-- for every step
+    -- body
+end
+
+function onUpdate( ... )
+	-- body
 end

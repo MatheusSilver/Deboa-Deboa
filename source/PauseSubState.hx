@@ -20,7 +20,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Voltar para a musica', 'Reiniciar musica', 'Mudar dificuldade', 'Modo praticar', 'Botplay', 'Voltar para o menu'];
+	var menuItemsOG:Array<String> = ['Voltar para a musica', 'Reiniciar musica',/* 'Mudar dificuldade' ,*/ 'Modo praticar', 'Botplay', 'Voltar para o menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -120,6 +120,13 @@ class PauseSubState extends MusicBeatSubstate
 			grpMenuShit.add(songText);
 		}
 
+		if (PlayState.useVideo)
+			{
+				menuItems.remove("Voltar para a musica");
+				if (GlobalVideo.get().playing)
+					GlobalVideo.get().pause();
+			}
+
 		changeSelection();
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
@@ -177,22 +184,36 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.sound.play(Paths.sound('unpause'), 0.4);
 					close();
 
-				case 'Mudar dificuldade':
-					menuItems = difficultyChoices;
-					regenMenu();
+			//	case 'Mudar dificuldade':
+			//		menuItems = difficultyChoices;
+			//		regenMenu();
 				case 'Modo praticar':
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
 					practiceText.visible = PlayState.practiceMode;
 				case "Reiniciar musica":
+					PlayState.majinstrums = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					MusicBeatState.resetState();
+					if (PlayState.useVideo)
+					{
+						GlobalVideo.get().stop();
+						PlayState.instance.remove(PlayState.instance.videoSprite);
+						PlayState.removedVideo = true;
+					}
 					FlxG.sound.music.volume = 0;
 				case 'Botplay':
 					PlayState.cpuControlled = !PlayState.cpuControlled;
 					PlayState.usedPractice = true;
 					botplayText.visible = PlayState.cpuControlled;
 				case "Voltar para o menu":
+					if (PlayState.useVideo)
+						{
+							GlobalVideo.get().stop();
+							PlayState.instance.remove(PlayState.instance.videoSprite);
+							PlayState.removedVideo = true;
+						}
+					PlayState.majinstrums = false;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;

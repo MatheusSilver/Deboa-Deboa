@@ -2175,6 +2175,7 @@
 			}
 		],
 		"gfVersion": "gf-exe",
+		"player3": "gf-exe",
 		"mania": 3,
 		"song": "faker",
 		"needsVoices": true,

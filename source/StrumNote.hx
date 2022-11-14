@@ -10,11 +10,12 @@ class StrumNote extends FlxSprite
 {
 	private var colorSwap:ColorSwap;
 	public var resetAnim:Float = 0;
+	var jatrocou:Bool = false;
 	private var noteData:Int = 0;
 
 	private var player:Int;
 
-	public function new(x:Float, y:Float, leData:Int, player:Int) {
+	public function new(x:Float, y:Float, leData:Int, player:Int, skin:String) {
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
 		noteData = leData;
@@ -22,9 +23,14 @@ class StrumNote extends FlxSprite
 		this.noteData = leData;
 		super(x, y);
 
-		var skin:String = 'NOTE_assets';
+		var skin:String;
 		if (PlayState.SONG.isRing){
 			skin = 'RING_assets';
+		}
+		if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
+			skin = 'Majin_Notes';
+		} else {
+		skin =  'NOTE_assets';
 		}
 		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
 
@@ -114,6 +120,11 @@ class StrumNote extends FlxSprite
 				resetAnim = 0;
 			}
 		}
+
+	//	if (PlayState.majinstrums && jatrocou){
+	//		skin = 'Majin_Notes';
+	//		jatrocou = false;
+		//}
 		
 		/*if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
 			updateConfirmOffset();

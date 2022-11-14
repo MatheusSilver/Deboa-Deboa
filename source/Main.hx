@@ -1,5 +1,7 @@
 package;
 
+import lime.system.System;
+import webm.WebmPlayer;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -11,6 +13,7 @@ import openfl.events.Event;
 
 class Main extends Sprite
 {
+
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
@@ -22,7 +25,9 @@ class Main extends Sprite
 	public static var memoryCounter:MemoryCounter;
 
 
-	public static var path:String = lime.system.System.applicationStorageDirectory;
+	public static var instance:Main;
+	
+	public static var path:String = System.applicationStorageDirectory;
 
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
@@ -35,6 +40,8 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+
+		instance = this;
 
 		if (stage != null)
 		{
@@ -74,6 +81,8 @@ class Main extends Sprite
 			Assets.cache.clear("songs");
 			// */
 		}
+
+		public static var webmHandler:WebmHandler;
 
 	private function setupGame():Void
 	{

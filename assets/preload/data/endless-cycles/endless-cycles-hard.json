@@ -1,7 +1,7 @@
 {
 	"song": {
 		"player1": "majin",
-		"gfVersion": "gf",
+		"gfVersion": "invisibru",
 		"notes": [
 			{
 				"sectionNotes": [],
@@ -3661,7 +3661,7 @@
 			]
 		],
 		"player2": "x",
-		"player3": null,
+		"player3": "invisibru",
 		"splashSkin": "noteSplashes",
 		"song": "endless-cycles",
 		"needsVoices": true,

@@ -60,7 +60,7 @@
 	"image": "characters/majinfun",
 	"position": [
 		0,
-		0
+		-30
 	],
 	"healthicon": "majin-sonic",
 	"flip_x": false,
