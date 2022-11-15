@@ -783,6 +783,16 @@ class PlayState extends MusicBeatState
 			introSoundsSuffix = '-pixel';
 		}
 
+		if(nomehistorico.toLowerCase() == 'infinito'){
+			var infinitesimbolocache:FlxSprite = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
+			add(infinitesimbolocache);
+			remove(infinitesimbolocache);
+			var majinnotasprecache:FlxSprite = new FlxSprite(6000, 6000);
+			majinnotasprecache.frames = Paths.getSparrowAtlas('Majin_Notes');
+			add(majinnotasprecache);
+			remove(majinnotasprecache);
+		}
+
 		add(gfGroup);
 
 		// Shitty layering but whatev it works LOL
@@ -950,9 +960,9 @@ class PlayState extends MusicBeatState
 		timeBarBG.xAdd = -4;
 		timeBarBG.yAdd = -4;
 		add(timeBarBG);
-		if (curSong.toLowerCase() == 'endless') {
+		if (nomehistorico.toLowerCase() == 'infinito') {
 			timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
-			'songPercent', 0, (songLength * 0.44) - 1000);
+			'songPercent', 0, 1);
 		} else {
 			timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
@@ -2386,15 +2396,6 @@ class PlayState extends MusicBeatState
 				strumLineNotes.add(babyArrow);
 				babyArrow.postAddedToGroup();
 			}
-
-			if (nomehistorico.toLowerCase() == 'profundezas'){
-				var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('vignette'));
-				supbg.antialiasing = ClientPrefs.globalAntialiasing;
-				supbg.updateHitbox();
-				supbg.alpha = 0.65;
-				supbg.cameras = [camHUD];
-				add(supbg);
-			}
 		}
 
 	override function openSubState(SubState:FlxSubState)
@@ -3717,6 +3718,36 @@ class PlayState extends MusicBeatState
 					FunkinLua.setVarInArray(this, value1, value2);
 				}
 
+			case 'tempo infinito':
+				
+					majinstrums = true;
+					var infinitesimbol:FlxSprite = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
+					infinitesimbol.y = timeBarBG.y - 40;
+					infinitesimbol.setGraphicSize(Std.int(timeTxt.height * 1.7));
+					infinitesimbol.cameras = [camHUD];
+					infinitesimbol.screenCenter(X);
+					removeStatics();
+					generateStaticArrows(0);
+					generateStaticArrows(1);
+					FlxTween.num(timeBar.max, 90, 4.0, {ease: FlxEase.linear}, function (v:Float) {
+						remove(timeBar);
+						timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+						'songPercent', 0, v);
+						timeBar.numDivisions = 400;
+						timeBar.scrollFactor.set();
+						timeBar.createFilledBar(0xFF7700FF, 0xFFFFFFFF);
+						timeBar.cameras = [camHUD];
+						add(timeBar);
+						});
+						FlxTween.num(secondsTotal, 6039, 4.0, {ease: FlxEase.linear}, function (v2:Float) {
+							timeTxt.text = FlxStringUtil.formatTime(v2, false);
+							});
+							new FlxTimer().start(4.03, function(tmr:FlxTimer) {
+								timeTxt.visible = false;
+								songPercent = 0;
+								add(infinitesimbol);
+							});
+
 			case 'Change Character':
 				var charType:Int = 0;
 				switch(value1) {
@@ -4753,6 +4784,9 @@ class PlayState extends MusicBeatState
 		}
 
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
+		if(majinstrums){
+			splash.color = 0xFF5500B6;
+		}
 		splash.setupNoteSplash(x, y, data, skin, hue, sat, brt);
 		grpNoteSplashes.add(splash);
 	}
@@ -4991,36 +5025,6 @@ class PlayState extends MusicBeatState
 
 	override function stepHit()
 	{
-
-			if (curSong == 'endless' && curStep == 898 && !majinstrums){
-				
-				majinstrums = true;
-				var infinitesimbol:FlxSprite = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
-				infinitesimbol.x = timeBarBG.x + timeBarBG.width/2;
-				infinitesimbol.y = timeBarBG.y - timeBarBG.height;
-				infinitesimbol.setGraphicSize(Std.int(timeTxt.height * 2));
-				infinitesimbol.cameras = [camHUD];
-				//infinitesimbol:FlxSprite = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
-				FlxTween.num(timeBar.max, 1, 1.0, {ease: FlxEase.cubeOut}, function (v:Float) {
-					remove(timeBar);
-					timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
-					'songPercent', 0, v);
-					timeBar.numDivisions = 200;
-					timeBar.scrollFactor.set();
-					timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-					timeBar.cameras = [camHUD];
-					add(timeBar);
-					});
-					FlxTween.num(secondsTotal, 599, 1.1, {ease: FlxEase.cubeOut}, function (v2:Float) {
-						timeTxt.text = FlxStringUtil.formatTime(v2, false);
-						});
-						new FlxTimer().start(1.2, function(tmr:FlxTimer) {
-							timeTxt.text = '';
-							songPercent = 0;
-							add(infinitesimbol);
-						});
-				
-			}
 			
 			super.stepHit();
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
