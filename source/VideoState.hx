@@ -1,5 +1,5 @@
 package;
-
+#if mobile
 import flixel.text.FlxText;
 import flixel.FlxState;
 import flixel.FlxG;
@@ -58,3 +58,4 @@ class VideoState extends MusicBeatState
 		trace("WebView is about to open: "+url);
 	}
 }
+#end

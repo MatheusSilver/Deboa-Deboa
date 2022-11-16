@@ -278,8 +278,12 @@ class MainMenuState extends MusicBeatState
 									MusicBeatState.switchState(new PreFreeplayState());
 							//	case 'awards':
 							//		MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuState()));
-								case 'credits':
+							case 'credits':
+								#if mobile
 									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuState()));
+									#else
+									//Ai é contigo dav
+									#end
 								case 'options':
 									MusicBeatState.switchState(new OptionsState());
 							}
