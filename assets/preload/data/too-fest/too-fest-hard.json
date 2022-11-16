@@ -2,8 +2,9 @@
 	"song": {
 		"player1": "bf",
 		"events": [],
-		"gfVersion": "gf",
+		"gfVersion": "invisibru",
 		"player2": "sanic",
+		"player3": "invisibru",
 		"notes": [
 			{
 				"lengthInSteps": 16,

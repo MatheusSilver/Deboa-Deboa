@@ -68,7 +68,7 @@ class ChartingState extends MusicBeatState
 		['', "Nothing. Yep, that's right."], 
 		['Adicionar Imagens', "Coloca Uma Imagem.\nValue 1: Nome Da Musica\nValue 2: Nome do arquivo"],
 		['Spin', 'Bom... Spiiiiiiiiiiiiiiiiiiiiiin das setas'],
-		['comecarvideo', 'Value1 = nome do video \n value2 = "xPos", "yPos", "tamanho do video" \n use apenas números no value2.'],
+		['comecarvideo', 'Value1 = nome do video \n value2 = "xPos", "yPos", "tamanho do video", "usa chroma key?"\n se chroma key = 1, então o chroma key será aplicado, se = qualquer outro numero, ele não será usado\n use apenas números no value2.'],
 		['estatica brow', 'faz estaticazinha ahahahha'],
 		['hudfade', 'value1 = opacidade \n value 2 = tempo de transição.'],
 		['strum swap1', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],

@@ -95,10 +95,10 @@ class OptionsState extends MusicBeatState
 			switch(options[curSelected]) {
 				case 'Estilo de nota':
 					openSubState(new NotesSubstate());
-
+				#if mobile
 				case 'Controles Mobile':
 					MusicBeatState.switchState(new CustomControlsState());
-
+				#end
 				case 'Configuracoes':
 					openSubState(new PreferencesSubstate());
 			}

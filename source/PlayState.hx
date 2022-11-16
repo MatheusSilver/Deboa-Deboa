@@ -1961,7 +1961,7 @@ class PlayState extends MusicBeatState
 		// nada 
 	}
 
-	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:Float)
+	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:Float, chromakey:Float)
 		{
 
 			if(!OpenFlAssets.exists(source)){
@@ -2007,7 +2007,6 @@ class PlayState extends MusicBeatState
 				{
 					BackgroundVideo.get().play();
 				}
-		
 				var data = webmHandler.webm.bitmapData;
 		
 				videoSprite = new FlxSprite(0, 0).loadGraphic(data);
@@ -2017,6 +2016,9 @@ class PlayState extends MusicBeatState
 				videoSprite.cameras = [camHUD];
 				videoSprite.x = xPos;
 				videoSprite.y = yPos;
+				if (chromakey == 1){
+					videoSprite.shader = new GreenScreenShader();
+				}
 				remove(gf);
 				remove(boyfriend);
 				remove(dad);
@@ -2778,6 +2780,7 @@ class PlayState extends MusicBeatState
 					FlxG.stage.window.onFocusIn.remove(focusIn);
 					removedVideo = true;
 					useVideo = false;
+					videoSprite.kill();
 				}
 			}
 
@@ -4056,7 +4059,7 @@ class PlayState extends MusicBeatState
 
 			case 'comecarvideo': //TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0]), Std.parseFloat(posAvancado[1]), Std.parseFloat(posAvancado[2]));
+				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0]), Std.parseFloat(posAvancado[1]), Std.parseFloat(posAvancado[2]), Std.parseFloat(posAvancado[3]));
 
 
 			case 'Set Property':
