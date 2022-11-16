@@ -75,6 +75,7 @@ class ChartingState extends MusicBeatState
 		['eventos-prey', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],
 		['Entrada Pixel', "Se igual a 1, entra em pixel, se é qualquer coisa, ele sai. Válido apenas para Value 1"],
 		['tempo infinito', 'Serve apenas para fazer com que o timer da música \n vá para infinito (apenas estéticamente). \n não depende de V1 e V2'],
+		['eventos-chaos', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],		
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
 		['Blammed Lights', "Value 1: 0 = Turn off, 1 = Blue, 2 = Green,\n3 = Pink, 4 = Red, 5 = Orange, Anything else = Random."],

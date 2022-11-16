@@ -124,4 +124,8 @@ class Main extends Sprite
 		#end
 	}
 	}
+
+	public function getFPS():Float{
+		return fpsVar.currentFPS;	
+	}
 }
