@@ -203,7 +203,7 @@ class TitleState extends MusicBeatState
 		supbg.updateHitbox();
 		supbg.alpha = 1;
 
-		logoBl = new FlxSprite(-150, -200).loadGraphic(Paths.image('LogoModBoaEXE'));
+		logoBl = new FlxSprite(-150, -400).loadGraphic(Paths.image('LogoModBoaEXE'));
 
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl.updateHitbox();
@@ -562,16 +562,16 @@ class TitleState extends MusicBeatState
 			remove(gradientBar);
 			skippedIntro = true;
 
-			FlxTween.tween(logoBl, {y: 20}, 1.4, {ease: FlxEase.expoInOut});
+			FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
 
 			logoBl.angle = -7;
 
 			new FlxTimer().start(0.005, function(tmr:FlxTimer)
 			{
 				if (logoBl.angle == -7)
-					FlxTween.angle(logoBl, logoBl.angle, 7, 7, {ease: FlxEase.quartInOut});
+					FlxTween.angle(logoBl, logoBl.angle, 7, 3, {ease: FlxEase.quartInOut});
 				if (logoBl.angle == 7)
-					FlxTween.angle(logoBl, logoBl.angle, -7, 7, {ease: FlxEase.quartInOut});
+					FlxTween.angle(logoBl, logoBl.angle, -7, 3, {ease: FlxEase.quartInOut});
 			}, 0);
 			
 		}

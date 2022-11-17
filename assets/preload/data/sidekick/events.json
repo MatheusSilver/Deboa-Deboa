@@ -1,0 +1,40 @@
+{
+	"song": {
+		"speed": 3,
+		"stage": "sonicfunStage",
+		"player1": "bf-blue",
+		"player2": "majinfun",
+		"player3": "invisibru",
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						26322.5806451613,
+						-1,
+						"Spin",
+						"",
+						""
+					],
+					[
+						26709.6774193548,
+						-1,
+						"Spin",
+						"",
+						""
+					]
+				]
+            }
+		],
+		"splashSkin": null,
+		"validScore": false,
+		"bpm": 155,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "sidekick",
+		"isRing": null
+	}
+}

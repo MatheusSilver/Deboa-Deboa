@@ -1,9 +1,3 @@
-	-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
-
-function onCreate()
-    setProperty('gf.alpha', 0)
-end
-
 function onEvent(name, value1, value2)
 
     if name == 'Adicionar Imagens' then

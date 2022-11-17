@@ -5906,11 +5906,11 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "tails",
-		"gfVersion": "gf",
+		"player2": "tailsBF",
+		"gfVersion": "invisibru",
 		"events": [],
-		"player3": null,
-		"song": "Best Friends",
+		"player3": "invisibru",
+		"song": "best-friends",
 		"validScore": true,
 		"needsVoices": true,
 		"stage": "tailsplace",

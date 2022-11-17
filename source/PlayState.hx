@@ -4236,6 +4236,9 @@ class PlayState extends MusicBeatState
 				case 'school' | 'schoolEvil':
 					camFollow.x = boyfriend.getMidpoint().x - 200;
 					camFollow.y = boyfriend.getMidpoint().y - 200;
+				case 'volcano':
+					camFollow.x = boyfriend.cameraPosition[0] + 120;
+					camFollow.y = boyfriend.cameraPosition[1] - 30;
 			}
 			camFollow.x -= boyfriend.cameraPosition[0];
 			camFollow.y += boyfriend.cameraPosition[1];
