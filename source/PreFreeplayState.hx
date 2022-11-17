@@ -42,7 +42,7 @@ class PreFreeplayState extends MusicBeatState
 
 //	var grpWeekText:FlxTypedGroup<MenuItem>;
 
-	var logoBl:FlxButton;
+	//var logoBl:FlxButton;
 
 	var leftArrow:FlxButton;
 	var rightArrow:FlxButton;
@@ -99,6 +99,7 @@ class PreFreeplayState extends MusicBeatState
 	//	add(grpWeekCharacters);
 		add(machine);
 
+		/*
 		logoBl = new FlxButton(50, 10, '');
 
 		logoBl.loadGraphic(Paths.image('logodeboa'));
@@ -110,6 +111,7 @@ class PreFreeplayState extends MusicBeatState
 		logoBl.y = 30;
 		logoBl.x = FlxG.width - logoBl.width - 50; //MATEMÁTICA AVANÇADA AGAIN
 		add(logoBl);
+		*/
 
 		leftArrow = new FlxButton(-600, 312, '');
 		leftArrow.loadGraphic(Paths.image("arrowLeft"));
@@ -151,9 +153,9 @@ class PreFreeplayState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 
-		if (logoBl.justPressed) {
-			selectWeek();
-		}
+		//if (logoBl.justPressed) {
+	//		selectWeek();
+		//}
 
 		#if desktop
 		DiscordClient.changePresence("Pensando em joojar a Week: " + WeekData.weeksList[curWeek], null);

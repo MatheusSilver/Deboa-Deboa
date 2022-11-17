@@ -203,12 +203,12 @@ class TitleState extends MusicBeatState
 		supbg.updateHitbox();
 		supbg.alpha = 1;
 
-		logoBl = new FlxSprite(50, -650).loadGraphic(Paths.image('logodeboa'));
+		logoBl = new FlxSprite(-150, -200).loadGraphic(Paths.image('LogoModBoaEXE'));
 
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl.updateHitbox();
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.setGraphicSize(Std.int(logoBl.width));
+		logoBl.setGraphicSize(Std.int(logoBl.width * 0.5));
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
