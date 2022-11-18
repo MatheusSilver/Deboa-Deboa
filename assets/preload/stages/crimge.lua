@@ -50,9 +50,3 @@ function goodNoteHit(id, direction, noteType, isSustainNote)
 			characterPlayAnim('x', animationList[direction+1]..'-alt', false);
 	end
 end
-
-
-
-function onCreatePost()
-	setProperty('gf.visible',false)
-end
