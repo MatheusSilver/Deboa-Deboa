@@ -122,7 +122,6 @@ class PauseSubState extends MusicBeatSubstate
 
 		if (PlayState.useVideo)
 			{
-				menuItems.remove("Voltar para a musica");
 				if (GlobalVideo.get().playing)
 					GlobalVideo.get().pause();
 			}
@@ -181,6 +180,7 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Voltar para a musica":
+					BackgroundVideo.get().resume();
 					FlxG.sound.play(Paths.sound('unpause'), 0.4);
 					close();
 

@@ -1,0 +1,45 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				233
+			],
+			"indices": [],
+			"fps": 5,
+			"anim": "idle",
+			"loop": false,
+			"name": "Pixel gf dance"
+		},
+		{
+			"offsets": [
+				0,
+				233
+			],
+			"indices": [],
+			"fps": 5,
+			"anim": "sad",
+			"loop": false,
+			"name": "Pixel gf miss"
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/sonico-exe-pixel",
+	"position": [
+		280,
+		630
+	],
+	"healthicon": "exesg",
+	"flip_x": false,
+	"healthbar_colors": [
+		96,
+		96,
+		192
+	],
+	"camera_position": [
+		-110,
+		-330
+	],
+	"sing_duration": 4,
+	"scale": 6
+}

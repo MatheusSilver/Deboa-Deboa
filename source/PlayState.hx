@@ -73,6 +73,9 @@ using StringTools;
 class PlayState extends MusicBeatState
 {
 	var giraArray:Array<Int>;
+
+	var bgSkychasing:FlxSprite;
+
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	public static var majinstrums:Bool = false;
@@ -577,6 +580,47 @@ class PlayState extends MusicBeatState
 
 			//	unfinished, ill do later
 			//	fuck you fleetway your code is gibberish
+
+			case 'chasing':
+
+			var contadordevida:FlxSprite;
+			var greenhill:FlxSprite;
+			var monitor:FlxSprite;
+
+			monitor = new FlxSprite(-108, -100, Paths.image('Cenarios/chasing/monitor'));
+			monitor.antialiasing = ClientPrefs.globalAntialiasing;
+			monitor.scale.y = 0.85;
+			monitor.scrollFactor.set(1, 1);
+			monitor.updateHitbox();
+
+			contadordevida = new FlxSprite(116, 944, Paths.image('Cenarios/chasing/HedgehogLives'));
+			contadordevida.antialiasing = ClientPrefs.globalAntialiasing;
+			contadordevida.scale.y = 1.2;
+			contadordevida.scale.x = 1.2;
+			contadordevida.scrollFactor.set(1, 1);
+			contadordevida.updateHitbox();
+
+			greenhill = new FlxSprite(4, -100, Paths.image('Cenarios/chasing/GreenHill'));
+			greenhill.antialiasing = ClientPrefs.globalAntialiasing;
+			greenhill.scale.x = 1;
+			greenhill.scale.y = 0.99;
+			greenhill.scrollFactor.set(1, 1);
+			greenhill.updateHitbox();
+
+			add(greenhill);
+			add(contadordevida);
+			add(monitor);
+
+			bgSkychasing = new FlxSprite(0, 0, Paths.image('Cenarios/chasing/BGSky'));
+			bgSkychasing.antialiasing = ClientPrefs.globalAntialiasing;
+			bgSkychasing.scale.x = 1;
+			bgSkychasing.scale.y = 1;
+			bgSkychasing.scrollFactor.set(1, 1);
+			bgSkychasing.updateHitbox();
+			bgSkychasing.visible = false;
+			add(bgSkychasing);
+
+			
 
 			case 'starved-pixel':
 				defaultCamZoom = 0.6;
@@ -1964,6 +2008,10 @@ class PlayState extends MusicBeatState
 	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:Float, chromakey:Float)
 		{
 
+			if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){
+				bgSkychasing.visible = true;
+			}
+			
 			if(!OpenFlAssets.exists(source)){
 				if(BackgroundVideo.get() != null){
 				BackgroundVideo.get().stop();
@@ -2261,7 +2309,11 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
 					case 3:
-						var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+						if(nomehistorico.toLowerCase() == 'rastro'){
+							var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[2]) + "chasing");	
+						} else {
+							var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+						}
 						go.scrollFactor.set();
 
 						if (PlayState.isPixelStage)
@@ -2520,6 +2572,9 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
+		case 'comecarvideo':
+			backgroundVideo('assets/videos/' + event[3] + '.webm', 10000, 0.0, 0.01, 0.0); //basicamente isso faz com que o video tome preload antes, mas ele se torna apenas um pixel morto.
+			backgroundVideo('assets/videos/' + "daWeirdVid/dontDelete" + '.webm', 10000, 0.0, 0.01, 0.0);
 		}
 
 		if(!eventPushedMap.exists(event[2])) {
@@ -2780,7 +2835,6 @@ class PlayState extends MusicBeatState
 					FlxG.stage.window.onFocusIn.remove(focusIn);
 					removedVideo = true;
 					useVideo = false;
-					videoSprite.kill();
 				}
 			}
 
