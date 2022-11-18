@@ -2573,8 +2573,9 @@ class PlayState extends MusicBeatState
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
 		case 'comecarvideo':
-			backgroundVideo('assets/videos/' + event[3] + '.webm', 10000, 0.0, 0.01, 0.0); //basicamente isso faz com que o video tome preload antes, mas ele se torna apenas um pixel morto.
-			backgroundVideo('assets/videos/' + "daWeirdVid/dontDelete" + '.webm', 10000, 0.0, 0.01, 0.0);
+			backgroundVideo('assets/videos/' + event[3] + '.webm', 10000, 0.0, 0.01, 0.0); 
+			backgroundVideo('assets/videos/' + "preloadingstuff" + '.webm', 10000, 0.0, 0.01, 0.0);
+		//basicamente isso faz com que o video tome preload antes, mas ele se torna apenas um pixel morto fora da tela.
 		}
 
 		if(!eventPushedMap.exists(event[2])) {
