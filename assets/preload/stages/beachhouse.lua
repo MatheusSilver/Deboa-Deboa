@@ -9,35 +9,35 @@ local anglevar = 0.5;
 local followchars = true;
 function onCreate()
 	-- background shit
-	makeLuaSprite('sky', 'beachhouse/sky', -600, -400);
+	makeLuaSprite('sky', 'Cenarios/beachhouse/sky', -600, -400);
 	setLuaSpriteScrollFactor('forest', 1, 1);
 	scaleObject('sky', 3, 3);
 
-	makeLuaSprite('forest', 'beachhouse/forest', -300, -390);
+	makeLuaSprite('forest', 'Cenarios/beachhouse/forest', -300, -390);
 	setLuaSpriteScrollFactor('forest', .7, .7);
 	scaleObject('forest', 0.6, 0.6);
 
-    makeAnimatedLuaSprite('glitch1', 'beachhouse/glitch1', -240, -280);
+    makeAnimatedLuaSprite('glitch1', 'Cenarios/beachhouse/glitch1', -240, -280);
     addAnimationByPrefix('glitch1', 'Symbol 1', 'Symbol 1', 24);
     setLuaSpriteScrollFactor('glitch1', 1, 1);
     scaleObject('glitch1', 1, 1);
 
-	makeLuaSprite('sandfloor', 'beachhouse/sandfloor', -600, -475);
+	makeLuaSprite('sandfloor', 'Cenarios/beachhouse/sandfloor', -600, -475);
 	setLuaSpriteScrollFactor('sandfloor', 1, 1);
 	scaleObject('sandfloor', .6, .6);
 
-	makeLuaSprite('tree', 'beachhouse/tree', -600, -370);
+	makeLuaSprite('tree', 'Cenarios/beachhouse/tree', -600, -370);
 	setLuaSpriteScrollFactor('tree', .9, .9);
 	scaleObject('tree', .7, .7);
 
-	makeLuaSprite('water', 'beachhouse/water', -700, 520);
+	makeLuaSprite('water', 'Cenarios/beachhouse/water', -700, 520);
 	setLuaSpriteScrollFactor('water', 1, 1);
 	scaleObject('water', .7, .6);
 	
 	
-	makeAnimatedLuaSprite('glitch', 'static', -600, -300);
+	makeAnimatedLuaSprite('glitch', 'Cenarios/beachhouse/static', -600, -300);
 	scaleObject('glitch', 2, 2);
-	addAnimationByPrefix('glitch', 'glitchout', 'static glitch', 24, true);
+	addAnimationByPrefix('glitch', 'glitchout', 'static glitch', 24, true); -- WHAT?????
 	objectPlayAnimation('glitch', 'glitchout');
 	
 	addLuaSprite('sky', false);

@@ -224,8 +224,10 @@ class Note extends FlxSprite
 				skin = 'RING_assets';
 			} else if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
 				skin = 'Majin_Notes';
-			}
-			else if(skin == null || skin.length < 1) {
+			} else if(PlayState.nomehistorico.toLowerCase()=='campos verdes')
+			{
+				skin='NOTE_assetsglitch';
+			}else if(skin == null || skin.length < 1) {
 				skin = 'NOTE_assets';
 			}
 		}

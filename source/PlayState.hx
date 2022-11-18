@@ -265,6 +265,8 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
+	var textoajustefino:String = '';
+
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -2266,7 +2268,10 @@ class PlayState extends MusicBeatState
 					case 0:
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 1:
-						var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
+						if (nomehistorico.toLowerCase() == 'campos verdes'){
+							textoajustefino = 'glitch';
+							}
+						var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[0] + textoajustefino));
 						ready.scrollFactor.set();
 						ready.updateHitbox();
 
@@ -2288,7 +2293,7 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 2:
-						var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
+						var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[1] + textoajustefino));
 						set.scrollFactor.set();
 
 						if (PlayState.isPixelStage)
@@ -2313,7 +2318,7 @@ class PlayState extends MusicBeatState
 						if(nomehistorico.toLowerCase() == 'rastro'){
 							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]) + "chasing");	
 						} else {
-							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2] + textoajustefino));
 						}
 						go.scrollFactor.set();
 
@@ -2620,6 +2625,8 @@ class PlayState extends MusicBeatState
 				var skin:String = "NOTE_assets";
 
 				if(curSong.toLowerCase()=='endless' && curStep >= 900){skin='Majin_Notes';}
+
+				if(curSong.toLowerCase()=='green-hills'){skin='NOTE_assetsglitch';}
 
 				var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player, skin);
 				
@@ -4709,6 +4716,7 @@ class PlayState extends MusicBeatState
 
 		var pixelShitPart1:String = "";
 		var pixelShitPart2:String = '';
+		var glitchassets:String = '';
 
 		if (PlayState.isPixelStage)
 		{
@@ -4716,7 +4724,11 @@ class PlayState extends MusicBeatState
 			pixelShitPart2 = '-pixel';
 		}
 
-		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
+		if (nomehistorico.toLowerCase() == 'campos verdes'){
+			glitchassets = 'glitch';
+		}
+
+		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2 + glitchassets));
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;

@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "bf",
+		"player1": "bfglitch",
 		"notes": [
 			{
 				"sectionNotes": [
@@ -10803,7 +10803,7 @@
 			}
 		],
 		"player2": "boom",
-		"player3": "nogf",
+		"player3": "invisibru",
 		"mania": 3,
 		"song": "green-hills",
 		"needsVoices": true,

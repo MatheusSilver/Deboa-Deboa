@@ -29,7 +29,11 @@ class StrumNote extends FlxSprite
 		}
 		if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
 			skin = 'Majin_Notes';
-		} else {
+		} else if(PlayState.nomehistorico.toLowerCase()=='campos verdes')
+		{
+			skin='NOTE_assetsglitch';
+		} 
+		else {
 		skin =  'NOTE_assets';
 		}
 		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
