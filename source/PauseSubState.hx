@@ -180,7 +180,10 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Voltar para a musica":
-					BackgroundVideo.get().resume();
+					if (PlayState.useVideo)
+						{
+							BackgroundVideo.get().resume();
+						}
 					FlxG.sound.play(Paths.sound('unpause'), 0.4);
 					close();
 
