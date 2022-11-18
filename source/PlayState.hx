@@ -2309,10 +2309,11 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
 					case 3:
+						var go:FlxSprite; //bruh + meme = breme
 						if(nomehistorico.toLowerCase() == 'rastro'){
-							var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[2]) + "chasing");	
+							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]) + "chasing");	
 						} else {
-							var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 						}
 						go.scrollFactor.set();
 
