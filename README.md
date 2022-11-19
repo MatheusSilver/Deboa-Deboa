@@ -7,8 +7,10 @@ https://github.com/luckydog7/Funkin-android
 Agora, caso queira fazer uma build para Windows, recomendamos o seguinte tutorial e mais as correções abaixo:
 https://gamebanana.com/tuts/13935
 
-Agora a parte específica:
-`haxelib install linc_luajit`
+Agora a parte específica para compilações de android:
+`haxelib set openfl 9.1.0`
+`haxelib set lime 7.9.0`
+`haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git`
 `haxelib install actuate`
 `haxelib git extension-webm https://github.com/Daninnocent/extension-webm`
 
