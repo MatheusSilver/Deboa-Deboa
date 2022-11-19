@@ -1,21 +1,46 @@
-# Friday Night Funkin' - Psych Engine
-Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
+# Friday Night Funkin' - BS Engine Mobile - Projeto ModBoa
+Essa engine foi originalmente baseada na [Psych Engine](https://github.com/ShadowMario/FNF-PsychEngine) com alguns elementos característicos de outras engines como a [Mic'd Up](https://github.com/Verwex/Funkin-Mic-d-Up-SC) e a Kade Engine [Kade Engine](https://github.com/KadeDev/Kade-Engine), e almeja ser uma alternativa para os desenvolvedores que queiram criar mods ou porta-los para APK facilmente.
 
-## Installation:
-Follow a Friday Night Funkin' source code compilation tutorial, after this you will need to install LuaJIT.
+## Tutorial de Build simplificado:
+Caso queira fazer uma build para Android diretamente no PC, siga o tutorial disponível em:
+https://github.com/luckydog7/Funkin-android
+Agora, caso queira fazer uma build para Windows, recomendamos o seguinte tutorial e mais as correções abaixo:
+https://gamebanana.com/tuts/13935
 
-You can do this with: `haxelib install linc_luajit` on a Command prompt/PowerShell
+Agora a parte específica:
+`haxelib install linc_luajit`
+`haxelib install actuate`
+`haxelib git extension-webm https://github.com/Daninnocent/extension-webm`
 
-...Or if you don't want your mod to be able to run .lua scripts, delete the "LUA_ALLOWED" line on Project.xml
+Caso esteja fazendo a build para PC, execute o seguinte comando:
+`lime rebuild extension-webm windows`
 
-## Credits:
-* Shadow Mario - Coding
-* RiverOaken - Arts and Animations
+agora, caso seja para Android (o que provavelmente é):
+`lime rebuild extension-webm android`
 
-### Special Thanks
-* Keoiki - Note Splash Animations
+e ainda deverá instalar essa ultima extensão:
+`haxelib git extension-webview https://github.com/MatheusSilver/extension-webview`
 
-WARNING: This engine is still very early in development! You can request new features though
+Caso o seu projeto não rode com Vídeos, basta remover o Videos_Allowed de project.xml
+Ou caso não queira Lua em seu projeto, basta remover o Lua_Allowed do seu projeto.
+
+## Creditos - Projeto ModBoa:
+* Vio - Diretora do projeto
+* Dav - Programador Líder
+* Konan - Programador
+* Team Silver - Port Mobile
+
+## Creditos - Psych Engine 4.2:
+* Shadow Mario - Programação
+* RiverOaken - Artes e Animações
+
+## Creditos - Kade Engine:
+* KadeDev - Criador da Engine
+
+## Creditos - Mic'd Up:
+* Verwex - Criador da Engine
+
+Terminaremos o resto mais tarde...
 _____________________________________
 
 # Features
