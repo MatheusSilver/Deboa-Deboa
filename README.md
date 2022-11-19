@@ -26,6 +26,11 @@ e ainda deverá instalar essa ultima extensão:
 Caso o seu projeto não rode com Vídeos, basta remover o Videos_Allowed de project.xml
 Ou caso não queira Lua em seu projeto, basta remover o Lua_Allowed do seu projeto.
 
+Caso você não tenha um computador e quiser compilar o mod para Android, basta usar as workflows do GitHub:
+Faça um fork do repositório do ModBoa.
+Após isso, entre na aba Actions, abaixo do nome do repositório,
+ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workflows e aperte no botão verde.
+
 ## Creditos - Projeto ModBoa:
 * Vio - Diretora do projeto
 * Dav - Programador Líder
