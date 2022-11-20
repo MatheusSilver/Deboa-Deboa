@@ -3797,7 +3797,7 @@ class PlayState extends MusicBeatState
 				iconP1.changeIcon(dad.healthIcon);
 				iconP2.changeIcon(boyfriend.healthIcon);
 				reloadHealthBarColors();
-			case 'Lyrics':
+			case 'lyrics':
 				var split = value1.split("--");
 				var text = value1;
 				var color = FlxColor.WHITE;
