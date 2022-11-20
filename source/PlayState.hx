@@ -76,9 +76,15 @@ class PlayState extends MusicBeatState
 
 	var bgSkychasing:FlxSprite;
 
+	public static var donthugmeiamscaredpqpaaaaaaaaaaaaa:Bool = false; //Code de um homem muito pito...
+
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	public static var majinstrums:Bool = false;
+
+	var telapreta:FlxSprite;
+
+	var tempogravador:FlxText;
 
 	var secondsTotal:Int;
 
@@ -127,6 +133,8 @@ class PlayState extends MusicBeatState
 	public var gfMap:Map<String, Character> = new Map<String, Character>();
 	#end
 
+	var monitor:FlxSprite;
+
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
 	public var DAD_X:Float = 100;
@@ -144,6 +152,10 @@ class PlayState extends MusicBeatState
 	public static var sicks:Int = 0;
 	
 	public static var somethinspecial:Bool = false;
+
+	// - flying shit
+	var flyTarg:Character;
+	var flyState:String = '';
 	
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
@@ -185,6 +197,7 @@ class PlayState extends MusicBeatState
 	var dodging:Bool = false;
 
 	var tailscircle:String = '';
+	var floaty2:Float = 0;
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
@@ -220,6 +233,18 @@ class PlayState extends MusicBeatState
 	var botplaySine:Float = 0;
 	var botplayTxt:FlxText;
 	var comecarmovimento:Bool = false;
+
+	// - dad 2 things (namely needlemouse)
+	public var dad2:Character;
+	public var dad2Group:FlxSpriteGroup; // going to use this for needle/sarah (avery)
+
+	// needlemouse shit
+	var conkCreet:BGSprite;
+	var needleBuildings:BGSprite;
+	var needleMoutains:BGSprite;
+	var needleSky:BGSprite;
+	var needleRuins:BGSprite;
+	var needleFg:FlxSprite;
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
@@ -266,6 +291,8 @@ class PlayState extends MusicBeatState
 	var bgGhouls:BGSprite;
 
 	var textoajustefino:String = '';
+
+	var meses:Array<String> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -343,6 +370,7 @@ class PlayState extends MusicBeatState
 
 	public var sonicHUDSongs:Array<String> = [
 		"prey",
+		'round-a-bout',
 	];
 
 	public var ringsNumbers:Array<SonicNumber>=[];
@@ -350,6 +378,7 @@ class PlayState extends MusicBeatState
 	public var sonicHUD:FlxSpriteGroup;
 	public var scoreNumbers:Array<SonicNumber>=[];
 	public var missNumbers:Array<SonicNumber>=[];
+	public var vidaNumbers:Array<SonicNumber>=[];
 	public var secondNumberA:SonicNumber;
 	public var secondNumberB:SonicNumber;
 	public var millisecondNumberA:SonicNumber;
@@ -357,7 +386,7 @@ class PlayState extends MusicBeatState
 
 	var hudStyle:String = 'sonic2';
 	public var sonicHUDStyles:Map<String, String> = [
-
+		"round-a-bout" => 'sonic3',
 		"prey" => "sonic2",
 		"you-cant-run" => "sonic2", // because its green hill zone so it should be sonic1
 		// "songName" => "styleName",
@@ -494,6 +523,7 @@ class PlayState extends MusicBeatState
 
 		boyfriendGroup = new FlxSpriteGroup(BF_X, BF_Y);
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
+		dad2Group = new FlxSpriteGroup(DAD_X, DAD_Y); // should load right on top of dad? hopefully lmao (avery)
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
 
 		switch (curStage)
@@ -583,11 +613,58 @@ class PlayState extends MusicBeatState
 			//	unfinished, ill do later
 			//	fuck you fleetway your code is gibberish
 
+			case 'needle':
+
+				defaultCamZoom = 0.6;
+
+				needleSky = new BGSprite('Cenarios/needlemouse/sky', -725, -200, 0.7, 0.9);
+				// needleSky.setGraphicSize(Std.int(needleSky.width * 0.9));
+				add(needleSky);
+
+				needleMoutains = new BGSprite('Cenarios/needlemouse/mountains', -700, -175, 0.8, 0.9);
+				needleMoutains.setGraphicSize(Std.int(needleMoutains.width * 1.1));
+				add(needleMoutains);
+
+				needleRuins = new BGSprite('Cenarios/needlemouse/ruins', -775, -310, 1, 0.9);
+				needleRuins.setGraphicSize(Std.int(needleRuins.width * 1.4));
+				add(needleRuins);
+
+				needleBuildings = new BGSprite('Cenarios/needlemouse/buildings', -1000, -100, 1, 0.9);
+				// needleBuildings.setGraphicSize(Std.int(needleBuildings.width * 0.85));
+				add(needleBuildings);
+
+				conkCreet = new BGSprite('Cenarios/needlemouse/CONK_CREET', -775, -310, 1, 0.9);
+				conkCreet.setGraphicSize(Std.int(conkCreet.width * 1.4));
+				add(conkCreet);
+
+				
+
+				needleFg = new FlxSprite(-690, -80).loadGraphic(Paths.image("Cenarios/needlemouse/fg"));
+				needleFg.setGraphicSize(Std.int(needleFg.width * 1.1));
+				needleFg.scrollFactor.set(1, 0.9);
+				addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
+				addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
+
+				telapreta = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+				telapreta.cameras = [camHUD];
+				telapreta.alpha = 0;
+				add(telapreta);
+
+				tempogravador = new FlxText(50, 0, 0, "", 48);
+				tempogravador.text = '';
+				tempogravador.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				tempogravador.updateHitbox();
+				tempogravador.cameras = [camHUD];
+				tempogravador.screenCenter(XY);
+				tempogravador.x += 125;
+				tempogravador.y += 175;
+				tempogravador.antialiasing = false;
+				add(tempogravador);
+
 			case 'chasing':
 
 			var contadordevida:FlxSprite;
 			var greenhill:FlxSprite;
-			var monitor:FlxSprite;
 
 			monitor = new FlxSprite(-108, -100, Paths.image('Cenarios/chasing/monitor'));
 			monitor.antialiasing = ClientPrefs.globalAntialiasing;
@@ -954,6 +1031,10 @@ class PlayState extends MusicBeatState
 		if (curStage == 'limo')
 			add(limo);
 
+		
+		if (curStage == 'needle'){
+			add(dad2Group);
+		}
 		add(dadGroup);
 		add(boyfriendGroup);
 		
@@ -1028,9 +1109,18 @@ class PlayState extends MusicBeatState
 		gf.scrollFactor.set(0.95, 0.95);
 		gfGroup.add(gf);
 
+		if (curStage == 'needle')
+			{
+				dad2 = new Character(0, 0, 'sarah');
+				startCharacterPos(dad2, true);
+				dad2Group.add(dad2);
+			}
+
 		dad = new Character(0, 0, SONG.player2);
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
+
+		flyTarg = dad;
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
@@ -1073,6 +1163,23 @@ class PlayState extends MusicBeatState
 				boyfriend.scrollFactor.set(1.1, 1);
 				add(thechamber);
 				add(porker);
+			case 'needle':
+				add(needleFg);
+				dad2.alpha = 0;
+
+				dad.x -= 120;
+				dad.y += 265;
+				boyfriend.x += 275;
+				boyfriend.y += 280;
+				gf.x += 1000;
+				gf.y += 350;
+				dad2.x -= 150;
+				dad2.y += 25;
+
+				flyTarg = dad2; // fucking smart genious and intellegent
+				flyState = 'sHover';
+
+				boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.9));
 			case 'limo':
 				resetFastCar();
 				insert(members.indexOf(gfGroup) - 1, fastCar);
@@ -1307,11 +1414,16 @@ class PlayState extends MusicBeatState
 	
 					add(dodgething);
 				}
-		if (isPixelStage){
+		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
 
 		if(sonicHUDStyles.exists(SONG.song.toLowerCase()))hudStyle = sonicHUDStyles.get(SONG.song.toLowerCase());
 		var hudFolder = hudStyle;
-		if(hudStyle == 'soniccd')hudFolder = 'sonic1';
+		if(curSong == 'round-a-bout')
+			{
+			hudStyle = 'sonic3';
+			hudFolder = 'sonic3';
+			}
+
 		var scoreLabel:FlxSprite = new FlxSprite(15, 25).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/score"));
 		scoreLabel.setGraphicSize(Std.int(scoreLabel.width * 3));
 		scoreLabel.updateHitbox();
@@ -1326,6 +1438,7 @@ class PlayState extends MusicBeatState
 		timeLabel.x = 15;
 		timeLabel.antialiasing = false;
 		timeLabel.scrollFactor.set();
+
 		sonicHUD.add(timeLabel);
 
 		var ringsLabel:FlxSprite = new FlxSprite(15, 115).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/rings"));
@@ -1402,7 +1515,35 @@ class PlayState extends MusicBeatState
 		minNumber.updateHitbox();
 		minNumber.x = timeLabel.x + timeLabel.width;
 		minNumber.y = timeLabel.y;
+		if(curSong != 'round-a-bout'){
 		sonicHUD.add(minNumber);
+		}
+
+		// vida numbers
+		for(i in 0...3){
+			var number = new SonicNumber(0, 0, 0);
+			number.folder = hudFolder;
+			number.setGraphicSize(Std.int(number.width*3));
+			number.updateHitbox();
+			number.x = timeLabel.x + timeLabel.width + (6*3) + ((9 * i) * 3);
+			number.y = timeLabel.y;
+			vidaNumbers.push(number);
+			if (curSong == 'round-a-bout'){sonicHUD.add(number);}
+		}
+
+		var percentagesimbol:FlxText;
+		percentagesimbol = new FlxText(minNumber.width, 0, 0, "", 44);
+		percentagesimbol.text = '%';
+		percentagesimbol.setFormat(Paths.font("vcr.ttf"), 44, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		percentagesimbol.updateHitbox();
+		percentagesimbol.x = minNumber.x + minNumber.width * 3;
+		percentagesimbol.y = minNumber.y - 5;
+		percentagesimbol.antialiasing = false;
+		percentagesimbol.scrollFactor.set();
+		if (curSong == 'round-a-bout'){
+			sonicHUD.add(percentagesimbol);
+		}
+
 
 		var timeColon:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/colon"));
 		timeColon.setGraphicSize(Std.int(timeColon.width * 3));
@@ -1411,7 +1552,10 @@ class PlayState extends MusicBeatState
 		timeColon.y = timeLabel.y;
 		timeColon.antialiasing = false;
 		timeColon.scrollFactor.set();
-		sonicHUD.add(timeColon);
+		if (curSong == 'prey'){
+			sonicHUD.add(timeColon);
+		}
+
 
 		secondNumberA = new SonicNumber(0, 0, 0);
 		secondNumberA.folder = hudFolder;
@@ -1419,7 +1563,10 @@ class PlayState extends MusicBeatState
 		secondNumberA.updateHitbox();
 		secondNumberA.x = 186;
 		secondNumberA.y = timeLabel.y;
-		sonicHUD.add(secondNumberA);
+		if (curSong == 'prey'){
+			sonicHUD.add(secondNumberA);
+		}
+
 
 		secondNumberB = new SonicNumber(0, 0, 0);
 		secondNumberB.folder = hudFolder;
@@ -1427,36 +1574,12 @@ class PlayState extends MusicBeatState
 		secondNumberB.updateHitbox();
 		secondNumberB.x = 213;
 		secondNumberB.y = timeLabel.y;
-		sonicHUD.add(secondNumberB);
+		if (curSong == 'prey'){
+			sonicHUD.add(secondNumberB);
+		}
+
 
 		var timeQuote:FlxSprite = new FlxSprite(0, 0);
-
-		if(hudFolder=='sonic2'){
-		/*	timeQuote.loadGraphic(Paths.image("sonicUI/" + hudFolder + "/quote"));
-			timeQuote.setGraphicSize(Std.int(timeQuote.width * 3));
-			timeQuote.updateHitbox();
-			timeQuote.x = secondNumberB.x + secondNumberB.width;
-			timeQuote.y = timeLabel.y;
-			timeQuote.antialiasing = false;
-			timeQuote.scrollFactor.set();
-			sonicHUD.add(timeQuote);
-
-			millisecondNumberA = new SonicNumber(0, 0, 0);
-			millisecondNumberA.folder = hudFolder;
-			millisecondNumberA.setGraphicSize(Std.int(millisecondNumberA.width*3));
-			millisecondNumberA.updateHitbox();
-			millisecondNumberA.x = timeQuote.x + timeQuote.width + (2*3);
-			millisecondNumberA.y = timeLabel.y;
-			sonicHUD.add(millisecondNumberA);
-
-			millisecondNumberB = new SonicNumber(0, 0, 0);
-			millisecondNumberB.folder = hudFolder;
-			millisecondNumberB.setGraphicSize(Std.int(millisecondNumberB.width*3));
-			millisecondNumberB.updateHitbox();
-			millisecondNumberB.x = millisecondNumberA.x + millisecondNumberA.width + 3;
-			millisecondNumberB.y = timeLabel.y;
-			sonicHUD.add(millisecondNumberB); */
-		}
 
 		switch(hudFolder){
 			case 'sonic2':
@@ -1464,27 +1587,36 @@ class PlayState extends MusicBeatState
 				timeColon.x = minNumber.x + minNumber.width + (2*3);
 				secondNumberA.x = timeColon.x + timeColon.width + (4*3);
 				secondNumberB.x = secondNumberA.x + secondNumberA.width + 3;
-				//timeQuote.x = secondNumberB.x + secondNumberB.width;
-			//millisecondNumberA.x = timeQuote.x + timeQuote.width + (2*3);
-				//millisecondNumberB.x = millisecondNumberA.x + millisecondNumberA.width + 3;
+			case 'sonic3':
+				minNumber.x =  timeLabel.x + timeLabel.width + (4*3);
 			default:
 
 		}
 
-		if(!ClientPrefs.downScroll && isPixelStage){
+		if(ClientPrefs.downScroll){
 			for(member in sonicHUD.members){
 				member.y = FlxG.height-member.height-member.y;
 			}
 		}
 
-		if(curSong == 'prey'){
+		if(curSong == 'prey' || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
 			scoreTxt.visible=false;
 			timeBar.visible=false;
+			timeTxt.x = FlxG.width - timeTxt.width + 75;
+			if (hudFolder != 'sonic3'){
 			timeTxt.visible=false;
+			} else {
+				healthBar.visible=false;
+				healthBarBG.visible=false;
+				iconP1.visible=false;
+				iconP2.visible=false;
+			}
 			timeBarBG.visible=false;
 			judgementCounter.visible = false;
 			add(sonicHUD);
 		}
+
+
 	}
 
 		strumLineNotes.cameras = [camHUD];
@@ -2847,6 +2979,18 @@ class PlayState extends MusicBeatState
 				}
 			}
 
+		switch (flyState)
+		{
+			case 'hover' | 'hovering':
+				flyTarg.y += Math.sin(floaty) * 1.5;
+			// moveCameraSection(Std.int(curStep / 16));
+			case 'fly' | 'flying':
+				flyTarg.y += Math.sin(floaty) * 1.5;
+				flyTarg.x += Math.cos(floaty) * 1.5;
+				// moveCameraSection(Std.int(curStep / 16));
+			case 'sHover' | 'sHovering':
+				flyTarg.y += Math.sin(floaty2) * 0.5;
+		}
 		callOnLuas('onUpdate', [elapsed]);
 
 		var targetHP:Float = health;
@@ -2859,6 +3003,7 @@ class PlayState extends MusicBeatState
 		if (SONG.isRing){
 			counterNum.text = Std.string(cNum);
 		}
+		floaty2 += 0.01;
 		var targetSpeed:Float = 15;
 		switch (hungryManJackTime)
 		{
@@ -3007,6 +3152,15 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
+		if (nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
+			
+			var leDate = Date.now();
+
+			tempogravador.text = (leDate.getHours() <= 12 ? leDate.getHours() : leDate.getHours() - 12) + ":" + (leDate.getMinutes() < 10 ? "0" + Std.string(leDate.getMinutes()) : Std.string(leDate.getMinutes())) + ':' +
+			(leDate.getSeconds() < 10 ? "0" + Std.string(leDate.getSeconds()) : Std.string(leDate.getSeconds())) + '\n' + (leDate.getHours() <= 12 ? "AM" : "PM") + "\n"
+			+ Std.string(leDate.getDate()) + " " + meses[leDate.getMonth()];
+		}
+
 		if(ratingString == '?') {
 			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0';
@@ -3057,6 +3211,7 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
 		{
 			majinstrums = false;
+			donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 			persistentUpdate = false;
 			paused = true;
 			cancelFadeTween();
@@ -3178,7 +3333,7 @@ class PlayState extends MusicBeatState
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 					}
 					
-					if (isPixelStage){
+					if (isPixelStage || curSong == 'round-a-bout'){
 					var minutesRemaining:Int = Math.floor(secondsTotal / 60);
 					var secondsRemaining:String = '' + secondsTotal % 60;
 
@@ -3196,9 +3351,10 @@ class PlayState extends MusicBeatState
 					curMS%=1000;
 		    	curSex%=60;
 
+				if (curSong == 'prey'){
 					minNumber.number = curMins;
-
-					var sepSex = Std.string(curSex).split("");
+				}
+				var sepSex = Std.string(curSex).split("");
 					if(curSex<10){
 						secondNumberA.number = 0;
 						secondNumberB.number = curSex;
@@ -3233,9 +3389,10 @@ class PlayState extends MusicBeatState
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 
-		if (isPixelStage){
+		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
 			updateSonicScore();
 			updateSonicMisses();
+			updateSonicVida();
 			}
 		if(SONG.isRing){updateSonicRings();}
 
@@ -3415,6 +3572,13 @@ class PlayState extends MusicBeatState
 						if(daNote.noteType == 'GF Sing') {
 							gf.playAnim(animToPlay + altAnim, true);
 							gf.holdTimer = 0;
+						} else if (curStage == 'needle')
+						{
+							dad.playAnim(animToPlay + altAnim, true);
+							dad2.playAnim(animToPlay + altAnim, true);
+
+							dad.holdTimer = 0;
+							dad2.holdTimer = 0;
 						} else {
 							dad.playAnim(animToPlay + altAnim, true);
 							dad.holdTimer = 0;
@@ -3609,6 +3773,15 @@ class PlayState extends MusicBeatState
 			case 'Toggle Ghost Trail':
 				var evilTrail = new FlxTrail(dad, null, 4, 24, 0.5, 0.5); //nice
 				insert(members.indexOf(dadGroup) - 1, evilTrail);
+			case 'Character Fly':
+				flyState = '';
+				FlxTween.tween(dad, {x: DAD_X, y: DAD_Y}, 0.2, {
+					onComplete: function(lol:FlxTween)
+					{
+						dad.setPosition(DAD_X, DAD_Y);
+						flyState = value1;
+					}
+				});
 			case 'strum swap1':
 				if (!ClientPrefs.middleScroll){
 				playerStrums.forEach(function(spr:FlxSprite)
@@ -3924,6 +4097,32 @@ class PlayState extends MusicBeatState
 								}
 						}
 
+			case 'eventos-needle':
+				var tempo:Float = Std.parseFloat(value1);
+						switch (tempo)
+						{
+
+							case 760: //ok
+
+								FlxTween.num(defaultCamZoom, 0.8, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
+									defaultCamZoom = v;
+								});
+								FlxTween.tween(telapreta, {alpha: 0.5}, 1, {ease: FlxEase.quadInOut});
+
+							case 765: //ok
+								donthugmeiamscaredpqpaaaaaaaaaaaaa = true;
+								FlxTween.tween(dad2, {alpha: 0.7}, 0.5, {ease: FlxEase.quadInOut});
+							// funnyLargeTween();
+
+							case 775: //ok
+								FlxTween.num(defaultCamZoom, 0.6, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
+									defaultCamZoom = v;
+								});
+								FlxTween.tween(telapreta, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut});		
+							case 780:
+								donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
+								FlxTween.tween(dad2, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut});							
+						}
 			case 'eventos-prey':
 				var supertimer:Float = Std.parseFloat(value1);
 						switch (supertimer)
@@ -4393,6 +4592,7 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		updateTime = false;
 		somethinspecial = false;
+		donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 
 		if (useVideo)
 			{
@@ -4563,7 +4763,7 @@ class PlayState extends MusicBeatState
 		var seperatedScore:Array<String> = Std.string(songScore).split("");
 		if(seperatedScore.length<scoreNumbers.length){
 			for(idx in seperatedScore.length...scoreNumbers.length){
-				if(hudStyle == 'chaotix' || hudStyle == 'sonic2' || hudStyle == 'soniccd'){
+				if(hudStyle == 'chaotix' || hudStyle == 'sonic2' || hudStyle == 'soniccd' || hudStyle == 'sonic3'){
 					seperatedScore.unshift('');
 				}else{
 					seperatedScore.unshift('0');
@@ -4589,7 +4789,7 @@ class PlayState extends MusicBeatState
 		var seperatedScore:Array<String> = Std.string(songMisses).split("");
 		if(seperatedScore.length<missNumbers.length){
 			for(idx in seperatedScore.length...missNumbers.length){
-				if(hudStyle == 'chaotix' || hudStyle == 'sonic2' || hudStyle == 'soniccd'){
+				if(hudStyle == 'chaotix' || hudStyle == 'sonic2' || hudStyle == 'soniccd' || hudStyle == 'sonic3'){
 					seperatedScore.unshift('');
 				}else{
 					seperatedScore.unshift('0');
@@ -4607,6 +4807,30 @@ class PlayState extends MusicBeatState
 				missNumbers[idx].visible=true;
 			}else
 				missNumbers[idx].visible=false;
+
+		}
+	}
+
+	function updateSonicVida(){
+		var seperatedScore:Array<String> = Std.string(Std.int(health * 50)).split(""); //Quando você entender o motivo de ser 50 e não 100... Meu amigo... tu vai curtir muito.
+		if(seperatedScore.length<vidaNumbers.length){
+			if(hudStyle == 'chaotix' || hudStyle == 'sonic2' || hudStyle == 'soniccd' || hudStyle == 'sonic3'){
+				seperatedScore.unshift('');
+			}else{
+				seperatedScore.unshift('0');
+			}
+		}
+		if(seperatedScore.length>vidaNumbers.length)
+			seperatedScore.resize(vidaNumbers.length);
+
+		for(idx in 0...seperatedScore.length){
+			if(seperatedScore[idx]!='' || idx==vidaNumbers.length-1){
+				var val = Std.parseInt(seperatedScore[idx]);
+				if(Math.isNaN(val))val=0;
+				vidaNumbers[idx].number = val;
+				vidaNumbers[idx].visible=true;
+			}else
+				vidaNumbers[idx].visible=false;
 
 		}
 	}

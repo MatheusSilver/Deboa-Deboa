@@ -1,78 +1,78 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				140,
-				-30
+				-190,
+				-289
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "NEEDLEMOUSEIDLE",
-			"indices": []
+			"indices": [],
+			"name": "Needlemouse_IDLE"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				254,
-				-34
+				40,
+				-268
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "NEEDLEMOUSELEFT",
-			"indices": []
+			"indices": [],
+			"name": "Needlemouse_LEFT"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				77,
-				30
+				-187,
+				-258
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "NEEDLEMOUSERIGHT",
-			"indices": []
+			"indices": [],
+			"name": "Needlemouse_RIGHT"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				175,
-				-97
+				-178,
+				-69
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "NEEDLEMOUSEDOWN",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				126,
-				-50
-			],
 			"anim": "singUP",
+			"indices": [],
+			"name": "Needlemouse_UP"
+		},
+		{
+			"offsets": [
+				-70,
+				-268
+			],
+			"loop": false,
 			"fps": 24,
-			"name": "NEEDLEMOUSEUP",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Needlemouse_DOWN"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/NEEDLEMOUSE",
+	"image": "characters/needlemouse",
 	"position": [
-		0,
-		190
+		-150,
+		-60
 	],
-	"healthicon": "NEEDLEMOUSEICO",
+	"healthicon": "needlemouse",
 	"flip_x": false,
 	"healthbar_colors": [
-		101,
-		101,
-		255
+		76,
+		5,
+		202
 	],
 	"camera_position": [
-		-60,
-		170
+		50,
+		120
 	],
-	"sing_duration": 6.1,
-	"scale": 0.8
+	"sing_duration": 4,
+	"scale": 1.2
 }

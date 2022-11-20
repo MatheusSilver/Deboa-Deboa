@@ -7,7 +7,7 @@ class SonicNumber extends FlxSprite {
 
   public function new(x:Float=0,y:Float=0,initialValue:Int=0){
     super(x,y);
-    loadGraphic(Paths.image('sonicUI/sonic2/numbers'), true, 10, 11);
+    loadGraphic(Paths.image('sonicUI/${folder}/numbers'), true, 10, 11);
     var numbers = ["0","1","2","3","4","5","6","7","8","9"];
 
     for(idx in 0...numbers.length){
@@ -22,9 +22,9 @@ class SonicNumber extends FlxSprite {
   function set_folder(realVal:String){
     switch(realVal){
       case 'chaotix':
-        loadGraphic(Paths.image('sonicUI/sonic2/numbers'), true, 7, 13);
+        loadGraphic(Paths.image('sonicUI/${realVal}/numbers'), true, 7, 13);
       default:
-        loadGraphic(Paths.image('sonicUI/sonic2/numbers'), true, 10, 11);
+        loadGraphic(Paths.image('sonicUI/${realVal}/numbers'), true, 10, 11);
 
     }
     var numbers = ["0","1","2","3","4","5","6","7","8","9"];

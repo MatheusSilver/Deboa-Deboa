@@ -70,6 +70,7 @@ class ChartingState extends MusicBeatState
 		['Spin', 'Bom... Spiiiiiiiiiiiiiiiiiiiiiin das setas'],
 		['comecarvideo', 'Value1 = nome do video \n value2 = "xPos", "yPos", "tamanho do video", "usa chroma key?"\n se chroma key = 1, então o chroma key será aplicado, se = qualquer outro numero, ele não será usado\n use apenas números no value2.'],
 		['estatica brow', 'faz estaticazinha ahahahha'],
+		['eventos-needle', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
 		['hudfade', 'value1 = opacidade \n value 2 = tempo de transição.'],
 		['strum swap1', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
 		['eventos-prey', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],

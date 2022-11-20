@@ -73,7 +73,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelDifficulty);
 
 		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
-		blueballedTxt.text = "Blueballed: " + PlayState.deathCounter;
+		blueballedTxt.text = "Mortes: " + PlayState.deathCounter;
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
 		blueballedTxt.updateHitbox();
@@ -197,6 +197,7 @@ class PauseSubState extends MusicBeatSubstate
 				case "Reiniciar musica":
 					PlayState.majinstrums = false;
 					CustomFadeTransition.nextCamera = transCamera;
+					PlayState.donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 					MusicBeatState.resetState();
 					if (PlayState.useVideo)
 					{
@@ -219,6 +220,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.majinstrums = false;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
+					PlayState.donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					if(PlayState.isStoryMode || StoryMenuState.voltarparahistoria) {
 						MusicBeatState.switchState(new StoryMenuState());

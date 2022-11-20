@@ -1,68 +1,68 @@
 {
 	"animations": [
 		{
-			"loop": true,
 			"offsets": [
-				-380,
-				-70
+				-190,
+				-100
 			],
-			"anim": "idle",
+			"loop": true,
 			"fps": 24,
-			"name": "Sarah_IDLE",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Sarah_IDLE"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-60,
 				-195
 			],
-			"anim": "singLEFT",
+			"loop": false,
 			"fps": 24,
-			"name": "Sarah_LEFT",
-			"indices": []
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Sarah_LEFT"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-40,
 				-214
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Sarah_RIGHT",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Sarah_RIGHT"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-40,
 				-118
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Sarah_DOWN",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Sarah_DOWN"
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-208,
 				-70
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "Sarah_UP"
+			"fps": 24,
+			"name": "Sarah_UP",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/Sarah",
+	"image": "characters/sarah",
 	"position": [
 		-150,
-		220
+		-60
 	],
-	"healthicon": "needlemouse",
+	"healthicon": "gf",
 	"flip_x": false,
 	"healthbar_colors": [
 		76,
@@ -70,9 +70,9 @@
 		202
 	],
 	"camera_position": [
-		190,
-		150
+		70,
+		200
 	],
 	"sing_duration": 4,
-	"scale": 1
+	"scale": 1.2
 }

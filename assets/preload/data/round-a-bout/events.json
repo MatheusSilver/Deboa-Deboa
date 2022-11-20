@@ -1,0 +1,89 @@
+{
+	"song": {
+		"speed": 2.9,
+		"stage": "needle",
+		"player1": "bf-needle",
+		"player2": "needlemouse",
+		"player3": "gf-needlemouse",
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						104158.878504673,
+						-1,
+						"eventos-needle",
+						"760",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						107242.990654206,
+						-1,
+						"eventos-needle",
+						"765",
+						""
+					],
+					[
+						106962.61682243,
+						-1,
+						"eventos-needle",
+						"775",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						135700.934579439,
+						-1,
+						"eventos-needle",
+						"780",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			}
+		],
+		"splashSkin": null,
+		"validScore": false,
+		"bpm": 107,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "round-a-bout",
+		"isRing": null
+	}
+}
