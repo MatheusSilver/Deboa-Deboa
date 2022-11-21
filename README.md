@@ -1,4 +1,4 @@
-#<img src="art/icon64.png" align="center"> Friday Night Funkin' - BS Engine Mobile - Projeto ModBoa</img>
+# <img src="art/icon64.png" align="center"> Friday Night Funkin' - BS Engine Mobile - Projeto ModBoa</img>
 Essa engine foi originalmente baseada na [Psych Engine](https://github.com/ShadowMario/FNF-PsychEngine) com alguns elementos característicos de outras engines como a [Mic'd Up](https://github.com/Verwex/Funkin-Mic-d-Up-SC) e a [Kade Engine](https://github.com/KadeDev/Kade-Engine), e almeja ser uma alternativa para os desenvolvedores que queiram criar mods ou porta-los para APK facilmente.
 
 ## Tutorial de Build simplificado:
