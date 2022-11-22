@@ -70,8 +70,8 @@
 	"no_antialiasing": false,
 	"image": "characters/sonicsexo",
 	"position": [
-		0,
-		0
+		50,
+		50
 	],
 	"healthicon": "sonicexe",
 	"flip_x": false,
@@ -81,8 +81,8 @@
 		142
 	],
 	"camera_position": [
-		-350,
-		280
+		200,
+		230
 	],
 	"sing_duration": 4,
 	"scale": 0.7

@@ -659,6 +659,12 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
+				
+			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
+			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
+			addShaderToCamera('hud', new ScanlineEffect(true));
+			addShaderToCamera('game', new ScanlineEffect(true));
+
 			case 'chasing':
 
 			var contadordevida:FlxSprite;
@@ -670,10 +676,10 @@ class PlayState extends MusicBeatState
 			monitor.scrollFactor.set(1, 1);
 			monitor.updateHitbox();
 
-			contadordevida = new FlxSprite(116, 944, Paths.image('Cenarios/chasing/HedgehogLives'));
+			contadordevida = new FlxSprite(96, 824, Paths.image('Cenarios/chasing/HedgehogLives'));
 			contadordevida.antialiasing = ClientPrefs.globalAntialiasing;
-			contadordevida.scale.y = 1.2;
-			contadordevida.scale.x = 1.2;
+			contadordevida.scale.y = 0.9;
+			contadordevida.scale.x = 0.9;
 			contadordevida.scrollFactor.set(1, 1);
 			contadordevida.updateHitbox();
 
@@ -688,7 +694,7 @@ class PlayState extends MusicBeatState
 			add(contadordevida);
 			add(monitor);
 
-			bgSkychasing = new FlxSprite(0, 0, Paths.image('Cenarios/chasing/BGSky'));
+			bgSkychasing = new FlxSprite(-50, -75, Paths.image('Cenarios/chasing/BGSky'));
 			bgSkychasing.antialiasing = ClientPrefs.globalAntialiasing;
 			bgSkychasing.scale.x = 1;
 			bgSkychasing.scale.y = 1;
@@ -696,11 +702,6 @@ class PlayState extends MusicBeatState
 			bgSkychasing.updateHitbox();
 			bgSkychasing.visible = false;
 			add(bgSkychasing);
-
-			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
-			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
-			addShaderToCamera('hud', new ScanlineEffect(true));
-			addShaderToCamera('game', new ScanlineEffect(true));
 
 			
 
@@ -2156,6 +2157,7 @@ class PlayState extends MusicBeatState
 				FlxG.stage.window.onFocusOut.remove(focusOut);
 				FlxG.stage.window.onFocusIn.remove(focusIn);
 				remove(videoSprite);
+				videoSprite.visible = false;
 				useVideo = false;
 				}else{
 					FlxG.log.add('O nome do vídeo está errado!!!');
@@ -2196,17 +2198,17 @@ class PlayState extends MusicBeatState
 		
 				videoSprite = new FlxSprite(0, 0).loadGraphic(data);
 		
-				if (tamanho != "cheio"){
-				videoSprite.scale.x = Std.int(Std.parseFloat(tamanho));
-				videoSprite.scale.y = Std.int(Std.parseFloat(tamanho));
-				} else {
-					videoSprite.scale.x = FlxG.width;
-					videoSprite.scale.y = FlxG.height;
-				}
 				videoSprite.scrollFactor.set();
-				videoSprite.cameras = [camHUD];
+				videoSprite.cameras = [camOther];
 				videoSprite.x = xPos;
 				videoSprite.y = yPos;
+				videoSprite.visible = true;
+				if (tamanho != "cheio"){
+					videoSprite.scale.x = Std.parseFloat(tamanho);
+					videoSprite.scale.y = Std.parseFloat(tamanho);
+					} else {
+						videoSprite.setGraphicSize(FlxG.width, FlxG.height);
+					}
 				if (chromakey == 1){
 					videoSprite.shader = new GreenScreenShader();
 				}
@@ -2718,10 +2720,6 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
-		case 'comecarvideo':
-			backgroundVideo('assets/videos/' + event[3] + '.webm', 10000, 0.0, "0.01", 0.01); 
-			backgroundVideo('assets/videos/' + "preloadingstuff" + '.webm', 10000, 0.0, "0.01", 0.0);
-		//basicamente isso faz com que o video tome preload antes, mas ele se torna apenas um pixel morto fora da tela.
 		}
 
 		if(!eventPushedMap.exists(event[2])) {

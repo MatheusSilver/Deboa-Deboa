@@ -79,6 +79,8 @@ class Main extends Sprite
 			Paths.localTrackedAssets = [];
 			Paths.currentTrackedAssets = [];
 			Assets.cache.clear("songs");
+			Assets.cache.clear("shared");
+			Assets.cache.clear("preload");
 			// */
 		}
 
