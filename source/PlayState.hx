@@ -642,8 +642,6 @@ class PlayState extends MusicBeatState
 				needleFg = new FlxSprite(-690, -80).loadGraphic(Paths.image("Cenarios/needlemouse/fg"));
 				needleFg.setGraphicSize(Std.int(needleFg.width * 1.1));
 				needleFg.scrollFactor.set(1, 0.9);
-				addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
-				addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
 
 				telapreta = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 				telapreta.cameras = [camHUD];
@@ -698,6 +696,11 @@ class PlayState extends MusicBeatState
 			bgSkychasing.updateHitbox();
 			bgSkychasing.visible = false;
 			add(bgSkychasing);
+
+			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
+			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
+			addShaderToCamera('hud', new ScanlineEffect(true));
+			addShaderToCamera('game', new ScanlineEffect(true));
 
 			
 
@@ -1861,7 +1864,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 		
 		
@@ -2139,7 +2142,7 @@ class PlayState extends MusicBeatState
 		// nada 
 	}
 
-	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:Float, chromakey:Float)
+	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:String, chromakey:Float)
 		{
 
 			if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){
@@ -2193,7 +2196,13 @@ class PlayState extends MusicBeatState
 		
 				videoSprite = new FlxSprite(0, 0).loadGraphic(data);
 		
-				videoSprite.setGraphicSize(Std.int(videoSprite.width * tamanho));
+				if (tamanho != "cheio"){
+				videoSprite.scale.x = Std.int(Std.parseFloat(tamanho));
+				videoSprite.scale.y = Std.int(Std.parseFloat(tamanho));
+				} else {
+					videoSprite.scale.x = FlxG.width;
+					videoSprite.scale.y = FlxG.height;
+				}
 				videoSprite.scrollFactor.set();
 				videoSprite.cameras = [camHUD];
 				videoSprite.x = xPos;
@@ -2201,10 +2210,10 @@ class PlayState extends MusicBeatState
 				if (chromakey == 1){
 					videoSprite.shader = new GreenScreenShader();
 				}
+				add(videoSprite);
 				remove(gf);
 				remove(boyfriend);
 				remove(dad);
-				add(videoSprite);
 				add(gf);
 				add(boyfriend);
 				add(dad);
@@ -2373,11 +2382,13 @@ class PlayState extends MusicBeatState
 				{
 					dad.dance();
 				}
+				if (nomehistorico.toLowerCase() == 'campos verdes'){
+					textoajustefino = 'glitch';
+					}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-				introAssets.set('default', ['ready', 'set', 'go']);
+				introAssets.set('default', ['ready' + textoajustefino, 'set'  + textoajustefino, 'go'  + textoajustefino, 'gochasing']);
 				introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
-
 				var introAlts:Array<String> = introAssets.get('default');
 				var antialias:Bool = ClientPrefs.globalAntialiasing;
 				if(isPixelStage) {
@@ -2400,10 +2411,7 @@ class PlayState extends MusicBeatState
 					case 0:
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 1:
-						if (nomehistorico.toLowerCase() == 'campos verdes'){
-							textoajustefino = 'glitch';
-							}
-						var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[0] + textoajustefino));
+						var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
 						ready.scrollFactor.set();
 						ready.updateHitbox();
 
@@ -2425,7 +2433,7 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 2:
-						var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[1] + textoajustefino));
+						var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 						set.scrollFactor.set();
 
 						if (PlayState.isPixelStage)
@@ -2448,9 +2456,9 @@ class PlayState extends MusicBeatState
 					case 3:
 						var go:FlxSprite; //bruh + meme = breme
 						if(nomehistorico.toLowerCase() == 'rastro'){
-							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]) + "chasing");	
+							go = new FlxSprite().loadGraphic(Paths.image(introAlts[3]));	
 						} else {
-							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2] + textoajustefino));
+							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 						}
 						go.scrollFactor.set();
 
@@ -2537,7 +2545,7 @@ class PlayState extends MusicBeatState
 		
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2711,8 +2719,8 @@ class PlayState extends MusicBeatState
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
 		case 'comecarvideo':
-			backgroundVideo('assets/videos/' + event[3] + '.webm', 10000, 0.0, 0.01, 0.0); 
-			backgroundVideo('assets/videos/' + "preloadingstuff" + '.webm', 10000, 0.0, 0.01, 0.0);
+			backgroundVideo('assets/videos/' + event[3] + '.webm', 10000, 0.0, "0.01", 0.01); 
+			backgroundVideo('assets/videos/' + "preloadingstuff" + '.webm', 10000, 0.0, "0.01", 0.0);
 		//basicamente isso faz com que o video tome preload antes, mas ele se torna apenas um pixel morto fora da tela.
 		}
 
@@ -2869,11 +2877,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
 		}
@@ -2888,11 +2896,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 		}
 		#end
@@ -2905,7 +2913,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		}
 		#end
 
@@ -3202,7 +3210,7 @@ class PlayState extends MusicBeatState
 				}
 			
 				#if desktop
-				DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsPausedText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 			}
 		}
@@ -3722,7 +3730,7 @@ class PlayState extends MusicBeatState
 				
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, FreeplayState.infoextended + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence("Game Over - " + detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -4209,6 +4217,14 @@ class PlayState extends MusicBeatState
 									}});
 							}
 
+			/*case 'eventos-sunshine':
+				var sunshinetimer:Float = Std.parseFloat(value1);
+				var darknote:Bool = false;
+				if (darknote == true){}
+						switch (sunshinetimer)
+							{
+							}
+*/
 			case 'Entrada Pixel':
 				var indicador:Float = Std.parseFloat(value1);
 				if(indicador == 1){
@@ -4321,7 +4337,7 @@ class PlayState extends MusicBeatState
 
 			case 'comecarvideo': //TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0]), Std.parseFloat(posAvancado[1]), Std.parseFloat(posAvancado[2]), Std.parseFloat(posAvancado[3]));
+				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3]));
 
 
 			case 'Set Property':
@@ -4343,7 +4359,7 @@ class PlayState extends MusicBeatState
 					removeStatics();
 					generateStaticArrows(0);
 					generateStaticArrows(1);
-					FlxTween.num(timeBar.max, 90, 4.0, {ease: FlxEase.cubeOut}, function (v:Float) {
+					FlxTween.num(timeBar.max, 90, 3.0, {ease: FlxEase.cubeOut}, function (v:Float) {
 						remove(timeBar);
 						timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 						'songPercent', 0, v);
@@ -4353,10 +4369,10 @@ class PlayState extends MusicBeatState
 						timeBar.cameras = [camHUD];
 						add(timeBar);
 						});
-						FlxTween.num(secondsTotal, 6039, 4.0, {ease: FlxEase.linear}, function (v2:Float) {
+						FlxTween.num(secondsTotal, 6039, 3.0, {ease: FlxEase.linear}, function (v2:Float) {
 							timeTxt.text = FlxStringUtil.formatTime(v2, false);
 							});
-							new FlxTimer().start(4.03, function(tmr:FlxTimer) {
+							new FlxTimer().start(3.03, function(tmr:FlxTimer) {
 								timeTxt.visible = false;
 								songPercent = 0;
 								add(infinitesimbol);

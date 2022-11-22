@@ -7,7 +7,8 @@ local darknotevisibility = false;
 function onCreate()
     setProperty('gf.visible', false);
 
-    addCharacterToList('tailsdolldark', 'dad')
+    addCharacterToList('TailsDoll', 'dad')
+    addCharacterToList('SSBF', 'bf')
 
   --  usertimebar = getPropertyFromClass('ClientPrefs', 'timeBarType');
 
@@ -56,7 +57,8 @@ function onStepHit()
     if curStep == 588 then
         setPropertyFromClass('ClientPrefs', 'timeBarType', 'Song Name')
         
-        triggerEvent('Change Character', '1', 'tailsdolldark');
+        triggerEvent('Change Character', '1', 'TailsDoll');
+        triggerEvent('Change Character', '0', 'SSBF');
         setProperty('defaultCamZoom', 0.9);
         setProperty('stage.alpha', 0);
         setProperty('boyfriend.visible', false);
@@ -90,7 +92,8 @@ function onStepHit()
     if curStep == 860 then
           --  setPropertyFromClass('ClientPrefs', 'timeBarType', usertimebar)
 
-        triggerEvent('Change Character', '1', 'TailsDoll');
+        triggerEvent('Change Character', '1', 'tailsdoll-cartoon');
+        triggerEvent('Change Character', '0', 'bf');
         setProperty('defaultCamZoom', 0.86);
         setProperty('stage.alpha', 1);
         setProperty('boyfriend.visible', true);

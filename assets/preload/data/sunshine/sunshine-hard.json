@@ -1,7 +1,7 @@
 {
 	"song": {
-		"player1": "SSBF",
-		"player2": "TailsDoll",
+		"player1": "bf",
+		"player2": "tailsdoll-cartoon",
 		"notes": [
 			{
 				"endTime": 2285.71428571429,
@@ -29511,7 +29511,7 @@
 				"mustHitSection": true
 			}
 		],
-		"player3": null,
+		"player3": "invisibru",
 		"convertMineToNuke": false,
 		"mania": 0,
 		"isHey": false,
@@ -29522,7 +29522,7 @@
 		"validScore": true,
 		"speed": 2.8,
 		"isMoody": false,
-		"gfVersion": "gf",
+		"gfVersion": "invisibru",
 		"forceJudgements": false,
 		"events": [],
 		"eventObjects": [

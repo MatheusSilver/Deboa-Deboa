@@ -63,16 +63,16 @@
 		510
 	],
 	"healthicon": "tails",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		253,
 		144,
 		0
 	],
 	"camera_position": [
-		-250,
-		-370
+		-100,
+		-120
 	],
 	"sing_duration": 4,
-	"scale": 9.99999999999999
+	"scale": 6
 }

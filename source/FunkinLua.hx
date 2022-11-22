@@ -734,11 +734,6 @@ class FunkinLua {
 			lePlayState.modchartSprites.set(tag, leSprite);
 		});
 
-		Lua_helper.add_callback(lua,"comecar_video_de_fundo", function(videoName:String, xPos:Float, yPos:Float, tamanho:Float, chromakey:Float) {
-			trace('playing assets/videos/' + videoName + '.webm');
-			PlayState.instance.backgroundVideo("assets/videos/" + videoName + ".webm", xPos, yPos, tamanho, chromakey);
-		});
-
 		Lua_helper.add_callback(lua,"playVideo", function() {
 			if (!GlobalVideo.get().playing)
 				GlobalVideo.get().play();
