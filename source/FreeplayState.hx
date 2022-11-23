@@ -332,7 +332,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		else if (accepted)
+		else if (accepted && songs[curSelected].songName != 'cross-console-clash')
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
@@ -364,6 +364,9 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.volume = 0;
 					
 			destroyFreeplayVocals();
+		} else if (accepted && songs[curSelected].songName == 'cross-console-clash'){
+			openSubState(new ConsoleClashSubState(songs[curSelected].songName));
+			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 
 		super.update(elapsed);

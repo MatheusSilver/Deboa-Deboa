@@ -144,6 +144,11 @@ class TitleState extends MusicBeatState
 		});
 		
 		#end
+
+		#if desktop
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("Na tela de Titulo", null);
+		#end
 	}
 
 	var logoBl:FlxSprite;

@@ -676,7 +676,7 @@ class PlayState extends MusicBeatState
 			monitor.scrollFactor.set(1, 1);
 			monitor.updateHitbox();
 
-			contadordevida = new FlxSprite(96, 824, Paths.image('Cenarios/chasing/HedgehogLives'));
+			contadordevida = new FlxSprite(56, 844, Paths.image('Cenarios/chasing/HedgehogLives'));
 			contadordevida.antialiasing = ClientPrefs.globalAntialiasing;
 			contadordevida.scale.y = 0.9;
 			contadordevida.scale.x = 0.9;
