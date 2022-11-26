@@ -659,7 +659,7 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
-				
+			
 			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
 			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
 			addShaderToCamera('hud', new ScanlineEffect(true));
@@ -2143,7 +2143,7 @@ class PlayState extends MusicBeatState
 		// nada 
 	}
 
-	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:String, chromakey:Float)
+	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:String, chromakey:Float, layering:Float)
 		{
 
 			if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){
@@ -2212,7 +2212,13 @@ class PlayState extends MusicBeatState
 				if (chromakey == 1){
 					videoSprite.shader = new GreenScreenShader();
 				}
+				if(layering == 1) {
 				add(videoSprite);
+				add(bg);
+				} else {
+				add(bg);
+				add(videoSprite);
+				}
 				remove(gf);
 				remove(boyfriend);
 				remove(dad);
