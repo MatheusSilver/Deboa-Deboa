@@ -61,9 +61,6 @@ jobs:
           haxelib git extension-webview https://github.com/MatheusSilver/extension-webview.git --quiet
           haxelib install actuate 
           haxelib list
-          
-           - name: Create Version Tag
-           run: echo "${{github.run_id}}" > VERSION
 
       - name: Setup Lime
         run: |
@@ -76,15 +73,16 @@ jobs:
           haxelib set openfl 9.1.0 -y
           haxelib set flixel 4.11.0 -y
           haxelib list
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-          
-      - name: Montando... Sua mãe!!!
+
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
+      - name: Compile
         run: |
           haxelib run lime setup android
-          haxelib run lime build android -final
+          haxelib run lime build android --app-version="4.0.0-${{ github.run_id}}"
           
-      - uses: actions/upload-artifact@v2
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v2.2.4
         with:
-          name: Android Build
+          name: androidBuild
           path: export/release/android/bin/app/build/outputs/apk/debug
