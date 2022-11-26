@@ -12,7 +12,6 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-
 #if windows
 import Discord.DiscordClient;
 #end

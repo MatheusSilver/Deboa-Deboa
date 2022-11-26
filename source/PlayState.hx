@@ -2215,7 +2215,7 @@ class PlayState extends MusicBeatState
 				if(layering == 1) {
 				add(videoSprite);
 				add(bg);
-				} else {
+				} else if(layering==0){
 				add(bg);
 				add(videoSprite);
 				}
@@ -2227,7 +2227,7 @@ class PlayState extends MusicBeatState
 				add(dad);
 		
 				trace('poggers');
-		
+
 				if (!songStarted)
 					webmHandler.pause();
 				else
@@ -4341,7 +4341,7 @@ class PlayState extends MusicBeatState
 
 			case 'comecarvideo': //TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3]));
+				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3], Std.parseFloat(posAvancado[4]));
 
 
 			case 'Set Property':

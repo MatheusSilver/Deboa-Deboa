@@ -63,7 +63,7 @@ class TitleState extends MusicBeatState
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 	
-		#if (polymod && !html5)
+		#if (polymod && !android)
 		if (sys.FileSystem.exists('mods/')) {
 			var folders:Array<String> = [];
 			for (file in sys.FileSystem.readDirectory('mods/')) {
@@ -116,16 +116,11 @@ class TitleState extends MusicBeatState
 		swagShader = new ColorSwap();
 		super.create();
 
-		FlxG.save.bind('funkin', 'ninjamuffin99');
+		FlxG.save.bind('modboa', 'galaccine');
 		ClientPrefs.loadPrefs();
 
 		Highscore.load();
 
-	/*	if (FlxG.save.data.weekCompleted != null)
-		{
-			StoryMenuState.weekCompleted = FlxG.save.data.weekCompleted;
-		}
-	*/
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
 		MusicBeatState.switchState(new FreeplayState());
@@ -164,27 +159,6 @@ class TitleState extends MusicBeatState
 	{
 		if (!initialized)
 		{
-			/*var diamond:FlxGraphic = FlxGraphic.fromClass(GraphicTransTileDiamond);
-			diamond.persist = true;
-			diamond.destroyOnNoUse = false;
-
-			FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 1, new FlxPoint(0, -1), {asset: diamond, width: 32, height: 32},
-				new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-			FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.7, new FlxPoint(0, 1),
-				{asset: diamond, width: 32, height: 32}, new FlxRect(-300, -300, FlxG.width * 1.8, FlxG.height * 1.8));
-				
-			transIn = FlxTransitionableState.defaultTransIn;
-			transOut = FlxTransitionableState.defaultTransOut;*/
-
-			// HAD TO MODIFY SOME BACKEND SHIT
-			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
-			// https://github.com/HaxeFlixel/flixel-addons/pull/348
-
-			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
-			// FlxG.sound.list.add(music);
-			// music.play();
-
 			if(FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 
@@ -495,7 +469,7 @@ class TitleState extends MusicBeatState
 		}
 	}
 
-	private var sickBeats:Int = 0; //Basically curBeat but won't be skipped if you hold the tab or resize the screen
+	private var sickBeats:Int = 0;
 	private static var closedState:Bool = false;
 	override function beatHit()
 	{
@@ -507,48 +481,29 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					createCoolText(['Psych Engine por'], 45);
-				// credTextShit.visible = true;
 				case 3:
 					addMoreText('Shadow Mario', 45);
 					addMoreText('RiverOaken', 45);
-					addMoreText('e modificada por dav', 45);
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();
+					addMoreText('E modificada por Dav', 45);
 				case 4:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
 				case 5:
 					createCoolText(['ok ok'], -60);
 				case 7:
-					addMoreText('so a galaxia e o limite', -60);
-				// credTextShit.text += '\nNewgrounds';
+					addMoreText('Só a galáxia é o limite!', -60);
 				case 8:
 					deleteCoolText();
-				// credTextShit.visible = false;
-
-				// credTextShit.text = 'Shoutouts Tom Fulp';
-				// credTextShit.screenCenter();
 				case 9:
 					createCoolText([curWacky[0]]);
-				// credTextShit.visible = true;
 				case 11:
 					addMoreText(curWacky[1]);
-				// credTextShit.text += '\nlmao';
 				case 12:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = "Friday";
-				// credTextShit.screenCenter();
 				case 13:
-					//addMoreText('FNF');
-				// credTextShit.visible = true;
 				case 14:
 					addMoreText('FNF');
-				// credTextShit.text += '\nNight';
 				case 15:
-					addMoreText('ModBoa'); // credTextShit.text += '\nFunkin';
+					addMoreText('ModBoa');
 				case 16:
 					skipIntro();
 			}
