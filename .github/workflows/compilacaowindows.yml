@@ -45,7 +45,7 @@ jobs:
           haxelib git faxe https://github.com/uhrobots/faxe --quiet
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc --quiet
           haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit --quiet
-          haxelib git extension-webm https://github.com/KadeDev/extension-webm.git --quiet
+          haxelib git extension-webm https://github.com/MateuzinhoX02/extension-webm-windows --quiet
           haxelib install actuate 
           haxelib install hxcpp-debug-server
           haxelib list
@@ -53,7 +53,6 @@ jobs:
             - name: configurando...
            run: |
           haxelib run lime setup -alias -y
-          lime rebuild extension-webm windows
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
