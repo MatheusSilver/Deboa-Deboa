@@ -206,20 +206,20 @@ class MainMenuStateMobile extends MusicBeatState
 		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
 		FlxTween.tween(historiabotao, {x: FlxG.width - 2.5*historiabotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+		new FlxTimer().start(0.6, function(tmr:FlxTimer) {
 		FlxTween.tween(freeplaybotao, {x: FlxG.width - 2.5*freeplaybotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(1.1, function(tmr:FlxTimer) {
+		new FlxTimer().start(0.9, function(tmr:FlxTimer) {
 		FlxTween.tween(achievementsbotao, {x: FlxG.width - 2.5*achievementsbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
+		new FlxTimer().start(1.2, function(tmr:FlxTimer) {
 		FlxTween.tween(opcaobotao, {x: FlxG.width - 2.5*opcaobotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(1.9, function(tmr:FlxTimer) {
+		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 		FlxTween.tween(sobrebotao, {x: FlxG.width - 2.5*sobrebotao.width + 696 + 90}, 1.5, {
 			ease: FlxEase.expoInOut,
 			onComplete: function(twn:FlxTween) {
-				clicavel = true; //Só pra garantir que a animação de entrada ocorra ao mesmo tempo que a de saida.
+				clicavel = true; //Só pra garantir que a animação de entrada NÃO ocorra ao mesmo tempo que a de saida.
 			}
 		});
 	});
