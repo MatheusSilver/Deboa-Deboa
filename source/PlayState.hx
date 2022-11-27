@@ -712,7 +712,7 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
-				
+			
 			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
 			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
 			addShaderToCamera('hud', new ScanlineEffect(true));
@@ -2200,7 +2200,7 @@ class PlayState extends MusicBeatState
 		// nada 
 	}
 
-	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:String, chromakey:Float)
+	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:String, chromakey:Float, layering:Float)
 		{
 
 			if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){
@@ -2269,7 +2269,13 @@ class PlayState extends MusicBeatState
 				if (chromakey == 1){
 					videoSprite.shader = new GreenScreenShader();
 				}
+				if(layering == 1) {
 				add(videoSprite);
+				add(bg);
+				} else if(layering==0){
+				add(bg);
+				add(videoSprite);
+				}
 				remove(gf);
 				remove(boyfriend);
 				remove(dad);
@@ -2278,7 +2284,7 @@ class PlayState extends MusicBeatState
 				add(dad);
 		
 				trace('poggers');
-		
+
 				if (!songStarted)
 					webmHandler.pause();
 				else
@@ -4420,7 +4426,7 @@ class PlayState extends MusicBeatState
 
 			case 'comecarvideo': //TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3]));
+				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3], Std.parseFloat(posAvancado[4]));
 
 
 			case 'Set Property':

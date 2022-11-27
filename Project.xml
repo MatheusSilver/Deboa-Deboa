@@ -109,6 +109,7 @@
 	<haxelib name="extension-webm"/>
 	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
+	<!--<haxelib name="hxCodec" if="desktop"/>-->
 	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
 
 	<architecture name="armv7" exclude="arm64" if="android" />
@@ -155,9 +156,9 @@
 	<!--Allow working memory greater than 1 Gig-->
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 
-	<!--Android Gradle-->
-	<config:android gradle-version="7.5.1" />
-	<config:android gradle-plugin="7.3.1" />
+	<!-- Android Gradle, medo -->
+	<config:android gradle-version="7.5.1" if="android"/>
+	<config:android gradle-plugin="7.3.1" if="android"/>
 
 	<!-- _________________________________ Custom _______________________________ -->
 

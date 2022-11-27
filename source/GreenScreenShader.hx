@@ -1,4 +1,3 @@
-// https://www.youtube.com/watch?v=RFRmlPC8Ujo
 package;
 
 import flixel.system.FlxAssets.FlxShader;
@@ -8,9 +7,7 @@ import openfl.utils.Assets;
 import flixel.FlxG;
 import openfl.Lib;
 
-// TODO: maybe make a GreenScreenSprite or whatever
-
-class GreenScreenShader extends FlxShader // https://www.shadertoy.com/view/4dX3WN
+class GreenScreenShader extends FlxShader
 {
 
   @:glFragmentSource('
@@ -60,6 +57,7 @@ class GreenScreenShader extends FlxShader // https://www.shadertoy.com/view/4dX3
 
     void main()
     {
+		#pragma body
     	vec2 uv = openfl_TextureCoordv;
 
     	vec4 rColor = flixel_texture2D(bitmap, uv);
