@@ -23,20 +23,7 @@ class StrumNote extends FlxSprite
 		this.noteData = leData;
 		super(x, y);
 
-		var skin:String;
-		if (PlayState.SONG.isRing){
-			skin = 'RING_assets';
-		}
-		if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
-			skin = 'Majin_Notes';
-		} else if(PlayState.nomehistorico.toLowerCase()=='campos verdes')
-		{
-			skin='NOTE_assetsglitch';
-		} 
-		else {
-		skin =  'NOTE_assets';
-		}
-		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
+		if(skin == null){ skin = 'NOTE_assets';}
 
 		if(PlayState.isPixelStage)
 		{
@@ -124,15 +111,6 @@ class StrumNote extends FlxSprite
 				resetAnim = 0;
 			}
 		}
-
-	//	if (PlayState.majinstrums && jatrocou){
-	//		skin = 'Majin_Notes';
-	//		jatrocou = false;
-		//}
-		
-		/*if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
-			updateConfirmOffset();
-		}*/
 
 		super.update(elapsed);
 	}

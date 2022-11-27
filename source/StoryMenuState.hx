@@ -276,7 +276,7 @@ class StoryMenuState extends MusicBeatState
 			FlxG.sound.music.fadeOut(0.5, 0);
 			new FlxTimer().start(0.5, function(tmr:FlxTimer)
 				{ 
-					MusicBeatState.switchState(new MainMenuState());
+					MusicBeatState.switchState(new MainMenuStateMobile());
 					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0.7);
 				});
 		}

@@ -86,7 +86,7 @@ class TitleState extends MusicBeatState
 			http.onData = function (data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = MainMenuState.psychEngineVersion.trim();
+				var curVersion:String = MainMenuStateMobile.psychEngineVersion.trim();
 				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
 				if(updateVersion != curVersion) {
 					trace('versions arent matching!');
@@ -113,7 +113,7 @@ class TitleState extends MusicBeatState
 
 		// DEBUG BULLSHIT
 
-		swagShader = new ColorSwap();
+		//swagShader = new ColorSwap();
 		super.create();
 
 		FlxG.save.bind('funkin', 'ninjamuffin99');
@@ -155,7 +155,7 @@ class TitleState extends MusicBeatState
 	var logoBl1:FlxSprite;
 	//var menuGif:FlxSprite;
 	var titleText:FlxSprite;
-	var swagShader:ColorSwap = null;
+	//var swagShader:ColorSwap = null;
 	var opacidade:Float = 0;
 	var opacidadesuporte:Int = -1;
 	var candothething:Bool = false;
@@ -255,7 +255,7 @@ class TitleState extends MusicBeatState
 		*/
 
 
-		swagShader = new ColorSwap();
+		//swagShader = new ColorSwap();
 		//add(menuGif);
 		add(logoBl2);
 		add(supbg);
@@ -396,7 +396,7 @@ class TitleState extends MusicBeatState
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
-						MusicBeatState.switchState(new MainMenuState());
+						MusicBeatState.switchState(new MainMenuStateMobile());
 					}
 					closedState = true;
 				});
@@ -452,11 +452,11 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		}
 
-		if(swagShader != null)
+		/*if(swagShader != null)
 		{
 			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
-		}
+		} */
 
 		opacidade += 0.01 * opacidadesuporte;
 

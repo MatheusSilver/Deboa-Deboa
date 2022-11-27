@@ -198,7 +198,7 @@ class PreFreeplayState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
 		super.update(elapsed);

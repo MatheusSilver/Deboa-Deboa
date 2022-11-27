@@ -224,9 +224,6 @@ class Note extends FlxSprite
 				skin = 'RING_assets';
 			} else if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
 				skin = 'Majin_Notes';
-			} else if(PlayState.nomehistorico.toLowerCase()=='campos verdes')
-			{
-				skin='NOTE_assetsglitch';
 			}else if(skin == null || skin.length < 1) {
 				skin = 'NOTE_assets';
 			}
@@ -326,10 +323,13 @@ class Note extends FlxSprite
 	{
 		super.update(elapsed);
 
-
-		if (PlayState.majinstrums && jatrocou){
+		//Como já dizia meu grande amigo
+		if (PlayState.majinstrums || PlayState.desesperada && jatrocou){ //ELA VAI...
 			reloadNote();
 			jatrocou = false;
+		} else if (!PlayState.desesperada && !jatrocou) { //E ELA VOLTAAAAAAAAAAAAAAAAAAAA
+			reloadNote();
+			jatrocou = true;
 		}
 		if (mustPress)
 		{

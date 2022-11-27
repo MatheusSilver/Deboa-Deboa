@@ -56,17 +56,10 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 
-		var tooLong:Float = ('Nesta guerra de consoles'.length > 18) ? 0.8 : 1; //Fucking Winter Horrorland
 		var text:Alphabet = new Alphabet(0, 50, "Escolha seu lado", true);
 		text.screenCenter(X);
 		alphabetArray.push(text);
 		text.alpha = 0;
-		add(text);
-		var text:Alphabet = new Alphabet(0, text.y + 90, 'Nesta guerra de consoles', true, false, 0.05, tooLong);
-		if(week == -1) text.x += 60 * tooLong;
-		alphabetArray.push(text);
-		text.alpha = 0;
-		text.screenCenter(X);
 		add(text);
 
 		clashsupBG = new FlxSprite(0,0).loadGraphic(Paths.image('menus/escolhaCINZA'));

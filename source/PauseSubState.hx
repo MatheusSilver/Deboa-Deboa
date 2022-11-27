@@ -196,6 +196,7 @@ class PauseSubState extends MusicBeatSubstate
 					practiceText.visible = PlayState.practiceMode;
 				case "Reiniciar musica":
 					PlayState.majinstrums = false;
+					PlayState.desesperada = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					PlayState.donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 					MusicBeatState.resetState();
@@ -218,6 +219,7 @@ class PauseSubState extends MusicBeatSubstate
 							PlayState.removedVideo = true;
 						}
 					PlayState.majinstrums = false;
+					PlayState.desesperada = false;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					PlayState.donthugmeiamscaredpqpaaaaaaaaaaaaa = false;

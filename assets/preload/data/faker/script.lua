@@ -6,23 +6,15 @@ function onCreate()
     addAnimationByPrefix('fakertransform', '2', 'TransformationLEFT instance 1', 24, true)
     addAnimationByPrefix('fakertransform', '3', 'TransformationUP instance 1', 24, true)
     addAnimationByPrefix('fakertransform', '4', 'TransformationDOWN instance 1', 24, true)
-	objectPlayAnimation('fakertransform', '1', true)
+
     setProperty('fakertransform.alpha', 0)
     addLuaSprite('fakertransform', true)
+    objectPlayAnimation('fakertransform', '1', true)
 
     makeLuaSprite('blackFuck', 'black', 0, 0);
 	scaleObject('blackFuck', 6.0, 6.0);
 	setObjectCamera('blackFuck', 'other');
 	addLuaSprite('blackFuck', true);
-	
-    makeAnimatedLuaSprite('daStatic', 'daSTAT', -500, -500)
-    addAnimationByPrefix('daStatic', 'static', 'staticFLASH', 24, false)
-	objectPlayAnimation('daStatic', 'static', false)
-    addAnimationByPrefix('daStatic', 'sumidao', 'sumidao', 24, false)
-    objectPlayAnimation('daStatic', 'sumidao', false)
-	scaleObject('daStatic', 6, 6);
-	setObjectCamera('daStatic', 'camHUD2');
-    addLuaSprite('daStatic', true)
 
 	makeLuaSprite('startCircle', 'StartScreens/CircleFaker', 777, 0);
 	setObjectCamera('startCircle', 'other');
@@ -60,15 +52,6 @@ function onStepHit()
 		doTweenAlpha('HudAlpha', 'camHUD', 0, 1, 'linear')
 	end
 
---	if curStep == 787 or curStep == 795 or curStep == 902 or curStep == 800 or curStep == 811 or curStep == 819 or curStep == 826 or curStep == 832 or curStep == 838 or curStep == 847 then
---		objectPlayAnimation('daStatic', 'static', false)
---		playSound('staticBUZZ')
-	--end
-
-  --  if curStep == 789 or curStep == 798 or curStep == 905 or curStep == 803 or curStep == 814 or curStep == 822 or curStep == 829 or curStep == 835 or curStep == 841 or curStep == 850 then
- --       objectPlayAnimation('daStatic', 'sumidao', false)
---    end
-
 	if curStep == 801 then
 		setProperty('fakertransform.x', -72.65+20)
 		setProperty('fakertransform.y', -249.2+128)
@@ -93,11 +76,6 @@ function onStepHit()
 		setProperty('fakertransform.y', -249.2+318)
 		objectPlayAnimation('fakertransform', '4', true)
 	end
-	
-	--if curStep == 858 or curStep == 859 or curStep == 860 or curStep == 861 or curStep == 862 or curStep == 863 or curStep == 864 or curStep == 865 or curStep == 866 or curStep == 867 or curStep == 868 or curStep == 869 or curStep == 870 or curStep == 871 or curStep == 872 or curStep == 873 or curStep == 874 or curStep == 875 or curStep == 876 or curStep == 877 or curStep == 878 or curStep == 879 or curStep == 880 or curStep == 881 or curStep == 882 or curStep == 883 or curStep == 884 then
-	--	objectPlayAnimation('daStatic', 'static', true)
-	--	playSound('staticBUZZ')
---	end
 
 	if curStep == 884 then
 		setProperty('blackFuck.alpha', 1)

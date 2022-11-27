@@ -1,0 +1,370 @@
+{
+	"song": {
+		"speed": 2.6,
+		"stage": "fakerStage",
+		"player1": "bfFaker",
+		"player2": "faker",
+		"player3": "invisibru",
+		"events": [],
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						112428.571428571,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						113571.428571429,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						114285.714285714,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						115857.142857143,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						118000,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						118857.142857143,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						119714.285714286,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						121000,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						122571.428571429,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						122714.285714286,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						122857.142857143,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						123000,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						123142.857142857,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						123285.714285714,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						123428.571428571,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						123571.428571429,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						123714.285714286,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						123857.142857143,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						124000,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						124142.857142857,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						124285.714285714,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						124428.571428571,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						124571.428571429,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						124714.285714286,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						125000,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						124857.142857143,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						125142.857142857,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						125285.714285714,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						125428.571428571,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						125571.428571429,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						125714.285714286,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						125857.142857143,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						126000,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						126142.857142857,
+						-1,
+						"estatica brow",
+						"",
+						""
+					],
+					[
+						126285.714285714,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						128857.142857143,
+						-1,
+						"estatica brow",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			}
+		],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf-exe",
+		"bpm": 105,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "faker",
+		"isRing": null
+	}
+}

@@ -59,8 +59,8 @@
 	"no_antialiasing": true,
 	"image": "characters/sonicP2Pixel",
 	"position": [
-		170,
-		70
+		320,
+		430
 	],
 	"healthicon": "sonicP2Pixel",
 	"flip_x": false,
@@ -70,8 +70,8 @@
 		251
 	],
 	"camera_position": [
-		-490,
-		-265
+		-520,
+		-295
 	],
 	"sing_duration": 4,
 	"scale": 10

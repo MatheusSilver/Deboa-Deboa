@@ -1,6 +1,7 @@
 package;
 
 import openfl.Lib;
+import FNFSprite;
 import webm.WebmPlayer;
 import flixel.addons.display.FlxTiledSprite;
 #if desktop
@@ -81,6 +82,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	public static var majinstrums:Bool = false;
+	public static var desesperada:Bool = false;
 
 	var telapreta:FlxSprite;
 
@@ -343,6 +345,11 @@ class PlayState extends MusicBeatState
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
 
+	//Sonic P2 Stage
+	var p2Ground:BGSprite;
+	public var p2greenhill:BGSprite; //isso é uma ação desesperada...
+	var p2Sky:BGSprite;
+
 	// - ring counter bullshit
 	var ringCounter:FlxSprite;
 	var counterNum:FlxText;
@@ -521,6 +528,14 @@ class PlayState extends MusicBeatState
 		DAD_X = stageData.opponent[0];
 		DAD_Y = stageData.opponent[1];
 
+		if (nomehistorico.toLowerCase() == 'farsa'){
+		var transform:FlxSprite = new FlxSprite(-10000, - 10000);
+		transform.frames = Paths.getSparrowAtlas('Faker_Transformation', 'preload');
+		transform.animation.addByPrefix('a', 'TransformationDOWN instance 1');
+		transform.animation.play('a');
+		add(transform);
+		}
+
 		boyfriendGroup = new FlxSpriteGroup(BF_X, BF_Y);
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		dad2Group = new FlxSpriteGroup(DAD_X, DAD_Y); // should load right on top of dad? hopefully lmao (avery)
@@ -528,6 +543,24 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+
+			case 'console':
+				var water:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('Cenarios/console/water'), true, 160, 81);
+				water.scrollFactor.set(1, 1);
+				water.antialiasing = false;
+				water.animation.add("idle", [0, 1, 2, 3], 9);
+				water.animation.play("idle");
+
+				water.setGraphicSize(Std.int(water.width * 12));
+				water.updateHitbox();
+				add(water);
+
+				var bg:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('Cenarios/console/bg'));
+				bg.scrollFactor.set(1, 1);
+				bg.antialiasing = false;
+				bg.setGraphicSize(Std.int(bg.width * 12));
+				bg.updateHitbox();
+				add(bg);
 
 			case 'chamber':
 				// FFFFFFFFFFFFFFFFUCKING FLEEEEEEEEEEEEEEEEEEEEEEEEEETWAY!!!!!!!!!!
@@ -612,6 +645,26 @@ class PlayState extends MusicBeatState
 
 			//	unfinished, ill do later
 			//	fuck you fleetway your code is gibberish
+
+			case 'p2stage':
+				p2Sky = new BGSprite('Cenarios/PolishedP2/sky', -200, -200, 0.6, 0.6);
+				p2Sky.scale.x = 0.8;
+				p2Sky.scale.y = 0.8;
+				add(p2Sky);
+
+				p2Ground = new BGSprite('Cenarios/PolishedP2/ground', -425, -100, 1.1, 1.1);
+				p2Ground.scale.x = 1;
+				p2Ground.scale.y = 1;
+				add(p2Ground);
+				
+
+				p2greenhill = new BGSprite('Cenarios/PolishedP2/GreenHill', 180, 350, 1, 0.9);
+				p2greenhill.setGraphicSize(Std.int(p2greenhill.width * 6)); //yeah yeah, matematics
+				p2greenhill.scale.x = 8;
+				p2greenhill.visible = false;
+				p2greenhill.antialiasing = true;
+				add(p2greenhill);
+
 
 			case 'needle':
 
@@ -1031,6 +1084,8 @@ class PlayState extends MusicBeatState
 
 		add(gfGroup);
 
+		spawnNoteSplash(0,0,1);
+
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
 			add(limo);
@@ -1418,7 +1473,7 @@ class PlayState extends MusicBeatState
 	
 					add(dodgething);
 				}
-		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
+		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas' || curSong == 'you-cant-run'){
 
 		if(sonicHUDStyles.exists(SONG.song.toLowerCase()))hudStyle = sonicHUDStyles.get(SONG.song.toLowerCase());
 		var hudFolder = hudStyle;
@@ -1556,7 +1611,7 @@ class PlayState extends MusicBeatState
 		timeColon.y = timeLabel.y;
 		timeColon.antialiasing = false;
 		timeColon.scrollFactor.set();
-		if (curSong == 'prey'){
+		if (curSong == 'prey' || curSong == 'you-cant-run'){
 			sonicHUD.add(timeColon);
 		}
 
@@ -1567,7 +1622,7 @@ class PlayState extends MusicBeatState
 		secondNumberA.updateHitbox();
 		secondNumberA.x = 186;
 		secondNumberA.y = timeLabel.y;
-		if (curSong == 'prey'){
+		if (curSong == 'prey' || curSong == 'you-cant-run'){
 			sonicHUD.add(secondNumberA);
 		}
 
@@ -1578,7 +1633,7 @@ class PlayState extends MusicBeatState
 		secondNumberB.updateHitbox();
 		secondNumberB.x = 213;
 		secondNumberB.y = timeLabel.y;
-		if (curSong == 'prey'){
+		if (curSong == 'prey' || curSong == 'you-cant-run'){
 			sonicHUD.add(secondNumberB);
 		}
 
@@ -1597,16 +1652,18 @@ class PlayState extends MusicBeatState
 
 		}
 
-		if(ClientPrefs.downScroll){
+		if(!ClientPrefs.downScroll && curSong != 'round-a-bout'){
 			for(member in sonicHUD.members){
 				member.y = FlxG.height-member.height-member.y;
 			}
 		}
 
-		if(curSong == 'prey' || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
+		if(curSong == 'prey' || curSong == 'you-cant-run' && isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
 			scoreTxt.visible=false;
 			timeBar.visible=false;
+			if (curSong == 'round-a-bout'){
 			timeTxt.x = FlxG.width - timeTxt.width + 75;
+			}
 			if (hudFolder != 'sonic3'){
 			timeTxt.visible=false;
 			} else {
@@ -1865,7 +1922,7 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 		
 		
@@ -2350,11 +2407,13 @@ class PlayState extends MusicBeatState
 				if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
-			if(curSong == 'prey'){
+			if(curSong == 'prey' || curSong == 'you-cant-run'){
+				if(isPixelStage){
 				healthBar.x += 150;
 				iconP1.x += 150;
 				iconP2.x += 150;
 				healthBarBG.x += 150;
+				}
 			}
 
 			startedCountdown = true;
@@ -2391,10 +2450,15 @@ class PlayState extends MusicBeatState
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				introAssets.set('default', ['ready' + textoajustefino, 'set'  + textoajustefino, 'go'  + textoajustefino, 'gochasing']);
 				introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
+				introAssets.set('pixelclash', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
 				var introAlts:Array<String> = introAssets.get('default');
 				var antialias:Bool = ClientPrefs.globalAntialiasing;
 				if(isPixelStage) {
+					if(curSong == 'cross-console-clash'){
+						introAlts = introAssets.get('pixelclash');
+					} else{
 					introAlts = introAssets.get('pixel');
+					}
 					antialias = false;
 				}
 
@@ -2413,7 +2477,7 @@ class PlayState extends MusicBeatState
 					case 0:
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 1:
-						var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
+						var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[0], 'preload'));
 						ready.scrollFactor.set();
 						ready.updateHitbox();
 
@@ -2435,7 +2499,7 @@ class PlayState extends MusicBeatState
 						});
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 2:
-						var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
+						var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[1], 'preload'));
 						set.scrollFactor.set();
 
 						if (PlayState.isPixelStage)
@@ -2460,7 +2524,7 @@ class PlayState extends MusicBeatState
 						if(nomehistorico.toLowerCase() == 'rastro'){
 							go = new FlxSprite().loadGraphic(Paths.image(introAlts[3]));	
 						} else {
-							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2], 'preload'));
 						}
 						go.scrollFactor.set();
 
@@ -2547,7 +2611,7 @@ class PlayState extends MusicBeatState
 		
 		#if desktop
 		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
+		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -2762,9 +2826,18 @@ class PlayState extends MusicBeatState
 				
 				var skin:String = "NOTE_assets";
 
-				if(curSong.toLowerCase()=='endless' && curStep >= 900){skin='Majin_Notes';}
+				if(storyDifficulty == 3){
+				if(curSong.toLowerCase()=='cross-console-clash' && player == 0){skin='arrows-mario';}
 
-				if(curSong.toLowerCase()=='green-hills'){skin='NOTE_assetsglitch';}
+				if(curSong.toLowerCase()=='cross-console-clash' && player == 1){skin='arrows-sonic';}
+				}
+				else if(storyDifficulty == 4){
+					if(curSong.toLowerCase()=='cross-console-clash' && player == 1){skin='arrows-mario';}
+	
+					if(curSong.toLowerCase()=='cross-console-clash' && player == 0){skin='arrows-sonic';}
+				}
+
+				if(curSong.toLowerCase()=='endless' && curStep >= 500){skin='Majin_Notes';}
 
 				var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player, skin);
 				
@@ -2772,7 +2845,7 @@ class PlayState extends MusicBeatState
 				{
 					babyArrow.y -= 10;
 					babyArrow.alpha = 0;
-					if (curSong.toLowerCase()=='endless' && curStep >= 800)
+					if (curSong == 'you-cant-run' || curSong.toLowerCase()=='endless' && curStep >= 500)
 					{
 						babyArrow.alpha = 1;
 						babyArrow.y = babyArrow.y + 10;
@@ -2875,11 +2948,11 @@ class PlayState extends MusicBeatState
 			#if desktop
 			if (startTimer.finished)
 			{
-				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
 		}
@@ -2894,11 +2967,11 @@ class PlayState extends MusicBeatState
 		{
 			if (Conductor.songPosition > 0.0)
 			{
-				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 			}
 			else
 			{
-				DiscordClient.changePresence(detailsText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 		}
 		#end
@@ -2911,7 +2984,7 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (health > 0 && !paused)
 		{
-			DiscordClient.changePresence(detailsPausedText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+			DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		}
 		#end
 
@@ -3208,7 +3281,7 @@ class PlayState extends MusicBeatState
 				}
 			
 				#if desktop
-				DiscordClient.changePresence(detailsPausedText, "Sherek o Filme, Mas..." + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 			}
 		}
@@ -3217,6 +3290,7 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
 		{
 			majinstrums = false;
+			desesperada = false;
 			donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 			persistentUpdate = false;
 			paused = true;
@@ -3339,7 +3413,7 @@ class PlayState extends MusicBeatState
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 					}
 					
-					if (isPixelStage || curSong == 'round-a-bout'){
+					if (isPixelStage || curSong == 'round-a-bout' || curSong == 'you-cant-run'){
 					var minutesRemaining:Int = Math.floor(secondsTotal / 60);
 					var secondsRemaining:String = '' + secondsTotal % 60;
 
@@ -3357,7 +3431,7 @@ class PlayState extends MusicBeatState
 					curMS%=1000;
 		    	curSex%=60;
 
-				if (curSong == 'prey'){
+				if (curSong == 'prey' || curSong == 'you-cant-run'){
 					minNumber.number = curMins;
 				}
 				var sepSex = Std.string(curSex).split("");
@@ -3406,6 +3480,7 @@ class PlayState extends MusicBeatState
 		if (controls.RESET && !inCutscene && !endingSong)
 		{
 			majinstrums = false;
+			desesperada = false;
 			health = 0;
 			trace("RESET = True");
 		}
@@ -4231,16 +4306,26 @@ class PlayState extends MusicBeatState
 					timeTxt.visible=false;
 					timeBarBG.visible=false;
 					judgementCounter.visible = false;
+					p2greenhill.visible = true;
 					add(sonicHUD);
 					isPixelStage = true;
+					removeStatics();
+					generateStaticArrows(0);
+					generateStaticArrows(1);
+					desesperada = true;
 				} else {
 					scoreTxt.visible=true;
 					timeBar.visible=true;
 					timeTxt.visible=true;
 					timeBarBG.visible=true;
+					p2greenhill.visible = false;
 					judgementCounter.visible = true;
 					remove(sonicHUD);
 					isPixelStage = false;
+					removeStatics();
+					generateStaticArrows(0);
+					generateStaticArrows(1);
+					desesperada = false;
 				}
 
 
@@ -4597,6 +4682,7 @@ class PlayState extends MusicBeatState
 		mcontrols.visible = false;
 		#end
 		majinstrums = false;
+		desesperada = false;
 		timeBarBG.visible = false;
 		timeBar.visible = false;
 		timeTxt.visible = false;
@@ -5460,6 +5546,11 @@ class PlayState extends MusicBeatState
 		}
 
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
+		if (curStep < 0){
+			splash.alpha = 0;
+		} else {
+			splash.alpha = 1;
+		}
 		if(majinstrums){
 			splash.color = 0xFF5500B6;
 		}
@@ -5900,13 +5991,17 @@ class PlayState extends MusicBeatState
 			trace('static MOMENT HAHAHAH ' + lestatic);
 			var daStatic:FlxSprite = new FlxSprite(0, 0);
 	
-			daStatic.frames = Paths.getSparrowAtlas('daSTAT');
+			daStatic.frames = Paths.getSparrowAtlas('daSTAT', 'preload');
+
+			daStatic.scale.x = 3.19;
+			daStatic.scale.y = 2.41;
+
+			daStatic.cameras = [camHUD];
 	
 			daStatic.setGraphicSize(FlxG.width, FlxG.height);
 	
-			daStatic.screenCenter();
-	
-			daStatic.cameras = [camHUD];
+			daStatic.screenCenter(XY);
+
 	
 			switch (lestatic)
 			{
@@ -5915,7 +6010,7 @@ class PlayState extends MusicBeatState
 			}
 			add(daStatic);
 	
-			FlxG.sound.play(Paths.sound('staticBUZZ'));
+			FlxG.sound.play(Paths.sound('staticBUZZ'), 0.8);
 	
 			if (leopa)
 			{
