@@ -198,7 +198,6 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.majinstrums = false;
 					PlayState.desesperada = false;
 					CustomFadeTransition.nextCamera = transCamera;
-					PlayState.donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 					MusicBeatState.resetState();
 					if (PlayState.useVideo)
 					{
@@ -222,7 +221,6 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.desesperada = false;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
-					PlayState.donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					if(PlayState.isStoryMode || StoryMenuState.voltarparahistoria) {
 						MusicBeatState.switchState(new StoryMenuState());

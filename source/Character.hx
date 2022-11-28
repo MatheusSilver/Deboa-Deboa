@@ -358,11 +358,7 @@ class Character extends FlxSprite
 				playAnim(animation.curAnim.name + '-loop');
 			}
 		}
-		if (PlayState.donthugmeiamscaredpqpaaaaaaaaaaaaa && PlayState.nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
-			idleSuffix = 'scared';
-		} else{
-			idleSuffix = '';
-		} //É uma solução bagunçada? É... Mas é bem melhor do que carregar o PNG duas vezes.
+
 		super.update(elapsed);
 	}
 

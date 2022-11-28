@@ -436,7 +436,7 @@ class MainMenuStateMobile extends MusicBeatState
 								case 'awards':
 									MusicBeatState.switchState(new AchievementsMenuState());
 								case 'credits':
-								#if none
+								#if android
 									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuStateMobile()));
 									#else
 									//Ai é contigo dav

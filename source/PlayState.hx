@@ -77,7 +77,6 @@ class PlayState extends MusicBeatState
 
 	var bgSkychasing:FlxSprite;
 
-	public static var donthugmeiamscaredpqpaaaaaaaaaaaaa:Bool = false; //Code de um homem muito pito...
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -2256,7 +2255,6 @@ class PlayState extends MusicBeatState
 				videoSprite = new FlxSprite(0, 0).loadGraphic(data);
 		
 				videoSprite.scrollFactor.set();
-				videoSprite.cameras = [camOther];
 				videoSprite.x = xPos;
 				videoSprite.y = yPos;
 				videoSprite.visible = true;
@@ -2271,9 +2269,9 @@ class PlayState extends MusicBeatState
 				}
 				if(layering == 1) {
 				add(videoSprite);
-				add(bg);
+				//videoSprite.cameras = [camGame];
 				} else if(layering==0){
-				add(bg);
+				videoSprite.cameras = [camHUD];
 				add(videoSprite);
 				}
 				remove(gf);
@@ -3297,7 +3295,6 @@ class PlayState extends MusicBeatState
 		{
 			majinstrums = false;
 			desesperada = false;
-			donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 			persistentUpdate = false;
 			paused = true;
 			cancelFadeTween();
@@ -4197,8 +4194,10 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(telapreta, {alpha: 0.5}, 1, {ease: FlxEase.quadInOut});
 
 							case 765: //ok
-								donthugmeiamscaredpqpaaaaaaaaaaaaa = true;
-								FlxTween.tween(dad2, {alpha: 0.7}, 0.5, {ease: FlxEase.quadInOut});
+							var char:Character = gf;
+							char.idleSuffix = 'scared';
+							char.recalculateDanceIdle();
+							FlxTween.tween(dad2, {alpha: 0.7}, 0.5, {ease: FlxEase.quadInOut});
 							// funnyLargeTween();
 
 							case 775: //ok
@@ -4207,7 +4206,9 @@ class PlayState extends MusicBeatState
 								});
 								FlxTween.tween(telapreta, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut});		
 							case 780:
-								donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
+								var char:Character = gf; //isso provavelmente deve ser menos bugado
+								char.idleSuffix = ''; //e menos bagunçado que a solução anterior...
+								char.recalculateDanceIdle(); // EU ESPERO...
 								FlxTween.tween(dad2, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut});							
 						}
 			case 'eventos-prey':
@@ -4426,7 +4427,7 @@ class PlayState extends MusicBeatState
 
 			case 'comecarvideo': //TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3], Std.parseFloat(posAvancado[4]));
+				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]));
 
 
 			case 'Set Property':
@@ -4698,7 +4699,6 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		updateTime = false;
 		somethinspecial = false;
-		donthugmeiamscaredpqpaaaaaaaaaaaaa = false;
 
 		if (useVideo)
 			{
