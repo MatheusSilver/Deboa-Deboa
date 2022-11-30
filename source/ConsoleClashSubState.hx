@@ -71,7 +71,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		add(clashsupBG);
 
 		escolhaMario = new FlxSprite(0,0).loadGraphic(Paths.image('menus/escolhaMARIO'));
-		escolhaMario.antialiasing = ClientPrefs.globalAntialiasing;
+		escolhaMario.antialiasing = false;
 		escolhaMario.scale.x = 4;
 		escolhaMario.scale.y = 2;
 		escolhaMario.updateHitbox();
@@ -80,7 +80,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		add(escolhaMario);
 
 		escolhaSonic = new FlxSprite(0,0).loadGraphic(Paths.image('menus/escolhaSONIC'));
-		escolhaSonic.antialiasing = ClientPrefs.globalAntialiasing;
+		escolhaSonic.antialiasing = false;
 		escolhaSonic.scale.x = 4;
 		escolhaSonic.scale.y = 2;
 		escolhaSonic.updateHitbox();
