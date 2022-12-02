@@ -54,8 +54,9 @@ jobs:
           haxelib --quiet install flixel-ui
           haxelib --quiet install hscript
           haxelib --quiet install flixel-addons
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
-          haxelib git extension-webm https://github.com/Daninnocent/extension-webm
+          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit --quiet
+          haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview --quiet
+          haxelib git extension-webm https://github.com/Daninnocent/extension-webm --quiet
           haxelib install actuate
           haxelib list
           
