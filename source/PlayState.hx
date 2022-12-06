@@ -403,7 +403,8 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-
+	FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
+		FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
 				
 	//	giraArray = [272, 276, 336, 340, 400, 404, 464, 468, 528, 532, 592, 596, 656, 660, 720, 724, 789, 793, 863, 867, 937, 941, 1012, 1016, 1086, 1090, 1160, 1164, 1531, 1535, 1607, 1611, 1681, 1685, 1754, 1758];
 		instance = this;
@@ -711,11 +712,12 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
-			
+				if(ClientPrefs.shaders) {
 			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
 			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
 			addShaderToCamera('hud', new ScanlineEffect(true));
 			addShaderToCamera('game', new ScanlineEffect(true));
+				}
 
 			case 'chasing':
 
@@ -2264,7 +2266,7 @@ class PlayState extends MusicBeatState
 					} else {
 						videoSprite.setGraphicSize(FlxG.width, FlxG.height);
 					}
-				if (chromakey == 1){
+				if (chromakey == 1 && (ClientPrefs.shaders)){
 					videoSprite.shader = new GreenScreenShader();
 				}
 				if(layering == 1) {

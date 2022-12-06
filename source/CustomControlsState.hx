@@ -83,12 +83,14 @@ class CustomControlsState extends MusicBeatSubstate
 		leftArrow.frames = ui_tex;
 		leftArrow.animation.addByPrefix('idle', "arrow left");
 		leftArrow.animation.addByPrefix('press', "arrow push left");
+		leftArrow.antialiasing = false;
 		leftArrow.animation.play('idle');
 
 		rightArrow = new FlxSprite(inputvari.x + inputvari.width + 10, leftArrow.y);
 		rightArrow.frames = ui_tex;
 		rightArrow.animation.addByPrefix('idle', 'arrow right');
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
+		rightArrow.antialiasing = false;
 		rightArrow.animation.play('idle');
 
 
