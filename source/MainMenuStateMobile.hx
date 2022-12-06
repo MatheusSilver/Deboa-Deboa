@@ -56,7 +56,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	var checkiftouch:Bool = false;
 
-	var checker:FlxBackdrop; 
+	//var checker:FlxBackdrop; 
 	override function create()
 	{
 		#if desktop
@@ -92,11 +92,12 @@ class MainMenuStateMobile extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		checker = new FlxBackdrop(Paths.image('soquadrados', 'preload'), 0.2, 0.2, true, true);
+		//checker = new FlxBackdrop(Paths.image('soquadrados', 'preload'), 0.2, 0.2, true, true);
 		
-		add(checker);
-		checker.alpha = 0.8;
-		checker.color = FlxColor.RED;
+		//add(checker);
+		//checker.alpha = 0.8;
+		//checker.color = FlxColor.RED;
+		//Isto é temporário, por algum motivo isso não tá compilando no github
 
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x41000000, 0x2C744100, 0x88A10000], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
@@ -368,7 +369,7 @@ class MainMenuStateMobile extends MusicBeatState
 		opcaobotao.updateHitbox();
 		sobrebotao.updateHitbox();
 
-		checker.y += 0.1;
+		//checker.y += 0.1;
 
 		if(historiabotao.justPressed && !checkiftouch && clicavel){
 			curSelected = 0;
