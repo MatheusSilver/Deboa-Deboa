@@ -6,9 +6,9 @@ name: Windows Build
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ notweuz-main ]
+    branches: [ main ]
   pull_request:
-    branches: [ notweuz-main ]
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -44,7 +44,10 @@ jobs:
           haxelib install actuate
           haxelib list
           
-     - name: Setup Lime
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
+
+      - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
