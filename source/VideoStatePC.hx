@@ -27,7 +27,7 @@ class VideoStatePC extends MusicBeatState
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os creditos", null);
 			#end
-			FlxG.sound.music.fadeOut(0.35, 0.7, 0);
+			FlxG.sound.music.fadeIn(0.35, 0.7, 0);
 			video.playMP4('assets/videos/aviso.mp4', new MainMenuStateMobile(), videoMenu);
 			add(videoMenu);
 	

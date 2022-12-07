@@ -161,7 +161,7 @@ class MP4Handler
 
 	function update(e:Event)
 	{
-		if (FlxG.keys.justPressed.ENTER)
+		if (FlxG.keys.justPressed.ANY)
 		{
 			if (vlcBitmap.isPlaying)
 			{
