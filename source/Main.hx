@@ -10,7 +10,6 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import lime.app.Application;
 
 class Main extends Sprite
 {
@@ -20,7 +19,7 @@ class Main extends Sprite
 		initialState: TitleState, // initial game state
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
-		skipSplash: false, // if the default flixel splash screen should be skipped
+		skipSplash: FALSE, // if the default flixel splash screen should be skipped
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
 	public static var fpsVar:FPS;
@@ -108,7 +107,7 @@ class Main extends Sprite
 		
 		ClientPrefs.startControls();	
 
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
+		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 		
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
@@ -128,12 +127,10 @@ class Main extends Sprite
 		#end
 		
 		#if desktop
-		if (!DiscordClient.isInitialized) {
-			DiscordClient.initialize();
-			Application.current.window.onClose.add(function() {
-				DiscordClient.shutdown();
-			});
-		}
+		FlxG.stage.application.window.onClose.add(function()
+		{
+			DiscordClient.shutdown();
+		});
 		#end
 	}
 	}
