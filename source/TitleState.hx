@@ -116,7 +116,7 @@ class TitleState extends MusicBeatState
 		//swagShader = new ColorSwap();
 		super.create();
 
-		FlxG.save.bind('modboa', 'galaccine');
+		FlxG.save.bind('modboa' #if (flixel < "5.0.0"), 'galaccine' #end);
 		ClientPrefs.loadPrefs();
 
 		Highscore.load();

@@ -30,9 +30,9 @@ jobs:
         run: |
           haxelib setup C:/haxelib
           haxelib install hxcpp
-          haxelib --quiet install lime 7.9.0
-          haxelib --quiet install openfl 9.1.0
-          haxelib --quiet --never install flixel 4.11.0
+          haxelib --quiet install lime
+          haxelib --quiet install openfl 
+          haxelib --quiet --never install flixel
           haxelib --quiet run lime setup flixel
           haxelib --quiet install flixel-tools
           haxelib git faxe https://github.com/uhrobots/faxe --quiet
@@ -54,10 +54,7 @@ jobs:
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
-          haxelib set lime 7.9.0 -y
           haxelib run lime rebuild extension-webm windows -y
-          haxelib set openfl 9.1.0 -y
-          haxelib set flixel 4.11.0 -y
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
