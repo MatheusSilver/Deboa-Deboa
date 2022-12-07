@@ -59,6 +59,7 @@ class MainMenuStateMobile extends MusicBeatState
 	//var checker:FlxBackdrop; 
 	override function create()
 	{
+		Conductor.changeBPM(112);
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Silver reverso says: AMO PROGRAMAR MENUS!!!", null);
@@ -126,7 +127,7 @@ class MainMenuStateMobile extends MusicBeatState
 		tails = new FlxSprite(0, 0); //ok
 		tails.frames = Paths.getSparrowAtlas('menus/tailsdoll_p2', 'preload');
 		tails.animation.addByPrefix('idle2', "singRIGHT", 24);
-		tails.animation.play('idle2');
+		//tails.animation.play('idle2');
 		tails.alpha = 1;
 		tails.antialiasing = true;
 		tails.setGraphicSize(Std.int(tails.width * 0.9));
@@ -138,7 +139,7 @@ class MainMenuStateMobile extends MusicBeatState
 		sonic1 = new FlxSprite(0, 0); //ok
 		sonic1.frames = Paths.getSparrowAtlas('menus/YCR', 'preload');
 		sonic1.animation.addByPrefix('idle1', "normal_down", 20);
-		sonic1.animation.play('idle1');
+		//sonic1.animation.play('idle1');
 		sonic1.alpha = 0.95;
 		sonic1.antialiasing = true;
 		sonic1.setGraphicSize(Std.int(sonic1.width * 1.5));
@@ -362,6 +363,8 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
 		historiabotao.updateHitbox();
 		freeplaybotao.updateHitbox();
 		achievementsbotao.updateHitbox();
@@ -377,7 +380,7 @@ class MainMenuStateMobile extends MusicBeatState
         opcaobotao.onOut.callback = opcaoOut;
 		sobrebotao.onOver.callback = sobreHover;
         sobrebotao.onOut.callback = sobreOut;
-
+		FlxG.mouse.visible = true;
 		//checker.y += 0.1;
 
 		if(historiabotao.justPressed && !checkiftouch && clicavel){
@@ -531,4 +534,18 @@ class MainMenuStateMobile extends MusicBeatState
 					{
 						sobrebotao.alpha=0.75;
 					}
+
+					override function beatHit()
+						{
+							super.beatHit();
+					
+							if(sonic1 != null)
+								{
+								sonic1.animation.play('idle1', true);
+								}
+							if(tails != null)
+								{
+									tails.animation.play('idle2', true);
+								}
+						}
 }

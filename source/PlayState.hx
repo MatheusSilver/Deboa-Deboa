@@ -403,6 +403,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		FlxG.mouse.visible = false;
 	FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
 		FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
 				

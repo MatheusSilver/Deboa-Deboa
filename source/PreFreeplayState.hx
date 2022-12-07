@@ -49,7 +49,7 @@ class PreFreeplayState extends MusicBeatState
 
 	override function create()
 	{
-
+		FlxG.mouse.visible = false;
 		WeekData.reloadWeekFiles(true);
 		if(curWeek >= WeekData.weeksList.length) curWeek = 0;
 		persistentUpdate = persistentDraw = true;
