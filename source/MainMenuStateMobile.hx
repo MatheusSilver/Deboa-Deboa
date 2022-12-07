@@ -67,8 +67,9 @@ class MainMenuStateMobile extends MusicBeatState
 
 
 		Main.dumpCache(); // What can go wrong?
-
-
+		if(FlxG.sound.music.volume==0) {
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
@@ -76,9 +77,7 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];
-		#if debug
 		FlxG.mouse.visible = true;
-		#end 
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -363,32 +362,46 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-
 		historiabotao.updateHitbox();
 		freeplaybotao.updateHitbox();
 		achievementsbotao.updateHitbox();
 		opcaobotao.updateHitbox();
 		sobrebotao.updateHitbox();
+		historiabotao.onOver.callback = historiaHover;
+        historiabotao.onOut.callback = historiaOut;
+		freeplaybotao.onOver.callback = freeplayHover;
+        freeplaybotao.onOut.callback = freeplayOut;
+		achievementsbotao.onOver.callback = achievementsHover;
+        achievementsbotao.onOut.callback = achievementsOut;
+		opcaobotao.onOver.callback = opcaoHover;
+        opcaobotao.onOut.callback = opcaoOut;
+		sobrebotao.onOver.callback = sobreHover;
+        sobrebotao.onOut.callback = sobreOut;
 
 		//checker.y += 0.1;
 
 		if(historiabotao.justPressed && !checkiftouch && clicavel){
+			historiabotao.alpha=1;
 			curSelected = 0;
 			if(curSelected == 0 && checkiftouch == false){checkiftouch = true;}
 		}
 		if(freeplaybotao.justPressed && !checkiftouch && clicavel){
+			freeplaybotao.alpha=1;
 			curSelected = 1;
 			if(curSelected == 1 && checkiftouch == false){checkiftouch = true;}
 		}
 		if(achievementsbotao.justPressed && !checkiftouch && clicavel){
+			achievementsbotao.alpha=1;
 			curSelected = 2;		
 			if(curSelected == 2 && checkiftouch == false && clicavel){checkiftouch = true;}
 		}
 		if(opcaobotao.justPressed && !checkiftouch){
+			opcaobotao.alpha=1;
 			curSelected = 4;
 			if(curSelected == 4 && checkiftouch == false && clicavel){checkiftouch = true;}
 		}
 		if(sobrebotao.justPressed && !checkiftouch){
+			sobrebotao.alpha=1;
 			curSelected = 3;
 			if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
 			}
@@ -441,7 +454,7 @@ class MainMenuStateMobile extends MusicBeatState
 								#if android
 									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuStateMobile()));
 									#else
-									//Ai é contigo dav
+									MusicBeatState.switchState(new VideoStatePC());
 									#end
 								case 'options':
 									MusicBeatState.switchState(new OptionsState());
@@ -463,4 +476,59 @@ class MainMenuStateMobile extends MusicBeatState
 		super.update(elapsed);
 
 	}
+
+	function historiaHover():Void
+		{
+			historiabotao.alpha=1;
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+		}
+	 
+		function historiaOut():Void
+		{
+			historiabotao.alpha=0.75;
+		}
+
+		function freeplayHover():Void
+			{
+				freeplaybotao.alpha=1;
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			}
+		 
+			function freeplayOut():Void
+			{
+				freeplaybotao.alpha=0.75;
+			}
+
+			function achievementsHover():Void
+				{
+					achievementsbotao.alpha=1;
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+				}
+			 
+				function achievementsOut():Void
+				{
+					achievementsbotao.alpha=0.75;
+				}
+				
+			function opcaoHover():Void
+				{
+					opcaobotao.alpha=1;
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+				}
+			 
+				function opcaoOut():Void
+				{
+					opcaobotao.alpha=0.75;
+				}
+
+				function sobreHover():Void
+					{
+						sobrebotao.alpha=1;
+						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+					}
+				 
+					function sobreOut():Void
+					{
+						sobrebotao.alpha=0.75;
+					}
 }
