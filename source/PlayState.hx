@@ -4750,7 +4750,7 @@ class PlayState extends MusicBeatState
 
 				if (storyPlaylist.length <= 0)
 				{
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('newmenu'));
 
 					cancelFadeTween();
 					CustomFadeTransition.nextCamera = camOther;
