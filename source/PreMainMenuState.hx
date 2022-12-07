@@ -33,28 +33,34 @@ class PreMainMenuState extends MusicBeatState
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os creditos", null);
 			#end
+			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
+			supbg.antialiasing = ClientPrefs.globalAntialiasing;
+			supbg.updateHitbox();
+			supbg.alpha = 1;
+			add(supbg);
 			letext = new FlxText(50, FlxG.height - 600, FlxG.width - 100, "Parece que é sua primeira vez aqui, quer assistir ao vídeo?", 32);
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
 			letext.alpha = 1;
 			add(letext);
-
+			ClientPrefs.firstTime=false;
+			ClientPrefs.saveSettings();
 			simbotao = new FlxButton(FlxG.width, 100, '');
-			simbotao.loadGraphic(Paths.image('mainmenu/setopcao', 'preload'));
+			simbotao.loadGraphic(Paths.image('mainmenu/btsim', 'preload'));
 			simbotao.setGraphicSize(Std.int(simbotao.width * 0.75));
 	
 			simbotao.updateHitbox();
-			simbotao.x = 375;
+			simbotao.x = 470;
 			simbotao.y = 250;
 			simbotao.alpha = 0.75;
 			add(simbotao);
 
 			naobotao = new FlxButton(FlxG.width, 100, '');
-			naobotao.loadGraphic(Paths.image('mainmenu/setopcao', 'preload'));
+			naobotao.loadGraphic(Paths.image('mainmenu/btnao', 'preload'));
 			naobotao.setGraphicSize(Std.int(naobotao.width * 0.75));
 	
 			naobotao.updateHitbox();
-			naobotao.x = 375;
+			naobotao.x = 470;
 			naobotao.y = 395;
 			naobotao.alpha = 0.75;
 			add(naobotao);
