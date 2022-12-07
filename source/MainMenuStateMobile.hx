@@ -62,6 +62,7 @@ class MainMenuStateMobile extends MusicBeatState
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Silver reverso says: AMO PROGRAMAR MENUS!!!", null);
+		//and dav says: EU ODEIO MEXER COM COORDENADAS
 		#end
 
 
