@@ -83,6 +83,8 @@ class PlayState extends MusicBeatState
 	public static var majinstrums:Bool = false;
 	public static var desesperada:Bool = false;
 
+	var infinitesimbol:FlxSprite; //detalhe gigachad
+
 	var telapreta:FlxSprite;
 
 	var tempogravador:FlxText;
@@ -4451,7 +4453,7 @@ class PlayState extends MusicBeatState
 					removeStatics();
 					generateStaticArrows(0);
 					generateStaticArrows(1);
-					FlxTween.num(timeBar.max, 90, 3.0, {ease: FlxEase.cubeOut}, function (v:Float) {
+					FlxTween.num(timeBar.max, 90, 2.0, {ease: FlxEase.cubeOut}, function (v:Float) {
 						remove(timeBar);
 						timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 						'songPercent', 0, v);
@@ -4461,10 +4463,10 @@ class PlayState extends MusicBeatState
 						timeBar.cameras = [camHUD];
 						add(timeBar);
 						});
-						FlxTween.num(secondsTotal, 6039, 3.0, {ease: FlxEase.linear}, function (v2:Float) {
+						FlxTween.num(secondsTotal, 6039, 2.0, {ease: FlxEase.linear}, function (v2:Float) {
 							timeTxt.text = FlxStringUtil.formatTime(v2, false);
 							});
-							new FlxTimer().start(3.03, function(tmr:FlxTimer) {
+							new FlxTimer().start(2.03, function(tmr:FlxTimer) {
 								timeTxt.visible = false;
 								songPercent = 0;
 								add(infinitesimbol);
@@ -5952,6 +5954,9 @@ class PlayState extends MusicBeatState
 				{
 					FlxTween.angle(tospin, 0, 360, 0.2, {ease: FlxEase.quintOut});
 				});
+			if (majinstrums){
+				FlxTween.angle(infinitesimbol, 0, 360, 0.2, {ease: FlxEase.quintOut});
+			}
 		}
 
 	function removeStatics()
@@ -5994,7 +5999,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	function doStaticSign(lestatic:Int = 0, leopa:Bool = true)
+	function doStaticSign(lestatic:Int = 0, leopa:Bool = true) //ToDo: Aumentar o tempo de duração disso.
 		{
 			trace('static MOMENT HAHAHAH ' + lestatic);
 			var daStatic:FlxSprite = new FlxSprite(0, 0);
@@ -6014,7 +6019,7 @@ class PlayState extends MusicBeatState
 			switch (lestatic)
 			{
 				case 0:
-					daStatic.animation.addByPrefix('static', 'staticFLASH', 24, false);
+					daStatic.animation.addByPrefix('static', 'staticFLASH', 18, false); //This should do it
 			}
 			add(daStatic);
 	
