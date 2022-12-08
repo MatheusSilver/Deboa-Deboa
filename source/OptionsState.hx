@@ -726,6 +726,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 	static var options:Array<String> = [
 		'GRAPHICS',
 		'Low Quality',
+		'Shaders',
 		'Anti-Aliasing',
 		'Persistent Cached Data',
 		#if !html5
@@ -890,6 +891,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'Low Quality':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
+					
+					case 'Shaders':
+						ClientPrefs.shaders = !ClientPrefs.shaders;
 
 					case 'Anti-Aliasing':
 						ClientPrefs.globalAntialiasing = !ClientPrefs.globalAntialiasing;
@@ -1021,6 +1025,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "Changes how late a note is spawned.\nUseful for preventing audio lag from wireless earphones.";
 			case 'FPS Counter':
 				daText = "If unchecked, hides FPS Counter.";
+			case 'Shaders':
+				daText = "Permite o uso de efeitos especiais de tela no jogo.";
 			case 'Low Quality':
 				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
 			case 'Persistent Cached Data':
@@ -1099,6 +1105,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				switch(options[checkboxNumber[i]]) {
 					case 'FPS Counter':
 						daValue = ClientPrefs.showFPS;
+					case 'Shaders':
+						daValue = ClientPrefs.shaders;
 					case 'Low Quality':
 						daValue = ClientPrefs.lowQuality;
 					case 'Anti-Aliasing':

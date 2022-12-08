@@ -714,9 +714,9 @@ class PlayState extends MusicBeatState
 
 				if(ClientPrefs.shaders) {
 			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
-			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true));
+			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true)); //testing
 			addShaderToCamera('hud', new ScanlineEffect(true));
-			addShaderToCamera('game', new ScanlineEffect(true));
+			addShaderToCamera('game', new ScanlineEffect(true)); //testing
 				}
 
 			case 'chasing':
@@ -1171,7 +1171,7 @@ class PlayState extends MusicBeatState
 
 		if (curStage == 'needle')
 			{
-				dad2 = new Character(0, 0, 'sarah');
+				dad2 = new Character(0, 0, 'sarah1');
 				startCharacterPos(dad2, true);
 				dad2Group.add(dad2);
 			}
@@ -2266,7 +2266,7 @@ class PlayState extends MusicBeatState
 					} else {
 						videoSprite.setGraphicSize(FlxG.width, FlxG.height);
 					}
-				if (chromakey == 1 && (ClientPrefs.shaders)){
+				if (chromakey == 1){
 					videoSprite.shader = new GreenScreenShader();
 				}
 				if(layering == 1) {

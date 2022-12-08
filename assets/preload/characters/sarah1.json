@@ -3,66 +3,66 @@
 		{
 			"offsets": [
 				-190,
-				-289
+				-100
 			],
-			"loop": false,
+			"loop": true,
 			"fps": 24,
 			"anim": "idle",
 			"indices": [],
-			"name": "Needlemouse_IDLE"
+			"name": "Sarah_IDLE"
 		},
 		{
 			"offsets": [
-				40,
-				-268
+				-60,
+				-195
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
-			"name": "Needlemouse_LEFT"
+			"name": "Sarah_LEFT"
 		},
 		{
 			"offsets": [
-				-187,
-				-258
+				-40,
+				-214
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "Needlemouse_RIGHT"
+			"name": "Sarah_RIGHT"
 		},
 		{
 			"offsets": [
-				-178,
-				-69
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singUP",
-			"indices": [],
-			"name": "Needlemouse_UP"
-		},
-		{
-			"offsets": [
-				-70,
-				-268
+				-40,
+				-118
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
 			"indices": [],
-			"name": "Needlemouse_DOWN"
+			"name": "Sarah_DOWN"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-208,
+				-70
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Sarah_UP",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/needlemouse",
+	"image": "characters/sarah1",
 	"position": [
 		-150,
 		-60
 	],
-	"healthicon": "needlemouse",
+	"healthicon": "gf",
 	"flip_x": false,
 	"healthbar_colors": [
 		76,
@@ -70,8 +70,8 @@
 		202
 	],
 	"camera_position": [
-		50,
-		120
+		70,
+		200
 	],
 	"sing_duration": 4,
 	"scale": 1.2
