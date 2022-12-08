@@ -20,6 +20,7 @@ class MP4Handler
 	public static var video:Video;
 	public static var netStream:NetStream;
 	public static var finishCallback:FlxState;
+	public var canSkip:Bool = false;
 	public var sprite:FlxSprite;
 	#if desktop
 	public static var vlcBitmap:VlcBitmap;
@@ -39,7 +40,6 @@ class MP4Handler
 	public function playMP4(path:String, callback:FlxState, ?outputTo:FlxSprite = null, ?repeat:Bool = false, ?isWindow:Bool = false, ?isFullscreen:Bool = false):Void
 	{
 		#if html5
-		canSkip=false;
 		FlxG.autoPause = false;
 
 		if (FlxG.sound.music != null)
@@ -99,6 +99,7 @@ class MP4Handler
 			sprite = outputTo;
 		}
 		#end
+		canSkip=false;
 	}
 
 	#if desktop
@@ -162,7 +163,7 @@ class MP4Handler
 
 	function update(e:Event)
 	{
-		if (FlxG.keys.justPressed.SPACE)
+		if (FlxG.keys.justReleased.SPACE && canSkip)
 		{
 			if (vlcBitmap.isPlaying)
 			{

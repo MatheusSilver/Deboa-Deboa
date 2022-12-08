@@ -62,7 +62,7 @@ class MainMenuStateMobile extends MusicBeatState
 		Conductor.changeBPM(112);
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Silver reverso says: AMO PROGRAMAR MENUS!!!", null);
+		DiscordClient.changePresence("No menu principal", null);
 		//and dav says: EU ODEIO MEXER COM COORDENADAS
 		#end
 
@@ -85,7 +85,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
 		bg.scrollFactor.set(0, 0);
 		bg.setGraphicSize(FlxG.width);
 		bg.updateHitbox();
@@ -104,7 +104,7 @@ class MainMenuStateMobile extends MusicBeatState
 		gradientBar.y = FlxG.height - gradientBar.height;
 		gradientBar.scale.y = 0;
 		gradientBar.updateHitbox();
-		add(gradientBar);
+		//add(gradientBar);
 
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -262,6 +262,7 @@ class MainMenuStateMobile extends MusicBeatState
 		//não consigo pensar em outra forma de fazê-lo sem ter que reescrever tudo.
 
 			if (selecionado == 0){
+				historiabotao.alpha=1;
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 					FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
 					});
@@ -281,6 +282,7 @@ class MainMenuStateMobile extends MusicBeatState
 						FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 						});
 			} else if (selecionado == 1){
+				freeplaybotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(freeplaybotao, {x: FlxG.width - freeplaybotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -300,6 +302,7 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if(selecionado == 2) {
+				achievementsbotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
 			FlxTween.tween(achievementsbotao, {x: FlxG.width - achievementsbotao.width},0.5, {ease: FlxEase.expoInOut});
 			});
@@ -319,6 +322,7 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if (selecionado == 4) {
+				opcaobotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
 			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -338,6 +342,7 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if (selecionado == 3){ //!!!
+				sobrebotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(sobrebotao, {x: FlxG.width - sobrebotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});

@@ -36,7 +36,7 @@ class MemoryCounter extends TextField
 
 		if (ClientPrefs.showFPS)
 		{	
-			text = "\nRAM: " + mem + " MB\nRAM maxima: " + memPeak + " MB";	
+			//text = "\nRAM: " + mem + " MB\nRAM maxima: " + memPeak + " MB";	
 		}
 	}
 } 

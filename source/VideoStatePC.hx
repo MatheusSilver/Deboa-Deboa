@@ -6,6 +6,7 @@ import Discord.DiscordClient;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.util.FlxTimer;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -26,7 +27,7 @@ class VideoStatePC extends MusicBeatState
 		{
 			#if desktop
 			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Vendo os creditos", null);
+			//DiscordClient.changePresence("", null);
 			#end
 			FlxG.sound.music.fadeIn(0.35, 0.7, 0);
 			video.playMP4('assets/videos/aviso.mp4', new MainMenuStateMobile(), videoMenu);
@@ -34,9 +35,47 @@ class VideoStatePC extends MusicBeatState
 			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para sair", 32); //Achei cringe
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
-			letext.alpha = 0.25;
+			letext.alpha = 0;
 			add(letext);
 	
 			super.create();
+		}
+
+		var twn:FlxTimer = new FlxTimer();
+		var alphaon:Bool = false;
+	override function update(elapsed:Float)
+		{
+			super.update(elapsed);
+			if(letext.alpha == 0 && FlxG.keys.justReleased.ANY)
+				{
+					alphaon=true;
+					twn.start(4, function(twn:FlxTimer){CompletedTimer();});
+				}
+
+				if(alphaon && letext.alpha!=1)
+					{
+						letext.alpha= letext.alpha+0.25;
+						video.canSkip = false;
+					}
+					else if(alphaon && letext.alpha==1)
+						{
+							video.canSkip = true;
+						}
+
+						if(!alphaon && letext.alpha!=0)
+							{
+								letext.alpha= letext.alpha-0.25;
+								video.canSkip = false;
+							}
+							else if(!alphaon && letext.alpha==0)
+								{
+									video.canSkip = false;
+								}
+				
+		}
+	function CompletedTimer()
+		{
+			video.canSkip=false;
+			alphaon=false;
 		}
 }

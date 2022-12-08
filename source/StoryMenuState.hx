@@ -65,7 +65,7 @@ class StoryMenuState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Modo História: Conflito Triplo", null);
+		DiscordClient.changePresence("No modo história", null);
 		#end
 
 		var bg:FlxSprite;
@@ -213,7 +213,6 @@ class StoryMenuState extends MusicBeatState
 	{
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 
-
 			real += diff;
 			if (real < 0)
 				real = songArray.length - 1;
@@ -250,7 +249,6 @@ class StoryMenuState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-
 		if (controls.UI_LEFT_P && oneclickpls)
 		{
 				changeAct(-1);
@@ -276,7 +274,7 @@ class StoryMenuState extends MusicBeatState
 			new FlxTimer().start(0.5, function(tmr:FlxTimer)
 				{ 
 					MusicBeatState.switchState(new MainMenuStateMobile());
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0.7);
+					FlxG.sound.playMusic(Paths.music('newmenu'), 0.7);
 				});
 		}
 

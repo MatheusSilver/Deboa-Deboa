@@ -142,7 +142,7 @@ class TitleState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Na tela de Titulo", null);
+		DiscordClient.changePresence("Na tela de titulo", null);
 		#end
 	}
 
@@ -376,7 +376,7 @@ class TitleState extends MusicBeatState
 							}
 							else
 								{
-									MusicBeatState.switchState(new MainMenuStateMobile());
+									MusicBeatState.switchState(new PreMainMenuState()); //lembrar de colocar o menu dps
 								}
 					}
 					closedState = true;

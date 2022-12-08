@@ -111,7 +111,7 @@ class Main extends Sprite
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		if(fpsVar != null) {
-			fpsVar.visible = ClientPrefs.showFPS;
+			fpsVar.visible = false;
 		}
 
 
