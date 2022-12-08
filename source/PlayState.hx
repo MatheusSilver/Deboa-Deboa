@@ -4449,6 +4449,7 @@ class PlayState extends MusicBeatState
 					infinitesimbol.y = timeBarBG.y - 40;
 					infinitesimbol.setGraphicSize(Std.int(timeTxt.height * 1.7));
 					infinitesimbol.cameras = [camHUD];
+					infinitesimbol.angle = 0; //I FORGOR :skull:
 					infinitesimbol.screenCenter(X);
 					removeStatics();
 					generateStaticArrows(0);
