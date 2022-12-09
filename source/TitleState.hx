@@ -133,10 +133,21 @@ class TitleState extends MusicBeatState
 			DiscordClient.shutdown();
 		});
 		#end
-		new FlxTimer().start(1, function(tmr:FlxTimer)
-		{
-			startIntro();
-		});
+		if (ClientPrefs.pibby){
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new PibbyTela());
+		}else {
+			if (initialized)
+				startIntro();
+			else
+			{
+				new FlxTimer().start(1, function(tmr:FlxTimer)
+				{
+					startIntro();
+				});
+			}
+		}
 		
 		#end
 

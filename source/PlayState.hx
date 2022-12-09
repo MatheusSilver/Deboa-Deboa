@@ -1,5 +1,6 @@
 package;
 
+import lime.system.System;
 import openfl.Lib;
 import FNFSprite;
 import webm.WebmPlayer;
@@ -4823,14 +4824,36 @@ class PlayState extends MusicBeatState
 				StoryMenuState.voltarparahistoria = false;
 				MusicBeatState.switchState(new StoryMenuState());
 			} else {
-				trace('WENT BACK TO FREEPLAY??');
-				cancelFadeTween();
-				CustomFadeTransition.nextCamera = camOther;
-				if(FlxTransitionableState.skipNextTransIn) {
-					CustomFadeTransition.nextCamera = null;
-				}
+				Achievements.loadAchievements();
+				var achieveID:Int = Achievements.getAchievementIndex('pibby');
+				if (curSong != 'green-hills' || Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
+					trace('WENT BACK TO FREEPLAY??');
+					cancelFadeTween();
+					CustomFadeTransition.nextCamera = camOther;
+					if(FlxTransitionableState.skipNextTransIn) {
+						CustomFadeTransition.nextCamera = null;
+					}
 				MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
+					ClientPrefs.pibby = true;
+					#if desktop
+					new FlxTimer().start(0.5, function(tmr:FlxTimer)
+						{
+							System.exit(0);
+						});
+						lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
+					#end
+					ClientPrefs.saveSettings();
+					//if (FlxG.keys.justPressed.ENTER){
+
+					//}
+					#if mobile
+					//Ainda tenho que pensar numa forma de forçar um crash no celular de forma natural
+					#end
+
+
+				}
 				usedPractice = false;
 				changedDifficulty = false;
 				cpuControlled = false;
@@ -6259,10 +6282,10 @@ class PlayState extends MusicBeatState
 						if(/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing && !ClientPrefs.imagesPersist) {
 							unlock = true;
 						}
-					case 'debugger':
-						if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
-							unlock = true;
-						}
+					//case 'debugger':
+					//	if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
+					//		unlock = true;
+					//	}
 				}
 
 				if(unlock) {

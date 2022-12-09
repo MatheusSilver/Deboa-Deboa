@@ -9,6 +9,7 @@ import Controls;
 class ClientPrefs {
 	public static var shaders:Bool = true; //Todo: Adicionar uma opção pra isso em settings
 	public static var downScroll:Bool = false;
+	public static var pibby:Bool = false; //Eu não sei se é assim mesmo que faz na psych
 	public static var middleScroll:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var flashing:Bool = true;
@@ -59,6 +60,7 @@ class ClientPrefs {
 	public static function saveSettings() {
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.downScroll = downScroll;
+		FlxG.save.data.pibby = pibby;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.osusom = osusom;
@@ -96,6 +98,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
+		}
+		if(FlxG.save.data.pibby != null) {
+			pibby = FlxG.save.data.pibby;
 		}
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;

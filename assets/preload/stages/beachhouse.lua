@@ -35,9 +35,9 @@ function onCreate()
 	scaleObject('water', .7, .6);
 	
 	
-	makeAnimatedLuaSprite('glitch', 'Cenarios/beachhouse/static', -600, -300);
+	makeAnimatedLuaSprite('glitch', 'static', -600, -300);
 	scaleObject('glitch', 2, 2);
-	addAnimationByPrefix('glitch', 'glitchout', 'static glitch', 24, true); -- WHAT?????
+    addAnimationByPrefix('glitch', 'glitchout', 'static glitch', 24, true); -- WHAT?????
 	objectPlayAnimation('glitch', 'glitchout');
 	
 	addLuaSprite('sky', false);
@@ -46,7 +46,8 @@ function onCreate()
 	addLuaSprite('sandfloor', false);
 	addLuaSprite('tree', false);
 	addLuaSprite('water', false);
-	addLuaSprite('glitch', true); -- false = add behind characters, true = add over characters
+--	addLuaSprite('glitch', true); -- false = add behind characters, true = add over characters
+-- Não faço a menor ideia de onde foi parar esse sprite ai.
 end
 
 function onStepHit()
