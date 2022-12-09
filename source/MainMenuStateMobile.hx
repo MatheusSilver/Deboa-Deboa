@@ -391,6 +391,14 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if(GJClient.logged)
+			{
+				letext.alpha = 1;
+			}
+			else
+				{
+					letext.alpha = 0;
+				}
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		historiabotao.updateHitbox();
