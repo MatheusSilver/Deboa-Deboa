@@ -4837,18 +4837,16 @@ class PlayState extends MusicBeatState
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
 					ClientPrefs.pibby = true;
-					#if desktop
+					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
 					new FlxTimer().start(0.5, function(tmr:FlxTimer)
 						{
 							System.exit(0);
-						});
-						lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
-					#end
+						});	
 					ClientPrefs.saveSettings();
 					//if (FlxG.keys.justPressed.ENTER){
 
 					//}
-					#if mobile
+					/*#if mobile
 					iconP1 = new HealthIcon('não existe', true);
 					iconP1.y = healthBar.y - (iconP1.height / 2);
 					iconP1.visible = !ClientPrefs.hideHud;
@@ -4856,7 +4854,7 @@ class PlayState extends MusicBeatState
 					iconP1.animation.curAnim.curFrame = 0;
 					//Sim... Isso é estranho, mas foi a unica forma que pensei de aparecer a mensagem de crash no celular
 					//Sem estourar ele no processo é claro
-					#end
+					#end*/
 
 
 				}
