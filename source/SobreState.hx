@@ -44,22 +44,22 @@ class SobreState extends MusicBeatState
 			letext.alpha = 1;
 			add(letext);
 			videobotao = new FlxButton(FlxG.width, 100, '');
-			videobotao.loadGraphic(Paths.image('mainmenu/btsim', 'preload'));
+			videobotao.loadGraphic(Paths.image('mainmenu/btvideo', 'preload'));
 			videobotao.setGraphicSize(Std.int(videobotao.width * 0.75));
 	
 			videobotao.updateHitbox();
-			videobotao.x = 470;
+			videobotao.x = 385;
 			videobotao.y = 250;
 			videobotao.alpha = 0.75;
 			add(videobotao);
 
 			credbotao = new FlxButton(FlxG.width, 100, '');
-			credbotao.loadGraphic(Paths.image('mainmenu/btnao', 'preload'));
+			credbotao.loadGraphic(Paths.image('mainmenu/btcr', 'preload'));
 			credbotao.setGraphicSize(Std.int(credbotao.width * 0.75));
 	
 			credbotao.updateHitbox();
-			credbotao.x = 470;
-			credbotao.y = 395;
+			credbotao.x = 385;
+			credbotao.y = 415;
 			credbotao.alpha = 0.75;
 			add(credbotao);
 	

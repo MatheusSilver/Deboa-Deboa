@@ -47,6 +47,7 @@ class GJClient
      * If `true`, the functions will use `Md5` encriptation for data processing; if `false`, they'll use `Sha1` encriptation instead.
      */
     public static var useMd5:Bool = true;
+    public static var shitt:Bool=false;
 
     /**
      * Sets a new GUI in the database, the Username and the Game Token of the player respectively.
@@ -66,12 +67,10 @@ class GJClient
 
         var temp_user = getUser();
         var temp_token = getToken();
-        user=GameJoltLoginState.userBar.text;
-        token=GameJoltLoginState.tokenBar.text;
         if (user == '') user = null;
         if (token == '') token = null;
 
-        logout();
+        //logout();
 
         FlxG.save.data.user = user;
         FlxG.save.data.token = token;
@@ -79,7 +78,7 @@ class GJClient
         if (hasLoginInfo())
         {
             authUser(
-                function () {printMsg('GUI Parameters Changed: New User -> ${getUser()} | New Token -> ${getToken()}'); GameJoltLoginState.IrParaMenu(); userName = user;},
+                function () {printMsg('GUI Parameters Changed: New User -> ${getUser()} | New Token -> ${getToken()}'); if(shitt){GameJoltLoginState.IrParaMenu(); shitt=false;}; userName = user;},
                 function ()
                 {
                     FlxG.save.data.user = temp_user;
@@ -104,7 +103,7 @@ class GJClient
         function ()
         {
             printMsg('User authentication failed!');
-            GameJoltLoginState.Desesconder();
+            if(shitt){GameJoltLoginState.Desesconder();}
             setUserInfo(null, null);
             noDataWarned = false;
             if (onFail != null) onFail();
@@ -455,6 +454,7 @@ class GJClient
         function ()
         {
             printMsg('Login process failed!');
+            GameJoltLoginState.Desesconder();
             if (onFail != null) onFail();
         });
         if (urlData != null && !logged) urlData; else return;
@@ -529,7 +529,7 @@ class GJClient
             authUser(function () {login(function (userData:User) {if (onSuccess != null && !logged) onSuccess(userData);},onFail);}, onFail);
             if (logged) printMsg('Initialized successfully!');
         }
-        else printMsg('Initializing failed!');
+        else printMsg('Initializing failed!'); if(shitt){GameJoltLoginState.Desesconder();}
     }
 
     // INTERNAL FUNCTIONS (DON'T ALTER IF YOU DON'T KNOW WHAT YOU'RE DOING!!)

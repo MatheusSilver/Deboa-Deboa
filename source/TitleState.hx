@@ -62,7 +62,7 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		GJClient.initialize();
-		//GJClient.setUserInfo(null, null);
+		GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
 		//FlxG.switchState(new GameJoltLogin());
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
@@ -172,6 +172,8 @@ class TitleState extends MusicBeatState
 				FlxG.sound.music.fadeIn(4, 0, 0.7);
 			}
 		}
+		//GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
+		//GJClient.initialize();
 
 		Conductor.changeBPM(112);
 		persistentUpdate = true;

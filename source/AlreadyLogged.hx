@@ -64,7 +64,7 @@ class AlreadyLogged extends MusicBeatState
 			naobotao.y = 395;
 			naobotao.alpha = 0.75;
 			add(naobotao);
-	
+			//GJClient.initialize();
 			super.create();
 		}
 	override function update(elapsed:Float)

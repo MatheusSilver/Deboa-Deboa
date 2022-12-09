@@ -26,6 +26,7 @@ class GameJoltLoginState extends MusicBeatState
     public static var loadingBar:FlxText;
     public static var userBar:FlxUIInputText;
     public static var tokenBar:FlxUIInputText;
+    public static var pretobg:FlxSprite;
     var loginbotao:FlxButton;
 	
 	override function create()
@@ -57,15 +58,20 @@ class GameJoltLoginState extends MusicBeatState
 			letext.alpha = 1;
 			add(letext);
             loginbotao = new FlxButton(FlxG.width, 100, '');
-			loginbotao.loadGraphic(Paths.image('mainmenu/btnao', 'preload'));
+			loginbotao.loadGraphic(Paths.image('mainmenu/btlogar', 'preload'));
 			loginbotao.setGraphicSize(Std.int(loginbotao.width * 0.75));
 	
 			loginbotao.updateHitbox();
-			loginbotao.x = 470;
+			loginbotao.x = 385;
 			loginbotao.y = 425;
 			loginbotao.alpha = 0.75;
 			add(loginbotao);
-
+            pretobg = new FlxSprite(0, 0).loadGraphic(Paths.image('mainmenu/pretobg', 'preload'));
+			pretobg.antialiasing = ClientPrefs.globalAntialiasing;
+			pretobg.updateHitbox();
+            pretobg.screenCenter(XY);
+			pretobg.alpha = 0;
+			add(supbg);
             loadingBar = new FlxText(50, FlxG.height - 700, FlxG.width - 95, "CARREGANDO", 32);
 			loadingBar.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			loadingBar.scrollFactor.set();
@@ -79,7 +85,7 @@ class GameJoltLoginState extends MusicBeatState
 		{
             if (FlxG.keys.justReleased.ESCAPE) {
                 FlxG.sound.play(Paths.sound('cancelMenu'));
-                MusicBeatState.switchState(new MainMenuStateMobile());
+                MusicBeatState.switchState(new OptionsState());
             }
 			super.update(elapsed);
             if(FlxG.sound.music.volume==0) {
@@ -104,7 +110,8 @@ class GameJoltLoginState extends MusicBeatState
                     {
                         if(userBar.text != "USERNAME" && tokenBar.text != "TOKEN")
                             {
-                                GJClient.setUserInfo(null, tokenBar.text);
+                                GJClient.shitt=true;
+                                GJClient.setUserInfo(userBar.text, tokenBar.text);
                                 GJClient.initialize();
                                 EsconderTudo();
                             }
@@ -112,12 +119,15 @@ class GameJoltLoginState extends MusicBeatState
                     }
         public static function EsconderTudo():Void
             {
+                pretobg.alpha = 1;
                 tokenBar.alpha=0;
                 userBar.alpha=0;
                 loadingBar.alpha=1;
             }
         public static function Desesconder():Void
             {
+                MusicBeatState.switchState(new GameJoltLoginState());
+                pretobg.alpha = 0;
                 tokenBar.alpha=1;
                 userBar.alpha=1;
                 loadingBar.alpha=0;
