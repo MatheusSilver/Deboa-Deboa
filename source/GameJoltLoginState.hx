@@ -22,6 +22,7 @@ using StringTools;
 class GameJoltLoginState extends MusicBeatState
 {
 	var letext:FlxText;
+    var loggedtext:FlxText;
     public static var loadingBar:FlxText;
     public static var userBar:FlxUIInputText;
     public static var tokenBar:FlxUIInputText;
@@ -29,7 +30,10 @@ class GameJoltLoginState extends MusicBeatState
 	
 	override function create()
 		{
-            GJClient.logout();
+            if(GJClient.logged)
+            {
+                MusicBeatState.switchState(new AlreadyLogged());
+            }
 			FlxG.mouse.visible = true;
 			#if desktop
 			// Updating Discord Rich Presence

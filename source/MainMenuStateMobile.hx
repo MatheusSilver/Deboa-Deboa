@@ -217,9 +217,11 @@ class MainMenuStateMobile extends MusicBeatState
 		sobrebotao.alpha = 0.75;
 		add(sobrebotao);
 
-		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "Logado como: "+GJClient.userName, 32);
+		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "Conectado como:\n"+GJClient.userName, 32);
 		letext.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		letext.scrollFactor.set();
+		letext.x=0;
+		letext.y=10;
 		letext.alpha = 1;
 		add(letext);
 

@@ -100,7 +100,13 @@ class OptionsState extends MusicBeatState
 				case 'Configuracoes':
 					openSubState(new PreferencesSubstate());
 				case 'GameJolt':
-					MusicBeatState.switchState(new GameJoltLoginState());
+					if(GJClient.logged)
+						{
+							MusicBeatState.switchState(new AlreadyLogged());
+						}
+						else{
+							MusicBeatState.switchState(new GameJoltLoginState());
+						}
 			}
 		}
 	}

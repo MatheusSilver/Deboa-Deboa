@@ -68,7 +68,6 @@ class GJClient
         var temp_token = getToken();
         user=GameJoltLoginState.userBar.text;
         token=GameJoltLoginState.tokenBar.text;
-        userName = user;
         if (user == '') user = null;
         if (token == '') token = null;
 
@@ -80,7 +79,7 @@ class GJClient
         if (hasLoginInfo())
         {
             authUser(
-                function () {printMsg('GUI Parameters Changed: New User -> ${getUser()} | New Token -> ${getToken()}'); GameJoltLoginState.IrParaMenu();},
+                function () {printMsg('GUI Parameters Changed: New User -> ${getUser()} | New Token -> ${getToken()}'); GameJoltLoginState.IrParaMenu(); userName = user;},
                 function ()
                 {
                     FlxG.save.data.user = temp_user;
@@ -101,7 +100,7 @@ class GJClient
     public static function authUser(?onSuccess:() -> Void, ?onFail:() -> Void)
     {
         var urlData = urlResult(urlConstruct('users', 'auth'),
-        function () {printMsg('User authenticated successfully!'); if (onSuccess != null) onSuccess();},
+        function () {printMsg('User authenticated successfully!'); userName = FlxG.save.data.user; if (onSuccess != null) onSuccess();},
         function ()
         {
             printMsg('User authentication failed!');
