@@ -55,7 +55,18 @@ class PibbyTela extends MusicBeatState
 	{
 		super.update(elapsed);
 		
-		if (controls.ACCEPT){
+        var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
+        #if mobile
+		for (touch in FlxG.touches.list)
+		{
+			if (touch.justPressed)
+			{
+				pressedEnter = true;
+			}
+		}
+		#end
+
+		if (pressedEnter){
             ClientPrefs.pibby = false;
 			FlxG.switchState(new TitleState());
             ClientPrefs.saveSettings();

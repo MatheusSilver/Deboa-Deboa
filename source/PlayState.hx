@@ -4849,7 +4849,13 @@ class PlayState extends MusicBeatState
 
 					//}
 					#if mobile
-					//Ainda tenho que pensar numa forma de forçar um crash no celular de forma natural
+					iconP1 = new HealthIcon('não existe', true);
+					iconP1.y = healthBar.y - (iconP1.height / 2);
+					iconP1.visible = !ClientPrefs.hideHud;
+					add(iconP1);
+					iconP1.animation.curAnim.curFrame = 0;
+					//Sim... Isso é estranho, mas foi a unica forma que pensei de aparecer a mensagem de crash no celular
+					//Sem estourar ele no processo é claro
 					#end
 
 
