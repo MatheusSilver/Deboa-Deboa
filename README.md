@@ -39,6 +39,7 @@ ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workfl
 * Dav - Programador Líder
 * Konan - Programador
 * Team Silver - Port Mobile
+* MateusX02 - Ajuda no port Mobile
 
 ## Creditos - Psych Engine 4.2:
 * Shadow Mario - Programação
