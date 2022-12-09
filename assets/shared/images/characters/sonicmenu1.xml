@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="sonicmenu1.png">
+<SubTexture name="sonicmenu1 idle0000" x="1639" y="2645" width="820" height="875" frameX="-152" frameY="-205" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0001" x="0" y="2645" width="820" height="876" frameX="-152" frameY="-204" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0002" x="3274" y="878" width="820" height="877" frameX="-153" frameY="-203" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0003" x="1619" y="1765" width="820" height="878" frameX="-153" frameY="-202" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0004" x="2439" y="1765" width="820" height="878" frameX="-153" frameY="-202" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0005" x="819" y="884" width="819" height="880" frameX="-154" frameY="-200" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0006" x="2455" y="0" width="819" height="880" frameX="-154" frameY="-200" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0007" x="0" y="884" width="819" height="881" frameX="-154" frameY="-199" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0008" x="1636" y="0" width="819" height="882" frameX="-154" frameY="-198" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0009" x="818" y="0" width="818" height="883" frameX="-155" frameY="-197" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0010" x="0" y="0" width="818" height="884" frameX="-155" frameY="-196" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0011" x="820" y="2645" width="819" height="876" frameX="-152" frameY="-204" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0012" x="2478" y="3521" width="821" height="857" frameX="-143" frameY="-223" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0013" x="3299" y="3521" width="821" height="849" frameX="-136" frameY="-231" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0014" x="3284" y="2645" width="808" height="854" frameX="-138" frameY="-226" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0015" x="4095" y="2605" width="792" height="859" frameX="-139" frameY="-221" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0016" x="4095" y="1741" width="788" height="864" frameX="-139" frameY="-216" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0017" x="4095" y="871" width="788" height="870" frameX="-145" frameY="-210" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0018" x="3274" y="1755" width="789" height="877" frameX="-150" frameY="-203" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0019" x="2455" y="880" width="793" height="880" frameX="-153" frameY="-200" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0020" x="1638" y="884" width="801" height="880" frameX="-154" frameY="-200" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0021" x="0" y="1765" width="807" height="880" frameX="-156" frameY="-200" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0022" x="807" y="1765" width="812" height="880" frameX="-158" frameY="-200" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0023" x="3274" y="0" width="821" height="878" frameX="-154" frameY="-202" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0024" x="2459" y="2645" width="825" height="874" frameX="-150" frameY="-206" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0025" x="0" y="3521" width="827" height="870" frameX="-149" frameY="-210" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0026" x="1652" y="3521" width="826" height="868" frameX="-150" frameY="-212" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0027" x="827" y="3521" width="825" height="870" frameX="-150" frameY="-210" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="sonicmenu1 idle0028" x="4095" y="0" width="824" height="871" frameX="-151" frameY="-209" frameWidth="1080" frameHeight="1080" />
+</TextureAtlas>

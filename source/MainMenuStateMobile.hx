@@ -39,6 +39,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	var tails:FlxSprite;
 	var sonic1:FlxSprite;
+	var boom:FlxSprite;
 
 	var historiabotao:FlxButton;
 	var freeplaybotao:FlxButton;
@@ -46,6 +47,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var opcaobotao:FlxButton;
 	var letext:FlxText;
 	var sobrebotao:FlxButton;
+	var isCoolBeat:Bool=true;
 	
 	var optionShit:Array<String> = ['story_mode','freeplay', 'awards', 'credits', 'options'];
 
@@ -129,25 +131,37 @@ class MainMenuStateMobile extends MusicBeatState
 		tails.frames = Paths.getSparrowAtlas('menus/tailsdoll_p2', 'preload');
 		tails.animation.addByPrefix('idle2', "singRIGHT", 24);
 		//tails.animation.play('idle2');
-		tails.alpha = 1;
+		tails.alpha = 0;
 		tails.antialiasing = true;
 		tails.setGraphicSize(Std.int(tails.width * 0.9));
 		tails.updateHitbox();
 		tails.x = 25 - 507 - 200 - 400 + 75 + 140;
 		tails.y = 75 - 320 - 250 - 200 + 30;
-		add(tails);
+		//add(tails);
 
 		sonic1 = new FlxSprite(0, 0); //ok
 		sonic1.frames = Paths.getSparrowAtlas('menus/YCR', 'preload');
 		sonic1.animation.addByPrefix('idle1', "normal_down", 20);
 		//sonic1.animation.play('idle1');
-		sonic1.alpha = 0.95;
 		sonic1.antialiasing = true;
 		sonic1.setGraphicSize(Std.int(sonic1.width * 1.5));
 		sonic1.updateHitbox();
 		sonic1.y = 75 - 390 + 40;
 		sonic1.x = 25 - 507 - 100;
-		add(sonic1);
+		sonic1.alpha=0;
+		//add(sonic1);
+
+		boom = new FlxSprite(0, 0); //ok
+		boom.frames = Paths.getSparrowAtlas('characters/sonicmenu1', 'shared');
+		boom.animation.addByPrefix('idle', "sonicmenu1 idle",24);
+		//sonic1.animation.play('idle1');
+		boom.antialiasing = true;
+		//boom.setGraphicSize(Std.int));
+		boom.updateHitbox();
+		boom.y = -500;
+		boom.x = -765;
+		boom.alpha=1;
+		add(boom);
 
 		historiabotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
 		historiabotao.loadGraphic(Paths.image('mainmenu/sethistoria', 'preload'));
@@ -550,7 +564,8 @@ class MainMenuStateMobile extends MusicBeatState
 					override function beatHit()
 						{
 							super.beatHit();
-					
+							if(isCoolBeat){boom.animation.play('idle', true);}
+							isCoolBeat = !isCoolBeat;
 							if(sonic1 != null)
 								{
 								sonic1.animation.play('idle1', true);
