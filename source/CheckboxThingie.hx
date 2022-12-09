@@ -1,3 +1,4 @@
+//TO DO: Copiar essa source e manter como backup. (Essa vai servir pra otimização)
 package;
 
 import flixel.FlxSprite;
@@ -14,7 +15,8 @@ class CheckboxThingie extends FlxSprite
 		animation.addByPrefix("static", "Check Box unselected", 24, false);
 		animation.addByPrefix("checked", "Check Box selecting animation", 24, false);
 		antialiasing = ClientPrefs.globalAntialiasing;
-		setGraphicSize(Std.int(0.6 * width));
+		setGraphicSize(Std.int(1.8 * width)); 
+		// Silver e dav perguntam: Porque vc fez isso? Não sei.
 		updateHitbox();
 		set_daValue(checked);
 	}
