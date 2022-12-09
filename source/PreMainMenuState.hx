@@ -92,6 +92,8 @@ class PreMainMenuState extends MusicBeatState
 			function simClick():Void
 				{
 					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+					VideoStatePC.videoPath = "assets/videos/aviso.mp4";
+					VideoStatePC.NextState = "mainmenu";
 					MusicBeatState.switchState(new VideoStatePC());
 				}
 				function naoHover():Void

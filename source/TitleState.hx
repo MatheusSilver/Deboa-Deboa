@@ -4,7 +4,10 @@ import flixel.util.FlxGradient;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
+//import GameJolt;
+//import GameJolt.GameJoltAPI;
 #end
+import gamejolt.formats.*;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -58,7 +61,9 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-
+		GJClient.initialize();
+		//GJClient.setUserInfo(null, null);
+		//FlxG.switchState(new GameJoltLogin());
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
@@ -141,6 +146,8 @@ class TitleState extends MusicBeatState
 		#end
 
 		#if desktop
+		//GameJoltAPI.connect();
+		//GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Na tela de titulo", null);
 		#end

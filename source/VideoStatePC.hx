@@ -22,7 +22,10 @@ class VideoStatePC extends MusicBeatState
 	var videoMenu:FlxSprite = new FlxSprite(0,0);
 	var video:MP4Handler = new MP4Handler();
 	var letext:FlxText;
-	
+	public static var videoPath:String = "";
+	public static var NextState:String = "";
+
+
 	override function create()
 		{
 			#if desktop
@@ -30,8 +33,19 @@ class VideoStatePC extends MusicBeatState
 			//DiscordClient.changePresence("", null);
 			#end
 			FlxG.sound.music.fadeIn(0.35, 0.7, 0);
-			video.playMP4('assets/videos/aviso.mp4', new MainMenuStateMobile(), videoMenu);
 			add(videoMenu);
+			if(NextState == "mainmenu")
+				{
+					video.playMP4(videoPath, new MainMenuStateMobile(), videoMenu);
+				}
+			else if(NextState == "sobremenu")
+				{
+					video.playMP4(videoPath, new SobreState(), videoMenu);
+				}
+			else
+			{
+				video.playMP4(videoPath, new MainMenuStateMobile(), videoMenu);
+			}
 			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para sair", 32); //Achei cringe
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();

@@ -44,6 +44,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var freeplaybotao:FlxButton;
 	var achievementsbotao:FlxButton;
 	var opcaobotao:FlxButton;
+	var letext:FlxText;
 	var sobrebotao:FlxButton;
 	
 	var optionShit:Array<String> = ['story_mode','freeplay', 'awards', 'credits', 'options'];
@@ -201,6 +202,12 @@ class MainMenuStateMobile extends MusicBeatState
 		sobrebotao.y = 15 + opcaobotao.y + opcaobotao.height;
 		sobrebotao.alpha = 0.75;
 		add(sobrebotao);
+
+		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "Logado como: "+GJClient.userName, 32);
+		letext.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		letext.scrollFactor.set();
+		letext.alpha = 1;
+		add(letext);
 
 		//haxe me obrigou a ser um cara organizado, mas ainda assim sou rebelde
 		//musica de novela de 2010 starts playing
@@ -462,7 +469,7 @@ class MainMenuStateMobile extends MusicBeatState
 								#if android
 									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuStateMobile()));
 									#else
-									MusicBeatState.switchState(new VideoStatePC());
+									MusicBeatState.switchState(new SobreState());
 									#end
 								case 'options':
 									MusicBeatState.switchState(new OptionsState());
