@@ -37,7 +37,7 @@ class FreeplayState extends MusicBeatState
 	private static var canSelect:Bool = false;
 	private static var curDifficulty:Int = 2;
 	public static var infoextended:String = '';
-
+	public static var daMsg:Bool = false;
 	var engrenagem:FlxButton;
 
 	public static var dapreselected:String = '';
@@ -294,7 +294,6 @@ class FreeplayState extends MusicBeatState
 
 		if (FlxG.mouse.justPressed(engrenagem))
 		{
-			var daMsg:Bool = false;
 			daMsg = true;
 			MusicBeatState.switchState(new OptionsState());
 		}

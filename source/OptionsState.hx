@@ -88,6 +88,7 @@ class OptionsState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuStateMobile());
 			} else {
 			MusicBeatState.switchState(new PreFreeplayState()); //Não arrumei um jeito de voltar pra parte da música que tinha saído.
+			daMsg = false;
 			}
 		}
 
@@ -1031,7 +1032,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 			case 'Low Quality':
 				daText = "Se desmarcado, retira elementos do cenário.\n(Aumenta performance e diminui tempos de loading.)";
 			case 'Persistent Cached Data':
-				daText = "Se marcado, imagens serão salvas na memória do seu" + #if mobile " celular." #end #if desktop " computador." + "\n(Aumenta uso de memória ram.)";
+				daText = "Se marcado, imagens serão salvas na memória do seu dispositivo.\n(Aumenta uso de memória ram.)";
 			case 'Anti-Aliasing':
 				daText = "Se marcado, desativa o AntiAliasing do jogo, deixando sprites com menos polimento.\n(Aumenta MUITA performance)";
 			case 'Downscroll':
