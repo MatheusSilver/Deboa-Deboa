@@ -4771,6 +4771,9 @@ class PlayState extends MusicBeatState
 		
 		if(isDad) {
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+			if (curStage == 'lordxstage1'){
+				camFollow.x += dad.cameraPosition[0] + 275;
+			}
 			camFollow.x += dad.cameraPosition[0];
 			camFollow.y += dad.cameraPosition[1];
 			tweenCamIn();
@@ -4779,6 +4782,8 @@ class PlayState extends MusicBeatState
 
 			switch (curStage)
 			{
+				case 'lordxstage1':
+					camFollow.x = boyfriend.cameraPosition[0] + 700;
 				case 'limo':
 					camFollow.x = boyfriend.getMidpoint().x - 300;
 				case 'mall':

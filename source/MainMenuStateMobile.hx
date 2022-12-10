@@ -70,7 +70,7 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];
-		#if debug
+		#if !mobile
 		FlxG.mouse.visible = true;
 		#end 
 
