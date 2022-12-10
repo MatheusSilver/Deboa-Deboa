@@ -86,6 +86,13 @@ class PlayState extends MusicBeatState
 
 	var infinitesimbol:FlxSprite; //detalhe gigachad
 
+	// - coldsteels spins
+	var SpinAmount:Float = 0;
+	var IsNoteSpinning:Bool = false;
+	var isPlayersSpinning:Bool = false;
+	public var superZoomShit:Bool = false;
+	public var supersuperZoomShit:Bool = false;
+
 	var telapreta:FlxSprite;
 
 	var tempogravador:FlxText;
@@ -547,6 +554,10 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 
+			case 'void':
+				var whiteFuck:FlxSprite; //Talvez eu arrange outra serventia pra isso.
+				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
+				add(whiteFuck);
 			case 'console':
 				var water:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('Cenarios/console/water'), true, 160, 81);
 				water.scrollFactor.set(1, 1);
@@ -1824,7 +1835,11 @@ class PlayState extends MusicBeatState
 					startCountdown();
 			}
 			seenCutscene = true;
-		}	else if (curSong.toLowerCase() == 'sunshine'){
+		} else if(curSong.toLowerCase() == 'personel'){
+				camGame.alpha = 0;
+				startCountdown();
+		}	
+		else if (curSong.toLowerCase() == 'sunshine'){
 
 					var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Cenarios/saturn/ready'));
 					var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Cenarios/saturn/set'));
@@ -3249,6 +3264,29 @@ class PlayState extends MusicBeatState
 			+ Std.string(leDate.getDate()) + " " + meses[leDate.getMonth()];
 		}
 
+		if (SONG.song.toLowerCase() == 'personel' && IsNoteSpinning)
+			{
+				var thisX:Float = Math.sin(SpinAmount * (SpinAmount / 2)) * 100;
+				var thisY:Float = Math.sin(SpinAmount * (SpinAmount)) * 100;
+				for (str in playerStrums)
+				{
+					str.angle = str.angle + SpinAmount;
+					SpinAmount = SpinAmount + 0.0003;
+				}
+				for (str in opponentStrums)
+				{
+					str.angle = str.angle + SpinAmount;
+					SpinAmount = SpinAmount + 0.0003;
+				}
+			}
+			if (SONG.song.toLowerCase() == 'personel' && isPlayersSpinning)
+			{
+				dad.angle = dad.angle + SpinAmount;
+				SpinAmount = SpinAmount + 0.00003;
+				boyfriend.angle = boyfriend.angle + SpinAmount;
+				SpinAmount = SpinAmount + 0.00003;
+			}
+
 		if(ratingString == '?') {
 			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0';
@@ -3547,6 +3585,7 @@ class PlayState extends MusicBeatState
 					strumAngle = opponentStrums.members[daNote.noteData].angle;
 					strumAlpha = opponentStrums.members[daNote.noteData].alpha;
 				}
+
 
 				strumX += daNote.offsetX;
 				strumY += daNote.offsetY;
@@ -4063,6 +4102,143 @@ class PlayState extends MusicBeatState
 			case 'estatica brow':
 				doStaticSign(0, false);
 
+			case 'eventos-personel':
+				var supertimerchaos:Float = Std.parseFloat(value1);
+				if (SONG.song.toLowerCase()=='personel')
+					{
+						switch (supertimerchaos)
+						{
+							case 32:
+								camGame.alpha = 1;
+							case 288:
+								defaultCamZoom = 1.2;
+								FlxTween.tween(FlxG.camera, {zoom: 1.2}, 0.3);
+							case 416:
+								defaultCamZoom = 1.6;
+								FlxTween.tween(FlxG.camera, {zoom: 1.6}, 0.3);
+							case 543:
+								defaultCamZoom = 1.0;
+								FlxTween.tween(FlxG.camera, {zoom: 1.0}, 0.3);
+							case 799:
+								defaultCamZoom = 0.9;
+								FlxTween.tween(FlxG.camera, {zoom: 0.9}, 0.3);
+							case 1069:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1087:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1098:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1101:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1134:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1151:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1163:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1167:
+								for (str in playerStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+								for (str in opponentStrums)
+								{
+									str.angle = str.angle + 35;
+								}
+							case 1199:
+								IsNoteSpinning = true;
+								FlxTween.tween(FlxG.camera, {zoom: 1.6}, 0.3);
+								defaultCamZoom = 1.6;
+							case 1263:
+								IsNoteSpinning = false;
+							case 1311:
+								IsNoteSpinning = true;
+								isPlayersSpinning = true;
+								FlxTween.tween(FlxG.camera, {zoom: 1.2}, 0.3);
+								defaultCamZoom = 1.2;
+							case 1401:
+								IsNoteSpinning = false;
+								FlxTween.tween(FlxG.camera, {zoom: 1.8}, 0.3);
+								defaultCamZoom = 1.8;
+							case 1403:
+								defaultCamZoom = 0.9;
+								FlxTween.tween(FlxG.camera, {zoom: 0.9}, 21.2);
+								isPlayersSpinning = false;
+								dad.angle = 0;
+								boyfriend.angle = 0;
+								for (str in playerStrums)
+								{
+									FlxTween.tween(str, {angle: 0}, 0.5, {ease: FlxEase.circOut});
+								}
+								for (str in opponentStrums)
+								{
+									FlxTween.tween(str, {angle: 0}, 0.5, {ease: FlxEase.circOut});
+								}
+							case 1695:
+								superZoomShit = true;
+							case 1872:
+								superZoomShit = false;
+								supersuperZoomShit = true;
+							case 1888:
+								superZoomShit = true;
+								supersuperZoomShit = false;
+							case 1936:
+								supersuperZoomShit = true;
+								superZoomShit = false;
+							case 1975:
+								superZoomShit = false;
+								supersuperZoomShit = false;
+						}
+					}
 			case 'eventos-chaos':
 				var supertimerchaos:Float = Std.parseFloat(value1);
 						if (supertimerchaos == 16) //ok
@@ -5875,6 +6051,19 @@ class PlayState extends MusicBeatState
 			trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
 			return;
 		}
+
+		
+		if (curBeat % 2 == 0 && superZoomShit)
+			{
+				FlxG.camera.zoom += 0.06;
+				camHUD.zoom += 0.08;
+			}
+	
+			if (curBeat % 1 == 0 && supersuperZoomShit)
+			{
+				FlxG.camera.zoom += 0.06;
+				camHUD.zoom += 0.08;
+			}
 
 		if (generatedMusic)
 		{
