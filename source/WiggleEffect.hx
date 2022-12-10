@@ -128,7 +128,6 @@ class WiggleShader extends FlxShader
 
 		void main()
 		{
-			#pragma body
 			vec2 uv = sineWave(openfl_TextureCoordv);
 			gl_FragColor = texture2D(bitmap, uv);
 		}')

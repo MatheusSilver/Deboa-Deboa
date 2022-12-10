@@ -1,6 +1,10 @@
-<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="TailsSpikeAnimated.png">
-<SubTexture name="Tails Spike Animated instance 0000" x="0" y="0" width="198" height="591" frameX="-16" frameY="-18" frameWidth="237" frameHeight="623" />
-<SubTexture name="Tails Spike Animated instance 0001" x="198" y="0" width="200" height="591" frameX="-14" frameY="-18" frameWidth="237" frameHeight="623" />
-<SubTexture name="Tails Spike Animated instance 0002" x="398" y="0" width="200" height="591" frameX="-19" frameY="-18" frameWidth="237" frameHeight="623" />
+	<!-- Created with Adobe Animate version 21.0.3.38773 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Tails Spike Animated instance 10000" x="0" y="0" width="237" height="623"/>
+	<SubTexture name="Tails Spike Animated instance 10001" x="237" y="0" width="237" height="623"/>
+	<SubTexture name="Tails Spike Animated instance 10002" x="474" y="0" width="237" height="623"/>
+	<SubTexture name="Tails Spike Animated instance 10003" x="711" y="0" width="237" height="623"/>
+	<SubTexture name="Tails Spike Animated instance 10004" x="948" y="0" width="237" height="623"/>
 </TextureAtlas>

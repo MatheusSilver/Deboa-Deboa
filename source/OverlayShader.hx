@@ -23,7 +23,6 @@ class OverlayShader extends FlxShader
 
 		void main()
 		{
-			#pragma body
 			vec4 base = texture2D(bitmap, openfl_TextureCoordv);
 			gl_FragColor = blendLighten(base, uBlendColor, uBlendColor.a);
 		}')

@@ -15,8 +15,7 @@ class CheckboxThingie extends FlxSprite
 		animation.addByPrefix("static", "Check Box unselected", 24, false);
 		animation.addByPrefix("checked", "Check Box selecting animation", 24, false);
 		antialiasing = ClientPrefs.globalAntialiasing;
-		setGraphicSize(Std.int(1.8 * width)); 
-		// Silver e dav perguntam: Porque vc fez isso? Não sei.
+		setGraphicSize(Std.int(0.6 * width));
 		updateHitbox();
 		set_daValue(checked);
 	}
