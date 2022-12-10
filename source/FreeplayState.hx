@@ -292,7 +292,7 @@ class FreeplayState extends MusicBeatState
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		if (FlxG.mouse.justPressed(engrenagem))
+		if (engrenagem.pressed) //Tá
 		{
 			MusicBeatState.switchState(new OptionsState());
 		}

@@ -28,15 +28,25 @@ class AchievementsMenuState extends MusicBeatState
 
 	override function create() {
 		#if desktop
-		DiscordClient.changePresence("Achievements Menu", null);
+		DiscordClient.changePresence("Menu de conquistas", null);
 		#end
 
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBG'));
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
+
+		var vio:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ModboaMenu'));
+		vio.screenCenter();
+		vio.antialiasing = ClientPrefs.globalAntialiasing;
+		add(vio);
+
+		var gradiente:FlxSprite = new FlxSprite().loadGraphic(Paths.image("gradient"));
+		gradiente.color = FlxColor.ORANGE;
+		gradiente.antialiasing = ClientPrefs.globalAntialiasing;
+		add(gradiente);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
