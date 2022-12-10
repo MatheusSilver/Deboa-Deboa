@@ -46,6 +46,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var letext:FlxText;
 	var sobrebotao:FlxButton;
 	var isCoolBeat:Bool=true;
+	//var gradientBar:FlxGradient;
 	
 	var optionShit:Array<String> = ['story_mode','freeplay', 'awards', 'credits', 'options'];
 
@@ -100,11 +101,11 @@ class MainMenuStateMobile extends MusicBeatState
 		//checker.color = FlxColor.RED;
 		//Isto é temporário, por algum motivo isso não tá compilando no github
 
-		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x41000000, 0x2C744100, 0x88A10000], 1, 90, true);
+		/*gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x41000000, 0x2C744100, 0x88A10000], 1, 90, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		gradientBar.scale.y = 0;
 		gradientBar.updateHitbox();
-		//add(gradientBar);
+		//add(gradientBar);*/
 
 
 		camFollow = new FlxObject(0, 0, 1, 1);
