@@ -69,7 +69,7 @@ class FreeplayState extends MusicBeatState
 		//WeekData.reloadWeekFiles(false);
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Escolhendo uma música da Week" + dapreselected, null);
+		DiscordClient.changePresence("Escolhendo uma música da Week " + dapreselected, null);
 		#end
 
 	//	for (i in 0...1) { //Isso é desnecessauro OOOOOOOOOOOOOOOOOOOOI
@@ -277,11 +277,12 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
-		if(songsShaders.contains(PlayState.SONG.song.toLowerCase())) {
+		/*if(songsShaders.contains(PlayState.SONG.song.toLowerCase())) {
 		scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore + '\nEsta música tem shaders.';
 		} else {
 		scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore;
-		}
+		}*/
+		scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore;
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
