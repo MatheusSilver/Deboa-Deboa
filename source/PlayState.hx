@@ -502,6 +502,8 @@ class PlayState extends MusicBeatState
 					curStage = 'school';
 				case 'thorns':
 					curStage = 'schoolEvil';
+				case 'cross-console-clash':
+					Lib.application.window.resize(720, 1280);
 				default:
 					curStage = 'stage';
 			}
