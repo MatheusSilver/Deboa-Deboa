@@ -84,7 +84,11 @@ class OptionsState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
+			if(!FreeplayState.daMsg) {
 			MusicBeatState.switchState(new MainMenuStateMobile());
+			} else {
+			MusicBeatState.switchState(new PreFreeplayState()); //Não arrumei um jeito de voltar pra parte da música que tinha saído.
+			}
 		}
 
 		if (controls.ACCEPT) {
@@ -742,10 +746,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Volume do Hitsound',
 		'Flashing Lights',
 		'Legendas',
-		'Camera Zooms'
-		#if !mobile
-		,'FPS Counter'
-		#end
+		'Camera Zooms',
+		'Contadores (FPS, Mem.)'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -882,10 +884,11 @@ class PreferencesSubstate extends MusicBeatSubstate
 		if(usesCheckbox) {
 			if(controls.ACCEPT && nextAccept <= 0) {
 				switch(options[curSelected]) {
-					case 'FPS Counter':
+					case 'Contadores (FPS, Mem.)':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
 						if(Main.fpsVar != null)
 							Main.fpsVar.visible = ClientPrefs.showFPS;
+							Main.memoryCounter.visible = ClientPrefs.showFPS;
 
 					case 'Low Quality':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
@@ -1018,45 +1021,45 @@ class PreferencesSubstate extends MusicBeatSubstate
 		var daText:String = '';
 		switch(options[curSelected]) {
 			case 'Framerate':
-				daText = "Pretty self explanatory, isn't it?\nDefault value is 60.";
+				daText = "Determina o entre áspas limite do seu FPS.";
 			case 'Note Delay':
-				daText = "Changes how late a note is spawned.\nUseful for preventing audio lag from wireless earphones.";
-			case 'FPS Counter':
-				daText = "If unchecked, hides FPS Counter.";
+				daText = "Troca o quão cedo uma nota aparece.\n(feitos para fones com delay.)";
+			case 'Contadores (FPS, Mem.)':
+				daText = "Se desmarcado, desativa os contadores do jogo,\ntais como o contador de FPS e de memória.";
 			case 'Shaders':
-				daText = "Permite o uso de efeitos especiais de tela no jogo.";
+				daText = "Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)";
 			case 'Low Quality':
-				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
+				daText = "Se desmarcado, retira elementos do cenário.\n(Aumenta performance e diminui tempos de loading.)";
 			case 'Persistent Cached Data':
-				daText = "If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.";
+				daText = "Se marcado, imagens serão salvas na memória do seu" + #if mobile " celular." #end #if desktop " computador." + "\n(Aumenta uso de memória ram.)";
 			case 'Anti-Aliasing':
-				daText = "If unchecked, disables anti-aliasing, increases performance\nat the cost of the graphics not looking as smooth.";
+				daText = "Se marcado, desativa o AntiAliasing do jogo, deixando sprites com menos polimento.\n(Aumenta MUITA performance)";
 			case 'Downscroll':
-				daText = "If checked, notes go Down instead of Up, simple enough.";
+				daText = "Se marcado, as notas ficaram estilo Guitar Hero.\n(Iram pra baixo)";
 			case 'Hitsounds':
-				daText = "Tap Tap";
+				daText = "Um som é tocado quando você acerta uma nota.";
 			case 'Volume do Hitsound':
-				daText = "Volume do Tap Tap";
+				daText = "Altere aqui o volume do som da Hitsound.\n(Esquerda para abaixar, direita para aumentar.)";
 			case 'Middlescroll':
-				daText = "If checked, hides Opponent's notes and your notes get centered.";
+				daText = "Se marcado, a nota do oponente irá sumir e a sua ficará no meio.";
 			case 'Ghost Tapping':
-				daText = "If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.";
+				daText = "Se marcado, você não errará por apertar teclas aleatóriamente.\n(Não funciona caso errar uma nota da música.)";
 			case 'Swearing':
 				daText = "If unchecked, your mom won't be angry at you.";
 			case 'Violence':
-				daText = "If unchecked, you won't get disgusted as frequently.";
+				daText = "Se desmarcado, você não verá gore, sangue, visceras, coisas ruins.\n(Desativa isso caso for sensível demais.\nP.S: Principalmente pro mod do EXE.)";
 			case 'Note Splashes':
-				daText = "If unchecked, hitting \"Sick!\" notes won't show particles.";
+				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
 			case 'Flashing Lights':
-				daText = "Uncheck this if you're sensitive to flashing lights!";
+				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
 			case 'Legendas':
 				daText = "Se ativado, você irá ver as legendas nas músicas.";	
 			case 'Camera Zooms':
-				daText = "If unchecked, the camera won't zoom in on a beat hit.";
+				daText = "Se desmarcado, a tela não irá dar zoom quando acertar uma nota.";
 			case 'Hide HUD':
-				daText = "If checked, hides most HUD elements.";
+				daText = "Se marcado, tira muitas coisas da tela.";
 			case 'Hide Song Length':
-				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
+				daText = "Se marcado, a barrinha com o tempo da música, sumirá.";
 		}
 		descText.text = daText;
 
@@ -1101,7 +1104,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 			if(checkbox != null) {
 				var daValue:Bool = false;
 				switch(options[checkboxNumber[i]]) {
-					case 'FPS Counter':
+					case 'Contadores (FPS, Mem.)':
 						daValue = ClientPrefs.showFPS;
 					case 'Shaders':
 						daValue = ClientPrefs.shaders;

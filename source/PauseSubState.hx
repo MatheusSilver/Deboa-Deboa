@@ -73,7 +73,14 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelDifficulty);
 
 		var blueballedTxt:FlxText = new FlxText(20, 15 + 64, 0, "", 32);
+
+		//Eu vi que eu tinha feito merda KKKKKKK Problemas com plural
+		if(PlayState.deathCounter == 1) {
+		blueballedTxt.text = "Morreu: " + PlayState.deathCounter + " vez.";
+		} else {
 		blueballedTxt.text = "Morreu: " + PlayState.deathCounter + " vezes.";
+		}
+
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font('vcr.ttf'), 32);
 		blueballedTxt.updateHitbox();

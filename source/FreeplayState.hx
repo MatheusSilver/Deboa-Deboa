@@ -26,6 +26,11 @@ using StringTools;
 class FreeplayState extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
+	//COLOQUE O NOME DAS SONGS COM SHADERS AQUI (EM LOWERCASE POR FAVOR)
+	var songsShaders:Array<String> = [
+	"round-a-bout",
+	"chasing"
+	];
 
 	var selector:FlxText;
 	private static var curSelected:Int = 0;
@@ -272,7 +277,11 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
+		if(songsShaders.contains(PlayState.SONG.song.toLowerCase())) {
+		scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore + '\nEsta música tem shaders.';
+		} else {
 		scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore;
+		}
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
@@ -282,6 +291,13 @@ class FreeplayState extends MusicBeatState
 
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
+
+		if (FlxG.mouse.justPressed(engrenagem))
+		{
+			var daMsg:Bool = false;
+			daMsg = true;
+			MusicBeatState.switchState(new OptionsState());
+		}
 
 		if (upP)
 		{

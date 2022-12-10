@@ -118,13 +118,12 @@ class Main extends Sprite
 		addChild(memoryCounter);
 		if(memoryCounter != null) {
 			memoryCounter.visible = ClientPrefs.showFPS;
+		}
 		
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
-		
-	}
 	}
 
 	public function getFPS():Float{
