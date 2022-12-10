@@ -4,7 +4,10 @@ import flixel.util.FlxGradient;
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
+//import GameJolt;
+//import GameJolt.GameJoltAPI;
 #end
+import gamejolt.formats.*;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -58,7 +61,7 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-
+		//FlxG.switchState(new GameJoltLogin());
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
@@ -152,8 +155,10 @@ class TitleState extends MusicBeatState
 		#end
 
 		#if desktop
+		//GameJoltAPI.connect();
+		//GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Na tela de Titulo", null);
+		DiscordClient.changePresence("Na tela de titulo", null);
 		#end
 	}
 
@@ -171,13 +176,17 @@ class TitleState extends MusicBeatState
 		if (!initialized)
 		{
 			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+				FlxG.sound.playMusic(Paths.music('newmenu'), 0);
 
 				FlxG.sound.music.fadeIn(4, 0, 0.7);
 			}
 		}
+		GJClient.initialize();
+		//GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
+		//GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
+		//GJClient.initialize();
 
-		Conductor.changeBPM(102);
+		Conductor.changeBPM(112);
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -229,7 +238,7 @@ class TitleState extends MusicBeatState
 		logoBl1.antialiasing = ClientPrefs.globalAntialiasing;
 		logoBl1.setGraphicSize(Std.int(logoBl1.width * 1.35));
 		logoBl1.animation.addByPrefix('bump', 'MODBOA inicio', 24);
-		logoBl1.animation.play('bump');
+		//logoBl1.animation.play('bump');
 		logoBl1.updateHitbox();
 
 		/*
@@ -254,6 +263,7 @@ class TitleState extends MusicBeatState
 		titleText = new FlxSprite(-80, 600).loadGraphic(Paths.image('titleEnter'));
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.setGraphicSize(Std.int(titleText.width * 1.1));
+		//titleText.y=550;
 		titleText.updateHitbox();
 		titleText.screenCenter(X);
 		
@@ -381,7 +391,14 @@ class TitleState extends MusicBeatState
 					if (mustUpdate) {
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
-						MusicBeatState.switchState(new MainMenuStateMobile());
+						if(ClientPrefs.firstTime)
+							{
+								MusicBeatState.switchState(new PreMainMenuState());
+							}
+							else
+								{
+									MusicBeatState.switchState(new MainMenuStateMobile()); //lembrar de colocar o menu dps
+								}
 					}
 					closedState = true;
 				});
@@ -484,6 +501,8 @@ class TitleState extends MusicBeatState
 	private static var closedState:Bool = false;
 	override function beatHit()
 	{
+		if(logoBl1 != null){
+			logoBl1.animation.play('bump', true);}
 		super.beatHit();
 
 		if(!closedState) {
@@ -495,7 +514,6 @@ class TitleState extends MusicBeatState
 				case 3:
 					addMoreText('Shadow Mario', 45);
 					addMoreText('RiverOaken', 45);
-					addMoreText('E modificada por Dav', 45);
 				case 4:
 					deleteCoolText();
 				case 5:
@@ -547,4 +565,5 @@ class TitleState extends MusicBeatState
 			
 		}
 	}
+
 }

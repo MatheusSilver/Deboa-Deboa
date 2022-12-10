@@ -110,7 +110,7 @@ class FreeplayState extends MusicBeatState
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-
+		FlxG.mouse.visible = true;
 		engrenagem = new FlxButton(50, 10, '');
 
 		engrenagem.loadGraphic(Paths.image('engrenagem'));

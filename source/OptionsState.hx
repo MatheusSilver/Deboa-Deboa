@@ -31,7 +31,7 @@ using StringTools;
 // TO DO: Redo the menu creation system for not being as dumb
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Configuracoes', 'Estilo de nota'#if mobile , 'Controles Mobile' #end];
+	var options:Array<String> = ['Configuracoes', 'Estilo de nota', 'Controles', 'GameJolt'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -95,10 +95,23 @@ class OptionsState extends MusicBeatState
 			switch(options[curSelected]) {
 				case 'Estilo de nota':
 					openSubState(new NotesSubstate());
-				case 'Controles Mobile':
-					MusicBeatState.switchState(new CustomControlsState());
+				case 'Controles':
+					#if desktop
+						openSubState(new ControlsSubstate());
+					#end
+					#if mobile
+						MusicBeatState.switchState(new CustomControlsState())
+					#end
 				case 'Configuracoes':
 					openSubState(new PreferencesSubstate());
+				case 'GameJolt':
+					if(GJClient.logged)
+						{
+							MusicBeatState.switchState(new AlreadyLogged());
+						}
+						else{
+							MusicBeatState.switchState(new GameJoltLoginState());
+						}
 			}
 		}
 	}

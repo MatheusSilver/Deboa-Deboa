@@ -1,7 +1,11 @@
 package;
 
+#if desktop
+///import GameJolt;
+///import GameJolt.GameJoltAPI;
+#end
 import lime.system.System;
-import webm.WebmPlayer;
+//import webm.WebmPlayer;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -22,6 +26,9 @@ class Main extends Sprite
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPS;
 	public static var memoryCounter:MemoryCounter;
+	#if desktop
+	//public static var gjToastManager:GJToastManager;
+	#end
 
 
 	public static var instance:Main;
@@ -89,6 +96,10 @@ class Main extends Sprite
 	{
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
+		#if desktop
+		/*gjToastManager = new GJToastManager();
+		addChild(gjToastManager);*/
+		#end
 
 		if (zoom == -1)
 		{
@@ -110,7 +121,7 @@ class Main extends Sprite
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		if(fpsVar != null) {
-			fpsVar.visible = ClientPrefs.showFPS;
+			fpsVar.visible = false;
 		}
 
 

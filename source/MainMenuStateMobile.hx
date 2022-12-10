@@ -37,12 +37,15 @@ class MainMenuStateMobile extends MusicBeatState
 
 	var tails:FlxSprite;
 	var sonic1:FlxSprite;
+	var boom:FlxSprite;
 
 	var historiabotao:FlxButton;
 	var freeplaybotao:FlxButton;
 	var achievementsbotao:FlxButton;
 	var opcaobotao:FlxButton;
+	var letext:FlxText;
 	var sobrebotao:FlxButton;
+	var isCoolBeat:Bool=true;
 	
 	var optionShit:Array<String> = ['story_mode','freeplay', 'awards', 'credits', 'options'];
 
@@ -54,15 +57,18 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function create()
 	{
+		Conductor.changeBPM(112);
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Silver reverso says: AMO PROGRAMAR MENUS!!!", null);
+		DiscordClient.changePresence("No menu principal", null);
+		//and dav says: EU ODEIO MEXER COM COORDENADAS
 		#end
 
 
 		Main.dumpCache(); // What can go wrong?
-
-
+		if(FlxG.sound.music.volume==0) {
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
@@ -72,14 +78,14 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxCamera.defaultCameras = [camGame];
 		#if !mobile
 		FlxG.mouse.visible = true;
-		#end 
+		#end
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
 		bg.scrollFactor.set(0, 0);
 		bg.setGraphicSize(FlxG.width);
 		bg.updateHitbox();
@@ -87,6 +93,18 @@ class MainMenuStateMobile extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
+		//checker = new FlxBackdrop(Paths.image('soquadrados', 'preload'), 0.2, 0.2, true, true);
+		
+		//add(checker);
+		//checker.alpha = 0.8;
+		//checker.color = FlxColor.RED;
+		//Isto é temporário, por algum motivo isso não tá compilando no github
+
+		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x41000000, 0x2C744100, 0x88A10000], 1, 90, true);
+		gradientBar.y = FlxG.height - gradientBar.height;
+		gradientBar.scale.y = 0;
+		gradientBar.updateHitbox();
+		//add(gradientBar);
 
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -109,26 +127,38 @@ class MainMenuStateMobile extends MusicBeatState
 		tails = new FlxSprite(0, 0); //ok
 		tails.frames = Paths.getSparrowAtlas('menus/tailsdoll_p2', 'preload');
 		tails.animation.addByPrefix('idle2', "singRIGHT", 24);
-		tails.animation.play('idle2');
-		tails.alpha = 1;
+		//tails.animation.play('idle2');
+		tails.alpha = 0;
 		tails.antialiasing = true;
 		tails.setGraphicSize(Std.int(tails.width * 0.9));
 		tails.updateHitbox();
 		tails.x = 25 - 507 - 200 - 400 + 75 + 140;
 		tails.y = 75 - 320 - 250 - 200 + 30;
-		add(tails);
+		//add(tails);
 
 		sonic1 = new FlxSprite(0, 0); //ok
 		sonic1.frames = Paths.getSparrowAtlas('menus/YCR', 'preload');
 		sonic1.animation.addByPrefix('idle1', "normal_down", 20);
-		sonic1.animation.play('idle1');
-		sonic1.alpha = 0.95;
+		//sonic1.animation.play('idle1');
 		sonic1.antialiasing = true;
 		sonic1.setGraphicSize(Std.int(sonic1.width * 1.5));
 		sonic1.updateHitbox();
 		sonic1.y = 75 - 390 + 40;
 		sonic1.x = 25 - 507 - 100;
-		add(sonic1);
+		sonic1.alpha=0;
+		//add(sonic1);
+
+		boom = new FlxSprite(0, 0); //ok
+		boom.frames = Paths.getSparrowAtlas('characters/sonicmenu1', 'shared');
+		boom.animation.addByPrefix('idle', "sonicmenu1 idle",30);
+		//sonic1.animation.play('idle1');
+		boom.antialiasing = true;
+		//boom.setGraphicSize(Std.int));
+		boom.updateHitbox();
+		boom.y = -500;
+		boom.x = -765;
+		boom.alpha=1;
+		add(boom);
 
 		historiabotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
 		historiabotao.loadGraphic(Paths.image('mainmenu/sethistoria', 'preload'));
@@ -183,6 +213,14 @@ class MainMenuStateMobile extends MusicBeatState
 		sobrebotao.y = 15 + opcaobotao.y + opcaobotao.height;
 		sobrebotao.alpha = 0.75;
 		add(sobrebotao);
+
+		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "Conectado como:\n"+GJClient.userName, 32);
+		letext.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		letext.scrollFactor.set();
+		letext.x=0;
+		letext.y=10;
+		letext.alpha = 1;
+		add(letext);
 
 		//haxe me obrigou a ser um cara organizado, mas ainda assim sou rebelde
 		//musica de novela de 2010 starts playing
@@ -241,6 +279,7 @@ class MainMenuStateMobile extends MusicBeatState
 		//não consigo pensar em outra forma de fazê-lo sem ter que reescrever tudo.
 
 			if (selecionado == 0){
+				historiabotao.alpha=1;
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 					FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
 					});
@@ -260,6 +299,7 @@ class MainMenuStateMobile extends MusicBeatState
 						FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 						});
 			} else if (selecionado == 1){
+				freeplaybotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(freeplaybotao, {x: FlxG.width - freeplaybotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -279,6 +319,7 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if(selecionado == 2) {
+				achievementsbotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
 			FlxTween.tween(achievementsbotao, {x: FlxG.width - achievementsbotao.width},0.5, {ease: FlxEase.expoInOut});
 			});
@@ -298,6 +339,7 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if (selecionado == 4) {
+				opcaobotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
 			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -317,6 +359,7 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if (selecionado == 3){ //!!!
+				sobrebotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(sobrebotao, {x: FlxG.width - sobrebotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -342,31 +385,56 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-
+		if(GJClient.logged)
+			{
+				letext.alpha = 1;
+			}
+			else
+				{
+					letext.alpha = 0;
+				}
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
 		historiabotao.updateHitbox();
 		freeplaybotao.updateHitbox();
 		achievementsbotao.updateHitbox();
 		opcaobotao.updateHitbox();
 		sobrebotao.updateHitbox();
-
+		historiabotao.onOver.callback = historiaHover;
+        historiabotao.onOut.callback = historiaOut;
+		freeplaybotao.onOver.callback = freeplayHover;
+        freeplaybotao.onOut.callback = freeplayOut;
+		achievementsbotao.onOver.callback = achievementsHover;
+        achievementsbotao.onOut.callback = achievementsOut;
+		opcaobotao.onOver.callback = opcaoHover;
+        opcaobotao.onOut.callback = opcaoOut;
+		sobrebotao.onOver.callback = sobreHover;
+        sobrebotao.onOut.callback = sobreOut;
+		FlxG.mouse.visible = true;
+		//checker.y += 0.1;
 
 		if(historiabotao.justPressed && !checkiftouch && clicavel){
+			historiabotao.alpha=1;
 			curSelected = 0;
 			if(curSelected == 0 && checkiftouch == false){checkiftouch = true;}
 		}
 		if(freeplaybotao.justPressed && !checkiftouch && clicavel){
+			freeplaybotao.alpha=1;
 			curSelected = 1;
 			if(curSelected == 1 && checkiftouch == false){checkiftouch = true;}
 		}
 		if(achievementsbotao.justPressed && !checkiftouch && clicavel){
+			achievementsbotao.alpha=1;
 			curSelected = 2;		
 			if(curSelected == 2 && checkiftouch == false && clicavel){checkiftouch = true;}
 		}
 		if(opcaobotao.justPressed && !checkiftouch){
+			opcaobotao.alpha=1;
 			curSelected = 4;
 			if(curSelected == 4 && checkiftouch == false && clicavel){checkiftouch = true;}
 		}
 		if(sobrebotao.justPressed && !checkiftouch){
+			sobrebotao.alpha=1;
 			curSelected = 3;
 			if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
 			}
@@ -419,7 +487,7 @@ class MainMenuStateMobile extends MusicBeatState
 								#if android
 									MusicBeatState.switchState(new VideoState('assets/videos/aviso', new MainMenuStateMobile()));
 									#else
-									//Ai é contigo dav
+									MusicBeatState.switchState(new SobreState());
 									#end
 								case 'options':
 									MusicBeatState.switchState(new OptionsState());
@@ -441,4 +509,74 @@ class MainMenuStateMobile extends MusicBeatState
 		super.update(elapsed);
 
 	}
+
+	function historiaHover():Void
+		{
+			historiabotao.alpha=1;
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+		}
+	 
+		function historiaOut():Void
+		{
+			historiabotao.alpha=0.75;
+		}
+
+		function freeplayHover():Void
+			{
+				freeplaybotao.alpha=1;
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			}
+		 
+			function freeplayOut():Void
+			{
+				freeplaybotao.alpha=0.75;
+			}
+
+			function achievementsHover():Void
+				{
+					achievementsbotao.alpha=1;
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+				}
+			 
+				function achievementsOut():Void
+				{
+					achievementsbotao.alpha=0.75;
+				}
+				
+			function opcaoHover():Void
+				{
+					opcaobotao.alpha=1;
+					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+				}
+			 
+				function opcaoOut():Void
+				{
+					opcaobotao.alpha=0.75;
+				}
+
+				function sobreHover():Void
+					{
+						sobrebotao.alpha=1;
+						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+					}
+				 
+					function sobreOut():Void
+					{
+						sobrebotao.alpha=0.75;
+					}
+
+					override function beatHit()
+						{
+							super.beatHit();
+							if(isCoolBeat){boom.animation.play('idle', true);}
+							isCoolBeat = !isCoolBeat;
+							if(sonic1 != null)
+								{
+								sonic1.animation.play('idle1', true);
+								}
+							if(tails != null)
+								{
+									tails.animation.play('idle2', true);
+								}
+						}
 }
