@@ -294,7 +294,6 @@ class FreeplayState extends MusicBeatState
 
 		if (FlxG.mouse.justPressed(engrenagem))
 		{
-			daMsg = true;
 			MusicBeatState.switchState(new OptionsState());
 		}
 
