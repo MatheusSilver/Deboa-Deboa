@@ -134,6 +134,8 @@ class GameJoltLoginState extends MusicBeatState
             }
         public static function IrParaMenu():Void
             {
+                FlxG.save.data.user =userBar.text;
+                FlxG.save.data.token =tokenBar.text;
                 MusicBeatState.switchState(new MainMenuStateMobile());
             }
 }

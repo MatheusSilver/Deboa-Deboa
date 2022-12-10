@@ -70,7 +70,7 @@ class GJClient
         if (user == '') user = null;
         if (token == '') token = null;
 
-        //logout();
+        logout();
 
         FlxG.save.data.user = user;
         FlxG.save.data.token = token;
@@ -86,7 +86,7 @@ class GJClient
                 }
             );
 
-            // login();
+            //login();
         }
     }
 
