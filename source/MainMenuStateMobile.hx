@@ -388,6 +388,11 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		if(GJClient.logged)
 			{
+				if(FlxG.keys.justPressed.SPACE)
+					{
+						GJClient.trophieAdd(179877);
+						trace('getting trophie');
+					}
 				letext.alpha = 1;
 			}
 			else
