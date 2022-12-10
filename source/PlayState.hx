@@ -5018,36 +5018,21 @@ class PlayState extends MusicBeatState
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				
 			} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
-					var modboaFatal:FlxSprite;
-					modboaFatal = new FlxSprite(0, 0);
-					ClientPrefs.pibby = true;
-					ClientPrefs.saveSettings();
-					//kek
-					modboaFatal = new FlxSprite().loadGraphic(Paths.image("ModboaFatalError"));
-					if (FlxG.random.bool(1.0))
+				ClientPrefs.pibby = true;
+				#if desktop
+				new FlxTimer().start(0.5, function(tmr:FlxTimer)
 					{
-					modboaFatal.loadGraphic(Paths.image("ModboaFatalAlt"));	
-					}
-					add(modboaFatal);
-					var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
-					#if mobile
-					for (touch in FlxG.touches.list)
-					{
-						if (touch.justPressed)
-						{
-							pressedEnter = true;
-						}
-					}
-					#end
-			
-					if (pressedEnter){
-						FlxG.sound.play(Paths.sound("estatica_cool"));
-						new FlxTimer().start(0.5, function(tmr:FlxTimer) {
 						System.exit(0);
-						});
-					}
-					
-				}
+					});
+					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
+				#end
+				ClientPrefs.saveSettings();
+				//if (FlxG.keys.justPressed.ENTER){
+
+				//}
+
+
+			}
 				usedPractice = false;
 				changedDifficulty = false;
 				cpuControlled = false;

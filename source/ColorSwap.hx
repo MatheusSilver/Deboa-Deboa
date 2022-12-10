@@ -116,7 +116,6 @@ class ColorSwapShader extends FlxShader {
 
 		void main()
 		{
-			#pragma body
 			vec4 color = flixel_texture2D(bitmap, openfl_TextureCoordv);
 
 			vec4 swagColor = vec4(rgb2hsv(vec3(color[0], color[1], color[2])), color[3]);
