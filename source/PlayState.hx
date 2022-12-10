@@ -4997,11 +4997,15 @@ class PlayState extends MusicBeatState
 				}
 			}
 			else if (StoryMenuState.voltarparahistoria){
+
 				StoryMenuState.voltarparahistoria = false;
 				MusicBeatState.switchState(new StoryMenuState());
+
 			} else {
+
 				Achievements.loadAchievements();
 				var achieveID:Int = Achievements.getAchievementIndex('pibby');
+				
 				if (curSong != 'green-hills' || Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
 					trace('WENT BACK TO FREEPLAY??');
 					cancelFadeTween();
@@ -5009,32 +5013,40 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
+
 				MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
+				
+			} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
+					var modboaFatal:FlxSprite;
+					modboaFatal = new FlxSprite(0, 0);
 					ClientPrefs.pibby = true;
-					#if desktop
-					new FlxTimer().start(0.5, function(tmr:FlxTimer)
-						{
-							System.exit(0);
-						});
-						lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
-					#end
 					ClientPrefs.saveSettings();
-					//if (FlxG.keys.justPressed.ENTER){
-
-					//}
+					//kek
+					modboaFatal = new FlxSprite().loadGraphic(Paths.image("ModboaFatalError"));
+					if (FlxG.random.bool(1.0))
+					{
+					modboaFatal.loadGraphic(Paths.image("ModboaFatalAlt"));	
+					}
+					add(modboaFatal);
+					var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 					#if mobile
-					iconP1 = new HealthIcon('não existe', true);
-					iconP1.y = healthBar.y - (iconP1.height / 2);
-					iconP1.visible = !ClientPrefs.hideHud;
-					add(iconP1);
-					iconP1.animation.curAnim.curFrame = 0;
-					//Sim... Isso é estranho, mas foi a unica forma que pensei de aparecer a mensagem de crash no celular
-					//Sem estourar ele no processo é claro
+					for (touch in FlxG.touches.list)
+					{
+						if (touch.justPressed)
+						{
+							pressedEnter = true;
+						}
+					}
 					#end
-
-
+			
+					if (pressedEnter){
+						FlxG.sound.play(Paths.sound("estatica_cool"));
+						new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+						System.exit(0);
+						});
+					}
+					
 				}
 				usedPractice = false;
 				changedDifficulty = false;
