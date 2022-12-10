@@ -252,6 +252,7 @@ class TitleState extends MusicBeatState
 		titleText = new FlxSprite(-80, 600).loadGraphic(Paths.image('titleEnter'));
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.setGraphicSize(Std.int(titleText.width * 1.1));
+		//titleText.y=550;
 		titleText.updateHitbox();
 		titleText.screenCenter(X);
 		
