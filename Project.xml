@@ -43,6 +43,10 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
 
+	<assets path="plugins/"     		rename=''               if="desktop" />
+	<assets path="dlls/"                rename=''               if="desktop" />
+	<!-- NÃO APAGA ESSE TREM -->
+
 	<classpath name="source" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
@@ -61,7 +65,7 @@
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 
-	<define name="GAMEJOLT_ALLOWED" if="desktop" unless="ACHIEVEMENTS_ALLOWED" />
+	<define name="GAMEJOLT_ALLOWED" if="desktop" />
 	
 	<section if="PRELOAD_ALL">
 		<library name="songs"         preload="true" />

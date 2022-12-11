@@ -11,22 +11,28 @@ using StringTools;
 
 class Achievements {
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
-		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',	 true],
-		["Ela me chama de papai tambem","Finalize a WEEK1 no Hard sem Misses.",				'week1_nomiss',			false],
-		["Sem truques",					"Finalize a WEEK2 no Hard sem Misses.",				'week2_nomiss',			false],
-		["Me chame de hitman",			"Finalize a WEEK3 no Hard sem Misses.",				'week3_nomiss',			false],
-		["Lady Assassina",				"Finalize a WEEK4 no Hard sem Misses.",				'week4_nomiss',			false],
-		["Natal um pouco estranho",		"Finalize a WEEK5 no Hard sem Misses5.",				'week5_nomiss',			false],
-		["Dentro de vídeogames",		"Finalize a WEEK6 no Hard sem Misses6.",				'week6_nomiss',			false],
-		["Você vai pagar por isso...",	"Finalize a WEEK7 no Hard sem Misses7.",				'week7_nomiss',			 true],
-		["Um desastre",					"Complete uma música com menos de 20% de aproveitamento",	'ur_bad',				false],
-		["perfeccionismo",				"Complete uma música com 100% de aproveitamento",			'ur_good',				false],
-		["Psicopata",					"Assista o Carlitos morrer 100 vezes.",			'roadkill_enthusiast',	false, 0],
-		["Cantando demais...?",			"Segure uma nota por mais de 20 segundos.",					'oversinging',			false],
-		["Narcisista?",					"Termine uma música sem voltar para o Idle.",				'hype',					false],
-		["Profissional de dois dedos só","Termine uma música pressionando apenas duas notas.",			'two_keys',				false],
-		["Torradeira Portátil Gamer",	 "Você tentou rodar isso em uma torradeira?",		'toastie',				false],
-		["Achou que eu tava brincando?","Vença o Pibby Sonic numa batalha de rap",			'pibby',				 true] //True quer dizer que é secreto shhhhhhhh
+		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',	 true], //na real, meio que tanto faz isso.
+		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',			false],
+		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',			true],
+		["Colecionador",				"Consiga todos os troféus",							'colecionador',			false],
+		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false],
+		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false],
+		["Nunca confie em robôs",		"Morra com o botplay ligado em caça",				'prey_bot',			true],
+		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',			 false],
+		["Jogador Nato",				"Complete uma música sem errar",					'perfect',				false],
+		["Nada será como antes...",		"Vença a sidekick",									'sidekick',				false],
+		//["Psicopata",					"Assista o Carlitos morrer 100 vezes.",				'roadkill_enthusiast',	false, 0], guardado para a posteridade
+		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',			true],
+		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',			true],
+		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',			true],
+		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',					false],
+		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',				false],
+		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',				false],
+		["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',				false],
+		["Me siga no OnlyFans",			"Vença o ColdSteel",								'personel_clear',				true],
+		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true],
+		["Fruto do Jardim",				"Assista ao poema em Lerdeza",						'poems',				true],
+		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",			'pibby',				 true] //True quer dizer que é secreto shhhhhhhh
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
