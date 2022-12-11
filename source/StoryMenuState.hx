@@ -288,6 +288,7 @@ class StoryMenuState extends MusicBeatState
 
 				FlxG.sound.play(Paths.sound('risada_du_mal'));
 				FlxG.camera.flash(FlxColor.RED, 0.5);
+				FlxG.sound.play(Paths.sound('vhs_entra')); //Só um detalhe :bob_no_passinho:
 
 					PlayState.SONG = Song.loadFromJson(songArray[real].toLowerCase() + '-hard', songArray[real].toLowerCase());
 

@@ -31,6 +31,7 @@ class ClientPrefs {
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
 	public static var firstTime:Bool = true;
+	public static var resolution:String = "1280x720"; //padrão.
 
 	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState.hx)'s list
 	public static var keyBinds:Map<String, Dynamic> = new Map<String, Dynamic>();
@@ -59,6 +60,7 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.resolution = resolution;
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.pibby = pibby;
@@ -95,6 +97,9 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		if(FlxG.save.data.resolution != null) {
+			resolution = FlxG.save.data.resolution;
+		}
 		if(FlxG.save.data.shaders != null) {
 			shaders = FlxG.save.data.shaders;
 		}

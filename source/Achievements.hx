@@ -11,28 +11,28 @@ using StringTools;
 
 class Achievements {
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
-		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',	 true], //na real, meio que tanto faz isso.
-		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',			false],
-		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',			true],
-		["Colecionador",				"Consiga todos os troféus",							'colecionador',			false],
+		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true], //na real, meio que tanto faz isso.
+		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false],
+		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true],
+		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false],
 		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false],
 		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false],
 		["Nunca confie em robôs",		"Morra com o botplay ligado em caça",				'prey_bot',			true],
-		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',			 false],
-		["Jogador Nato",				"Complete uma música sem errar",					'perfect',				false],
-		["Nada será como antes...",		"Vença a sidekick",									'sidekick',				false],
-		//["Psicopata",					"Assista o Carlitos morrer 100 vezes.",				'roadkill_enthusiast',	false, 0], guardado para a posteridade
-		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',			true],
-		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',			true],
-		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',			true],
-		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',					false],
-		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',				false],
-		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',				false],
-		["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',				false],
-		["Me siga no OnlyFans",			"Vença o ColdSteel",								'personel_clear',				true],
+		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		false],
+		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false],
+		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false],
+		//["Psicopata",					"Assista o Carlitos morrer 100 vezes.",				'roadkill_enthusiast',false, 0], guardado para a posteridade
+		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',		true],
+		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',	true],
+		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',		true],
+		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',		false],
+		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false],
+		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false],
+		["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false],
+		["Me siga no OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true],
 		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true],
-		["Fruto do Jardim",				"Assista ao poema em Lerdeza",						'poems',				true],
-		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",			'pibby',				 true] //True quer dizer que é secreto shhhhhhhh
+		["Fruto do Jardim",				"Assista ao poema em Lerdeza",						'poems',			true],
+		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true]  //True quer dizer que é secreto shhhhhhhh
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
@@ -95,9 +95,9 @@ class AttachedAchievement extends FlxSprite {
 
 	public function reloadAchievementImage() {
 		if(Achievements.isAchievementUnlocked(tag)) {
-			loadGraphic(Paths.image('conquistas/' + tag));
+			loadGraphic(Paths.image('conquistas/png/' + tag));
 		} else {
-			loadGraphic(Paths.image('conquistas/lockedachievement'));
+			loadGraphic(Paths.image('conquistas/png/exe_blocked'));
 		}
 		scale.set(0.7, 0.7);
 		updateHitbox();
