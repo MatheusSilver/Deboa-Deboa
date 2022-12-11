@@ -44,10 +44,6 @@ class AchievementsMenuState extends MusicBeatState
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
 
-		var gradiente:FlxSprite = new FlxSprite().loadGraphic(Paths.image("vignette"));
-		gradiente.antialiasing = ClientPrefs.globalAntialiasing;
-		add(gradiente);
-
 		var linha:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_linha"));
 		linha.antialiasing = ClientPrefs.globalAntialiasing;
 		add(linha);
@@ -56,15 +52,18 @@ class AchievementsMenuState extends MusicBeatState
 		linha2.antialiasing = ClientPrefs.globalAntialiasing;
 		add(linha2);
 
-		var linha3:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_texto"));
-		linha3.antialiasing = ClientPrefs.globalAntialiasing;
-		add(linha3);
-
 		var majinNatalino:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ModboaMenu'));
 		majinNatalino.screenCenter();
 		majinNatalino.antialiasing = ClientPrefs.globalAntialiasing;
 		add(majinNatalino);
 
+		var linha3:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_texto"));
+		linha3.antialiasing = ClientPrefs.globalAntialiasing;
+		add(linha3);
+
+		var gradiente:FlxSprite = new FlxSprite().loadGraphic(Paths.image("vignette"));
+		gradiente.antialiasing = ClientPrefs.globalAntialiasing;
+		add(gradiente);
 		
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
