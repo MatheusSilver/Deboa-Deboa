@@ -22,17 +22,17 @@ import haxe.io.Path;
 
 class LoadingsState extends MusicBeatSubstate
 {
+	var loadingidentifier:Array<String> = ['execution', 'cycles', 'sunshine', 'soulless', 'illegal-download', 'defender']; //usado apenas para os grupinhos
+
 	public var instantAlpha:Bool = false;
     var letext:FlxText;
 	var funkay:FlxSprite;
 	var art = new FlxSprite();
 	override function create()
 	{
-		//Basicamente este código vai invocar uma imagem que ficará atrás da arte principal do modboa
-		//durante a tela de carregamento, por fins de, É ESTRANHO PA CACETE ver aquela tela preta
-		//Enquanto o jogo carrega em celulares e pc's fracos (tipo o meu).
-		//Ele vai pegar o nome da week e vai procurar por daweekart"nome da week" na pasta preload/images
-		//Se o arquivo não existir, ele vai substituir pelo simpático menu do modboa comum
+
+		//preguiça de explicar...
+
 		if(OpenFlAssets.exists(Paths.image('daweekart' + FreeplayState.dapreselected))) { //anti crashing moment 
 			art.loadGraphic(Paths.image('daweekart' + FreeplayState.dapreselected));
 		} else {
