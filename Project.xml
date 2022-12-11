@@ -45,7 +45,7 @@
 
 	<assets path="plugins/"     		rename=''               if="desktop" />
 	<assets path="dlls/"                rename=''               if="desktop" />
-	<assets path="RESHADE/"     		rename=''               if="RESHADE_ALLOWED" />
+	<assets path="RESHADE/"     		rename=''               if="RESHADE_ALLOWED" /> <!-- Fazer outra instalação -->
 	<!-- NÃO APAGA ESSE TREM -->
 
 	<classpath name="source" />

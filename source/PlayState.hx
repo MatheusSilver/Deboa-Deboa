@@ -5433,7 +5433,17 @@ class PlayState extends MusicBeatState
 							&& !daNote.wasGoodHit && daNote.noteData == i) {
 								sortedNotesList.push(daNote);
 								notesDatas.push(daNote.noteData);
+
+								// para jogadores nutellas que gostam de spammar.
+								// caso quiserem um mod barra pesada:
+								// REMOVAM IMEDIATAMENTE!
+								// isso é o antimash no clientprefs da resolução
+								// que eu não usei
+								if(ClientPrefs.resolution) {
 								canMiss = true;
+								} else {
+								canMiss = false;
+								}
 							}
 						});
 						sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));

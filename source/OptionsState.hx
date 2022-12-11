@@ -744,6 +744,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Framerate', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
 		'GAMEPLAY',
+		'Antimash',
 		'Downscroll',
 		'Middlescroll',
 		'Ghost Tapping',
@@ -919,6 +920,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 						}
 						OptionsState.menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 
+					case 'Antimash':
+						ClientPrefs.resolution = !ClientPrefs.resolution;
+
 					case 'Note Splashes':
 						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
 
@@ -1029,6 +1033,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 		var daText:String = '';
 		switch(options[curSelected]) {
+			case 'Antimash':
+				daText = "Caso tu for muito nutella mesmo,\naquele cara que spamma pq\nnão sabe jogar, ative isso.";
 			case 'Framerate':
 				daText = "Determina o entre áspas limite do seu FPS.";
 			case 'Note Delay':

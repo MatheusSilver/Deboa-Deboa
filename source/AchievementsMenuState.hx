@@ -31,6 +31,7 @@ class AchievementsMenuState extends MusicBeatState
 		DiscordClient.changePresence("Menu de conquistas", null);
 		#end
 
+		//ARRUMEM AS POSIÇÕES DEPOIS : EU SOU HORRÍVEL COM ISSO
 		// mensagem:
 		// caso quiserem trocar alguma coisa aqui, troquem, eu não acho que ficou muito bom.
 		// dav/matheus leiam isso
