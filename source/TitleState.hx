@@ -62,6 +62,7 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		GJClient.initialize();
 		//FlxG.switchState(new GameJoltLogin());
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
@@ -183,7 +184,7 @@ class TitleState extends MusicBeatState
 				FlxG.sound.music.fadeIn(4, 0, 0.7);
 			}
 		}
-		GJClient.initialize();
+	
 		//GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
 		//GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
 		//GJClient.initialize();
@@ -512,6 +513,7 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1:
+					GJClient.initialize();
 					createCoolText(['Psych Engine por'], 45);
 				case 3:
 					addMoreText('Shadow Mario', 45);
@@ -531,10 +533,11 @@ class TitleState extends MusicBeatState
 				case 12:
 					deleteCoolText();
 				case 13:
+					skipIntro();
 				case 14:
-					addMoreText('FNF');
+					//addMoreText('FNF');
 				case 15:
-					addMoreText('ModBoa');
+					//addMoreText('ModBoa');
 				case 16:
 					skipIntro();
 			}
