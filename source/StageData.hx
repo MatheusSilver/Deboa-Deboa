@@ -1,7 +1,7 @@
 package;
 
 import openfl.utils.Assets;
-#if MODS_ALLOWED
+#if aMODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
 #else
