@@ -31,6 +31,8 @@ import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
 import flash.display.Sprite;
+import Shaders;
+import openfl.filters.ShaderFilter;
 import haxe.io.Bytes;
 using StringTools;
 
@@ -51,7 +53,6 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
-
 	var easterEggEnabled:Bool = true; //Disable this to hide the easter egg
 	var easterEggKeyCombination:Array<FlxKey> = [FlxKey.B, FlxKey.B]; //bb stands for bbpanzu cuz he wanted this lmao
 	var lastKeysPressed:Array<FlxKey> = [];
@@ -121,7 +122,8 @@ class TitleState extends MusicBeatState
 
 		FlxG.save.bind('modboa' #if (flixel < "5.0.0"), 'galaccine' #end);
 		ClientPrefs.loadPrefs();
-
+		/*PlayState.addShaderToCamera('game', new VCRDistortionEffect(0.5,true,false,true));
+		PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true));*/
 		Highscore.load();
 
 		FlxG.mouse.visible = false;
@@ -201,7 +203,7 @@ class TitleState extends MusicBeatState
 		supbg.setGraphicSize(Std.int(supbg.width * 0.60));
 		supbg.updateHitbox();
 		supbg.alpha = 1;
-
+		
 		logoBl = new FlxSprite(-150, -400).loadGraphic(Paths.image('LogoModBoaEXE'));
 
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
@@ -565,5 +567,6 @@ class TitleState extends MusicBeatState
 			
 		}
 	}
+
 
 }

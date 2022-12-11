@@ -10,7 +10,7 @@ import flixel.text.FlxText;
 using StringTools;
 
 class Achievements {
-	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement
+	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
 		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',	 true],
 		["Ela me chama de papai tambem","Finalize a WEEK1 no Hard sem Misses.",				'week1_nomiss',			false],
 		["Sem truques",					"Finalize a WEEK2 no Hard sem Misses.",				'week2_nomiss',			false],
@@ -21,7 +21,7 @@ class Achievements {
 		["Você vai pagar por isso...",	"Finalize a WEEK7 no Hard sem Misses7.",				'week7_nomiss',			 true],
 		["Um desastre",					"Complete uma música com menos de 20% de aproveitamento",	'ur_bad',				false],
 		["perfeccionismo",				"Complete uma música com 100% de aproveitamento",			'ur_good',				false],
-		["Psicopata",					"Assista o Carlitos morrer 100 vezes.",			'roadkill_enthusiast',	false],
+		["Psicopata",					"Assista o Carlitos morrer 100 vezes.",			'roadkill_enthusiast',	false, 0],
 		["Cantando demais...?",			"Segure uma nota por mais de 20 segundos.",					'oversinging',			false],
 		["Narcisista?",					"Termine uma música sem voltar para o Idle.",				'hype',					false],
 		["Profissional de dois dedos só","Termine uma música pressionando apenas duas notas.",			'two_keys',				false],
@@ -132,6 +132,8 @@ class AchievementObject extends FlxSpriteGroup {
 		var achievementText:FlxText = new FlxText(achievementName.x, achievementName.y + 32, 280, Achievements.achievementsStuff[id][1], 16);
 		achievementText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT);
 		achievementText.scrollFactor.set();
+
+
 
 		add(achievementBG);
 		add(achievementName);

@@ -38,6 +38,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var tails:FlxSprite;
 	var sonic1:FlxSprite;
 	var boom:FlxSprite;
+	var gameJoltBG:FlxSprite;
 
 	var historiabotao:FlxButton;
 	var freeplaybotao:FlxButton;
@@ -114,6 +115,8 @@ class MainMenuStateMobile extends MusicBeatState
 		add(camFollowPos);
 
 		FlxG.camera.follow(camFollowPos, null, 1);
+
+
 
 		machine = new FlxSprite(0).loadGraphic(Paths.image('menus/faixa', 'preload'));
 		machine.scrollFactor.x = 0;
@@ -215,11 +218,20 @@ class MainMenuStateMobile extends MusicBeatState
 		sobrebotao.alpha = 0.75;
 		add(sobrebotao);
 
-		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "Conectado como:\n"+GJClient.userName, 32);
-		letext.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		gameJoltBG = new FlxSprite(0).loadGraphic(Paths.image('gamejoltUserBar', 'preload'));
+		gameJoltBG.setGraphicSize(Std.int(gameJoltBG.width*0.5));
+		gameJoltBG.updateHitbox();
+		gameJoltBG.x=-630;
+		gameJoltBG.y=-350;
+		gameJoltBG.visible = true;
+		gameJoltBG.antialiasing = ClientPrefs.globalAntialiasing;
+		add(gameJoltBG);
+
+		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "DESCONECTADO", 32);
+		letext.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		letext.scrollFactor.set();
-		letext.x=0;
-		letext.y=10;
+		letext.x=-355;
+		letext.y=27;
 		letext.alpha = 1;
 		add(letext);
 
@@ -388,6 +400,7 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		if(GJClient.logged)
 			{
+				letext.text = GJClient.userName;
 				if(FlxG.keys.justPressed.SPACE)
 					{
 						GJClient.trophieAdd(179877);
@@ -397,7 +410,7 @@ class MainMenuStateMobile extends MusicBeatState
 			}
 			else
 				{
-					letext.alpha = 0;
+					letext.text = "DESCONECTADO";
 				}
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;

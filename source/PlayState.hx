@@ -128,10 +128,10 @@ class PlayState extends MusicBeatState
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartTexts:Map<String, ModchartText> = new Map();
 	#end
-	public var shader_chromatic_abberation:ChromaticAberrationEffect;
-	public var camGameShaders:Array<ShaderEffect> = [];
-	public var camHUDShaders:Array<ShaderEffect> = [];
-	public var camOtherShaders:Array<ShaderEffect> = [];
+	public static var shader_chromatic_abberation:ChromaticAberrationEffect;
+	public static var camGameShaders:Array<ShaderEffect> = [];
+	public static var camHUDShaders:Array<ShaderEffect> = [];
+	public static var camOtherShaders:Array<ShaderEffect> = [];
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
 	#if (haxe >= "4.0.0")
@@ -259,9 +259,9 @@ class PlayState extends MusicBeatState
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
-	public var camHUD:FlxCamera;
-	public var camGame:FlxCamera;
-	public var camOther:FlxCamera;
+	public static var camHUD:FlxCamera;
+	public static var camGame:FlxCamera;
+	public static var camOther:FlxCamera;
 	public var camLegenda:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
@@ -2011,7 +2011,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
+	public static function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
 	  
 	  
 	  
@@ -2055,7 +2055,7 @@ class PlayState extends MusicBeatState
 	  
   }
 
-  public function removeShaderFromCamera(cam:String,effect:ShaderEffect){
+  public static function removeShaderFromCamera(cam:String,effect:ShaderEffect){
 	  
 	  
 		switch(cam.toLowerCase()) {
@@ -2087,7 +2087,7 @@ class PlayState extends MusicBeatState
 	
 	
 	
-  public function clearShaderFromCamera(cam:String){
+  public static function clearShaderFromCamera(cam:String){
 	  
 	  
 		switch(cam.toLowerCase()) {
