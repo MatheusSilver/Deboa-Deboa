@@ -32,6 +32,8 @@ class FreeplayState extends MusicBeatState
 	"chasing"
 	];
 
+	public static var justread:String =''; //Provavelmente tinha solução melhor mas né? É só uma string poh.
+
 	var selector:FlxText;
 	private static var curSelected:Int = 0;
 	private static var canSelect:Bool = false;
@@ -363,6 +365,8 @@ class FreeplayState extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
+
+			justread = songs[curSelected].songName;
 
 
 			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());

@@ -31,15 +31,19 @@ class LoadingsState extends MusicBeatSubstate
 	override function create()
 	{
 
-		//preguiça de explicar...
+		//Silver explicações pt2
+		//Basicamente é só tu enfiar a tela de loading na pasta loadings dentro de preload/images
+		//O NOME DO ARQUIVO DEVE SER O MESMO QUE O NOME DO JSON DA MUSICA 
+		//Para grupos de músicas que usem a mesma tela de loading, veja o exemplo de como foi feita a do lordx
+		
 
-		if (loadingidentifier.contains(Std.string(PlayState.SONG).toLowerCase())){
+		if (loadingidentifier.contains(Std.string(FreeplayState.justread).toLowerCase())){
 			isgroup = true;
-			position = loadingidentifier.lastIndexOf((Std.string(PlayState.SONG).toLowerCase())) + 1;
+			position = loadingidentifier.lastIndexOf((Std.string(FreeplayState.justread).toLowerCase())) + 1;
 		}
 
-		if(OpenFlAssets.exists(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(PlayState.SONG).toLowerCase()), 'preload'))) { //Você já olhou pra alguem e pensou... O que passa, na cabeça dela? 
-			art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(PlayState.SONG).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
+		if(OpenFlAssets.exists(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload'))) { //Você já olhou pra alguem e pensou... O que passa, na cabeça dela? 
+			art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
 		} else {
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}
