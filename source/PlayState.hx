@@ -3292,9 +3292,9 @@ class PlayState extends MusicBeatState
 
 		if(ratingString == '?') {
 			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString;
-			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0';
+			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0' + '\n' + ''; //Isso me incomoda muito nos prints que voces mandam...
 		} else {
-			judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nErros: ${songMisses}';
+			judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nErros: ${songMisses}' + '\n' + '';
 			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
 		}
 
