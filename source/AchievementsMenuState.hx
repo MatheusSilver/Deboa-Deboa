@@ -35,29 +35,37 @@ class AchievementsMenuState extends MusicBeatState
 		// caso quiserem trocar alguma coisa aqui, troquem, eu não acho que ficou muito bom.
 		// dav/matheus leiam isso
 		// -mateusx02
+		// ps: a vio fez um menu maravilhoso, não precisa trocar mais nada, NADA aqui
 
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBG'));
-		menuBG.color = FlxColor.RED;
+		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
 
-		var filter:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bg-filtro'));
-		filter.screenCenter();
-		filter.antialiasing = ClientPrefs.globalAntialiasing;
-		add(filter);
-
-		var vio:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ModboaMenu'));
-		vio.screenCenter();
-		vio.antialiasing = ClientPrefs.globalAntialiasing;
-		add(vio);
-
 		var gradiente:FlxSprite = new FlxSprite().loadGraphic(Paths.image("vignette"));
-		gradiente.color = FlxColor.RED;
 		gradiente.antialiasing = ClientPrefs.globalAntialiasing;
 		add(gradiente);
+
+		var linha:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_linha"));
+		linha.antialiasing = ClientPrefs.globalAntialiasing;
+		add(linha);
+
+		var linha2:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_perfil"));
+		linha2.antialiasing = ClientPrefs.globalAntialiasing;
+		add(linha2);
+
+		var linha3:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_texto"));
+		linha3.antialiasing = ClientPrefs.globalAntialiasing;
+		add(linha3);
+
+		var majinNatalino:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ModboaMenu'));
+		majinNatalino.screenCenter();
+		majinNatalino.antialiasing = ClientPrefs.globalAntialiasing;
+		add(majinNatalino);
+
+		
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -116,56 +124,6 @@ class AchievementsMenuState extends MusicBeatState
 			curSelected = options.length - 1;
 		if (curSelected >= options.length)
 			curSelected = 0;
-
-		//chupa yandere devvvv!!!!! - x02
-		switch (curSelected)
-		{
-			case 0:
-				menuBG.color = FlxColor.YELLOW;
-				filter.color = FlxColor.YELLOW;
-				gradiente.color = FlxColor.YELLOW;
-				descText.color = FlxColor.YELLOW;
-			case 1:
-				menuBG.color = FlxColor.BLUE;
-				filter.color = FlxColor.BLUE;
-				gradiente.color = FlxColor.BLUE;
-				descText.color = FlxColor.BLUE;
-			case 2: 
-				menuBG.color = FlxColor.YELLOW;
-				filter.color = FlxColor.YELLOW;
-				gradiente.color = FlxColor.YELLOW;
-				descText.color = FlxColor.YELLOW;
-			case 3:
-				menuBG.color = FlxColor.YELLOW;
-				filter.color = FlxColor.YELLOW;
-				gradiente.color = FlxColor.YELLOW;
-				descText.color = FlxColor.YELLOW;
-			case 4:
-				menuBG.color = FlxColor.YELLOW;
-				filter.color = FlxColor.YELLOW;
-				gradiente.color = FlxColor.YELLOW;
-				descText.color = FlxColor.YELLOW;
-			case 5:
-				menuBG.color = FlxColor.BLUE;
-				filter.color = FlxColor.BLUE;
-				gradiente.color = FlxColor.BLUE;
-				descText.color = FlxColor.BLUE;
-			case 6:
-				menuBG.color = FlxColor.RED;
-				filter.color = FlxColor.RED;
-				gradiente.color = FlxColor.RED;
-				descText.color = FlxColor.RED;
-			case 7:
-				menuBG.color = FlxColor.GREY;
-				filter.color = FlxColor.GREY;
-				gradiente.color = FlxColor.GREY;
-				descText.color = FlxColor.GREY;
-			default:
-				menuBG.color = FlxColor.RED;
-				filter.color = FlxColor.RED;
-				gradiente.color = FlxColor.RED;
-				descText.color = FlxColor.RED;
-		}
 
 		var bullShit:Int = 0;
 
