@@ -1,4 +1,4 @@
-#if sys
+#if windows
 package;
 import flixel.FlxG;
 import flixel.FlxSprite;

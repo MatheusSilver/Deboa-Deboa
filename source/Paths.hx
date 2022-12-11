@@ -7,7 +7,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import lime.utils.Assets;
 import flixel.FlxSprite;
-#if MODS_ALLOWED
+#if aMODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
 import flixel.graphics.FlxGraphic;
@@ -85,7 +85,7 @@ class Paths
 		}
 
 	static public function addCustomGraphic(key:String):FlxGraphic {
-		if(FileSystem.exists('assets/images/'+ key + '.png')) {
+		if(Assets.exists('assets/images/'+ key + '.png')) {
 			if(!customImagesLoaded.exists(key)) {
 				var newBitmap:BitmapData = BitmapData.fromFile('assets/images/'+ key + '.png');
 				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, key);

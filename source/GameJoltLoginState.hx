@@ -12,7 +12,6 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
-import sys.FileSystem;
 import lime.utils.Assets;
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUIButton;

@@ -57,12 +57,12 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Shaders;
+import openfl.Assets;
 import ui.Mobilecontrols;
 
-#if sys
+#if asys
 import Sys;
 import sys.FileSystem;
-import openfl.Assets;
 import sys.io.File;
 #end
 
