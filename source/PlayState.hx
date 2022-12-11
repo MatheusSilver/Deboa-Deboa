@@ -5027,6 +5027,8 @@ class PlayState extends MusicBeatState
 				
 			} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
 				ClientPrefs.pibby = true;
+				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("omgcrashou/ModboaFatalAlt"));
+				add(bg); //hmmm kek
 				#if desktop
 				new FlxTimer().start(0.5, function(tmr:FlxTimer)
 					{

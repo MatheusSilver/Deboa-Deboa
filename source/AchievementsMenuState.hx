@@ -31,20 +31,31 @@ class AchievementsMenuState extends MusicBeatState
 		DiscordClient.changePresence("Menu de conquistas", null);
 		#end
 
+		// mensagem:
+		// caso quiserem trocar alguma coisa aqui, troquem, eu não acho que ficou muito bom.
+		// dav/matheus leiam isso
+		// -mateusx02
+
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBG'));
+		menuBG.color = FlxColor.RED;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
 
+		var filter:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menu/bg-filtro'));
+		filter.screenCenter();
+		filter.antialiasing = ClientPrefs.globalAntialiasing;
+		add(filter);
+
 		var vio:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ModboaMenu'));
 		vio.screenCenter();
 		vio.antialiasing = ClientPrefs.globalAntialiasing;
 		add(vio);
 
-		var gradiente:FlxSprite = new FlxSprite().loadGraphic(Paths.image("gradient"));
-		gradiente.color = FlxColor.ORANGE;
+		var gradiente:FlxSprite = new FlxSprite().loadGraphic(Paths.image("vignette"));
+		gradiente.color = FlxColor.RED;
 		gradiente.antialiasing = ClientPrefs.globalAntialiasing;
 		add(gradiente);
 
@@ -74,7 +85,7 @@ class AchievementsMenuState extends MusicBeatState
 		}
 
 		descText = new FlxText(150, 600, 980, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;
 		add(descText);
@@ -105,6 +116,56 @@ class AchievementsMenuState extends MusicBeatState
 			curSelected = options.length - 1;
 		if (curSelected >= options.length)
 			curSelected = 0;
+
+		//chupa yandere devvvv!!!!! - x02
+		switch (curSelected)
+		{
+			case 0:
+				menuBG.color = FlxColor.YELLOW;
+				filter.color = FlxColor.YELLOW;
+				gradiente.color = FlxColor.YELLOW;
+				descText.color = FlxColor.YELLOW;
+			case 1:
+				menuBG.color = FlxColor.BLUE;
+				filter.color = FlxColor.BLUE;
+				gradiente.color = FlxColor.BLUE;
+				descText.color = FlxColor.BLUE;
+			case 2: 
+				menuBG.color = FlxColor.YELLOW;
+				filter.color = FlxColor.YELLOW;
+				gradiente.color = FlxColor.YELLOW;
+				descText.color = FlxColor.YELLOW;
+			case 3:
+				menuBG.color = FlxColor.YELLOW;
+				filter.color = FlxColor.YELLOW;
+				gradiente.color = FlxColor.YELLOW;
+				descText.color = FlxColor.YELLOW;
+			case 4:
+				menuBG.color = FlxColor.YELLOW;
+				filter.color = FlxColor.YELLOW;
+				gradiente.color = FlxColor.YELLOW;
+				descText.color = FlxColor.YELLOW;
+			case 5:
+				menuBG.color = FlxColor.BLUE;
+				filter.color = FlxColor.BLUE;
+				gradiente.color = FlxColor.BLUE;
+				descText.color = FlxColor.BLUE;
+			case 6:
+				menuBG.color = FlxColor.RED;
+				filter.color = FlxColor.RED;
+				gradiente.color = FlxColor.RED;
+				descText.color = FlxColor.RED;
+			case 7:
+				menuBG.color = FlxColor.GREY;
+				filter.color = FlxColor.GREY;
+				gradiente.color = FlxColor.GREY;
+				descText.color = FlxColor.GREY;
+			default:
+				menuBG.color = FlxColor.RED;
+				filter.color = FlxColor.RED;
+				gradiente.color = FlxColor.RED;
+				descText.color = FlxColor.RED;
+		}
 
 		var bullShit:Int = 0;
 
