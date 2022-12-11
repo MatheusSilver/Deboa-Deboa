@@ -230,7 +230,7 @@ class TitleState extends MusicBeatState
 		logoBl3.setGraphicSize(Std.int(logoBl3.width * 5));
 		logoBl3.alpha = 0.5;
 		logoBl3.color = FlxColor.RED;
-		logoBl3.animation.addByPrefix('muitomuitomedo', 'Phase3Static instance 1', 24);
+		logoBl3.animation.addByPrefix('muitomuitomedo', 'Phase3Static instance 1', 48);
 		logoBl3.animation.play('muitomuitomedo');
 		logoBl3.updateHitbox();
 
@@ -533,11 +533,12 @@ class TitleState extends MusicBeatState
 				case 12:
 					deleteCoolText();
 				case 13:
-					skipIntro();
+					
 				case 14:
 					//addMoreText('FNF');
 				case 15:
 					//addMoreText('ModBoa');
+					skipIntro();
 				case 16:
 					skipIntro();
 			}
