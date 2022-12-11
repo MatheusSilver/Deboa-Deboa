@@ -22,19 +22,24 @@ import haxe.io.Path;
 
 class LoadingsState extends MusicBeatSubstate
 {
-	var loadingidentifier:Array<String> = ['execution', 'cycles', 'sunshine', 'soulless', 'illegal-download', 'defender']; //usado apenas para os grupinhos
+	var loadingidentifier:Array<String> = ['cycles', 'execution', 'sunshine', 'soulless', 'illegal-download', 'defender']; //usado apenas para os grupinhos
 
 	public var instantAlpha:Bool = false;
-    var letext:FlxText;
-	var funkay:FlxSprite;
 	var art = new FlxSprite();
+	var isgroup:Bool = false;
+	var position:Int = 0;
 	override function create()
 	{
 
 		//preguiça de explicar...
 
-		if(OpenFlAssets.exists(Paths.image('daweekart' + FreeplayState.dapreselected))) { //anti crashing moment 
-			art.loadGraphic(Paths.image('daweekart' + FreeplayState.dapreselected));
+		if (loadingidentifier.contains(Std.string(PlayState.SONG).toLowerCase())){
+			isgroup = true;
+			position = loadingidentifier.lastIndexOf((Std.string(PlayState.SONG).toLowerCase())) + 1;
+		}
+
+		if(OpenFlAssets.exists(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(PlayState.SONG).toLowerCase()), 'preload'))) { //Você já olhou pra alguem e pensou... O que passa, na cabeça dela? 
+			art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(PlayState.SONG).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
 		} else {
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}
@@ -44,28 +49,8 @@ class LoadingsState extends MusicBeatSubstate
 		art.scrollFactor.set();
 		art.screenCenter();
 
-		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/ModboaMenu.png', IMAGE));
-		funkay.setGraphicSize(Std.int(FlxG.width * 1.0));
-		funkay.updateHitbox();
-		funkay.antialiasing = ClientPrefs.globalAntialiasing;
-		funkay.scrollFactor.set();
-		funkay.screenCenter();
 		add(art); //Haha isso não é um NFT
-		add(funkay);
 
-		var tip:FlxSprite = new FlxSprite(0, 590).loadGraphic(Paths.image('loading/' + FlxG.random.int(1, 9)));
-		if (FlxG.random.bool(0.5))
-			tip.loadGraphic(Paths.image('loading/10'));
-		tip.screenCenter(XY);
-		tip.y -= 150;
-		tip.setGraphicSize(Std.int(tip.width * 1.0), Std.int(tip.height * 0.9));
-		add(tip);
-		tip.antialiasing = true;
-
-		letext = new FlxText(50, FlxG.height - 100, FlxG.width - 800, "Carregando...", 32); //Achei cringe
-		letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		letext.scrollFactor.set();
-		add(letext);
 		super.create();
 	}
 
@@ -73,16 +58,11 @@ class LoadingsState extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
-		funkay.setGraphicSize(Std.int(FlxG.width * 1.0));
-		funkay.updateHitbox();
-		funkay.screenCenter(XY);
 		art.setGraphicSize(Std.int(FlxG.width * 1.0));
 		art.updateHitbox();
 		art.screenCenter(XY);
 		if(controls.ACCEPT)
 		{
-			funkay.setGraphicSize(Std.int(funkay.width + 60));
-			funkay.updateHitbox();
 			art.setGraphicSize(Std.int(art.width + 60));
 			art.updateHitbox();
 		}
@@ -206,7 +186,7 @@ class LoadingState extends MusicBeatState
 		FlxTransitionableState.skipNextTransIn = true;
 		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
 			
-			FlxG.switchState(getNextState(target, stopMusic));
+			MusicBeatState.switchState(getNextState(target, stopMusic));
 		});
 		
 	}
