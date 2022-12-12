@@ -18,7 +18,7 @@ class Asset2File
 
 		var md5 = Md5.encode(Md5.make(file).toString());
 
-		if (FileSystem.exists(path + md5 + ext))
+		if (Assets.exists(path + md5 + ext))
 			return path + md5 + ext;
 
 

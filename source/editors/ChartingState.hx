@@ -522,7 +522,7 @@ class ChartingState extends MusicBeatState
 			}
 			tempMap.set(stageToCheck, true);
 		}
-		#if MODS_ALLOWED
+		#if aMODS_ALLOWED
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(Assets.exists(directory)) {

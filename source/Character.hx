@@ -7,10 +7,6 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxSort;
 import Section.SwagSection;
-#if aMODS_ALLOWED
-import sys.io.File;
-import sys.FileSystem;
-#end
 import openfl.utils.Assets;
 import haxe.Json;
 import haxe.format.JsonParser;
