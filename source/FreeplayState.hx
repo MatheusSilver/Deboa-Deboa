@@ -28,6 +28,8 @@ class FreeplayState extends MusicBeatState
 	var songs:Array<SongMetadata> = [];
 	//COLOQUE O NOME DAS SONGS COM SHADERS AQUI (EM LOWERCASE POR FAVOR)
 
+	public static var nooptions:Bool = false;
+
 	public static var justread:String =''; //Provavelmente tinha solução melhor mas né? É só uma string poh.
 
 	var selector:FlxText;
@@ -35,7 +37,6 @@ class FreeplayState extends MusicBeatState
 	private static var canSelect:Bool = false;
 	private static var curDifficulty:Int = 2;
 	public static var infoextended:String = '';
-	public static var daMsg:Bool = false;
 	var engrenagem:FlxButton;
 
 	public static var dapreselected:String = '';
@@ -309,9 +310,12 @@ class FreeplayState extends MusicBeatState
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		if (engrenagem.pressed) //Tá
+		if (engrenagem.pressed)
 		{
+			
 			MusicBeatState.switchState(new OptionsState());
+			nooptions = true;
+
 		}
 
 		if (upP)
