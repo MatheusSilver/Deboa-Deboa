@@ -27,10 +27,6 @@ class FreeplayState extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
 	//COLOQUE O NOME DAS SONGS COM SHADERS AQUI (EM LOWERCASE POR FAVOR)
-	var songsShaders:Array<String> = [
-	"round-a-bout",
-	"chasing"
-	];
 
 	public static var justread:String =''; //Provavelmente tinha solução melhor mas né? É só uma string poh.
 
@@ -172,7 +168,7 @@ class FreeplayState extends MusicBeatState
 		//diffText.font = scoreText.font;
 	//	add(diffText);
 
-		add(scoreText);
+		//add(scoreText);
 
 		if(curSelected >= songs.length) curSelected = 0;
 		bg.color = songs[curSelected].color;
@@ -201,7 +197,7 @@ class FreeplayState extends MusicBeatState
 
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBG.alpha = 0.6;
-		add(textBG);
+		//add(textBG);
 		#if desktop
 			#if PRELOAD_ALL
 			var leText:String = "";
@@ -218,7 +214,7 @@ class FreeplayState extends MusicBeatState
 		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
-		add(text);
+		//add(text);
 
 		#if mobileC
 		addVirtualPad(FULL, A_B);
@@ -284,7 +280,7 @@ class FreeplayState extends MusicBeatState
 		} else {
 		scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore;
 		}*/
-		scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore;
+		//scoreText.text = 'MAIOR PONTUAÇÃO: ' + lerpScore;
 		positionHighscore();
 
 		var upP = controls.UI_UP_P;
@@ -414,7 +410,7 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		PlayState.storyDifficulty = curDifficulty;
-		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+		//diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
 		positionHighscore();
 	}
 
