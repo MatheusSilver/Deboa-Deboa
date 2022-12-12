@@ -1,5 +1,5 @@
 {
-	"storyName": "VS Sanic.EXE",
+	"storyName": "VS. Meme Maker",
 	"hideFreeplay": false,
 	"weekBackground": "sonic",
 	"weekBefore": "tutorial",
@@ -16,6 +16,16 @@
 	],
 	"songs": [
 		[
+			"milk",
+			"sunky",
+			[
+				255,
+				0,
+				0
+			],
+			"Leitche"
+		],
+		[
 			"too-fest",
 			"sanic",
 			[
@@ -24,6 +34,26 @@
 				0
 			],
 			"c3b0 n4s c4n3l4"
+		],
+		[
+			"personel",
+			"coldsteel",
+			[
+				255,
+				0,
+				0
+			],
+			"n4da_pesso4l"
+		],
+		[
+			"clickbait",
+			"sonicexesexual",
+			[
+				255,
+				0,
+				0
+			],
+			"Clickbait"
 		]
 		],
 	"hideStoryMode": false,
