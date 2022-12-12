@@ -136,7 +136,7 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].display, true);
+			var songText:AlfabetoVio = new AlfabetoVio(0, (70 * i) + 30, songs[i].display, true);
 			songText.isMenuTrem = true;
 			songText.targetY = i;
 			songText.screenCenter(X);
