@@ -400,7 +400,7 @@ class TitleState extends MusicBeatState
 							}
 							else
 								{
-									MusicBeatState.switchState(new MainMenuStateMobile()); //lembrar de colocar o menu dps
+									MusicBeatState.switchState(new PreMainMenuState()); //lembrar de colocar o menu dps
 								}
 					}
 					closedState = true;
