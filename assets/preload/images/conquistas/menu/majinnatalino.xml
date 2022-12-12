@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="majinnatalino.png">
+<SubTexture name="majinnatalino idle0000" x="2925" y="731" width="593" height="730" frameX="-303" frameY="-262" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0001" x="2925" y="1461" width="595" height="730" frameX="-302" frameY="-262" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0002" x="2330" y="731" width="595" height="730" frameX="-302" frameY="-262" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0003" x="1196" y="1475" width="595" height="731" frameX="-302" frameY="-261" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0004" x="2330" y="0" width="595" height="731" frameX="-302" frameY="-261" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0005" x="2925" y="0" width="596" height="731" frameX="-302" frameY="-261" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0006" x="0" y="2207" width="597" height="731" frameX="-301" frameY="-261" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0007" x="597" y="2207" width="597" height="731" frameX="-301" frameY="-261" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0008" x="1732" y="735" width="598" height="732" frameX="-301" frameY="-260" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0009" x="0" y="1475" width="598" height="732" frameX="-301" frameY="-260" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0010" x="598" y="1475" width="598" height="732" frameX="-301" frameY="-260" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0011" x="3521" y="1458" width="601" height="727" frameX="-299" frameY="-264" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0012" x="1161" y="2938" width="604" height="717" frameX="-297" frameY="-274" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0013" x="1765" y="2938" width="599" height="715" frameX="-299" frameY="-276" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0014" x="576" y="2938" width="585" height="719" frameX="-306" frameY="-272" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0015" x="0" y="2938" width="576" height="722" frameX="-308" frameY="-269" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0016" x="3521" y="2185" width="572" height="725" frameX="-308" frameY="-266" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0017" x="2330" y="1461" width="571" height="730" frameX="-308" frameY="-261" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0018" x="589" y="738" width="571" height="735" frameX="-308" frameY="-256" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0019" x="0" y="0" width="573" height="738" frameX="-308" frameY="-253" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0020" x="573" y="0" width="577" height="738" frameX="-308" frameY="-253" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0021" x="1150" y="0" width="582" height="738" frameX="-308" frameY="-253" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0022" x="0" y="738" width="589" height="737" frameX="-305" frameY="-254" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0023" x="1732" y="0" width="598" height="735" frameX="-301" frameY="-257" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0024" x="1194" y="2207" width="607" height="731" frameX="-298" frameY="-261" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0025" x="1801" y="2207" width="609" height="729" frameX="-298" frameY="-263" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0026" x="2410" y="2207" width="607" height="729" frameX="-298" frameY="-263" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0027" x="3521" y="0" width="604" height="729" frameX="-299" frameY="-263" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="majinnatalino idle0028" x="3521" y="729" width="601" height="729" frameX="-300" frameY="-263" frameWidth="1080" frameHeight="1080" />
+</TextureAtlas>

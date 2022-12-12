@@ -57,7 +57,7 @@
 	<define name="MODS_ALLOWED" />
 	<define name="LUA_ALLOWED" />
 	<define name="CRASH_HANDLER"/>
-	<define name="RESHADE_ALLOWED" if="windows"/>
+	<!--<define name="RESHADE_ALLOWED" if="windows"/>-->
 	<!-- Yeah Yeah -->
 	<define name="ACHIEVEMENTS_ALLOWED" />
 
