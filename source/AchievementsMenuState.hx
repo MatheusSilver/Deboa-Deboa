@@ -25,6 +25,7 @@ class AchievementsMenuState extends MusicBeatState
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
+	var descBox:AttachedSprite;
 
 	override function create() {
 		#if desktop
@@ -53,10 +54,11 @@ class AchievementsMenuState extends MusicBeatState
 		linha2.antialiasing = ClientPrefs.globalAntialiasing;
 		add(linha2);
 
-		var majinNatalino:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ModboaMenu'));
-		majinNatalino.screenCenter();
-		majinNatalino.antialiasing = ClientPrefs.globalAntialiasing;
-		add(majinNatalino);
+		majin = new FlxSprite(0, 0);
+		majin.frames = Paths.getSparrowAtlas('conquistas/menu/majin', 'preload');
+		majin.animation.addByPrefix('idle', "idle", 24);
+		majin.antialiasing = ClientPrefs.globalAntialiasing;
+		add(majin);
 
 		var linha3:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_texto"));
 		linha3.antialiasing = ClientPrefs.globalAntialiasing;
@@ -91,6 +93,14 @@ class AchievementsMenuState extends MusicBeatState
 			achievementArray.push(icon);
 			add(icon);
 		}
+
+		descBox = new AttachedSprite();
+		descBox.makeGraphic(1, 1, FlxColor.BLACK);
+		descBox.xAdd = -10;
+		descBox.yAdd = -10;
+		descBox.alphaMult = 0.6;
+		descBox.alpha = 0.6;
+		add(descBox);
 
 		descText = new FlxText(150, 600, 980, "", 32);
 		descText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
