@@ -1,11 +1,6 @@
 package;
 
 // STOLEN FROM HAXEFLIXEL DEMO LOL
-<<<<<<< HEAD
-import FlxShader;
-=======
-import tools.FlxShader;
->>>>>>> 732f1c9dd6099b73100841c740e754d1c0d5b482
 import openfl.display.BitmapData;
 import openfl.display.ShaderInput;
 import openfl.utils.Assets;
