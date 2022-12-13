@@ -59,7 +59,6 @@ class FreeplayState extends MusicBeatState
 	var bg:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
-
 	var disco:FlxSprite;
 
 	override function create()
@@ -124,7 +123,7 @@ class FreeplayState extends MusicBeatState
 		//matheus, por favor, coloca isso no lado esquerdo da tela
 		disco = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/disco'));
 		disco.antialiasing = ClientPrefs.globalAntialiasing;
-		add(icon);
+		//add(icon);
 		add(disco);
 
 		engrenagem = new FlxButton(50, 10, '');
@@ -155,16 +154,16 @@ class FreeplayState extends MusicBeatState
 		{
 			//mathe, coloca isso no canto direito da tela
 			//resumindo, deixa igual a imagem :bob_no_passinho:
-			var songText:AlfabetoVio = new AlfabetoVio(0, (70 * i) + 30, songs[i].display, true);
-			songText.isMenuTrem = true;
-			songText.targetY = i;
-			songText.screenCenter(X);
-			grpSongs.add(songText);
+			//var songText:AlfabetoVio = new AlfabetoVio(0, (70 * i) + 30, songs[i].display, true);
+			//songText.isMenuTrem = true;
+			//songText.targetY = i;
+			//songText.screenCenter(x);
+			//grpSongs.add(songText);
 
 			Paths.currentModDirectory = songs[i].folder;	
 			//coloca isso no lado esquerdo o textinho do alfabeto		
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
-			icon.sprTracker = songText;
+			//icon.sprTracker = songText;
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);

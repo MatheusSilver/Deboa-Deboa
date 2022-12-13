@@ -340,7 +340,7 @@ class PlayState extends MusicBeatState
 	var mcontrols:Mobilecontrols; 
 	#end	
 
-	private var luaArray:Array<FunkinLua> = [];
+	public var luaArray:Array<FunkinLua> = [];
 	//Achievement shit
 	var keysPressed:Array<Bool> = [false, false, false, false];
 	var boyfriendIdleTime:Float = 0.0;

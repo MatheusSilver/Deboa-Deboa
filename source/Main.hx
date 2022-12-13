@@ -3,6 +3,7 @@ package;
 #if desktop
 ///import GameJolt;
 ///import GameJolt.GameJoltAPI;
+import Discord.DiscordClient;
 #end
 import lime.system.System;
 //import webm.WebmPlayer;
@@ -160,8 +161,8 @@ class Main extends Sprite
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
 
-		dateNow = dateNow.replace(" ", "_");
-		dateNow = dateNow.replace(":", "'");
+		/*dateNow.toString() = " ", "_";
+		dateNow.toString() = ":", "'";*/
 
 		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
 
@@ -178,7 +179,7 @@ class Main extends Sprite
 
 		errMsg += "\nERRO ENCONTRADO: " + e.error + "\n(Tire uma print e poste no Chat #report do server do ModBoa.)";
 
-		Application.current.window.alert(errMsg, "Error!");
+		//Application.current.window.alert(errMsg, "Error!");
 		#if desktop
 		DiscordClient.shutdown();
 		#end

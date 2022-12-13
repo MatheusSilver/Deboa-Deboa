@@ -26,7 +26,9 @@ import Controls;
 import DialogueBoxPsych;
 import openfl.utils.Assets as OpenFlAssets;
 import Shaders;
-
+import Sys;
+import sys.FileSystem;
+import sys.io.File;
 #if desktop
 import Discord;
 #end
@@ -179,7 +181,7 @@ class FunkinLua {
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(Assets.exists(cervix)) {
+			if(FileSystem.exists(cervix)) {
 				doPush = true;
 			}
 			#end
@@ -200,7 +202,7 @@ class FunkinLua {
 				PlayState.instance.luaArray.push(new FunkinLua(cervix));
 				return;
 			}
-			luaTrace("addLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
+			luaTrace("addLuaScript: Script doesn't exist!", false, false);
 		});
 		Lua_helper.add_callback(lua, "removeLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
@@ -224,7 +226,7 @@ class FunkinLua {
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(Assets.exists(cervix)) {
+			if(FileSystem.exists(cervix)) {
 				doPush = true;
 			}
 			#end
@@ -246,7 +248,7 @@ class FunkinLua {
 				}
 				return;
 			}
-			luaTrace("removeLuaScript: Script doesn't exist!", false, false, FlxColor.RED);
+			luaTrace("removeLuaScript: Script doesn't exist!", false, false);
 		});
 		
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String) {
