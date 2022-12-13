@@ -45,7 +45,6 @@
 
 	<assets path="plugins/"     		rename=''               if="desktop" />
 	<assets path="dlls/"                rename=''               if="desktop" />
-	<assets path="RESHADE/"     		rename=''               if="RESHADE_ALLOWED" /> <!-- Fazer outra instalação -->
 	<!-- NÃO APAGA ESSE TREM -->
 
 	<classpath name="source" />
@@ -57,7 +56,6 @@
 	<define name="MODS_ALLOWED" />
 	<define name="LUA_ALLOWED" />
 	<define name="CRASH_HANDLER"/>
-	<!--<define name="RESHADE_ALLOWED" if="windows"/>-->
 	<!-- Yeah Yeah -->
 	<define name="ACHIEVEMENTS_ALLOWED" />
 
