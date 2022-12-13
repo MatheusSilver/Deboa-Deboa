@@ -40,6 +40,7 @@ jobs:
           haxelib --quiet install hscript
           haxelib --quiet install flixel-addons
           haxelib install hscript
+          haxelib git HxShaders https://github.com/JonnycatMeow/HxShaders.git
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc --quiet
           haxelib git linc_luajit https://github.com/Sirox228/linc_luajit --quiet
           haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview --quiet

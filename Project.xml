@@ -115,6 +115,7 @@
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="actuate" />
 	<haxelib name="extension-webm"/>
+	<haxelib name="HxShaders" if="windows"/>  
 	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
 	<!--<haxelib name="hxCodec" if="desktop"/>-->
