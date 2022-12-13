@@ -179,7 +179,7 @@ class AjustesState extends MusicBeatState
 		add(boom);
 
         add(trees);
-        
+
 		historiabotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
 		historiabotao.loadGraphic(Paths.image('optionsmenu/configuracoes', 'preload'));
 		historiabotao.setGraphicSize(Std.int(historiabotao.width * 0.6));
@@ -466,7 +466,7 @@ class AjustesState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
+				MusicBeatState.switchState(new MainMenuStateMobile());
 			}
 
 			if (controls.ACCEPT || checkiftouch)
