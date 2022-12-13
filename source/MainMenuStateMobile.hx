@@ -89,9 +89,9 @@ class MainMenuStateMobile extends MusicBeatState
 
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
 		bg.scrollFactor.set(0, 0);
-		bg.setGraphicSize(FlxG.width);
+		//bg.setGraphicSize(FlxG.width);
 		bg.updateHitbox();
-		bg.screenCenter();
+		bg.screenCenter(X);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
