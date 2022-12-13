@@ -730,6 +730,8 @@ class PlayState extends MusicBeatState
 				add(tempogravador);
 
 				if(ClientPrefs.shaders) {
+			addShaderToCamera('hud', new MotionBlur(true));
+			addShaderToCamera('game', new MotionBlur(true)); //testing
 			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
 			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true)); //testing
 			addShaderToCamera('hud', new ScanlineEffect(true));
