@@ -392,7 +392,7 @@ class AlphaCharacter extends FlxSprite
 
 	public function createBoldLetter(letter:String)
 	{
-		animation.addByPrefix(letter, letter.toUpperCase() + " bold", 24);
+		animation.addByPrefix(letter, letter.toLowerCase(), 24);
 		animation.play(letter);
 		updateHitbox();
 	}
@@ -423,22 +423,21 @@ class AlphaCharacter extends FlxSprite
 			case "+":
 				animation.addByPrefix(letter, '+ bold', 24);
 			case "|":
-				animation.addByPrefix(letter, '| bold', 24);
+				animation.addByPrefix(letter, '| bold', 24);			
 			case "ã":
-				//anim
+				animation.addByPrefix(letter, 'á', 24);
 			case "é":
-				//anim
+				animation.addByPrefix(letter, 'é', 24);
 			case "ã":
-				//anim
+				animation.addByPrefix(letter, 'ã', 24);
 			case "í":
-				//anim
+				animation.addByPrefix(letter, 'í', 24);
 			case "á":
-				//anim
-
+				animation.addByPrefix(letter, 'á', 24);
 
 			//emojis do discord (insert a cute mensage)
 			case ":vio:":
-				animation.addByPrefix(letter, 'vaio', 24);
+				animation.addByPrefix(letter, ':vio:', 24);
 			default:
 				animation.addByPrefix(letter, 'bold ' + letter, 24);
 		}
