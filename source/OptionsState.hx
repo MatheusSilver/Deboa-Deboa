@@ -745,7 +745,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 	static var options:Array<String> = [
 		'GRAPHICS',
 		'Low Quality',
-		'Shaders',
+		#if windows
+		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
+		#end
 		'Anti-Aliasing',
 		'Persistent Cached Data',
 		#if !html5

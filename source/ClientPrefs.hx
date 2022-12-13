@@ -7,7 +7,7 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
-	public static var shaders:Bool = true; //Todo: Adicionar uma opção pra isso em settings
+	public static var shaders:Bool = #if windows true #else false #end; //Todo: Adicionar uma opção pra isso em settings
 	public static var downScroll:Bool = false;
 	public static var pibby:Bool = false; //Eu não sei se é assim mesmo que faz na psych
 	public static var middleScroll:Bool = false;
