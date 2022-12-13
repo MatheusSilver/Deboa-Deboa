@@ -108,7 +108,7 @@ class OptionsState extends MusicBeatState
 						openSubState(new ControlsSubstate());
 					#end
 					#if mobile
-						MusicBeatState.switchState(new CustomControlsState())
+						MusicBeatState.switchState(new CustomControlsState());
 					#end
 				case 'Configuracoes':
 					openSubState(new PreferencesSubstate());

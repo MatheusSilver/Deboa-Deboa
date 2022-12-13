@@ -1,7 +1,7 @@
 package;
 
 // STOLEN FROM HAXEFLIXEL DEMO LOL
-import FlxShader;
+import tools.FlxShader;
 import openfl.display.BitmapData;
 import openfl.display.ShaderInput;
 import openfl.utils.Assets;
