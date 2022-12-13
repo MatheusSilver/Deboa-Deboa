@@ -11,7 +11,7 @@ local del2 = 0
 local bgs = {'fleetPHANTASM', 'sonicPHANTASM'}
 
 function onCreate()
-	makeAnimatedLuaSprite('fx', 'Cenarios/phantasm/vintage', 0, 0)
+	makeAnimatedLuaSprite('fx', 'cenarios/phantasm/vintage', 0, 0)
 	addAnimationByPrefix('fx', 'idle', 'idle', 16, true)
 	scaleObject('fx', 3, 3)
 	setObjectCamera('fx', 'camHud')
@@ -19,7 +19,7 @@ function onCreate()
 	setProperty('fx.alpha', 0)
 
 	for i = 1,2 do
-		makeLuaSprite(bgs[i], 'Cenarios/phantasm/'..bgs[i], 0, 0)
+		makeLuaSprite(bgs[i], 'cenarios/phantasm/'..bgs[i], 0, 0)
 		addLuaSprite(bgs[i], false)
 	end
 	addCharacterToList('fleetwayPHANTASM', 'boyfriend')

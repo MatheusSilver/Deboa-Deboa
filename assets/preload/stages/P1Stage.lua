@@ -2,52 +2,52 @@
 
 function onCreate()
 
-    makeLuaSprite('sky','Cenarios/PolishedP1/sky',-430,-160)
+    makeLuaSprite('sky','cenarios/PolishedP1/sky',-430,-160)
     setLuaSpriteScrollFactor('sky',0.8,0.8)
     scaleObject('sky',1.2,1.3)
     addLuaSprite('sky',false)
 
-    makeLuaSprite('floor2','Cenarios/PolishedP1/FLOOR2',-390,-195)
+    makeLuaSprite('floor2','cenarios/PolishedP1/FLOOR2',-390,-195)
     setLuaSpriteScrollFactor('floor2',0.9,0.9)
     scaleObject('floor2',1.07,1.05)
     addLuaSprite('floor2',false)
 
-    makeLuaSprite('floor1','Cenarios/PolishedP1/FLOOR1',-361,-160)
+    makeLuaSprite('floor1','cenarios/PolishedP1/FLOOR1',-361,-160)
     setLuaSpriteScrollFactor('floor1',1,1)
     scaleObject('floor1',1.05,1.07)
     addLuaSprite('floor1',false)
 
-    makeLuaSprite('eggman','Cenarios/PolishedP1/EGGMAN',-300,-200)
+    makeLuaSprite('eggman','cenarios/PolishedP1/EGGMAN',-300,-200)
     setLuaSpriteScrollFactor('eggman',1,1)
     scaleObject('eggman',1.1,1.1)
     addLuaSprite('eggman',false)
 
-    makeLuaSprite('tails','Cenarios/PolishedP1/TAIL',-400,-250)
+    makeLuaSprite('tails','cenarios/PolishedP1/TAIL',-400,-250)
     setLuaSpriteScrollFactor('tails',1,1)
     scaleObject('tails',1.1,1.1)
     addLuaSprite('tails',false)
 
-    makeLuaSprite('knuckles','Cenarios/PolishedP1/KNUCKLE',260,-255)
+    makeLuaSprite('knuckles','cenarios/PolishedP1/KNUCKLE',260,-255)
     setLuaSpriteScrollFactor('knuckles',1,1)
     scaleObject('knuckles',1.05,1.1)
     addLuaSprite('knuckles',false)
 
-    makeAnimatedLuaSprite('tailshead', 'Cenarios/PolishedP1/TailsSpikeAnimated', -185, -60)
+    makeAnimatedLuaSprite('tailshead', 'cenarios/PolishedP1/TailsSpikeAnimated', -185, -60)
     addAnimationByPrefix('tailshead','bop','Tails Spike Animated instance',4,true)
     addLuaSprite('tailshead',false)
     objectPlayAnimation('tailshead','bop',true)
     scaleObject('tailshead', 1.33, 1.32)
 
-    makeAnimatedLuaSprite('spooky', 'Cenarios/PolishedP1/sonicJUMPSCARE', 0, -50)
+    makeAnimatedLuaSprite('spooky', 'cenarios/PolishedP1/sonicJUMPSCARE', 0, -50)
     addAnimationByPrefix('spooky','spookything','sonicSPOOK',24,false)
     scaleObject('spooky', 1.1, 1.1)
     setLuaSpriteScrollFactor('spooky',0,0)
 
-    makeLuaSprite('sonicscreen','Cenarios/PolishedP1/simplejump',-200,-150)
+    makeLuaSprite('sonicscreen','cenarios/PolishedP1/simplejump',-200,-150)
     setLuaSpriteScrollFactor('sonicscreen',0,0)
     scaleObject('sonicscreen',0.9,0.9)
 
-    makeAnimatedLuaSprite('spookystatic', 'Cenarios/PolishedP1/daSTAT', -150, -125)
+    makeAnimatedLuaSprite('spookystatic', 'cenarios/PolishedP1/daSTAT', -150, -125)
     addAnimationByPrefix('spookystatic','spookything','staticFLASH',24,false)
     scaleObject('spookystatic', 4, 4)
     setLuaSpriteScrollFactor('spookystatic',0,0)

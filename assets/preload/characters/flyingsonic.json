@@ -73,7 +73,7 @@
 		590,
 		447
 	],
-	"healthicon": "ss-genesis",
+	"healthicon": "sonic-super",
 	"flip_x": true,
 	"healthbar_colors": [
 		235,
@@ -81,7 +81,7 @@
 		0
 	],
 	"camera_position": [
-		-60,
+		30,
 		-114
 	],
 	"sing_duration": 4,

@@ -90,9 +90,9 @@ function onCountdownStarted()
 	setPropertyFromClass('Conductor', 'songPosition', 0);
 end
 
-function onPause()
-	return Function_Stop; --disabled for testing
-end
+--function onPause()
+--	return Function_Stop; --disabled for testing
+--end
 
 function onGameOver()
 	modchart = false

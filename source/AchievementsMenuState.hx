@@ -25,7 +25,9 @@ class AchievementsMenuState extends MusicBeatState
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
-	var descBox:AttachedSprite;
+	//var descBox:AttachedSprite;
+	var majin:FlxSprite;
+
 
 	override function create() {
 		#if desktop
@@ -94,13 +96,15 @@ class AchievementsMenuState extends MusicBeatState
 			add(icon);
 		}
 
-		descBox = new AttachedSprite();
+		/*descBox = new AttachedSprite();
 		descBox.makeGraphic(1, 1, FlxColor.BLACK);
 		descBox.xAdd = -10;
 		descBox.yAdd = -10;
 		descBox.alphaMult = 0.6;
 		descBox.alpha = 0.6;
-		add(descBox);
+		add(descBox); */
+
+		//Amanhã eu vejo isso... Moh sono bixo...
 
 		descText = new FlxText(150, 600, 980, "", 32);
 		descText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

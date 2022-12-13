@@ -1,5 +1,6 @@
 package;
 
+import Discord.DiscordClient;
 #if desktop
 ///import GameJolt;
 ///import GameJolt.GameJoltAPI;
@@ -160,10 +161,10 @@ class Main extends Sprite
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
 
-		dateNow = dateNow.replace(" ", "_");
-		dateNow = dateNow.replace(":", "'");
+		//dateNow = dateNow.replace(" ", "_");
+	//	dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
+		path = "./crash/" + "ModBoa_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
@@ -178,7 +179,7 @@ class Main extends Sprite
 
 		errMsg += "\nERRO ENCONTRADO: " + e.error + "\n(Tire uma print e poste no Chat #report do server do ModBoa.)";
 
-		Application.current.window.alert(errMsg, "Error!");
+		lime.app.Application.current.window.alert(errMsg, "Error!");
 		#if desktop
 		DiscordClient.shutdown();
 		#end

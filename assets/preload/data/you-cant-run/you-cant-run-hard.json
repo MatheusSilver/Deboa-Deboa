@@ -6061,7 +6061,7 @@
 		"song": "you-cant-run",
 		"needsVoices": false,
 		"validScore": true,
-		"stage": "p2stage",
+		"stage": "P2Stage",
 		"speed": 3.3,
 		"bpm": 140,
 		"noteStyle": null

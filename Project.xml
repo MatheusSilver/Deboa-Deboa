@@ -70,25 +70,148 @@
 
 	<define name="GAMEJOLT_ALLOWED" if="desktop" />
 	
+
+	<!-- Isso vai ser tãaaaaaaaaaaaaaaaaaaaaao chato de fazer... -->
+	<!-- Vocês agora me devem um pudim, Ass. Silvio -->
 	<section if="PRELOAD_ALL">
-		<library name="songs"         preload="true" />
-		<library name="shared"        preload="true" />
-		<library name="week6"         preload="true" />
+		<library name="songs"        			 preload="true" />
+		<library name="shared"       			 preload="true" />
+		<library name="week-bestfriendo"         preload="true" />
+		<library name="week-blacksun"       	 preload="true" />
+		<library name="week-ccc"        		 preload="true" />
+		<library name="week-chaos"        		 preload="true" />
+		<library name="week-clickbait"      	 preload="true" />
+		<library name="week-confronting"         preload="true" />
+		<library name="week-control"       		 preload="true" />
+		<library name="week-fantasmas"       	 preload="true" />
+		<library name="week-farsa"        		 preload="true" />
+		<library name="week-fest"        		 preload="true" />
+		<library name="week-final"        		 preload="true" />
+		<library name="week-infinite"        	 preload="true" />
+		<library name="week-infinitecycles"      preload="true" />
+		<library name="week-lerdeza"        	 preload="true" />
+		<library name="week-lordx"         		 preload="true" />
+		<library name="week-milk"         		 preload="true" />
+		<library name="week-parceiro"        	 preload="true" />
+		<library name="week-pasta"      		 preload="true" />
+		<library name="week-personel"      		 preload="true" />
+		<library name="week-pibby"       		 preload="true" />
+		<library name="week-piracy"        		 preload="true" />
+		<library name="week-possession"       	 preload="true" />
+		<library name="week-prey"        		 preload="true" />
+		<library name="week-rastro"        		 preload="true" />
+		<library name="week-roundabout"          preload="true" />
+		<library name="week-sink"        		 preload="true" />
+		<library name="week-soulless"      		 preload="true" />
+		<library name="week-sunshine"        	 preload="true" />
+		<library name="week-wad"        		 preload="true" />
+		<library name="week-xenophanes"          preload="true" />
+
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
-		<library name="songs"         preload="false" />
-		<library name="shared"        preload="false" />
-		<library name="week6"         preload="false" />
+		<library name="songs"        			 preload="false" />
+		<library name="shared"       			 preload="false" />
+		<library name="week-bestfriendo"         preload="false" />
+		<library name="week-blacksun"       	 preload="false" />
+		<library name="week-ccc"        		 preload="false" />
+		<library name="week-chaos"        		 preload="false" />
+		<library name="week-clickbait"      	 preload="false" />
+		<library name="week-confronting"         preload="false" />
+		<library name="week-control"       		 preload="false" />
+		<library name="week-fantasmas"       	 preload="false" />
+		<library name="week-farsa"        		 preload="false" />
+		<library name="week-fest"        		 preload="false" />
+		<library name="week-final"        		 preload="false" />
+		<library name="week-infinite"        	 preload="false" />
+		<library name="week-infinitecycles"      preload="false" />
+		<library name="week-lerdeza"        	 preload="false" />
+		<library name="week-lordx"         		 preload="false" />
+		<library name="week-milk"         		 preload="false" />
+		<library name="week-parceiro"        	 preload="false" />
+		<library name="week-pasta"      		 preload="false" />
+		<library name="week-personel"      		 preload="false" />
+		<library name="week-pibby"       		 preload="false" />
+		<library name="week-piracy"        		 preload="false" />
+		<library name="week-possession"       	 preload="false" />
+		<library name="week-prey"        		 preload="false" />
+		<library name="week-rastro"        		 preload="false" />
+		<library name="week-roundabout"          preload="false" />
+		<library name="week-sink"        		 preload="false" />
+		<library name="week-soulless"      		 preload="false" />
+		<library name="week-sunshine"        	 preload="false" />
+		<library name="week-wad"        		 preload="false" />
+		<library name="week-xenophanes"          preload="false" />
 	</section>
-	
-	<assets path="assets/songs"         library="songs"         exclude="*.ogg" if="web"/>
-	<assets path="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/shared"        library="shared"        exclude="*.ogg" if="web"/>
-	<assets path="assets/shared"        library="shared"        exclude="*.mp3" unless="web"/>
-	<assets path="assets/week6"         library="week6"         exclude="*.ogg" if="web"/>
-	<assets path="assets/week6"         library="week6"         exclude="*.mp3" unless="web"/>
-	
+	<!-- EU NÃO ESTOU SUPORTANDO MAIS... AAAAAAAAAAAAAAAAA -->
+	<assets path="assets/songs"       			   library="songs"        			  exclude="*.ogg" if="web"/>
+	<assets path="assets/songs"       			   library="songs"       			  exclude="*.mp3" unless="web"/>
+	<assets path="assets/shared"      			   library="shared"       			  exclude="*.ogg" if="web"/>
+	<assets path="assets/shared"       			   library="shared"        			  exclude="*.mp3" unless="web"/>
+	<assets path="assets/week6"         		   library="week6"         			  exclude="*.ogg" if="web"/>
+	<assets path="assets/week6"        			   library="week6"         			  exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-bestfriendo"         library="week-bestfriendo"         exclude="*.ogg" if="web"/>
+	<assets path="assets/week-bestfriendo"         library="week-bestfriendo"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-blacksun"      	   library="week-blacksun"        	  exclude="*.ogg" if="web"/>
+	<assets path="assets/week-blacksun"        	   library="week-blacksun"       	  exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-ccc"        		   library="week-ccc"         		  exclude="*.ogg" if="web"/>
+	<assets path="assets/week-ccc"        		   library="week-ccc"                 exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-chaos"         	   library="week-chaos"               exclude="*.ogg" if="web"/>
+	<assets path="assets/week-chaos"         	   library="week-chaos"               exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-clickbait"           library="week-clickbait"           exclude="*.ogg" if="web"/>
+	<assets path="assets/week-clickbait"           library="week-clickbait"           exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-confronting"         library="week-confronting"         exclude="*.ogg" if="web"/>
+	<assets path="assets/week-confronting"         library="week-confronting"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-control"         	   library="week-control"             exclude="*.ogg" if="web"/>
+	<assets path="assets/week-control"         	   library="week-control"             exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-fantasmas"           library="week-fantasmas"           exclude="*.ogg" if="web"/>
+	<assets path="assets/week-fantasmas"           library="week-fantasmas"           exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-farsa"               library="week-farsa"               exclude="*.ogg" if="web"/>
+	<assets path="assets/week-farsa"         	   library="week-farsa"               exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-fest"         	   library="week-fest"                exclude="*.ogg" if="web"/>
+	<assets path="assets/week-fest"         	   library="week-fest"                exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-final"         	   library="week-final"               exclude="*.ogg" if="web"/>
+	<assets path="assets/week-final"         	   library="week-final"               exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-infinite"            library="week-infinite"            exclude="*.ogg" if="web"/>
+	<assets path="assets/week-infinite"            library="week-infinite"            exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-infinitecycles"      library="week-infinitecycles"      exclude="*.ogg" if="web"/>
+	<assets path="assets/week-infinitecycles"      library="week-infinitecycles"      exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-lerdeza"         	   library="week-lerdeza"        	  exclude="*.ogg" if="web"/>
+	<assets path="assets/week-lerdeza"         	   library="week-lerdeza"         	  exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-lordx"         	   library="week-lordx"         	  exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-lordx"         	   library="week-lordx"               exclude="*.ogg" if="web"/>
+	<assets path="assets/week-milk"         	   library="week-milk"                exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-milk"         	   library="week-milk"                exclude="*.ogg" if="web"/>
+	<assets path="assets/week-parceiro"            library="week-parceiro"            exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-parceiro"            library="week-parceiro"            exclude="*.ogg" if="web"/>
+	<assets path="assets/week-pasta"         	   library="week-pasta"               exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-pasta"         	   library="week-pasta"               exclude="*.ogg" if="web"/>
+	<assets path="assets/week-personel"            library="week-personel"            exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-personel"            library="week-personel"            exclude="*.ogg" if="web"/>
+	<assets path="assets/week-pibby"         	   library="week-pibby"               exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-pibby"         	   library="week-pibby"               exclude="*.ogg" if="web"/>
+	<assets path="assets/week-piracy"         	   library="week-piracy"              exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-piracy"         	   library="week-piracy"              exclude="*.ogg" if="web"/>
+	<assets path="assets/week-possession"          library="week-possession"          exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-possession"          library="week-possession"          exclude="*.ogg" if="web"/>
+	<assets path="assets/week-prey"         	   library="week-prey"                exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-prey"         	   library="week-prey"                exclude="*.ogg" if="web"/>
+	<assets path="assets/week-rastro"         	   library="week-rastro"              exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-rastro"         	   library="week-rastro"              exclude="*.ogg" if="web"/>
+	<assets path="assets/week-roundabout"          library="week-roundabout"          exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-roundabout"          library="week-roundabout"          exclude="*.ogg" if="web"/>
+	<assets path="assets/week-sink"         	   library="week-sink"                exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-sink"         	   library="week-sink"                exclude="*.ogg" if="web"/>
+	<assets path="assets/week-soulless"            library="week-soulless"            exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-soulless"            library="week-soulless"            exclude="*.ogg" if="web"/>
+	<assets path="assets/week-sunshine"            library="week-sunshine"            exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-sunshine"            library="week-sunshine"            exclude="*.ogg" if="web"/>
+	<assets path="assets/week-wad"         		   library="week-wad"                 exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-wad"         		   library="week-wad"                 exclude="*.ogg" if="web"/>
+	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.ogg" if="web"/>
+
+
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<!-- <template path='mods' /> -->
 	

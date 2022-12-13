@@ -27,6 +27,9 @@
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
+			"anim": "deathConfirm",
 			"indices": [
 				1,
 				2,
@@ -51,24 +54,21 @@
 				21,
 				22
 			],
-			"fps": 24,
-			"anim": "deathConfirm",
-			"loop": false,
 			"name": "sonic gameover end"
 		}
 	],
 	"no_antialiasing": true,
 	"image": "characters/sonic_gameover",
 	"position": [
-		200,
-		350
+		390,
+		370
 	],
-	"healthicon": "bf-pixel",
+	"healthicon": "correnegada",
 	"flip_x": true,
 	"healthbar_colors": [
-		123,
-		214,
-		246
+		108,
+		108,
+		216
 	],
 	"camera_position": [
 		490,

@@ -122,8 +122,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				0,
-				0
+				-240,
+				-341
 			],
 			"anim": "dialogue",
 			"fps": 24,
@@ -134,8 +134,8 @@
 	"no_antialiasing": true,
 	"image": "characters/starved_sheet",
 	"position": [
-		-100,
-		100
+		0,
+		0
 	],
 	"healthicon": "starved-pixel",
 	"flip_x": false,
@@ -145,8 +145,8 @@
 		0
 	],
 	"camera_position": [
-		-200,
-		325
+		-160,
+		280
 	],
 	"sing_duration": 6.1,
 	"scale": 6

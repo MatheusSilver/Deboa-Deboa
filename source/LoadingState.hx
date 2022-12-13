@@ -1,8 +1,7 @@
 package;
 
-import flixel.text.FlxText;
+import flixel.addons.transition.FlxTransitionableState;
 import lime.app.Promise;
-import flixel.util.FlxColor;
 import lime.app.Future;
 import flixel.FlxG;
 import openfl.utils.Assets as OpenFlAssets;
@@ -10,15 +9,14 @@ import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.util.FlxTimer;
+import flixel.math.FlxMath;
 
 import openfl.utils.Assets;
 import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
-import flixel.addons.transition.FlxTransitionableState;
 
 import haxe.io.Path;
-
 
 class LoadingsState extends MusicBeatSubstate
 {
@@ -28,6 +26,7 @@ class LoadingsState extends MusicBeatSubstate
 	var art = new FlxSprite();
 	var isgroup:Bool = false;
 	var position:Int = 0;
+	var loadBar:FlxSprite;
 	override function create()
 	{
 
@@ -47,8 +46,9 @@ class LoadingsState extends MusicBeatSubstate
 		} else {
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}
-		art.setGraphicSize(Std.int(FlxG.width * 1.0));
+		art.setGraphicSize(Std.int(FlxG.width * 1.2));
 		art.updateHitbox();
+		art.screenCenter(XY);
 		art.antialiasing = ClientPrefs.globalAntialiasing;
 		art.scrollFactor.set();
 		art.screenCenter();
@@ -70,6 +70,12 @@ class LoadingsState extends MusicBeatSubstate
 			art.setGraphicSize(Std.int(art.width + 60));
 			art.updateHitbox();
 		}
+
+		
+		if(LoadingState.callbacks != null) {
+			LoadingState.targetShit = FlxMath.remapToRange(LoadingState.callbacks.numRemaining / LoadingState.callbacks.length, 1, 0, 0, 1);
+			loadBar.scale.x += 0.5 * (LoadingState.targetShit - loadBar.scale.x);
+		}
 	}
 }
 class LoadingState extends MusicBeatState
@@ -85,9 +91,10 @@ class LoadingState extends MusicBeatState
 	var target:FlxState;
 	var stopMusic = false;
 	var directory:String;
-	var callbacks:MultiCallback;
-	var targetShit:Float = 0;
-	
+	public static var directoryreader:String;
+	public static var callbacks:MultiCallback;
+	public static var targetShit:Float = 0;
+
 	function new(target:FlxState, stopMusic:Bool, directory:String)
 	{
 		super();
@@ -95,32 +102,31 @@ class LoadingState extends MusicBeatState
 		this.stopMusic = stopMusic;
 		this.directory = directory;
 	}
-	
+
 	override function create()
 	{
-
+		
 		initSongsManifest().onComplete
 		(
 			function (lib)
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				if (PlayState.SONG != null) {
-				checkLoadSong(getSongPath());
-				if (PlayState.SONG.needsVoices)
-					checkLoadSong(getVocalPath());
-			}
+				/*if (PlayState.SONG != null) {
+					checkLoadSong(getSongPath());
+					if (PlayState.SONG.needsVoices)
+						checkLoadSong(getVocalPath());
+				}*/
 				checkLibrary("shared");
 				if(directory != null && directory.length > 0 && directory != 'shared') {
 					checkLibrary(directory);
 				}
-				
+
 				var fadeTime = 1.5;
 				FlxG.camera.fade(FlxG.camera.bgColor, fadeTime, true);
 				new FlxTimer().start(fadeTime + MIN_TIME, function(_) introComplete());
 			}
 		);
-		super.create();
 	}
 	
 	function checkLoadSong(path:String)
@@ -145,7 +151,7 @@ class LoadingState extends MusicBeatState
 			@:privateAccess
 			if (!LimeAssets.libraryPaths.exists(library))
 				throw "Missing library: " + library;
-			
+
 			var callback = callbacks.add("library:" + library);
 			Assets.loadLibrary(library).onComplete(function (_) { callback(); });
 		}
@@ -154,10 +160,6 @@ class LoadingState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		#if debug
-		if (FlxG.keys.justPressed.SPACE)
-			trace('fired: ' + callbacks.getFired() + " unfired:" + callbacks.getUnfired());
-		#end
 	}
 	
 	function onLoad()
@@ -178,48 +180,43 @@ class LoadingState extends MusicBeatState
 		return Paths.voices(PlayState.SONG.song);
 	}
 	
-	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false, ?waitForLoad:Bool = false)
+	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
 	{
-		var waitTime = 0.0;
-		if (waitForLoad)
-		{
-			FlxG.sound.music.fadeOut(1, 0);
-			waitTime = 1.6;
-		}
+		FlxG.sound.music.fadeOut(1, 0);
 
 		FlxTransitionableState.skipNextTransIn = true;
-		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
+		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 			
 			MusicBeatState.switchState(getNextState(target, stopMusic));
 		});
-		
-	}
+			}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
-		{
-			var directory:String = 'shared';
-			var weekDir:String = StageData.forceNextDirectory;
-			StageData.forceNextDirectory = null;
-	
-			if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
-	
-			Paths.setCurrentLevel(directory);
-			trace('Setting asset folder to ' + directory);
-	
-			#if NO_PRELOAD_ALL
-			var loaded:Bool = false;
-			if (PlayState.SONG != null) {
-				loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
-			}
-			
-			if (!loaded)
-				return new LoadingState(target, stopMusic, directory);
-			#end
-			if (stopMusic && FlxG.sound.music != null)
-				FlxG.sound.music.stop();
-			
-			return target;
+	{
+		var directory:String = 'shared';
+		var weekDir:String = StageData.forceNextDirectory;
+		StageData.forceNextDirectory = null;
+
+		if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
+
+		Paths.setCurrentLevel(directory);
+		trace('Setting asset folder to ' + directory);
+		directoryreader = directory;
+
+		#if NO_PRELOAD_ALL
+		var loaded:Bool = false;
+		if (PlayState.SONG != null) {
+			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
 		}
+		
+		if (!loaded)
+			return new LoadingState(target, stopMusic, directory);
+		#end
+		if (stopMusic && FlxG.sound.music != null)
+			FlxG.sound.music.stop();
+		
+		return target;
+	}
 	
 	#if NO_PRELOAD_ALL
 	static function isSoundLoaded(path:String):Bool

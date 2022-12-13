@@ -2,28 +2,28 @@
 
 function onCreate()
     
-    makeAnimatedLuaSprite('static', 'Cenarios/PolishedP3/NewTitleMenuBG', -250, -100)
+    makeAnimatedLuaSprite('static', 'cenarios/PolishedP3/NewTitleMenuBG', -250, -100)
     addAnimationByPrefix('static','staticthing','TitleMenuSSBG instance',24,true)
     addLuaSprite('static',false)
     objectPlayAnimation('static','staticthing',true)
     scaleObject('static', 4.5, 4.5)
 
-    makeLuaSprite('glitch','Cenarios/PolishedP3/Glitch',-250,0)
+    makeLuaSprite('glitch','cenarios/PolishedP3/Glitch',-250,0)
     setLuaSpriteScrollFactor('glitch',1,1)
     scaleObject('glitch',0.8,0.8)
     addLuaSprite('glitch',false)
 
-    makeLuaSprite('trees','Cenarios/PolishedP3/backtrees',-300,-275)
+    makeLuaSprite('trees','cenarios/PolishedP3/backtrees',-300,-275)
     setLuaSpriteScrollFactor('trees',1,1)
     scaleObject('trees',0.9,0.9)
     addLuaSprite('trees',false)
 
-    makeLuaSprite('backtrees','Cenarios/PolishedP3/trees',-300,-275)
+    makeLuaSprite('backtrees','cenarios/PolishedP3/trees',-300,-275)
     setLuaSpriteScrollFactor('backtrees',1,1)
     scaleObject('backtrees',0.9,0.9)
     addLuaSprite('backtrees',false)
 
-    makeLuaSprite('ground','Cenarios/PolishedP3/Grass',-500,-200)
+    makeLuaSprite('ground','cenarios/PolishedP3/Grass',-500,-200)
     setLuaSpriteScrollFactor('ground',1,1)
     scaleObject('ground',1,1)
     addLuaSprite('ground',false)

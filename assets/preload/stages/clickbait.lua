@@ -9,11 +9,11 @@ function onCreate()
     setObjectCamera('blck', 'camHUD');
 	addLuaSprite('blck', true);
 
-	makeLuaSprite('bg', 'Cenarios/hulkbr/bg', -570, 335);
+	makeLuaSprite('bg', 'cenarios/hulkbr/bg', -570, 335);
 	scaleObject('bg', 1.1,1.1)
 	addLuaSprite('bg', false);
 
-	makeLuaSprite('cama', 'Cenarios/hulkbr/cama', -300, 750);
+	makeLuaSprite('cama', 'cenarios/hulkbr/cama', -300, 750);
 	addLuaSprite('cama', false);
 
 	addLuaScript('ytb_player');

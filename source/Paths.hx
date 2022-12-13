@@ -73,13 +73,6 @@ class Paths
 		return getPreloadPath(file);
 	}
 
-	inline static public function temporario(key:String, ?library:String):Dynamic
-		{
-			var imageToReturn:FlxGraphic = addCustomGraphic(key);
-			if(imageToReturn != null) return imageToReturn;
-			return getPath('images/$key.png', IMAGE, library);
-		}
-
 	static public function addCustomGraphic(key:String):FlxGraphic {
 		if(Assets.exists('assets/images/'+ key + '.png')) {
 			if(!customImagesLoaded.exists(key)) {

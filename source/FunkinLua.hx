@@ -42,7 +42,7 @@ class FunkinLua {
 	#end
 
 	var lePlayState:PlayState = null;
-	var scriptName:String = '';
+	public var scriptName:String = '';
 	var gonnaClose:Bool = false;
 
 	public var accessedProps:Map<String, Dynamic> = null;
@@ -179,7 +179,7 @@ class FunkinLua {
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(Assets.exists(cervix)) {
+			if(OpenFlAssets.exists(cervix)) {
 				doPush = true;
 			}
 			#end
@@ -224,7 +224,7 @@ class FunkinLua {
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(Assets.exists(cervix)) {
+			if(OpenFlAssets.exists(cervix)) {
 				doPush = true;
 			}
 			#end
@@ -800,9 +800,14 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(image != null && image.length > 0) {
-				leSprite.loadGraphic(Paths.temporario(image));
-			}
+			if(OpenFlAssets.exists(Paths.image(image))){
+				leSprite.loadGraphic(Paths.image(image));
+				} else {
+					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
+					if(image != null && image.length > 0) {
+						leSprite.loadGraphic(Paths.image(image, 'preload'));
+					}
+				}
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			lePlayState.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
@@ -812,9 +817,14 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(image != null && image.length > 0) {
+			if(OpenFlAssets.exists(Paths.image(image))){
 				leSprite.loadGraphic(Paths.image(image));
-			}
+				} else {
+					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
+					if(image != null && image.length > 0) {
+						leSprite.loadGraphic(Paths.image(image, 'preload'));
+					}
+				}
 			leSprite.antialiasing = false;
 			lePlayState.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
@@ -824,7 +834,13 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			leSprite.frames = Paths.getSparrowAtlas(image);
+			FlxG.log.add(Paths.image(image)); //just testing
+			if(OpenFlAssets.exists(Paths.image(image))){
+				leSprite.frames = Paths.getSparrowAtlas(image);
+				} else {
+					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
+					leSprite.frames = Paths.getSparrowAtlas(image, 'preload');
+				}
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			lePlayState.modchartSprites.set(tag, leSprite);
 		});
@@ -841,7 +857,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua,"resumeVideo", function() {
 			if (GlobalVideo.get().paused)
-				GlobalVideo.get().pause();
+				GlobalVideo.get().pause(); //Talvez eu deveria arrumar isso...
 		});
 		
 		Lua_helper.add_callback(lua,"restartVideo", function() {
@@ -1577,13 +1593,13 @@ class FunkinLua {
 			return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
 		}
 
-	public function luaTrace(text:String, ignoreCheck:Bool = false, deprecated:Bool = false) {
+	public function luaTrace(text:String, ignoreCheck:Bool = false, deprecated:Bool = false, color:FlxColor = FlxColor.WHITE) {
 		#if LUA_ALLOWED
 		if(ignoreCheck || getBool('luaDebugMode')) {
 			if(deprecated && !getBool('luaDeprecatedWarnings')) {
 				return;
 			}
-			lePlayState.addTextToDebug(text);
+			PlayState.instance.addTextToDebug(text, color);
 			trace(text);
 		}
 		#end

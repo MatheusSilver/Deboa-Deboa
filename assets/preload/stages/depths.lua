@@ -27,14 +27,14 @@ function onCreate()
     setProperty('camhud.visible', false)
 
 	for i = 1,#bgs do
-		makeLuaSprite(bgs[i], 'Cenarios/depths/sink'..bgs[i], xpos[i], ypos[i])
+		makeLuaSprite(bgs[i], 'cenarios/depths/sink'..bgs[i], xpos[i], ypos[i])
 		scaleObject(bgs[i], 1.11, 1.1)
 		addLuaSprite(bgs[i])
 		if i == 1 then
 			for a = 1,10 do
 				local scale = getRandomFloat(0.1, 1)
 				ballScales[a] = scale
-				makeLuaSprite('ball'..a, 'Cenarios/depths/ball', -80 + 200*a, -380)
+				makeLuaSprite('ball'..a, 'cenarios/depths/ball', -80 + 200*a, -380)
 				scaleObject('ball'..a, scale, scale)
 				addLuaSprite('ball'..a)
 			end
@@ -54,7 +54,7 @@ function onCreatePost()
 
     --zoom = getProperty('camGame.zoom') + 0.36
 
-	makeAnimatedLuaSprite('waves', 'Cenarios/depths/waves', 0, 0)
+	makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
 	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
 	setObjectCamera('waves', 'camhud')
 	setProperty('waves.alpha', 0.36 )
@@ -64,7 +64,7 @@ function onCreatePost()
 	objectPlayAnimation('waves','idle',true)
 
 	--[[ Might Use
-	makeAnimatedLuaSprite('waves', 'Cenarios/depths/waves', 0, 0)
+	makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
 	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
 	setObjectCamera('waves', 'camhud')
 	setProperty('waves.alpha', 0.08)

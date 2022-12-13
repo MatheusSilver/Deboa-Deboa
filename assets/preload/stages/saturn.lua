@@ -5,7 +5,7 @@ function onCreate()
 	
 	-- background shit
 
-	makeLuaSprite('stage', 'Cenarios/saturn/TailsBG', -250, -150);
+	makeLuaSprite('stage', 'cenarios/saturn/TailsBG', -250, -150);
 	scaleObject('stage', 1.3, 1.2);
 	setScrollFactor('stage', 0.91, 0.91);
 

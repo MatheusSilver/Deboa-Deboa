@@ -1,35 +1,35 @@
 	-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
 
 	function onCreate()
-		makeLuaSprite('funsky', 'Cenarios/MajinStage/sonicFUNsky', -472, -130)
+		makeLuaSprite('funsky', 'cenarios/MajinStage/sonicFUNsky', -472, -130)
 		scaleObject('funsky', 0.9, 0.9);
 		setScrollFactor('funsky', 0.3, 0.3);
 		
-		makeLuaSprite('funbush', 'Cenarios/MajinStage/Bush2', -42, 171)
+		makeLuaSprite('funbush', 'cenarios/MajinStage/Bush2', -42, 171)
 		setScrollFactor('funbush', 0.3, 0.3);
 		
-		makeAnimatedLuaSprite('funpillarts2ANIM', 'Cenarios/MajinStage/Majin Boppers Back', 182, -100)
+		makeAnimatedLuaSprite('funpillarts2ANIM', 'cenarios/MajinStage/Majin Boppers Back', 182, -100)
 		addAnimationByPrefix('funpillarts2ANIM', 'bumpypillar', 'MajinBop2 instance 1', 24, true)
 		objectPlayAnimation('funpillarts2ANIM', 'bumpypillar', true)
 		setScrollFactor('funpillarts2ANIM', 0.6, 0.6);
 		
-		makeLuaSprite('funbush2', 'Cenarios/MajinStage/Bush 1', 132, 354)
+		makeLuaSprite('funbush2', 'cenarios/MajinStage/Bush 1', 132, 354)
 		setScrollFactor('funbush2', 0.3, 0.3);
 		
-		makeAnimatedLuaSprite('funpillarts1ANIM', 'Cenarios/MajinStage/Majin Boppers Front', -169, -167)
+		makeAnimatedLuaSprite('funpillarts1ANIM', 'cenarios/MajinStage/Majin Boppers Front', -169, -167)
 		addAnimationByPrefix('funpillarts1ANIM', 'bumpypillar', 'MajinBop1 instance 1', 24, true)
 		objectPlayAnimation('funpillarts1ANIM', 'bumpypillar', true)
 		setScrollFactor('funpillarts1ANIM', 0.6, 0.6);
 		
-		makeLuaSprite('funfloor', 'Cenarios/MajinStage/floor BG', -340, 660)
+		makeLuaSprite('funfloor', 'cenarios/MajinStage/floor BG', -340, 660)
 		setScrollFactor('funfloor', 0.5, 0.5);
 		
-		makeAnimatedLuaSprite('funboppers1ANIM', 'Cenarios/MajinStage/majin FG1', 1126, 903)
+		makeAnimatedLuaSprite('funboppers1ANIM', 'cenarios/MajinStage/majin FG1', 1126, 903)
 		addAnimationByPrefix('funboppers1ANIM', 'bumpypillar', 'majin front bopper1', 24, true)
 		objectPlayAnimation('funboppers1ANIM', 'bumpypillar', true)
 		setScrollFactor('funboppers1ANIM', 0.8, 0.8);
 		
-		makeAnimatedLuaSprite('funboppers2ANIM', 'Cenarios/MajinStage/majin FG2', -293, 871)
+		makeAnimatedLuaSprite('funboppers2ANIM', 'cenarios/MajinStage/majin FG2', -293, 871)
 		addAnimationByPrefix('funboppers2ANIM', 'bumpypillar', 'majin front bopper2', 24, true)
 		objectPlayAnimation('funboppers2ANIM', 'bumpypillar', true)
 		setScrollFactor('funboppers2ANIM', 0.8, 0.8);
