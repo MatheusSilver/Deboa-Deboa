@@ -28,6 +28,8 @@ class FreeplayState extends MusicBeatState
 	var songs:Array<SongMetadata> = [];
 	//COLOQUE O NOME DAS SONGS COM SHADERS AQUI (EM LOWERCASE POR FAVOR)
 
+	public static var nooptions:Bool = false;
+
 	public static var justread:String =''; //Provavelmente tinha solução melhor mas né? É só uma string poh.
 
 	var selector:FlxText;
@@ -35,7 +37,6 @@ class FreeplayState extends MusicBeatState
 	private static var canSelect:Bool = false;
 	private static var curDifficulty:Int = 2;
 	public static var infoextended:String = '';
-	public static var daMsg:Bool = false;
 	var engrenagem:FlxButton;
 
 	public static var dapreselected:String = '';
@@ -58,6 +59,7 @@ class FreeplayState extends MusicBeatState
 	var bg:FlxSprite;
 	var intendedColor:Int;
 	var colorTween:FlxTween;
+	var disco:FlxSprite;
 
 	override function create()
 	{
@@ -105,11 +107,28 @@ class FreeplayState extends MusicBeatState
 
 		// LOAD CHARACTERS
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/bg'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		FlxG.mouse.visible = true;
+
+		grpSongs = new FlxTypedGroup<Alphabet>();
+		add(grpSongs);
+
+		var borda:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/bordinha'));
+		borda.antialiasing = ClientPrefs.globalAntialiasing;
+		add(borda);
+
+		// you say disco, i say party
+		//matheus, por favor, coloca isso no lado esquerdo da tela
+		disco = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/disco'));
+		disco.antialiasing = ClientPrefs.globalAntialiasing;
+		//add(icon);
+		add(disco);
+
 		engrenagem = new FlxButton(50, 10, '');
+
+
 
 		engrenagem.loadGraphic(Paths.image('engrenagem'));
 
@@ -122,10 +141,7 @@ class FreeplayState extends MusicBeatState
 
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 80, FlxColor.BLACK);
 
-		grpSongs = new FlxTypedGroup<Alphabet>();
-		add(grpSongs);
-
-		add(blackBarThingie);
+		//add(blackBarThingie);
 
 
 		nomeDaWeek = new FlxText(0, 20, 0, "", 40);
@@ -136,20 +152,22 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].display, true);
-			songText.isMenuTrem = true;
-			songText.targetY = i;
-			songText.screenCenter(X);
-			grpSongs.add(songText);
+			//mathe, coloca isso no canto direito da tela
+			//resumindo, deixa igual a imagem :bob_no_passinho:
+			//var songText:AlfabetoVio = new AlfabetoVio(0, (70 * i) + 30, songs[i].display, true);
+			//songText.isMenuTrem = true;
+			//songText.targetY = i;
+			//songText.screenCenter(x);
+			//grpSongs.add(songText);
 
-			Paths.currentModDirectory = songs[i].folder;			
+			Paths.currentModDirectory = songs[i].folder;	
+			//coloca isso no lado esquerdo o textinho do alfabeto		
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
-			icon.sprTracker = songText;
+			//icon.sprTracker = songText;
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
-			add(icon);
-
+			
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
 			// songText.screenCenter(X);
@@ -291,9 +309,12 @@ class FreeplayState extends MusicBeatState
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		if (engrenagem.pressed) //Tá
+		if (engrenagem.pressed)
 		{
+			
 			MusicBeatState.switchState(new OptionsState());
+			nooptions = true;
+
 		}
 
 		if (upP)

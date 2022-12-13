@@ -6,6 +6,8 @@ import Discord.DiscordClient;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxBasic;
+import flixel.FlxObject;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -25,9 +27,8 @@ class AchievementsMenuState extends MusicBeatState
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
-	//var descBox:AttachedSprite;
+	//var descBox:FlxSprite;
 	var majin:FlxSprite;
-
 
 	override function create() {
 		#if desktop
@@ -96,15 +97,12 @@ class AchievementsMenuState extends MusicBeatState
 			add(icon);
 		}
 
-		/*descBox = new AttachedSprite();
-		descBox.makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.xAdd = -10;
-		descBox.yAdd = -10;
-		descBox.alphaMult = 0.6;
+		/*descBox = new FlxSprite(1, 1, FlxColor.BLACK);
+		descBox.x = -10;
+		descBox.y = -10;
 		descBox.alpha = 0.6;
-		add(descBox); */
-
-		//Amanhã eu vejo isso... Moh sono bixo...
+		descBox.alpha = 0.6;
+		add(descBox);*/
 
 		descText = new FlxText(150, 600, 980, "", 32);
 		descText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

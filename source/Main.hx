@@ -4,6 +4,7 @@ import Discord.DiscordClient;
 #if desktop
 ///import GameJolt;
 ///import GameJolt.GameJoltAPI;
+import Discord.DiscordClient;
 #end
 import lime.system.System;
 //import webm.WebmPlayer;
@@ -162,7 +163,7 @@ class Main extends Sprite
 		var dateNow:String = Date.now().toString();
 
 		//dateNow = dateNow.replace(" ", "_");
-	//	dateNow = dateNow.replace(":", "'");
+		//dateNow = dateNow.replace(":", "'");
 
 		path = "./crash/" + "ModBoa_" + dateNow + ".txt";
 

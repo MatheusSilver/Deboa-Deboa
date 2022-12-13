@@ -16,6 +16,13 @@ function onCreate()
 	addLuaSprite('startCircle', true);
 
 	setProperty('gf.visible', false)
+
+    makeAnimatedLuaSprite('inicio', 'milkcomeco', 0, 0);
+	addAnimationByPrefix('inicio', 'milkcomeco init', 'milkcomeco init', 30, false)
+    setObjectCamera('inicio', 'other');
+	setScrollFactor('inicio', 1, 1);
+	setProperty('inicio.antialiasing', true)
+	
 end
 
 function onStartCountdown()
@@ -55,4 +62,13 @@ function onStepHit()
 	if curStep == 96 then
         doTweenZoom('bruh', 'camGame', 0.9, 0.001, 'linear')
 	end
+
+    if curStep == 53 then
+        addLuaSprite('inicio', false);
+        objectPlayAnimation('inicio', 'milkcomeco init', false)
+    end
+
+    if curStep == 98 then
+        removeLuaSprite('inicio', false);
+    end
 end

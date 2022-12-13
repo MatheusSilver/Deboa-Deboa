@@ -84,7 +84,15 @@ class OptionsState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuStateMobile());
+
+			// mecânica parte dois
+			if(FreeplayState.nooptions) 
+			{
+				MusicBeatState.switchState(new FreeplayState());
+				FreeplayState.nooptions = false;
+			} else {
+				MusicBeatState.switchState(new MainMenuStateMobile());
+			}
 		}
 
 		if (controls.ACCEPT) {
@@ -100,7 +108,7 @@ class OptionsState extends MusicBeatState
 						openSubState(new ControlsSubstate());
 					#end
 					#if mobile
-						MusicBeatState.switchState(new CustomControlsState())
+						MusicBeatState.switchState(new CustomControlsState());
 					#end
 				case 'Configuracoes':
 					openSubState(new PreferencesSubstate());
@@ -737,7 +745,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 	static var options:Array<String> = [
 		'GRAPHICS',
 		'Low Quality',
-		'Shaders',
+		#if windows
+		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
+		#end
 		'Anti-Aliasing',
 		'Persistent Cached Data',
 		#if !html5

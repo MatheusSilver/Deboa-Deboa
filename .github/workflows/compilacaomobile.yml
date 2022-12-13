@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Android Build
+name: Android Build CI
 
 # Controls when the action will run. 
 on:
@@ -16,13 +16,19 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  buildAndroid:
+  android:
     name: buildAndroid
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.1
-
+        
+      - name: Install System Dependencies
+        run: | 
+         sudo apt-get update
+         sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libmbedtls-dev libpng-dev libturbojpeg-dev libuv1-dev libvorbis-dev
+        
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk
@@ -32,7 +38,8 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          distribution: 'zulu'
+          java-version: '19'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
@@ -70,9 +77,9 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set lime 7.9.0 -y
-          haxelib set openfl 9.1.0 -y
-          haxelib set flixel 4.11.0 -y
+          haxelib set flixel 4.11.0
+          haxelib set lime 7.9.0
+          haxelib set openfl 9.1.0
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
