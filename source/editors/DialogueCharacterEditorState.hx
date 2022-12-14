@@ -29,6 +29,7 @@ import DialogueBoxPsych;
 import flixel.FlxCamera;
 import flixel.group.FlxSpriteGroup;
 import lime.system.Clipboard;
+import lime.utils.Assets;
 #if sys
 import sys.io.File;
 #end

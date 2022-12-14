@@ -27,7 +27,8 @@ import flash.net.FileFilter;
 import haxe.Json;
 import DialogueBoxPsych;
 import lime.system.Clipboard;
-#if sys
+import lime.utils.Assets;
+#if desktop
 import sys.io.File;
 #end
 

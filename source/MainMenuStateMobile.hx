@@ -509,7 +509,7 @@ class MainMenuStateMobile extends MusicBeatState
 									MusicBeatState.switchState(new SobreState());
 									#end
 								case 'options':
-									MusicBeatState.switchState(new AjustesState());
+									MusicBeatState.switchState(new ajustes.AjustesState());
 							}							
 						});
 				}

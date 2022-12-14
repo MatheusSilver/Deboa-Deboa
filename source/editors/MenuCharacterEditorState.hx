@@ -26,6 +26,7 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import haxe.Json;
+import lime.utils.Assets;
 #if sys
 import sys.io.File;
 #end

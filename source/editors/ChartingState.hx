@@ -41,7 +41,7 @@ import openfl.utils.Assets as OpenFlAssets;
 import lime.media.AudioBuffer;
 import haxe.io.Bytes;
 import flash.geom.Rectangle;
-#if amogus
+#if desktop
 import sys.io.File;
 import sys.FileSystem;
 #end
