@@ -26,9 +26,12 @@ import Controls;
 import DialogueBoxPsych;
 import openfl.utils.Assets as OpenFlAssets;
 import Shaders;
+import HSys;
+#if asys
 import Sys;
 import sys.FileSystem;
 import sys.io.File;
+#end
 #if desktop
 import Discord;
 #end
@@ -164,24 +167,24 @@ class FunkinLua {
 			if(luaFile.endsWith(".lua"))cervix=luaFile;
 			var doPush = false;
 			#if aMODS_ALLOWED
-			if(FileSystem.exists(Paths.modFolders(cervix)))
+			if(HSys.exists(Paths.modFolders(cervix)))
 			{
 				cervix = Paths.modFolders(cervix);
 				doPush = true;
 			}
-			else if(FileSystem.exists(cervix))
+			else if(Hsys.exists(cervix))
 			{
 				doPush = true;
 			}
 			else {
 				cervix = Paths.getPreloadPath(cervix);
-				if(FileSystem.exists(cervix)) {
+				if(HSys.exists(cervix)) {
 					doPush = true;
 				}
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(FileSystem.exists(cervix)) {
+			if(HSys.exists(cervix)) {
 				doPush = true;
 			}
 			#end
@@ -209,24 +212,24 @@ class FunkinLua {
 			if(luaFile.endsWith(".lua"))cervix=luaFile;
 			var doPush = false;
 			#if aMODS_ALLOWED
-			if(FileSystem.exists(Paths.modFolders(cervix)))
+			if(HSys.exists(Paths.modFolders(cervix)))
 			{
 				cervix = Paths.modFolders(cervix);
 				doPush = true;
 			}
-			else if(FileSystem.exists(cervix))
+			else if(HSys.exists(cervix))
 			{
 				doPush = true;
 			}
 			else {
 				cervix = Paths.getPreloadPath(cervix);
-				if(FileSystem.exists(cervix)) {
+				if(HSys.exists(cervix)) {
 					doPush = true;
 				}
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(FileSystem.exists(cervix)) {
+			if(HSys.exists(cervix)) {
 				doPush = true;
 			}
 			#end

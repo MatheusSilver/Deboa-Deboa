@@ -481,7 +481,7 @@ class DialogueEditorState extends MusicBeatState
 		if(jsonLoaded.__path != null) fullPath = jsonLoaded.__path; //I'm either a genious or dangerously dumb
 
 		if(fullPath != null) {
-			var rawJson:String = File.getContent(fullPath);
+			var rawJson:String = Assets.getText(fullPath);
 			if(rawJson != null) {
 				var loadedDialog:DialogueFile = cast Json.parse(rawJson);
 				if(loadedDialog.dialogue != null && loadedDialog.dialogue.length > 0) //Make sure it's really a dialogue file
