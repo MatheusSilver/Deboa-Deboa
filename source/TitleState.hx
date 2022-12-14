@@ -34,6 +34,8 @@ import flash.display.Sprite;
 import Shaders;
 import openfl.filters.ShaderFilter;
 import haxe.io.Bytes;
+import HSys;
+
 using StringTools;
 
 class TitleState extends MusicBeatState
@@ -69,11 +71,11 @@ class TitleState extends MusicBeatState
 		#end
 	
 		#if (polymod && !android)
-		if (sys.FileSystem.exists('mods/')) {
+		if (HSys.exists('mods/')) {
 			var folders:Array<String> = [];
-			for (file in sys.FileSystem.readDirectory('mods/')) {
+			for (file in HSys.readDirectory('mods/')) {
 				var path = haxe.io.Path.join(['mods/', file]);
-				if (sys.FileSystem.isDirectory(path)) {
+				if (sys.HSys.isDirectory(path)) {
 					folders.push(file);
 				}
 			}
