@@ -1,6 +1,6 @@
 package;
 
-import sys.FileSystem;
+import HSys;
 #if desktop
 import sys.io.Process; // medo
 #end
@@ -1768,9 +1768,9 @@ class PlayState extends MusicBeatState
 
 		for (folder in foldersToCheck)
 		{
-			if(FileSystem.exists(folder))
+			if(HSys.exists(folder))
 			{
-				for (file in FileSystem.readDirectory(folder))
+				for (file in HSys.readDirectory(folder))
 				{
 					if(file.endsWith('.lua') && !filesPushed.contains(file))
 					{
