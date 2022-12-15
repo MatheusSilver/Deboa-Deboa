@@ -26,6 +26,7 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import haxe.Json;
+import lime.utils.Assets;
 #if sys
 import sys.io.File;
 #end
@@ -345,7 +346,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		if(jsonLoaded.__path != null) fullPath = jsonLoaded.__path; //I'm either a genious or dangerously dumb
 
 		if(fullPath != null) {
-			var rawJson:String = File.getContent(fullPath);
+			var rawJson:String = Assets.getTexts(fullPath);
 			if(rawJson != null) {
 				var loadedChar:MenuCharacterFile = cast Json.parse(rawJson);
 				if(loadedChar.idle_anim != null && loadedChar.confirm_anim != null) //Make sure it's really a character

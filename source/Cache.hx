@@ -1,5 +1,5 @@
-#if windows
 package;
+
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
@@ -21,10 +21,7 @@ import haxe.Exception;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
-#if cpp
-import sys.FileSystem;
-import sys.io.File;
-#end
+import HSys;
 
 using StringTools;
 
@@ -67,14 +64,19 @@ class Cache extends MusicBeatState
 		add(shitz2);
 
 
-		#if cpp
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/shared/images")))
+		for (i in HSys.readDirectory("assets/shared/images"))
 		{
 			if (!i.endsWith(".png"))
 				continue;
 			images.push(i);
 		}
-		#end
+
+		for (i in HSys.readDirectory("assets/preload/images"))
+		{
+			if (!i.endsWith(".png"))
+				continue;
+			images.push(i);
+		}
 
 		sys.thread.Thread.create(() -> {
 			cache();
@@ -143,4 +145,3 @@ class Cache extends MusicBeatState
 	}
 
 }
-#end

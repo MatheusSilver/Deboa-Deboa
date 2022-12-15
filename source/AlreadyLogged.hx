@@ -107,6 +107,6 @@ class AlreadyLogged extends MusicBeatState
 						function naoClick():Void
 							{
 								FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-								FlxG.switchState(new AjustesState());
+								FlxG.switchState(new ajustes.AjustesState());
 							}
 }
