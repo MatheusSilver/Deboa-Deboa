@@ -1,0 +1,71 @@
+{
+	"storyName": "Meme Maker",
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"milk",
+			"sunky",
+			[
+				255,
+				0,
+				0
+			],
+			"Leitche"
+		],
+		[
+			"too-fest",
+			"sanic",
+			[
+				255,
+				0,
+				0
+			],
+			"c3b0 n4s c4n3l4 😎"
+		],
+		[
+			"personel",
+			"coldsteel",
+			[
+				255,
+				0,
+				0
+			],
+			"ɴ4ᴅᴀ_ᴘᴇssᴏ4ʟ"
+		],
+		[
+			"clickbait",
+			"sonichulk",
+			[
+				255,
+				0,
+				0
+			],
+			"Clickbait"
+		],
+		[
+			"pasta-night",
+			"é...",
+			[
+				255,
+				0,
+				0
+			],
+			"Noite da Rapaziada"
+		]
+		],
+	"hideStoryMode": true,
+	"weekName": ""
+}

@@ -1,0 +1,31 @@
+{
+	"storyName": "Horizonte Amargo",
+	"hideFreeplay": true,
+	"weekBackground": "ganancia",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"round-a-bout",
+			"needlemouse",
+			[
+				255,
+				0,
+				0
+			],
+			"Voltas-e-Revoltas"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Ganância"
+}

@@ -1,0 +1,41 @@
+{
+	"storyName": "Até Ver o Céu em Brasas",
+	"hideFreeplay": true,
+	"weekBackground": "discordia",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"phantasm",
+			"fleetwayiconsPHANTASM",
+			[
+				255,
+				0,
+				0
+			],
+			"Fantasmas"
+		],
+		[
+			"chaos",
+			"fleetwayiconsPHANTASM",
+			[
+				255,
+				0,
+				0
+			],
+			"Caos"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Discórdia"
+}

@@ -1,0 +1,91 @@
+{
+	"storyName": "Meu Orgulho",
+	"hideFreeplay": true,
+	"weekBackground": "orgulho",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"confronting-yourself",
+			"exeCY",
+			[
+				255,
+				0,
+				0
+			],
+			"Contra Si Mesmo"
+		],
+		[
+			"chasing",
+			"tailsexe",
+			[
+				255,
+				0,
+				0
+			],
+			"Rastro"
+		],
+		[
+			"too-slow",
+			"sonicP1",
+			[
+				255,
+				0,
+				0
+			],
+			"Lerdeza"
+		],
+		[
+			"you-cant-run",
+			"sonicP2",
+			[
+				255,
+				0,
+				0
+			],
+			"Não Pode Fugir"
+		],
+		[
+			"triple-trouble",
+			"beast",
+			[
+				255,
+				0,
+				0
+			],
+			"Ameaça Tripla"
+		],
+		[
+			"sidekick",
+			"tailsexe",
+			[
+				255,
+				0,
+				0
+			],
+			"Parceiro"
+		],
+		[
+			"final-escape",
+			"finalexe",
+			[
+				255,
+				0,
+				0
+			],
+			"Gran Finale"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Orgulho"
+}

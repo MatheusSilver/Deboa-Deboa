@@ -185,9 +185,8 @@ class LoadingState extends MusicBeatState
 		FlxG.sound.music.fadeOut(1, 0);
 
 		FlxTransitionableState.skipNextTransIn = true;
-		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
-			
-			MusicBeatState.switchState(getNextState(target, stopMusic));
+		new FlxTimer().start(1, function(tmr:FlxTimer) {
+			FlxG.switchState(getNextState(target, stopMusic));
 		});
 			}
 	

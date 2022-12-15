@@ -1,0 +1,51 @@
+{
+	"storyName": "Do Lixo ao Luxo",
+	"hideFreeplay": true,
+	"weekBackground": "luxuria",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"sink",
+			"sink",
+			[
+				255,
+				0,
+				0
+			],
+			"Profundezas"
+		],
+		[
+			"endless",
+			"majin-sonic",
+			[
+				255,
+				0,
+				0
+			],
+			"Infinito"
+		],
+		[
+			"endless-cycles",
+			"lord",
+			[
+				255,
+				0,
+				0
+			],
+			"Ciclos Infinitos"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Luxúria"
+}

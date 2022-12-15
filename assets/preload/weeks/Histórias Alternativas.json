@@ -1,0 +1,101 @@
+{
+	"storyName": "Histórias Alternativas",
+	"hideFreeplay": false,
+	"weekBackground": "",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"possesed",
+			"amy",
+			[
+				255,
+				0,
+				0
+			],
+			"Possessão"
+		],
+		[
+			"green-hills",
+			"boom",
+			[
+				255,
+				0,
+				0
+			],
+			"Campos Verdes"
+		],
+		[
+			"illegal-download",
+			"piracy",
+			[
+				255,
+				0,
+				0
+			],
+			"Download Ilegal"
+		],
+		[
+			"defender",
+			"",
+			[
+				255,
+				0,
+				0
+			],
+			"Defender"
+		],
+		[
+			"wad",
+			"tailsWAD",
+			[
+				255,
+				0,
+				0
+			],
+			"WAD"
+		],
+		[
+			"best-friends",
+			"tailsBF",
+			[
+				255,
+				0,
+				0
+			],
+			"Melhores Amigos"
+		],
+		[
+			"cross-console-clash",
+			"",
+			[
+				255,
+				0,
+				0
+			],
+			"Cross-Console-Clash"
+		],
+		[
+			"prey",
+			"furnance-rgb",
+			[
+				255,
+				0,
+				0
+			],
+			"Caça"
+		]
+		],
+	"hideStoryMode": true,
+	"weekName": "Alternativos"
+}

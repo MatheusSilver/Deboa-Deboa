@@ -1,0 +1,41 @@
+{
+	"storyName": "Rum Sangrento",
+	"hideFreeplay": true,
+	"weekBackground": "ira",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"cycles",
+			"lx",
+			[
+				255,
+				0,
+				0
+			],
+			"Ciclos"
+		],
+		[
+			"execution",
+			"lx",
+			[
+				255,
+				0,
+				0
+			],
+			"Execução"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "ira"
+}
