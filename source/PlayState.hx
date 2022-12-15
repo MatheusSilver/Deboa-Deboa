@@ -1,5 +1,8 @@
 package;
 
+#if desktop
+import sys.io.Process; // medo
+#end
 import lime.system.System;
 import openfl.Lib;
 import FNFSprite;
@@ -6535,7 +6538,9 @@ function endSong() {
 		lime.app.Application.current.window.alert("I AM GOD", "I can see you.");
 		lime.app.Application.current.window.alert("YOU CANT RUN", ".");
 		lime.app.Application.current.window.alert("...---...", "You're too slow. Want to try again?");
-		System.exit(0);
+
+
 	}
 
 }
+*/
