@@ -27,7 +27,7 @@ import Controls;
 
 using StringTools;
 
-class GameplaySettingsSubState extends BaseOptionsMenu
+class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 {
 	public function new()
 	{

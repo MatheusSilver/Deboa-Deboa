@@ -129,7 +129,7 @@ class MenuHistoria extends MusicBeatState
                 }
             }
     
-            else if (controls.ACCEPT && musicas[curSelected])
+            else if (FlxG.keys.justPressed.SPACE)
             {
                 persistentUpdate = false;
                 var songLowercase:String = Paths.formatToSongPath(musicas[curSelected]);

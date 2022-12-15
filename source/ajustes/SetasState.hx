@@ -38,10 +38,10 @@ class SetasState extends MusicBeatState
 		switch(label) {
 			case 'Cores das Notas':
 				openSubState(new ajustes.NotesSubState());
-			case 'Visuais e HUD':
-				openSubState(new ajustes.VisualsUISubState());
-			case 'Delay':
-				LoadingState.loadAndSwitchState(new ajustes.NoteOffsetState());
+			//case 'Visuais e HUD':
+			//	openSubState(new ajustes.VisualsUISubState());
+			//case 'Delay':
+			//	LoadingState.loadAndSwitchState(new ajustes.NoteOffsetState());
 		}
 	}
 
@@ -100,7 +100,7 @@ class SetasState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
 		if (controls.ACCEPT) {

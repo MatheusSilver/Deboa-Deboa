@@ -1,4 +1,4 @@
-package options;
+package ajustes;
 
 #if desktop
 import Discord.DiscordClient;
@@ -84,8 +84,8 @@ class NotesSubState extends MusicBeatSubstate
 		}
 
 		hsbText = new Alphabet(posX + 560, 0, "Hue    Saturation  Brightness", false);
-		hsbText.scaleX = 0.6;
-		hsbText.scaleY = 0.6;
+		//hsbText.scaleX = 0.6;
+		//hsbText.scaleY = 0.6;
 		add(hsbText);
 
 		changeSelection();
@@ -249,11 +249,11 @@ class NotesSubState extends MusicBeatSubstate
 		var item = grpNumbers.members[(selected * 3) + type];
 		item.text = '0';
 
-		var add = (40 * (item.letters.length - 1)) / 2;
-		for (letter in item.letters)
-		{
-			letter.offset.x += add;
-		}
+	//	var add = (40 * (item.letters.length - 1)) / 2;
+	//	for (letter in item.letters)
+	//	{
+	//		letter.offset.x += add;
+	//	}
 	}
 	function updateValue(change:Float = 0) {
 		curValue += change;
@@ -280,11 +280,11 @@ class NotesSubState extends MusicBeatSubstate
 		var item = grpNumbers.members[(curSelected * 3) + typeSelected];
 		item.text = Std.string(roundedValue);
 
-		var add = (40 * (item.letters.length - 1)) / 2;
-		for (letter in item.letters)
-		{
-			letter.offset.x += add;
-			if(roundedValue < 0) letter.offset.x += 10;
-		}
+		//var add = (40 * (item.letters.length - 1)) / 2;
+		//for (letter in item.letters)
+		//{
+		//	letter.offset.x += add;
+		//	if(roundedValue < 0) letter.offset.x += 10;
+		//}
 	}
 }

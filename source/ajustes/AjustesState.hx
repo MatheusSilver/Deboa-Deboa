@@ -509,12 +509,8 @@ class AjustesState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
-			
+			super.update(elapsed);	
 		}
-
-		super.update(elapsed);
-
-	}
 
 	function historiaHover():Void
 		{
@@ -577,3 +573,4 @@ class AjustesState extends MusicBeatState
 						}
 
 
+}

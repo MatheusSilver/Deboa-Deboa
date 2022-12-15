@@ -1,5 +1,6 @@
 package;
 
+import sys.FileSystem;
 #if desktop
 import sys.io.Process; // medo
 #end
@@ -1748,6 +1749,7 @@ class PlayState extends MusicBeatState
 
 		sonicHUD.cameras = [camHUD];
 
+		/*
 		#if (MODS_ALLOWED && LUA_ALLOWED)
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script.lua';
@@ -1758,7 +1760,27 @@ class PlayState extends MusicBeatState
 		
 		if(doPush) 
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));			
-		#end		
+		#end	*/
+
+		#if LUA_ALLOWED
+		var filesPushed:Array<String> = [];
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
+
+		for (folder in foldersToCheck)
+		{
+			if(FileSystem.exists(folder))
+			{
+				for (file in FileSystem.readDirectory(folder))
+				{
+					if(file.endsWith('.lua') && !filesPushed.contains(file))
+					{
+						luaArray.push(new FunkinLua(Asset2File.getPath(folder + file)));
+						filesPushed.push(file);
+					}
+				}
+			}
+		}
+		#end	
 		
 		var daSong:String = Paths.formatToSongPath(curSong);
 		if (isStoryMode && !seenCutscene)

@@ -1,4 +1,4 @@
-package options;
+package ajustes;
 
 #if desktop
 import Discord.DiscordClient;
@@ -76,8 +76,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		add(descBox);
 
 		var titleText:Alphabet = new Alphabet(75, 40, title, true);
-		titleText.scaleX = 0.6;
-		titleText.scaleY = 0.6;
+		//titleText.scaleX = 0.6;
+		//titleText.scaleY = 0.6;
 		titleText.alpha = 0.4;
 		add(titleText);
 
@@ -103,11 +103,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				checkboxGroup.add(checkbox);
 			} else {
 				optionText.x -= 80;
-				optionText.startPosition.x -= 80;
+				//optionText.startPosition.x -= 80;
 				//optionText.xAdd -= 80;
 				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 80);
 				valueText.sprTracker = optionText;
-				valueText.copyAlpha = true;
+				//valueText.copyAlpha = true;
 				valueText.ID = i;
 				grpTexts.add(valueText);
 				optionsArray[i].setChild(valueText);

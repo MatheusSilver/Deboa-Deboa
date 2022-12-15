@@ -387,12 +387,9 @@ class ControlesState extends MusicBeatState
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
-			
+			super.update(elapsed);			
 		}
 
-		super.update(elapsed);
-
-	}
 
 	function historiaHover():Void
 		{
@@ -455,3 +452,4 @@ class ControlesState extends MusicBeatState
 						}
 
 
+}

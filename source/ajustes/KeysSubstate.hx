@@ -27,7 +27,7 @@ import Controls;
 
 using StringTools;
 
-class ControlsSubState extends MusicBeatSubstate {
+class KeysSubstate extends MusicBeatSubstate {
 	private static var curSelected:Int = 1;
 	private static var curAlt:Bool = false;
 
@@ -95,12 +95,12 @@ class ControlsSubState extends MusicBeatSubstate {
 			if(isCentered) {
 				optionText.screenCenter(X);
 				optionText.y -= 55;
-				optionText.startPosition.y -= 55;
+				//optionText.startPosition.y -= 55;
 			}
-			optionText.changeX = false;
-			optionText.distancePerItem.y = 60;
+			//optionText.changeX = false;
+			//optionText.distancePerItem.y = 60;
 			optionText.targetY = i - curSelected;
-			optionText.snapToPosition();
+			//optionText.snapToPosition();
 			grpOptions.add(optionText);
 
 			if(!isCentered) {
