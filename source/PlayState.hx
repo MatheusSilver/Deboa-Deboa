@@ -6521,3 +6521,21 @@ class PlayState extends MusicBeatState
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;
 }
+
+// code da you cant run porém em comentários pois pode dar erros e não tenho assets
+/*
+function endSong() {
+
+	if (SONG.song.toLowerCase() == 'you-cant-run') 
+	{
+		var sonicMedo:FlxSprite = new FlxSprite().loadGraphic(Paths.image("sonic"));
+		add(sonicMedo);
+
+		FlxG.log.add("Adicionando as mensagens do vírus");
+		lime.app.Application.current.window.alert("I AM GOD", "I can see you.");
+		lime.app.Application.current.window.alert("YOU CANT RUN", ".");
+		lime.app.Application.current.window.alert("...---...", "You're too slow. Want to try again?");
+		System.exit(0);
+	}
+
+}
