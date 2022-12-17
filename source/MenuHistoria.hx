@@ -317,10 +317,12 @@ class MenuHistoria extends MusicBeatState
 					}
 				});	
 			}
-			if (!executando){
-				executando = true;
-				textoSprite.y = FlxG.height - textoSprite.height - 4;
-				tweenpracima();
-				}
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				if (!executando){
+					executando = true;
+					textoSprite.y = FlxG.height - textoSprite.height - 4;
+					tweenpracima();
+					}
+				});
 	}
 }
