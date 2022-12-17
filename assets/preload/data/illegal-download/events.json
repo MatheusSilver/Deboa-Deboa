@@ -1,9 +1,9 @@
 {
 	"song": {
 		"speed": 3,
-		"stage": "exampleStage1",
+		"stage": "illegal1",
 		"player1": "dark_bf",
-		"player2": "piracy_sonic",
+		"player2": "PIRACY_SONIC",
 		"player3": "invisibru",
 		"events": [
 			[
