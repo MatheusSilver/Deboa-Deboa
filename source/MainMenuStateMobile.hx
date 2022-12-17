@@ -505,7 +505,7 @@ class MainMenuStateMobile extends MusicBeatState
 								case 'credits':
 									MusicBeatState.switchState(new SobreState());
 								case 'options':
-									MusicBeatState.switchState(new ajustes.AjustesState());
+									MusicBeatState.switchState(new OptionsState()); // Deixa esse por enquanto KEK
 							}							
 						});
 				}

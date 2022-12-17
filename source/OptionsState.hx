@@ -41,8 +41,8 @@ class OptionsState extends MusicBeatState
 		DiscordClient.changePresence("Configurando", null);
 		#end
 
-		menuBG = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		menuBG.color = 0xFFea71fd;
+		menuBG = new FlxSprite().loadGraphic(Paths.image('escolhendo-branco'));
+		menuBG.color = 0xff9b0000;
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();

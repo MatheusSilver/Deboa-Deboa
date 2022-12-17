@@ -1,6 +1,6 @@
 package;
 
-import sys.FileSystem;
+import HSys;
 #if desktop
 import sys.io.Process; // medo
 #end
@@ -1768,9 +1768,9 @@ class PlayState extends MusicBeatState
 
 		for (folder in foldersToCheck)
 		{
-			if(FileSystem.exists(folder))
+			if(HSys.exists(folder))
 			{
-				for (file in FileSystem.readDirectory(folder))
+				for (file in HSys.readDirectory(folder))
 				{
 					if(file.endsWith('.lua') && !filesPushed.contains(file))
 					{
@@ -6560,7 +6560,7 @@ function endSong() {
 		lime.app.Application.current.window.alert("I AM GOD", "I can see you.");
 		lime.app.Application.current.window.alert("YOU CANT RUN", ".");
 		lime.app.Application.current.window.alert("...---...", "You're too slow. Want to try again?");
-
+		MusicBeatState.switchState(new FreeplayState());
 
 	}
 

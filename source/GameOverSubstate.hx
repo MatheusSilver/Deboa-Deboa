@@ -17,6 +17,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	var camFollowPos:FlxObject;
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
+	var burrice:Bool = true;
+	var eletentou:Bool = false;s
 
 	var stageSuffix:String = "";
 
@@ -38,6 +40,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		instance = this;
 		PlayState.instance.callOnLuas('onGameOverStart', []);
+		FlxG.mouse.visible = true;
 
 		super.create();
 	}
@@ -55,6 +58,17 @@ class GameOverSubstate extends MusicBeatSubstate
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
 
+		var maoLord:FlxSprite = new FlxSprite();
+		maoLord.frames = Paths.getSparrowAtlas('gameover/mao', 'preload');
+		maoLord.animation.addByPrefix('parado', "invisible", 24);
+		maoLord.animation.addByPrefix('bolodemorango', "nhac", 24);
+		maoLord.animation.play('parado');
+		maoLord.alpha = 0;
+		maoLord.antialiasing = true;
+		maoLord.setGraphicSize(Std.int(FlxG.mouse * 2));
+		maoLord.updateHitbox();
+		add(maoLord);
+		
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
 
 		FlxG.sound.play(Paths.sound(deathSoundName));
@@ -84,7 +98,13 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.ACCEPT)
 		{
-			endBullshit();
+			FlxG.sound.play(Paths.sound("eagoravouatrasdevocedigabyebye"));
+			eletentou = true;
+			esmagaMouse();
+			new FlxTimer().start(0.7, function(tmr:FlxTimer)
+			{
+				endBullshit();
+			});
 		}
 
 		if (controls.BACK)
@@ -112,7 +132,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			if (boyfriend.animation.curAnim.finished && !playingDeathSound)
 			{
-				if (PlayState.SONG.stage == 'tank')
+				if (burrice)
 				{
 					playingDeathSound = true;
 					coolStartDeath(0.2);
@@ -120,7 +140,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					var exclude:Array<Int> = [];
 					//if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
 
-					FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
+					FlxG.sound.play(Paths.sound('gameoversfalas/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
 						if(!isEnding)
 						{
 							FlxG.sound.music.fadeIn(0.2, 1, 4);
@@ -154,6 +174,23 @@ class GameOverSubstate extends MusicBeatSubstate
 	function coolStartDeath(?volume:Float = 1):Void
 	{
 		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
+	}
+
+	function esmagaMouse():Void
+	{
+		if (eletentou) {
+			maoLord.alpha = 1.0;
+			maoLord.x = FlxG.mouse.x - maoLord.width / 2;
+			maoLord.y = FlxG.mouse.y - maoLord.height / 2;
+			maoLord.updateHitbox();
+			maolord.animation.play("bolodemorango");
+			new FlxTimer().start(0.3, function(tmr:FlxTimer)
+				{
+					maoLord.alpha = 0;
+					FlxG.mouse.visible = false; // depois vou colocar uma anim mais detalhada, mas isso fica com os artistas
+				});
+
+		}
 	}
 
 	function endBullshit():Void
