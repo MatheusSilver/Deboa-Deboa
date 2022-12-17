@@ -69,12 +69,6 @@ class LoadingsState extends MusicBeatSubstate
 		art.setGraphicSize(Std.int(FlxG.width * 1.0));
 		art.updateHitbox();
 		art.screenCenter(XY);
-		if(controls.ACCEPT)
-		{
-			art.setGraphicSize(Std.int(art.width + 60));
-			art.updateHitbox();
-		}
-
 		
 		if(LoadingState.callbacks != null) {
 			LoadingState.targetShit = FlxMath.remapToRange(LoadingState.callbacks.numRemaining / LoadingState.callbacks.length, 1, 0, 0, 1);
@@ -86,19 +80,13 @@ class LoadingState extends MusicBeatState
 {
 	inline static var MIN_TIME = 1.0;
 
-	// Browsers will load create(), you can make your song load a custom directory there
-	// If you're compiling to desktop (or something that doesn't use NO_PRELOAD_ALL), search for getNextState instead
-	// I'd recommend doing it on both actually lol
-	
-	// TO DO: Make this easier
-	
 	var target:FlxState;
 	var stopMusic = false;
 	var directory:String;
 	public static var directoryreader:String;
 	public static var callbacks:MultiCallback;
 	public static var targetShit:Float = 0;
-
+	
 	function new(target:FlxState, stopMusic:Bool, directory:String)
 	{
 		super();
@@ -106,10 +94,10 @@ class LoadingState extends MusicBeatState
 		this.stopMusic = stopMusic;
 		this.directory = directory;
 	}
-
+	
 	override function create()
 	{
-		
+
 		initSongsManifest().onComplete
 		(
 			function (lib)
@@ -117,19 +105,21 @@ class LoadingState extends MusicBeatState
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
 				if (PlayState.SONG != null) {
-					checkLoadSong(getSongPath());
-					if (PlayState.SONG.needsVoices)
-						checkLoadSong(getVocalPath());
-				}
+				checkLoadSong(getSongPath());
+				if (PlayState.SONG.needsVoices)
+					checkLoadSong(getVocalPath());
+			}
 				checkLibrary("shared");
 				if(directory != null && directory.length > 0 && directory != 'shared') {
 					checkLibrary(directory);
 				}
-
+				
 				var fadeTime = 1.5;
+				FlxG.camera.fade(FlxG.camera.bgColor, fadeTime, true);
 				new FlxTimer().start(fadeTime + MIN_TIME, function(_) introComplete());
 			}
 		);
+		super.create();
 	}
 	
 	function checkLoadSong(path:String)
@@ -154,7 +144,7 @@ class LoadingState extends MusicBeatState
 			@:privateAccess
 			if (!LimeAssets.libraryPaths.exists(library))
 				throw "Missing library: " + library;
-
+			
 			var callback = callbacks.add("library:" + library);
 			Assets.loadLibrary(library).onComplete(function (_) { callback(); });
 		}
@@ -183,43 +173,50 @@ class LoadingState extends MusicBeatState
 		return Paths.voices(PlayState.SONG.song);
 	}
 	
-	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
+	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false, ?waitForLoad:Bool = true)
 	{
-		FlxG.sound.music.fadeOut(1, 0);
+		var waitTime = 0.0;
+		if (waitForLoad)
+		{
+			FlxG.sound.music.fadeOut(1, 0);
+			waitTime = 1.6;
+		}
 
-		new FlxTimer().start(2, function(tmr:FlxTimer) {
+		FlxTransitionableState.skipNextTransIn = true;
+		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
+			
 			FlxG.switchState(getNextState(target, stopMusic));
-		});
+		});	
 	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
-	{
-		var directory:String = 'shared';
-		var weekDir:String = StageData.forceNextDirectory;
-		StageData.forceNextDirectory = null;
-
-		if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
-
-		Paths.setCurrentLevel(directory);
-		trace('Setting asset folder to ' + directory);
-		directoryreader = directory;
-
-		#if PRELOAD_ALL
-		var loaded:Bool = false;
-		if (PlayState.SONG != null) {
-			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
-		}
-		
-		if (!loaded)
-			return new LoadingState(target, stopMusic, directory);
-		#end
-		if (stopMusic && FlxG.sound.music != null)
-			FlxG.sound.music.stop();
-		
-		return target;
-	}
+		{
+			var directory:String = 'shared';
+			var weekDir:String = StageData.forceNextDirectory;
+			StageData.forceNextDirectory = null;
 	
-	#if PRELOAD_ALL
+			if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
+	
+			Paths.setCurrentLevel(directory);
+			trace('Setting asset folder to ' + directory);
+			directoryreader = directory;
+
+			#if NO_PRELOAD_ALL
+			var loaded:Bool = false;
+			if (PlayState.SONG != null) {
+				loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
+			}
+			
+			if (!loaded)
+				return new LoadingState(target, stopMusic, directory);
+			#end
+			if (stopMusic && FlxG.sound.music != null)
+				FlxG.sound.music.stop();
+			
+			return target;
+		}
+	
+	#if NO_PRELOAD_ALL
 	static function isSoundLoaded(path:String):Bool
 	{
 		return Assets.cache.hasSound(path);

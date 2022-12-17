@@ -118,8 +118,7 @@ class MenuPreHistoria extends MusicBeatState
 
 			selectedWeek = true;
 
-			var botaoselect = WeekData.weeksList[curWeek];
-			FreeplayState.dapreselected = botaoselect;
+			FreeplayState.dapreselected = WeekData.weeksList[curWeek];
 			
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 				{

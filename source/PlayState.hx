@@ -79,6 +79,12 @@ class PlayState extends MusicBeatState
 {
 	var giraArray:Array<Int>;
 
+	public static var modohistoria:Bool = false;
+
+	var blackFuck:FlxSprite;
+
+	var fakertransform:FlxSprite;
+
 	var bgSkychasing:FlxSprite;
 
 
@@ -263,6 +269,7 @@ class PlayState extends MusicBeatState
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public static var camHUD:FlxCamera;
+	public var camHUD2:FlxCamera; // jumpscares, ect..
 	public static var camGame:FlxCamera;
 	public static var camOther:FlxCamera;
 	public var camLegenda:FlxCamera;
@@ -416,6 +423,8 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+
+		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
 		FlxG.mouse.visible = false;
 	FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
 		FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
@@ -450,6 +459,8 @@ class PlayState extends MusicBeatState
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		camLegenda = new FlxCamera();
+		camHUD2 = new FlxCamera();
+		camHUD2.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		camLegenda.bgColor.alpha = 0;
@@ -457,6 +468,7 @@ class PlayState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
 		FlxG.cameras.add(camOther);
+		FlxG.cameras.add(camHUD2);
 		FlxG.cameras.add(camLegenda);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
@@ -493,6 +505,21 @@ class PlayState extends MusicBeatState
 
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
 		bottomBar = new FlxSprite(0, 720).makeGraphic(1280, 170, FlxColor.BLACK);
+
+		if (SONG.song.toLowerCase() == 'faker')
+			{
+				fakertransform = new FlxSprite(100 - 10000, 100 - 10000);
+				fakertransform.frames = Paths.getSparrowAtlas('Faker_Transformation');
+				fakertransform.animation.addByPrefix('1', 'TransformationRIGHT instance 1');
+				fakertransform.animation.addByPrefix('2', 'TransformationLEFT instance 1');
+				fakertransform.animation.addByPrefix('3', 'TransformationUP instance 1');
+				fakertransform.animation.addByPrefix('4', 'TransformationDOWN instance 1');
+				fakertransform.animation.play('1', true);
+				fakertransform.animation.play('2', true);
+				fakertransform.animation.play('3', true);
+				fakertransform.animation.play('4', true);
+				fakertransform.alpha = 0;
+			}
 
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
@@ -552,6 +579,14 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 
+			case 'fakerStage':
+				var daStatic:FlxSprite = new FlxSprite(0, 0);
+	
+				daStatic.frames = Paths.getSparrowAtlas('daSTAT', 'preload');
+				add(daStatic);
+				remove(daStatic);
+				add(fakertransform);
+				remove(fakertransform);
 			case 'void':
 				var whiteFuck:FlxSprite; //Talvez eu arrange outra serventia pra isso.
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
@@ -1147,8 +1182,8 @@ class PlayState extends MusicBeatState
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
 
 		if(!modchartSprites.exists('blammedLightsBlack')) { //Creates blammed light black fade in case you didn't make your own
-			blammedLightsBlack = new ModchartSprite(FlxG.width * -0.5, FlxG.height * -0.5);
-			blammedLightsBlack.makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+			blammedLightsBlack = new ModchartSprite(FlxG.width * 5, FlxG.height * 5);
+			blammedLightsBlack.makeGraphic(Std.int(FlxG.width * 5), Std.int(FlxG.height * 5), FlxColor.BLACK);
 			var position:Int = members.indexOf(gfGroup);
 			if(members.indexOf(boyfriendGroup) < position) {
 				position = members.indexOf(boyfriendGroup);
@@ -1376,6 +1411,11 @@ class PlayState extends MusicBeatState
 			{
 				FlxG.camera.follow(camFollowPos, LOCKON, 0.06 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
 			}
+			else if (curSong.toLowerCase() == 'faker')
+				{
+					fakertransform.setPosition(dad.getGraphicMidpoint().x - 400, dad.getGraphicMidpoint().y - 400);
+					FlxG.camera.follow(camFollowPos, LOCKON, 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
+				}
 
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
@@ -1698,6 +1738,7 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
+		blackFuck.cameras = [camHUD2];
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
@@ -1764,20 +1805,13 @@ class PlayState extends MusicBeatState
 
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
 
-		for (folder in foldersToCheck)
+		for (file in sys.FileSystem.readDirectory(Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')))
 		{
-			if(HSys.exists(folder))
+			if(file.endsWith('.lua') && !filesPushed.contains(file))
 			{
-				for (file in HSys.readDirectory(folder))
-				{
-					if(file.endsWith('.lua') && !filesPushed.contains(file))
-					{
-						luaArray.push(new FunkinLua(Asset2File.getPath(folder + file)));
-						filesPushed.push(file);
-					}
-				}
+				luaArray.push(new FunkinLua(Asset2File.getPath(Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')) + file));
+				filesPushed.push(file);
 			}
 		}
 		#end	
@@ -5078,7 +5112,14 @@ class PlayState extends MusicBeatState
 						CustomFadeTransition.nextCamera = null;
 					}
 
-				MusicBeatState.switchState(new FreeplayState());
+					if(modohistoria){
+						MusicBeatState.switchState(new MenuHistoria());
+
+						modohistoria = false;
+					} else {
+						MusicBeatState.switchState(new FreeplayState());
+					}
+				
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				
 			} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
@@ -5965,60 +6006,7 @@ class PlayState extends MusicBeatState
 				#end
 			}
 		}
-	}
-
-		//Selever Crossfade
-		var flxTrlBf:FlxTrail;
-		var flxTrlDad:FlxTrail;
-	
-		function characterTrailSetup() {
-			/*if (flxTrlBf != null) {
-				remove(flxTrlBf);
-				flxTrlBf.destroy();
-				flxTrlBf = null;
-			}
-			if (flxTrlDad != null) {
-				remove(flxTrlDad);
-				flxTrlDad.destroy();
-				flxTrlDad = null;
-			}*/
-			/*
-			var bfTrail:Bool = false, dadTrail:Bool = false;
-			for (event in eventNotes) {
-				var arg1:String = event[2];
-				if (event[1] == 'Toggle Ghost Trail') {
-					if (!bfTrail && arg1.split(',').contains('bf')) {
-						bfTrail = true;
-					} if (!dadTrail && arg1.split(',').contains('dad')) {
-						dadTrail = true;
-					}
-					if (bfTrail && dadTrail) break;
-				}
-			}
-			if (dadTrail && flxTrlDad == null) {
-				var trail = new FlxTrail(dad, null, 4, 12, 0.25, 0.069);
-				trail.framesEnabled = true;
-				trail.color = FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]);//0xaa0044;
-				trail.visible = false;
-				insert(members.indexOf(dadGroup) - 1, trail);
-				for (anim in dad.animation) { //Srsly, why the fuck is this necessary?
-					anim.frameRate /= (anim.name == 'idle' ? 3 : 2);
-				}
-				flxTrlDad = trail;
-			} if (bfTrail && flxTrlBf == null) {
-				var trail = new FlxTrail(boyfriend, null, 4, 12, 0.25, 0.069);
-				trail.framesEnabled = true;
-				trail.color = FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]);
-				trail.visible = false;
-				insert(members.indexOf(boyfriendGroup) - 1, trail);
-				for (anim in boyfriend.animation) { //Ugh!
-					anim.frameRate /= (anim.name == 'idle' ? 3 : 2);
-				}
-				flxTrlBf = trail;
-			}
-				*/
-		}
-	
+	}	
 		function resetLimoKill():Void
 	{
 		if(curStage == 'limo') {
@@ -6075,6 +6063,46 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
+
+		if (curSong == 'faker')
+			{
+				switch (curStep)
+				{ //Le saida fácil para um problema fácil, só que deveras chato de resolver.
+					case 787, 795, 902, 800, 811, 819, 823, 827, 832, 835, 839, 847, 847:
+						doStaticSign(0, false);
+					case 768:
+						FlxTween.tween(camHUD, {alpha: 0}, 1);
+					case 801: // 800
+						add(fakertransform);
+						fakertransform.setPosition(dad.getGraphicMidpoint().x - 460, dad.getGraphicMidpoint().y - 700);
+						fakertransform.x += 20;
+						fakertransform.y += 128;
+						fakertransform.alpha = 1;
+						dad.visible = false;
+						fakertransform.animation.play('1');
+					case 824: // 824
+						fakertransform.setPosition(dad.getGraphicMidpoint().x - 460, dad.getGraphicMidpoint().y - 700);
+						fakertransform.x += -19;
+						fakertransform.y += 138;
+						fakertransform.animation.play('2');
+					case 836: // 836
+						fakertransform.setPosition(dad.getGraphicMidpoint().x - 460, dad.getGraphicMidpoint().y - 700);
+						fakertransform.x += 76;
+						fakertransform.y -= 110;
+						fakertransform.animation.play('3');
+					case 848: // 848
+						fakertransform.setPosition(dad.getGraphicMidpoint().x - 460, dad.getGraphicMidpoint().y - 700);
+						fakertransform.x += -110;
+						fakertransform.y += 318;
+						fakertransform.animation.play('4');
+					case 884:
+						add(blackFuck);
+						blackFuck.alpha = 1;
+						blackFuck.visible = true;
+				}
+				if (curStep > 858 && curStep < 884)
+					doStaticSign(0, false); // Honestly quite incredible
+			}
 	}
 
 	var lightningStrikeBeat:Int = 0;
@@ -6278,7 +6306,7 @@ class PlayState extends MusicBeatState
 			daStatic.scale.x = 3.19;
 			daStatic.scale.y = 2.41;
 
-			daStatic.cameras = [camHUD];
+			daStatic.cameras = [camHUD2];
 	
 			daStatic.setGraphicSize(FlxG.width, FlxG.height);
 	

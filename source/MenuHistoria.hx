@@ -165,9 +165,6 @@ class MenuHistoria extends MusicBeatState
 			}
 
 			selectedWeek = true;
-
-			var botaoselect = WeekData.weeksList[curSelected];
-			FreeplayState.dapreselected = botaoselect;
 			
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(musicas[curSelected]);
@@ -186,6 +183,7 @@ class MenuHistoria extends MusicBeatState
 			FreeplayState.justread = musicas[curSelected];
 
 			bgSprite.alpha = 0;
+			PlayState.modohistoria = true;
 			FlxG.log.warn(musicas[curSelected]);
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
 			FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
@@ -317,7 +315,7 @@ class MenuHistoria extends MusicBeatState
 					}
 				});	
 			}
-			new FlxTimer().start(1, function(tmr:FlxTimer) {
+			new FlxTimer().start(curtimer * 2 + 0.01, function(tmr:FlxTimer) {
 				if (!executando){
 					executando = true;
 					textoSprite.y = FlxG.height - textoSprite.height - 4;

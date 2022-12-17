@@ -1,4 +1,5 @@
-	-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
+local modchart = true
+-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
 
 function onCreate()
     makeLuaSprite('sSKY', 'cenarios/exeStage/sky', -560, -355.8)
@@ -32,4 +33,12 @@ function onCreate()
     addLuaSprite('bg', false)
     addLuaSprite('treething', false)
     addLuaSprite('tails', false)
+end
+
+function onUpdate(elapsed)
+		if modchart == true then
+			for i = 0,3 do
+				setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+			end
+		end
 end
