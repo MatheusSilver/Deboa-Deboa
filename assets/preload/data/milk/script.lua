@@ -17,8 +17,8 @@ function onCreate()
 
 	setProperty('gf.visible', false)
 
-    makeAnimatedLuaSprite('inicio', 'milkcomeco', 0, 0);
-	addAnimationByPrefix('inicio', 'milkcomeco init', 'milkcomeco init', 30, false)
+    makeAnimatedLuaSprite('inicio', 'luanzitoanim', 0, 0);
+	addAnimationByPrefix('inicio', 'luanzitoanim play', 'luanzitoanim play', 30, false)
     setObjectCamera('inicio', 'other');
 	setScrollFactor('inicio', 1, 1);
 	setProperty('inicio.antialiasing', true)
@@ -65,7 +65,7 @@ function onStepHit()
 
     if curStep == 53 then
         addLuaSprite('inicio', false);
-        objectPlayAnimation('inicio', 'milkcomeco init', false)
+        objectPlayAnimation('inicio', 'luanzitoanim play', false)
     end
 
     if curStep == 98 then
