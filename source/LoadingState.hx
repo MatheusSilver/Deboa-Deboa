@@ -1,5 +1,7 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.addons.transition.FlxTransitionableState;
 import lime.app.Promise;
 import lime.app.Future;
@@ -41,11 +43,13 @@ class LoadingsState extends MusicBeatSubstate
 			position = loadingidentifier.lastIndexOf((Std.string(FreeplayState.justread).toLowerCase())) + 1;
 		}
 
+		art.alpha = 0;
 		if(OpenFlAssets.exists(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload'))) { //Você já olhou pra alguem e pensou... O que passa, na cabeça dela? 
 			art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
 		} else {
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}
+		FlxTween.tween(art, {alpha: 1}, 1.5,{ease: FlxEase.linear});
 		art.setGraphicSize(Std.int(FlxG.width * 1.2));
 		art.updateHitbox();
 		art.screenCenter(XY);
@@ -112,18 +116,17 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				/*if (PlayState.SONG != null) {
+				if (PlayState.SONG != null) {
 					checkLoadSong(getSongPath());
 					if (PlayState.SONG.needsVoices)
 						checkLoadSong(getVocalPath());
-				}*/
+				}
 				checkLibrary("shared");
 				if(directory != null && directory.length > 0 && directory != 'shared') {
 					checkLibrary(directory);
 				}
 
 				var fadeTime = 1.5;
-				FlxG.camera.fade(FlxG.camera.bgColor, fadeTime, true);
 				new FlxTimer().start(fadeTime + MIN_TIME, function(_) introComplete());
 			}
 		);
@@ -184,11 +187,10 @@ class LoadingState extends MusicBeatState
 	{
 		FlxG.sound.music.fadeOut(1, 0);
 
-		FlxTransitionableState.skipNextTransIn = true;
-		new FlxTimer().start(1, function(tmr:FlxTimer) {
+		new FlxTimer().start(2, function(tmr:FlxTimer) {
 			FlxG.switchState(getNextState(target, stopMusic));
 		});
-			}
+	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
 	{
@@ -202,7 +204,7 @@ class LoadingState extends MusicBeatState
 		trace('Setting asset folder to ' + directory);
 		directoryreader = directory;
 
-		#if NO_PRELOAD_ALL
+		#if PRELOAD_ALL
 		var loaded:Bool = false;
 		if (PlayState.SONG != null) {
 			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
@@ -217,7 +219,7 @@ class LoadingState extends MusicBeatState
 		return target;
 	}
 	
-	#if NO_PRELOAD_ALL
+	#if PRELOAD_ALL
 	static function isSoundLoaded(path:String):Bool
 	{
 		return Assets.cache.hasSound(path);
