@@ -9,6 +9,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.FlxSprite;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
@@ -18,7 +19,8 @@ class GameOverSubstate extends MusicBeatSubstate
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
 	var burrice:Bool = true;
-	var eletentou:Bool = false;s
+	var eletentou:Bool = false;
+	public var maoLord:FlxSprite;
 
 	var stageSuffix:String = "";
 
@@ -58,14 +60,14 @@ class GameOverSubstate extends MusicBeatSubstate
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
 
-		var maoLord:FlxSprite = new FlxSprite();
+		maoLord = new FlxSprite();
 		maoLord.frames = Paths.getSparrowAtlas('gameover/mao', 'preload');
 		maoLord.animation.addByPrefix('parado', "invisible", 24);
 		maoLord.animation.addByPrefix('bolodemorango', "nhac", 24);
 		maoLord.animation.play('parado');
 		maoLord.alpha = 0;
 		maoLord.antialiasing = true;
-		maoLord.setGraphicSize(Std.int(FlxG.mouse * 2));
+		//maoLord.setGraphicSize(Std.int(FlxG.mouse * 2));
 		maoLord.updateHitbox();
 		add(maoLord);
 		
@@ -180,10 +182,10 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		if (eletentou) {
 			maoLord.alpha = 1.0;
-			maoLord.x = FlxG.mouse.x - cursor.width / 2;
-			maoLord.y = FlxG.mouse.y - cursor.height / 2;
+			maoLord.x = FlxG.mouse.x / 2;
+			maoLord.y = FlxG.mouse.y / 2;
 			maoLord.updateHitbox();
-			maolord.animation.play("bolodemorango");
+			maoLord.animation.play("bolodemorango");
 			new FlxTimer().start(0.3, function(tmr:FlxTimer)
 				{
 					maoLord.alpha = 0;
