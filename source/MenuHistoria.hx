@@ -329,7 +329,13 @@ class MenuHistoria extends MusicBeatState
 			new FlxTimer().start(curtimer * 2 + 0.01, function(tmr:FlxTimer) {
 				if (!executando){
 					executando = true;
-					textoSprite.y = 2 * FlxG.height;
+					textoSprite.y = FlxG.height + textoSprite.height;
+					if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
+						perfilSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
+						perfilSprite.updateHitbox();
+					} else {
+						FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
+					}
 					perfilSprite.screenCenter(X);
 					tweenpracima();
 					}
