@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -18,7 +19,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
 	var burrice:Bool = true;
-	var eletentou:Bool = false;
+	var eletentou:Bool = false;s
 
 	var stageSuffix:String = "";
 
@@ -65,7 +66,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		maoLord.animation.play('parado');
 		maoLord.alpha = 0;
 		maoLord.antialiasing = true;
-		maoLord.setGraphicSize(Std.int(FlxG.mouse * 2));
+		//maoLord.setGraphicSize(Std.int(FlxG.mouse * 2));
 		maoLord.updateHitbox();
 		add(maoLord);
 		
@@ -183,7 +184,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			maoLord.x = FlxG.mouse.x - maoLord.width / 2;
 			maoLord.y = FlxG.mouse.y - maoLord.height / 2;
 			maoLord.updateHitbox();
-			maolord.animation.play("bolodemorango");
+			maoLord.animation.play("bolodemorango");
 			new FlxTimer().start(0.3, function(tmr:FlxTimer)
 				{
 					maoLord.alpha = 0;

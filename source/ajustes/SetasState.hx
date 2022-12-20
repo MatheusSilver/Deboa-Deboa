@@ -100,7 +100,7 @@ class SetasState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuStateMobile());
+			MusicBeatState.switchState(new AjustesState());
 		}
 
 		if (controls.ACCEPT) {

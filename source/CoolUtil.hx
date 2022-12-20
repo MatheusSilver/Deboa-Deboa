@@ -6,11 +6,26 @@ import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
 import openfl.utils.Assets;
+#if desktop
+import sys.io.Process;
+#end
 
 using StringTools;
 
 class CoolUtil
 {
+	//ok, não roubei isso do takeover kakkaaokkakakakaokaoapokaoaiokaijk
+	public static var programList:Array<String> = [
+		'obs32',
+		'obs64',
+		'streamlabs obs',
+		'bdcam',
+		'fraps',
+		'xsplit', // TIL c# program
+		'hycam2', // hueh
+		'twitchstudio' // why
+	];
+
 	public static var difficultyStuff:Array<Dynamic> = [
 		['Easy', '-easy'],
 		['Normal', ''],
@@ -18,6 +33,28 @@ class CoolUtil
 		['Sonic', '-sega'],
 		['Mario', '-nintendo']
 	];
+
+	public static function isRecording():Bool
+		{
+			#if desktop
+			var taskList:Process = new Process('tasklist', []);
+			var readableList:String = taskList.stdout.readAll().toString().toLowerCase();
+			var isOBS:Bool = false;
+	
+			for (i in 0...programList.length)
+			{
+				if (readableList.contains(programList[i]))
+					isOBS = true;
+			}
+	
+			taskList.close();
+			readableList = '';
+	
+			return isOBS;
+			#else
+			return false;
+			#end
+		}
 
 	public static function difficultyString():String
 		{

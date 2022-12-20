@@ -78,13 +78,13 @@ class MenuPreHistoria extends MusicBeatState
 		{
 			if (controls.UI_LEFT_P && apertavel) //silver bulinho kekekek, não saber a diferença entre || e && ;-;
 			{
-				changeWeek(-1, false);
+				changeWeek(-1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
 			if (controls.UI_RIGHT_P && apertavel)
 			{
-				changeWeek(1, true);
+				changeWeek(1);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
@@ -118,8 +118,7 @@ class MenuPreHistoria extends MusicBeatState
 
 			selectedWeek = true;
 
-			var botaoselect = WeekData.weeksList[curWeek];
-			FreeplayState.dapreselected = botaoselect;
+			FreeplayState.dapreselected = WeekData.weeksList[curWeek];
 			
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
@@ -127,8 +126,7 @@ class MenuPreHistoria extends MusicBeatState
 			});
 		}
 
-		//Explicando o "side", basicamente false = esquerda, e true é igual a direita, com respeito a direção em que o scroll vai ou vem.
-	public function changeWeek(change:Int = 0, side:Bool = false):Void
+	public function changeWeek(change:Int = 0):Void
 	{
 		apertavel = false;
 		curWeek += change;
@@ -158,6 +156,8 @@ class MenuPreHistoria extends MusicBeatState
 			} else {
 				FlxG.log.warn('Não foi possível achar ' + "Story_Mode/PERFIL" + assetName);
 			}
+			bigmenu.setGraphicSize(FlxG.width);
+			bigmenu.screenCenter(XY);
 			bgSprite.setGraphicSize(FlxG.width);
 			bgSprite.screenCenter(XY);
 			perfilSprite.updateHitbox();
