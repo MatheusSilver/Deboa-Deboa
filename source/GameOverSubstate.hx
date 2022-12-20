@@ -19,7 +19,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
 	var burrice:Bool = true;
-	var eletentou:Bool = false;s
+	var eletentou:Bool = false; //MALDITO S...
 
 	var stageSuffix:String = "";
 

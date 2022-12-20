@@ -361,10 +361,11 @@ class Alphabet extends FlxSpriteGroup
 				//Se você quiser que o valor abaixe de 30 pixels, você precisa fornecer + 30 * (1 + tendencia)
 				x = FlxMath.lerp(x,Math.exp(scaledY * 0.8) * 70 + (FlxG.width * 0.1), tendency);
 				if (scaledY < 0)
-					x = FlxMath.lerp(x, -(250 * (1+ tendency)) + Math.exp(scaledY * -0.8) * 70 + (FlxG.width * 0.1), tendency);
+					x = FlxMath.lerp(x, -(300 * (1 + tendency)) + Math.exp(scaledY * -0.8) * 70 + (FlxG.width * 0.1), tendency);
 
-				if (x > FlxG.width + 100)
-					x = FlxG.width + 100;
+				//Isso aqui mexe com a distância do objeto adjacente ao centralizado do mesmo.
+				if (x > FlxG.width + 30)
+					x = FlxG.width + 30;
 			}
 		else if (isMenuTrem)
 		{
