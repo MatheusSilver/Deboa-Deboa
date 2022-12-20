@@ -80,19 +80,21 @@ class LoadingState extends MusicBeatState
 {
 	inline static var MIN_TIME = 1.0;
 
+	public static var directory:String = 'shared';
+
 	var target:FlxState;
 	var stopMusic = false;
-	var directory:String;
+	var actualdirectory:String;
 	public static var directoryreader:String;
 	public static var callbacks:MultiCallback;
 	public static var targetShit:Float = 0;
 	
-	function new(target:FlxState, stopMusic:Bool, directory:String)
+	function new(target:FlxState, stopMusic:Bool, actualdirectory:String)
 	{
 		super();
 		this.target = target;
 		this.stopMusic = stopMusic;
-		this.directory = directory;
+		this.actualdirectory = actualdirectory;
 	}
 	
 	override function create()
@@ -110,8 +112,8 @@ class LoadingState extends MusicBeatState
 					checkLoadSong(getVocalPath());
 			}
 				checkLibrary("shared");
-				if(directory != null && directory.length > 0 && directory != 'shared') {
-					checkLibrary(directory);
+				if(actualdirectory != null && actualdirectory.length > 0 && actualdirectory != 'shared') {
+					checkLibrary(actualdirectory);
 				}
 				
 				var fadeTime = 1.5;
@@ -191,28 +193,28 @@ class LoadingState extends MusicBeatState
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
 		{
-			var directory:String = 'shared';
+			var actualdirectory:String = 'shared';
 			var weekDir:String = StageData.forceNextDirectory;
 			StageData.forceNextDirectory = null;
 	
-			if(weekDir != null && weekDir.length > 0 && weekDir != '') directory = weekDir;
+			if(weekDir != null && weekDir.length > 0 && weekDir != '') actualdirectory = weekDir;
 	
-			Paths.setCurrentLevel(directory);
-			trace('Setting asset folder to ' + directory);
-			directoryreader = directory;
+			Paths.setCurrentLevel(actualdirectory);
+			trace('Setting asset folder to ' + actualdirectory);
+			directoryreader = actualdirectory;
 
 			#if NO_PRELOAD_ALL
 			var loaded:Bool = false;
 			if (PlayState.SONG != null) {
-				loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
+				loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(actualdirectory);
 			}
 			
 			if (!loaded)
-				return new LoadingState(target, stopMusic, directory);
+				return new LoadingState(target, stopMusic, actualdirectory);
 			#end
 			if (stopMusic && FlxG.sound.music != null)
 				FlxG.sound.music.stop();
-			
+			directory = actualdirectory; //Tenho minhas duvidas se isso aqui tá realmente funfando...
 			return target;
 		}
 	

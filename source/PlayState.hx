@@ -84,8 +84,9 @@ class PlayState extends MusicBeatState
 	var blackFuck:FlxSprite;
 
 	var fakertransform:FlxSprite;
-
+	var daJumpscare:FlxSprite = new FlxSprite(0, 0);
 	var bgSkychasing:FlxSprite;
+	var daNoteStatic:FlxSprite = new FlxSprite(0, 0);
 
 
 	public static var STRUM_X = 42;
@@ -107,8 +108,6 @@ class PlayState extends MusicBeatState
 	var tempogravador:FlxText;
 
 	var secondsTotal:Int;
-
-	var contador:Int = 0;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		['Horrível!', 0.2], //From 0% to 19%
@@ -432,11 +431,7 @@ class PlayState extends MusicBeatState
 	//	giraArray = [272, 276, 336, 340, 400, 404, 464, 468, 528, 532, 592, 596, 656, 660, 720, 724, 789, 793, 863, 867, 937, 941, 1012, 1016, 1086, 1090, 1160, 1164, 1531, 1535, 1607, 1611, 1681, 1685, 1754, 1758];
 		instance = this;
 
-		if(isStoryMode) { //trocar aqui
-			nomehistorico = StoryMenuState.nomedamusica[contador];
-		} else {
 			nomehistorico = FreeplayState.infoextended;
-		}
 
 		sicks = 0;
 		bads = 0;
@@ -506,7 +501,28 @@ class PlayState extends MusicBeatState
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
 		bottomBar = new FlxSprite(0, 720).makeGraphic(1280, 170, FlxColor.BLACK);
 
-		if (SONG.song.toLowerCase() == 'faker')
+		if (SONG.song.toLowerCase() == 'too-slow')
+			{
+				daJumpscare.frames = Paths.getSparrowAtlas('PolishedP1/sonicJUMPSCARE');
+				daJumpscare.animation.addByPrefix('jump', 'soicSPOOK', 24, false);
+				add(daJumpscare);
+				daJumpscare.animation.play('jump');
+
+				var simplejumppreload:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PolishedP1/simplejump'));
+				add(simplejumppreload);
+				remove(simplejumppreload);
+
+				dad = new Character(61.15, -94.75, 'sonic1');
+				add(dad);
+				remove(dad);
+
+				daNoteStatic.frames = Paths.getSparrowAtlas('hitStatic');
+				daNoteStatic.animation.addByPrefix('static', 'staticANIMATION', 24, false);
+				daNoteStatic.animation.play('static');
+
+				remove(daNoteStatic);
+			}
+		else if (SONG.song.toLowerCase() == 'faker')
 			{
 				fakertransform = new FlxSprite(100 - 10000, 100 - 10000);
 				fakertransform.frames = Paths.getSparrowAtlas('Faker_Transformation');
@@ -579,6 +595,13 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 
+			case 'too-slow':
+					{
+						var bg:FlxSprite = new FlxSprite(-297, -246 + 150).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
+						bg.antialiasing = true;
+						bg.scrollFactor.set(1.3, 1);
+						bg.active = false;
+						add(bg);} 
 			case 'fakerStage':
 				var daStatic:FlxSprite = new FlxSprite(0, 0);
 	
@@ -714,6 +737,8 @@ class PlayState extends MusicBeatState
 
 
 			case 'needle':
+
+				defaultCamZoom = 0.6;
 
 				needleSky = new BGSprite('cenarios/needlemouse/sky', -725, -200, 0.7, 0.9);
 				// needleSky.setGraphicSize(Std.int(needleSky.width * 0.9));
@@ -1221,6 +1246,10 @@ class PlayState extends MusicBeatState
 		gfGroup.add(gf);
 		startCharacterLua(gf.curCharacter);
 
+		if (curStage == 'too-slow')
+			{
+				gf.scrollFactor.set(1.37, 1);
+			}
 		if (curStage == 'needle')
 			{
 				dad2 = new Character(0, 0, 'sarah1');
@@ -1264,6 +1293,14 @@ class PlayState extends MusicBeatState
 
 		switch(curStage)
 		{
+			case 'too-slow':
+				boyfriend.y += 25;
+				dad.y += 200;
+				dad.x += 200;
+				dad.scale.x = 1.1;
+				dad.scale.y = 1.1;
+				dad.scrollFactor.set(1.37, 1);
+				boyfriend.scrollFactor.set(1.37, 1);
 			case 'starved-pixel':
 				add(stardustFloorPixel);
 				boyfriend.x += 250;
@@ -1281,6 +1318,12 @@ class PlayState extends MusicBeatState
 				add(needleFg);
 				dad2.alpha = 0;
 
+				dad.x -= 120;
+				dad.y += 265;
+				boyfriend.x += 275;
+				boyfriend.y += 280;
+				gf.x += 1000;
+				gf.y += 350;
 				dad2.x -= 150;
 				dad2.y += 25;
 
@@ -1407,7 +1450,12 @@ class PlayState extends MusicBeatState
 		}
 		add(camFollowPos);
 
-		if (curSong.toLowerCase() == 'chaos')
+		
+		if (curSong.toLowerCase() == 'too-slow')
+			{
+				FlxG.camera.follow(camFollowPos, LOCKON, 0.05 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
+			}
+		else if (curSong.toLowerCase() == 'chaos')
 			{
 				FlxG.camera.follow(camFollowPos, LOCKON, 0.06 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
 			}
@@ -1527,7 +1575,7 @@ class PlayState extends MusicBeatState
 	
 					add(dodgething);
 				}
-		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas' || curSong == 'you-cant-run'){
+		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-revoltas' || curSong == 'you-cant-run'){
 
 		if(sonicHUDStyles.exists(SONG.song.toLowerCase()))hudStyle = sonicHUDStyles.get(SONG.song.toLowerCase());
 		var hudFolder = hudStyle;
@@ -1712,7 +1760,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(curSong == 'prey' || curSong == 'you-cant-run' && isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
+		if(curSong == 'prey' || curSong == 'you-cant-run' && isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
 			scoreTxt.visible=false;
 			timeBar.visible=false;
 			if (curSong == 'round-a-bout'){
@@ -3353,7 +3401,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		if (nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
+		if (nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
 			
 			var leDate = Date.now();
 
@@ -3613,7 +3661,7 @@ class PlayState extends MusicBeatState
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 
-		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-reviravoltas'){
+		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
 			updateSonicScore();
 			updateSonicMisses();
 			updateSonicVida();
@@ -4198,7 +4246,123 @@ class PlayState extends MusicBeatState
 				spirospreidi();
 
 			case 'estatica brow':
-				doStaticSign(0, false);
+				doStaticSign(1, false);
+
+			case 'StaticMiss':
+				staticHitMiss();
+
+			case 'eventos-tooslow':
+				var supertimerchaos:Float = Std.parseFloat(value1);
+					switch (supertimerchaos)
+					{ //Programar é tão legal...
+						//legal......
+						//muito legal..........
+						//anyway, não irei cometer o mesmo erro no port mesmo depois de 1 ano de lançamento
+						case 27:
+							doStaticSign(0);
+						case 130:
+							doStaticSign(0);
+						case 180:
+							doJumpscare();
+						case 265:
+							doStaticSign(0);
+						case 450:
+							doStaticSign(0);
+						case 645:
+							doStaticSign(0);
+						case 800:
+							doStaticSign(0);
+						case 855:
+							doStaticSign(0);
+						case 889:
+							doStaticSign(0);
+						case 921:
+							doSimpleJump();
+						case 938:
+							doStaticSign(0);
+						case 981:
+							doStaticSign(0);
+						case 1030:
+							doStaticSign(0);
+						case 1065:
+							doStaticSign(0);
+						case 1105:
+							doStaticSign(0);
+						case 1123:
+							doStaticSign(0);
+						case 1178:
+							doSimpleJump();
+						case 1245:
+							doStaticSign(0);
+						case 1337:
+							doSimpleJump();
+						case 1345:
+							doStaticSign(0);
+						case 1454:
+							doStaticSign(0);
+						case 1495:
+							doStaticSign(0);
+						case 1521:
+							doStaticSign(0);
+						case 1558:
+							doStaticSign(0);
+						case 1578:
+							doStaticSign(0);
+						case 1599:
+							doStaticSign(0);
+						case 1618:
+							doStaticSign(0);
+						case 1647:
+							doStaticSign(0);
+						case 1657:
+							doStaticSign(0);
+						case 1692:
+							doStaticSign(0);
+						case 1713:
+							doStaticSign(0);
+						case 1723:
+							doJumpscare();
+						case 1738:
+							doStaticSign(0);
+						case 1747:
+							doStaticSign(0);
+						case 1761:
+							doStaticSign(0);
+						case 1785:
+							doStaticSign(0);
+						case 1806:
+							doStaticSign(0);
+						case 1816:
+							doStaticSign(0);
+						case 1832:
+							doStaticSign(0);
+						case 1849:
+							doStaticSign(0);
+						case 1868:
+							doStaticSign(0);
+						case 1887:
+							doStaticSign(0);
+						case 1909:
+							doStaticSign(0);
+						case 1950: //haha
+							doJumpscare();
+						case 765:
+							FlxG.camera.flash(FlxColor.RED, 4);
+						case 1305:
+							cinematicBars(true);
+							triggerEventNote('Change Character', 'dad', 'sonic1');
+							FlxTween.tween(camHUD, {alpha: 0}, 0.3);
+							dad.playAnim('iamgod', true);
+							dad.nonanimated = true;
+						case 1362:
+							FlxG.camera.shake(0.002, 0.6);
+							camHUD.camera.shake(0.002, 0.6);
+						case 1432:
+							cinematicBars(false);
+							FlxTween.tween(camHUD, {alpha: 1}, 0.3);
+							triggerEventNote('Change Character', 'dad', 'sonicP1');
+							dad.nonanimated = false;
+					}		
 
 			case 'eventos-personel':
 				var supertimerchaos:Float = Std.parseFloat(value1);
@@ -5034,18 +5198,14 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					MusicBeatState.switchState(new StoryMenuState());
 
 					// if ()
 					if(!usedPractice) {
-						//StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
-
+						MenuHistoria.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 						if (SONG.validScore)
 						{
 							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 						}
-
-						//FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
 						FlxG.save.flush();
 					}
 					usedPractice = false;
@@ -5088,18 +5248,11 @@ class PlayState extends MusicBeatState
 						});
 					} else {
 						cancelFadeTween();
-						//resetSpriteCache = true;
-						contador++;
 						LoadingState.loadAndSwitchState(new PlayState());
 					}
 				}
 			}
-			else if (StoryMenuState.voltarparahistoria){
-
-				StoryMenuState.voltarparahistoria = false;
-				MusicBeatState.switchState(new StoryMenuState());
-
-			} else {
+			else {
 
 				Achievements.loadAchievements();
 				var achieveID:Int = Achievements.getAchievementIndex('pibby');
@@ -6245,6 +6398,60 @@ class PlayState extends MusicBeatState
 		callOnLuas('onBeatHit', []);
 	}
 
+	function doSimpleJump()
+		{
+			trace('SIMPLE JUMPSCARE');
+	
+			var simplejump:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PolishedP1/simplejump'));
+	
+			simplejump.setGraphicSize(FlxG.width, FlxG.height);
+	
+			simplejump.screenCenter();
+	
+			simplejump.cameras = [camHUD2];
+	
+			FlxG.camera.shake(0.0025, 0.50);
+	
+			add(simplejump);
+	
+			FlxG.sound.play(Paths.sound('sppok'), 1);
+	
+			new FlxTimer().start(0.2, function(tmr:FlxTimer)
+			{
+				trace('ended simple jump');
+				remove(simplejump);
+			});
+	
+			// now for static
+	
+			var daStatic:FlxSprite = new FlxSprite(0, 0);
+	
+			daStatic.frames = Paths.getSparrowAtlas('daSTAT');
+	
+			daStatic.setGraphicSize(FlxG.width, FlxG.height);
+	
+			daStatic.screenCenter();
+	
+			daStatic.cameras = [camHUD2];
+	
+			daStatic.animation.addByPrefix('static', 'staticFLASH', 24, false);
+	
+			add(daStatic);
+	
+			FlxG.sound.play(Paths.sound('staticBUZZ'));
+	
+			if (daStatic.alpha != 0)
+				daStatic.alpha = FlxG.random.float(0.1, 0.5);
+	
+			daStatic.animation.play('static');
+	
+			daStatic.animation.finishCallback = function(pog:String)
+			{
+				trace('ended static');
+				remove(daStatic);
+			}
+		}
+
 	function spirospreidi()
 		{
 			strumLineNotes.forEach(function(tospin:FlxSprite)
@@ -6296,6 +6503,71 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	function doJumpscare()
+		{
+			trace('JUMPSCARE aaaa');
+	
+			daJumpscare.frames = Paths.getSparrowAtlas('PolishedP1/sonicJUMPSCARE');
+			daJumpscare.animation.addByPrefix('jump', 'soicSPOOK', 24, false);
+	
+			daJumpscare.screenCenter();
+	
+			daJumpscare.scale.x = 1.1;
+			daJumpscare.scale.y = 1.1;
+	
+			daJumpscare.y += 370;
+	
+			daJumpscare.cameras = [camHUD2];
+	
+			FlxG.sound.play(Paths.sound('jumpscare'), 1);
+			FlxG.sound.play(Paths.sound('datOneSound'), 1);
+	
+			add(daJumpscare);
+	
+			daJumpscare.animation.play('jump');
+	
+			daJumpscare.animation.finishCallback = function(pog:String)
+			{
+				trace('ended jump');
+				remove(daJumpscare);
+			}
+		}
+
+		function staticHitMiss()
+			{
+				if (ClientPrefs.flashing){
+				trace('lol you missed the static note!');
+				daNoteStatic = new FlxSprite(0, 0);
+				daNoteStatic.frames = Paths.getSparrowAtlas('hitStatic');
+		
+				daNoteStatic.setGraphicSize(FlxG.width, FlxG.height);
+		
+				daNoteStatic.screenCenter();
+		
+				daNoteStatic.cameras = [camHUD2];
+		
+				daNoteStatic.animation.addByPrefix('static', 'staticANIMATION', 24, false);
+		
+				daNoteStatic.animation.play('static', true);
+				
+				
+					FlxG.sound.play(Paths.sound("hitStatic1"));
+				
+				
+					add(daNoteStatic);
+		
+				new FlxTimer().start(.15, function(trol:FlxTimer) // here we go again...
+				{
+					daNoteStatic.alpha = 0;
+					trace('ended HITSTATICLAWL');
+					remove(daNoteStatic);
+				});
+		
+		
+		
+			}
+			}
+
 	function doStaticSign(lestatic:Int = 0, leopa:Bool = true) //ToDo: Aumentar o tempo de duração disso.
 		{
 			trace('static MOMENT HAHAHAH ' + lestatic);
@@ -6316,7 +6588,9 @@ class PlayState extends MusicBeatState
 			switch (lestatic)
 			{
 				case 0:
-					daStatic.animation.addByPrefix('static', 'staticFLASH', 18, false); //This should do it
+					daStatic.animation.addByPrefix('static', 'staticFLASH', 24, false); //This should do it
+				case 1:
+					daStatic.animation.addByPrefix('static', 'staticFLASH', 16, false); //Para a YCR especificamente
 			}
 			add(daStatic);
 	

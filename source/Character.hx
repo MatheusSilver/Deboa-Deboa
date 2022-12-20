@@ -42,9 +42,11 @@ class Character extends FlxSprite
 {
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
+	var tex:FlxAtlasFrames;
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = DEFAULT_CHARACTER;
+	public var nonanimated:Bool = false;
 
 	public var colorTween:FlxTween;
 	public var holdTimer:Float = 0;
@@ -90,6 +92,16 @@ class Character extends FlxSprite
 		switch (curCharacter)
 		{
 			//case 'your character name in case you want to hardcode him instead':
+
+			case 'sonic1':
+				tex = Paths.getSparrowAtlas('characters/Sonic_EXE_Assets1', 'shared');
+				frames = tex;
+
+					animation.addByPrefix('iamgod', 'sonicImmagetya', 24, false);
+
+					updateHitbox();
+
+					addOffset('iamgod', 127, 10);
 
 			case 'bf-perspective':
 				var tex = Paths.getSparrowAtlas('characters/BFPhase3_Perspective', 'shared');
@@ -365,7 +377,7 @@ class Character extends FlxSprite
 	 */
 	public function dance()
 	{
-		if (!debugMode && !specialAnim)
+		if (!debugMode && !specialAnim && !nonanimated)
 		{
 			if(danceIdle)
 			{
@@ -383,6 +395,8 @@ class Character extends FlxSprite
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
+		if (!nonanimated)
+			{
 		specialAnim = false;
 		animation.play(AnimName, Force, Reversed, Frame);
 
@@ -410,6 +424,7 @@ class Character extends FlxSprite
 				danced = !danced;
 			}
 		}
+	}
 	}
 
 	public function recalculateDanceIdle() {

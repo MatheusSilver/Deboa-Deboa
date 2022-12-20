@@ -229,9 +229,9 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;
-					if(PlayState.isStoryMode || StoryMenuState.voltarparahistoria) {
-						MusicBeatState.switchState(new StoryMenuState());
-						StoryMenuState.voltarparahistoria = false;
+					if(PlayState.modohistoria) {						
+						MusicBeatState.switchState(new MenuHistoria());
+						PlayState.modohistoria = false;
 					} else {
 						MusicBeatState.switchState(new FreeplayState());
 					}

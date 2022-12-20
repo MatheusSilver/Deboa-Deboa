@@ -76,7 +76,7 @@ class Main extends Sprite
 		setupGame();
 	}
 
-		public static function dumpCache() // THIS MOD WASTES 1-2 FUCKING G I G A B Y T E S OF MEMORY SO OF COURSE I COPIED KADE'S CODE FOR FUCKS SAKE
+		public static function dumpCache() // ToDo, arrumar o sistema de cache, no caso, resolver os problemas com o HSys
 		{
 			@:privateAccess
 			for (key in FlxG.bitmap._cache.keys())
@@ -94,27 +94,12 @@ class Main extends Sprite
 			Assets.cache.clear("songs");
 			Assets.cache.clear("shared");
 			Assets.cache.clear("preload");
-			// */
-		}
-
-		public static function dumpCacheEspecifico(spec:String) // THIS MOD WASTES 1-2 FUCKING G I G A B Y T E S OF MEMORY SO OF COURSE I COPIED KADE'S CODE FOR FUCKS SAKE
-			{
-				@:privateAccess
-				for (key in FlxG.bitmap._cache.keys())
-				{
-					var obj = FlxG.bitmap._cache.get(key);
-					if (obj != null)
-					{
-						Assets.cache.removeBitmapData(key);
-						FlxG.bitmap._cache.remove(key);
-						obj.destroy();
-					}
-				}
-				Paths.localTrackedAssets = [];
-				Paths.currentTrackedAssets = [];
-				Assets.cache.clear(spec);
-				// */
+			if(LoadingState.directory != 'shared' && LoadingState.directory != "preload" && LoadingState.directory != null){
+			Assets.cache.clear(LoadingState.directory);
+			Paths.setCurrentLevel('preload');
 			}
+
+		}
 
 		public static var webmHandler:WebmHandler;
 

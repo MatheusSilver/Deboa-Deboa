@@ -14,8 +14,7 @@ end
 
 function noteMiss(id, direction, noteType, isSustainNote)
 	if noteType == 'staticNotes' then
-        playSound('hitStatic1', 1);
-		triggerEvent('YOU MISSED THE STATIC NOTE NOW GET FUCKED');
+		triggerEvent('StaticMiss');
 	end
 end
 

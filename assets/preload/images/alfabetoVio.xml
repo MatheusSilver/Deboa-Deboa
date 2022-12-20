@@ -31,5 +31,5 @@
 <SubTexture name="x0000" x="359" y="190" width="45" height="58" frameX="0" frameY="0" frameWidth="45" frameHeight="58" />
 <SubTexture name="y0000" x="359" y="128" width="46" height="62" frameX="0" frameY="0" frameWidth="46" frameHeight="62" />
 <SubTexture name="z0000" x="257" y="0" width="54" height="71" frameX="0" frameY="0" frameWidth="54" frameHeight="71" />
-<SubTexture name=":vio:0000" x="0" y="315" width="61" height="59" frameX="0" frameY="0" frameWidth="61" frameHeight="59" />
+<SubTexture name="§0000" x="0" y="315" width="61" height="59" frameX="0" frameY="0" frameWidth="61" frameHeight="59" />
 </TextureAtlas>

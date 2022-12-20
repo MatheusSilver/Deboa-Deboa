@@ -107,9 +107,6 @@ class MusicBeatState extends FlxUIState
 		// Custom made Trans in
 
 		var curState:Dynamic = FlxG.state;
-		if (curState == PlayState){
-			Paths.setCurrentLevel('preload'); //Só pra garantir que ao final da música, as libraries se resetem
-		}
 		var leState:MusicBeatState = curState;
 		if(!FlxTransitionableState.skipNextTransIn) {
 			leState.openSubState(new CustomFadeTransition(0.7, false));

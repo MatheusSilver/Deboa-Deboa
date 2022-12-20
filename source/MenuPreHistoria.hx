@@ -118,11 +118,20 @@ class MenuPreHistoria extends MusicBeatState
 
 			selectedWeek = true;
 
-			FreeplayState.dapreselected = WeekData.weeksList[curWeek];
+			MenuHistoria.dapreselected = WeekData.weeksList[curWeek];
+
+			//Teoricamente, isso deve fazer com que o menu se desfaça uma última vez e dê lugar ao menu de historia...
 			
+			
+			var assetName:String = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]).weekBackground;
+			bigmenu.loadGraphic(Paths.image("Story_Mode/trans/scroll-" + assetName, 'preload'));
+			FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, 1, {ease: FlxEase.expoInOut});
+			FlxTween.tween(blackbardown, {y: FlxG.height}, 1, {ease: FlxEase.expoInOut});
+			FlxTween.tween(bgSprite, {x: 0 - bgSprite.width}, 1, {ease: FlxEase.expoInOut});
+			FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, 1, {ease: FlxEase.expoInOut});
 			new FlxTimer().start(1, function(tmr:FlxTimer)
-				{
-			MusicBeatState.switchState(new MenuHistoria());
+			{
+			FlxG.switchState(new MenuHistoria());
 			});
 		}
 
@@ -135,6 +144,8 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = 0;
 		if (curWeek < 0)
 			curWeek = WeekData.weeksList.length - 1;
+
+		PlayState.storyWeek = curWeek;
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 		WeekData.setDirectoryFromWeek(leWeek);

@@ -1,7 +1,7 @@
 {
 	"storyName": "Histórias Alternativas",
 	"hideFreeplay": false,
-	"weekBackground": "",
+	"weekBackground": "historias alternativas",
 	"weekBefore": "tutorial",
 	"freeplayColor": [
 		146,
@@ -87,7 +87,7 @@
 		],
 		[
 			"prey",
-			"furnance-rgb",
+			"furnace",
 			[
 				255,
 				0,

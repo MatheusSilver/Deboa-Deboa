@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "bfExe",
+		"player1": "bf",
 		"events": [],
 		"gfVersion": "gf",
 		"player2": "sonicP1",
@@ -6135,9 +6135,9 @@
 			}
 		],
 		"mania": 3,
-		"player3": null,
+		"player3": "gf",
 		"song": "Too Slow",
-		"stage": "P1Stage",
+		"stage": "too-slow",
 		"validScore": true,
 		"needsVoices": true,
 		"speed": 3.2,

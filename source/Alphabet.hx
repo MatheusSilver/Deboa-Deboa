@@ -1,5 +1,6 @@
 package;
 
+import openfl.Lib;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -26,6 +27,7 @@ class Alphabet extends FlxSpriteGroup
 	public var yAdd:Float = 0;
 	public var isMenuItem:Bool = false;
 	public var isMenuTrem:Bool = false;
+	public var isFreeplayTrem:Bool = false; //Programar é tão legal ;-;
 	public var textSize:Float = 1.0;
 
 	public var text:String = "";
@@ -49,6 +51,9 @@ class Alphabet extends FlxSpriteGroup
 	public var typingSpeed:Float = 0.05;
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, ?typingSpeed:Float = 0.05, ?textSize:Float = 1)
 	{
+
+		AlphaCharacter.dafixforalpha = isFreeplayTrem;
+
 		super(x, y);
 		forceX = Math.NEGATIVE_INFINITY;
 		this.textSize = textSize;
@@ -344,7 +349,24 @@ class Alphabet extends FlxSpriteGroup
 			} else {
 				x = FlxMath.lerp(x, (targetY * 20) + 90 + xAdd, lerpVal);
 			}
-		} else if (isMenuTrem)
+		}
+		else if (isFreeplayTrem)
+			{
+				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+
+				var tendency:Float =  0.16/((cast(Lib.current.getChildAt(0), Main)).getFPS()/60);
+	
+				y = FlxMath.lerp(y, (scaledY * 65) + (FlxG.height * 0.39), tendency);
+				//lerp = média diferenciada tendenciosa tal que sua tendencia, é definida pelo ultimo termo, no caso 0.16/(qualquer coisa)
+				//Se você quiser que o valor abaixe de 30 pixels, você precisa fornecer + 30 * (1 + tendencia)
+				x = FlxMath.lerp(x,Math.exp(scaledY * 0.8) * 70 + (FlxG.width * 0.1), tendency);
+				if (scaledY < 0)
+					x = FlxMath.lerp(x, -(250 * (1+ tendency)) + Math.exp(scaledY * -0.8) * 70 + (FlxG.width * 0.1), tendency);
+
+				if (x > FlxG.width + 100)
+					x = FlxG.width + 100;
+			}
+		else if (isMenuTrem)
 		{
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
@@ -366,20 +388,28 @@ class Alphabet extends FlxSpriteGroup
 
 class AlphaCharacter extends FlxSprite
 {
-	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã";
+	public static var dafixforalpha = false;
+
+	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã§";
 
 	public static var numbers:String = "1234567890";
 
 	public static var symbols:String = "#%()*+-:;<=>@[]^_.,'!?";
-
+	
 	public var row:Int = 0;
 
 	private var textSize:Float = 1;
 
 	public function new(x:Float, y:Float, textSize:Float)
 	{
+		var tex:FlxAtlasFrames;
 		super(x, y);
-		var tex = Paths.getSparrowAtlas('alphabet', 'preload');
+		if (dafixforalpha){
+		tex = Paths.getSparrowAtlas('alfabetoVio', 'preload');
+		}
+		else {
+		tex = Paths.getSparrowAtlas('alphabet', 'preload');
+		}
 		frames = tex;
 
 		setGraphicSize(Std.int(width * textSize));

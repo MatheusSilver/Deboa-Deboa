@@ -27,8 +27,13 @@ using StringTools;
 
 class MenuHistoria extends MusicBeatState
 {
+
+	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
+	
 	var subindo:Bool = true;
     var musicas:Array<Dynamic> = [];
+	var nombres:Array<Dynamic> = [];
+	public static var dapreselected:String = '';
 	private static var curSelected:Int = 0;
 	var apertavel:Bool = false;
 
@@ -42,9 +47,10 @@ class MenuHistoria extends MusicBeatState
 
 	override function create()
 	{
-        var leWeek:WeekData = WeekData.weeksLoaded.get(FreeplayState.dapreselected);
+        var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
         for (j in 0...leWeek.songs.length) {
             musicas.push(leWeek.songs[j][0]);
+			nombres.push(leWeek.songs[j][3]);
         }
 
 		FlxG.mouse.visible = false;
@@ -86,7 +92,7 @@ class MenuHistoria extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		#if desktop
-		DiscordClient.changePresence("Escolhendo uma musica em: " + FreeplayState.dapreselected, null);
+		DiscordClient.changePresence("Escolhendo uma musica em: " + dapreselected, null);
 		#end
 
 		if (!movedBack && !selectedWeek)
@@ -168,7 +174,7 @@ class MenuHistoria extends MusicBeatState
 			
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(musicas[curSelected]);
-			FreeplayState.infoextended = musicas[curSelected].display;
+			FreeplayState.infoextended = nombres[curSelected]; //O cara esqueceu como funciona o sistema que ele mesmo fez...É um genio simplesmente... ;-;
 			var poop:String = Highscore.formatSong(songLowercase, 2);
 			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
 				poop = songLowercase;
@@ -186,6 +192,7 @@ class MenuHistoria extends MusicBeatState
 			PlayState.modohistoria = true;
 			FlxG.log.warn(musicas[curSelected]);
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
+			FlxTween.tween(bgSprite, {alpha: 0}, 1.0, {ease: FlxEase.expoInOut});
 			FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
 			onComplete: function(twn:FlxTween) {
 				FlxTween.tween(pastbgSprite, {alpha: 0}, 1.0,{ease: FlxEase.linear});
@@ -224,7 +231,7 @@ class MenuHistoria extends MusicBeatState
 		if (curSelected >= musicas.length)
 			curSelected = 0;
 
-		var leWeek:WeekData = WeekData.weeksLoaded.get(FreeplayState.dapreselected);
+		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		WeekData.setDirectoryFromWeek(leWeek);
 
 		bgSprite.visible = true;
@@ -289,6 +296,8 @@ class MenuHistoria extends MusicBeatState
 					FlxTween.tween(perfilSprite, {x: (FlxG.width - perfilSprite.width) / 2}, curtimer, {ease: FlxEase.expoInOut});
 				}
 			});
+
+			//
 			} else{
 				FlxTween.tween(textoSprite, {x: FlxG.width + textoSprite.width}, curtimer, {ease: FlxEase.expoInOut,
 					onComplete: function(twn:FlxTween) {
@@ -318,7 +327,7 @@ class MenuHistoria extends MusicBeatState
 			new FlxTimer().start(curtimer * 2 + 0.01, function(tmr:FlxTimer) {
 				if (!executando){
 					executando = true;
-					textoSprite.y = FlxG.height - textoSprite.height - 4;
+					textoSprite.y = 10 * FlxG.height;
 					tweenpracima();
 					}
 				});

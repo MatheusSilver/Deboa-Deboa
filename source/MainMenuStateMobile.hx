@@ -499,7 +499,7 @@ class MainMenuStateMobile extends MusicBeatState
 								case 'story_mode':
 									MusicBeatState.switchState(new MenuPreHistoria());
 								case 'freeplay':
-									MusicBeatState.switchState(new PreFreeplayState());
+									MusicBeatState.switchState(new FreeplayState());
 								case 'awards':
 									MusicBeatState.switchState(new AchievementsMenuState());
 								case 'credits':
