@@ -1,22 +1,22 @@
 function onCreate()
 	-- background shit
-	makeLuaSprite('backwall', 'cenarios/bestofriendo/wall', -200, -200);
+	makeLuaSprite('backwall', 'bestofriendo/wall', -200, -200);
 	setScrollFactor('backwall', 0.9, 0.9);
 	scaleObject('backwall', 0.8, 0.8);
 	
-	makeLuaSprite('desk', 'cenarios/bestofriendo/desk', -170, -100);
+	makeLuaSprite('desk', 'bestofriendo/desk', -170, -100);
 	setScrollFactor('desk', 0.9, 0.9);
 	scaleObject('desk', 0.7, 0.7);
 
-	makeLuaSprite('robot', 'cenarios/bestofriendo/robo', -170, -100);
+	makeLuaSprite('robot', 'bestofriendo/robo', -170, -100);
 	setScrollFactor('robot', 0.9, 0.9);
 	scaleObject('robot', 0.7, 0.7);
 
-	makeLuaSprite('box', 'cenarios/bestofriendo/box', -170, -100);
+	makeLuaSprite('box', 'bestofriendo/box', -170, -100);
 	setScrollFactor('box', 0.9, 0.9);
 	scaleObject('box', 0.7, 0.7);
 
-	makeLuaSprite('crate', 'cenarios/bestofriendo/crate', -170, -100);
+	makeLuaSprite('crate', 'bestofriendo/crate', -170, -100);
 	setScrollFactor('crate', 0.9, 0.9);
 	scaleObject('crate', 0.7, 0.7);
 
