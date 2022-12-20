@@ -22,6 +22,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var eletentou:Bool = false; //MALDITO S...
 
 	var stageSuffix:String = "";
+	var maoLord:FlxSprite;
 
 	public static var characterName:String = 'bf-dead';
 	public static var deathSoundName:String = 'fnf_loss_sfx';
