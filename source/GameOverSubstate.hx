@@ -19,8 +19,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var updateCamera:Bool = false;
 	var playingDeathSound:Bool = false;
 	var burrice:Bool = true;
-	var eletentou:Bool = false;
-	var maoLord:FlxSprite;
+	var eletentou:Bool = false;s
 
 	var stageSuffix:String = "";
 
@@ -100,7 +99,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.ACCEPT)
 		{
-			FlxG.sound.play(Paths.sound("eagoravouatrasdevocedigabyebye"));
+			FlxG.sound.play(Paths.sound("cancelMenu"));
 			eletentou = true;
 			esmagaMouse();
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
@@ -142,7 +141,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					var exclude:Array<Int> = [];
 					//if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
 
-					FlxG.sound.play(Paths.sound('gameoversfalas/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
+					FlxG.sound.play(Paths.sound('gameoverfalas/' + FlxG.random.int(1, 12, exclude)), 1, false, null, true, function() {
 						if(!isEnding)
 						{
 							FlxG.sound.music.fadeIn(0.2, 1, 4);

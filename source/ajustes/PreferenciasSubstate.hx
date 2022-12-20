@@ -41,22 +41,22 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
         true);
         addOption(option);
 
-        var option:Option = new Option('Legendas por Cima',
+        var option1:Option = new Option('Legendas por Cima',
         'Caso ativado, as legendas ficarão por cima das notas.',
         'legendas',
         'bool',
         true);
-        addOption(option);
+        addOption(option1);
 
-        var option:Option = new Option('Antimash', //Name
+        var option11:Option = new Option('Antimash', //Name
         'colocar desc. depois.', //Description
         'resolution', //Save data variable name
         'bool', //Variable type
         true); //Default value
-        addOption(option);
+        addOption(option11);
 
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
-		var option:Option = new Option('Downscroll', //Name
+		var option111:Option = new Option('Downscroll', //Name
 			'If checked, notes go Down instead of Up, simple enough.', //Description
 			'downScroll', //Save data variable name
 			'bool', //Variable type
@@ -68,21 +68,21 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 			'middleScroll',
 			'bool',
 			false);
-		addOption(option);
+		addOption(option111);
 
-		var option:Option = new Option('Ghost Tapping',
+		var option1111:Option = new Option('Ghost Tapping',
 			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",
 			'ghostTapping',
 			'bool',
 			true);
-		addOption(option);
+		addOption(option1111);
 
-		var option:Option = new Option('Hitsound Volume',
+		var option11111:Option = new Option('Hitsound Volume',
 			'Funny notes does \"Tick!\" when you hit them."',
 			'osusom',
 			'percent',
 			0);
-		addOption(option);
+		addOption(option11111);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;
@@ -90,7 +90,7 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 		option.decimals = 1;
 		option.onChange = onChangeHitsoundVolume;
 
-		var option:Option = new Option('Rating Offset',
+		var option2:Option = new Option('Rating Offset',
 			'Changes how late/early you have to hit for a "Sick!"\nHigher values mean you have to hit later.',
 			'ratingOffset',
 			'int',
@@ -99,9 +99,9 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 		option.scrollSpeed = 20;
 		option.minValue = -30;
 		option.maxValue = 30;
-		addOption(option);
+		addOption(option2);
 
-		var option:Option = new Option('Sick! Hit Window',
+		var option22:Option = new Option('Sick! Hit Window',
 			'Changes the amount of time you have\nfor hitting a "Sick!" in milliseconds.',
 			'sickWindow',
 			'int',
@@ -110,9 +110,9 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 		option.scrollSpeed = 15;
 		option.minValue = 15;
 		option.maxValue = 45;
-		addOption(option);
+		addOption(option22);
 
-		var option:Option = new Option('Good Hit Window',
+		var option222:Option = new Option('Good Hit Window',
 			'Changes the amount of time you have\nfor hitting a "Good" in milliseconds.',
 			'goodWindow',
 			'int',
@@ -121,9 +121,9 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 		option.scrollSpeed = 30;
 		option.minValue = 15;
 		option.maxValue = 90;
-		addOption(option);
+		addOption(option222);
 
-		var option:Option = new Option('Bad Hit Window',
+		var option2222:Option = new Option('Bad Hit Window',
 			'Changes the amount of time you have\nfor hitting a "Bad" in milliseconds.',
 			'badWindow',
 			'int',
@@ -132,9 +132,9 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 		option.scrollSpeed = 60;
 		option.minValue = 15;
 		option.maxValue = 135;
-		addOption(option);
+		addOption(option2222);
 
-		var option:Option = new Option('Safe Frames',
+		var option22222:Option = new Option('Safe Frames',
 			'Changes how many frames you have for\nhitting a note earlier or late.',
 			'safeFrames',
 			'float',
@@ -143,39 +143,39 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 		option.minValue = 2;
 		option.maxValue = 10;
 		option.changeValue = 0.1;
-		addOption(option);
+		addOption(option22222);
 
         //I'd suggest using "Low Quality" as an example for making your own option since it is the simplest here
-		var option:Option = new Option('Low Quality', //Name
+		var option222222:Option = new Option('Low Quality', //Name
         'If checked, disables some background details,\ndecreases loading times and improves performance.', //Description
         'lowQuality', //Save data variable name
         'bool', //Variable type
         false); //Default value
-    addOption(option);
+    addOption(option222222);
 
-    var option:Option = new Option('Anti-Aliasing',
+    var option3:Option = new Option('Anti-Aliasing',
         'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
         'globalAntialiasing',
         'bool',
         true);
     option.showBoyfriend = true;
     option.onChange = onChangeAntiAliasing; //Changing onChange is only needed if you want to make a special interaction after it changes the value
-    addOption(option);
+    addOption(option3);
 
-    var option:Option = new Option('Shaders', //Name
+    var option33:Option = new Option('Shaders', //Name
         'If unchecked, disables shaders.\nIt\'s used for some visual effects, and also CPU intensive for weaker PCs.', //Description
         'shaders', //Save data variable name
         'bool', //Variable type
         true); //Default value
-    addOption(option);
+    addOption(option33);
 
     #if !html5 //Apparently other framerates isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
-    var option:Option = new Option('Framerate',
+    var option333:Option = new Option('Framerate',
         "Pretty self explanatory, isn't it?",
         'framerate',
         'int',
         60);
-    addOption(option);
+    addOption(option333);
 
     option.minValue = 60;
     option.maxValue = 240;

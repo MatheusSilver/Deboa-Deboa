@@ -25,7 +25,15 @@ class FlashingState extends MusicBeatState
 
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Ooopa!\n
-			Esse mod contem luzes piscantes, opcoes de acessibilidade e otimização!\n
+			Esse mod contem luzes piscantes e gore!\n
+			if(CoolUtil.isRecording) 
+			{
+			Percebemos que voce esta gravando sua tela!\n
+			Recomendamos gravar somente a tela e nao diretamente o jogo.\n
+			Desmarque as opcoes de Luzes Piscantes e Gore,\n
+			Para nao causar problemas aos seus viewers.\n
+			}
+			Recomendamos ir ao menu de opcoes antes de jogar,\n
 			Aperte ENTER para ir ate as configuracoes,\n
 			ou aperte BACKSPACE para ir direto ao jogo.\n
 			Uma boa jogatina.",

@@ -380,13 +380,6 @@ class ControlesState extends MusicBeatState
 						});
 				}
 			}
-			#if desktop
-			else if (FlxG.keys.justPressed.SEVEN)
-			{
-				selectedSomethin = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
-			}
-			#end
 			super.update(elapsed);			
 		}
 

@@ -61,6 +61,7 @@ class AjustesState extends MusicBeatState
 	var checkiftouch:Bool = false;
     var line:FlxSprite;
     var trees:FlxSprite;
+	var pode:Bool = false;
 
 	override function create()
 	{
@@ -268,7 +269,8 @@ class AjustesState extends MusicBeatState
 		FlxTween.tween(opcaobotao, {x: FlxG.width - 2.5*opcaobotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
 		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
-	});
+		});
+		new FlxTimer().start(2.25, function(tmr:FlxTimer){pode=true;});
 
 		#if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
@@ -301,9 +303,9 @@ class AjustesState extends MusicBeatState
 	function sumidao(selecionado:Int){ //do hokage omegalul
 		//provavelmente um dos códigos mais feios que já fiz, mas na real
 		//não consigo pensar em outra forma de fazê-lo sem ter que reescrever tudo.
-
+		pode=false;
 			if (selecionado == 0){
-				historiabotao.alpha=1;
+				//historiabotao.alpha=1;
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 					FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
 					});
@@ -320,7 +322,7 @@ class AjustesState extends MusicBeatState
 						FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 						});
 			} else if (selecionado == 1){
-				freeplaybotao.alpha=1;
+				//freeplaybotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(freeplaybotao, {x: FlxG.width - freeplaybotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -337,7 +339,7 @@ class AjustesState extends MusicBeatState
 				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if(selecionado == 2) {
-				achievementsbotao.alpha=1;
+				//achievementsbotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
 			FlxTween.tween(achievementsbotao, {x: FlxG.width - achievementsbotao.width},0.5, {ease: FlxEase.expoInOut});
 			});
@@ -354,7 +356,7 @@ class AjustesState extends MusicBeatState
 				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if (selecionado == 4) {
-				opcaobotao.alpha=1;
+				//opcaobotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
 			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -371,7 +373,7 @@ class AjustesState extends MusicBeatState
 				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if (selecionado == 3){ //!!!
-				sobrebotao.alpha=1;
+				//sobrebotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(sobrebotao, {x: FlxG.width - sobrebotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -410,19 +412,26 @@ class AjustesState extends MusicBeatState
 				}*/
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		historiabotao.updateHitbox();
-		freeplaybotao.updateHitbox();
-		achievementsbotao.updateHitbox();
-		opcaobotao.updateHitbox();
-		historiabotao.onOver.callback = historiaHover;
-        historiabotao.onOut.callback = historiaOut;
-		freeplaybotao.onOver.callback = freeplayHover;
-        freeplaybotao.onOut.callback = freeplayOut;
-		achievementsbotao.onOver.callback = achievementsHover;
-        achievementsbotao.onOut.callback = achievementsOut;
-		opcaobotao.onOver.callback = opcaoHover;
-        opcaobotao.onOut.callback = opcaoOut;
-		FlxG.mouse.visible = true;
+		if(pode)
+			{
+				historiabotao.updateHitbox();
+				freeplaybotao.updateHitbox();
+				achievementsbotao.updateHitbox();
+				opcaobotao.updateHitbox();
+				historiabotao.onOver.callback = historiaHover;
+				historiabotao.onOut.callback = historiaOut;
+				historiabotao.onDown.callback = historiaDown;
+				freeplaybotao.onOver.callback = freeplayHover;
+				freeplaybotao.onOut.callback = freeplayOut;
+				freeplaybotao.onDown.callback = freeplayDown;
+				achievementsbotao.onOver.callback = achievementsHover;
+				achievementsbotao.onOut.callback = achievementsOut;
+				achievementsbotao.onDown.callback = achievementsDown;
+				opcaobotao.onOver.callback = opcaoHover;
+				opcaobotao.onOut.callback = opcaoOut;
+				opcaobotao.onDown.callback = opcaoDown;
+				FlxG.mouse.visible = true;
+			}
 		//checker.y += 0.1;
 
 		if(historiabotao.justPressed && !checkiftouch && clicavel){
@@ -523,6 +532,42 @@ class AjustesState extends MusicBeatState
 			historiabotao.alpha=0.75;
 		}
 
+		function historiaDown():Void
+			{
+				if(pode)
+					{
+						curSelected=0;
+						var choice:String;
+						choice='configuracoes';
+							selectedSomethin = true;
+							clicavel = false;
+							FlxG.sound.play(Paths.sound('confirmMenu'));
+									checkiftouch = false; //This should be enough
+									var daChoice:String = choice;
+									sumidao(curSelected);
+									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
+									switch (daChoice)
+									{
+										case 'configuracoes':
+										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
+										case 'controles':
+										// fiz isso pois tem gente que joga de teclado no mobile.
+										MusicBeatState.switchState(new ajustes.ControlesState());  
+										case 'setatipos':
+										MusicBeatState.switchState(new ajustes.SetasState());
+										case 'gamejooj':
+										if(GJClient.logged)
+										{
+											MusicBeatState.switchState(new AlreadyLogged());
+										}
+										else{
+											MusicBeatState.switchState(new GameJoltLoginState());
+										}
+									}							
+								});
+					}
+			}
+
 		function freeplayHover():Void
 			{
 				freeplaybotao.alpha=1;
@@ -534,6 +579,42 @@ class AjustesState extends MusicBeatState
 				freeplaybotao.alpha=0.75;
 			}
 
+			function freeplayDown():Void
+				{
+					if(pode)
+						{
+							curSelected=1;
+							var choice:String;
+							choice='controles';
+							selectedSomethin = true;
+							clicavel = false;
+							FlxG.sound.play(Paths.sound('confirmMenu'));
+									checkiftouch = false; //This should be enough
+									var daChoice:String = choice;
+									sumidao(curSelected);
+									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
+									switch (daChoice)
+									{
+										case 'configuracoes':
+										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
+										case 'controles':
+										// fiz isso pois tem gente que joga de teclado no mobile.
+										MusicBeatState.switchState(new ajustes.ControlesState());  
+										case 'setatipos':
+										MusicBeatState.switchState(new ajustes.SetasState());
+										case 'gamejooj':
+										if(GJClient.logged)
+										{
+											MusicBeatState.switchState(new AlreadyLogged());
+										}
+										else{
+											MusicBeatState.switchState(new GameJoltLoginState());
+										}
+									}							
+								});
+						}
+				}
+
 			function achievementsHover():Void
 				{
 					achievementsbotao.alpha=1;
@@ -544,6 +625,41 @@ class AjustesState extends MusicBeatState
 				{
 					achievementsbotao.alpha=0.75;
 				}
+				function achievementsDown():Void
+					{
+						if(pode)
+							{
+								curSelected=2;
+								var choice:String;
+								choice='setatipos';
+								selectedSomethin = true;
+								clicavel = false;
+							FlxG.sound.play(Paths.sound('confirmMenu'));
+									checkiftouch = false; //This should be enough
+									var daChoice:String = choice;
+									sumidao(curSelected);
+									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
+									switch (daChoice)
+									{
+										case 'configuracoes':
+										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
+										case 'controles':
+										// fiz isso pois tem gente que joga de teclado no mobile.
+										MusicBeatState.switchState(new ajustes.ControlesState());  
+										case 'setatipos':
+										MusicBeatState.switchState(new ajustes.SetasState());
+										case 'gamejooj':
+										if(GJClient.logged)
+										{
+											MusicBeatState.switchState(new AlreadyLogged());
+										}
+										else{
+											MusicBeatState.switchState(new GameJoltLoginState());
+										}
+									}							
+								});
+							}
+					}
 				
 			function opcaoHover():Void
 				{
@@ -554,6 +670,41 @@ class AjustesState extends MusicBeatState
 				function opcaoOut():Void
 				{
 					opcaobotao.alpha=0.75;
+				}
+			function opcaoDown():Void
+				{
+					if(pode)
+						{
+							curSelected=4;
+							var choice:String;
+							choice='gamejooj';
+							selectedSomethin = true;
+							clicavel = false;
+							FlxG.sound.play(Paths.sound('confirmMenu'));
+									checkiftouch = false; //This should be enough
+									var daChoice:String = choice;
+									sumidao(curSelected);
+									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
+									switch (daChoice)
+									{
+										case 'configuracoes':
+										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
+										case 'controles':
+										// fiz isso pois tem gente que joga de teclado no mobile.
+										MusicBeatState.switchState(new ajustes.ControlesState());  
+										case 'setatipos':
+										MusicBeatState.switchState(new ajustes.SetasState());
+										case 'gamejooj':
+										if(GJClient.logged)
+										{
+											MusicBeatState.switchState(new AlreadyLogged());
+										}
+										else{
+											MusicBeatState.switchState(new GameJoltLoginState());
+										}
+									}							
+								});
+						}
 				}
 
 
