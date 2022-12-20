@@ -403,7 +403,7 @@ class ChartingState extends MusicBeatState
 			var songName:String = Paths.formatToSongPath(_song.song);
 			var file:String = Paths.json(songName + '/events');
 			#if sys
-			if (#if aMODS_ALLOWED HSys.exists(Paths.modsJson(songName + '/events')) || #end HSys.exists(file))
+			if (#if aMODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(file))
 			#else
 			if (OpenFlAssets.exists(file))
 			#end
@@ -470,8 +470,8 @@ class ChartingState extends MusicBeatState
 		#if aMODS_ALLOWED
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
-			if(HSys.exists(directory)) {
-				for (file in HSys.readDirectory(directory)) {
+			if(FileSystem.exists(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
 						var charToCheck:String = file.substr(0, file.length - 5);
@@ -529,7 +529,7 @@ class ChartingState extends MusicBeatState
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(Assets.exists(directory)) {
-				for (file in HSys.readDirectory(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
 						var stageToCheck:String = file.substr(0, file.length - 5);
@@ -765,8 +765,8 @@ class ChartingState extends MusicBeatState
 		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/'), Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
-			if(HSys.exists(directory)) {
-				for (file in HSys.readDirectory(directory)) {
+			if(FileSystem.exists(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.lua')) {
 						var fileToCheck:String = file.substr(0, file.length - 4);
@@ -818,8 +818,8 @@ class ChartingState extends MusicBeatState
 		var directories:Array<String> = [Paths.getPreloadPath('custom_events/'), Paths.getPreloadPath('custom_events/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
-			if(HSys.exists(directory)) {
-				for (file in HSys.readDirectory(directory)) {
+			if(FileSystem.exists(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file != 'readme.txt' && file.endsWith('.txt')) {
 						var fileToCheck:String = file.substr(0, file.length - 4);
