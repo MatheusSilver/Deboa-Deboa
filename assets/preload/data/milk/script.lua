@@ -68,7 +68,7 @@ function onStepHit()
         objectPlayAnimation('inicio', 'luanzitoanim play', false)
     end
 
-    if curStep == 98 then
+    if curStep == 96 then
         removeLuaSprite('inicio', false);
     end
 end
