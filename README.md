@@ -1,6 +1,7 @@
 # <img src="art/icon64.png" align="center"> Friday Night Funkin' - BSL Engine Mobile - Projeto ModBoa</img>
 Essa engine foi originalmente baseada na [Psych Engine](https://github.com/ShadowMario/FNF-PsychEngine) com alguns elementos característicos de outras engines como a [Mic'd Up](https://github.com/Verwex/Funkin-Mic-d-Up-SC) e a [Kade Engine](https://github.com/KadeDev/Kade-Engine), e almeja ser uma alternativa para os desenvolvedores que queiram criar mods ou porta-los para APK facilmente.
 
+Os criadores desta engine também são grandes fãs de Osu, então você pode esperar uma abordagem muito mais arcade dos mods do que o normal com sistemas de ranqueamento, modifiers que aumentam a dificuldade e a pontuação, além de outras características de layout e gameplay de Osu
 ## Tutorial de Build simplificado:
 Caso queira fazer uma build para Android diretamente no PC, siga o tutorial disponível em:
 https://github.com/luckydog7/Funkin-android
