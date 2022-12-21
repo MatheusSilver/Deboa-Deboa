@@ -26,6 +26,11 @@ class CoolUtil
 		'twitchstudio' // why
 	];
 
+		//hmmmmmm kekekekekkeke
+		public static var aList:Array<String> = [
+			'FNFBot20'
+		];
+
 	public static var difficultyStuff:Array<Dynamic> = [
 		['Easy', '-easy'],
 		['Normal', ''],
@@ -55,6 +60,28 @@ class CoolUtil
 			return false;
 			#end
 		}
+
+		public static function nocheating():Bool
+			{
+				#if desktop
+				var taskList:Process = new Process('tasklist', []);
+				var readableList:String = taskList.stdout.readAll().toString().toLowerCase();
+				var isSUS:Bool = false;
+		
+				for (i in 0...programList.length)
+				{
+					if (readableList.contains(programList[i]))
+						isSUS = true;
+				}
+		
+				taskList.close();
+				readableList = '';
+		
+				return isSUS;
+				#else
+				return false;
+				#end
+			}
 
 	public static function difficultyString():String
 		{
