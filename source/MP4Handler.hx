@@ -138,10 +138,14 @@ class MP4Handler
 
 		new FlxTimer().start(0.3, function (tmr:FlxTimer)
 		{
-			if (finishCallback != null)
+			if (finishCallback != null && VideoStatePC.NextState != "title")
 			{
 				LoadingState.loadAndSwitchState(finishCallback);
 			}
+			else if(finishCallback != null && VideoStatePC.NextState == "title")
+				{
+					MusicBeatState.switchState(new TitleState());
+				}
 			vlcBitmap.dispose();
 
 			if (FlxG.game.contains(vlcBitmap))
