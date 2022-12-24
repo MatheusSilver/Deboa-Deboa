@@ -2,128 +2,7 @@
 	"song": {
 		"player1": "hulkbr",
 		"player2": "sonicexesexual",
-		"events": [
-			[
-				10666.6666666667,
-				[
-					[
-						"Add Camera Zoom",
-						"0.040",
-						"0.05"
-					]
-				]
-			],
-			[
-				11166.6666666667,
-				[
-					[
-						"Add Camera Zoom",
-						"0.040",
-						"0.05"
-					]
-				]
-			],
-			[
-				11666.6666666667,
-				[
-					[
-						"Add Camera Zoom",
-						"0.040",
-						"0.05"
-					]
-				]
-			],
-			[
-				25333.3333333333,
-				[
-					[
-						"Add Camera Zoom",
-						"0.040",
-						"0.05"
-					]
-				]
-			],
-			[
-				26666.6666666667,
-				[
-					[
-						"Close Caption",
-						"what a dull face",
-						""
-					]
-				]
-			],
-			[
-				27916.6666666667,
-				[
-					[
-						"Add Camera Zoom",
-						"0.040",
-						"0.05"
-					]
-				]
-			],
-			[
-				28000,
-				[
-					[
-						"Close Caption",
-						"",
-						""
-					]
-				]
-			],
-			[
-				87916.6666666666,
-				[
-					[
-						"Cam Boom Speed",
-						"1",
-						"2"
-					]
-				]
-			],
-			[
-				97333.3333333333,
-				[
-					[
-						"Close Caption",
-						"enough!",
-						""
-					]
-				]
-			],
-			[
-				98583.3333333333,
-				[
-					[
-						"Close Caption",
-						"",
-						""
-					]
-				]
-			],
-			[
-				98666.6666666666,
-				[
-					[
-						"Cam Boom Speed",
-						"0",
-						"0"
-					]
-				]
-			],
-			[
-				120000,
-				[
-					[
-						"Events",
-						"",
-						""
-					]
-				]
-			]
-		],
+		"events": [],
 		"notes": [
 			{
 				"lengthInSteps": 16,
@@ -6253,13 +6132,13 @@
 			}
 		],
 		"gfVersion": "hulkbrgf",
-		"player3": null,
+		"player3": "hulkbrgf",
 		"splashSkin": "noteSplashes",
 		"song": "clickbait",
 		"stage": "clickbait",
 		"validScore": true,
 		"arrowSkin": "",
-		"needsVoices": true,
+		"needsVoices": false,
 		"speed": 2.8,
 		"bpm": 180
 	}

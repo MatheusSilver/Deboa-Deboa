@@ -6883,7 +6883,7 @@
 		],
 		"player3": "invisibru",
 		"song": "Cross-Console-Clash",
-		"needsVoices": true,
+		"needsVoices": false,
 		"sections": 0,
 		"validScore": true,
 		"stage": "console",

@@ -9151,7 +9151,7 @@
 		"song": "prey",
 		"arrowSkin": "",
 		"stage": "starved-pixel",
-		"needsVoices": true,
+		"needsVoices": false,
 		"validScore": true,
 		"speed": 3.5,
 		"bpm": 176

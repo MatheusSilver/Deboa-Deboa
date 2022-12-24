@@ -9,7 +9,6 @@ import Discord.DiscordClient;
 import flixel.FlxG;
 import openfl.utils.Assets as OpenFlAssets;
 import flixel.FlxSprite;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
@@ -26,7 +25,8 @@ class MenuPreHistoria extends MusicBeatState
 {
 	var apertavel:Bool = false;
 
-	var bigmenu:FlxSprite;
+	public static var returnedfromsubstate:Bool = false;
+	public static var bigmenu:FlxSprite;
 	//Eu acho que tenho um probleminha...
 	//Na real... Eu só fiquei muito puto fazendo esse menu, mas no fim deu bom, PONTO PRA GRIFINÓRIA!
 	var bgSprite:FlxSprite;
@@ -45,11 +45,11 @@ class MenuPreHistoria extends MusicBeatState
 		WeekData.reloadWeekFiles(true);
 		if(curWeek >= WeekData.weeksList.length) curWeek = 0;
 
-		bgSprite = new FlxSprite(0, 0);
+		bgSprite = new FlxSprite(-1000, 0);
 		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
-		bigmenu = new FlxSprite(0, 0);
+		bigmenu = new FlxSprite(-1000, 0);
 		bigmenu.antialiasing = ClientPrefs.globalAntialiasing;
-		perfilSprite = new FlxSprite(0, 0);
+		perfilSprite = new FlxSprite(-1000, 0);
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
 		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
@@ -60,12 +60,18 @@ class MenuPreHistoria extends MusicBeatState
 		add(blackbardown);
 		add(perfilSprite);
 
-		changeWeek();
-
 		#if mobileC
 		addVirtualPad(UP_DOWN, A_B);
 		#end
 		super.create();
+	}
+
+	override function closeSubState() {
+		changeWeek();
+		movedBack = false;
+		selectedWeek = false;
+		stopspamming = false; //Super legal :,) Legal demais..................
+		super.closeSubState();
 	}
 
 	override function update(elapsed:Float)
@@ -122,16 +128,25 @@ class MenuPreHistoria extends MusicBeatState
 
 			//Teoricamente, isso deve fazer com que o menu se desfaça uma última vez e dê lugar ao menu de historia...
 			
-			
-			var assetName:String = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]).weekBackground;
-			bigmenu.loadGraphic(Paths.image("Story_Mode/trans/scroll-" + assetName, 'preload'));
+
+			//ALO TEGER, MANDA UM SALVE!!!
+			var weekescolhida:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
+			var assetName:String = weekescolhida.weekBackground;
+			if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'))) {
+				bigmenu.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'));
+			} else {
+				FlxG.log.warn('Não foi possível achar ' + Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'));
+				bigmenu.loadGraphic('assets/images/menuDesat.png');
+			}
+			bigmenu.setGraphicSize(FlxG.width, FlxG.height);
+			bigmenu.screenCenter(XY);
 			FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, 1, {ease: FlxEase.expoInOut});
 			FlxTween.tween(blackbardown, {y: FlxG.height}, 1, {ease: FlxEase.expoInOut});
 			FlxTween.tween(bgSprite, {x: 0 - bgSprite.width}, 1, {ease: FlxEase.expoInOut});
 			FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, 1, {ease: FlxEase.expoInOut});
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
-			FlxG.switchState(new MenuHistoria());
+				openSubState(new MenuHistoria());
 			});
 		}
 
@@ -167,8 +182,7 @@ class MenuPreHistoria extends MusicBeatState
 			} else {
 				FlxG.log.warn('Não foi possível achar ' + "Story_Mode/PERFIL" + assetName);
 			}
-			bigmenu.setGraphicSize(FlxG.width);
-			bigmenu.screenCenter(XY);
+
 			bgSprite.setGraphicSize(FlxG.width);
 			bgSprite.screenCenter(XY);
 			perfilSprite.updateHitbox();
@@ -199,6 +213,9 @@ class MenuPreHistoria extends MusicBeatState
 			onComplete: function(twn:FlxTween) {
 				apertavel = true; //Só pra garantir que a animação de entrada NÃO ocorra ao mesmo tempo que a de saida.
 				bigmenu.loadGraphic(Paths.image("Story_Mode/BIGMENU_" + assetName, 'preload'));
+				bigmenu.setGraphicSize(FlxG.width);
+				bigmenu.screenCenter(XY);
+				bigmenu.alpha = 1;
 			}
 		});
 		//EU DEFINITIVAMENTE NÃO QUERO FALAR SOBRE ESTE CODE... Ass: Sílvio

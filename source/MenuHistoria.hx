@@ -25,7 +25,7 @@ import lime.net.curl.CURLCode;
 
 using StringTools;
 
-class MenuHistoria extends MusicBeatState
+class MenuHistoria extends MusicBeatSubstate
 {
 
 	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
@@ -61,9 +61,9 @@ class MenuHistoria extends MusicBeatState
 		pastbgSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		bgSprite = new FlxSprite(0, 0);
 		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
-		textoSprite = new FlxSprite(0, FlxG.height - 125);
+		textoSprite = new FlxSprite().loadGraphic(Paths.image('nota_invisivel', 'preload'));
 		textoSprite.antialiasing = ClientPrefs.globalAntialiasing;
-		perfilSprite = new FlxSprite(0, 0);
+		perfilSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('nota_invisivel', 'preload'));
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
 		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
@@ -110,10 +110,15 @@ class MenuHistoria extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
-			if (controls.BACK)
+			if (controls.BACK && !movedBack && !selectedWeek)
 				{
-					FlxG.sound.play(Paths.sound('cancelMenu'));
-					MusicBeatState.switchState(new MenuPreHistoria());
+						FlxTween.tween(perfilSprite, {alpha: 0}, 1.0, {ease: FlxEase.expoInOut});
+						FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
+						onComplete: function(twn:FlxTween) {
+							close();
+						}});
+					movedBack = true;
+					curSelected = 0;
 				}
 		
 				else if(FlxG.keys.justPressed.SPACE)
@@ -148,13 +153,6 @@ class MenuHistoria extends MusicBeatState
 			}
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek)
-		{
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			movedBack = true;
-			MusicBeatState.switchState(new MenuPreHistoria());
-		}
-
 		super.update(elapsed);
 	}
 
@@ -182,17 +180,24 @@ class MenuHistoria extends MusicBeatState
 			}
 			trace(poop);
 
+			if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-" + musicas[curSelected].toLowerCase() + " (back)", 'preload'))) {
+				pastbgSprite.loadGraphic(Paths.image("scrolling/scroll-" + WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-" + musicas[curSelected].toLowerCase() + " (back)", 'preload'));
+			} else {
+				FlxG.log.warn('Não foi possível achar ' + Paths.image("scrolling/scroll-" + WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-" + musicas[curSelected].toLowerCase() + " (back)", 'preload'));
+				pastbgSprite.loadGraphic('assets/images/menuDesat.png');
+			}
+			pastbgSprite.setGraphicSize(FlxG.width);
+			pastbgSprite.screenCenter(XY);
+
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = 2;
 
 			FreeplayState.justread = musicas[curSelected];
-
+			MenuPreHistoria.bigmenu.alpha = 0;
 			bgSprite.alpha = 0;
 			PlayState.modohistoria = true;
-			FlxG.log.warn(musicas[curSelected]);
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
-			FlxTween.tween(bgSprite, {alpha: 0}, 1.0, {ease: FlxEase.expoInOut});
 			FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
 			onComplete: function(twn:FlxTween) {
 				FlxTween.tween(pastbgSprite, {alpha: 0}, 1.0,{ease: FlxEase.linear});
@@ -208,17 +213,44 @@ class MenuHistoria extends MusicBeatState
 		}
 
 		function tweenpracima(){
-			FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, 5, {ease: FlxEase.quadInOut,
+			FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, 3, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween) {
 				tweenprabaixo();
 			}});
 		}
 
 		function tweenprabaixo(){
-			FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height - 5}, 5, {ease: FlxEase.quadInOut,
+			FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height - 5}, 3, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween) {
 				tweenpracima();
 			}});
+		}
+
+		function entrada(){
+			var escolhaWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
+			var pasta:String = escolhaWeek.weekBackground;
+			FlxTween.tween(perfilSprite, {y: -FlxG.height}, 0.1, {ease: FlxEase.expoInOut,
+				onComplete: function(twn:FlxTween) {
+					if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
+						perfilSprite.loadGraphic(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
+						perfilSprite.updateHitbox();
+						perfilSprite.screenCenter(X);
+					} else {
+						FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
+					}
+					FlxTween.tween(perfilSprite, {y: 25}, 0.4, {ease: FlxEase.expoInOut,
+						onComplete: function(twn:FlxTween) {
+									if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload'))) { //anti crashing moment 
+										textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload')); 
+										textoSprite.updateHitbox();
+										textoSprite.screenCenter(X);
+									} else {
+										FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)");
+									}
+									tweenpracima();
+						}});	
+				}
+			});	
 		}
 
 	public function changeSong(change:Int = 0, side:Bool = false):Void
@@ -251,9 +283,8 @@ class MenuHistoria extends MusicBeatState
 			}
 
 			bgSprite.screenCenter(XY);
+			bgSprite.setGraphicSize(FlxG.width, FlxG.height);
 			pastbgSprite.screenCenter(XY);
-			perfilSprite.updateHitbox();
-			perfilSprite.y = 25;
 
 			var curtimer:Float = 0.3;
 			FlxTween.tween(bgSprite, {alpha: 1}, curtimer * 2, {ease: FlxEase.expoInOut});
@@ -271,7 +302,7 @@ class MenuHistoria extends MusicBeatState
 					pastbgSprite.alpha = 1;
 				}
 			});
-			if (!side){
+			if (!side && executando){
 			FlxTween.tween(textoSprite, {x: 0 - textoSprite.width}, curtimer, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
 					if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload'))) { //anti crashing moment 
@@ -284,7 +315,6 @@ class MenuHistoria extends MusicBeatState
 					FlxTween.tween(textoSprite, {x: ((FlxG.width - textoSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});
 				}
 			});
-			if(executando){
 			FlxTween.tween(perfilSprite, {x: 0 - perfilSprite.width}, curtimer, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
 					if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
@@ -297,9 +327,7 @@ class MenuHistoria extends MusicBeatState
 					FlxTween.tween(perfilSprite, {x: (FlxG.width - perfilSprite.width) / 2}, curtimer, {ease: FlxEase.expoInOut});
 				}
 			});
-
-			//
-			}} else{
+			} else if (executando) {
 				FlxTween.tween(textoSprite, {x: FlxG.width + textoSprite.width}, curtimer, {ease: FlxEase.expoInOut,
 					onComplete: function(twn:FlxTween) {
 						if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload'))) { //anti crashing moment 
@@ -312,7 +340,6 @@ class MenuHistoria extends MusicBeatState
 						FlxTween.tween(textoSprite, {x: ((FlxG.width - textoSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});
 					}
 				});
-				if(executando){
 				FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, curtimer, {ease: FlxEase.expoInOut,
 					onComplete: function(twn:FlxTween) {
 						if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
@@ -325,19 +352,15 @@ class MenuHistoria extends MusicBeatState
 						FlxTween.tween(perfilSprite, {x: ((FlxG.width - perfilSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});
 					}
 				});	
-			}}
+			}
 			new FlxTimer().start(curtimer * 2 + 0.01, function(tmr:FlxTimer) {
 				if (!executando){
 					executando = true;
 					textoSprite.y = FlxG.height + textoSprite.height;
-					if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
-						perfilSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
-						perfilSprite.updateHitbox();
-					} else {
-						FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
-					}
+					textoSprite.screenCenter(X);
 					perfilSprite.screenCenter(X);
-					tweenpracima();
+					perfilSprite.y = -FlxG.height;
+					entrada();
 					}
 				});
 	}

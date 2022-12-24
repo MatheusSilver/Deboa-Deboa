@@ -230,7 +230,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					if(PlayState.modohistoria) {						
-						MusicBeatState.switchState(new MenuHistoria());
+						MusicBeatState.switchState(new MenuPreHistoria());
 						PlayState.modohistoria = false;
 					} else {
 						MusicBeatState.switchState(new FreeplayState());

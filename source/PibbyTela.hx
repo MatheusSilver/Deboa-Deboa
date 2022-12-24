@@ -21,7 +21,7 @@ class PibbyTela extends MusicBeatState
 
         FlxG.cameras.add(camAchievement);
 		
-		var screen:FlxSprite = new FlxSprite().loadGraphic(Paths.image("PibbyTela"));
+		var screen:FlxSprite = new FlxSprite().loadGraphic(Paths.image("omgcrashou/ModboaFatalAlt"));
 		
 		add(screen);
 

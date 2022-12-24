@@ -29253,7 +29253,7 @@
 			}
 		],
 		"song": "Sink",
-		"needsVoices": true,
+		"needsVoices": false,
 		"stage": "depths",
 		"validScore": true,
 		"bpm": 140,

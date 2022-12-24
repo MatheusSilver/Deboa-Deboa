@@ -1,0 +1,196 @@
+{
+	"song": {
+		"speed": 2.8,
+		"stage": "clickbait",
+		"player1": "hulkbr",
+		"player2": "sonicexesexual",
+		"player3": "hulkbrgf",
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						10666.6666666667,
+						-1,
+						"Add Camera Zoom",
+						"0.04",
+						"0.05"
+					],
+					[
+						11166.6666666667,
+						-1,
+						"Add Camera Zoom",
+						"0.04",
+						"0.05"
+					],
+					[
+						11250,
+						-1,
+						"Add Camera Zoom",
+						"0.04",
+						"0.05"
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						25333.3333333333,
+						-1,
+						"Add Camera Zoom",
+						"0.04",
+						"0.05"
+					],
+					[
+						25416.6666666667,
+						-1,
+						"Add Camera Zoom",
+						"0.04",
+						"0.05"
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						26666.6666666667,
+						-1,
+						"Close Caption",
+						"what a dull face",
+						""
+					],
+					[
+						27916.6666666667,
+						-1,
+						"Add Camera Zoom",
+						"0.04",
+						"0.05"
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						28000,
+						-1,
+						"Close Caption",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						87916.6666666666,
+						-1,
+						"Cam Boom Speed",
+						"1",
+						"2"
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						97333.3333333333,
+						-1,
+						"Close Caption",
+						"enough!",
+						""
+					],
+					[
+						98499.9999999999,
+						-1,
+						"Close Caption",
+						"",
+						""
+					],
+					[
+						98583.3333333333,
+						-1,
+						"Cam Boom Speed",
+						"0",
+						"0"
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						120000,
+						-1,
+						"events",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			}
+		],
+		"splashSkin": "noteSplashes",
+		"validScore": false,
+		"bpm": 180,
+		"arrowSkin": "",
+		"needsVoices": false,
+		"song": "clickbait",
+		"isRing": null
+	}
+}

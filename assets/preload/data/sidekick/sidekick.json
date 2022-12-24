@@ -7087,7 +7087,7 @@
 		"song": "sidekick",
 		"stage": "stage",
 		"validScore": true,
-		"needsVoices": true,
+		"needsVoices": false,
 		"speed": 2.8,
 		"bpm": 182
 	}

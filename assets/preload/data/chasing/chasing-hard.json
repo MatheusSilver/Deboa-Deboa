@@ -1,56 +1,70 @@
 {
 	"song": {
 		"player1": "sonicpixel",
-		"events": [],
-		"gfVersion": "sonico-exe-pixel",
-		"player2": "tailspixel",
 		"notes": [
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						0,
+						-1,
+						"Adicionar Imagens",
+						"",
+						""
+					]
+				],
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeCameraBeat": false,
-				"chromaticAberrationsShader": false,
+				"vignetteShader": false,
 				"mustHitSection": false,
-				"vignetteShader": false
+				"chromaticAberrationsShader": false,
+				"changeCameraBeat": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						12537.3134328358,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chapixel",
+						""
+					]
+				],
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						14776.1194029851,
@@ -66,12 +80,19 @@
 						15671.6417910448,
 						1,
 						335.820895522388
+					],
+					[
+						14776.1194029851,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails1",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						16119.4029850746,
@@ -97,12 +118,19 @@
 						17089.552238806,
 						1,
 						279.850746268657
+					],
+					[
+						16567.1641791045,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails2",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						18358.2089552239,
@@ -128,12 +156,19 @@
 						17985.0746268657,
 						0,
 						0
+					],
+					[
+						18470.1492537313,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails3",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						21044.776119403,
@@ -156,10 +191,10 @@
 						391.791044776119
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						21492.5373134328,
@@ -185,12 +220,19 @@
 						23059.7014925373,
 						3,
 						335.820895522388
+					],
+					[
+						22164.1791044776,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic1",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						23507.4626865672,
@@ -216,12 +258,19 @@
 						24738.8059701493,
 						3,
 						0
+					],
+					[
+						23955.223880597,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic2",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						25074.6268656716,
@@ -252,12 +301,19 @@
 						25298.5074626866,
 						2,
 						0
+					],
+					[
+						25746.2686567164,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic3",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						27201.4925373134,
@@ -288,12 +344,19 @@
 						28544.776119403,
 						2,
 						0
+					],
+					[
+						28320.8955223881,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic4",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						28768.6567164179,
@@ -319,12 +382,19 @@
 						29552.2388059702,
 						2,
 						1119.40298507463
+					],
+					[
+						29552.2388059702,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails4",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						31007.4626865672,
@@ -340,12 +410,19 @@
 						31343.2835820896,
 						1,
 						1343.28358208955
+					],
+					[
+						30895.5223880597,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails5",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						33134.328358209,
@@ -356,12 +433,19 @@
 						33582.0895522388,
 						3,
 						335.820895522388
+					],
+					[
+						33134.328358209,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails6",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						35373.1343283582,
@@ -382,12 +466,19 @@
 						35037.3134328358,
 						1,
 						223.880597014925
+					],
+					[
+						35597.0149253731,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails7",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						35932.8358208955,
@@ -413,12 +504,19 @@
 						36940.2985074627,
 						2,
 						1231.34328358209
+					],
+					[
+						36940.2985074627,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic5",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						38283.5820895522,
@@ -451,10 +549,10 @@
 						783.582089552239
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						41082.0895522388,
@@ -490,12 +588,19 @@
 						40634.328358209,
 						2,
 						335.820895522388
+					],
+					[
+						40634.328358209,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic6",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						41529.8507462687,
@@ -533,10 +638,10 @@
 						335.820895522388
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						44328.3582089552,
@@ -572,12 +677,19 @@
 						42985.0746268657,
 						0,
 						559.701492537313
+					],
+					[
+						43992.5373134328,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails10",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						44776.1194029851,
@@ -658,12 +770,19 @@
 						46119.4029850746,
 						3,
 						0
+					],
+					[
+						45559.7014925373,
+						-1,
+						"Image Flash",
+						"0, 0, 10",
+						"blackscreen, other, 6s"
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						46567.1641791045,
@@ -674,57 +793,126 @@
 						46567.1641791045,
 						0,
 						279.850746268657
+					],
+					[
+						47238.8059701493,
+						-1,
+						"Adicionar Imagens",
+						"",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [],
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						54850.7462686567,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						53731.3432835821,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic",
+						""
+					]
+				],
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						56194.0298507463,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					]
+				],
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						57649.2537313433,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						58992.5373134328,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					]
+				],
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						60335.8208955224,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					]
+				],
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						61679.1044776119,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					]
+				],
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [],
 				"lengthInSteps": 16,
+				"sectionNotes": [
+					[
+						63134.3283582089,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					]
+				],
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						65932.8358208955,
@@ -735,12 +923,33 @@
 						66044.776119403,
 						3,
 						0
+					],
+					[
+						64477.6119402985,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						64589.5522388059,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails",
+						""
+					],
+					[
+						65932.8358208955,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails11",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						66268.6567164179,
@@ -786,14 +995,21 @@
 						67518.6567164179,
 						0,
 						0
+					],
+					[
+						67185.3233830846,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails12",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"changeBPM": true,
 				"bpm": 180,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						67685.3233830845,
@@ -824,12 +1040,19 @@
 						68768.6567164179,
 						3,
 						0
+					],
+					[
+						68518.6567164179,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails13",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						69185.3233830845,
@@ -875,12 +1098,19 @@
 						70101.9900497512,
 						1,
 						0
+					],
+					[
+						70018.6567164179,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails14",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						70518.6567164179,
@@ -916,12 +1146,19 @@
 						71351.9900497512,
 						7,
 						0
+					],
+					[
+						71351.9900497512,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic7",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						71601.9900497512,
@@ -957,12 +1194,19 @@
 						72685.3233830845,
 						5,
 						111.940298507463
+					],
+					[
+						72351.9900497512,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic8",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						73018.6567164179,
@@ -1008,12 +1252,19 @@
 						73935.3233830845,
 						0,
 						0
+					],
+					[
+						73685.3233830845,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic9",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						74768.6567164179,
@@ -1056,10 +1307,10 @@
 						0
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						75768.6567164179,
@@ -1105,12 +1356,19 @@
 						76851.9900497512,
 						1,
 						503.731343283582
+					],
+					[
+						75768.6567164179,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic10",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						76935.3233830845,
@@ -1151,12 +1409,26 @@
 						78185.3233830845,
 						4,
 						279.850746268657
+					],
+					[
+						76935.3233830845,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails15",
+						""
+					],
+					[
+						77851.9900497512,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails16",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						78601.9900497512,
@@ -1204,10 +1476,10 @@
 						0
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						79601.9900497512,
@@ -1248,12 +1520,19 @@
 						80685.3233830845,
 						0,
 						279.850746268657
+					],
+					[
+						79601.9900497512,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails17",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						81018.6567164178,
@@ -1276,10 +1555,10 @@
 						0
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						82268.6567164178,
@@ -1315,12 +1594,26 @@
 						83518.6567164178,
 						6,
 						0
+					],
+					[
+						82268.6567164178,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic11",
+						""
+					],
+					[
+						83268.6567164178,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic12",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						83601.9900497512,
@@ -1358,10 +1651,10 @@
 						167.910447761194
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						85018.6567164178,
@@ -1417,12 +1710,19 @@
 						86018.6567164178,
 						0,
 						0
+					],
+					[
+						85018.6567164178,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic13",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						86351.9900497511,
@@ -1445,10 +1745,10 @@
 						671.641791044776
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						87935.3233830845,
@@ -1489,12 +1789,19 @@
 						88851.9900497511,
 						5,
 						0
+					],
+					[
+						87851.9900497511,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails11",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						89018.6567164178,
@@ -1545,12 +1852,19 @@
 						89268.6567164178,
 						3,
 						0
+					],
+					[
+						89185.3233830845,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails12",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						90268.6567164178,
@@ -1596,12 +1910,19 @@
 						91518.6567164178,
 						2,
 						0
+					],
+					[
+						90518.6567164178,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails13",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						91935.3233830845,
@@ -1647,12 +1968,19 @@
 						92268.6567164178,
 						0,
 						0
+					],
+					[
+						91935.3233830845,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails14",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						92935.3233830845,
@@ -1703,12 +2031,19 @@
 						94101.9900497511,
 						7,
 						0
+					],
+					[
+						93185.3233830845,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic7",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						94435.3233830845,
@@ -1749,12 +2084,19 @@
 						94268.6567164178,
 						0,
 						0
+					],
+					[
+						94268.6567164178,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic8",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						96768.6567164178,
@@ -1795,12 +2137,19 @@
 						96685.3233830844,
 						3,
 						0
+					],
+					[
+						95685.3233830844,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic9",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						97101.9900497511,
@@ -1841,12 +2190,19 @@
 						97601.9900497511,
 						0,
 						0
+					],
+					[
+						97768.6567164178,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic10",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						98435.3233830844,
@@ -1887,12 +2243,19 @@
 						98268.6567164178,
 						1,
 						0
+					],
+					[
+						98768.6567164178,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails18",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
 					[
 						99935.3233830844,
@@ -1923,20 +2286,20 @@
 						100768.656716418,
 						3,
 						0
+					],
+					[
+						100601.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails19",
+						""
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
+				"lengthInSteps": 16,
 				"sectionNotes": [
-					[
-						101601.990049751,
-						2,
-						0,
-						"Alt Animation",
-						false
-					],
 					[
 						101768.656716418,
 						1,
@@ -1976,9 +2339,20 @@
 						101935.323383084,
 						3,
 						0
+					],
+					[
+						101518.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails20",
+						""
+					],
+					[
+						101601.990049751,
+						2,
+						0
 					]
 				],
-				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
@@ -2021,10 +2395,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 150,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2067,14 +2441,21 @@
 						104601.990049751,
 						7,
 						279.850746268657
+					],
+					[
+						104268.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic14",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2122,14 +2503,21 @@
 						106185.323383084,
 						1,
 						0
+					],
+					[
+						105268.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic15",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2177,14 +2565,21 @@
 						107518.656716418,
 						3,
 						0
+					],
+					[
+						106935.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic16",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2231,10 +2626,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2302,14 +2697,28 @@
 						110185.323383084,
 						4,
 						0
+					],
+					[
+						109768.656716418,
+						-1,
+						"CameraZoom",
+						"1",
+						"2s"
+					],
+					[
+						109772.12893864,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails21",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2372,14 +2781,28 @@
 						111435.323383084,
 						1,
 						0
+					],
+					[
+						111101.990049751,
+						-1,
+						"CameraZoom",
+						"1.2",
+						"2s"
+					],
+					[
+						110601.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails22",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2447,14 +2870,28 @@
 						112851.990049751,
 						1,
 						0
+					],
+					[
+						112518.656716418,
+						-1,
+						"CameraZoom",
+						"1.4",
+						"2s"
+					],
+					[
+						111935.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails23",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2517,14 +2954,28 @@
 						114060.323383084,
 						1,
 						0
+					],
+					[
+						113851.990049751,
+						-1,
+						"CameraZoom",
+						"1.6",
+						"2s"
+					],
+					[
+						113351.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails24",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 154,
 				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 154
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2597,14 +3048,42 @@
 						114768.656716418,
 						1,
 						0
+					],
+					[
+						114601.990049751,
+						-1,
+						"Add Camera Zoom",
+						"",
+						""
+					],
+					[
+						115185.323383084,
+						-1,
+						"CameraZoom",
+						"1",
+						"2s"
+					],
+					[
+						114685.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails25",
+						""
+					],
+					[
+						115226.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic17",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 154
+				"bpm": 154,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2667,14 +3146,28 @@
 						116893.656716418,
 						0,
 						0
+					],
+					[
+						116601.990049751,
+						-1,
+						"CameraZoom",
+						"1.2",
+						"2s"
+					],
+					[
+						116185.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic18",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2727,14 +3220,28 @@
 						117976.990049751,
 						2,
 						0
+					],
+					[
+						117935.323383084,
+						-1,
+						"CameraZoom",
+						"1.4",
+						"2s"
+					],
+					[
+						117435.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic19",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2782,14 +3289,28 @@
 						119435.323383084,
 						2,
 						0
+					],
+					[
+						119351.990049751,
+						-1,
+						"CameraZoom",
+						"1.6",
+						"2s"
+					],
+					[
+						118768.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic20",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2857,14 +3378,35 @@
 						120685.323383084,
 						5,
 						0
+					],
+					[
+						120685.323383084,
+						-1,
+						"Add Camera Zoom",
+						"",
+						""
+					],
+					[
+						120688.795605307,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails26",
+						""
+					],
+					[
+						120101.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic21",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2917,14 +3459,21 @@
 						122018.656716418,
 						6,
 						0
+					],
+					[
+						121601.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails27",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2982,14 +3531,21 @@
 						123435.323383084,
 						5,
 						0
+					],
+					[
+						123018.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails28",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3047,14 +3603,21 @@
 						124768.656716418,
 						6,
 						0
+					],
+					[
+						124351.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails29",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3117,14 +3680,28 @@
 						126101.990049751,
 						1,
 						0
+					],
+					[
+						125685.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails30",
+						""
+					],
+					[
+						126101.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic22",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3182,14 +3759,21 @@
 						127518.656716418,
 						0,
 						0
+					],
+					[
+						127018.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic23",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3242,14 +3826,21 @@
 						128810.323383084,
 						0,
 						0
+					],
+					[
+						128435.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic24",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3307,14 +3898,21 @@
 						130185.323383084,
 						2,
 						0
+					],
+					[
+						129768.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic25",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3386,10 +3984,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3467,14 +4065,35 @@
 						131726.990049751,
 						4,
 						0
+					],
+					[
+						131731.156716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails30",
+						""
+					],
+					[
+						131601.990049751,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						132435.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic26",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 134
+				"bpm": 134,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3557,14 +4176,35 @@
 						134185.323383084,
 						2,
 						0
+					],
+					[
+						132935.323383084,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						133018.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails31",
+						""
+					],
+					[
+						133685.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic27",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
 				"bpm": 134,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3652,14 +4292,35 @@
 						135518.656716418,
 						3,
 						0
+					],
+					[
+						134268.656716418,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						134310.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chatails32",
+						""
+					],
+					[
+						135018.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic28",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 134,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3742,14 +4403,35 @@
 						136851.990049751,
 						2,
 						0
+					],
+					[
+						135768.656716418,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						135851.990049751,
+						-1,
+						"Adicionar Imagens",
+						"3letras/chasing/chatails33",
+						""
+					],
+					[
+						136435.323383084,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic29",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 134,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3837,14 +4519,35 @@
 						138185.323383084,
 						3,
 						0
+					],
+					[
+						137185.323383084,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						137268.656716418,
+						-1,
+						"Adicionar Imagens",
+						"3letras/chasing/chatails34",
+						""
+					],
+					[
+						137768.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic30",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 134,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3932,14 +4635,35 @@
 						139518.656716418,
 						0,
 						0
+					],
+					[
+						138601.990049751,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						138643.656716418,
+						-1,
+						"Adicionar Imagens",
+						"3letras/chasing/chatails35",
+						""
+					],
+					[
+						139143.656716418,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic31",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 134,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4022,14 +4746,35 @@
 						140851.990049751,
 						0,
 						0
+					],
+					[
+						139851.990049751,
+						-1,
+						"Flash Camera",
+						"1s",
+						""
+					],
+					[
+						139935.323383084,
+						-1,
+						"Adicionar Imagens",
+						"3letras/chasing/chatails36",
+						""
+					],
+					[
+						140601.990049751,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic32",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 134,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4172,14 +4917,21 @@
 						141268.656716418,
 						1,
 						0
+					],
+					[
+						141351.990049751,
+						-1,
+						"Adicionar Imagens",
+						"3letras/chasing/chatails37",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
 				"bpm": 134,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4246,10 +4998,37 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 134,
 				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 134
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [
+					[
+						144768.656716418,
+						-1,
+						"Adicionar Imagens",
+						"",
+						""
+					]
+				],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 134
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4265,10 +5044,10 @@
 				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 134,
 				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 134
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4284,47 +5063,171 @@
 				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 134,
 				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 134
 			},
 			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
+				"sectionBeats": 4,
 				"sectionNotes": [],
+				"typeOfSection": 0,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 134
+			},
+			{
 				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
 				"bpm": 134,
 				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 134,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 134
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 134
 			},
 			{
 				"gfSection": false,
+				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
 				"bpm": 134,
-				"sectionBeats": 4,
 				"changeBPM": false,
 				"mustHitSection": true
 			}
 		],
+		"player2": "tailspixel",
+		"gfVersion": "sonico-exe-pixel",
+		"events": [],
 		"player3": "sonico-exe-pixel",
 		"song": "chasing",
-		"stage": "chasing",
-		"needsVoices": false,
 		"validScore": true,
-		"bpm": 134,
-		"speed": 2.8
+		"needsVoices": false,
+		"stage": "chasing",
+		"speed": 2.8,
+		"bpm": 134
 	}
 }

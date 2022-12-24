@@ -68,12 +68,12 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/hulkbr/SonicEXE_Sexy_Assets",
+	"image": "characters/SonicEXE_Sexy_Assets",
 	"position": [
 		-130,
 		110
 	],
-	"healthicon": "sonic",
+	"healthicon": "sonicdosexo",
 	"flip_x": false,
 	"healthbar_colors": [
 		87,

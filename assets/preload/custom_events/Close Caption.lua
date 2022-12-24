@@ -8,6 +8,12 @@ function onEvent(n, v1, v2)
         setTextAlignment('text', 'center');
         setObjectOrder('text', 99)
         setTextSize('text', 30);  
+		if songName == 'rapidaum' then
+            setTextFont('text', 'Comic.ttf'); 
+        elseif songName == 'Kindness' then
+            setTextFont('text', 'Arial.ttf');
+            setTextColor('text', 'fbff00');
+            setTextSize('text', 40);  
         end
         addLuaText('text')
     end

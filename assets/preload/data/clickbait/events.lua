@@ -5,7 +5,7 @@ function onCreate()
     setObjectCamera('blckfade', 'other')
 	addLuaSprite('blckfade', false);
 
-    makeLuaSprite('fleeplay', 'EXTRAS/fleeplay', 0, 0);
+    makeLuaSprite('fleeplay', 'fleeplay', 0, 0);
     setObjectCamera('fleeplay', 'other')
     scaleObject('fleeplay', 1.0,1.0)
     screenCenter('fleeplay');
@@ -18,7 +18,7 @@ function onSongStart()
 end
 
 function onEvent(name, value1, value2)
-	if name == "Events" then
+	if name == "events" then
 		doTweenAlpha('fadeOFF', 'blckfade', 1, 1, 'linear');
 		doTweenZoom('zoom', 'camGame', 10, 1, 'linear')
     end

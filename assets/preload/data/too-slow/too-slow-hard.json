@@ -1,6 +1,6 @@
 {
 	"song": {
-		"player1": "bf",
+		"player1": "bfExe",
 		"events": [],
 		"gfVersion": "gf",
 		"player2": "sonicP1",
@@ -82,7 +82,15 @@
 			},
 			{
 				"lengthInSteps": 16,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						26666.6666666667,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe",
+						""
+					]
+				],
 				"mustHitSection": true
 			},
 			{
@@ -107,6 +115,13 @@
 						29777.7777777778,
 						2,
 						333.333333333333
+					],
+					[
+						28444.4444444444,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe1",
+						""
 					]
 				],
 				"mustHitSection": false
@@ -149,6 +164,13 @@
 						32000,
 						2,
 						1222.22222222222
+					],
+					[
+						33333.3333333333,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe2",
+						""
 					]
 				],
 				"mustHitSection": false
@@ -234,6 +256,13 @@
 						44000,
 						2,
 						333.333333333333
+					],
+					[
+						42666.6666666667,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"mustHitSection": true
@@ -360,6 +389,13 @@
 						58222.2222222222,
 						2,
 						333.333333333333
+					],
+					[
+						56888.8888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe3",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -400,6 +436,13 @@
 						60000,
 						2,
 						333.333333333333
+					],
+					[
+						58666.6666666667,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe4",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -420,6 +463,13 @@
 						61777.7777777778,
 						2,
 						333.333333333333
+					],
+					[
+						61777.7777777778,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe5",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -529,6 +579,13 @@
 						72444.4444444444,
 						2,
 						333.333333333333
+					],
+					[
+						71111.1111111112,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -673,6 +730,13 @@
 						84555.5555555556,
 						1,
 						0
+					],
+					[
+						84555.5555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe41",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -688,37 +752,37 @@
 						84888.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						85138.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						85388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						85638.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						85888.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						86138.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -754,6 +818,13 @@
 						87472.2222222223,
 						1,
 						0
+					],
+					[
+						86972.2222222223,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe6",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -814,6 +885,13 @@
 						88805.5555555556,
 						1,
 						0
+					],
+					[
+						88305.5555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe7",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -879,6 +957,13 @@
 						90055.5555555556,
 						0,
 						0
+					],
+					[
+						89638.8888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe8",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -949,6 +1034,13 @@
 						91472.2222222223,
 						3,
 						0
+					],
+					[
+						90972.2222222223,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe9",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1004,7 +1096,14 @@
 						92638.8888888889,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						92305.5555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1050,19 +1149,19 @@
 						92972.2222222223,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						93472.2222222223,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						94138.8888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -1123,13 +1222,13 @@
 						94805.5555555556,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						95222.2222222223,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -1190,13 +1289,13 @@
 						95972.2222222223,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						96722.2222222223,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -1257,6 +1356,13 @@
 						97472.2222222222,
 						2,
 						0
+					],
+					[
+						97638.8888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe10",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1317,6 +1423,13 @@
 						99138.8888888889,
 						2,
 						0
+					],
+					[
+						98972.2222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe11",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1377,6 +1490,13 @@
 						100805.555555556,
 						2,
 						0
+					],
+					[
+						100305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe12",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1437,6 +1557,13 @@
 						102138.888888889,
 						1,
 						0
+					],
+					[
+						101638.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe13",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1497,7 +1624,14 @@
 						103055.555555556,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						102972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1553,13 +1687,13 @@
 						103972.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						104388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -1615,13 +1749,13 @@
 						105472.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						105805.555555556,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -1677,13 +1811,13 @@
 						106305.555555556,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						107472.222222222,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -1744,7 +1878,14 @@
 						108138.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						108305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe14",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1790,6 +1931,13 @@
 						109972.222222222,
 						2,
 						250
+					],
+					[
+						109972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe15",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1905,6 +2053,13 @@
 						112805.555555556,
 						3,
 						0
+					],
+					[
+						112138.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe16",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1960,7 +2115,14 @@
 						114138.888888889,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						113638.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -2006,7 +2168,7 @@
 						114555.555555556,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -2057,19 +2219,19 @@
 						115638.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						115972.222222222,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						116472.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -2120,13 +2282,13 @@
 						117222.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						117805.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -2202,13 +2364,20 @@
 						118472.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						119472.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						118972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe17",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -2309,13 +2478,20 @@
 						120305.555555556,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						120638.888888889,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						120055.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe18",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -2441,7 +2617,14 @@
 						122138.888888889,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						121472.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe19",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -2547,7 +2730,21 @@
 						123305.555555555,
 						7,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						122805.555555555,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe20",
+						""
+					],
+					[
+						123388.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe21",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -2658,13 +2855,20 @@
 						124472.222222222,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						124722.222222222,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						124305.555555555,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -2740,25 +2944,25 @@
 						124972.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						125222.222222222,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						125555.555555555,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						126138.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -2829,31 +3033,31 @@
 						126388.888888889,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						126888.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						127305.555555555,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						127388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						127472.222222222,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -2934,19 +3138,19 @@
 						127722.222222222,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						128055.555555555,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						128472.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -3002,7 +3206,7 @@
 						129138.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -3111,6 +3315,13 @@
 						140805.555555556,
 						3,
 						0
+					],
+					[
+						140305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe22",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3246,6 +3457,13 @@
 						143472.222222222,
 						3,
 						0
+					],
+					[
+						142305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe23",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3296,6 +3514,13 @@
 						144805.555555556,
 						3,
 						0
+					],
+					[
+						143805.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe24",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3376,13 +3601,20 @@
 						145805.555555556,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						145972.222222222,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						145638.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3423,19 +3655,19 @@
 						146638.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						146972.222222222,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						147472.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -3496,37 +3728,37 @@
 						147805.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						147972.222222222,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						148222.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						148305.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						148555.555555556,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						148638.888888889,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -3572,13 +3804,13 @@
 						149138.888888889,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						149805.555555556,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -3644,19 +3876,26 @@
 						150472.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						150638.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						150888.888888889,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						150972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe25",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3737,6 +3976,13 @@
 						152055.555555556,
 						0,
 						0
+					],
+					[
+						152305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe26",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3812,6 +4058,13 @@
 						153972.222222222,
 						2,
 						0
+					],
+					[
+						153555.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe27",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3887,6 +4140,13 @@
 						155138.888888889,
 						1,
 						0
+					],
+					[
+						154472.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe28",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -3962,13 +4222,20 @@
 						156555.555555556,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						156638.888888889,
 						7,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						156305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -4034,25 +4301,25 @@
 						157222.222222222,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						157472.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						157805.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						158055.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -4118,25 +4385,25 @@
 						158388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						158472.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						158805.555555556,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						159305.555555556,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -4202,25 +4469,25 @@
 						159638.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						159888.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						160138.888888889,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						160472.222222222,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -4291,13 +4558,20 @@
 						161055.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						161388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						161638.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe29",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -4348,6 +4622,20 @@
 						163472.222222222,
 						3,
 						0
+					],
+					[
+						162305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe30",
+						""
+					],
+					[
+						162972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe31",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -4413,6 +4701,20 @@
 						164805.555555556,
 						3,
 						0
+					],
+					[
+						163555.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe31",
+						""
+					],
+					[
+						164305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe32",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -4503,6 +4805,20 @@
 						165972.222222222,
 						0,
 						0
+					],
+					[
+						165055.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe33",
+						""
+					],
+					[
+						165805.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe34",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -4578,6 +4894,13 @@
 						166888.888888889,
 						3,
 						0
+					],
+					[
+						166972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -4623,13 +4946,13 @@
 						168305.555555556,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						168638.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -4675,31 +4998,31 @@
 						169138.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						169472.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						169722.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						169888.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						170138.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -4770,31 +5093,31 @@
 						170388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						170722.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						170888.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						171138.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						171388.888888889,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -4885,6 +5208,13 @@
 						172805.555555556,
 						6,
 						0
+					],
+					[
+						172305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe35",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -4965,19 +5295,26 @@
 						173638.888888889,
 						4,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						173805.555555556,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						174055.555555556,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						173638.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -5083,31 +5420,38 @@
 						174222.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						174555.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						174805.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						175138.888888889,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						175388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						174972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe36",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -5248,43 +5592,50 @@
 						175555.555555556,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						175722.222222222,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						176055.555555556,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						176138.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						176388.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						176472.222222222,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						176722.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						176305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe37",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -5410,19 +5761,26 @@
 						177055.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						177305.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						177472.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						177638.888888889,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe38",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -5483,43 +5841,50 @@
 						178972.222222222,
 						4,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						179055.555555556,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						179138.888888889,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						179222.222222222,
 						7,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						179305.555555556,
 						4,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						179388.888888889,
 						5,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						179472.222222222,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						178972.222222222,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -5615,43 +5980,50 @@
 						179555.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						179805.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						180055.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						180138.888888889,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						180305.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						180472.222222222,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						180722.222222222,
 						2,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						180305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe39",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -5792,43 +6164,50 @@
 						180888.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						181222.222222223,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						181305.555555556,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						181388.888888889,
 						0,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						181555.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						181888.888888889,
 						3,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						182055.555555556,
 						1,
 						0,
-						"Static Note"
+						"staticNotes"
+					],
+					[
+						181555.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe40",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -5874,19 +6253,19 @@
 						182222.222222223,
 						7,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						182388.888888889,
 						4,
 						0,
-						"Static Note"
+						"staticNotes"
 					],
 					[
 						182638.888888889,
 						6,
 						0,
-						"Static Note"
+						"staticNotes"
 					]
 				],
 				"typeOfSection": 0,
@@ -5917,7 +6296,15 @@
 			{
 				"lengthInSteps": 16,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						187305.555555556,
+						-1,
+						"Adicionar Imagens",
+						"letras/too-slow/sonicexe",
+						""
+					]
+				],
 				"altAnim": false,
 				"bpm": 135,
 				"changeBPM": false,
@@ -6104,14 +6491,44 @@
 				"bpm": 135
 			},
 			{
-				"gfSection": false,
 				"lengthInSteps": 16,
-				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
 				"bpm": 135,
 				"changeBPM": false,
 				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 135,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 135,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 135
 			},
 			{
 				"gfSection": false,
@@ -6139,7 +6556,7 @@
 		"song": "Too Slow",
 		"stage": "too-slow",
 		"validScore": true,
-		"needsVoices": true,
+		"needsVoices": false,
 		"speed": 3.2,
 		"bpm": 135,
 		"noteStyle": null

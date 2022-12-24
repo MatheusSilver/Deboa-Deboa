@@ -2,7 +2,6 @@
 	"song": {
 		"player1": "bfpa",
 		"gfVersion": "gfpa",
-		"player3": "gfpa",
 		"notes": [
 			{
 				"sectionNotes": [],
@@ -35,7 +34,36 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						5142.85714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						5571.42857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						6000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						6428.57142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -45,7 +73,36 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						6857.14285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						7500,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						8142.85714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						8357.14285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -55,7 +112,29 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						8785.71428571428,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						9000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						9857.14285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -65,7 +144,36 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						10285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						10928.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						11571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						11785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -75,7 +183,22 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						12214.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						12428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -85,7 +208,36 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						13714.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						14357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						15000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						15214.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -95,7 +247,29 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						15642.8571428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						15857.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						16714.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -105,7 +279,36 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						17142.8571428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						17785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						18428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						18642.8571428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -115,7 +318,29 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						18857.1428571429,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy",
+						""
+					],
+					[
+						19071.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						19285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -160,6 +385,48 @@
 						22071.4285714286,
 						2,
 						0
+					],
+					[
+						20571.4285714286,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy1",
+						""
+					],
+					[
+						21214.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						22071.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						20575.8928571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						21861.6071428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						21857.1428571429,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy2",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -191,6 +458,27 @@
 						23571.4285714286,
 						1,
 						0
+					],
+					[
+						22500,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						22714.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						23571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -237,6 +525,41 @@
 						25500,
 						2,
 						535.714285714286
+					],
+					[
+						24000,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/bf",
+						""
+					],
+					[
+						24004.4642857143,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						24642.8571428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						25285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						25500,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -268,6 +591,20 @@
 						27000,
 						1,
 						321.428571428571
+					],
+					[
+						25928.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						26142.8571428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -319,6 +656,48 @@
 						28928.5714285714,
 						0,
 						0
+					],
+					[
+						27428.5714285714,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy3",
+						""
+					],
+					[
+						28928.5714285714,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy4",
+						""
+					],
+					[
+						27433.0357142857,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						28933.0357142857,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						28071.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						28714.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -370,6 +749,27 @@
 						30642.8571428571,
 						0,
 						0
+					],
+					[
+						29357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						29571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						30428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -421,6 +821,41 @@
 						32357.1428571429,
 						0,
 						0
+					],
+					[
+						30857.1428571429,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/bf",
+						""
+					],
+					[
+						30861.6071428571,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						31500,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						32142.8571428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						32357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -472,6 +907,20 @@
 						34071.4285714286,
 						0,
 						0
+					],
+					[
+						32785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						33000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -523,6 +972,48 @@
 						35785.7142857143,
 						0,
 						0
+					],
+					[
+						34285.7142857143,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy5",
+						""
+					],
+					[
+						35571.4285714286,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy6",
+						""
+					],
+					[
+						34290.1785714286,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						35575.8928571429,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						34928.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						35785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -574,6 +1065,27 @@
 						37500,
 						1,
 						0
+					],
+					[
+						36214.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						36428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						37285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -625,6 +1137,41 @@
 						39214.2857142857,
 						0,
 						0
+					],
+					[
+						37714.2857142857,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/bf",
+						""
+					],
+					[
+						37718.75,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						38357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						39000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						39214.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -676,6 +1223,20 @@
 						40928.5714285714,
 						1,
 						0
+					],
+					[
+						39642.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						39857.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -702,6 +1263,34 @@
 						42428.5714285714,
 						0,
 						529.411764705882
+					],
+					[
+						41142.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						41785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						42428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						42642.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -723,6 +1312,27 @@
 						43714.2857142857,
 						3,
 						705.882352941176
+					],
+					[
+						43071.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						43285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						44142.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -764,6 +1374,13 @@
 						45214.2857142857,
 						2,
 						0
+					],
+					[
+						44571.4285714286,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy7",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -856,6 +1473,41 @@
 						49392.8571428572,
 						0,
 						0
+					],
+					[
+						48000,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy8",
+						""
+					],
+					[
+						48004.4642857143,
+						-1,
+						"Add Camera Zoom",
+						"2",
+						"0.1"
+					],
+					[
+						48642.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						49285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						49500,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -917,6 +1569,41 @@
 						51321.4285714286,
 						2,
 						0
+					],
+					[
+						49714.2857142857,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy9",
+						""
+					],
+					[
+						51000,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy10",
+						""
+					],
+					[
+						51004.4642857143,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						49928.5714285715,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						50142.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -983,6 +1670,41 @@
 						52928.5714285715,
 						2,
 						0
+					],
+					[
+						52928.5714285715,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy11",
+						""
+					],
+					[
+						52933.0357142857,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						51428.5714285715,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						52071.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						52714.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1024,6 +1746,20 @@
 						54428.5714285715,
 						1,
 						0
+					],
+					[
+						53357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						53571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1075,6 +1811,41 @@
 						56357.1428571429,
 						0,
 						0
+					],
+					[
+						54857.1428571429,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/bf",
+						""
+					],
+					[
+						54861.6071428572,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						55500,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						56142.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						56357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1131,6 +1902,27 @@
 						57857.1428571429,
 						3,
 						0
+					],
+					[
+						56785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						57000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						57857.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1182,6 +1974,34 @@
 						59785.7142857143,
 						3,
 						0
+					],
+					[
+						58285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						58928.5714285715,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						59571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						59785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1233,6 +2053,20 @@
 						61500,
 						3,
 						0
+					],
+					[
+						60214.2857142858,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						60428.5714285715,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1264,6 +2098,20 @@
 						62571.4285714286,
 						7,
 						705.882352941176
+					],
+					[
+						61714.2857142858,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy12",
+						""
+					],
+					[
+						61718.75,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1306,6 +2154,13 @@
 						66000.0000000001,
 						0,
 						267.857142857143
+					],
+					[
+						65142.8571428572,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy13",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1353,6 +2208,13 @@
 						69428.5714285715,
 						0,
 						705.882352941176
+					],
+					[
+						68571.4285714286,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/bf",
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -1380,7 +2242,15 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						72000,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy",
+						""
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -1390,7 +2260,15 @@
 				"bpm": 85
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						75107.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -1480,6 +2358,48 @@
 						76928.5714285715,
 						3,
 						0
+					],
+					[
+						75428.5714285715,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy14",
+						""
+					],
+					[
+						76285.7142857143,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy15",
+						""
+					],
+					[
+						75433.0357142858,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						76071.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						76714.2857142858,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						76928.5714285715,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1571,6 +2491,41 @@
 						78750,
 						0,
 						0
+					],
+					[
+						77142.8571428572,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy16",
+						""
+					],
+					[
+						78000,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy17",
+						""
+					],
+					[
+						77357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						77571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						78428.5714285715,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1662,6 +2617,41 @@
 						80357.1428571429,
 						3,
 						0
+					],
+					[
+						78857.1428571429,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/bf",
+						""
+					],
+					[
+						78866.0714285714,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						79500,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						80142.8571428572,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						80357.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1753,6 +2743,20 @@
 						82178.5714285715,
 						0,
 						0
+					],
+					[
+						80785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						81000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1779,6 +2783,34 @@
 						83678.5714285714,
 						3,
 						0
+					],
+					[
+						82285.7142857143,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy18",
+						""
+					],
+					[
+						82290.1785714286,
+						-1,
+						"Cinematics",
+						"2",
+						"0.5"
+					],
+					[
+						83571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						83785.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1805,6 +2837,20 @@
 						85285.7142857143,
 						3,
 						321.428571428571
+					],
+					[
+						84000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						84428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1831,6 +2877,34 @@
 						87000,
 						0,
 						0
+					],
+					[
+						86357.1428571429,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/amy19",
+						""
+					],
+					[
+						85714.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						87000,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						87214.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1862,6 +2936,20 @@
 						88714.2857142857,
 						3,
 						0
+					],
+					[
+						87428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						87857.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1888,6 +2976,34 @@
 						90428.5714285714,
 						3,
 						267.857142857143
+					],
+					[
+						89142.8571428571,
+						-1,
+						"Adicionar Imagens",
+						"letras/possessed/bf",
+						""
+					],
+					[
+						89147.3214285714,
+						-1,
+						"Add Camera Zoom",
+						"1",
+						"0.03"
+					],
+					[
+						90428.5714285714,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						90642.8571428571,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1914,6 +3030,20 @@
 						92142.8571428571,
 						0,
 						321.428571428571
+					],
+					[
+						90857.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						91285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1940,6 +3070,27 @@
 						93857.1428571429,
 						0,
 						321.428571428571
+					],
+					[
+						92571.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						93857.1428571429,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						94071.4285714286,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"typeOfSection": 0,
@@ -1973,6 +3124,20 @@
 						95571.4285714286,
 						3,
 						321.428571428571
+					],
+					[
+						94285.7142857143,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
+					],
+					[
+						94714.2857142857,
+						-1,
+						"Add Camera Zoom",
+						"0.030",
+						"0.03"
 					]
 				],
 				"altAnim": false,
@@ -1982,7 +3147,15 @@
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						96000,
+						-1,
+						"Adicionar Imagens",
+						"",
+						""
+					]
+				],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"gfSection": false,
@@ -2102,22 +3275,82 @@
 				"bpm": 140
 			},
 			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
 				"gfSection": false,
+				"bpm": 140,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"sectionBeats": 4,
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 140,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 140
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 140
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 140
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 140
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
 				"bpm": 140,
-				"sectionBeats": 4,
 				"changeBPM": false,
 				"mustHitSection": true
 			},
 			{
 				"gfSection": false,
+				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
 				"bpm": 140,
-				"sectionBeats": 4,
 				"changeBPM": false,
 				"mustHitSection": true
 			}
@@ -2455,9 +3688,10 @@
 			]
 		],
 		"player2": "amy",
+		"player3": "gfpa",
 		"splashSkin": "noteSplashes",
 		"song": "possesed",
-		"needsVoices": true,
+		"needsVoices": false,
 		"arrowSkin": "",
 		"validScore": true,
 		"stage": "ruins",

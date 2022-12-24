@@ -1159,8 +1159,9 @@ class PlayState extends MusicBeatState
 
 		add(gfGroup);
 
-		spawnNoteSplash(0,0,1);
-
+		for (i in 0...3){
+		spawnNoteSplash(9999,9999,1);//Apenas pra dar precache (eu real não entendo o motivo disso, mas né? funciona...)
+		}
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
 			add(limo);
@@ -1380,13 +1381,8 @@ class PlayState extends MusicBeatState
 		timeBarBG.xAdd = -4;
 		timeBarBG.yAdd = -4;
 		add(timeBarBG);
-		if (nomehistorico.toLowerCase() == 'infinito') {
-			timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
-			'songPercent', 0, 1);
-		} else {
-			timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
-			'songPercent', 0, 1);
-		}
+		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
+		'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
 		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
 		timeBar.numDivisions = 200; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
@@ -3591,7 +3587,7 @@ class PlayState extends MusicBeatState
 				if(updateTime) {
 					var curTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
 					if(curTime < 0) curTime = 0;
-					if (!majinstrums){
+					if (!majinstrums && curSong.toLowerCase() != 'clickbait'){
 						songPercent = (curTime / songLength);
 					}
 
@@ -3601,7 +3597,7 @@ class PlayState extends MusicBeatState
 
 					if(secondsTotal < 0){ secondsTotal = 0;}
 
-					if(!majinstrums){
+					if(!majinstrums && curSong.toLowerCase() != 'clickbait'){
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 					}
 					
@@ -3965,13 +3961,12 @@ class PlayState extends MusicBeatState
 				vocals.time = Conductor.songPosition;
 				vocals.play();
 			}
-		}
-
+		} //talvez isso seja útil...
+		#end
 		setOnLuas('cameraX', camFollowPos.x);
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', PlayState.cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
-		#end
 	}
 
 	public var isDead:Bool = false; //Don't mess with this on Lua!!!
@@ -4879,16 +4874,17 @@ class PlayState extends MusicBeatState
 			case 'tempo infinito':
 				
 					majinstrums = true;
-					var infinitesimbol:FlxSprite = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
+					infinitesimbol = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
 					infinitesimbol.y = timeBarBG.y - 40;
 					infinitesimbol.setGraphicSize(Std.int(timeTxt.height * 1.7));
 					infinitesimbol.cameras = [camHUD];
 					infinitesimbol.angle = 0; //I FORGOR :skull:
 					infinitesimbol.screenCenter(X);
+					infinitesimbol.centerOrigin(); //apenas para garantir que o eixo de spin fique no centro do simbolo infinito
 					removeStatics();
 					generateStaticArrows(0);
 					generateStaticArrows(1);
-					FlxTween.num(timeBar.max, 90, 2.0, {ease: FlxEase.cubeOut}, function (v:Float) {
+					FlxTween.num(timeBar.max, 20, 2.0, {ease: FlxEase.cubeOut}, function (v:Float) {
 						remove(timeBar);
 						timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 						'songPercent', 0, v);
@@ -5031,6 +5027,10 @@ class PlayState extends MusicBeatState
 			if (curStage == 'lordxstage1'){
 				camFollow.x += dad.cameraPosition[0] + 275;
 			}
+			if (curStage == 'volcano'){
+				camFollow.x += dad.cameraPosition[0] - 250;
+				camFollow.y += dad.cameraPosition[1] - 100;
+			}
 			camFollow.x += dad.cameraPosition[0];
 			camFollow.y += dad.cameraPosition[1];
 			tweenCamIn();
@@ -5046,11 +5046,11 @@ class PlayState extends MusicBeatState
 				case 'mall':
 					camFollow.y = boyfriend.getMidpoint().y - 200;
 				case 'school' | 'schoolEvil':
-					camFollow.x = boyfriend.getMidpoint().x - 200;
+					camFollow.x = boyfriend.getMidpoint().x - 250;
 					camFollow.y = boyfriend.getMidpoint().y - 200;
 				case 'volcano':
-					camFollow.x = boyfriend.cameraPosition[0] + 120;
-					camFollow.y = boyfriend.cameraPosition[1] - 30;
+					camFollow.x = boyfriend.getMidpoint().x - 600;
+					camFollow.y += dad.cameraPosition[1] - boyfriend.cameraPosition[1] - 100;
 			}
 			camFollow.x -= boyfriend.cameraPosition[0];
 			camFollow.y += boyfriend.cameraPosition[1];
@@ -5266,8 +5266,7 @@ class PlayState extends MusicBeatState
 					}
 
 					if(modohistoria){
-						MusicBeatState.switchState(new MenuHistoria());
-
+						MusicBeatState.switchState(new MenuPreHistoria());
 						modohistoria = false;
 					} else {
 						MusicBeatState.switchState(new FreeplayState());
@@ -5277,8 +5276,6 @@ class PlayState extends MusicBeatState
 				
 			} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
 				ClientPrefs.pibby = true;
-				var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("omgcrashou/ModboaFatalAlt"));
-				add(bg); //hmmm kek
 				#if desktop
 				new FlxTimer().start(0.5, function(tmr:FlxTimer)
 					{
@@ -6459,7 +6456,7 @@ class PlayState extends MusicBeatState
 					FlxTween.angle(tospin, 0, 360, 0.2, {ease: FlxEase.quintOut});
 				});
 			if (majinstrums){
-				FlxTween.angle(infinitesimbol, 0, 360, 0.2, {ease: FlxEase.quintOut});
+				FlxTween.angle(infinitesimbol, 0, 180, 0.2, {ease: FlxEase.quintOut}); //haha, simetria massa.
 			}
 		}
 

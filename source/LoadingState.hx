@@ -44,11 +44,16 @@ class LoadingsState extends MusicBeatSubstate
 		}
 
 		art.alpha = 0;
+		#if !debug
 		if(OpenFlAssets.exists(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload'))) { //Você já olhou pra alguem e pensou... O que passa, na cabeça dela? 
 			art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
 		} else {
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}
+		#else
+		art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 == 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
+		#end
+		//assim eu consigo ter um pequeno feedback se a loading screen não existe ou se só tá escrita errada mesmo.
 		FlxTween.tween(art, {alpha: 1}, 1.5,{ease: FlxEase.linear});
 		art.setGraphicSize(Std.int(FlxG.width * 1.2));
 		art.updateHitbox();

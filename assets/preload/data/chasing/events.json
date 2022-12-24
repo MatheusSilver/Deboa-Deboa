@@ -1219,7 +1219,7 @@
 		"validScore": false,
 		"bpm": 134,
 		"arrowSkin": null,
-		"needsVoices": false,
+		"needsVoices": true,
 		"song": "chasing",
 		"isRing": null
 	}

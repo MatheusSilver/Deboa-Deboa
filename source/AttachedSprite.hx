@@ -24,7 +24,11 @@ class AttachedSprite extends FlxSprite
 			animation.addByPrefix('idle', anim, 24, loop);
 			animation.play('idle');
 		} else {
-			loadGraphic(Paths.image(file));
+			if(openfl.Assets.exists(Paths.image(file, LoadingState.directory))){ //Principalmente para ser usado na Clickbait, mas pode ser util para mais coisas
+				loadGraphic(Paths.image(file, LoadingState.directory));
+			} else {
+				loadGraphic(Paths.image(file, 'preload'));
+			}			
 		}
 		antialiasing = ClientPrefs.globalAntialiasing;
 		scrollFactor.set();

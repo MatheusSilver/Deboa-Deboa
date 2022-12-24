@@ -2689,7 +2689,7 @@
 		"song": "Execution",
 		"stage": "lordxstage1",
 		"validScore": true,
-		"needsVoices": true,
+		"needsVoices": false,
 		"speed": 3.2,
 		"bpm": 150,
 		"noteStyle": null

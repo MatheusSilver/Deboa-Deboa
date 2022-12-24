@@ -16,7 +16,7 @@ function onCreate()
 	makeLuaSprite('cama', 'cenarios/hulkbr/cama', -300, 750);
 	addLuaSprite('cama', false);
 
-	addLuaScript('ytb_player');
+	addLuaScript('custom_scripts/ytb_player');
 end
 
 function onUpdate()
