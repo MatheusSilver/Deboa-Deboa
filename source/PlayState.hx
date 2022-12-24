@@ -87,12 +87,15 @@ class PlayState extends MusicBeatState
 	var daJumpscare:FlxSprite = new FlxSprite(0, 0);
 	var bgSkychasing:FlxSprite;
 	var daNoteStatic:FlxSprite = new FlxSprite(0, 0);
+	var tela_preta:FlxSprite;
 
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	public static var majinstrums:Bool = false;
 	public static var desesperada:Bool = false;
+
+	var vignetteEspecial:FlxSprite; //usado exclusivamente na simp into the chifres
 
 	var infinitesimbol:FlxSprite; //detalhe gigachad
 
@@ -1277,10 +1280,22 @@ class PlayState extends MusicBeatState
 			logoBl2.antialiasing = ClientPrefs.globalAntialiasing;
 			logoBl2.scale.set(5, 3);
 			logoBl2.alpha = 0.06;
+			logoBl2.cameras = [camHUD2];
 			logoBl2.animation.addByPrefix('muitomedo', 'idle', 13);
 			logoBl2.animation.play('muitomedo');
 			logoBl2.updateHitbox();
+			vignetteEspecial = new FlxSprite().loadGraphic(Paths.image('vignette'));
+			vignetteEspecial.cameras = [camHUD2];
+			vignetteEspecial.setGraphicSize(FlxG.width, FlxG.height);
+			vignetteEspecial.alpha = 0.3;
+			vignetteEspecial.screenCenter(XY);
+			tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+			tela_preta.cameras = [camHUD2];
+			tela_preta.alpha = 0;
 			add(logoBl2);
+			add(vignetteEspecial);
+			add(tela_preta);
+
 		}
 		
 		var camPos:FlxPoint = new FlxPoint(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
@@ -4246,6 +4261,15 @@ class PlayState extends MusicBeatState
 			case 'StaticMiss':
 				staticHitMiss();
 
+			case '"--------------': //vignetteEspecial
+			var duracao:Float = Std.parseFloat(value2);
+			if (value1 == 'true'){
+				vignetteEspecial.alpha = 0.7;
+			} else{
+				FlxTween.tween(vignetteEspecial, {alpha: 0.3}, duracao);
+			}
+			
+
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
 					switch (supertimerchaos)
@@ -4729,15 +4753,6 @@ class PlayState extends MusicBeatState
 										remove(gotcha);
 									}});
 							}
-
-			/*case 'eventos-sunshine':
-				var sunshinetimer:Float = Std.parseFloat(value1);
-				var darknote:Bool = false;
-				if (darknote == true){}
-						switch (sunshinetimer)
-							{
-							}
-*/
 			case 'Entrada Pixel':
 				var indicador:Float = Std.parseFloat(value1);
 				if(indicador == 1){
@@ -4768,6 +4783,63 @@ class PlayState extends MusicBeatState
 					desesperada = false;
 				}
 
+			case 'CamZoomTween':
+				var quantidade:Float = Std.parseFloat(value1);
+				var duracao:Float = Std.parseFloat(value2);
+				FlxTween.tween(FlxG.camera, {zoom: quantidade}, duracao);
+
+			case 'TelaPreta':
+				if(value1 == 'true'){
+					FlxTween.tween(tela_preta, {alpha: 1}, 0.3);
+				} else {
+					FlxTween.tween(tela_preta, {alpha: 0}, 0.3);
+				}
+
+			case 'CharacterAlphaTween':
+				var charType:Int = 0;
+				var opa_Cidade:Array<String> = value2.split(','); //Basicamente, o modelo é "alpha","duracao do tween"
+				switch(value1) {
+					case 'gf' | 'girlfriend':
+						charType = 2;
+					case 'dad' | 'opponent':
+						charType = 1;
+					default:
+						charType = Std.parseInt(value1);
+						if(Math.isNaN(charType)) charType = 0;
+				}
+
+				switch(charType) {
+					case 2:
+						FlxTween.tween(gf, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut});
+					case 1:
+						FlxTween.tween(dad, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut});
+					case 0:
+						FlxTween.tween(boyfriend, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut});
+				}
+
+			case 'notestween':
+				var charType:Int = 0;
+				var opa_Cidade:Array<String> = value2.split(','); //Qual foi man? achaste mesmo que eu iria recodar o mesmo sistema de tweens duas vezes?
+				switch(value1) {
+					case 'dad' | 'opponent':
+						charType = 1;
+					default:
+						charType = Std.parseInt(value1);
+						if(Math.isNaN(charType)) charType = 0;
+				}
+
+				switch(charType) {
+					case 1:
+						opponentStrums.forEach(function(tofade:FlxSprite)
+							{
+								FlxTween.tween(tofade, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]));
+							});
+					case 0:
+						playerStrums.forEach(function(tofade:FlxSprite)
+							{
+								FlxTween.tween(tofade, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]));
+							});
+				}
 
 			case 'Add Camera Zoom':
 				if(ClientPrefs.camZooms && FlxG.camera.zoom < 1.35) {
@@ -5031,6 +5103,9 @@ class PlayState extends MusicBeatState
 				camFollow.x += dad.cameraPosition[0] - 250;
 				camFollow.y += dad.cameraPosition[1] - 100;
 			}
+			if (curStage == 'depths' && boyfriend.alpha == 0){
+				camFollow.x += dad.cameraPosition[0] + 100;
+			}
 			camFollow.x += dad.cameraPosition[0];
 			camFollow.y += dad.cameraPosition[1];
 			tweenCamIn();
@@ -5051,6 +5126,9 @@ class PlayState extends MusicBeatState
 				case 'volcano':
 					camFollow.x = boyfriend.getMidpoint().x - 600;
 					camFollow.y += dad.cameraPosition[1] - boyfriend.cameraPosition[1] - 100;
+				if (curStage == 'depths' && boyfriend.alpha == 0){
+					camFollow.x += boyfriend.cameraPosition[0] + 100;
+			}
 			}
 			camFollow.x -= boyfriend.cameraPosition[0];
 			camFollow.y += boyfriend.cameraPosition[1];

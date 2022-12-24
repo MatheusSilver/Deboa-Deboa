@@ -1,3 +1,4 @@
+sanic
 sonicP2Pixel
 gf-pixel-sonic
 bf-pixel-sonic

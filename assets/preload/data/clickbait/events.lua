@@ -6,10 +6,10 @@ function onCreate()
 	addLuaSprite('blckfade', false);
 
     makeLuaSprite('fleeplay', 'fleeplay', 0, 0);
-    setObjectCamera('fleeplay', 'other')
+    setObjectCamera('fleeplay', 'camhud')
     scaleObject('fleeplay', 1.0,1.0)
     screenCenter('fleeplay');
-    setProperty('fleeplay.alpha', 0)
+    setProperty('fleeplay.alpha', 1)
     addLuaSprite('fleeplay', false);
 end
 
@@ -20,7 +20,7 @@ end
 function onEvent(name, value1, value2)
 	if name == "events" then
 		doTweenAlpha('fadeOFF', 'blckfade', 1, 1, 'linear');
-		doTweenZoom('zoom', 'camGame', 10, 1, 'linear')
+		doTweenZoom('zoom', 'defaultCamZoom', 10, 1, 'linear')
     end
 end
 

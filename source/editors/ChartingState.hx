@@ -64,7 +64,10 @@ class ChartingState extends MusicBeatState
 
 	var eventStuff:Array<Dynamic> =
 	[
-		['', "Nothing. Yep, that's right."], 
+		['CamZoomTween', "Value 1 = quantidade de zoom \n value 2 = duração do tween"],
+		['TelaPreta', "Value 1 = true adiciona uma tela preta \n qualquer outra coisa tira ela."],
+		['CharacterAlphaTween', "Value 1 = bf/gf/dad, \n value 2 = 'opacidade','duracao do tween"], 
+		['notestween', "Value 1 = notas do bf ou dad, \n value 2 = 'opacidade','duracao do tween"],
 		['eventos-tooslow', 'A essa altura do campeonato tu já deve ter entendido como isso funciona...'],
 		['Adicionar Imagens', "Coloca Uma Imagem.\nValue 1: Nome Da Musica\nValue 2: Nome do arquivo"],
 		['Spin', 'Bom... Spiiiiiiiiiiiiiiiiiiiiiin das setas'],

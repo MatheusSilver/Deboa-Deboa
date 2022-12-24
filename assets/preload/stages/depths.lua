@@ -6,19 +6,15 @@ local dead = false
 local first = true
 local alphaLoop = true
 local followchars = true
---local zoomLock = true
 local gravity = 9.8
 local xx2 = 1030
 local speed = 0
 local yy2 = 580
 local ofs = 45
-local zoom = 0
 
 local bgs = {'depths', 'floor', 'ceiling'}
 local xpos = {-50, -50, -70}
 local ypos = {-80, 0, -50}
-
---orignal camZoom = 0.63
 
 function onCreate()
 	setPropertyFromClass('GameOverSubstate', 'characterName', 'dead')
@@ -40,7 +36,6 @@ function onCreate()
 			end
 		end
 	end
-	--setScrollFactor('depths', 0.2, 0.2)
 	setScrollFactor('ceiling', 0.9, 0.9)
 
 	speed = 240 / getPropertyFromClass('ClientPrefs', 'framerate')
@@ -48,11 +43,8 @@ function onCreate()
 end
 
 function onCreatePost()
-	--addCharacterToList('sinkless', 'boyfriend')
 
 	setProperty('healthLoss', 0)
-
-    --zoom = getProperty('camGame.zoom') + 0.36
 
 	makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
 	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
@@ -63,25 +55,11 @@ function onCreatePost()
 	setBlendMode('waves', 'subtract')
 	objectPlayAnimation('waves','idle',true)
 
-	--[[ Might Use
-	makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
-	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
-	setObjectCamera('waves', 'camhud')
-	setProperty('waves.alpha', 0.08)
-	scaleObject('waves', 1280/512, 820/512)
-	addLuaSprite('waves', true)
-	setBlendMode('waves', 'screen')
-	]]
-
-	makeLuaSprite('vignette', 'vignette', 0, 0)
-	setObjectCamera('vignette', 'camhud')
-	addLuaSprite('vignette', true)
-
 	--addLuaSprite('r', true)
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
-	if first and dead == false then
+	if first and curBeat < 510and dead == false then
 		setProperty('dad.alpha', 0.4)
 		doTweenAlpha('boo1', 'dad', 0, 0.6, 'linear')
 		first = false
@@ -116,7 +94,6 @@ function onUpdate(elapsed)
 		triggerEvent('Camera Follow Pos','','')
 	end
 
---	if zoomLock then setProperty('camGame.zoom', zoom) end
 
 	for i = 1,#fall do
 		moveBall(fall[i])
@@ -145,7 +122,6 @@ end
 function onStepHit()
 	if curStep == 512 then alphaLoop = false end
 	if curStep == 517 then doTweenAlpha('first', 'waves', 0.35, 0.8, 'linear') end
-	--if curStep == 528 then doTweenZoom('second', 'camGame', zoom - (zoom-0.63)/3, 0.8, 'circInOut') end
 end
 
 function onTweenCompleted(tag)
@@ -154,23 +130,20 @@ function onTweenCompleted(tag)
 	if tag == 'a' and alphaLoop then doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
 	if tag == 'b' and alphaLoop then doTweenAlpha('a', 'waves', 0.12, 0.8, 'linear') end
 	if tag == 'first' then alphaLoop = true; doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
---	if tag == 'second' then zoom = zoom - 0.36/8; zoomLock = true end
 	if tag == 'r1' then doTweenAlpha('r2', 'r', 0.5, 1, 'linear') end
 	if tag == 'r2' then doTweenAlpha('r1', 'r', 1, 1, 'linear') end
 end
 
 function onBeatHit()
-	--if dead == false and curBeat % 4 == 0 and curStep > 526 and curStep < 641 then zoomLock = false; doTweenZoom('second', 'camGame', zoom - (zoom-0.63)/8, 0.8, 'linear') end
---[[
-	if curBeat % 36 == 0 then
-		local number = getRandomInt(1,10)
-		fall[number] = true
-	end
-	]]
 	if curBeat % 16 == 0 and #fall < 10 then
 		local rng = getRandomInt(1,10, exclusion)
 		table.insert(fall, #fall+1, rng)
 		exclusion = exclusion..','..rng
+	end
+	if curBeat < 100 then
+		for i = 0,3 do
+			setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
+		end
 	end
 end
 
