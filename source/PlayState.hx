@@ -1284,11 +1284,10 @@ class PlayState extends MusicBeatState
 			logoBl2.animation.addByPrefix('muitomedo', 'idle', 13);
 			logoBl2.animation.play('muitomedo');
 			logoBl2.updateHitbox();
-			vignetteEspecial = new FlxSprite().loadGraphic(Paths.image('vignette'));
+			vignetteEspecial = new FlxSprite(0, 0).loadGraphic(Paths.image('vignette'));
 			vignetteEspecial.cameras = [camHUD2];
 			vignetteEspecial.setGraphicSize(FlxG.width, FlxG.height);
 			vignetteEspecial.alpha = 0.3;
-			vignetteEspecial.screenCenter(XY);
 			tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 			tela_preta.cameras = [camHUD2];
 			tela_preta.alpha = 0;
