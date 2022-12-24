@@ -59,7 +59,7 @@ function onCreatePost()
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
-	if first and curBeat < 510and dead == false then
+	if first and curBeat < 510 and dead == false then
 		setProperty('dad.alpha', 0.4)
 		doTweenAlpha('boo1', 'dad', 0, 0.6, 'linear')
 		first = false
