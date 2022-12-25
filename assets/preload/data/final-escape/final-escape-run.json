@@ -5752,7 +5752,7 @@
 		"player3": null,
 		"song": "Final Escape",
 		"validScore": true,
-		"needsVoices": true,
+		"needsVoices": false,
 		"stage": "final",
 		"speed": 3,
 		"bpm": 195

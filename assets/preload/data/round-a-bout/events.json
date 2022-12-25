@@ -82,7 +82,7 @@
 		"validScore": false,
 		"bpm": 107,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "round-a-bout",
 		"isRing": null
 	}

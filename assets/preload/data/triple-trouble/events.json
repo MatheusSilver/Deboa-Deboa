@@ -768,7 +768,7 @@
 		"gfVersion": "invisibru",
 		"bpm": 146,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "triple-trouble"
 	}
 }

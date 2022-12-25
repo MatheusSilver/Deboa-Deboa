@@ -2068,7 +2068,7 @@
 		"gfVersion": "invisibru",
 		"bpm": 140,
 		"arrowSkin": "",
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "illegal-download"
 	}
 }

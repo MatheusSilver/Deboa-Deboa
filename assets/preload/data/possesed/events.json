@@ -538,7 +538,7 @@
 		"validScore": false,
 		"bpm": 140,
 		"arrowSkin": "",
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "possesed",
 		"isRing": null
 	}

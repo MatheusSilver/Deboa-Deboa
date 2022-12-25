@@ -597,7 +597,7 @@
 		"validScore": false,
 		"bpm": 155,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "endless",
 		"isRing": null
 	}

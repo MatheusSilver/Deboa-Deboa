@@ -363,7 +363,7 @@
 		"gfVersion": "gf-exe",
 		"bpm": 105,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "faker",
 		"isRing": null
 	}

@@ -7262,7 +7262,7 @@
 		"song": "black-sun",
 		"validScore": true,
 		"sections": 0,
-		"needsVoices": true,
+		"needsVoices": false,
 		"stage": "ExeBG",
 		"bpm": 150,
 		"speed": 3.1,

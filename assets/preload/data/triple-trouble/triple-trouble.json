@@ -26010,7 +26010,7 @@
 		"player3": "invisibru",
 		"song": "triple-trouble",
 		"stage": "P3Stage",
-		"needsVoices": true,
+		"needsVoices": false,
 		"validScore": true,
 		"speed": 3.2,
 		"noteStyle": null,

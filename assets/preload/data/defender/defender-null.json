@@ -5911,7 +5911,7 @@
 		"player2": "TAILSD",
 		"player3": "knux",
 		"song": "DEFENDER",
-		"needsVoices": true,
+		"needsVoices": false,
 		"validScore": true,
 		"stage": "exampleStage",
 		"bpm": 150,

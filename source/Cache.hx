@@ -1,5 +1,6 @@
 package;
 
+import sys.FileSystem;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
@@ -47,31 +48,7 @@ class Cache extends MusicBeatState
 		bitmapData = new Map<String,FlxGraphic>();
 		bitmapData2 = new Map<String,FlxGraphic>();
 
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('funkay'));
-		menuBG.screenCenter();
-		//add(menuBG);
-
-		shitz = new FlxText(0, 0, 0, "CARREGANDO", 20);
-		shitz.screenCenter();
-		shitz.scrollFactor.set();
-		shitz.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(shitz);
-		shitz2 = new FlxText(0, 0, 0, "ATENÇÃO!\nA versão que você está prestes\na jogar é uma versão de testes!\nAPERTE QUALQUER TECLA PARA JOGAR", 20);
-		shitz2.screenCenter();
-		shitz2.scrollFactor.set();
-		shitz2.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		shitz2.alpha = 0;
-		add(shitz2);
-
-
-		for (i in HSys.readDirectory("assets/shared/images"))
-		{
-			if (!i.endsWith(".png"))
-				continue;
-			images.push(i);
-		}
-
-		for (i in HSys.readDirectory("assets/preload/images"))
+		for (i in FileSystem.readDirectory("assets/" + LoadingState.directoryreader + "/images"))
 		{
 			if (!i.endsWith(".png"))
 				continue;
@@ -100,18 +77,6 @@ class Cache extends MusicBeatState
 	function cache()
 	{
 		#if !linux
-		/*
-			var sound1:FlxSound;
-			sound1 = new FlxSound().loadEmbedded(Paths.voices('fresh'));
-			sound1.play();
-			sound1.volume = 0.00001;
-			FlxG.sound.list.add(sound1);
-
-			var sound2:FlxSound;
-			sound2 = new FlxSound().loadEmbedded(Paths.inst('fresh'));
-			sound2.play();
-			sound2.volume = 0.00001;
-			FlxG.sound.list.add(sound2);
 		for (i in images)
 		{
 			var replaced = i.replace(".png","");
@@ -122,26 +87,11 @@ class Cache extends MusicBeatState
 			bitmapData.set(replaced,graph);
 			trace(i);
 		}
-
-
-
-		for (i in music)
-		{
-			trace(i);
-			FlxG.sound.cache(Paths.inst(i));
-			FlxG.sound.cache(Paths.voices(i));
-		}
-
-		*/
+			FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
+			if (PlayState.SONG.needsVoices){
+			FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
+			}
 		#end
-		Aviso();
-	}
-
-	function Aviso()
-	{
-		shitz.alpha = 0;
-		shitz2.alpha=1;
-		canSpace = true;
 	}
 
 }

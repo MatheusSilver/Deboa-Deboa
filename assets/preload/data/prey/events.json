@@ -4372,7 +4372,7 @@
 		"validScore": false,
 		"bpm": 176,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "prey",
 		"isRing": null
 	}

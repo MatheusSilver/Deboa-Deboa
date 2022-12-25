@@ -428,8 +428,11 @@ class PlayState extends MusicBeatState
 
 		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
 		FlxG.mouse.visible = false;
-	FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
-		FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
+		FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
+		if (SONG.needsVoices){
+			FlxG.sound.cache(Paths.voices(PlayState.SONG.song)); //Provavelmente não será usado, mas né?
+			//Isso só vai servir caso o sistema de Cache falhe.
+		}
 				
 	//	giraArray = [272, 276, 336, 340, 400, 404, 464, 468, 528, 532, 592, 596, 656, 660, 720, 724, 789, 793, 863, 867, 937, 941, 1012, 1016, 1086, 1090, 1160, 1164, 1531, 1535, 1607, 1611, 1681, 1685, 1754, 1758];
 		instance = this;
@@ -440,10 +443,6 @@ class PlayState extends MusicBeatState
 		bads = 0;
 		shits = 0;
 		goods = 0;
-
-		
-		//FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
-       // FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -507,7 +506,7 @@ class PlayState extends MusicBeatState
 		if (SONG.song.toLowerCase() == 'too-slow')
 			{
 				daJumpscare.frames = Paths.getSparrowAtlas('PolishedP1/sonicJUMPSCARE');
-				daJumpscare.animation.addByPrefix('jump', 'soicSPOOK', 24, false);
+				daJumpscare.animation.addByPrefix('jump', 'sonicSPOOK', 24, false);
 				add(daJumpscare);
 				daJumpscare.animation.play('jump');
 
@@ -515,9 +514,11 @@ class PlayState extends MusicBeatState
 				add(simplejumppreload);
 				remove(simplejumppreload);
 
-				dad = new Character(61.15, -94.75, 'sonic1');
-				add(dad);
-				remove(dad);
+				var daStaticpreload:FlxSprite = new FlxSprite(0, 0);
+	
+				daStaticpreload.frames = Paths.getSparrowAtlas('daSTAT', 'preload');
+				add(daStaticpreload);
+				remove(daStaticpreload);
 
 				daNoteStatic.frames = Paths.getSparrowAtlas('hitStatic');
 				daNoteStatic.animation.addByPrefix('static', 'staticANIMATION', 24, false);
@@ -600,11 +601,19 @@ class PlayState extends MusicBeatState
 
 			case 'too-slow':
 					{
-						var bg:FlxSprite = new FlxSprite(-297, -246 + 150).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
+						var bg:FlxSprite = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
 						bg.antialiasing = true;
 						bg.scrollFactor.set(1.3, 1);
 						bg.active = false;
-						add(bg);} 
+						add(bg);
+
+						tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+						tela_preta.cameras = [camHUD2];
+						tela_preta.alpha = 0;
+
+						
+						add(tela_preta);
+					} 
 			case 'fakerStage':
 				var daStatic:FlxSprite = new FlxSprite(0, 0);
 	
@@ -2810,9 +2819,9 @@ class PlayState extends MusicBeatState
 		
 		curSong = songData.song;
 
-		if (SONG.needsVoices)
+		if (SONG.needsVoices) {
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-		else
+		} else
 			vocals = new FlxSound();
 
 		FlxG.sound.list.add(vocals);
@@ -3869,8 +3878,9 @@ class PlayState extends MusicBeatState
 						}
 					}
 
-					if (SONG.needsVoices)
+					if (SONG.needsVoices){
 						vocals.volume = 1;
+					}
 
 					var time:Float = 0.15;
 						if(daNote.isSustainNote && !daNote.animation.curAnim.name.endsWith('end')) {
@@ -4368,7 +4378,12 @@ class PlayState extends MusicBeatState
 							FlxG.camera.flash(FlxColor.RED, 4);
 						case 1305:
 							cinematicBars(true);
-							triggerEventNote('Change Character', 'dad', 'sonic1');
+							triggerEventNote('Change Character', 'dad', 'sonicP1getya'); //must do Arrumar esse sprite.
+							dad.y += 200;
+							dad.x += 200;
+							dad.scale.x = 1.1;
+							dad.scale.y = 1.1;
+							dad.scrollFactor.set(1.37, 1);
 							FlxTween.tween(camHUD, {alpha: 0}, 0.3);
 							dad.playAnim('iamgod', true);
 							dad.nonanimated = true;
@@ -4379,6 +4394,11 @@ class PlayState extends MusicBeatState
 							cinematicBars(false);
 							FlxTween.tween(camHUD, {alpha: 1}, 0.3);
 							triggerEventNote('Change Character', 'dad', 'sonicP1');
+							dad.y += 200;
+							dad.x += 200;
+							dad.scale.x = 1.1;
+							dad.scale.y = 1.1;
+							dad.scrollFactor.set(1.37, 1);
 							dad.nonanimated = false;
 					}		
 
@@ -6582,7 +6602,7 @@ class PlayState extends MusicBeatState
 			trace('JUMPSCARE aaaa');
 	
 			daJumpscare.frames = Paths.getSparrowAtlas('PolishedP1/sonicJUMPSCARE');
-			daJumpscare.animation.addByPrefix('jump', 'soicSPOOK', 24, false);
+			daJumpscare.animation.addByPrefix('jump', 'sonicSPOOK', 24, false);
 	
 			daJumpscare.screenCenter();
 	

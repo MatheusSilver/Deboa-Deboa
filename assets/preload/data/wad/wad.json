@@ -1803,7 +1803,7 @@
 		"player3": null,
 		"song": "wad",
 		"stage": "volcano",
-		"needsVoices": true,
+		"needsVoices": false,
 		"validScore": true,
 		"bpm": 85,
 		"speed": 3

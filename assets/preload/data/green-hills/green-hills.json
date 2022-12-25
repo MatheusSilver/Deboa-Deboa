@@ -10806,7 +10806,7 @@
 		"player3": "nogf",
 		"mania": 3,
 		"song": "green-hills",
-		"needsVoices": true,
+		"needsVoices": false,
 		"validScore": true,
 		"arrowSkin": "",
 		"stage": "beachhouse",

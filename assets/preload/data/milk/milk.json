@@ -7919,7 +7919,7 @@
 		"stage": "sunkstage",
 		"validScore": true,
 		"sections": 45,
-		"needsVoices": true,
+		"needsVoices": false,
 		"noteStyle": null,
 		"speed": 2.7,
 		"bpm": 186

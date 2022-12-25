@@ -71,7 +71,7 @@
 	"image": "characters/sonicP1",
 	"position": [
 		60,
-		150
+		-75
 	],
 	"healthicon": "sonicP1",
 	"flip_x": false,
@@ -81,7 +81,7 @@
 		183
 	],
 	"camera_position": [
-		-80,
+		10,
 		80
 	],
 	"sing_duration": 5.8,

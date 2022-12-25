@@ -726,7 +726,7 @@
 		"validScore": false,
 		"bpm": 145,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "control",
 		"isRing": null
 	}

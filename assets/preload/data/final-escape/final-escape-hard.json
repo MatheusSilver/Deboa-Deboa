@@ -11106,7 +11106,7 @@
 		"player3": "GFcircle",
 		"song": "final escape",
 		"stage": "final",
-		"needsVoices": true,
+		"needsVoices": false,
 		"validScore": true,
 		"bpm": 195,
 		"speed": 2.7
