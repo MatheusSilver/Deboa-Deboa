@@ -1,8 +1,5 @@
 package;
 
-#if desktop
-import Discord.DiscordClient;
-#end
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -21,17 +18,16 @@ class VideoStatePC extends MusicBeatState
 	var videoMenu:FlxSprite = new FlxSprite(0,0);
 	var video:MP4Handler = new MP4Handler();
 	var letext:FlxText;
-	public static var videoPath:String = "";
-	public static var NextState:String = "";
+	public static var videoPath:String = "assets/videos/intromic.mp4";
+	public static var NextState:String = "title";
 
 
 	override function create()
 		{
-			#if desktop
-			// Updating Discord Rich Presence
-			//DiscordClient.changePresence("", null);
-			#end
-			FlxG.sound.music.fadeIn(0.35, 0.7, 0);
+			if(NextState != "title")
+				{
+					FlxG.sound.music.fadeIn(0.35, 0.7, 0);
+				}
 			add(videoMenu);
 			if(NextState == "mainmenu")
 				{
@@ -41,10 +37,14 @@ class VideoStatePC extends MusicBeatState
 				{
 					video.playMP4(videoPath, new SobreState(), videoMenu);
 				}
-			else
+			else if(NextState == "title")
 			{
-				video.playMP4(videoPath, new MainMenuStateMobile(), videoMenu);
+				video.playMP4(videoPath, new TitleState(), videoMenu);
 			}
+			else
+				{
+					video.playMP4(videoPath, new MainMenuStateMobile(), videoMenu);
+				}
 			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para sair", 32); //Achei cringe
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
