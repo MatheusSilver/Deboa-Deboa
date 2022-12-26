@@ -7,7 +7,9 @@ function onEvent(name, value1, value2)
             if legendas == true then
                 if downscroll == true then
                     if legendasporcima == true then
-                        if tostring(value2) != '' then
+                        if tostring(value2) == '' then
+                            --nada
+                        else
                             imagem1 = tostring(value2)
                             makeLuaSprite('exe1', imagem1, 0, -350)
                             setScrollFactor('exe1', 0, 0);
@@ -22,11 +24,14 @@ function onEvent(name, value1, value2)
                         setLuaSpriteCamera('exe', 'camhud');
                         addLuaSprite('exe', true);
                     else
-                        if tostring(value2) != '' then
+                        if tostring(value2) == '' then
+                            --nada
+                        else
                             imagem1 = tostring(value2)
                             makeLuaSprite('exe1', imagem1, 0, -350)
                             setScrollFactor('exe1', 0, 0);
                             scaleObject('exe1', 1, 1);
+                            setLuaSpriteCamera('exe1', 'camhud');
                             addLuaSprite('exe1', true);
                         end
                         imagem = tostring(value1);
@@ -37,7 +42,9 @@ function onEvent(name, value1, value2)
                     end
                 else
                     if legendasporcima == true then
-                        if tostring(value2) != '' then
+                        if tostring(value2) == '' then
+                            --nada
+                        else
                             imagem1 = tostring(value2)
                             makeLuaSprite('exe1', imagem1, 0, 0)
                             setScrollFactor('exe1', 0, 0);
@@ -52,9 +59,11 @@ function onEvent(name, value1, value2)
                         setLuaSpriteCamera('exe', 'camhud');
                         addLuaSprite('exe', true);
                     else
-                        if tostring(value2) != '' then
+                        if tostring(value2) == '' then
+                            --nada
+                        else
                             imagem1 = tostring(value2)
-                            makeLuaSprite('exe1', imagem1, 0, -350)
+                            makeLuaSprite('exe1', imagem1, 0, 0)
                             setScrollFactor('exe1', 0, 0);
                             scaleObject('exe1', 1, 1);
                             addLuaSprite('exe1', true);
