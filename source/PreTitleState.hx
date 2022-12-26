@@ -20,9 +20,16 @@ class PreTitleState extends MusicBeatState
 {
 	override function create()
 		{
+			#if desktop
             new FlxTimer().start(1.5, function(tmr:FlxTimer){
                 MusicBeatState.switchState(new VideoStatePC());
             });
+			#elseif mobile
+			new FlxTimer().start(1.5, function(tmr:FlxTimer){
+                MusicBeatState.switchState(new VideoState('assets/videos/intromic', (new MainMenuStateMobile()))); 
+            });
+			#end
+			//First time seria válido aqui tambem?
 	
 			super.create();
 		}
