@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -105,7 +106,7 @@ class GameJoltLoginState extends MusicBeatState
 
             if(falhouBar.alpha == 1)
                 {
-                    new flixel.util.FlxTimer().start(1.5, function(tmr:FlxTimer){
+                    new FlxTimer().start(1.5, function(tmr:FlxTimer){
                         falhou=true;
                     });
                 }
