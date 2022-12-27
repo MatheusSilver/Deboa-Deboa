@@ -33,6 +33,13 @@ class PreferenciasSubstate extends ajustes.BaseOptionsMenu
 	{
 		title = 'Configurações de Gameplay/Gráficos';
 		rpcTitle = 'Trocando configs.'; //for Discord Rich Presence
+		
+		 var option:Option = new Option('Gore',
+        'Desabilita ou habilita gore/violencia na música',
+        'gore',
+        'bool',
+        true);
+        addOption(option);
 
         var option:Option = new Option('Legendas',
         'Desabilita ou habilita as legendas na música',
