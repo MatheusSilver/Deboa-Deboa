@@ -32,7 +32,9 @@ function onCreate()
     addLuaSprite('bg2', false)
     addLuaSprite('bg', false)
     addLuaSprite('treething', false)
+    if gore == true then
     addLuaSprite('tails', false)
+    end
 end
 
 function onUpdate(elapsed)
