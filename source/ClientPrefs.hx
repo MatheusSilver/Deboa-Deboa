@@ -7,6 +7,7 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
+	public static var gore:Bool = true; // To do: Update completo dos luas & isso é basicamente uma opção de otimização KKKKKKKKK
 	public static var shaders:Bool = #if windows true #else false #end; //Todo: Adicionar uma opção pra isso em settings
 	public static var downScroll:Bool = false;
 	public static var pibby:Bool = false; //Eu não sei se é assim mesmo que faz na psych
@@ -60,6 +61,7 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.gore = gore;
 		FlxG.save.data.resolution = resolution;
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.downScroll = downScroll;
@@ -97,6 +99,9 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		if(FlxG.save.data.gore != null) {
+			gore = FlxG.save.data.gore;
+		}
 		if(FlxG.save.data.resolution != null) {
 			resolution = FlxG.save.data.resolution;
 		}
