@@ -496,7 +496,11 @@ class AjustesState extends MusicBeatState
                                 openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
 								case 'controles':
 								// fiz isso pois tem gente que joga de teclado no mobile.
-                                MusicBeatState.switchState(new ajustes.ControlesState());  
+								#if desktop
+									MusicBeatState.switchState(new ajustes.KeysSubstate());
+								#else
+									MusicBeatState.switchState(new ajustes.ControlesState());
+								#end
 								case 'setatipos':
 								MusicBeatState.switchState(new ajustes.SetasState());
 								case 'gamejooj':

@@ -26,11 +26,11 @@ class PreTitleState extends MusicBeatState
             });
 			#elseif mobile
 			new FlxTimer().start(1.5, function(tmr:FlxTimer){
-                MusicBeatState.switchState(new VideoState('assets/videos/intromic', (new MainMenuStateMobile()))); 
+                MusicBeatState.switchState(new VideoState('assets/videos/intromic', (new TitleState()))); 
             });
 			#end
 			//First time seria válido aqui tambem?
-	
+			// nn, é pra tocar toda hora que a pessoa entrar mesmo
 			super.create();
 		}
 }

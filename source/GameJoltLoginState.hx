@@ -23,6 +23,7 @@ class GameJoltLoginState extends MusicBeatState
 	var letext:FlxText;
     var loggedtext:FlxText;
     public static var loadingBar:FlxText;
+    public static var falhouBar:FlxText;
     public static var userBar:FlxUIInputText;
     public static var tokenBar:FlxUIInputText;
     public static var pretobg:FlxSprite;
@@ -77,11 +78,19 @@ class GameJoltLoginState extends MusicBeatState
 			loadingBar.alpha = 0;
             loadingBar.screenCenter(XY);
 			add(loadingBar);
+
+            falhouBar = new FlxText(50, FlxG.height, FlxG.width, "O LOGIN FALHOU!", 40);
+			falhouBar.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			falhouBar.scrollFactor.set();
+			falhouBar.alpha = 0;
+            falhouBar.screenCenter(XY);
+			add(falhouBar);
 	
 			super.create();
 		}
 	override function update(elapsed:Float)
 		{
+            var falhou:Bool = false;
             if (FlxG.keys.justReleased.ESCAPE) {
                 FlxG.sound.play(Paths.sound('cancelMenu'));
                 MusicBeatState.switchState(new OptionsState());
@@ -93,6 +102,23 @@ class GameJoltLoginState extends MusicBeatState
             loginbotao.onOver.callback = loginHover;
 			loginbotao.onOut.callback = loginOut;
 			loginbotao.onDown.callback = loginClick;
+
+            if(falhouBar.alpha == 1)
+                {
+                    new FlxTimer().start(1.5, function(tmr:FlxTimer){
+                        falhou=true;
+                    });
+                }
+            if(falhou==true)
+                {
+                    falhouBar.alpha = falhouBar.alpha-1;
+                }
+
+            if(falhouBar.alpha == 0)
+                {
+                    falhou=false;
+                }
+                
 		}
 
         function loginHover():Void
@@ -126,6 +152,7 @@ class GameJoltLoginState extends MusicBeatState
         public static function Desesconder():Void
             {
                 MusicBeatState.switchState(new GameJoltLoginState());
+                falhouBar.alpha = 1;
                 pretobg.alpha = 0;
                 tokenBar.alpha=1;
                 userBar.alpha=1;
@@ -137,4 +164,5 @@ class GameJoltLoginState extends MusicBeatState
                 FlxG.save.data.token =tokenBar.text;
                 MusicBeatState.switchState(new MainMenuStateMobile());
             }
+            
 }
