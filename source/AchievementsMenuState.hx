@@ -28,10 +28,13 @@ class AchievementsMenuState extends MusicBeatState
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
+	private var titleText:FlxText;
 	var descBox:FlxSprite;
 	var majin:FlxSprite;
 
 	override function create() {
+
+		isCoolBeata = true;
 		#if desktop
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
@@ -66,7 +69,7 @@ class AchievementsMenuState extends MusicBeatState
 		for (i in 0...options.length) {
 			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][5];
 			var achieveName:String = Achievements.achievementsStuff[achievementIndex[i]][2];
-			var optionText:Alphabet = new Alphabet(-50, (400 * i) + 210, '', false, false);
+			var optionText:Alphabet = new Alphabet(-175, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
 			optionText.x += 25;
 			optionText.xAdd = 25;
@@ -89,13 +92,14 @@ class AchievementsMenuState extends MusicBeatState
 		linha2.x = FlxG.width - linha2.width;
 		add(linha2);
 
-		majin = new FlxSprite(512 - 80 + 30, -230);
+		majin = new FlxSprite(512 - 80 + 30, -250);
 		majin.frames = Paths.getSparrowAtlas('conquistas/menu/majinnatalino', 'preload');
 		majin.animation.addByPrefix('idle', "majinnatalino idle", 24);
 		majin.flipX = true;
 		majin.setGraphicSize(Std.int(majin.width * 1.35));
 		majin.antialiasing = ClientPrefs.globalAntialiasing;
 		add(majin);
+		majin.animation.play('idle', true);
 
 		descBox = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_texto'));
 		//descBox.alpha = 0.6;
@@ -107,13 +111,21 @@ class AchievementsMenuState extends MusicBeatState
 		descBox.y = FlxG.height - 10 - descBox.height;
 		add(descBox);
 
-		descText = new FlxText(0, 0, descBox.width - 10, "", 18);
-		descText.setFormat(Paths.font("GhoulFriAOE.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText = new FlxText(0, 0, descBox.width - 10, "", 32);
+		descText.setFormat(Paths.font("GhoulFriAOE.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.x = descBox.x + 5;
 		descText.y = descBox.y + 50;
 		descText.borderSize = 2.4;
 		add(descText);
+
+		titleText = new FlxText(0, 0, descBox.width - 10, "", 24);
+		titleText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0x9755F0, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		titleText.scrollFactor.set();
+		titleText.x = descBox.x + 5;
+		titleText.y = descBox.y + 10;
+		titleText.borderSize = 2.4;
+		add(titleText);
 		changeSelection();
 
 		super.create();
@@ -148,9 +160,10 @@ class AchievementsMenuState extends MusicBeatState
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0.6;
 			if (item.targetY == 0) {
-				item.alpha = 1;
+				flixel.tweens.FlxTween.tween(item, {x: -100}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
+			} else if (item.targetY != 0){
+				flixel.tweens.FlxTween.tween(item, {x: -275}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
 			}
 		}
 
@@ -161,6 +174,7 @@ class AchievementsMenuState extends MusicBeatState
 			}
 		}
 		descText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][1];
+		titleText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][0];
 	}
 	
 	override function beatHit()

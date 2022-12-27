@@ -129,7 +129,7 @@ class MainMenuStateMobile extends MusicBeatState
 		boom = new FlxSprite(0, 0); //ok
 		boom.frames = Paths.getSparrowAtlas('characters/sonicmenu1', 'shared');
 		boom.animation.addByPrefix('idle', "sonicmenu1 idle",30);
-		boom.antialiasing = true;
+		boom.antialiasing = ClientPrefs.globalAntialiasing;
 		//boom.setGraphicSize(Std.int));
 		boom.updateHitbox();
 		boom.y = -500;
