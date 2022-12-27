@@ -140,9 +140,6 @@ class PlayState extends MusicBeatState
 	public var modchartTexts:Map<String, ModchartText> = new Map();
 	#end
 	public static var shader_chromatic_abberation:ChromaticAberrationEffect;
-	public static var camGameShaders:Array<ShaderEffect> = [];
-	public static var camHUDShaders:Array<ShaderEffect> = [];
-	public static var camOtherShaders:Array<ShaderEffect> = [];
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
 	#if (haxe >= "4.0.0")
@@ -270,10 +267,10 @@ class PlayState extends MusicBeatState
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
-	public static var camHUD:FlxCamera;
+	public var camHUD:FlxCamera;
 	public var camHUD2:FlxCamera; // jumpscares, ect..
-	public static var camGame:FlxCamera;
-	public static var camOther:FlxCamera;
+	public var camGame:FlxCamera;
+	public var camOther:FlxCamera;
 	public var camLegenda:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
@@ -614,6 +611,13 @@ class PlayState extends MusicBeatState
 						
 						add(tela_preta);
 					} 
+			case 'clickbait':
+				tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+				tela_preta.cameras = [camHUD2];
+				tela_preta.alpha = 0;
+
+				
+				add(tela_preta);
 			case 'fakerStage':
 				var daStatic:FlxSprite = new FlxSprite(0, 0);
 	
@@ -795,10 +799,10 @@ class PlayState extends MusicBeatState
 				add(tempogravador);
 
 				if(ClientPrefs.shaders) {
-			addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
-			addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true)); //testing
-			addShaderToCamera('hud', new ScanlineEffect(true));
-			addShaderToCamera('game', new ScanlineEffect(true)); //testing
+			FunkinLua.addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
+			FunkinLua.addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true)); //testing
+			FunkinLua.addShaderToCamera('hud', new ScanlineEffect(true));
+			FunkinLua.addShaderToCamera('game', new ScanlineEffect(true)); //testing
 				}
 
 			case 'chasing':
@@ -2067,10 +2071,51 @@ class PlayState extends MusicBeatState
 		
 		
 		callOnLuas('onCreatePost', []);
-		
-		
+	
 		super.create();
+
+		cacheCountdown();
+		cachePopUpScore();
 	}
+
+	private function cachePopUpScore()
+		{
+			var pixelShitPart1:String = '';
+			var pixelShitPart2:String = '';
+			if (isPixelStage)
+			{
+				pixelShitPart1 = 'pixelUI/';
+				pixelShitPart2 = '-pixel';
+			}
+	
+			Paths.image(pixelShitPart1 + "sick" + pixelShitPart2);
+			Paths.image(pixelShitPart1 + "good" + pixelShitPart2);
+			Paths.image(pixelShitPart1 + "bad" + pixelShitPart2);
+			Paths.image(pixelShitPart1 + "shit" + pixelShitPart2);
+			Paths.image(pixelShitPart1 + "combo" + pixelShitPart2);
+			
+			for (i in 0...10) {
+				Paths.image(pixelShitPart1 + 'num' + i + pixelShitPart2);
+			}
+		}
+
+	function cacheCountdown()
+		{
+			var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
+			introAssets.set('default', ['ready', 'set', 'go']);
+			introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
+	
+			var introAlts:Array<String> = introAssets.get('default');
+			if (isPixelStage) introAlts = introAssets.get('pixel');
+			
+			for (asset in introAlts)
+				Paths.image(asset);
+			
+			Paths.sound('intro3' + introSoundsSuffix);
+			Paths.sound('intro2' + introSoundsSuffix);
+			Paths.sound('intro1' + introSoundsSuffix);
+			Paths.sound('introGo' + introSoundsSuffix);
+		}
 
 	public var vidSound:FlxSound;
 	public var videoFrames:Int = 0;
@@ -2176,103 +2221,6 @@ class PlayState extends MusicBeatState
 			if(variables.exists(tag)) return variables.get(tag);
 			return null;
 		}
-
-	public static function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
-	  
-	  
-	  
-		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud':
-					camHUDShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camHUDShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other':
-					camOtherShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camOtherShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					camOther.setFilters(newCamEffects);
-			case 'camgame' | 'game':
-					camGameShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camGameShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					camGame.setFilters(newCamEffects);
-			default:
-					camOtherShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camOtherShaders){
-					newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					camOther.setFilters(newCamEffects);
-			
-			
-				
-				
-		}
-	  
-	  
-	  
-	  
-  }
-
-  public static function removeShaderFromCamera(cam:String,effect:ShaderEffect){
-	  
-	  
-		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud': 
-    camHUDShaders.remove(effect);
-    var newCamEffects:Array<BitmapFilter>=[];
-    for(i in camHUDShaders){
-      newCamEffects.push(new ShaderFilter(i.shader));
-    }
-    camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other': 
-					camOtherShaders.remove(effect);
-					var newCamEffects:Array<BitmapFilter>=[];
-					for(i in camOtherShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					camOther.setFilters(newCamEffects);
-			default: 
-				camGameShaders.remove(effect);
-				var newCamEffects:Array<BitmapFilter>=[];
-				for(i in camGameShaders){
-				  newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				camGame.setFilters(newCamEffects);
-		}
-		
-	  
-  }
-	
-	
-	
-  public static function clearShaderFromCamera(cam:String){
-	  
-	  
-		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud': 
-				camHUDShaders = [];
-				var newCamEffects:Array<BitmapFilter>=[];
-				camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other': 
-				camOtherShaders = [];
-				var newCamEffects:Array<BitmapFilter>=[];
-				camOther.setFilters(newCamEffects);
-			default: 
-				camGameShaders = [];
-				var newCamEffects:Array<BitmapFilter>=[];
-				camGame.setFilters(newCamEffects);
-		}
-		
-	  
-  }
 
 	function startCharacterPos(char:Character, ?gfCheck:Bool = false) {
 		if(gfCheck && char.curCharacter.startsWith('gf')) { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
@@ -4009,6 +3957,10 @@ class PlayState extends MusicBeatState
 				vocals.stop();
 				FlxG.sound.music.stop();
 
+				for (timer in modchartTimers) {
+					timer.active = true;
+				}
+
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
@@ -4277,6 +4229,12 @@ class PlayState extends MusicBeatState
 			} else{
 				FlxTween.tween(vignetteEspecial, {alpha: 0.3}, duracao);
 			}
+
+			case 'events':
+				FlxTween.tween(tela_preta, {alpha: 1}, 1.5);	
+				FlxTween.num(defaultCamZoom, 10, 1, {ease: FlxEase.cubeOut}, function (v:Float) {
+					defaultCamZoom = v;
+				}); //rápido e prático : D
 			
 
 			case 'eventos-tooslow':
@@ -5246,7 +5204,7 @@ class PlayState extends MusicBeatState
 				BackgroundVideo.get().stop();
 				FlxG.stage.window.onFocusOut.remove(focusOut);
 				FlxG.stage.window.onFocusIn.remove(focusIn);
-				PlayState.instance.remove(PlayState.instance.videoSprite);
+				remove(videoSprite);
 			}
 
 		deathCounter = 0;

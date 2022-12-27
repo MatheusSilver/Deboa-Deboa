@@ -1,3 +1,5 @@
+import openfl.filters.ShaderFilter;
+import openfl.filters.BitmapFilter;
 import flixel.math.FlxMath;
 #if LUA_ALLOWED
 import llua.Lua;
@@ -41,6 +43,10 @@ using StringTools;
 class FunkinLua {
     public static var Function_Stop = "Function_Stop";
 	public static var Function_Continue = "Function_Continue";
+
+	public static var camGameShaders:Array<ShaderEffect> = [];
+	public static var camHUDShaders:Array<ShaderEffect> = [];
+	public static var camOtherShaders:Array<ShaderEffect> = [];
    
 	#if LUA_ALLOWED
 	public var lua:State = null;
@@ -766,6 +772,11 @@ class FunkinLua {
 					if(PlayState.instance.boyfriend.animOffsets.exists(anim))
 						PlayState.instance.boyfriend.playAnim(anim, forced);
 			}
+		});
+		Lua_helper.add_callback(lua, "cameraFade", function(camera:String, color:String, duration:Float,forced:Bool) {
+			var colorNum:Int = Std.parseInt(color);
+			if(!color.startsWith('0x')) colorNum = Std.parseInt('0xff' + color);
+			cameraFromString(camera).fade(colorNum, duration,false,null,forced);
 		});
 		Lua_helper.add_callback(lua, "characterDance", function(character:String) {
 			switch(character.toLowerCase()) {
@@ -1519,72 +1530,72 @@ class FunkinLua {
 		
 		Lua_helper.add_callback(lua, "addChromaticAbberationEffect", function(camera:String,chromeOffset:Float = 0.005) {
 			
-			PlayState.addShaderToCamera(camera, new ChromaticAberrationEffect(chromeOffset));
+			addShaderToCamera(camera, new ChromaticAberrationEffect(chromeOffset));
 			
 		});
 		
 		Lua_helper.add_callback(lua, "addScanlineEffect", function(camera:String,lockAlpha:Bool=false) {
 			
-			PlayState.addShaderToCamera(camera, new ScanlineEffect(lockAlpha));
+			addShaderToCamera(camera, new ScanlineEffect(lockAlpha));
 			
 		});
 		Lua_helper.add_callback(lua, "addGrainEffect", function(camera:String,grainSize:Float,lumAmount:Float,lockAlpha:Bool=false) {
 			
-			PlayState.addShaderToCamera(camera, new GrainEffect(grainSize,lumAmount,lockAlpha));
+			addShaderToCamera(camera, new GrainEffect(grainSize,lumAmount,lockAlpha));
 			
 		});
 		Lua_helper.add_callback(lua, "addTiltshiftEffect", function(camera:String,blurAmount:Float,center:Float) {
 			
-			PlayState.addShaderToCamera(camera, new TiltshiftEffect(blurAmount,center));
+			addShaderToCamera(camera, new TiltshiftEffect(blurAmount,center));
 			
 		});
 		Lua_helper.add_callback(lua, "addVCREffect", function(camera:String,glitchFactor:Float = 0.0,distortion:Bool=true,perspectiveOn:Bool=true,vignetteMoving:Bool=true) {
 			
-			PlayState.addShaderToCamera(camera, new VCRDistortionEffect(glitchFactor,distortion,perspectiveOn,vignetteMoving));
+			addShaderToCamera(camera, new VCRDistortionEffect(glitchFactor,distortion,perspectiveOn,vignetteMoving));
 			
 		});
 		Lua_helper.add_callback(lua, "addGlitchEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
 			
-			PlayState.addShaderToCamera(camera, new GlitchEffect(waveSpeed,waveFrq,waveAmp));
+			addShaderToCamera(camera, new GlitchEffect(waveSpeed,waveFrq,waveAmp));
 			
 		});
 		Lua_helper.add_callback(lua, "addPulseEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
 			
-			PlayState.addShaderToCamera(camera, new PulseEffect(waveSpeed,waveFrq,waveAmp));
+			addShaderToCamera(camera, new PulseEffect(waveSpeed,waveFrq,waveAmp));
 			
 		});
 		Lua_helper.add_callback(lua, "addDistortionEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
 			
-			PlayState.addShaderToCamera(camera, new DistortBGEffect(waveSpeed,waveFrq,waveAmp));
+			addShaderToCamera(camera, new DistortBGEffect(waveSpeed,waveFrq,waveAmp));
 			
 		});
 		Lua_helper.add_callback(lua, "addInvertEffect", function(camera:String,lockAlpha:Bool=false) {
 			
-			PlayState.addShaderToCamera(camera, new InvertColorsEffect(lockAlpha));
+			addShaderToCamera(camera, new InvertColorsEffect(lockAlpha));
 			
 		});
 		Lua_helper.add_callback(lua, "addGreyscaleEffect", function(camera:String) { //for dem funkies
 			
-			PlayState.addShaderToCamera(camera, new GreyscaleEffect());
+			addShaderToCamera(camera, new GreyscaleEffect());
 			
 		});
 		Lua_helper.add_callback(lua, "addGrayscaleEffect", function(camera:String) { //for dem funkies
 			
-			PlayState.addShaderToCamera(camera, new GreyscaleEffect());
+			addShaderToCamera(camera, new GreyscaleEffect());
 			
 		});
 		Lua_helper.add_callback(lua, "add3DEffect", function(camera:String,xrotation:Float=0,yrotation:Float=0,zrotation:Float=0,depth:Float=0) { //for dem funkies
 			
-			PlayState.addShaderToCamera(camera, new ThreeDEffect(xrotation,yrotation,zrotation,depth));
+			addShaderToCamera(camera, new ThreeDEffect(xrotation,yrotation,zrotation,depth));
 			
 		});
 		Lua_helper.add_callback(lua, "addBloomEffect", function(camera:String,intensity:Float = 0.35,blurSize:Float=1.0) {
 			
-			PlayState.addShaderToCamera(camera, new BloomEffect(blurSize/512.0,intensity));
+			addShaderToCamera(camera, new BloomEffect(blurSize/512.0,intensity));
 			
 		});
 		Lua_helper.add_callback(lua, "clearEffects", function(camera:String) {
-			PlayState.clearShaderFromCamera(camera);
+			clearShaderFromCamera(camera);
 		});
 
 		call('onCreate', []);
@@ -1629,14 +1640,10 @@ class FunkinLua {
 
 	function tweenShit(tag:String, vars:String) {
 		cancelTween(tag);
-		var variables:Array<String> = vars.replace(' ', '').split('.');
-		var sexyProp:Dynamic = Reflect.getProperty(PlayState.instance, variables[0]);
-		if(sexyProp == null && PlayState.instance.modchartSprites.exists(variables[0])) {
-			sexyProp = PlayState.instance.modchartSprites.get(variables[0]);
-		}
-
-		for (i in 1...variables.length) {
-			sexyProp = Reflect.getProperty(sexyProp, variables[i]);
+		var variables:Array<String> = vars.split('.');
+		var sexyProp:Dynamic = getObjectDirectly(variables[0]);
+		if(variables.length > 1) {
+			sexyProp = getVarInArray(getPropertyLoopThingWhatever(variables), variables[variables.length-1]);
 		}
 		return sexyProp;
 	}
@@ -1715,12 +1722,13 @@ class FunkinLua {
 
 	function cameraFromString(cam:String):FlxCamera {
 		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud': return PlayState.camHUD;
-			case 'camother' | 'other': return PlayState.camOther;
+			case 'camhud' | 'hud': return PlayState.instance.camHUD;
+			case 'camhud2' | 'hud2': return PlayState.instance.camHUD2;
+			case 'camother' | 'other': return PlayState.instance.camOther;
 			case 'camlegenda' | 'legenda': return PlayState.instance.camLegenda;
 			case 'camorig' | 'orig': return FlxG.camera;
 		}
-		return PlayState.camGame;
+		return PlayState.instance.camGame;
 	}
 
 	public static function getPropertyLoopThingWhatever(killMe:Array<String>, ?checkForTextsToo:Bool = true, ?getProperty:Bool=true):Dynamic
@@ -1743,6 +1751,103 @@ class FunkinLua {
 
 		return coverMeInPiss;
 	}
+
+	public static function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
+	  
+	  
+	  
+		switch(cam.toLowerCase()) {
+			case 'camhud' | 'hud':
+					camHUDShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camHUDShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					PlayState.instance.camHUD.setFilters(newCamEffects);
+			case 'camother' | 'other':
+					camOtherShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camOtherShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					PlayState.instance.camOther.setFilters(newCamEffects);
+			case 'camgame' | 'game':
+					camGameShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camGameShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					PlayState.instance.camGame.setFilters(newCamEffects);
+			default:
+					camOtherShaders.push(effect);
+					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+					for(i in camOtherShaders){
+					newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					PlayState.instance.camOther.setFilters(newCamEffects);
+			
+			
+				
+				
+		}
+	  
+	  
+	  
+	  
+  }
+
+  public static function removeShaderFromCamera(cam:String,effect:ShaderEffect){
+	  
+	  
+		switch(cam.toLowerCase()) {
+			case 'camhud' | 'hud': 
+    camHUDShaders.remove(effect);
+    var newCamEffects:Array<BitmapFilter>=[];
+    for(i in camHUDShaders){
+      newCamEffects.push(new ShaderFilter(i.shader));
+    }
+	PlayState.instance.camHUD.setFilters(newCamEffects);
+			case 'camother' | 'other': 
+					camOtherShaders.remove(effect);
+					var newCamEffects:Array<BitmapFilter>=[];
+					for(i in camOtherShaders){
+					  newCamEffects.push(new ShaderFilter(i.shader));
+					}
+					PlayState.instance.camOther.setFilters(newCamEffects);
+			default: 
+				camGameShaders.remove(effect);
+				var newCamEffects:Array<BitmapFilter>=[];
+				for(i in camGameShaders){
+				  newCamEffects.push(new ShaderFilter(i.shader));
+				}
+				PlayState.instance.camGame.setFilters(newCamEffects);
+		}
+		
+	  
+  }
+	
+	
+	
+  public static function clearShaderFromCamera(cam:String){
+	  
+	  
+		switch(cam.toLowerCase()) {
+			case 'camhud' | 'hud': 
+				camHUDShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				PlayState.instance.camHUD.setFilters(newCamEffects);
+			case 'camother' | 'other': 
+				camOtherShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				PlayState.instance.camOther.setFilters(newCamEffects);
+			default: 
+				camGameShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				PlayState.instance.camGame.setFilters(newCamEffects);
+		}
+		
+	  
+  }
 
 	public static function setVarInArray(instance:Dynamic, variable:String, value:Dynamic):Any
 		{
@@ -1928,7 +2033,7 @@ class ModchartText extends FlxText
 	{
 		super(x, y, width, text, 16);
 		setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		cameras = [PlayState.camHUD];
+		cameras = [PlayState.instance.camHUD];
 		scrollFactor.set();
 		borderSize = 2;
 	}

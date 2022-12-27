@@ -18,9 +18,11 @@ function onCreate()
 	setProperty("healthBar.max",1)
 end
 
+modchart = true
+
 function onEvent(n,v1,v2)
 	if n == "TailsHit" then
-		if Modchart then
+		if modchart then
 			--setups
 			if not downscroll then
 				setProperty('tails.alpha',1)
@@ -47,7 +49,7 @@ function onTimerCompleted(tag, loops, loopsLeft)
     end
 	if tag == 'movearrows' then
 		--tweens
-		if difficulty == 0 then
+		--if difficulty == 2 then
 			noteTweenY('B3', 4, 50 + math.random(0, 35), 0.25, "quintOut")
 			noteTweenY('A3', 5, 50 + math.random(-35, 0), 0.25, "quintOut")
 			noteTweenY('C3', 6, 50 + math.random(-35, 0), 0.25, "quintOut")
@@ -70,11 +72,11 @@ function onTimerCompleted(tag, loops, loopsLeft)
 			noteTweenAngle('AngleB',5 , math.random(0, 60)  , 0.25, "quintOut")
 			noteTweenAngle('AngleC',6 , math.random(5, 50)  , 0.25, "quintOut")
 			noteTweenAngle('AngleD',7 , math.random(20, 50)  , 0.25, "quintOut")
-		end
+		--end
     end
 	if tag == 'movearrows2' then
 		--tweens
-		if difficulty == 0 then
+		--if difficulty == 2 then
 			noteTweenY('B3', 4, 570 - math.random(0, 35), 0.25, "quintOut")
 			noteTweenY('A3', 5, 570 - math.random(-35, 0), 0.25, "quintOut")
 			noteTweenY('C3', 6, 570 - math.random(-35, 0), 0.25, "quintOut")
@@ -92,6 +94,6 @@ function onTimerCompleted(tag, loops, loopsLeft)
 			noteTweenAngle('AngleB',5 , math.random(0, 60)  , 0.25, "quintOut")
 			noteTweenAngle('AngleC',6 , math.random(5, 50)  , 0.25, "quintOut")
 			noteTweenAngle('AngleD',7 , math.random(20, 50)  , 0.25, "quintOut")
-		end
+		--end
 	end
 end

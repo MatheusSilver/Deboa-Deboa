@@ -1,6 +1,7 @@
 
 local followchars = true
 local modchart = true
+sickness = true
 
 local xx = 1060
 local yy = 760
@@ -64,6 +65,7 @@ function onCreate()
 	local midX = screenWidth/2
 	makeAnimatedLuaSprite('barrier','sprites/Thingy',0, 0)
 	addAnimationByPrefix('barrier','barrier','thingy',24,false)
+	setProperty('hud.alpha',0)
 	setScrollFactor('barrier', 0, 0);
 	setProperty('barrier.alpha',0)
 	setObjectCamera('barrier','hud')
@@ -77,7 +79,6 @@ end
 
 function onStartCountdown()
 	addLuaSprite('barrier', true)
-	setProperty('camHUD.alpha',0)
 	setProperty('gf.alpha', 0)
 	setProperty('dad.alpha', 1)
 	setProperty('boyfriend.alpha', 0)
@@ -90,9 +91,9 @@ function onCountdownStarted()
 	setPropertyFromClass('Conductor', 'songPosition', 0);
 end
 
---function onPause()
+function onPause()
 --	return Function_Stop; --disabled for testing
---end
+end
 
 function onGameOver()
 	modchart = false
@@ -137,21 +138,21 @@ end
 
 function onBeatHit()
 	if curBeat == 433 then
-		cameraFade('camGame', '000000', '1')
+		cameraFade('game', '000000', '1')
 	end
 	if curBeat <= 1 then
-		doTweenZoom('ZoomIn', 'camGame', '1.15', '13.2', 'linear')
-		doTweenZoom('ZoomInHud', 'camHUD', '4', '0.2', 'linear')
+		doTweenZoom('ZoomIn', 'game', '1.15', '13.2', 'linear')
+		doTweenZoom('ZoomInHud', 'hud', '4', '0.2', 'linear')
 	end
 	if curBeat == 32 then
-		doTweenZoom('ZoomIn', 'camGame', '0.92', '0.1', 'linear')
+		doTweenZoom('ZoomIn', 'game', '0.92', '0.1', 'linear')
 	end
 	if curBeat == 31 then
-		setProperty('camHUD.alpha',1)
-		doTweenZoom('ZoomInHud', 'camHUD', '1', '0.5', 'linear')
+		setProperty('hud.alpha',1)
+		doTweenZoom('ZoomInHud', 'hud', '1', '0.5', 'linear')
 	end
-	if sickness then
-		if mustHitSection == false then
+--	if sickness then
+		--if mustHitSection == false then
 			if curBeat > 48 then
 				if curBeat < 432 then
 					if curBeat % 2 == 0 then
@@ -159,17 +160,17 @@ function onBeatHit()
 					else
 						angleshit = -anglevar;
 					end
-					setProperty('camHUD.angle',angleshit*3)
-					setProperty('camGame.angle',angleshit*3)
-					doTweenAngle('turn', 'camHUD', angleshit, stepCrochet*0.002, 'circOut')
-					doTweenX('tuin', 'camHUD', -angleshit*8, crochet*0.001, 'linear')
-					doTweenAngle('tt', 'camGame', angleshit, stepCrochet*0.002, 'circOut')
-					doTweenX('ttrn', 'camGame', -angleshit*8, crochet*0.001, 'linear')
+					setProperty('hud.angle',angleshit*3)
+					setProperty('game.angle',angleshit*3)
+					doTweenAngle('turn', 'hud', angleshit, stepCrochet*0.002, 'circOut')
+					doTweenX('tuin', 'hud', -angleshit*8, crochet*0.001, 'linear')
+					doTweenAngle('tt', 'game', angleshit, stepCrochet*0.002, 'circOut')
+					doTweenX('ttrn', 'game', -angleshit*8, crochet*0.001, 'linear')
 				end
 			end
-		else
-			setProperty('camHUD.angle',0)
-			setProperty('camGame.angle',0)
-		end
-	end
+		--else
+		--	setProperty('hud.angle',0)
+		--	setProperty('game.angle',0)
+		--end
+--	end
 end

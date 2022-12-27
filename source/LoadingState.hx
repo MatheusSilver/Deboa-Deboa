@@ -22,7 +22,14 @@ import haxe.io.Path;
 
 class LoadingsState extends MusicBeatSubstate
 {
-	var loadingidentifier:Array<String> = ['cycles', 'execution', 'sunshine', 'soulless', 'defender', 'illegal-download']; //usado apenas para os grupinhos
+	var loadingidentifier:Array<String> = [
+	'cycles', 
+	'execution', 
+	'soulless', 
+	'sunshine', 
+	'defender', 
+	'illegal-download'
+]; //usado apenas para os grupinhos
 
 	public var instantAlpha:Bool = false;
 	var art = new FlxSprite();

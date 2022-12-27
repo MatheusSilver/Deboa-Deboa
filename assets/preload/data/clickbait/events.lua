@@ -17,13 +17,6 @@ function onSongStart()
     doTweenAlpha('fleeplay', 'fleeplay', 1, 1, 'linear');
 end
 
-function onEvent(name, value1, value2)
-	if name == "events" then
-		doTweenAlpha('fadeOFF', 'blckfade', 1, 1, 'linear');
-		doTweenZoom('zoom', 'defaultCamZoom', 10, 1, 'linear')
-    end
-end
-
 function onUpdate()
     if curStep == 16 then
         setProperty('fleeplay.alpha', 0)
