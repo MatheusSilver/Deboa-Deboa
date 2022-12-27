@@ -108,7 +108,7 @@ class AchievementsMenuState extends MusicBeatState
 		add(descBox);
 
 		descText = new FlxText(0, 0, descBox.width - 10, "", 18);
-		descText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font("GhoulFriAOE.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.x = descBox.x + 5;
 		descText.y = descBox.y + 50;
