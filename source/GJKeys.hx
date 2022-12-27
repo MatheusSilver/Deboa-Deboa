@@ -2,6 +2,6 @@ package;
 
 class GJKeys
 {
-  public static var id:Int = 770031; // Your Game ID
-  public static var key:String = '575bd525938d8d9cc38b41974ddf1434'; // Your Game Private Key
+  public static var id:Int = 774378; // Your Game ID
+  public static var key:String = 'ffb5a27a01a965a42a5780348f583b9b'; // Your Game Private Key
 }
