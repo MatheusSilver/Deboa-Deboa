@@ -598,6 +598,7 @@ class PlayState extends MusicBeatState
 
 			case 'too-slow':
 					{
+						// Não vai ter como por conta dos assets não estarem separados
 						var bg:FlxSprite = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
 						bg.antialiasing = true;
 						bg.scrollFactor.set(1.3, 1);

@@ -19,7 +19,9 @@ function onCreate()
 
 	makeLuaSprite('StarvedSonicDead','starved/sonicisfuckingdead',0,450)
 	scaleObject('StarvedSonicDead',0.65,0.65)
-	addLuaSprite('StarvedSonicDead')
+	if gore == true then
+		addLuaSprite('StarvedSonicDead')
+	end
 end
 function onStepHit()
 	if curStep == 1184 or curStep == 1472 then
