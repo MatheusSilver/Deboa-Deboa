@@ -368,7 +368,8 @@ class Alphabet extends FlxSpriteGroup
 					x = FlxG.width + 30;
 			}
 		else if (isMenuTrem)
-		{
+		{ //usado em achievement
+			//basicamente organiza o eixo Y enquanto mantem o eixo X livre para ser movimentado.
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
 			y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.16);

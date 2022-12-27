@@ -10,29 +10,30 @@ import flixel.text.FlxText;
 using StringTools;
 
 class Achievements {
+	//substituir os zeros pelos seus respectivos ID's de achievement da gamejolt
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
-		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true], //na real, meio que tanto faz isso.
-		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false],
-		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true],
-		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false],
-		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false],
-		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false],
-		["Nunca confie em robôs",		"Morra com o botplay ligado em caça",				'prey_bot',			true],
-		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		false],
-		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false],
-		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false],
+		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 0, 'geral', 'estrelas'], //na real, meio que tanto faz isso.
+		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false, 0, 'meme maker', 'estrelas'],
+		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 0, 'discordia', 'estrelas'],
+		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 0, 'geral', 'estrelas'],
+		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 0, 'orgulho', 'estrelas'],
+		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false, 0, 'geral', 'estrelas'],
+		["Nunca confie em robôs",		"Morra com o botplay ligado em caça",				'prey_bot',			true, 0, 'bonus', 'estrelas'],
+		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		false, 0, 'bonus', 'estrelas'],
+		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false, 0, 'geral', 'estrelas'],
+		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false, 0, 'orgulho', 'estrelas'],
 		//["Psicopata",					"Assista o Carlitos morrer 100 vezes.",				'roadkill_enthusiast',false, 0], guardado para a posteridade
-		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',		true],
-		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',	true],
-		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',		true],
-		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',		false],
-		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false],
-		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false],
-		["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false],
-		["Me siga no OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true],
-		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true],
-		["Fruto do Jardim",				"Assista ao poema em Lerdeza",						'poems',			true],
-		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true]  //True quer dizer que é secreto shhhhhhhh
+		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',		true, 0, 'orgulho', 'estrelas'],
+		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',	true, 0, 'orgulho', 'estrelas'],
+		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',		true, 0, 'orgulho', 'estrelas'],
+		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',		false, 0, 'orgulho', 'estrelas'],
+		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false, 0, 'historias alternativas', 'estrelas'],
+		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false, 0, 'geral', 'estrelas'],
+		["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 0, 'orgulho', 'estrelas'],
+		["Me siga no OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 0, 'meme maker', 'estrelas'],
+		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 0, 'luxuria', 'estrelas'],
+		["Fruto do Jardim",				"Assista ao poema em Lerdeza",						'poems',			true, 0, 'orgulho', 'estrelas'],
+		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 0, 'historias alternativas', 'estrelas']  //True quer dizer que é secreto shhhhhhhh
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
@@ -41,6 +42,8 @@ class Achievements {
 		FlxG.log.add('Completed achievement "' + name +'"');
 		achievementsMap.set(name, true);
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+		var id:Int = Achievements.getAchievementIndex(name);
+		GJClient.trophieAdd(achievementsStuff[id][4]);
 	}
 
 	public static function isAchievementUnlocked(name:String) {
@@ -63,13 +66,6 @@ class Achievements {
 		if(FlxG.save.data != null) {
 			if(FlxG.save.data.achievementsMap != null) {
 				achievementsMap = FlxG.save.data.achievementsMap;
-			}
-			if(FlxG.save.data.achievementsUnlocked != null) {
-				FlxG.log.add("Trying to load stuff");
-				var savedStuff:Array<String> = FlxG.save.data.achievementsUnlocked;
-				for (i in 0...savedStuff.length) {
-					achievementsMap.set(savedStuff[i], true);
-				}
 			}
 			if(henchmenDeath == 0 && FlxG.save.data.henchmenDeath != null) {
 				henchmenDeath = FlxG.save.data.henchmenDeath;
@@ -94,12 +90,13 @@ class AttachedAchievement extends FlxSprite {
 	}
 
 	public function reloadAchievementImage() {
-		if(Achievements.isAchievementUnlocked(tag)) {
-			loadGraphic(Paths.image('conquistas/png/' + tag));
+		loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-' + tag + ")"));
+		/*if(Achievements.isAchievementUnlocked(tag)) {
+			//To think: Como indicar pro manito quais achievements ele tem, e quais ele não tem?
 		} else {
 			loadGraphic(Paths.image('conquistas/png/exe_blocked'));
-		}
-		scale.set(0.7, 0.7);
+		}*/
+		scale.set(0.35, 0.35);
 		updateHitbox();
 	}
 
@@ -123,13 +120,12 @@ class AchievementObject extends FlxSpriteGroup {
 		var achievementBG:FlxSprite = new FlxSprite(60, 50).makeGraphic(420, 120, FlxColor.BLACK);
 		achievementBG.scrollFactor.set();
 
-		var achievementIcon:FlxSprite = new FlxSprite(achievementBG.x + 10, achievementBG.y + 10).loadGraphic(Paths.image('achievementgrid'), true, 150, 150);
-		achievementIcon.animation.add('icon', [id], 0, false, false);
-		achievementIcon.animation.play('icon');
+		var achievementIcon:FlxSprite = new FlxSprite(achievementBG.x + 10, achievementBG.y + 10).loadGraphic(Paths.image('conquistas/icones/' + name)); //Isso vai facilitar bastatne nossa vida com os icones dos achievements, confia.
 		achievementIcon.scrollFactor.set();
 		achievementIcon.setGraphicSize(Std.int(achievementIcon.width * (2 / 3)));
 		achievementIcon.updateHitbox();
 		achievementIcon.antialiasing = ClientPrefs.globalAntialiasing;
+		
 
 		var achievementName:FlxText = new FlxText(achievementIcon.x + achievementIcon.width + 20, achievementIcon.y + 16, 280, Achievements.achievementsStuff[id][0], 16);
 		achievementName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT);

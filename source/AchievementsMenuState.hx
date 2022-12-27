@@ -22,17 +22,18 @@ using StringTools;
 class AchievementsMenuState extends MusicBeatState
 {
 	var options:Array<String> = [];
+	var isCoolBeata:Bool = true;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
-	//var descBox:FlxSprite;
+	var descBox:FlxSprite;
 	var majin:FlxSprite;
 
 	override function create() {
 		#if desktop
-		DiscordClient.changePresence("Menu de conquistas", null);
+		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
 
 		//ARRUMEM AS POSIÇÕES DEPOIS : EU SOU HORRÍVEL COM ISSO
@@ -42,35 +43,15 @@ class AchievementsMenuState extends MusicBeatState
 		// -mateusx02
 		// ps: a vio fez um menu maravilhoso, não precisa trocar mais nada, NADA aqui
 
+		//Silver reverso says:
+		//Ovô trocar sim, tô pokas hoje...
+
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
-		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
+		menuBG.setGraphicSize(FlxG.width, FlxG.height);
 		menuBG.updateHitbox();
-		menuBG.screenCenter();
+		menuBG.screenCenter(XY);
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
-
-		var linha:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_linha"));
-		linha.antialiasing = ClientPrefs.globalAntialiasing;
-		add(linha);
-
-		var linha2:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_perfil"));
-		linha2.antialiasing = ClientPrefs.globalAntialiasing;
-		add(linha2);
-
-		majin = new FlxSprite(0, 0);
-		majin.frames = Paths.getSparrowAtlas('conquistas/menu/majin', 'preload');
-		majin.animation.addByPrefix('idle', "idle", 24);
-		majin.antialiasing = ClientPrefs.globalAntialiasing;
-		add(majin);
-
-		var linha3:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_texto"));
-		linha3.antialiasing = ClientPrefs.globalAntialiasing;
-		add(linha3);
-
-		var gradiente:FlxSprite = new FlxSprite().loadGraphic(Paths.image("vignette"));
-		gradiente.antialiasing = ClientPrefs.globalAntialiasing;
-		add(gradiente);
-		
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
@@ -83,30 +64,54 @@ class AchievementsMenuState extends MusicBeatState
 		}
 
 		for (i in 0...options.length) {
+			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][5];
 			var achieveName:String = Achievements.achievementsStuff[achievementIndex[i]][2];
-			var optionText:Alphabet = new Alphabet(0, (100 * i) + 210, Achievements.isAchievementUnlocked(achieveName) ? Achievements.achievementsStuff[achievementIndex[i]][0] : '?', false, false);
-			optionText.isMenuItem = true;
-			optionText.x += 280;
-			optionText.xAdd = 200;
+			var optionText:Alphabet = new Alphabet(-50, (250 * i) + 210, '', false, false);
+			optionText.isMenuTrem = true;
+			optionText.x += 25;
+			optionText.xAdd = 25;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 
-			var icon:AttachedAchievement = new AttachedAchievement(optionText.x - 105, optionText.y, achieveName);
+			var icon:AttachedAchievement = new AttachedAchievement(optionText.x - 105 - 300 - 250, optionText.y, achieveAlbum);
 			icon.sprTracker = optionText;
 			achievementArray.push(icon);
 			add(icon);
 		}
 
-		/*descBox = new FlxSprite(1, 1, FlxColor.BLACK);
-		descBox.x = -10;
-		descBox.y = -10;
-		descBox.alpha = 0.6;
-		descBox.alpha = 0.6;
-		add(descBox);*/
+		var linha:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("conquistas/menu/achievements_linha"));
+		linha.antialiasing = ClientPrefs.globalAntialiasing;
+		add(linha);
 
-		descText = new FlxText(150, 600, 980, "", 32);
-		descText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		var linha2:FlxSprite = new FlxSprite().loadGraphic(Paths.image("conquistas/menu/achievements_perfil"));
+		linha2.antialiasing = ClientPrefs.globalAntialiasing;
+		linha2.y = 0;
+		linha2.x = FlxG.width - linha2.width;
+		add(linha2);
+
+		majin = new FlxSprite(512 - 80 + 30, -230);
+		majin.frames = Paths.getSparrowAtlas('conquistas/menu/majinnatalino', 'preload');
+		majin.animation.addByPrefix('idle', "majinnatalino idle", 24);
+		majin.flipX = true;
+		majin.setGraphicSize(Std.int(majin.width * 1.35));
+		majin.antialiasing = ClientPrefs.globalAntialiasing;
+		add(majin);
+
+		descBox = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_texto'));
+		//descBox.alpha = 0.6;
+		//descBox.alpha = 0.6;
+		descBox.scale.x = 1280/1920;
+		descBox.scale.y = 720/1080;
+		descBox.updateHitbox();
+		descBox.x = FlxG.width - 29 - descBox.width;
+		descBox.y = FlxG.height - 10 - descBox.height;
+		add(descBox);
+
+		descText = new FlxText(0, 0, descBox.width - 10, "", 18);
+		descText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
+		descText.x = descBox.x + 5;
+		descText.y = descBox.y + 50;
 		descText.borderSize = 2.4;
 		add(descText);
 		changeSelection();
@@ -157,4 +162,12 @@ class AchievementsMenuState extends MusicBeatState
 		}
 		descText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][1];
 	}
+	
+	override function beatHit()
+		{
+			super.beatHit(); //interessante, ovô rosbar
+			if(isCoolBeata){majin.animation.play('idle', true);}
+			isCoolBeata = !isCoolBeata;
+		}
+
 }
