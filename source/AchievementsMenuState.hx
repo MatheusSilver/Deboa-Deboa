@@ -31,6 +31,7 @@ class AchievementsMenuState extends MusicBeatState
 	private var titleText:FlxText;
 	var descBox:FlxSprite;
 	var majin:FlxSprite;
+	var apertavel:Bool = true;
 
 	override function create() {
 
@@ -68,7 +69,6 @@ class AchievementsMenuState extends MusicBeatState
 
 		for (i in 0...options.length) {
 			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][5];
-			var achieveName:String = Achievements.achievementsStuff[achievementIndex[i]][2];
 			var optionText:Alphabet = new Alphabet(-175, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
 			optionText.x += 25;
@@ -134,10 +134,10 @@ class AchievementsMenuState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P) {
+		if (controls.UI_UP_P && apertavel) {
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P) {
+		if (controls.UI_DOWN_P && apertavel) {
 			changeSelection(1);
 		}
 
@@ -148,6 +148,7 @@ class AchievementsMenuState extends MusicBeatState
 	}
 
 	function changeSelection(change:Int = 0) {
+		apertavel = false;
 		curSelected += change;
 		if (curSelected < 0)
 			curSelected = options.length - 1;
@@ -161,8 +162,11 @@ class AchievementsMenuState extends MusicBeatState
 			bullShit++;
 
 			if (item.targetY == 0) {
-				flixel.tweens.FlxTween.tween(item, {x: -100}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
-			} else if (item.targetY != 0){
+				flixel.tweens.FlxTween.tween(item, {x: -100}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut,
+					onComplete: function(twn:flixel.tweens.FlxTween) {
+						apertavel = true;
+			}});
+			} else if (item.targetY != 0 && item.x == -100){
 				flixel.tweens.FlxTween.tween(item, {x: -275}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
 			}
 		}
@@ -174,7 +178,7 @@ class AchievementsMenuState extends MusicBeatState
 			}
 		}
 		descText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][1];
-		titleText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][0];
+		titleText.text = Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achievementIndex[curSelected]][2]) ? Achievements.achievementsStuff[achievementIndex[curSelected]][0] : '?????';
 	}
 	
 	override function beatHit()
