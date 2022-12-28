@@ -7,6 +7,14 @@ function onCreate()
     setProperty('stat.alpha', 0);
 	setScrollFactor('stat', 1, 1);
 
+    makeAnimatedLuaSprite('inicio', 'chasingvideo', 0, 0);
+	addAnimationByPrefix('inicio', 'chasingvideo anim', 'chasingvideo anim', 30, false);
+    setObjectCamera('inicio', 'other');
+    scaleObject('inicio', 1, 1);
+    addLuaSprite('inicio', true);
+    setProperty('inicio.alpha', 0);
+	setScrollFactor('inicio', 1, 1);
+
     if downscroll == true then
         if legendasporcima == true then
             makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, -350)
@@ -44,6 +52,7 @@ function onStepHit()
     if curStep == 392 then
         playSound('hitStatic2');
         setProperty('stat.alpha', 1);
+        setProperty('fundo.alpha', 0);
         objectPlayAnimation('stat', 'staticFLASH', true);
     end
     if curStep == 490 then
@@ -56,6 +65,7 @@ function onStepHit()
     end
 
     if curStep == 393 then
-        setProperty('fundo.alpha', 0);
+        objectPlayAnimation('inicio', 'chasingvideo anim', false);
+        setProperty('inicio.alpha', 1);
     end
 end 

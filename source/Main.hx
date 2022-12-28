@@ -1,6 +1,5 @@
 package;
 
-import Discord.DiscordClient;
 #if desktop
 ///import GameJolt;
 ///import GameJolt.GameJoltAPI;
