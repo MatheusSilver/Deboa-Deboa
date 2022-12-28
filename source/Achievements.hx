@@ -12,9 +12,9 @@ using StringTools;
 class Achievements {
 	//substituir os zeros pelos seus respectivos ID's de achievement da gamejolt
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
-		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 0, 'geral', 'estrelas'], //na real, meio que tanto faz isso.
-		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false, 0, 'meme maker', 'estrelas'],
-		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 0, 'discordia', 'estrelas'],
+		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 0, 'geral', 'estrelas', '181570'], //na real, meio que tanto faz isso.
+		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false, 0, 'meme maker', 'estrelas', '181571'],
+		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 0, 'discordia', 'estrelas', '181572'],
 		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 0, 'geral', 'estrelas'],
 		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 0, 'orgulho', 'estrelas'],
 		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false, 0, 'geral', 'estrelas'],
@@ -43,7 +43,7 @@ class Achievements {
 		achievementsMap.set(name, true);
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		var id:Int = Achievements.getAchievementIndex(name);
-		GJClient.trophieAdd(achievementsStuff[id][4]);
+		GJClient.trophieAdd(achievementsStuff[id][8]);
 	}
 
 	public static function isAchievementUnlocked(name:String) {

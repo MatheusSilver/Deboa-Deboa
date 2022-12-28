@@ -1861,7 +1861,7 @@ class ChartingState extends MusicBeatState
 			if(note.y < -150) note.y = -150;
 
 			if(note.noteData < 0) {
-				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 400, 'Event: ' + note.eventName + ' (' + Math.floor(note.strumTime) + ' ms)' + '\nValue 1: ' + note.eventVal1 + '\nValue 2: ' + note.eventVal2, 12);
+				var daText:AttachedFlxText = new AttachedFlxText(0, 0, 400, 'Event: ' + note.eventName + ' (' + Math.floor(note.strumTime) + ' ms)' + '\nValue 1: ' + note.eventVal1 + '\nValue 2: ' + note.eventVal2 + '\nValue 3: ' + note.eventVal3, 12);
 				daText.setFormat(Paths.font("vcr.ttf"), 12, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				daText.xAdd = -410;
 				daText.borderSize = 1;
@@ -1930,6 +1930,7 @@ class ChartingState extends MusicBeatState
 			note.eventName = daSus;
 			note.eventVal1 = i[3];
 			note.eventVal2 = i[4];
+			note.eventVal3 = i[5];
 		}
 		note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 		note.updateHitbox();
@@ -2037,7 +2038,7 @@ class ChartingState extends MusicBeatState
 			var text1 = value1InputText.text;
 			var text2 = value2InputText.text;
 			var text3 = value3InputText.text;
-			_song.notes[curSection].sectionNotes.push([noteStrum, noteData, event, text1, text2]);
+			_song.notes[curSection].sectionNotes.push([noteStrum, noteData, event, text1, text2, text3]);
 		}
 		curSelectedNote = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
 

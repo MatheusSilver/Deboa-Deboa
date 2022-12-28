@@ -384,7 +384,7 @@ class MainMenuStateMobile extends MusicBeatState
 				letext.text = GJClient.userName;
 				if(FlxG.keys.justPressed.SPACE)
 					{
-						GJClient.trophieAdd(179877);
+						Achievements.unlockAchievement("Seja bem vindo!");
 						trace('getting trophie');
 					}
 				letext.alpha = 1;
