@@ -11,24 +11,6 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						0,
-						-1,
-						"Adicionar Imagens",
-						"",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
 				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
@@ -89,15 +71,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						12537.3134328358,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chapixel",
-						""
-					]
-				],
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -321,6 +305,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic5",
+						"letras/chasing/chatails8",
 						""
 					]
 				],
@@ -333,7 +318,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						38843.2835820896,
+						-1,
+						"Adicionar Imagens",
+						"letras/chasing/chasonic5",
+						"letras/chasing/chatails9",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -349,7 +343,27 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic6",
+						"letras/chasing/chatails9",
 						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						43992.5373134328,
+						-1,
+						"comecarvideo",
+						"ChasingVideo",
+						"0,0,1,2",
+						"0"
 					]
 				],
 				"bpm": 0,
@@ -375,10 +389,9 @@
 					[
 						43992.5373134328,
 						-1,
-						"comecarvideo",
-						"ChasingVideo",
-						"0,0,1,2",
-						"0"
+						"Adicionar Imagens",
+						"letras/chasing/chatails10",
+						""
 					]
 				],
 				"bpm": 0,
@@ -462,13 +475,6 @@
 						-1,
 						"Flash Camera",
 						"1s",
-						""
-					],
-					[
-						53731.3432835821,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic",
 						""
 					]
 				],
@@ -587,16 +593,10 @@
 						""
 					],
 					[
-						64589.5522388059,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails",
-						""
-					],
-					[
 						65932.8358208955,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails11",
 						""
 					]
@@ -615,6 +615,7 @@
 						67185.3233830846,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails12",
 						""
 					]
@@ -633,6 +634,7 @@
 						68518.6567164179,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails13",
 						""
 					]
@@ -651,6 +653,7 @@
 						70018.6567164179,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails14",
 						""
 					]
@@ -670,6 +673,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic7",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -688,6 +692,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic8",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -706,6 +711,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic9",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -734,6 +740,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic10",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -751,6 +758,7 @@
 						76935.3233830845,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails15",
 						""
 					],
@@ -758,6 +766,7 @@
 						77851.9900497512,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails16",
 						""
 					]
@@ -786,6 +795,7 @@
 						79601.9900497512,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails17",
 						""
 					]
@@ -815,6 +825,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic11",
+						"letras/chasing/chatailss",
 						""
 					],
 					[
@@ -822,6 +833,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic12",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -850,6 +862,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic13",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -877,6 +890,7 @@
 						87851.9900497511,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails11",
 						""
 					]
@@ -895,6 +909,7 @@
 						89185.3233830845,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails12",
 						""
 					]
@@ -913,6 +928,7 @@
 						90518.6567164178,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails13",
 						""
 					]
@@ -931,6 +947,7 @@
 						91935.3233830845,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails14",
 						""
 					]
@@ -950,6 +967,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic7",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -968,6 +986,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic8",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -986,6 +1005,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic9",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -1004,6 +1024,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic10",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -1021,6 +1042,7 @@
 						98768.6567164178,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails18",
 						""
 					]
@@ -1039,6 +1061,7 @@
 						100601.990049751,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails19",
 						""
 					]
@@ -1057,6 +1080,7 @@
 						101518.656716418,
 						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails20",
 						""
 					]
@@ -1086,6 +1110,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic14",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -1104,6 +1129,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic15",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -1122,6 +1148,7 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/chasing/chasonic16",
+						"letras/chasing/chatailss",
 						""
 					]
 				],
@@ -1148,14 +1175,8 @@
 					[
 						109768.656716418,
 						-1,
-						"CameraZoom",
-						"1",
-						"2s"
-					],
-					[
-						109772.12893864,
-						-1,
 						"Adicionar Imagens",
+						"letras/chasing/chasonicc",
 						"letras/chasing/chatails21",
 						""
 					]
