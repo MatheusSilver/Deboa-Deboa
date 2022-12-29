@@ -16,6 +16,7 @@ function onCreate()
 	scaleObject('blackFuck', 6.0, 6.0);
 	setObjectCamera('blackFuck', 'hud2');
 	addLuaSprite('blackFuck', true);
+        removeLuaSprite('blackFuck', true);
 
     setScrollFactor('gf', 1.24, 1);
     setScrollFactor('dad', 1.25, 1);
