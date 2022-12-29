@@ -149,6 +149,7 @@ class ChartingState extends MusicBeatState
 
 	var value1InputText:FlxUIInputText;
 	var value2InputText:FlxUIInputText;
+	var value3InputText:FlxUIInputText;
 	var currentSongName:String;
 	
 	var zoomTxt:FlxText;
@@ -417,7 +418,7 @@ class ChartingState extends MusicBeatState
 					for (noteId in 0...events.notes[sec].sectionNotes.length) {
 						var note:Array<Dynamic> = events.notes[sec].sectionNotes[noteId];
 						if(note != null && note[1] < 0) {
-							_song.notes[sec].sectionNotes.push([note[0], note[1], note[2], note[3], note[4]]);
+							_song.notes[sec].sectionNotes.push([note[0], note[1], note[2], note[3], note[4], note[5]]);
 						}
 					}
 				}
@@ -668,8 +669,8 @@ class ChartingState extends MusicBeatState
 			for (note in notesCopied)
 			{
 				var copiedNote:Array<Dynamic> = [];
-				if(note[4] != null) {
-					copiedNote = [note[0] + addToTime, note[1], note[2], note[3], note[4]];
+				if(note[4] && note[5] != null) {
+					copiedNote = [note[0] + addToTime, note[1], note[2], note[3], note[4], note[5]];
 				} else {
 					copiedNote = [note[0] + addToTime, note[1], note[2], note[3]];
 				}
@@ -712,7 +713,7 @@ class ChartingState extends MusicBeatState
 
 				var copiedNote:Array<Dynamic> = [strum, note[1], note[2], note[3]];
 				if(note[1] < 0) {
-					copiedNote = [strum, note[1], note[2], note[3], note[4]];
+					copiedNote = [strum, note[1], note[2], note[3], note[4], note[5]];
 				}
 				_song.notes[daSec].sectionNotes.push(copiedNote);
 			}
@@ -867,9 +868,15 @@ class ChartingState extends MusicBeatState
 		value2InputText = new FlxUIInputText(20, 150, 100, "");
 		blockPressWhileTypingOn.push(value2InputText);
 
+		var text:FlxText = new FlxText(20, 170, 0, "Value 3:");
+		tab_group_event.add(text);
+		value3InputText = new FlxUIInputText(20, 190, 100, "");
+		blockPressWhileTypingOn.push(value3InputText);
+
 		tab_group_event.add(descText);
 		tab_group_event.add(value1InputText);
 		tab_group_event.add(value2InputText);
+		tab_group_event.add(value3InputText);
 		tab_group_event.add(eventDropDown);
 
 		UI_box.addGroup(tab_group_event);
@@ -1113,6 +1120,10 @@ class ChartingState extends MusicBeatState
 				}
 				else if(sender == value2InputText) {
 					curSelectedNote[4] = value2InputText.text;
+					updateGrid();
+				}
+				else if(sender == value3InputText) {
+					curSelectedNote[5] = value3InputText.text;
 					updateGrid();
 				}
 				else if(sender == strumTimeInputText) {
@@ -1794,6 +1805,7 @@ class ChartingState extends MusicBeatState
 				}
 				value1InputText.text = curSelectedNote[3];
 				value2InputText.text = curSelectedNote[4];
+				value3InputText.text = curSelectedNote[5];
 			}
 			strumTimeInputText.text = '' + curSelectedNote[0];
 		}
@@ -2024,6 +2036,7 @@ class ChartingState extends MusicBeatState
 			var event = eventStuff[Std.parseInt(eventDropDown.selectedId)][0];
 			var text1 = value1InputText.text;
 			var text2 = value2InputText.text;
+			var text3 = value3InputText.text;
 			_song.notes[curSection].sectionNotes.push([noteStrum, noteData, event, text1, text2]);
 		}
 		curSelectedNote = _song.notes[curSection].sectionNotes[_song.notes[curSection].sectionNotes.length - 1];
