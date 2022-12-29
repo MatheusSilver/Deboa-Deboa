@@ -34,7 +34,7 @@ class MenuHistoria extends MusicBeatSubstate
     var musicas:Array<Dynamic> = [];
 	var nombres:Array<Dynamic> = [];
 	public static var dapreselected:String = '';
-	private static var curSelected:Int = 0;
+	public static var curSelected:Int = 0; //Publico pra corrigir um pequeno bugzinho de continuidade.
 	var apertavel:Bool = false;
 
 	//transition stuff
@@ -97,14 +97,14 @@ class MenuHistoria extends MusicBeatSubstate
 
 		if (!movedBack && !selectedWeek)
 		{
-			if (controls.UI_LEFT_P && apertavel) //MALUCO EU SOU MUITO BURRO...
+			if (controls.UI_LEFT_P && apertavel && musicas.length > 1) //MALUCO EU SOU MUITO BURRO...
 				//Consegui cometer o mesmo erro duas vezes seguidas...
 			{
 				changeSong(-1, false);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
-			if (controls.UI_RIGHT_P && apertavel)
+			if (controls.UI_RIGHT_P && apertavel && musicas.length > 1)
 			{
 				changeSong(1, true);
 				FlxG.sound.play(Paths.sound('scrollMenu'));

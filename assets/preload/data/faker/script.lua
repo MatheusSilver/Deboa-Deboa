@@ -11,18 +11,11 @@ function onCreate()
     addLuaSprite('fakertransform', true)
     objectPlayAnimation('fakertransform', '1', true)
 
-    makeLuaSprite('blackFuck', 'black', 0, 0);
+    makeLuaSprite('blackFuck', '', 0, 0);
+	makeGraphic('blackFuck',screenWidth,screenHeight,'000000')
 	scaleObject('blackFuck', 6.0, 6.0);
-	setObjectCamera('blackFuck', 'other');
+	setObjectCamera('blackFuck', 'hud2');
 	addLuaSprite('blackFuck', true);
-
-	makeLuaSprite('startCircle', 'StartScreens/CircleFaker', 777, 0);
-	setObjectCamera('startCircle', 'other');
-	addLuaSprite('startCircle', true);
-
-	makeLuaSprite('startText', 'StartScreens/TextFaker', -1200, 0);
-	setObjectCamera('startText', 'other');
-	addLuaSprite('startText', true);
 
     setScrollFactor('gf', 1.24, 1);
     setScrollFactor('dad', 1.25, 1);
@@ -32,19 +25,6 @@ end
 function onStartCountdown()
 	runTimer('textmove', 0.6)
 	runTimer('textfade', 1.9)
-end
-
-function onTimerCompleted(tag)
-    if tag == 'textmove' then
-		doTweenX('circleTween', 'startCircle', 0, 0.5, 'linear');
-		doTweenX('textTween', 'startText', 0, 0.5, 'linear');
-	end
-	
-    if tag == 'textfade' then
-		doTweenAlpha('graphicAlpha', 'blackFuck', 0, 1, 'linear');
-		doTweenAlpha('circleAlpha', 'startCircle', 0, 1, 'linear');
-		doTweenAlpha('textAlpha', 'startText', 0, 1, 'linear');
-	end
 end
 
 function onStepHit()

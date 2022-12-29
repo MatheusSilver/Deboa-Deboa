@@ -58,7 +58,7 @@ class LoadingsState extends MusicBeatSubstate
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}
 		#else
-		art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
+		art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 2] + '-' + loadingidentifier[position - 1]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
 		#end
 		//assim eu consigo ter um pequeno feedback se a loading screen não existe ou se só tá escrita errada mesmo.
 		FlxTween.tween(art, {alpha: 1}, 1.5,{ease: FlxEase.linear});

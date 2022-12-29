@@ -7,20 +7,9 @@ function onCreate()
 
     addLuaSprite('teste1', true);
     addLuaSprite('teste2', true);
-    
-    
-    makeLuaSprite('blackFuck', 'black', 0, 0);
-	scaleObject('blackFuck', 6.0, 6.0);
-	setObjectCamera('blackFuck', 'other');
-	addLuaSprite('blackFuck', true);
 
-	makeLuaSprite('startCircle', 'StartScreens/CircleYouCantRun', 777, 0);
-	setObjectCamera('startCircle', 'other');
-	addLuaSprite('startCircle', true);
-
-	makeLuaSprite('startText', 'StartScreens/TextYouCantRun', -1200, 0);
-	setObjectCamera('startText', 'other');
-	addLuaSprite('startText', true);
+	removeLuaSprite('teste1', true);
+    removeLuaSprite('teste2', true);
 
     makeLuaSprite('vg', 'RedVG', 0, 0);
 	setObjectCamera('vg', 'camHUD');
@@ -42,20 +31,6 @@ end
 function onSongStart()
 	runTimer('textmove', 0.6)
 	runTimer('textfade', 1.9)
-end
-
-function onTimerCompleted(tag)
-    if tag == 'textmove' then
-		doTweenX('circleTween', 'startCircle', 0, 0.5, 'linear');
-		doTweenX('textTween', 'startText', 0, 0.5, 'linear');
-	end
-	
-    if tag == 'textfade' then
-		doTweenAlpha('graphicAlpha', 'blackFuck', 0, 1, 'linear');
-		doTweenAlpha('circleAlpha', 'startCircle', 0, 1, 'linear');
-		doTweenAlpha('textAlpha', 'startText', 0, 1, 'linear');
-	end
-	
 end
 
 function opponentNoteHit()
