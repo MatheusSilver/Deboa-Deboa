@@ -42,13 +42,13 @@ end
 
 function onStepHit()
     if curStep == 392 then
-        playSound('hitStatic2');
-        setProperty('stat.alpha', 1);
+        --playSound('hitStatic2');
+        --setProperty('stat.alpha', 1);
         setProperty('fundo.alpha', 0);
-        objectPlayAnimation('stat', 'staticFLASH', true);
+        --objectPlayAnimation('stat', 'staticFLASH', true);
     end
     if curStep == 490 then
-        removeLuaSprite('stat', true);
+        --removeLuaSprite('stat', true);
     end
 
     if curStep == 125 then
