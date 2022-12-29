@@ -290,7 +290,7 @@ class ChartingState extends MusicBeatState
 		UI_box = new FlxUITabMenu(null, tabs, true);
 
 		UI_box.resize(300, 400);
-		if(_song.isRing)
+		if(isRing)
 			UI_box.x = FlxG.width / 2 + (GRID_SIZE + 120) / 2;
 		else
 			UI_box.x = FlxG.width / 2 + GRID_SIZE / 2;
@@ -370,11 +370,11 @@ class ChartingState extends MusicBeatState
 		};
 		
 		var check_ring = new FlxUICheckBox(10, 45, null, null, "5k", 100);
-		check_ring.checked = _song.isRing;
+		check_ring.checked = isRing;
 		// _song.needsVoices = check_voices.checked;
 		check_ring.callback = function()
 		{
-			_song.isRing = check_ring.checked;
+			isRing = check_ring.checked;
 			trace('CHECKED!');
 		};
 
@@ -688,7 +688,7 @@ class ChartingState extends MusicBeatState
 		var swapSection:FlxButton = new FlxButton(10, 240, "Swap section", function()
 		{
 			var count:Int = 4;
-			if(_song.isRing)count =5;
+			if(isRing)count =5;
 			for (i in 0..._song.notes[curSection].sectionNotes.length)
 			{
 				var note:Array<Dynamic> = _song.notes[curSection].sectionNotes[i];
@@ -1521,7 +1521,7 @@ class ChartingState extends MusicBeatState
 	function reloadGridLayer() {
 		gridLayer.clear();
 		var lol:Int = 9;
-		if(_song.isRing)
+		if(isRing)
 			lol = 11;
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * lol, Std.int(GRID_SIZE * 32 * zoomList[curZoom]));
 		gridLayer.add(gridBG);
@@ -1533,7 +1533,7 @@ class ChartingState extends MusicBeatState
 		#end
 
 		var poo = 4;
-		if(_song.isRing)
+		if(isRing)
 			poo = 5;
 
 		var gridBlack:FlxSprite = new FlxSprite(0, gridBG.height / 2).makeGraphic(Std.int(GRID_SIZE * 9), Std.int(gridBG.height / 2), FlxColor.BLACK);
@@ -1883,7 +1883,7 @@ class ChartingState extends MusicBeatState
 				}
 				var dthing = 3;
 				note.mustPress = _song.notes[curSection].mustHitSection;
-				if(_song.isRing )
+				if(isRing )
 					dthing = 4;
 				if(i[1] > dthing) note.mustPress = !note.mustPress;
 			}
@@ -1910,7 +1910,7 @@ class ChartingState extends MusicBeatState
 		var daStrumTime = i[0];
 		var daSus:Dynamic = i[2];
 		var lol = 4;
-		if(_song.isRing)
+		if(isRing)
 			lol = 5;
 
 		var note:Note = new Note(daStrumTime, daNoteInfo % 4, null, null, true);
@@ -1995,7 +1995,7 @@ class ChartingState extends MusicBeatState
 	{
 		var noteDataToCheck:Int = note.noteData;
 		var fucking:Int = 4;
-		if(_song.isRing)
+		if(isRing)
 			fucking = 5;
 		if(noteDataToCheck > -1 && note.mustPress != _song.notes[curSection].mustHitSection) noteDataToCheck += fucking;
 

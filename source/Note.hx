@@ -134,6 +134,27 @@ class Note extends FlxSprite
 			shader = colorSwap.shader;
 
 			x += swagWidth * (noteData % 4);
+
+			if (PlayState.isRing){ 
+			if(!isSustainNote) { //Doing this 'if' check to fix the warnings on Senpai songs
+				var animToPlay:String = '';
+				switch (noteData % 5)
+				{
+					case 0:
+							animToPlay = 'purple';
+						case 1:
+							animToPlay = 'blue';
+						case 2:
+							animToPlay = 'ring';
+						case 3:
+							animToPlay = 'green';
+						case 4:
+							animToPlay = 'red';
+				}
+				animation.play(animToPlay + 'Scroll');
+			}
+		} else{
+			x += swagWidth * (noteData % 4);
 			if(!isSustainNote) { //Doing this 'if' check to fix the warnings on Senpai songs
 				var animToPlay:String = '';
 				switch (noteData % 4)
@@ -149,6 +170,7 @@ class Note extends FlxSprite
 				}
 				animation.play(animToPlay + 'Scroll');
 			}
+			}
 		}
 
 		// trace(prevNote);
@@ -162,17 +184,34 @@ class Note extends FlxSprite
 			offsetX += width / 2;
 			copyAngle = false;
 
+	if(PlayState.isRing){
 			switch (noteData)
-			{
-				case 0:
-					animation.play('purpleholdend');
-				case 1:
-					animation.play('blueholdend');
-				case 2:
-					animation.play('greenholdend');
-				case 3:
-					animation.play('redholdend');
-			}
+				{
+					case 0:
+						animation.play('purpleholdend');
+					case 1:
+						animation.play('blueholdend');
+					case 2:
+						animation.play('greenholdend');
+					case 3:
+						animation.play('greenholdend');
+					case 4:
+						animation.play('redholdend');
+				}
+		}
+		else 
+			
+				switch (noteData)
+				{
+					case 0:
+						animation.play('purpleholdend');
+					case 1:
+						animation.play('blueholdend');
+					case 2:
+						animation.play('greenholdend');
+					case 3:
+						animation.play('redholdend');
+				}
 
 			updateHitbox();
 
@@ -183,7 +222,22 @@ class Note extends FlxSprite
 
 			if (prevNote.isSustainNote)
 			{
-				switch (prevNote.noteData)
+				if(PlayState.isRing)
+					switch (prevNote.noteData)
+					{
+						case 0:
+							prevNote.animation.play('purplehold');
+						case 1:
+							prevNote.animation.play('bluehold');
+							case 2:
+								prevNote.animation.play('bluehold');
+						case 3:
+							prevNote.animation.play('greenhold');
+						case 4:
+							prevNote.animation.play('redhold');
+					}
+				else
+					switch (prevNote.noteData)
 				{
 					case 0:
 						prevNote.animation.play('purplehold');
@@ -221,7 +275,7 @@ class Note extends FlxSprite
 		var skin:String = texture;
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
-			if (PlayState.SONG.isRing){
+			if (PlayState.isRing){
 				skin = 'RING_assets';
 			} else if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
 				skin = 'Majin_Notes';
