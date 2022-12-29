@@ -314,7 +314,7 @@ class PlayState extends MusicBeatState
 	var bgGhouls:BGSprite;
 
 	var notas:Int = 0;
-	var isRing:Bool = false;
+	public static var isRing:Bool = false;
 
 	var textoajustefino:String = '';
 
