@@ -1,7 +1,7 @@
 
 local followchars = true
 local modchart = true
-sickness = true
+local sickness = true
 
 local xx = 1060
 local yy = 760
@@ -65,7 +65,6 @@ function onCreate()
 	local midX = screenWidth/2
 	makeAnimatedLuaSprite('barrier','sprites/Thingy',0, 0)
 	addAnimationByPrefix('barrier','barrier','thingy',24,false)
-	setProperty('hud.alpha',0)
 	setScrollFactor('barrier', 0, 0);
 	setProperty('barrier.alpha',0)
 	setObjectCamera('barrier','hud')
@@ -92,7 +91,7 @@ function onCountdownStarted()
 end
 
 function onPause()
---	return Function_Stop; --disabled for testing
+	return Function_Stop; --disabled for testing
 end
 
 function onGameOver()
@@ -134,43 +133,24 @@ function onStepHit()
 		setProperty('dad.specialAnim', true);
 		characterPlayAnim('dad', 'turn', true);
 	end
-end
-
-function onBeatHit()
-	if curBeat == 433 then
-		cameraFade('game', '000000', '1')
-	end
-	if curBeat <= 1 then
-		doTweenZoom('ZoomIn', 'game', '1.15', '13.2', 'linear')
-		doTweenZoom('ZoomInHud', 'hud', '4', '0.2', 'linear')
-	end
-	if curBeat == 32 then
-		doTweenZoom('ZoomIn', 'game', '0.92', '0.1', 'linear')
-	end
-	if curBeat == 31 then
-		setProperty('hud.alpha',1)
-		doTweenZoom('ZoomInHud', 'hud', '1', '0.5', 'linear')
-	end
---	if sickness then
-		--if mustHitSection == false then
-			if curBeat > 48 then
-				if curBeat < 432 then
-					if curBeat % 2 == 0 then
-						angleshit = anglevar;
-					else
-						angleshit = -anglevar;
-					end
-					setProperty('hud.angle',angleshit*3)
-					setProperty('game.angle',angleshit*3)
-					doTweenAngle('turn', 'hud', angleshit, stepCrochet*0.002, 'circOut')
-					doTweenX('tuin', 'hud', -angleshit*8, crochet*0.001, 'linear')
-					doTweenAngle('tt', 'game', angleshit, stepCrochet*0.002, 'circOut')
-					doTweenX('ttrn', 'game', -angleshit*8, crochet*0.001, 'linear')
-				end
-			end
-		--else
-		--	setProperty('hud.angle',0)
-		--	setProperty('game.angle',0)
-		--end
---	end
+    if mustHitSection == false then
+        if curStep > 192 then
+            if curStep < 1728 then
+                if curStep % 8 == 0 then
+                    angleshit = anglevar;
+                else
+                    angleshit = -anglevar;
+                end
+                setProperty('hud.angle',angleshit*3)
+                setProperty('game.angle',angleshit*3)
+                doTweenAngle('turn', 'hud', angleshit, stepCrochet*0.002, 'circOut')
+                doTweenX('tuin', 'hud', -angleshit*8, crochet*0.001, 'linear')
+                doTweenAngle('tt', 'game', angleshit, stepCrochet*0.002, 'circOut')
+                doTweenX('ttrn', 'game', -angleshit*8, crochet*0.001, 'linear')
+            end
+        end
+    else
+        setProperty('hud.angle',0)
+        setProperty('game.angle',0)
+    end
 end

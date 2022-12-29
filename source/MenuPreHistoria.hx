@@ -39,6 +39,8 @@ class MenuPreHistoria extends MusicBeatState
 	
 	override function create()
 	{
+
+		MenuHistoria.curSelected = 0;
 		#if !mobile
 		FlxG.mouse.visible = false;
 		#end

@@ -5,18 +5,6 @@ function onCreate()
 	setProperty('sponge.visible', false)
 	addLuaSprite('sponge', true);
 
-    makeLuaSprite('blackFuck', 'black', 0, 0);
-	scaleObject('blackFuck', 6.0, 6.0);
-	setObjectCamera('blackFuck', 'other');
-	addLuaSprite('blackFuck', true);
-
-	makeLuaSprite('startCircle', 'StartScreens/Sunky', 50, 0);
-	scaleObject('startCircle', 0, 0);
-	setObjectCamera('startCircle', 'other');
-	addLuaSprite('startCircle', true);
-
-	setProperty('gf.visible', false)
-
     makeAnimatedLuaSprite('inicio', 'luanzitoanim', 0, 0);
 	addAnimationByPrefix('inicio', 'luanzitoanim play', 'luanzitoanim play', 30, false)
     setObjectCamera('inicio', 'other');
@@ -25,23 +13,7 @@ function onCreate()
 	
 end
 
-function onStartCountdown()
-	runTimer('textmove', 0.6)
-	runTimer('textfade', 1.9)
-end
-
-function onTimerCompleted(tag)
-    if tag == 'textmove' then
-		doTweenX('circleTween', 'startCircle', 1, 0.2, 'elasticOut');
-		scaleObject('startCircle', 1, 1);
-		playSound('flatBONK')
-	end
-	
-    if tag == 'textfade' then
-		doTweenAlpha('graphicAlpha', 'blackFuck', 0, 1, 'linear');
-		doTweenAlpha('circleAlpha', 'startCircle', 0, 1, 'linear');
-	end
-	
+function onTimerCompleted(tag)	
     if tag == 'FatherReturn' then
 		setProperty('sponge.visible', false)
 		setProperty('dad.visible', true)
