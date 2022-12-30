@@ -1,0 +1,61 @@
+{
+	"storyName": "Bonus",
+	"hideFreeplay": true,
+	"weekBackground": "bonus",
+	"weekBefore": "tutorial",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"weekCharacters": [
+		"consolex",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"slaybells",
+			"exeCY",
+			[
+				255,
+				0,
+				0
+			],
+			"Slaybells"
+		],
+		[
+			"pasta-night",
+			"tailsexe",
+			[
+				255,
+				0,
+				0
+			],
+			"Noite da Rapaziada"
+		],
+		[
+			"cross-console-clash",
+			"",
+			[
+				255,
+				0,
+				0
+			],
+			"Cross Console Clash"
+		],
+		[
+			"prey",
+			"furnace",
+			[
+				255,
+				0,
+				0
+			],
+			"Caça"
+		]
+		],
+	"hideStoryMode": false,
+	"weekName": "Orgulho"
+}

@@ -74,26 +74,6 @@
 				0
 			],
 			"Best Friends"
-		],
-		[
-			"cross-console-clash",
-			"",
-			[
-				255,
-				0,
-				0
-			],
-			"Cross-Console-Clash"
-		],
-		[
-			"prey",
-			"furnace",
-			[
-				255,
-				0,
-				0
-			],
-			"Caça"
 		]
 		],
 	"hideStoryMode": true,
