@@ -3664,7 +3664,7 @@
 		"player3": "invisibru",
 		"splashSkin": "noteSplashes",
 		"song": "endless-cycles",
-		"needsVoices": true,
+		"needsVoices": false,
 		"arrowSkin": "",
 		"validScore": true,
 		"stage": "crimge",

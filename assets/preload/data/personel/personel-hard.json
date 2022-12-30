@@ -11310,7 +11310,7 @@
 		"stage": "void",
 		"validScore": true,
 		"arrowSkin": "",
-		"needsVoices": true,
+		"needsVoices": false,
 		"speed": 2.9,
 		"bpm": 190
 	}

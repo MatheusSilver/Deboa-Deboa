@@ -9746,7 +9746,7 @@
 		"player3": null,
 		"mania": 3,
 		"song": "endless",
-		"needsVoices": true,
+		"needsVoices": false,
 		"validScore": true,
 		"stage": "sonicfunstage1",
 		"noteStyle": "majinNOTES",

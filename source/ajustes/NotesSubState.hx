@@ -27,7 +27,7 @@ import Controls;
 
 using StringTools;
 
-class NotesSubState extends MusicBeatSubstate
+class NotesSubState extends MusicBeatState
 {
 	private static var curSelected:Int = 0;
 	private static var typeSelected:Int = 0;
@@ -36,24 +36,21 @@ class NotesSubState extends MusicBeatSubstate
 	private var shaderArray:Array<ColorSwap> = [];
 	var curValue:Float = 0;
 	var holdTime:Float = 0;
+	var hsvText:Alphabet;
 	var nextAccept:Int = 5;
 
-	var blackBG:FlxSprite;
-	var hsbText:Alphabet;
-
-	var posX = 230;
+	var posX = 250;
 	public function new() {
 		super();
-		
+
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
+		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
+		bg.updateHitbox();
+
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		
-		blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
-		blackBG.alpha = 0.4;
-		add(blackBG);
 
 		grpNotes = new FlxTypedGroup<FlxSprite>();
 		add(grpNotes);
@@ -63,14 +60,23 @@ class NotesSubState extends MusicBeatSubstate
 		for (i in 0...ClientPrefs.arrowHSV.length) {
 			var yPos:Float = (165 * i) + 35;
 			for (j in 0...3) {
-				var optionText:Alphabet = new Alphabet(posX + (225 * j) + 250, yPos + 60, Std.string(ClientPrefs.arrowHSV[i][j]), true);
+				var optionText:Alphabet = new Alphabet(0, yPos, Std.string(ClientPrefs.arrowHSV[i][j]));
+				optionText.x = posX + (225 * j) + 100 - ((optionText.lettersArray.length * 90) / 2);
 				grpNumbers.add(optionText);
 			}
 
-			var note:FlxSprite = new FlxSprite(posX, yPos);
+			var note:FlxSprite = new FlxSprite(posX - 70, yPos);
 			note.frames = Paths.getSparrowAtlas('NOTE_assets');
-			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
-			note.animation.addByPrefix('idle', animations[i]);
+			switch(i) {
+				case 0:
+					note.animation.addByPrefix('idle', 'purple0');
+				case 1:
+					note.animation.addByPrefix('idle', 'blue0');
+				case 2:
+					note.animation.addByPrefix('idle', 'green0');
+				case 3:
+					note.animation.addByPrefix('idle', 'red0');
+			}
 			note.animation.play('idle');
 			note.antialiasing = ClientPrefs.globalAntialiasing;
 			grpNotes.add(note);
@@ -82,16 +88,17 @@ class NotesSubState extends MusicBeatSubstate
 			newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
 			shaderArray.push(newShader);
 		}
-
-		hsbText = new Alphabet(posX + 560, 0, "Hue    Saturation  Brightness", false);
-		//hsbText.scaleX = 0.6;
-		//hsbText.scaleY = 0.6;
-		add(hsbText);
+		hsvText = new Alphabet(0, 0, "Hue    Saturacao  Brilho", false, false, 0, 0.65);
+		add(hsvText);
+		#if mobileC
+        addVirtualPad(FULL, A_B);
+        #end
 
 		changeSelection();
 	}
 
 	var changingNote:Bool = false;
+	var hsvTextOffsets:Array<Float> = [240, 90];
 	override function update(elapsed:Float) {
 		if(changingNote) {
 			if(holdTime < 0.5) {
@@ -171,11 +178,41 @@ class NotesSubState extends MusicBeatSubstate
 			}
 		}
 
-		if (controls.BACK || (changingNote && controls.ACCEPT)) {
-			if(!changingNote) {
-				close();
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+		for (i in 0...grpNotes.length) {
+			var item = grpNotes.members[i];
+			var intendedPos:Float = posX - 70;
+			if (curSelected == i) {
+				item.x = FlxMath.lerp(item.x, intendedPos + 100, lerpVal);
 			} else {
-				changeSelection();
+				item.x = FlxMath.lerp(item.x, intendedPos, lerpVal);
+			}
+			for (j in 0...3) {
+				var item2 = grpNumbers.members[(i * 3) + j];
+				item2.x = item.x + 265 + (225 * (j % 3)) - (30 * item2.lettersArray.length) / 2;
+				if(ClientPrefs.arrowHSV[i][j] < 0) {
+					item2.x -= 20;
+				}
+			}
+
+			if(curSelected == i) {
+				hsvText.setPosition(item.x + hsvTextOffsets[0], item.y - hsvTextOffsets[1]);
+			}
+		}
+
+		if (controls.BACK || (changingNote && controls.ACCEPT)) {
+			#if mobile
+			remove(_virtualpad);
+			#end
+			changeSelection();
+			if(!changingNote) {
+				grpNumbers.forEachAlive(function(spr:Alphabet) {
+					spr.alpha = 0;
+				});
+				grpNotes.forEachAlive(function(spr:FlxSprite) {
+					spr.alpha = 0;
+				});
+				FlxG.switchState(new ajustes.AjustesState());
 			}
 			changingNote = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -207,12 +244,11 @@ class NotesSubState extends MusicBeatSubstate
 		for (i in 0...grpNotes.length) {
 			var item = grpNotes.members[i];
 			item.alpha = 0.6;
-			item.scale.set(0.75, 0.75);
+			item.scale.set(1, 1);
 			if (curSelected == i) {
 				item.alpha = 1;
-				item.scale.set(1, 1);
-				hsbText.y = item.y - 70;
-				blackBG.y = item.y - 20;
+				item.scale.set(1.2, 1.2);
+				hsvText.setPosition(item.x + hsvTextOffsets[0], item.y - hsvTextOffsets[1]);
 			}
 		}
 		FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -245,15 +281,7 @@ class NotesSubState extends MusicBeatSubstate
 			case 1: shaderArray[selected].saturation = 0;
 			case 2: shaderArray[selected].brightness = 0;
 		}
-
-		var item = grpNumbers.members[(selected * 3) + type];
-		item.text = '0';
-
-	//	var add = (40 * (item.letters.length - 1)) / 2;
-	//	for (letter in item.letters)
-	//	{
-	//		letter.offset.x += add;
-	//	}
+		grpNumbers.members[(selected * 3) + type].changeText('0');
 	}
 	function updateValue(change:Float = 0) {
 		curValue += change;
@@ -276,15 +304,6 @@ class NotesSubState extends MusicBeatSubstate
 			case 1: shaderArray[curSelected].saturation = roundedValue / 100;
 			case 2: shaderArray[curSelected].brightness = roundedValue / 100;
 		}
-
-		var item = grpNumbers.members[(curSelected * 3) + typeSelected];
-		item.text = Std.string(roundedValue);
-
-		//var add = (40 * (item.letters.length - 1)) / 2;
-		//for (letter in item.letters)
-		//{
-		//	letter.offset.x += add;
-		//	if(roundedValue < 0) letter.offset.x += 10;
-		//}
+		grpNumbers.members[(curSelected * 3) + typeSelected].changeText(Std.string(roundedValue));
 	}
 }

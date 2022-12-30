@@ -5912,7 +5912,7 @@
 		"player3": "invisibru",
 		"song": "best-friends",
 		"validScore": true,
-		"needsVoices": true,
+		"needsVoices": false,
 		"stage": "tailsplace",
 		"bpm": 200,
 		"speed": 3.2

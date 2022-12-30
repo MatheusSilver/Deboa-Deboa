@@ -815,7 +815,7 @@
 		"validScore": false,
 		"bpm": 189,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "chaos",
 		"isRing": false
 	}

@@ -27,8 +27,8 @@ import Controls;
 
 using StringTools;
 
-class KeysSubstate extends MusicBeatSubstate {
-	private static var curSelected:Int = 1;
+class KeysSubstate extends MusicBeatState {
+	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
 
 	private static var defaultKey:String = 'Reset to Default Keys';
@@ -51,20 +51,12 @@ class KeysSubstate extends MusicBeatSubstate {
 		['Accept', 'accept'],
 		['Back', 'back'],
 		['Pause', 'pause'],
-		[''],
-		['VOLUME'],
-		['Mute', 'volume_mute'],
-		['Up', 'volume_up'],
-		['Down', 'volume_down'],
-		[''],
-		['DEBUG'],
-		['Key 1', 'debug_1'],
-		['Key 2', 'debug_2']
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var grpInputs:Array<AttachedText> = [];
 	private var grpInputsAlt:Array<AttachedText> = [];
+	private var controlMap:Map<String, Dynamic>;
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
 
@@ -72,7 +64,9 @@ class KeysSubstate extends MusicBeatSubstate {
 		super();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
+		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
+		bg.updateHitbox();
+
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
@@ -80,6 +74,7 @@ class KeysSubstate extends MusicBeatSubstate {
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
+		controlMap = ClientPrefs.keyBinds.copy();
 		optionShit.push(['']);
 		optionShit.push([defaultKey]);
 
@@ -90,17 +85,17 @@ class KeysSubstate extends MusicBeatSubstate {
 				isCentered = true;
 			}
 
-			var optionText:Alphabet = new Alphabet(200, 300, optionShit[i][0], (!isCentered || isDefaultKey));
+			var optionText:Alphabet = new Alphabet(0, (10 * i), optionShit[i][0], (!isCentered || isDefaultKey), false);
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
-				optionText.y -= 55;
-				//optionText.startPosition.y -= 55;
+				optionText.forceX = optionText.x;
+				optionText.yAdd = -55;
+			} else {
+				optionText.forceX = 200;
 			}
-			//optionText.changeX = false;
-			//optionText.distancePerItem.y = 60;
-			optionText.targetY = i - curSelected;
-			//optionText.snapToPosition();
+			optionText.yMult = 60;
+			optionText.targetY = i;
 			grpOptions.add(optionText);
 
 			if(!isCentered) {
@@ -127,14 +122,18 @@ class KeysSubstate extends MusicBeatSubstate {
 			}
 
 			if (controls.BACK) {
+				ClientPrefs.keyBinds = controlMap.copy();
 				ClientPrefs.reloadControls();
-				close();
+				grpOptions.forEachAlive(function(spr:Alphabet) {
+					spr.alpha = 0;
+				});
+				MusicBeatState.switchState(new ajustes.AjustesState());
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
 
 			if(controls.ACCEPT && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
-					ClientPrefs.keyBinds = ClientPrefs.defaultKeys.copy();
+					controlMap = ClientPrefs.defaultKeys.copy();
 					reloadKeys();
 					changeSelection();
 					FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -152,14 +151,14 @@ class KeysSubstate extends MusicBeatSubstate {
 		} else {
 			var keyPressed:Int = FlxG.keys.firstJustPressed();
 			if (keyPressed > -1) {
-				var keysArray:Array<FlxKey> = ClientPrefs.keyBinds.get(optionShit[curSelected][1]);
+				var keysArray:Array<FlxKey> = controlMap.get(optionShit[curSelected][1]);
 				keysArray[curAlt ? 1 : 0] = keyPressed;
 
 				var opposite:Int = (curAlt ? 0 : 1);
 				if(keysArray[opposite] == keysArray[1 - opposite]) {
 					keysArray[opposite] = NONE;
 				}
-				ClientPrefs.keyBinds.set(optionShit[curSelected][1], keysArray);
+				controlMap.set(optionShit[curSelected][1], keysArray);
 
 				reloadKeys();
 				FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -273,7 +272,7 @@ class KeysSubstate extends MusicBeatSubstate {
 	}
 
 	private function addBindTexts(optionText:Alphabet, num:Int) {
-		var keys:Array<Dynamic> = ClientPrefs.keyBinds.get(optionShit[num][1]);
+		var keys:Array<Dynamic> = controlMap.get(optionShit[num][1]);
 		var text1 = new AttachedText(InputFormatter.getKeyName(keys[0]), 400, -55);
 		text1.setPosition(optionText.x + 400, optionText.y - 55);
 		text1.sprTracker = optionText;
@@ -300,8 +299,6 @@ class KeysSubstate extends MusicBeatSubstate {
 			grpInputsAlt.remove(item);
 			item.destroy();
 		}
-
-		trace('Reloaded keys: ' + ClientPrefs.keyBinds);
 
 		for (i in 0...grpOptions.length) {
 			if(!unselectableCheck(i, true)) {

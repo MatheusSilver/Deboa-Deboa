@@ -131,6 +131,7 @@ class FunkinLua {
 		
 		set('inGameOver', false);
 		set('mustHitSection', false);
+		set('gifPermitido', false);
 		set('botPlay', PlayState.cpuControlled);
 
 		for (i in 0...4) {
@@ -1723,8 +1724,8 @@ class FunkinLua {
 
 	function cameraFromString(cam:String):FlxCamera {
 		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud': return PlayState.instance.camHUD;
-			case 'camhud2' | 'hud2': return PlayState.instance.camHUD2;
+			case 'camHUD' | 'camhud' | 'hud': return PlayState.instance.camHUD;
+			case 'camHUD2' |'camhud2' | 'hud2': return PlayState.instance.camHUD2;
 			case 'camother' | 'other': return PlayState.instance.camOther;
 			case 'camlegenda' | 'legenda': return PlayState.instance.camLegenda;
 			case 'camorig' | 'orig': return FlxG.camera;

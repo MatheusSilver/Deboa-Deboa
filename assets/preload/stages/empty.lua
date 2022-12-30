@@ -91,12 +91,12 @@ function onCountdownStarted()
 end
 
 function onPause()
-	return Function_Stop; --disabled for testing
+--	return Function_Stop; --disabled for testing
 end
 
 function onGameOver()
 	modchart = false
-	return Function_Continue;
+--	return Function_Continue;
 end
 
 
@@ -141,16 +141,16 @@ function onStepHit()
                 else
                     angleshit = -anglevar;
                 end
-                setProperty('hud.angle',angleshit*3)
-                setProperty('game.angle',angleshit*3)
-                doTweenAngle('turn', 'hud', angleshit, stepCrochet*0.002, 'circOut')
-                doTweenX('tuin', 'hud', -angleshit*8, crochet*0.001, 'linear')
-                doTweenAngle('tt', 'game', angleshit, stepCrochet*0.002, 'circOut')
-                doTweenX('ttrn', 'game', -angleshit*8, crochet*0.001, 'linear')
+				setProperty('camHUD.angle',angleshit*3)
+                setProperty('camGame.angle',angleshit*3)
+                doTweenAngle('turn', 'camHUD', angleshit, stepCrochet*0.002, 'circOut')
+                doTweenX('tuin', 'camHUD', -angleshit*8, crochet*0.001, 'linear')
+                doTweenAngle('tt', 'camGame', angleshit, stepCrochet*0.002, 'circOut')
+                doTweenX('ttrn', 'camGame', -angleshit*8, crochet*0.001, 'linear')
             end
         end
     else
-        setProperty('hud.angle',0)
-        setProperty('game.angle',0)
+        setProperty('camHUD.angle',0)
+        setProperty('camGame.angle',0)
     end
 end

@@ -127,14 +127,14 @@ class PlayState extends MusicBeatState
 
 	var floaty:Float = 0;
 	#if (haxe >= "4.0.0")
-	public var modchartTweens:Map<String, FlxTween> = new Map();
-	public var modchartSprites:Map<String, ModchartSprite> = new Map();
+	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
+	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, ModchartSprite>();
 	public var modchartTimers:Map<String, FlxTimer> = new Map();
 	public var modchartSounds:Map<String, FlxSound> = new Map();
 	public var modchartTexts:Map<String, ModchartText> = new Map<String, ModchartText>();
 	#else
-	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
-	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, Dynamic>();
+	public var modchartTweens:Map<String, FlxTween> = new Map();
+	public var modchartSprites:Map<String, ModchartSprite> = new Map();
 	public var modchartTimers:Map<String, FlxTimer> = new Map<String, FlxTimer>();
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartTexts:Map<String, ModchartText> = new Map();
@@ -1306,10 +1306,6 @@ class PlayState extends MusicBeatState
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
 
-		if (curSong.toLowerCase() == 'soulless'){
-			dad.alpha = 0;
-		}
-
 		if (nomehistorico.toLowerCase() == 'profundezas'){
 			var logoBl2:FlxSprite;
 			logoBl2 = new FlxSprite(0, 0);
@@ -1990,16 +1986,7 @@ class PlayState extends MusicBeatState
 	
 					case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
 	
-						if (daSong == 'execution')
-							{
-								//startSong();
-								startCountdown(); //Quando foi que consertaram isso que eu não vi?
-							}
-						else
-							{
-								startCountdown();
-							}
-
+					startCountdown();
 					add(blackFuck);
 					startCircle.loadGraphic(Paths.image('StartScreen/Circle-'+ daSong));
 					startCircle.x += 900;
@@ -2691,6 +2678,10 @@ class PlayState extends MusicBeatState
 			Conductor.songPosition = 0;
 			Conductor.songPosition -= Conductor.crochet * 5;
 			setOnLuas('startedCountdown', true);
+			if(nomehistorico.toLowerCase() == 'controle'){
+				setOnLuas('gifPermitido', ControlSongSubstate.gifPermitido);
+			}
+
 
 			var swagCounter:Int = 0;
 

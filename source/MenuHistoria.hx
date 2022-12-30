@@ -194,9 +194,10 @@ class MenuHistoria extends MusicBeatSubstate
 			PlayState.storyDifficulty = 2;
 
 			FreeplayState.justread = musicas[curSelected];
+			PlayState.modohistoria = true;
+			if(nombres[curSelected].toLowerCase() != 'controle' && musicas[curSelected].toLowerCase() != 'cross-console-clash'){
 			MenuPreHistoria.bigmenu.alpha = 0;
 			bgSprite.alpha = 0;
-			PlayState.modohistoria = true;
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
 			FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
 			onComplete: function(twn:FlxTween) {
@@ -208,6 +209,11 @@ class MenuHistoria extends MusicBeatSubstate
 			});
 
 			FlxG.sound.music.volume = 0;
+			} else if (nombres[curSelected].toLowerCase() == 'controle'){
+				new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+					openSubState(new ControlSongSubstate());
+				});
+			}
 					
 			FreeplayState.destroyFreeplayVocals();
 		}

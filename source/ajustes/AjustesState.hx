@@ -22,7 +22,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
-import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
@@ -36,19 +35,15 @@ class AjustesState extends MusicBeatState
 
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	var clicavel:Bool = false;
 
-	var tails:FlxSprite;
-	var sonic1:FlxSprite;
 	var boom:FlxSprite;
 	var gameJoltBG:FlxSprite;
 
-	var historiabotao:FlxButton;
-	var freeplaybotao:FlxButton;
-	var achievementsbotao:FlxButton;
-	var opcaobotao:FlxButton;
+	var configuracoesbotao:FlxButton;
+	var controlesbotao:FlxButton;
+	var setasbotao:FlxButton;
+	var gamejoltbotao:FlxButton;
 	var letext:FlxText;
-	var sobrebotao:FlxButton;
 	var isCoolBeat:Bool=true;
 	//var gradientBar:FlxGradient;
 	
@@ -101,19 +96,6 @@ class AjustesState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
-		//checker = new FlxBackdrop(Paths.image('soquadrados', 'preload'), 0.2, 0.2, true, true);
-		
-		//add(checker);
-		//checker.alpha = 0.8;
-		//checker.color = FlxColor.RED;
-		//Isto é temporário, por algum motivo isso não tá compilando no github
-
-		/*gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x41000000, 0x2C744100, 0x88A10000], 1, 90, true);
-		gradientBar.y = FlxG.height - gradientBar.height;
-		gradientBar.scale.y = 0;
-		gradientBar.updateHitbox();
-		//add(gradientBar);*/
-
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
@@ -143,34 +125,9 @@ class AjustesState extends MusicBeatState
 		trees.visible = true;
 		trees.antialiasing = ClientPrefs.globalAntialiasing;
 
-		tails = new FlxSprite(0, 0); //ok
-		tails.frames = Paths.getSparrowAtlas('menus/tailsdoll_p2', 'preload');
-		tails.animation.addByPrefix('idle2', "singRIGHT", 24);
-		//tails.animation.play('idle2');
-		tails.alpha = 0;
-		tails.antialiasing = true;
-		tails.setGraphicSize(Std.int(tails.width * 0.9));
-		tails.updateHitbox();
-		tails.x = 25 - 507 - 200 - 400 + 75 + 140;
-		tails.y = 75 - 320 - 250 - 200 + 30;
-		//add(tails);
-
-		sonic1 = new FlxSprite(0, 0); //ok
-		sonic1.frames = Paths.getSparrowAtlas('menus/YCR', 'preload');
-		sonic1.animation.addByPrefix('idle1', "normal_down", 20);
-		//sonic1.animation.play('idle1');
-		sonic1.antialiasing = true;
-		sonic1.setGraphicSize(Std.int(sonic1.width * 1.5));
-		sonic1.updateHitbox();
-		sonic1.y = 75 - 390 + 40;
-		sonic1.x = 25 - 507 - 100;
-		sonic1.alpha=0;
-		//add(sonic1);
-
 		boom = new FlxSprite(0, 0); //ok
 		boom.frames = Paths.getSparrowAtlas('optionsmenu/sunkyajustes', 'preload');
 		boom.animation.addByPrefix('idle', "sunkyajustes bump",30);
-		//sonic1.animation.play('idle1');
 		boom.antialiasing = true;
 		boom.setGraphicSize(Std.int(boom.width*1.5));
 		boom.updateHitbox();
@@ -181,49 +138,49 @@ class AjustesState extends MusicBeatState
 
         add(trees);
 
-		historiabotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
-		historiabotao.loadGraphic(Paths.image('optionsmenu/configuracoes', 'preload'));
-		historiabotao.setGraphicSize(Std.int(historiabotao.width * 0.6));
-		historiabotao.updateHitbox();
+		configuracoesbotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
+		configuracoesbotao.loadGraphic(Paths.image('optionsmenu/configuracoes', 'preload'));
+		configuracoesbotao.setGraphicSize(Std.int(configuracoesbotao.width * 0.6));
+		configuracoesbotao.updateHitbox();
 
-        historiabotao.alpha = 0.75;
-		historiabotao.x = FlxG.width;
-		historiabotao.y = 150;
-        add(historiabotao);
+        configuracoesbotao.alpha = 0.75;
+		configuracoesbotao.x = FlxG.width;
+		configuracoesbotao.y = 150;
+        add(configuracoesbotao);
 
-		freeplaybotao = new FlxButton(FlxG.width, 15 + historiabotao.y + historiabotao.height - 367, '');
-		freeplaybotao.loadGraphic(Paths.image('optionsmenu/controls', 'preload'));
-		freeplaybotao.setGraphicSize(Std.int(freeplaybotao.width * 0.6));
+		controlesbotao = new FlxButton(FlxG.width, 15 + configuracoesbotao.y + configuracoesbotao.height - 367, '');
+		controlesbotao.loadGraphic(Paths.image('optionsmenu/controls', 'preload'));
+		controlesbotao.setGraphicSize(Std.int(controlesbotao.width * 0.6));
 
-		freeplaybotao.updateHitbox();
-        freeplaybotao.alpha = 0.75;
+		controlesbotao.updateHitbox();
+        controlesbotao.alpha = 0.75;
 
-		freeplaybotao.x = FlxG.width;
-		freeplaybotao.y = 15 + historiabotao.y + historiabotao.height;
+		controlesbotao.x = FlxG.width;
+		controlesbotao.y = 15 + configuracoesbotao.y + configuracoesbotao.height;
 
-        add(freeplaybotao);
+        add(controlesbotao);
 
 
-		achievementsbotao = new FlxButton(FlxG.width, 15 + freeplaybotao.y + freeplaybotao.height, '');
-		achievementsbotao.loadGraphic(Paths.image('optionsmenu/setas', 'preload'));
-		achievementsbotao.alpha = 0.75;
-		achievementsbotao.setGraphicSize(Std.int(achievementsbotao.width * 0.6));
+		setasbotao = new FlxButton(FlxG.width, 15 + controlesbotao.y + controlesbotao.height, '');
+		setasbotao.loadGraphic(Paths.image('optionsmenu/setas', 'preload'));
+		setasbotao.alpha = 0.75;
+		setasbotao.setGraphicSize(Std.int(setasbotao.width * 0.6));
 
-		achievementsbotao.updateHitbox();
+		setasbotao.updateHitbox();
 
-		achievementsbotao.x = FlxG.width;
-		achievementsbotao.y = 15 + freeplaybotao.y + freeplaybotao.height;
-		add(achievementsbotao);
+		setasbotao.x = FlxG.width;
+		setasbotao.y = 15 + controlesbotao.y + controlesbotao.height;
+		add(setasbotao);
 
-		opcaobotao = new FlxButton(FlxG.width, 15 + achievementsbotao.y + achievementsbotao.height, '');
-		opcaobotao.loadGraphic(Paths.image('optionsmenu/gamejooj', 'preload'));
-		opcaobotao.setGraphicSize(Std.int(opcaobotao.width * 0.6));
+		gamejoltbotao = new FlxButton(FlxG.width, 15 + setasbotao.y + setasbotao.height, '');
+		gamejoltbotao.loadGraphic(Paths.image('optionsmenu/gamejooj', 'preload'));
+		gamejoltbotao.setGraphicSize(Std.int(gamejoltbotao.width * 0.6));
 
-		opcaobotao.updateHitbox();
-		opcaobotao.x = FlxG.width;
-		opcaobotao.y = 15 + achievementsbotao.y + achievementsbotao.height;
-        opcaobotao.alpha = 0.75;
-        add(opcaobotao);
+		gamejoltbotao.updateHitbox();
+		gamejoltbotao.x = FlxG.width;
+		gamejoltbotao.y = 15 + setasbotao.y + setasbotao.height;
+        gamejoltbotao.alpha = 0.75;
+        add(gamejoltbotao);
 
         line = new FlxSprite(0).loadGraphic(Paths.image('optionsmenu/ajuste_linhas', 'preload'));
 		line.scrollFactor.x = 0;
@@ -257,124 +214,95 @@ class AjustesState extends MusicBeatState
 		//musica de novela de 2010 starts playing
 
 		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
-		FlxTween.tween(historiabotao, {x: FlxG.width - 2.5*historiabotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		FlxTween.tween(configuracoesbotao, {x: FlxG.width - 2.5*configuracoesbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
 		new FlxTimer().start(0.6, function(tmr:FlxTimer) {
-		FlxTween.tween(freeplaybotao, {x: FlxG.width - 2.5*freeplaybotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		FlxTween.tween(controlesbotao, {x: FlxG.width - 2.5*controlesbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
 		new FlxTimer().start(0.9, function(tmr:FlxTimer) {
-		FlxTween.tween(achievementsbotao, {x: FlxG.width - 2.5*achievementsbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		FlxTween.tween(setasbotao, {x: FlxG.width - 2.5*setasbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
 		});
 		new FlxTimer().start(1.2, function(tmr:FlxTimer) {
-		FlxTween.tween(opcaobotao, {x: FlxG.width - 2.5*opcaobotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		FlxTween.tween(gamejoltbotao, {x: FlxG.width - 2.5*gamejoltbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut,
+			onComplete: function(twn:FlxTween) {pode=true;
+			}});
 		});
-		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
-		});
-		new FlxTimer().start(2.25, function(tmr:FlxTimer){pode=true;});
-
-
-
 
 		super.create();
 	}
 
-
-
-
 	var selectedSomethin:Bool = false;
 
-	function sumidao(selecionado:Int){ //do hokage omegalul
-		//provavelmente um dos códigos mais feios que já fiz, mas na real
-		//não consigo pensar em outra forma de fazê-lo sem ter que reescrever tudo.
+	function sumidao(selecionado:Int){
 		pode=false;
 			if (selecionado == 0){
-				//historiabotao.alpha=1;
+				configuracoesbotao.alpha=1;
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
+					FlxTween.tween(configuracoesbotao, {x: FlxG.width - configuracoesbotao.width}, 0.5, {ease: FlxEase.expoInOut});
 					});
 						new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-						FlxTween.tween(historiabotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
+						FlxTween.tween(configuracoesbotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
 						});
 						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+						FlxTween.tween(controlesbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 						});
 						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+						FlxTween.tween(setasbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 						});
 						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+						FlxTween.tween(gamejoltbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 						});
 			} else if (selecionado == 1){
-				//freeplaybotao.alpha=1;
+				controlesbotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			FlxTween.tween(freeplaybotao, {x: FlxG.width - freeplaybotao.width}, 0.5, {ease: FlxEase.expoInOut});
+			FlxTween.tween(controlesbotao, {x: FlxG.width - controlesbotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
 				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
+				FlxTween.tween(controlesbotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(configuracoesbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(setasbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(gamejoltbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			} else if(selecionado == 2) {
-				//achievementsbotao.alpha=1;
+				setasbotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
-			FlxTween.tween(achievementsbotao, {x: FlxG.width - achievementsbotao.width},0.5, {ease: FlxEase.expoInOut});
+			FlxTween.tween(setasbotao, {x: FlxG.width - setasbotao.width},0.5, {ease: FlxEase.expoInOut});
 			});
 				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
+				FlxTween.tween(setasbotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(configuracoesbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(controlesbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(gamejoltbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
-			} else if (selecionado == 4) {
-				//opcaobotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
-			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
-			});
-				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-			} else if (selecionado == 3){ //!!!
-				//sobrebotao.alpha=1;
+			} else if (selecionado == 3) {
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			FlxTween.tween(sobrebotao, {x: FlxG.width - sobrebotao.width}, 0.5, {ease: FlxEase.expoInOut});
+			FlxTween.tween(gamejoltbotao, {x: FlxG.width - gamejoltbotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
+				FlxTween.tween(gamejoltbotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(configuracoesbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(controlesbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				FlxTween.tween(setasbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 			}
-//manito do celta... Eu real preciso aprender a usar arrays e essas coisas...
-			
 	}
 
 	override function update(elapsed:Float)
@@ -396,52 +324,43 @@ class AjustesState extends MusicBeatState
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		if(pode)
+			//Silvio ser bulo de mais pra entender isso.
 			{
-				historiabotao.updateHitbox();
-				freeplaybotao.updateHitbox();
-				achievementsbotao.updateHitbox();
-				opcaobotao.updateHitbox();
-				historiabotao.onOver.callback = historiaHover;
-				historiabotao.onOut.callback = historiaOut;
-				historiabotao.onDown.callback = historiaDown;
-				freeplaybotao.onOver.callback = freeplayHover;
-				freeplaybotao.onOut.callback = freeplayOut;
-				freeplaybotao.onDown.callback = freeplayDown;
-				achievementsbotao.onOver.callback = achievementsHover;
-				achievementsbotao.onOut.callback = achievementsOut;
-				achievementsbotao.onDown.callback = achievementsDown;
-				opcaobotao.onOver.callback = opcaoHover;
-				opcaobotao.onOut.callback = opcaoOut;
-				opcaobotao.onDown.callback = opcaoDown;
+				configuracoesbotao.updateHitbox();
+				controlesbotao.updateHitbox();
+				setasbotao.updateHitbox();
+				gamejoltbotao.updateHitbox();
+				configuracoesbotao.onOver.callback = configuracoesHover;
+				configuracoesbotao.onOut.callback = configuracoesOut;
+				controlesbotao.onOver.callback = controlesHover;
+				controlesbotao.onOut.callback = controlesOut;
+				setasbotao.onOver.callback = setasHover;
+				setasbotao.onOut.callback = setasOut;
+				gamejoltbotao.onOver.callback = gamejoltHover;
+				gamejoltbotao.onOut.callback = gamejoltOut;
 				FlxG.mouse.visible = true;
+				
+				if(configuracoesbotao.justPressed && !checkiftouch){
+					configuracoesbotao.alpha=1;
+					curSelected = 0;
+					checkiftouch = true;
+				}
+				if(controlesbotao.justPressed && !checkiftouch){
+					controlesbotao.alpha=1;
+					curSelected = 1;
+					checkiftouch = true;
+				}
+				if(setasbotao.justPressed && !checkiftouch){
+					setasbotao.alpha=1;
+					curSelected = 2;		
+					checkiftouch = true;
+				}
+				if(gamejoltbotao.justPressed && !checkiftouch){
+					gamejoltbotao.alpha=1;
+					curSelected = 3;
+					checkiftouch = true;
+				}
 			}
-		//checker.y += 0.1;
-
-		if(historiabotao.justPressed && !checkiftouch && clicavel){
-			historiabotao.alpha=1;
-			curSelected = 0;
-			if(curSelected == 0 && checkiftouch == false){checkiftouch = true;}
-		}
-		if(freeplaybotao.justPressed && !checkiftouch && clicavel){
-			freeplaybotao.alpha=1;
-			curSelected = 1;
-			if(curSelected == 1 && checkiftouch == false){checkiftouch = true;}
-		}
-		if(achievementsbotao.justPressed && !checkiftouch && clicavel){
-			achievementsbotao.alpha=1;
-			curSelected = 2;		
-			if(curSelected == 2 && checkiftouch == false && clicavel){checkiftouch = true;}
-		}
-		if(opcaobotao.justPressed && !checkiftouch){
-			opcaobotao.alpha=1;
-			curSelected = 3;
-			if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
-		}
-		/*if(sobrebotao.justPressed && !checkiftouch){
-			sobrebotao.alpha=1;
-			curSelected = 3;
-			if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
-			}*/
 
 		if (FlxG.sound.music.volume < 0.7)
 		{
@@ -461,13 +380,12 @@ class AjustesState extends MusicBeatState
 				MusicBeatState.switchState(new MainMenuStateMobile());
 			}
 
-			if (controls.ACCEPT || checkiftouch)
+			if (/*controls.ACCEPT ||*/ checkiftouch) //Tecnicamente, a pessoa não pode escolher entre opções então né?
 			{
 				#if debug
 				FlxG.mouse.visible = false;
 				#end 
 					selectedSomethin = true;
-					clicavel = false;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 							checkiftouch = false; //This should be enough
 							var daChoice:String = optionShit[curSelected];
@@ -476,16 +394,16 @@ class AjustesState extends MusicBeatState
 							switch (daChoice)
 							{
 								case 'configuracoes':
-                                openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
+								MusicBeatState.switchState(new ajustes.BaseOptionsMenu()); //graficos, gameplay e etc.
 								case 'controles':
 								// fiz isso pois tem gente que joga de teclado no mobile.
 								#if desktop
-									MusicBeatState.switchState(new ajustes.KeysSubstate());
-								#else
-									MusicBeatState.switchState(new ajustes.ControlesState());
+								MusicBeatState.switchState(new ajustes.KeysSubstate());
+								#elseif mobile
+								MusicBeatState.switchState(new ajustes.ControlesState());
 								#end
 								case 'setatipos':
-								MusicBeatState.switchState(new ajustes.SetasState());
+								MusicBeatState.switchState(new ajustes.NotesSubState());
 								case 'gamejooj':
                                 if(GJClient.logged)
                                 {
@@ -497,218 +415,69 @@ class AjustesState extends MusicBeatState
 							}							
 						});
 				}
-			}
+		}
 			#if desktop
+			#if debug
 			else if (FlxG.keys.justPressed.SEVEN)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
 			#end
+			#end
 			super.update(elapsed);	
 		}
 
-	function historiaHover():Void
+		function configuracoesHover():Void
 		{
-			historiabotao.alpha=1;
+			configuracoesbotao.alpha=1;
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
 		}
 	 
-		function historiaOut():Void
+		function configuracoesOut():Void
 		{
-			historiabotao.alpha=0.75;
+			configuracoesbotao.alpha=0.75;
 		}
 
-		function historiaDown():Void
-			{
-				if(pode)
-					{
-						curSelected=0;
-						var choice:String;
-						choice='configuracoes';
-							selectedSomethin = true;
-							clicavel = false;
-							FlxG.sound.play(Paths.sound('confirmMenu'));
-									checkiftouch = false; //This should be enough
-									var daChoice:String = choice;
-									sumidao(curSelected);
-									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
-									switch (daChoice)
-									{
-										case 'configuracoes':
-										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
-										case 'controles':
-										// fiz isso pois tem gente que joga de teclado no mobile.
-										MusicBeatState.switchState(new ajustes.ControlesState());  
-										case 'setatipos':
-										MusicBeatState.switchState(new ajustes.SetasState());
-										case 'gamejooj':
-										if(GJClient.logged)
-										{
-											MusicBeatState.switchState(new AlreadyLogged());
-										}
-										else{
-											MusicBeatState.switchState(new GameJoltLoginState());
-										}
-									}							
-								});
-					}
-			}
+		function controlesHover():Void
+		{
+			controlesbotao.alpha=1;
+			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+		}
+		 
+		function controlesOut():Void
+		{
+			controlesbotao.alpha=0.75;
+		}
 
-		function freeplayHover():Void
+		function setasHover():Void
 			{
-				freeplaybotao.alpha=1;
+				setasbotao.alpha=1;
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
 			}
-		 
-			function freeplayOut():Void
+			 
+			function setasOut():Void
 			{
-				freeplaybotao.alpha=0.75;
+				setasbotao.alpha=0.75;
+			}
+				
+			function gamejoltHover():Void
+			{
+				gamejoltbotao.alpha=1;
+				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			}
+			 
+			function gamejoltOut():Void
+			{
+				gamejoltbotao.alpha=0.75;
 			}
 
-			function freeplayDown():Void
-				{
-					if(pode)
-						{
-							curSelected=1;
-							var choice:String;
-							choice='controles';
-							selectedSomethin = true;
-							clicavel = false;
-							FlxG.sound.play(Paths.sound('confirmMenu'));
-									checkiftouch = false; //This should be enough
-									var daChoice:String = choice;
-									sumidao(curSelected);
-									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
-									switch (daChoice)
-									{
-										case 'configuracoes':
-										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
-										case 'controles':
-										// fiz isso pois tem gente que joga de teclado no mobile.
-										MusicBeatState.switchState(new ajustes.ControlesState());  
-										case 'setatipos':
-										MusicBeatState.switchState(new ajustes.SetasState());
-										case 'gamejooj':
-										if(GJClient.logged)
-										{
-											MusicBeatState.switchState(new AlreadyLogged());
-										}
-										else{
-											MusicBeatState.switchState(new GameJoltLoginState());
-										}
-									}							
-								});
-						}
-				}
-
-			function achievementsHover():Void
-				{
-					achievementsbotao.alpha=1;
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-				}
-			 
-				function achievementsOut():Void
-				{
-					achievementsbotao.alpha=0.75;
-				}
-				function achievementsDown():Void
-					{
-						if(pode)
-							{
-								curSelected=2;
-								var choice:String;
-								choice='setatipos';
-								selectedSomethin = true;
-								clicavel = false;
-							FlxG.sound.play(Paths.sound('confirmMenu'));
-									checkiftouch = false; //This should be enough
-									var daChoice:String = choice;
-									sumidao(curSelected);
-									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
-									switch (daChoice)
-									{
-										case 'configuracoes':
-										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
-										case 'controles':
-										// fiz isso pois tem gente que joga de teclado no mobile.
-										MusicBeatState.switchState(new ajustes.ControlesState());  
-										case 'setatipos':
-										MusicBeatState.switchState(new ajustes.SetasState());
-										case 'gamejooj':
-										if(GJClient.logged)
-										{
-											MusicBeatState.switchState(new AlreadyLogged());
-										}
-										else{
-											MusicBeatState.switchState(new GameJoltLoginState());
-										}
-									}							
-								});
-							}
-					}
-				
-			function opcaoHover():Void
-				{
-					opcaobotao.alpha=1;
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-				}
-			 
-				function opcaoOut():Void
-				{
-					opcaobotao.alpha=0.75;
-				}
-			function opcaoDown():Void
-				{
-					if(pode)
-						{
-							curSelected=4;
-							var choice:String;
-							choice='gamejooj';
-							selectedSomethin = true;
-							clicavel = false;
-							FlxG.sound.play(Paths.sound('confirmMenu'));
-									checkiftouch = false; //This should be enough
-									var daChoice:String = choice;
-									sumidao(curSelected);
-									new FlxTimer().start(1.7, function(tmr:FlxTimer) {
-									switch (daChoice)
-									{
-										case 'configuracoes':
-										openSubState(new ajustes.PreferenciasSubstate()); //graficos, gameplay e etc.
-										case 'controles':
-										// fiz isso pois tem gente que joga de teclado no mobile.
-										MusicBeatState.switchState(new ajustes.ControlesState());  
-										case 'setatipos':
-										MusicBeatState.switchState(new ajustes.SetasState());
-										case 'gamejooj':
-										if(GJClient.logged)
-										{
-											MusicBeatState.switchState(new AlreadyLogged());
-										}
-										else{
-											MusicBeatState.switchState(new GameJoltLoginState());
-										}
-									}							
-								});
-						}
-				}
-
-
-					override function beatHit()
-						{
-							super.beatHit();
-							if(isCoolBeat){boom.animation.play('idle', true);}
-							isCoolBeat = !isCoolBeat;
-							if(sonic1 != null)
-								{
-								sonic1.animation.play('idle1', true);
-								}
-							if(tails != null)
-								{
-									tails.animation.play('idle2', true);
-								}
-						}
+			override function beatHit()
+			{
+				super.beatHit();
+				if(isCoolBeat){boom.animation.play('idle', true);}
+					isCoolBeat = !isCoolBeat;
+			}
 
 
 }

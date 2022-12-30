@@ -10496,7 +10496,7 @@
 		"stage": "confronting",
 		"validScore": true,
 		"sections": 0,
-		"needsVoices": true,
+		"needsVoices": false,
 		"speed": 3.2,
 		"bpm": 240
 	}

@@ -449,7 +449,7 @@
 		"validScore": false,
 		"bpm": 190,
 		"arrowSkin": "",
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "personel",
 		"isRing": null
 	}

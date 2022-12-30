@@ -8125,7 +8125,7 @@
 		"song": "chaos",
 		"sections": 0,
 		"validScore": true,
-		"needsVoices": true,
+		"needsVoices": false,
 		"stage": "chamber",
 		"noteStyle": null,
 		"speed": 3,
