@@ -51,12 +51,20 @@ class KeysSubstate extends MusicBeatState {
 		['Accept', 'accept'],
 		['Back', 'back'],
 		['Pause', 'pause'],
+		[''],
+		['VOLUME'],
+		['Mute', 'volume_mute'],
+		['Up', 'volume_up'],
+		['Down', 'volume_down'],
+		[''],
+		['DEBUG'],
+		['Key 1', 'debug_1'],
+		['Key 2', 'debug_2']
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var grpInputs:Array<AttachedText> = [];
 	private var grpInputsAlt:Array<AttachedText> = [];
-	private var controlMap:Map<String, Dynamic>;
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
 
@@ -74,7 +82,6 @@ class KeysSubstate extends MusicBeatState {
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		controlMap = ClientPrefs.keyBinds.copy();
 		optionShit.push(['']);
 		optionShit.push([defaultKey]);
 
@@ -122,7 +129,6 @@ class KeysSubstate extends MusicBeatState {
 			}
 
 			if (controls.BACK) {
-				ClientPrefs.keyBinds = controlMap.copy();
 				ClientPrefs.reloadControls();
 				grpOptions.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
@@ -133,7 +139,7 @@ class KeysSubstate extends MusicBeatState {
 
 			if(controls.ACCEPT && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
-					controlMap = ClientPrefs.defaultKeys.copy();
+					ClientPrefs.keyBinds = ClientPrefs.defaultKeys.copy();
 					reloadKeys();
 					changeSelection();
 					FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -151,14 +157,14 @@ class KeysSubstate extends MusicBeatState {
 		} else {
 			var keyPressed:Int = FlxG.keys.firstJustPressed();
 			if (keyPressed > -1) {
-				var keysArray:Array<FlxKey> = controlMap.get(optionShit[curSelected][1]);
+				var keysArray:Array<FlxKey> = ClientPrefs.keyBinds.get(optionShit[curSelected][1]);
 				keysArray[curAlt ? 1 : 0] = keyPressed;
 
 				var opposite:Int = (curAlt ? 0 : 1);
 				if(keysArray[opposite] == keysArray[1 - opposite]) {
 					keysArray[opposite] = NONE;
 				}
-				controlMap.set(optionShit[curSelected][1], keysArray);
+				ClientPrefs.keyBinds.set(optionShit[curSelected][1], keysArray);
 
 				reloadKeys();
 				FlxG.sound.play(Paths.sound('confirmMenu'));
@@ -272,7 +278,7 @@ class KeysSubstate extends MusicBeatState {
 	}
 
 	private function addBindTexts(optionText:Alphabet, num:Int) {
-		var keys:Array<Dynamic> = controlMap.get(optionShit[num][1]);
+		var keys:Array<Dynamic> = ClientPrefs.keyBinds.get(optionShit[num][1]);
 		var text1 = new AttachedText(InputFormatter.getKeyName(keys[0]), 400, -55);
 		text1.setPosition(optionText.x + 400, optionText.y - 55);
 		text1.sprTracker = optionText;
