@@ -1,2 +1,3 @@
-Value 1: define a camera de zoom exemplo: 0.9(recomendavel) 
-value 2: tempo
+Zooms the camera in or out.
+
+Value 1: Zoom distance
