@@ -99,7 +99,6 @@ class AchievementsMenuState extends MusicBeatState
 		majin.setGraphicSize(Std.int(majin.width * 1.35));
 		majin.antialiasing = ClientPrefs.globalAntialiasing;
 		add(majin);
-		majin.animation.play('idle', true);
 
 		descBox = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_texto'));
 		//descBox.alpha = 0.6;

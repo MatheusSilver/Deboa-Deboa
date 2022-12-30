@@ -174,7 +174,7 @@ class AjustesState extends MusicBeatState
 		boom.antialiasing = true;
 		boom.setGraphicSize(Std.int(boom.width*1.5));
 		boom.updateHitbox();
-		boom.y =-1000;
+		boom.y =-1035;
 		boom.x = -1100;
 		boom.alpha=1;
 		add(boom);
@@ -272,29 +272,12 @@ class AjustesState extends MusicBeatState
 		});
 		new FlxTimer().start(2.25, function(tmr:FlxTimer){pode=true;});
 
-		#if ACHIEVEMENTS_ALLOWED
-		Achievements.loadAchievements();
-			var achieveID:Int = Achievements.getAchievementIndex('modboa');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement();
-				ClientPrefs.saveSettings();
-		}
-		#end
 
 
 
 		super.create();
 	}
 
-	#if ACHIEVEMENTS_ALLOWED
-	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
-		add(new AchievementObject('modboa', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-		trace('Giving achievement "modboa"');
-	}
-	#end
 
 
 

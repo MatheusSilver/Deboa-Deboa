@@ -379,11 +379,15 @@ class MainMenuStateMobile extends MusicBeatState
 		}
 		#end
 		
+		for (i in 0...Achievements.achievementsStuff.length) {
+			Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][0]);
+		  }
+
 		if(GJClient.logged)
 			{
-				for (i in 0...Achievements.achievementsStuff.length) {
-					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][0]);
-				}
+				
+			
+
 				letext.text = GJClient.userName;
 				/*if(FlxG.keys.justPressed.SPACE)
 					{
