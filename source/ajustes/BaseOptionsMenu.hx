@@ -84,7 +84,7 @@ class BaseOptionsMenu extends MusicBeatState
 
 		super();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('escolhendo-vermelho'));
 		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
 		bg.updateHitbox();
 
