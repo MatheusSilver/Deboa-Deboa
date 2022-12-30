@@ -123,11 +123,9 @@ class ControlSongSubstate extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		confirmInt = onYes ? 0 : 1;
 		if (confirmInt == 0) {
-			explanationtext.text = 'Um GIF irá aparecer em certas partes igual ao mod original\n
-			mas pode não ser compátivel com certos computadores.';
+			explanationtext.text = 'Um GIF irá aparecer em certas partes igual ao mod original\nmas pode não ser compátivel com certos computadores.';
 		} else if (confirmInt == 1){
-			explanationtext.text = 'Você terá a mesma experiência do mod original \n
-			mas os GIFs não serão mais um problema, isso tambem irá melhorar a performance.';
+			explanationtext.text = 'Você terá a mesma experiência do mod original \nmas os GIFs não serão mais um problema, isso tambem irá melhorar a performance.';
 		}
 
 		noText.alpha = alphas[confirmInt];
