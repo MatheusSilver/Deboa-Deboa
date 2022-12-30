@@ -313,6 +313,9 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
+	var notas:Int = 0;
+	public static var isRing:Bool = false;
+
 	var textoajustefino:String = '';
 
 	var meses:Array<String> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -425,6 +428,18 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+
+		if (SONG.song.toLowerCase() == "triple-trouble"){
+			// Só fiz com variável pq sim
+			isRing = true;
+		} else {
+			isRing = false;
+		} 
+
+		if (isRing)
+			notas = 1;
+
+		
 
 		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
 		FlxG.mouse.visible = false;
@@ -1557,7 +1572,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
-		if (SONG.isRing)
+		if (isRing)
 			{
 				ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('Counter'));
 				add(ringCounter);
@@ -1636,11 +1651,11 @@ class PlayState extends MusicBeatState
 		ringsLabel.x = 15;
 		ringsLabel.antialiasing = false;
 		ringsLabel.scrollFactor.set();
-		if (SONG.isRing)sonicHUD.add(ringsLabel);
+		if (isRing)sonicHUD.add(ringsLabel);
 
 		var missLabel:FlxSprite = new FlxSprite(15, 160).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/misses"));
 		missLabel.setGraphicSize(Std.int(missLabel.width * 3));
-		if(!SONG.isRing)missLabel.y = ringsLabel.y;
+		if(!isRing)missLabel.y = ringsLabel.y;
 		missLabel.updateHitbox();
 		missLabel.x = 15;
 		missLabel.antialiasing = false;
@@ -1681,7 +1696,7 @@ class PlayState extends MusicBeatState
 			number.x = ringsLabel.x + ringsLabel.width + (6*3) + ((9 * i) * 3);
 			number.y = ringsLabel.y;
 			ringsNumbers.push(number);
-			if (SONG.isRing)sonicHUD.add(number);
+			if (isRing)sonicHUD.add(number);
 		}
 
 		// miss numbers
@@ -2924,7 +2939,7 @@ class PlayState extends MusicBeatState
 					var daStrumTime:Float = songNotes[0];
 					var lol = 4;
 
-					if (SONG.isRing)
+					if (isRing)
 						lol = 5;
 					var daNoteData:Int = Std.int(songNotes[1] % lol);
 
@@ -2932,7 +2947,7 @@ class PlayState extends MusicBeatState
 
 					var lol2 = 3;
 
-					if (SONG.isRing)
+					if (isRing)
 						lol2 = 4;
 					if (songNotes[1] > lol2)
 					{
@@ -3069,7 +3084,7 @@ class PlayState extends MusicBeatState
 	private function generateStaticArrows(player:Int):Void
 		{
 			var keyCount:Int = 4;
-			if (SONG.isRing){
+			if (isRing){
 				keyCount = 5;}
 			for (i in 0...keyCount)
 			{
@@ -3329,7 +3344,7 @@ class PlayState extends MusicBeatState
 
 		healthbarval = targetHP;
 
-		if (SONG.isRing){
+		if (isRing){
 			counterNum.text = Std.string(cNum);
 		}
 		floaty2 += 0.01;
@@ -3736,7 +3751,7 @@ class PlayState extends MusicBeatState
 			updateSonicMisses();
 			updateSonicVida();
 			}
-		if(SONG.isRing){updateSonicRings();}
+		if(isRing){updateSonicRings();}
 
 		// RESET = Quick Game Over Screen
 		if (controls.RESET && !inCutscene && !endingSong)
@@ -3887,7 +3902,7 @@ class PlayState extends MusicBeatState
 						}
 
 						var animToPlay:String = '';
-						if (SONG.isRing) {
+						if (isRing) {
 							switch (Math.abs(daNote.noteData))
 							{
 								case 0:
@@ -3937,7 +3952,7 @@ class PlayState extends MusicBeatState
 						if(daNote.isSustainNote && !daNote.animation.curAnim.name.endsWith('end')) {
 							time += 0.15;
 						}
-						if (SONG.isRing){
+						if (isRing){
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 5, time);
 						}else{
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
@@ -5788,7 +5803,7 @@ class PlayState extends MusicBeatState
 		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 		var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
 		var controlHoldArray:Array<Bool> = [left, down, up, right];
-		if (SONG.isRing)
+		if (isRing)
 			controlHoldArray = [left, down, FlxG.keys.pressed.SPACE, up, right];
 
 		// FlxG.watch.addQuick('asdfa', upP);
@@ -5916,7 +5931,7 @@ class PlayState extends MusicBeatState
 		RecalculateRating();
 
 		var animToPlay:String = '';
-		if (SONG.isRing){
+		if (isRing){
 			switch (Math.abs(daNote.noteData) % 5)
 			{
 				case 0:
@@ -6034,13 +6049,13 @@ class PlayState extends MusicBeatState
 				return;
 			}
 
-			if (!note.isSustainNote && ((SONG.isRing && note.noteData != 2) || !SONG.isRing))
+			if (!note.isSustainNote && ((isRing && note.noteData != 2) || !isRing))
 			{
 				popUpScore(note);
 				combo += 1;
 				if(combo > 9999) combo = 9999;
 			}
-			if (SONG.isRing && note.noteData == 2)
+			if (isRing && note.noteData == 2)
 				{
 					cNum += 1;
 					updateSonicRings();
@@ -6055,7 +6070,7 @@ class PlayState extends MusicBeatState
 				if(note.noteType == 'Alt Animation') daAlt = '-alt';
 	
 				var animToPlay:String = '';
-			if (PlayState.SONG.isRing){
+			if (PlayState.isRing){
 				switch (Std.int(Math.abs(note.noteData)))
 				{
 					case 0:
@@ -6111,7 +6126,7 @@ class PlayState extends MusicBeatState
 				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 					time += 0.15;
 				}				
-			if (SONG.isRing){
+			if (isRing){
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 5, time);
 			}else{
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, time);

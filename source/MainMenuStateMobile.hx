@@ -381,12 +381,15 @@ class MainMenuStateMobile extends MusicBeatState
 		
 		if(GJClient.logged)
 			{
+				for (i in 0...Achievements.achievementsStuff.length) {
+					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][0]);
+				}
 				letext.text = GJClient.userName;
-				if(FlxG.keys.justPressed.SPACE)
+				/*if(FlxG.keys.justPressed.SPACE)
 					{
 						Achievements.unlockAchievement("Seja bem vindo!");
 						trace('getting trophie');
-					}
+					}*/
 				letext.alpha = 1;
 			}
 			else

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="mao.png">
+<SubTexture name="invisible0000" x="592" y="159" width="1" height="1" frameX="0" frameY="0" frameWidth="1" frameHeight="1" />
+<SubTexture name="nhac0000" x="230" y="0" width="236" height="199" frameX="0" frameY="0" frameWidth="236" frameHeight="199" />
+<SubTexture name="nhac0001" x="0" y="0" width="230" height="200" frameX="0" frameY="-1" frameWidth="230" frameHeight="201" />
+<SubTexture name="nhac0002" x="0" y="0" width="230" height="200" frameX="0" frameY="-1" frameWidth="230" frameHeight="201" />
+<SubTexture name="nhac0003" x="0" y="0" width="230" height="200" frameX="0" frameY="-1" frameWidth="230" frameHeight="201" />
+<SubTexture name="nhac0004" x="0" y="200" width="219" height="195" frameX="0" frameY="-10" frameWidth="219" frameHeight="205" />
+<SubTexture name="nhac0005" x="219" y="200" width="213" height="184" frameX="0" frameY="-1" frameWidth="213" frameHeight="185" />
+<SubTexture name="nhac0006" x="466" y="0" width="146" height="159" frameX="0" frameY="0" frameWidth="146" frameHeight="159" />
+<SubTexture name="nhac0007" x="466" y="159" width="126" height="129" frameX="0" frameY="0" frameWidth="126" frameHeight="129" />
+<SubTexture name="nhac0008" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0009" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0010" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0011" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0012" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0013" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0014" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0015" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0016" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0017" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0018" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0019" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0020" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+<SubTexture name="nhac0021" x="0" y="395" width="125" height="124" frameX="0" frameY="0" frameWidth="125" frameHeight="124" />
+</TextureAtlas>

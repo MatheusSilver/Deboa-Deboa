@@ -17,7 +17,8 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic1",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -35,63 +36,72 @@
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						1701.03092783505,
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						1855.67010309278,
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						2010.30927835052,
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						2164.94845360825,
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						1623.71134020619,
 						-1,
 						"Add Camera Zoom",
 						"-0.075",
-						"-0.075"
+						"-0.075",
+						null
 					],
 					[
 						1778.35051546392,
 						-1,
 						"Add Camera Zoom",
 						"-0.075",
-						"-0.075"
+						"-0.075",
+						null
 					],
 					[
 						1932.98969072165,
 						-1,
 						"Add Camera Zoom",
 						"-0.075",
-						"-0.075"
+						"-0.075",
+						null
 					],
 					[
 						2087.62886597938,
 						-1,
 						"Add Camera Zoom",
 						"-0.075",
-						"-0.075"
+						"-0.075",
+						null
 					]
 				],
 				"bpm": 0,
@@ -119,7 +129,8 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic2",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -147,7 +158,8 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic3",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -185,7 +197,8 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/bf",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -253,14 +266,16 @@
 						-1,
 						"Blammed Lights",
 						"1",
-						""
+						"",
+						null
 					],
 					[
 						18479.381443299,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/bf",
-						"letras/green-hills/psonic4"
+						"letras/green-hills/psonic4",
+						null
 					]
 				],
 				"bpm": 0,
@@ -278,35 +293,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						18865.9793814433,
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						19020.618556701,
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						19329.8969072165,
 						-1,
 						"Add Camera Zoom",
 						"0.075",
-						"0.075"
+						"0.075",
+						null
 					],
 					[
 						19716.4948453608,
 						-1,
 						"Blammed Lights",
 						"0",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -324,14 +344,16 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic5",
-						""
+						"",
+						null
 					],
 					[
 						20644.3298969072,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic6",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -359,7 +381,8 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic7",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -377,63 +400,72 @@
 						-1,
 						"Change Scroll Speed",
 						"2",
-						""
+						"",
+						null
 					],
 					[
 						24201.0309278351,
 						-1,
 						"Blammed Lights",
 						"2",
-						""
+						"",
+						null
 					],
 					[
 						24278.3505154639,
 						-1,
 						"Blammed Lights",
 						"3",
-						""
+						"",
+						null
 					],
 					[
 						24355.6701030928,
 						-1,
 						"Blammed Lights",
 						"4",
-						""
+						"",
+						null
 					],
 					[
 						24432.9896907216,
 						-1,
 						"Blammed Lights",
 						"5",
-						""
+						"",
+						null
 					],
 					[
 						24510.3092783505,
 						-1,
 						"Blammed Lights",
 						"6",
-						""
+						"",
+						null
 					],
 					[
 						24587.6288659794,
 						-1,
 						"Blammed Lights",
 						"0",
-						""
+						"",
+						null
 					],
 					[
 						24664.9484536082,
 						-1,
 						"Change Scroll Speed",
 						"1.2",
-						""
+						"",
+						null
 					],
 					[
 						24123.7113402062,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic8",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -451,7 +483,8 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/bf",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -489,21 +522,24 @@
 						-1,
 						"Blammed Lights",
 						"1",
-						""
+						"",
+						null
 					],
 					[
 						29381.4432989691,
 						-1,
 						"Change Scroll Speed",
 						"1",
-						""
+						"",
+						null
 					],
 					[
 						29536.0824742268,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic9",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -521,14 +557,16 @@
 						-1,
 						"Blammed Lights",
 						"0",
-						""
+						"",
+						null
 					],
 					[
 						30309.2783505155,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic10",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -546,14 +584,16 @@
 						-1,
 						"Blammed Lights",
 						"1",
-						""
+						"",
+						null
 					],
 					[
 						31701.0309278351,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic11",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -571,21 +611,24 @@
 						-1,
 						"Blammed Lights",
 						"0",
-						""
+						"",
+						null
 					],
 					[
 						32706.1855670103,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic12",
-						""
+						"",
+						null
 					],
 					[
 						33247.4226804124,
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/psonic13",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -613,14 +656,16 @@
 						-1,
 						"Adicionar Imagens",
 						"letras/green-hills/bf",
-						""
+						"",
+						null
 					],
 					[
 						35721.6494845361,
 						-1,
 						"Adicionar Imagens",
-						"letras/green-hills/bf",
-						"letras/green-hills/psonic14"
+						"letras/green-hills/psonic14",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -652,17 +697,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						39432.9896907216,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic15",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -684,11 +728,31 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
+						41829.8969072165,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic16",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
 						43221.6494845361,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -706,28 +770,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						43530.9278350515,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						43685.5670103093,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						43840.206185567,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						43917.5257731959,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic17",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -739,7 +815,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						44690.7216494845,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -755,14 +840,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						46855.6701030928,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						46469.0721649484,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic18",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -774,7 +869,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						47938.1443298969,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -784,7 +888,24 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						48788.6597938144,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic19",
+						"",
+						""
+					],
+					[
+						49252.5773195876,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic20",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -794,7 +915,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						50567.0103092783,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic21",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -810,7 +940,8 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -828,28 +959,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						52654.6391752577,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						52963.9175257732,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						53118.5567010309,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						52577.3195876289,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic22",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -867,49 +1010,64 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						53427.8350515464,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						53582.4742268041,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						53737.1134020619,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						53891.7525773196,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						54046.3917525773,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						54201.030927835,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						54123.7113402062,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic23",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -931,7 +1089,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						56675.2577319588,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -947,7 +1114,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						57989.6907216495,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic24",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -965,42 +1141,48 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						58376.2886597938,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						58685.5670103093,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						58840.206185567,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						58994.8453608247,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						59149.4845360825,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1018,7 +1200,16 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						59381.4432989691,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1036,7 +1227,8 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1054,7 +1246,16 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						62783.5051546392,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic24",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1072,7 +1273,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						64175.2577319588,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic25",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1090,28 +1300,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						64716.4948453608,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						65257.7319587629,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						65335.0515463917,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1129,28 +1343,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						65953.6082474227,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						66494.8453608248,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						66572.1649484536,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1168,21 +1386,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						67113.4020618557,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						67731.9587628866,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						67654.6391752577,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic26",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1200,14 +1429,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						68969.0721649485,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						68891.7525773196,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic27",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1225,14 +1464,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						70206.1855670103,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						70283.5051546392,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic28",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1250,14 +1499,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						71365.9793814433,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1275,14 +1526,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						72603.0927835052,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						71907.2164948454,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic29",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1300,14 +1561,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						73840.2061855671,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						73762.8865979382,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic30",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1325,112 +1596,144 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						74613.4020618557,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						74768.0412371135,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						75127.5773195877,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						75241.6237113403,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						75365.3350515464,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						74443.2989690722,
 						-1,
 						"Screen Shake",
 						"0, 0.05",
-						"0, 0.05"
+						"0, 0.05",
+						null
 					],
 					[
 						74586.3402061856,
 						-1,
 						"Screen Shake",
 						"0, 0.05",
-						"0, 0.05"
+						"0, 0.05",
+						null
 					],
 					[
 						74740.9793814434,
 						-1,
 						"Screen Shake",
 						"0, 0.05",
-						"0, 0.05"
+						"0, 0.05",
+						null
 					],
 					[
 						75108.2474226805,
 						-1,
 						"Screen Shake",
 						"0, 0.05",
-						"0, 0.05"
+						"0, 0.05",
+						null
 					],
 					[
 						75220.3608247423,
 						-1,
 						"Screen Shake",
 						"0, 0.05",
-						"0, 0.05"
+						"0, 0.05",
+						null
 					],
 					[
 						75338.2731958763,
 						-1,
 						"Screen Shake",
 						"0, 0.05",
-						"0, 0.05"
+						"0, 0.05",
+						null
 					],
 					[
 						74381.4432989691,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						74536.0824742269,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						74690.7216494846,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						74226.8041237114,
 						-1,
 						"Blammed Lights",
 						"1",
-						"1"
+						"1",
+						null
+					],
+					[
+						74304.1237113403,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic31",
+						"",
+						""
+					],
+					[
+						75077.3195876289,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic32",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1448,6 +1751,15 @@
 						-1,
 						"Blammed Lights",
 						"0",
+						"",
+						null
+					],
+					[
+						76391.7525773197,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic33",
+						"",
 						""
 					]
 				],
@@ -1466,41 +1778,55 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						77087.6288659795,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						77242.2680412372,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						77396.9072164949,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						77551.5463917527,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						76701.0309278351,
 						-1,
 						"Blammed Lights",
 						"1",
+						"",
+						null
+					],
+					[
+						77628.8659793815,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic34",
+						"",
 						""
 					]
 				],
@@ -1519,6 +1845,34 @@
 						-1,
 						"Blammed Lights",
 						"0",
+						"",
+						null
+					],
+					[
+						78865.9793814434,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic35",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						80025.7731958764,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic36",
+						"",
 						""
 					]
 				],
@@ -1541,17 +1895,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						81804.1237113403,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic37",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1567,55 +1920,79 @@
 						-1,
 						"Blammed Lights",
 						"1",
-						""
+						"",
+						null
 					],
 					[
 						83814.4329896908,
 						-1,
 						"Blammed Lights",
 						"0",
-						""
+						"",
+						null
 					],
 					[
 						83505.1546391754,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						83582.4742268042,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						83659.7938144331,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						83737.113402062,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						83891.7525773197,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						83427.8350515465,
 						-1,
 						"Change Scroll Speed",
 						"1.2",
+						"",
+						null
+					],
+					[
+						83041.2371134022,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic38",
+						"",
+						""
+					],
+					[
+						83969.0721649486,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
 						""
 					]
 				],
@@ -1634,7 +2011,8 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1652,7 +2030,8 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1670,14 +2049,16 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						87525.7731958764,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1695,20 +2076,31 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						88144.3298969074,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						88530.9278350517,
 						-1,
 						"Change Scroll Speed",
 						"1",
+						"",
+						null
+					],
+					[
+						88608.2474226805,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic39",
+						"",
 						""
 					]
 				],
@@ -1727,7 +2119,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						89458.7628865981,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic40",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1745,14 +2146,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						91082.4742268043,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						90850.5154639177,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic41",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1770,7 +2181,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						91932.9896907218,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic42",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1788,14 +2208,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						93556.701030928,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						93634.0206185569,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1813,28 +2243,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						94871.1340206187,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						94252.5773195878,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						94716.494845361,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						94639.1752577321,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic43",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1852,35 +2294,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						95798.9690721651,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						95644.3298969074,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						95953.6082474229,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						96108.2474226806,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1898,21 +2345,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						96726.8041237115,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						97036.082474227,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						97190.7216494847,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic44",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1930,7 +2388,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						98427.8350515466,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic45",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1952,7 +2419,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						100902.06185567,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic46",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1968,14 +2444,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						102448.453608248,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1993,28 +2471,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						103221.649484536,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						103376.288659794,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						103453.608247423,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						103530.927835052,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -2032,14 +2522,16 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						104690.721649485,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2057,14 +2549,16 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						106005.154639175,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2082,28 +2576,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						106623.711340206,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						107474.226804124,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						107010.309278351,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2121,20 +2619,31 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						107860.824742268,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						108367.268041237,
 						-1,
 						"Change Scroll Speed",
 						"1.3",
+						"",
+						null
+					],
+					[
+						108324.742268041,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic47",
+						"",
 						""
 					]
 				],
@@ -2153,14 +2662,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						109561.855670103,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						109639.175257732,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic48",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -2178,14 +2697,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						110798.969072165,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
+					],
+					[
+						111262.886597938,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic49",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -2203,14 +2732,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						112036.082474227,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2228,27 +2759,39 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						113350.515463918,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						113427.835051547,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						113273.195876289,
 						-1,
 						"Change Scroll Speed",
 						"1.1",
+						"",
+						null
+					],
+					[
+						113195.87628866,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic50",
+						"",
 						""
 					]
 				],
@@ -2267,42 +2810,48 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						113969.072164949,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						114510.309278351,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						114587.62886598,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						114046.391752578,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						114664.948453609,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2320,42 +2869,48 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						115128.865979382,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						115670.103092784,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						115747.422680413,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						115206.185567011,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						115824.742268042,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2373,35 +2928,48 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						116443.298969072,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						116984.536082475,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						116520.618556701,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						117061.855670103,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						116288.659793815,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic51",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -2419,27 +2987,39 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						117680.412371134,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						118144.329896908,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						118221.649484536,
 						-1,
 						"Change Scroll Speed",
 						"1",
+						"",
+						null
+					],
+					[
+						118453.608247423,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic52",
+						"",
 						""
 					]
 				],
@@ -2458,35 +3038,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						119690.721649485,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						119768.041237114,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						119845.360824743,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						119922.680412371,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2504,35 +3089,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						120077.319587629,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						120154.639175258,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						120231.958762887,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						120309.278350516,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2554,17 +3144,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						122551.546391753,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic53",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -2586,11 +3175,31 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
+						124948.453608248,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic54",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
 						126494.845360825,
 						-1,
 						"Change Scroll Speed",
 						"1.2",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2608,13 +3217,23 @@
 						-1,
 						"Change Scroll Speed",
 						"1",
-						""
+						"",
+						null
 					],
 					[
 						127963.917525774,
 						-1,
 						"Change Scroll Speed",
 						"1",
+						"",
+						null
+					],
+					[
+						128505.154639176,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/bf",
+						"",
 						""
 					]
 				],
@@ -2633,28 +3252,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						129278.350515464,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						128814.432989691,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						129432.989690722,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2672,28 +3295,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						130438.144329897,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						129974.226804124,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						130670.103092784,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2711,35 +3338,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						132293.81443299,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						131134.020618557,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						131597.93814433,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						132061.855670103,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2757,28 +3389,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						133530.927835052,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						132448.453608248,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						133067.010309279,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2796,35 +3432,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						134768.041237114,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						133608.247422681,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						134072.164948454,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						134613.402061856,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2842,21 +3483,24 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						135077.319587629,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						135695.87628866,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2874,42 +3518,56 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						136855.670103093,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						137010.309278351,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						137164.948453609,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						136237.113402062,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						136623.711340207,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						136778.350515464,
+						-1,
+						"Adicionar Imagens",
+						"letras/green-hills/psonic505",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -2927,35 +3585,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						137474.226804124,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						137628.865979382,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						137783.50515464,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					],
 					[
 						137938.144329897,
 						-1,
 						"Add Camera Zoom",
 						"0.095",
-						"0.095"
+						"0.095",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2973,21 +3636,24 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						139407.216494846,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						138634.020618557,
 						-1,
 						"Change Scroll Speed",
 						"1.3",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3005,14 +3671,24 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						140798.969072165,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
+					],
+					[
+						139948.453608248,
+						-1,
+						"Adicionar Imagens",
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -3030,21 +3706,24 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						141726.804123712,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						142190.721649485,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3062,46 +3741,18 @@
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					],
 					[
 						143118.556701031,
 						-1,
 						"Play Animation",
 						"idle-alt",
-						"dad"
+						"dad",
+						null
 					]
 				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
