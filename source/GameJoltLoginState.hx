@@ -4,6 +4,7 @@ import flixel.util.FlxTimer;
 #if desktop
 import Discord.DiscordClient;
 #end
+import lime.system.System;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -32,10 +33,10 @@ class GameJoltLoginState extends MusicBeatState
 	
 	override function create()
 		{
-            if(GJClient.logged)
+            /*if(GJClient.logged)
             {
                 MusicBeatState.switchState(new AlreadyLogged());
-            }
+            }*/
 			FlxG.mouse.visible = true;
 			#if desktop
 			// Updating Discord Rich Presence
@@ -112,7 +113,7 @@ class GameJoltLoginState extends MusicBeatState
                 }
             if(falhou==true)
                 {
-                    falhouBar.alpha = falhouBar.alpha-1;
+                    falhouBar.alpha = falhouBar.alpha-0.0005;
                 }
 
             if(falhouBar.alpha == 0)
@@ -153,17 +154,18 @@ class GameJoltLoginState extends MusicBeatState
         public static function Desesconder():Void
             {
                 MusicBeatState.switchState(new GameJoltLoginState());
-                falhouBar.alpha = 1;
+                //falhouBar.alpha = 1;
                 pretobg.alpha = 0;
                 tokenBar.alpha=1;
                 userBar.alpha=1;
                 loadingBar.alpha=0;
+                lime.app.Application.current.window.alert("O Login falhou!", "Erro");
             }
         public static function IrParaMenu():Void
             {
                 FlxG.save.data.user =userBar.text;
                 FlxG.save.data.token =tokenBar.text;
-                MusicBeatState.switchState(new MainMenuStateMobile());
+                MusicBeatState.switchState(new ajustes.AjustesState());
             }
             
 }

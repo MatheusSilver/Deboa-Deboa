@@ -3550,15 +3550,7 @@ class PlayState extends MusicBeatState
 				persistentDraw = true;
 				paused = true;
 
-				// 1 / 1000 chance for Gitaroo Man easter egg
-				if (FlxG.random.bool(0.1))
-				{
-					// gitaroo man easter egg
-					cancelFadeTween();
-					CustomFadeTransition.nextCamera = camOther;
-					MusicBeatState.switchState(new GitarooPause());
-				}
-				else {
+					// no more gitaroo man easter egg :D
 					if(FlxG.sound.music != null) {
 						FlxG.sound.music.pause();
 						vocals.pause();
@@ -3566,7 +3558,6 @@ class PlayState extends MusicBeatState
 					PauseSubState.transCamera = camOther;
 					FlxG.sound.play(Paths.sound('PauseEnter'), 0.6);
 					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-				}
 			
 				#if desktop
 				DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());

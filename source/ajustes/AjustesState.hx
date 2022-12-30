@@ -67,7 +67,6 @@ class AjustesState extends MusicBeatState
 		//and dav says: EU ODEIO MEXER COM COORDENADAS
 		#end
 
-
 		Main.dumpCache(); // What can go wrong?
 		if(FlxG.sound.music.volume==0) {
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
@@ -131,7 +130,7 @@ class AjustesState extends MusicBeatState
 		boom.antialiasing = true;
 		boom.setGraphicSize(Std.int(boom.width*1.5));
 		boom.updateHitbox();
-		boom.y =-1000;
+		boom.y =-1035;
 		boom.x = -1100;
 		boom.alpha=1;
 		add(boom);
