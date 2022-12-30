@@ -1,448 +1,411 @@
 package ajustes;
 
-import flixel.system.FlxSound;
-import openfl.Lib;
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUIButton;
-import flixel.util.FlxTimer;
-#if desktop
-import Discord.DiscordClient;
-#end
-import flixel.FlxG;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.FlxCamera;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.effects.FlxFlicker;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
-import flixel.math.FlxMath;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
+import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.util.FlxColor;
-import lime.app.Application;
-import Achievements;
-import editors.MasterEditorMenu;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import Controls;
+import ui.FlxVirtualPad;
+import flixel.math.FlxPoint;
+import haxe.Json;
+import ui.Hitbox;
+import Config;
+#if lime
+import lime.system.Clipboard;
+#end
 
 using StringTools;
 
-class ControlesState extends MusicBeatState
+class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás, mas ainda dá pro gasto
 {
-	public static var curSelected:Int = 0;
 
-	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
-	var clicavel:Bool = false;
+	var _pad:FlxVirtualPad;
+	var _hb:Hitbox;
 
-	var tails:FlxSprite;
-	var sonic1:FlxSprite;
-	var boom:FlxSprite;
-	var gameJoltBG:FlxSprite;
+	var exitbutton:FlxUIButton;
+	var exportbutton:FlxUIButton;
+	var importbutton:FlxUIButton;
 
-	var historiabotao:FlxButton;
-	var freeplaybotao:FlxButton;
-	var achievementsbotao:FlxButton;
-	var opcaobotao:FlxButton;
-	var letext:FlxText;
-	var sobrebotao:FlxButton;
-	var isCoolBeat:Bool=true;
-	//var gradientBar:FlxGradient;
-	
-	var optionShit:Array<String> = ['mobile','keyboard'];
+	var up_text:FlxText;
+	var down_text:FlxText;
+	var left_text:FlxText;
+	var right_text:FlxText;
 
-	var machine:FlxSprite;
-	var camFollow:FlxObject;
-	var camFollowPos:FlxObject;
-	var logoBl:FlxSprite;
-	var checkiftouch:Bool = false;
-    var line:FlxSprite;
-    var trees:FlxSprite;
+	var inputvari:FlxText;
 
-	override function create()
+	var leftArrow:FlxSprite;
+	var rightArrow:FlxSprite;
+							//'hitbox',
+	var controlitems:Array<String> = ['Controle Destro', 'Controle Canhoto','Teclado','Customizado', 'Hitbox'];
+
+	var curSelected:Int = 0;
+
+	var buttonistouched:Bool = false;
+
+	var bindbutton:flixel.ui.FlxButton;
+
+	var config:Config;
+
+	public function new()
 	{
-		Conductor.changeBPM(112);
-		#if desktop
-		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Configuração de Controles", null);
-		//and dav says: EU ODEIO MEXER COM COORDENADAS
-		#end
+		super();
 
+		//init config
+		config = new Config();
 
-		Main.dumpCache(); // What can go wrong?
-		if(FlxG.sound.music.volume==0) {
-			FlxG.sound.music.fadeIn(4, 0, 0.7);
-		}
-		camGame = new FlxCamera();
-		camAchievement = new FlxCamera();
-		camAchievement.bgColor.alpha = 0;
-
-		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camAchievement);
-		FlxCamera.defaultCameras = [camGame];
-		#if !mobile
-		FlxG.mouse.visible = true;
-		#end
-
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
-
-		persistentUpdate = persistentDraw = true;
-
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
-		bg.scrollFactor.set(0, 0);
-		bg.setGraphicSize(FlxG.width);
+		// bg
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic('assets/images/menuBG.png');
+		bg.scrollFactor.x = 0;
+		bg.scrollFactor.y = 0.18;
+		bg.setGraphicSize(Std.int(bg.width * 1.1));
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.antialiasing = true;
+
+		// load curSelected
+		curSelected = config.getcontrolmode();
+
+
+		//pad
+		_pad = new FlxVirtualPad(RIGHT_FULL, NONE);
+		_pad.alpha = 0;
+
+
+
+		//text inputvari
+		inputvari = new FlxText(125, 50, 0,controlitems[0], 48);
+
+		//arrows
+		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
+
+		leftArrow = new FlxSprite(inputvari.x - 60,inputvari.y - 10);
+		leftArrow.frames = ui_tex;
+		leftArrow.animation.addByPrefix('idle', "arrow left");
+		leftArrow.animation.addByPrefix('press', "arrow push left");
+		leftArrow.antialiasing = false;
+		leftArrow.animation.play('idle');
+
+		rightArrow = new FlxSprite(inputvari.x + inputvari.width + 10, leftArrow.y);
+		rightArrow.frames = ui_tex;
+		rightArrow.animation.addByPrefix('idle', 'arrow right');
+		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
+		rightArrow.antialiasing = false;
+		rightArrow.animation.play('idle');
+
+
+		//text
+		up_text = new FlxText(200, 200, 0,"Button up x:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y, 24);
+		down_text = new FlxText(200, 250, 0,"Button down x:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y, 24);
+		left_text = new FlxText(200, 300, 0,"Button left x:" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y, 24);
+		right_text = new FlxText(200, 350, 0,"Button right x:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y, 24);
+
+		//hitboxes
+
+		_hb = new Hitbox();
+		_hb.visible = false;
+
+		// buttons
+
+		exitbutton = new FlxUIButton(FlxG.width - 650,25,"Sair");
+		exitbutton.resize(125,50);
+		exitbutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
+
+		var savebutton = new FlxUIButton((exitbutton.x + exitbutton.width + 25),25,"Sair e Salvar",() -> {
+			save();
+			MusicBeatState.switchState(new ajustes.AjustesState());
+		});
+		savebutton.resize(250,50);
+		savebutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
+
+		exportbutton = new FlxUIButton(FlxG.width - 150, 25, "Exportar", () -> { savetoclipboard(_pad); } );
+		exportbutton.resize(125,50);
+		exportbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
+
+		importbutton = new FlxUIButton(exportbutton.x, 100, "Importar", () -> { loadfromclipboard(_pad); });
+		importbutton.resize(125,50);
+		importbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
+
+		// add bg
 		add(bg);
 
-		//checker = new FlxBackdrop(Paths.image('soquadrados', 'preload'), 0.2, 0.2, true, true);
-		
-		//add(checker);
-		//checker.alpha = 0.8;
-		//checker.color = FlxColor.RED;
-		//Isto é temporário, por algum motivo isso não tá compilando no github
+		// add buttons
+		add(exitbutton);
+		add(savebutton);
+		add(exportbutton);
+		add(importbutton);
 
-		/*gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x41000000, 0x2C744100, 0x88A10000], 1, 90, true);
-		gradientBar.y = FlxG.height - gradientBar.height;
-		gradientBar.scale.y = 0;
-		gradientBar.updateHitbox();
-		//add(gradientBar);*/
+		// add virtualpad
+		this.add(_pad);
 
-
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollowPos = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
-		add(camFollowPos);
-
-		FlxG.camera.follow(camFollowPos, null, 1);
+		//add hb
+		add(_hb);
 
 
+		// add arrows and text
+		add(inputvari);
+		add(leftArrow);
+		add(rightArrow);
 
-		machine = new FlxSprite(0).loadGraphic(Paths.image('optionsmenu/ajuste_back', 'preload'));
-		machine.scrollFactor.x = 0;
-		machine.scrollFactor.y = 0;
-		machine.setGraphicSize(FlxG.width, FlxG.height);
-		machine.updateHitbox();
-		machine.screenCenter();
-		machine.visible = true;
-		machine.antialiasing = ClientPrefs.globalAntialiasing;
-		add(machine);
+		// add texts
+		add(up_text);
+		add(down_text);
+		add(left_text);
+		add(right_text);
 
-        trees = new FlxSprite(0).loadGraphic(Paths.image('optionsmenu/ajuste_arvores', 'preload'));
-		trees.scrollFactor.x = 0;
-		trees.scrollFactor.y = 0;
-		trees.setGraphicSize(FlxG.width, FlxG.height);
-		trees.updateHitbox();
-		trees.screenCenter();
-		trees.visible = true;
-		trees.antialiasing = ClientPrefs.globalAntialiasing;
-
-		tails = new FlxSprite(0, 0); //ok
-		tails.frames = Paths.getSparrowAtlas('menus/tailsdoll_p2', 'preload');
-		tails.animation.addByPrefix('idle2', "singRIGHT", 24);
-		//tails.animation.play('idle2');
-		tails.alpha = 0;
-		tails.antialiasing = true;
-		tails.setGraphicSize(Std.int(tails.width * 0.9));
-		tails.updateHitbox();
-		tails.x = 25 - 507 - 200 - 400 + 75 + 140;
-		tails.y = 75 - 320 - 250 - 200 + 30;
-		//add(tails);
-
-		sonic1 = new FlxSprite(0, 0); //ok
-		sonic1.frames = Paths.getSparrowAtlas('menus/YCR', 'preload');
-		sonic1.animation.addByPrefix('idle1', "normal_down", 20);
-		//sonic1.animation.play('idle1');
-		sonic1.antialiasing = true;
-		sonic1.setGraphicSize(Std.int(sonic1.width * 1.5));
-		sonic1.updateHitbox();
-		sonic1.y = 75 - 390 + 40;
-		sonic1.x = 25 - 507 - 100;
-		sonic1.alpha=0;
-		//add(sonic1);
-
-		boom = new FlxSprite(0, 0); //ok
-		boom.frames = Paths.getSparrowAtlas('optionsmenu/sunkyajustes', 'preload');
-		boom.animation.addByPrefix('idle', "sunkyajustes bump",30);
-		//sonic1.animation.play('idle1');
-		boom.antialiasing = true;
-		boom.setGraphicSize(Std.int(boom.width*1.5));
-		boom.updateHitbox();
-		boom.y =-1000;
-		boom.x = -1100;
-		boom.alpha=1;
-		add(boom);
-
-        add(trees);
-
-		historiabotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
-		historiabotao.loadGraphic(Paths.image('optionsmenu/mobile', 'preload'));
-		historiabotao.setGraphicSize(Std.int(historiabotao.width * 0.6));
-		historiabotao.updateHitbox();
-        historiabotao.alpha = 0.75;
-		historiabotao.x = FlxG.width;
-		historiabotao.y = 150;
-        add(historiabotao);
-
-		freeplaybotao = new FlxButton(FlxG.width, 15 + historiabotao.y + historiabotao.height - 367, '');
-		freeplaybotao.loadGraphic(Paths.image('optionsmenu/keyboard', 'preload'));
-		freeplaybotao.setGraphicSize(Std.int(freeplaybotao.width * 0.6));
-		freeplaybotao.updateHitbox();
-        freeplaybotao.alpha = 0.75;
-		freeplaybotao.x = FlxG.width;
-		freeplaybotao.y = 15 + historiabotao.y + historiabotao.height;
-        add(freeplaybotao);
-
-        line = new FlxSprite(0).loadGraphic(Paths.image('optionsmenu/ajuste_linhas', 'preload'));
-		line.scrollFactor.x = 0;
-		line.scrollFactor.y = 0;
-		line.setGraphicSize(FlxG.width, FlxG.height);
-		line.updateHitbox();
-		line.screenCenter();
-		line.visible = true;
-		line.antialiasing = ClientPrefs.globalAntialiasing;
-		add(line);
-
-
-		/*gameJoltBG = new FlxSprite(0).loadGraphic(Paths.image('gamejoltUserBar', 'preload'));
-		gameJoltBG.setGraphicSize(Std.int(gameJoltBG.width*0.5));
-		gameJoltBG.updateHitbox();
-		gameJoltBG.x=-630;
-		gameJoltBG.y=-350;
-		gameJoltBG.visible = true;
-		gameJoltBG.antialiasing = ClientPrefs.globalAntialiasing;
-		add(gameJoltBG);
-
-		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "DESCONECTADO", 32);
-		letext.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		letext.scrollFactor.set();
-		letext.x=-355;
-		letext.y=27;
-		letext.alpha = 1;
-		add(letext);*/
-
-		//haxe me obrigou a ser um cara organizado, mas ainda assim sou rebelde
-		//musica de novela de 2010 starts playing
-
-		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
-		FlxTween.tween(historiabotao, {x: FlxG.width - 2.5*historiabotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
-		});
-		new FlxTimer().start(0.6, function(tmr:FlxTimer) {
-		FlxTween.tween(freeplaybotao, {x: FlxG.width - 2.5*freeplaybotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
-		});
-		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
-	});
-
-		#if ACHIEVEMENTS_ALLOWED
-		Achievements.loadAchievements();
-			var achieveID:Int = Achievements.getAchievementIndex('modboa');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement();
-				ClientPrefs.saveSettings();
-		}
-		#end
-
-
-
-		super.create();
-	}
-
-	#if ACHIEVEMENTS_ALLOWED
-	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
-		add(new AchievementObject('modboa', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-		trace('Giving achievement "modboa"');
-	}
-	#end
-
-
-
-	var selectedSomethin:Bool = false;
-
-	function sumidao(selecionado:Int){ //do hokage omegalul
-		//provavelmente um dos códigos mais feios que já fiz, mas na real
-		//não consigo pensar em outra forma de fazê-lo sem ter que reescrever tudo.
-
-			if (selecionado == 0){
-				historiabotao.alpha=1;
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-						new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-						FlxTween.tween(historiabotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-						});
-						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-						});
-			} else if (selecionado == 1){
-				freeplaybotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			FlxTween.tween(freeplaybotao, {x: FlxG.width - freeplaybotao.width}, 0.5, {ease: FlxEase.expoInOut});
-			});
-				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-			}
-//manito do celta... Eu real preciso aprender a usar arrays e essas coisas...
-			
+		// change selection
+		changeSelection();
 	}
 
 	override function update(elapsed:Float)
 	{
-		/*if(GJClient.logged)
+		super.update(elapsed);
+
+		#if android
+		var androidback:Bool = FlxG.android.justReleased.BACK;
+		#else
+		var androidback:Bool = false;
+		#end
+		if (exitbutton.justReleased || androidback){
+			FlxG.switchState(new ajustes.AjustesState());
+		}
+
+		for (touch in FlxG.touches.list){
+			//left arrow animation
+			arrowanimate(touch);
+
+			//change Selection
+			if(touch.overlaps(leftArrow) && touch.justPressed){
+				changeSelection(-1);
+			}else if (touch.overlaps(rightArrow) && touch.justPressed){
+				changeSelection(1);
+			}
+
+			//custom pad
+			trackbutton(touch);
+		}
+	}
+
+	function changeSelection(change:Int = 0,?forceChange:Int)
+		{
+			curSelected += change;
+
+			if (curSelected < 0)
+				curSelected = controlitems.length - 1;
+			if (curSelected >= controlitems.length)
+				curSelected = 0;
+			//trace(curSelected);
+
+			if (forceChange != null)
 			{
-				letext.text = GJClient.userName;
-				if(FlxG.keys.justPressed.SPACE)
-					{
-						GJClient.trophieAdd(179877);
-						trace('getting trophie');
+				curSelected = forceChange;
+			}
+
+			inputvari.text = controlitems[curSelected];
+
+			if (forceChange != null)
+				{
+					if (curSelected == 2){
+						_pad.visible = true;
 					}
-				letext.alpha = 1;
+
+					return;
+				}
+
+			_hb.visible = false;
+
+			switch curSelected{
+				case 0:
+					this.remove(_pad);
+					_pad = null;
+					_pad = new FlxVirtualPad(RIGHT_FULL, NONE);
+					_pad.alpha = 0.75;
+					this.add(_pad);
+				case 1:
+					this.remove(_pad);
+					_pad = null;
+					_pad = new FlxVirtualPad(FULL, NONE);
+					_pad.alpha = 0.75;
+					this.add(_pad);
+				case 2:
+					//trace(2);
+					_pad.alpha = 0;
+				case 3:
+					//trace(3);
+					this.add(_pad);
+					_pad.alpha = 0.75;
+					loadcustom();
+				case 4:
+					remove(_pad);
+					_pad.alpha = 0;
+					_hb.visible = true;
+
 			}
-			else
-				{
-					letext.text = "DESCONECTADO";
-				}*/
-		if (FlxG.sound.music != null)
-			Conductor.songPosition = FlxG.sound.music.time;
-		historiabotao.updateHitbox();
-		freeplaybotao.updateHitbox();
-		historiabotao.onOver.callback = historiaHover;
-        historiabotao.onOut.callback = historiaOut;
-		freeplaybotao.onOver.callback = freeplayHover;
-        freeplaybotao.onOut.callback = freeplayOut;
-		FlxG.mouse.visible = true;
-		//checker.y += 0.1;
 
-		if(historiabotao.justPressed && !checkiftouch && clicavel){
-			historiabotao.alpha=1;
-			curSelected = 0;
-			if(curSelected == 0 && checkiftouch == false){checkiftouch = true;}
 		}
-		if(freeplaybotao.justPressed && !checkiftouch && clicavel){
-			freeplaybotao.alpha=1;
-			curSelected = 1;
-			if(curSelected == 1 && checkiftouch == false){checkiftouch = true;}
+
+	function arrowanimate(touch:flixel.input.touch.FlxTouch){
+		if(touch.overlaps(leftArrow) && touch.pressed){
+			leftArrow.animation.play('press');
 		}
-		/*if(sobrebotao.justPressed && !checkiftouch){
-			sobrebotao.alpha=1;
-			curSelected = 3;
-			if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
-			}*/
 
-		if (FlxG.sound.music.volume < 0.7)
-		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
+		if(touch.overlaps(leftArrow) && touch.released){
+			leftArrow.animation.play('idle');
 		}
-		
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
-		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+		//right arrow animation
+		if(touch.overlaps(rightArrow) && touch.pressed){
+			rightArrow.animation.play('press');
+		}
 
-		if (!selectedSomethin)
-		{
+		if(touch.overlaps(rightArrow) && touch.released){
+			rightArrow.animation.play('idle');
+		}
+	}
 
-			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
+	function trackbutton(touch:flixel.input.touch.FlxTouch){
+		//custom pad
+
+		if (buttonistouched){
+
+			if (bindbutton.justReleased && touch.justReleased)
 			{
-				selectedSomethin = true;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new AjustesState());
-			}
-
-			if (controls.ACCEPT || checkiftouch)
+				bindbutton = null;
+				buttonistouched = false;
+			}else
 			{
-				#if debug
-				FlxG.mouse.visible = false;
-				#end 
-					selectedSomethin = true;
-					clicavel = false;
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-							checkiftouch = false; //This should be enough
-							var daChoice:String = optionShit[curSelected];
-							sumidao(curSelected);
-							new FlxTimer().start(1.7, function(tmr:FlxTimer) {
-							switch (daChoice)
-							{
-								case 'mobile':
-                                MusicBeatState.switchState(new CustomControlsState()); 
-								case 'keyboard':
-                                openSubState(new ajustes.KeysSubstate());  
-							}							
-						});
-				}
+				movebutton(touch, bindbutton);
+				setbuttontexts();
 			}
-			super.update(elapsed);			
+
+		}else {
+			if (_pad.buttonUp.justPressed) {
+				if (curSelected != 3)
+					changeSelection(0,3);
+
+				movebutton(touch, _pad.buttonUp);
+			}
+
+			if (_pad.buttonDown.justPressed) {
+				if (curSelected != 3)
+					changeSelection(0,3);
+
+				movebutton(touch, _pad.buttonDown);
+			}
+
+			if (_pad.buttonRight.justPressed) {
+				if (curSelected != 3)
+					changeSelection(0,3);
+
+				movebutton(touch, _pad.buttonRight);
+			}
+
+			if (_pad.buttonLeft.justPressed) {
+				if (curSelected != 3)
+					changeSelection(0,3);
+
+				movebutton(touch, _pad.buttonLeft);
+			}
 		}
+	}
+
+	function movebutton(touch:flixel.input.touch.FlxTouch, button:flixel.ui.FlxButton) {
+		button.x = touch.x - _pad.buttonUp.width / 2;
+		button.y = touch.y - _pad.buttonUp.height / 2;
+		bindbutton = button;
+		buttonistouched = true;
+	}
+
+	function setbuttontexts() {
+		up_text.text = "Button up x:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y;
+		down_text.text = "Button down x:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y;
+		left_text.text = "Button left x:" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y;
+		right_text.text = "Button right x:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y;
+	}
 
 
-	function historiaHover():Void
+
+	function save() {
+
+		config.setcontrolmode(curSelected);
+
+		if (curSelected == 3){
+			savecustom();
+		}
+	}
+
+	function savecustom() {
+		//trace("saved");
+
+		//Config.setdata(55);
+
+		config.savecustom(_pad);
+	}
+
+	function loadcustom():Void{
+		//load pad
+		_pad = config.loadcustom(_pad);
+
+	}
+
+	function resizebuttons(vpad:FlxVirtualPad, ?int:Int = 200) {
+		for (button in vpad)
 		{
-			historiabotao.alpha=1;
-			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+				button.setGraphicSize(260);
+				button.updateHitbox();
 		}
-	 
-		function historiaOut():Void
+	}
+
+	function savetoclipboard(pad:FlxVirtualPad) {
+		//trace("saved");
+
+		var json = {
+			buttonsarray : []
+		};
+
+		var tempCount:Int = 0;
+		var buttonsarray = new Array();
+
+		for (buttons in pad)
 		{
-			historiabotao.alpha=0.75;
+			buttonsarray[tempCount] = FlxPoint.get(buttons.x, buttons.y);
+
+			tempCount++;
 		}
 
-		function freeplayHover():Void
-			{
-				freeplaybotao.alpha=1;
-				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-			}
-		 
-			function freeplayOut():Void
-			{
-				freeplaybotao.alpha=0.75;
-			}
+		json.buttonsarray = buttonsarray;
 
-			function achievementsHover():Void
-				{
-					achievementsbotao.alpha=1;
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-				}
-			 
-				function achievementsOut():Void
-				{
-					achievementsbotao.alpha=0.75;
-				}
-				
-			function opcaoHover():Void
-				{
-					opcaobotao.alpha=1;
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-				}
-			 
-				function opcaoOut():Void
-				{
-					opcaobotao.alpha=0.75;
-				}
+		//trace(json);
 
+		var data:String = Json.stringify(json);
 
-					override function beatHit()
-						{
-							super.beatHit();
-							if(isCoolBeat){boom.animation.play('idle', true);}
-							isCoolBeat = !isCoolBeat;
-							if(sonic1 != null)
-								{
-								sonic1.animation.play('idle1', true);
-								}
-							if(tails != null)
-								{
-									tails.animation.play('idle2', true);
-								}
-						}
+		openfl.system.System.setClipboard(data.trim());
+	}
 
+	function loadfromclipboard(pad:FlxVirtualPad):Void{
+		//load pad
 
+		if (curSelected != 3)
+			changeSelection(0,3);
+
+		var cbtext:String = Clipboard.text; // this not working on android 10 or higher
+
+		if (!cbtext.endsWith("}")) return;
+
+		var json = Json.parse(cbtext);
+
+		var tempCount:Int = 0;
+
+		for(buttons in pad)
+		{
+			buttons.x = json.buttonsarray[tempCount].x;
+			buttons.y = json.buttonsarray[tempCount].y;
+			tempCount++;
+		}
+		setbuttontexts();
+	}
+
+	override function destroy()
+	{
+		super.destroy();
+	}
 }

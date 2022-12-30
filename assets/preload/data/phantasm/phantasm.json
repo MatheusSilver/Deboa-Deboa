@@ -6852,7 +6852,7 @@
 		"song": "phantasm",
 		"validScore": true,
 		"sections": 0,
-		"needsVoices": true,
+		"needsVoices": false,
 		"stage": "fleet",
 		"speed": 2.8,
 		"bpm": 160

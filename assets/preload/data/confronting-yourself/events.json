@@ -328,7 +328,7 @@
 		"gfVersion": "invisibru",
 		"bpm": 240,
 		"arrowSkin": null,
-		"needsVoices": true,
+		"needsVoices": false,
 		"song": "confronting-yourself"
 	}
 }

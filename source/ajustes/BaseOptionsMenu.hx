@@ -1,5 +1,6 @@
 package ajustes;
 
+import flixel.system.FlxSound;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -27,59 +28,122 @@ import Controls;
 
 using StringTools;
 
-class BaseOptionsMenu extends MusicBeatSubstate
+class BaseOptionsMenu extends MusicBeatState
 {
-	private var curOption:Option = null;
-	private var curSelected:Int = 0;
-	private var optionsArray:Array<Option>;
+	private static var curSelected:Int = 0;
+	static var unselectableOptions:Array<String> = [
+		'GRAPHICS',
+		'GAMEPLAY'
+	];
+	static var noCheckbox:Array<String> = [
+		'Framerate',
+		'Note Delay',
+		'Volume do Hitsound'
+	];
+
+	static var options:Array<String> = [
+		'GRAPHICS',
+		'Low Quality',
+		#if windows
+		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
+		#end
+		'Anti-Aliasing',
+		'Persistent Cached Data',
+		#if !html5
+		'Framerate', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
+		#end
+		'GAMEPLAY',
+		'Antimash',
+		'Downscroll',
+		'Middlescroll',
+		'Ghost Tapping',
+		'Note Delay',
+		'Note Splashes',
+		'Hide HUD',
+		'Hide Song Length',
+		'Hitsounds',
+		'Volume do Hitsound',
+		'Flashing Lights',
+		'Legendas',
+		'Camera Zooms',
+		'Contadores (FPS, Mem.)'
+	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private var checkboxGroup:FlxTypedGroup<CheckboxThingie>;
+	private var checkboxArray:Array<CheckboxThingie> = [];
+	private var checkboxNumber:Array<Int> = [];
 	private var grpTexts:FlxTypedGroup<AttachedText>;
+	private var textNumber:Array<Int> = [];
+	var bg:FlxSprite; 
 
-	private var boyfriend:Character = null;
-	private var descBox:FlxSprite;
+	private var showCharacter:Character = null;
 	private var descText:FlxText;
-
-	public var title:String;
-	public var rpcTitle:String;
 
 	public function new()
 	{
+
 		super();
 
-		if(title == null) title = 'Options';
-		if(rpcTitle == null) rpcTitle = 'Options Menu';
-		
-		#if desktop
-		DiscordClient.changePresence(rpcTitle, null);
-		#end
-		
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
-		bg.screenCenter(XY);
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
+		bg.updateHitbox();
+
+		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-
 		// avoids lagspikes while scrolling through menus!
+		showCharacter = new Character(840, 170, 'bf', true);
+		showCharacter.setGraphicSize(Std.int(showCharacter.width * 0.8));
+		showCharacter.updateHitbox();
+		showCharacter.dance();
+		add(showCharacter);
+		showCharacter.visible = false;
+
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
 		grpTexts = new FlxTypedGroup<AttachedText>();
 		add(grpTexts);
 
-		checkboxGroup = new FlxTypedGroup<CheckboxThingie>();
-		add(checkboxGroup);
+		for (i in 0...options.length)
+		{
+			var isCentered:Bool = unselectableCheck(i);
+			var optionText:Alphabet = new Alphabet(0, 70 * i, options[i], false, false);
+			optionText.isMenuItem = true;
+			if(isCentered) {
+				optionText.screenCenter(X);
+				optionText.forceX = optionText.x;
+			} else {
+				optionText.x += 300;
+				optionText.forceX = 300;
+			}
+			optionText.yMult = 90;
+			optionText.targetY = i;
+			grpOptions.add(optionText);
 
-		descBox = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		descBox.alpha = 0.6;
-		add(descBox);
+			if(!isCentered) {
+				var useCheckbox:Bool = true;
+				for (j in 0...noCheckbox.length) {
+					if(options[i] == noCheckbox[j]) {
+						useCheckbox = false;
+						break;
+					}
+				}
 
-		var titleText:Alphabet = new Alphabet(75, 40, title, true);
-		//titleText.scaleX = 0.6;
-		//titleText.scaleY = 0.6;
-		titleText.alpha = 0.4;
-		add(titleText);
+				if(useCheckbox) {
+					var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, false);
+					checkbox.sprTracker = optionText;
+					checkboxArray.push(checkbox);
+					checkboxNumber.push(i);
+					add(checkbox);
+				} else {
+					var valueText:AttachedText = new AttachedText('0', optionText.width + 80);
+					valueText.sprTracker = optionText;
+					grpTexts.add(valueText);
+					textNumber.push(i);
+				}
+			}
+		}
 
 		descText = new FlxText(50, 600, 1180, "", 32);
 		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -87,52 +151,21 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		descText.borderSize = 2.4;
 		add(descText);
 
-		for (i in 0...optionsArray.length)
-		{
-			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
-			optionText.isMenuItem = true;
-			/*optionText.forceX = 300;
-			optionText.yMult = 90;*/
-			optionText.targetY = i;
-			grpOptions.add(optionText);
-
-			if(optionsArray[i].type == 'bool') {
-				var checkbox:CheckboxThingie = new CheckboxThingie(optionText.x - 105, optionText.y, optionsArray[i].getValue() == true);
-				checkbox.sprTracker = optionText;
-				checkbox.ID = i;
-				checkboxGroup.add(checkbox);
-			} else {
-				optionText.x -= 80;
-				//optionText.startPosition.x -= 80;
-				//optionText.xAdd -= 80;
-				var valueText:AttachedText = new AttachedText('' + optionsArray[i].getValue(), optionText.width + 80);
-				valueText.sprTracker = optionText;
-				//valueText.copyAlpha = true;
-				valueText.ID = i;
-				grpTexts.add(valueText);
-				optionsArray[i].setChild(valueText);
+		for (i in 0...options.length) {
+			if(!unselectableCheck(i)) {
+				curSelected = i;
+				break;
 			}
-			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
-
-			if(optionsArray[i].showBoyfriend && boyfriend == null)
-			{
-				reloadBoyfriend();
-			}
-			updateTextFrom(optionsArray[i]);
 		}
-
 		changeSelection();
-		reloadCheckboxes();
-	}
-
-	public function addOption(option:Option) {
-		if(optionsArray == null || optionsArray.length < 1) optionsArray = [];
-		optionsArray.push(option);
+		#if mobileC
+		addVirtualPad(FULL, A_B);
+		#end
+		reloadValues();
 	}
 
 	var nextAccept:Int = 5;
 	var holdTime:Float = 0;
-	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
 		if (controls.UI_UP_P)
@@ -144,124 +177,161 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
-			close();
+		if (controls.BACK) {			
+			#if mobile 
+			remove(_virtualpad); 
+			#end
+
+			grpOptions.forEachAlive(function(spr:Alphabet) {
+				spr.alpha = 0;
+			});
+			grpTexts.forEachAlive(function(spr:AttachedText) {
+				spr.alpha = 0;
+			});
+			for (i in 0...checkboxArray.length) {
+				var spr:CheckboxThingie = checkboxArray[i];
+				if(spr != null) {
+					spr.alpha = 0;
+				}
+			}
+			if(showCharacter != null) {
+				showCharacter.alpha = 0;
+			}
+			descText.alpha = 0;
+			FlxG.switchState(new ajustes.AjustesState());
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
-		if(nextAccept <= 0)
-		{
-			var usesCheckbox = true;
-			if(curOption.type != 'bool')
-			{
+		var usesCheckbox = true;
+		for (i in 0...noCheckbox.length) {
+			if(options[curSelected] == noCheckbox[i]) {
 				usesCheckbox = false;
-			}
-
-			if(usesCheckbox)
-			{
-				if(controls.ACCEPT)
-				{
-					FlxG.sound.play(Paths.sound('scrollMenu'));
-					curOption.setValue((curOption.getValue() == true) ? false : true);
-					curOption.change();
-					reloadCheckboxes();
-				}
-			} else {
-				if(controls.UI_LEFT || controls.UI_RIGHT) {
-					var pressed = (controls.UI_LEFT_P || controls.UI_RIGHT_P);
-					if(holdTime > 0.5 || pressed) {
-						if(pressed) {
-							var add:Dynamic = null;
-							if(curOption.type != 'string') {
-								add = controls.UI_LEFT ? -curOption.changeValue : curOption.changeValue;
-							}
-
-							switch(curOption.type)
-							{
-								case 'int' | 'float' | 'percent':
-									holdValue = curOption.getValue() + add;
-									if(holdValue < curOption.minValue) holdValue = curOption.minValue;
-									else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
-
-									switch(curOption.type)
-									{
-										case 'int':
-											holdValue = Math.round(holdValue);
-											curOption.setValue(holdValue);
-
-										case 'float' | 'percent':
-											holdValue = FlxMath.roundDecimal(holdValue, curOption.decimals);
-											curOption.setValue(holdValue);
-									}
-
-								case 'string':
-									var num:Int = curOption.curOption; //lol
-									if(controls.UI_LEFT_P) --num;
-									else num++;
-
-									if(num < 0) {
-										num = curOption.options.length - 1;
-									} else if(num >= curOption.options.length) {
-										num = 0;
-									}
-
-									curOption.curOption = num;
-									curOption.setValue(curOption.options[num]); //lol
-									//trace(curOption.options[num]);
-							}
-							updateTextFrom(curOption);
-							curOption.change();
-							FlxG.sound.play(Paths.sound('scrollMenu'));
-						} else if(curOption.type != 'string') {
-							holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1);
-							if(holdValue < curOption.minValue) holdValue = curOption.minValue;
-							else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
-
-							switch(curOption.type)
-							{
-								case 'int':
-									curOption.setValue(Math.round(holdValue));
-								
-								case 'float' | 'percent':
-									curOption.setValue(FlxMath.roundDecimal(holdValue, curOption.decimals));
-							}
-							updateTextFrom(curOption);
-							curOption.change();
-						}
-					}
-
-					if(curOption.type != 'string') {
-						holdTime += elapsed;
-					}
-				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
-					clearHold();
-				}
-			}
-
-			if(controls.RESET)
-			{
-				for (i in 0...optionsArray.length)
-				{
-					var leOption:Option = optionsArray[i];
-					leOption.setValue(leOption.defaultValue);
-					if(leOption.type != 'bool')
-					{
-						if(leOption.type == 'string')
-						{
-							leOption.curOption = leOption.options.indexOf(leOption.getValue());
-						}
-						updateTextFrom(leOption);
-					}
-					leOption.change();
-				}
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new AjustesState());
-				reloadCheckboxes();
+				break;
 			}
 		}
 
-		if(boyfriend != null && boyfriend.animation.curAnim.finished) {
-			boyfriend.dance();
+		if(usesCheckbox) {
+			if(controls.ACCEPT && nextAccept <= 0) {
+				switch(options[curSelected]) {
+					case 'Contadores (FPS, Mem.)':
+						ClientPrefs.showFPS = !ClientPrefs.showFPS;
+						if(Main.fpsVar != null)
+							Main.fpsVar.visible = ClientPrefs.showFPS;
+							Main.memoryCounter.visible = ClientPrefs.showFPS;
+
+					case 'Low Quality':
+						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
+					
+					case 'Shaders':
+						ClientPrefs.shaders = !ClientPrefs.shaders;
+
+					case 'Anti-Aliasing':
+						ClientPrefs.globalAntialiasing = !ClientPrefs.globalAntialiasing;
+						showCharacter.antialiasing = ClientPrefs.globalAntialiasing;
+						for (item in grpOptions) {
+							item.antialiasing = ClientPrefs.globalAntialiasing;
+						}
+						for (i in 0...checkboxArray.length) {
+							var spr:CheckboxThingie = checkboxArray[i];
+							if(spr != null) {
+								spr.antialiasing = ClientPrefs.globalAntialiasing;
+							}
+						}
+						bg.antialiasing = ClientPrefs.globalAntialiasing;
+
+					case 'Antimash':
+						ClientPrefs.resolution = !ClientPrefs.resolution;
+
+					case 'Note Splashes':
+						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
+
+					case 'Flashing Lights':
+						ClientPrefs.flashing = !ClientPrefs.flashing;
+
+					case 'Hitsounds':
+						ClientPrefs.hitSounds = !ClientPrefs.hitSounds;
+					
+					case 'Legendas':
+						ClientPrefs.legendas = !ClientPrefs.legendas;	
+
+					case 'Violence':
+						ClientPrefs.violence = !ClientPrefs.violence;
+
+					case 'Swearing':
+						ClientPrefs.cursing = !ClientPrefs.cursing;
+
+					case 'Downscroll':
+						ClientPrefs.downScroll = !ClientPrefs.downScroll;
+
+					case 'Middlescroll':
+						ClientPrefs.middleScroll = !ClientPrefs.middleScroll;
+
+					case 'Ghost Tapping':
+						ClientPrefs.ghostTapping = !ClientPrefs.ghostTapping;
+
+					case 'Camera Zooms':
+						ClientPrefs.camZooms = !ClientPrefs.camZooms;
+
+					case 'Hide HUD':
+						ClientPrefs.hideHud = !ClientPrefs.hideHud;
+
+					case 'Persistent Cached Data':
+						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
+						FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
+					
+					case 'Hide Song Length':
+						ClientPrefs.hideTime = !ClientPrefs.hideTime;
+				}
+				FlxG.sound.play(Paths.sound('scrollMenu'));
+				reloadValues();
+			}
+		} else {
+			if(controls.UI_LEFT || controls.UI_RIGHT) {
+				var add:Int = controls.UI_LEFT ? -1 : 1;
+				var addo:Float = controls.UI_LEFT ? -0.1 : 0.1;
+				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
+				switch(options[curSelected]) {
+					case 'Framerate':
+						ClientPrefs.framerate += add;
+						if(ClientPrefs.framerate < 60) ClientPrefs.framerate = 60;
+						else if(ClientPrefs.framerate > 240) ClientPrefs.framerate = 240;
+
+						if(ClientPrefs.framerate > FlxG.drawFramerate) {
+							FlxG.updateFramerate = ClientPrefs.framerate;
+							FlxG.drawFramerate = ClientPrefs.framerate;
+						} else {
+							FlxG.drawFramerate = ClientPrefs.framerate;
+							FlxG.updateFramerate = ClientPrefs.framerate;
+						}
+					case 'Note Delay':
+						var mult:Int = 1;
+						if(holdTime > 1.5) { //Double speed after 1.5 seconds holding
+							mult = 2;
+						}
+						ClientPrefs.noteOffset += add * mult;
+						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
+						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
+					case 'Volume do Hitsound':
+						ClientPrefs.osusom += addo;
+						if(ClientPrefs.violence) {
+						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('hitsound'));
+						hitsound.volume = ClientPrefs.osusom;
+						hitsound.play();
+						}
+						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
+						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
+				}
+				reloadValues();
+
+				if(holdTime <= 0) FlxG.sound.play(Paths.sound('scrollMenu'));
+				holdTime += elapsed;
+			} else {
+				holdTime = 0;
+			}
+		}
+
+		if(showCharacter != null && showCharacter.animation.curAnim.finished) {
+			showCharacter.dance();
 		}
 
 		if(nextAccept > 0) {
@@ -269,34 +339,63 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		}
 		super.update(elapsed);
 	}
-
-	function updateTextFrom(option:Option) {
-		var text:String = option.displayFormat;
-		var val:Dynamic = option.getValue();
-		if(option.type == 'percent') val *= 100;
-		var def:Dynamic = option.defaultValue;
-		option.text = text.replace('%v', val).replace('%d', def);
-	}
-
-	function clearHold()
-	{
-		if(holdTime > 0.5) {
-			FlxG.sound.play(Paths.sound('scrollMenu'));
-		}
-		holdTime = 0;
-	}
 	
 	function changeSelection(change:Int = 0)
 	{
-		curSelected += change;
-		if (curSelected < 0)
-			curSelected = optionsArray.length - 1;
-		if (curSelected >= optionsArray.length)
-			curSelected = 0;
+		do {
+			curSelected += change;
+			if (curSelected < 0)
+				curSelected = options.length - 1;
+			if (curSelected >= options.length)
+				curSelected = 0;
+		} while(unselectableCheck(curSelected));
 
-		descText.text = optionsArray[curSelected].description;
-		descText.screenCenter(Y);
-		descText.y += 270;
+		var daText:String = '';
+		switch(options[curSelected]) {
+			case 'Antimash':
+				daText = "Caso tu for muito nutella mesmo,\naquele cara que spamma pq\nnão sabe jogar, ative isso.";
+			case 'Framerate':
+				daText = "Determina o entre áspas limite do seu FPS.";
+			case 'Note Delay':
+				daText = "Troca o quão cedo uma nota aparece.\n(feitos para fones com delay.)";
+			case 'Contadores (FPS, Mem.)':
+				daText = "Se desmarcado, desativa os contadores do jogo,\ntais como o contador de FPS e de memória.";
+			case 'Shaders':
+				daText = "Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)";
+			case 'Low Quality':
+				daText = "Se desmarcado, retira elementos do cenário.\n(Aumenta performance e diminui tempos de loading.)";
+			case 'Persistent Cached Data':
+				daText = "Se marcado, imagens serão salvas na memória do seu dispositivo.\n(Aumenta uso de memória ram.)";
+			case 'Anti-Aliasing':
+				daText = "Se marcado, desativa o AntiAliasing do jogo, deixando sprites com menos polimento.\n(Aumenta MUITA performance)";
+			case 'Downscroll':
+				daText = "Se marcado, as notas ficaram estilo Guitar Hero.\n(Iram pra baixo)";
+			case 'Hitsounds':
+				daText = "Um som é tocado quando você acerta uma nota.";
+			case 'Volume do Hitsound':
+				daText = "Altere aqui o volume do som da Hitsound.\n(Esquerda para abaixar, direita para aumentar.)";
+			case 'Middlescroll':
+				daText = "Se marcado, a nota do oponente irá sumir e a sua ficará no meio.";
+			case 'Ghost Tapping':
+				daText = "Se marcado, você não errará por apertar teclas aleatóriamente.\n(Não funciona caso errar uma nota da música.)";
+			case 'Swearing':
+				daText = "If unchecked, your mom won't be angry at you.";
+			case 'Violence':
+				daText = "Se desmarcado, você não verá gore, sangue, visceras, coisas ruins.\n(Desativa isso caso for sensível demais.\nP.S: Principalmente pro mod do EXE.)";
+			case 'Note Splashes':
+				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
+			case 'Flashing Lights':
+				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
+			case 'Legendas':
+				daText = "Se ativado, você irá ver as legendas nas músicas.";	
+			case 'Camera Zooms':
+				daText = "Se desmarcado, a tela não irá dar zoom quando acertar uma nota.";
+			case 'Hide HUD':
+				daText = "Se marcado, tira muitas coisas da tela.";
+			case 'Hide Song Length':
+				daText = "Se marcado, a barrinha com o tempo da música, sumirá.";
+		}
+		descText.text = daText;
 
 		var bullShit:Int = 0;
 
@@ -304,51 +403,105 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0.6;
-			if (item.targetY == 0) {
-				item.alpha = 1;
+			if(!unselectableCheck(bullShit-1)) {
+				item.alpha = 0.6;
+				if (item.targetY == 0) {
+					item.alpha = 1;
+				}
+
+				for (j in 0...checkboxArray.length) {
+					var tracker:FlxSprite = checkboxArray[j].sprTracker;
+					if(tracker == item) {
+						checkboxArray[j].alpha = item.alpha;
+						break;
+					}
+				}
 			}
 		}
-		for (text in grpTexts) {
-			text.alpha = 0.6;
-			if(text.ID == curSelected) {
-				text.alpha = 1;
+		for (i in 0...grpTexts.members.length) {
+			var text:AttachedText = grpTexts.members[i];
+			if(text != null) {
+				text.alpha = 0.6;
+				if(textNumber[i] == curSelected) {
+					text.alpha = 1;
+				}
 			}
 		}
 
-		descBox.setPosition(descText.x - 10, descText.y - 10);
-		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
-		descBox.updateHitbox();
-
-		if(boyfriend != null)
-		{
-			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
-		}
-		curOption = optionsArray[curSelected]; //shorter lol
+		showCharacter.visible = (options[curSelected] == 'Anti-Aliasing');
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 
-	public function reloadBoyfriend()
-	{
-		var wasVisible:Bool = false;
-		if(boyfriend != null) {
-			wasVisible = boyfriend.visible;
-			boyfriend.kill();
-			remove(boyfriend);
-			boyfriend.destroy();
+	function reloadValues() {
+		for (i in 0...checkboxArray.length) {
+			var checkbox:CheckboxThingie = checkboxArray[i];
+			if(checkbox != null) {
+				var daValue:Bool = false;
+				switch(options[checkboxNumber[i]]) {
+					case 'Contadores (FPS, Mem.)':
+						daValue = ClientPrefs.showFPS;
+					case 'Shaders':
+						daValue = ClientPrefs.shaders;
+					case 'Low Quality':
+						daValue = ClientPrefs.lowQuality;
+					case 'Anti-Aliasing':
+						daValue = ClientPrefs.globalAntialiasing;
+					case 'Note Splashes':
+						daValue = ClientPrefs.noteSplashes;
+					case 'Flashing Lights':
+						daValue = ClientPrefs.flashing;
+					case 'Legendas':
+						daValue = ClientPrefs.legendas;
+					case 'Downscroll':
+						daValue = ClientPrefs.downScroll;
+					case 'Middlescroll':
+						daValue = ClientPrefs.middleScroll;
+					case 'Ghost Tapping':
+						daValue = ClientPrefs.ghostTapping;
+					case 'Swearing':
+						daValue = ClientPrefs.cursing;
+					case 'Hitsounds':
+						daValue = ClientPrefs.hitSounds;
+					case 'Violence':
+						daValue = ClientPrefs.violence;
+					case 'Camera Zooms':
+						daValue = ClientPrefs.camZooms;
+					case 'Hide HUD':
+						daValue = ClientPrefs.hideHud;
+					case 'Persistent Cached Data':
+						daValue = ClientPrefs.imagesPersist;
+					case 'Hide Song Length':
+						daValue = ClientPrefs.hideTime;
+				}
+				checkbox.daValue = daValue;
+			}
 		}
-
-		boyfriend = new Character(840, 170, 'bf', true);
-		boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
-		boyfriend.updateHitbox();
-		boyfriend.dance();
-		insert(1, boyfriend);
-		boyfriend.visible = wasVisible;
+		for (i in 0...grpTexts.members.length) {
+			var text:AttachedText = grpTexts.members[i];
+			if(text != null) {
+				var daText:String = '';
+				switch(options[textNumber[i]]) {
+					case 'Framerate':
+						daText = '' + ClientPrefs.framerate;
+					case 'Note Delay':
+						daText = ClientPrefs.noteOffset + 'ms';
+					case 'Volume do Hitsound':
+						daText = ClientPrefs.osusom + '';
+				}
+				var lastTracker:FlxSprite = text.sprTracker;
+				text.sprTracker = null;
+				text.changeText(daText);
+				text.sprTracker = lastTracker;
+			}
+		}
 	}
 
-	function reloadCheckboxes() {
-		for (checkbox in checkboxGroup) {
-			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
+	private function unselectableCheck(num:Int):Bool {
+		for (i in 0...unselectableOptions.length) {
+			if(options[num] == unselectableOptions[i]) {
+				return true;
+			}
 		}
+		return options[num] == null || options[num].length < 1;
 	}
 }

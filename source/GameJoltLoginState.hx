@@ -94,7 +94,7 @@ class GameJoltLoginState extends MusicBeatState
             var falhou:Bool = false;
             if (FlxG.keys.justReleased.ESCAPE) {
                 FlxG.sound.play(Paths.sound('cancelMenu'));
-                MusicBeatState.switchState(new OptionsState());
+                MusicBeatState.switchState(new ajustes.AjustesState());
             }
 			super.update(elapsed);
             if(FlxG.sound.music.volume==0) {
