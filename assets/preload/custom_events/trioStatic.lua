@@ -13,7 +13,7 @@ end
 function onEvent(name)
     if name == 'trioStatic' then
         addLuaSprite('trioStatic',true)
-        PlayAnim('trioStatic','staticwow',true)
+        objectPlayAnimation('trioStatic','staticwow',true)
 
     end
 end
