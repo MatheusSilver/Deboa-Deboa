@@ -376,6 +376,7 @@ class AjustesState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
+				ClientPrefs.saveSettings();
 				MusicBeatState.switchState(new MainMenuStateMobile());
 			}
 
