@@ -205,6 +205,7 @@ class NotesSubState extends MusicBeatState
 			remove(_virtualpad);
 			#end
 			changeSelection();
+			ClientPrefs.saveSettings();
 			if(!changingNote) {
 				grpNumbers.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
