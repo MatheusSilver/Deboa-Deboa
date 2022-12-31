@@ -60,7 +60,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		boyfriend.y += boyfriend.positionArray[1];
 		add(boyfriend);
 
-		var maoLord:FlxSprite = new FlxSprite();
+		/*var maoLord:FlxSprite = new FlxSprite();
 		maoLord.frames = Paths.getSparrowAtlas('gameover/mao', 'preload');
 		maoLord.animation.addByPrefix('parado', "invisible", 24);
 		maoLord.animation.addByPrefix('bolodemorango', "nhac", 24);
@@ -69,7 +69,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		maoLord.antialiasing = true;
 		//maoLord.setGraphicSize(Std.int(FlxG.mouse * 2));
 		maoLord.updateHitbox();
-		add(maoLord);
+		add(maoLord);*/
 		
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
 
@@ -100,9 +100,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.ACCEPT)
 		{
-			FlxG.sound.play(Paths.sound("cancelMenu"));
-			eletentou = true;
-			esmagaMouse();
+			FlxG.sound.play(Paths.sound("vhs_entra"));
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
 				endBullshit();
@@ -178,7 +176,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.sound.playMusic(Paths.music(loopSoundName), volume);
 	}
 
-	function esmagaMouse():Void
+	/*function esmagaMouse():Void
 	{
 		if (eletentou) {
 			maoLord.alpha = 1.0;
@@ -193,7 +191,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				});
 
 		}
-	}
+	}*/
 
 	function endBullshit():Void
 	{
