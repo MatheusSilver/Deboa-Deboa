@@ -379,6 +379,9 @@ class Character extends FlxSprite
 			}
 			else if(animation.getByName('idle' + idleSuffix) != null) {
 					playAnim('idle' + idleSuffix);
+			}else if(animation.getByName('sunkyajustes bump' + idleSuffix) != null)
+			{
+				playAnim('sunkyajustes bump' + idleSuffix);
 			}
 		}
 	}

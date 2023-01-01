@@ -32,7 +32,7 @@ class BaseOptionsMenu extends MusicBeatState
 {
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
-		'GRÁFICOS',
+		'GRAFICOS',
 		'GAMEPLAY'
 	];
 	static var noCheckbox:Array<String> = [
@@ -42,7 +42,7 @@ class BaseOptionsMenu extends MusicBeatState
 	];
 
 	static var options:Array<String> = [
-		'GRÁFICOS',
+		'GRAFICOS',
 		'Baixa Qualidade',
 		#if windows
 		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
@@ -92,7 +92,7 @@ class BaseOptionsMenu extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 		// avoids lagspikes while scrolling through menus!
-		showCharacter = new Character(840, 170, 'bf', true);
+		showCharacter = new Character(840, 170, 'optionsmenu/sunkyajustes', true);
 		showCharacter.setGraphicSize(Std.int(showCharacter.width * 0.8));
 		showCharacter.updateHitbox();
 		showCharacter.dance();
@@ -108,7 +108,7 @@ class BaseOptionsMenu extends MusicBeatState
 		for (i in 0...options.length)
 		{
 			var isCentered:Bool = unselectableCheck(i);
-			var optionText:Alphabet = new Alphabet(0, 70 * i, options[i], false, false);
+			var optionText:Alphabet = new Alphabet(0, 70 * i, options[i], false, false, 0.05, 1, true); // esse true no final é pro texto ser branco
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
