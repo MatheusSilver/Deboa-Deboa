@@ -195,7 +195,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 			FreeplayState.justread = musicas[curSelected];
 			PlayState.modohistoria = true;
-			if(nombres[curSelected].toLowerCase() != 'controle' && musicas[curSelected].toLowerCase() != 'cross-console-clash'){
+			if(nombres[curSelected].toLowerCase() != 'controle' && nombres[curSelected] != 'Cross Console Clash' && nombres[curSelected] != 'Noite da Rapaziada'){
 			MenuPreHistoria.bigmenu.alpha = 0;
 			bgSprite.alpha = 0;
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
@@ -212,6 +212,15 @@ class MenuHistoria extends MusicBeatSubstate
 			} else if (nombres[curSelected].toLowerCase() == 'controle'){
 				new FlxTimer().start(0.3, function(tmr:FlxTimer) {
 					openSubState(new ControlSongSubstate());
+				});
+			} else if (nombres[curSelected].toLowerCase() == 'noite da rapaziada'){
+				FlxG.sound.music.volume = 0;
+				new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+					MusicBeatState.switchState(new PastaNightSelect());
+				});
+			} else if (nombres[curSelected].toLowerCase() == 'cross console clash'){
+				new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+					openSubState(new ConsoleClashSubState(musicas[curSelected]));
 				});
 			}
 					

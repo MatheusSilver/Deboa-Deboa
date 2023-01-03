@@ -351,7 +351,11 @@ class Note extends FlxSprite
 			animation.addByPrefix('bluehold', 'blue hold piece');
 		}
 
-		setGraphicSize(Std.int(width * 0.7));
+		if(PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada'){
+			setGraphicSize(Std.int(width * 0.7));
+			} else {
+				setGraphicSize(Std.int(width * 0.65));
+			}
 		updateHitbox();
 	}
 

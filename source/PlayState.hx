@@ -214,7 +214,8 @@ class PlayState extends MusicBeatState
 	var floaty2:Float = 0;
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
-	public var opponentStrums:FlxTypedGroup<StrumNote>;
+	public var opponentStrums:FlxTypedGroup<StrumNote>; //Usado exclusivamente na Pasta Night e talvez na Slaybells
+	public var thirdplayerStrums:FlxTypedGroup<StrumNote>;
 	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
@@ -635,6 +636,8 @@ class PlayState extends MusicBeatState
 				var whiteFuck:FlxSprite; //Talvez eu arrange outra serventia pra isso.
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 				add(whiteFuck);
+			case 'bar':
+
 			case 'console':
 				var water:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('cenarios/console/water'), true, 160, 81);
 				water.scrollFactor.set(1, 1);
@@ -1341,6 +1344,7 @@ class PlayState extends MusicBeatState
 
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
+		thirdplayerStrums = new FlxTypedGroup<StrumNote>();
 
 		// startCountdown();
 
@@ -2453,6 +2457,9 @@ class PlayState extends MusicBeatState
 		if(ret != FunkinLua.Function_Stop) {
 			generateStaticArrows(0);
 			generateStaticArrows(1);
+			if(nomehistorico.toLowerCase() == 'noite da rapaziada'){
+				generateStaticArrows(2);
+			}
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
@@ -2461,6 +2468,11 @@ class PlayState extends MusicBeatState
 				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
+			}
+			for (i in 0...thirdplayerStrums.length) {
+				setOnLuas('defaultthirplayerStrumX' + i, thirdplayerStrums.members[i].x);
+				setOnLuas('defaultthirdplayerStrumY' + i, thirdplayerStrums.members[i].y);
+				if(ClientPrefs.middleScroll) thirdplayerStrums.members[i].visible = false; //Ainda pensando sobre isso...
 			}
 
 			if(curSong == 'prey' || curSong == 'you-cant-run'){
@@ -2901,9 +2913,8 @@ class PlayState extends MusicBeatState
 				}
 
 				if(curSong.toLowerCase()=='endless' && curStep >= 500){skin='Majin_Notes';}
-
 				var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player, skin);
-				
+	
 				if (!isStoryMode)
 				{
 					babyArrow.y -= 10;
@@ -2921,9 +2932,11 @@ class PlayState extends MusicBeatState
 				{
 					playerStrums.add(babyArrow);
 				}
-				else
+				else if (player == 0)
 				{
 					opponentStrums.add(babyArrow);
+				} else if (player == 2 && curSong.toLowerCase() == 'pasta-night'){
+					thirdplayerStrums.add(babyArrow);
 				}
 	
 				strumLineNotes.add(babyArrow);
@@ -3577,11 +3590,16 @@ class PlayState extends MusicBeatState
 					strumY = playerStrums.members[daNote.noteData].y;
 					strumAngle = playerStrums.members[daNote.noteData].angle;
 					strumAlpha = playerStrums.members[daNote.noteData].alpha;
-				} else {
+				} else if (daNote.noteType != 'player3'){
 					strumX = opponentStrums.members[daNote.noteData].x;
 					strumY = opponentStrums.members[daNote.noteData].y;
 					strumAngle = opponentStrums.members[daNote.noteData].angle;
 					strumAlpha = opponentStrums.members[daNote.noteData].alpha;
+				}else if(nomehistorico.toLowerCase() == 'noite da rapaziada'){ //SE A VIO PEDIR A BONEDOGGLE... :KNIFE: (mentira, agora tá safe k)
+					strumX = thirdplayerStrums.members[daNote.noteData].x;
+					strumY = thirdplayerStrums.members[daNote.noteData].y;
+					strumAngle = thirdplayerStrums.members[daNote.noteData].angle;
+					strumAlpha = thirdplayerStrums.members[daNote.noteData].alpha;
 				}
 
 
@@ -3695,7 +3713,7 @@ class PlayState extends MusicBeatState
 									animToPlay = 'singRIGHT';
 							}
 						}
-						if(daNote.noteType == 'GF Sing') {
+						if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3') {
 							gf.playAnim(animToPlay + altAnim, true);
 							gf.holdTimer = 0;
 						} else if (curStage == 'needle')
@@ -3722,7 +3740,7 @@ class PlayState extends MusicBeatState
 						if (isRing){
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 5, time);
 						}else{
-							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
+							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time, daNote.noteType == 'player3');
 						}
 							daNote.hitByOpponent = true;
 
@@ -4120,7 +4138,59 @@ class PlayState extends MusicBeatState
 				FlxTween.num(defaultCamZoom, 10, 1, {ease: FlxEase.cubeOut}, function (v:Float) {
 					defaultCamZoom = v;
 				}); //rápido e prático : D
+
+			case 'invocar 3rdstrum':
+				var microArray:Array<String> = value1.split(',');
+				var ordem:Array<Int> = []; //Não é a paranormal kek - Talvez só um pouco
+				var charType:Int = 0;
+				for (i in 0...microArray.length){ //Basicamente aqui vai ser setado a ordem das notas, 
+					//tipo, se o primeiro grupo de strums é o dad, o segundo é o player e talz...
+				switch(microArray[i].toLowerCase()) {
+					case 'gf' | 'girlfriend':
+						charType = 8;
+					case 'dad' | 'opponent':
+						charType = 0;
+					case 'bf' | 'boyfriend':
+						charType = 4;
+					default:
+						charType = 4;
+				}
+				ordem.push(charType);
+				}
+				trace(ordem);
+
+				//Note for future self:
+				/*
+				De 0 a 3 são as notas do dad, de 4 a 7 são as notas do BF, e de 8 a 11, são as notas do outro mano.
+				sempre que precisar invocar 3 linhas de notas, utilize este evento, mas lembre-se de ativar no json da musica o thirdstrum = true
+				caso contrario esse evento provavelmente irá crashar o jooj.
+				SE ME CHAMAR DE MANIACO DOS TWEENS... :KNIFE:
+				-- Sílvio
+				*/
+				FlxTween.tween(strumLineNotes.members[ordem[0]], {x: 15}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[0]+1], {x: 15 + (strumLineNotes.members[1].width * 1)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[0]+2], {x: 15 + (strumLineNotes.members[1].width * 2)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[0]+3], {x: 15 + (strumLineNotes.members[1].width * 3)}, 1, {ease: FlxEase.quadInOut});
+
+				FlxTween.tween(strumLineNotes.members[ordem[1]], {x: ((FlxG.width / 2)) - (strumLineNotes.members[1].width * 2)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[1]+1], {x: ((FlxG.width / 2)) - (strumLineNotes.members[1].width * 1)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[1]+2], {x: ((FlxG.width / 2)) + (strumLineNotes.members[1].width * 0)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[1]+3], {x: ((FlxG.width / 2)) + (strumLineNotes.members[1].width * 1)}, 1, {ease: FlxEase.quadInOut});
+
+				FlxTween.tween(strumLineNotes.members[ordem[2]], {x: ((FlxG.width - 15)) - (strumLineNotes.members[1].width * 4)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[2]+1], {x: ((FlxG.width - 15)) - (strumLineNotes.members[1].width * 3)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[2]+2], {x: ((FlxG.width - 15)) - (strumLineNotes.members[1].width * 2)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[ordem[2]+3], {x: ((FlxG.width - 15)) - (strumLineNotes.members[1].width * 1)}, 1, {ease: FlxEase.quadInOut});
+				opponentStrums.forEach(function(tofade:FlxSprite)
+					{
+						tofade.alpha = 0.4;
+					});
+				thirdplayerStrums.forEach(function(tofade:FlxSprite)
+				{
+					tofade.alpha = 0.4;
+				});
 			
+				//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
 
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
@@ -4565,6 +4635,8 @@ class PlayState extends MusicBeatState
 				var charType:Int = 0;
 				var opa_Cidade:Array<String> = value2.split(','); //Qual foi man? achaste mesmo que eu iria recodar o mesmo sistema de tweens duas vezes?
 				switch(value1) {
+					case 'gf' | 'girlfriend':
+						charType = 2;
 					case 'dad' | 'opponent':
 						charType = 1;
 					default:
@@ -4573,6 +4645,11 @@ class PlayState extends MusicBeatState
 				}
 
 				switch(charType) {
+					case 2: //Tenho minhas duvidas se isso aqui será usado, mas né? Tá ai.
+						thirdplayerStrums.forEach(function(tofade:FlxSprite)
+							{
+								FlxTween.tween(tofade, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]));
+							});
 					case 1:
 						opponentStrums.forEach(function(tofade:FlxSprite)
 							{
@@ -5604,7 +5681,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(daNote.noteType == 'GF Sing') {
+		if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3') {
 			gf.playAnim(animToPlay, true);
 		} else {
 			var daAlt = '';
@@ -5681,6 +5758,7 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim('hurt', true);
 							boyfriend.specialAnim = true;
 						}
+
 				}
 				
 				note.wasGoodHit = true;
@@ -5742,7 +5820,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-				if(note.noteType == 'GF Sing') {
+				if(note.noteType == 'GF Sing' || note.noteType == 'player3') {
 					gf.playAnim(animToPlay + daAlt, true);
 					gf.holdTimer = 0;
 				} else {
@@ -5773,7 +5851,7 @@ class PlayState extends MusicBeatState
 			if (isRing){
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 5, time);
 			}else{
-				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, time);
+				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, time, note.noteType == 'player3');
 			} 
 		} else {
 				playerStrums.forEach(function(spr:StrumNote)
@@ -6294,6 +6372,11 @@ class PlayState extends MusicBeatState
 				opponentStrums.remove(todel);
 				todel.destroy();
 			});
+			thirdplayerStrums.forEach(function(todel:StrumNote)
+			{
+				thirdplayerStrums.remove(todel);
+				todel.destroy();
+			});
 			strumLineNotes.forEach(function(todel:StrumNote)
 			{
 				strumLineNotes.remove(todel);
@@ -6434,11 +6517,13 @@ class PlayState extends MusicBeatState
 	
 	
 
-	function StrumPlayAnim(isDad:Bool, id:Int, time:Float) {
+	function StrumPlayAnim(isDad:Bool, id:Int, time:Float, extraStrum:Bool = false) {
 		var spr:StrumNote = null;
 		if(isDad) {
 			spr = strumLineNotes.members[id];
-		} else {
+		} else if (extraStrum){
+			spr = thirdplayerStrums.members[id % 4];
+		}else {
 			spr = playerStrums.members[id];
 		}
 

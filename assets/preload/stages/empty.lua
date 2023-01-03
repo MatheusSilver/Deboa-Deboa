@@ -67,7 +67,7 @@ function onCreate()
 	addAnimationByPrefix('barrier','barrier','thingy',24,false)
 	setScrollFactor('barrier', 0, 0);
 	setProperty('barrier.alpha',0)
-	setObjectCamera('barrier','hud')
+	setObjectCamera('barrier','camHUD')
 	setProperty("barrier.x", midX - getProperty("barrier.width")/2)
 	if(downscroll)then
 		setProperty("barrier.y", screenHeight*0.11 - getProperty("barrier.height")/2 )
@@ -133,24 +133,43 @@ function onStepHit()
 		setProperty('dad.specialAnim', true);
 		characterPlayAnim('dad', 'turn', true);
 	end
-    if mustHitSection == false then
-        if curStep > 192 then
-            if curStep < 1728 then
-                if curStep % 8 == 0 then
-                    angleshit = anglevar;
-                else
-                    angleshit = -anglevar;
-                end
-				setProperty('camHUD.angle',angleshit*3)
-                setProperty('camGame.angle',angleshit*3)
-                doTweenAngle('turn', 'camHUD', angleshit, stepCrochet*0.002, 'circOut')
-                doTweenX('tuin', 'camHUD', -angleshit*8, crochet*0.001, 'linear')
-                doTweenAngle('tt', 'camGame', angleshit, stepCrochet*0.002, 'circOut')
-                doTweenX('ttrn', 'camGame', -angleshit*8, crochet*0.001, 'linear')
-            end
-        end
-    else
-        setProperty('camHUD.angle',0)
-        setProperty('camGame.angle',0)
-    end
+end
+
+function onBeatHit()
+	if curBeat == 433 then
+		cameraFade('camGame', '000000', '1')
+	end
+	if curBeat <= 1 then
+		doTweenZoom('ZoomIn', 'camGame', '1.15', '13.2', 'linear')
+		doTweenZoom('ZoomInHud', 'camHUD', '4', '0.2', 'linear')
+	end
+	if curBeat == 32 then
+		doTweenZoom('ZoomIn', 'camGame', '0.92', '0.1', 'linear')
+	end
+	if curBeat == 31 then
+		setProperty('camHUD.alpha',1)
+		doTweenZoom('ZoomInHud', 'camHUD', '1', '0.5', 'linear')
+	end
+	if sickness then
+		if mustHitSection == false then
+			if curBeat > 48 then
+				if curBeat < 432 then
+					if curBeat % 2 == 0 then
+						angleshit = anglevar;
+					else
+						angleshit = -anglevar;
+					end
+					setProperty('camHUD.angle',angleshit*3)
+					setProperty('camGame.angle',angleshit*3)
+					doTweenAngle('turn', 'camHUD', angleshit, stepCrochet*0.002, 'circOut')
+					doTweenX('tuin', 'camHUD', -angleshit*8, crochet*0.001, 'linear')
+					doTweenAngle('tt', 'camGame', angleshit, stepCrochet*0.002, 'circOut')
+					doTweenX('ttrn', 'camGame', -angleshit*8, crochet*0.001, 'linear')
+				end
+			end
+		else
+			setProperty('camHUD.angle',0)
+			setProperty('camGame.angle',0)
+		end
+	end
 end

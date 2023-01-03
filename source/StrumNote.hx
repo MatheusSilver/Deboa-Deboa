@@ -71,7 +71,11 @@ class StrumNote extends FlxSprite
 			animation.addByPrefix('red', 'arrowRIGHT');
 
 			antialiasing = ClientPrefs.globalAntialiasing;
+			if(PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada'){
 			setGraphicSize(Std.int(width * 0.7));
+			} else {
+				setGraphicSize(Std.int(width * 0.65));
+			}
 
 			switch (Math.abs(noteData) % 4)
 			{
@@ -104,8 +108,20 @@ class StrumNote extends FlxSprite
 	public function postAddedToGroup() {
 		playAnim('static');
 		x += Note.swagWidth * noteData;
+		if (PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada'){
 		x += 50;
 		x += ((FlxG.width / 2) * player);
+		} else {
+			switch (player)
+			{
+				case 0:
+					x += ((FlxG.width / 4) * - 1) - (width * 2);
+				case 1:
+					x += ((FlxG.width / 4) * -2) - (width * 2);
+				case 2:
+					x += ((FlxG.width / 4) * -3) - (width * 2); // Isso é uma atitude devéras desesperada de corrigir offsets...
+			}
+		}
 		ID = noteData;
 	}
 

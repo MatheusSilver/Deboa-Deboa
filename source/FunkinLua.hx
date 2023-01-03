@@ -98,7 +98,7 @@ class FunkinLua {
 		set('scrollSpeed', PlayState.SONG.speed);
 		set('crochet', Conductor.crochet);
 		set('stepCrochet', Conductor.stepCrochet);
-		set('songLength', FlxG.sound.music.length);
+	//	set('songLength', FlxG.sound.music.length);
 		set('songName', PlayState.SONG.song);
 		set('startedCountdown', false);
 
@@ -139,6 +139,8 @@ class FunkinLua {
 			set('defaultPlayerStrumY' + i, 0);
 			set('defaultOpponentStrumX' + i, 0);
 			set('defaultOpponentStrumY' + i, 0);
+			set('defaultthirdplayerStrumX' + i, 0);
+			set('defaultthirdarplayerStrumY' + i, 0);
 		}
 
 		// Default character positions woooo

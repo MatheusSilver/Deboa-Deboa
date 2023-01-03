@@ -32,11 +32,14 @@ class CoolUtil
 		];
 
 	public static var difficultyStuff:Array<Dynamic> = [
-		['Easy', '-easy'],
-		['Normal', ''],
-		['Hard', '-hard'],
-		['Sonic', '-sega'],
-		['Mario', '-nintendo']
+		['Easy', '-easy'], //0
+		['Normal', ''],	   //1
+		['Hard', '-hard'],	//2
+		['Sonic', '-sega'], //3
+		['Mario', '-nintendo'], //4
+		['MX', '-mx'], //5
+		['Lord-X', '-lorx-x'], //6
+		['Hypno', '-hypno'] //7
 	];
 
 	public static function isRecording():Bool

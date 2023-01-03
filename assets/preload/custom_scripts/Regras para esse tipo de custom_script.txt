@@ -1,0 +1,2 @@
+Geralmente, os scripts colocados aqui, são usados em mais de uma música.
+Para usá-los, você precisa invocar eles através do comando addLuaScript("nomedoscript"

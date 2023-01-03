@@ -1,0 +1,7 @@
+Basicamente, utiliza de uma adaptação tal que a GF
+tem suas próprias setas visiveis.
+Para usar, coloque o value 1 como sendo:
+[bf,gf,dad]
+na ordem que você preferir.
+Exemplo, caso queira que a strum da gf venha primeiro, depois do dad, e depois do bf, faça:
+value1 = [gf,dad,bf]
