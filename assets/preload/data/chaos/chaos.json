@@ -8274,7 +8274,7 @@
 		"isRing": false,
 		"song": "chaos",
 		"stage": "fleet",
-		"needsVoices": false,
+		"needsVoices": true,
 		"validScore": true,
 		"sections": 0,
 		"bpm": 189,

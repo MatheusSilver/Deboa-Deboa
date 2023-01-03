@@ -49,10 +49,11 @@ class Alphabet extends FlxSpriteGroup
 	public var typed:Bool = false;
 
 	public var typingSpeed:Float = 0.05;
-	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, ?typingSpeed:Float = 0.05, ?textSize:Float = 1)
+	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, ?typingSpeed:Float = 0.05, ?textSize:Float = 1, ?isWhite:Bool = false)
 	{
 
 		AlphaCharacter.dafixforalpha = isFreeplayTrem;
+		AlphaCharacter.WhiteTxt = isWhite;
 
 		super(x, y);
 		forceX = Math.NEGATIVE_INFINITY;
@@ -390,6 +391,8 @@ class Alphabet extends FlxSpriteGroup
 class AlphaCharacter extends FlxSprite
 {
 	public static var dafixforalpha = false;
+	
+	public static var WhiteTxt = false;
 
 	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã§";
 
@@ -409,7 +412,14 @@ class AlphaCharacter extends FlxSprite
 		tex = Paths.getSparrowAtlas('alfabetoVio', 'preload');
 		}
 		else {
-		tex = Paths.getSparrowAtlas('alphabet', 'preload');
+			if(WhiteTxt)
+				{
+					tex = Paths.getSparrowAtlas('alphabet', 'preload');
+				}
+			else
+				{
+					tex = Paths.getSparrowAtlas('alphabet', 'shared');
+				}
 		}
 		frames = tex;
 

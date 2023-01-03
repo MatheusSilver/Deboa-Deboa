@@ -95,10 +95,10 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 
 		//text
-		up_text = new FlxText(200, 200, 0,"Button up x:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y, 24);
-		down_text = new FlxText(200, 250, 0,"Button down x:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y, 24);
-		left_text = new FlxText(200, 300, 0,"Button left x:" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y, 24);
-		right_text = new FlxText(200, 350, 0,"Button right x:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y, 24);
+		up_text = new FlxText(200, 200, 0,"Coordenada X do botao Cima:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y, 24);
+		down_text = new FlxText(200, 250, 0,"Coordenada X do botao Baixo:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y, 24);
+		left_text = new FlxText(200, 300, 0,"Coordenada X do botao Esquerda" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y, 24);
+		right_text = new FlxText(200, 350, 0,"Coordenada X do botao Direita:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y, 24);
 
 		//hitboxes
 
@@ -311,15 +311,15 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 	function movebutton(touch:flixel.input.touch.FlxTouch, button:flixel.ui.FlxButton) {
 		button.x = touch.x - _pad.buttonUp.width / 2;
 		button.y = touch.y - _pad.buttonUp.height / 2;
-		bindbutton = button;
+		bindbuttosn = button;
 		buttonistouched = true;
 	}
 
 	function setbuttontexts() {
-		up_text.text = "Button up x:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y;
-		down_text.text = "Button down x:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y;
-		left_text.text = "Button left x:" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y;
-		right_text.text = "Button right x:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y;
+		up_text.text = "Coordenada X do botao Cima:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y;
+		down_text.text = "Coordenada X do botao Baixo:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y;
+		left_text.text = "Coordenada X do botao Esquerda:" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y;
+		right_text.text = "Coordenada X do botao Direita:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y;
 	}
 
 
