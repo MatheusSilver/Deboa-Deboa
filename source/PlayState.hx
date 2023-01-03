@@ -256,6 +256,22 @@ class PlayState extends MusicBeatState
 	public var dad2:Character;
 	public var dad2Group:FlxSpriteGroup; // going to use this for needle/sarah (avery)
 
+	//trems da pasta night
+	var barGolgPassing:BGSprite;
+	var barluigiPassing:BGSprite;
+	var barmesafront:BGSprite;
+	var saladfingers:BGSprite;
+	var barjack:BGSprite;
+	var barpeach:BGSprite;
+	var barslender:BGSprite;
+	var barlula:BGSprite; //EITA ELE É PETISTA, RÁPIDO, FALE ALGO DO BOLSONARO.
+	var barlulacabeca:BGSprite;
+	var bardrowned:BGSprite;
+	var barjeffbody:BGSprite;
+	var barmesaback:BGSprite;
+	var barjeffbraco:BGSprite;
+
+
 	// needlemouse shit
 	var conkCreet:BGSprite;
 	var needleBuildings:BGSprite;
@@ -636,7 +652,86 @@ class PlayState extends MusicBeatState
 				var whiteFuck:FlxSprite; //Talvez eu arrange outra serventia pra isso.
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 				add(whiteFuck);
-			case 'bar':
+			case 'bar' | 'bar-lordx' | 'bar-hypno':
+
+				var barsky:BGSprite;
+				var barshiny:BGSprite;
+				var barbg:BGSprite;
+				var polibius:BGSprite;
+
+				barsky = new BGSprite('cenarios/SKY', -200, -200, 0.6, 0.6);
+				barsky.scale.x = 0.8;
+				barsky.scale.y = 0.8;
+				add(barsky);
+
+				barshiny = new BGSprite('cenarios/shine', -200, -200, 0.6, 0.6);
+				barshiny.scale.x = 0.8;
+				barshiny.scale.y = 0.8;
+				add(barshiny);
+
+				saladfingers = new BGSprite('cenarios/SFingers', -200, -200, 0.6, 0.6, ['SFingers']);
+				saladfingers.scale.x = 0.8;
+				saladfingers.scale.y = 0.8;
+				add(saladfingers);
+			
+				barbg = new BGSprite('cenarios/bar', -200, -200, 0.6, 0.6);
+				barbg.scale.x = 0.8;
+				barbg.scale.y = 0.8;
+				add(barbg);
+
+				polibius = new BGSprite('cenarios/machine', -200, -200, 0.6, 0.6);
+				polibius.scale.x = 0.8;
+				polibius.scale.y = 0.8;
+				add(polibius);
+
+				barjack = new BGSprite('cenarios/Jack', -200, -200, 0.6, 0.6, ['Body with tar instance 1']);
+				barjack.scale.x = 0.8;
+				barjack.scale.y = 0.8;
+				add(barjack);
+
+				barpeach = new BGSprite('cenarios/CoronationPeach', -200, -200, 0.6, 0.6, ['CoronationPeach']);
+				barpeach.scale.x = 0.8;
+				barpeach.scale.y = 0.8;
+				add(barpeach);
+
+				barslender = new BGSprite('cenarios/Buds_Slender_Effects', -200, -200, 0.6, 0.6, ['Slenderman Full']);
+				barslender.scale.x = 0.8;
+				barslender.scale.y = 0.8;
+				add(barslender);
+
+				barlula = new BGSprite('cenarios/Squirtward', -200, -200, 0.6, 0.6, ['Squidward_idleBody']);
+				barlula.scale.x = 0.8;
+				barlula.scale.y = 0.8;
+				add(barlula);
+
+				barlulacabeca = new BGSprite('cenarios/Squirtward', -200, -200, 0.6, 0.6, ['Squidward_idleHead']);
+				barlulacabeca.scale.x = 0.8;
+				barlulacabeca.scale.y = 0.8;
+				add(barlulacabeca);
+
+				bardrowned = new BGSprite('cenarios/Ben_Drowned_BG', -200, -200, 0.6, 0.6, ['ben drowned', 'ben drowned looking']);
+				bardrowned.scale.x = 0.8;
+				bardrowned.scale.y = 0.8;
+				add(bardrowned);
+
+				barjeffbody = new BGSprite('cenarios/Jeff', -200, -200, 0.6, 0.6, ['mynamejeff instance 1']);
+				barjeffbody.scale.x = 0.8;
+				barjeffbody.scale.y = 0.8;
+				add(barjeffbody);
+
+				barmesaback = new BGSprite('cenarios/Mousetable', -200, -200, 0.6, 0.6, ['Mousetable']);
+				barmesaback.scale.x = 0.8;
+				barmesaback.scale.y = 0.8;
+				add(barmesaback);
+
+				barjeffbraco = new BGSprite('cenarios/JeffArm', -200, -200, 0.6, 0.6, ['Only the arm shit instance 1']);
+				barjeffbraco.scale.x = 0.8;
+				barjeffbraco.scale.y = 0.8;
+				add(barjeffbraco);
+
+				barmesafront = new BGSprite('cenarios/TABLE', -200, -200, 0.6, 0.6);
+				barmesafront.scale.x = 0.8;
+				barmesafront.scale.y = 0.8;
 
 			case 'console':
 				var water:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('cenarios/console/water'), true, 160, 81);
@@ -1103,6 +1198,10 @@ class PlayState extends MusicBeatState
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
 			add(limo);
+
+		if (nomehistorico.toLowerCase() == 'noite da rapaziada'){
+			add(barmesafront);
+		}
 
 		
 		if (curStage == 'needle'){
@@ -2534,6 +2633,13 @@ class PlayState extends MusicBeatState
 					bottomBoppers.dance(true);
 					santa.dance(true);
 				}
+				if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
+					if(!ClientPrefs.lowQuality){
+						upperBoppers.dance(true);
+
+					}
+	
+				}
 				if (curSong.toLowerCase() != 'sunshine'){
 
 				switch (swagCounter)
@@ -3585,17 +3691,17 @@ class PlayState extends MusicBeatState
 				var strumY:Float = 0;
 				var strumAngle:Float = 0;
 				var strumAlpha:Float = 0;
-				if(daNote.mustPress) {
+				if(daNote.mustPress && daNote.noteType != 'player3') {
 					strumX = playerStrums.members[daNote.noteData].x;
 					strumY = playerStrums.members[daNote.noteData].y;
 					strumAngle = playerStrums.members[daNote.noteData].angle;
 					strumAlpha = playerStrums.members[daNote.noteData].alpha;
-				} else if (daNote.noteType != 'player3'){
+				} else if (daNote.noteType != 'player3' && daNote.noteData < 8){ //Esse ultimo termo é porque aparentemente os charters originais do som fizeram algo... A little bit sussy...
 					strumX = opponentStrums.members[daNote.noteData].x;
 					strumY = opponentStrums.members[daNote.noteData].y;
 					strumAngle = opponentStrums.members[daNote.noteData].angle;
 					strumAlpha = opponentStrums.members[daNote.noteData].alpha;
-				}else if(nomehistorico.toLowerCase() == 'noite da rapaziada'){ //SE A VIO PEDIR A BONEDOGGLE... :KNIFE: (mentira, agora tá safe k)
+				}else { 
 					strumX = thirdplayerStrums.members[daNote.noteData].x;
 					strumY = thirdplayerStrums.members[daNote.noteData].y;
 					strumAngle = thirdplayerStrums.members[daNote.noteData].angle;
@@ -3738,9 +3844,11 @@ class PlayState extends MusicBeatState
 							time += 0.15;
 						}
 						if (isRing){
-							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 5, time);
-						}else{
-							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time, daNote.noteType == 'player3');
+							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 5, time); //Eu até poderia fazer aqui em cima mas né? Não acho que alguem vai fazer triple bolo com 3 strums
+						}else if (daNote.noteData < 8 && daNote.noteType != 'player3'){
+							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
+						} else {
+							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time, true);
 						}
 							daNote.hitByOpponent = true;
 
@@ -5342,12 +5450,13 @@ class PlayState extends MusicBeatState
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.55;
-		//
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
 
 		var daRating:String = "sick";
+
+		if(note.noteType != 'player3'){
 
 		if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
@@ -5374,6 +5483,7 @@ class PlayState extends MusicBeatState
 			sicks++;
 		}
 
+		}
 
 		if(!practiceMode && !cpuControlled) {
 			songScore += score;
@@ -5748,7 +5858,7 @@ class PlayState extends MusicBeatState
 
 			if(note.hitCausesMiss) {
 				noteMiss(note);
-				if(!note.noteSplashDisabled && !note.isSustainNote) {
+				if(!note.noteSplashDisabled && !note.isSustainNote && note.noteType != 'player3') {
 					spawnNoteSplashOnNote(note);
 				}
 
@@ -5843,17 +5953,19 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if(cpuControlled) {
+			if(cpuControlled || note.noteType == 'player3' || note.noteData > 7) {
 				var time:Float = 0.15;
 				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 					time += 0.15;
 				}				
 			if (isRing){
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 5, time);
-			}else{
-				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, time, note.noteType == 'player3');
-			} 
-		} else {
+			}else if (note.noteType != 'player3' && note.noteData < 8){
+				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, time);
+			} else {
+				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, time, true);
+			}
+			} else {
 				playerStrums.forEach(function(spr:StrumNote)
 				{
 					if (Math.abs(note.noteData) == spr.ID)
@@ -6519,7 +6631,7 @@ class PlayState extends MusicBeatState
 
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float, extraStrum:Bool = false) {
 		var spr:StrumNote = null;
-		if(isDad) {
+		if(isDad && !extraStrum) {
 			spr = strumLineNotes.members[id];
 		} else if (extraStrum){
 			spr = thirdplayerStrums.members[id % 4];

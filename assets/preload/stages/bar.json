@@ -1,9 +1,9 @@
 {
 	"directory": "week-pasta",
-	"defaultZoom": 1.4,
+	"defaultZoom": 0.55,
 	"isPixelStage": false,
 
-	"boyfriend": [770, 100],
-	"girlfriend": [400, 130],
-	"opponent": [100, 100]
+	"boyfriend": [100, 100],
+	"girlfriend": [400, 0],
+	"opponent": [700, 100]
 }
