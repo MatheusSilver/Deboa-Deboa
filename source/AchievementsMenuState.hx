@@ -35,7 +35,7 @@ class AchievementsMenuState extends MusicBeatState
 
 	override function create() {
 
-		isCoolBeata = true;
+		//isCoolBeata = true;
 		#if desktop
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
