@@ -659,29 +659,29 @@ class PlayState extends MusicBeatState
 				var barbg:BGSprite;
 				var polibius:BGSprite;
 
-				barsky = new BGSprite('cenarios/SKY', -200, -200, 0.6, 0.6);
-				barsky.scale.x = 0.8;
-				barsky.scale.y = 0.8;
+				barsky = new BGSprite('cenarios/SKY', -50, -50, 0.1, 0.1);
+				barsky.scale.x = 2;
+				barsky.scale.y = 2;
 				add(barsky);
 
-				barshiny = new BGSprite('cenarios/shine', -200, -200, 0.6, 0.6);
-				barshiny.scale.x = 0.8;
-				barshiny.scale.y = 0.8;
+				barshiny = new BGSprite('cenarios/shine', -50, -50, 0.1, 0.1);
+				barshiny.scale.x = 1.5;
+				barshiny.scale.y = 1.5;
 				add(barshiny);
 
-				saladfingers = new BGSprite('cenarios/SFingers', -200, -200, 0.6, 0.6, ['SFingers']);
-				saladfingers.scale.x = 0.8;
-				saladfingers.scale.y = 0.8;
+				saladfingers = new BGSprite('cenarios/SFingers', -50, -100, 0.25, 0.25, ['SFingers']);
+				saladfingers.scale.x = 1.1;
+				saladfingers.scale.y = 1.1;
 				add(saladfingers);
 			
-				barbg = new BGSprite('cenarios/bar', -200, -200, 0.6, 0.6);
-				barbg.scale.x = 0.8;
-				barbg.scale.y = 0.8;
+				barbg = new BGSprite('cenarios/bar', 400, 0, 0.4, 0.4);
+				barbg.scale.x = 1.2;
+				barbg.scale.y = 1.2;
 				add(barbg);
 
-				polibius = new BGSprite('cenarios/machine', -200, -200, 0.6, 0.6);
-				polibius.scale.x = 0.8;
-				polibius.scale.y = 0.8;
+				polibius = new BGSprite('cenarios/machine', -275, -225, 0.5, 0.5);
+				polibius.scale.x = 1.3;
+				polibius.scale.y = 1.3;
 				add(polibius);
 
 				barjack = new BGSprite('cenarios/Jack', -200, -200, 0.6, 0.6, ['Body with tar instance 1']);
@@ -694,9 +694,9 @@ class PlayState extends MusicBeatState
 				barpeach.scale.y = 0.8;
 				add(barpeach);
 
-				barslender = new BGSprite('cenarios/Buds_Slender_Effects', -200, -200, 0.6, 0.6, ['Slenderman Full']);
-				barslender.scale.x = 0.8;
-				barslender.scale.y = 0.8;
+				barslender = new BGSprite('cenarios/Buds_Slender_Effects', 200, -150, 0.8, 0.8, ['Slenderman Full']);
+				barslender.scale.x = 0.85;
+				barslender.scale.y = 0.85;
 				add(barslender);
 
 				barlula = new BGSprite('cenarios/Squirtward', -200, -200, 0.6, 0.6, ['Squidward_idleBody']);
@@ -709,13 +709,13 @@ class PlayState extends MusicBeatState
 				barlulacabeca.scale.y = 0.8;
 				add(barlulacabeca);
 
-				bardrowned = new FlxSprite(0, 0);
+				bardrowned = new FlxSprite(300, -100);
 				bardrowned.frames = Paths.getSparrowAtlas('cenarios/Ben_Drowned_BG');
 				bardrowned.animation.addByPrefix('nao', 'ben drowned', 24, true);
 				bardrowned.animation.addByPrefix('sim', 'ben drowned looking', 24, true);
 				bardrowned.animation.play('nao', true);
-				bardrowned.scale.x = 0.8;
-				bardrowned.scale.y = 0.8;
+				bardrowned.scale.x = 0.9;
+				bardrowned.scale.y = 0.9;
 				add(bardrowned);
 
 				barjeffbody = new BGSprite('cenarios/Jeff', -200, -200, 0.6, 0.6, ['mynamejeff instance 1']);
@@ -733,9 +733,8 @@ class PlayState extends MusicBeatState
 				barjeffbraco.scale.y = 0.8;
 				add(barjeffbraco);
 
-				barmesafront = new BGSprite('cenarios/TABLE', -200, -200, 0.6, 0.6);
-				barmesafront.scale.x = 0.8;
-				barmesafront.scale.y = 0.8;
+				barmesafront = new BGSprite('cenarios/TABLE', -500, 300, 0.05, 0.05);
+				barmesafront.setGraphicSize(Std.int(barmesafront.width * 1.2));
 
 			case 'console':
 				var water:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('cenarios/console/water'), true, 160, 81);
