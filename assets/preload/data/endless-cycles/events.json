@@ -1,6 +1,6 @@
 {
 	"song": {
-		"speed": 3,
+		"speed": 2.5,
 		"stage": "crimge",
 		"player1": "majin",
 		"player2": "x",
@@ -17,14 +17,16 @@
 						-1,
 						"Add Camera Zoom",
 						"1",
-						"0.1"
+						"0.1",
+						null
 					],
 					[
 						54778.4810126583,
 						-1,
 						"Opponent Fade",
 						"1",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -42,14 +44,16 @@
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
 					],
 					[
 						60854.4303797469,
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
 					]
 				],
 				"bpm": 0,
@@ -67,14 +71,40 @@
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
 					],
 					[
 						66930.3797468355,
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
+					],
+					[
+						6075.94936708861,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX2",
+						"letras/endless-cycles/MJ1",
+						""
+					],
+					[
+						7784.81012658228,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX3",
+						"letras/endless-cycles/MJ1",
+						""
+					],
+					[
+						8544.30379746835,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX4",
+						"letras/endless-cycles/MJ1",
+						""
 					]
 				],
 				"bpm": 0,
@@ -92,14 +122,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
 					],
 					[
 						73006.3291139241,
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
+					],
+					[
+						9113.92405063291,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ2",
+						""
+					],
+					[
+						10822.7848101266,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ3",
+						""
 					]
 				],
 				"bpm": 0,
@@ -117,14 +165,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
 					],
 					[
 						82120.253164557,
 						-1,
 						"Add Camera Zoom",
 						"0.4",
-						"0.1"
+						"0.1",
+						null
+					],
+					[
+						12341.7721518987,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX5",
+						"letras/endless-cycles/MJ1",
+						""
+					],
+					[
+						13860.7594936709,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX6",
+						"letras/endless-cycles/MJ1",
+						""
 					]
 				],
 				"bpm": 0,
@@ -142,14 +208,32 @@
 						-1,
 						"Add Camera Zoom",
 						"0.2",
-						"0.1"
+						"0.1",
+						null
 					],
 					[
 						88196.2025316456,
 						-1,
 						"Add Camera Zoom",
 						"0.2",
-						"0.1"
+						"0.1",
+						null
+					],
+					[
+						15379.746835443,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ4",
+						""
+					],
+					[
+						16898.7341772152,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ5",
+						""
 					]
 				],
 				"bpm": 0,
@@ -167,18 +251,459 @@
 						-1,
 						"Add Camera Zoom",
 						"0.5",
-						"0.1"
+						"0.1",
+						null
+					],
+					[
+						18987.3417721519,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ6",
+						""
+					],
+					[
+						21075.9493670886,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ7",
+						""
 					]
 				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						23544.3037974684,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ8",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						25063.2911392405,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ9",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						28291.1392405063,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ10",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						30569.6202531646,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX7",
+						"letras/endless-cycles/MJ1",
+						""
+					],
+					[
+						32468.3544303797,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX8",
+						"letras/endless-cycles/MJ1",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						35696.2025316456,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX10",
+						"letras/endless-cycles/MJ1",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						37215.1898734177,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX9",
+						"letras/endless-cycles/MJ1",
+						""
+					],
+					[
+						39113.9240506329,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX11",
+						"letras/endless-cycles/MJ1",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						41772.1518987342,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX12",
+						"letras/endless-cycles/MJ1",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						42721.5189873418,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX13",
+						"letras/endless-cycles/MJ1",
+						""
+					],
+					[
+						44810.1265822785,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX14",
+						"letras/endless-cycles/MJ1",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						48607.5949367089,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ11",
+						""
+					],
+					[
+						50886.0759493671,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX1",
+						"letras/endless-cycles/MJ12",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						54683.5443037975,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX15",
+						"letras/endless-cycles/MJ13",
+						""
+					],
+					[
+						56392.4050632912,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX15",
+						"letras/endless-cycles/MJ14",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						58860.7594936709,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX16",
+						"letras/endless-cycles/MJ15",
+						""
+					],
+					[
+						57911.3924050633,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX16",
+						"letras/endless-cycles/MJ14",
+						""
+					],
+					[
+						59240.506329114,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX16",
+						"letras/endless-cycles/MJ16",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						60949.3670886076,
+						-1,
+						"Adicionar Imagens",
+						"letras/endless-cycles/LX16",
+						"letras/endless-cycles/MJ16",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "noteSplashes",
 		"validScore": false,
-		"bpm": 155,
-		"arrowSkin": null,
+		"bpm": 79,
+		"arrowSkin": "",
 		"needsVoices": false,
 		"song": "endless-cycles",
 		"isRing": null
