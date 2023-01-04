@@ -34,7 +34,7 @@ class AchievementsMenuState extends MusicBeatState
 	var apertavel:Bool = true;
 
 	override function create() {
-
+		Conductor.changeBPM(112);
 		//isCoolBeata = true;
 		#if desktop
 		DiscordClient.changePresence("No menu de conquistas", null);

@@ -10,7 +10,7 @@ function onCreate()
 	makeLuaSprite('Wall', 'fleet/Wall', -3800, -1000);
 	setScrollFactor('Wall', 0.7, 0.7);
 	
-	makeLuaSprite('Floor', 'Fleet/Floor', -3850, 250);
+	makeLuaSprite('Floor', 'fleet/Floor', -3850, 250);
 	scaleObject('Floor', 1.05, 1.05);
 
 	makeLuaSprite('FleetwayBGshit', 'fleet/FleetwayBGshit', -3857, -1595);
@@ -27,11 +27,11 @@ function onCreate()
 	addAnimationByPrefix('porkerbop', 'first', 'Porker FG', 24, false);
 	setScrollFactor('porkerbop', 1.1, 1.1);
 
-	makeAnimatedLuaSprite('The Chamber', 'Fleet/The Chamber', -1470, 200);
+	makeAnimatedLuaSprite('The Chamber', 'fleet/The Chamber', -1470, 200);
 	addAnimationByPrefix('The Chamber', 'fall', 'Chamber Sonic Fall', 24, false);
 	setScrollFactor('The Chamber', 1, 1);
 
-	makeLuaSprite('pebles', 'Fleet/pebles', -1980, 820);
+	makeLuaSprite('pebles', 'fleet/pebles', -1980, 820);
 	scaleObject('pebles', 1.05, 1.05);
 
 
