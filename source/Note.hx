@@ -85,6 +85,8 @@ class Note extends FlxSprite
 
 		if(noteData > -1 && noteType != value) {
 			switch(value) {
+				case 'player3':
+					mustPress = false; //Eu ia quebrar a cabeça com isso no playstate, mas essa solução é bem mais simples.
 				case 'Hurt Note':
 					ignoreNote = mustPress;
 					reloadNote('HURT');

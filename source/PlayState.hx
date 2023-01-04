@@ -266,7 +266,7 @@ class PlayState extends MusicBeatState
 	var barslender:BGSprite;
 	var barlula:BGSprite; //EITA ELE É PETISTA, RÁPIDO, FALE ALGO DO BOLSONARO.
 	var barlulacabeca:BGSprite;
-	var bardrowned:BGSprite;
+	var bardrowned:FlxSprite;
 	var barjeffbody:BGSprite;
 	var barmesaback:BGSprite;
 	var barjeffbraco:BGSprite;
@@ -709,7 +709,11 @@ class PlayState extends MusicBeatState
 				barlulacabeca.scale.y = 0.8;
 				add(barlulacabeca);
 
-				bardrowned = new BGSprite('cenarios/Ben_Drowned_BG', -200, -200, 0.6, 0.6, ['ben drowned', 'ben drowned looking']);
+				bardrowned = new FlxSprite(0, 0);
+				bardrowned.frames = Paths.getSparrowAtlas('cenarios/Ben_Drowned_BG');
+				bardrowned.animation.addByPrefix('nao', 'ben drowned', 24, true);
+				bardrowned.animation.addByPrefix('sim', 'ben drowned looking', 24, true);
+				bardrowned.animation.play('nao', true);
 				bardrowned.scale.x = 0.8;
 				bardrowned.scale.y = 0.8;
 				add(bardrowned);
@@ -2634,9 +2638,16 @@ class PlayState extends MusicBeatState
 					santa.dance(true);
 				}
 				if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
-					if(!ClientPrefs.lowQuality){
-						upperBoppers.dance(true);
-
+					if(!ClientPrefs.lowQuality) {
+						saladfingers.dance(true);
+						barjack.dance(true);
+						barpeach.dance(true);
+						barslender.dance(true);
+						barlula.dance(true);
+						barlulacabeca.dance(true);
+						barjeffbody.dance(true);
+						barmesaback.dance(true);
+						barjeffbraco.dance(true);
 					}
 	
 				}
@@ -5006,9 +5017,15 @@ class PlayState extends MusicBeatState
 			}else{
 				callOnLuas('onMoveCamera', ['dad']);
 			}
+			if(curSong.toLowerCase()=='pasta-night'){
+				bardrowned.animation.play('nao', true);
+			}
 		}
 		else
 		{
+			if(curSong.toLowerCase()=='pasta-night'){
+				bardrowned.animation.play('sim', true);
+			}
 			moveCamera(false);
 			if (SONG.notes[id].gfSection){
 				callOnLuas('onMoveCamera', ['gf']);
@@ -5820,6 +5837,8 @@ class PlayState extends MusicBeatState
 			}
 			RecalculateRating();
 
+			bardrowned.animation.play('ben drowned looking'); //very scari
+
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
@@ -6362,6 +6381,19 @@ class PlayState extends MusicBeatState
 
 				if(heyTimer <= 0) bottomBoppers.dance(true);
 				santa.dance(true);
+
+			case 'bar' | 'bar-lordx' | 'bar-hypno':
+				if(!ClientPrefs.lowQuality) {
+					saladfingers.dance(true);
+					barjack.dance(true);
+					barpeach.dance(true);
+					barslender.dance(true);
+					barlula.dance(true);
+					barlulacabeca.dance(true);
+					barjeffbody.dance(true);
+					barmesaback.dance(true);
+					barjeffbraco.dance(true);
+				}
 
 			case 'limo':
 				if(!ClientPrefs.lowQuality) {
