@@ -261,8 +261,11 @@ class PlayState extends MusicBeatState
 	var barluigiPassing:BGSprite;
 	var barmesafront:BGSprite;
 	var saladfingers:BGSprite;
+	var widemouth:BGSprite;
 	var barjack:BGSprite;
+	var barbrian:BGSprite;
 	var barpeach:BGSprite;
+	var barshinto:BGSprite;
 	var barslender:BGSprite;
 	var barlula:BGSprite; //EITA ELE É PETISTA, RÁPIDO, FALE ALGO DO BOLSONARO.
 	var barlulacabeca:BGSprite;
@@ -658,83 +661,104 @@ class PlayState extends MusicBeatState
 				var barshiny:BGSprite;
 				var barbg:BGSprite;
 				var polibius:BGSprite;
+				var mesaauxi:BGSprite;
 
-				barsky = new BGSprite('cenarios/SKY', -50, -50, 0.1, 0.1);
-				barsky.scale.x = 2;
-				barsky.scale.y = 2;
+				barsky = new BGSprite('cenarios/SKY', 150, 0, 0.1, 0.1);
+				barsky.scale.x = 3;
+				barsky.scale.y = 3;
 				add(barsky);
 
-				barshiny = new BGSprite('cenarios/shine', -50, -50, 0.1, 0.1);
-				barshiny.scale.x = 1.5;
-				barshiny.scale.y = 1.5;
-				add(barshiny);
-
-				saladfingers = new BGSprite('cenarios/SFingers', -50, -100, 0.25, 0.25, ['SFingers']);
+				saladfingers = new BGSprite('cenarios/SFingers', 500, 50, 0.25, 0.25, ['SFingers']);
 				saladfingers.scale.x = 1.1;
 				saladfingers.scale.y = 1.1;
 				add(saladfingers);
+
+				widemouth = new BGSprite('cenarios/MrWidemouth', 700, 100, 0.25, 0.25, ['MrWidemouth instance 1']);
+				widemouth.scale.x = 1.1;
+				widemouth.scale.y = 1.1;
+				add(widemouth);
 			
-				barbg = new BGSprite('cenarios/bar', 400, 0, 0.4, 0.4);
-				barbg.scale.x = 1.2;
-				barbg.scale.y = 1.2;
+				barbg = new BGSprite('cenarios/bar', -550, -250, 0.4, 0.4);
+				barbg.scale.x = 1.3;
+				barbg.scale.y = 1.3;
 				add(barbg);
 
-				polibius = new BGSprite('cenarios/machine', -275, -225, 0.5, 0.5);
-				polibius.scale.x = 1.3;
-				polibius.scale.y = 1.3;
+				barshiny = new BGSprite('cenarios/shine', 500, 50, 0.1, 0.1);
+				barshiny.scale.x = 2;
+				barshiny.scale.y = 2;
+				add(barshiny);
+
+				polibius = new BGSprite('cenarios/machine', -50, -200, 0.5, 0.5);
+				polibius.scale.x = 0.7;
+				polibius.scale.y = 0.7;
 				add(polibius);
 
-				barjack = new BGSprite('cenarios/Jack', -200, -200, 0.6, 0.6, ['Body with tar instance 1']);
-				barjack.scale.x = 0.8;
-				barjack.scale.y = 0.8;
+				barbrian = new BGSprite('cenarios/brian_idle', 50, 25, 0.5, 0.5, ['brian idle ']);
+				barbrian.scale.x = 1.2;
+				barbrian.scale.y = 1.2;
+				add(barbrian);
+
+				barjack = new BGSprite('cenarios/Jack', -300, -150, 0.6, 0.6, ['Body with tar instance 1']);
+				barjack.scale.x = 1.1;
+				barjack.scale.y = 1.1;
 				add(barjack);
 
-				barpeach = new BGSprite('cenarios/CoronationPeach', -200, -200, 0.6, 0.6, ['CoronationPeach']);
+				barshinto = new BGSprite('cenarios/ShintoPastaNight', 375, -50, 0.6, 0.6, ['Shitno']);
+				barshinto.scale.x = 0.8;
+				barshinto.scale.y = 0.8;
+				add(barshinto);
+
+				barpeach = new BGSprite('cenarios/CoronationPeach', 250, -100, 0.6, 0.6, ['CoronationPeach']);
 				barpeach.scale.x = 0.8;
 				barpeach.scale.y = 0.8;
 				add(barpeach);
 
-				barslender = new BGSprite('cenarios/Buds_Slender_Effects', 200, -150, 0.8, 0.8, ['Slenderman Full']);
-				barslender.scale.x = 0.85;
-				barslender.scale.y = 0.85;
+				barslender = new BGSprite('cenarios/Buds_Slender_Effects', 525, -375, 0.8, 0.8, ['Slenderman Full']);
+				barslender.scale.x = 0.65;
+				barslender.scale.y = 0.65;
 				add(barslender);
 
-				barlula = new BGSprite('cenarios/Squirtward', -200, -200, 0.6, 0.6, ['Squidward_idleBody']);
+				barlula = new BGSprite('cenarios/Squirtward', 600, -150, 0.6, 0.6, ['Squidward_idleBody']);
 				barlula.scale.x = 0.8;
 				barlula.scale.y = 0.8;
 				add(barlula);
 
-				barlulacabeca = new BGSprite('cenarios/Squirtward', -200, -200, 0.6, 0.6, ['Squidward_idleHead']);
+				barlulacabeca = new BGSprite('cenarios/Squirtward', barlula.x, barlula.y, 0.6, 0.6, ['Squidward_idleHead']);
 				barlulacabeca.scale.x = 0.8;
 				barlulacabeca.scale.y = 0.8;
 				add(barlulacabeca);
 
-				bardrowned = new FlxSprite(300, -100);
+				bardrowned = new FlxSprite(800, -300);
 				bardrowned.frames = Paths.getSparrowAtlas('cenarios/Ben_Drowned_BG');
-				bardrowned.animation.addByPrefix('nao', 'ben drowned', 24, true);
-				bardrowned.animation.addByPrefix('sim', 'ben drowned looking', 24, true);
+				bardrowned.animation.addByPrefix('nao', 'ben drowned', 24);
+				bardrowned.animation.addByPrefix('sim', 'ben drowned looking', 24);
 				bardrowned.animation.play('nao', true);
-				bardrowned.scale.x = 0.9;
-				bardrowned.scale.y = 0.9;
+				bardrowned.scale.x = 0.75;
+				bardrowned.scale.y = 0.75;
 				add(bardrowned);
 
-				barjeffbody = new BGSprite('cenarios/Jeff', -200, -200, 0.6, 0.6, ['mynamejeff instance 1']);
-				barjeffbody.scale.x = 0.8;
-				barjeffbody.scale.y = 0.8;
+				mesaauxi = new BGSprite('cenarios/TableMisc', 500, 0, 0.5, 0.5);
+				mesaauxi.scale.x = 0.7;
+				mesaauxi.scale.y = 0.7;
+				add(mesaauxi);
+
+				barjeffbody = new BGSprite('cenarios/Jeff', 400, -25, 0.6, 0.6, ['mynamejeff instance 1']);
+				barjeffbody.scale.x = 1;
+				barjeffbody.scale.y = 1;
 				add(barjeffbody);
 
-				barmesaback = new BGSprite('cenarios/Mousetable', -200, -200, 0.6, 0.6, ['Mousetable']);
-				barmesaback.scale.x = 0.8;
-				barmesaback.scale.y = 0.8;
+				barmesaback = new BGSprite('cenarios/Mousetable', 0, -50, 0.6, 0.6, ['Mousetable']);
+				barmesaback.scale.x = 0.95;
+				barmesaback.scale.y = 0.95;
 				add(barmesaback);
 
-				barjeffbraco = new BGSprite('cenarios/JeffArm', -200, -200, 0.6, 0.6, ['Only the arm shit instance 1']);
-				barjeffbraco.scale.x = 0.8;
-				barjeffbraco.scale.y = 0.8;
+				barjeffbraco = new BGSprite('cenarios/JeffArm', barjeffbody.x + 10, barjeffbody.y + 125, 0.6, 0.6, ['Only the arm shit instance 1']);
+				barjeffbraco.scale.x = 1;
+				barjeffbraco.scale.y = 1;
 				add(barjeffbraco);
 
-				barmesafront = new BGSprite('cenarios/TABLE', -500, 300, 0.05, 0.05);
-				barmesafront.setGraphicSize(Std.int(barmesafront.width * 1.2));
+				barmesafront = new BGSprite('cenarios/TABLE', -850, 700, 0.05, 0.05);
+				barmesafront.setGraphicSize(Std.int(barmesafront.width * 1.1));
 
 			case 'console':
 				var water:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('cenarios/console/water'), true, 160, 81);
@@ -2639,11 +2663,15 @@ class PlayState extends MusicBeatState
 				if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
 					if(!ClientPrefs.lowQuality) {
 						saladfingers.dance(true);
+						widemouth.dance(true);
 						barjack.dance(true);
+						barbrian.dance(true);
 						barpeach.dance(true);
+						barshinto.dance(true);
 						barslender.dance(true);
 						barlula.dance(true);
 						barlulacabeca.dance(true);
+						bardrowned.animation.play('nao', true);
 						barjeffbody.dance(true);
 						barmesaback.dance(true);
 						barjeffbraco.dance(true);
@@ -5835,11 +5863,10 @@ class PlayState extends MusicBeatState
 				songMisses++;
 			}
 			RecalculateRating();
-
 			if(curSong.toLowerCase() == 'pasta-night'){
-			bardrowned.animation.play('ben drowned looking'); //very scari
-			//I forgor...
-			}
+				bardrowned.animation.play('ben drowned looking'); //very scari
+				//I forgor...
+				}
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
@@ -6386,8 +6413,11 @@ class PlayState extends MusicBeatState
 			case 'bar' | 'bar-lordx' | 'bar-hypno':
 				if(!ClientPrefs.lowQuality) {
 					saladfingers.dance(true);
+					widemouth.dance(true);
+					barbrian.dance(true);
 					barjack.dance(true);
 					barpeach.dance(true);
+					barshinto.dance(true);
 					barslender.dance(true);
 					barlula.dance(true);
 					barlulacabeca.dance(true);
