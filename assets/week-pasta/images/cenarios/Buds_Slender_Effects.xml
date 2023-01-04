@@ -1,13 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <TextureAtlas imagePath="Buds_Slender_Effects.png">
-	<!-- Created with Adobe Animate version 19.2.1.408 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Slenderman Full0000" x="0" y="0" width="661" height="672"/>
-	<SubTexture name="Slenderman Full0001" x="685" y="0" width="661" height="672"/>
-	<SubTexture name="Slenderman Full0002" x="1370" y="0" width="661" height="672"/>
-	<SubTexture name="Slenderman Full0003" x="0" y="696" width="661" height="672"/>
-	<SubTexture name="Slenderman Full0004" x="685" y="696" width="661" height="672"/>
-	<SubTexture name="Slenderman Full0005" x="1370" y="696" width="661" height="672"/>
-	<SubTexture name="Slenderman Full0006" x="0" y="1392" width="661" height="672"/>
-	<SubTexture name="Slenderman Full0007" x="685" y="1392" width="661" height="672"/>
+<SubTexture name="Slenderman Full0000" x="0" y="0" width="653" height="665" frameX="-2" frameY="-1" frameWidth="661" frameHeight="672" />
+<SubTexture name="Slenderman Full0001" x="1306" y="0" width="653" height="664" frameX="-2" frameY="-2" frameWidth="661" frameHeight="672" />
+<SubTexture name="Slenderman Full0002" x="653" y="0" width="653" height="665" frameX="-2" frameY="-1" frameWidth="661" frameHeight="672" />
+<SubTexture name="Slenderman Full0003" x="0" y="665" width="652" height="664" frameX="-2" frameY="-2" frameWidth="661" frameHeight="672" />
 </TextureAtlas>
