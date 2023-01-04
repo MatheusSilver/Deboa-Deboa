@@ -5836,8 +5836,10 @@ class PlayState extends MusicBeatState
 			}
 			RecalculateRating();
 
+			if(curSong.toLowerCase() == 'pasta-night'){
 			bardrowned.animation.play('ben drowned looking'); //very scari
-
+			//I forgor...
+			}
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
