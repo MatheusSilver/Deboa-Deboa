@@ -61,7 +61,6 @@ class MainMenuStateMobile extends MusicBeatState
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No menu principal", null);
-		//and dav says: EU ODEIO MEXER COM COORDENADAS
 		#end
 
 

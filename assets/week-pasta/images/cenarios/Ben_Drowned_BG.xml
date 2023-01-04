@@ -1,7 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="Ben Drowned BG.png">
-	<!-- Created with Adobe Animate version 19.1.0.349 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="ben drowned0000" x="10" y="10" width="226" height="522"/>
-	<SubTexture name="ben drowned looking0000" x="246" y="10" width="226" height="522"/>
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="Ben_Drowned_BG.png">
+<SubTexture name="ben drowned0000" x="0" y="0" width="226" height="522" frameX="0" frameY="0" frameWidth="226" frameHeight="522" />
+<SubTexture name="ben drowned looking0000" x="226" y="0" width="226" height="522" frameX="0" frameY="0" frameWidth="226" frameHeight="522" />
 </TextureAtlas>
