@@ -1733,6 +1733,8 @@ class FunkinLua {
 			case 'camother' | 'other': return PlayState.instance.camOther;
 			case 'camlegenda' | 'legenda': return PlayState.instance.camLegenda;
 			case 'camorig' | 'orig': return FlxG.camera;
+			case 'gameMenu' : return MainMenuStateMobile.instance.camGame;
+			case 'achMenu' : return MainMenuStateMobile.instance.camAchievement;
 		}
 		return PlayState.instance.camGame;
 	}
@@ -1761,40 +1763,43 @@ class FunkinLua {
 	public static function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
 	  
 	  
-	  
-		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud':
-					camHUDShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camHUDShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					PlayState.instance.camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other':
-					camOtherShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camOtherShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					PlayState.instance.camOther.setFilters(newCamEffects);
-			case 'camgame' | 'game':
-					camGameShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camGameShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					PlayState.instance.camGame.setFilters(newCamEffects);
-			default:
-					camOtherShaders.push(effect);
-					var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-					for(i in camOtherShaders){
-					newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					PlayState.instance.camOther.setFilters(newCamEffects);
-			
-			
+	  if(ClientPrefs.shaders)
+		{
+			switch(cam.toLowerCase()) {
+				case 'camhud' | 'hud':
+						camHUDShaders.push(effect);
+						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						for(i in camHUDShaders){
+						  newCamEffects.push(new ShaderFilter(i.shader));
+						}
+						PlayState.instance.camHUD.setFilters(newCamEffects);
+				case 'camother' | 'other':
+						camOtherShaders.push(effect);
+						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						for(i in camOtherShaders){
+						  newCamEffects.push(new ShaderFilter(i.shader));
+						}
+						PlayState.instance.camOther.setFilters(newCamEffects);
+				case 'camgame' | 'game':
+						camGameShaders.push(effect);
+						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						for(i in camGameShaders){
+						  newCamEffects.push(new ShaderFilter(i.shader));
+						}
+						PlayState.instance.camGame.setFilters(newCamEffects);
+				default:
+						camOtherShaders.push(effect);
+						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						for(i in camOtherShaders){
+						newCamEffects.push(new ShaderFilter(i.shader));
+						}
+						//PlayState.instance.camOther.setFilters(newCamEffects);
+						FlxG.camera.setFilters(newCamEffects);
 				
 				
+					
+					
+			}
 		}
 	  
 	  

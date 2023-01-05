@@ -31,6 +31,7 @@ import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
 import flash.display.Sprite;
+import FunkinLua;
 import Shaders;
 import openfl.filters.ShaderFilter;
 import haxe.io.Bytes;
@@ -43,7 +44,6 @@ class TitleState extends MusicBeatState
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
-
 	static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
@@ -69,7 +69,8 @@ class TitleState extends MusicBeatState
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
-	
+		//FunkinLua.addShaderToCamera('orig', new BloomEffect(0.05/512.0,0.05));
+		FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		#if (polymod && !android)
 		if (HSys.exists('mods/')) {
 			var folders:Array<String> = [];

@@ -559,7 +559,7 @@ class VCRDistortionEffect extends Effect
     shader.iResolution.value = [Lib.current.stage.stageWidth,Lib.current.stage.stageHeight];
    // var noise = Assets.getBitmapData(Paths.image("noise2"));
    // shader.noiseTex.input = noise;
-   PlayState.instance.shaderUpdates.push(update);
+   //PlayState.instance.shaderUpdates.push(update);
   }
 
   public function update(elapsed:Float){
