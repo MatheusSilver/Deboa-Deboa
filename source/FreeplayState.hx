@@ -400,7 +400,6 @@ class FreeplayState extends MusicBeatState
 						outroperfilSprite.updateHitbox();
 						outroperfilSprite.screenCenter(Y);
 						outroperfilSprite.alpha = 1;
-						outroperfilSprite.setGraphicSize(Std.int(outroperfilSprite.width * 1.05));
 					} else {
 						FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
 					}
@@ -411,7 +410,6 @@ class FreeplayState extends MusicBeatState
 				perfilSprite.updateHitbox();
 				perfilSprite.screenCenter(Y);
 				perfilSprite.alpha = 0;
-				perfilSprite.setGraphicSize(Std.int(perfilSprite.width * 1.05));
 			} else {
 				FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
 			}
