@@ -51,7 +51,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		//Silver reverso says:
 		//Ovô trocar sim, tô pokas hoje...
-		FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
 		menuBG.setGraphicSize(FlxG.width, FlxG.height);
 		menuBG.updateHitbox();

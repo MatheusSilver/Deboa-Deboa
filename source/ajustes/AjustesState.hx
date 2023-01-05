@@ -80,7 +80,7 @@ class AjustesState extends MusicBeatState
 		#if !mobile
 		FlxG.mouse.visible = true;
 		#end
-		FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 

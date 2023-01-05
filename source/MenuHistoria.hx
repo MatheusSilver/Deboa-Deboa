@@ -69,7 +69,7 @@ class MenuHistoria extends MusicBeatSubstate
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
 		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
-		FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 
 		add(bgSprite);
 		add(pastbgSprite);

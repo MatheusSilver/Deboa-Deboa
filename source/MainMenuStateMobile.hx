@@ -82,7 +82,7 @@ class MainMenuStateMobile extends MusicBeatState
 		#end
 		//FunkinLua.addShaderToCamera('achMenu', new VCRDistortionEffect(0,false,false,false));
 		//FunkinLua.addShaderToCamera('gameMenu', new BloomEffect(0.05/512.0,0.05));
-		FunkinLua.addShaderToCamera('gameMenu', new ChromaticAberrationEffect(0.0015));
+		//FunkinLua.addShaderToCamera('gameMenu', new ChromaticAberrationEffect(0.0015));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
