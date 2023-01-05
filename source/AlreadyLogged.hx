@@ -35,7 +35,7 @@ class AlreadyLogged extends MusicBeatState
 			DiscordClient.changePresence("Vendo os creditos", null);
 			#end
 
-			FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
+			//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
 			supbg.antialiasing = ClientPrefs.globalAntialiasing;
 			supbg.updateHitbox();
