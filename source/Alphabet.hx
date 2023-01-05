@@ -413,16 +413,10 @@ class AlphaCharacter extends FlxSprite
 	{
 		var tex:FlxAtlasFrames;
 		super(x, y);
-		if (fontTexture == 'alfabetovio'){
-			tex = Paths.getSparrowAtlas('alfabetoVio', 'preload');
-		} 
-		else if(fontTexture == 'branco')
-		{
-			tex = Paths.getSparrowAtlas('alphabet', 'preload');
-		}
-		else
-		{
-			tex = Paths.getSparrowAtlas('alphabet', 'shared');
+		if (fontTexture != 'padrao'){
+		tex = Paths.getSparrowAtlas('alphabet/'+fontTexture, 'preload');
+		}else {
+			tex = Paths.getSparrowAtlas('alphabet/padrao', 'preload');
 		}
 		frames = tex;
 
