@@ -31,6 +31,8 @@ class GameJoltLoginState extends MusicBeatState
     public static var userBar:FlxUIInputText;
     public static var tokenBar:FlxUIInputText;
     public static var pretobg:FlxSprite;
+    public static var logobg:FlxSprite;
+    public static var referencebg:FlxSprite;
     var loginbotao:FlxButton;
 	
 	override function create()
@@ -45,52 +47,71 @@ class GameJoltLoginState extends MusicBeatState
 			DiscordClient.changePresence("Logando", null);
 			#end
             //FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
-			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
+			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('optionsmenu/login_back'));		
 			supbg.antialiasing = ClientPrefs.globalAntialiasing;
-			supbg.updateHitbox();
+			//supbg.updateHitbox();
 			supbg.alpha = 1;
 			add(supbg);
-            userBar = new FlxUIInputText(0, 0, 500, "USERNAME", 50, FlxColor.BLACK, FlxColor.WHITE, true);
-            userBar.screenCenter(XY);
-            add(userBar);
-            tokenBar = new FlxUIInputText(0, 0, 500, "TOKEN", 50, FlxColor.BLACK, FlxColor.WHITE, true);
-            tokenBar.x = userBar.x;
-            tokenBar.y = userBar.y-75;
-            add(tokenBar);
-			letext = new FlxText(50, FlxG.height - 700, FlxG.width - 95, "LOGIN", 32);
+            userBar = new FlxUIInputText(0, 0, 575, "USERNAME", 50, FlxColor.WHITE, FlxColor.TRANSPARENT, true);
+            userBar.background=false;
+            //userBar.fieldBorderColor = FlxColor.WHITE;
+            //userBar.fieldBorderThickness = 3;
+            userBar.x = 354;
+            userBar.y = 195;
+            tokenBar = new FlxUIInputText(0, 0, 575, "TOKEN", 50, FlxColor.WHITE, FlxColor.TRANSPARENT, true);
+            /*tokenBar.fieldBorderColor = FlxColor.WHITE;
+            tokenBar.fieldBorderThickness = 3;*/
+            tokenBar.background=false;
+            //tokenBar.height = 100;
+            tokenBar.x = 354;
+            tokenBar.y = 306;
+			/*letext = new FlxText(50, 0, 0, "a", 32);
 			letext.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
-			letext.alpha = 1;
-			add(letext);
+			letext.alpha = 1;*/
             loginbotao = new FlxButton(FlxG.width, 100, '');
-			loginbotao.loadGraphic(Paths.image('mainmenu/btlogar', 'preload'));
-			loginbotao.setGraphicSize(Std.int(loginbotao.width * 0.75));
+			loginbotao.loadGraphic(Paths.image('optionsmenu/login_button', 'preload'));
+			loginbotao.setGraphicSize(Std.int(loginbotao.width * 1));
 	
 			loginbotao.updateHitbox();
-			loginbotao.x = 385;
-			loginbotao.y = 425;
+			loginbotao.x = 354;
+			loginbotao.y = 401;
 			loginbotao.alpha = 0.75;
-			add(loginbotao);
-            pretobg = new FlxSprite(0, 0).loadGraphic(Paths.image('mainmenu/pretobg', 'preload'));
+            /*pretobg = new FlxSprite(0, 0).loadGraphic(Paths.image('optionsmenu/login_back', 'preload'));
 			pretobg.antialiasing = ClientPrefs.globalAntialiasing;
 			pretobg.updateHitbox();
             pretobg.screenCenter(XY);
 			pretobg.alpha = 0;
+            add(pretobg)*/
 			add(supbg);
+            logobg = new FlxSprite(0, 0).loadGraphic(Paths.image('optionsmenu/login_logo', 'preload'));
+			logobg.antialiasing = ClientPrefs.globalAntialiasing;
+			//logobg.updateHitbox();
+            logobg.screenCenter(XY);
+			logobg.alpha = 1;
+			add(logobg);
+            referencebg = new FlxSprite(0, 0).loadGraphic(Paths.image('optionsmenu/login_reference', 'preload'));
+			referencebg.antialiasing = ClientPrefs.globalAntialiasing;
+			//referencebg.updateHitbox();
+            referencebg.screenCenter(XY);
+			referencebg.alpha = 1;
+			add(referencebg);
             loadingBar = new FlxText(50, FlxG.height - 700, FlxG.width - 95, "CARREGANDO", 32);
 			loadingBar.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			loadingBar.scrollFactor.set();
 			loadingBar.alpha = 0;
             loadingBar.screenCenter(XY);
 			add(loadingBar);
-
+			//add(letext);
+            add(loginbotao);
+            add(tokenBar);
             falhouBar = new FlxText(50, FlxG.height, FlxG.width, "O LOGIN FALHOU!", 40);
 			falhouBar.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			falhouBar.scrollFactor.set();
 			falhouBar.alpha = 0;
             falhouBar.screenCenter(XY);
 			add(falhouBar);
-	
+            add(userBar);
 			super.create();
 		}
 	override function update(elapsed:Float)
@@ -107,7 +128,7 @@ class GameJoltLoginState extends MusicBeatState
             loginbotao.onOver.callback = loginHover;
 			loginbotao.onOut.callback = loginOut;
 			loginbotao.onDown.callback = loginClick;
-
+            //letext.text = "X: "+Std.string(loginbotao.x)+"\nY: "+ Std.string(loginbotao.y); // debug moment
             if(falhouBar.alpha == 1)
                 {
                     new FlxTimer().start(1.5, function(tmr:FlxTimer){
@@ -123,7 +144,7 @@ class GameJoltLoginState extends MusicBeatState
                 {
                     falhou=false;
                 }
-                
+                loginbotao.updateHitbox();
 		}
 
         function loginHover():Void

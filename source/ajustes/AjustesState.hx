@@ -63,7 +63,6 @@ class AjustesState extends MusicBeatState
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Nas configurações.", null);
-		//and dav says: EU ODEIO MEXER COM COORDENADAS
 		#end
 
 		Main.dumpCache(); // What can go wrong?
