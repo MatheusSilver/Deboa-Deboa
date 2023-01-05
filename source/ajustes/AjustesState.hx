@@ -25,6 +25,8 @@ import lime.app.Application;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import FunkinLua;
+import Shaders;
 import Controls;
 
 using StringTools;
@@ -32,9 +34,6 @@ using StringTools;
 class AjustesState extends MusicBeatState
 {
 	public static var curSelected:Int = 0;
-
-	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
 
 	var boom:FlxSprite;
 	var gameJoltBG:FlxSprite;
@@ -71,17 +70,17 @@ class AjustesState extends MusicBeatState
 		if(FlxG.sound.music.volume==0) {
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
-		camGame = new FlxCamera();
+		/*camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
-		FlxCamera.defaultCameras = [camGame];
+		FlxCamera.defaultCameras = [camGame];*/
 		#if !mobile
 		FlxG.mouse.visible = true;
 		#end
-
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 

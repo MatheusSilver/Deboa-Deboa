@@ -18,6 +18,8 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.net.curl.CURLCode;
+import FunkinLua;
+import Shaders;
 
 using StringTools;
 
@@ -39,7 +41,7 @@ class MenuPreHistoria extends MusicBeatState
 	
 	override function create()
 	{
-
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		MenuHistoria.curSelected = 0;
 		#if !mobile
 		FlxG.mouse.visible = false;

@@ -163,7 +163,7 @@ class Scanline extends FlxShader
 	@:glFragmentSource('
 		#pragma header
 		const float scale = 1.0;
-	uniform bool lockAlpha = false;
+	uniform bool lockAlpha;
 		void main()
 		{
 #pragma body
@@ -236,8 +236,8 @@ class Tiltshift extends FlxShader
 		 
 		// I am hardcoding the constants like a jerk
 			
-		uniform float bluramount  = 1.0;
-		uniform float center      = 1.0;
+		uniform float bluramount;
+		uniform float center;
 		const float stepSize    = 0.004;
 		const float steps       = 3.0;
 		 
@@ -420,10 +420,10 @@ class Grain extends FlxShader
 
 		const float grainamount = 0.05; //grain amount
 		bool colored = false; //colored noise?
-		uniform float coloramount = 0.6;
-		uniform float grainsize = 1.6; //grain particle size (1.5 - 2.5)
-		uniform float lumamount = 1.0; //
-	uniform bool lockAlpha = false;
+		uniform float coloramount;
+		uniform float grainsize; //grain particle size (1.5 - 2.5)
+		uniform float lumamount; //
+	uniform bool lockAlpha;
 
 		//a random texture generator, but you can also use a pre-computed perturbation texture
 	
@@ -559,7 +559,7 @@ class VCRDistortionEffect extends Effect
     shader.iResolution.value = [Lib.current.stage.stageWidth,Lib.current.stage.stageHeight];
    // var noise = Assets.getBitmapData(Paths.image("noise2"));
    // shader.noiseTex.input = noise;
-   PlayState.instance.shaderUpdates.push(update);
+   //PlayState.instance.shaderUpdates.push(update);
   }
 
   public function update(elapsed:Float){
@@ -742,10 +742,10 @@ class ThreeDEffect extends Effect{
 class ThreeDShader extends FlxShader{
 	@:glFragmentSource('
 	#pragma header
-	uniform float xrot = 0.0;
-	uniform float yrot = 0.0;
-	uniform float zrot = 0.0;
-	uniform float dept = 0.0;
+	uniform float xrot;
+	uniform float yrot;
+	uniform float zrot;
+	uniform float dept;
 	float alph = 0;
 float plane( in vec3 norm, in vec3 po, in vec3 ro, in vec3 rd ) {
     float de = dot(norm, rd);
@@ -910,8 +910,8 @@ class FuckingTriangle extends FlxShader{
 
 		const vec3 cameraPos = vec3(0., 0.3, 2.);
 
-			uniform float rotX = -25.;
-			uniform float rotY = 45.;
+			uniform float rotX;
+			uniform float rotY;
 		vec4 pixel(in vec2 ndc, in float aspect, inout float depth, in int vertexIndex) {
 
 			
@@ -1002,8 +1002,8 @@ class BloomShader extends FlxShader{
 	
 	#pragma header
 	
-	uniform float intensity = 0.35;
-	uniform float blurSize = 1.0/512.0;
+	uniform float intensity;
+	uniform float blurSize;
 void main()
 {
 #pragma body

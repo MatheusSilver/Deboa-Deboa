@@ -20,6 +20,8 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
+import FunkinLua;
+import Shaders;
 import WeekData;
 
 using StringTools;
@@ -71,7 +73,7 @@ class FreeplayState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No Freeplay", null);
 		#end
-		
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 
 		for (i in 0...WeekData.freeplayList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);

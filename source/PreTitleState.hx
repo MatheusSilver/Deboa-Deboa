@@ -14,6 +14,8 @@ import lime.utils.Assets;
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUIButton;
 import flixel.util.FlxTimer;
+import FunkinLua;
+import Shaders;
 using StringTools;
 
 class PreTitleState extends MusicBeatState

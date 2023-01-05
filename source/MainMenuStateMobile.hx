@@ -22,6 +22,8 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
 import Achievements;
+import FunkinLua;
+import Shaders;
 import editors.MasterEditorMenu;
 
 using StringTools;
@@ -31,8 +33,8 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var psychEngineVersion:String = 'V1'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
-	private var camGame:FlxCamera;
-	private var camAchievement:FlxCamera;
+	public var camGame:FlxCamera;
+	public var camAchievement:FlxCamera;
 	var clicavel:Bool = false;
 
 	var boom:FlxSprite;
@@ -45,6 +47,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var letext:FlxText;
 	var sobrebotao:FlxButton;
 	var isCoolBeat:Bool=true;
+	public static var instance:MainMenuStateMobile;
 	//var gradientBar:FlxGradient;
 	
 	var optionShit:Array<String> = ['story_mode','freeplay', 'awards', 'credits', 'options'];
@@ -63,7 +66,6 @@ class MainMenuStateMobile extends MusicBeatState
 		DiscordClient.changePresence("No menu principal", null);
 		#end
 
-
 		Main.dumpCache(); // What can go wrong?
 		if(FlxG.sound.music.volume==0) {
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
@@ -78,7 +80,9 @@ class MainMenuStateMobile extends MusicBeatState
 		#if !mobile
 		FlxG.mouse.visible = true;
 		#end
-
+		//FunkinLua.addShaderToCamera('achMenu', new VCRDistortionEffect(0,false,false,false));
+		//FunkinLua.addShaderToCamera('gameMenu', new BloomEffect(0.05/512.0,0.05));
+		//FunkinLua.addShaderToCamera('gameMenu', new ChromaticAberrationEffect(0.0015));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 

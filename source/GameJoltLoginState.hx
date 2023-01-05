@@ -18,6 +18,8 @@ import lime.utils.Assets;
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUIInputText;
+import FunkinLua;
+import Shaders;
 using StringTools;
 
 class GameJoltLoginState extends MusicBeatState
@@ -42,6 +44,7 @@ class GameJoltLoginState extends MusicBeatState
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Logando", null);
 			#end
+            //FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
 			supbg.antialiasing = ClientPrefs.globalAntialiasing;
 			supbg.updateHitbox();

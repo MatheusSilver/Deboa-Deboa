@@ -16,6 +16,8 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.ui.FlxButton;
 import flixel.addons.ui.FlxUIButton;
+import FunkinLua;
+import Shaders;
 using StringTools;
 
 class PreMainMenuState extends MusicBeatState
@@ -33,6 +35,7 @@ class PreMainMenuState extends MusicBeatState
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os creditos", null);
 			#end
+			//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
 			supbg.antialiasing = ClientPrefs.globalAntialiasing;
 			supbg.updateHitbox();

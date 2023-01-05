@@ -15,6 +15,8 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 import flixel.FlxSubState;
+import FunkinLua;
+import Shaders;
 import Achievements;
 
 using StringTools;
@@ -34,7 +36,7 @@ class AchievementsMenuState extends MusicBeatState
 	var apertavel:Bool = true;
 
 	override function create() {
-
+		Conductor.changeBPM(112);
 		//isCoolBeata = true;
 		#if desktop
 		DiscordClient.changePresence("No menu de conquistas", null);
@@ -49,7 +51,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		//Silver reverso says:
 		//Ovô trocar sim, tô pokas hoje...
-
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
 		menuBG.setGraphicSize(FlxG.width, FlxG.height);
 		menuBG.updateHitbox();

@@ -2115,9 +2115,9 @@ class PlayState extends MusicBeatState
 			RecalculateRating();
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
-		CoolUtil.precacheSound('missnote1');
+		/*CoolUtil.precacheSound('missnote1');
 		CoolUtil.precacheSound('missnote2');
-		CoolUtil.precacheSound('missnote3');
+		CoolUtil.precacheSound('missnote3');*/
 
 		#if desktop
 		// Updating Discord Rich Presence.
@@ -5867,7 +5867,7 @@ class PlayState extends MusicBeatState
 				bardrowned.animation.play('ben drowned looking'); //very scari
 				//I forgor...
 				}
-			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+			//FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
 
