@@ -7,6 +7,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.util.FlxTimer;
+import openfl.utils.Assets as OpenFlAssets;
 import flixel.system.FlxSound;
 
 using StringTools;
@@ -413,9 +414,11 @@ class AlphaCharacter extends FlxSprite
 	{
 		var tex:FlxAtlasFrames;
 		super(x, y);
-		if (fontTexture != 'padrao'){
+		if (OpenFlAssets.exists(Paths.image('alphabet/'+fontTexture, 'preload'))){
 		tex = Paths.getSparrowAtlas('alphabet/'+fontTexture, 'preload');
-		}else {
+		}
+		else
+		{
 			tex = Paths.getSparrowAtlas('alphabet/padrao', 'preload');
 		}
 		frames = tex;
