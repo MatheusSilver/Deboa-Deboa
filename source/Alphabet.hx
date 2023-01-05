@@ -362,7 +362,7 @@ class Alphabet extends FlxSpriteGroup
 			{
 				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
-				var tendency:Float =  0.16/((cast(Lib.current.getChildAt(0), Main)).getFPS()/60);
+				var tendency:Float =  1; //Agora é uma média simples (bem mais fácil de calcular)
 	
 				y = FlxMath.lerp(y, (scaledY * 65) + (FlxG.height * 0.39), tendency);
 				//lerp = média diferenciada tendenciosa tal que sua tendencia, é definida pelo ultimo termo, no caso 0.16/(qualquer coisa)
@@ -375,12 +375,19 @@ class Alphabet extends FlxSpriteGroup
 				if (x > FlxG.width + 30)
 					x = FlxG.width + 30;
 			}
-		else if (isMenuTrem)
+		else if (isMenuTrem && AlphaCharacter.fontTexture != 'alfabetovio')
 		{ //usado em achievement
 			//basicamente organiza o eixo Y enquanto mantem o eixo X livre para ser movimentado.
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
 			y = FlxMath.lerp(y, (scaledY * 180) + (FlxG.height * 0.48), 0.16);
+
+		} else if (isMenuTrem && AlphaCharacter.fontTexture == 'alfabetovio')
+		{
+			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+
+			y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
 		}
 
 		super.update(elapsed);

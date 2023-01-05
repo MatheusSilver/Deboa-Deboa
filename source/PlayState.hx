@@ -505,17 +505,17 @@ class PlayState extends MusicBeatState
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-		if (isStoryMode)
+		if (modohistoria)
 		{
-			detailsText = "Story Mode: " + "VS. Sonic.EXE";
+			detailsText = MenuHistoria.dapreselected;
 		}
 		else
 		{
-			detailsText = "Freeplay";
+			detailsText = FreeplayState.weekNombre;
 		}
 
 		// String for when the game is paused
-		detailsPausedText = "Paused - " + detailsText;
+		detailsPausedText = "Pausado - " + detailsText;
 		#end
 
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
@@ -668,6 +668,11 @@ class PlayState extends MusicBeatState
 				barsky.scale.y = 3;
 				add(barsky);
 
+				barshiny = new BGSprite('cenarios/shine', 500, 50, 0.1, 0.1);
+				barshiny.scale.x = 2;
+				barshiny.scale.y = 2;
+				add(barshiny);
+
 				saladfingers = new BGSprite('cenarios/SFingers', 500, 50, 0.25, 0.25, ['SFingers']);
 				saladfingers.scale.x = 1.1;
 				saladfingers.scale.y = 1.1;
@@ -683,10 +688,7 @@ class PlayState extends MusicBeatState
 				barbg.scale.y = 1.3;
 				add(barbg);
 
-				barshiny = new BGSprite('cenarios/shine', 500, 50, 0.1, 0.1);
-				barshiny.scale.x = 2;
-				barshiny.scale.y = 2;
-				add(barshiny);
+
 
 				polibius = new BGSprite('cenarios/machine', -50, -200, 0.5, 0.5);
 				polibius.scale.x = 0.7;
@@ -696,6 +698,7 @@ class PlayState extends MusicBeatState
 				barbrian = new BGSprite('cenarios/brian_idle', 50, 25, 0.5, 0.5, ['brian idle ']);
 				barbrian.scale.x = 1.2;
 				barbrian.scale.y = 1.2;
+				barbrian.antialiasing = false; //I forgor...
 				add(barbrian);
 
 				barjack = new BGSprite('cenarios/Jack', -300, -150, 0.6, 0.6, ['Body with tar instance 1']);
@@ -761,15 +764,6 @@ class PlayState extends MusicBeatState
 				barmesafront.setGraphicSize(Std.int(barmesafront.width * 1.1));
 
 			case 'console':
-				var water:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('cenarios/console/water'), true, 160, 81);
-				water.scrollFactor.set(1, 1);
-				water.antialiasing = false;
-				water.animation.add("idle", [0, 1, 2, 3], 9);
-				water.animation.play("idle");
-
-				water.setGraphicSize(Std.int(water.width * 12));
-				water.updateHitbox();
-				add(water);
 
 				var bg:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('cenarios/console/bg'));
 				bg.scrollFactor.set(1, 1);

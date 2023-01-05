@@ -33,11 +33,13 @@ class MenuHistoria extends MusicBeatSubstate
 	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
 	
 	var subindo:Bool = true;
+	var canceltweens:Bool = false;
     var musicas:Array<Dynamic> = [];
 	var nombres:Array<Dynamic> = [];
 	public static var dapreselected:String = '';
 	public static var curSelected:Int = 0; //Publico pra corrigir um pequeno bugzinho de continuidade.
 	var apertavel:Bool = false;
+	var textoSpriteTweens:FlxTween;
 
 	//transition stuff
 	var pastbgSprite:FlxSprite;
@@ -93,9 +95,15 @@ class MenuHistoria extends MusicBeatSubstate
 	
 	override function update(elapsed:Float)
 	{
+
 		#if desktop
-		DiscordClient.changePresence("Escolhendo uma musica em: " + dapreselected, null);
+		if(!selectedWeek){
+		DiscordClient.changePresence("Escolhendo uma musica em: ", dapreselected, null);
+		}
 		#end
+
+		if(textoSpriteTweens != null)
+			textoSpriteTweens.active = true;
 
 		if (!movedBack && !selectedWeek)
 		{
@@ -112,7 +120,7 @@ class MenuHistoria extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
-			if (controls.BACK && !movedBack && !selectedWeek)
+			if (controls.BACK && !movedBack && !selectedWeek && apertavel)
 				{
 						FlxTween.tween(perfilSprite, {alpha: 0}, 1.0, {ease: FlxEase.expoInOut});
 						FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
@@ -149,7 +157,7 @@ class MenuHistoria extends MusicBeatSubstate
 					}
 				}
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT && apertavel)
 			{
 				selectSong();
 			}
@@ -191,15 +199,15 @@ class MenuHistoria extends MusicBeatSubstate
 			pastbgSprite.setGraphicSize(FlxG.width);
 			pastbgSprite.screenCenter(XY);
 
-			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = 2;
-
 			FreeplayState.justread = musicas[curSelected];
+			PlayState.isStoryMode = false;
 			PlayState.modohistoria = true;
 			if(nombres[curSelected].toLowerCase() != 'controle' && nombres[curSelected] != 'Cross Console Clash' && nombres[curSelected] != 'Noite da Rapaziada'){
 			MenuPreHistoria.bigmenu.alpha = 0;
 			bgSprite.alpha = 0;
+			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+
+			PlayState.storyDifficulty = 2;
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
 			FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
 			onComplete: function(twn:FlxTween) {
@@ -221,7 +229,16 @@ class MenuHistoria extends MusicBeatSubstate
 					MusicBeatState.switchState(new PastaNightSelect());
 				});
 			} else if (nombres[curSelected].toLowerCase() == 'cross console clash'){
+				#if desktop
+				DiscordClient.changePresence("Escolhendo um lado em", "Cross Console Clash", null);
+				#end
 				new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+					if(textoSpriteTweens != null){
+						textoSpriteTweens.active = false;
+						textoSpriteTweens.cancel();
+					}
+					FlxTween.tween(perfilSprite, {y: -perfilSprite.height}, 0.5, {ease: FlxEase.expoInOut});
+					FlxTween.tween(textoSprite, {y: FlxG.height}, 0.5, {ease: FlxEase.expoInOut});
 					openSubState(new ConsoleClashSubState(musicas[curSelected]));
 				});
 			}
@@ -230,16 +247,18 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		function tweenpracima(){
-			FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, 3, {ease: FlxEase.quadInOut,
+			textoSpriteTweens = FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, 3, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween) {
-				tweenprabaixo();
+				if(!canceltweens)
+					tweenprabaixo();
 			}});
 		}
 
 		function tweenprabaixo(){
-			FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height - 5}, 3, {ease: FlxEase.quadInOut,
+			textoSpriteTweens = FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height - 5}, 3, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween) {
-				tweenpracima();
+				if(!canceltweens)
+					tweenpracima();
 			}});
 		}
 

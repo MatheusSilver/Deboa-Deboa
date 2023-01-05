@@ -44,11 +44,10 @@ class BaseOptionsMenu extends MusicBeatState
 	static var options:Array<String> = [
 		'GRAFICOS',
 		'Baixa Qualidade',
-		#if windows
 		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
-		#end
+		//Vai que o Sirox e seu celular da NASA joguem esse mod, por via das duvidas, os shaders ficam desativados por padrão em mobile
 		'Anti-Aliasing',
-		'Cache persistente',
+	//	'Cache persistente',
 		#if !html5
 		'FPS', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
@@ -178,6 +177,7 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 
 		if (controls.BACK) {			
+			/*
 			#if mobile 
 			remove(_virtualpad); 
 			#end
@@ -197,7 +197,7 @@ class BaseOptionsMenu extends MusicBeatState
 			if(showCharacter != null) {
 				showCharacter.alpha = 0;
 			}
-			descText.alpha = 0;
+			descText.alpha = 0; */
 			ClientPrefs.saveSettings();
 			FlxG.switchState(new ajustes.AjustesState());
 			FlxG.sound.play(Paths.sound('cancelMenu'));
