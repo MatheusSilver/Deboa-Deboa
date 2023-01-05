@@ -49,11 +49,9 @@ class Alphabet extends FlxSpriteGroup
 	public var typed:Bool = false;
 
 	public var typingSpeed:Float = 0.05;
-	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, ?typingSpeed:Float = 0.05, ?textSize:Float = 1, ?isWhite:Bool = false)
+	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, ?typingSpeed:Float = 0.05, ?textSize:Float = 1, ?font:String = 'padrao')
 	{
-
-		AlphaCharacter.dafixforalpha = isFreeplayTrem;
-		AlphaCharacter.WhiteTxt = isWhite;
+		AlphaCharacter.fontTexture = font;
 
 		super(x, y);
 		forceX = Math.NEGATIVE_INFINITY;
@@ -154,6 +152,7 @@ class Alphabet extends FlxSpriteGroup
 				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 0, textSize);
 
+				if(AlphaCharacter.fontTexture != 'alfabetovio'){
 				if (isBold)
 				{
 					if (isNumber)
@@ -184,6 +183,9 @@ class Alphabet extends FlxSpriteGroup
 						letter.createLetter(character);
 					}
 				}
+			} else{
+				letter.createvioLetter(character);
+			}
 
 				add(letter);
 				lettersArray.push(letter);
@@ -283,6 +285,7 @@ class Alphabet extends FlxSpriteGroup
 				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 55 * yMulti, textSize);
 				letter.row = curRow;
+				if(AlphaCharacter.fontTexture != 'alfabetovio'){
 				if (isBold)
 				{
 					if (isNumber)
@@ -312,6 +315,9 @@ class Alphabet extends FlxSpriteGroup
 					{
 						letter.createLetter(splitWords[loopNum]);
 					}
+				}
+			}else{
+					letter.createvioLetter(splitWords[loopNum]);
 				}
 				letter.x += 90;
 
@@ -390,9 +396,8 @@ class Alphabet extends FlxSpriteGroup
 
 class AlphaCharacter extends FlxSprite
 {
-	public static var dafixforalpha = false;
 	
-	public static var WhiteTxt = false;
+	public static var fontTexture:String = '';
 
 	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã§";
 
@@ -408,18 +413,16 @@ class AlphaCharacter extends FlxSprite
 	{
 		var tex:FlxAtlasFrames;
 		super(x, y);
-		if (dafixforalpha){
-		tex = Paths.getSparrowAtlas('alfabetoVio', 'preload');
+		if (fontTexture == 'alfabetovio'){
+			tex = Paths.getSparrowAtlas('alfabetoVio', 'preload');
+		} 
+		else if(fontTexture == 'branco')
+		{
+			tex = Paths.getSparrowAtlas('alphabet', 'preload');
 		}
-		else {
-			if(WhiteTxt)
-				{
-					tex = Paths.getSparrowAtlas('alphabet', 'preload');
-				}
-			else
-				{
-					tex = Paths.getSparrowAtlas('alphabet', 'shared');
-				}
+		else
+		{
+			tex = Paths.getSparrowAtlas('alphabet', 'shared');
 		}
 		frames = tex;
 
@@ -490,6 +493,16 @@ class AlphaCharacter extends FlxSprite
 				offset.x += 3 * textSize;
 		}
 	}
+
+	public function createvioLetter(letter:String):Void
+		{	
+			animation.addByPrefix(letter, letter, 24);
+			animation.play(letter);
+			updateHitbox();
+	
+			y = (110 - height);
+			y += row * 60;
+		}
 
 	public function createLetter(letter:String):Void
 	{

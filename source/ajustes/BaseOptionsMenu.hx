@@ -108,7 +108,7 @@ class BaseOptionsMenu extends MusicBeatState
 		for (i in 0...options.length)
 		{
 			var isCentered:Bool = unselectableCheck(i);
-			var optionText:Alphabet = new Alphabet(0, 70 * i, options[i], false, false, 0.05, 1, true); // esse true no final é pro texto ser branco
+			var optionText:Alphabet = new Alphabet(0, 70 * i, options[i], false, false, 0.05, 1, 'branco'); // esse true no final é pro texto ser branco
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);

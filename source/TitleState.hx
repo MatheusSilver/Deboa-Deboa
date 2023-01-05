@@ -293,7 +293,7 @@ class TitleState extends MusicBeatState
 		add(gradientBar);
 		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 8, {ease: FlxEase.quadInOut}); // long gradient tween
 
-		credTextShit = new Alphabet(0, 0, "", true, false, 0.075, 1, true);
+		credTextShit = new Alphabet(0, 0, "", true, false, 0.075, 1, 'branco');
 		credTextShit.screenCenter();
 
 		// credTextShit.alignment = CENTER;
@@ -474,7 +474,7 @@ class TitleState extends MusicBeatState
 	{
 		for (i in 0...textArray.length)
 		{
-			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false, 0.5, 1, true);
+			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false, 0.5, 1, 'branco');
 			money.screenCenter(X);
 			money.y += (i * 60) + 200 + offset;
 			credGroup.add(money);
@@ -485,7 +485,7 @@ class TitleState extends MusicBeatState
 	function addMoreText(text:String, ?offset:Float = 0)
 	{
 		if(textGroup != null) {
-			var coolText:Alphabet = new Alphabet(0, 0, text, true, false, 0.5, 1, true);
+			var coolText:Alphabet = new Alphabet(0, 0, text, true, false, 0.5, 1, 'branco');
 			coolText.screenCenter(X);
 			coolText.y += (textGroup.length * 60) + 200 + offset;
 			credGroup.add(coolText);

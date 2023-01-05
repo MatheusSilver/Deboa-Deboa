@@ -1,5 +1,5 @@
 {
-	"storyName": "Bonus",
+	"storyName": "Extra, Extra",
 	"hideFreeplay": true,
 	"weekBackground": "bonus",
 	"weekBefore": "tutorial",
@@ -57,5 +57,5 @@
 		]
 		],
 	"hideStoryMode": false,
-	"weekName": "Orgulho"
+	"weekName": "Bonus"
 }
