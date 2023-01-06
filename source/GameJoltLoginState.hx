@@ -26,17 +26,18 @@ class GameJoltLoginState extends MusicBeatState
 {
 	var letext:FlxText;
     var loggedtext:FlxText;
-    public static var loadingBar:FlxText;
-    public static var falhouBar:FlxText;
+    public static var msgBar:FlxText;
     public static var userBar:FlxUIInputText;
     public static var tokenBar:FlxUIInputText;
     public static var pretobg:FlxSprite;
     public static var logobg:FlxSprite;
     public static var referencebg:FlxSprite;
+    public static var esconderTexto:Bool;
     var loginbotao:FlxButton;
 	
 	override function create()
 		{
+            esconderTexto=false;
             /*if(GJClient.logged)
             {
                 MusicBeatState.switchState(new AlreadyLogged());
@@ -96,27 +97,39 @@ class GameJoltLoginState extends MusicBeatState
             referencebg.screenCenter(XY);
 			referencebg.alpha = 1;
 			add(referencebg);
-            loadingBar = new FlxText(50, FlxG.height - 700, FlxG.width - 95, "CARREGANDO", 32);
-			loadingBar.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			loadingBar.scrollFactor.set();
-			loadingBar.alpha = 0;
-            loadingBar.screenCenter(XY);
-			add(loadingBar);
+            msgBar = new FlxText(0, 0, FlxG.width - 95, "", 80);
+			msgBar.setFormat(Paths.font("GhoulFriAOE.ttf"), 80, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			msgBar.scrollFactor.set();
+			msgBar.alpha = 1;
+            msgBar.y=536;
+            msgBar.screenCenter(X);
+			add(msgBar);
 			//add(letext);
             add(loginbotao);
             add(tokenBar);
-            falhouBar = new FlxText(50, FlxG.height, FlxG.width, "O LOGIN FALHOU!", 40);
-			falhouBar.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			falhouBar.scrollFactor.set();
-			falhouBar.alpha = 0;
-            falhouBar.screenCenter(XY);
-			add(falhouBar);
             add(userBar);
 			super.create();
 		}
 	override function update(elapsed:Float)
 		{
-            var falhou:Bool = false;
+            /*if(msgBar.text!="" && !esconderTexto)
+                {
+                    new FlxTimer().start(3, function(tmr:FlxTimer){
+                        esconderTexto=true;
+                    });
+                }*/
+
+                if(esconderTexto && msgBar.alpha>0)
+                    {
+                        msgBar.alpha=msgBar.alpha-0.005;
+                    }
+                else if(esconderTexto && msgBar.alpha==0)
+                    {
+                        msgBar.text="";
+                        esconderTexto=false;
+                        msgBar.alpha=1;
+                    }
+            //var falhou:Bool = false;
             if (FlxG.keys.justReleased.ESCAPE) {
                 FlxG.sound.play(Paths.sound('cancelMenu'));
                 MusicBeatState.switchState(new ajustes.AjustesState());
@@ -129,7 +142,7 @@ class GameJoltLoginState extends MusicBeatState
 			loginbotao.onOut.callback = loginOut;
 			loginbotao.onDown.callback = loginClick;
             //letext.text = "X: "+Std.string(loginbotao.x)+"\nY: "+ Std.string(loginbotao.y); // debug moment
-            if(falhouBar.alpha == 1)
+            /*if(falhouBar.alpha == 1)
                 {
                     new FlxTimer().start(1.5, function(tmr:FlxTimer){
                         falhou=true;
@@ -143,7 +156,7 @@ class GameJoltLoginState extends MusicBeatState
             if(falhouBar.alpha == 0)
                 {
                     falhou=false;
-                }
+                }*/
                 loginbotao.updateHitbox();
 		}
 
@@ -163,27 +176,38 @@ class GameJoltLoginState extends MusicBeatState
                             {
                                 GJClient.shitt=true;
                                 GJClient.setUserInfo(userBar.text, tokenBar.text);
-                                GJClient.initialize();
+                                GJClient.login();
+                                //GJClient.initialize();
+                                //msgBar.text="Conectando...";
+                                new FlxTimer().start(2, function(tmr:FlxTimer){
+                                    esconderTexto=true;
+                                });
                                 EsconderTudo();
                             }
                         FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
                     }
         public static function EsconderTudo():Void
             {
-                pretobg.alpha = 1;
-                tokenBar.alpha=0;
-                userBar.alpha=0;
-                loadingBar.alpha=1;
+                //pretobg.alpha = 1;
+                tokenBar.alpha=1;
+                userBar.alpha=1;
+                //loadingBar.alpha=1;
             }
         public static function Desesconder():Void
             {
-                MusicBeatState.switchState(new GameJoltLoginState());
+                //MusicBeatState.switchState(new GameJoltLoginState());
                 //falhouBar.alpha = 1;
-                pretobg.alpha = 0;
+                //pretobg.alpha = 0;
+                FlxG.save.data.user ="";
+                FlxG.save.data.token ="";
                 tokenBar.alpha=1;
                 userBar.alpha=1;
-                loadingBar.alpha=0;
-                lime.app.Application.current.window.alert("O Login falhou!", "Erro");
+                new FlxTimer().start(2, function(tmr:FlxTimer){
+                    esconderTexto=true;
+                });
+                msgBar.text="O Login falhou!";
+                //loadingBar.alpha=0;
+                //lime.app.Application.current.window.alert("O Login falhou!", "Erro");
             }
         public static function IrParaMenu():Void
             {
