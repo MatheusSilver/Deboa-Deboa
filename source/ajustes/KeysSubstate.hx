@@ -71,7 +71,7 @@ class KeysSubstate extends MusicBeatState {
 	public function new() {
 		super();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('escolhendo-vermelho'));
 		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
 		bg.updateHitbox();
 
@@ -128,17 +128,18 @@ class KeysSubstate extends MusicBeatState {
 				changeAlt();
 			}
 
-			if (controls.BACK) {
+			if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) { //haha sistema anti burrice
 				ClientPrefs.reloadControls();
+				/*
 				grpOptions.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
-				});
+				}); */
 				MusicBeatState.switchState(new ajustes.AjustesState());
 				ClientPrefs.saveSettings();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 			}
 
-			if(controls.ACCEPT && nextAccept <= 0) {
+			if(controls.ACCEPT || FlxG.keys.justPressed.ENTER && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
 					ClientPrefs.keyBinds = ClientPrefs.defaultKeys.copy();
 					reloadKeys();
@@ -200,7 +201,7 @@ class KeysSubstate extends MusicBeatState {
 		}
 		return num;
 	}
-	
+
 	function changeSelection(change:Int = 0) {
 		do {
 			curSelected += change;
@@ -347,4 +348,4 @@ class KeysSubstate extends MusicBeatState {
 			}
 		}
 	}
-}
+} 

@@ -1,15 +1,13 @@
 function onEvent(name, value1, value2, value3)
 
     if name == 'Adicionar Imagens' then
-        if tostring(value1) and tostring(value2) and tostring(value3) == '' then
+        if tostring(value1) == '' then
             removeLuaSprite('exe', true);
-            removeLuaSprite('exe1', true);
-            removeLuaSprite('exe2', true);
         else
             if legendas == true then
                 if downscroll == true then
                     if legendasporcima == true then
-                        if tostring(value2) == '' then
+                        if tostring(value2) == ''  then
                             removeLuaSprite('exe1', true);
                         else
                             imagem1 = tostring(value2)
@@ -19,8 +17,8 @@ function onEvent(name, value1, value2, value3)
                             setLuaSpriteCamera('exe1', 'camhud');
                             addLuaSprite('exe1', true);
                         end
-                        if tostring(value3) == '' then
-                            removeLuaSprite('exe1', true);
+                        if tostring(value3) == '' or tostring(value3) == 'null' then
+                            removeLuaSprite('exe2', true);
                         else
                             imagem2 = tostring(value3)
                             makeLuaSprite('exe2', imagem2, 0, -350)
@@ -48,8 +46,8 @@ function onEvent(name, value1, value2, value3)
                             addLuaSprite('exe1', true);
                         end
 
-                        if tostring(value3) == '' then
-                            removeLuaSprite('exe1', true);
+                        if tostring(value3) == '' or tostring(value3) == 'null' then
+                            removeLuaSprite('exe2', true);
                         else
                             imagem2 = tostring(value3)
                             makeLuaSprite('exe2', imagem2, 0, -350)
@@ -76,8 +74,8 @@ function onEvent(name, value1, value2, value3)
                             addLuaSprite('exe1', true);
                         end
 
-                        if tostring(value3) == '' then
-                            removeLuaSprite('exe1', true);
+                        if tostring(value3) == '' or tostring(value3) == 'null' then
+                            removeLuaSprite('exe2', true);
                         else
                             imagem2 = tostring(value3)
                             makeLuaSprite('exe2', imagem2, 0, 0)
@@ -103,8 +101,8 @@ function onEvent(name, value1, value2, value3)
                             addLuaSprite('exe1', true);
                         end
 
-                        if tostring(value3) == '' then
-                            removeLuaSprite('exe1', true);
+                        if tostring(value3) == '' or tostring(value3) == 'null' then
+                            removeLuaSprite('exe2', true);
                         else
                             imagem2 = tostring(value3)
                             makeLuaSprite('exe2', imagem2, 0, 0)

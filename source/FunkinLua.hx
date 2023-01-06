@@ -1733,6 +1733,7 @@ class FunkinLua {
 			case 'camother' | 'other': return PlayState.instance.camOther;
 			case 'camlegenda' | 'legenda': return PlayState.instance.camLegenda;
 			case 'camorig' | 'orig': return FlxG.camera;
+			case 'campasta' | 'pasta': return PastaNightSelect.selectCam;
 			case 'gameMenu' : return MainMenuStateMobile.instance.camGame;
 			case 'achMenu' : return MainMenuStateMobile.instance.camAchievement;
 		}
@@ -1787,6 +1788,13 @@ class FunkinLua {
 						  newCamEffects.push(new ShaderFilter(i.shader));
 						}
 						PlayState.instance.camGame.setFilters(newCamEffects);
+				case 'campasta' | 'pasta':
+							camGameShaders.push(effect);
+							var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+							for(i in camGameShaders){
+							  newCamEffects.push(new ShaderFilter(i.shader));
+							}
+							PastaNightSelect.selectCam.setFilters(newCamEffects);
 				default:
 						camOtherShaders.push(effect);
 						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
@@ -1825,6 +1833,13 @@ class FunkinLua {
 					  newCamEffects.push(new ShaderFilter(i.shader));
 					}
 					PlayState.instance.camOther.setFilters(newCamEffects);
+					case 'campasta' | 'pasta': 
+						camOtherShaders.remove(effect);
+						var newCamEffects:Array<BitmapFilter>=[];
+						for(i in camOtherShaders){
+						  newCamEffects.push(new ShaderFilter(i.shader));
+						}
+						PastaNightSelect.selectCam.setFilters(newCamEffects);
 			default: 
 				camGameShaders.remove(effect);
 				var newCamEffects:Array<BitmapFilter>=[];

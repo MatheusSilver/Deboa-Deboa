@@ -81,7 +81,7 @@ class MenuPreHistoria extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		#if desktop
-		DiscordClient.changePresence("Pensando em joojar a Week: " + WeekData.weeksList[curWeek], null);
+		DiscordClient.changePresence("Pensando em joojar a Week: ", WeekData.weeksList[curWeek], null);
 		#end
 
 		if (!movedBack && !selectedWeek)
@@ -98,7 +98,7 @@ class MenuPreHistoria extends MusicBeatState
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT && apertavel)
 			{
 				selectWeek();
 			}

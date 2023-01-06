@@ -40,6 +40,8 @@ class FreeplayState extends MusicBeatState
 	private static var curDifficulty:Int = 2;
 	public static var infoextended:String = '';
 	var engrenagem:FlxButton;
+	public static var weekNombre:String = '';
+	var apertavel:Bool = false;
 
 	var disc:FlxSprite = new FlxSprite(0, 0);
 	
@@ -92,7 +94,7 @@ class FreeplayState extends MusicBeatState
 				if(colors == null || colors.length < 3) {
 					colors = [146, 113, 253];
 				}
-				addSong(song[0], /*i,*/ song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]), song[3]);
+				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]), song[3]);
 			}
 		}
 		WeekData.setDirectoryFromWeek();
@@ -119,7 +121,7 @@ class FreeplayState extends MusicBeatState
 		
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].display.toLowerCase(), false, false, 'alfabetovio');
+			var songText:Alphabet = new Alphabet(0, (70 * i), songs[i].display.toLowerCase(), false, false, 0.05, 0.7, 'alfabetovio');
 			songText.isMenuTrem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
@@ -187,9 +189,9 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
-	public function addSong(songName:String,/*weekNum:Int,*/ songCharacter:String, color:Int, display:String)
+	public function addSong(songName:String,weekNum:Int, songCharacter:String, color:Int, display:String)
 	{
-		songs.push(new SongMetadata(songName, /*weekNum,*/ songCharacter, color, display));
+		songs.push(new SongMetadata(songName, weekNum, songCharacter, color, display));
 	}
 
 	var instPlaying:Int = -1;
@@ -228,16 +230,16 @@ class FreeplayState extends MusicBeatState
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		if (upP)
+		if (upP && apertavel)
 		{
 			changeSelection(-shiftMult);
 		}
-		if (downP)
+		if (downP && apertavel)
 		{
 			changeSelection(shiftMult);
 		}
 
-		if (controls.BACK)
+		if (controls.BACK && apertavel)
 		{
 			if(colorTween != null) {
 				colorTween.cancel();
@@ -247,7 +249,7 @@ class FreeplayState extends MusicBeatState
 		}
 
 		//#if PRELOAD_ALL
-		if(space && instPlaying != curSelected)
+		if(space && instPlaying != curSelected && apertavel)
 		{
 			destroyFreeplayVocals();
 			Paths.currentModDirectory = songs[curSelected].folder;
@@ -266,7 +268,7 @@ class FreeplayState extends MusicBeatState
 			vocals.volume = 0.7;
 			instPlaying = curSelected;
 		}
-		else if (accepted)
+		else if (accepted && apertavel)
 			{
 				persistentUpdate = false;
 				var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
@@ -278,6 +280,10 @@ class FreeplayState extends MusicBeatState
 					trace('Couldnt find file');
 				}
 				trace(poop);
+
+				var leWeek:WeekData = WeekData.weeksLoaded.get((WeekData.freeplayList[songs[curSelected].week]));
+				weekNombre = Std.string(leWeek); 
+				trace(weekNombre);
 	
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 				PlayState.isStoryMode = false;
@@ -288,13 +294,10 @@ class FreeplayState extends MusicBeatState
 				if(colorTween != null) {
 					colorTween.cancel();
 				}
-				FlxTween.tween(perfilSprite, {x: perfilSprite.x + 25}, 0.3, {ease: FlxEase.expoInOut});
-				FlxTween.tween(disc, {x: disc.x + 25}, 0.3, {ease: FlxEase.expoInOut,
-				onComplete: function(twn:FlxTween) {
-					FlxTween.tween(perfilSprite, {x: -2000}, 1.1, {ease: FlxEase.expoInOut}); //Eu até ia fazer de um outro jeito, mas o dav pediu menos que duzentas linhas de tweens, então vai ficar assim.
-					FlxTween.tween(disc, {x: -2000}, 1.1, {ease: FlxEase.expoInOut});
+
+				new FlxTimer().start(0.5, function(tmr:FlxTimer) {
 					openSubState(new LoadingsState()); 
-				}});
+				});
 				FlxG.camera.flash(FlxColor.WHITE, 1.5);
 				new FlxTimer().start(2.0, function(tmr:FlxTimer) {
 					LoadingState.loadAndSwitchState(new PlayState());
@@ -305,7 +308,7 @@ class FreeplayState extends MusicBeatState
 				destroyFreeplayVocals();
 			}
 
-		disc.angle +=6/(2*3.1415); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
+		disc.angle +=2/(2*3.1415); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
 		perfilSprite.angle = disc.angle;
 		outroperfilSprite.angle = disc.angle;
 	
@@ -332,6 +335,8 @@ class FreeplayState extends MusicBeatState
 	function changeSelection(change:Int = 0)
 	{
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+
+		apertavel = false;
 
 		curSelected += change;
 
@@ -386,7 +391,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 		Paths.currentModDirectory = songs[curSelected].folder;
-			var curtimer:Float = 0.5;
+			var curtimer:Float = 0.3;
 			
 			FlxTween.tween(outroperfilSprite, {alpha: 0}, curtimer, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
@@ -411,6 +416,7 @@ class FreeplayState extends MusicBeatState
 			FlxTween.tween(perfilSprite, {alpha: 1}, curtimer, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
 					perfilSprite.alpha = 0;
+					apertavel = true;
 				}
 			});
 	}
@@ -427,16 +433,16 @@ class FreeplayState extends MusicBeatState
 class SongMetadata
 {
 	public var songName:String = "";
-//	public var week:Int = 0;
+	public var week:Int = 0;
 	public var songCharacter:String = "";
 	public var display:String = ""; //vai se foder Marcos
 	public var color:Int = -7179779;
 	public var folder:String = "";
 
-	public function new(song:String,/* week:Int,*/ songCharacter:String, color:Int, display:String)
+	public function new(song:String, week:Int, songCharacter:String, color:Int, display:String)
 	{
 		this.songName = song;
-	//	this.week = week;
+		this.week = week;
 		this.songCharacter = songCharacter;
 		this.display = display; //vai se foder Marcos
 		this.color = color;
