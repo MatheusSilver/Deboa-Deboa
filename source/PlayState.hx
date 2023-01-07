@@ -1220,7 +1220,10 @@ class PlayState extends MusicBeatState
 		if(nomehistorico.toLowerCase() == 'infinito'){
 			precacheList.set('simbolo_infinito', 'image');
 			precacheList.set('Majin_Notes', 'image');
-
+			precacheList.set('one', 'image');
+			precacheList.set('three', 'image');
+			precacheList.set('two', 'image');
+			precacheList.set('gofun', 'image');
 		}
 
 		add(gfGroup);
@@ -3111,6 +3114,7 @@ class PlayState extends MusicBeatState
 				strumLineNotes.add(babyArrow);
 				babyArrow.postAddedToGroup();
 			}
+			//Fixes para players de middlescroll em musicas que as strums mudam e/ou tem três setas.
 		}
 
 	override function openSubState(SubState:FlxSubState)
@@ -4313,6 +4317,7 @@ class PlayState extends MusicBeatState
 				}); //rápido e prático : D
 
 			case 'invocar 3rdstrum':
+				if(!ClientPrefs.middleScroll){
 				var microArray:Array<String> = value1.split(',');
 				var ordem:Array<Int> = []; //Não é a paranormal kek - Talvez só um pouco
 				var charType:Int = 0;
@@ -4364,6 +4369,7 @@ class PlayState extends MusicBeatState
 				});
 			
 				//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
+				}
 
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
@@ -5099,10 +5105,6 @@ class PlayState extends MusicBeatState
 			if (curStage == 'lordxstage1'){
 				camFollow.x += dad.cameraPosition[0] + 275;
 			}
-			if (curStage == 'volcano'){
-				camFollow.x += dad.cameraPosition[0] - 250;
-				camFollow.y += dad.cameraPosition[1] - 100;
-			}
 			if (curStage == 'depths' && boyfriend.alpha == 0){
 				camFollow.x += dad.cameraPosition[0] + 100;
 			}
@@ -5123,12 +5125,6 @@ class PlayState extends MusicBeatState
 				case 'school' | 'schoolEvil':
 					camFollow.x = boyfriend.getMidpoint().x - 250;
 					camFollow.y = boyfriend.getMidpoint().y - 200;
-				case 'volcano':
-					camFollow.x = boyfriend.getMidpoint().x - 600;
-					camFollow.y += dad.cameraPosition[1] - boyfriend.cameraPosition[1] - 100;
-				if (curStage == 'depths' && boyfriend.alpha == 0){
-					camFollow.x += boyfriend.cameraPosition[0] + 100;
-			}
 			}
 			camFollow.x -= boyfriend.cameraPosition[0];
 			camFollow.y += boyfriend.cameraPosition[1];
@@ -6575,6 +6571,7 @@ class PlayState extends MusicBeatState
 				playerStrums.remove(todel);
 				todel.destroy();
 			});
+			if(!ClientPrefs.middleScroll){
 			opponentStrums.forEach(function(todel:StrumNote)
 			{
 				opponentStrums.remove(todel);
@@ -6585,6 +6582,7 @@ class PlayState extends MusicBeatState
 				thirdplayerStrums.remove(todel);
 				todel.destroy();
 			});
+			}
 			strumLineNotes.forEach(function(todel:StrumNote)
 			{
 				strumLineNotes.remove(todel);

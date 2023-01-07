@@ -267,6 +267,9 @@ class Note extends FlxSprite
 			earlyHitMult = 1;
 		}
 		x += offsetX;
+		if(ClientPrefs.middleScroll && !mustPress){
+			visible = false;
+		}
 	}
 
 	public function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '') {

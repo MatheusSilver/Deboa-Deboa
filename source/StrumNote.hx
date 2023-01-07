@@ -24,6 +24,18 @@ class StrumNote extends FlxSprite
 		super(x, y);
 
 		if(texture == null){ texture = 'NOTE_assets';}
+		
+		if(ClientPrefs.middleScroll){
+			switch (player)
+			{
+				case 0:
+					visible = false;
+				case 1:
+					visible = true;
+				case 2:
+					visible = false;
+			}
+		}
 
 		var lastAnim:String = null;
 		if(animation.curAnim != null) lastAnim = animation.curAnim.name;
@@ -108,7 +120,7 @@ class StrumNote extends FlxSprite
 	public function postAddedToGroup() {
 		playAnim('static');
 		x += Note.swagWidth * noteData;
-		if (PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada'){
+		if (PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada' || ClientPrefs.middleScroll){
 		x += 50;
 		x += ((FlxG.width / 2) * player);
 		} else {
