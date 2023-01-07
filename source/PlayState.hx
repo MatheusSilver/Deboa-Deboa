@@ -937,9 +937,9 @@ class PlayState extends MusicBeatState
 				add(stardustBgPixel);
 				add(stardustFurnace);
 
-				boyfriend.alpha = 0;
+				//boyfriend.alpha = 0;
 				camHUD.alpha = 0;
-				FlxTween.tween(boyfriend, {alpha: 1}, 6);
+				//FlxTween.tween(boyfriend, {alpha: 1}, 6);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -3901,7 +3901,7 @@ class PlayState extends MusicBeatState
 					if (SONG.needsVoices){
 						vocals.volume = 1;
 					} else{
-						FlxG.sound.volume = 1;
+						//- = 1;
 					}
 
 					var time:Float = 0.15;
@@ -5516,7 +5516,7 @@ class PlayState extends MusicBeatState
 		// boyfriend.playAnim('hey');
 		vocals.volume = 1;
 		if(!SONG.needsVoices){
-			FlxG.sound.volume = 1;
+			//lxG.sound.volume = 1;
 		}
 
 		var placement:String = Std.string(combo);
@@ -6054,7 +6054,7 @@ class PlayState extends MusicBeatState
 			note.wasGoodHit = true;
 			vocals.volume = 1;
 			if(!SONG.needsVoices){
-				FlxG.sound.volume = 1;
+				//FlxG.sound.volume = 1;
 			}
 
 			var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD

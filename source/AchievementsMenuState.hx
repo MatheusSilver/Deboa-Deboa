@@ -96,7 +96,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		majin = new FlxSprite(512 - 80 + 30, -250);
 		majin.frames = Paths.getSparrowAtlas('conquistas/menu/majinnatalino', 'preload');
-		majin.animation.addByPrefix('idle', "majinnatalino idle", 24);
+		majin.animation.addByPrefix('majinnatalino idle', "majinnatalino idle", 24);
 		majin.flipX = true;
 		majin.setGraphicSize(Std.int(majin.width * 1.35));
 		majin.antialiasing = ClientPrefs.globalAntialiasing;
@@ -185,7 +185,7 @@ class AchievementsMenuState extends MusicBeatState
 	override function beatHit()
 		{
 			super.beatHit(); //interessante, ovô rosbar
-			if(isCoolBeata){majin.animation.play('idle', true);}
+			if(isCoolBeata){majin.animation.play('majinnatalino idle', true);}
 			isCoolBeata = !isCoolBeata;
 		}
 
