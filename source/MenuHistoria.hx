@@ -108,20 +108,6 @@ class MenuHistoria extends MusicBeatSubstate
 		if (!movedBack && !selectedWeek)
 		{
 
-			#if debug
-			if (FlxG.keys.justPressed.SEVEN && nombres[curSelected].toLowerCase() != 'controle' && nombres[curSelected] != 'Cross Console Clash' && nombres[curSelected] != 'Noite da Rapaziada'){
-				var songLowercase:String = Paths.formatToSongPath(musicas[curSelected].songName);
-				var poop:String = Highscore.formatSong(musicas[curSelected].songName.toLowerCase(), 2);
-				if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
-					poop = songLowercase;
-					trace('Couldnt find file');
-				}
-				trace(poop);
-				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-				MusicBeatState.switchState(new editors.ChartingState());
-			}
-			#end
-
 			if (controls.UI_LEFT_P && apertavel && musicas.length > 1) //MALUCO EU SOU MUITO BURRO...
 				//Consegui cometer o mesmo erro duas vezes seguidas...
 			{
@@ -174,8 +160,13 @@ class MenuHistoria extends MusicBeatSubstate
 
 			if (controls.ACCEPT && apertavel)
 			{
-				selectSong();
+				selectSong(true);
+			} 	
+			#if debug
+			else if (FlxG.keys.justPressed.SEVEN && nombres[curSelected].toLowerCase() != 'controle' && nombres[curSelected] != 'Cross Console Clash' && nombres[curSelected] != 'Noite da Rapaziada'){
+				selectSong(false);
 			}
+			#end
 		}
 
 		super.update(elapsed);
@@ -185,7 +176,7 @@ class MenuHistoria extends MusicBeatSubstate
 	var selectedWeek:Bool = false;
 	var stopspamming:Bool = false;
 
-	function selectSong()
+	function selectSong(toPlay:Bool)
 	{
 			if (stopspamming == false)
 			{
@@ -228,10 +219,14 @@ class MenuHistoria extends MusicBeatSubstate
 			onComplete: function(twn:FlxTween) {
 				FlxTween.tween(pastbgSprite, {alpha: 0}, 1.0,{ease: FlxEase.linear});
 			}});
+			if(toPlay){
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
 				openSubState(new LoadingsState());
 				LoadingState.loadAndSwitchState(new PlayState());
 			});
+			} else{
+				MusicBeatState.switchState(new editors.ChartingState());
+			}
 
 			FlxG.sound.music.volume = 0;
 			} else if (nombres[curSelected].toLowerCase() == 'controle'){
