@@ -185,7 +185,7 @@ class Alphabet extends FlxSpriteGroup
 					}
 				}
 			} else{
-				letter.createvioLetter(character);
+				letter.createvioLetter(character.toLowerCase());
 			}
 
 				add(letter);
