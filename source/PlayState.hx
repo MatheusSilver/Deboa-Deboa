@@ -3473,13 +3473,13 @@ class PlayState extends MusicBeatState
 				var thisY:Float = Math.sin(SpinAmount * (SpinAmount)) * 100;
 				for (str in playerStrums)
 				{
-					str.angle = str.angle + SpinAmount;
-					SpinAmount = SpinAmount + 0.0003;
+					str.angle = str.angle + SpinAmount; //Porque eu quero e posso...
+					SpinAmount = SpinAmount + 0.005;
 				}
 				for (str in opponentStrums)
 				{
 					str.angle = str.angle + SpinAmount;
-					SpinAmount = SpinAmount + 0.0003;
+					SpinAmount = SpinAmount + 0.005;
 				}
 			}
 			if (SONG.song.toLowerCase() == 'personel' && isPlayersSpinning)
