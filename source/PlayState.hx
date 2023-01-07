@@ -438,6 +438,50 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		if (curSong != SONG.song) // Aqui tá a base.
+		{
+			trace("Iniciando precache no PlayState.");
+			if (SONG.song.toLowerCase() == 'too-slow') 
+			{
+				precacheList.set('PolishedP1/FLOOR1', 'image');
+				precacheList.set('PolishedP1/sonicJUMPSCARE', 'image');
+				precacheList.set('daSTAT', 'image');
+				precacheList.set('hitStatic','image');
+				precacheList.set('characters/Sonic_EXE_Assets1', 'image');
+			}
+
+			else if (SONG.song.toLowerCase() == 'you-cant-run') 
+			{
+				precacheList.set('cenarios/Glitch', 'image');
+				precacheList.set('cenarios/GreenHill', 'image');
+				precacheList.set('cenarios/ground', 'image');
+				precacheList.set('exep3/Glitch', 'image');
+				precacheList.set('exep3/Grass', 'image');
+				precacheList.set('exep3/hitStatic', 'image');
+				precacheList.set('exep3/NewTitleMenuBG', 'image');
+				precacheList.set('exep3/Phase3Static', 'image');
+				precacheList.set('exep3/Trees', 'image');
+				precacheList.set('exep3/Trees2', 'image');
+			}
+
+			else if (SONG.song.toLowerCase() == 'triple-trouble') 
+			{
+				precacheList.set('exep3/Glitch', 'image');
+				precacheList.set('exep3/Grass', 'image');
+				precacheList.set('exep3/hitStatic', 'image');
+				precacheList.set('exep3/NewTitleMenuBG', 'image');
+				precacheList.set('exep3/Phase3Static', 'image');
+				precacheList.set('exep3/Trees', 'image');
+				precacheList.set('exep3/Trees2', 'image');
+				precacheList.set('eggman', 'image');
+				precacheList.set('Knuckles', 'image');
+				precacheList.set('Tails', 'image');
+			}
+
+			// Para fazer: Migrar a Endless pra cá.
+
+			trace("Precache finalizado");
+		}
 
 		if (SONG.song.toLowerCase() == "triple-trouble"){
 			// Só fiz com variável pq sim
@@ -647,7 +691,6 @@ class PlayState extends MusicBeatState
 
 			case 'too-slow':
 					{
-						// Não vai ter como por conta dos assets não estarem separados
 						var bg:FlxSprite = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
 						bg.antialiasing = true;
 						bg.scrollFactor.set(1.3, 1);
