@@ -59,8 +59,8 @@ class FreeplayState extends MusicBeatState
 	var bg:FlxSprite;
 	var perfilSprite:FlxSprite = null;
 	var outroperfilSprite:FlxSprite = null; //Fuuuuuuuuuuuuuuuuuuuuuuu
-	var intendedColor:Int;
-	var colorTween:FlxTween;
+//	var intendedColor:Int;
+//	var colorTween:FlxTween;
 
 	override function create()
 	{
@@ -167,17 +167,14 @@ class FreeplayState extends MusicBeatState
 		add(outroperfilSprite);
 		outroperfilSprite.alpha = 0;
 		perfilSprite.alpha = 0;
-
-		disc.scale.x = 0; //Detalhe soda ou não né?
 		disc.screenCenter(Y);
 		perfilSprite.screenCenter(Y);
 		outroperfilSprite.screenCenter(Y);
-		FlxTween.tween(disc, {'scale.x': 1}, 0.2, {ease: FlxEase.quartInOut,
-		onComplete: function(twn:FlxTween){
-			FlxTween.tween(disc, {x: 48}, 0.5, {ease: FlxEase.quartInOut});
-		}});
-		perfilSprite.x = 118;
-		outroperfilSprite.x = 118;
+		disc.x = 48;
+		perfilSprite.x = 118 + 38;
+		perfilSprite.alpha = 0;
+		outroperfilSprite.alpha = 0;
+		outroperfilSprite.x = 118 + 38;
 
 		changeSelection();
 		
@@ -202,6 +199,21 @@ class FreeplayState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
+
+		#if debug
+		if (FlxG.keys.justPressed.SEVEN){
+			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
+			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
+			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
+				poop = songLowercase;
+				curDifficulty = 2;
+				trace('Couldnt find file');
+			}
+			trace(poop);
+			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			MusicBeatState.switchState(new editors.ChartingState());
+		}
+		#end
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
@@ -241,9 +253,9 @@ class FreeplayState extends MusicBeatState
 
 		if (controls.BACK && apertavel)
 		{
-			if(colorTween != null) {
-				colorTween.cancel();
-			}
+	//		if(colorTween != null) {
+		//		colorTween.cancel();
+		//	}
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
@@ -253,8 +265,15 @@ class FreeplayState extends MusicBeatState
 		{
 			destroyFreeplayVocals();
 			Paths.currentModDirectory = songs[curSelected].folder;
+			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
+				poop = songLowercase;
+				curDifficulty = 2;
+				trace('Couldnt find file');
+			}
+			trace(poop);
+			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			if (PlayState.SONG.needsVoices)
 				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 			else
@@ -281,8 +300,7 @@ class FreeplayState extends MusicBeatState
 				}
 				trace(poop);
 
-				var leWeek:WeekData = WeekData.weeksLoaded.get((WeekData.freeplayList[songs[curSelected].week]));
-				weekNombre = Std.string(leWeek); 
+				weekNombre = WeekData.freeplayList[songs[curSelected].week]; //Array dentro de array dentro de array k
 				trace(weekNombre);
 	
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
@@ -291,9 +309,9 @@ class FreeplayState extends MusicBeatState
 	
 				justread = songs[curSelected].songName;
 
-				if(colorTween != null) {
-					colorTween.cancel();
-				}
+			//	if(colorTween != null) {
+			//		colorTween.cancel();
+			//	}
 
 				new FlxTimer().start(0.5, function(tmr:FlxTimer) {
 					openSubState(new LoadingsState()); 
@@ -400,6 +418,8 @@ class FreeplayState extends MusicBeatState
 						outroperfilSprite.updateHitbox();
 						outroperfilSprite.screenCenter(Y);
 						outroperfilSprite.alpha = 1;
+						outroperfilSprite.scale.x = 1.05;
+						outroperfilSprite.scale.y = 1.05;
 					} else {
 						FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
 					}
@@ -410,6 +430,8 @@ class FreeplayState extends MusicBeatState
 				perfilSprite.updateHitbox();
 				perfilSprite.screenCenter(Y);
 				perfilSprite.alpha = 0;
+				perfilSprite.scale.x = 1.05;
+				perfilSprite.scale.y = 1.05;
 			} else {
 				FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
 			}

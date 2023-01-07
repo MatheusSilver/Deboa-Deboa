@@ -2,8 +2,11 @@ function onCreate()
 	precacheImage('tails')
 	precacheImage('tails2')
 	makeAnimationList();
+
+	makeLuaSprite('bg','cenarios/bg',-400,-170)
+    setScrollFactor('bg', 1, 1);
 		
-	makeAnimatedLuaSprite('tail', 'cenarios/console/tails', -501, -70); -- tails
+	makeAnimatedLuaSprite('tail', 'cenarios/tails', -501, -70); -- tails
 	addAnimationByPrefix('tail', 'idle', 'idle', 12, false)
 	addAnimationByPrefix('tail', 'singLEFT', 'left', 12, false)
 	addAnimationByPrefix('tail', 'singDOWN', 'down', 12, false)
@@ -15,12 +18,13 @@ function onCreate()
 	setProperty('tail.alpha', 0);
 	setProperty('tail.antialiasing', false)
 
-	makeAnimatedLuaSprite('tail2', 'cenarios/console/tails2', -501, -70);
+	makeAnimatedLuaSprite('tail2', 'cenarios/tails2', -501, -70);
 	addAnimationByPrefix('tail2', 'comeon', 'comeon', 12, false)
 	setScrollFactor('tail2', 1, 1);
 	setProperty('tail2.alpha', 0);
 	setProperty('tail2.antialiasing', false)
-	
+
+	addLuaSprite('bg', false);
 	addLuaSprite('tail', false);
 	scaleObject('tail', 10, 10);
 	addLuaSprite('tail2', false);

@@ -9067,7 +9067,7 @@
 		"validScore": true,
 		"stage": "you",
 		"arrowSkin": "",
-		"needsVoices": true,
+		"needsVoices": false,
 		"speed": 2.7,
 		"bpm": 160
 	}

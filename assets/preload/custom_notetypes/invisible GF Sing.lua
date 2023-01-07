@@ -3,7 +3,7 @@ function onCreate()
 	for i = 0, getProperty('unspawnNotes.length')-1 do
 	--Check if the note is an Instakill Note
 		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'invisible GF Sing' then
-			setPropertyFromGroup('unspawnNotes', i, 'texture', 'INVISIBLENOTE_assets'); --Change texture
+			setPropertyFromGroup('unspawnNotes', i, 'texture', 'nota_invisivel'); --Change texture
 			setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true)
 		end
 	end
