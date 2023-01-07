@@ -478,6 +478,11 @@ class PlayState extends MusicBeatState
 				precacheList.set('Tails', 'image');
 			}
 
+			else if (SONG.song.toLowerCase() == 'too-fest') 
+				{
+					precacheList.set('letras/too-fest/Legenda', 'image');
+				}
+
 			// Para fazer: Migrar a Endless pra cá.
 
 			trace("Precache finalizado");
