@@ -33,9 +33,7 @@ import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
 
-#if aMODS_ALLOWED
 import sys.FileSystem;
-#end
 
 using StringTools;
 
@@ -898,15 +896,14 @@ class CharacterEditorState extends MusicBeatState
 	function reloadCharacterDropDown() {
 		var charsLoaded:Map<String, Bool> = new Map();
 
-		#if aMODS_ALLOWED
 		characterList = [];
-		var directories:Array<String> = [Paths.mods('characters/'), Paths.mods(Paths.currentModDirectory + '/characters/'), Paths.getPreloadPath('characters/')];
+		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
-			if(HSys.exists(directory)) {
-				for (file in HSys.readDirectory(directory)) {
+			if(FileSystem.exists(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
-					if (!HSys.isDirectory(path) && file.endsWith('.json')) {
+					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
 						var charToCheck:String = file.substr(0, file.length - 5);
 						if(!charsLoaded.exists(charToCheck)) {
 							characterList.push(charToCheck);
@@ -916,9 +913,6 @@ class CharacterEditorState extends MusicBeatState
 				}
 			}
 		}
-		#else
-		characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
-		#end
 
 		charDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(characterList, true));
 		charDropDown.selectedLabel = daAnim;

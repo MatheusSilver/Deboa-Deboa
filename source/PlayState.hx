@@ -6,7 +6,6 @@ import sys.io.Process; // medo
 #end
 import lime.system.System;
 import openfl.Lib;
-import FNFSprite;
 import webm.WebmPlayer;
 import flixel.addons.display.FlxTiledSprite;
 #if desktop
@@ -77,6 +76,9 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	var precacheList:Map<String, String> = new Map<String, String>();
+
+	var hitsound:FlxSound;
 	var giraArray:Array<Int>;
 
 	public static var modohistoria:Bool = false;
@@ -763,15 +765,6 @@ class PlayState extends MusicBeatState
 				barmesafront = new BGSprite('cenarios/TABLE', -850, 700, 0.05, 0.05);
 				barmesafront.setGraphicSize(Std.int(barmesafront.width * 1.1));
 
-			case 'console':
-
-				var bg:FNFSprite = new FNFSprite(0, 0).loadGraphic(Paths.image('cenarios/console/bg'));
-				bg.scrollFactor.set(1, 1);
-				bg.antialiasing = false;
-				bg.setGraphicSize(Std.int(bg.width * 12));
-				bg.updateHitbox();
-				add(bg);
-
 			case 'P2Stage':
 				p2Sky = new BGSprite('cenarios/stage/Glitch', -200, -200, 0.6, 0.6);
 				p2Sky.scale.x = 0.8;
@@ -1202,19 +1195,23 @@ class PlayState extends MusicBeatState
 		}
 
 		if(nomehistorico.toLowerCase() == 'infinito'){
-			var infinitesimbolocache:FlxSprite = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
-			add(infinitesimbolocache);
-			remove(infinitesimbolocache);
-			var majinnotasprecache:FlxSprite = new FlxSprite(6000, 6000);
-			majinnotasprecache.frames = Paths.getSparrowAtlas('Majin_Notes');
-			add(majinnotasprecache);
-			remove(majinnotasprecache);
+			precacheList.set('simbolo_infinito', 'image');
+			precacheList.set('Majin_Notes', 'image');
+
 		}
 
 		add(gfGroup);
 
-		for (i in 0...3){
-		spawnNoteSplash(9999,9999,1);//Apenas pra dar precache (eu real não entendo o motivo disso, mas né? funciona...)
+		if(ClientPrefs.noteSplashes){
+		var skinsplashcache:String;
+		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0){skinsplashcache = PlayState.SONG.splashSkin;} else{skinsplashcache = 'noteSplashes';};
+		precacheList.set(skinsplashcache, 'image');
+		}
+
+		if (ClientPrefs.hitSounds){
+			precacheList.set('osu/' + ClientPrefs.hitSoundType, 'shared');
+			precacheList.set('breakfast', 'music');
+			hitsound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
 		}
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
@@ -2109,9 +2106,9 @@ class PlayState extends MusicBeatState
 			RecalculateRating();
 
 		//PRECACHING MISS SOUNDS BECAUSE I THINK THEY CAN LAG PEOPLE AND FUCK THEM UP IDK HOW HAXE WORKS
-		/*CoolUtil.precacheSound('missnote1');
-		CoolUtil.precacheSound('missnote2');
-		CoolUtil.precacheSound('missnote3');*/
+	//	precacheList.set('missnote1', 'sound');
+	//	precacheList.set('missnote2', 'sound');
+	//	precacheList.set('missnote3', 'sound');
 
 		#if desktop
 		// Updating Discord Rich Presence.
@@ -2125,6 +2122,19 @@ class PlayState extends MusicBeatState
 
 		cacheCountdown();
 		cachePopUpScore();
+		for (key => type in precacheList)
+			{
+				//trace('Key $key is type $type');
+				switch(type)
+				{
+					case 'image':
+						Paths.image(key);
+					case 'sound':
+						Paths.sound(key);
+					case 'music':
+						Paths.music(key);
+				}
+			}
 	}
 
 	private function cachePopUpScore()
@@ -2859,7 +2869,6 @@ class PlayState extends MusicBeatState
 		// NEW SHIT
 		noteData = songData.notes;
 
-		var playerCounter:Int = 0;
 
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
 
@@ -2971,7 +2980,6 @@ class PlayState extends MusicBeatState
 		}
 
 		// trace(unspawnNotes.length);
-		// playerCounter += 1;
 
 		unspawnNotes.sort(sortByShit);
 		if(eventNotes.length > 1) { //No need to sort if there's a single one or none at all
@@ -3869,6 +3877,8 @@ class PlayState extends MusicBeatState
 
 					if (SONG.needsVoices){
 						vocals.volume = 1;
+					} else{
+						FlxG.sound.volume = 1;
 					}
 
 					var time:Float = 0.15;
@@ -5482,6 +5492,9 @@ class PlayState extends MusicBeatState
 
 		// boyfriend.playAnim('hey');
 		vocals.volume = 1;
+		if(!SONG.needsVoices){
+			FlxG.sound.volume = 1;
+		}
 
 		var placement:String = Std.string(combo);
 
@@ -5495,6 +5508,8 @@ class PlayState extends MusicBeatState
 		var daRating:String = "sick";
 
 		if(note.noteType != 'player3'){
+
+			if (ClientPrefs.hitSounds) hitsound.play(true); //true seguida que ele vai ser forçado a reiniciar toda vez que você acertar uma nota.
 
 		if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
@@ -5936,8 +5951,6 @@ class PlayState extends MusicBeatState
 				}
 			health += note.hitHealth;
 
-						if (!note.isSustainNote && ClientPrefs.hitSounds) FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.osusom);
-
 			if(!note.noAnimation) {
 				var daAlt = '';
 				if(note.noteType == 'Alt Animation') daAlt = '-alt';
@@ -6017,6 +6030,9 @@ class PlayState extends MusicBeatState
 			}
 			note.wasGoodHit = true;
 			vocals.volume = 1;
+			if(!SONG.needsVoices){
+				FlxG.sound.volume = 1;
+			}
 
 			var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
 			var leData:Int = Math.round(Math.abs(note.noteData));

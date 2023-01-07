@@ -188,7 +188,7 @@ class ChartingState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Chartando uhull", StringTools.replace(PlayState.SONG.song, '-', ' '));
+		DiscordClient.changePresence("Chartando uhull", null);
 		#end
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
@@ -392,12 +392,12 @@ class ChartingState extends MusicBeatState
 		});
 
 		var reloadSongJson:FlxButton = new FlxButton(reloadSong.x, saveButton.y + 30, "Reload JSON", function()
-		{
-			loadJson(_song.song.toLowerCase());
-		});
-
-		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
-		{
+			{
+				loadJson(_song.song.toLowerCase());
+			});
+	
+			var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
+			{
 			PlayState.SONG = Song.parseJSONshit(FlxG.save.data.autosave);
 			MusicBeatState.resetState();
 		});
@@ -427,7 +427,7 @@ class ChartingState extends MusicBeatState
 		});
 
 		var saveEvents:FlxButton = new FlxButton(110, reloadSongJson.y, 'Save Events', function ()
-		{
+			{
 			saveEvents();
 		});
 
@@ -471,7 +471,7 @@ class ChartingState extends MusicBeatState
 			tempMap.set(characters[i], true);
 		}
 
-		#if aMODS_ALLOWED
+		#if MODS_ALLOWED
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(FileSystem.exists(directory)) {
@@ -529,7 +529,7 @@ class ChartingState extends MusicBeatState
 			}
 			tempMap.set(stageToCheck, true);
 		}
-		#if aMODS_ALLOWED
+		#if MODS_ALLOWED
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(Assets.exists(directory)) {
@@ -766,7 +766,7 @@ class ChartingState extends MusicBeatState
 		}
 
 		#if LUA_ALLOWED
-		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/'), Paths.getPreloadPath('custom_notetypes/')];
+		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
 			if(FileSystem.exists(directory)) {
@@ -819,7 +819,7 @@ class ChartingState extends MusicBeatState
 
 		#if LUA_ALLOWED
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
-		var directories:Array<String> = [Paths.getPreloadPath('custom_events/'), Paths.getPreloadPath('custom_events/')];
+		var directories:Array<String> = [Paths.getPreloadPath('custom_events/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
 			if(FileSystem.exists(directory)) {
@@ -2111,9 +2111,9 @@ class ChartingState extends MusicBeatState
 	}
 
 	function loadJson(song:String):Void
-	{
-		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
-		MusicBeatState.resetState();
+		{
+			PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+			MusicBeatState.resetState();
 	}
 
 	function autosaveSong():Void

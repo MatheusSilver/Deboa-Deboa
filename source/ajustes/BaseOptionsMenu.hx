@@ -38,7 +38,9 @@ class BaseOptionsMenu extends MusicBeatState
 	static var noCheckbox:Array<String> = [
 		'FPS',
 		'Delay da Nota',
-		'Volume do Hitsound'
+		'Volume do Hitsound',
+		'Som do Hitsound',
+		'Teste o HitSound'
 	];
 
 	static var options:Array<String> = [
@@ -62,10 +64,12 @@ class BaseOptionsMenu extends MusicBeatState
 		'Esconder barra de tempo',
 		'Hitsounds',
 		'Volume do Hitsound',
+		'Som do Hitsound',
+		'Teste o HitSound',
 		'Luzes Piscantes',
 		'Legendas',
 		'Zooms de Camera',
-		'Contadores (FPS e memória)'
+		'Contadores (FPS e memoria)'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -313,20 +317,33 @@ class BaseOptionsMenu extends MusicBeatState
 						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
 						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
 					case 'Volume do Hitsound':
+						if (ClientPrefs.hitSounds){
 						ClientPrefs.osusom += addo;
-						if(ClientPrefs.violence) {
-						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('hitsound'));
+						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
-						}
 						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
 						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
+					}
+					case 'Som do Hitsound':
+						if (ClientPrefs.hitSounds){
+							ClientPrefs.hitSoundType += add;
+						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
+						hitsound.volume = ClientPrefs.osusom;
+						hitsound.play();
+						if(ClientPrefs.hitSoundType < 0) ClientPrefs.hitSoundType = 0;
+						else if(ClientPrefs.hitSoundType > 3) ClientPrefs.hitSoundType = 3; 
+						}
 				}
 				reloadValues();
 
 				if(holdTime <= 0) FlxG.sound.play(Paths.sound('scrollMenu'));
 				holdTime += elapsed;
-			} else {
+			} else if (controls.ACCEPT && options[curSelected] == 'Teste o HitSound' && ClientPrefs.hitSounds){
+				var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
+				hitsound.volume = ClientPrefs.osusom;
+				hitsound.play();
+			}else {
 				holdTime = 0;
 			}
 		}
@@ -370,11 +387,15 @@ class BaseOptionsMenu extends MusicBeatState
 			case 'Anti-Aliasing':
 				daText = "Se marcado, desativa o AntiAliasing do jogo, deixando sprites com menos polimento.\n(Aumenta MUITA performance)";
 			case 'Downscroll':
-				daText = "Se marcado, as notas ficaram estilo Guitar Hero.\n(Iram pra baixo)";
+				daText = "Se marcado, as notas ficaram estilo Guitar Hero.\n(Irão pra baixo)";
 			case 'Hitsounds':
 				daText = "Um som é tocado quando você acerta uma nota.";
+			case 'Teste o HitSound':
+				daText = "Aperte Enter para testar o volume e o som do Hitsound escolhido. \n a opção de hitsound precisa estar ativa para funcionar.";
+			case 'Som do Hitsound':
+				daText = "Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis \n Os Hitsounds precisam estar ativos para mudar esta opção.";
 			case 'Volume do Hitsound':
-				daText = "Altere aqui o volume do som da Hitsound.\n(Esquerda para abaixar, direita para aumentar.)";
+				daText = "Altere aqui o volume do som da Hitsound.\n(Esquerda para abaixar, direita para aumentar.) \n Os Hitsounds precisam estar ativos para mudar esta opção.";
 			case 'Middlescroll':
 				daText = "Se marcado, a nota do oponente irá sumir e a sua ficará no meio.";
 			case 'Ghost Tapping':
@@ -488,6 +509,10 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = ClientPrefs.noteOffset + 'ms';
 					case 'Volume do Hitsound':
 						daText = ClientPrefs.osusom + '';
+					case 'Som do Hitsound':
+						daText = 'Som ' + ClientPrefs.hitSoundType;
+					case 'Teste o HitSound':
+						daText = '';
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;

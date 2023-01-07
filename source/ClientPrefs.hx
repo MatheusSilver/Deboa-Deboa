@@ -26,6 +26,7 @@ class ClientPrefs {
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var hitSounds:Bool = false;
+	public static var hitSoundType:Int = 0;
 	public static var osusom:Float = 0.5;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
@@ -80,6 +81,7 @@ class ClientPrefs {
 		FlxG.save.data.osusom = osusom;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.hitSounds = hitSounds;
+		FlxG.save.data.hitSoundType = hitSoundType;
 		FlxG.save.data.legendas = legendas;
 		FlxG.save.data.legendasporcima = legendasporcima;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
@@ -129,6 +131,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hitSounds != null) {
 			hitSounds = FlxG.save.data.hitSounds;
+		}
+		if(FlxG.save.data.hitSoundType != null) {
+			hitSoundType = FlxG.save.data.hitSoundType;
 		}
 		if(FlxG.save.data.showFPS != null) {
 			showFPS = FlxG.save.data.showFPS;
