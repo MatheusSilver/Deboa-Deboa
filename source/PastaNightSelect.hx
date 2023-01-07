@@ -10,6 +10,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import MusicBeatSubstate;
 import PlayState;
+import Shaders;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -23,6 +24,7 @@ class PastaNightSelect extends MusicBeatState {
     var displacementList:Array<Int> = [-4,2,0];
 	var crt:ShaderFilter;
 	var paracomessapohameno:Bool = false;
+	//public static var instance:PastaNightSelect;
 
 
 	override public function create()
@@ -38,8 +40,9 @@ class PastaNightSelect extends MusicBeatState {
 		selector = -1;
 		selectCam = new FlxCamera(0, 0, 768, 672);
 		FlxG.cameras.reset(selectCam);
-		crt = new ShaderFilter(new CRTEffectShader()); //Just Testing
-		selectCam.setFilters([crt]);
+		//crt = new ShaderFilter(new CRTEffectShader()); //Just Testing
+		FunkinLua.addShaderToCamera('campasta', new ChromaticAberrationEffect(0.0025));
+		//selectCam.setFilters([crt]);
 		selectCam.x += (FlxG.width / 2 - selectCam.width / 2);
 		selectCam.y += (FlxG.height / 2 - selectCam.height / 2);
 
@@ -126,6 +129,7 @@ class PastaNightSelect extends MusicBeatState {
 				openSubState(new LoadingsState());
 				new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 					LoadingState.loadAndSwitchState(new PlayState());
+					FunkinLua.removeShaderFromCamera('campasta', new ChromaticAberrationEffect(0.0025));
 					FlxG.sound.music.stop();
 					FlxG.sound.music = null;
 				});

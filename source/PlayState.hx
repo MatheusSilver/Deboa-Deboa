@@ -4,6 +4,11 @@ import HSys;
 #if desktop
 import sys.io.Process; // medo
 #end
+#if asys
+import Sys;
+import sys.FileSystem;
+import sys.io.File;
+#end
 import lime.system.System;
 import openfl.Lib;
 import webm.WebmPlayer;
@@ -519,6 +524,24 @@ class PlayState extends MusicBeatState
 		// String for when the game is paused
 		detailsPausedText = "Pausado - " + detailsText;
 		#end
+				// "GLOBAL" SCRIPTS
+				var filesPushed:Array<String> = [];
+				var foldersToCheck:Array<String> = [Paths.getPreloadPath('scripts/')];
+
+				for (folder in foldersToCheck)
+					{
+						if(sys.FileSystem.exists(folder))
+						{
+							for (file in sys.FileSystem.readDirectory(folder))
+							{
+								if(file.endsWith('.lua') && !filesPushed.contains(file))
+								{
+									luaArray.push(new FunkinLua(folder + file));
+									filesPushed.push(file);
+								}
+							}
+						}
+					}
 
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
 		bottomBar = new FlxSprite(0, 720).makeGraphic(1280, 170, FlxColor.BLACK);

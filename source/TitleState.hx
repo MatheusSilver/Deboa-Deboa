@@ -70,7 +70,7 @@ class TitleState extends MusicBeatState
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 		//FunkinLua.addShaderToCamera('orig', new BloomEffect(0.05/512.0,0.05));
-		FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
+		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		#if (polymod && !android)
 		if (HSys.exists('mods/')) {
 			var folders:Array<String> = [];
@@ -294,7 +294,7 @@ class TitleState extends MusicBeatState
 		add(gradientBar);
 		FlxTween.tween(gradientBar, {'scale.y': 1.3}, 8, {ease: FlxEase.quadInOut}); // long gradient tween
 
-		credTextShit = new Alphabet(0, 0, "", true, false, 0.075, 1, 'branco');
+		credTextShit = new Alphabet(0, 0, "", true, false, 0.075, 1, 'alfabetovio');
 		credTextShit.screenCenter();
 
 		// credTextShit.alignment = CENTER;
@@ -475,7 +475,7 @@ class TitleState extends MusicBeatState
 	{
 		for (i in 0...textArray.length)
 		{
-			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false, 0.5, 1, 'branco');
+			var money:Alphabet = new Alphabet(0, 0, textArray[i], true, false, 0.5, 1, 'alfabetovio');
 			money.screenCenter(X);
 			money.y += (i * 60) + 200 + offset;
 			credGroup.add(money);
@@ -486,7 +486,7 @@ class TitleState extends MusicBeatState
 	function addMoreText(text:String, ?offset:Float = 0)
 	{
 		if(textGroup != null) {
-			var coolText:Alphabet = new Alphabet(0, 0, text, true, false, 0.5, 1, 'branco');
+			var coolText:Alphabet = new Alphabet(0, 0, text, true, false, 0.5, 1, 'alfabetovio');
 			coolText.screenCenter(X);
 			coolText.y += (textGroup.length * 60) + 200 + offset;
 			credGroup.add(coolText);

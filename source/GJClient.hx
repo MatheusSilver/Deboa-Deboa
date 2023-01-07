@@ -81,12 +81,12 @@ class GJClient
                 function () {printMsg('GUI Parameters Changed: New User -> ${getUser()} | New Token -> ${getToken()}'); if(shitt){GameJoltLoginState.IrParaMenu(); shitt=false;}; userName = user;},
                 function ()
                 {
-                    FlxG.save.data.user = temp_user;
-                    FlxG.save.data.token = temp_token;
+                    FlxG.save.data.user = user;
+                    FlxG.save.data.token = token;
                 }
             );
-
-            //login();
+                //login();
+            //initialize();
         }
     }
 
@@ -529,7 +529,7 @@ class GJClient
             authUser(function () {login(function (userData:User) {if (onSuccess != null && !logged) onSuccess(userData);},onFail);}, onFail);
             if (logged) printMsg('Initialized successfully!');
         }
-        else printMsg('Initializing failed!'); if(shitt){GameJoltLoginState.Desesconder();}
+        else {printMsg('Initializing failed!'); if(shitt){GameJoltLoginState.Desesconder();}}
     }
 
     // INTERNAL FUNCTIONS (DON'T ALTER IF YOU DON'T KNOW WHAT YOU'RE DOING!!)
