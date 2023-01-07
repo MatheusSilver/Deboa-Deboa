@@ -1,63 +1,22 @@
-local loopSong = false
-local pixel = false
-
+-- Event notes hooks
 function onCreate()
-    makeAnimatedLuaSprite('staticSonicPixel','StaticPixel',0,0)
-    addAnimationByPrefix('staticSonicPixel','staticwow','Static',24,false)
-    scaleObject('staticSonicPixel',2.4,2.4)
-    setObjectCamera('staticSonicPixel','other')
+	makeAnimatedLuaSprite('sussyStatic', 'effects/Phase3Static', -500, -300)
+	addAnimationByIndices('sussyStatic', 'e', 'Phase3Static instance', '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38')
+	scaleObject('sussyStatic', 4.8, 4.8)
+	setObjectCamera('sussyStatic', 'hud')
+	precacheImage('sussyStatic')
+end
 
-    makeAnimatedLuaSprite('staticSonic','screenstatic',0,0)
-    addAnimationByPrefix('staticSonic','staticwow','screenSTATIC',24,false)
-    setProperty('staticSonic.antialiasing',false)
-    setObjectCamera('staticSonic','other')
+function onEvent(name, value1, value2)
+	if name == 'static' then
+		addLuaSprite('sussyStatic', false)
+		objectPlayAnimation('sussyStatic', 'e', true)
+		runTimer('delay', 1.61)
+	end
 end
-function onUpdate()
-    if getProperty('staticSonicPixel.animation.curAnim.finished') then
-        removeLuaSprite('staticSonicPixel',false)
-        pixel = false
-    end
-    if getProperty('staticSonic.animation.curAnim.finished') then
-        removeLuaSprite('staticSonic',false)
-    end
-end
-function onEvent(name,v1,v2)
-    if name == 'static' then
-        playSound('staticBUZZ')
-        if v1 ~= 'destroy' then
-            if v1 == 'true' or getPropertyFromClass('PlayState','isPixelStage') == true and v1 == '' then
-                addLuaSprite('staticSonicPixel',true)
-                objectPlayAnimation('staticSonicPixel','staticwow',true)
-                pixel = true
-            elseif v1 == ''  and getPropertyFromClass('PlayState','isPixelStage') == false or v1 == 'false' then
-                if pixel == true then
-                    removeLuaSprite('staticSonicPixel',false)
-                    pixel = false
-                end
-                addLuaSprite('staticSonic',true)
-                objectPlayAnimation('staticSonic','staticwow',true)
-            end
-        else
-            if pixel == true then
-                removeLuaSprite('staticSonicPixel',false)
-                pixel = false
-            else
-                removeLuaSprite('staticSonic',false)
-            end
-            loopSong = false
-        end
-        if string.lower(v2) == 'true' then
-            runTimer('loopBUZZsong',0.157)
-            loopSong = true
-        else
-            loopSong = false
-        end
-    end
-end
-function onTimerCompleted(tag)
-    if tag == 'loopBUZZsong' and loopSong == true then
-        playSound('staticBUZZ')
-        runTimer('loopBUZZsong',0.157)
-        objectPlayAnimation('staticSonic','staticwow',true)
-    end
+
+function onTimerCompleted(tag, loops, loopsLeft)
+	if tag == 'delay' then
+		removeLuaSprite('sussyStatic', false)
+	end
 end

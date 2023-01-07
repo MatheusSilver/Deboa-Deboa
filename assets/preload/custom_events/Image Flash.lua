@@ -18,13 +18,16 @@ local table=mysplit(value1,",");
 	addLuaSprite('image', true);
 	doTweenColor('hello', 'image', 'FFFFFFFF', 0.5, 'quartIn');
 	setObjectCamera('image', tabledos[2]);
+	if tabledos[2] == "hud" then
+	    setObjectOrder('image', 1);
+	end
 	runTimer('wait', tabledos[3]);
     end
 end
 
 function onTimerCompleted(tag, loops, loopsleft)
    if tag == 'wait' then
-	doTweenAlpha('byebye', 'image', 0, 0.3, 'linear');
+	doTweenAlpha('byebye', 'image', 0, 0.1, 'linear');
    end
 end
 

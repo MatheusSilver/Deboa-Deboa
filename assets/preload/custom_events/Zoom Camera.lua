@@ -1,6 +1,8 @@
--- Event notes hooks
-function onEvent(name, value1, value2)
-	if name == 'Zoom Camera' then
-		setProperty('defaultCamZoom', value1);
-	end
+local time = 0
+local zoom = 0
+function onEvent(n, v1, v2)
+
+	if n == "Zoom Camera" then
+        setProperty("defaultCamZoom",v1);
+    end
 end
