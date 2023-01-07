@@ -1,6 +1,12 @@
 k = 50
 
 function onEvent(name, value1, value2)
+	if not downscroll then
+		k = 50
+	end
+	if downscroll then
+		k = 570
+	end
 	if name == 'NoteMove' then
 		noteTweenY('A', 0, k + value2, value1, 'linear')
 		noteTweenY('B', 1, k - value2, value1, 'linear')
