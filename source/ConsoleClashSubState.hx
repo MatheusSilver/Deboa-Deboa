@@ -69,19 +69,20 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		text.alpha = 0;
 		add(text);
 
-		var commonmultiplier:Float = 1;
+		var commonmultiplier:Float = 0.5;
 
-		console = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/console mix'));
+		console = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/CCC-MD (MegaDrive)'));
 		console.antialiasing = ClientPrefs.globalAntialiasing;
-		console.scale.x = 1;
-		console.scale.y = 1;
+		console.scale.x = 0.5;
+		console.scale.y = 0.5;
 		console.antialiasing = false;
 		console.updateHitbox();
-		console.y = FlxG.height + console.height;
-		console.screenCenter(X);
+		//console.y = FlxG.height + console.height;
+		console.alpha=1;
+		console.screenCenter(XY);
 		add(console);
 
-		clashsupBG = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/bgPB'));
+		clashsupBG = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/CCC-MD (MegaDrive)'));
 		clashsupBG.antialiasing = ClientPrefs.globalAntialiasing;
 		clashsupBG.scale.x = commonmultiplier;
 		clashsupBG.scale.y = commonmultiplier;
@@ -90,8 +91,24 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		clashsupBG.updateHitbox();
 		clashsupBG.screenCenter(XY);
 		add(clashsupBG);
-
-		bgmauro = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/mauro'));
+		if(onSonic){
+			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (SONIC)'));
+			/*bgsonico.alpha = 1;
+			bgmauro.alpha = 0;
+			sonicoanim.animation.play('idle');
+			tailsanim.animation.play('idle');
+			mauroanim.animation.stop();
+			luigianim.animation.stop();*/
+		} else {
+			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (MARIO)'));
+			/*bgsonico.alpha = 0;
+			bgmauro.alpha = 1;
+			mauroanim.animation.play('idle');
+			luigianim.animation.play('idle');
+			sonicoanim.animation.stop();
+			tailsanim.animation.stop();*/
+		}
+		/*bgmauro = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/mauro'));
 		bgmauro.antialiasing = ClientPrefs.globalAntialiasing;
 		bgmauro.scale.x = commonmultiplier;
 		bgmauro.scale.y = commonmultiplier;
@@ -109,9 +126,9 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		bgsonico.antialiasing = false;
 		bgsonico.updateHitbox();
 		bgsonico.screenCenter(XY);
-		add(bgsonico);
+		add(bgsonico);*/
 
-		sonicoanim = new FlxSprite(0, 0); //ok
+		/*sonicoanim = new FlxSprite(0, 0); //ok
 		sonicoanim.frames = Paths.getSparrowAtlas('CCC Stuff/bonecos/sonic');
 		sonicoanim.animation.addByPrefix('idle', "idle", 28);
 		sonicoanim.animation.addByPrefix('confirm', "heyextended", 48);
@@ -159,7 +176,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		mauroanim.antialiasing = false;
 		//mauroanim.setGraphicSize(Std.int(mauroanim.width * 0.32));
 		mauroanim.updateHitbox();
-		add(mauroanim);
+		add(mauroanim);*/
 
 		updateOptions();
 
@@ -172,7 +189,6 @@ class ConsoleClashSubState extends MusicBeatSubstate
 	{
 		bg.alpha += elapsed * 1.5;
 		if(bg.alpha > 0.6) bg.alpha = 0.6;
-
 		for (i in 0...alphabetArray.length) {
 			var spr = alphabetArray[i];
 			spr.alpha += elapsed * 2.5;
@@ -195,8 +211,8 @@ class ConsoleClashSubState extends MusicBeatSubstate
 			persistentUpdate = false;
 			PlayState.isStoryMode = false;
 			if(onSonic) {
-				sonicoanim.animation.play('confirm');
-				tailsanim.animation.play('confirm');
+				//sonicoanim.animation.play('confirm');
+				//tailsanim.animation.play('confirm');
 				crossDifficulty = 3;
 				var songLowercase:String = Paths.formatToSongPath(song);
 				var poop:String = Highscore.formatSong(songLowercase, crossDifficulty);
@@ -222,8 +238,8 @@ class ConsoleClashSubState extends MusicBeatSubstate
 				FreeplayState.destroyFreeplayVocals();
 			}
 			else if(!onSonic) {
-				mauroanim.animation.play('confirm');
-				luigianim.animation.play('confirm');
+				//mauroanim.animation.play('confirm');
+				//luigianim.animation.play('confirm');
 				crossDifficulty = 4;
 				var songLowercase:String = Paths.formatToSongPath(song);
 				var poop:String = Highscore.formatSong(songLowercase, crossDifficulty);
@@ -265,19 +281,21 @@ class ConsoleClashSubState extends MusicBeatSubstate
 				}});
 		}else{
 		if(onSonic){
-			bgsonico.alpha = 1;
+			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (SONIC)'));
+			/*bgsonico.alpha = 1;
 			bgmauro.alpha = 0;
 			sonicoanim.animation.play('idle');
 			tailsanim.animation.play('idle');
 			mauroanim.animation.stop();
-			luigianim.animation.stop();
+			luigianim.animation.stop();*/
 		} else {
-			bgsonico.alpha = 0;
+			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (MARIO)'));
+			/*bgsonico.alpha = 0;
 			bgmauro.alpha = 1;
 			mauroanim.animation.play('idle');
 			luigianim.animation.play('idle');
 			sonicoanim.animation.stop();
-			tailsanim.animation.stop();
+			tailsanim.animation.stop();*/
 		}
 	}
 	}

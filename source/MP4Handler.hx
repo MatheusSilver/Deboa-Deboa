@@ -1,4 +1,4 @@
-package;
+ package;
 
 import flixel.util.FlxColor;
 import flixel.FlxG;
@@ -172,6 +172,8 @@ class MP4Handler
 			if (vlcBitmap.isPlaying)
 			{
 				onVLCComplete();
+				canSkip=false;
+				//VideoStatePC.canSkip=false;
 			}
 		}
 		vlcBitmap.volume = FlxG.sound.volume + 0.3; // shitty volume fix. then make it louder.
