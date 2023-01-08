@@ -90,8 +90,10 @@ class PlayState extends MusicBeatState
 
 	var blackFuck:FlxSprite;
 
+	//veri scari
 	var fakertransform:FlxSprite;
 	var daJumpscare:FlxSprite = new FlxSprite(0, 0);
+	var daP3Static:FlxSprite = new FlxSprite(0, 0);
 	var bgSkychasing:FlxSprite;
 	var daNoteStatic:FlxSprite = new FlxSprite(0, 0);
 	var tela_preta:FlxSprite;
@@ -401,6 +403,10 @@ class PlayState extends MusicBeatState
 	var counterNum:FlxText;
 	var bfIsLeft:Bool = false;
 
+	//exe p3 trens
+	var balling:FlxSprite = new FlxSprite(0, 0);
+	var p3staticbg:FlxSprite;
+
 	// starved shit
 	var stardustBgPixel:FlxTiledSprite;
 	var stardustFloorPixel:FlxTiledSprite;
@@ -440,7 +446,6 @@ class PlayState extends MusicBeatState
 	{
 		if (curSong != SONG.song) // Aqui tá a base.
 		{
-			trace("Iniciando precache no PlayState.");
 			if (SONG.song.toLowerCase() == 'too-slow') 
 			{
 				precacheList.set('PolishedP1/FLOOR1', 'image');
@@ -452,30 +457,31 @@ class PlayState extends MusicBeatState
 
 			else if (SONG.song.toLowerCase() == 'you-cant-run') 
 			{
-				precacheList.set('cenarios/Glitch', 'image');
 				precacheList.set('cenarios/GreenHill', 'image');
 				precacheList.set('cenarios/ground', 'image');
-				precacheList.set('exep3/Glitch', 'image');
-				precacheList.set('exep3/Grass', 'image');
-				precacheList.set('exep3/hitStatic', 'image');
-				precacheList.set('exep3/NewTitleMenuBG', 'image');
-				precacheList.set('exep3/Phase3Static', 'image');
-				precacheList.set('exep3/Trees', 'image');
-				precacheList.set('exep3/Trees2', 'image');
+				precacheList.set('cenarios/Glitch', 'image');
+				precacheList.set('hitStatic', 'image');
 			}
 
 			else if (SONG.song.toLowerCase() == 'triple-trouble') 
 			{
-				precacheList.set('exep3/Glitch', 'image');
-				precacheList.set('exep3/Grass', 'image');
-				precacheList.set('exep3/hitStatic', 'image');
-				precacheList.set('exep3/NewTitleMenuBG', 'image');
-				precacheList.set('exep3/Phase3Static', 'image');
-				precacheList.set('exep3/Trees', 'image');
-				precacheList.set('exep3/Trees2', 'image');
+				precacheList.set('cenarios/Counter', 'image');
+				precacheList.set('cenarios/ground', 'image');
+				precacheList.set('cenarios/Glitch', 'image');
+				precacheList.set('Phase3Static', 'image');
+				precacheList.set('hitStatic', 'image');
+				precacheList.set('daSTAT', 'image');
+				precacheList.set('NewTitleMenuBG', 'image');
+				precacheList.set('Phase3Static', 'image');
 				precacheList.set('eggman', 'image');
 				precacheList.set('Knuckles', 'image');
 				precacheList.set('Tails', 'image');
+				precacheList.set('Ring', 'sound');
+				precacheList.set('staticBUZZ', 'sound');
+				precacheList.set('//hitStatic1', 'sound');
+				precacheList.set('P3Jumps/TailsScreamLOL', 'sound');
+				precacheList.set('P3Jumps/KnucklesScreamLOL', 'sound');
+				precacheList.set('P3Jumps/EggmanScreamLOL', 'sound');
 			}
 
 			else if (SONG.song.toLowerCase() == 'too-fest') 
@@ -485,7 +491,6 @@ class PlayState extends MusicBeatState
 
 			// Para fazer: Migrar a Endless pra cá.
 
-			trace("Precache finalizado");
 		}
 
 		if (SONG.song.toLowerCase() == "triple-trouble"){
@@ -819,23 +824,53 @@ class PlayState extends MusicBeatState
 				barmesafront.setGraphicSize(Std.int(barmesafront.width * 1.1));
 
 			case 'P2Stage':
-				p2Sky = new BGSprite('cenarios/stage/Glitch', -200, -200, 0.6, 0.6);
+				p2Sky = new BGSprite('cenarios/Glitch', -200, -200, 0.6, 0.6);
 				p2Sky.scale.x = 0.8;
 				p2Sky.scale.y = 0.8;
 				add(p2Sky);
 
-				p2Ground = new BGSprite('cenarios/stage/ground', -425, -100, 1.1, 1.1);
+				p2Ground = new BGSprite('cenarios/ground', -425, -100, 1.1, 1.1);
 				p2Ground.scale.x = 1;
 				p2Ground.scale.y = 1;
 				add(p2Ground);
 				
 
-				p2greenhill = new BGSprite('cenarios/stage/GreenHill', 180, 350, 1, 0.9);
+				p2greenhill = new BGSprite('cenarios/GreenHill', 180, 350, 1, 0.9);
 				p2greenhill.setGraphicSize(Std.int(p2greenhill.width * 6)); //yeah yeah, matematics
 				p2greenhill.scale.x = 8;
 				p2greenhill.visible = false;
 				p2greenhill.antialiasing = true;
 				add(p2greenhill);
+
+				case 'P3Stage': // i fixed the bgs and shit!!! - razencro part 1
+				{
+					defaultCamZoom = .9;
+					var sSKY:FlxSprite = new FlxSprite(-621.1, -395.65).loadGraphic(Paths.image('cenarios/Glitch'));
+					sSKY.antialiasing = true;
+					sSKY.scrollFactor.set(0.9, 1);
+					sSKY.active = false;
+					sSKY.scale.x = 1.2;
+					sSKY.scale.y = 1.2;
+					add(sSKY);
+
+					p3staticbg = new FlxSprite(0, 0);
+					p3staticbg.frames = Paths.getSparrowAtlas('NewTitleMenuBG');
+					p3staticbg.animation.addByPrefix('P3Static', 'TitleMenuSSBG instance 1', 24, true);
+					p3staticbg.animation.play('P3Static');
+					p3staticbg.screenCenter();
+					p3staticbg.scale.x = 4.5;
+					p3staticbg.scale.y = 4.5;
+					p3staticbg.visible = false;
+					add(p3staticbg);
+
+					var bg:FlxSprite = new FlxSprite(-630.4, -266).loadGraphic(Paths.image('cenarios/ground'));
+					bg.antialiasing = true;
+					bg.scrollFactor.set(1.1, 1);
+					bg.active = false;
+					bg.scale.x = 1.2;
+					bg.scale.y = 1.2;
+					add(bg);
+				}
 
 
 			case 'needle':
@@ -1639,7 +1674,7 @@ class PlayState extends MusicBeatState
 
 		if (isRing)
 			{
-				ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('Counter'));
+				ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('cenarios/Counter'));
 				add(ringCounter);
 				ringCounter.cameras = [camHUD];
 	
@@ -2178,9 +2213,10 @@ class PlayState extends MusicBeatState
 
 		cacheCountdown();
 		cachePopUpScore();
+		trace("Iniciando precache no PlayState.");
 		for (key => type in precacheList)
 			{
-				//trace('Key $key is type $type');
+				
 				switch(type)
 				{
 					case 'image':
@@ -2191,6 +2227,8 @@ class PlayState extends MusicBeatState
 						Paths.music(key);
 				}
 			}
+			
+			trace("Precache finalizado");
 	}
 
 	private function cachePopUpScore()
@@ -3096,12 +3134,16 @@ class PlayState extends MusicBeatState
 	private function generateStaticArrows(player:Int):Void
 		{
 			var keyCount:Int = 4;
-			if (isRing){
-				keyCount = 5;}
+			if (isRing && player == 1){
+				keyCount = 5;
+			}
 			for (i in 0...keyCount)
 			{
-				
 				var skin:String = "NOTE_assets";
+
+				if(curSong.toLowerCase()=='triple-trouble' && player == 1){skin='RING_assets';}
+
+				if(curSong.toLowerCase()=='triple-trouble' && player == 0){skin='NOTE_assets';}
 
 				if(storyDifficulty == 3){
 				if(curSong.toLowerCase()=='cross-console-clash' && player == 0){skin='arrows-mario';}
@@ -3942,9 +3984,7 @@ class PlayState extends MusicBeatState
 						if(daNote.isSustainNote && !daNote.animation.curAnim.name.endsWith('end')) {
 							time += 0.15;
 						}
-						if (isRing){
-							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 5, time); //Eu até poderia fazer aqui em cima mas né? Não acho que alguem vai fazer triple bolo com 3 strums
-						}else if (daNote.noteData < 8 && daNote.noteType != 'player3'){
+						if (daNote.noteData < 8 && daNote.noteType != 'player3'){
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
 						} else {
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time, true);
@@ -4696,6 +4736,63 @@ class PlayState extends MusicBeatState
 								char.recalculateDanceIdle(); // EU ESPERO...
 								FlxTween.tween(dad2, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut});							
 						}
+			case 'eventos-tripletrouble': //Que o inferno comece...
+				var supertimer:Float = Std.parseFloat(value1);
+				switch (supertimer)
+				{
+					//Nota adicional a fazer com lua,
+					//Reaproveitar o lua da YCR, e codar o vignette red pra fazer tween nas partes do beast
+					//Não é muito dificil, é só usar um get property que verifica se o p3staticbg está visivel ou não k
+
+				case 1431, 1496, 1560, 1624, 1687, 1816, 1879, 1928, 1932, 1944, 2008, 2072, 2136, 2200, 2264:
+					spirospreidi(); //SPIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+				case 1:
+					doP3Static(); // cool static
+					FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
+					defaultCamZoom = 1.1;
+				case 144:
+					doP3JumpTAILS();
+				case 1024, 1088, 1216, 1280, 2305, 2810, 3199, 4096:
+					doP3Static(); //Esse trem serve como transição e pode ser substituido por TrioStatic usado em Slaybells
+						
+				case 1040: // Entrada beast, use o code de change character normal aqui.
+
+					FlxTween.tween(FlxG.camera, {zoom: 0.9}, 2, {ease: FlxEase.cubeOut});
+					defaultCamZoom = 0.9;
+
+					p3staticbg.visible = true;
+
+				case 1296: // Entrada do knuckles omaga, use strum swap 1 aqui junto com os eventos de troca de boneco.
+
+					FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
+					defaultCamZoom = 1.1;
+
+					p3staticbg.visible = false;
+
+					doP3JumpKNUCKLES();
+
+				case 2320:
+					FlxTween.tween(FlxG.camera, {zoom: 0.9}, 2, {ease: FlxEase.cubeOut});
+					defaultCamZoom = 0.9;
+
+					p3staticbg.visible = true;
+				case 2823: //Entrada do eggman, pra reverter o efeito das notas, use o evento strum swap 2
+					doP3JumpEGGMAN();
+
+					FlxTween.tween(FlxG.camera, {zoom: 1}, 2, {ease: FlxEase.cubeOut});
+					defaultCamZoom = 1;
+					p3staticbg.visible = false;
+
+				case 2887, 3015, 4039:
+					dad.playAnim('laugh', true);
+					dad.nonanimated = true;
+				case 2895, 3023, 4048:
+					dad.nonanimated = false;
+
+				case 4111: //Final, vá de acordo com a ordem no chat do discord pra trocar os bonecos.
+					p3staticbg.visible = true;
+				}
+
 			case 'eventos-prey':
 				var supertimer:Float = Std.parseFloat(value1);
 						switch (supertimer)
@@ -6534,6 +6631,37 @@ class PlayState extends MusicBeatState
 		callOnLuas('onBeatHit', []);
 	}
 
+	function doP3Static()
+		{
+			trace('p3static XDXDXD');
+	
+			if (FlxG.save.data.flashing) {
+	
+			daP3Static.frames = Paths.getSparrowAtlas('Phase3Static');
+			daP3Static.animation.addByPrefix('P3Static', 'Phase3Static instance 1', 24, false);
+	
+			daP3Static.screenCenter();
+	
+			daP3Static.scale.x = 4;
+			daP3Static.scale.y = 4;
+			daP3Static.alpha = 0.5;
+	
+			daP3Static.cameras = [camHUD2];
+	
+			add(daP3Static);
+	
+			daP3Static.animation.play('P3Static');
+	
+			daP3Static.animation.finishCallback = function(pog:String)
+			{
+				trace('ended p3static');
+				daP3Static.alpha = 0;
+	
+				remove(daP3Static);
+			}}
+		}
+	
+
 	function doSimpleJump()
 		{
 			trace('SIMPLE JUMPSCARE');
@@ -6587,6 +6715,153 @@ class PlayState extends MusicBeatState
 				remove(daStatic);
 			}
 		}
+
+	function doP3JumpTAILS()
+	{
+		trace('SIMPLE JUMPSCARE');
+
+		var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('P3Jumps/Tails', 'week-xenophanes'));
+
+		doP3JumpTAILS.setGraphicSize(FlxG.width, FlxG.height);
+
+		doP3JumpTAILS.screenCenter();
+
+		doP3JumpTAILS.cameras = [camHUD2];
+
+		FlxG.camera.shake(0.0025, 0.50);
+			add(doP3JumpTAILS);
+
+		FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
+
+		new FlxTimer().start(0.2, function(tmr:FlxTimer)
+		{
+				remove(doP3JumpTAILS);
+		});
+
+		balling.frames = Paths.getSparrowAtlas('daSTAT', 'week-xenophanes');
+		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
+
+		balling.setGraphicSize(FlxG.width, FlxG.height);
+
+		balling.screenCenter();
+
+		balling.cameras = [camHUD2];
+
+		add(balling);
+
+		FlxG.sound.play(Paths.sound('staticBUZZ'));
+
+		if (balling.alpha != 0)
+			balling.alpha = FlxG.random.float(0.1, 0.5);
+
+		balling.animation.play('static');
+
+		balling.animation.finishCallback = function(pog:String)
+		{
+			trace('ended static');
+			remove(balling);
+		}
+	}
+
+	function doP3JumpKNUCKLES()
+	{
+		trace('SIMPLE JUMPSCARE');
+
+		var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('P3Jumps/Knuckles', 'week-xenophanes'));
+
+		doP3JumpKNUCKLES.setGraphicSize(FlxG.width, FlxG.height);
+
+		doP3JumpKNUCKLES.screenCenter();
+
+		doP3JumpKNUCKLES.cameras = [camHUD2];
+
+		FlxG.camera.shake(0.0025, 0.50);
+
+		add(doP3JumpKNUCKLES);
+
+		FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), .1);
+
+		new FlxTimer().start(0.2, function(tmr:FlxTimer)
+		{
+			trace('ended simple jump');
+			remove(doP3JumpKNUCKLES);
+		});
+
+		balling.frames = Paths.getSparrowAtlas('daSTAT');
+
+		balling.setGraphicSize(FlxG.width, FlxG.height);
+
+		balling.screenCenter();
+
+		balling.cameras = [camHUD2];
+
+		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
+
+		add(balling);
+
+		FlxG.sound.play(Paths.sound('staticBUZZ'));
+
+		if (balling.alpha != 0)
+			balling.alpha = FlxG.random.float(0.1, 0.5);
+
+		balling.animation.play('static');
+
+		balling.animation.finishCallback = function(pog:String)
+		{
+			trace('ended static');
+			remove(balling);
+		}
+	}
+
+	function doP3JumpEGGMAN()
+	{
+		trace('SIMPLE JUMPSCARE');
+
+		var doP3JumpEGGMAN:FlxSprite = new FlxSprite().loadGraphic(Paths.image('P3Jumps/Eggman', 'week-xenophanes'));
+
+		doP3JumpEGGMAN.setGraphicSize(FlxG.width, FlxG.height);
+
+		doP3JumpEGGMAN.screenCenter();
+
+		doP3JumpEGGMAN.cameras = [camHUD2];
+
+		FlxG.camera.shake(0.0025, 0.50);
+
+		add(doP3JumpEGGMAN);
+
+		FlxG.sound.play(Paths.sound('P3Jumps/EggmanScreamLOL', 'week-xenophanes'), .1);
+
+		new FlxTimer().start(0.2, function(tmr:FlxTimer)
+		{
+			trace('ended simple jump');
+			remove(doP3JumpEGGMAN);
+		});
+
+		balling.frames = Paths.getSparrowAtlas('daSTAT');
+
+		balling.setGraphicSize(FlxG.width, FlxG.height);
+
+		balling.screenCenter();
+
+		balling.cameras = [camHUD2];
+
+		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
+
+		add(balling);
+
+		FlxG.sound.play(Paths.sound('staticBUZZ'));
+
+		if (balling.alpha != 0)
+			balling.alpha = FlxG.random.float(0.1, 0.5);
+
+		balling.animation.play('static');
+
+		balling.animation.finishCallback = function(pog:String)
+		{
+			trace('ended static');
+			remove(balling);
+		}
+	}
 
 	function spirospreidi()
 		{

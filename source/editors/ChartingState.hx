@@ -77,6 +77,7 @@ class ChartingState extends MusicBeatState
 		['eventos-needle', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
 		['hudfade', 'value1 = opacidade \n value 2 = tempo de transição.'],
 		['strum swap1', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
+		['eventos-tripletrouble', 'É sério cara, eu real acho que não preciso explicar como isso funciona mais né?'],
 		['eventos-prey', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],
 		['Entrada Pixel', "Se igual a 1, entra em pixel, se é qualquer coisa, ele sai. Válido apenas para Value 1"],
 		['tempo infinito', 'Serve apenas para fazer com que o timer da música \n vá para infinito (apenas estéticamente). \n não depende de V1 e V2'],
@@ -266,7 +267,11 @@ class ChartingState extends MusicBeatState
 		Conductor.changeBPM(_song.bpm);
 		Conductor.mapBPMChanges(_song);
 
+		if(currentSongName.toLowerCase()!='triple-trouble'){
 		bpmTxt = new FlxText(1000, 50, 0, "", 16);
+		} else{
+			bpmTxt = new FlxText(0, 50, 0, "", 16); //sodasse
+		}
 		bpmTxt.scrollFactor.set();
 		add(bpmTxt);
 
@@ -692,7 +697,7 @@ class ChartingState extends MusicBeatState
 			for (i in 0..._song.notes[curSection].sectionNotes.length)
 			{
 				var note:Array<Dynamic> = _song.notes[curSection].sectionNotes[i];
-				if(note[1] > -1) {
+					if(note[1]>-1){
 					note[1] = (note[1] + count) % (count*2);
 					_song.notes[curSection].sectionNotes[i] = note;
 				}
@@ -1523,6 +1528,7 @@ class ChartingState extends MusicBeatState
 		var lol:Int = 9;
 		if(_song.isRing)
 			lol = 11;
+
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * lol, Std.int(GRID_SIZE * 32 * zoomList[curZoom]));
 		gridLayer.add(gridBG);
 

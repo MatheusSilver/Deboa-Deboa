@@ -14,6 +14,17 @@
 		{
 			"loop": false,
 			"offsets": [
+				180,
+				-2
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Beast_LEFT",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
 				14,
 				-4
 			],
@@ -36,21 +47,10 @@
 		{
 			"loop": false,
 			"offsets": [
-				100,
-				-140
+				-220,
+				30
 			],
-			"anim": "laugh",
-			"fps": 24,
-			"name": "Beast_LAUGH",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				390,
-				38
-			],
-			"anim": "singLEFT",
+			"anim": "singRIGHT",
 			"fps": 24,
 			"name": "Beast_RIGHT",
 			"indices": []
@@ -58,19 +58,19 @@
 		{
 			"loop": false,
 			"offsets": [
-				180,
-				0
+				-90,
+				-140
 			],
-			"anim": "singRIGHT",
+			"anim": "laugh",
 			"fps": 24,
-			"name": "Beast_LEFT",
+			"name": "Beast_LAUGH",
 			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/BeastTP",
+	"image": "characters/triple/BeastTP",
 	"position": [
-		800,
+		0,
 		-70
 	],
 	"healthicon": "beast",
@@ -81,7 +81,7 @@
 		118
 	],
 	"camera_position": [
-		-390,
+		0,
 		0
 	],
 	"sing_duration": 6.1,
