@@ -30,6 +30,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 	var tailsanim:FlxSprite;
 	var bgmauro:FlxSprite;
 	var bgsonico:FlxSprite;
+	var text:Alphabet;
 	private var entrada:Bool = true;
 	public static var consoleCam:FlxCamera;
 
@@ -63,7 +64,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 
-		var text:Alphabet = new Alphabet(0, 50, "Escolha seu lado", true);
+		text = new Alphabet(0, 50, "Escolha seu lado", true);
 		text.screenCenter(X);
 		alphabetArray.push(text);
 		text.alpha = 0;
@@ -75,11 +76,12 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		console.antialiasing = ClientPrefs.globalAntialiasing;
 		console.scale.x = 0.5;
 		console.scale.y = 0.5;
+		console.y=141;
 		console.antialiasing = false;
 		console.updateHitbox();
 		//console.y = FlxG.height + console.height;
 		console.alpha=1;
-		console.screenCenter(XY);
+		console.screenCenter(X);
 		add(console);
 
 		clashsupBG = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/CCC-MD (MegaDrive)'));
@@ -193,7 +195,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 			var spr = alphabetArray[i];
 			spr.alpha += elapsed * 2.5;
 		}
-
+		//text.changeText(Std.string(console.x) + "\n"+Std.string(console.y));
 		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
 			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 			onSonic = !onSonic;
@@ -271,14 +273,16 @@ class ConsoleClashSubState extends MusicBeatSubstate
 
 		if(entrada){
 			entrada = false;
-			FlxTween.tween(console, {y: (FlxG.height - console.height)/2}, 0.5, {ease: FlxEase.quadInOut,
+			/*FlxTween.tween(console, {y: (FlxG.height - console.height)/2}, 0.5, {ease: FlxEase.quadInOut,
 				onComplete: function(twn:FlxTween) {
 					consoleCam.flash(FlxColor.WHITE, 0.5);
 					FlxTween.tween(clashsupBG, {alpha: 1}, 0.5, {ease: FlxEase.quadInOut,
 						onComplete: function(twn:FlxTween) {
 							updateOptions();
+							console.screenCenter(XY);
 						}});
-				}});
+				}});*/
+				updateOptions();
 		}else{
 		if(onSonic){
 			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (SONIC)'));
