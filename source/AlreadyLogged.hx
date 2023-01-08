@@ -68,18 +68,18 @@ class AlreadyLogged extends MusicBeatState
 			naobotao.alpha = 0.75;
 			add(naobotao);
 			//GJClient.initialize();
-			super.create();
-		}
-	override function update(elapsed:Float)
-		{
-			super.update(elapsed);
-
 			simbotao.onOver.callback = simHover;
 			simbotao.onOut.callback = simOut;
 			simbotao.onDown.callback = simClick;
 			naobotao.onOver.callback = naoHover;
 			naobotao.onOut.callback = naoOut;
 			naobotao.onDown.callback = naoClick;
+			super.create();
+		}
+	override function update(elapsed:Float)
+		{
+			super.update(elapsed);
+
 		}
 
 	function simHover():Void

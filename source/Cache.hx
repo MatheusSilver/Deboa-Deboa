@@ -48,7 +48,7 @@ class Cache extends MusicBeatState
 		bitmapData = new Map<String,FlxGraphic>();
 		bitmapData2 = new Map<String,FlxGraphic>();
 
-		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/" + LoadingState.directoryreader + "/images"))
+		for (i in FileSystem.readDirectory(FileSystem.absolutePath("assets/" + LoadingState.directoryreader + "/images")))
 		{
 			if (!i.endsWith(".png"))
 				continue;

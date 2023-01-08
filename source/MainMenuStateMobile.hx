@@ -134,6 +134,7 @@ class MainMenuStateMobile extends MusicBeatState
 		boom.animation.addByPrefix('idle', "sonicmenu1 idle",30);
 		boom.antialiasing = ClientPrefs.globalAntialiasing;
 		//boom.setGraphicSize(Std.int));
+		//boom.flipX = true;
 		boom.updateHitbox();
 		boom.y = -500;
 		boom.x = -765;

@@ -131,6 +131,7 @@ class AjustesState extends MusicBeatState
 		boom.y =-1035;
 		boom.x = -1100;
 		boom.alpha=1;
+		//boom.flipX=true;
 		add(boom);
 
         add(trees);
