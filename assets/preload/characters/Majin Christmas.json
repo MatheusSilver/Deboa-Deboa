@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Majin Christmas Idle"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Majin Christmas Left"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Majin Christmas Down"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Majin Christmas Up"
+		},
+		{
+			"offsets": [
+				-30,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Majin Christmas Right"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/Majin Christmas",
+	"position": [
+		-40,
+		-80
+	],
+	"healthicon": "majin",
+	"flip_x": true,
+	"healthbar_colors": [
+		99,
+		61,
+		202
+	],
+	"camera_position": [
+		20,
+		200
+	],
+	"sing_duration": 6.1,
+	"scale": 0.6
+}

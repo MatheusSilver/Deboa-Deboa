@@ -75,6 +75,7 @@
 		<library name="songs"        			 preload="true" />
 		<library name="shared"       			 preload="true" />
 		<library name="week-bestfriendo"         preload="true" />
+		<library name="week-slaybells"       	 preload="true" />
 		<library name="week-blacksun"       	 preload="true" />
 		<library name="week-ccc"        		 preload="true" />
 		<library name="week-chaos"        		 preload="true" />
@@ -102,7 +103,6 @@
 		<library name="week-sink"        		 preload="true" />
 		<library name="week-soulless"      		 preload="true" />
 		<library name="week-sunshine"        	 preload="true" />
-		<library name="week-wad"        		 preload="true" />
 		<library name="week-xenophanes"          preload="true" />
 
 	</section>
@@ -111,6 +111,7 @@
 		<library name="songs"        			 preload="false" />
 		<library name="shared"       			 preload="false" />
 		<library name="week-bestfriendo"         preload="false" />
+		<library name="week-slaybells"       	 preload="false" />
 		<library name="week-blacksun"       	 preload="false" />
 		<library name="week-ccc"        		 preload="false" />
 		<library name="week-chaos"        		 preload="false" />
@@ -138,7 +139,6 @@
 		<library name="week-sink"        		 preload="false" />
 		<library name="week-soulless"      		 preload="false" />
 		<library name="week-sunshine"        	 preload="false" />
-		<library name="week-wad"        		 preload="false" />
 		<library name="week-xenophanes"          preload="false" />
 	</section>
 	<!-- EU NÃO ESTOU SUPORTANDO MAIS... AAAAAAAAAAAAAAAAA -->
@@ -152,6 +152,8 @@
 	<assets path="assets/week-bestfriendo"         library="week-bestfriendo"         exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-blacksun"      	   library="week-blacksun"        	  exclude="*.ogg" if="web"/>
 	<assets path="assets/week-blacksun"        	   library="week-blacksun"       	  exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-slaybells"      	   library="week-slaybells"        	  exclude="*.ogg" if="web"/>
+	<assets path="assets/week-slaybells"           library="week-slaybells"       	  exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-ccc"        		   library="week-ccc"         		  exclude="*.ogg" if="web"/>
 	<assets path="assets/week-ccc"        		   library="week-ccc"                 exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-chaos"         	   library="week-chaos"               exclude="*.ogg" if="web"/>
@@ -204,8 +206,6 @@
 	<assets path="assets/week-soulless"            library="week-soulless"            exclude="*.ogg" if="web"/>
 	<assets path="assets/week-sunshine"            library="week-sunshine"            exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-sunshine"            library="week-sunshine"            exclude="*.ogg" if="web"/>
-	<assets path="assets/week-wad"         		   library="week-wad"                 exclude="*.mp3" unless="web"/>
-	<assets path="assets/week-wad"         		   library="week-wad"                 exclude="*.ogg" if="web"/>
 	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.ogg" if="web"/>
 

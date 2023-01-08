@@ -524,24 +524,6 @@ class PlayState extends MusicBeatState
 		// String for when the game is paused
 		detailsPausedText = "Pausado - " + detailsText;
 		#end
-				// "GLOBAL" SCRIPTS
-				var filesPushed:Array<String> = [];
-				var foldersToCheck:Array<String> = [Paths.getPreloadPath('scripts/')];
-
-				for (folder in foldersToCheck)
-					{
-						if(sys.FileSystem.exists(folder))
-						{
-							for (file in sys.FileSystem.readDirectory(folder))
-							{
-								if(file.endsWith('.lua') && !filesPushed.contains(file))
-								{
-									luaArray.push(new FunkinLua(folder + file));
-									filesPushed.push(file);
-								}
-							}
-						}
-					}
 
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
 		bottomBar = new FlxSprite(0, 720).makeGraphic(1280, 170, FlxColor.BLACK);
@@ -2955,10 +2937,10 @@ class PlayState extends MusicBeatState
 					
 					
 					if (section.gfSection){
-							trace("got gf section");
+						//	trace("got gf section");
 						if (songNotes[3] == null || songNotes[3] == ''|| songNotes[3].length ==0){
 							swagNote.noteType = 'GF Sing';
-							trace("got gf notes");
+						//	trace("got gf notes");
 						}
 					}
 					
@@ -4315,6 +4297,11 @@ class PlayState extends MusicBeatState
 				FlxTween.num(defaultCamZoom, 10, 1, {ease: FlxEase.cubeOut}, function (v:Float) {
 					defaultCamZoom = v;
 				}); //rápido e prático : D
+
+			case 'lifetween':	
+				FlxTween.num(healthbarval, Std.parseFloat(value1), 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
+					healthbarval = v;
+				});
 
 			case 'invocar 3rdstrum':
 				if(!ClientPrefs.middleScroll){

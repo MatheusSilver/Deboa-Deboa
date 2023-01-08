@@ -121,7 +121,7 @@ class TitleState extends MusicBeatState
 
 		// DEBUG BULLSHIT
 
-		//swagShader = new ColorSwap();
+		swagShader = new ColorSwap();
 		super.create();
 
 		FlxG.save.bind('modboa' #if (flixel < "5.0.0"), 'galaccine' #end);
@@ -172,7 +172,7 @@ class TitleState extends MusicBeatState
 	var logoBl1:FlxSprite;
 	//var menuGif:FlxSprite;
 	var titleText:FlxSprite;
-	//var swagShader:ColorSwap = null;
+	var swagShader:ColorSwap = null;
 	var opacidade:Float = 0;
 	var opacidadesuporte:Int = -1;
 	var candothething:Bool = false;
@@ -255,7 +255,7 @@ class TitleState extends MusicBeatState
 		*/
 
 
-		//swagShader = new ColorSwap();
+		swagShader = new ColorSwap();
 		//add(menuGif);
 		add(logoBl2);
 		add(supbg);
@@ -264,7 +264,7 @@ class TitleState extends MusicBeatState
 
 		add(logoBl);
 		candothething = true;
-		//logoBl.shader = swagShader.shader;
+	//	logoBl.shader = swagShader.shader;
 
 		titleText = new FlxSprite(-80, 600).loadGraphic(Paths.image('titleEnter'));
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
@@ -460,11 +460,11 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		}
 
-		/*if(swagShader != null)
+		if(swagShader != null)
 		{
 			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
-		} */
+		} 
 
 		opacidade += 0.01 * opacidadesuporte;
 
