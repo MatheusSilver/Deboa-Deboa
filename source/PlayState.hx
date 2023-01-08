@@ -480,7 +480,9 @@ class PlayState extends MusicBeatState
 
 			else if (SONG.song.toLowerCase() == 'too-fest') 
 				{
+					if(ClientPrefs.legendas) {
 					precacheList.set('letras/too-fest/Legenda', 'image');
+					} // Sistema pra evitar uso de ram sem ter as Legendas ativadas.
 				}
 
 			// Para fazer: Migrar a Endless pra cá.
@@ -6337,6 +6339,7 @@ class PlayState extends MusicBeatState
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
 
+		//EVENTOS LASTSTEP
 		if (curSong == 'faker')
 			{
 				switch (curStep)
