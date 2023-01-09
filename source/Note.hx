@@ -231,8 +231,8 @@ class Note extends FlxSprite
 							prevNote.animation.play('purplehold');
 						case 1:
 							prevNote.animation.play('bluehold');
-							case 2:
-								prevNote.animation.play('bluehold');
+						case 2:
+							prevNote.animation.play('bluehold');
 						case 3:
 							prevNote.animation.play('greenhold');
 						case 4:
@@ -318,6 +318,10 @@ class Note extends FlxSprite
 			frames = Paths.getSparrowAtlas("Majin_Notes");
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
+		} else if (PlayState.isRing){
+			frames = Paths.getSparrowAtlas("RING_assets"); //Como não pensei nisso antes? k
+			loadNoteAnims();
+			antialiasing = ClientPrefs.globalAntialiasing;
 		} else {
 			frames = Paths.getSparrowAtlas(blahblah);
 			loadNoteAnims();
@@ -340,6 +344,9 @@ class Note extends FlxSprite
 	function loadNoteAnims() {
 		animation.addByPrefix('greenScroll', 'green0');
 		animation.addByPrefix('redScroll', 'red0');
+		if(PlayState.isRing){
+			animation.addByPrefix('ringScroll', 'gold0');
+		}
 		animation.addByPrefix('blueScroll', 'blue0');
 		animation.addByPrefix('purpleScroll', 'purple0');
 

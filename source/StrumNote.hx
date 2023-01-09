@@ -24,6 +24,7 @@ class StrumNote extends FlxSprite
 		super(x, y);
 
 		if(texture == null){ texture = 'NOTE_assets';}
+		if(PlayState.isRing){texture = 'RING_assets';}
 		
 		if(ClientPrefs.middleScroll){
 			switch (player)
@@ -79,6 +80,9 @@ class StrumNote extends FlxSprite
 			frames = Paths.getSparrowAtlas(texture);
 			animation.addByPrefix('green', 'arrowUP');
 			animation.addByPrefix('blue', 'arrowDOWN');
+			if(texture == 'RING_assets'){
+				animation.addByPrefix('gold', 'arrowSPACE00000');
+			}
 			animation.addByPrefix('purple', 'arrowLEFT');
 			animation.addByPrefix('red', 'arrowRIGHT');
 
@@ -88,6 +92,8 @@ class StrumNote extends FlxSprite
 			} else {
 				setGraphicSize(Std.int(width * 0.65));
 			}
+
+			if(texture != 'RING_assets'){
 
 			switch (Math.abs(noteData) % 4)
 			{
@@ -108,6 +114,32 @@ class StrumNote extends FlxSprite
 					animation.addByPrefix('pressed', 'right press', 24, false);
 					animation.addByPrefix('confirm', 'right confirm', 24, false);
 			}
+		}else {
+			switch (Math.abs(noteData) % 5)
+			{
+				case 0:
+					animation.addByPrefix('static', 'arrowLEFT');
+					animation.addByPrefix('pressed', 'left press', 24, false);
+					animation.addByPrefix('confirm', 'left confirm', 24, false);
+				case 1:
+					animation.addByPrefix('static', 'arrowDOWN');
+					animation.addByPrefix('pressed', 'down press', 24, false);
+					animation.addByPrefix('confirm', 'down confirm', 24, false);
+				case 2:
+					animation.addByPrefix('static', 'arrowSPACE');
+					animation.addByPrefix('pressed', 'space press', 24, false);
+					animation.addByPrefix('confirm', 'space confirm', 24, false);
+				case 3:
+					animation.addByPrefix('static', 'arrowUP');
+					animation.addByPrefix('pressed', 'up press', 24, false);
+					animation.addByPrefix('confirm', 'up confirm', 24, false);
+				case 4:
+					animation.addByPrefix('static', 'arrowRIGHT');
+					animation.addByPrefix('pressed', 'right press', 24, false);
+					animation.addByPrefix('confirm', 'right confirm', 24, false);
+			}
+
+		}
 		}
 		updateHitbox();
 
@@ -123,6 +155,9 @@ class StrumNote extends FlxSprite
 		if (PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada' || ClientPrefs.middleScroll){
 		x += 50;
 		x += ((FlxG.width / 2) * player);
+		if(player == 1 && PlayState.isRing){
+			x -= 50;
+		}
 		} else {
 			switch (player)
 			{
