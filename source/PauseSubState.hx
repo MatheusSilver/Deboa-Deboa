@@ -248,6 +248,8 @@ class PauseSubState extends MusicBeatSubstate
 				{
 					praticar.loadGraphic(Paths.image('pause/praticarativado'));
 				}
+			else
+				{
 					praticar.loadGraphic(Paths.image('pause/praticardesativado'));
 				}
 		var upP = controls.UI_UP_P;
