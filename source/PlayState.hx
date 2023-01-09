@@ -3937,7 +3937,7 @@ class PlayState extends MusicBeatState
 
 						var animToPlay:String = '';
 						if (PlayState.isRing){
-							switch (Std.int(Math.abs(note.noteData)))
+							switch (Std.int(Math.abs(daNote.noteData)))
 							{
 								case 0:
 									animToPlay = 'singLEFT';
@@ -3951,7 +3951,7 @@ class PlayState extends MusicBeatState
 									animToPlay = 'singRIGHT';
 							}
 						}else{
-							switch (Std.int(Math.abs(note.noteData)))
+							switch (Std.int(Math.abs(daNote.noteData)))
 							{
 								case 0:
 									animToPlay = 'singLEFT';
