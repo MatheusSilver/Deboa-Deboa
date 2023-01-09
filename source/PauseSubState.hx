@@ -37,6 +37,8 @@ class PauseSubState extends MusicBeatSubstate
 	var praticar:FlxSprite;
 	var bot:FlxSprite;
 	var voltar:FlxSprite;
+	
+	var warningText:FlxText;
 
 
 	public static var pauseMusicName:String = 'breakfast';
@@ -47,7 +49,8 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		super();
 
-		//FunkinLua.addShaderToCamera('game', new GreyscaleEffect());
+		
+
 
 		menuItems = menuItemsOG;
 
@@ -153,13 +156,13 @@ class PauseSubState extends MusicBeatSubstate
 		//restart.screenCenter(XY);
 		add(restart);
 
-		bot = new FlxSprite().loadGraphic(Paths.image('pause/pause (botdesativado)'));
+		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplaydesativado'));
 		bot.alpha = 0.75;
 		bot.x=-587;
 		//bot.screenCenter(XY);
 		add(bot);
 
-		praticar = new FlxSprite().loadGraphic(Paths.image('pause/pause (praticadesativado)'));
+		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticardesativado'));
 		praticar.alpha = 0.75;
 		praticar.x=-655;
 		//praticar.screenCenter(XY);
@@ -231,6 +234,22 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
+		if(PlayState.cpuControlled)
+			{
+				bot.loadGraphic(Paths.image('pause/botplayativado'));
+			}
+		else
+			{
+				bot.loadGraphic(Paths.image('pause/botplaydesativado'));
+			}
+
+
+			if(PlayState.practiceMode)
+				{
+					praticar.loadGraphic(Paths.image('pause/praticarativado'));
+				}
+					praticar.loadGraphic(Paths.image('pause/praticardesativado'));
+				}
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
