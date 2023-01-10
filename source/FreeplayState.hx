@@ -280,7 +280,7 @@ class FreeplayState extends MusicBeatState
 
 			FlxG.sound.list.add(vocals);
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-			Conductor.changeBPM(PlayState.SONG.bpm);
+			//Conductor.changeBPM(PlayState.SONG.bpm); dps eu vejo se tem como colocar isso de uma forma melhor
 			vocals.play();
 			vocals.persist = true;
 			vocals.looped = true;
@@ -289,7 +289,7 @@ class FreeplayState extends MusicBeatState
 		}
 		else if (accepted && apertavel)
 			{
-				Conductor.changeBPM(112);
+				//Conductor.changeBPM(112);
 				persistentUpdate = false;
 				var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 				infoextended = songs[curSelected].display;

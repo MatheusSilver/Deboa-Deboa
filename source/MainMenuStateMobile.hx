@@ -60,7 +60,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function create()
 	{
-		//Conductor.changeBPM(112);
+		Conductor.changeBPM(112);
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No menu principal", null);
