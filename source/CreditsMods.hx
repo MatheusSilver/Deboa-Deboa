@@ -37,7 +37,7 @@ class CreditsMods extends MusicBeatState
 	
 	override function create()
 		{
-			FlxG.mouse.visible = true;
+			FlxG.mouse.visible = false;
 			#if desktop
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os créditos", null);
@@ -113,7 +113,7 @@ class CreditsMods extends MusicBeatState
 			if(controls.UI_RIGHT_P) { //ok
                 if(canChange)
                     {
-                        if(curSelected+1 > creditStuff.length)
+                        if(curSelected+1 > creditStuff.length-1)
                             {
                                 curSelectedBkp=curSelected;
                                 curSelected=0;
@@ -163,9 +163,9 @@ class CreditsMods extends MusicBeatState
                 dummycredit.y=0;
                 FlxTween.tween(dummycredit, {y: 724}, 0.5, {ease: FlxEase.quartInOut});
 
-                FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1});
+                FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
 
-                new FlxTimer().start(1.6, function(tmr:FlxTimer){
+                new FlxTimer().start(1.1, function(tmr:FlxTimer){
                     canChange=true;
                 });
                 newcredit.y=-724;
