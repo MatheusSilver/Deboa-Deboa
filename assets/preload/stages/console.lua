@@ -23,12 +23,14 @@ function onCreate()
 	setScrollFactor('tail2', 1, 1);
 	setProperty('tail2.alpha', 0);
 	setProperty('tail2.antialiasing', false)
+	setProperty('bg.antialiasing', false)
 
 	addLuaSprite('bg', false);
 	addLuaSprite('tail', false);
 	scaleObject('tail', 10, 10);
 	addLuaSprite('tail2', false);
 	scaleObject('tail2', 10, 10);
+	scaleObject('bg', 10, 10);
 end
 
 function onBeatHit()

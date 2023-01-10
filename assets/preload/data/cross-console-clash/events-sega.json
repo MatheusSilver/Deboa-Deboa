@@ -1,0 +1,169 @@
+{
+	"song": {
+		"speed": 2.8,
+		"stage": "console",
+		"player1": "sonic-player",
+		"player2": "mario-ccc-enemy",
+		"player3": "luigi-gone",
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						0,
+						-1,
+						"Must Press Swap",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						29629.6296296296,
+						-1,
+						"Play Animation",
+						"hey",
+						"bf",
+						""
+					],
+					[
+						29814.8148148148,
+						-1,
+						"Play Animation",
+						"hey-loop",
+						"bf",
+						""
+					],
+					[
+						30092.5925925926,
+						-1,
+						"Play Animation",
+						"hey",
+						"dad",
+						""
+					],
+					[
+						30231.4814814815,
+						-1,
+						"Play Animation",
+						"hey",
+						"dad",
+						""
+					],
+					[
+						30370.3703703704,
+						-1,
+						"Play Animation",
+						"hey",
+						"dad",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						56296.2962962963,
+						-1,
+						"Play Animation",
+						"jump",
+						"dad",
+						""
+					],
+					[
+						56481.4814814815,
+						-1,
+						"Play Animation",
+						"wave",
+						"bf",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						57777.7777777778,
+						-1,
+						"Change Character",
+						"bf",
+						"sonic'n'tails-player",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						59259.2592592593,
+						-1,
+						"Change Character",
+						"dad",
+						"mario'n'luigi-enemy",
+						""
+					],
+					[
+						60000,
+						-1,
+						"Change Character",
+						"gf",
+						"luigi-ccc",
+						""
+					],
+					[
+						60092.5925925926,
+						-1,
+						"Play Animation",
+						"jump",
+						"gf",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			}
+		],
+		"splashSkin": null,
+		"validScore": false,
+		"bpm": 162,
+		"arrowSkin": "arrows-sonic",
+		"needsVoices": false,
+		"song": "Cross-Console-Clash",
+		"isRing": null
+	}
+}

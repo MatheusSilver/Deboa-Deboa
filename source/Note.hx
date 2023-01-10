@@ -394,6 +394,8 @@ class Note extends FlxSprite
 	{
 		super.update(elapsed);
 
+		
+
 		//Como já dizia meu grande amigo
 		if (PlayState.majinstrums || PlayState.desesperada && jatrocou){ //ELA VAI...
 			reloadNote();

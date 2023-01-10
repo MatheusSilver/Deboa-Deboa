@@ -1,6 +1,7 @@
 package;
 
 import HSys;
+import SonicHUDCCC; //tive que trocar o nome pra não conflitar com o outro sonic hud usado na prey, YCR e talvez na nova confronting
 #if desktop
 import sys.io.Process; // medo
 #end
@@ -89,6 +90,10 @@ class PlayState extends MusicBeatState
 	public static var modohistoria:Bool = false;
 
 	var blackFuck:FlxSprite;
+
+	//CC Stuff
+	public static var sonicHUDCCC:SonicHUDCCC;
+
 
 	//veri scari
 	var fakertransform:FlxSprite;
@@ -295,6 +300,7 @@ class PlayState extends MusicBeatState
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
+	public var camCCC:FlxCamera;
 	public var camHUD2:FlxCamera; // jumpscares, ect..
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -530,16 +536,19 @@ class PlayState extends MusicBeatState
 		practiceMode = false;
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
+		camCCC = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		camLegenda = new FlxCamera();
 		camHUD2 = new FlxCamera();
 		camHUD2.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
+		camCCC.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		camLegenda.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camCCC);
 		FlxG.cameras.add(camHUD);
 		FlxG.cameras.add(camOther);
 		FlxG.cameras.add(camHUD2);
@@ -642,8 +651,6 @@ class PlayState extends MusicBeatState
 					curStage = 'school';
 				case 'thorns':
 					curStage = 'schoolEvil';
-				case 'cross-console-clash':
-					Lib.application.window.resize(720, 1280);
 				default:
 					curStage = 'stage';
 			}
@@ -1905,16 +1912,24 @@ class PlayState extends MusicBeatState
 
 	}
 
-		strumLineNotes.cameras = [camHUD];
-		grpNoteSplashes.cameras = [camHUD];
-		notes.cameras = [camHUD];
+		if(curSong.toLowerCase()!='cross-console-clash'){
+			strumLineNotes.cameras = [camHUD];
+			grpNoteSplashes.cameras = [camHUD];
+			notes.cameras = [camHUD];		
+			botplayTxt.cameras = [camHUD];
+		} else{
+			strumLineNotes.cameras = [camHUD2];
+			grpNoteSplashes.cameras = [camHUD2];
+			notes.cameras = [camHUD2];		
+			botplayTxt.cameras = [camHUD2];	
+		}
+
 		healthBar.cameras = [camHUD];
 		blackFuck.cameras = [camHUD2];
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		botplayTxt.cameras = [camHUD];
 		judgementCounter.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -2052,6 +2067,34 @@ class PlayState extends MusicBeatState
 				case 'senpai' | 'roses' | 'thorns':
 					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
+
+				case 'cross-console-clash':
+					if (curSong.toLowerCase()=='cross-console-clash')
+						{
+							camHUD.alpha = 0;
+							sonicHUDCCC = new SonicHUDCCC();
+							add(sonicHUDCCC);
+							sonicHUDCCC.cameras = [camCCC];
+
+							opponentStrums.forEach(function(tomove:FlxSprite)
+								{
+									tomove.x += 160 * 0.7;
+								});
+							playerStrums.forEach(function(tomove:FlxSprite)
+								{
+									tomove.x -= 160 * 0.7;
+								});
+
+								if(storyDifficulty == 4){
+									for (i in 0...playerStrums.length) {
+										playerStrums.members[i].x -= 80;
+									}
+									for (i in 0...opponentStrums.length) {
+										opponentStrums.members[i].x += 80;
+									}
+								}
+						}
+						startCountdown();
 
 					case 'soulless':
 						camGame.alpha = 0;
@@ -2973,8 +3016,16 @@ class PlayState extends MusicBeatState
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
+		if(curSong.toLowerCase()=='cross-console-clash'){
+			file = Paths.json(songName + '/events' + CoolUtil.difficultyStuff[storyDifficulty][1]);
+		}
 		if (OpenFlAssets.exists(file)) {
-			var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
+			var eventsData:Array<SwagSection>;
+			if(curSong.toLowerCase()=='cross-console-clash'){
+				eventsData = Song.loadFromJson('events' + CoolUtil.difficultyStuff[storyDifficulty][1], songName).notes;
+			} else{
+				eventsData = Song.loadFromJson('events', songName).notes;
+			}
 			for (section in eventsData)
 			{
 				for (songNotes in section.sectionNotes)
@@ -4468,6 +4519,17 @@ class PlayState extends MusicBeatState
 			
 				//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
 				}
+
+			case 'Must Press Swap': //Transição mais estilosa usada exclusivamente em CCC
+				FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[2], {x: playerStrums.members[2].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[3], {x: playerStrums.members[3].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+
+				FlxTween.tween(opponentStrums.members[0], {x: opponentStrums.members[0].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[1], {x: opponentStrums.members[1].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[2], {x: opponentStrums.members[2].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[3], {x: opponentStrums.members[3].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
 
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
@@ -6122,6 +6184,10 @@ class PlayState extends MusicBeatState
 				popUpScore(note);
 				combo += 1;
 				if(combo > 9999) combo = 9999;
+
+				if(curSong.toLowerCase()=='cross-console-clash'){
+					sonicHUDCCC.updateScoreText();
+				}
 			}
 			if (isRing && note.noteData == 2)
 				{

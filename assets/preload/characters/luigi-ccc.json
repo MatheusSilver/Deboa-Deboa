@@ -9,7 +9,7 @@
 			"fps": 12,
 			"anim": "danceLeft",
 			"indices": [],
-			"name": "dl"
+			"name": "idle"
 		},
 		{
 			"offsets": [
@@ -20,7 +20,7 @@
 			"fps": 12,
 			"anim": "danceRight",
 			"indices": [],
-			"name": "dr"
+			"name": "idle"
 		},
 		{
 			"loop": false,
@@ -42,7 +42,7 @@
 			"fps": 12,
 			"anim": "singLEFT",
 			"loop": false,
-			"name": "right"
+			"name": "left"
 		},
 		{
 			"offsets": [
@@ -53,7 +53,7 @@
 			"fps": 12,
 			"anim": "singRIGHT",
 			"loop": false,
-			"name": "left"
+			"name": "right"
 		},
 		{
 			"offsets": [
