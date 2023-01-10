@@ -112,7 +112,7 @@ class CreditsMusics extends MusicBeatState
                 MusicBeatState.switchState(new SobreState());
             }
 
-			if(controls.UI_RIGHT_P) { //ok
+			if(controls.UI_RIGHT_P || controls.UI_LEFT_P) { //ok
                 if(canChange)
                     {
                         if(curSelected+1 > creditStuff.length-1)
@@ -132,7 +132,7 @@ class CreditsMusics extends MusicBeatState
                     }
 			}
 
-            if(controls.UI_LEFT_P) { //ok
+            /*if(controls.UI_LEFT_P) { //ok
                 if(canChange)
                     {
                         if(curSelected-1 < 0)
@@ -150,7 +150,7 @@ class CreditsMusics extends MusicBeatState
                         canChange=false;
                         FlxG.sound.play(Paths.sound('scrollMenu'), 1);
                     }
-			}
+			}*/ //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 			super.update(elapsed);
             if(FlxG.sound.music.volume==0) {
                 FlxG.sound.music.fadeIn(4, 0, 0.7);
