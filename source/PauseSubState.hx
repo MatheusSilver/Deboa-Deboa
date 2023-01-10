@@ -178,11 +178,11 @@ class PauseSubState extends MusicBeatSubstate
 		add(perfil);
 		add(exe);
 
-		FlxTween.tween(continuar, {x: 0}, 0.3, {ease: FlxEase.quartInOut});
-		FlxTween.tween(praticar, {x: 0}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(restart, {x: 0}, 0.5, {ease: FlxEase.quartInOut});
-		FlxTween.tween(bot, {x: 0}, 0.6, {ease: FlxEase.quartInOut});
-		FlxTween.tween(voltar, {x: 0}, 0.7, {ease: FlxEase.quartInOut});
+		FlxTween.tween(continuar, {x: -128}, 0.3, {ease: FlxEase.quartInOut});
+		FlxTween.tween(praticar, {x: -128}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(restart, {x: -128}, 0.5, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bot, {x: -128}, 0.6, {ease: FlxEase.quartInOut});
+		FlxTween.tween(voltar, {x: -128}, 0.7, {ease: FlxEase.quartInOut});
 
 
 		FlxTween.tween(preto, {alpha: 0.55}, 0.3, {ease: FlxEase.quartInOut});
