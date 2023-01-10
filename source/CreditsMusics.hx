@@ -93,9 +93,9 @@ class CreditsMusics extends MusicBeatState
             add(dummycredit2);
             FlxTween.tween(bg, {y: 0}, 1, {ease: FlxEase.quartInOut});
             FlxTween.tween(newcredit, {y: 25}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1});
-            FlxTween.tween(newcredit1, {y: 25}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1});
+            FlxTween.tween(newcredit1, {y: 25}, 0.6, {ease: FlxEase.quartInOut, startDelay: 1});
 
-            new FlxTimer().start(1.5, function(tmr:FlxTimer){
+            new FlxTimer().start(1.65, function(tmr:FlxTimer){
                 canChange=true;
             });
 

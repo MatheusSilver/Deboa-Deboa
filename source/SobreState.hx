@@ -357,7 +357,7 @@ class SobreState extends MusicBeatState
 																{
 																	FlxG.sound.play(Paths.sound('confirmMenu'));
 																	sunny.alpha=1;
-																	//evento quando clicar
+																	MusicBeatState.switchState(new GaleriaState());
 																}
 														}
 
