@@ -23,7 +23,9 @@ using StringTools;
 class GaleriaState extends MusicBeatState
 {
 	var bg:FlxSprite;
+	var bgmusica:FlxSprite;
 	var isZoomActivated:Bool = false;
+	var isGaleria:Bool = true;
 	
 	override function create()
 		{
@@ -36,9 +38,15 @@ class GaleriaState extends MusicBeatState
 			bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria_back'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();
-			//faixa.setGraphicSize(Std.int(0.5));
 			bg.alpha = 1;
             bg.y=0;
+
+			bgmusica = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria_back'));
+			bgmusica.antialiasing = ClientPrefs.globalAntialiasing;
+			bgmusica.updateHitbox();
+			bgmusica.alpha = 1;
+            bgmusica.y=0;
+			
 			add(bg);
 
 
@@ -47,61 +55,74 @@ class GaleriaState extends MusicBeatState
 
 		override function update(elapsed:Float)
 			{
-				if(FlxG.mouse.wheel>0)
+				if (controls.BACK) {
+					FlxG.sound.play(Paths.sound('cancelMenu'));
+					MusicBeatState.switchState(new SobreState());
+				}
+				if(isGaleria)
 					{
-						if(bg.y==0)
+						bg.alpha=1;
+						bgmusica.alpha=0;
+						if(FlxG.mouse.wheel>0)
 							{
-								bg.y=0;
+								if(bg.y==0)
+									{
+										bg.y=0;
+									}
+								else if(bg.y<0)
+									{
+										bg.y=bg.y+15;
+									}
 							}
-						else if(bg.y<0)
+						else if(FlxG.mouse.wheel<0)
 							{
-								bg.y=bg.y+15;
+								if(bg.y==-2422)
+									{
+										bg.y=-2422;
+									}
+								else if(bg.y>-2422)
+									{
+										bg.y=bg.y-15;
+									}
 							}
-					}
-				else if(FlxG.mouse.wheel<0)
-					{
-						if(bg.y==-2422)
-							{
-								bg.y=-2422;
-							}
-						else if(bg.y>-2422)
-							{
-								bg.y=bg.y-15;
-							}
-					}
-
-					if(isZoomActivated)
-						{
-							//FlxG.camera.setPosition(FlxG.mouse.screenX, 0);
-							FlxTween.tween(FlxG.camera, {zoom: 2}, 0.3, {ease: FlxEase.quartInOut});
-							//FlxG.camera.zoom=2;
-							bg.x=FlxG.mouse.x-640;
-							//bg.y=FlxG.mouse.y;
-						}
-					else
-						{
-							FlxG.camera.x=0;
-							FlxG.camera.y=0;
-							//FlxG.camera.setPosition(0, 0);
-							FlxTween.tween(FlxG.camera, {zoom: 1}, 0.3, {ease: FlxEase.quartInOut});
-							bg.x=0;
-							if(bg.y>0)
+		
+							if(isZoomActivated)
 								{
-									bg.y=0;
+									//FlxG.camera.setPosition(FlxG.mouse.screenX, 0);
+									FlxTween.tween(FlxG.camera, {zoom: 2}, 0.3, {ease: FlxEase.quartInOut});
+									//FlxG.camera.zoom=2;
+									bg.x=FlxG.mouse.x-640;
+									//bg.y=FlxG.mouse.y;
 								}
-							if(bg.y<-2422)
+							else
 								{
-									bg.y=2422;
+									FlxG.camera.x=0;
+									FlxG.camera.y=0;
+									//FlxG.camera.setPosition(0, 0);
+									FlxTween.tween(FlxG.camera, {zoom: 1}, 0.3, {ease: FlxEase.quartInOut});
+									bg.x=0;
+									if(bg.y>0)
+										{
+											bg.y=0;
+										}
+									if(bg.y<-2422)
+										{
+											bg.y=2422;
+										}
 								}
-						}
-
-				if(FlxG.mouse.justReleased && isZoomActivated)
-					{
-						isZoomActivated = false;
+		
+						if(FlxG.mouse.justReleased && isZoomActivated)
+							{
+								isZoomActivated = false;
+							}
+						else if(FlxG.mouse.justReleased && !isZoomActivated)
+							{
+								isZoomActivated=true;
+							}
 					}
-				else if(FlxG.mouse.justReleased && !isZoomActivated)
+				else
 					{
-						isZoomActivated=true;
+						
 					}
 				super.update(elapsed);
 			}
