@@ -94,6 +94,59 @@ class PlayState extends MusicBeatState
 	//CC Stuff
 	public static var sonicHUDCCC:SonicHUDCCC;
 
+	//CY SUPER TRENS - phase 1
+	var greenhillphase1:BGSprite;
+	var ringsphase1:BGSprite;
+
+	//CY SUPER TRENS - phase 2
+	var chaorunning:FlxTiledSprite;
+	var greenhillbgphase2:FlxTiledSprite;
+
+	//CY SUPER TRENS - phase 3
+	var bgphase3:BGSprite;
+	var bgphase3supbg:BGSprite;
+
+	//CY SUPER TRENS - phase 4
+	var bloodhillchaorunning:FlxTiledSprite;
+	var bloodhillbgphase2:FlxTiledSprite;
+
+	//CY SUPER TRENS - phase 5 - vulgo inferno animado
+	var checkpintophase5:BGSprite;
+	var chaophase5:BGSprite;
+	var cabecatailsphase5:BGSprite;
+	var cabecaeggmanphase5:BGSprite;
+	var florphase5:BGSprite;
+	var flornormalphase5:BGSprite;
+	var floresnormaisphase5:BGSprite;
+	var maoknucklesphase5:BGSprite;
+	var molaphase5:BGSprite;
+	var olhosphase5:BGSprite;
+	var aneisnormaisphase5:BGSprite;
+
+	//CY SUPER TRENS - phase 6
+	var angelislandpegandofogobixo:FlxTiledSprite;
+
+	//CY SUPER TRENS - phase 7
+	var datreesfront:BGSprite;
+	var datressback:BGSprite;
+	var daplantafront:BGSprite;
+	var chaophase7:BGSprite;
+	var tetophase7:BGSprite;
+
+	//CY SUPER TRENS - phase 8
+	var pixelchaophantasm:BGSprite;
+
+	//CY SUPER TRENS - PHASE 9
+	var sonicudeitado:BGSprite;
+	var esmeraldasCY:BGSprite;
+
+	//CY SUPER TRENS - phase 10
+	var spacechaorunning:FlxTiledSprite;
+	var spacebgphase10:FlxTiledSprite;
+
+	//CY SUPER TRENS - phase 11
+	var finalspacebg:BGSprite;
+
 
 	//veri scari
 	var fakertransform:FlxSprite;
@@ -720,6 +773,25 @@ class PlayState extends MusicBeatState
 				var whiteFuck:FlxSprite; //Talvez eu arrange outra serventia pra isso.
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 				add(whiteFuck);
+			case 'confronting':
+				greenhillphase1 = new BGSprite('cenarios/SKY', 150, 0, 0.1, 0.1);
+				greenhillphase1.scale.x = 3;
+				greenhillphase1.scale.y = 3;
+				add(greenhillphase1);
+
+				//CY SUPER TRENS - phase 5 - vulgo inferno animado
+				var tremsquevoam:BGSprite;
+				var bgestaticophase5:BGSprite;
+				var sonicpisophase5:BGSprite;
+
+				//CY SUPER TRENS - phase 7
+			//	datreesfront = new BGSprite;
+			//	datressback = new BGSprite;
+			//	daplantafront = new BGSprite;
+			//	chaophase7 = new BGSprite;
+			//	tetophase7 = new BGSprite;
+
+
 			case 'bar' | 'bar-lordx' | 'bar-hypno':
 
 				var barsky:BGSprite;
@@ -3026,6 +3098,22 @@ class PlayState extends MusicBeatState
 			} else{
 				eventsData = Song.loadFromJson('events', songName).notes;
 			}
+			for (section in eventsData)
+			{
+				for (songNotes in section.sectionNotes)
+				{
+					if(songNotes[1] < 0) {
+						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5]]);
+						eventPushed(songNotes);
+					}
+				}
+			}
+		}
+
+		var fileletras:String = Paths.json(songName + '/letras');
+		if (OpenFlAssets.exists(fileletras)) {
+			var eventsData:Array<SwagSection>;
+				eventsData = Song.loadFromJson('letras', songName).notes;
 			for (section in eventsData)
 			{
 				for (songNotes in section.sectionNotes)
