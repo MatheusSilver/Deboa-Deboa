@@ -72,7 +72,9 @@ class GaleriaState extends MusicBeatState
 
 					if(isZoomActivated)
 						{
-							FlxG.camera.zoom=2;
+							//FlxG.camera.setPosition(FlxG.mouse.screenX, 0);
+							FlxTween.tween(FlxG.camera, {zoom: 2}, 0.3, {ease: FlxEase.quartInOut});
+							//FlxG.camera.zoom=2;
 							bg.x=FlxG.mouse.x-640;
 							//bg.y=FlxG.mouse.y;
 						}
@@ -80,7 +82,8 @@ class GaleriaState extends MusicBeatState
 						{
 							FlxG.camera.x=0;
 							FlxG.camera.y=0;
-							FlxG.camera.zoom=1;
+							//FlxG.camera.setPosition(0, 0);
+							FlxTween.tween(FlxG.camera, {zoom: 1}, 0.3, {ease: FlxEase.quartInOut});
 							bg.x=0;
 							if(bg.y>0)
 								{
