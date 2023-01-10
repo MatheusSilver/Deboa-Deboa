@@ -2,123 +2,7 @@
 	"song": {
 		"sectionLengths": [],
 		"player1": "sonic-player",
-		"events": [
-			[
-				0,
-				[
-					[
-						"Must Press Swap",
-						"",
-						""
-					]
-				]
-			],
-			[
-				29629.6296296296,
-				[
-					[
-						"Play Animation",
-						"hey",
-						"bf"
-					]
-				]
-			],
-			[
-				29814.8148148148,
-				[
-					[
-						"Play Animation",
-						"hey-loop",
-						"bf"
-					]
-				]
-			],
-			[
-				30092.5925925926,
-				[
-					[
-						"Play Animation",
-						"hey",
-						"dad"
-					]
-				]
-			],
-			[
-				30231.4814814815,
-				[
-					[
-						"Play Animation",
-						"hey",
-						"dad"
-					]
-				]
-			],
-			[
-				30370.3703703704,
-				[
-					[
-						"Play Animation",
-						"hey",
-						"dad"
-					]
-				]
-			],
-			[
-				56296.2962962963,
-				[
-					[
-						"Play Animation",
-						"jump",
-						"dad"
-					]
-				]
-			],
-			[
-				56481.4814814815,
-				[
-					[
-						"Play Animation",
-						"wave",
-						"bf"
-					]
-				]
-			],
-			[
-				57777.7777777778,
-				[
-					[
-						"Change Character",
-						"bf",
-						"sonic'n'tails-player"
-					]
-				]
-			],
-			[
-				59259.2592592593,
-				[
-					[
-						"Change Character",
-						"dad",
-						"mario'n'luigi-enemy"
-					]
-				]
-			],
-			[
-				60000,
-				[
-					[
-						"Change Character",
-						"gf",
-						"luigi-ccc"
-					],
-					[
-						"Play Animation",
-						"jump",
-						"gf"
-					]
-				]
-			]
-		],
+		"events": [],
 		"gfVersion": "invisibru",
 		"player2": "mario-ccc-enemy",
 		"notes": [
@@ -7816,7 +7700,7 @@
 				"mustHitSection": true
 			}
 		],
-		"player3": "invisibru",
+		"player3": "luigi-gone",
 		"song": "Cross-Console-Clash",
 		"arrowSkin": "arrows-sonic",
 		"stage": "console",

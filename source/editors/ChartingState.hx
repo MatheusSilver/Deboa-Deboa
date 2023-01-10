@@ -77,6 +77,8 @@ class ChartingState extends MusicBeatState
 		['eventos-needle', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
 		['hudfade', 'value1 = opacidade \n value 2 = tempo de transição.'],
 		['strum swap1', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
+		['strum swap1', 'usada na Triple-Trouble\n reverte o que foi feito por strum swap1'],
+		['ring clean', 'usada na Triple-Trouble\n serve para remover a strum de rings no final da música'],
 		['eventos-tripletrouble', 'É sério cara, eu real acho que não preciso explicar como isso funciona mais né?'],
 		['eventos-prey', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],
 		['Entrada Pixel', "Se igual a 1, entra em pixel, se é qualquer coisa, ele sai. Válido apenas para Value 1"],
@@ -693,7 +695,7 @@ class ChartingState extends MusicBeatState
 		var swapSection:FlxButton = new FlxButton(10, 240, "Swap section", function()
 		{
 			var count:Int = 4;
-			if(_song.isRing)count =5;
+			if(_song.isRing)count = 5;
 			for (i in 0..._song.notes[curSection].sectionNotes.length)
 			{
 				var note:Array<Dynamic> = _song.notes[curSection].sectionNotes[i];
@@ -1919,7 +1921,7 @@ class ChartingState extends MusicBeatState
 		if(_song.isRing)
 			lol = 5;
 
-		var note:Note = new Note(daStrumTime, daNoteInfo % 4, null, null, true);
+		var note:Note = new Note(daStrumTime, daNoteInfo % lol, null, null, true);
 		if(daNoteInfo > -1) { //Common note
 			if(!Std.isOfType(i[3], String)) //Convert old note type to new note type format
 			{

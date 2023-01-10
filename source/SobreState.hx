@@ -39,7 +39,7 @@ class SobreState extends MusicBeatState
 			FlxG.mouse.visible = true;
 			#if desktop
 			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Vendo os créditos", null);
+			DiscordClient.changePresence("Vendo o sobre", null);
 			#end
 			bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -157,9 +157,9 @@ class SobreState extends MusicBeatState
 			credbotao.alpha = 0.75;
 			add(credbotao);*/
 			updateuwu();
-			#if mobileC
+			/*#if mobileC
 			addVirtualPad(LEFT_RIGHT, A_B);
-			#end
+			#end*/
 			super.create();
 		}
 	override function update(elapsed:Float)
@@ -306,7 +306,7 @@ class SobreState extends MusicBeatState
 										{
 											FlxG.sound.play(Paths.sound('confirmMenu'));
 											exe.alpha=1;
-											//evento quando clicar
+											MusicBeatState.switchState(new CreditsMods());
 										}
 								}
 								function sasterHover():Void
@@ -331,7 +331,7 @@ class SobreState extends MusicBeatState
 													{
 														FlxG.sound.play(Paths.sound('confirmMenu'));
 														saster.alpha=1;
-														//evento quando clicar
+														MusicBeatState.switchState(new CreditsMusics());
 													}
 											}
 			
@@ -357,7 +357,7 @@ class SobreState extends MusicBeatState
 																{
 																	FlxG.sound.play(Paths.sound('confirmMenu'));
 																	sunny.alpha=1;
-																	//evento quando clicar
+																	MusicBeatState.switchState(new GaleriaState());
 																}
 														}
 

@@ -117,7 +117,6 @@ class FreeplayState extends MusicBeatState
 
 		var borda:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/bordinha'));
 		borda.antialiasing = ClientPrefs.globalAntialiasing;
-		add(borda);
 		
 		for (i in 0...songs.length)
 		{
@@ -140,7 +139,7 @@ class FreeplayState extends MusicBeatState
 
 		scoreText = new FlxText(15, 15, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
-
+		add(borda);
 		add(scoreText);
 		
 		if(curSelected >= songs.length) curSelected = 0;
@@ -281,6 +280,7 @@ class FreeplayState extends MusicBeatState
 
 			FlxG.sound.list.add(vocals);
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+			//Conductor.changeBPM(PlayState.SONG.bpm); dps eu vejo se tem como colocar isso de uma forma melhor
 			vocals.play();
 			vocals.persist = true;
 			vocals.looped = true;
@@ -289,6 +289,7 @@ class FreeplayState extends MusicBeatState
 		}
 		else if (accepted && apertavel)
 			{
+				//Conductor.changeBPM(112);
 				persistentUpdate = false;
 				var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 				infoextended = songs[curSelected].display;

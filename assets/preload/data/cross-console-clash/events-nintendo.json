@@ -1,0 +1,150 @@
+{
+	"song": {
+		"speed": 2.8,
+		"stage": "console",
+		"player1": "mario-ccc",
+		"player2": "sonic-ccc",
+		"player3": "luigi-gone",
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						29629.6296296296,
+						-1,
+						"Play Animation",
+						"hey",
+						"dad",
+						""
+					],
+					[
+						29814.8148148148,
+						-1,
+						"Play Animation",
+						"hey-loop",
+						"dad",
+						""
+					],
+					[
+						30000,
+						-1,
+						"Play Animation",
+						"hey",
+						"bf",
+						""
+					],
+					[
+						30231.4814814815,
+						-1,
+						"Play Animation",
+						"hey",
+						"bf",
+						""
+					],
+					[
+						30370.3703703704,
+						-1,
+						"Play Animation",
+						"hey",
+						"bf",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						56296.2962962963,
+						-1,
+						"Play Animation",
+						"jump",
+						"bf",
+						""
+					],
+					[
+						56481.4814814815,
+						-1,
+						"Play Animation",
+						"wave",
+						"dad",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						57777.7777777778,
+						-1,
+						"Change Character",
+						"dad",
+						"sonic'n'tails",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						59259.2592592593,
+						-1,
+						"Change Character",
+						"bf",
+						"mario'n'luigi",
+						""
+					],
+					[
+						60000,
+						-1,
+						"Change Character",
+						"gf",
+						"luigi-ccc",
+						""
+					],
+					[
+						60000,
+						-1,
+						"Play Animation",
+						"jump",
+						"gf",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			}
+		],
+		"splashSkin": null,
+		"validScore": false,
+		"bpm": 162,
+		"arrowSkin": "arrows-mario",
+		"needsVoices": false,
+		"song": "Cross-Console-Clash",
+		"isRing": null
+	}
+}

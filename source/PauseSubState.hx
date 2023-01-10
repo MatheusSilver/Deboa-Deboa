@@ -8,25 +8,38 @@ import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.input.keyboard.FlxKey;
+import flixel.ui.FlxButton;
+import flixel.addons.ui.FlxUIButton;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
+import FunkinLua;
+import Shaders;
 
 class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Voltar para a musica', 'Reiniciar musica',/* 'Mudar dificuldade' ,*/ 'Modo praticar', 'Botplay', 'Voltar para o menu'];
+	var menuItemsOG:Array<String> = ['Voltar para a musica', 'Modo praticar', 'Reiniciar musica', 'Botplay', 'Voltar para o menu'];
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
 	var practiceText:FlxText;
 	var botplayText:FlxText;
+
+	var continuar:FlxSprite;
+	var restart:FlxSprite;
+	var praticar:FlxSprite;
+	var bot:FlxSprite;
+	var voltar:FlxSprite;
+	
+	var warningText:FlxText;
+
 
 	public static var pauseMusicName:String = 'breakfast';
 
@@ -35,6 +48,10 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
+
+		
+
+
 		menuItems = menuItemsOG;
 
 		for (i in 0...CoolUtil.difficultyStuff.length) {
@@ -43,16 +60,33 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		difficultyChoices.push('BACK');
 
+		var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		preto.alpha=0;
+		add(preto);
+
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music(pauseMusicName), true, true);
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
 
 		FlxG.sound.list.add(pauseMusic);
 
-		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pause/pause (linhas)'));
 		bg.alpha = 0;
-		bg.scrollFactor.set();
-		add(bg);
+		//bg.scrollFactor.set();
+		bg.screenCenter(XY);
+	
+		var perfil:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pause/pause (perfil)'));
+		perfil.alpha = 1;
+		perfil.x = 640;
+		//bg.scrollFactor.set();
+		//perfil.screenCenter(XY);
+
+	
+		var exe:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pause/pause (sonicexe)'));
+		exe.alpha = 1;
+		exe.x = 674;
+		//bg.scrollFactor.set();
+		//exe.screenCenter(XY);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, "", 32);
 		if (PlayState.isStoryMode){
@@ -110,10 +144,55 @@ class PauseSubState extends MusicBeatSubstate
 		levelDifficulty.x = FlxG.width - (levelDifficulty.width + 20);
 		blueballedTxt.x = FlxG.width - (blueballedTxt.width + 20);
 
-		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
-		FlxTween.tween(levelDifficulty, {alpha: 1, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
-		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+		continuar = new FlxSprite().loadGraphic(Paths.image('pause/pause (continuar)'));
+		continuar.alpha = 0.75;
+		continuar.x=-693;
+		//continuar.screenCenter(XY);
+		add(continuar);
+
+		restart = new FlxSprite().loadGraphic(Paths.image('pause/pause (restart)'));
+		restart.alpha = 0.75;
+		restart.x=-620;
+		//restart.screenCenter(XY);
+		add(restart);
+
+		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplaydesativado'));
+		bot.alpha = 0.75;
+		bot.x=-587;
+		//bot.screenCenter(XY);
+		add(bot);
+
+		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticardesativado'));
+		praticar.alpha = 0.75;
+		praticar.x=-655;
+		//praticar.screenCenter(XY);
+		add(praticar);
+		
+		voltar = new FlxSprite().loadGraphic(Paths.image('pause/pause (voltar)'));
+		voltar.alpha = 0.75;
+		voltar.x=-557;
+		//voltar.screenCenter(XY);
+		add(voltar);
+
+		add(bg);
+		add(perfil);
+		add(exe);
+
+		FlxTween.tween(continuar, {x: -128}, 0.3, {ease: FlxEase.quartInOut});
+		FlxTween.tween(praticar, {x: -128}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(restart, {x: -128}, 0.5, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bot, {x: -128}, 0.6, {ease: FlxEase.quartInOut});
+		FlxTween.tween(voltar, {x: -128}, 0.7, {ease: FlxEase.quartInOut});
+
+
+		FlxTween.tween(preto, {alpha: 0.55}, 0.3, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bg, {alpha: 1}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(perfil, {x: 0}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(exe, {x: 0}, 0.6, {ease: FlxEase.quartInOut});
+		FlxTween.tween(levelInfo, {alpha: 0, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
+		FlxTween.tween(levelDifficulty, {alpha: 0, y: levelDifficulty.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(blueballedTxt, {alpha: 0, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
+
 
 		grpMenuShit = new FlxTypedGroup<Alphabet>();
 		add(grpMenuShit);
@@ -124,6 +203,7 @@ class PauseSubState extends MusicBeatSubstate
 			songText.isMenuTrem = true;
 			songText.targetY = i;
 			songText.screenCenter(X);
+			songText.alpha=0;
 			grpMenuShit.add(songText);
 		}
 
@@ -136,6 +216,7 @@ class PauseSubState extends MusicBeatSubstate
 		changeSelection();
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+
 
 		#if mobileC
 		addVirtualPad(UP_DOWN, A);
@@ -153,6 +234,24 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
+		if(PlayState.cpuControlled)
+			{
+				bot.loadGraphic(Paths.image('pause/botplayativado'));
+			}
+		else
+			{
+				bot.loadGraphic(Paths.image('pause/botplaydesativado'));
+			}
+
+
+			if(PlayState.practiceMode)
+				{
+					praticar.loadGraphic(Paths.image('pause/praticarativado'));
+				}
+			else
+				{
+					praticar.loadGraphic(Paths.image('pause/praticardesativado'));
+				}
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
@@ -250,7 +349,7 @@ class PauseSubState extends MusicBeatSubstate
 	override function destroy()
 	{
 		pauseMusic.destroy();
-
+		//FunkinLua.removeShaderFromCamera('game', new GreyscaleEffect());
 		super.destroy();
 	}
 
@@ -272,13 +371,54 @@ class PauseSubState extends MusicBeatSubstate
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0.6;
+
+			item.alpha = 0;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
 			if (item.targetY == 0)
 			{
-				item.alpha = 1;
+				item.alpha = 0;
 				// item.setGraphicSize(Std.int(item.width));
+				if(item == grpMenuShit.members[0])
+					{
+						continuar.alpha=1;
+						praticar.alpha=0.75;
+						restart.alpha=0.75;
+						bot.alpha=0.75;
+						voltar.alpha=0.75;
+					}
+				else if(item == grpMenuShit.members[1])
+					{
+						continuar.alpha=0.75;
+						praticar.alpha=1;
+						restart.alpha=0.75;
+						bot.alpha=0.75;
+						voltar.alpha=0.75;
+					}
+				else if(item == grpMenuShit.members[2])
+					{
+						continuar.alpha=0.75;
+						praticar.alpha=0.75;
+						restart.alpha=1;
+						bot.alpha=0.75;
+						voltar.alpha=0.75;
+					}
+					else if(item == grpMenuShit.members[3])
+						{
+							continuar.alpha=0.75;
+							praticar.alpha=0.75;
+							restart.alpha=0.75;
+							bot.alpha=1;
+							voltar.alpha=0.75;
+						}
+						else if(item == grpMenuShit.members[4])
+							{
+								continuar.alpha=0.75;
+								praticar.alpha=0.75;
+								restart.alpha=0.75;
+								bot.alpha=0.75;
+								voltar.alpha=1;
+							}
 			}
 		}
 	}

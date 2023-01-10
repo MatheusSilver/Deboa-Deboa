@@ -1,6 +1,7 @@
 package;
 
 import HSys;
+import SonicHUDCCC; //tive que trocar o nome pra não conflitar com o outro sonic hud usado na prey, YCR e talvez na nova confronting
 #if desktop
 import sys.io.Process; // medo
 #end
@@ -89,6 +90,10 @@ class PlayState extends MusicBeatState
 	public static var modohistoria:Bool = false;
 
 	var blackFuck:FlxSprite;
+
+	//CC Stuff
+	public static var sonicHUDCCC:SonicHUDCCC;
+
 
 	//veri scari
 	var fakertransform:FlxSprite;
@@ -295,6 +300,7 @@ class PlayState extends MusicBeatState
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
+	public var camCCC:FlxCamera;
 	public var camHUD2:FlxCamera; // jumpscares, ect..
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
@@ -337,7 +343,6 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
-	var notas:Int = 0;
 	public static var isRing:Bool = false;
 
 	var textoajustefino:String = '';
@@ -478,7 +483,7 @@ class PlayState extends MusicBeatState
 				precacheList.set('Tails', 'image');
 				precacheList.set('Ring', 'sound');
 				precacheList.set('staticBUZZ', 'sound');
-				precacheList.set('//hitStatic1', 'sound');
+				precacheList.set('hitStatic1', 'sound');
 				precacheList.set('P3Jumps/TailsScreamLOL', 'sound');
 				precacheList.set('P3Jumps/KnucklesScreamLOL', 'sound');
 				precacheList.set('P3Jumps/EggmanScreamLOL', 'sound');
@@ -501,9 +506,6 @@ class PlayState extends MusicBeatState
 		} else {
 			isRing = false;
 		} 
-
-		if (isRing)
-			notas = 1;
 
 		
 
@@ -534,16 +536,19 @@ class PlayState extends MusicBeatState
 		practiceMode = false;
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
+		camCCC = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		camLegenda = new FlxCamera();
 		camHUD2 = new FlxCamera();
 		camHUD2.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
+		camCCC.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		camLegenda.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camCCC);
 		FlxG.cameras.add(camHUD);
 		FlxG.cameras.add(camOther);
 		FlxG.cameras.add(camHUD2);
@@ -646,8 +651,6 @@ class PlayState extends MusicBeatState
 					curStage = 'school';
 				case 'thorns':
 					curStage = 'schoolEvil';
-				case 'cross-console-clash':
-					Lib.application.window.resize(720, 1280);
 				default:
 					curStage = 'stage';
 			}
@@ -844,9 +847,16 @@ class PlayState extends MusicBeatState
 				p2greenhill.antialiasing = true;
 				add(p2greenhill);
 
-				case 'P3Stage': // i fixed the bgs and shit!!! - razencro part 1
+				case 'P3Stage': // i fixed the bgs and shit!!! - razencro part 1 - bg's finalizados sílvio parte 2
 				{
-					defaultCamZoom = .9;
+
+					tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+					tela_preta.cameras = [camHUD2];
+					tela_preta.alpha = 0;
+
+					
+					add(tela_preta);
+					
 					var sSKY:FlxSprite = new FlxSprite(-621.1, -395.65).loadGraphic(Paths.image('cenarios/Glitch'));
 					sSKY.antialiasing = true;
 					sSKY.scrollFactor.set(0.9, 1);
@@ -1902,16 +1912,24 @@ class PlayState extends MusicBeatState
 
 	}
 
-		strumLineNotes.cameras = [camHUD];
-		grpNoteSplashes.cameras = [camHUD];
-		notes.cameras = [camHUD];
+		if(curSong.toLowerCase()!='cross-console-clash'){
+			strumLineNotes.cameras = [camHUD];
+			grpNoteSplashes.cameras = [camHUD];
+			notes.cameras = [camHUD];		
+			botplayTxt.cameras = [camHUD];
+		} else{
+			strumLineNotes.cameras = [camHUD2];
+			grpNoteSplashes.cameras = [camHUD2];
+			notes.cameras = [camHUD2];		
+			botplayTxt.cameras = [camHUD2];	
+		}
+
 		healthBar.cameras = [camHUD];
 		blackFuck.cameras = [camHUD2];
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		botplayTxt.cameras = [camHUD];
 		judgementCounter.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -2049,6 +2067,34 @@ class PlayState extends MusicBeatState
 				case 'senpai' | 'roses' | 'thorns':
 					if(daSong == 'roses') FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
+
+				case 'cross-console-clash':
+					if (curSong.toLowerCase()=='cross-console-clash')
+						{
+							camHUD.alpha = 0;
+							sonicHUDCCC = new SonicHUDCCC();
+							add(sonicHUDCCC);
+							sonicHUDCCC.cameras = [camCCC];
+
+							opponentStrums.forEach(function(tomove:FlxSprite)
+								{
+									tomove.x += 160 * 0.7;
+								});
+							playerStrums.forEach(function(tomove:FlxSprite)
+								{
+									tomove.x -= 160 * 0.7;
+								});
+
+								if(storyDifficulty == 4){
+									for (i in 0...playerStrums.length) {
+										playerStrums.members[i].x -= 80;
+									}
+									for (i in 0...opponentStrums.length) {
+										opponentStrums.members[i].x += 80;
+									}
+								}
+						}
+						startCountdown();
 
 					case 'soulless':
 						camGame.alpha = 0;
@@ -2970,8 +3016,16 @@ class PlayState extends MusicBeatState
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
+		if(curSong.toLowerCase()=='cross-console-clash'){
+			file = Paths.json(songName + '/events' + CoolUtil.difficultyStuff[storyDifficulty][1]);
+		}
 		if (OpenFlAssets.exists(file)) {
-			var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
+			var eventsData:Array<SwagSection>;
+			if(curSong.toLowerCase()=='cross-console-clash'){
+				eventsData = Song.loadFromJson('events' + CoolUtil.difficultyStuff[storyDifficulty][1], songName).notes;
+			} else{
+				eventsData = Song.loadFromJson('events', songName).notes;
+			}
 			for (section in eventsData)
 			{
 				for (songNotes in section.sectionNotes)
@@ -3136,16 +3190,15 @@ class PlayState extends MusicBeatState
 	private function generateStaticArrows(player:Int):Void
 		{
 			var keyCount:Int = 4;
-			if (isRing && player == 1){
+			if (isRing){
 				keyCount = 5;
 			}
 			for (i in 0...keyCount)
 			{
 				var skin:String = "NOTE_assets";
-
-				if(curSong.toLowerCase()=='triple-trouble' && player == 1){skin='RING_assets';}
-
-				if(curSong.toLowerCase()=='triple-trouble' && player == 0){skin='NOTE_assets';}
+				if (isRing){
+					skin = 'RING_assets';
+				}
 
 				if(storyDifficulty == 3){
 				if(curSong.toLowerCase()=='cross-console-clash' && player == 0){skin='arrows-mario';}
@@ -3934,21 +3987,22 @@ class PlayState extends MusicBeatState
 						}
 
 						var animToPlay:String = '';
-						if (isRing) {
-							switch (Math.abs(daNote.noteData))
+						if (PlayState.isRing){
+							switch (Std.int(Math.abs(daNote.noteData)))
 							{
 								case 0:
 									animToPlay = 'singLEFT';
 								case 1:
 									animToPlay = 'singDOWN';
+								case 2:
+									//fica feliz e dá pulinho, ihaaaaaaaa
 								case 3:
 									animToPlay = 'singUP';
 								case 4:
 									animToPlay = 'singRIGHT';
 							}
-						}
-						else {
-							switch (Math.abs(daNote.noteData))
+						}else{
+							switch (Std.int(Math.abs(daNote.noteData)))
 							{
 								case 0:
 									animToPlay = 'singLEFT';
@@ -3986,7 +4040,9 @@ class PlayState extends MusicBeatState
 						if(daNote.isSustainNote && !daNote.animation.curAnim.name.endsWith('end')) {
 							time += 0.15;
 						}
-						if (daNote.noteData < 8 && daNote.noteType != 'player3'){
+						if (isRing){
+							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 5, time);
+						} else if (daNote.noteData < 8 && daNote.noteType != 'player3'){
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
 						} else {
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time, true);
@@ -4179,21 +4235,37 @@ class PlayState extends MusicBeatState
 						flyState = value1;
 					}
 				});
-			case 'strum swap1':
+			case 'strum swap2': //	OMAGA 2???????? DOS MESMOS CRIADORES DO WHATSAPP 2??? OOOOOOOOOOOMAGAAAAAWD (Silvio momentos antes de coringar colocando eventos na Triple-Trouble)
 				if (!ClientPrefs.middleScroll){
 				playerStrums.forEach(function(spr:FlxSprite)
 				{
-					spr.x -= 645;
+					spr.x += 645;
+					
 				});
 				opponentStrums.forEach(function(spr:FlxSprite)
 				{
-					spr.x += 645;
+					spr.x -= 645;
 				});
 			} //Eu estou do seu lado middlescrollzero / nexxy / Naffy rlx
+			bfIsLeft = false;
+			iconP2.changeIcon(dad.healthIcon);
+			iconP1.changeIcon(boyfriend.healthIcon);
+				reloadHealthBarColors();
+				case 'strum swap1':
+					if (!ClientPrefs.middleScroll){
+					playerStrums.forEach(function(spr:FlxSprite)
+					{
+						spr.x -= 645;
+					});
+					opponentStrums.forEach(function(spr:FlxSprite)
+					{
+						spr.x += 645;
+					});
+				} //Eu estou do seu lado middlescrollzero / nexxy / Naffy rlx
 				bfIsLeft = true;
 				iconP1.changeIcon(dad.healthIcon);
 				iconP2.changeIcon(boyfriend.healthIcon);
-				reloadHealthBarColors();
+					reloadHealthBarColors();
 			case 'lyrics':
 				var split = value1.split("--");
 				var text = value1;
@@ -4447,6 +4519,17 @@ class PlayState extends MusicBeatState
 			
 				//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
 				}
+
+			case 'Must Press Swap': //Transição mais estilosa usada exclusivamente em CCC
+				FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[2], {x: playerStrums.members[2].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[3], {x: playerStrums.members[3].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+
+				FlxTween.tween(opponentStrums.members[0], {x: opponentStrums.members[0].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[1], {x: opponentStrums.members[1].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[2], {x: opponentStrums.members[2].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[3], {x: opponentStrums.members[3].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
 
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
@@ -4746,8 +4829,13 @@ class PlayState extends MusicBeatState
 					//Reaproveitar o lua da YCR, e codar o vignette red pra fazer tween nas partes do beast
 					//Não é muito dificil, é só usar um get property que verifica se o p3staticbg está visivel ou não k
 
-				case 1431, 1496, 1560, 1624, 1687, 1816, 1879, 1928, 1932, 1944, 2008, 2072, 2136, 2200, 2264:
-					spirospreidi(); //SPIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIN
+				case 0: //ULTIMATE GAMBIARRA MASTERS
+				if(!ClientPrefs.middleScroll){
+				opponentStrums.members[2].alpha = 0;
+				opponentStrums.members[3].x = opponentStrums.members[3].x - 28*3;
+				opponentStrums.members[4].x = opponentStrums.members[4].x - 28*3;
+				}
+					
 				case 1:
 					doP3Static(); // cool static
 					FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
@@ -4778,6 +4866,7 @@ class PlayState extends MusicBeatState
 					defaultCamZoom = 0.9;
 
 					p3staticbg.visible = true;
+
 				case 2823: //Entrada do eggman, pra reverter o efeito das notas, use o evento strum swap 2
 					doP3JumpEGGMAN();
 
@@ -4793,6 +4882,13 @@ class PlayState extends MusicBeatState
 
 				case 4111: //Final, vá de acordo com a ordem no chat do discord pra trocar os bonecos.
 					p3staticbg.visible = true;
+					FlxTween.tween(playerStrums.members[2], {alpha: 0}, 1, {ease: FlxEase.cubeOut});
+					FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x + 160 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut});
+					FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x + 160 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut});
+					FlxTween.tween(playerStrums.members[3], {x: playerStrums.members[3].x - 160 * 3 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut});
+					FlxTween.tween(playerStrums.members[4], {x: playerStrums.members[4].x - 160 * 3 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut}); //Bem vindo a turma de matemática avançada omega kek
+					//OH nooooo tweensssssssss nooooooooooooooooooooooooooo
+
 				}
 
 			case 'eventos-prey':
@@ -5976,7 +6072,7 @@ class PlayState extends MusicBeatState
 				case 1:
 					animToPlay = 'singDOWNmiss';
 				case 2:
-					animToPlay = '';
+					//Fica triste, senta e chora kkkkkk
 				case 3:
 					animToPlay = 'singUPmiss';
 				case 4:
@@ -6004,10 +6100,6 @@ class PlayState extends MusicBeatState
 			if(daNote.noteType == 'Alt Animation') daAlt = '-alt';
 
 			boyfriend.playAnim(animToPlay + daAlt, true);
-		}
-		if(cNum>0){
-			cNum--;
-			updateSonicRings();
 		}
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
 	}
@@ -6053,9 +6145,6 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
 			vocals.volume = 0;
-			if(cNum>0){
-				cNum--;
-			}
 		}
 	}
 
@@ -6095,6 +6184,10 @@ class PlayState extends MusicBeatState
 				popUpScore(note);
 				combo += 1;
 				if(combo > 9999) combo = 9999;
+
+				if(curSong.toLowerCase()=='cross-console-clash'){
+					sonicHUDCCC.updateScoreText();
+				}
 			}
 			if (isRing && note.noteData == 2)
 				{
@@ -6117,7 +6210,7 @@ class PlayState extends MusicBeatState
 					case 1:
 						animToPlay = 'singDOWN';
 					case 2:
-						animToPlay = '';
+						//fica feliz e dá pulinho, ihaaaaaaaa
 					case 3:
 						animToPlay = 'singUP';
 					case 4:
@@ -6723,7 +6816,7 @@ class PlayState extends MusicBeatState
 	{
 		trace('SIMPLE JUMPSCARE');
 
-		var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('P3Jumps/Tails', 'week-xenophanes'));
+		var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Tails', 'week-xenophanes'));
 
 		doP3JumpTAILS.setGraphicSize(FlxG.width, FlxG.height);
 
@@ -6741,7 +6834,7 @@ class PlayState extends MusicBeatState
 				remove(doP3JumpTAILS);
 		});
 
-		balling.frames = Paths.getSparrowAtlas('daSTAT', 'week-xenophanes');
+		balling.frames = Paths.getSparrowAtlas('daSTAT');
 		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
 
 		balling.setGraphicSize(FlxG.width, FlxG.height);
@@ -6770,7 +6863,7 @@ class PlayState extends MusicBeatState
 	{
 		trace('SIMPLE JUMPSCARE');
 
-		var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('P3Jumps/Knuckles', 'week-xenophanes'));
+		var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Knuckles', 'week-xenophanes'));
 
 		doP3JumpKNUCKLES.setGraphicSize(FlxG.width, FlxG.height);
 
@@ -6820,7 +6913,7 @@ class PlayState extends MusicBeatState
 	{
 		trace('SIMPLE JUMPSCARE');
 
-		var doP3JumpEGGMAN:FlxSprite = new FlxSprite().loadGraphic(Paths.image('P3Jumps/Eggman', 'week-xenophanes'));
+		var doP3JumpEGGMAN:FlxSprite = new FlxSprite().loadGraphic(Paths.image('eggman', 'week-xenophanes'));
 
 		doP3JumpEGGMAN.setGraphicSize(FlxG.width, FlxG.height);
 
