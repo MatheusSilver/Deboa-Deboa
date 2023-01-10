@@ -23,6 +23,7 @@ using StringTools;
 class GaleriaState extends MusicBeatState
 {
 	var bg:FlxSprite;
+	var isZoomActivated:Bool = false;
 	
 	override function create()
 		{
@@ -59,14 +60,45 @@ class GaleriaState extends MusicBeatState
 					}
 				else if(FlxG.mouse.wheel<0)
 					{
-						if(bg.y==-1402)
+						if(bg.y==-2422)
 							{
-								bg.y=-1402;
+								bg.y=-2422;
 							}
-						else if(bg.y>-1402)
+						else if(bg.y>-2422)
 							{
 								bg.y=bg.y-15;
 							}
+					}
+
+					if(isZoomActivated)
+						{
+							FlxG.camera.zoom=2;
+							bg.x=FlxG.mouse.x-640;
+							//bg.y=FlxG.mouse.y;
+						}
+					else
+						{
+							FlxG.camera.x=0;
+							FlxG.camera.y=0;
+							FlxG.camera.zoom=1;
+							bg.x=0;
+							if(bg.y>0)
+								{
+									bg.y=0;
+								}
+							if(bg.y<-2422)
+								{
+									bg.y=2422;
+								}
+						}
+
+				if(FlxG.mouse.justReleased && isZoomActivated)
+					{
+						isZoomActivated = false;
+					}
+				else if(FlxG.mouse.justReleased && !isZoomActivated)
+					{
+						isZoomActivated=true;
 					}
 				super.update(elapsed);
 			}
