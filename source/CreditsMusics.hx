@@ -23,8 +23,8 @@ class CreditsMusics extends MusicBeatState
 {
 	//var letext:FlxText;
 	var bg:FlxSprite;
-	var faixa:FlxSprite;
-    var exe:FlxSprite;
+	//var faixa:FlxSprite;
+    //var exe:FlxSprite;
 	var curSelected:Int=0;
     var curSelectedBkp:Int=0;
     var canChange:Bool=false;
