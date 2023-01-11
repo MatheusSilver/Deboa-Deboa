@@ -115,7 +115,7 @@ class GaleriaState extends MusicBeatState
 
 			galeriaButton.onDown.callback = function()
 				{
-					FlxG.sound.play(Paths.sound('confirmMenu'));
+					FlxG.sound.play(Paths.sound('click'));
 					isGaleria=true;
 				};
 
@@ -139,7 +139,7 @@ class GaleriaState extends MusicBeatState
 
 				musicButton.onDown.callback = function()
 					{
-						FlxG.sound.play(Paths.sound('confirmMenu'));
+						FlxG.sound.play(Paths.sound('click'));
 						isGaleria=false;
 						playsArray.visible = true;
 						menuItems.visible = true;
