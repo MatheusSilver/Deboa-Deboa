@@ -90,24 +90,10 @@ class MainMenuStateMobile extends MusicBeatState
 
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
 		bg.scrollFactor.set(0, 0);
-		//bg.setGraphicSize(FlxG.width);
 		bg.updateHitbox();
 		bg.screenCenter(X);
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-
-		//checker = new FlxBackdrop(Paths.image('soquadrados', 'preload'), 0.2, 0.2, true, true);
-		
-		//add(checker);
-		//checker.alpha = 0.8;
-		//checker.color = FlxColor.RED;
-		//Isto é temporário, por algum motivo isso não tá compilando no github
-
-		/*gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x41000000, 0x2C744100, 0x88A10000], 1, 90, true);
-		gradientBar.y = FlxG.height - gradientBar.height;
-		gradientBar.scale.y = 0;
-		gradientBar.updateHitbox();
-		//add(gradientBar);*/
 
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -215,20 +201,20 @@ class MainMenuStateMobile extends MusicBeatState
 		//haxe me obrigou a ser um cara organizado, mas ainda assim sou rebelde
 		//musica de novela de 2010 starts playing
 
-		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
-		FlxTween.tween(historiabotao, {x: FlxG.width - 2.5*historiabotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+		FlxTween.tween(historiabotao, {x: FlxG.width - 2.5*historiabotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(0.6, function(tmr:FlxTimer) {
-		FlxTween.tween(freeplaybotao, {x: FlxG.width - 2.5*freeplaybotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+		FlxTween.tween(freeplaybotao, {x: FlxG.width - 2.5*freeplaybotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
+		});
+		new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+		FlxTween.tween(achievementsbotao, {x: FlxG.width - 2.5*achievementsbotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
+		});
+		new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+		FlxTween.tween(opcaobotao, {x: FlxG.width - 2.5*opcaobotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
 		});
 		new FlxTimer().start(0.9, function(tmr:FlxTimer) {
-		FlxTween.tween(achievementsbotao, {x: FlxG.width - 2.5*achievementsbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
-		});
-		new FlxTimer().start(1.2, function(tmr:FlxTimer) {
-		FlxTween.tween(opcaobotao, {x: FlxG.width - 2.5*opcaobotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
-		});
-		new FlxTimer().start(1.5, function(tmr:FlxTimer) {
-		FlxTween.tween(sobrebotao, {x: FlxG.width - 2.5*sobrebotao.width + 696 + 90}, 1.5, {
+		FlxTween.tween(sobrebotao, {x: FlxG.width - 2.5*sobrebotao.width + 696 + 90}, 0.5, {
 			ease: FlxEase.expoInOut,
 			onComplete: function(twn:FlxTween) {
 				clicavel = true; //Só pra garantir que a animação de entrada NÃO ocorra ao mesmo tempo que a de saida.

@@ -94,58 +94,27 @@ class PlayState extends MusicBeatState
 	//CC Stuff
 	public static var sonicHUDCCC:SonicHUDCCC;
 
-	//CY SUPER TRENS - phase 1
-	var greenhillphase1:BGSprite;
-	var ringsphase1:BGSprite;
-
-	//CY SUPER TRENS - phase 2
+	//CY SUPER TRENS - GRUPO 1
+	var chaophase1:BGSprite;
+	var heyknucks:BGSprite;
+	var objetosdecenariophase1:BGSprite;
+	var flowers:BGSprite;
 	var chaorunning:FlxTiledSprite;
-	var greenhillbgphase2:FlxTiledSprite;
+	var aquarunning:FlxTiledSprite;
+	var nuvens:FlxTiledSprite;
+	var bgrunning:FlxTiledSprite;
+	var mountainsrunning:FlxTiledSprite;
+	var cachoeirasrunning:FlxTiledSprite;
 
-	//CY SUPER TRENS - phase 3
-	var bgphase3:BGSprite;
-	var bgphase3supbg:BGSprite;
+	//CY SUPER TRENS - GRUPO 2
+	var cume:BGSprite;
+	var bgCY3:BGSprite;
+	var dabigbigbigbigchungus:BGSprite;
+	var dalight:BGSprite;
 
-	//CY SUPER TRENS - phase 4
-	var bloodhillchaorunning:FlxTiledSprite;
-	var bloodhillbgphase2:FlxTiledSprite;
-
-	//CY SUPER TRENS - phase 5 - vulgo inferno animado
-	var checkpintophase5:BGSprite;
-	var chaophase5:BGSprite;
-	var cabecatailsphase5:BGSprite;
-	var cabecaeggmanphase5:BGSprite;
-	var florphase5:BGSprite;
-	var flornormalphase5:BGSprite;
-	var floresnormaisphase5:BGSprite;
-	var maoknucklesphase5:BGSprite;
-	var molaphase5:BGSprite;
-	var olhosphase5:BGSprite;
-	var aneisnormaisphase5:BGSprite;
-
-	//CY SUPER TRENS - phase 6
-	var angelislandpegandofogobixo:FlxTiledSprite;
-
-	//CY SUPER TRENS - phase 7
-	var datreesfront:BGSprite;
-	var datressback:BGSprite;
-	var daplantafront:BGSprite;
-	var chaophase7:BGSprite;
-	var tetophase7:BGSprite;
-
-	//CY SUPER TRENS - phase 8
-	var pixelchaophantasm:BGSprite;
-
-	//CY SUPER TRENS - PHASE 9
-	var sonicudeitado:BGSprite;
-	var esmeraldasCY:BGSprite;
-
-	//CY SUPER TRENS - phase 10
-	var spacechaorunning:FlxTiledSprite;
-	var spacebgphase10:FlxTiledSprite;
-
-	//CY SUPER TRENS - phase 11
-	var finalspacebg:BGSprite;
+	//CY SUPER TRENS - GRUPO 3
+	var bgBACKG2:BGSprite;
+	var bgfrontG2:BGSprite;
 
 
 	//veri scari
@@ -774,22 +743,106 @@ class PlayState extends MusicBeatState
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 				add(whiteFuck);
 			case 'confronting':
-				greenhillphase1 = new BGSprite('cenarios/SKY', 150, 0, 0.1, 0.1);
-				greenhillphase1.scale.x = 3;
-				greenhillphase1.scale.y = 3;
-				add(greenhillphase1);
 
-				//CY SUPER TRENS - phase 5 - vulgo inferno animado
-				var tremsquevoam:BGSprite;
-				var bgestaticophase5:BGSprite;
-				var sonicpisophase5:BGSprite;
+				//CY SUPER TRENS - GRUPO 3
+				bgCY3 = new BGSprite('cenarios/grupo3/bgmontanhoso', 150, 0, 0.1, 0.1);
+				bgCY3.scale.x = 1;
+				bgCY3.scale.y = 1;
+				add(bgCY3);
 
-				//CY SUPER TRENS - phase 7
-			//	datreesfront = new BGSprite;
-			//	datressback = new BGSprite;
-			//	daplantafront = new BGSprite;
-			//	chaophase7 = new BGSprite;
-			//	tetophase7 = new BGSprite;
+				dabigbigbigbigchungus = new BGSprite('cenarios/grupo3/montedetrensvoando', 150, 0, 0.1, 0.1);
+				dabigbigbigbigchungus.scale.x = 1;
+				dabigbigbigbigchungus.scale.y = 1;
+				add(dabigbigbigbigchungus);
+
+				cume = new BGSprite('cenarios/grupo3/cume', 150, 0, 0.1, 0.1);
+				cume.scale.x = 1;
+				cume.scale.y = 1;
+				add(cume);
+
+				dalight = new BGSprite('cenarios/grupo3/cume', 150, 0, 0.1, 0.1);
+				dalight.scale.x = 1;
+				dalight.scale.y = 1;
+				add(dalight);
+
+				//CY SUPER TRENS - GRUPO 2
+				bgBACKG2 = new BGSprite('cenarios/grupo2/bigbg', 150, 0, 0.1, 0.1); //ToDo: Juntar todos os BG's em um só para compor o fundo dessas músicas do grupo 2.
+				bgBACKG2.scale.x = 1;
+				bgBACKG2.scale.y = 1;
+				add(bgBACKG2);
+
+				bgfrontG2 = new BGSprite('cenarios/grupo2/arvores front', 150, 0, 0.1, 0.1);
+				bgfrontG2.scale.x = 1;
+				bgfrontG2.scale.y = 1;
+				//add(bgfrontG2); Esse trem serve é exclusivo do grupo 2, e serve pra colocar uma imagem a frente até mesmo do personagens que cantam.
+
+				//CY SUPER TRENS - GRUPO 1
+				nuvens = new FlxTiledSprite(Paths.image('cenarios/grupo1/nuvens'), 4608, 2832, true, true);
+				nuvens.scrollFactor.set(0.4, 0.4);
+				nuvens.scale.x = 5;
+				nuvens.scale.y = 5;
+				nuvens.y += 600;
+				nuvens.x += 1000;
+				nuvens.velocity.set(-2000, 0);
+				add(nuvens);
+
+				mountainsrunning = new FlxTiledSprite(Paths.image('cenarios/grupo1/montanhas'), 4608, 2832, true, true);
+				mountainsrunning.scrollFactor.set(0.4, 0.4);
+				mountainsrunning.scale.x = 5;
+				mountainsrunning.scale.y = 5;
+				mountainsrunning.y += 600;
+				mountainsrunning.x += 1000;
+				mountainsrunning.velocity.set(-2000, 0);
+				add(mountainsrunning);
+
+				cachoeirasrunning = new FlxTiledSprite(Paths.image('cenarios/grupo1/cachoeira'), 4608, 2832, true, true);
+				cachoeirasrunning.scrollFactor.set(0.4, 0.4);
+				cachoeirasrunning.scale.x = 5;
+				cachoeirasrunning.scale.y = 5;
+				cachoeirasrunning.y += 600;
+				cachoeirasrunning.x += 1000;
+				cachoeirasrunning.velocity.set(-2000, 0);
+				add(cachoeirasrunning);
+
+				aquarunning = new FlxTiledSprite(Paths.image('cenarios/grupo1/cachoeira'), 4608, 2832, true, true);
+				aquarunning.scrollFactor.set(0.4, 0.4);
+				aquarunning.scale.x = 5;
+				aquarunning.scale.y = 5;
+				aquarunning.y += 600;
+				aquarunning.x += 1000;
+				aquarunning.velocity.set(-2000, 0);
+				add(aquarunning);
+
+				chaorunning = new FlxTiledSprite(Paths.image('cenarios/grupo1/floorscroll'), 4608, 2832, true, true);
+				chaorunning.scrollFactor.set(0.4, 0.4);
+				chaorunning.scale.x = 5;
+				chaorunning.scale.y = 5;
+				chaorunning.y += 600;
+				chaorunning.x += 1000;
+				chaorunning.velocity.set(-2000, 0);
+				add(chaorunning);
+
+				flowers = new BGSprite('cenarios/grupo1/flowers', 150, 0, 0.1, 0.1, ['flowerloop']);
+				flowers.scale.x = 1;
+				flowers.scale.y = 1;
+				add(flowers);
+
+				objetosdecenariophase1 = new BGSprite('cenarios/grupo1/objects', 150, 0, 0.1, 0.1, ['objects']);
+				objetosdecenariophase1.scale.x = 1;
+				objetosdecenariophase1.scale.y = 1;
+				add(objetosdecenariophase1);
+
+				chaophase1 = new BGSprite('cenarios/grupo1/GHGround', 150, 0, 0.1, 0.1);
+				chaophase1.scale.x = 1;
+				chaophase1.scale.y = 1;
+				add(chaophase1);
+
+				heyknucks = new BGSprite('cenarios/grupo1/heyknucks', 150, 0, 0.1, 0.1);
+				heyknucks.scale.x = 1;
+				heyknucks.scale.y = 1;
+				add(heyknucks); //esse sprite é utilizado para a hora que sonico encontra tails e knucks, mas tá com um placeholder do sonico.exe só pra teste
+
+
 
 
 			case 'bar' | 'bar-lordx' | 'bar-hypno':
@@ -1405,6 +1458,11 @@ class PlayState extends MusicBeatState
 		
 		if(curStage == 'spooky') {
 			add(halloweenWhite);
+		}
+
+		
+		if (curStage == 'confronting'){
+			add(bgfrontG2);
 		}
 
 		#if LUA_ALLOWED
