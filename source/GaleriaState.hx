@@ -24,7 +24,9 @@ class GaleriaState extends MusicBeatState
 {
 	var bg:FlxSprite;
 	var bgmusica:FlxSprite;
-	var isZoomActivated:Bool = false;
+	var galeriaButton:FlxButton;
+	var musicButton:FlxButton;
+	//var isZoomActivated:Bool = false;
 	var isGaleria:Bool = true;
 	
 	override function create()
@@ -34,28 +36,77 @@ class GaleriaState extends MusicBeatState
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo a galeria", null);
 			#end
-            
+            FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
 			bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria_back'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();
 			bg.alpha = 1;
             bg.y=0;
 
-			bgmusica = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria_back'));
+			bgmusica = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria-musicas_back'));
 			bgmusica.antialiasing = ClientPrefs.globalAntialiasing;
 			bgmusica.updateHitbox();
 			bgmusica.alpha = 1;
             bgmusica.y=0;
 			
 			add(bg);
+			add(bgmusica);
+			galeriaButton = new FlxButton(FlxG.width, 100, '');
+			galeriaButton.loadGraphic(Paths.image('sobremenu/galeria/button', 'preload'));
+			galeriaButton.updateHitbox();
+			galeriaButton.x = 491;
+			galeriaButton.y = 376;
+			galeriaButton.alpha = 0;
+			add(galeriaButton);
 
+			galeriaButton.onDown.callback = function()
+				{
+					FlxG.sound.play(Paths.sound('confirmMenu'));
+					isGaleria=true;
+				};
+
+				galeriaButton.onOver.callback = function()
+					{
+						FlxG.mouse.load(Paths.image('sobremenu/galeria/pointerselected'), 1, 0, 0);
+					};
+
+					galeriaButton.onOut.callback = function()
+						{
+							FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
+						};
+
+				musicButton = new FlxButton(FlxG.width, 100, '');
+				musicButton.loadGraphic(Paths.image('sobremenu/galeria/button', 'preload'));
+				musicButton.updateHitbox();
+				musicButton.x = 640;
+				musicButton.y = 376;
+				musicButton.alpha = 0;
+				add(musicButton);
+
+				musicButton.onDown.callback = function()
+					{
+						FlxG.sound.play(Paths.sound('confirmMenu'));
+						isGaleria=false;
+					};
+
+					musicButton.onOver.callback = function()
+						{
+							FlxG.mouse.load(Paths.image('sobremenu/galeria/pointerselected'), 1, 0, 0);
+						};
+	
+						musicButton.onOut.callback = function()
+							{
+								FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
+							};
 
 			super.create();
         }
 
 		override function update(elapsed:Float)
 			{
+				
 				if (controls.BACK) {
+					FlxG.mouse.unload();
 					FlxG.sound.play(Paths.sound('cancelMenu'));
 					MusicBeatState.switchState(new SobreState());
 				}
@@ -73,6 +124,24 @@ class GaleriaState extends MusicBeatState
 									{
 										bg.y=bg.y+15;
 									}
+
+								if(galeriaButton.y==376)
+									{
+										galeriaButton.y = 376;
+									}
+								else
+									{
+										galeriaButton.y = galeriaButton.y+15;
+									}
+
+									if(musicButton.y==376)
+										{
+											musicButton.y = 376;
+										}
+									else
+										{
+											musicButton.y = musicButton.y+15;
+										}
 							}
 						else if(FlxG.mouse.wheel<0)
 							{
@@ -84,9 +153,27 @@ class GaleriaState extends MusicBeatState
 									{
 										bg.y=bg.y-15;
 									}
+
+									if(galeriaButton.y==-376)
+										{
+											galeriaButton.y = -376;
+										}
+									else
+										{
+											galeriaButton.y = galeriaButton.y-15;
+										}
+
+										if(musicButton.y==-376)
+											{
+												musicButton.y = -376;
+											}
+										else
+											{
+												musicButton.y = musicButton.y-15;
+											}
 							}
 		
-							if(isZoomActivated)
+							/*if(isZoomActivated)
 								{
 									//FlxG.camera.setPosition(FlxG.mouse.screenX, 0);
 									FlxTween.tween(FlxG.camera, {zoom: 2}, 0.3, {ease: FlxEase.quartInOut});
@@ -116,21 +203,25 @@ class GaleriaState extends MusicBeatState
 									if(bg.y<-2422)
 										{
 											bg.y=2422;
-										}*/
-								}
+										}
+								}*/
 		
-						if(FlxG.mouse.justReleased && isZoomActivated)
+						/*if(FlxG.mouse.justReleased && isZoomActivated)
 							{
 								isZoomActivated = false;
 							}
 						else if(FlxG.mouse.justReleased && !isZoomActivated)
 							{
 								isZoomActivated=true;
-							}
+							}*/
 					}
 				else
 					{
-						
+						bg.y=0;
+						bg.alpha=0;
+						bgmusica.alpha=1;
+						musicButton.y = 376;
+						galeriaButton.y = 376;
 					}
 				super.update(elapsed);
 			}
