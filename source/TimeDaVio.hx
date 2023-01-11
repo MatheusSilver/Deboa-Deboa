@@ -222,32 +222,45 @@ class TimeDaVio extends MusicBeatState
                 });
                 newcredit.y=-724;
                 newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-'+creditStuff[curSelected]));*/
+                if(curSelected>7)
+                    {
 
-                FlxTween.tween(bg, {y: 728}, 0.8, {ease: FlxEase.quartInOut});
-                FlxTween.tween(mic, {x: 257}, 0.9, {ease: FlxEase.quartInOut});
-                FlxTween.tween(perfil, {x: 1280}, 0.5, {ease: FlxEase.quartInOut});
-                FlxTween.tween(desc, {x: -663}, 0.7, {ease: FlxEase.quartInOut});
-                FlxTween.tween(estante, {x: -593}, 0.9, {ease: FlxEase.quartInOut});
-                FlxTween.tween(icon, {x: -665}, 1, {ease: FlxEase.quartInOut});
-                FlxTween.tween(youtube, {x: -148}, 0.95, {ease: FlxEase.quartInOut});
-                FlxTween.tween(twitter, {x: -148}, 0.95, {ease: FlxEase.quartInOut});
-                FlxTween.tween(discord, {x: -148}, 0.95, {ease: FlxEase.quartInOut});
+                    }
+                else
+                    {
+                        FlxTween.tween(bg, {y: 728}, 0.8, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(mic, {x: 257}, 0.9, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(perfil, {x: 1280}, 0.5, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(desc, {x: -663}, 0.7, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(estante, {x: -593}, 0.9, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(icon, {x: -665}, 1, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(youtube, {x: -148}, 0.95, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(twitter, {x: -148}, 0.95, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(discord, {x: -148}, 0.95, {ease: FlxEase.quartInOut});
+                    }
 
                 new FlxTimer().start(1.05, function(tmr:FlxTimer){
-                    bg.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/back'));
-                    perfil.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/perfil'));
-                    estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/estante'));
-                    icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/icon'));
-                    desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/desc'));
-                    FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(mic, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(desc, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(estante, {x: 0}, 1.55, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(youtube, {x: 248}, 1.60, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(twitter, {x: 93}, 1.60, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(discord, {x: 405}, 1.60, {ease: FlxEase.quartInOut});
-                    FlxTween.tween(icon, {x: 0}, 1.65, {ease: FlxEase.quartInOut});
+                    if(curSelected>7)
+                        {
+
+                        }
+                    else
+                        {
+                            bg.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/back'));
+                            perfil.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/perfil'));
+                            estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/estante'));
+                            icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/icon'));
+                            desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/desc'));
+                            FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(mic, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(desc, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(estante, {x: 0}, 1.55, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(youtube, {x: 248}, 1.60, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(twitter, {x: 93}, 1.60, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(discord, {x: 405}, 1.60, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(icon, {x: 0}, 1.65, {ease: FlxEase.quartInOut});
+                        }
                     updateButtons();
                     new FlxTimer().start(1.7, function(tmr:FlxTimer){
                         canChange=true;
