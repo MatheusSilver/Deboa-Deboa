@@ -281,7 +281,7 @@ class SobreState extends MusicBeatState
 							{
 								FlxG.sound.play(Paths.sound('confirmMenu'));
 								vio.alpha=1;
-								//evento quando clicar
+								MusicBeatState.switchState(new TimeDaVio());
 							}
 					}
 					function exeHover():Void
