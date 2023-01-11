@@ -39,13 +39,13 @@ class TimeDaVio extends MusicBeatState
     /*var newcredit:FlxSprite;
     var dummycredit:FlxSprite;*/
 
-    var creditStuff:Array<String> = ['vio', 'dav', 'ash', 'silver', 'konan', 'x02', 'hugo', 'cat'];
+    var creditStuff:Array<String> = ['vio', 'dav', 'ash', 'silver', 'konan', 'x02', 'hugo', 'cat',  /*daqui pra frente é elenco*/ 'vio'];
     var discordLink:Array<String> = ['https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 
-                                    'https://discord.gg/kprH8WnP8Q', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA'];
+                                    'https://discord.gg/kprH8WnP8Q', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA'];
     var twitterLink:Array<String> = ['https://twitter.com/galaccine', 'https://twitter.com/Davizinhn', 'https://twitter.com/Ashuro_Privety', 'https://twitter.com/galaccine', 'https://twitter.com/Konan_Hatake13', 
-                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/galaccine'];
+                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/galaccine', 'https://twitter.com/galaccine'];
     var youtubeLink:Array<String> = ['https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@Davizinhn', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/c/matheussilver', 
-                                    'https://www.youtube.com/@konan_hatake13', 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@GAT0192/'];
+                                    'https://www.youtube.com/@konan_hatake13', 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@GAT0192/', 'https://www.youtube.com/c/galaccine'];
 	
 	override function create()
 		{
@@ -222,9 +222,16 @@ class TimeDaVio extends MusicBeatState
                 });
                 newcredit.y=-724;
                 newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-'+creditStuff[curSelected]));*/
-                if(curSelected>7)
+                if(curSelectedBkp>7)
                     {
-
+                        FlxTween.tween(bg, {y: 728}, 0.8, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(perfil, {x: -1280}, 0.5, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(desc, {x: 663}, 0.7, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(estante, {x: 593}, 0.9, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(icon, {x: 700}, 1, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(youtube, {x: 1291}, 0.95, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(twitter, {x: 1291}, 0.95, {ease: FlxEase.quartInOut});
+                        FlxTween.tween(discord, {x: 1291}, 0.95, {ease: FlxEase.quartInOut});
                     }
                 else
                     {
@@ -242,10 +249,43 @@ class TimeDaVio extends MusicBeatState
                 new FlxTimer().start(1.05, function(tmr:FlxTimer){
                     if(curSelected>7)
                         {
+                            estante.x = 593;
+                            perfil.x=-1280;
+                            desc.x=663;
+                            icon.x=700;
+                            youtube.y=378;
+                            youtube.x=1291;
+                            discord.y=378;
+                            discord.x=1291;
+                            twitter.y=378;
+                            twitter.x=1291;
+                            bg.loadGraphic(Paths.image('sobremenu/creditos/elenco/'+creditStuff[curSelected]+'/back'));
+                            perfil.loadGraphic(Paths.image('sobremenu/creditos/elenco/'+creditStuff[curSelected]+'/perfil'));
+                            estante.loadGraphic(Paths.image('sobremenu/creditos/elenco/'+creditStuff[curSelected]+'/estante'));
+                            icon.loadGraphic(Paths.image('sobremenu/creditos/elenco/'+creditStuff[curSelected]+'/icon'));
+                            desc.loadGraphic(Paths.image('sobremenu/creditos/elenco/'+creditStuff[curSelected]+'/desc'));
 
+                            FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(desc, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(estante, {x: 0}, 1.55, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(youtube, {x: 768}, 1.60, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(twitter, {x: 1072}, 1.60, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(discord, {x: 921}, 1.60, {ease: FlxEase.quartInOut});
+                            FlxTween.tween(icon, {x: 0}, 1.65, {ease: FlxEase.quartInOut});
                         }
                     else
                         {
+                            estante.x = -593;
+                            perfil.x=1280;
+                            desc.x=-663;
+                            icon.x=-665;
+                            youtube.y=203;
+                            youtube.x=-148;
+                            discord.y=203;
+                            discord.x=-148;
+                            twitter.y=203;
+                            twitter.x=-148;
                             bg.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/back'));
                             perfil.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/perfil'));
                             estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/'+creditStuff[curSelected]+'/estante'));
