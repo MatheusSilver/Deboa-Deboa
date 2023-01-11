@@ -28,9 +28,33 @@ class GaleriaState extends MusicBeatState
 	var musicButton:FlxButton;
 	//var isZoomActivated:Bool = false;
 	var isGaleria:Bool = true;
+	var playsArray:FlxTypedGroup<FlxSprite>;
+	var menuItems:FlxTypedGroup<FlxSprite>;
+
+	var leSongs:Array<String> = [];
 	
 	override function create()
 		{
+
+					//DaMusic part
+
+						for (i in 0...WeekData.freeplayList.length) { //Extração da lista de músicas tanto do freeplas, quanto do modo história.
+							var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
+							var leSongs:Array<String> = [];
+							for (j in 0...leWeek.songs.length) {
+								leSongs.push(leWeek.songs[j][3]);
+							}
+						}
+						for (i in 0...WeekData.weeksList.length) {
+							var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+							var leSongs:Array<String> = [];
+							for (j in 0...leWeek.songs.length) {
+								leSongs.push(leWeek.songs[j][3]);
+							}
+						}
+
+			//DaGaleria part
+
 			FlxG.mouse.visible = true;
 			#if desktop
 			// Updating Discord Rich Presence
@@ -58,6 +82,36 @@ class GaleriaState extends MusicBeatState
 			galeriaButton.y = 376;
 			galeriaButton.alpha = 0;
 			add(galeriaButton);
+			
+						menuItems = new FlxTypedGroup<FlxSprite>();
+						add(menuItems);
+			
+						playsArray = new FlxTypedGroup<FlxSprite>();
+						add(playsArray);
+			
+						for (i in 0...leSongs.length) { //Em busca da engine automática k
+							var menuItem:FlxSprite = new FlxSprite(50 + 290*(i%4), Math.floor(i/4)); //Nunca pensei que usaria função piso depois do fundamental
+							menuItem.loadGraphic(Paths.image('galeriamusicas/gm-' + leSongs[i].toLowerCase(), 'preload'));
+							menuItem.setGraphicSize(285, 360);
+							menuItem.ID = i;
+							menuItems.add(menuItem);
+							menuItem.visible = !isGaleria;
+							menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+							menuItem.updateHitbox();
+				
+							var icon:FlxSprite = new FlxSprite(0,0);
+							icon.loadGraphic(Paths.image('galeriamusicas/play', 'preload'));
+							icon.x = (menuItem.x + menuItem.width - menuItem.width)/2;
+							icon.y = menuItem.y + menuItem.height;
+							icon.visible = !isGaleria;
+							icon.ID = i;
+							icon.antialiasing = ClientPrefs.globalAntialiasing;
+							playsArray.add(icon);
+							add(icon);
+						}
+			
+						//Na real, se pa a única coisa que talvez vá ser aproveitada desse code, é o sistema de formação de lista de icons...
+			
 
 			galeriaButton.onDown.callback = function()
 				{
@@ -87,6 +141,9 @@ class GaleriaState extends MusicBeatState
 					{
 						FlxG.sound.play(Paths.sound('confirmMenu'));
 						isGaleria=false;
+						playsArray.visible = true;
+						menuItems.visible = true;
+						
 					};
 
 					musicButton.onOver.callback = function()
