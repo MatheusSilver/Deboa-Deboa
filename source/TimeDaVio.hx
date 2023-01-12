@@ -49,18 +49,18 @@ class TimeDaVio extends MusicBeatState
                                     /*daqui pra frente é elenco*/ 
                                     'https://discord.gg/G3BmXXeshA',
                                     '',
-                                    '',
-                                    '',
-                                    '', 
-                                    '', 
-                                    '', 
-                                    '',/**/ 
+                                    'https://discord.gg/nU3ZRvQfwP', 
+                                    'https://discord.gg/YxMwmAY39p',
+                                    'https://discord.com/invite/5prgn8H2P8', 
+                                    'https://discord.gg/a7PEnvCaxU', 
                                     '', 
                                     '',
+                                    '', 
                                     '',
                                     '',
                                     '',
-                                    ''];
+                                    'https://discord.gg/B3uAXgyr',
+                                    'https://www.facebook.com/MarianaSayuriFandubsFansings'];
 
                                     
     var twitterLink:Array<String> = ['https://twitter.com/galaccine', 'https://twitter.com/Davizinhn', 'https://twitter.com/Ashuro_Privety', 'https://twitter.com/galaccine', 'https://twitter.com/Konan_Hatake13', 
@@ -72,7 +72,7 @@ class TimeDaVio extends MusicBeatState
                                     'https://twitter.com/JinzoM',
                                     'https://twitter.com/lightwuz',
                                     'https://twitter.com/lonejustchillin',
-                                    '', 
+                                    'https://www.facebook.com/christian.palheta', 
                                     'https://twitter.com/M0lt3nziito',
                                     'https://twitter.com/Nekop9123',
                                     'https://twitter.com/DiazNih_',
@@ -90,12 +90,12 @@ class TimeDaVio extends MusicBeatState
                                     '',
                                     'https://www.youtube.com/@Lightwuz',
                                     'https://www.youtube.com/@samelonny', 
-                                    '', 
-                                    '',//
+                                    'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g', 
+                                    'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g',//
                                     'https://www.youtube.com/@M0lt3nziito',
-                                    '',
-                                    '',
-                                    '','https://www.youtube.com/@vinizitooo-lol', 'https://www.youtube.com/@MarianaSayuri'];
+                                    'https://www.youtube.com/@nihdiaz1145',
+                                    'https://www.youtube.com/c/OrochiDubzkkk',
+                                    'https://www.youtube.com/c/SahChan2019','https://www.youtube.com/@vinizitooo-lol', 'https://www.youtube.com/@MarianaSayuri'];
 	
 	override function create()
 		{
@@ -360,6 +360,22 @@ class TimeDaVio extends MusicBeatState
 
         function updateButtons()
             {
+                if(curSelected==14)
+                    {
+                        twitter.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
+                    }
+                    else
+                        {
+                            twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
+                        }
+                        if(curSelected==21)
+                            {
+                                discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
+                            }
+                            else
+                                {
+                                    discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-discord', 'preload'));
+                                }
                 twitter.alpha=0.75;
                 youtube.alpha=0.75;
                 discord.alpha=0.75;
