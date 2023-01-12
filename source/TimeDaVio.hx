@@ -95,7 +95,7 @@ class TimeDaVio extends MusicBeatState
                                     'https://www.youtube.com/@M0lt3nziito',
                                     '',
                                     '',
-                                    '','','https://www.youtube.com/@vinizitooo-lol', 'https://www.youtube.com/@MarianaSayuri'];
+                                    '','https://www.youtube.com/@vinizitooo-lol', 'https://www.youtube.com/@MarianaSayuri'];
 	
 	override function create()
 		{
@@ -360,6 +360,9 @@ class TimeDaVio extends MusicBeatState
 
         function updateButtons()
             {
+                twitter.alpha=0.75;
+                youtube.alpha=0.75;
+                discord.alpha=0.75;
                 twitter.onOver.callback = function()
                     {
                         if(twitterLink[curSelected]!='')
@@ -371,9 +374,10 @@ class TimeDaVio extends MusicBeatState
         
                     twitter.onOut.callback = function()
                     {
-                        if(twitterLink[curSelected]!='')
+                        if(twitterLink[curSelected]!=''){
                             FlxG.sound.play(Paths.sound('scrollMenu'), 1);
                             twitter.alpha=0.75;
+                        }
                     };
         
         
@@ -396,16 +400,21 @@ class TimeDaVio extends MusicBeatState
 
                     youtube.onOver.callback = function()
                         {
-                            if(youtubeLink[curSelected]!='')
+                            if(youtubeLink[curSelected]!=''){
+
+                            
                                 FlxG.sound.play(Paths.sound('scrollMenu'), 1);
                                 youtube.alpha=1;
+                            }
                         };
             
                         youtube.onOut.callback = function()
                         {
                             if(youtubeLink[curSelected]!='')
-                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                                youtube.alpha=0.75;
+                                {
+                                    FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                    youtube.alpha=0.75;
+                                }
                         };
             
             
@@ -429,22 +438,25 @@ class TimeDaVio extends MusicBeatState
                         discord.onOver.callback = function()
                             {
                                 if(discordLink[curSelected]!='')
-                                    FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                                    discord.alpha=1;
+                                    {                                    FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                discord.alpha=1;}
                             };
                 
                             discord.onOut.callback = function()
                             {
-                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                                discord.alpha=0.75;
+                                if(discordLink[curSelected]!='')
+                                    {                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                discord.alpha=0.75;}
                             };
                 
                 
                             discord.onDown.callback = function()
                             {
                                 if(discordLink[curSelected]!='')
-                                    FlxG.sound.play(Paths.sound('confirmMenu'));
-                                    discord.alpha=1;
+                                    {                                    FlxG.sound.play(Paths.sound('confirmMenu'));
+                                discord.alpha=1;
+
+                                    }
                                 if(discordLink[curSelected]!='')
                                     {
                                         CoolUtil.browserLoad(discordLink[curSelected]);
