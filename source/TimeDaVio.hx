@@ -39,13 +39,63 @@ class TimeDaVio extends MusicBeatState
     /*var newcredit:FlxSprite;
     var dummycredit:FlxSprite;*/
 
-    var creditStuff:Array<String> = ['vio', 'dav', 'ash', 'silver', 'konan', 'x02', 'hugo', 'cat',  /*daqui pra frente é elenco*/ 'vio'];
+    var creditStuff:Array<String> = ['vio', 'dav', 'ash', 'silver', 'konan', 'x02', 'hugo', 'cat',  
+                                    /*daqui pra frente é elenco*/ 
+                                    'vio', 'blue', 'brunito', 'jinzo', 'lightwuz', 'lonny', 'mayoral', 'molten', 'neko', 'nih', 'orochi', 'sah', 'vinizitooo', 'sayuri'];
+
+
     var discordLink:Array<String> = ['https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 
-                                    'https://discord.gg/kprH8WnP8Q', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA'];
+                                    'https://discord.gg/kprH8WnP8Q', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 
+                                    /*daqui pra frente é elenco*/ 
+                                    'https://discord.gg/G3BmXXeshA',
+                                    '',
+                                    '',
+                                    '',
+                                    '', 
+                                    '', 
+                                    '', 
+                                    '',/**/ 
+                                    '', 
+                                    '',
+                                    '',
+                                    '',
+                                    '',
+                                    ''];
+
+                                    
     var twitterLink:Array<String> = ['https://twitter.com/galaccine', 'https://twitter.com/Davizinhn', 'https://twitter.com/Ashuro_Privety', 'https://twitter.com/galaccine', 'https://twitter.com/Konan_Hatake13', 
-                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/galaccine', 'https://twitter.com/galaccine'];
+                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/galaccine', 
+                                    /*daqui pra frente é elenco*/ 
+                                    'https://twitter.com/galaccine',
+                                    'https://twitter.com/bluetufie',
+                                    'https://twitter.com/brunitofnf',
+                                    'https://twitter.com/JinzoM',
+                                    'https://twitter.com/lightwuz',
+                                    'https://twitter.com/lonejustchillin',
+                                    '', 
+                                    'https://twitter.com/M0lt3nziito',
+                                    'https://twitter.com/Nekop9123',
+                                    'https://twitter.com/DiazNih_',
+                                    'https://twitter.com/orochigad0',
+                                    'https://twitter.com/sahriell_',
+                                    'https://twitter.com/RealVinizitooo', 'https://twitter.com/mariana_sayuri'];
+
+
     var youtubeLink:Array<String> = ['https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@Davizinhn', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/c/matheussilver', 
-                                    'https://www.youtube.com/@konan_hatake13', 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@GAT0192/', 'https://www.youtube.com/c/galaccine'];
+                                    'https://www.youtube.com/@konan_hatake13', 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@GAT0192/', 
+                                    /*daqui pra frente é elenco*/ 
+                                    'https://www.youtube.com/c/galaccine',
+                                    'https://www.youtube.com/@bluezinkk',
+                                    'https://www.youtube.com/@brunitomusic',
+                                    '',
+                                    'https://www.youtube.com/@Lightwuz',
+                                    'https://www.youtube.com/@samelonny', 
+                                    '', 
+                                    '',//
+                                    'https://www.youtube.com/@M0lt3nziito',
+                                    '',
+                                    '',
+                                    '','','https://www.youtube.com/@vinizitooo-lol', 'https://www.youtube.com/@MarianaSayuri'];
 	
 	override function create()
 		{
@@ -312,48 +362,75 @@ class TimeDaVio extends MusicBeatState
             {
                 twitter.onOver.callback = function()
                     {
-                        FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                        twitter.alpha=1;
+                        if(twitterLink[curSelected]!='')
+                            {
+                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                twitter.alpha=1;
+                            }
                     };
         
                     twitter.onOut.callback = function()
                     {
-                        FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                        twitter.alpha=0.75;
+                        if(twitterLink[curSelected]!='')
+                            FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                            twitter.alpha=0.75;
                     };
         
         
                     twitter.onDown.callback = function()
                     {
-                        FlxG.sound.play(Paths.sound('confirmMenu'));
-                        twitter.alpha=1;
-                        CoolUtil.browserLoad(twitterLink[curSelected]);
+                        if(twitterLink[curSelected]!='')
+                            {
+                                FlxG.sound.play(Paths.sound('confirmMenu'));
+                                twitter.alpha=1;
+                            }
+                        if(twitterLink[curSelected]!='')
+                            {
+                                CoolUtil.browserLoad(twitterLink[curSelected]);
+                            }
+                        else
+                            {
+                               // CoolUtil.browserLoad(twitterLink[0]);
+                            }
                     };
 
                     youtube.onOver.callback = function()
                         {
-                            FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                            youtube.alpha=1;
+                            if(youtubeLink[curSelected]!='')
+                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                youtube.alpha=1;
                         };
             
                         youtube.onOut.callback = function()
                         {
-                            FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                            youtube.alpha=0.75;
+                            if(youtubeLink[curSelected]!='')
+                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                youtube.alpha=0.75;
                         };
             
             
                         youtube.onDown.callback = function()
                         {
-                            FlxG.sound.play(Paths.sound('confirmMenu'));
-                            youtube.alpha=1;
-                            CoolUtil.browserLoad(youtubeLink[curSelected]);
+                            if(youtubeLink[curSelected]!='')
+                                {
+                                    FlxG.sound.play(Paths.sound('confirmMenu'));
+                                    youtube.alpha=1;
+                                }
+                            if(youtubeLink[curSelected]!='')
+                                {
+                                    CoolUtil.browserLoad(youtubeLink[curSelected]);
+                                }
+                            else
+                                {
+                                    //CoolUtil.browserLoad(youtubeLink[0]);
+                                }
                         };
 
                         discord.onOver.callback = function()
                             {
-                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                                discord.alpha=1;
+                                if(discordLink[curSelected]!='')
+                                    FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                    discord.alpha=1;
                             };
                 
                             discord.onOut.callback = function()
@@ -365,9 +442,17 @@ class TimeDaVio extends MusicBeatState
                 
                             discord.onDown.callback = function()
                             {
-                                FlxG.sound.play(Paths.sound('confirmMenu'));
-                                discord.alpha=1;
-                                CoolUtil.browserLoad(discordLink[curSelected]);
+                                if(discordLink[curSelected]!='')
+                                    FlxG.sound.play(Paths.sound('confirmMenu'));
+                                    discord.alpha=1;
+                                if(discordLink[curSelected]!='')
+                                    {
+                                        CoolUtil.browserLoad(discordLink[curSelected]);
+                                    }
+                                else
+                                    {
+                                       // CoolUtil.browserLoad(discordLink[0]);
+                                    }
                             };
             }
 
