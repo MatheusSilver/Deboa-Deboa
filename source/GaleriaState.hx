@@ -156,6 +156,11 @@ class GaleriaState extends MusicBeatState
 								FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
 							};
 
+							for (s in 0...leSongs.length)
+								{
+									Sys.println('Carreguei a música '+s);
+								}
+
 			super.create();
         }
 
