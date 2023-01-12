@@ -33,6 +33,8 @@ class LoadingsState extends MusicBeatSubstate
 
 	public var instantAlpha:Bool = false;
 	var art = new FlxSprite();
+	var loadingbar = new FlxSprite();
+	var modboalogo = new FlxSprite();
 	var isgroup:Bool = false;
 	var position:Int = 0;
 	var loadBar:FlxSprite;
@@ -43,7 +45,18 @@ class LoadingsState extends MusicBeatSubstate
 		//Basicamente é só tu enfiar a tela de loading na pasta loadings dentro de preload/images
 		//O NOME DO ARQUIVO DEVE SER O MESMO QUE O NOME DO JSON DA MUSICA 
 		//Para grupos de músicas que usem a mesma tela de loading, veja o exemplo de como foi feita a do lordx
-		
+		modboalogo.loadGraphic(Paths.image('loading/loading-logo',  'preload'));
+		loadingbar.loadGraphic(Paths.image('loading/carregando',  'preload'));
+		loadingbar.x=343;
+		//loadingbar.y=0;
+		modboalogo.y=720;
+		//modboalogo.x=0;		
+		loadingbar.setGraphicSize(Std.int(FlxG.width * 1));
+		loadingbar.updateHitbox();
+		loadingbar.antialiasing = ClientPrefs.globalAntialiasing;
+		modboalogo.setGraphicSize(Std.int(FlxG.width * 1));
+		modboalogo.updateHitbox();
+		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
 
 		if (loadingidentifier.contains(Std.string(FreeplayState.justread).toLowerCase())){
 			isgroup = true;
@@ -61,7 +74,11 @@ class LoadingsState extends MusicBeatSubstate
 		art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 2] + '-' + loadingidentifier[position - 1]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
 		#end
 		//assim eu consigo ter um pequeno feedback se a loading screen não existe ou se só tá escrita errada mesmo.
-		FlxTween.tween(art, {alpha: 1}, 1.5,{ease: FlxEase.linear});
+
+		FlxTween.tween(art, {alpha: 1}, 0.5,{ease: FlxEase.linear});
+		FlxTween.tween(loadingbar, {x: 0}, 0.6,{ease: FlxEase.quartInOut, startDelay: 0.4});
+		FlxTween.tween(modboalogo, {y: 0}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.5});
+		
 		art.setGraphicSize(Std.int(FlxG.width * 1.2));
 		art.updateHitbox();
 		art.screenCenter(XY);
@@ -70,7 +87,8 @@ class LoadingsState extends MusicBeatSubstate
 		art.screenCenter();
 
 		add(art); //Haha isso não é um NFT
-
+		add(modboalogo);
+		add(loadingbar);
 		super.create();
 	}
 
@@ -198,7 +216,7 @@ class LoadingState extends MusicBeatState
 
 		FlxTransitionableState.skipNextTransIn = true;
 		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
-			
+
 			FlxG.switchState(getNextState(target, stopMusic));
 		});	
 	}
