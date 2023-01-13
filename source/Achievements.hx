@@ -121,27 +121,35 @@ class AchievementObject extends FlxSpriteGroup {
 		ClientPrefs.saveSettings();
 
 		var id:Int = Achievements.getAchievementIndex(name);
-		var achievementBG:FlxSprite = new FlxSprite(60, 50).makeGraphic(420, 120, FlxColor.BLACK);
+		var achievementBG:FlxSprite = new FlxSprite(60, 50).makeGraphic(420, 120, FlxColor.RED);
+		achievementBG.alpha = 0.70;
 		achievementBG.scrollFactor.set();
+
+		var amongusgameplayoficial:FlxSprite = new FlxSprite(achievementBG.x, achievementBG.y).loadGraphic(Paths.image('menus/bg-filtro'));
+		amongusgameplayoficial.setGraphicSize(FlxG.width, FlxG.height);
+
 
 		var achievementIcon:FlxSprite = new FlxSprite(achievementBG.x + 10, achievementBG.y + 10).loadGraphic(Paths.image('conquistas/icones/' + name)); //Isso vai facilitar bastatne nossa vida com os icones dos achievements, confia.
 		achievementIcon.scrollFactor.set();
 		achievementIcon.setGraphicSize(Std.int(achievementIcon.width * (2 / 3)));
 		achievementIcon.updateHitbox();
-		achievementIcon.antialiasing = ClientPrefs.globalAntialiasing;
+		achievementIcon.antialiasing = true; //vai ficar legal, confia em mim.
+
+
 		
 
 		var achievementName:FlxText = new FlxText(achievementIcon.x + achievementIcon.width + 20, achievementIcon.y + 16, 280, Achievements.achievementsStuff[id][0], 16);
-		achievementName.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT);
+		achievementName.setFormat(Paths.font("GhoulFriAOE.ttf"), 16, FlxColor.WHITE, LEFT);
 		achievementName.scrollFactor.set();
 
 		var achievementText:FlxText = new FlxText(achievementName.x, achievementName.y + 32, 280, Achievements.achievementsStuff[id][1], 16);
-		achievementText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT);
+		achievementText.setFormat(Paths.font("GhoulFriAOE.ttf"), 16, FlxColor.WHITE, LEFT);
 		achievementText.scrollFactor.set();
 
 
 
 		add(achievementBG);
+		add(amongusgameplayoficial);
 		add(achievementName);
 		add(achievementText);
 		add(achievementIcon);

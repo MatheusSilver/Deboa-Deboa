@@ -471,7 +471,23 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		if (curSong != SONG.song) // Aqui tá a base.
+		// TODOS OS PRECACHES NECESSÁRIOS
+
+		precacheList.set('pause/botplayativado', 'image');
+		precacheList.set('pause/botplaydesativado', 'image');
+		precacheList.set('pause/pause (botativado)', 'image');
+		precacheList.set('pause/pause (botões)', 'image');
+		precacheList.set('pause/pause (continuar)', 'image');
+		precacheList.set('pause/pause (linhas)', 'image');
+		precacheList.set('pause/pause (perfil)', 'image');
+		precacheList.set('pause/pause (restart)', 'image');
+		precacheList.set('pause/pause (sonicexe)', 'image');
+		precacheList.set('pause/pause (voltar)', 'image');
+		precacheList.set('pause/pause', 'image');
+		precacheList.set('pause/praticarativado', 'image');
+		precacheList.set('pause/praticardesativado', 'image');
+
+		if (curSong != SONG.song)
 		{
 			if (SONG.song.toLowerCase() == 'too-slow') 
 			{
@@ -492,6 +508,8 @@ class PlayState extends MusicBeatState
 
 			else if (SONG.song.toLowerCase() == 'triple-trouble') 
 			{
+				precacheList.set('RING_assets', 'image');
+				precacheList.set('ringSplashes', 'image');
 				precacheList.set('cenarios/Counter', 'image');
 				precacheList.set('cenarios/ground', 'image');
 				precacheList.set('cenarios/Glitch', 'image');
@@ -512,15 +530,53 @@ class PlayState extends MusicBeatState
 			}
 
 			else if (SONG.song.toLowerCase() == 'too-fest') 
+			{
+				if(ClientPrefs.legendas) 
 				{
-					if(ClientPrefs.legendas) {
-					precacheList.set('letras/too-fest/Legenda', 'image');
-					} // Sistema pra evitar uso de ram sem ter as Legendas ativadas.
+				precacheList.set('letras/too-fest/Legenda', 'image');
 				}
+			} 
+			
+			else if (SONG.song.toLowerCase() == 'pasta-night')
+			{
+				precacheList.set('gameover/PN_GameOver', 'image');
+				precacheList.set('gameover/PN_LoseSprites', 'image');
+				precacheList.set('cenarios/bar', 'image');
+				precacheList.set('cenarios/Ben_Drowned_BG', 'image');
+				precacheList.set('cenarios/brian_idle', 'image');
+				precacheList.set('cenarios/Buds_Slender_Effects', 'image');
+				precacheList.set('cenarios/Jeff', 'image');
+				precacheList.set('cenarios/JeffArm', 'image');
+				precacheList.set('cenarios/Squirtward', 'sound');
+			}
 
-			// Para fazer: Migrar a Endless pra cá.
+			else if (SONG.song.toLowerCase() == 'endless'){
+				precacheList.set('simbolo_infinito', 'image');
+				precacheList.set('Majin_Notes', 'image');
+				precacheList.set('one', 'image');
+				precacheList.set('three', 'image');
+				precacheList.set('two', 'image');
+				precacheList.set('gofun', 'image');
+			}
 
+			else if (SONG.song.toLowerCase() == 'faker'){
+				precacheList.set('Faker_Transformation', 'image');
+			}
+
+			else if (SONG.song.toLowerCase() == 'soulless'){
+				precacheList.set('SoullessBG', 'image');
+				precacheList.set('cenarios/TDP2/ground', 'image');
+				precacheList.set('cenarios/TDP2/light', 'image');
+			}
 		}
+
+		FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
+		if (SONG.needsVoices){
+			FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
+		}
+
+		
+
 
 		if (SONG.song.toLowerCase() == "triple-trouble"){
 			// Só fiz com variável pq sim
@@ -533,16 +589,12 @@ class PlayState extends MusicBeatState
 
 		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
 		FlxG.mouse.visible = false;
-		FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
-		if (SONG.needsVoices){
-			FlxG.sound.cache(Paths.voices(PlayState.SONG.song)); //Provavelmente não será usado, mas né?
-			//Isso só vai servir caso o sistema de Cache falhe.
-		}
+	
 				
 	//	giraArray = [272, 276, 336, 340, 400, 404, 464, 468, 528, 532, 592, 596, 656, 660, 720, 724, 789, 793, 863, 867, 937, 941, 1012, 1016, 1086, 1090, 1160, 1164, 1531, 1535, 1607, 1611, 1681, 1685, 1754, 1758];
 		instance = this;
 
-			nomehistorico = FreeplayState.infoextended;
+		nomehistorico = FreeplayState.infoextended;
 
 		sicks = 0;
 		bads = 0;
@@ -1419,14 +1471,7 @@ class PlayState extends MusicBeatState
 			introSoundsSuffix = '-pixel';
 		}
 
-		if(nomehistorico.toLowerCase() == 'infinito'){
-			precacheList.set('simbolo_infinito', 'image');
-			precacheList.set('Majin_Notes', 'image');
-			precacheList.set('one', 'image');
-			precacheList.set('three', 'image');
-			precacheList.set('two', 'image');
-			precacheList.set('gofun', 'image');
-		}
+	
 
 		add(gfGroup);
 
@@ -6439,6 +6484,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 	}
+
 
 	function spawnNoteSplashOnNote(note:Note) {
 		if(ClientPrefs.noteSplashes && note != null) {
