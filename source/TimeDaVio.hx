@@ -360,6 +360,7 @@ class TimeDaVio extends MusicBeatState
 
         function updateButtons()
             {
+                // tudo veio
                 if(curSelected==14)
                     {
                         twitter.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
@@ -376,6 +377,8 @@ class TimeDaVio extends MusicBeatState
                                 {
                                     discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-discord', 'preload'));
                                 }
+
+                                
                 twitter.alpha=0.75;
                 youtube.alpha=0.75;
                 discord.alpha=0.75;
