@@ -23,7 +23,7 @@ class PreTitleState extends MusicBeatState
 {
 	override function create()
 		{
-			var random1:Int = FlxG.random.int(0, 125);
+			var random1:Int = FlxG.random.int(0, 425);
 			#if desktop
             new FlxTimer().start(1.5, function(tmr:FlxTimer){
 				if(random1 == 95)
