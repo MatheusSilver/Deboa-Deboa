@@ -91,7 +91,7 @@ class GaleriaState extends MusicBeatState
 			testeButton.x = 540;
 			testeButton.y = 1916;
 			testeButton.alpha = 0;
-			add(testeButton);
+			//add(testeButton);
 			
 						menuItems = new FlxTypedGroup<FlxSprite>();
 						add(menuItems);
@@ -189,7 +189,7 @@ class GaleriaState extends MusicBeatState
 								sampleTxt.scrollFactor.set();
 								sampleTxt.screenCenter(XY);
 								sampleTxt.alpha = 1;
-								add(sampleTxt);
+								//add(sampleTxt);
 
 			super.create();
         }
@@ -239,12 +239,12 @@ class GaleriaState extends MusicBeatState
 							}
 						else if(FlxG.mouse.wheel<0)
 							{
-								if(bg.y==-2422)
+								if(bg.y==-8842)
 									{
-										bg.y=-2422;
+										bg.y=-8842;
 										testeButton.y=1916;
 									}
-								else if(bg.y>-2422)
+								else if(bg.y>-8842)
 									{
 										bg.y=bg.y-15;
 										testeButton.y=testeButton.y-15;
@@ -280,9 +280,9 @@ class GaleriaState extends MusicBeatState
 										{
 											bg.y=0;
 										}
-									if(bg.y<-2422)
+									if(bg.y<-8842)
 										{
-											bg.y=2422;
+											bg.y=8842;
 										}
 								}
 							else
@@ -296,9 +296,9 @@ class GaleriaState extends MusicBeatState
 										{
 											bg.y=0;
 										}
-									if(bg.y<-2422)
+									if(bg.y<-8842)
 										{
-											bg.y=2422;
+											bg.y=8842;
 										}
 								}*/
 		
