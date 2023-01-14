@@ -26,6 +26,8 @@ class GaleriaState extends MusicBeatState
 	var bgmusica:FlxSprite;
 	var galeriaButton:FlxButton;
 	var musicButton:FlxButton;
+	var testeButton:FlxButton;
+	var sampleTxt:FlxText;
 	//var isZoomActivated:Bool = false;
 	var isGaleria:Bool = true;
 	var playsArray:FlxTypedGroup<FlxSprite>;
@@ -82,6 +84,14 @@ class GaleriaState extends MusicBeatState
 			galeriaButton.y = 376;
 			galeriaButton.alpha = 0;
 			add(galeriaButton);
+
+			testeButton = new FlxButton(FlxG.width, 100, '');
+			testeButton.loadGraphic(Paths.image('sobremenu/galeria/teste', 'preload'));
+			testeButton.updateHitbox();
+			testeButton.x = 540;
+			testeButton.y = 1916;
+			testeButton.alpha = 0;
+			add(testeButton);
 			
 						menuItems = new FlxTypedGroup<FlxSprite>();
 						add(menuItems);
@@ -129,6 +139,19 @@ class GaleriaState extends MusicBeatState
 							FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
 						};
 
+			
+							testeButton.onOver.callback = function()
+								{
+									//FlxG.mouse.load(Paths.image('sobremenu/galeria/pointerselected'), 1, 0, 0);
+									sampleTxt.text="teste yey";
+								};
+			
+								testeButton.onOut.callback = function()
+									{
+										//FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
+										sampleTxt.text="";
+									};
+
 				musicButton = new FlxButton(FlxG.width, 100, '');
 				musicButton.loadGraphic(Paths.image('sobremenu/galeria/button', 'preload'));
 				musicButton.updateHitbox();
@@ -161,12 +184,19 @@ class GaleriaState extends MusicBeatState
 									Sys.println('Carreguei a música '+s);
 								}
 
+								sampleTxt = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "", 30);
+								sampleTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+								sampleTxt.scrollFactor.set();
+								sampleTxt.screenCenter(XY);
+								sampleTxt.alpha = 1;
+								add(sampleTxt);
+
 			super.create();
         }
 
 		override function update(elapsed:Float)
 			{
-				
+
 				if (controls.BACK) {
 					FlxG.mouse.unload();
 					FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -181,10 +211,12 @@ class GaleriaState extends MusicBeatState
 								if(bg.y==0)
 									{
 										bg.y=0;
+										testeButton.y=1916;
 									}
 								else if(bg.y<0)
 									{
 										bg.y=bg.y+15;
+										testeButton.y=testeButton.y+15;
 									}
 
 								if(galeriaButton.y==376)
@@ -210,10 +242,12 @@ class GaleriaState extends MusicBeatState
 								if(bg.y==-2422)
 									{
 										bg.y=-2422;
+										testeButton.y=1916;
 									}
 								else if(bg.y>-2422)
 									{
 										bg.y=bg.y-15;
+										testeButton.y=testeButton.y-15;
 									}
 
 									if(galeriaButton.y==-376)
