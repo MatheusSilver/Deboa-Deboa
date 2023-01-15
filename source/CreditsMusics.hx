@@ -34,7 +34,7 @@ class CreditsMusics extends MusicBeatState
     var dummycredit1:FlxSprite;
     var dummycredit2:FlxSprite;
 
-    var creditStuff:Array<String> = ['mars', 'penkaru', 'saster', 'solunary', 'spookawaii', 'teles'];
+    var creditStuff:Array<String> = ['mars', 'penkaru', 'saster', 'solunary', 'spookawaii', 'teles', 'ankinluu', 'apartygoer', 'c52278', 'd4rksp1ne20', 'ehtmareiner', 'jark1412', 'kanihuman', 'panchonatorr', 'phantasmpixel', 'pikatio', 'soufon', 'shadowmario'];
 	
 	override function create()
 		{
@@ -221,4 +221,66 @@ class CreditsMusics extends MusicBeatState
                     }
             }
 
+            function changeSelectionMinus(newCurselected:Int)
+                {
+                    dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelectedBkp]+')'));
+                    dummycredit.alpha=1;
+                    dummycredit.x=newcredit.x;
+                    dummycredit.y=newcredit.y;
+    
+                    //dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected]+')'));
+    
+                        if(curSelected-1 > -1)
+                            {
+                                dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected-1]+')'));
+                            }
+                        else
+                            {
+                                dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[creditStuff.length-1]+')'));
+                            }
+                    dummycredit1.alpha=1;
+                    dummycredit1.x=newcredit1.x;
+                    dummycredit1.y=newcredit1.y;
+                    dummycredit2.alpha=1;
+                    dummycredit2.x=900;
+    
+                    //newcredit.x=newcredit1.x;
+                    //newcredit1.x = -279;
+                    newcredit.alpha=0;
+                    newcredit1.alpha=0;
+    
+    
+                    if(curSelected-1 > -1)
+                        {
+                            dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[0]+')'));
+                        }
+                    else
+                        {
+                            dummycredit1.loadGraphic(newcredit1.graphic);
+                        }
+                    FlxTween.tween(dummycredit, {x: -900}, 0.5, {ease: FlxEase.quartInOut});
+                    FlxTween.tween(dummycredit1, {x: newcredit.x}, 0.6, {ease: FlxEase.quartInOut});
+                    FlxTween.tween(dummycredit2, {x: newcredit1.x}, 0.7, {ease: FlxEase.quartInOut});
+                    //FlxTween.tween(dummycredit1, {alpha: 0}, 0.3, {ease: FlxEase.quartInOut});
+                    //FlxTween.tween(newcredit, {x: 18}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
+    
+                    new FlxTimer().start(0.75, function(tmr:FlxTimer){
+                        dummycredit1.alpha=0;
+                        dummycredit2.alpha=0;
+                        dummycredit.alpha=0;
+                        newcredit.alpha=1;
+                        newcredit1.alpha=1;
+                        canChange=true;
+                    });
+                    //newcredit.y=-724;
+                    newcredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected]+')'));
+                    if(curSelected-1 < -1)
+                        {
+                            newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected-1]+')'));
+                        }
+                    else
+                        {
+                            newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[creditStuff.length-1]+')'));
+                        }
+                }
 }
