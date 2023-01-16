@@ -10945,6 +10945,7 @@
 		"player3": null,
 		"song": "confronting-yourself",
 		"stage": "P1",
+		"splashSkin": "blood",
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,

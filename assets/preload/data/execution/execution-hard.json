@@ -2585,6 +2585,7 @@
 		"player3": "invisibru",
 		"song": "Execution",
 		"stage": "lordxstage1",
+		"splashSkin": "blood",
 		"validScore": true,
 		"needsVoices": false,
 		"speed": 3.2,

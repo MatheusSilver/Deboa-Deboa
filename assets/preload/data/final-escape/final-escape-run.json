@@ -5751,6 +5751,7 @@
 		"events": [],
 		"player3": null,
 		"song": "Final Escape",
+		"splashSkin": "noteSplashes",
 		"validScore": true,
 		"needsVoices": false,
 		"stage": "final",

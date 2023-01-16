@@ -6596,6 +6596,7 @@
 		"mania": 3,
 		"player3": "gf",
 		"song": "you-cant-run",
+		"splashSkin": "blood",
 		"stage": "P2Stage",
 		"validScore": true,
 		"needsVoices": false,

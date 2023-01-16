@@ -5316,6 +5316,7 @@
 		],
 		"player3": "sonico-exe-pixel",
 		"song": "chasing",
+		"splashSkin": "blood",
 		"stage": "chasing",
 		"needsVoices": false,
 		"validScore": true,

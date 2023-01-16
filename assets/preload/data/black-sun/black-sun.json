@@ -7260,6 +7260,7 @@
 		"gfVersion": "exe-gf",
 		"player3": "exe-gf",
 		"song": "black-sun",
+		"splashSkin": "blood",
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,

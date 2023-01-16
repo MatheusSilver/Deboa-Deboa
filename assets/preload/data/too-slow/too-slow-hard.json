@@ -6554,6 +6554,7 @@
 		"mania": 3,
 		"player3": "gf",
 		"song": "Too Slow",
+		"splashSkin": "blood",
 		"stage": "too-slow",
 		"validScore": true,
 		"needsVoices": false,
