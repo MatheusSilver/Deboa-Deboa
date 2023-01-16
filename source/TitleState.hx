@@ -399,7 +399,7 @@ class TitleState extends MusicBeatState
 					} else {
 						if(ClientPrefs.firstTime)
 							{
-								MusicBeatState.switchState(new PreMainMenuState());
+								MusicBeatState.switchState(new MainMenuStateMobile());
 							}
 							else
 								{

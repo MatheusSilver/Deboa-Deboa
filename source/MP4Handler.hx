@@ -22,13 +22,13 @@ class MP4Handler
 	public static var finishCallback:FlxState;
 	public var canSkip:Bool = false;
 	public var sprite:FlxSprite;
+	public static var iAmSobre:Bool = false;
 	#if desktop
 	public static var vlcBitmap:VlcBitmap;
 	#end
 
 	public function new()
 	{
-
 		FlxG.autoPause = false;
 
 		if (FlxG.sound.music != null)
@@ -68,11 +68,11 @@ class MP4Handler
 		finishCallback = callback;
 
 		vlcBitmap = new VlcBitmap();
-		vlcBitmap.set_height(FlxG.stage.stageHeight);
-		vlcBitmap.set_width(FlxG.stage.stageHeight * (16 / 9));
+		//vlcBitmap.set_height(FlxG.stage.stageHeight);
+		//vlcBitmap.set_width(FlxG.stage.stageHeight * (16 / 9));
 
-		trace("Setting width to " + FlxG.stage.stageHeight * (16 / 9));
-		trace("Setting height to " + FlxG.stage.stageHeight);
+		//trace("Setting width to " + FlxG.stage.stageHeight * (16 / 9));
+		//trace("Setting height to " + FlxG.stage.stageHeight);
 
 		vlcBitmap.onVideoReady = onVLCVideoReady;
 		vlcBitmap.onComplete = onVLCComplete;
@@ -127,35 +127,49 @@ class MP4Handler
 
 	public function onVLCComplete()
 	{
-		vlcBitmap.stop();
-
-		// Clean player, just in case! Actually no.
-
-		FlxG.camera.fade(FlxColor.BLACK, 0, false);
-
-
-		trace("Big, Big Chungus, Big Chungus!");
-
-		new FlxTimer().start(0.3, function (tmr:FlxTimer)
-		{
-			if (finishCallback != null && VideoStatePC.NextState != "title")
+		if(iAmSobre==false)
 			{
-				LoadingState.loadAndSwitchState(finishCallback);
-			}
-			else if(finishCallback != null && VideoStatePC.NextState == "title")
+				vlcBitmap.stop();
+				canSkip=false;
+				// Clean player, just in case! Actually no.
+		
+				FlxG.camera.fade(FlxColor.BLACK, 0, false);
+		
+		
+				trace("Big, Big Chungus, Big Chungus!");
+		
+				new FlxTimer().start(0.3, function (tmr:FlxTimer)
 				{
-					MusicBeatState.switchState(new TitleState());
-				}
-			vlcBitmap.dispose();
+					if (VideoStatePC.NextState != "title")
+					{
+						
+						LoadingState.loadAndSwitchState(finishCallback);
+					}
+					else if(finishCallback != null && VideoStatePC.NextState == "title")
+						{
+							VideoStatePC.NextState=="no";
+							MusicBeatState.switchState(new TitleState());
+						}
+					vlcBitmap.dispose();
+					if (FlxG.game.contains(vlcBitmap))
+					{
+						FlxG.game.removeChild(vlcBitmap);
+					}	
+				});	
+			}
+		
 
+	}
+
+	public function stopVideo()
+		{
+			vlcBitmap.stop();
+			vlcBitmap.dispose();
 			if (FlxG.game.contains(vlcBitmap))
 			{
 				FlxG.game.removeChild(vlcBitmap);
 			}	
-		});
-		
-
-	}
+		}
 
 	function onVLCError()
 	{
@@ -167,15 +181,19 @@ class MP4Handler
 
 	function update(e:Event)
 	{
-		if (FlxG.keys.justReleased.SPACE && canSkip)
+		if (FlxG.keys.justReleased.SPACE && canSkip==true && iAmSobre==false)
 		{
 			if (vlcBitmap.isPlaying)
 			{
 				onVLCComplete();
-				canSkip=false;
 				//VideoStatePC.canSkip=false;
 			}
 		}
+
+		if(VideoStatePC.NextState != "title")
+			{
+				canSkip=false;
+			}
 		vlcBitmap.volume = FlxG.sound.volume + 0.3; // shitty volume fix. then make it louder.
 		if (FlxG.sound.volume <= 0.1) vlcBitmap.volume = 0;
 	}
