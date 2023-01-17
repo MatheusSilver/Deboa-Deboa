@@ -78,8 +78,16 @@ class ControlSongSubstate extends MusicBeatSubstate
 			updateOptions();
 		}
 		if(controls.ACCEPT) {
+			
 			FlxG.sound.music.volume = 0;
 			escolheualgo = true;
+
+			var songLowercase:String = Paths.formatToSongPath('control');
+			var poop:String = Highscore.formatSong(songLowercase, 2);
+			if(!openfl.utils.Assets.exists(Paths.json(songLowercase + '/' + poop))) {
+				poop = songLowercase;
+				trace('Couldnt find file');
+
 			if(confirmInt == 0) {
 					gifPermitido = true;
 					FlxG.camera.flash(FlxColor.BLACK, 1.0);
@@ -133,4 +141,5 @@ class ControlSongSubstate extends MusicBeatSubstate
 		yesText.alpha = alphas[1 - confirmInt];
 		yesText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
 	}
+}
 }

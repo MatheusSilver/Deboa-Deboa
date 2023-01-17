@@ -27,49 +27,16 @@ class PreTitleState extends MusicBeatState
 			if(!ClientPrefs.firstTime)
 				{
 					#if desktop
-					new FlxTimer().start(1.5, function(tmr:FlxTimer){
-						if(random1 == 95)
-							{
-								VideoStatePC.videoPath='assets/videos/VideosRandoms/haha.mp4';
+		
+						new FlxTimer().start(1.5, function(tmr:FlxTimer){
+							if(openfl.utils.Assets.exists('assets/videos/VideosRandom/haha' + random1+ '.mp4')) {
+								VideoStatePC.videoPath='assets/videos/VideosRandom/haha' + random1 + '.mp4';
+							} else{
+								//cavalo
 							}
-						else if(random1==94)
-							{
-								VideoStatePC.videoPath='assets/videos/VideosRandoms/haha1.mp4';
-							}
-							else if(random1==93)
-								{
-									VideoStatePC.videoPath='assets/videos/VideosRandoms/haha2.mp4';
-								}
-								else if(random1==92)
-									{
-										VideoStatePC.videoPath='assets/videos/VideosRandoms/haha3.mp4';
-									}
-									else if(random1==91)
-										{
-											VideoStatePC.videoPath='assets/videos/VideosRandoms/haha4.mp4';
-										}
-										else if(random1==90)
-											{
-												VideoStatePC.videoPath='assets/videos/VideosRandoms/haha5.mp4';
-											}
-											else if(random1==96)
-												{
-													VideoStatePC.videoPath='assets/videos/VideosRandoms/haha6.mp4';
-												}
-												else if(random1==97)
-													{
-														VideoStatePC.videoPath='assets/videos/VideosRandoms/haha7.mp4';
-													}
-													else if(random1==98)
-														{
-															VideoStatePC.videoPath='assets/videos/VideosRandoms/haha8.mp4';
-														}
-													else
-														{
-															// nada '-'
-														}
-						MusicBeatState.switchState(new VideoStatePC());
-					});
+							MusicBeatState.switchState(new VideoStatePC());
+						});
+
 					#elseif mobile
 					new FlxTimer().start(1.5, function(tmr:FlxTimer){
 						if(random1 == 95)
