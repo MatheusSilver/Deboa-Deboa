@@ -747,7 +747,7 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 145,
 		"arrowSkin": null,

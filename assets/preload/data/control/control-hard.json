@@ -7055,6 +7055,7 @@
 		"player2": "cyclops",
 		"player3": "invisibru",
 		"initialSpeed": 1.575,
+		"splashSkin": "blood",
 		"sliderVelocities": null,
 		"song": "control",
 		"validScore": true,

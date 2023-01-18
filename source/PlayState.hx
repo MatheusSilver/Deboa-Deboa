@@ -4435,6 +4435,8 @@ class PlayState extends MusicBeatState
 
 				}
 				*/
+			case 'Socorro':
+				lime.app.Application.current.window.title=value1;
 			case 'Toggle Ghost Trail':
 				var evilTrail = new FlxTrail(dad, null, 4, 24, 0.5, 0.5); //nice
 				insert(members.indexOf(dadGroup) - 1, evilTrail);
@@ -5843,9 +5845,11 @@ class PlayState extends MusicBeatState
 
 					if(modohistoria){
 						MusicBeatState.switchState(new MenuPreHistoria());
+						lime.app.Application.current.window.title='FNF: ModBoa EXE';
 						modohistoria = false;
 					} else {
 						MusicBeatState.switchState(new FreeplayState());
+						lime.app.Application.current.window.title='FNF: ModBoa EXE';
 					}
 				
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
