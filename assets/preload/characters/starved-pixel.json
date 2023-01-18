@@ -126,13 +126,13 @@
 				-341
 			],
 			"anim": "dialogue",
-			"fps": 24,
+			"fps": 30,
 			"name": "starved dialogue",
 			"indices": []
 		}
 	],
 	"no_antialiasing": true,
-	"image": "characters/starved_sheet",
+	"image": "characters/prey/starved_sheet",
 	"position": [
 		0,
 		0
@@ -145,7 +145,7 @@
 		0
 	],
 	"camera_position": [
-		-160,
+		-190,
 		280
 	],
 	"sing_duration": 6.1,

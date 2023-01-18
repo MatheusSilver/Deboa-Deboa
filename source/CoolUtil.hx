@@ -17,7 +17,7 @@ class CoolUtil
 	public static var difficultyStuff:Array<Dynamic> = [
 		['Easy', '-easy'], //0
 		['Normal', ''],	   //1
-		['Hard', '-hard'],	//2
+		['Hard', '-hard'],	//2 - honestamente estou pensando em trocar o 'Hard' por 'Difícil' mas né? a maioria da rapaziada tá acostumada com 'Hard'
 		['Sonic', '-sega'], //3
 		['Mario', '-nintendo'], //4
 		['MX', '-mx'], //5

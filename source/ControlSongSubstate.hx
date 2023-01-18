@@ -78,6 +78,17 @@ class ControlSongSubstate extends MusicBeatSubstate
 			updateOptions();
 		}
 		if(controls.ACCEPT) {
+
+			var songLowercase:String = Paths.formatToSongPath('control');
+			var poop:String = Highscore.formatSong(songLowercase, 2);
+			if(!openfl.utils.Assets.exists(Paths.json(songLowercase + '/' + poop))) {
+				poop = songLowercase;
+				trace('Couldnt find file');
+			}
+			trace(poop);
+			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			PlayState.storyDifficulty = 2;
+
 			FlxG.sound.music.volume = 0;
 			escolheualgo = true;
 			if(confirmInt == 0) {

@@ -326,7 +326,7 @@ class BaseOptionsMenu extends MusicBeatState
 						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
 					}
 					case 'Som do Hitsound':
-						if (ClientPrefs.hitSounds){
+						if (ClientPrefs.hitSounds && ClientPrefs.hitSoundType > (0 + add) && ClientPrefs.hitSoundType < (3+add)){
 							ClientPrefs.hitSoundType += add;
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
