@@ -126,7 +126,7 @@
 				-341
 			],
 			"anim": "dialogue",
-			"fps": 30,
+			"fps": 25,
 			"name": "starved dialogue",
 			"indices": []
 		}

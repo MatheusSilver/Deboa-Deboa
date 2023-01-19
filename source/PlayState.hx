@@ -86,12 +86,15 @@ class PlayState extends MusicBeatState
 
 	var hitsound:FlxSound;
 	var sonicPulo:FlxSound;
+	var sonicAviso:FlxSound;
 	var sonicDash:FlxSound;
 	var giraArray:Array<Int>;
 
 	public static var modohistoria:Bool = false;
 
 	var blackFuck:FlxSprite;
+
+	
 
 	//CC Stuff
 	public static var sonicHUDCCC:SonicHUDCCC;
@@ -437,11 +440,17 @@ class PlayState extends MusicBeatState
 	var p3staticbg:FlxSprite;
 
 	// starved shit
+	var warning:FlxSprite = new FlxSprite();
 	var stardustBgPixel:FlxTiledSprite;
 	var stardustFloorPixel:FlxTiledSprite;
 	var stardustFurnace:FlxSprite;
+	var endingIndicator:FlxSprite;
 	var hungryManJackTime:Int = 0;
 	public var healthbarval:Float = 1; // I'm fucking stupid but ok it works
+	var desvioPrey:Bool = false; //Tá associado com o evento 2400 e serve pra permitir que o player aperte espaço em um momento bem específico
+	var desviou:Bool = false; //Serve como sensor para o resto da música pra saber se o player apertou na hora certa.
+	
+	
 	var cNum:Int = 0;
 
 	public var sonicHUDSongs:Array<String> = [
@@ -1190,11 +1199,29 @@ class PlayState extends MusicBeatState
 				add(stardustBgPixel);
 				add(stardustFurnace);
 
+				warning.frames = Paths.getSparrowAtlas("slash_warning_sheet"); //Apenas placeholder
+				warning.animation.addByPrefix('warn', 'slash warning');
+				warning.setGraphicSize(Std.int(warning.width * 2.5));
+				warning.visible = false;
+				warning.screenCenter();
+				warning.cameras = [camHUD];
+				add(warning);
+
+				endingIndicator = new FlxSprite(Paths.image('good_ending'));
+				endingIndicator.alpha = 0;
+				endingIndicator.cameras = [camHUD2];
+				endingIndicator.updateHitbox();
+				endingIndicator.screenCenter();
+				add(endingIndicator);
+				
 				sonicDash = new FlxSound().loadEmbedded(Paths.sound('SonicDash', 'week-prey'));
 				sonicPulo = new FlxSound().loadEmbedded(Paths.sound('SonicJump', 'week-prey'));
 				sonicPulo.volume = 0.6;
 				sonicDash.volume = 0.6; //carregamento pra rodar uma única vez... Omega massa...
 				//Qual foi... O fleetway tem uma spritesheet inteira (Que ninguem vê) só pra atirar um laserzin
+
+				sonicAviso = new FlxSound().loadEmbedded(Paths.sound('AvisoSom', 'week-prey'));
+				sonicAviso.volume = 0.6;
 
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
@@ -1993,7 +2020,7 @@ class PlayState extends MusicBeatState
 		}
 
 
-		var timeColon:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/quote"));
+		var timeColon:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/quote2"));
 		timeColon.setGraphicSize(Std.int(timeColon.width * 3));
 		timeColon.updateHitbox();
 		timeColon.x = 170;
@@ -2029,7 +2056,7 @@ class PlayState extends MusicBeatState
 
 		var timeQuote:FlxSprite = new FlxSprite(0, 0);
 		if(hudFolder=='sonic1'){
-			timeQuote.loadGraphic(Paths.image("sonicUI/" + hudFolder + "/quote2"));
+			timeQuote.loadGraphic(Paths.image("sonicUI/" + hudFolder + "/quote"));
 			timeQuote.setGraphicSize(Std.int(timeQuote.width * 3));
 			timeQuote.updateHitbox();
 			timeQuote.x = secondNumberB.x + secondNumberB.width;
@@ -3649,15 +3676,21 @@ class PlayState extends MusicBeatState
 		}
 		floaty2 += 0.01;
 		var targetSpeed:Float = 15;
+
+		if(desvioPrey && FlxG.keys.pressed.SPACE){
+			desvioPrey = false;
+			desviou = true;
+			warning.visible = false;
+		}
 		switch (hungryManJackTime) //A velocidade do cenário e da chart é governada por essa parte aqui
 		//Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
 		{
 			case 1:
-				targetSpeed = 35;
+				targetSpeed = 40; //Usada na parte da entrada do starved
 			case 2:
-				targetSpeed = 50;
+				targetSpeed = 50; //Usada na hora do super sonico
 			default:
-				targetSpeed = 25;
+				targetSpeed = 25; //Padrão usada no começo da música
 		}
 		starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3*(elapsed/(1/60)));
 		if (targetSpeed - starvedSpeed < 0.2)
@@ -5128,17 +5161,17 @@ class PlayState extends MusicBeatState
 						case 128:
 							FlxG.camera.flash(FlxColor.BLACK, 4);
 							FlxG.camera.zoom = 2;
+							camZooming = false;
 							stardustBgPixel.visible = true;
 							stardustFloorPixel.visible = true;
 							cinematicBars(true);
 
 						case 246:
-							FlxTween.tween(dad, {x: 580}, 1, {ease: FlxEase.cubeInOut});
+							FlxTween.tween(dad, {x: 580-250}, 1, {ease: FlxEase.cubeInOut});
 							FlxTween.tween(camHUD, {alpha: 1}, 1.2,{ease: FlxEase.cubeInOut});
-							camZooming = true;
 							cinematicBars(false);
 						case 511:
-							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2'));
+							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1'));
 							FlxG.camera.flash(FlxColor.WHITE, 3);
 							removeStatics();
 							generateStaticArrows(0);
@@ -5146,7 +5179,6 @@ class PlayState extends MusicBeatState
 							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assets', ''); //must do Arrumar esse sprite.
 
 						case 1024:
-							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1'));
 							FlxG.camera.flash(FlxColor.WHITE, 3);
 							removeStatics();
 							generateStaticArrows(0);
@@ -5164,27 +5196,30 @@ class PlayState extends MusicBeatState
 							triggerEventNote('Change Character', 'dad', 'Furnace-rgb'); //Ele já foi carregado mesmo então tá safe
 
 						case 1530:
-							FlxTween.tween(camHUD, {alpha: 0}, 0.75,{ease: FlxEase.cubeInOut});
+							FlxTween.tween(camHUD, {alpha: 0}, 4,{ease: FlxEase.cubeInOut}); //Dar tempo das notas sairem da tela
+						case 1542: //Devolvendo esse evento que serve pro eggman não nascer na posição errada
+							dad.alpha = 0;	
 						case 1505:
 							FlxTween.tween(dad, {x: -1500}, 5, {ease: FlxEase.cubeInOut});
 							FlxTween.angle(dad, 0, -180, 5, {ease: FlxEase.cubeInOut});
 						case 1545:
 								cinematicBars(true);
 								dad.x -= 500;
-								dad.x += 250;
 								dad.y += 100;
 								dad.y -= 410; //Por que tá repetido?/
 								//Simples, PREGUIÇA!
+								dad.alpha = 1;
 								removeStatics();
 								generateStaticArrows(0);
 								generateStaticArrows(1);
 								triggerEventNote('noteskinchangeOPPT', 'NOTE-STARVI_assets', ''); //must do Arrumar esse sprite.
-						case 1547:
+						case 1547: //Just settings tbh
 							health = 1;
 							//boyfriend.playAnim("first dialogue");
+							SONG.speed = 3.3; //A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
 							boyfriend.animation.finishCallback = function(slash:String)
 							{
-								hungryManJackTime = 2;
+								hungryManJackTime = 1;
 								if (dad.animation.curAnim.name == "first dialogue")
 								{
 									boyfriend.specialAnim = false;
@@ -5206,14 +5241,31 @@ class PlayState extends MusicBeatState
 						case 1780:
 							//Play sonic pulim
 							sonicPulo.play();
+							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3')); //Top 10 acidentes que deram muito certo
+							FlxG.camera.flash(FlxColor.RED, 1);
 							cinematicBars(false); //I FORGOR
 							FlxTween.tween(camHUD, {alpha: 1}, 1.0);
 						case 1781:
 							sonicDash.play();
 
 						case 2400: //Aqui é a preparação para o ataque do fornalha
+							sonicAviso.play();
+							warning.visible = true;
+							warning.animation.play("warn");
+
+							desvioPrey = true;
+
+							warning.animation.finishCallback = function(slash:String)
+							{
+								warning.visible = false;
+								remove(warning);
+								desvioPrey = false;
+							}							
 
 						case 2432:
+							if(desviou){
+							triggerEventNote('Change Character', 'bf', 'bf-Sonic-Peelout-sus'); //Note for future self - Esse cara vai precisar de um pré cache especial só pra ele.
+							}
 							FlxTween.tween(stardustFurnace, {x: 3500}, 7);
 						case 3328:
 							FlxTween.tween(camHUD, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
@@ -5224,6 +5276,44 @@ class PlayState extends MusicBeatState
 							boyfriend.specialAnim = true;
 						case 3367:
 							FlxG.camera.flash(FlxColor.RED, 2);
+						case 3369: //Top 10 mecanicas que parecem difíceis de fazer, mas que já estavam prontas o tempo todo.
+							if (!desviou){
+									FlxG.sound.music.pause();
+									vocals.pause();
+									Conductor.songPosition = 383050; //Isso equivale a 383.05 segundos 
+									notes.forEachAlive(function(daNote:Note)
+									{
+										if(daNote.strumTime + 800 < Conductor.songPosition) {
+											daNote.active = false;
+											daNote.visible = false;
+					
+											daNote.kill();
+											notes.remove(daNote, true);
+											daNote.destroy();
+										}
+									});
+									for (i in 0...unspawnNotes.length) {
+										var daNote:Note = unspawnNotes[0];
+										if(daNote.strumTime + 800 >= Conductor.songPosition) {
+											break;
+										}
+					
+										daNote.active = false;
+										daNote.visible = false;
+					
+										daNote.kill();
+										unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
+										daNote.destroy();
+									}
+					
+									FlxG.sound.music.time = Conductor.songPosition;
+									FlxG.sound.music.play();
+					
+									vocals.time = Conductor.songPosition;
+									vocals.play();
+							} else {
+								//Estava pensando em adicionar aquele círculo de confirmação do Osu aqui, mas acho que só de o sonico olhar pra baixo já é o suficiente.
+							}
 						case 3364:
 							removeStatics();
 							generateStaticArrows(0);
@@ -5252,6 +5342,7 @@ class PlayState extends MusicBeatState
 								#if desktop
 								storyDifficultyText = 'Good ending?'; //detalhe que achei soda
 								#end
+								endingTweens('good_ending');
 							}
 
 
@@ -7454,7 +7545,20 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-		function cinematicBars(appear:Bool) //IF (TRUE) MOMENT?????
+	function endingTweens(sprite:String = 'good_ending'){ //Tive que usar 80% do qi pra arrumar isso...
+		endingIndicator.loadGraphic(Paths.image(sprite));
+		endingIndicator.updateHitbox();
+		endingIndicator.screenCenter();
+		FlxTween.tween(endingIndicator, {alpha: 1}, 1, {ease: FlxEase.expoInOut, 
+			onComplete: function(twn:FlxTween) {
+				new FlxTimer().start(0.5, function(trol:FlxTimer) // here we go again...
+				{
+				FlxTween.tween(endingIndicator, {alpha: 0}, 1, {ease: FlxEase.expoInOut});
+				});
+			}});
+	}
+
+	function cinematicBars(appear:Bool) //IF (TRUE) MOMENT?????
 	{
 		if (appear)
 		{
