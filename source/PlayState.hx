@@ -1173,7 +1173,7 @@ class PlayState extends MusicBeatState
 				stardustBgPixel.scrollFactor.set(0.4, 0.4);
 
 
-				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor4'), 4608, 2832, true, true);
+				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1'), 4608, 2832, true, true);
 
 				stardustBgPixel.visible = false;
 				stardustFloorPixel.visible = false;
@@ -5254,7 +5254,7 @@ class PlayState extends MusicBeatState
 						case 1780:
 							//Play sonic pulim
 							sonicPulo.play();
-							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3')); //Top 10 acidentes que deram muito certo
+							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1')); //AGORA SIM TU VAI PODER VER O OLHO DELE
 							FlxG.camera.flash(FlxColor.RED, 1);
 							cinematicBars(false); //I FORGOR
 							FlxTween.tween(camHUD, {alpha: 1}, 1.0);
@@ -5354,6 +5354,8 @@ class PlayState extends MusicBeatState
 								storyDifficultyText = 'Good ending?'; //detalhe que achei soda
 								#end
 								endingTweens('good_ending');
+								stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor4')); //AGORA SIM TU VAI PODER VER O OLHO DELE
+								stardustBgPixel.loadGraphic(Paths.image('cenarios/starved/stardustBg')); //AGORA SIM TU VAI PODER VER O OLHO DELE
 
 							case 3425:
 								hungryManJackTime = 2;
