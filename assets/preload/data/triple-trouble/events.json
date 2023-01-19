@@ -277,7 +277,7 @@
 						-1,
 						"Change Character",
 						"bf",
-						"bfprespectiveflipped",
+						"bfprespective",
 						""
 					]
 				],
@@ -1304,7 +1304,7 @@
 						-1,
 						"Change Character",
 						"bf",
-						"bfprespective",
+						"bfprespectiveflipped",
 						""
 					],
 					[
@@ -1617,25 +1617,6 @@
 						"hudfade",
 						"0",
 						"6",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						504663.723386696,
-						-1,
-						"events",
-						"",
-						"",
 						""
 					]
 				],

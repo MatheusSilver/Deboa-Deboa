@@ -5085,6 +5085,8 @@ class PlayState extends MusicBeatState
 
 				case 0: //ULTIMATE GAMBIARRA MASTERS
 				if(!ClientPrefs.middleScroll){
+				opponentStrums.members[0].x = opponentStrums.members[3].x + 28;
+				opponentStrums.members[1].x = opponentStrums.members[3].x + 28;
 				opponentStrums.members[2].alpha = 0;
 				opponentStrums.members[3].x = opponentStrums.members[3].x - 28*3;
 				opponentStrums.members[4].x = opponentStrums.members[4].x - 28*3;
@@ -5344,7 +5346,6 @@ class PlayState extends MusicBeatState
 								#end
 								endingTweens('good_ending');
 							}
-
 
 						//A partir daqui é baseado no port do konan
 						//Até o The End
