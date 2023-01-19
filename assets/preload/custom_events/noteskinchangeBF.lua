@@ -4,7 +4,7 @@ function onEvent(name, value1, value2)
 	-- do nothing lol
 	else
 		for i = 0, getProperty('unspawnNotes.length')-1 do
-			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') then
+			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') = true then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', value1);
 			end
 		end
