@@ -498,7 +498,7 @@ class PlayState extends MusicBeatState
 		precacheList.set('pause/praticarativado', 'image');
 		precacheList.set('pause/praticardesativado', 'image');
 
-		if (curSong != SONG.song)
+		if (curSong != SONG.song) //Esse if é realmente nescessário?
 		{
 			if (SONG.song.toLowerCase() == 'too-slow') 
 			{
@@ -1206,13 +1206,6 @@ class PlayState extends MusicBeatState
 				warning.screenCenter();
 				warning.cameras = [camHUD];
 				add(warning);
-
-				endingIndicator = new FlxSprite(Paths.image('good_ending'));
-				endingIndicator.alpha = 0;
-				endingIndicator.cameras = [camHUD2];
-				endingIndicator.updateHitbox();
-				endingIndicator.screenCenter();
-				add(endingIndicator);
 				
 				sonicDash = new FlxSound().loadEmbedded(Paths.sound('SonicDash', 'week-prey'));
 				sonicPulo = new FlxSound().loadEmbedded(Paths.sound('SonicJump', 'week-prey'));
@@ -1222,6 +1215,20 @@ class PlayState extends MusicBeatState
 
 				sonicAviso = new FlxSound().loadEmbedded(Paths.sound('AvisoSom', 'week-prey'));
 				sonicAviso.volume = 0.6;
+
+				tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
+				tela_preta.cameras = [camHUD2];
+				tela_preta.alpha = 0;
+
+				
+				add(tela_preta);
+
+				endingIndicator = new FlxSprite(Paths.image('good_ending')); //Só pra garantir que ele fique na frente da tela preta na hora do super sonico
+				endingIndicator.alpha = 0;
+				endingIndicator.cameras = [camHUD2];
+				endingIndicator.updateHitbox();
+				endingIndicator.screenCenter();
+				add(endingIndicator);
 
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
@@ -5153,6 +5160,7 @@ class PlayState extends MusicBeatState
 							{
 						case 1:
 							boyfriend.alpha = 0;
+							
 							camHUD.alpha = 0;
 							FlxTween.tween(boyfriend, {alpha: 1}, 6);	
 							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assets', '');
@@ -5160,6 +5168,7 @@ class PlayState extends MusicBeatState
 							#if desktop
 							storyDifficultyText = 'Neutro';
 							#end
+							dad.x -= 1000;
 						case 128:
 							FlxG.camera.flash(FlxColor.BLACK, 4);
 							FlxG.camera.zoom = 2;
@@ -5169,7 +5178,7 @@ class PlayState extends MusicBeatState
 							cinematicBars(true);
 
 						case 246:
-							FlxTween.tween(dad, {x: 580-250}, 1, {ease: FlxEase.cubeInOut});
+							FlxTween.tween(dad, {x: 580 - 250*2}, 1, {ease: FlxEase.cubeInOut});
 							FlxTween.tween(camHUD, {alpha: 1}, 1.2,{ease: FlxEase.cubeInOut});
 							cinematicBars(false);
 						case 511:
@@ -5187,7 +5196,8 @@ class PlayState extends MusicBeatState
 							generateStaticArrows(1);
 							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assets', ''); //must do Arrumar esse sprite.
 							triggerEventNote('Change Character', 'dad', 'Furnace'); //Ele já foi carregado mesmo então tá safe
-
+							FlxTween.tween(sonicHUD, {alpha: 0}, 0.5,{ease: FlxEase.cubeInOut}); //sÓ pq fica estranho com a cinematics
+							
 						case 1280:
 							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2'));
 							FlxG.camera.flash(FlxColor.WHITE, 3);
@@ -5196,17 +5206,18 @@ class PlayState extends MusicBeatState
 							generateStaticArrows(1);
 							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assets', ''); //must do Arrumar esse sprite.
 							triggerEventNote('Change Character', 'dad', 'Furnace-rgb'); //Ele já foi carregado mesmo então tá safe
+							FlxTween.tween(sonicHUD, {alpha: 1}, 0.5,{ease: FlxEase.cubeInOut});
 
 						case 1530:
 							FlxTween.tween(camHUD, {alpha: 0}, 4,{ease: FlxEase.cubeInOut}); //Dar tempo das notas sairem da tela
-						case 1542: //Devolvendo esse evento que serve pro eggman não nascer na posição errada
-							dad.alpha = 0;	
+						case 1542: 
+								dad.alpha = 0; //Esse evento deve ser colocado exatamente 100 tempos a frente do change character ao total o eggman aparecerá errado na tela por 0.01 segundo... ESPERO QUE NINGUEM PERCEBA
 						case 1505:
 							FlxTween.tween(dad, {x: -1500}, 5, {ease: FlxEase.cubeInOut});
 							FlxTween.angle(dad, 0, -180, 5, {ease: FlxEase.cubeInOut});
 						case 1545:
 								cinematicBars(true);
-								dad.x -= 500;
+								dad.x -= 1000;
 								dad.y += 100;
 								dad.y -= 410; //Por que tá repetido?/
 								//Simples, PREGUIÇA!
@@ -5261,14 +5272,19 @@ class PlayState extends MusicBeatState
 							{
 								warning.visible = false;
 								remove(warning);
-								desvioPrey = false;
-							}							
+							}				
+						
+						case 2410: //Só pra não falar que eu fui maldoso
+							desvioPrey = false;
 
 						case 2432:
 							if(desviou){
 							triggerEventNote('Change Character', 'bf', 'bf-Sonic-Peelout-sus'); //Note for future self - Esse cara vai precisar de um pré cache especial só pra ele.
 							}
-							FlxTween.tween(stardustFurnace, {x: 3500}, 7);
+							FlxTween.tween(stardustFurnace, {x: 3500}, 7, {onComplete: function(yes:FlxTween)
+								{
+									triggerEventNote('Change Character', 'bf', 'bf-Sonic-Peelout');
+								}});
 						case 3328:
 							FlxTween.tween(camHUD, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
 							FlxTween.tween(dad, {x: -300}, 4,{ease: FlxEase.cubeInOut});
@@ -5278,7 +5294,8 @@ class PlayState extends MusicBeatState
 							boyfriend.specialAnim = true;
 						case 3367:
 							FlxG.camera.flash(FlxColor.RED, 2);
-						case 3369: //Top 10 mecanicas que parecem difíceis de fazer, mas que já estavam prontas o tempo todo.
+							tela_preta.alpha = 1;
+						case 3378: //Top 10 mecanicas que parecem difíceis de fazer, mas que já estavam prontas o tempo todo.
 							if (!desviou){
 									FlxG.sound.music.pause();
 									vocals.pause();
@@ -5313,14 +5330,8 @@ class PlayState extends MusicBeatState
 					
 									vocals.time = Conductor.songPosition;
 									vocals.play();
-							} else {
-								//Estava pensando em adicionar aquele círculo de confirmação do Osu aqui, mas acho que só de o sonico olhar pra baixo já é o suficiente.
 							}
 						case 3364:
-							removeStatics();
-							generateStaticArrows(0);
-							generateStaticArrows(1);
-							triggerEventNote('noteskinchangeBF', 'NOTE-supa_assets', ''); //must do Arrumar esse sprite.
 							var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1500, boyfriend.y + 505).loadGraphic(Paths.image('furnace_gotcha'));
 							gotcha.setGraphicSize(Std.int(gotcha.width * 5));
 							gotcha.antialiasing = false;
@@ -5331,20 +5342,25 @@ class PlayState extends MusicBeatState
 								remove(gotcha);
 							}});
 
-							case 3423:
+							case 3420:
+								removeStatics();
+								generateStaticArrows(0);
+								generateStaticArrows(1);
+								triggerEventNote('noteskinchangeBF', 'NOTE-supa_assets', ''); //must do Arrumar esse sprite.
 								FlxG.camera.flash(FlxColor.YELLOW, 2);
-								boyfriendGroup.visible = true;
-								dadGroup.visible = true;
-								stardustBgPixel.visible = true;
-								stardustFloorPixel.visible = true;
 	
-							case 3443:
-								cinematicBars(false);
-								FlxTween.tween(camHUD, {alpha: 1}, 1,{ease: FlxEase.cubeInOut});
+							case 3400:
 								#if desktop
 								storyDifficultyText = 'Good ending?'; //detalhe que achei soda
 								#end
 								endingTweens('good_ending');
+
+							case 3425:
+								hungryManJackTime = 2;
+								cinematicBars(false);
+								SONG.speed = 3.8; //A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
+								FlxTween.tween(tela_preta, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
+								FlxTween.tween(camHUD, {alpha: 1}, 1,{ease: FlxEase.cubeInOut});
 							}
 
 						//A partir daqui é baseado no port do konan

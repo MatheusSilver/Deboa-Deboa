@@ -1925,7 +1925,7 @@ class FunkinLua {
 			if(deprecated && !getBool('luaDeprecatedWarnings')) {
 				return;
 			}
-			PlayState.instance.addTextToDebug(text, color);
+			//PlayState.instance.addTextToDebug(text, color); //Trem chato que só a mizera...
 			//trace(text); é... whut?
 		}
 		#end

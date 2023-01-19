@@ -1,9 +1,9 @@
 {
 	"song": {
-		"speed": 3,
+		"speed": 3.5,
 		"stage": "starved-pixel",
 		"player1": "bf-running-sonic",
-		"player2": "Furnace",
+		"player2": "invisibru",
 		"player3": "invisibru",
 		"notes": [
 			{
@@ -19,6 +19,14 @@
 						"1",
 						"",
 						""
+					],
+					[
+						170.454545454545,
+						-1,
+						"noteskinchangeBF",
+						"",
+						"",
+						"apenas para dar preload nesse evento"
 					]
 				],
 				"bpm": 0,
@@ -115,14 +123,6 @@
 						-1,
 						"eventos-prey",
 						"128",
-						"",
-						""
-					],
-					[
-						10994.3181818182,
-						-1,
-						"Add Camera Zoom",
-						"0.3",
 						"",
 						""
 					]
@@ -234,14 +234,6 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						10909.0909090909,
-						-1,
-						"eventos-prey",
-						"246",
-						"",
-						""
-					],
-					[
 						20454.5454545455,
 						-1,
 						"Change Character",
@@ -255,6 +247,14 @@
 						"Change Character",
 						"bf",
 						"bf-running-sonicsquint",
+						""
+					],
+					[
+						20965.9090909091,
+						-1,
+						"eventos-prey",
+						"246",
+						"",
 						""
 					]
 				],
@@ -1341,7 +1341,7 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						131420.454545455,
+						131560.454545455,
 						-1,
 						"eventos-prey",
 						"1542",
@@ -1377,14 +1377,6 @@
 						-1,
 						"eventos-prey",
 						"1545",
-						"",
-						""
-					],
-					[
-						131931.818181818,
-						-1,
-						"eventos-prey",
-						"1548",
 						"",
 						""
 					],
@@ -1463,16 +1455,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						137727.272727273,
-						-1,
-						"eventos-prey",
-						"1616",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1593,7 +1576,7 @@
 						152471.590909091,
 						-1,
 						"Change Character",
-						"1781",
+						"bf\t\t",
 						"bf-Sonic-Peelout",
 						""
 					]
@@ -2094,6 +2077,14 @@
 						"2400",
 						"",
 						""
+					],
+					[
+						207102.272727272,
+						-1,
+						"eventos-prey",
+						"2410",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -2111,6 +2102,14 @@
 						-1,
 						"Set Cam Zoom",
 						"0.6",
+						"",
+						""
+					],
+					[
+						207357.954545454,
+						-1,
+						"eventos-prey",
+						"2432",
 						"",
 						""
 					]
@@ -2782,105 +2781,165 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						293096.59090909,
-						-1,
-						"Play Animation",
-						"singLEFT",
-						"bf",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						293181.818181817,
+						283636.363636363,
 						-1,
 						"eventos-prey",
-						"3443",
+						"3328",
+						"",
+						""
+					],
+					[
+						284232.954545453,
+						-1,
+						"eventos-prey",
+						"3335",
 						"",
 						""
 					]
 				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						286960.227272726,
+						-1,
+						"eventos-prey",
+						"3367",
+						"",
+						""
+					],
+					[
+						286704.545454544,
+						-1,
+						"eventos-prey",
+						"3364",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						287897.727272726,
+						-1,
+						"eventos-prey",
+						"3378",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						289772.727272726,
+						-1,
+						"eventos-prey",
+						"3400",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						291477.272727272,
+						-1,
+						"eventos-prey",
+						"3420",
+						"",
+						""
+					],
+					[
+						291732.954545453,
+						-1,
+						"Change Character",
+						"bf",
+						"flyingsonic",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						291903.409090908,
+						-1,
+						"eventos-prey",
+						"3425",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
