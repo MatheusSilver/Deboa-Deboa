@@ -54,13 +54,24 @@
 			"fps": 24,
 			"name": "Starved Right",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				4
+			],
+			"anim": "hey",
+			"fps": 24,
+			"name": "Starved Hey",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/starvedpapinha",
+	"image": "characters/prey/Starved",
 	"position": [
-		0,
-		0
+		-150,
+		30
 	],
 	"healthicon": "eggmanpapinha",
 	"flip_x": false,
@@ -70,8 +81,8 @@
 		0
 	],
 	"camera_position": [
-		-80,
-		90
+		-100,
+		150
 	],
 	"sing_duration": 6.1,
 	"scale": 0.8

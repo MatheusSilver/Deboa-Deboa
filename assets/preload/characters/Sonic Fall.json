@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				1,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Sonic Fall Idle"
+		},
+		{
+			"offsets": [
+				4,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Sonic Fall Left"
+		},
+		{
+			"offsets": [
+				1,
+				-3
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Sonic Fall Down"
+		},
+		{
+			"offsets": [
+				1,
+				3
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Sonic Fall Up"
+		},
+		{
+			"offsets": [
+				-2,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Sonic Fall Right"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/prey/Sonic Fall",
+	"position": [
+		-300,
+		150
+	],
+	"healthicon": "sonicpapinha",
+	"flip_x": true,
+	"healthbar_colors": [
+		20,
+		0,
+		161
+	],
+	"camera_position": [
+		40,
+		280
+	],
+	"sing_duration": 6.1,
+	"scale": 0.8
+}

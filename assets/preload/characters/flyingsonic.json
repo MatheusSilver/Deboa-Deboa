@@ -70,8 +70,8 @@
 	"no_antialiasing": true,
 	"image": "characters/prey/FlyingSuper",
 	"position": [
-		590,
-		447
+		0,
+		0
 	],
 	"healthicon": "sonic-super",
 	"flip_x": true,
@@ -82,7 +82,7 @@
 	],
 	"camera_position": [
 		30,
-		-114
+		-134
 	],
 	"sing_duration": 4,
 	"scale": 5.70000000000001

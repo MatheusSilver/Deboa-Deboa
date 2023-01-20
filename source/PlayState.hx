@@ -445,11 +445,16 @@ class PlayState extends MusicBeatState
 	var stardustFloorPixel:FlxTiledSprite;
 	var stardustFurnace:FlxSprite;
 	var endingIndicator:FlxSprite;
+	var theendbg:BGSprite;
+	var furnaceTheEnd:BGSprite;
 	var hungryManJackTime:Int = 0;
 	public var healthbarval:Float = 1; // I'm fucking stupid but ok it works
 	var desvioPrey:Bool = false; //Tá associado com o evento 2400 e serve pra permitir que o player aperte espaço em um momento bem específico
 	var desviou:Bool = false; //Serve como sensor para o resto da música pra saber se o player apertou na hora certa.
-	
+	public static var canuseevents:Bool = true;
+	public static var canRegen:Bool = true;
+
+
 	
 	var cNum:Int = 0;
 
@@ -1168,6 +1173,17 @@ class PlayState extends MusicBeatState
 				defaultCamZoom = 0.6;
 				isPixelStage = true;
 
+				theendbg = new BGSprite('cenarios/starved/Prey End', 0, 0, 1, 1); //Tecnicamente ele está atrás de todo mundo
+				theendbg.scale.x = 1.3; //Não acho que vou precisar me preocupar com o visible dele
+				theendbg.scale.y = 1.3;
+				theendbg.visible = false;
+				add(theendbg);
+
+				furnaceTheEnd = new BGSprite('cenarios/starved/Furnace', 226, 526, 1, 1, ['Furnace Idle']);
+				furnaceTheEnd.scale.x = 1.5;
+				furnaceTheEnd.scale.y = 1.5; //Já você é um outro caso.
+				furnaceTheEnd.visible = false;
+
 
 				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2'), 4608, 2832, true, true);
 				stardustBgPixel.scrollFactor.set(0.4, 0.4);
@@ -1218,6 +1234,7 @@ class PlayState extends MusicBeatState
 
 				tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 				tela_preta.cameras = [camHUD2];
+				tela_preta.visible = true;
 				tela_preta.alpha = 0;
 
 				
@@ -1685,6 +1702,7 @@ class PlayState extends MusicBeatState
 				boyfriend.scrollFactor.set(1.37, 1);
 			case 'starved-pixel':
 				add(stardustFloorPixel);
+				add(furnaceTheEnd); //Perigoso... Pra dizer o mínimo
 				
 				dad.x -= 1050; //Garantindo que o fornalha comece lá atrás
 			case 'needle':
@@ -3023,6 +3041,9 @@ class PlayState extends MusicBeatState
 					bottomBoppers.dance(true);
 					santa.dance(true);
 				}
+				if(curSong.toLowerCase()=='prey'){
+					furnaceTheEnd.dance(true);
+				}
 				if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
 					if(!ClientPrefs.lowQuality) {
 						saladfingers.dance(true);
@@ -3456,6 +3477,11 @@ class PlayState extends MusicBeatState
 				else if (curSong.toLowerCase()=='prey' && curStep >= 1500 && player == 0){skin='NOTE-STARVI_assets';}
 				
 				if (curSong.toLowerCase()=='prey' && curStep >= 3000 && player == 1){skin='NOTE-supa_assets';} //Pessoa olhando de fora: Wow, ele realmente pensou numa forma de carregar as strums ao mesmo tempo
+
+
+				if (curSong.toLowerCase()=='prey' && curStep >= 4480){skin='NOTE_assets';} //Estou fazendo isso na pura preguiça, espero que dê certo
+				//Como eu queria que fossem as setas vermelhas...
+
 				//Realidade: Sem querer querendo o code pra troca de strum saiu sozinho...
 
 				var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player, skin);
@@ -3641,6 +3667,10 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.swapOldIcon();
 		}*/
+
+		if (curSong.toLowerCase() == 'prey' && curStep > 4490 && canuseevents == false){
+			canuseevents = true;
+		}
 
 			floaty += 0.03;
 
@@ -3910,6 +3940,8 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
 		{
 			majinstrums = false;
+			canRegen = true;
+			canuseevents = true;
 			desesperada = false;
 			persistentUpdate = false;
 			paused = true;
@@ -4089,6 +4121,8 @@ class PlayState extends MusicBeatState
 		if (controls.RESET && !inCutscene && !endingSong)
 		{
 			majinstrums = false;
+			canRegen = true;
+			canuseevents = true;
 			desesperada = false;
 			health = 0;
 			trace("RESET = True");
@@ -4452,7 +4486,9 @@ class PlayState extends MusicBeatState
 			if(eventNotes[0][4] != null)
 				value2 = eventNotes[0][4];
 
+			if (canuseevents){
 			triggerEventNote(eventNotes[0][2], value1, value2);
+			}
 			eventNotes.shift();
 		}
 	}
@@ -4501,15 +4537,15 @@ class PlayState extends MusicBeatState
 					spr.x -= 645;
 				});
 			} else if (!ClientPrefs.middleScroll){ //Essa parte é exclusiva da Prey, a de cima é usada na triple-trouble
-				FlxTween.tween(strumLineNotes.members[7], {x: 645 + (strumLineNotes.members[7].x)}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(strumLineNotes.members[6], {x: 645 + (strumLineNotes.members[6].x)}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(strumLineNotes.members[5], {x: 645 + (strumLineNotes.members[5].x)}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(strumLineNotes.members[4], {x: 645 + (strumLineNotes.members[4].x)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[0], {x: 645 + (strumLineNotes.members[0].x)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[1], {x: 645 + (strumLineNotes.members[1].x)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[2], {x: 645 + (strumLineNotes.members[2].x)}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[3], {x: 645 + (strumLineNotes.members[3].x)}, 1, {ease: FlxEase.quadInOut});
 
-				FlxTween.tween(strumLineNotes.members[3], {x: (strumLineNotes.members[3].x) - 645}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(strumLineNotes.members[2], {x: (strumLineNotes.members[2].x) - 645}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(strumLineNotes.members[1], {x: (strumLineNotes.members[1].x) - 645}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(strumLineNotes.members[0], {x: (strumLineNotes.members[0].x) - 645}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[4], {x: (strumLineNotes.members[4].x) - 645}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[5], {x: (strumLineNotes.members[5].x) - 645}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[6], {x: (strumLineNotes.members[6].x) - 645}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(strumLineNotes.members[7], {x: (strumLineNotes.members[7].x) - 645}, 1, {ease: FlxEase.quadInOut});
 			}
 			bfIsLeft = false;
 			iconP2.changeIcon(dad.healthIcon);
@@ -5182,7 +5218,7 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(camHUD, {alpha: 1}, 1.2,{ease: FlxEase.cubeInOut});
 							cinematicBars(false);
 						case 511:
-							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1'));
+							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2'));
 							FlxG.camera.flash(FlxColor.WHITE, 3);
 							removeStatics();
 							generateStaticArrows(0);
@@ -5199,7 +5235,7 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(sonicHUD, {alpha: 0}, 0.5,{ease: FlxEase.cubeInOut}); //sÓ pq fica estranho com a cinematics
 							
 						case 1280:
-							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2'));
+							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3'));
 							FlxG.camera.flash(FlxColor.WHITE, 3);
 							removeStatics();
 							generateStaticArrows(0);
@@ -5218,7 +5254,7 @@ class PlayState extends MusicBeatState
 						case 1545:
 								cinematicBars(true);
 								dad.x -= 1000;
-								dad.y += 100;
+								dad.y += 225;
 								dad.y -= 410; //Por que tá repetido?/
 								//Simples, PREGUIÇA!
 								dad.alpha = 1;
@@ -5293,10 +5329,10 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim("dialogue peel");
 							boyfriend.specialAnim = true;
 						case 3367:
-							FlxG.camera.flash(FlxColor.RED, 2);
 							tela_preta.alpha = 1;
 						case 3378: //Top 10 mecanicas que parecem difíceis de fazer, mas que já estavam prontas o tempo todo.
 							if (!desviou){
+									canuseevents = false;
 									FlxG.sound.music.pause();
 									vocals.pause();
 									Conductor.songPosition = 383050; //Isso equivale a 383.05 segundos 
@@ -5332,17 +5368,20 @@ class PlayState extends MusicBeatState
 									vocals.play();
 							}
 						case 3364:
-							var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1500, boyfriend.y + 505).loadGraphic(Paths.image('furnace_gotcha'));
+							var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1500, boyfriend.y + 405).loadGraphic(Paths.image('furnace_gotcha'));
 							gotcha.setGraphicSize(Std.int(gotcha.width * 5));
 							gotcha.antialiasing = false;
 							gotcha.flipX = false;
 							add(gotcha);
-							FlxTween.tween(gotcha, {x: boyfriend.x + 500}, 0.2, {onComplete: function(yes:FlxTween)
+							FlxTween.tween(gotcha, {x: boyfriend.x + 500 -250}, 0.1, {onComplete: function(yes:FlxTween)
 							{
+								
+								FlxG.camera.flash(FlxColor.RED, 1);
 								remove(gotcha);
 							}});
 
 							case 3420:
+								health = 1;
 								removeStatics();
 								generateStaticArrows(0);
 								generateStaticArrows(1);
@@ -5359,14 +5398,77 @@ class PlayState extends MusicBeatState
 
 							case 3425:
 								hungryManJackTime = 2;
+								iconP1.changeIcon('sonic-super'); //Só pra garantir...
 								cinematicBars(false);
+								gf.x -= 1000;
+								gf.y += 150;
+								gf.y -= 410; 
+								boyfriend.y += 450;
+								dad.x -= 1000;
+								dad.y += 50;
+								FlxTween.tween(dad, {x: 580 - 450}, 3,{ease: FlxEase.cubeInOut});
+								FlxTween.tween(gf, {x: 580 - 375}, 3,{ease: FlxEase.cubeInOut});
 								SONG.speed = 3.8; //A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
 								FlxTween.tween(tela_preta, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(camHUD, {alpha: 1}, 1,{ease: FlxEase.cubeInOut});
-							}
 
-						//A partir daqui é baseado no port do konan
-						//Até o The End
+								//A partir daqui é baseado no port do konan
+								//Até o The End
+
+								//The end
+
+							case 4480:
+								FlxG.camera.flash(FlxColor.RED, 5);
+								tela_preta.alpha = 1;
+
+							case 4498:
+								isPixelStage = false;
+								if(desviou){
+								#if desktop
+								storyDifficultyText = 'True Ending'; //detalhe que achei soda
+								#end
+								endingTweens('true_ending');
+								} else {
+								#if desktop
+								storyDifficultyText = 'Bad ending'; //detalhe que achei soda
+								#end
+								endingTweens('bad_ending');
+								}
+								cinematicBars(false);
+								removeStatics();
+								generateStaticArrows(0);
+								generateStaticArrows(1);
+								triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
+								triggerEventNote('noteskinchangeBF', 'NOTE_assets', '');
+								stardustBgPixel.visible = false;
+								stardustFloorPixel.visible = false;
+								theendbg.visible = true;
+								furnaceTheEnd.visible = true;
+								boyfriend.x = 998;
+								boyfriend.y = 402;
+								dad.x = 1308;
+								dad.y = -134;
+								health = 0.2;
+
+								case 4505:
+									FlxG.camera.flash(FlxColor.WHITE, 1);
+									tela_preta.alpha = 0;
+
+								case 4750:
+									cpuControlled = true;
+									botplayTxt.text = '';
+									//Pensar em algo pra deixar bon appetit marcante
+
+								case 4768:
+									FlxTween.tween(camHUD, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
+
+								case 4782:
+									cpuControlled = false;
+									botplayTxt.text = 'BOTPLAY';
+						
+
+							
+							} //Me tornei aquilo que eu mais temia... Uma pessoa tão exagerada quanto a Nashira... NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 
 						
 
@@ -5804,12 +5906,16 @@ class PlayState extends MusicBeatState
 		if(!startingSong) {
 			notes.forEach(function(daNote:Note) {
 				if(daNote.strumTime < songLength - Conductor.safeZoneOffset) {
-					health -= 0.0475;
+					if(canRegen){
+						health -= 0.0475;
+					}
 				}
 			});
 			for (daNote in unspawnNotes) {
 				if(daNote.strumTime < songLength - Conductor.safeZoneOffset) {
+					if(canRegen){
 					health -= 0.0475;
+					}
 				}
 			}
 
@@ -5821,6 +5927,8 @@ class PlayState extends MusicBeatState
 		mcontrols.visible = false;
 		#end
 		majinstrums = false;
+		canRegen = true;
+		canuseevents = true;
 		desesperada = false;
 		timeBarBG.visible = false;
 		timeBar.visible = false;
@@ -6443,8 +6551,9 @@ class PlayState extends MusicBeatState
 			}
 		});
 
+		if(canRegen){
 		health -= daNote.missHealth; //For testing purposes
-		//trace(daNote.missHealth);
+		}//trace(daNote.missHealth);
 		songMisses++;
 		vocals.volume = 0;
 		RecalculateRating();
@@ -6494,7 +6603,9 @@ class PlayState extends MusicBeatState
 	{
 		if (!boyfriend.stunned)
 		{
+			if (canRegen){
 			health -= 0.04;
+			}
 			combo = 0;
 
 			if(!practiceMode) songScore -= 10;
@@ -6581,7 +6692,9 @@ class PlayState extends MusicBeatState
 					updateSonicRings();
 					FlxG.sound.play(Paths.sound('Ring'));
 				}
+			if(canRegen){
 			health += note.hitHealth;
+			}
 
 			if(!note.noAnimation) {
 				var daAlt = '';
@@ -7069,6 +7182,9 @@ class PlayState extends MusicBeatState
 					barmesaback.dance(true);
 					barjeffbraco.dance(true);
 				}
+
+			case 'starved-pixel':
+					furnaceTheEnd.dance(true); //Tu não tá pensando que eu vou meter um furnance parado né?
 
 			case 'limo':
 				if(!ClientPrefs.lowQuality) {
@@ -7565,6 +7681,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function endingTweens(sprite:String = 'good_ending'){ //Tive que usar 80% do qi pra arrumar isso...
+		//Talvez isso seja útil pra mais coisas...
 		endingIndicator.loadGraphic(Paths.image(sprite));
 		endingIndicator.updateHitbox();
 		endingIndicator.screenCenter();
