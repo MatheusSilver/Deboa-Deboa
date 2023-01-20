@@ -46,7 +46,7 @@ class NoteSplash extends FlxSprite
 		animation.play('note' + note + '-' + animNum, true);
 		if(!PlayState.isRing)// só pra n crashar por enquanto
 			{
-				animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);
+				//animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);
 			}
 	}
 
@@ -63,7 +63,7 @@ class NoteSplash extends FlxSprite
 	override function update(elapsed:Float) {
 		if(!PlayState.isRing) // só pra n crashar por enquanto
 			{
-				if(animation.curAnim.finished){ kill();}
+				//if(animation.curAnim.finished){ kill();}
 			}
 		super.update(elapsed);
 	}
