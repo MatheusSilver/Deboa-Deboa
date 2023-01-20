@@ -2985,6 +2985,7 @@ class PlayState extends MusicBeatState
 			if(curSong == 'prey' || curSong == 'you-cant-run'){
 				if(isPixelStage){
 				healthBar.x += 150;
+				scoreTxt.x += 150;
 				iconP1.x += 150;
 				iconP2.x += 150;
 				healthBarBG.x += 150;
@@ -5422,6 +5423,13 @@ class PlayState extends MusicBeatState
 								tela_preta.alpha = 1;
 
 							case 4498:
+								FlxTween.tween(sonicHUD, {alpha: 0}, 0.5,{ease: FlxEase.cubeInOut}); //sÓ pq fica estranho com a cinematics
+								timeBar.visible=true;
+								judgementCounter.visible=true;
+								scoreTxt.visible=true;
+								timeBar.createFilledBar(0xFF000000, 0xFFFF0000);
+								timeTxt.visible=true;
+								timeBarBG.visible=true;
 								canRegen = false;
 								isPixelStage = false;
 								if(desviou){
