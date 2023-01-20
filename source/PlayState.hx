@@ -5422,6 +5422,7 @@ class PlayState extends MusicBeatState
 								tela_preta.alpha = 1;
 
 							case 4498:
+								canRegen = false;
 								isPixelStage = false;
 								if(desviou){
 								#if desktop
