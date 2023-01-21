@@ -113,7 +113,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 			if (PlayState.modohistoria)
-				MusicBeatState.switchState(new MenuHistoria()); //isso provavelmente não será usado mas né?
+				MusicBeatState.switchState(new MenuPreHistoria()); //isso provavelmente não será usado mas né?
 			else
 				MusicBeatState.switchState(new FreeplayState());
 
