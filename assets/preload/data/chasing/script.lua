@@ -7,35 +7,37 @@ function onCreate()
     setProperty('stat.alpha', 0);
 	setScrollFactor('stat', 1, 1);
 
-    if downscroll == true then
-        if legendasporcima == true then
-            makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, -350)
-            setScrollFactor('fundo', 0, 0);
-            scaleObject('fundo', 1, 1);
-            setLuaSpriteCamera('fundo', 'camhud');
-            addLuaSprite('fundo', true);
-            setProperty('fundo.alpha', 0);
+    if legendas == true then
+        if downscroll == true then
+            if legendasporcima == true then
+                makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, -350)
+                setScrollFactor('fundo', 0, 0);
+                scaleObject('fundo', 1, 1);
+                setLuaSpriteCamera('fundo', 'camhud');
+                addLuaSprite('fundo', true);
+                setProperty('fundo.alpha', 0);
+            else
+                makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, -350)
+                setScrollFactor('fundo', 0, 0);
+                scaleObject('fundo', 1, 1);
+                addLuaSprite('fundo', true);
+                setProperty('fundo.alpha', 0);
+            end
         else
-            makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, -350)
-            setScrollFactor('fundo', 0, 0);
-            scaleObject('fundo', 1, 1);
-            addLuaSprite('fundo', true);
-            setProperty('fundo.alpha', 0);
-        end
-    else
-        if legendasporcima == true then
-            makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, 0)
-            setScrollFactor('fundo', 0, 0);
-            scaleObject('fundo', 1, 1);
-            setLuaSpriteCamera('fundo', 'camhud');
-            addLuaSprite('fundo', true);
-            setProperty('fundo.alpha', 0);
-        else
-            makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, 0)
-            setScrollFactor('fundo', 0, 0);
-            scaleObject('fundo', 1, 1);
-            addLuaSprite('fundo', true);
-            setProperty('fundo.alpha', 0);
+            if legendasporcima == true then
+                makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, 0)
+                setScrollFactor('fundo', 0, 0);
+                scaleObject('fundo', 1, 1);
+                setLuaSpriteCamera('fundo', 'camhud');
+                addLuaSprite('fundo', true);
+                setProperty('fundo.alpha', 0);
+            else
+                makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, 0)
+                setScrollFactor('fundo', 0, 0);
+                scaleObject('fundo', 1, 1);
+                addLuaSprite('fundo', true);
+                setProperty('fundo.alpha', 0);
+            end
         end
     end
 end
