@@ -2045,7 +2045,12 @@ class PlayState extends MusicBeatState
 		}
 
 
-		var timeColon:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/quote2"));
+		var timeColon:FlxSprite = new FlxSprite(0, 0);
+		if(curSong.toLowerCase()=='prey'){ //Silvio bulo pt2 - Isso é pra corrigir um bug em needlemouse e YCR, possivelmente CY tambem
+		timeColon.loadGraphic(Paths.image("sonicUI/" + hudFolder + "/quote2"));
+		}else{
+			timeColon.loadGraphic(Paths.image("sonicUI/" + hudFolder + "/colon"));
+		}
 		timeColon.setGraphicSize(Std.int(timeColon.width * 3));
 		timeColon.updateHitbox();
 		timeColon.x = 170;
@@ -5305,16 +5310,12 @@ class PlayState extends MusicBeatState
 							warning.visible = true;
 							warning.animation.play("warn");
 
-							desvioPrey = true;
-
-							warning.animation.finishCallback = function(slash:String)
-							{
-								warning.visible = false;
-								remove(warning);
-							}				
+							desvioPrey = true;			
 						
 						case 2410: //Só pra não falar que eu fui maldoso
 							desvioPrey = false;
+							warning.visible = false;
+							remove(warning);
 
 						case 2432:
 							if(desviou){
@@ -5434,6 +5435,7 @@ class PlayState extends MusicBeatState
 								timeBarBG.visible=true;
 								canRegen = false;
 								isPixelStage = false;
+								camHUD.alpha = 1; //Só pra garantir
 								if(desviou){
 								#if desktop
 								storyDifficultyText = 'True Ending'; //detalhe que achei soda

@@ -124,7 +124,7 @@
 				-240,
 				-440
 			],
-			"loop": true,
+			"loop": false,
 			"fps": 24,
 			"anim": "singUPmiss",
 			"indices": [],
@@ -135,7 +135,7 @@
 				-240,
 				-440
 			],
-			"loop": true,
+			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHTmiss",
 			"indices": [],
@@ -146,7 +146,7 @@
 				-240,
 				-440
 			],
-			"loop": true,
+			"loop": false,
 			"fps": 24,
 			"anim": "singDOWNmiss",
 			"indices": [],
@@ -157,7 +157,7 @@
 				-240,
 				-440
 			],
-			"loop": true,
+			"loop": false,
 			"fps": 24,
 			"anim": "singLEFTmiss",
 			"indices": [],
