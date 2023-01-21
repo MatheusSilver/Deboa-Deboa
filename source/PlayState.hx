@@ -1142,7 +1142,7 @@ class PlayState extends MusicBeatState
 			monitor.scrollFactor.set(1, 1);
 			monitor.updateHitbox();
 
-			contadordevida = new FlxSprite(56, 844, Paths.image('cenarios/chasing/HedgehogLives'));
+			contadordevida = new FlxSprite(56, 805, Paths.image('cenarios/chasing/HedgehogLives'));
 			contadordevida.antialiasing = ClientPrefs.globalAntialiasing;
 			contadordevida.scale.y = 0.9;
 			contadordevida.scale.x = 0.9;
@@ -2776,8 +2776,14 @@ class PlayState extends MusicBeatState
 	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:String, chromakey:Float, layering:Float)
 		{
 		
-		if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){
+		if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){ //Top 10 codes mais feios dos animes
+			isPixelStage = false;
 			bgSkychasing.visible = true;
+			removeStatics();
+			generateStaticArrows(0);
+			generateStaticArrows(1);
+			triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
+			triggerEventNote('noteskinchangeBF', 'NOTE_assets', '');
 		}
 		
 		if(!OpenFlAssets.exists(source)){
@@ -2847,7 +2853,7 @@ class PlayState extends MusicBeatState
 		remove(gf);
 		remove(boyfriend);
 		remove(dad);
-		add(videoSprite);
+		add(videoSprite); //Tenho minhas reais dúvidas se este code funciona...
 		add(gf);
 		add(boyfriend);
 		add(dad);
@@ -3064,11 +3070,11 @@ class PlayState extends MusicBeatState
 						barslender.dance(true);
 						barlula.dance(true);
 						barlulacabeca.dance(true);
-						bardrowned.animation.play('nao', true);
 						barjeffbody.dance(true);
 						barmesaback.dance(true);
 						barjeffbraco.dance(true);
 					}
+					bardrowned.animation.play('nao', true);
 	
 				}
 				if (curSong.toLowerCase() != 'sunshine'){
@@ -3287,9 +3293,9 @@ class PlayState extends MusicBeatState
 
 		var fileletras:String = Paths.json(songName + '/letras');
 		if (OpenFlAssets.exists(fileletras)) {
-			var eventsData:Array<SwagSection>;
-				eventsData = Song.loadFromJson('letras', songName).notes;
-			for (section in eventsData)
+			var eventsDataletras:Array<SwagSection>;
+				eventsDataletras = Song.loadFromJson('letras', songName).notes;
+			for (section in eventsDataletras)
 			{
 				for (songNotes in section.sectionNotes)
 				{
@@ -3479,6 +3485,10 @@ class PlayState extends MusicBeatState
 				//FIQUEI FUCKING 2 HORAS TENTANDO CONSERTAR ISSO...
 				//O problema? eu tinha trocado o nome da textura da strum depois de ela ter carregado a textura padrão...
 				//Sílvio == bulo...
+
+				//Chasing
+				if(curSong.toLowerCase()=='chasing' && curStep <= 25){skin='arrows-sonic';}
+				if(curSong.toLowerCase()=='chasing' && curStep >= 25){skin='NOTE_assets';}
 
 				//Prey
 				if(curSong.toLowerCase()=='prey' && player == 0 && (curStep <= 500 || (curStep <= 1100 && curStep >= 1000))){skin='NOTE-FURNACEBLU_assets';}
@@ -3688,6 +3698,7 @@ class PlayState extends MusicBeatState
 			{
 				if (GlobalVideo.get().ended && !removedVideo)
 				{
+					videoSprite.visible = false;
 					remove(videoSprite);
 					FlxG.stage.window.onFocusOut.remove(focusOut);
 					FlxG.stage.window.onFocusIn.remove(focusIn);
@@ -3962,6 +3973,7 @@ class PlayState extends MusicBeatState
 			if (useVideo)
 				{
 					GlobalVideo.get().stop();
+					videoSprite.visible = false;
 					remove(videoSprite);
 					#if sys
 					FlxG.stage.window.onFocusOut.remove(focusOut);
@@ -5402,7 +5414,6 @@ class PlayState extends MusicBeatState
 
 							case 3425:
 								hungryManJackTime = 2;
-								iconP1.changeIcon('sonic-super'); //Só pra garantir...
 								cinematicBars(false);
 								gf.x -= 1000;
 								gf.y += 150;
@@ -5412,7 +5423,7 @@ class PlayState extends MusicBeatState
 								dad.y += 50;
 								FlxTween.tween(dad, {x: 580 - 450}, 3,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(gf, {x: 580 - 375}, 3,{ease: FlxEase.cubeInOut});
-								SONG.speed = 3.8; //A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
+								SONG.speed = 8.0; //OI DAV QUE TAL 8.0 DE VELOCIDADE???
 								FlxTween.tween(tela_preta, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(camHUD, {alpha: 1}, 1,{ease: FlxEase.cubeInOut});
 
@@ -5432,6 +5443,7 @@ class PlayState extends MusicBeatState
 								scoreTxt.visible=true;
 								timeBar.createFilledBar(0xFF000000, 0xFFFF0000);
 								timeTxt.visible=true;
+								SONG.speed = 1.5; //Talvez isso seja muito lento, mas  a idéia é essa mesma k
 								timeBarBG.visible=true;
 								canRegen = false;
 								isPixelStage = false;
@@ -5461,7 +5473,7 @@ class PlayState extends MusicBeatState
 								boyfriend.y = 402;
 								dad.x = 1308;
 								dad.y = -134;
-								health = 0.2;
+								health = 0.05;
 
 								case 4505:
 									FlxG.camera.flash(FlxColor.WHITE, 1);
@@ -5806,15 +5818,9 @@ class PlayState extends MusicBeatState
 			}else{
 				callOnLuas('onMoveCamera', ['dad']);
 			}
-			if(curSong.toLowerCase()=='pasta-night'){
-				bardrowned.animation.play('nao', true);
-			}
 		}
 		else
 		{
-			if(curSong.toLowerCase()=='pasta-night'){
-				bardrowned.animation.play('sim', true);
-			}
 			moveCamera(false);
 			if (SONG.notes[id].gfSection){
 				callOnLuas('onMoveCamera', ['gf']);
@@ -5958,6 +5964,7 @@ class PlayState extends MusicBeatState
 				GlobalVideo.get().stop();
 				FlxG.stage.window.onFocusOut.remove(focusOut);
 				FlxG.stage.window.onFocusIn.remove(focusIn);
+				videoSprite.visible = false;
 				remove(videoSprite);
 			}
 
@@ -6588,6 +6595,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		else{
+			if(boyfriend.animation.getByName('singLEFTmiss') != null && boyfriend.animation.getByName('singDOWNmiss') != null && boyfriend.animation.getByName('singUPmiss') != null && boyfriend.animation.getByName('singRIGHTmiss') != null){ //Eu até faria um code mais limpo mas né? Se o cara não tem animação de erro pra esquerda, provavelmente não terá pras outras
 			switch (Math.abs(daNote.noteData) % 4)
 			{
 				case 0:
@@ -6599,6 +6607,9 @@ class PlayState extends MusicBeatState
 				case 3:
 					animToPlay = 'singRIGHTmiss';
 			}
+			} else{
+				animToPlay = 'none';
+			}
 		}
 
 		if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3') {
@@ -6606,8 +6617,9 @@ class PlayState extends MusicBeatState
 		} else {
 			var daAlt = '';
 			if(daNote.noteType == 'Alt Animation') daAlt = '-alt';
-
+			if(animToPlay != 'none'){
 			boyfriend.playAnim(animToPlay + daAlt, true);
+			}
 		}
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
 	}
@@ -6628,9 +6640,9 @@ class PlayState extends MusicBeatState
 			}
 			RecalculateRating();
 			if(curSong.toLowerCase() == 'pasta-night'){
-				bardrowned.animation.play('ben drowned looking'); //very scari
-				//I forgor...
+				bardrowned.animation.play('sim'); //very scari
 				}
+
 			//FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
@@ -6643,6 +6655,7 @@ class PlayState extends MusicBeatState
 				boyfriend.stunned = false;
 			});*/
 
+			if(boyfriend.animation.getByName('singLEFTmiss') != null && boyfriend.animation.getByName('singDOWNmiss') != null && boyfriend.animation.getByName('singUPmiss') != null && boyfriend.animation.getByName('singRIGHTmiss') != null){ //Eu até faria um code mais limpo mas né? Se o cara não tem animação de erro pra esquerda, provavelmente não terá pras outras
 			switch (direction)
 			{
 				case 0:
@@ -6653,6 +6666,7 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('singUPmiss', true);
 				case 3:
 					boyfriend.playAnim('singRIGHTmiss', true);
+			}
 			}
 			vocals.volume = 0;
 		}
@@ -7195,6 +7209,7 @@ class PlayState extends MusicBeatState
 					barmesaback.dance(true);
 					barjeffbraco.dance(true);
 				}
+				bardrowned.animation.play('nao', true);
 
 			case 'starved-pixel':
 					furnaceTheEnd.dance(true); //Tu não tá pensando que eu vou meter um furnance parado né?

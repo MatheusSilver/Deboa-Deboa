@@ -428,6 +428,17 @@ class ChartingState extends MusicBeatState
 						}
 					}
 				}
+				if (FileSystem.exists(Paths.json(songName + '/letras'))){ //Maybe, just maybe isso seja nescessário...
+					var lyrics:SwagSong = Song.loadFromJson('letras', songName);
+					for (sec in 0...lyrics.notes.length) {
+						for (noteId in 0...lyrics.notes[sec].sectionNotes.length) {
+							var note:Array<Dynamic> = lyrics.notes[sec].sectionNotes[noteId];
+							if(note != null && note[1] < 0) {
+								_song.notes[sec].sectionNotes.push([note[0], note[1], note[2], note[3], note[4], note[5]]);
+							}
+						}
+					}
+				}
 				changeSection(curSection);
 			}
 		});

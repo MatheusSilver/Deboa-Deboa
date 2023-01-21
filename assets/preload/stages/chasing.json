@@ -1,10 +1,10 @@
 {
 "directory" : "week-rastro",
 "defaultZoom": 0.78,
-"isPixelStage":false,
+"isPixelStage":true,
 
 "boyfriend": [994, 68],
-"girlfriend": [-72, 158],
+"girlfriend": [-72, 146],
 "opponent": [332, 98],
 
 "camera_boyfriend": [-337.5, 13],

@@ -59,7 +59,6 @@
 	<SubTexture name="left0026" x="915" y="483" width="436" height="383" frameX="-30" frameY="-1" frameWidth="469" frameHeight="386"/>
 	<SubTexture name="left0027" x="915" y="483" width="436" height="383" frameX="-30" frameY="-1" frameWidth="469" frameHeight="386"/>
 	<SubTexture name="left0028" x="915" y="483" width="436" height="383" frameX="-30" frameY="-1" frameWidth="469" frameHeight="386"/>
-	<SubTexture name="left0029" x="1351" y="483" width="0" height="0" frameX="0" frameY="0" frameWidth="469" frameHeight="386"/>
 	<SubTexture name="right0000" x="1351" y="483" width="427" height="508" frameX="-10" frameY="0" frameWidth="437" frameHeight="508"/>
 	<SubTexture name="right0001" x="1351" y="483" width="427" height="508" frameX="-10" frameY="0" frameWidth="437" frameHeight="508"/>
 	<SubTexture name="right0002" x="1778" y="483" width="425" height="505" frameX="-8" frameY="-2" frameWidth="437" frameHeight="508"/>
