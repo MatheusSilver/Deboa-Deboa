@@ -17,7 +17,7 @@ class NoteSplash extends FlxSprite
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
 
 		loadAnims(skin);
-		
+
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
 
@@ -37,34 +37,71 @@ class NoteSplash extends FlxSprite
 		if(textureLoaded != texture) {
 			loadAnims(texture);
 		}
-		colorSwap.hue = hueColor;
-		colorSwap.saturation = satColor;
-		colorSwap.brightness = brtColor;
-		offset.set(10, 10);
 
-		var animNum:Int = FlxG.random.int(1, 2);
-		animation.play('note' + note + '-' + animNum, true);
-		if(!PlayState.isRing)// só pra n crashar por enquanto
-			{
-				//animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);
-			}
+		switch(texture){
+			case 'blood':
+				alpha = 1;
+				antialiasing=true;
+				colorSwap.hue = 0;
+				colorSwap.saturation = 0;
+				colorSwap.brightness = 0;
+				offset.set(-40, -90);
+				animation.play('splash', true);
+
+				animation.curAnim.frameRate = 24;
+
+			case 'milk':
+				alpha = 0.89;
+				antialiasing=true;
+				var animNum:Int = FlxG.random.int(1, 2);
+				animation.play('note' + note + '-' + animNum, true);
+				scale.x = 0.6;
+				scale.y = 0.6;
+				updateHitbox();
+				offset.set(70, 90);
+				
+			default:
+				alpha = 0.6;
+				antialiasing=true;
+				colorSwap.hue = hueColor;
+				colorSwap.saturation = satColor;
+				colorSwap.brightness = brtColor;
+				offset.set(10, 10);
+
+				var animNum:Int = FlxG.random.int(1, 2);
+				animation.play('note' + note + '-' + animNum, true);
+
+				animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);
+		}
+
+
 	}
 
 	function loadAnims(skin:String) {
-		frames = Paths.getSparrowAtlas(skin);
-		for (i in 1...3) {
-			animation.addByPrefix("note1-" + i, "note splash blue " + i, 24, false);
-			animation.addByPrefix("note2-" + i, "note splash green " + i, 24, false);
-			animation.addByPrefix("note0-" + i, "note splash purple " + i, 24, false);
-			animation.addByPrefix("note3-" + i, "note splash red " + i, 24, false);
+		if(openfl.utils.Assets.exists(Paths.image('splashes/'+skin))){
+			frames = Paths.getSparrowAtlas('splashes/'+skin); //Aparentemente isso tenta puxar o note splash da pasta shared/images, mas e se...
+			} else {
+				//FlxG.log.add('não achei ' + skin + " em " + LoadingState.directoryreader + "splashes/ então vou procurar em shared");
+				if(skin != null && skin.length > 0) {
+					frames = Paths.getSparrowAtlas('splashes/'+skin, 'shared'); //Aparentemente isso tenta puxar o note splash da pasta shared/images, mas e se...
+				}
+			}
+		switch(skin){
+			case 'blood':
+					animation.addByPrefix("splash", "Squirt", 24, false);
+			default:
+				for (i in 1...3) {
+					animation.addByPrefix("note1-" + i, "note splash blue " + i, 24, false);
+					animation.addByPrefix("note2-" + i, "note splash green " + i, 24, false);
+					animation.addByPrefix("note0-" + i, "note splash purple " + i, 24, false);
+					animation.addByPrefix("note3-" + i, "note splash red " + i, 24, false);
+				}
 		}
 	}
 
 	override function update(elapsed:Float) {
-		if(!PlayState.isRing) // só pra n crashar por enquanto
-			{
-				//if(animation.curAnim.finished){ kill();}
-			}
+		if(animation.curAnim.finished) kill();
+
 		super.update(elapsed);
 	}
 }

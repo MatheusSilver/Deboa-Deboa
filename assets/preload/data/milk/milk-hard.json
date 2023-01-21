@@ -7587,6 +7587,7 @@
 		"mania": 3,
 		"song": "milk",
 		"needsVoices": false,
+		"splashSkin": "milk",
 		"sections": 45,
 		"validScore": true,
 		"stage": "sunkstage",

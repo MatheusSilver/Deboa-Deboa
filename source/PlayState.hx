@@ -2338,6 +2338,9 @@ class PlayState extends MusicBeatState
 	
 					case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
 	
+					if (curSong.toLowerCase()=='triple-trouble'){
+						camHUD.alpha = 0;
+					}
 					startCountdown();
 					add(blackFuck);
 					startCircle.loadGraphic(Paths.image('StartScreen/Circle-'+ daSong));
@@ -5126,20 +5129,19 @@ class PlayState extends MusicBeatState
 					//Nota adicional a fazer com lua,
 					//Reaproveitar o lua da YCR, e codar o vignette red pra fazer tween nas partes do beast
 					//Não é muito dificil, é só usar um get property que verifica se o p3staticbg está visivel ou não k
-
-				case 0: //ULTIMATE GAMBIARRA MASTERS
-				if(!ClientPrefs.middleScroll){
-				opponentStrums.members[0].x = opponentStrums.members[3].x + 28;
-				opponentStrums.members[1].x = opponentStrums.members[3].x + 28;
-				opponentStrums.members[2].alpha = 0;
-				opponentStrums.members[3].x = opponentStrums.members[3].x - 28*3;
-				opponentStrums.members[4].x = opponentStrums.members[4].x - 28*3;
-				}
 					
 				case 1:
 					doP3Static(); // cool static
-					FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(FlxG.camera, {zoom: 1.2}, 2, {ease: FlxEase.cubeOut});
+					FlxTween.tween(camHUD, {alpha: 1}, 1, {ease: FlxEase.cubeOut}); //Só pra garantir que ninguem vai ver que o oponente está com as notas bugadas no começo
 					defaultCamZoom = 1.1;
+					if(!ClientPrefs.middleScroll){
+					opponentStrums.members[0].x = opponentStrums.members[0].x + 28; //Silvio burro parte 2
+					opponentStrums.members[1].x = opponentStrums.members[1].x + 28;
+					opponentStrums.members[2].alpha = 0;
+					opponentStrums.members[3].x = opponentStrums.members[3].x - 28*3;
+					opponentStrums.members[4].x = opponentStrums.members[4].x - 28*3;
+				}
 				case 144:
 					doP3JumpTAILS();
 				case 1024, 1088, 1216, 1280, 2305, 2810, 3199, 4096:

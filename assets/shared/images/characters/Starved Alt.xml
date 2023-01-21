@@ -1,9 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<TextureAtlas imagePath="Starved Alt.png">
-<SubTexture name="Starved Alt Idle0000" x="1279" y="0" width="499" height="629" frameX="-252" frameY="-265" frameWidth="1080" frameHeight="1080" />
-<SubTexture name="Starved Alt Down Alt0000" x="0" y="0" width="639" height="659" frameX="-242" frameY="-262" frameWidth="1080" frameHeight="1080" />
-<SubTexture name="Starved Alt Down Alt0001" x="639" y="0" width="640" height="635" frameX="-224" frameY="-286" frameWidth="1080" frameHeight="1080" />
-<SubTexture name="Starved Alt Down Alt0002" x="0" y="659" width="642" height="606" frameX="-203" frameY="-315" frameWidth="1080" frameHeight="1080" />
-<SubTexture name="Starved Alt Down Alt0003" x="642" y="659" width="645" height="575" frameX="-181" frameY="-346" frameWidth="1080" frameHeight="1080" />
-<SubTexture name="Starved Alt Down Alt0004" x="1778" y="0" width="647" height="547" frameX="-160" frameY="-374" frameWidth="1080" frameHeight="1080" />
-</TextureAtlas>
