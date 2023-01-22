@@ -791,6 +791,8 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "makeLuaSprite", function(tag:String, image:String, x:Float, y:Float) {
+			if(image != 'nil' && image != '' || !tag.startsWith('exe')){ //Pelo menos alguma coisa está funcionando
+				//Basicamente é só manter o 'exe' como váriavel das lyrics que tudo dará certo
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
@@ -805,6 +807,7 @@ class FunkinLua {
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
+			}
 		});
 
 		Lua_helper.add_callback(lua, "makeLuaSpriteNoAntialiasing", function(tag:String, image:String, x:Float, y:Float) {

@@ -66,14 +66,6 @@
 						15671.6417910448,
 						1,
 						335.820895522388
-					],
-					[
-						14776.1194029851,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails1",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -105,14 +97,6 @@
 						17089.552238806,
 						1,
 						279.850746268657
-					],
-					[
-						16567.1641791045,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails2",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -144,14 +128,6 @@
 						17985.0746268657,
 						0,
 						0
-					],
-					[
-						18470.1492537313,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails3",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -209,14 +185,6 @@
 						23059.7014925373,
 						3,
 						335.820895522388
-					],
-					[
-						22164.1791044776,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic1",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -248,14 +216,6 @@
 						24738.8059701493,
 						3,
 						0
-					],
-					[
-						23955.223880597,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic2",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -292,14 +252,6 @@
 						25298.5074626866,
 						2,
 						0
-					],
-					[
-						25746.2686567164,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic3",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -336,14 +288,6 @@
 						28544.776119403,
 						2,
 						0
-					],
-					[
-						28320.8955223881,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic4",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -375,14 +319,6 @@
 						29552.2388059702,
 						2,
 						1119.40298507463
-					],
-					[
-						29552.2388059702,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails4",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -404,14 +340,6 @@
 						31343.2835820896,
 						1,
 						1343.28358208955
-					],
-					[
-						30895.5223880597,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails5",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -428,14 +356,6 @@
 						33582.0895522388,
 						3,
 						335.820895522388
-					],
-					[
-						33134.328358209,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails6",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -462,14 +382,6 @@
 						35037.3134328358,
 						1,
 						223.880597014925
-					],
-					[
-						35597.0149253731,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails7",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -501,14 +413,6 @@
 						36940.2985074627,
 						2,
 						1231.34328358209
-					],
-					[
-						36940.2985074627,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic5",
-						"letras/chasing/chatails8",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -545,14 +449,6 @@
 						38843.2835820896,
 						5,
 						783.582089552239
-					],
-					[
-						38843.2835820896,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic5",
-						"letras/chasing/chatails9",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -594,14 +490,6 @@
 						40634.328358209,
 						2,
 						335.820895522388
-					],
-					[
-						40634.328358209,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic6",
-						"letras/chasing/chatails9",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -643,14 +531,6 @@
 						42537.3134328358,
 						7,
 						335.820895522388
-					],
-					[
-						43992.5373134328,
-						-1,
-						"comecarvideo",
-						"AnimacoesJogaveis/ChasingVideo",
-						"0,0,1,2",
-						"0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -778,14 +658,6 @@
 						46119.4029850746,
 						3,
 						0
-					],
-					[
-						43992.5373134328,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails10",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -802,30 +674,13 @@
 						46567.1641791045,
 						0,
 						279.850746268657
-					],
-					[
-						45559.7014925373,
-						-1,
-						"Image Flash",
-						"0, 0, 10",
-						"blackscreen, other, 6s",
-						null
 					]
 				],
 				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [
-					[
-						47238.8059701493,
-						-1,
-						"Adicionar Imagens",
-						"",
-						"",
-						null
-					]
-				],
+				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
@@ -845,80 +700,27 @@
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [
-					[
-						54850.7462686567,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					]
-				],
+				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"mustHitSection": true
 			},
 			{
-				"sectionNotes": [
-					[
-						56194.0298507463,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					]
-				],
+				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [
-					[
-						57649.2537313433,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						58992.5373134328,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					]
-				],
+				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [
-					[
-						60335.8208955224,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					]
-				],
+				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
 			{
-				"sectionNotes": [
-					[
-						61679.1044776119,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					]
-				],
+				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"mustHitSection": false
 			},
@@ -933,14 +735,6 @@
 						66044.776119403,
 						3,
 						0
-					],
-					[
-						63134.3283582089,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -992,22 +786,6 @@
 						67518.6567164179,
 						0,
 						0
-					],
-					[
-						64477.6119402985,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						65932.8358208955,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails11",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1046,14 +824,6 @@
 						68768.6567164179,
 						3,
 						0
-					],
-					[
-						67185.3233830846,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails12",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1105,14 +875,6 @@
 						70101.9900497512,
 						1,
 						0
-					],
-					[
-						68518.6567164179,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails13",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1154,14 +916,6 @@
 						71351.9900497512,
 						7,
 						0
-					],
-					[
-						70018.6567164179,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails14",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1203,14 +957,6 @@
 						72685.3233830845,
 						5,
 						111.940298507463
-					],
-					[
-						71351.9900497512,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic7",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1262,14 +1008,6 @@
 						73935.3233830845,
 						0,
 						0
-					],
-					[
-						72351.9900497512,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic8",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1316,14 +1054,6 @@
 						75435.3233830845,
 						0,
 						0
-					],
-					[
-						73685.3233830845,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic9",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1421,14 +1151,6 @@
 						78185.3233830845,
 						4,
 						279.850746268657
-					],
-					[
-						75768.6567164179,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic10",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1480,22 +1202,6 @@
 						79518.6567164178,
 						0,
 						0
-					],
-					[
-						76935.3233830845,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails15",
-						""
-					],
-					[
-						77851.9900497512,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails16",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1568,14 +1274,6 @@
 						81935.3233830845,
 						1,
 						0
-					],
-					[
-						79601.9900497512,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails17",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1658,22 +1356,6 @@
 						84685.3233830845,
 						3,
 						167.910447761194
-					],
-					[
-						82268.6567164178,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic11",
-						"letras/chasing/chatailss",
-						""
-					],
-					[
-						83268.6567164178,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic12",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1761,14 +1443,6 @@
 						87018.6567164178,
 						1,
 						671.641791044776
-					],
-					[
-						85018.6567164178,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic13",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1871,14 +1545,6 @@
 						89268.6567164178,
 						3,
 						0
-					],
-					[
-						87851.9900497511,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails11",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1930,14 +1596,6 @@
 						91518.6567164178,
 						2,
 						0
-					],
-					[
-						89185.3233830845,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails12",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -1989,14 +1647,6 @@
 						92268.6567164178,
 						0,
 						0
-					],
-					[
-						90518.6567164178,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails13",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2053,14 +1703,6 @@
 						94101.9900497511,
 						7,
 						0
-					],
-					[
-						91935.3233830845,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails14",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2107,14 +1749,6 @@
 						94268.6567164178,
 						0,
 						0
-					],
-					[
-						93185.3233830845,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic7",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2161,14 +1795,6 @@
 						96685.3233830844,
 						3,
 						0
-					],
-					[
-						94268.6567164178,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic8",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2215,14 +1841,6 @@
 						97601.9900497511,
 						0,
 						0
-					],
-					[
-						95685.3233830844,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic9",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2269,14 +1887,6 @@
 						98268.6567164178,
 						1,
 						0
-					],
-					[
-						97768.6567164178,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic10",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2313,14 +1923,6 @@
 						100768.656716418,
 						3,
 						0
-					],
-					[
-						98768.6567164178,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails18",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2372,14 +1974,6 @@
 						101601.990049751,
 						2,
 						0
-					],
-					[
-						100601.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails19",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2421,14 +2015,6 @@
 						102268.656716418,
 						2,
 						0
-					],
-					[
-						101518.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails20",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2534,14 +2120,6 @@
 						106185.323383084,
 						1,
 						0
-					],
-					[
-						104268.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic14",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2597,14 +2175,6 @@
 						107518.656716418,
 						3,
 						0
-					],
-					[
-						105268.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic15",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2655,14 +2225,6 @@
 						108851.990049751,
 						3,
 						0
-					],
-					[
-						106935.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic16",
-						"letras/chasing/chatailss",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2808,14 +2370,6 @@
 						111435.323383084,
 						1,
 						0
-					],
-					[
-						109768.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonicc",
-						"letras/chasing/chatails21",
-						""
 					]
 				],
 				"lengthInSteps": 16,
@@ -2891,22 +2445,6 @@
 						112851.990049751,
 						1,
 						0
-					],
-					[
-						111101.990049751,
-						-1,
-						"CameraZoom",
-						"1.2",
-						"2s",
-						null
-					],
-					[
-						110601.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails22",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -2977,22 +2515,6 @@
 						114060.323383084,
 						1,
 						0
-					],
-					[
-						112518.656716418,
-						-1,
-						"CameraZoom",
-						"1.4",
-						"2s",
-						null
-					],
-					[
-						111935.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails23",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3073,22 +2595,6 @@
 						114768.656716418,
 						1,
 						0
-					],
-					[
-						113851.990049751,
-						-1,
-						"CameraZoom",
-						"1.6",
-						"2s",
-						null
-					],
-					[
-						113351.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails24",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3159,38 +2665,6 @@
 						116893.656716418,
 						0,
 						0
-					],
-					[
-						114601.990049751,
-						-1,
-						"Add Camera Zoom",
-						"",
-						"",
-						null
-					],
-					[
-						115185.323383084,
-						-1,
-						"CameraZoom",
-						"1",
-						"2s",
-						null
-					],
-					[
-						114685.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails25",
-						"",
-						null
-					],
-					[
-						115226.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic17",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3251,22 +2725,6 @@
 						117976.990049751,
 						2,
 						0
-					],
-					[
-						116601.990049751,
-						-1,
-						"CameraZoom",
-						"1.2",
-						"2s",
-						null
-					],
-					[
-						116185.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic18",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3322,22 +2780,6 @@
 						119435.323383084,
 						2,
 						0
-					],
-					[
-						117935.323383084,
-						-1,
-						"CameraZoom",
-						"1.4",
-						"2s",
-						null
-					],
-					[
-						117435.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic19",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3413,22 +2855,6 @@
 						120685.323383084,
 						5,
 						0
-					],
-					[
-						119351.990049751,
-						-1,
-						"CameraZoom",
-						"1.6",
-						"2s",
-						null
-					],
-					[
-						118768.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic20",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3489,30 +2915,6 @@
 						122018.656716418,
 						6,
 						0
-					],
-					[
-						120685.323383084,
-						-1,
-						"Add Camera Zoom",
-						"",
-						"",
-						null
-					],
-					[
-						120688.795605307,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails26",
-						"",
-						null
-					],
-					[
-						120101.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic21",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3578,14 +2980,6 @@
 						123435.323383084,
 						5,
 						0
-					],
-					[
-						121601.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails27",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3651,14 +3045,6 @@
 						124768.656716418,
 						6,
 						0
-					],
-					[
-						123018.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails28",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3729,14 +3115,6 @@
 						126101.990049751,
 						1,
 						0
-					],
-					[
-						124351.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails29",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3802,22 +3180,6 @@
 						127518.656716418,
 						0,
 						0
-					],
-					[
-						125685.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails30",
-						"",
-						null
-					],
-					[
-						126101.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic22",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3878,14 +3240,6 @@
 						128810.323383084,
 						0,
 						0
-					],
-					[
-						127018.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic23",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -3951,14 +3305,6 @@
 						130185.323383084,
 						2,
 						0
-					],
-					[
-						128435.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic24",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4034,14 +3380,6 @@
 						131351.990049751,
 						2,
 						0
-					],
-					[
-						129768.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic25",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4217,30 +3555,6 @@
 						134185.323383084,
 						2,
 						0
-					],
-					[
-						131731.156716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails30",
-						"",
-						null
-					],
-					[
-						131601.990049751,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						132435.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic26",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4336,30 +3650,6 @@
 						135518.656716418,
 						3,
 						0
-					],
-					[
-						132935.323383084,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						133018.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails31",
-						"",
-						null
-					],
-					[
-						133685.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic27",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4450,30 +3740,6 @@
 						136851.990049751,
 						2,
 						0
-					],
-					[
-						134268.656716418,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						134310.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chatails32",
-						"",
-						null
-					],
-					[
-						135018.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic28",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4569,30 +3835,6 @@
 						138185.323383084,
 						3,
 						0
-					],
-					[
-						135768.656716418,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						135851.990049751,
-						-1,
-						"Adicionar Imagens",
-						"3letras/chasing/chatails33",
-						"",
-						null
-					],
-					[
-						136435.323383084,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic29",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4688,30 +3930,6 @@
 						139518.656716418,
 						0,
 						0
-					],
-					[
-						137185.323383084,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						137268.656716418,
-						-1,
-						"Adicionar Imagens",
-						"3letras/chasing/chatails34",
-						"",
-						null
-					],
-					[
-						137768.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic30",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4802,30 +4020,6 @@
 						140851.990049751,
 						0,
 						0
-					],
-					[
-						138601.990049751,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						138643.656716418,
-						-1,
-						"Adicionar Imagens",
-						"3letras/chasing/chatails35",
-						"",
-						null
-					],
-					[
-						139143.656716418,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic31",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -4976,30 +4170,6 @@
 						141268.656716418,
 						1,
 						0
-					],
-					[
-						139851.990049751,
-						-1,
-						"Flash Camera",
-						"1s",
-						"",
-						null
-					],
-					[
-						139935.323383084,
-						-1,
-						"Adicionar Imagens",
-						"3letras/chasing/chatails36",
-						"",
-						null
-					],
-					[
-						140601.990049751,
-						-1,
-						"Adicionar Imagens",
-						"letras/chasing/chasonic32",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -5070,14 +4240,6 @@
 						142685.323383084,
 						6,
 						1455.22388059701
-					],
-					[
-						141351.990049751,
-						-1,
-						"Adicionar Imagens",
-						"3letras/chasing/chatails37",
-						"",
-						null
 					]
 				],
 				"lengthInSteps": 16,
@@ -5117,16 +4279,7 @@
 				"changeCameraBeat": false,
 				"mustHitSection": true,
 				"cameraBeatSpeed": 4,
-				"sectionNotes": [
-					[
-						144768.656716418,
-						-1,
-						"Adicionar Imagens",
-						"",
-						"",
-						null
-					]
-				],
+				"sectionNotes": [],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
 				"bpm": 134,

@@ -94,6 +94,8 @@ class PlayState extends MusicBeatState
 
 	var blackFuck:FlxSprite;
 
+	var stageData:StageFile;
+
 	
 
 	//CC Stuff
@@ -746,7 +748,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		var stageData:StageFile = StageData.getStageFile(curStage);
+		stageData = StageData.getStageFile(curStage);
 		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
 			stageData = {
 				directory: "",
@@ -2792,7 +2794,7 @@ class PlayState extends MusicBeatState
 
 			FlxG.stage.window.onFocusOut.remove(focusOut);
 			FlxG.stage.window.onFocusIn.remove(focusIn);
-			remove(videoSprite);
+			//remove(videoSprite);
 			videoSprite.visible = false;
 			useVideo = false;
 			}else{
@@ -2830,33 +2832,36 @@ class PlayState extends MusicBeatState
 
 		var data = webmHandler.webm.bitmapData;
 
-		videoSprite = new FlxSprite(-470, -30).loadGraphic(data);
+		videoSprite = new FlxSprite().loadGraphic(data);
 
-		videoSprite.x = xPos;
-		videoSprite.y = yPos;
+		if(layering == 1) { //Layering = 1 significa que o video ficará abaixo dos bonecos mas acima do cenário
+			videoSprite.cameras = [camGame];
+			remove(gf);
+			remove(boyfriend);
+			remove(dad);
+			add(videoSprite);
+			add(gf);
+			add(boyfriend);
+			add(dad);
+		} else if(layering==0){ //Significa que o vídeo ficará acima de literalmente tudo.
+			videoSprite.cameras = [camHUD2];
+			add(videoSprite);
+		}
+
+		videoSprite.x = xPos + 0.1;
+		videoSprite.y = yPos + 0.1;
 		videoSprite.visible = true;
-		if (tamanho != "cheio"){
-			videoSprite.scale.x = Std.parseFloat(tamanho);
-			videoSprite.scale.y = Std.parseFloat(tamanho);
-			} else {
-				videoSprite.setGraphicSize(FlxG.width, FlxG.height);
-			}
+		videoSprite.alpha = 1;
 		if (chromakey == 1){
 			videoSprite.shader = new GreenScreenShader();
 		}
-		if(layering == 1) { //Layering = 1 significa que o video ficará abaixo dos bonecos mas acima do cenário
-		videoSprite.cameras = [camGame];
-		} else if(layering==0){ //Significa que o vídeo ficará acima de literalmente tudo.
-		videoSprite.cameras = [camHUD2];
-		add(videoSprite);
+
+		if (tamanho != "cheio"){
+			videoSprite.scale.x = Std.parseFloat(tamanho);
+			videoSprite.scale.y = Std.parseFloat(tamanho);
+		} else {
+			videoSprite.setGraphicSize(FlxG.width, FlxG.height); //Revisar isso amanhã tambem
 		}
-		remove(gf);
-		remove(boyfriend);
-		remove(dad);
-		add(videoSprite); //Tenho minhas reais dúvidas se este code funciona...
-		add(gf);
-		add(boyfriend);
-		add(dad);
 
 		trace('poggers');
 
@@ -3699,7 +3704,7 @@ class PlayState extends MusicBeatState
 				if (GlobalVideo.get().ended && !removedVideo)
 				{
 					videoSprite.visible = false;
-					remove(videoSprite);
+				//	remove(videoSprite);
 					FlxG.stage.window.onFocusOut.remove(focusOut);
 					FlxG.stage.window.onFocusIn.remove(focusIn);
 					removedVideo = true;
@@ -3974,7 +3979,7 @@ class PlayState extends MusicBeatState
 				{
 					GlobalVideo.get().stop();
 					videoSprite.visible = false;
-					remove(videoSprite);
+				//	remove(videoSprite);
 					#if sys
 					FlxG.stage.window.onFocusOut.remove(focusOut);
 					FlxG.stage.window.onFocusIn.remove(focusIn);
@@ -4216,6 +4221,16 @@ class PlayState extends MusicBeatState
 				strumAlpha *= daNote.multAlpha;
 				var center:Float = strumY + Note.swagWidth / 2;
 
+				if (daNote.animation.curAnim.name.endsWith('hold') || daNote.animation.curAnim.name.endsWith('end')){
+					if(stageData.isPixelStage && !isPixelStage){
+					//	daNote.scale.y = some constant*1/3.57;
+					}
+							//Must do, checar essas contas amanhã
+					if(!stageData.isPixelStage && isPixelStage){
+					//	daNote.scale.y = some constant*3.57;
+					}
+				}
+
 				if(daNote.copyX) {
 					daNote.x = strumX;
 				}
@@ -4238,7 +4253,7 @@ class PlayState extends MusicBeatState
 								} else {
 									daNote.y -= 19;
 								}
-							} 
+							}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (roundedSpeed - 1));
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (roundedSpeed - 1);
 
@@ -5965,7 +5980,7 @@ class PlayState extends MusicBeatState
 				FlxG.stage.window.onFocusOut.remove(focusOut);
 				FlxG.stage.window.onFocusIn.remove(focusIn);
 				videoSprite.visible = false;
-				remove(videoSprite);
+			//	remove(videoSprite);
 			}
 
 		deathCounter = 0;
