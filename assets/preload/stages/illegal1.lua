@@ -16,11 +16,14 @@ makeLuaSprite('MOONBACK','cenarios/piracy/BG',-500,-500)
 	addAnimationByPrefix('tailsd', 'bopidle', 'tailsbop', 24, null)
 	addLuaSprite('tailsd', false)
 
-	objectPlayAnimation('tailsd', 'bopidle', true)
 	
 	makeAnimatedLuaSprite('KNUCKLESD', 'cenarios/piracy/KNUXBOP', 900, 200)
 	addAnimationByPrefix('KNUCKLESD', 'boppidle', 'knucklesbop', 24, null)
 	addLuaSprite('KNUCKLESD', false)
 
-	objectPlayAnimation('tailsd', 'bopidle', true)
 	end
+
+function onBeat()
+	objectPlayAnimation('tailsd', 'bopidle', false)
+	objectPlayAnimation('KNUCKLESD', 'boppidle', false)
+end
