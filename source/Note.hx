@@ -220,7 +220,7 @@ class Note extends FlxSprite
 			offsetX -= width / 2;
 
 			if (PlayState.isPixelStage)
-				offsetX += 30;
+				offsetX += 33; //TOC
 
 			if (prevNote.isSustainNote)
 			{

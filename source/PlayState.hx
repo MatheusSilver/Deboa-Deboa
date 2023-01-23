@@ -2775,7 +2775,7 @@ class PlayState extends MusicBeatState
 		// nada 
 	}
 
-	public function backgroundVideo(source:String, xPos:Float, yPos:Float, tamanho:String, chromakey:Float, layering:Float)
+	public function backgroundVideo(source:String, xPos:Float = 0, yPos:Float = 0, tamanho:String = 'cheio', chromakey:Float = 0, layering:Float = 0)
 		{
 		
 		if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){ //Top 10 codes mais feios dos animes
@@ -2834,20 +2834,6 @@ class PlayState extends MusicBeatState
 
 		videoSprite = new FlxSprite().loadGraphic(data);
 
-		if(layering == 1) { //Layering = 1 significa que o video ficará abaixo dos bonecos mas acima do cenário
-			videoSprite.cameras = [camGame];
-			remove(gf);
-			remove(boyfriend);
-			remove(dad);
-			add(videoSprite);
-			add(gf);
-			add(boyfriend);
-			add(dad);
-		} else if(layering==0){ //Significa que o vídeo ficará acima de literalmente tudo.
-			videoSprite.cameras = [camHUD2];
-			add(videoSprite);
-		}
-
 		videoSprite.x = xPos + 0.1;
 		videoSprite.y = yPos + 0.1;
 		videoSprite.visible = true;
@@ -2864,6 +2850,20 @@ class PlayState extends MusicBeatState
 		}
 
 		trace('poggers');
+
+		if(layering == 1) { //Layering = 1 significa que o video ficará abaixo dos bonecos mas acima do cenário
+			videoSprite.cameras = [camGame];
+			remove(gf);
+			remove(boyfriend);
+			remove(dad);
+			add(videoSprite);
+			add(gf);
+			add(boyfriend);
+			add(dad);
+		} else { //Significa que o vídeo ficará acima de literalmente tudo.
+			videoSprite.cameras = [camHUD2];
+			add(videoSprite);
+		}
 
 		if (!songStarted)
 			webmHandler.pause();
@@ -4220,17 +4220,15 @@ class PlayState extends MusicBeatState
 				strumAngle += daNote.offsetAngle;
 				strumAlpha *= daNote.multAlpha;
 				var center:Float = strumY + Note.swagWidth / 2;
-
-				if (daNote.animation.curAnim.name.endsWith('hold') || daNote.animation.curAnim.name.endsWith('end')){
-					if(stageData.isPixelStage && !isPixelStage){
-					//	daNote.scale.y = some constant*1/3.57;
-					}
-							//Must do, checar essas contas amanhã
-					if(!stageData.isPixelStage && isPixelStage){
-					//	daNote.scale.y = some constant*3.57;
-					}
+				var k:Float = 7.14*2; //K = constante que converte notas pixel para notas cartoon e versa vice
+				var k2:Float = k; //Apenas para versatilizar ainda mais essa parte.
+				if(stageData.isPixelStage && !isPixelStage){
+					k2 = 1/k;
+				}else if(!stageData.isPixelStage && isPixelStage){
+					k2 = k;
+				} else {
+					k2 = 1;
 				}
-
 				if(daNote.copyX) {
 					daNote.x = strumX;
 				}
@@ -4241,6 +4239,14 @@ class PlayState extends MusicBeatState
 					daNote.alpha = strumAlpha;
 				}
 				if(daNote.copyY) {
+					if (daNote.animation.curAnim.name.endsWith('end')){
+						if(stageData.isPixelStage && !isPixelStage){
+							daNote.scale.y = 0.7;
+						}
+						if(!stageData.isPixelStage && isPixelStage){
+							daNote.scale.y = 6; //Talvez seja nescessário adicionar *1.19 aqui...
+						}
+					}
 					if (ClientPrefs.downScroll) {
 						daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
 						if (daNote.isSustainNote) {
@@ -4251,9 +4257,9 @@ class PlayState extends MusicBeatState
 								if(PlayState.isPixelStage) {
 									daNote.y += 8;
 								} else {
-									daNote.y -= 19;
+										daNote.y -= 19;
+									}
 								}
-							}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (roundedSpeed - 1));
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (roundedSpeed - 1);
 
@@ -4262,7 +4268,7 @@ class PlayState extends MusicBeatState
 								if(daNote.y - daNote.offset.y * daNote.scale.y + daNote.height >= center
 									&& (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
 								{
-									var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight);
+									var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight * k2);
 									swagRect.height = (center - daNote.y) / daNote.scale.y;
 									swagRect.y = daNote.frameHeight - swagRect.height;
 
@@ -4279,7 +4285,7 @@ class PlayState extends MusicBeatState
 								&& daNote.y + daNote.offset.y * daNote.scale.y <= center
 								&& (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
 							{
-								var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
+								var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y * k2);
 								swagRect.y = (center - daNote.y) / daNote.scale.y;
 								swagRect.height -= swagRect.y;
 

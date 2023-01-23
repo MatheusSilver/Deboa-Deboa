@@ -1,0 +1,14 @@
+Achei mais fácil transferir algumas anotações de code e deixar elas apenas aqui.
+
+Assim não fico spammando o discord e nem corro o risco de perder info e melhor parte, 
+tambem posso escrever aqui pelo celular e ver no PC do lado do code que estou mexendo :)
+
+A ideia aqui é fazer com que a engine exiba uma mensagem especial na primeira vez 
+que cada youtuber jogar o mod
+Não é tão dificil de fazer na real, o problema mesmo vai ser achar o nome do PC de cada um deles.
+Identificação de Youtubers específicos: 
+Pai Troll = guilh....
+RK Play = conta
+
+Nota para o futuro:
+SwagRect é o que dita o tamanho da nota quando segurada.
