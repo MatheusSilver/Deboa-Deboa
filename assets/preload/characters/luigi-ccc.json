@@ -20,7 +20,7 @@
 			"fps": 12,
 			"anim": "danceRight",
 			"indices": [],
-			"name": "idle"
+			"name": "idle1"
 		},
 		{
 			"loop": false,

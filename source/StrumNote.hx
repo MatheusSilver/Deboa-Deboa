@@ -158,6 +158,13 @@ class StrumNote extends FlxSprite
 		if(player == 1 && PlayState.isRing){
 			x -= 50;
 		}
+		if(PlayState.nomehistorico.toLowerCase()=='cross-console-clash' && !ClientPrefs.middleScroll){
+			if(player == 1){
+				x -= 85;
+			} else {
+				x += 85;
+			}
+		}
 		} else {
 			switch (player)
 			{

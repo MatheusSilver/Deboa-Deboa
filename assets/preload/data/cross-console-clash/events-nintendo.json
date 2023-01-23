@@ -13,6 +13,25 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
+						2000.6296296296,
+						-1,
+						"noteskinchangeOPPT",
+						"arrows-sonic",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
 						29629.6296296296,
 						-1,
 						"Play Animation",
@@ -30,22 +49,6 @@
 					],
 					[
 						30000,
-						-1,
-						"Play Animation",
-						"hey",
-						"bf",
-						""
-					],
-					[
-						30231.4814814815,
-						-1,
-						"Play Animation",
-						"hey",
-						"bf",
-						""
-					],
-					[
-						30370.3703703704,
 						-1,
 						"Play Animation",
 						"hey",

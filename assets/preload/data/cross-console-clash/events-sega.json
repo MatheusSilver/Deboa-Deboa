@@ -16,7 +16,15 @@
 						0,
 						-1,
 						"Must Press Swap",
+						"true",
 						"",
+						""
+					],
+					[
+						100,
+						-1,
+						"noteskinchangeOPPT",
+						"arrows-mario",
 						"",
 						""
 					]
@@ -49,22 +57,6 @@
 					],
 					[
 						30092.5925925926,
-						-1,
-						"Play Animation",
-						"hey",
-						"dad",
-						""
-					],
-					[
-						30231.4814814815,
-						-1,
-						"Play Animation",
-						"hey",
-						"dad",
-						""
-					],
-					[
-						30370.3703703704,
 						-1,
 						"Play Animation",
 						"hey",

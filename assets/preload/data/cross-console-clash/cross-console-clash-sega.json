@@ -7700,13 +7700,14 @@
 				"mustHitSection": true
 			}
 		],
-		"player3": "luigi-gone",
+		"player3": "invisibru",
 		"song": "Cross-Console-Clash",
 		"arrowSkin": "arrows-sonic",
 		"stage": "console",
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,
+		"splashSkin": "noteSplashesPixelSonic",
 		"speed": 2.8,
 		"bpm": 162
 	}

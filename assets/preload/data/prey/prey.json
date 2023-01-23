@@ -13596,6 +13596,7 @@
 		"needsVoices": false,
 		"validScore": true,
 		"stage": "starved-pixel",
+		"splashSkin": "noteSplashesPixelSonic",
 		"arrowSkin": "",
 		"bpm": 176,
 		"speed": 3.8

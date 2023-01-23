@@ -4469,7 +4469,7 @@
 		],
 		"player3": "sonico-exe-pixel",
 		"song": "chasing",
-		"splashSkin": "blood",
+		"splashSkin": "noteSplashesPixelSonic",
 		"stage": "chasing",
 		"needsVoices": false,
 		"validScore": true,

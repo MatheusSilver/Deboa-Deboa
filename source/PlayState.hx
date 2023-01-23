@@ -84,6 +84,8 @@ class PlayState extends MusicBeatState
 {
 	var precacheList:Map<String, String> = new Map<String, String>();
 
+	public static var cccVidaCounter:Int = 2;
+
 	var hitsound:FlxSound;
 	var sonicPulo:FlxSound;
 	var sonicAviso:FlxSound;
@@ -98,8 +100,9 @@ class PlayState extends MusicBeatState
 
 	
 
-	//CC Stuff
+	//CCC Stuff
 	public static var sonicHUDCCC:SonicHUDCCC;
+	var invencibilidade:Bool = false;
 
 	//CY SUPER TRENS - GRUPO 1
 	var chaophase1:BGSprite;
@@ -2834,8 +2837,6 @@ class PlayState extends MusicBeatState
 
 		videoSprite = new FlxSprite().loadGraphic(data);
 
-		videoSprite.x = xPos + 0.1;
-		videoSprite.y = yPos + 0.1;
 		videoSprite.visible = true;
 		videoSprite.alpha = 1;
 		if (chromakey == 1){
@@ -2853,6 +2854,8 @@ class PlayState extends MusicBeatState
 
 		if(layering == 1) { //Layering = 1 significa que o video ficará abaixo dos bonecos mas acima do cenário
 			videoSprite.cameras = [camGame];
+			videoSprite.x = xPos + 0.001;
+			videoSprite.y = yPos + 0.001;
 			remove(gf);
 			remove(boyfriend);
 			remove(dad);
@@ -2862,6 +2865,8 @@ class PlayState extends MusicBeatState
 			add(dad);
 		} else { //Significa que o vídeo ficará acima de literalmente tudo.
 			videoSprite.cameras = [camHUD2];
+			videoSprite.x = xPos + 0.001;
+			videoSprite.y = yPos + 0.001;
 			add(videoSprite);
 		}
 
@@ -4140,7 +4145,7 @@ class PlayState extends MusicBeatState
 			updateSonicScore();
 			updateSonicMisses();
 			updateSonicVida();
-			}
+		}
 		if(isRing){updateSonicRings();}
 
 		// RESET = Quick Game Over Screen
@@ -4230,6 +4235,14 @@ class PlayState extends MusicBeatState
 					daNote.alpha = strumAlpha;
 				}
 				if(daNote.copyY) {
+					if (daNote.animation.curAnim.name.endsWith('end')){ //Única parte do code antigo que era realmente útil
+						if(stageData.isPixelStage && !isPixelStage){
+							daNote.scale.y =1;
+						}
+						if(!stageData.isPixelStage && isPixelStage){
+							daNote.scale.y = 6; //Talvez seja nescessário adicionar *1.19 aqui...
+						}
+					}
 					if (ClientPrefs.downScroll) {
 						daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
 						if (daNote.isSustainNote) {
@@ -4241,7 +4254,13 @@ class PlayState extends MusicBeatState
 									daNote.y += 8;
 								} else {
 										daNote.y -= 19;
-									}
+								}
+							if(stageData.isPixelStage && !isPixelStage){
+								daNote.y -= 400;
+							}
+							if(!stageData.isPixelStage && isPixelStage){
+								daNote.y = 6; //Talvez seja nescessário adicionar *1.19 aqui...
+							}
 								}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (roundedSpeed - 1));
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (roundedSpeed - 1);
@@ -4843,15 +4862,17 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Must Press Swap': //Transição mais estilosa usada exclusivamente em CCC
-				FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(playerStrums.members[2], {x: playerStrums.members[2].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(playerStrums.members[3], {x: playerStrums.members[3].x - 645 + 80}, 1, {ease: FlxEase.quadInOut});
+				var k:Float = 0; //-565 ou 565
+				if(value1 == 'true'){k = 565;}
+				FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x - k}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x - k}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[2], {x: playerStrums.members[2].x - k}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(playerStrums.members[3], {x: playerStrums.members[3].x - k}, 1, {ease: FlxEase.quadInOut});
 
-				FlxTween.tween(opponentStrums.members[0], {x: opponentStrums.members[0].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(opponentStrums.members[1], {x: opponentStrums.members[1].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(opponentStrums.members[2], {x: opponentStrums.members[2].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
-				FlxTween.tween(opponentStrums.members[3], {x: opponentStrums.members[3].x + 645 - 80}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[0], {x: opponentStrums.members[0].x + k}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[1], {x: opponentStrums.members[1].x + k}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[2], {x: opponentStrums.members[2].x + k}, 1, {ease: FlxEase.quadInOut});
+				FlxTween.tween(opponentStrums.members[3], {x: opponentStrums.members[3].x + k}, 1, {ease: FlxEase.quadInOut});
 
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
@@ -5468,7 +5489,7 @@ class PlayState extends MusicBeatState
 								generateStaticArrows(0);
 								generateStaticArrows(1);
 								triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
-								triggerEventNote('noteskinchangeBF', 'NOTE_assets', '');
+								triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
 								stardustBgPixel.visible = false;
 								stardustFloorPixel.visible = false;
 								theendbg.visible = true;
@@ -5509,6 +5530,7 @@ class PlayState extends MusicBeatState
 					timeTxt.visible=false;
 					timeBarBG.visible=false;
 					judgementCounter.visible = false;
+					triggerEventNote('noteskinchangeBF', '', 'noteSplashesPixelSonic');
 					p2greenhill.visible = true;
 					add(sonicHUD);
 					isPixelStage = true;
@@ -5525,6 +5547,7 @@ class PlayState extends MusicBeatState
 					judgementCounter.visible = true;
 					remove(sonicHUD);
 					isPixelStage = false;
+					triggerEventNote('noteskinchangeBF', '', 'blood');
 					removeStatics();
 					generateStaticArrows(0);
 					generateStaticArrows(1);
@@ -6575,6 +6598,15 @@ class PlayState extends MusicBeatState
 			}
 		});
 
+		if (curSong.toLowerCase()=='cross-console-clash' && !invencibilidade){
+			cccVidaCounter--;
+			invencibilidade = true;
+			new FlxTimer().start(1.5, function(tmr:FlxTimer)
+				{
+					invencibilidade = false;
+				});
+		}
+
 		if(canRegen){
 		health -= daNote.missHealth; //For testing purposes
 		}//trace(daNote.missHealth);
@@ -7551,6 +7583,10 @@ class PlayState extends MusicBeatState
 		}
 		#end
 	}
+
+	//function hitCCC(){
+
+//	}
 
 	function doJumpscare()
 		{

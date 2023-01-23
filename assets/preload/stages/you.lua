@@ -2,12 +2,17 @@ function onCreate()
 
 	makeAnimationList();
 
-        makeAnimatedLuaSprite('tail', 'XNEW', 5100 - 800, 915 + 40); -- tails
+    makeAnimatedLuaSprite('tail', 'XNEW', 5100 - 800, 915 + 40); -- tails
 	addAnimationByPrefix('tail', 'idle', 'lordxidle', 24, false)
+	addOffset('tail', 'idle', '0', '0')
 	addAnimationByPrefix('tail', 'singLEFT', 'XLeft', 24, false) -- no meio é o nome do movimento in code e a direita é o nome da anim no xml
+	addOffset('tail', 'singLEFT', '-49', '-146')
 	addAnimationByPrefix('tail', 'singDOWN', 'xidle', 24, false)
+	addOffset('tail', 'singDOWN', '-49', '-146')
 	addAnimationByPrefix('tail', 'singUP', 'xup', 24, false)
+	addOffset('tail', 'singUP', '24', '109')
 	addAnimationByPrefix('tail', 'singRIGHT', 'xright', 24, false)
+	addOffset('tail', 'singRIGHT', '-77', '-13')
 	setScrollFactor('tail', 1, 1);
 
         -- Mesmo code da CCC sodasse

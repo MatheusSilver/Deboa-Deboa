@@ -6775,13 +6775,14 @@
 		"player2": "sonic-ccc",
 		"gfVersion": "invisibru",
 		"events": [],
-		"player3": "luigi-gone",
+		"player3": "invisibru",
 		"song": "Cross-Console-Clash",
 		"needsVoices": false,
 		"sections": 0,
 		"validScore": true,
 		"stage": "console",
 		"arrowSkin": "arrows-mario",
+		"splashSkin": "noteSplashesMario",
 		"bpm": 162,
 		"speed": 2.8
 	}

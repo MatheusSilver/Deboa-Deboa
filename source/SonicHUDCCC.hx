@@ -100,7 +100,7 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 			scoreNum.animation.frameIndex = 0;
 
 			
-			scoreNum.x += 2 * 6 + scoreNum.width * 18;
+			scoreNum.x += 4 * 6 + scoreNum.width * 18;
 			scoreNum.setGraphicSize(Std.int(scoreNum.width * 6));
 			scoreNum.updateHitbox();
 			scoreGroup.add(scoreNum);

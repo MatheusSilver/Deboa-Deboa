@@ -12,3 +12,12 @@ RK Play = conta
 
 Nota para o futuro:
 SwagRect é o que dita o tamanho da nota quando segurada.
+
+Sobre pixel note splash:
+https://gamebanana.com/mods/download/360401#FileInfo_754843
+
+usou o desse mano ai
+Lembre-se de que toda vez que entrar em píxel de tambem trocar o note splash com o valor 2 do evento de "noteskinchangeBF"
+
+
+Para a CCC o tempo de invencibilidade após tomar uma porrada é de 1,5 segundos

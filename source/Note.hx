@@ -100,6 +100,21 @@ class Note extends FlxSprite
 						missHealth = 0.3;
 					}
 					hitCausesMiss = true;
+
+				case 'CCC Regen':
+					ignoreNote = false;
+					
+					reloadNote('HURT');
+					noteSplashTexture = 'HURTnoteSplashes';
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					if(isSustainNote) {
+						missHealth = 0.1;
+					} else {
+						missHealth = 0.3;
+					}
+					hitCausesMiss = true;
 				case 'No Animation':
 					noAnimation = true;
 			}
@@ -220,7 +235,7 @@ class Note extends FlxSprite
 			offsetX -= width / 2;
 
 			if (PlayState.isPixelStage)
-				offsetX += 33; //TOC
+				offsetX += 30; //TOC
 
 			if (prevNote.isSustainNote)
 			{
