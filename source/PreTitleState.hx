@@ -31,54 +31,18 @@ class PreTitleState extends MusicBeatState
 						new FlxTimer().start(1.5, function(tmr:FlxTimer){
 							if(openfl.utils.Assets.exists('assets/videos/VideosRandom/haha' + random1+ '.mp4')) {
 								VideoStatePC.videoPath='assets/videos/VideosRandom/haha' + random1 + '.mp4';
-							} else{
-								//cavalo
 							}
 							MusicBeatState.switchState(new VideoStatePC());
 						});
 
 					#elseif mobile
+					//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 					new FlxTimer().start(1.5, function(tmr:FlxTimer){
-						if(random1 == 95)
-							{
-								MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha', (new TitleState()))); 
-							}
-						else if(random1==94)
-							{
-								MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha1', (new TitleState()))); 
-							}
-							else if(random1==93)
-								{
-									MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha2', (new TitleState()))); 
-								}
-								else if(random1==92)
-									{
-										MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha3', (new TitleState()))); 
-									}
-									else if(random1==91)
-										{
-											MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha4', (new TitleState()))); 
-										}
-										else if(random1==90)
-											{
-												MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha5', (new TitleState()))); 
-											}
-											else if(random1==96)
-												{
-													MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha6', (new TitleState()))); 
-												}
-												else if(random1==97)
-													{
-														MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha7', (new TitleState()))); 
-													}
-													else if(random1==98)
-														{
-															MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha8', (new TitleState()))); 
-														}
-													else
-														{
-															MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState()))); 
-														}
+						if(openfl.utils.Assets.exists('assets/videos/VideosRandom/haha' + random1+ '.mp4')) {
+							MusicBeatState.switchState(new VideoState('assets/videos/VideosRandom/haha' + random1, (new TitleState()))); 
+						} else{
+							MusicBeatState.switchState(new TitleState()); 
+						}						
 					});
 					#end
 				}
@@ -87,11 +51,9 @@ class PreTitleState extends MusicBeatState
 					#if desktop
 					new FlxTimer().start(1.5, function(tmr:FlxTimer){MusicBeatState.switchState(new VideoStatePC());});
 					#elseif mobile
-					new FlxTimer().start(1.5, function(tmr:FlxTimer){MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));});
+					new FlxTimer().start(1.5, function(tmr:FlxTimer){FlxG.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));});
 					#end
 				}
-			//First time seria válido aqui tambem?
-			// nn, é pra tocar toda hora que a pessoa entrar mesmo
 			super.create();
 		}
 }

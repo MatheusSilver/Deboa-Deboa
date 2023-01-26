@@ -5,9 +5,11 @@ import SonicHUDCCC; //tive que trocar o nome pra não conflitar com o outro soni
 #if desktop
 import sys.io.Process; // medo
 #end
-#if asys
+#if sys
 import Sys;
+#if desktop
 import sys.FileSystem;
+#end
 import sys.io.File;
 #end
 import lime.system.System;
@@ -67,12 +69,6 @@ import DialogueBoxPsych;
 import Shaders;
 import openfl.Assets;
 import ui.Mobilecontrols;
-
-#if asys
-import Sys;
-import sys.FileSystem;
-import sys.io.File;
-#end
 
 #if mobileC
 import ui.Mobilecontrols;
@@ -2234,7 +2230,11 @@ class PlayState extends MusicBeatState
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
 
+		#if desktop
 		for (file in sys.FileSystem.readDirectory(Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')))
+		#elseif mobile
+		for (file in HSys.readDirectory((Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/'))))
+		#end
 		{
 			if(file.endsWith('.lua') && !filesPushed.contains(file))
 			{
@@ -4156,7 +4156,7 @@ class PlayState extends MusicBeatState
 			canuseevents = true;
 			desesperada = false;
 			health = 0;
-			trace("RESET = True");
+			//trace("RESET = True");
 		}
 		doDeathCheck();
 
@@ -7097,7 +7097,7 @@ class PlayState extends MusicBeatState
 			{
 				switch (curStep)
 				{ //Le saida fácil para um problema fácil, só que deveras chato de resolver.
-					case 787, 795, 902, 800, 811, 819, 823, 827, 832, 835, 839, 847, 847:
+					case 787, 795, 902, 800, 811, 819, 823, 827, 832, 835, 839, 847:
 						doStaticSign(0, false);
 					case 768:
 						FlxTween.tween(camHUD, {alpha: 0}, 1);
@@ -7143,7 +7143,9 @@ class PlayState extends MusicBeatState
 		super.beatHit();
 
 		if(lastBeatHit >= curBeat) {
+			#if debug
 			trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
+			#end
 			return;
 		}
 
@@ -7296,7 +7298,9 @@ class PlayState extends MusicBeatState
 
 	function doP3Static()
 		{
+			#if debug
 			trace('p3static XDXDXD');
+			#end
 	
 			if (FlxG.save.data.flashing) {
 	
@@ -7317,7 +7321,9 @@ class PlayState extends MusicBeatState
 	
 			daP3Static.animation.finishCallback = function(pog:String)
 			{
+				#if debug
 				trace('ended p3static');
+				#end
 				daP3Static.alpha = 0;
 	
 				remove(daP3Static);
@@ -7327,7 +7333,9 @@ class PlayState extends MusicBeatState
 
 	function doSimpleJump()
 		{
+			#if debug
 			trace('SIMPLE JUMPSCARE');
+			#end
 	
 			var simplejump:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PolishedP1/simplejump'));
 	

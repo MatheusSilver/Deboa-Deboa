@@ -1,4 +1,4 @@
-Achei mais fácil transferir algumas anotações de code e deixar elas apenas aqui.
+3'r6t6y3   e3   e3   eAchei mais fácil transferir algumas anotações de code e deixar elas apenas aqui.
 
 Assim não fico spammando o discord e nem corro o risco de perder info e melhor parte, 
 tambem posso escrever aqui pelo celular e ver no PC do lado do code que estou mexendo :)
@@ -21,3 +21,10 @@ Lembre-se de que toda vez que entrar em píxel de tambem trocar o note splash co
 
 
 Para a CCC o tempo de invencibilidade após tomar uma porrada é de 1,5 segundos
+
+
+Sobre otimização de shaders:
+
+Aparentemente, o shader funciona de forma semelhante a um corpo de um site em html
+Nesse caso, você deve colocar a definição das variáveis em 'head'
+E o efeito do shader no caso, a alteração dessas variáveis em body

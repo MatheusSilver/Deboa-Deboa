@@ -311,7 +311,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 	function movebutton(touch:flixel.input.touch.FlxTouch, button:flixel.ui.FlxButton) {
 		button.x = touch.x - _pad.buttonUp.width / 2;
 		button.y = touch.y - _pad.buttonUp.height / 2;
-		bindbuttosn = button;
+		bindbutton = button;
 		buttonistouched = true;
 	}
 

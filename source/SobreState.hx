@@ -19,8 +19,8 @@ using StringTools;
 
 class SobreState extends MusicBeatState
 {
-	var videoMenu:FlxSprite = new FlxSprite(0,0);
-	var video:MP4Handler = new MP4Handler();
+	//var videoMenu:FlxSprite = new FlxSprite(0,0);
+	//var video:MP4Handler = new MP4Handler();
 	//var letext:FlxText;
 	var bg:FlxSprite;
 	var faixa:FlxSprite;
@@ -383,7 +383,11 @@ class SobreState extends MusicBeatState
 																			{
 																				FlxG.sound.play(Paths.sound('confirmMenu'));
 																				dav.alpha=1;
+																				#if desktop
 																				MusicBeatState.switchState(new SobreVideo());
+																				#elseif mobile
+																				FlxG.switchState(new VideoState('assets/videos/sobrevideo', (new SobreState()))); 
+																				#end
 																			}
 																	}
 

@@ -22,8 +22,10 @@ using StringTools;
 
 class PreMainMenuState extends MusicBeatState
 {
+	#if desktop
 	var videoMenu:FlxSprite = new FlxSprite(0,0);
 	var video:MP4Handler = new MP4Handler();
+	#end
 	var letext:FlxText;
 	var simbotao:FlxButton;
 	var naobotao:FlxButton;
@@ -99,9 +101,14 @@ class PreMainMenuState extends MusicBeatState
 			function simClick():Void
 				{
 					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+					#if desktop
 					VideoStatePC.videoPath = "assets/videos/aviso.mp4";
 					VideoStatePC.NextState = "mainmenu";
 					MusicBeatState.switchState(new VideoStatePC());
+					#elseif mobile
+					LoadingState.loadAndSwitchState(new VideoState('assets/videos/aviso.mp4', new MainMenuStateMobile()));
+					#end
+
 				}
 				function naoHover():Void
 					{

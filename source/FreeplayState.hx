@@ -152,7 +152,7 @@ class FreeplayState extends MusicBeatState
 		add(text);
 
 		#if mobileC
-		addVirtualPad(FULL, A_B_X);
+		addVirtualPad(FULL, A_B_C);
 		#end
 
 		disc.loadGraphic(Paths.image("freeplay-disc/disco", 'preload')); 
@@ -236,7 +236,7 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		var space = #if mobile _virtualpad.buttonX.justPressed #else FlxG.keys.justPressed.SPACE #end;
+		var space = FlxG.keys.justPressed.SPACE;
 
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;

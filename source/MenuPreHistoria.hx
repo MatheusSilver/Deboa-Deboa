@@ -65,7 +65,7 @@ class MenuPreHistoria extends MusicBeatState
 		add(perfilSprite);
 
 		#if mobileC
-		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
 		super.create();
 	}

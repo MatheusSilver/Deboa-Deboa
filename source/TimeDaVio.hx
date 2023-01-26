@@ -21,8 +21,8 @@ using StringTools;
 
 class TimeDaVio extends MusicBeatState
 {
-	var videoMenu:FlxSprite = new FlxSprite(0,0);
-	var video:MP4Handler = new MP4Handler();
+//	var videoMenu:FlxSprite = new FlxSprite(0,0);
+//	var video:MP4Handler = new MP4Handler();
 	//var letext:FlxText;
 	var bg:FlxSprite;
 	var icon:FlxSprite;

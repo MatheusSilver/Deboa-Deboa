@@ -1,5 +1,5 @@
  package;
-
+#if desktop
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -120,7 +120,9 @@ class MP4Handler
 
 	function onVLCVideoReady()
 	{
+		#if debug
 		trace("video loaded!");
+		#end
 		if (sprite != null)
 			sprite.loadGraphic(vlcBitmap.bitmapData);	
 	}
@@ -136,7 +138,9 @@ class MP4Handler
 				FlxG.camera.fade(FlxColor.BLACK, 0, false);
 		
 		
+				#if debug
 				trace("Big, Big Chungus, Big Chungus!");
+				#end
 		
 				new FlxTimer().start(0.3, function (tmr:FlxTimer)
 				{
@@ -248,3 +252,4 @@ class MP4Handler
 		ns.close();
 	 */
 }
+#end

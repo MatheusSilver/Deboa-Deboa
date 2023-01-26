@@ -21,8 +21,10 @@ using StringTools;
 
 class AlreadyLogged extends MusicBeatState
 {
-	var videoMenu:FlxSprite = new FlxSprite(0,0);
-	var video:MP4Handler = new MP4Handler();
+	//var videoMenu:FlxSprite = new FlxSprite(0,0);
+	//var video:MP4Handler = new MP4Handler();
+
+	//Não acho que isso seja utilizado
 	var letext:FlxText;
 	var simbotao:FlxButton;
 	var naobotao:FlxButton;

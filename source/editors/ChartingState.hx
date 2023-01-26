@@ -413,7 +413,7 @@ class ChartingState extends MusicBeatState
 		{
 			var songName:String = Paths.formatToSongPath(_song.song);
 			var file:String = Paths.json(songName + '/events');
-			#if sys
+			#if desktop
 			if (#if aMODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(file))
 			#else
 			if (OpenFlAssets.exists(file))
@@ -429,7 +429,11 @@ class ChartingState extends MusicBeatState
 						}
 					}
 				}
-				if (FileSystem.exists(Paths.json(songName + '/letras'))){ //Maybe, just maybe isso seja nescessário...
+				#if desktop
+				if (FileSystem.exists(Paths.json(songName + '/letras'))){
+				#elseif mobile
+				if (OpenFlAssets.exists(Paths.json(songName + '/letras'))){
+				#end
 					var lyrics:SwagSong = Song.loadFromJson('letras', songName);
 					for (sec in 0...lyrics.notes.length) {
 						for (noteId in 0...lyrics.notes[sec].sectionNotes.length) {
@@ -489,7 +493,7 @@ class ChartingState extends MusicBeatState
 			tempMap.set(characters[i], true);
 		}
 
-		#if MODS_ALLOWED
+		#if desktop
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(FileSystem.exists(directory)) {
@@ -547,7 +551,7 @@ class ChartingState extends MusicBeatState
 			}
 			tempMap.set(stageToCheck, true);
 		}
-		#if MODS_ALLOWED
+		#if desktop
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(Assets.exists(directory)) {
@@ -783,7 +787,7 @@ class ChartingState extends MusicBeatState
 			key++;
 		}
 
-		#if LUA_ALLOWED
+		#if desktop
 		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
@@ -835,7 +839,7 @@ class ChartingState extends MusicBeatState
 		var tab_group_event = new FlxUI(null, UI_box);
 		tab_group_event.name = 'Events';
 
-		#if LUA_ALLOWED
+		#if desktop
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 		var directories:Array<String> = [Paths.getPreloadPath('custom_events/')];
 		for (i in 0...directories.length) {
