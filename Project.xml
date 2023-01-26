@@ -210,7 +210,7 @@
 
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
-	<assets path='speed.gif' rename='speed.gif' />
+	<assets path='speed.gif' rename='speed.gif' if="desktop"/>
 	<!-- <template path='mods' /> -->
 	
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
@@ -286,10 +286,6 @@
 	<!--Allow working memory greater than 1 Gig-->
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
 
-	<!-- Android Gradle, medo -->
-	<config:android gradle-version="7.5.1" if="android"/>
-	<config:android gradle-plugin="7.3.1" if="android"/>
-
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
@@ -298,4 +294,10 @@
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
 	<icon path="art/iconOG.png" />
+
+
+	<!-- _________________________________ Droid Stuff _______________________________ -->
+	<!-- Android Gradle, medo -->
+	<config:android gradle-version="7.5.1" if="android"/>
+	<config:android gradle-plugin="7.3.1" if="android"/>
 </project>
