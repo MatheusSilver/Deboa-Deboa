@@ -1,0 +1,69 @@
+Polimentos Finais:
+
+
+◉ ━━━━━━━━━❮✫❯ MECÂNICAS:
+
+◆► Geral
+• Blammed Lights (Consertar o bug do stage não sumindo)
+
+◆► Pasta Night
+• Hipnose
+• Porrada do Mario
+
+◆► Cross-Console-Clash
+• Perda da vida específica
+
+◉ ━━━━━━━━━❮✫❯ OFFSETS PARA CORRIGIR:
+◆► Triple-Trouble
+• Todos
+
+◆► Too Fest
+• Sanic
+
+◆► Slaybells
+• Lord-X
+
+◆► Prey
+• Starved the end
+
+◆► Pasta Night 
+• Todos (Mas usar o MX como referência)
+
+◉ ━━━━━━━━━❮✫❯ OTIMIZAÇÃO:
+
+◆► Fazer pre cache dos assets das músicas:
+
+• Prey (stages pixel, custom notes e som do peelout)
+
+• Chasing (Strums 2D)
+
+• YCR (strums pixel)
+
+◆► Criar sistema pra dar pre cache em Lyrics
+
+◉ ━━━━━━━━━❮✫❯ CHARTS:
+
+• Prey (The End)
+
+• Slaybells (a custom note do Lord X agora é "Special Sing")
+
+• Pasta-Night
+
+◉ ━━━━━━━━━❮✫❯ COISAS GERAIS:
+◆► Tornar as conquistas desbloqueáveis
+
+◆► Adicionar a letra "Ó" ao "AlfabetoVio"
+
+◆► Fazer o Spotify
+
+◆► Arrumar o "canRegen" usado na Prey e na CCC
+
+◆► Arrumar transição para notas pixel, de notas pixel. (Estender a solução usada na chasing)
+
+◉ ━━━━━━━━━❮✫❯ PORTS/FIXES INTEGRAIS:
+
+• CY
+
+• Gran Finale
+
+• Sunshine (apenas a parte que tem o vídeo de fundo)
