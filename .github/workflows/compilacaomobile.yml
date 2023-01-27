@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           distribution: 'zulu'
-          java-version: '14'
+          java-version: '11'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
@@ -79,6 +79,7 @@ jobs:
           haxelib run lime rebuild extension-webm android
           haxelib set flixel 4.11.0
           haxelib set lime 7.9.0
+          haxelib set hxcpp git
           haxelib set openfl 9.1.0
           haxelib list
         env:
