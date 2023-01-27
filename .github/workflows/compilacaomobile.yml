@@ -59,6 +59,7 @@ jobs:
           haxelib --quiet install flixel-tools
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
+          haxelib --quiet git hxcpp https://github.com/Sirox228/hxcpp-new-ndk-support
           haxelib install linc_luajit --quiet
           haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview --quiet
           haxelib git extension-webm https://github.com/Daninnocent/extension-webm --quiet
@@ -77,6 +78,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
           haxelib set flixel 4.11.0
           haxelib set lime 7.9.0
+          haxelib set hxcpp git -alias -y
           haxelib set openfl 9.1.0
           haxelib list
         env:
