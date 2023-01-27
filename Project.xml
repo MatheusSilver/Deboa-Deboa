@@ -240,7 +240,7 @@
 	<haxelib name="discord_rpc" if="desktop"/>
 	<!--<haxelib name="hxCodec" if="desktop"/>-->
 	<!-- Enables a terminal log prompt on debug builds -->
-	<haxelib name="hxcpp-debug-server" if="debug" unless="android"/>
+	<haxelib name="hxcpp-debug-server" if="debug"/>
 	
 	<architecture name="armv7" exclude="arm64" if="android" />
 	<architecture name="x86" if="android" />
@@ -285,7 +285,7 @@
 	
 	<!--Allow working memory greater than 1 Gig-->
 	<!--Isso pode até ser útil, mas não deveria ser nescessário no Android-->
-	<haxedef name="HXCPP_GC_BIG_BLOCKS" unless="android"/>
+	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 
 	<!-- _________________________________ Custom _______________________________ -->
 

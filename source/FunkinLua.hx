@@ -175,7 +175,7 @@ class FunkinLua {
 			if(luaFile.endsWith(".lua"))cervix=luaFile;
 			var doPush = false;
 			cervix = Paths.getPreloadPath(cervix); //Scripts adicionados com isso devem obrigatoriamente fazer referência a pasta custom_scripts
-			if(sys.FileSystem.exists(cervix)) {
+			if(OpenFlAssets.exists(cervix)) {
 				doPush = true;
 			}
 
@@ -198,6 +198,35 @@ class FunkinLua {
 			}
 			trace("addLuaScript: Script doesn't exist!");
 		});
+		Lua_helper.add_callback(lua, "pushScriptData", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //Poderia ter só usado um AddLuaScript normal? Poderia mas né? Puta trampo depois pra ir procurar cada script
+			var cervix = luaFile + ".lua";
+			if(luaFile.endsWith(".lua"))cervix=luaFile;
+			var doPush = false;
+			cervix = Paths.getPreloadPath('data/' + Paths.formatToSongPath(PlayState.SONG.song) + '/'+cervix); //Scripts adicionados com isso devem obrigatoriamente fazer referência a pasta custom_scripts
+			if(OpenFlAssets.exists('data/' + Paths.formatToSongPath(PlayState.SONG.song) + '/'+cervix)) { //Ou podem ser jogados direto para a pasta data da música
+				doPush = true;
+			}
+
+			if(doPush)
+			{
+				if(!ignoreAlreadyRunning)
+				{
+					for (luaInstance in PlayState.instance.luaArray)
+					{
+						if(luaInstance.scriptName == cervix)
+						{
+							trace('addLuaScript: The script "' + cervix + '" is already running!');
+							return;
+						}
+					}
+				}
+				PlayState.instance.luaArray.push(new FunkinLua(Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
+				trace(cervix + 'foi carregado');
+				return;
+			}
+			trace("addLuaScript: Script doesn't exist!");
+		});
+
 		Lua_helper.add_callback(lua, "removeLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
 			if(luaFile.endsWith(".lua"))cervix=luaFile;

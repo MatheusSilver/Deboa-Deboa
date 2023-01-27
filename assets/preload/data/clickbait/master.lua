@@ -11,6 +11,9 @@ function onCreate()
     screenCenter('fleeplay');
     setProperty('fleeplay.alpha', 1)
     addLuaSprite('fleeplay', false);
+
+    
+    pushScriptData('Hud');
 end
 
 function onSongStart()

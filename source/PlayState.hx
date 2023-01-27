@@ -2216,9 +2216,10 @@ class PlayState extends MusicBeatState
 		if(doPush) 
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));			
 		#end	*/
-
+		/*
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
+		var luasarrayMobile<String> = [];
 
 		#if desktop
 		for (file in sys.FileSystem.readDirectory(Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')))
@@ -2233,6 +2234,17 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end	
+		*/
+
+		var doPush:Bool = false;
+		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/master.lua';
+	    luaFile = Paths.getPreloadPath(luaFile);
+		    if(OpenFlAssets.exists(luaFile)) {
+				doPush = true;
+			}
+		
+		if(doPush) 
+			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));	
 		
 		var daSong:String = Paths.formatToSongPath(curSong).toLowerCase();
 		if (isStoryMode && !seenCutscene)
@@ -2629,19 +2641,10 @@ class PlayState extends MusicBeatState
 			#if LUA_ALLOWED
 			var doPush:Bool = false;
 			var luaFile:String = 'characters/' + name + '.lua';
-			#if MODS_ALLOWED
-			if(Assets.exists(Paths.getPreloadPath(luaFile))) {
-				luaFile = Paths.getPreloadPath(luaFile);
-				if(Assets.exists(luaFile)) {
-					doPush = true;
-				}
-			}
-			#else
 			luaFile = Paths.getPreloadPath(luaFile);
 			if(Assets.exists(luaFile)) {
 				doPush = true;
 			}
-			#end
 	
 			if(doPush)
 			{
