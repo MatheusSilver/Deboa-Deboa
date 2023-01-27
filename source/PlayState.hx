@@ -792,7 +792,7 @@ class PlayState extends MusicBeatState
 						
 						add(tela_preta);
 					} 
-			case 'clickbait':
+			case 'clickbait' | 'slaybells':
 				tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
 				tela_preta.cameras = [camHUD2];
 				tela_preta.alpha = 0;

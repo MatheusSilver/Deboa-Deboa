@@ -60,7 +60,7 @@
 	"image": "characters/sanic",
 	"position": [
 		0,
-		350
+		380
 	],
 	"healthicon": "sanic",
 	"flip_x": false,
@@ -71,7 +71,7 @@
 	],
 	"camera_position": [
 		0,
-		0
+		30
 	],
 	"sing_duration": 4,
 	"scale": 0.9

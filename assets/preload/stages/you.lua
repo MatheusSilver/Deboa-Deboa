@@ -4,15 +4,15 @@ function onCreate()
 
     makeAnimatedLuaSprite('tail', 'XNEW', 5100 - 800, 915 + 40); -- tails
 	addAnimationByPrefix('tail', 'idle', 'lordxidle', 24, false)
-	addOffset('tail', 'idle', '0', '0')
+	addOffset('tail', 'idle', 0, 0)
 	addAnimationByPrefix('tail', 'singLEFT', 'XLeft', 24, false) -- no meio é o nome do movimento in code e a direita é o nome da anim no xml
-	addOffset('tail', 'singLEFT', '-49', '-146')
+	addOffset('tail', 'singLEFT', 9, -70)
 	addAnimationByPrefix('tail', 'singDOWN', 'xidle', 24, false)
-	addOffset('tail', 'singDOWN', '-49', '-146')
+	addOffset('tail', 'singDOWN', -49, -146)
 	addAnimationByPrefix('tail', 'singUP', 'xup', 24, false)
-	addOffset('tail', 'singUP', '24', '109')
+	addOffset('tail', 'singUP', 24, 109)
 	addAnimationByPrefix('tail', 'singRIGHT', 'xright', 24, false)
-	addOffset('tail', 'singRIGHT', '-77', '-13')
+	addOffset('tail', 'singRIGHT', -77, -13)
 	setScrollFactor('tail', 1, 1);
 
         -- Mesmo code da CCC sodasse
@@ -39,8 +39,8 @@ function makeAnimationList()
 end
 
 function onBeatHit()
-	if curBeat % 2 == 0 then
-		objectPlayAnimation('tail', 'idle', true);
+	if curBeat % 3 == 0 then
+		playAnim('tail', 'idle', true);
 	end
 end
 
@@ -59,7 +59,7 @@ end
 function playAnimation(character, animId, forced)
 	animName = animationsList[animId];
 	if character == 'tail' then
-		objectPlayAnimation('tail', animName, forced); -- this part is easily broke if you use objectPlayAnim (I have no idea why its like this)
+		playAnim('tail', animName, forced); -- this part is easily broke if you use objectPlayAnim (I have no idea why its like this)
 	end
 end
 --tails shit ends
