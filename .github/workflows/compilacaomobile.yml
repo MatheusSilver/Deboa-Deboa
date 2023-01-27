@@ -54,7 +54,7 @@ jobs:
           haxelib --quiet setup /home/runner/haxelib
           sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev -y
           git clone --single-branch --branch submodules --recurse-submodules https://github.com/player-03/lime.git lime
-          haxelib --quiet install hxcpp
+          haxelib --quiet install hxcpp > /dev/null
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet --never install flixel 4.11.0
