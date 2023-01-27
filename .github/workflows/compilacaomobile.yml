@@ -52,7 +52,9 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib --quiet setup /home/runner/haxelib
-          haxelib --quiet git hxcpp https://github.com/Sirox228/hxcpp-new-ndk-support > /dev/null
+          sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev -y
+          git clone --single-branch --branch submodules --recurse-submodules https://github.com/player-03/lime.git lime
+          haxelib --quiet install hxcpp
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet --never install flixel 4.11.0
@@ -68,15 +70,10 @@ jobs:
           
       - name: Create Version Tag
         run: echo "${{github.run_id}}" > VERSION
-
+          
       - name: Setup Lime
         run: |
           haxelib run lime setup -alias -y
-          haxelib set hxcpp git
-          cd tools/hxcpp
-          run haxe compile.hxml
-          cd project
-          run neko build.n
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
