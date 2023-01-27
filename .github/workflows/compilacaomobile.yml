@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           distribution: 'zulu'
-          java-version: '19'
+          java-version: '11'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
@@ -52,16 +52,15 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib --quiet setup /home/runner/haxelib
-          haxelib --quiet install hxcpp > /dev/null
+          haxelib --quiet install hxcpp https://github.com/Sirox228/hxcpp-new-ndk-support > /dev/null
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet --never install flixel 4.11.0
           haxelib --quiet run lime setup flixel
           haxelib --quiet install flixel-tools
           haxelib --quiet install flixel-ui
-          haxelib --quiet install hscript
           haxelib --quiet install flixel-addons
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit --quiet
+          haxelib git linc_luajit --quiet
           haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview --quiet
           haxelib git extension-webm https://github.com/Daninnocent/extension-webm --quiet
           haxelib install actuate
@@ -77,6 +76,7 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
+          haxelib run lime rebuild extension-webm android
           haxelib set flixel 4.11.0
           haxelib set lime 7.9.0
           haxelib set openfl 9.1.0
