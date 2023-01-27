@@ -35,10 +35,10 @@ function onCreate()
 	scaleObject('water', .7, .6);
 	
 	
-	makeAnimatedLuaSprite('glitch', 'static', -600, -300);
-	scaleObject('glitch', 2, 2);
-    addAnimationByPrefix('glitch', 'glitchout', 'static glitch', 24, true); -- WHAT?????
-	objectPlayAnimation('glitch', 'glitchout');
+	--makeAnimatedLuaSprite('glitch', 'static', -600, -300);
+	--scaleObject('glitch', 2, 2);
+    --addAnimationByPrefix('glitch', 'glitchout', 'static glitch', 24, true); -- WHAT?????
+	--objectPlayAnimation('glitch', 'glitchout');
 	
 	addLuaSprite('sky', false);
 	addLuaSprite('forest', false);

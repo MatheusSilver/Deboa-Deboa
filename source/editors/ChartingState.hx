@@ -78,7 +78,7 @@ class ChartingState extends MusicBeatState
 		['eventos-needle', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
 		['hudfade', 'value1 = opacidade \n value 2 = tempo de transição.'],
 		['strum swap1', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
-		['strum swap1', 'usada na Triple-Trouble\n reverte o que foi feito por strum swap1'],
+		['strum swap2', 'usada na Triple-Trouble\n reverte o que foi feito por strum swap1'],
 		['ring clean', 'usada na Triple-Trouble\n serve para remover a strum de rings no final da música'],
 		['eventos-tripletrouble', 'É sério cara, eu real acho que não preciso explicar como isso funciona mais né?'],
 		['eventos-prey', "apenas mexa em value 1 seguindo o hardcode em Playstate.hx,\n OS VALORES DE V1 e step devem coincidir."],
