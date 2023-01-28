@@ -518,8 +518,8 @@ class PlayState extends MusicBeatState
 			if (SONG.song.toLowerCase() == 'cross-console-clash') 
 			{
 				if(storyDifficulty == 4){
-				precacheList.set('pixelUI/flower','image');
-				precacheList.set('pixelUI/shroom','image');
+				precacheList.set('pixelUI/flowerarrows-mario','image');
+				precacheList.set('pixelUI/shroomarrows-mario','image');
 				precacheList.set('Damage','sound');
 				precacheList.set('power_down','sound');
 				precacheList.set('powerup','sound');
