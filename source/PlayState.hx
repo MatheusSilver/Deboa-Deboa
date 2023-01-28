@@ -602,6 +602,9 @@ class PlayState extends MusicBeatState
 			isRing = false;
 		} 
 
+                canRegen = true;
+                canuseevents = true; //Apenas para ter certeza de que a música não vai vir bugada da Prey
+
 		
 
 		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
@@ -1122,6 +1125,7 @@ class PlayState extends MusicBeatState
 				tempogravador.screenCenter(XY);
 				tempogravador.x += 125;
 				tempogravador.y += 175;
+                                tempogravador.visible = ClientPrefs.shaders;
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
