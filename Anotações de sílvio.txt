@@ -28,8 +28,3 @@ Sobre otimização de shaders:
 Aparentemente, o shader funciona de forma semelhante a um corpo de um site em html
 Nesse caso, você deve colocar a definição das variáveis em 'head'
 E o efeito do shader no caso, a alteração dessas variáveis em body
-
-Lua mais recente dá erro com isso
-/home/runner/haxelib/hxcpp/4,2,1/include/hxcpp.h:23:13: fatal error: 'typeinfo' file not found
-
-Se algo do tipo lua.cpp bugar, tente usar o do mc gabe

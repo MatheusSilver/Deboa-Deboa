@@ -33,7 +33,7 @@ jobs:
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          ndk-version: r25b
+          ndk-version: r15c
 
       - name: Setup Java JDK
         uses: actions/setup-java@v1
@@ -60,7 +60,7 @@ jobs:
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
           haxelib --quiet install hxcpp
-          haxelib git linc_luajit https://github.com/mcagabe19/linc_luajit --quiet
+          haxelib install linc_luajit --quiet
           haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview --quiet
           haxelib git extension-webm https://github.com/Daninnocent/extension-webm --quiet
           haxelib install actuate
