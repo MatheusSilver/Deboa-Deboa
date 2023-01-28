@@ -4,7 +4,7 @@
 		"stage": "console",
 		"player1": "sonic-player",
 		"player2": "mario-ccc-enemy",
-		"player3": "luigi-gone",
+		"player3": "invisibru",
 		"notes": [
 			{
 				"gfSection": false,
@@ -88,60 +88,6 @@
 						"Play Animation",
 						"wave",
 						"bf",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						57777.7777777778,
-						-1,
-						"Change Character",
-						"bf",
-						"sonic'n'tails-player",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						59259.2592592593,
-						-1,
-						"Change Character",
-						"dad",
-						"mario'n'luigi-enemy",
-						""
-					],
-					[
-						60000,
-						-1,
-						"Change Character",
-						"gf",
-						"luigi-ccc",
-						""
-					],
-					[
-						60092.5925925926,
-						-1,
-						"Play Animation",
-						"jump",
-						"gf",
 						""
 					]
 				],

@@ -3,15 +3,9 @@ Polimentos Finais:
 
 ◉ ━━━━━━━━━❮✫❯ MECÂNICAS:
 
-◆► Geral
-• Blammed Lights (Consertar o bug do stage não sumindo)
-
 ◆► Pasta Night
 • Hipnose
 • Porrada do Mario
-
-◆► Cross-Console-Clash
-• Perda da vida específica
 
 ◉ ━━━━━━━━━❮✫❯ OFFSETS PARA CORRIGIR:
 ◆► Triple-Trouble
@@ -19,9 +13,6 @@ Polimentos Finais:
 
 ◆► Too Fest
 • Sanic
-
-◆► Slaybells
-• Lord-X
 
 ◆► Prey
 • Starved the end
@@ -45,18 +36,14 @@ Polimentos Finais:
 
 • Prey (The End)
 
-• Slaybells (a custom note do Lord X agora é "Special Sing")
+• Slaybells  (Mas acho interessante revisar quando forem  fazer as lyrics)
 
 • Pasta-Night
 
 ◉ ━━━━━━━━━❮✫❯ COISAS GERAIS:
 ◆► Tornar as conquistas desbloqueáveis
 
-◆► Adicionar a letra "Ó" ao "AlfabetoVio"
-
 ◆► Fazer o Spotify
-
-◆► Arrumar o "canRegen" usado na Prey e na CCC
 
 ◆► Arrumar transição para notas pixel, de notas pixel. (Estender a solução usada na chasing)
 

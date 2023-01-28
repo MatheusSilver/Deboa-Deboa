@@ -99,6 +99,8 @@ class PlayState extends MusicBeatState
 	//CCC Stuff
 	public static var sonicHUDCCC:SonicHUDCCC;
 	var invencibilidade:Bool = false;
+	var cccMiss:Bool = false;
+	var luigienter:Bool = false;
 
 	//CY SUPER TRENS - GRUPO 1
 	var chaophase1:BGSprite;
@@ -508,32 +510,36 @@ class PlayState extends MusicBeatState
 		{
 			if (SONG.song.toLowerCase() == 'too-slow') 
 			{
-				precacheList.set('PolishedP1/FLOOR1', 'image');
 				precacheList.set('PolishedP1/sonicJUMPSCARE', 'image');
 				precacheList.set('daSTAT', 'image');
 				precacheList.set('hitStatic','image');
-				precacheList.set('characters/Sonic_EXE_Assets1', 'image');
+			}
+
+			if (SONG.song.toLowerCase() == 'cross-console-clash') 
+			{
+				if(storyDifficulty == 4){
+				precacheList.set('pixelUI/flower','image');
+				precacheList.set('pixelUI/shroom','image');
+				precacheList.set('Damage','sound');
+				precacheList.set('power_down','sound');
+				precacheList.set('powerup','sound');
+				} else{
+					precacheList.set('ring_loss','sound');
+					precacheList.set('Ring','sound');
+					precacheList.set('pixelUI/ring','image');
+				}
 			}
 
 			else if (SONG.song.toLowerCase() == 'you-cant-run') 
 			{
-				precacheList.set('cenarios/GreenHill', 'image');
-				precacheList.set('cenarios/ground', 'image');
-				precacheList.set('cenarios/Glitch', 'image');
 				precacheList.set('hitStatic', 'image');
 			}
 
 			else if (SONG.song.toLowerCase() == 'triple-trouble') 
 			{
-				precacheList.set('RING_assets', 'image');
-				precacheList.set('ringSplashes', 'image');
-				precacheList.set('cenarios/Counter', 'image');
-				precacheList.set('cenarios/ground', 'image');
-				precacheList.set('cenarios/Glitch', 'image');
 				precacheList.set('Phase3Static', 'image');
 				precacheList.set('hitStatic', 'image');
 				precacheList.set('daSTAT', 'image');
-				precacheList.set('NewTitleMenuBG', 'image');
 				precacheList.set('Phase3Static', 'image');
 				precacheList.set('eggman', 'image');
 				precacheList.set('Knuckles', 'image');
@@ -558,13 +564,6 @@ class PlayState extends MusicBeatState
 			{
 				precacheList.set('gameover/PN_GameOver', 'image');
 				precacheList.set('gameover/PN_LoseSprites', 'image');
-				precacheList.set('cenarios/bar', 'image');
-				precacheList.set('cenarios/Ben_Drowned_BG', 'image');
-				precacheList.set('cenarios/brian_idle', 'image');
-				precacheList.set('cenarios/Buds_Slender_Effects', 'image');
-				precacheList.set('cenarios/Jeff', 'image');
-				precacheList.set('cenarios/JeffArm', 'image');
-				precacheList.set('cenarios/Squirtward', 'sound');
 			}
 
 			else if (SONG.song.toLowerCase() == 'endless'){
@@ -578,12 +577,6 @@ class PlayState extends MusicBeatState
 
 			else if (SONG.song.toLowerCase() == 'faker'){
 				precacheList.set('Faker_Transformation', 'image');
-			}
-
-			else if (SONG.song.toLowerCase() == 'soulless'){
-				precacheList.set('SoullessBG', 'image');
-				precacheList.set('cenarios/TDP2/ground', 'image');
-				precacheList.set('cenarios/TDP2/light', 'image');
 			}
 		}
 
@@ -602,8 +595,9 @@ class PlayState extends MusicBeatState
 			isRing = false;
 		} 
 
-                canRegen = true;
-                canuseevents = true; //Apenas para ter certeza de que a música não vai vir bugada da Prey
+		cccVidaCounter = 2; //meida...
+        canRegen = true;
+        canuseevents = true; //Apenas para ter certeza de que a música não vai vir bugada da Prey
 
 		
 
@@ -2326,6 +2320,7 @@ class PlayState extends MusicBeatState
 							sonicHUDCCC = new SonicHUDCCC();
 							add(sonicHUDCCC);
 							sonicHUDCCC.cameras = [camCCC];
+							canRegen = false;
 
 							opponentStrums.forEach(function(tomove:FlxSprite)
 								{
@@ -4154,6 +4149,9 @@ class PlayState extends MusicBeatState
 			desesperada = false;
 			health = 0;
 			//trace("RESET = True");
+		}
+		if(cccVidaCounter < 0){
+			health = 0;
 		}
 		doDeathCheck();
 
@@ -6595,12 +6593,28 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		if (curSong.toLowerCase()=='cross-console-clash' && !invencibilidade){
+		if (curSong.toLowerCase()=='cross-console-clash' && !invencibilidade){ //Top 10 mecanicas mais fodas dos animes que não sei dizer se é uma recriação ou se é eu inventando moda
 			cccVidaCounter--;
 			invencibilidade = true;
+
+			if(boyfriend.curCharacter.startsWith('mario')){
+				if(cccVidaCounter == 1){
+				FlxG.sound.play(Paths.sound('Damage'));
+				triggerEventNote('Change Character', 'bf', 'mario-ccc');
+				} else if (cccVidaCounter == 0){
+					FlxG.sound.play(Paths.sound('power_down'));
+					triggerEventNote('Change Character', 'bf', 'mario-ccc-small');
+				}
+			}else if(boyfriend.curCharacter.startsWith('sonic')){
+				FlxG.sound.play(Paths.sound('ring_loss'));
+			}
+
+			cccMiss=true;
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 				{
 					invencibilidade = false;
+					cccMiss=false;
+					boyfriend.visible=true;
 				});
 		}
 
@@ -6645,7 +6659,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3') {
+		if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3' && animToPlay != 'none') {
 			gf.playAnim(animToPlay, true);
 		} else {
 			var daAlt = '';
@@ -6724,7 +6738,7 @@ class PlayState extends MusicBeatState
 							boyfriend.specialAnim = true;
 						}
 
-				}
+					}
 				
 				note.wasGoodHit = true;
 				if (!note.isSustainNote)
@@ -6735,6 +6749,34 @@ class PlayState extends MusicBeatState
 				}
 				return;
 			}
+
+			switch(note.noteType) {
+				case 'CCC Regen': //Feito segundo a concept de TomokiAo (pelo menos parcialmente k)
+					if(curSong.toLowerCase()=='cross-console-clash' && cccVidaCounter < 2){
+						invencibilidade = true;
+						cccMiss=true;
+						new FlxTimer().start(1.5, function(tmr:FlxTimer)
+							{
+								invencibilidade = false;
+								cccMiss=false;
+								boyfriend.visible=true;
+							}); 
+							//Tecnicamente isso não existe nem no mod original e nem no SMW original
+							//Assim que tu pega um mushroom se tu tomar dano 0.1 sec depois tu perde ele
+							//Mas resolvi facilitar um pouquinho.
+						if(boyfriend.curCharacter.startsWith('mario')){
+							if(cccVidaCounter == 1){
+							triggerEventNote('Change Character', 'bf', 'mario-fire');
+							} else if (cccVidaCounter == 0){
+								triggerEventNote('Change Character', 'bf', 'mario-ccc');
+							}
+						FlxG.sound.play(Paths.sound('powerup'), 0.5, false);
+						}else if(boyfriend.curCharacter.startsWith('sonic')){
+						FlxG.sound.play(Paths.sound('Ring'));	
+						}
+					cccVidaCounter++;
+					}
+				}
 
 			if (!note.isSustainNote && ((isRing && note.noteData != 2) || !isRing))
 			{
@@ -7089,6 +7131,13 @@ class PlayState extends MusicBeatState
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
 
+		if(curSong.toLowerCase()=='cross-console-clash' && cccMiss)
+		if (curStep % 2 == 0){
+			boyfriend.visible = false;
+		} else{
+			boyfriend.visible = true;
+		}
+
 		//EVENTOS LASTSTEP
 		if (curSong == 'faker')
 			{
@@ -7145,6 +7194,21 @@ class PlayState extends MusicBeatState
 			#end
 			return;
 		}
+
+		if (curBeat == 162 && curSong.toLowerCase() == 'cross-console-clash' && !luigienter)
+			{
+				luigienter=true;
+				triggerEventNote('Change Character', 'gf', 'luigi-ccc'); //Ele roda a 24 FPS por segundo, se a animação dura 0.5 sec então basta com que o luigi tenha 12 frames repetidos e ninguem vai notar a diferença
+				//Hopefully ;-;
+				gf.x += 200;
+				gf.y -=200;
+				gf.playAnim("jump", true);
+				gf.specialAnim = true;
+				FlxTween.tween(gf, {x: GF_X}, 0.5, {ease: FlxEase.quintOut});
+				FlxTween.tween(gf, {y: GF_Y}, 0.3, {ease: FlxEase.sineIn, onComplete: function(tween:FlxTween){
+				gf.specialAnim = false;
+				}});
+			}
 
 		
 		if (curBeat % 2 == 0 && superZoomShit)
@@ -7588,10 +7652,6 @@ class PlayState extends MusicBeatState
 		}
 		#end
 	}
-
-	//function hitCCC(){
-
-//	}
 
 	function doJumpscare()
 		{

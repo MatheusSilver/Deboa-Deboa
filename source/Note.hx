@@ -101,20 +101,11 @@ class Note extends FlxSprite
 					}
 					hitCausesMiss = true;
 
-				case 'CCC Regen':
-					ignoreNote = false;
-					
-					reloadNote('HURT');
-					noteSplashTexture = 'HURTnoteSplashes';
+				case 'CCC Regen': //Silverson comentários aleatórios em momentos que ele está coringando			
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
-					if(isSustainNote) {
-						missHealth = 0.1;
-					} else {
-						missHealth = 0.3;
-					}
-					hitCausesMiss = true;
+					
 				case 'No Animation':
 					noAnimation = true;
 			}
@@ -405,6 +396,8 @@ class Note extends FlxSprite
 		}
 	}
 
+	var curcounterCCC:Float = 2; //Tentativa de consertar um uso desnecessauro de memória
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
@@ -418,6 +411,22 @@ class Note extends FlxSprite
 		} else if (!PlayState.desesperada && !jatrocou) { //E ELA VOLTAAAAAAAAAAAAAAAAAAAA
 			reloadNote();
 			jatrocou = true;
+		}
+		
+		if(noteType == 'CCC Regen' && curcounterCCC != PlayState.cccVidaCounter && PlayState.nomehistorico.toLowerCase()=='cross console clash'){			
+			//Skin Stuff
+			curcounterCCC = PlayState.cccVidaCounter;
+			if(PlayState.storyDifficulty == 4){ //4 = dificuldade do mauro
+				if(PlayState.cccVidaCounter == 0){
+					reloadNote('shroom');
+				} else if(PlayState.cccVidaCounter == 1){
+					reloadNote('flower');
+				}
+			 } else{
+				if(PlayState.cccVidaCounter < 2){
+					reloadNote('ring');
+				}						
+			}
 		}
 		if (mustPress)
 		{
