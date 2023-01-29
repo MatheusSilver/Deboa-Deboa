@@ -2475,6 +2475,8 @@ class PlayState extends MusicBeatState
 		var data:BitmapData;
 		var graph:FlxGraphic;
 
+		//trace('executando precachelist');
+
 		for (key => type in precacheList)
 			{
 				
@@ -3392,6 +3394,20 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
+
+			case 'Adicionar Imagens':
+				if(ClientPrefs.legendas){
+					//trace('executando cache de lyrics');
+				if(OpenFlAssets.exists(Paths.image(event[3]))){
+					precacheList.set(event[3], 'image');
+				}
+				if(OpenFlAssets.exists(Paths.image(event[4]))){
+					precacheList.set(event[4], 'image');
+				}
+				if(OpenFlAssets.exists(Paths.image(event[5]))){
+					precacheList.set(event[5], 'image');
+				}
+				}
 		}
 
 		if(!eventPushedMap.exists(event[2])) {
