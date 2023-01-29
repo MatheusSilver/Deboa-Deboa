@@ -24,6 +24,7 @@ jobs:
           haxelib dev lime lime
           haxelib --quiet install hxp
           haxelib --quiet install hxcpp
+          haxelib --quiet install format
           haxelib --quiet install lime-samples
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet --never install flixel 4.11.0
