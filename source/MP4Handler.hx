@@ -1,16 +1,16 @@
  package;
 #if desktop
-import flixel.util.FlxColor;
+import Controls.Control;
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import openfl.events.Event;
 import openfl.media.Video;
 import openfl.net.NetConnection;
 import openfl.net.NetStream;
 import vlc.VlcBitmap;
-import Controls.Control;
-import flixel.util.FlxTimer;
-import flixel.FlxSprite;
 
 // THIS IS FOR TESTING
 // DONT STEAL MY CODE >:(

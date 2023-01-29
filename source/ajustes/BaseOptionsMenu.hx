@@ -1,32 +1,32 @@
 package ajustes;
 
+import Controls;
+import flash.text.TextField;
+import flash.text.TextField;
+import flixel.FlxG;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.FlxSprite;
+import flixel.FlxSubState;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.graphics.FlxGraphic;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.keyboard.FlxKey;
+import flixel.math.FlxMath;
 import flixel.system.FlxSound;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxSave;
+import flixel.util.FlxTimer;
+import haxe.Json;
+import lime.utils.Assets;
+
+using StringTools;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import lime.utils.Assets;
-import flixel.FlxSubState;
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.util.FlxSave;
-import haxe.Json;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import Controls;
-
-using StringTools;
 
 class BaseOptionsMenu extends MusicBeatState
 {
@@ -49,7 +49,8 @@ class BaseOptionsMenu extends MusicBeatState
 		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
 		//Vai que o Sirox e seu celular da NASA joguem esse mod, por via das duvidas, os shaders ficam desativados por padrão em mobile
 		'Anti-Aliasing',
-	//	'Cache persistente',
+		'Limpar Cache',
+		'FullScreen',
 		#if !html5
 		'FPS', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
@@ -181,27 +182,6 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 
 		if (controls.BACK) {			
-			/*
-			#if mobile 
-			remove(_virtualpad); 
-			#end
-
-			grpOptions.forEachAlive(function(spr:Alphabet) {
-				spr.alpha = 0;
-			});
-			grpTexts.forEachAlive(function(spr:AttachedText) {
-				spr.alpha = 0;
-			});
-			for (i in 0...checkboxArray.length) {
-				var spr:CheckboxThingie = checkboxArray[i];
-				if(spr != null) {
-					spr.alpha = 0;
-				}
-			}
-			if(showCharacter != null) {
-				showCharacter.alpha = 0;
-			}
-			descText.alpha = 0; */
 			ClientPrefs.saveSettings();
 			FlxG.switchState(new ajustes.AjustesState());
 			FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -255,6 +235,12 @@ class BaseOptionsMenu extends MusicBeatState
 
 					case 'Hitsounds':
 						ClientPrefs.hitSounds = !ClientPrefs.hitSounds;
+
+					case 'FullScreen': //Isso é bem inutil no mobile btw, só faz deixar as marquinhas dos botões do lado
+						openfl.Lib.application.window.maximized = false;
+
+						ClientPrefs.fullscreen = !ClientPrefs.fullscreen;
+						FlxG.fullscreen = ClientPrefs.fullscreen;
 					
 					case 'Legendas':
 						ClientPrefs.legendas = !ClientPrefs.legendas;	
@@ -280,7 +266,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Esconder HUD':
 						ClientPrefs.hideHud = !ClientPrefs.hideHud;
 
-					case 'Cache persistente':
+					case 'Limpar Cache':
 						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
 						FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
 					
@@ -382,14 +368,16 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)";
 			case 'Baixa Qualidade':
 				daText = "Se desmarcado, retira elementos do cenário.\n(Aumenta performance e diminui tempos de loading.)";
-			case 'Cache persistente':
-				daText = "Se marcado, imagens serão salvas na memória do seu dispositivo.\n(Aumenta uso de memória ram.)";
+			case 'Limpar Cache':
+				daText = "Se desmarcado, o game não limpará o cache\n isso reduz o tempo de loading ao entrar numa música de novo\n mas pode sobrecarregar seu PC depois de muito tempo jogando";
 			case 'Anti-Aliasing':
 				daText = "Se marcado, desativa o AntiAliasing do jogo, deixando sprites com menos polimento.\n(Aumenta MUITA performance)";
 			case 'Downscroll':
 				daText = "Se marcado, as notas ficaram estilo Guitar Hero.\n(Irão pra baixo)";
 			case 'Hitsounds':
 				daText = "Um som é tocado quando você acerta uma nota.";
+			case 'FullScreen':
+				daText = "Bom... Deixa o game em tela cheia uai";
 			case 'Teste o HitSound':
 				daText = "Aperte Enter para testar o volume e o som do Hitsound escolhido. \n a opção de hitsound precisa estar ativa para funcionar.";
 			case 'Som do Hitsound':
@@ -484,13 +472,15 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.cursing;
 					case 'Hitsounds':
 						daValue = ClientPrefs.hitSounds;
+					case 'FullScreen':
+						daValue = ClientPrefs.fullscreen;
 					case 'Violencia':
 						daValue = ClientPrefs.gore;
 					case 'Zooms da Camera':
 						daValue = ClientPrefs.camZooms;
 					case 'Esconder HUD':
 						daValue = ClientPrefs.hideHud;
-					case 'Cache persistente':
+					case 'Limpar Cache':
 						daValue = ClientPrefs.imagesPersist;
 					case 'Esconder barra de tempo':
 						daValue = ClientPrefs.hideTime;

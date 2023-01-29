@@ -36,7 +36,11 @@ class MemoryCounter extends TextField
 
 		if (ClientPrefs.showFPS)
 		{	
-			//text = "\nRAM: " + mem + " MB\nRAM maxima: " + memPeak + " MB";	
+			#if mobile
+			text = "\nRAM: " + mem + " MB\nPico de RAM: " + memPeak + " MB";	
+			#elseif desktop
+			text = '';
+			#end
 		}
 	}
 } 

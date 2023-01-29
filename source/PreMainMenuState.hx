@@ -1,24 +1,17 @@
 package;
 
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.ui.FlxButton;
+import flixel.util.FlxColor;
+
+using StringTools;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.tweens.FlxTween;
-import lime.utils.Assets;
-import flixel.ui.FlxButton;
-import flixel.addons.ui.FlxUIButton;
-import FunkinLua;
-import Shaders;
-using StringTools;
 
 class PreMainMenuState extends MusicBeatState
 {

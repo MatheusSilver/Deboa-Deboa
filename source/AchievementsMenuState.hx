@@ -3,21 +3,21 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Achievements;
+import FunkinLua;
+import Shaders;
 import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.FlxBasic;
+import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
+import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
-import flixel.FlxSubState;
-import FunkinLua;
-import Shaders;
-import Achievements;
 
 using StringTools;
 

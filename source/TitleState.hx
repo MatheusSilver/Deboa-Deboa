@@ -1,17 +1,11 @@
 package;
 
-import flixel.util.FlxGradient;
-#if desktop
-import Discord.DiscordClient;
-import sys.thread.Thread;
-//import GameJolt;
-//import GameJolt.GameJoltAPI;
-#end
-import gamejolt.formats.*;
+import FunkinLua;
+import Shaders;
+import flash.display.Sprite;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
@@ -19,6 +13,7 @@ import flixel.addons.transition.TransitionData;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxSound;
@@ -27,17 +22,21 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.util.FlxGradient;
 import flixel.util.FlxTimer;
+import gamejolt.formats.*;
+import haxe.io.Bytes;
 import lime.app.Application;
 import openfl.Assets;
-import flash.display.Sprite;
-import FunkinLua;
-import Shaders;
 import openfl.filters.ShaderFilter;
-import haxe.io.Bytes;
-import HSys;
 
 using StringTools;
+#if desktop
+import Discord.DiscordClient;
+import sys.thread.Thread;
+//import GameJolt;
+//import GameJolt.GameJoltAPI;
+#end
 
 class TitleState extends MusicBeatState
 {
@@ -71,20 +70,6 @@ class TitleState extends MusicBeatState
 		#end
 		//FunkinLua.addShaderToCamera('orig', new BloomEffect(0.05/512.0,0.05));
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
-		#if (polymod && !android)
-		if (HSys.exists('mods/')) {
-			var folders:Array<String> = [];
-			for (file in HSys.readDirectory('mods/')) {
-				var path = haxe.io.Path.join(['mods/', file]);
-				if (sys.HSys.isDirectory(path)) {
-					folders.push(file);
-				}
-			}
-			if(folders.length > 0) {
-				polymod.Polymod.init({modRoot: "mods", dirs: folders});
-			}
-		}
-		#end
 		
 		#if CHECK_FOR_UPDATES
 		if(!closedState) {

@@ -1,20 +1,19 @@
 package;
 
 import LoadingState.LoadingsState;
+import PlayState;
+import Shaders;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import openfl.utils.Assets as OpenFlAssets;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import MusicBeatSubstate;
-import PlayState;
-import Shaders;
+import openfl.filters.ShaderFilter;
+import openfl.utils.Assets as OpenFlAssets;
 #if desktop
 import Discord.DiscordClient;
 #end
-import openfl.filters.ShaderFilter;
 
 class PastaNightSelect extends MusicBeatState {
     public static var selectCam:FlxCamera;

@@ -1,13 +1,14 @@
 package;
 
 // STOLEN FROM HAXEFLIXEL DEMO LOL
+import flixel.FlxG;
 import flixel.system.FlxAssets.FlxShader;
+import openfl.Lib;
 import openfl.display.BitmapData;
 import openfl.display.ShaderInput;
-import openfl.utils.Assets;
-import flixel.FlxG;
-import openfl.Lib;
+
 using StringTools;
+
 typedef ShaderEffect = {
   var shader:Dynamic;
 }
@@ -177,6 +178,8 @@ class Scanline extends FlxShader
 				gl_FragColor = texture2D(bitmap, openfl_TextureCoordv);
 			}
 		}')
+
+		@precisionHint('fast')
 	public function new()
 	{
 		super();
@@ -716,6 +719,8 @@ class VCRDistortionShader extends FlxShader // https://www.shadertoy.com/view/ld
 
     }
   ')
+
+  @precisionHint('fast')
   public function new()
   {
     super();

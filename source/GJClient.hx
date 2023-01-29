@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxG;
-import gamejolt.formats.*;
 import haxe.Http;
 import haxe.Json;
 import haxe.crypto.Md5;

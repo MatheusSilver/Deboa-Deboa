@@ -1,44 +1,36 @@
-import openfl.filters.ShaderFilter;
-import openfl.filters.BitmapFilter;
+import DialogueBoxPsych;
+import Shaders;
+import Type.ValueType;
+import flixel.FlxBasic;
+import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.FlxObject;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
+import flixel.system.FlxSound;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import openfl.display.BlendMode;
+import openfl.filters.BitmapFilter;
+import openfl.filters.ShaderFilter;
+import openfl.utils.Assets as OpenFlAssets;
+
+using StringTools;
 #if LUA_ALLOWED
+import llua.Convert;
 import llua.Lua;
 import llua.LuaL;
 import llua.State;
-import llua.Convert;
 #end
 
-import flixel.FlxG;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.text.FlxText;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
-import flixel.util.FlxTimer;
-import flixel.FlxSprite;
-import flixel.FlxCamera;
-import flixel.util.FlxColor;
-import flixel.FlxBasic;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import openfl.display.BlendMode;
-import Type.ValueType;
-import Controls;
-import DialogueBoxPsych;
-import openfl.utils.Assets as OpenFlAssets;
-import Shaders;
-import HSys;
-#if asys
-import Sys;
-import sys.FileSystem;
-import sys.io.File;
-#end
 #if desktop
-import Discord;
+
 #end
 
-using StringTools;
 
 class FunkinLua {
     public static var Function_Stop = "Function_Stop";
@@ -203,7 +195,7 @@ class FunkinLua {
 			if(luaFile.endsWith(".lua"))cervix=luaFile;
 			var doPush = false;
 			cervix = Paths.getPreloadPath('data/' + Paths.formatToSongPath(PlayState.SONG.song) + '/'+cervix); //Scripts adicionados com isso devem obrigatoriamente fazer referência a pasta custom_scripts
-			if(OpenFlAssets.exists('data/' + Paths.formatToSongPath(PlayState.SONG.song) + '/'+cervix)) { //Ou podem ser jogados direto para a pasta data da música
+			if(OpenFlAssets.exists(cervix)) { //é... Vou nem tirar trace disso pq sei que a resposta seria vergonhosa
 				doPush = true;
 			}
 
@@ -221,7 +213,7 @@ class FunkinLua {
 					}
 				}
 				PlayState.instance.luaArray.push(new FunkinLua(Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
-				trace(cervix + 'foi carregado');
+				trace(cervix + ' foi carregado por master.lua');
 				return;
 			}
 			trace("addLuaScript: Script doesn't exist!");
@@ -231,28 +223,10 @@ class FunkinLua {
 			var cervix = luaFile + ".lua";
 			if(luaFile.endsWith(".lua"))cervix=luaFile;
 			var doPush = false;
-			#if aMODS_ALLOWED
-			if(HSys.exists(Paths.modFolders(cervix)))
-			{
-				cervix = Paths.modFolders(cervix);
-				doPush = true;
-			}
-			else if(HSys.exists(cervix))
-			{
-				doPush = true;
-			}
-			else {
-				cervix = Paths.getPreloadPath(cervix);
-				if(HSys.exists(cervix)) {
-					doPush = true;
-				}
-			}
-			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(HSys.exists(cervix)) {
+			if(OpenFlAssets.exists(cervix)) {
 				doPush = true;
 			}
-			#end
 
 			if(doPush)
 			{
@@ -705,10 +679,10 @@ class FunkinLua {
 			PlayState.instance.addCharacterToList(name, charType);
 		});
 		Lua_helper.add_callback(lua, "precacheImage", function(name:String) {
-			Paths.returnGraphic(name);
+			Paths.image(name); //Tecnicamente isso deveria procurar tanto em libraries quanto em preload
 		});
 		Lua_helper.add_callback(lua, "precacheSound", function(name:String) {
-			CoolUtil.precacheSound(name);
+			Paths.sound(name);
 		});
 		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic) {
 			var value1:String = arg1;

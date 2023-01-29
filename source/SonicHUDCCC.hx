@@ -1,5 +1,6 @@
 package;
 
+import PlayState;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -16,7 +17,6 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import PlayState;
 
 using StringTools;
 
@@ -26,11 +26,14 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 	var accuracyText:FlxText;
 	var accuracyText2:FlxText;
 
+	var isMario:Bool;
+
 	var scoreLast:Float = -1;
-	var scoreDisplay:String;
 	var scoreGroup:FlxTypedGroup<FlxSprite>;
 
-	private var SONG = PlayState.SONG;
+	public static var ringsText:FlxSprite;
+	var ringNum:FlxSprite;
+	
 	public var ratingIcon:FlxSprite;
 
 	var scoreIndex:Array<Dynamic> = [	
@@ -51,8 +54,9 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 		// call the initializations and stuffs
 		super();
 
-		// fnf mods
-		var scoreDisplay:String = 'beep bop bo skdkdkdbebedeoop brrapadop';
+		if(PlayState.storyDifficulty == 3){ //Dificuldade do Mario
+		isMario = false;}
+		else{isMario = true;}
 
 		// le healthbar setup
 		var barY = FlxG.height - (7 * 6);
@@ -106,6 +110,23 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 			scoreGroup.add(scoreNum);
 		}
 
+		ringNum = new FlxSprite(300, barY + (1 * 6)).loadGraphic(Paths.image('score'), true, 8, 8);
+		ringNum.visible = !isMario;
+		ringNum.antialiasing = false;
+		ringsText = new FlxSprite(250, barY + (1 * 6)).loadGraphic(Paths.image('sonicUI/sonic2/rings'));
+		ringsText.visible = !isMario;
+		ringsText.setGraphicSize(Std.int(ringsText.width * 4.3636363636636));
+		ringsText.antialiasing = false;
+		ringNum.setGraphicSize(Std.int(ringNum.width * 6));
+		ringNum.animation.add('idle', [0,1,2,3,4,5 ,6,7,8,9], 0, false);
+		ringNum.animation.frameIndex = 2;
+		ringsText.screenCenter(X);
+		ringsText.x -= 1.5*ringsText.width;
+		ringNum.screenCenter(X);
+		ringNum.x += 60;
+		add(ringsText);
+		add(ringNum);
+
 		accuracyText = new FlxText(0, barY, 0, "000000.00%");
 		accuracyText.autoSize = false;
 		accuracyText.borderSize = 0;
@@ -125,7 +146,7 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 		add(accuracyText2);
 
 		ratingIcon = new FlxSprite(0, 
-			barY + (1 * 6)).loadGraphic(Paths.image("rankings"), true, 8, 8);
+		barY + (1 * 6)).loadGraphic(Paths.image("rankings"), true, 8, 8);
 		ratingIcon.animation.add("icon", [0, 1, 2, 3, 4, 5, 6, 7], 0, false);
 		ratingIcon.animation.frameIndex = 0;
 		
@@ -134,9 +155,6 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 		add(ratingIcon);
 
 		updateScoreText();
-
-		// small info bar, kinda like the KE watermark
-		// based on scoretxt which I will set up as well
 	}
 
 	public function flicker(object:FlxBasic)
@@ -156,8 +174,6 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 	public function updateScoreText()
 	{
 		var importSongScore = PlayState.instance.songScore;
-		var importPlayStateCombo = PlayState.instance.combo;
-		var importMisses = PlayState.instance.songMisses;
 		var scoreText = Std.string(importSongScore);
 
 		///
@@ -206,6 +222,9 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 		}
 
 		var index = 0;
+
+		ringNum.animation.frameIndex = PlayState.cccVidaCounter;
+
 		for (scoreNum in scoreGroup)
 		{
 			scoreNum.animation.frameIndex = Std.parseInt(scoreText.charAt(index));

@@ -1,30 +1,24 @@
 package;
 
+import LoadingState.LoadingsState;
+import WeekData;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.system.FlxSound;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import openfl.utils.Assets as OpenFlAssets;
+
+using StringTools;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flash.text.TextField;
-import LoadingState.LoadingsState;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.tweens.FlxTween;
-import lime.utils.Assets;
-import flixel.system.FlxSound;
-import openfl.utils.Assets as OpenFlAssets;
-import FunkinLua;
-import Shaders;
-import WeekData;
-
-using StringTools;
 
 class FreeplayState extends MusicBeatState
 {
@@ -64,8 +58,9 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
-
+		
 		Main.dumpCache(); // What can go wrong?
+
 
 		WeekData.reloadWeekFiles(true); //note for future silver 
 		//Este code, SEMPRE, deve ser colocado quando não se utiliza 'dapreselected', ele é quem carrega as weeks.

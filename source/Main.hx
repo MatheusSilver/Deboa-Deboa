@@ -3,10 +3,8 @@ package;
 #if desktop
 ///import GameJolt;
 ///import GameJolt.GameJoltAPI;
-import Discord.DiscordClient;
+
 #end
-import lime.system.System;
-//import webm.WebmPlayer;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -15,11 +13,6 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
-#if CRASH_HANDLER
-import openfl.events.UncaughtErrorEvent;
-import haxe.CallStack;
-import haxe.io.Path;
-#end
 
 class Main extends Sprite
 {
@@ -33,7 +26,8 @@ class Main extends Sprite
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
-	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
+	var startFullscreen:Bool = ClientPrefs.fullscreen; // Whether to start the game in fullscreen on desktop targets
+	//Quando tu for começar o jooj, verifica se isso aqui não tá crashando não fiz o teste disso quando fullscreen não foi setado ainda
 	public static var fpsVar:FPS;
 	public static var memoryCounter:MemoryCounter;
 	#if desktop
@@ -42,8 +36,6 @@ class Main extends Sprite
 
 
 	public static var instance:Main;
-	
-	public static var path:String = System.applicationStorageDirectory;
 
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
@@ -79,8 +71,9 @@ class Main extends Sprite
 		setupGame();
 	}
 
-		public static function dumpCache() // ToDo, arrumar o sistema de cache, no caso, resolver os problemas com o HSys
+		public static function dumpCache()
 		{
+			if(ClientPrefs.imagesPersist){ //Pode ser que o manito queira ter um cache infinito
 			@:privateAccess
 			for (key in FlxG.bitmap._cache.keys())
 			{
@@ -92,15 +85,14 @@ class Main extends Sprite
 					obj.destroy();
 				}
 			}
-			Paths.localTrackedAssets = [];
-			Paths.currentTrackedAssets = [];
+			Assets.cache.clear();
 			Assets.cache.clear("songs");
 			Assets.cache.clear("shared");
 			Assets.cache.clear("preload");
 			if(LoadingState.directory != 'shared' && LoadingState.directory != "preload" && LoadingState.directory != null){
 			Assets.cache.clear(LoadingState.directory);
-			Paths.setCurrentLevel('preload');
 			}
+		}
 
 		}
 
@@ -124,10 +116,12 @@ class Main extends Sprite
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
 
+		/*
 		#if !debug
 		initialState = PreTitleState;
 		#end
-
+		top 10 codes que tu faz no passado, esquece e depois se arrepende (Mobile Issue :skull:)
+		*/ 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 		
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
@@ -147,51 +141,9 @@ class Main extends Sprite
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
-
-		#if CRASH_HANDLER
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
-		#end
 	}
 
 	public function getFPS():Float{
 		return fpsVar.currentFPS;	
 	}
-
-	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
-	// very cool person for real they don't get enough credit for their work
-	#if CRASH_HANDLER
-	function onCrash(e:UncaughtErrorEvent):Void
-	{
-		var errMsg:String = "";
-		var path:String;
-		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-		var dateNow:String = Date.now().toString();
-
-		//dateNow = dateNow.replace(" ", "_");
-		//dateNow = dateNow.replace(":", "'");
-
-		path = "./crash/" + "ModBoa_" + dateNow + ".txt";
-
-		for (stackItem in callStack)
-		{
-			switch (stackItem)
-			{
-				case FilePos(s, file, line, column):
-					errMsg += file + " (line " + line + ")\n";
-				default:
-					Sys.println(stackItem);
-			}
-		}
-
-		errMsg += "\nERRO ENCONTRADO: " + e.error + "\n(Tire uma print e poste no Chat #report do server do ModBoa.)";
-
-		lime.app.Application.current.window.alert(errMsg, "Error!");
-		#if desktop
-		DiscordClient.shutdown();
-		#end
-		Sys.exit(1);
-	}
-	#end
 }
-
-

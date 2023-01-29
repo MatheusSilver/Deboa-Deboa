@@ -1,16 +1,10 @@
 package;
 
-import openfl.system.System;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
+import lime.utils.Assets;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
-import lime.utils.Assets;
-import flixel.FlxSprite;
-import flixel.graphics.FlxGraphic;
-import openfl.display.BitmapData;
-
-import flash.media.Sound;
 
 using StringTools;
 
@@ -18,30 +12,6 @@ class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static var VIDEO_EXT = "mp4";
-
-	#if MODS_ALLOWED
-	#if (haxe >= "4.0.0")
-	public static var customImagesLoaded:Map<String, Bool> = new Map();
-	#else
-	public static var customImagesLoaded:Map<String, Bool> = new Map<String, Bool>();
-	#end
-	#end
-
-	public static function destroyLoadedImages(ignoreCheck:Bool = false) {
-		#if MODS_ALLOWED
-		if(!ignoreCheck && ClientPrefs.imagesPersist) return; //If there's 20+ images loaded, do a cleanup just for preventing a crash
-
-		for (key in customImagesLoaded.keys()) {
-			var graphic:FlxGraphic = FlxG.bitmap.get(key);
-			if(graphic != null) {
-				graphic.bitmap.dispose();
-				graphic.destroy();
-				FlxG.bitmap.removeByKey(key);
-			}
-		}
-		Paths.customImagesLoaded.clear();
-		#end
-	}	
 
 	static public var currentModDirectory:String = null;
 	static var currentLevel:String;
@@ -73,20 +43,6 @@ class Paths
 		return getPreloadPath(file);
 	}
 
-	static public function addCustomGraphic(key:String):FlxGraphic {
-		if(Assets.exists('assets/images/'+ key + '.png')) {
-			if(!customImagesLoaded.exists(key)) {
-				var newBitmap:BitmapData = BitmapData.fromFile('assets/images/'+ key + '.png');
-				var newGraphic:FlxGraphic = FlxGraphic.fromBitmapData(newBitmap, false, key);
-				newGraphic.persist = true;
-				FlxG.bitmap.addGraphic(newGraphic);
-				customImagesLoaded.set(key, true);
-			}
-			return FlxG.bitmap.get(key);
-		}
-		return null;
-	}
-
 	static public function getLibraryPath(file:String, library = "preload")
 	{
 		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
@@ -100,11 +56,6 @@ class Paths
 	inline public static function getPreloadPath(file:String = '')
 	{
 		return 'assets/$file';
-	}
-
-	inline public static function getPreloadPathlua(file:String = '')
-	{
-		return Main.path + 'assets/$file';
 	}
 
 	inline static public function file(file:String, type:AssetType = TEXT, ?library:String)
@@ -125,18 +76,6 @@ class Paths
 	inline static public function json(key:String, ?library:String)
 	{
 		return getPath('data/$key.json', TEXT, library);
-	}
-
-
-
-	inline static public function lua(key:String, ?library:String)
-	{
-		return Main.path + getPath('$key.lua', TEXT, library);
-	}
-
-	inline static public function luaAsset(key:String, ?library:String)
-	{
-		return getPath('$key.lua', TEXT, library);
 	}
 
 	static public function video(key:String)
@@ -197,11 +136,6 @@ class Paths
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 
-	inline static public function getSparrowAtlaslua(key:String, ?library:String)
-	{
-		return FlxAtlasFrames.fromSparrow(image(key, library), file(Main.path + 'images/$key.xml', library));
-	}
-
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
@@ -209,23 +143,5 @@ class Paths
 
 	inline static public function formatToSongPath(path:String) {
 		return path.toLowerCase().replace(' ', '-');
-	}
-
-	public static var localTrackedAssets:Array<String> = [];
-	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
-
-	public static function returnGraphic(key:String) {
-
-		var path = getPath('images/$key.png', IMAGE, 'preload');
-		if (OpenFlAssets.exists(path, IMAGE)) {
-			if(!currentTrackedAssets.exists(path)) {
-				var newGraphic:FlxGraphic = FlxG.bitmap.add(path, false, path);
-				currentTrackedAssets.set(path, newGraphic);
-			}
-			localTrackedAssets.push(path);
-			return currentTrackedAssets.get(path);
-		}
-		trace('oh no its returning null NOOOO');
-		return null;
 	}
 }

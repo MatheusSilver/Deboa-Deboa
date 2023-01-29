@@ -1,32 +1,32 @@
 package;
 
-import openfl.Lib;
-import flixel.ui.FlxButton;
-import flixel.addons.ui.FlxUIButton;
-import flixel.util.FlxTimer;
-#if desktop
-import Discord.DiscordClient;
-#end
-import flixel.FlxG;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.FlxCamera;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.effects.FlxFlicker;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
-import flixel.math.FlxMath;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import lime.app.Application;
 import Achievements;
 import FunkinLua;
 import Shaders;
 import editors.MasterEditorMenu;
+import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.FlxObject;
+import flixel.FlxSprite;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.ui.FlxUIButton;
+import flixel.effects.FlxFlicker;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.ui.FlxButton;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
+import lime.app.Application;
+import openfl.Lib;
 
 using StringTools;
+#if desktop
+import Discord.DiscordClient;
+#end
 
 class MainMenuStateMobile extends MusicBeatState
 {
@@ -60,13 +60,12 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function create()
 	{
+		Main.dumpCache();
 		Conductor.changeBPM(112);
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No menu principal", null);
 		#end
-
-		Main.dumpCache(); // What can go wrong?
 		if(FlxG.sound.music.volume==0) {
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}

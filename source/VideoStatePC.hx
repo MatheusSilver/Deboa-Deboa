@@ -1,17 +1,13 @@
 package;
 
-import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxTimer;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.tweens.FlxTween;
-import lime.utils.Assets;
+import flixel.util.FlxTimer;
+
 using StringTools;
+
 
 class VideoStatePC extends MusicBeatState
 {

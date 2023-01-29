@@ -1,27 +1,17 @@
 package;
 
-import flixel.input.mouse.FlxMouseButton;
-import flixel.ui.FlxButton;
-import flixel.tweens.FlxEase;
-#if desktop
-import Discord.DiscordClient;
-#end
 import flixel.FlxG;
-import openfl.utils.Assets as OpenFlAssets;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import lime.net.curl.CURLCode;
-import FunkinLua;
-import Shaders;
+import openfl.utils.Assets as OpenFlAssets;
 
 using StringTools;
+#if desktop
+import Discord.DiscordClient;
+#end
 
 class MenuPreHistoria extends MusicBeatState
 {
@@ -43,6 +33,7 @@ class MenuPreHistoria extends MusicBeatState
 	{
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		MenuHistoria.curSelected = 0;
+		PlayState.modohistoria = false;
 		#if !mobile
 		FlxG.mouse.visible = false;
 		#end

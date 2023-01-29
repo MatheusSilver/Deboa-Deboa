@@ -2,15 +2,10 @@ package;
 
 import Section.SwagSection;
 import haxe.Json;
-import haxe.format.JsonParser;
 import lime.utils.Assets;
 
-#if asys
-import sys.io.File;
-import sys.FileSystem;
-#end
-
 using StringTools;
+
 
 typedef SwagSong =
 {
@@ -59,12 +54,6 @@ class Song
 		
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
-		#if adesktop
-		var moddyFile:String = Paths.modsJson(formattedFolder + '/' + formattedSong);
-		if(HSys.exists(moddyFile)) {
-			rawJson = Assets.getText(moddyFile).trim();
-		}
-		#end
 
 		if(rawJson == null) {
 			rawJson = Assets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();

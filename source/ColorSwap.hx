@@ -210,6 +210,8 @@ class ColorSwapShader extends FlxShader {
 			}
 		}')
 
+	@precisionHint('fast')
+
 	public function new()
 	{
 		super();

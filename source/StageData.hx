@@ -1,10 +1,8 @@
 package;
 
-import openfl.utils.Assets;
-import openfl.utils.Assets;
-import haxe.Json;
-import haxe.format.JsonParser;
 import Song;
+import haxe.Json;
+import openfl.utils.Assets;
 
 using StringTools;
 

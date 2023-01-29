@@ -1,14 +1,10 @@
 package;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.math.FlxMath;
-import flixel.util.FlxColor;
-import flash.display.BitmapData;
 import editors.ChartingState;
+import flixel.FlxSprite;
 
 using StringTools;
+
 
 class Note extends FlxSprite
 {
@@ -415,16 +411,17 @@ class Note extends FlxSprite
 		
 		if(noteType == 'CCC Regen' && curcounterCCC != PlayState.cccVidaCounter && PlayState.nomehistorico.toLowerCase()=='cross console clash'){			
 			//Skin Stuff
+			//trace('estou trocando a skin');
 			curcounterCCC = PlayState.cccVidaCounter;
 			if(PlayState.storyDifficulty == 4){ //4 = dificuldade do mauro
 				if(PlayState.cccVidaCounter == 0){
-					reloadNote('shroom');
+					reloadNote('','shroom-clash');
 				} else if(PlayState.cccVidaCounter == 1){
-					reloadNote('flower');
+					reloadNote('','flower-clash');
 				}
 			 } else{
 				if(PlayState.cccVidaCounter < 2){
-					reloadNote('ring');
+					reloadNote('','ring-clash');
 				}						
 			}
 		}

@@ -1,31 +1,18 @@
 package;
 
 import LoadingState;
+import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.system.FlxSound;
-import flixel.input.mouse.FlxMouseButton;
-import flixel.ui.FlxButton;
 import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
+import openfl.utils.Assets as OpenFlAssets;
+
+using StringTools;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flixel.FlxG;
-import openfl.utils.Assets as OpenFlAssets;
-import flixel.FlxSprite;
-import flixel.FlxSubState;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import lime.net.curl.CURLCode;
-import FunkinLua;
-import Shaders;
-
-using StringTools;
 
 class MenuHistoria extends MusicBeatSubstate
 {
@@ -51,6 +38,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 	override function create()
 	{
+
         var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
         for (j in 0...leWeek.songs.length) {
             musicas.push(leWeek.songs[j][0]);

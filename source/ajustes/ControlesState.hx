@@ -1,21 +1,22 @@
 package ajustes;
 
-import flixel.ui.FlxButton;
-import flixel.addons.ui.FlxUIButton;
-import flixel.text.FlxText;
+import Config;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxColor;
-import ui.FlxVirtualPad;
+import flixel.addons.ui.FlxUIButton;
 import flixel.math.FlxPoint;
+import flixel.text.FlxText;
+import flixel.ui.FlxButton;
+import flixel.util.FlxColor;
 import haxe.Json;
+import ui.FlxVirtualPad;
 import ui.Hitbox;
-import Config;
+
+using StringTools;
 #if lime
 import lime.system.Clipboard;
 #end
 
-using StringTools;
 
 class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás, mas ainda dá pro gasto
 {

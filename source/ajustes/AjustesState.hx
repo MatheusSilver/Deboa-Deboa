@@ -1,35 +1,35 @@
 package ajustes;
 
-import flixel.system.FlxSound;
-import openfl.Lib;
-import flixel.ui.FlxButton;
-import flixel.addons.ui.FlxUIButton;
-import flixel.util.FlxTimer;
-#if desktop
-import Discord.DiscordClient;
-#end
+import Controls;
+import FunkinLua;
+import Shaders;
+import editors.MasterEditorMenu;
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.ui.FlxUIButton;
 import flixel.effects.FlxFlicker;
+import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
+import flixel.system.FlxSound;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import lime.app.Application;
-import editors.MasterEditorMenu;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import FunkinLua;
-import Shaders;
-import Controls;
+import openfl.Lib;
 
 using StringTools;
+#if desktop
+import Discord.DiscordClient;
+#end
 
 class AjustesState extends MusicBeatState
 {
@@ -64,8 +64,7 @@ class AjustesState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Nas configurações.", null);
 		#end
-
-		Main.dumpCache(); // What can go wrong?
+		
 		if(FlxG.sound.music.volume==0) {
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}

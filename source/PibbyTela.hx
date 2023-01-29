@@ -1,7 +1,7 @@
 package;
-import flixel.util.FlxTimer;
 import Achievements;
 import flixel.*;
+import flixel.util.FlxTimer;
 
 class PibbyTela extends MusicBeatState
 {

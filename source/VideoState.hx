@@ -1,11 +1,10 @@
 package;
 #if mobile
-import flixel.text.FlxText;
-import flixel.FlxState;
-import flixel.FlxG;
-import flixel.FlxSubState;
-
 import extension.webview.WebView;
+import flixel.FlxG;
+import flixel.FlxState;
+import flixel.FlxSubState;
+import flixel.text.FlxText;
 
 using StringTools;
 

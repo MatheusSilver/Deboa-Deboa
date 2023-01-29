@@ -1,14 +1,14 @@
 package;
 
-import openfl.Lib;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
-import flixel.util.FlxTimer;
-import openfl.utils.Assets as OpenFlAssets;
 import flixel.system.FlxSound;
+import flixel.util.FlxTimer;
+import openfl.Lib;
+import openfl.utils.Assets as OpenFlAssets;
 
 using StringTools;
 

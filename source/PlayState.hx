@@ -1,6 +1,6 @@
 package;
 
-import HSys;
+import openfl.display.BitmapData;
 import SonicHUDCCC; //tive que trocar o nome pra não conflitar com o outro sonic hud usado na prey, YCR e talvez na nova confronting
 #if desktop
 import sys.io.Process; // medo
@@ -67,8 +67,8 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Shaders;
-import openfl.Assets;
-import ui.Mobilecontrols;
+
+import flixel.graphics.FlxGraphic;
 
 #if mobileC
 import ui.Mobilecontrols;
@@ -213,8 +213,6 @@ class PlayState extends MusicBeatState
 	public static var bads:Int = 0;
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
-	
-	public static var somethinspecial:Bool = false;
 
 	// - flying shit
 	var flyTarg:Character;
@@ -490,24 +488,24 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+
+		Main.dumpCache(); //Apenas pra ter certeza mesmo.
 		// TODOS OS PRECACHES NECESSÁRIOS
 
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
-		precacheList.set('pause/pause (botativado)', 'image');
-		precacheList.set('pause/pause (botões)', 'image');
-		precacheList.set('pause/pause (continuar)', 'image');
-		precacheList.set('pause/pause (linhas)', 'image');
-		precacheList.set('pause/pause (perfil)', 'image');
-		precacheList.set('pause/pause (restart)', 'image');
-		precacheList.set('pause/pause (sonicexe)', 'image');
-		precacheList.set('pause/pause (voltar)', 'image');
-		precacheList.set('pause/pause', 'image');
 		precacheList.set('pause/praticarativado', 'image');
 		precacheList.set('pause/praticardesativado', 'image');
+		precacheList.set('pause/pause (linhas)', 'image');
+		precacheList.set('pause/pause (sonicexe)', 'image');
+		precacheList.set('pause/pause (continuar)', 'image');
+		precacheList.set('pause/pause (restart)', 'image');
+		precacheList.set('pause/pause (voltar)', 'image');
+		precacheList.set('unpause', 'sound');
+		precacheList.set('PauseEnter', 'sound');
+		precacheList.set('pausescrollmenu', 'sound');
+		precacheList.set('breakfast', 'music');
 
-		if (curSong != SONG.song) //Esse if é realmente nescessário?
-		{
 			if (SONG.song.toLowerCase() == 'too-slow') 
 			{
 				precacheList.set('PolishedP1/sonicJUMPSCARE', 'image');
@@ -518,15 +516,15 @@ class PlayState extends MusicBeatState
 			if (SONG.song.toLowerCase() == 'cross-console-clash') 
 			{
 				if(storyDifficulty == 4){
-				precacheList.set('pixelUI/flowerarrows-mario','image');
-				precacheList.set('pixelUI/shroomarrows-mario','image');
+				precacheList.set('pixelUI/flower-clash','image');
+				precacheList.set('pixelUI/shroom-clash','image');
 				precacheList.set('Damage','sound');
 				precacheList.set('power_down','sound');
 				precacheList.set('powerup','sound');
 				} else{
 					precacheList.set('ring_loss','sound');
 					precacheList.set('Ring','sound');
-					precacheList.set('pixelUI/ring','image');
+					precacheList.set('pixelUI/ring-clash','image');
 				}
 			}
 
@@ -578,7 +576,6 @@ class PlayState extends MusicBeatState
 			else if (SONG.song.toLowerCase() == 'faker'){
 				precacheList.set('Faker_Transformation', 'image');
 			}
-		}
 
 		FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
 		if (SONG.needsVoices){
@@ -1530,12 +1527,11 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.noteSplashes){
 		var skinsplashcache:String;
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0){skinsplashcache = PlayState.SONG.splashSkin;} else{skinsplashcache = 'noteSplashes';};
-		precacheList.set(skinsplashcache, 'image');
+		precacheList.set('splashes/'+skinsplashcache, 'image');
 		}
 
 		if (ClientPrefs.hitSounds){
 			precacheList.set('osu/' + ClientPrefs.hitSoundType, 'shared');
-			precacheList.set('breakfast', 'music');
 			hitsound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
 			hitsound.volume = ClientPrefs.osusom; //I FORGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR
 		}
@@ -1774,10 +1770,6 @@ class PlayState extends MusicBeatState
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
 		add(grpNoteSplashes);
-
-		var splash:NoteSplash = new NoteSplash(100, 100, 0);
-		grpNoteSplashes.add(splash);
-		splash.alpha = 0.0;
 
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
@@ -2202,38 +2194,6 @@ class PlayState extends MusicBeatState
 		updateTime = true;
 
 
-		/*
-		#if (MODS_ALLOWED && LUA_ALLOWED)
-		var doPush:Bool = false;
-		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/script.lua';
-	    luaFile = Paths.getPreloadPath(luaFile);
-		    if(OpenFlAssets.exists(luaFile)) {
-				doPush = true;
-			}
-		
-		if(doPush) 
-			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));			
-		#end	*/
-		/*
-		#if LUA_ALLOWED
-		var filesPushed:Array<String> = [];
-		var luasarrayMobile<String> = [];
-
-		#if desktop
-		for (file in sys.FileSystem.readDirectory(Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')))
-		#elseif mobile
-		for (file in HSys.readDirectory((Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/'))))
-		#end
-		{
-			if(file.endsWith('.lua') && !filesPushed.contains(file))
-			{
-				luaArray.push(new FunkinLua(Asset2File.getPath(Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')) + file));
-				filesPushed.push(file);
-			}
-		}
-		#end	
-		*/
-
 		var doPush:Bool = false;
 		var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/master.lua';
 	    luaFile = Paths.getPreloadPath(luaFile);
@@ -2510,22 +2470,29 @@ class PlayState extends MusicBeatState
 
 		cacheCountdown();
 		cachePopUpScore();
-		trace("Iniciando precache no PlayState.");
+		//trace("Iniciando precache no PlayState.");
+
+		var data:BitmapData;
+		var graph:FlxGraphic;
+
 		for (key => type in precacheList)
 			{
 				
 				switch(type)
 				{
 					case 'image':
-						Paths.image(key);
+						data = BitmapData.fromFile(Paths.image(key));
+						graph = FlxGraphic.fromBitmapData(data);
+						graph.persist = !ClientPrefs.imagesPersist;
+						FlxG.bitmap.addGraphic(graph);
 					case 'sound':
-						Paths.sound(key);
+						FlxG.sound.cache(Paths.sound(key));
 					case 'music':
-						Paths.music(key);
+						FlxG.sound.cache(Paths.music(key));
 				}
 			}
 			
-			trace("Precache finalizado");
+		//	trace("Precache finalizado");
 	}
 
 	private function cachePopUpScore()
@@ -2537,15 +2504,14 @@ class PlayState extends MusicBeatState
 				pixelShitPart1 = 'pixelUI/';
 				pixelShitPart2 = '-pixel';
 			}
-	
-			Paths.image(pixelShitPart1 + "sick" + pixelShitPart2);
-			Paths.image(pixelShitPart1 + "good" + pixelShitPart2);
-			Paths.image(pixelShitPart1 + "bad" + pixelShitPart2);
-			Paths.image(pixelShitPart1 + "shit" + pixelShitPart2);
-			Paths.image(pixelShitPart1 + "combo" + pixelShitPart2);
-			
+
+			precacheList.set(pixelShitPart1 + "sick" + pixelShitPart2, 'image');
+			precacheList.set(pixelShitPart1 + "good" + pixelShitPart2, 'image');
+			precacheList.set(pixelShitPart1 + "bad" + pixelShitPart2, 'image');
+			precacheList.set(pixelShitPart1 + "shit" + pixelShitPart2, 'image');
+			precacheList.set(pixelShitPart1 + "combo" + pixelShitPart2, 'image');
 			for (i in 0...10) {
-				Paths.image(pixelShitPart1 + 'num' + i + pixelShitPart2);
+				precacheList.set(pixelShitPart1 + 'num' + i + pixelShitPart2, 'image');
 			}
 		}
 
@@ -2559,12 +2525,12 @@ class PlayState extends MusicBeatState
 			if (isPixelStage) introAlts = introAssets.get('pixel');
 			
 			for (asset in introAlts)
-				Paths.image(asset);
+				precacheList.set(asset,'image');
 			
-			Paths.sound('intro3' + introSoundsSuffix);
-			Paths.sound('intro2' + introSoundsSuffix);
-			Paths.sound('intro1' + introSoundsSuffix);
-			Paths.sound('introGo' + introSoundsSuffix);
+			FlxG.sound.cache(Paths.sound('intro3' + introSoundsSuffix));
+			FlxG.sound.cache(Paths.sound('intro2' + introSoundsSuffix));
+			FlxG.sound.cache(Paths.sound('intro1' + introSoundsSuffix));
+			FlxG.sound.cache(Paths.sound('introGo' + introSoundsSuffix));
 		}
 
 	public var vidSound:FlxSound;
@@ -4858,7 +4824,7 @@ class PlayState extends MusicBeatState
 
 			case 'Must Press Swap': //Transição mais estilosa usada exclusivamente em CCC
 				var k:Float = 0; //-565 ou 565
-				if(value1 == 'true'){k = 565;}
+				if(value1 == 'true'){k = 565 - 85;}
 				FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x - k}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x - k}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.tween(playerStrums.members[2], {x: playerStrums.members[2].x - k}, 1, {ease: FlxEase.quadInOut});
@@ -5404,14 +5370,13 @@ class PlayState extends MusicBeatState
 									vocals.play();
 							}
 						case 3364:
-							var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1500, boyfriend.y + 405).loadGraphic(Paths.image('furnace_gotcha'));
+							var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1000, boyfriend.y + 405).loadGraphic(Paths.image('furnace_gotcha'));
 							gotcha.setGraphicSize(Std.int(gotcha.width * 5));
 							gotcha.antialiasing = false;
 							gotcha.flipX = false;
 							add(gotcha);
-							FlxTween.tween(gotcha, {x: boyfriend.x + 500 -250}, 0.1, {onComplete: function(yes:FlxTween)
+							FlxTween.tween(gotcha, {x: boyfriend.x + 500}, 0.3, {onComplete: function(yes:FlxTween)
 							{
-								
 								FlxG.camera.flash(FlxColor.RED, 1);
 								remove(gotcha);
 							}});
@@ -5443,7 +5408,7 @@ class PlayState extends MusicBeatState
 								dad.y += 50;
 								FlxTween.tween(dad, {x: 580 - 450}, 3,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(gf, {x: 580 - 375}, 3,{ease: FlxEase.cubeInOut});
-								SONG.speed = 8.0; //OI DAV QUE TAL 8.0 DE VELOCIDADE???
+								SONG.speed = 4.0;
 								FlxTween.tween(tela_preta, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(camHUD, {alpha: 1}, 1,{ease: FlxEase.cubeInOut});
 
@@ -5463,7 +5428,7 @@ class PlayState extends MusicBeatState
 								scoreTxt.visible=true;
 								timeBar.createFilledBar(0xFF000000, 0xFFFF0000);
 								timeTxt.visible=true;
-								SONG.speed = 1.5; //Talvez isso seja muito lento, mas  a idéia é essa mesma k
+								SONG.speed = 2.8; //Talvez isso seja muito lento, mas  a idéia é essa mesma k
 								timeBarBG.visible=true;
 								canRegen = false;
 								isPixelStage = false;
@@ -5979,7 +5944,6 @@ class PlayState extends MusicBeatState
 		camZooming = false;
 		inCutscene = false;
 		updateTime = false;
-		somethinspecial = false;
 
 		if (useVideo)
 			{
@@ -6593,7 +6557,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		if (curSong.toLowerCase()=='cross-console-clash' && !invencibilidade){ //Top 10 mecanicas mais fodas dos animes que não sei dizer se é uma recriação ou se é eu inventando moda
+		if (curSong.toLowerCase()=='cross-console-clash' && !invencibilidade && daNote.noteType != 'CCC Regen'){ //Top 10 mecanicas mais fodas dos animes que não sei dizer se é uma recriação ou se é eu inventando moda
 			cccVidaCounter--;
 			invencibilidade = true;
 
@@ -6606,7 +6570,11 @@ class PlayState extends MusicBeatState
 					triggerEventNote('Change Character', 'bf', 'mario-ccc-small');
 				}
 			}else if(boyfriend.curCharacter.startsWith('sonic')){
-				FlxG.sound.play(Paths.sound('ring_loss'));
+				FlxG.sound.play(Paths.sound('ring_loss'), 0.5);
+			}
+
+			if(curSong.toLowerCase()=='cross-console-clash'){
+				sonicHUDCCC.updateScoreText();
 			}
 
 			cccMiss=true;
@@ -7193,6 +7161,16 @@ class PlayState extends MusicBeatState
 			trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
 			#end
 			return;
+		}
+
+		if(cccVidaCounter == 0 && boyfriend.curCharacter.startsWith('sonic') && curSong.toLowerCase()=='cross-console-clash'){
+			if (curBeat % 2 == 0){
+				SonicHUDCCC.ringsText.color = FlxColor.RED;
+			} else{
+				SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
+			}
+		} else if (boyfriend.curCharacter.startsWith('sonic')){
+			SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
 		}
 
 		if (curBeat == 162 && curSong.toLowerCase() == 'cross-console-clash' && !luigienter)
