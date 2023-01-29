@@ -110,7 +110,7 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 			scoreGroup.add(scoreNum);
 		}
 
-		ringNum = new FlxSprite(300, barY + (1 * 6)).loadGraphic(Paths.image('score'), true, 8, 8);
+		ringNum = new FlxSprite(300, barY + (2 * 6)).loadGraphic(Paths.image('score'), true, 8, 8);
 		ringNum.visible = !isMario;
 		ringNum.antialiasing = false;
 		ringsText = new FlxSprite(250, barY + (1 * 6)).loadGraphic(Paths.image('sonicUI/sonic2/rings'));
