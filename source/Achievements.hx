@@ -62,6 +62,11 @@ class Achievements {
 			if(achievementsStuff[i][2] == name) {
 				return i;
 			}
+			#if !debug 
+			else{
+				return 0; //Isso aqui serve apenas para evitar que o jogo crashe caso a gente esqueça alguma coisa
+			} //Em tese, nada irá ocorrer já que todo mundo ganha o primeiro achievement ao entrar no jooj
+			#end
 		}
 		return -1;
 	}

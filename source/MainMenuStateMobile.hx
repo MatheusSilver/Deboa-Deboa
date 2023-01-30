@@ -362,7 +362,7 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		#if debug
 		if(FlxG.keys.justPressed.FOUR){
-		add(new AchievementObject('besties', camAchievement));
+		add(new AchievementObject('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', camAchievement));
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		trace('Giving achievement "modboa"');
 		}
