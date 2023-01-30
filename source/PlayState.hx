@@ -7209,7 +7209,7 @@ class PlayState extends MusicBeatState
 			} else{
 				SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
 			}
-		} else if (boyfriend.curCharacter.startsWith('sonic' && curSong.toLowerCase()=='cross-console-clash')){
+		} else if (boyfriend.curCharacter.startsWith('sonic') && curSong.toLowerCase()=='cross-console-clash'){
 			SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
 		}
 
