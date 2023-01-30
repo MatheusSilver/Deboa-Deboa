@@ -169,7 +169,7 @@
 				-441
 			],
 			"indices": [],
-			"fps": 30,
+			"fps": 32,
 			"anim": "dialogue peel",
 			"loop": false,
 			"name": "dialogue peelout"

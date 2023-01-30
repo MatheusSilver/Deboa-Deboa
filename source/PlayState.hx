@@ -506,12 +506,33 @@ class PlayState extends MusicBeatState
 		precacheList.set('pausescrollmenu', 'sound');
 		precacheList.set('breakfast', 'music');
 
-			if (SONG.song.toLowerCase() == 'too-slow') 
+			if (SONG.song.toLowerCase() == 'prey') 
 			{
-				precacheList.set('PolishedP1/sonicJUMPSCARE', 'image');
-				precacheList.set('daSTAT', 'image');
-				precacheList.set('hitStatic','image');
+				trace('teste');
+				precacheList.set('bad_ending', 'image');
+				precacheList.set('good_ending', 'image');
+				precacheList.set('true_ending','image');
+				precacheList.set('pixelUI/NOTE-FURNACE_assets','image');
+				precacheList.set('pixelUI/NOTE-FURNACE_assetsENDS','image');
+				precacheList.set('pixelUI/NOTE-FURNACEBLU_assets','image');
+				precacheList.set('pixelUI/NOTE-FURNACEBLU_assetsENDS','image');
+				precacheList.set('pixelUI/NOTE-STARVI_assets','image');
+				precacheList.set('pixelUI/NOTE-STARVI_assetsENDS','image');
+				precacheList.set('pixelUI/NOTE-supa_assets','image');
+				precacheList.set('pixelUI/NOTE-supa_assetsENDS','image');
+				precacheList.set('cenarios/starved/stardustBg','image');
+				precacheList.set('cenarios/starved/stardustFloor1','image');
+				precacheList.set('cenarios/starved/stardustFloor2','image');
+				precacheList.set('cenarios/starved/stardustFloor3','image');
+				precacheList.set('cenarios/starved/stardustFloor4','image');
 			}
+
+			if (SONG.song.toLowerCase() == 'too-slow') 
+				{
+					precacheList.set('PolishedP1/sonicJUMPSCARE', 'image');
+					precacheList.set('daSTAT', 'image');
+					precacheList.set('hitStatic','image');
+				}
 
 			if (SONG.song.toLowerCase() == 'cross-console-clash') 
 			{
@@ -4547,6 +4568,7 @@ class PlayState extends MusicBeatState
 					}
 				});
 			case 'strum swap2': //	OMAGA 2???????? DOS MESMOS CRIADORES DO WHATSAPP 2??? OOOOOOOOOOOMAGAAAAAWD (Silvio momentos antes de coringar colocando eventos na Triple-Trouble)
+				if(value2 != 'true'){ //Só pra corrigir um bugzinho na Prey
 				if (!ClientPrefs.middleScroll && value1 != 'true'){
 				playerStrums.forEach(function(spr:FlxSprite)
 				{
@@ -4568,10 +4590,12 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(strumLineNotes.members[6], {x: (strumLineNotes.members[6].x) - 645}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.tween(strumLineNotes.members[7], {x: (strumLineNotes.members[7].x) - 645}, 1, {ease: FlxEase.quadInOut});
 			}
+			}
 			bfIsLeft = false;
+
 			iconP2.changeIcon(dad.healthIcon);
 			iconP1.changeIcon(boyfriend.healthIcon);
-				reloadHealthBarColors();
+			reloadHealthBarColors();
 				case 'strum swap1':
 					if (!ClientPrefs.middleScroll && value1 != 'true'){
 					playerStrums.forEach(function(spr:FlxSprite)
@@ -5335,7 +5359,7 @@ class PlayState extends MusicBeatState
 							if(desviou){
 							triggerEventNote('Change Character', 'bf', 'bf-Sonic-Peelout-sus'); //Note for future self - Esse cara vai precisar de um pré cache especial só pra ele.
 							}
-							FlxTween.tween(stardustFurnace, {x: 3500}, 7, {onComplete: function(yes:FlxTween)
+							FlxTween.tween(stardustFurnace, {x: 3000}, 10, {onComplete: function(yes:FlxTween)
 								{
 									triggerEventNote('Change Character', 'bf', 'bf-Sonic-Peelout');
 								}});
@@ -5470,10 +5494,10 @@ class PlayState extends MusicBeatState
 								stardustFloorPixel.visible = false;
 								theendbg.visible = true;
 								furnaceTheEnd.visible = true;
-								boyfriend.x = 998;
-								boyfriend.y = 402;
-								dad.x = 1308;
-								dad.y = -134;
+								boyfriend.x = 998 -208;
+								boyfriend.y = 302;
+								dad.x = 1308 -208;
+								dad.y = 202;
 								health = 0.05;
 
 								case 4505:
@@ -7185,7 +7209,7 @@ class PlayState extends MusicBeatState
 			} else{
 				SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
 			}
-		} else if (boyfriend.curCharacter.startsWith('sonic')){
+		} else if (boyfriend.curCharacter.startsWith('sonic' && curSong.toLowerCase()=='cross-console-clash')){
 			SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
 		}
 

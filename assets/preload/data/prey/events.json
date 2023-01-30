@@ -1362,7 +1362,7 @@
 						"Play Animation",
 						"first dialogue",
 						"bf",
-						null
+						""
 					],
 					[
 						131761.363636364,
@@ -1370,7 +1370,7 @@
 						"Play Animation",
 						"dialogue",
 						"dad",
-						null
+						""
 					],
 					[
 						132016.818181818,
@@ -2918,6 +2918,14 @@
 						""
 					],
 					[
+						292477.272727272,
+						-1,
+						"strum swap2",
+						"",
+						"true",
+						""
+					],
+					[
 						291732.954545453,
 						-1,
 						"Change Character",
@@ -3878,7 +3886,7 @@
 						""
 					],
 					[
-						383948.863636362,
+						383552.272727271,
 						-1,
 						"eventos-prey",
 						"4505",
@@ -5363,7 +5371,16 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						140620000.5,
+						-1,
+						"Change Character",
+						"bf",
+						"bf-Sonic-Peelout-sus",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
