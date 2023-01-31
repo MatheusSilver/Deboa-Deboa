@@ -122,7 +122,7 @@ class Main extends Sprite
 		#end
 		top 10 codes que tu faz no passado, esquece e depois se arrepende (Mobile Issue :skull:)
 		*/ 
-		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
 		
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
