@@ -14,6 +14,11 @@ class Achievements {
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
 		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 181570, 'geral', 'estrelas'], //na real, meio que tanto faz isso.
 		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false, 181571, 'meme maker', 'estrelas'],
+		["Bye, Bye",					"Vença a Cycles sem errar",							'bye_bye_fc',		false, 0, 'ira', 'estrelas'],
+		["Aquele que adora te olhar",	"Vença Control sem errar",							'control_fc',		false, 0, 'preguica', 'estrelas'],
+		["Super Sonic Racing",			"Não erre durante o evento da Sunshine",			'sunshine_fc',		false, 0, 'fome', 'estrelas'],
+		["Farsante",					"Vença Faker sem errar",							'faker_fc',			false, 0, 'inveja', 'estrelas'],
+		["Sarah as 3 da manhã",			"Jogue round-a-bout num horário específico",		'madrugada_fc',		false, 0, 'ganancia', 'estrelas'],
 		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 181572, 'discordia', 'estrelas'],
 		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 181719, 'geral', 'estrelas'],
 		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 181720, 'orgulho', 'estrelas'],
