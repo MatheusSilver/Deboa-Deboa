@@ -99,13 +99,13 @@ class MenuHistoria extends MusicBeatSubstate
 			if (controls.UI_LEFT_P && apertavel && musicas.length > 1) //MALUCO EU SOU MUITO BURRO...
 				//Consegui cometer o mesmo erro duas vezes seguidas...
 			{
-				changeSong(-1, false);
+				changeSong(-1, true);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
 			if (controls.UI_RIGHT_P && apertavel && musicas.length > 1)
 			{
-				changeSong(1, true);
+				changeSong(1, false);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
