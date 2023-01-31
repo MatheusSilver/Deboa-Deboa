@@ -299,7 +299,7 @@ class PlayState extends MusicBeatState
 	public var dad2Group:FlxSpriteGroup; // going to use this for needle/sarah (avery)
 
 	//trems da pasta night
-	var barGolgPassing:BGSprite;
+	var barGoldPassing:BGSprite;
 	var barluigiPassing:BGSprite;
 	var barmesafront:BGSprite;
 	var saladfingers:BGSprite;
@@ -315,6 +315,9 @@ class PlayState extends MusicBeatState
 	var barjeffbody:BGSprite;
 	var barmesaback:BGSprite;
 	var barjeffbraco:BGSprite;
+	var bracosmx:FlxSprite;
+	var blocomx:BGSprite;
+	var bracoshypno:FlxSprite;
 
 
 	// needlemouse shit
@@ -931,11 +934,45 @@ class PlayState extends MusicBeatState
 
 			case 'bar' | 'bar-lordx' | 'bar-hypno':
 
+					if(curStage != 'bar-hypno'){
+						var doPush:Bool = false;
+						var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/Pendelum.lua';
+						luaFile = Paths.getPreloadPath(luaFile);
+							if(OpenFlAssets.exists(luaFile)) {
+								doPush = true;
+							}
+						
+						if(doPush) 
+							luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));	
+					}
+
 				var barsky:BGSprite;
 				var barshiny:BGSprite;
 				var barbg:BGSprite;
 				var polibius:BGSprite;
 				var mesaauxi:BGSprite;
+
+				bracosmx = new FlxSprite();
+				bracosmx.frames = Paths.getSparrowAtlas('mx_braco', 'shared');
+				bracosmx.animation.addByPrefix('singDOWN', 'DownFront', 24);
+				bracosmx.animation.addByPrefix('idle', 'IdleFront', 24);
+				bracosmx.animation.addByPrefix('singLEFT', 'LeftFront', 24);
+				bracosmx.animation.addByPrefix('singRIGHT', 'RightFront', 24);
+				bracosmx.animation.addByPrefix('singUP', 'UpFront', 24);
+				bracosmx.animation.addByPrefix('POWparte1', 'Hit1Front', 24);
+				bracosmx.animation.addByPrefix('POWparte2', 'Hit2Front', 24);
+
+				bracoshypno = new FlxSprite();
+				bracoshypno.frames = Paths.getSparrowAtlas('characters/PASTA/PASTA_HYPNO', 'shared'); //Apenas para garantir que ele irá puxar o sprite carregado antes.
+				bracoshypno.animation.addByPrefix('singDOWN', 'Hypno Down Front', 24);
+				bracoshypno.animation.addByPrefix('idle', 'Hypno Idle Front', 24);
+				bracoshypno.animation.addByPrefix('singLEFT', 'Hypno Left Front', 24);
+				bracoshypno.animation.addByPrefix('singRIGHT', 'Hypno Right Front', 24);
+				bracoshypno.animation.addByPrefix('singUP', 'Hypno Up Front', 24);
+
+				blocomx = new BGSprite('mxblock', -300, 100, 0.6, 0.6, ['BlockIdle']);
+				blocomx.scale.x = 1.1;
+				blocomx.scale.y = 1.1;
 
 				barsky = new BGSprite('cenarios/SKY', 150, 0, 0.1, 0.1);
 				barsky.scale.x = 3;
@@ -1562,6 +1599,9 @@ class PlayState extends MusicBeatState
 
 		if (nomehistorico.toLowerCase() == 'noite da rapaziada'){
 			add(barmesafront);
+			add(blocomx);
+			add(bracoshypno);
+			add(bracosmx);
 		}
 
 		
@@ -3053,6 +3093,7 @@ class PlayState extends MusicBeatState
 				if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
 					if(!ClientPrefs.lowQuality) {
 						saladfingers.dance(true);
+						blocomx.dance(true);
 						widemouth.dance(true);
 						barjack.dance(true);
 						barbrian.dance(true);
@@ -6597,6 +6638,10 @@ class PlayState extends MusicBeatState
 			}
 		});
 
+		if(curSong.toLowerCase() == 'pasta-night'){
+			bardrowned.animation.play('sim'); //veri scari
+			}
+
 		if (curSong.toLowerCase()=='cross-console-clash' && !invencibilidade && daNote.noteType != 'CCC Regen'){ //Top 10 mecanicas mais fodas dos animes que não sei dizer se é uma recriação ou se é eu inventando moda
 			cccVidaCounter--;
 			invencibilidade = true;
@@ -6694,9 +6739,6 @@ class PlayState extends MusicBeatState
 				songMisses++;
 			}
 			RecalculateRating();
-			if(curSong.toLowerCase() == 'pasta-night'){
-				bardrowned.animation.play('sim'); //very scari
-				}
 
 			//FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
@@ -7314,6 +7356,7 @@ class PlayState extends MusicBeatState
 			case 'bar' | 'bar-lordx' | 'bar-hypno':
 				if(!ClientPrefs.lowQuality) {
 					saladfingers.dance(true);
+					blocomx.dance(true);
 					widemouth.dance(true);
 					barbrian.dance(true);
 					barjack.dance(true);

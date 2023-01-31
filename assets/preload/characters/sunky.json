@@ -2,77 +2,77 @@
 	"animations": [
 		{
 			"offsets": [
-				185,
-				130
+				0,
+				0
 			],
-			"loop": true,
+			"loop": false,
 			"fps": 24,
 			"anim": "idle",
 			"indices": [],
-			"name": "BF idle dance"
+			"name": "sunkyIDLE instance"
 		},
 		{
 			"offsets": [
-				140,
-				150
+				45,
+				23
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singDOWN",
 			"indices": [],
-			"name": "BF NOTE DOWN"
+			"name": "sunkyDOWN instance"
 		},
 		{
 			"offsets": [
-				191,
-				147
+				41,
+				8
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "sunkyLEFT instance"
+		},
+		{
+			"offsets": [
+				-16,
+				6
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
-			"name": "BF NOTE UP"
+			"name": "sunkyUP instance"
 		},
 		{
 			"offsets": [
-				212,
-				143
+				-53,
+				-6
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "BF NOTE RIGHT"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				152,
-				144
-			],
-			"anim": "singLEFT",
-			"fps": 24,
-			"name": "BF NOTE LEFT",
-			"indices": []
+			"name": "sunkyRIGHT instance"
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/sunky",
+	"image": "characters/milk/sunky",
 	"position": [
-		-90,
-		180
+		-290,
+		110
 	],
 	"healthicon": "sunky",
 	"flip_x": false,
 	"healthbar_colors": [
-		37,
-		71,
-		251
+		40,
+		100,
+		255
 	],
 	"camera_position": [
-		-250,
-		-100
+		-150,
+		-70
 	],
-	"sing_duration": 4,
-	"scale": 1.2
+	"sing_duration": 6.1,
+	"scale": 1.4
 }
