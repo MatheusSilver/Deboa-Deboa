@@ -4205,7 +4205,7 @@ class PlayState extends MusicBeatState
 					strumY = playerStrums.members[daNote.noteData].y;
 					strumAngle = playerStrums.members[daNote.noteData].angle;
 					strumAlpha = playerStrums.members[daNote.noteData].alpha;
-				} else if (daNote.noteType != 'player3' && daNote.noteData < 8){ //Esse ultimo termo é porque aparentemente os charters originais do som fizeram algo... A little bit sussy...
+				} else if (daNote.noteType != 'player3'){ //Ok... Vou fazer algo decente...
 					strumX = opponentStrums.members[daNote.noteData].x;
 					strumY = opponentStrums.members[daNote.noteData].y;
 					strumAngle = opponentStrums.members[daNote.noteData].angle;
