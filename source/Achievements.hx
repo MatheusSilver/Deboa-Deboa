@@ -48,7 +48,10 @@ class Achievements {
 		achievementsMap.set(name, true);
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		var id:Int = Achievements.getAchievementIndex(name);
-		GJClient.trophieAdd(achievementsStuff[id][4]);
+		if(GJClient.logged)
+			{
+				GJClient.trophieAdd(achievementsStuff[id][4]);
+			}
 	}
 
 	public static function isAchievementUnlocked(name:String) {

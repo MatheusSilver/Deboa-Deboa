@@ -5,11 +5,17 @@ function onCreate()
 	setProperty('sponge.visible', false)
 	addLuaSprite('sponge', true);
 
-    makeAnimatedLuaSprite('inicio', 'luanzitoanim', 0, 0);
-	addAnimationByPrefix('inicio', 'luanzitoanim play', 'luanzitoanim play', 30, false)
-    setObjectCamera('inicio', 'other');
-	setScrollFactor('inicio', 1, 1);
-	setProperty('inicio.antialiasing', true)
+	if lowQuality == true then
+		makeLuaSprite('luanzito', 'luaznito', 0, 0);
+		setObjectCamera('luanzito', 'other');
+		setProperty('luanzito.visible', false)
+	else
+		makeAnimatedLuaSprite('inicio', 'luanzitoanim', 0, 0);
+		addAnimationByPrefix('inicio', 'luanzitoanim play', 'luanzitoanim play', 30, false)
+		setObjectCamera('inicio', 'other');
+		setScrollFactor('inicio', 1, 1);
+		setProperty('inicio.antialiasing', true)
+	end
 	
 end
 
@@ -28,19 +34,27 @@ function onStepHit()
 	end
 
 	if curStep == 69 then
-        doTweenZoom('bruh', 'camGame', 2.2, 4, 'linear')
+        --doTweenZoom('bruh', 'camGame', 2.2, 4, 'linear')
 	end
 
 	if curStep == 96 then
-        doTweenZoom('bruh', 'camGame', 0.9, 0.001, 'linear')
+        --doTweenZoom('bruh', 'camGame', 0.9, 0.001, 'linear')
 	end
 
     if curStep == 53 then
-        addLuaSprite('inicio', false);
-        objectPlayAnimation('inicio', 'luanzitoanim play', false)
+		if lowQuality == true then
+			setProperty('luanzito.visible', true)
+		else
+			addLuaSprite('inicio', false);
+			objectPlayAnimation('inicio', 'luanzitoanim play', false)
+		end
     end
 
     if curStep == 96 then
-        removeLuaSprite('inicio', false);
+		if lowQuality == true then
+			removeLuaSprite('luanzito', false);
+		else
+			removeLuaSprite('inicio', false);
+		end
     end
 end
