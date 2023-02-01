@@ -24,6 +24,7 @@ class GameJoltLoginState extends MusicBeatState
     public static var logobg:FlxSprite;
     public static var referencebg:FlxSprite;
     public static var esconderTexto:Bool;
+    var podeSair:Bool;
     var loginbotao:FlxButton;
 	
 	override function create()
@@ -121,7 +122,7 @@ class GameJoltLoginState extends MusicBeatState
                         msgBar.alpha=1;
                     }
             //var falhou:Bool = false;
-            if (FlxG.keys.justReleased.ESCAPE) {
+            if (controls.BACK&&podeSair) {
                 FlxG.sound.play(Paths.sound('cancelMenu'));
                 MusicBeatState.switchState(new ajustes.AjustesState());
             }
@@ -132,6 +133,10 @@ class GameJoltLoginState extends MusicBeatState
             loginbotao.onOver.callback = loginHover;
 			loginbotao.onOut.callback = loginOut;
 			loginbotao.onDown.callback = loginClick;
+            
+            podeSair = !tokenBar.hasFocus && !userBar.hasFocus; // uma única linha que muda tudo
+
+
             //letext.text = "X: "+Std.string(loginbotao.x)+"\nY: "+ Std.string(loginbotao.y); // debug moment
             /*if(falhouBar.alpha == 1)
                 {
