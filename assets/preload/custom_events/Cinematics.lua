@@ -13,15 +13,16 @@ function onCreate()
 	--THE TOP BAR
 	makeLuaSprite('UpperBar', 'empty', 0, -120)
 	makeGraphic('UpperBar', 1280, 120, '000000')
-	setObjectCamera('UpperBar', 'hud')
+	setObjectCamera('UpperBar', 'other')
 	addLuaSprite('UpperBar', false)
 
 
 	--THE BOTTOM BAR
 	makeLuaSprite('LowerBar', 'empty', 0, 720)
 	makeGraphic('LowerBar', 1280, 120, '000000')
-	setObjectCamera('LowerBar', 'hud')
+	setObjectCamera('LowerBar', 'other')
 	addLuaSprite('LowerBar', false)
+
 
 end
 
@@ -40,6 +41,7 @@ function onUpdate()
 	noteTweenY('NOTEMOVE6', 5, 130, Speed, 'Linear')
 	noteTweenY('NOTEMOVE7', 6, 130, Speed, 'Linear')
 	noteTweenY('NOTEMOVE8', 7, 130, Speed, 'Linear')
+	setProperty('botplayTxt.text', '')
 	doTweenAlpha('AlphaTween1', 'healthBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 0, 0.1)
 	doTweenAlpha('AlphaTween3', 'scoreTxt', 0, 0.1)
@@ -48,6 +50,7 @@ function onUpdate()
 	doTweenAlpha('AlphaTween6', 'timeBar', 0, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 0, 0.1)
+
 
 	end
 
@@ -63,6 +66,7 @@ function onUpdate()
 	noteTweenY('NOTEMOVE6', 5, 480, Speed, 'Linear')
 	noteTweenY('NOTEMOVE7', 6, 480, Speed, 'Linear')
 	noteTweenY('NOTEMOVE8', 7, 480, Speed, 'Linear')
+	setProperty('botplayTxt.text', '')
 	doTweenAlpha('AlphaTween1', 'healthBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 0, 0.1)
 	doTweenAlpha('AlphaTween3', 'scoreTxt', 0, 0.1)
@@ -87,6 +91,7 @@ function onUpdate()
 	noteTweenY('NOTEMOVE6', 5, 50, Speed, 'Linear')
 	noteTweenY('NOTEMOVE7', 6, 50, Speed, 'Linear')
 	noteTweenY('NOTEMOVE8', 7, 50, Speed, 'Linear')
+	setProperty('botplayTxt.text', 'BOTPLAY')
 	doTweenAlpha('AlphaTween1', 'healthBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 1, 0.1)
 	doTweenAlpha('AlphaTween3', 'scoreTxt', 1, 0.1)
@@ -95,6 +100,7 @@ function onUpdate()
 	doTweenAlpha('AlphaTween6', 'timeBar', 1, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 1, 0.1)
+	--doTweenAlpha('AlphaTween9', 'botplayTxt', 1, 0.1)
 	
 	end
 
@@ -110,6 +116,7 @@ function onUpdate()
 	noteTweenY('NOTEMOVE6', 5, 570, Speed, 'Linear')
 	noteTweenY('NOTEMOVE7', 6, 570, Speed, 'Linear')
 	noteTweenY('NOTEMOVE8', 7, 570, Speed, 'Linear')
+	setProperty('botplayTxt.text', 'BOTPLAY')
 	doTweenAlpha('AlphaTween1', 'healthBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 1, 0.1)
 	doTweenAlpha('AlphaTween3', 'scoreTxt', 1, 0.1)
@@ -118,6 +125,7 @@ function onUpdate()
 	doTweenAlpha('AlphaTween6', 'timeBar', 1, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 1, 0.1)
+	--doTweenAlpha('AlphaTween9', 'botplayTxt', 1, 0.1)
 	
 	end
 	
