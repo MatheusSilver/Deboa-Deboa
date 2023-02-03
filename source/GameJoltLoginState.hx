@@ -90,7 +90,7 @@ class GameJoltLoginState extends MusicBeatState
 			referencebg.alpha = 1;
 			add(referencebg);
             msgBar = new FlxText(0, 0, FlxG.width - 95, "", 80);
-			msgBar.setFormat(Paths.font("GhoulFriAOE.ttf"), 80, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			msgBar.setFormat(Paths.font("letravio.ttf"), 80, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			msgBar.scrollFactor.set();
 			msgBar.alpha = 1;
             msgBar.y=536;

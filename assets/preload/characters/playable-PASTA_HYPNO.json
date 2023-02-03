@@ -2,7 +2,7 @@
 	"animations": [
 		{
 			"offsets": [
-				19,
+				7,
 				35
 			],
 			"loop": false,
@@ -25,7 +25,7 @@
 		{
 			"offsets": [
 				-109,
-				41
+				-39
 			],
 			"loop": false,
 			"anim": "singRIGHT",
@@ -47,8 +47,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				-21,
-				-123
+				-20,
+				-122
 			],
 			"anim": "singDOWN",
 			"fps": 24,
@@ -59,19 +59,19 @@
 	"no_antialiasing": false,
 	"image": "characters/PASTA/PASTA_HYPNO",
 	"position": [
-		940,
+		0,
 		0
 	],
-	"healthicon": "icon-hypno-cards",
+	"healthicon": "hypno-cards",
 	"flip_x": false,
 	"healthbar_colors": [
 		249,
 		223,
-		48
+		68
 	],
 	"camera_position": [
-		750,
-		60
+		0,
+		0
 	],
 	"sing_duration": 6.1,
 	"scale": 1.5

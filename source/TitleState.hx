@@ -1,7 +1,6 @@
 package;
 
 import FunkinLua;
-import Shaders;
 import flash.display.Sprite;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -106,7 +105,10 @@ class TitleState extends MusicBeatState
 
 		// DEBUG BULLSHIT
 
-		swagShader = new ColorSwap();
+		//swagShader = new ColorSwap();
+		//Essa linha de código de cima... Essa maldita linha me ensinou como usar shaders
+		//Na realidade, shaders no mobile não são problema, afinal...
+		//Eles estão rodando o tempo todo
 		super.create();
 
 		FlxG.save.bind('modboa' #if (flixel < "5.0.0"), 'galaccine' #end);
@@ -149,7 +151,7 @@ class TitleState extends MusicBeatState
 		//GameJoltAPI.connect();
 		//GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Na tela de titulo", null);
+		DiscordClient.changePresence("Algo super aleatório?", null);
 		#end
 	}
 
@@ -157,7 +159,7 @@ class TitleState extends MusicBeatState
 	var logoBl1:FlxSprite;
 	//var menuGif:FlxSprite;
 	var titleText:FlxSprite;
-	var swagShader:ColorSwap = null;
+	//var swagShader:ColorSwap = null;
 	var opacidade:Float = 0;
 	var opacidadesuporte:Int = -1;
 	var candothething:Bool = false;
@@ -240,7 +242,7 @@ class TitleState extends MusicBeatState
 		*/
 
 
-		swagShader = new ColorSwap();
+		//swagShader = new ColorSwap();
 		//add(menuGif);
 		add(logoBl2);
 		add(supbg);
@@ -445,11 +447,11 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		}
 
-		if(swagShader != null)
-		{
-			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
-			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
-		} 
+		//if(swagShader != null)
+		//{
+		//	if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
+		//	if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
+		//} 
 
 		opacidade += 0.01 * opacidadesuporte;
 

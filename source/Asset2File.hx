@@ -1,10 +1,8 @@
 package;
 
-import haxe.crypto.Md5;
-import openfl.utils.Assets;
+
 #if sys
-import sys.FileSystem;
-import sys.io.File;
+
 #end
 //hi
 class Asset2File

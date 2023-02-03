@@ -30,7 +30,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
 
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="1280" height="720" resizable="false"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" width="1280" height="720" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true"/>
 	<define name="mobileC" if="mobile" />
 	<assets path="assets/shared/images/hitbox"/>
 

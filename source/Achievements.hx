@@ -3,7 +3,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 
@@ -152,11 +151,11 @@ class AchievementObject extends FlxSpriteGroup {
 		
 
 		var achievementName:FlxText = new FlxText(achievementIcon.x + achievementIcon.width + 20, achievementIcon.y + 16, 280, Achievements.achievementsStuff[id][0], 16);
-		achievementName.setFormat(Paths.font("GhoulFriAOE.ttf"), 16, FlxColor.WHITE, LEFT);
+		achievementName.setFormat(Paths.font("letravio.ttf"), 16, FlxColor.WHITE, LEFT);
 		achievementName.scrollFactor.set();
 
 		var achievementText:FlxText = new FlxText(achievementName.x, achievementName.y + 32, 280, Achievements.achievementsStuff[id][1], 16);
-		achievementText.setFormat(Paths.font("GhoulFriAOE.ttf"), 16, FlxColor.WHITE, LEFT);
+		achievementText.setFormat(Paths.font("letravio.ttf"), 16, FlxColor.WHITE, LEFT);
 		achievementText.scrollFactor.set();
 
 

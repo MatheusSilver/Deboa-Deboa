@@ -1,32 +1,18 @@
 package ajustes;
 
-import Controls;
-import FunkinLua;
-import Shaders;
-import editors.MasterEditorMenu;
-import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.ui.FlxUIButton;
-import flixel.effects.FlxFlicker;
-import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
-import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import lime.app.Application;
-import openfl.Lib;
 
 using StringTools;
+
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -419,7 +405,7 @@ class AjustesState extends MusicBeatState
 			else if (FlxG.keys.justPressed.SEVEN)
 			{
 				selectedSomethin = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
+				MusicBeatState.switchState(new editors.MasterEditorMenu());
 			}
 			#end
 			#end

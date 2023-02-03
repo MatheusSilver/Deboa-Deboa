@@ -1,13 +1,13 @@
 {
 	"animations": [
 		{
-			"loop": false,
+			"loop": true,
 			"offsets": [
 				60,
 				-220
 			],
 			"anim": "idle",
-			"fps": 24,
+			"fps": 25,
 			"name": "TAILSDIDLE",
 			"indices": []
 		},

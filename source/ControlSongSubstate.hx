@@ -1,12 +1,11 @@
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.text.FlxText;
-import flixel.util.FlxTimer;
+import LoadingState.LoadingsState;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import LoadingState.LoadingsState;
+import flixel.util.FlxTimer;
 
 using StringTools;
 
@@ -80,7 +79,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 			noText.x += 200;
 			add(noText);
 			explanationtext = new FlxText(0, FlxG.height - 5, FlxG.width, '', 24);
-			explanationtext.setFormat(Paths.font("GhoulFriAOE.ttf"), 32, FlxColor.WHITE, CENTER);
+			explanationtext.setFormat(Paths.font("letravio.ttf"), 32, FlxColor.WHITE, CENTER);
 			explanationtext.screenCenter(X);
 			explanationtext.scrollFactor.set();
 			

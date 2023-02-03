@@ -59,10 +59,10 @@
 	"no_antialiasing": false,
 	"image": "characters/PASTA/PASTA_LORDX",
 	"position": [
-		-130,
-		160
+		0,
+		0
 	],
-	"healthicon": "icon-lord-x",
+	"healthicon": "lord-x",
 	"flip_x": false,
 	"healthbar_colors": [
 		61,
@@ -70,9 +70,9 @@
 		93
 	],
 	"camera_position": [
-		50,
-		-70
+		0,
+		0
 	],
 	"sing_duration": 4.00000000000001,
-	"scale": 1.5
+	"scale": 1
 }

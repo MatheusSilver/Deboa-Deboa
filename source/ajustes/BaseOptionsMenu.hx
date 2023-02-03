@@ -2,10 +2,7 @@ package ajustes;
 
 import Controls;
 import flash.text.TextField;
-import flash.text.TextField;
 import flixel.FlxG;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;

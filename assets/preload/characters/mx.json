@@ -2,14 +2,14 @@
 	"animations": [
 		{
 			"offsets": [
-				34,
+				37,
 				0
 			],
 			"loop": false,
 			"fps": 24,
 			"anim": "idle",
 			"indices": [],
-			"name": "MXIdle"
+			"name": "IdleBack"
 		},
 		{
 			"offsets": [
@@ -20,7 +20,7 @@
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
-			"name": "MXLeft"
+			"name": "LeftBack"
 		},
 		{
 			"offsets": [
@@ -31,7 +31,7 @@
 			"fps": 24,
 			"anim": "singDOWN",
 			"indices": [],
-			"name": "MXDown"
+			"name": "DownBack"
 		},
 		{
 			"offsets": [
@@ -42,7 +42,7 @@
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
-			"name": "MXUp"
+			"name": "UpBack"
 		},
 		{
 			"offsets": [
@@ -53,7 +53,7 @@
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "MXRight"
+			"name": "RightBack"
 		},
 		{
 			"offsets": [
@@ -64,7 +64,7 @@
 			"fps": 24,
 			"anim": "hit1",
 			"indices": [],
-			"name": "MXHit1"
+			"name": "Hit1Back"
 		},
 		{
 			"offsets": [
@@ -75,26 +75,26 @@
 			"fps": 24,
 			"anim": "hit2",
 			"indices": [],
-			"name": "MXHit2"
+			"name": "Hit2Back"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/PASTA/PASTA_MX",
 	"position": [
-		50,
-		160
-	],
-	"healthicon": "dad",
-	"flip_x": false,
-	"healthbar_colors": [
-		0,
 		0,
 		0
 	],
+	"healthicon": "mx",
+	"flip_x": false,
+	"healthbar_colors": [
+		63, 
+		9, 
+		4
+	],
 	"camera_position": [
-		30,
-		60
+		0,
+		0
 	],
 	"sing_duration": 4.00000000000001,
-	"scale": 1.8
+	"scale": 0.9
 }

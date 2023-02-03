@@ -1,18 +1,16 @@
-import flixel.tweens.FlxEase;
+import LoadingState.LoadingsState;
 import flixel.FlxCamera;
-import flixel.util.FlxTimer;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
 import flixel.util.FlxColor;
-import LoadingState.LoadingsState;
+import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
-import flixel.tweens.FlxTween;
-#if desktop
-import Discord.DiscordClient;
-#end
 
 using StringTools;
+#if desktop
+
+#end
+
 
 class ConsoleClashSubState extends MusicBeatSubstate
 {
@@ -79,7 +77,6 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		console.y=141;
 		console.antialiasing = false;
 		console.updateHitbox();
-		//console.y = FlxG.height + console.height;
 		console.alpha=1;
 		console.screenCenter(X);
 		add(console);
@@ -95,90 +92,9 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		add(clashsupBG);
 		if(onSonic){
 			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (SONIC)'));
-			/*bgsonico.alpha = 1;
-			bgmauro.alpha = 0;
-			sonicoanim.animation.play('idle');
-			tailsanim.animation.play('idle');
-			mauroanim.animation.stop();
-			luigianim.animation.stop();*/
 		} else {
 			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (MARIO)'));
-			/*bgsonico.alpha = 0;
-			bgmauro.alpha = 1;
-			mauroanim.animation.play('idle');
-			luigianim.animation.play('idle');
-			sonicoanim.animation.stop();
-			tailsanim.animation.stop();*/
 		}
-		/*bgmauro = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/mauro'));
-		bgmauro.antialiasing = ClientPrefs.globalAntialiasing;
-		bgmauro.scale.x = commonmultiplier;
-		bgmauro.scale.y = commonmultiplier;
-		bgmauro.cameras = [consoleCam];
-		bgmauro.antialiasing = false;
-		bgmauro.updateHitbox();
-		bgmauro.screenCenter(XY);
-		add(bgmauro);
-
-		bgsonico = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/sonico'));
-		bgsonico.antialiasing = ClientPrefs.globalAntialiasing;
-		bgsonico.scale.x = commonmultiplier;
-		bgsonico.scale.y = commonmultiplier;
-		bgsonico.cameras = [consoleCam];
-		bgsonico.antialiasing = false;
-		bgsonico.updateHitbox();
-		bgsonico.screenCenter(XY);
-		add(bgsonico);*/
-
-		/*sonicoanim = new FlxSprite(0, 0); //ok
-		sonicoanim.frames = Paths.getSparrowAtlas('CCC Stuff/bonecos/sonic');
-		sonicoanim.animation.addByPrefix('idle', "idle", 28);
-		sonicoanim.animation.addByPrefix('confirm', "heyextended", 48);
-		sonicoanim.animation.play('idle');
-		sonicoanim.alpha = 1;
-		sonicoanim.cameras = [consoleCam];
-		sonicoanim.antialiasing = false;
-		//sonicoanim.setGraphicSize(Std.int(sonicoanim.width * 0.32));
-		sonicoanim.updateHitbox();
-		add(sonicoanim);
-
-		tailsanim = new FlxSprite(0, 0); //ok
-		tailsanim.frames = Paths.getSparrowAtlas('CCC Stuff/bonecos/tails');
-		tailsanim.animation.addByPrefix('idle', "idle", 28);
-		tailsanim.animation.addByPrefix('confirm', "up", 48);
-		tailsanim.animation.play('idle');
-		tailsanim.cameras = [consoleCam];
-		tailsanim.alpha = 1;
-		tailsanim.antialiasing = false;
-		//tailsanim.setGraphicSize(Std.int(tailsanim.width * 0.32));
-		tailsanim.updateHitbox();
-		add(tailsanim);
-
-		luigianim = new FlxSprite(0, 0); //ok
-		luigianim.frames = Paths.getSparrowAtlas('CCC Stuff/bonecos/luigi-ccc');
-		luigianim.animation.addByPrefix('idle', "idle", 28);
-		luigianim.animation.addByPrefix('confirm', "up", 48);
-		luigianim.animation.play('idle');
-		luigianim.alpha = 1;
-		luigianim.cameras = [consoleCam];
-		luigianim.flipX = true;
-		luigianim.antialiasing = false;
-		//luigianim.setGraphicSize(Std.int(luigianim.width * 0.32));
-		luigianim.updateHitbox();
-		add(luigianim);
-
-		mauroanim = new FlxSprite(0, 0); //ok
-		mauroanim.frames = Paths.getSparrowAtlas('CCC Stuff/bonecos/mario-ccc');
-		mauroanim.animation.addByPrefix('idle', "idle", 28);
-		mauroanim.animation.addByPrefix('confirm', "hey", 48);
-		mauroanim.animation.play('idle');
-		mauroanim.cameras = [consoleCam];
-		mauroanim.alpha = 1;
-		mauroanim.flipX = true;
-		mauroanim.antialiasing = false;
-		//mauroanim.setGraphicSize(Std.int(mauroanim.width * 0.32));
-		mauroanim.updateHitbox();
-		add(mauroanim);*/
 
 		updateOptions();
 
@@ -213,8 +129,6 @@ class ConsoleClashSubState extends MusicBeatSubstate
 			persistentUpdate = false;
 			PlayState.isStoryMode = false;
 			if(onSonic) {
-				//sonicoanim.animation.play('confirm');
-				//tailsanim.animation.play('confirm');
 				crossDifficulty = 3;
 				var songLowercase:String = Paths.formatToSongPath(song);
 				var poop:String = Highscore.formatSong(songLowercase, crossDifficulty);
@@ -240,8 +154,6 @@ class ConsoleClashSubState extends MusicBeatSubstate
 				FreeplayState.destroyFreeplayVocals();
 			}
 			else if(!onSonic) {
-				//mauroanim.animation.play('confirm');
-				//luigianim.animation.play('confirm');
 				crossDifficulty = 4;
 				var songLowercase:String = Paths.formatToSongPath(song);
 				var poop:String = Highscore.formatSong(songLowercase, crossDifficulty);
@@ -273,33 +185,12 @@ class ConsoleClashSubState extends MusicBeatSubstate
 
 		if(entrada){
 			entrada = false;
-			/*FlxTween.tween(console, {y: (FlxG.height - console.height)/2}, 0.5, {ease: FlxEase.quadInOut,
-				onComplete: function(twn:FlxTween) {
-					consoleCam.flash(FlxColor.WHITE, 0.5);
-					FlxTween.tween(clashsupBG, {alpha: 1}, 0.5, {ease: FlxEase.quadInOut,
-						onComplete: function(twn:FlxTween) {
-							updateOptions();
-							console.screenCenter(XY);
-						}});
-				}});*/
 				updateOptions();
 		}else{
 		if(onSonic){
 			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (SONIC)'));
-			/*bgsonico.alpha = 1;
-			bgmauro.alpha = 0;
-			sonicoanim.animation.play('idle');
-			tailsanim.animation.play('idle');
-			mauroanim.animation.stop();
-			luigianim.animation.stop();*/
 		} else {
 			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (MARIO)'));
-			/*bgsonico.alpha = 0;
-			bgmauro.alpha = 1;
-			mauroanim.animation.play('idle');
-			luigianim.animation.play('idle');
-			sonicoanim.animation.stop();
-			tailsanim.animation.stop();*/
 		}
 	}
 	}

@@ -7,13 +7,11 @@ import flixel.input.actions.FlxActionInput;
 import flixel.input.actions.FlxActionInputDigital;
 import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxActionSet;
-import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
-import flixel.group.FlxGroup;
-import ui.Hitbox;
-import ui.FlxVirtualPad;
 import flixel.ui.FlxButton;
+import ui.FlxVirtualPad;
+import ui.Hitbox;
 
 #if (haxe >= "4.0.0")
 enum abstract Action(String) to String from String

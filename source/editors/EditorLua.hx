@@ -7,25 +7,15 @@ import llua.LuaL;
 import llua.State;
 #end
 
-import Controls;
-import DialogueBoxPsych;
 import Type.ValueType;
-import flixel.FlxBasic;
-import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxPoint;
-import flixel.system.FlxSound;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
 
 using StringTools;
+
 #if desktop
-import Discord;
+
 #end
 
 

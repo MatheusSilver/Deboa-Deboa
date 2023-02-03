@@ -47,19 +47,19 @@ class CustomTransition extends MusicBeatSubstate {
 
 		this.isTransIn = isTransIn;
 
-		ccmic = new FlxSprite().loadGraphic(Paths.image(transições/galaccine));
+		ccmic = new FlxSprite().loadGraphic(Paths.image('transições/galaccine'));
 		ccmic.setGraphicSize(FlxG.width, FlxG.height);
 		if(cc) {
 		add(ccmic);
 		}
 
-		sonic = new FlxSprite().loadGraphic(Paths.image(transições/sonic));
+		sonic = new FlxSprite().loadGraphic(Paths.image('transições/sonic'));
 		sonic.setGraphicSize(FlxG.width, FlxG.height);
 		if(sonicb) {
 		add(sonic);
 		}
 
-		mario = new FlxSprite().loadGraphic(Paths.image(transições/mario));
+		mario = new FlxSprite().loadGraphic(Paths.image('transições/mario'));
 		mario.setGraphicSize(FlxG.width, FlxG.height);
 		if(mariob) {
 		add(mario);

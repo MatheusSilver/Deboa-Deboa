@@ -318,6 +318,10 @@ class PlayState extends MusicBeatState
 	var bracosmx:FlxSprite;
 	var blocomx:BGSprite;
 	var bracoshypno:FlxSprite;
+	var ordem:Array<Int> = []; //Não é a paranormal kek - Talvez só um pouco
+	//Isso aqui regula a posição das strums e tambem das animações auxiliares dos braços dos bonecos.
+
+	//Shader pasta night
 
 
 	// needlemouse shit
@@ -371,7 +375,6 @@ class PlayState extends MusicBeatState
 	var heyTimer:Float;
 
 	var bgGirls:BackgroundGirls;
-	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
 	public static var isRing:Bool = false;
@@ -934,6 +937,155 @@ class PlayState extends MusicBeatState
 
 			case 'bar' | 'bar-lordx' | 'bar-hypno':
 
+				var consistentPosition:Array<Float> = [-625, -100];
+				var consistentSize:Float = 1.25;
+
+				defaultCamZoom = 0.7;
+
+				var barsky:BGSprite;
+				var barshiny:BGSprite;
+				var barbg:BGSprite;
+				var polibius:BGSprite;
+				var mesaauxi:BGSprite;
+
+				bracosmx = new FlxSprite(0,0);
+				bracosmx.frames = Paths.getSparrowAtlas('mx_braco');
+				bracosmx.animation.addByPrefix('singDOWN', 'DownFront', 24, false);
+				bracosmx.animation.addByPrefix('idle', 'IdleFront', 16, false);
+				bracosmx.animation.addByPrefix('singLEFT', 'LeftFront', 24, false);
+				bracosmx.animation.addByPrefix('singRIGHT', 'RightFront', 24, false);
+				bracosmx.animation.addByPrefix('singUP', 'UpFront', 24, false);
+				bracosmx.animation.addByPrefix('POWparte1', 'Hit1Front', 24, false);
+				bracosmx.animation.addByPrefix('POWparte2', 'Hit2Front', 24, false);
+				
+				bracosmx.setGraphicSize(Std.int(bracosmx.width*0.9));
+				bracosmx.x -= 625;
+				bracosmx.y -= 210;
+
+				bracoshypno = new FlxSprite(0,0);
+				bracoshypno.frames = Paths.getSparrowAtlas('characters/PASTA/PASTA_HYPNO', 'shared'); //Apenas para garantir que ele irá puxar o sprite carregado antes.
+				bracoshypno.animation.addByPrefix('singDOWN', 'FrontDown', 24, false);
+				bracoshypno.animation.addByPrefix('idle', 'FrontIdle', 24, false);
+				bracoshypno.animation.addByPrefix('singLEFT', 'FrontLeft', 24, false);
+				bracoshypno.animation.addByPrefix('singRIGHT', 'FrontRight', 24, false);
+				bracoshypno.animation.addByPrefix('singUP', 'FrontUp', 24, false);
+
+				bracoshypno.y += 175;
+				bracoshypno.x += 650;
+				bracoshypno.setGraphicSize(Std.int(bracoshypno.width * 1.5));
+
+				blocomx = new BGSprite('mxblock', -730, 530, 1, 1, ['BlockIdle']);
+
+				barsky = new BGSprite('cenarios/SKY', consistentPosition[0]+914*consistentSize,consistentPosition[1]+263*consistentSize, 0.9, 0.9);
+				barsky.scale.x = consistentSize+0.1;
+				barsky.scale.y = consistentSize+0.1;
+
+				add(barsky);
+
+				barshiny = new BGSprite('cenarios/shine', consistentPosition[0]+916*consistentSize,consistentPosition[1]+265*consistentSize, 0.9, 0.9);
+				barshiny.scale.x = consistentSize;
+				barshiny.scale.y = consistentSize;
+				add(barshiny);
+
+
+				saladfingers = new BGSprite('cenarios/SFingers', consistentPosition[0]+1050*consistentSize,Math.floor(consistentPosition[1]+390*consistentSize)-1, 0.9, 0.9, ['SFingers']);
+				saladfingers.scale.x = consistentSize;
+				saladfingers.scale.y = consistentSize;
+				saladfingers.x -= saladfingers.width / 2;
+				saladfingers.y -= saladfingers.height - 10;
+				add(saladfingers);
+
+				widemouth = new BGSprite('cenarios/MrWidemouth', consistentPosition[0]+1050*consistentSize,Math.floor(consistentPosition[1]+390*consistentSize)-1, 0.9, 0.9, ['MrWidemouth instance 1']);
+				widemouth.scale.x = consistentSize;
+				widemouth.scale.y = consistentSize;
+				widemouth.x -= widemouth.width / 2;
+				widemouth.y -= widemouth.height - 8;
+				add(widemouth);
+			
+				barbg = new BGSprite('cenarios/bar', consistentPosition[0], consistentPosition[1], 0.9, 0.9);
+				barbg.scale.x = consistentSize;
+				barbg.scale.y = consistentSize;
+				add(barbg);
+
+				polibius = new BGSprite('cenarios/machine', 200*1.55, 70*3.5, 0.9, 0.9);
+				polibius.scale.x = consistentSize* 0.35;
+				polibius.scale.y = consistentSize* 0.35;
+				add(polibius);
+
+				barbrian = new BGSprite('cenarios/brian_idle', 315,308, 0.9, 0.9, ['brian idle ']);
+				barbrian.setGraphicSize(Std.int(barbrian.width * consistentSize));
+				add(barbrian);
+
+				barjack = new BGSprite('cenarios/Jack', 100*1.4, 180*1.4, 0.9, 0.9, ['Body with tar instance ']);
+				barjack.scale.x = consistentSize* 0.5;
+				barjack.scale.y = consistentSize* 0.5;
+				add(barjack);
+
+				barpeach = new BGSprite('cenarios/CoronationPeach', 490*1.035, 279*1.11, 0.9, 0.9, ['CoronationPeach']);
+				barpeach.scale.x = consistentSize* 0.5;
+				barpeach.scale.y = consistentSize* 0.5;
+				add(barpeach);
+
+				barshinto = new BGSprite('cenarios/ShintoPastaNight', 610*1.035, 312*1.08, 0.9, 0.9, ['Shitno']);
+				barshinto.scale.x = consistentSize* 0.5;
+				barshinto.scale.y = consistentSize* 0.5;
+				add(barshinto);
+
+				barlula = new BGSprite('cenarios/Squirtward', 750+40,210*1.3, 0.9, 0.9, ['Squidward_idleBody']);
+				barlula.setGraphicSize(Std.int(barlula.width * (consistentSize * 0.6)));
+
+				barlulacabeca = new BGSprite('cenarios/Squirtward', barlula.x, barlula.y, 0.9, 0.9, ['Squidward_idleHead']);
+				barlulacabeca.setGraphicSize(Std.int(barlulacabeca.width * (consistentSize * 0.6)));
+
+				barslender = new BGSprite('cenarios/Buds_Slender_Effects', 735*1.15,35*4.8, 0.9, 0.9, ['Slenderman Full']);
+				barslender.setGraphicSize(Std.int(barslender.width * (consistentSize * 0.55)));
+				add(barslender);
+				add(barlula);
+				add(barlulacabeca);
+
+				bardrowned = new FlxSprite(1145+40,175*1.5);
+				bardrowned.scrollFactor.set(0.9, 0.9);
+				bardrowned.frames = Paths.getSparrowAtlas('cenarios/Ben_Drowned_BG');
+				bardrowned.animation.addByPrefix('nao', 'ben drowned', 1, false);
+				bardrowned.animation.addByPrefix('sim', 'ben drowned looking', 1, false);
+				bardrowned.animation.play('nao');
+				bardrowned.setGraphicSize(Std.int(bardrowned.width * (consistentSize * 0.55)));
+				add(bardrowned);
+
+				mesaauxi = new BGSprite('cenarios/TableMisc', 595*1.4-630,355*1.3, 0.9, 0.9);
+				mesaauxi.setGraphicSize(Std.int(mesaauxi.width * (consistentSize * 0.5)));
+				add(mesaauxi);
+
+				barjeffbody = new BGSprite('cenarios/Jeff', 472-90, 305-40, 0.9, 0.9, ['mynamejeff instance ']);
+				barjeffbody.setGraphicSize(Std.int(barjeffbody.width * (consistentSize * .78)));
+				add(barjeffbody);
+
+				barmesaback = new BGSprite('cenarios/Mousetable', consistentPosition[0] + 825 * consistentSize, consistentPosition[1] + 630 * consistentSize, 0.9, 0.9, ['Mousetable']);
+				barmesaback.setGraphicSize(Std.int(barmesaback.width * (consistentSize * 0.5)));
+				barmesaback.x -= barmesaback.width / 2;
+				barmesaback.y -= barmesaback.height;
+				add(barmesaback);
+
+				barjeffbraco = new BGSprite('cenarios/JeffArm', 500-90, 445-40, 0.9, 0.9, ['Only the arm shit instance ']);
+				barjeffbraco.setGraphicSize(Std.int(barjeffbraco.width * (consistentSize * .78)));
+				add(barjeffbraco);
+
+				barmesafront = new BGSprite('cenarios/TABLE', 0,0);
+				barmesafront.setGraphicSize(Std.int(barmesafront.width * 0.75));
+				barmesafront.updateHitbox();
+				barmesafront.screenCenter();
+				barmesafront.x -= 50;
+				barmesafront.y += 750;
+
+				barluigiPassing = new BGSprite('cenarios/GB_PastaNight_Assets', 25000, 350, 0.9, 0.9, ['GBWalkPioladepana']);
+				barluigiPassing.setGraphicSize(Std.int(barluigiPassing.width * 1.65));
+				add(barluigiPassing);
+
+				barGoldPassing = new BGSprite('cenarios/GOLD_PASTA_NIGHT', 10000, 50, 0.9, 0.9, ['GOLD PASTA NIGHT instance ']);
+				barGoldPassing.setGraphicSize(Std.int(barGoldPassing.width * 1.65));
+				add(barGoldPassing);
+
+					/*
 					if(curStage != 'bar-hypno'){
 						var doPush:Bool = false;
 						var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/Pendelum.lua';
@@ -945,134 +1097,19 @@ class PlayState extends MusicBeatState
 						if(doPush) 
 							luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));	
 					}
-
-				var barsky:BGSprite;
-				var barshiny:BGSprite;
-				var barbg:BGSprite;
-				var polibius:BGSprite;
-				var mesaauxi:BGSprite;
-
-				bracosmx = new FlxSprite();
-				bracosmx.frames = Paths.getSparrowAtlas('mx_braco', 'shared');
-				bracosmx.animation.addByPrefix('singDOWN', 'DownFront', 24);
-				bracosmx.animation.addByPrefix('idle', 'IdleFront', 24);
-				bracosmx.animation.addByPrefix('singLEFT', 'LeftFront', 24);
-				bracosmx.animation.addByPrefix('singRIGHT', 'RightFront', 24);
-				bracosmx.animation.addByPrefix('singUP', 'UpFront', 24);
-				bracosmx.animation.addByPrefix('POWparte1', 'Hit1Front', 24);
-				bracosmx.animation.addByPrefix('POWparte2', 'Hit2Front', 24);
-
-				bracoshypno = new FlxSprite();
-				bracoshypno.frames = Paths.getSparrowAtlas('characters/PASTA/PASTA_HYPNO', 'shared'); //Apenas para garantir que ele irá puxar o sprite carregado antes.
-				bracoshypno.animation.addByPrefix('singDOWN', 'Hypno Down Front', 24);
-				bracoshypno.animation.addByPrefix('idle', 'Hypno Idle Front', 24);
-				bracoshypno.animation.addByPrefix('singLEFT', 'Hypno Left Front', 24);
-				bracoshypno.animation.addByPrefix('singRIGHT', 'Hypno Right Front', 24);
-				bracoshypno.animation.addByPrefix('singUP', 'Hypno Up Front', 24);
-
-				blocomx = new BGSprite('mxblock', -300, 100, 0.6, 0.6, ['BlockIdle']);
-				blocomx.scale.x = 1.1;
-				blocomx.scale.y = 1.1;
-
-				barsky = new BGSprite('cenarios/SKY', 150, 0, 0.1, 0.1);
-				barsky.scale.x = 3;
-				barsky.scale.y = 3;
-				add(barsky);
-
-				barshiny = new BGSprite('cenarios/shine', 500, 50, 0.1, 0.1);
-				barshiny.scale.x = 2;
-				barshiny.scale.y = 2;
-				add(barshiny);
-
-				saladfingers = new BGSprite('cenarios/SFingers', 500, 50, 0.25, 0.25, ['SFingers']);
-				saladfingers.scale.x = 1.1;
-				saladfingers.scale.y = 1.1;
-				add(saladfingers);
-
-				widemouth = new BGSprite('cenarios/MrWidemouth', 700, 100, 0.25, 0.25, ['MrWidemouth instance 1']);
-				widemouth.scale.x = 1.1;
-				widemouth.scale.y = 1.1;
-				add(widemouth);
-			
-				barbg = new BGSprite('cenarios/bar', -550, -250, 0.4, 0.4);
-				barbg.scale.x = 1.3;
-				barbg.scale.y = 1.3;
-				add(barbg);
-
-
-
-				polibius = new BGSprite('cenarios/machine', -50, -200, 0.5, 0.5);
-				polibius.scale.x = 0.7;
-				polibius.scale.y = 0.7;
-				add(polibius);
-
-				barbrian = new BGSprite('cenarios/brian_idle', 50, 25, 0.5, 0.5, ['brian idle ']);
-				barbrian.scale.x = 1.2;
-				barbrian.scale.y = 1.2;
-				barbrian.antialiasing = false; //I forgor...
-				add(barbrian);
-
-				barjack = new BGSprite('cenarios/Jack', -300, -150, 0.6, 0.6, ['Body with tar instance 1']);
-				barjack.scale.x = 1.1;
-				barjack.scale.y = 1.1;
-				add(barjack);
-
-				barshinto = new BGSprite('cenarios/ShintoPastaNight', 375, -50, 0.6, 0.6, ['Shitno']);
-				barshinto.scale.x = 0.8;
-				barshinto.scale.y = 0.8;
-				add(barshinto);
-
-				barpeach = new BGSprite('cenarios/CoronationPeach', 250, -100, 0.6, 0.6, ['CoronationPeach']);
-				barpeach.scale.x = 0.8;
-				barpeach.scale.y = 0.8;
-				add(barpeach);
-
-				barslender = new BGSprite('cenarios/Buds_Slender_Effects', 525, -375, 0.8, 0.8, ['Slenderman Full']);
-				barslender.scale.x = 0.65;
-				barslender.scale.y = 0.65;
-				add(barslender);
-
-				barlula = new BGSprite('cenarios/Squirtward', 600, -150, 0.6, 0.6, ['Squidward_idleBody']);
-				barlula.scale.x = 0.8;
-				barlula.scale.y = 0.8;
-				add(barlula);
-
-				barlulacabeca = new BGSprite('cenarios/Squirtward', barlula.x, barlula.y, 0.6, 0.6, ['Squidward_idleHead']);
-				barlulacabeca.scale.x = 0.8;
-				barlulacabeca.scale.y = 0.8;
-				add(barlulacabeca);
-
-				bardrowned = new FlxSprite(800, -300);
-				bardrowned.frames = Paths.getSparrowAtlas('cenarios/Ben_Drowned_BG');
-				bardrowned.animation.addByPrefix('nao', 'ben drowned', 24);
-				bardrowned.animation.addByPrefix('sim', 'ben drowned looking', 24);
-				bardrowned.animation.play('nao', true);
-				bardrowned.scale.x = 0.75;
-				bardrowned.scale.y = 0.75;
-				add(bardrowned);
-
-				mesaauxi = new BGSprite('cenarios/TableMisc', 500, 0, 0.5, 0.5);
-				mesaauxi.scale.x = 0.7;
-				mesaauxi.scale.y = 0.7;
-				add(mesaauxi);
-
-				barjeffbody = new BGSprite('cenarios/Jeff', 400, -25, 0.6, 0.6, ['mynamejeff instance 1']);
-				barjeffbody.scale.x = 1;
-				barjeffbody.scale.y = 1;
-				add(barjeffbody);
-
-				barmesaback = new BGSprite('cenarios/Mousetable', 0, -50, 0.6, 0.6, ['Mousetable']);
-				barmesaback.scale.x = 0.95;
-				barmesaback.scale.y = 0.95;
-				add(barmesaback);
-
-				barjeffbraco = new BGSprite('cenarios/JeffArm', barjeffbody.x + 10, barjeffbody.y + 125, 0.6, 0.6, ['Only the arm shit instance 1']);
-				barjeffbraco.scale.x = 1;
-				barjeffbraco.scale.y = 1;
-				add(barjeffbraco);
-
-				barmesafront = new BGSprite('cenarios/TABLE', -850, 700, 0.05, 0.05);
-				barmesafront.setGraphicSize(Std.int(barmesafront.width * 1.1));
+					if(curStage != 'bar'){
+						var doPush:Bool = false;
+						var luaFile:String = 'data/' + Paths.formatToSongPath(SONG.song) + '/PastaPow.lua';
+						luaFile = Paths.getPreloadPath(luaFile);
+							if(OpenFlAssets.exists(luaFile)) {
+								doPush = true;
+							}
+						
+						if(doPush) 
+							luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));	
+					}
+					temporario que eu já to coringando com esse hypno me matando toda hora
+					*/
 
 			case 'P2Stage':
 				p2Sky = new BGSprite('cenarios/Glitch', -200, -200, 0.6, 0.6);
@@ -1174,7 +1211,7 @@ class PlayState extends MusicBeatState
 				tempogravador.screenCenter(XY);
 				tempogravador.x += 125;
 				tempogravador.y += 175;
-                                tempogravador.visible = ClientPrefs.shaders;
+                tempogravador.visible = ClientPrefs.shaders;
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
@@ -1182,7 +1219,7 @@ class PlayState extends MusicBeatState
 			FunkinLua.addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
 			FunkinLua.addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true)); //testing
 			FunkinLua.addShaderToCamera('hud', new ScanlineEffect(true));
-			FunkinLua.addShaderToCamera('game', new ScanlineEffect(true)); //testing
+			FunkinLua.addShaderToCamera('game', new ScanlineEffect(true)); //testing					
 				}
 
 			case 'chasing':
@@ -1547,11 +1584,6 @@ class PlayState extends MusicBeatState
 				GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
 				GameOverSubstate.characterName = 'bf-pixel-dead';
 
-				/*if(!ClientPrefs.lowQuality) { //Does this even do something?
-					var waveEffectBG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 3, 2);
-					var waveEffectFG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 5, 2);
-				}*/
-
 				var posX = 400;
 				var posY = 200;
 				if(!ClientPrefs.lowQuality) {
@@ -1578,10 +1610,6 @@ class PlayState extends MusicBeatState
 			introSoundsSuffix = '-pixel';
 		}
 
-	
-
-		add(gfGroup);
-
 		if(ClientPrefs.noteSplashes){
 		var skinsplashcache:String;
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0){skinsplashcache = PlayState.SONG.splashSkin;} else{skinsplashcache = 'noteSplashes';};
@@ -1597,19 +1625,16 @@ class PlayState extends MusicBeatState
 		if (curStage == 'limo')
 			add(limo);
 
-		if (nomehistorico.toLowerCase() == 'noite da rapaziada'){
-			add(barmesafront);
-			add(blocomx);
-			add(bracoshypno);
-			add(bracosmx);
-		}
-
 		
 		if (curStage == 'needle'){
 			add(dad2Group);
 		}
+
+		if (nomehistorico.toLowerCase() != 'noite da rapaziada'){
+		add(gfGroup);
 		add(dadGroup);
 		add(boyfriendGroup);
+		}
 		
 		if(curStage == 'spooky') {
 			add(halloweenWhite);
@@ -1618,6 +1643,39 @@ class PlayState extends MusicBeatState
 		
 		if (curStage == 'confronting'){
 			add(bgfrontG2);
+		}
+
+		if (nomehistorico.toLowerCase() == 'noite da rapaziada'){
+		}
+
+		if(SONG.song.toLowerCase() == 'pasta-night'){
+			if(SONG.player1.startsWith('lordx') || SONG.player1.endsWith('lordx')){
+				add(gfGroup);
+				add(dadGroup);
+				add(barmesafront);
+				add(bracoshypno);
+				add(bracosmx);
+				add(blocomx);
+				add(boyfriendGroup);
+			}else if(SONG.player2.startsWith('lordx') || SONG.player2.endsWith('lordx')){
+				add(gfGroup);
+				add(boyfriendGroup);
+				add(barmesafront);
+				add(bracoshypno);
+				add(bracosmx);
+				add(blocomx);
+				add(dadGroup);
+			}
+			if(SONG.player3.startsWith('lordx') || SONG.player3.endsWith('lordx')){
+				add(boyfriendGroup);
+				add(dadGroup);
+				add(barmesafront);
+				add(bracoshypno);
+				add(bracosmx);
+				add(blocomx);
+				add(gfGroup);
+			}
+			//Feio, mas fazer o que né? Estou a funking 15 horas recriando essa música ;-;
 		}
 
 		#if LUA_ALLOWED
@@ -3053,6 +3111,9 @@ class PlayState extends MusicBeatState
 				if (tmr.loopsLeft % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
 				{
 					gf.dance();
+					if(curSong.toLowerCase() == 'pasta-night'){
+						pastaanimcheckerGF();
+					}
 				}
 				if(tmr.loopsLeft % 2 == 0) {
 					if (boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing'))
@@ -3062,11 +3123,17 @@ class PlayState extends MusicBeatState
 					if (dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
 					{
 						dad.dance();
+						if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
+						pastaanimcheckerDAD(); //Poderia colocar isso direto em character.hx mas sabe como é né? Preguiça de pensar
+						}
 					}
 				}
 				else if(dad.danceIdle && dad.animation.curAnim != null && !dad.stunned && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing"))
 				{
 					dad.dance();
+					if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
+						pastaanimcheckerDAD();
+					}
 				}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
@@ -3105,8 +3172,9 @@ class PlayState extends MusicBeatState
 						barjeffbody.dance(true);
 						barmesaback.dance(true);
 						barjeffbraco.dance(true);
+						barluigiPassing.dance(true);
+						barGoldPassing.dance(true);
 					}
-					bardrowned.animation.play('nao', true);
 	
 				}
 				if (curSong.toLowerCase() != 'sunshine'){
@@ -3733,6 +3801,24 @@ class PlayState extends MusicBeatState
 			iconP1.swapOldIcon();
 		}*/
 
+		if(curSong.toLowerCase()== 'pasta-night'){
+			var swagRecta = FlxRect.weak(0, 0, saladfingers.width, saladfingers.height - 16);
+			saladfingers.clipRect = swagRecta;
+			if (songMisses > 5 && !bardrowned.animation.curAnim.name.startsWith("si")){
+				bardrowned.animation.play('sim'); //Ele está te julgando seu nooob
+			}
+			if (barGoldPassing != null && !ClientPrefs.lowQuality)
+				{
+					barGoldPassing.x -= elapsed / (0.25 / 60);
+				}
+		
+			if (barluigiPassing != null && !ClientPrefs.lowQuality)
+				{
+					barluigiPassing.x -= elapsed / (0.25 / 60);
+				}
+		}
+
+
 		if (curSong.toLowerCase() == 'prey' && curStep > 4490 && canuseevents == false){
 			canuseevents = true;
 		}
@@ -4298,7 +4384,7 @@ class PlayState extends MusicBeatState
 								daNote.y -= 400;
 							}
 							if(!stageData.isPixelStage && isPixelStage){
-								daNote.y = 6; //Talvez seja nescessário adicionar *1.19 aqui...
+								daNote.y = 6; //Vindo do 2d para o pixel
 							}
 								}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (roundedSpeed - 1));
@@ -4314,6 +4400,11 @@ class PlayState extends MusicBeatState
 									swagRect.y = daNote.frameHeight - swagRect.height;
 
 									daNote.clipRect = swagRect;
+								}
+								if (daNote.animation.curAnim.name.endsWith('end')) {
+								if(stageData.isPixelStage && !isPixelStage){
+									daNote.y += 400;
+								}
 								}
 							}
 						}
@@ -4386,6 +4477,9 @@ class PlayState extends MusicBeatState
 						if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3') {
 							gf.playAnim(animToPlay + altAnim, true);
 							gf.holdTimer = 0;
+							if(curSong.toLowerCase() == 'pasta-night'){
+								pastaanimcheckerGF(animToPlay);
+							}
 						} else if (curStage == 'needle')
 						{
 							dad.playAnim(animToPlay + altAnim, true);
@@ -4396,6 +4490,9 @@ class PlayState extends MusicBeatState
 						} else {
 							dad.playAnim(animToPlay + altAnim, true);
 							dad.holdTimer = 0;
+							if(curSong.toLowerCase() == 'pasta-night'){
+								pastaanimcheckerDAD(animToPlay);
+							}
 						}
 					}
 
@@ -4851,7 +4948,6 @@ class PlayState extends MusicBeatState
 			case 'invocar 3rdstrum':
 				if(!ClientPrefs.middleScroll){
 				var microArray:Array<String> = value1.split(',');
-				var ordem:Array<Int> = []; //Não é a paranormal kek - Talvez só um pouco
 				var charType:Int = 0;
 				for (i in 0...microArray.length){ //Basicamente aqui vai ser setado a ordem das notas, 
 					//tipo, se o primeiro grupo de strums é o dad, o segundo é o player e talz...
@@ -5351,7 +5447,6 @@ class PlayState extends MusicBeatState
 								triggerEventNote('noteskinchangeOPPT', 'NOTE-STARVI_assets', ''); //must do Arrumar esse sprite.
 						case 1547: //Just settings tbh
 							health = 1;
-							//boyfriend.playAnim("first dialogue");
 							SONG.speed = 3.3; //A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
 							boyfriend.animation.finishCallback = function(slash:String)
 							{
@@ -6320,7 +6415,6 @@ class PlayState extends MusicBeatState
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + 8); 
 
-		// boyfriend.playAnim('hey');
 		vocals.volume = 1;
 		if(!SONG.needsVoices){
 			//lxG.sound.volume = 1;
@@ -6638,10 +6732,6 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		if(curSong.toLowerCase() == 'pasta-night'){
-			bardrowned.animation.play('sim'); //veri scari
-			}
-
 		if (curSong.toLowerCase()=='cross-console-clash' && !invencibilidade && daNote.noteType != 'CCC Regen'){ //Top 10 mecanicas mais fodas dos animes que não sei dizer se é uma recriação ou se é eu inventando moda
 			cccVidaCounter--;
 			invencibilidade = true;
@@ -6714,6 +6804,9 @@ class PlayState extends MusicBeatState
 
 		if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3' && animToPlay != 'none') {
 			gf.playAnim(animToPlay, true);
+			if(curSong.toLowerCase() == 'pasta-night'){
+				pastaanimcheckerGF(animToPlay);
+			}
 		} else {
 			var daAlt = '';
 			if(daNote.noteType == 'Alt Animation') daAlt = '-alt';
@@ -6882,6 +6975,9 @@ class PlayState extends MusicBeatState
 			}
 
 				if(note.noteType == 'GF Sing' || note.noteType == 'player3') {
+					if(curSong.toLowerCase() == 'pasta-night'){
+						pastaanimcheckerGF(animToPlay);
+					}
 					gf.playAnim(animToPlay + daAlt, true);
 					gf.holdTimer = 0;
 				} else {
@@ -7323,6 +7419,9 @@ class PlayState extends MusicBeatState
 		if (curBeat % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
 		{
 			gf.dance();
+			if(curSong.toLowerCase() == 'pasta-night'){
+				pastaanimcheckerGF();
+			}
 		}
 
 		if(curBeat % 2 == 0) {
@@ -7333,9 +7432,15 @@ class PlayState extends MusicBeatState
 			if (dad.animation.curAnim.name != null && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned)
 			{
 				dad.dance();
+				if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
+					pastaanimcheckerDAD();
+				}
 			}
 		} else if(dad.danceIdle && dad.animation.curAnim.name != null && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned) {
 			dad.dance();
+			if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
+				pastaanimcheckerDAD();
+			}
 		}
 
 		switch (curStage)
@@ -7368,8 +7473,9 @@ class PlayState extends MusicBeatState
 					barjeffbody.dance(true);
 					barmesaback.dance(true);
 					barjeffbraco.dance(true);
+					barluigiPassing.dance(true);
+					barGoldPassing.dance(true);
 				}
-				bardrowned.animation.play('nao', true);
 
 			case 'starved-pixel':
 					furnaceTheEnd.dance(true); //Tu não tá pensando que eu vou meter um furnance parado né?
@@ -7666,6 +7772,30 @@ class PlayState extends MusicBeatState
 				FlxTween.angle(infinitesimbol, 0, 180, 0.2, {ease: FlxEase.quintOut}); //haha, simetria massa.
 			}
 		}
+
+	function pastaanimcheckerGF(animToPlay:String = 'idle'){
+		if (ordem[0] == 8){
+			bracosmx.animation.play(animToPlay);
+		} else if (ordem[2] == 8){
+			bracoshypno.animation.play(animToPlay);
+		}
+	}
+
+	function pastaanimcheckerDAD(animToPlay:String = 'idle'){
+		if (ordem[0] == 0){
+			bracosmx.animation.play(animToPlay);
+		} else if (ordem[2] == 0){
+			bracoshypno.animation.play(animToPlay);
+		}
+	}
+
+	public function pastaanimcheckerBF(animToPlay:String = 'idle', force:Bool = false, reversed:Bool = false, frame:Int = 0){
+		if (ordem[0] == 4){
+			bracosmx.animation.play(animToPlay, force, reversed, frame);
+		} else if (ordem[2] == 4){
+			bracoshypno.animation.play(animToPlay, force, reversed, frame);
+		}
+	}
 
 	function removeStatics()
 		{

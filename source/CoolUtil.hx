@@ -2,15 +2,9 @@ package;
 
 import flixel.FlxG;
 import openfl.utils.Assets;
-import lime.utils.Assets as LimeAssets;
-import lime.utils.AssetLibrary;
-import lime.utils.AssetManifest;
-import openfl.utils.Assets;
-#if desktop
-import sys.io.Process;
-#end
 
 using StringTools;
+
 
 class CoolUtil
 {

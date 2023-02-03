@@ -68,6 +68,7 @@ class ChartingState extends MusicBeatState
 	var eventStuff:Array<Dynamic> =
 	[
 		['CamZoomTween', "Value 1 = quantidade de zoom \n value 2 = duração do tween"],
+		['mauro faz pow pow aaaaaaaaaaaa', "Dor, sofrimento, tristeza, depressão, escuridão \n trevas depressão de novo"],
 		['TelaPreta', "Value 1 = true adiciona uma tela preta \n qualquer outra coisa tira ela."],
 		['CharacterAlphaTween', "Value 1 = bf/gf/dad, \n value 2 = 'opacidade','duracao do tween"], 
 		['notestween', "Value 1 = notas do bf ou dad, \n value 2 = 'opacidade','duracao do tween"],

@@ -27,15 +27,11 @@ import llua.LuaL;
 import llua.State;
 #end
 
-#if desktop
-
-#end
-
 
 class FunkinLua {
     public static var Function_Stop = "Function_Stop";
 	public static var Function_Continue = "Function_Continue";
-
+   
 	public static var camGameShaders:Array<ShaderEffect> = [];
 	public static var camHUDShaders:Array<ShaderEffect> = [];
 	public static var camOtherShaders:Array<ShaderEffect> = [];
@@ -650,6 +646,9 @@ class FunkinLua {
 			}
 			return key;
 		});
+		Lua_helper.add_callback(lua, "setHealth", function(value:Float = 0) {
+			PlayState.instance.health = value;
+		});
 		Lua_helper.add_callback(lua, "keyPressed", function(name:String) {
 			var key:Bool = false;
 			switch(name) {
@@ -1118,6 +1117,34 @@ class FunkinLua {
 			luaTrace("setBlendMode: Object " + obj + " doesn't exist!", false, false);
 			return false;
 		});
+		Lua_helper.add_callback(lua, "screenCenter", function(obj:String, pos:String = 'xy') {
+			var spr:FlxSprite = PlayState.instance.getLuaObject(obj);
+
+			if(spr==null){
+				var killMe:Array<String> = obj.split('.');
+				spr = getObjectDirectly(killMe[0]);
+				if(killMe.length > 1) {
+					spr = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
+				}
+			}
+
+			if(spr != null)
+			{
+				switch(pos.trim().toLowerCase())
+				{
+					case 'x':
+						spr.screenCenter(X);
+						return;
+					case 'y':
+						spr.screenCenter(Y);
+						return;
+					default:
+						spr.screenCenter(XY);
+						return;
+				}
+			}
+			luaTrace("screenCenter: Object " + obj + " doesn't exist!", false, false, FlxColor.RED);
+		});
 		Lua_helper.add_callback(lua, "startDialogue", function(dialogueFile:String, music:String = null) {
 			var path:String = Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			luaTrace('Trying to load dialogue: ' + path);
@@ -1231,6 +1258,11 @@ class FunkinLua {
 				return PlayState.instance.modchartSounds.get(tag).volume;
 			}
 			return 0;
+		});
+		Lua_helper.add_callback(lua, "cameraFlash", function(camera:String, color:String, duration:Float,forced:Bool) {
+			var colorNum:Int = Std.parseInt(color);
+			if(!color.startsWith('0x')) colorNum = Std.parseInt('0xff' + color);
+			cameraFromString(camera).flash(colorNum, duration,null,forced);
 		});
 		Lua_helper.add_callback(lua, "setSoundVolume", function(tag:String, value:Float) {
 			if(tag == null || tag.length < 1) {
@@ -1592,80 +1624,80 @@ class FunkinLua {
 
 		//Discord.DiscordClient.addLuaCallbacks(lua);
 
-		//SHADER SHIT
+				//SHADER SHIT
 
 		
 		
-		Lua_helper.add_callback(lua, "addChromaticAbberationEffect", function(camera:String,chromeOffset:Float = 0.005) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new ChromaticAberrationEffect(chromeOffset));
-			}
-		});
+				Lua_helper.add_callback(lua, "addChromaticAbberationEffect", function(camera:String,chromeOffset:Float = 0.005) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new ChromaticAberrationEffect(chromeOffset));
+					}
+				});
+				
+				Lua_helper.add_callback(lua, "addScanlineEffect", function(camera:String,lockAlpha:Bool=false) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new ScanlineEffect(lockAlpha));
+					}
+				});
+				Lua_helper.add_callback(lua, "addGrainEffect", function(camera:String,grainSize:Float,lumAmount:Float,lockAlpha:Bool=false) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new GrainEffect(grainSize,lumAmount,lockAlpha));
+					}
+				});
+				Lua_helper.add_callback(lua, "addTiltshiftEffect", function(camera:String,blurAmount:Float,center:Float) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new TiltshiftEffect(blurAmount,center));
+					}
+				});
+				Lua_helper.add_callback(lua, "addVCREffect", function(camera:String,glitchFactor:Float = 0.0,distortion:Bool=true,perspectiveOn:Bool=true,vignetteMoving:Bool=true) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new VCRDistortionEffect(glitchFactor,distortion,perspectiveOn,vignetteMoving));
+					}
+				});
+				Lua_helper.add_callback(lua, "addGlitchEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new GlitchEffect(waveSpeed,waveFrq,waveAmp));
+					}
+				});
+				Lua_helper.add_callback(lua, "addPulseEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new PulseEffect(waveSpeed,waveFrq,waveAmp));
+					}
+				});
+				Lua_helper.add_callback(lua, "addDistortionEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new DistortBGEffect(waveSpeed,waveFrq,waveAmp));
+					}
+				});
+				Lua_helper.add_callback(lua, "addInvertEffect", function(camera:String,lockAlpha:Bool=false) {
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new InvertColorsEffect(lockAlpha));
+					}
+				});
+				Lua_helper.add_callback(lua, "addGreyscaleEffect", function(camera:String) { //for dem funkies
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new GreyscaleEffect());
+					}
+				});
+				Lua_helper.add_callback(lua, "addGrayscaleEffect", function(camera:String) { //for dem funkies
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new GreyscaleEffect());
+					}
+				});
+				Lua_helper.add_callback(lua, "add3DEffect", function(camera:String,xrotation:Float=0,yrotation:Float=0,zrotation:Float=0,depth:Float=0) { //for dem funkies
+					if(ClientPrefs.shaders) {
+					addShaderToCamera(camera, new ThreeDEffect(xrotation,yrotation,zrotation,depth));
+					}
+				});
+				Lua_helper.add_callback(lua, "addBloomEffect", function(camera:String,intensity:Float = 0.35,blurSize:Float=1.0) {
+					if(ClientPrefs.shaders){
+					addShaderToCamera(camera, new BloomEffect(blurSize/512.0,intensity));
+					}
+				});
+				Lua_helper.add_callback(lua, "clearEffects", function(camera:String) {
+					clearShaderFromCamera(camera);
+				});
 		
-		Lua_helper.add_callback(lua, "addScanlineEffect", function(camera:String,lockAlpha:Bool=false) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new ScanlineEffect(lockAlpha));
-			}
-		});
-		Lua_helper.add_callback(lua, "addGrainEffect", function(camera:String,grainSize:Float,lumAmount:Float,lockAlpha:Bool=false) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new GrainEffect(grainSize,lumAmount,lockAlpha));
-			}
-		});
-		Lua_helper.add_callback(lua, "addTiltshiftEffect", function(camera:String,blurAmount:Float,center:Float) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new TiltshiftEffect(blurAmount,center));
-			}
-		});
-		Lua_helper.add_callback(lua, "addVCREffect", function(camera:String,glitchFactor:Float = 0.0,distortion:Bool=true,perspectiveOn:Bool=true,vignetteMoving:Bool=true) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new VCRDistortionEffect(glitchFactor,distortion,perspectiveOn,vignetteMoving));
-			}
-		});
-		Lua_helper.add_callback(lua, "addGlitchEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new GlitchEffect(waveSpeed,waveFrq,waveAmp));
-			}
-		});
-		Lua_helper.add_callback(lua, "addPulseEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new PulseEffect(waveSpeed,waveFrq,waveAmp));
-			}
-		});
-		Lua_helper.add_callback(lua, "addDistortionEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new DistortBGEffect(waveSpeed,waveFrq,waveAmp));
-			}
-		});
-		Lua_helper.add_callback(lua, "addInvertEffect", function(camera:String,lockAlpha:Bool=false) {
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new InvertColorsEffect(lockAlpha));
-			}
-		});
-		Lua_helper.add_callback(lua, "addGreyscaleEffect", function(camera:String) { //for dem funkies
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new GreyscaleEffect());
-			}
-		});
-		Lua_helper.add_callback(lua, "addGrayscaleEffect", function(camera:String) { //for dem funkies
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new GreyscaleEffect());
-			}
-		});
-		Lua_helper.add_callback(lua, "add3DEffect", function(camera:String,xrotation:Float=0,yrotation:Float=0,zrotation:Float=0,depth:Float=0) { //for dem funkies
-			if(ClientPrefs.shaders) {
-			addShaderToCamera(camera, new ThreeDEffect(xrotation,yrotation,zrotation,depth));
-			}
-		});
-		Lua_helper.add_callback(lua, "addBloomEffect", function(camera:String,intensity:Float = 0.35,blurSize:Float=1.0) {
-			if(ClientPrefs.shaders){
-			addShaderToCamera(camera, new BloomEffect(blurSize/512.0,intensity));
-			}
-		});
-		Lua_helper.add_callback(lua, "clearEffects", function(camera:String) {
-			clearShaderFromCamera(camera);
-		});
-
 		call('onCreate', []);
 		#end
 	}
@@ -1826,117 +1858,117 @@ class FunkinLua {
 	public static function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
 	  
 	  
-	  if(ClientPrefs.shaders)
-		{
-			switch(cam.toLowerCase()) {
-				case 'camhud' | 'hud':
-						camHUDShaders.push(effect);
-						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						for(i in camHUDShaders){
+		if(ClientPrefs.shaders)
+		  {
+			  switch(cam.toLowerCase()) {
+				  case 'camhud' | 'hud':
+						  camHUDShaders.push(effect);
+						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						  for(i in camHUDShaders){
+							newCamEffects.push(new ShaderFilter(i.shader));
+						  }
+						  PlayState.instance.camHUD.setFilters(newCamEffects);
+				  case 'camother' | 'other':
+						  camOtherShaders.push(effect);
+						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						  for(i in camOtherShaders){
+							newCamEffects.push(new ShaderFilter(i.shader));
+						  }
+						  PlayState.instance.camOther.setFilters(newCamEffects);
+				  case 'camgame' | 'game':
+						  camGameShaders.push(effect);
+						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						  for(i in camGameShaders){
+							newCamEffects.push(new ShaderFilter(i.shader));
+						  }
+						  PlayState.instance.camGame.setFilters(newCamEffects);
+				  case 'campasta' | 'pasta':
+							  camGameShaders.push(effect);
+							  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+							  for(i in camGameShaders){
+								newCamEffects.push(new ShaderFilter(i.shader));
+							  }
+							  PastaNightSelect.selectCam.setFilters(newCamEffects);
+				  default:
+						  camOtherShaders.push(effect);
+						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
+						  for(i in camOtherShaders){
 						  newCamEffects.push(new ShaderFilter(i.shader));
-						}
-						PlayState.instance.camHUD.setFilters(newCamEffects);
-				case 'camother' | 'other':
-						camOtherShaders.push(effect);
-						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						for(i in camOtherShaders){
-						  newCamEffects.push(new ShaderFilter(i.shader));
-						}
-						PlayState.instance.camOther.setFilters(newCamEffects);
-				case 'camgame' | 'game':
-						camGameShaders.push(effect);
-						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						for(i in camGameShaders){
-						  newCamEffects.push(new ShaderFilter(i.shader));
-						}
-						PlayState.instance.camGame.setFilters(newCamEffects);
-				case 'campasta' | 'pasta':
-							camGameShaders.push(effect);
-							var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-							for(i in camGameShaders){
-							  newCamEffects.push(new ShaderFilter(i.shader));
-							}
-							PastaNightSelect.selectCam.setFilters(newCamEffects);
-				default:
-						camOtherShaders.push(effect);
-						var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						for(i in camOtherShaders){
+						  }
+						  //PlayState.instance.camOther.setFilters(newCamEffects);
+						  FlxG.camera.setFilters(newCamEffects);
+				  
+				  
+					  
+					  
+			  }
+		  }
+		
+		
+		
+		
+	}
+  
+	public static function removeShaderFromCamera(cam:String,effect:ShaderEffect){
+		
+		
+		  switch(cam.toLowerCase()) {
+			  case 'camhud' | 'hud': 
+	  camHUDShaders.remove(effect);
+	  var newCamEffects:Array<BitmapFilter>=[];
+	  for(i in camHUDShaders){
+		newCamEffects.push(new ShaderFilter(i.shader));
+	  }
+	  PlayState.instance.camHUD.setFilters(newCamEffects);
+			  case 'camother' | 'other': 
+					  camOtherShaders.remove(effect);
+					  var newCamEffects:Array<BitmapFilter>=[];
+					  for(i in camOtherShaders){
 						newCamEffects.push(new ShaderFilter(i.shader));
-						}
-						//PlayState.instance.camOther.setFilters(newCamEffects);
-						FlxG.camera.setFilters(newCamEffects);
-				
-				
-					
-					
-			}
-		}
-	  
-	  
-	  
-	  
-  }
-
-  public static function removeShaderFromCamera(cam:String,effect:ShaderEffect){
-	  
-	  
-		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud': 
-    camHUDShaders.remove(effect);
-    var newCamEffects:Array<BitmapFilter>=[];
-    for(i in camHUDShaders){
-      newCamEffects.push(new ShaderFilter(i.shader));
-    }
-	PlayState.instance.camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other': 
-					camOtherShaders.remove(effect);
-					var newCamEffects:Array<BitmapFilter>=[];
-					for(i in camOtherShaders){
-					  newCamEffects.push(new ShaderFilter(i.shader));
-					}
-					PlayState.instance.camOther.setFilters(newCamEffects);
-					case 'campasta' | 'pasta': 
-						camOtherShaders.remove(effect);
-						var newCamEffects:Array<BitmapFilter>=[];
-						for(i in camOtherShaders){
-						  newCamEffects.push(new ShaderFilter(i.shader));
-						}
-						PastaNightSelect.selectCam.setFilters(newCamEffects);
-			default: 
-				camGameShaders.remove(effect);
-				var newCamEffects:Array<BitmapFilter>=[];
-				for(i in camGameShaders){
-				  newCamEffects.push(new ShaderFilter(i.shader));
-				}
-				PlayState.instance.camGame.setFilters(newCamEffects);
-		}
+					  }
+					  PlayState.instance.camOther.setFilters(newCamEffects);
+					  case 'campasta' | 'pasta': 
+						  camOtherShaders.remove(effect);
+						  var newCamEffects:Array<BitmapFilter>=[];
+						  for(i in camOtherShaders){
+							newCamEffects.push(new ShaderFilter(i.shader));
+						  }
+						  PastaNightSelect.selectCam.setFilters(newCamEffects);
+			  default: 
+				  camGameShaders.remove(effect);
+				  var newCamEffects:Array<BitmapFilter>=[];
+				  for(i in camGameShaders){
+					newCamEffects.push(new ShaderFilter(i.shader));
+				  }
+				  PlayState.instance.camGame.setFilters(newCamEffects);
+		  }
+		  
 		
-	  
-  }
-	
-	
-	
-  public static function clearShaderFromCamera(cam:String){
+	}
 	  
 	  
-		switch(cam.toLowerCase()) {
-			case 'camhud' | 'hud': 
-				camHUDShaders = [];
-				var newCamEffects:Array<BitmapFilter>=[];
-				PlayState.instance.camHUD.setFilters(newCamEffects);
-			case 'camother' | 'other': 
-				camOtherShaders = [];
-				var newCamEffects:Array<BitmapFilter>=[];
-				PlayState.instance.camOther.setFilters(newCamEffects);
-			default: 
-				camGameShaders = [];
-				var newCamEffects:Array<BitmapFilter>=[];
-				PlayState.instance.camGame.setFilters(newCamEffects);
-		}
+	  
+	public static function clearShaderFromCamera(cam:String){
 		
-	  
-  }
-
+		
+		  switch(cam.toLowerCase()) {
+			  case 'camhud' | 'hud': 
+				  camHUDShaders = [];
+				  var newCamEffects:Array<BitmapFilter>=[];
+				  PlayState.instance.camHUD.setFilters(newCamEffects);
+			  case 'camother' | 'other': 
+				  camOtherShaders = [];
+				  var newCamEffects:Array<BitmapFilter>=[];
+				  PlayState.instance.camOther.setFilters(newCamEffects);
+			  default: 
+				  camGameShaders = [];
+				  var newCamEffects:Array<BitmapFilter>=[];
+				  PlayState.instance.camGame.setFilters(newCamEffects);
+		  }
+		  
+		
+	}
+  
 	public static function setVarInArray(instance:Dynamic, variable:String, value:Dynamic):Any
 		{
 			var shit:Array<String> = variable.split('[');

@@ -1,17 +1,14 @@
 package;
 
-import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.animation.FlxBaseAnimation;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.tweens.FlxTween;
-import flixel.util.FlxSort;
-import Section.SwagSection;
-import openfl.utils.Assets;
+import flixel.animation.FlxBaseAnimation;
 import haxe.Json;
-import haxe.format.JsonParser;
+import openfl.utils.Assets;
 
 using StringTools;
+
 
 typedef CharacterFile = {
 	var animations:Array<AnimArray>;
@@ -268,6 +265,9 @@ class Character extends FlxSprite
 			{
 		specialAnim = false;
 		animation.play(AnimName, Force, Reversed, Frame);
+		if(PlayState.nomehistorico.toLowerCase() == 'noite da rapaziada' && isPlayer){
+			PlayState.instance.pastaanimcheckerBF(AnimName, Force, Reversed, Frame);
+		}
 
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))

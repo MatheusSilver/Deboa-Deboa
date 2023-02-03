@@ -4,22 +4,14 @@ package;
 import Discord.DiscordClient;
 #end
 import Achievements;
-import FunkinLua;
-import Shaders;
-import flash.text.TextField;
-import flixel.FlxBasic;
 import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import lime.utils.Assets;
 
 using StringTools;
+
 
 class AchievementsMenuState extends MusicBeatState
 {
@@ -113,7 +105,7 @@ class AchievementsMenuState extends MusicBeatState
 		add(descBox);
 
 		descText = new FlxText(0, 0, descBox.width - 10, "", 32);
-		descText.setFormat(Paths.font("GhoulFriAOE.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font("letravio.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.x = descBox.x + 5;
 		descText.y = descBox.y + 50;

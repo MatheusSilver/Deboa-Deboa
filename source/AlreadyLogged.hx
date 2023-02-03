@@ -3,22 +3,14 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
-import FunkinLua;
-import Shaders;
-import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.ui.FlxUIButton;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-import lime.utils.Assets;
 
 using StringTools;
+
 
 class AlreadyLogged extends MusicBeatState
 {
