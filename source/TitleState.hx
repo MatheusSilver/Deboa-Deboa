@@ -151,7 +151,7 @@ class TitleState extends MusicBeatState
 		//GameJoltAPI.connect();
 		//GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Algo super aleatório?", null);
+		DiscordClient.changePresence("Na tela de título", null);
 		#end
 	}
 

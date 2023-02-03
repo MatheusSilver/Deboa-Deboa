@@ -122,8 +122,10 @@ class Main extends Sprite
 		#end
 		top 10 codes que tu faz no passado, esquece e depois se arrepende (Mobile Issue :skull:)
 		*/ 
-		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));
-		
+		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+		//Use Flixel 4.11.0 - haxelib install flixel 4.11.0 e flixel-addons 2.11.0
+
+
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		if(fpsVar != null) {

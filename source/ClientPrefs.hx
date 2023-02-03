@@ -31,7 +31,7 @@ class ClientPrefs {
 	public static var osusom:Float = 0.5;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
-	public static var imagesPersist:Bool = false;
+	public static var imagesPersist:Bool = true; //Tecnicamente era pra ser o contrário, assim os manos de pc humilde já começam o game limpando o cache
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
 	public static var firstTime:Bool = true;
