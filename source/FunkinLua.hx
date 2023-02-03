@@ -1,3 +1,5 @@
+import flixel.graphics.FlxGraphic;
+import openfl.display.BitmapData;
 import DialogueBoxPsych;
 import Shaders;
 import Type.ValueType;
@@ -31,6 +33,9 @@ import llua.State;
 class FunkinLua {
     public static var Function_Stop = "Function_Stop";
 	public static var Function_Continue = "Function_Continue";
+
+	var data:BitmapData;
+	var graph:FlxGraphic;
    
 	public static var camGameShaders:Array<ShaderEffect> = [];
 	public static var camHUDShaders:Array<ShaderEffect> = [];
@@ -633,6 +638,7 @@ class FunkinLua {
 				case 'pause': key = PlayState.instance.getControl('PAUSE');
 				case 'reset': key = PlayState.instance.getControl('RESET');
 				case 'space': key = FlxG.keys.justPressed.SPACE;
+				case 'tab': key = FlxG.keys.justPressed.TAB;
 				case '0': key = FlxG.keys.justPressed.ZERO;
 				case '1': key = FlxG.keys.justPressed.ONE;
 				case '2': key = FlxG.keys.justPressed.TWO;
@@ -678,10 +684,13 @@ class FunkinLua {
 			PlayState.instance.addCharacterToList(name, charType);
 		});
 		Lua_helper.add_callback(lua, "precacheImage", function(name:String) {
-			Paths.image(name); //Tecnicamente isso deveria procurar tanto em libraries quanto em preload
+			data = BitmapData.fromFile(Paths.image(name));
+			graph = FlxGraphic.fromBitmapData(data);
+			graph.persist = !ClientPrefs.imagesPersist;
+			FlxG.bitmap.addGraphic(graph);
 		});
 		Lua_helper.add_callback(lua, "precacheSound", function(name:String) {
-			Paths.sound(name);
+			FlxG.sound.cache(Paths.sound(name));
 		});
 		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic) {
 			var value1:String = arg1;
@@ -748,6 +757,7 @@ class FunkinLua {
 				isDad = true;
 			}
 			PlayState.instance.moveCamera(isDad);
+			return isDad;
 		});
 		Lua_helper.add_callback(lua, "cameraShake", function(camera:String, intensity:Float, duration:Float) {
 			cameraFromString(camera).shake(intensity, duration);
@@ -903,6 +913,24 @@ class FunkinLua {
 			var cock:FlxSprite = Reflect.getProperty(PlayState.instance, obj);
 			if(cock != null) {
 				cock.animation.addByPrefix(name, prefix, framerate, loop);
+				if(cock.animation.curAnim == null) {
+					cock.animation.play(name, true);
+				}
+			}
+		});
+		Lua_helper.add_callback(lua, "addAnimation", function(obj:String, name:String, frames:Array<Int>, framerate:Int = 24, loop:Bool = true) {
+			if(PlayState.instance.getLuaObject(obj,false)!=null) {
+				var cock:FlxSprite = PlayState.instance.getLuaObject(obj,false);
+				cock.animation.add(name, frames, framerate, loop);
+				if(cock.animation.curAnim == null) {
+					cock.animation.play(name, true);
+				}
+				return;
+			}
+
+			var cock:FlxSprite = Reflect.getProperty(getInstance(), obj);
+			if(cock != null) {
+				cock.animation.add(name, frames, framerate, loop);
 				if(cock.animation.curAnim == null) {
 					cock.animation.play(name, true);
 				}

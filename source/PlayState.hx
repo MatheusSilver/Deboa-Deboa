@@ -937,7 +937,7 @@ class PlayState extends MusicBeatState
 
 			case 'bar' | 'bar-lordx' | 'bar-hypno':
 
-				var consistentPosition:Array<Float> = [-625, -100];
+				var consistentPosition:Array<Float> = [-200, 0];
 				var consistentSize:Float = 1.25;
 
 				defaultCamZoom = 0.7;
@@ -3111,9 +3111,7 @@ class PlayState extends MusicBeatState
 				if (tmr.loopsLeft % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
 				{
 					gf.dance();
-					if(curSong.toLowerCase() == 'pasta-night'){
-						pastaanimcheckerGF();
-					}
+					pastaanimcheckerGF();
 				}
 				if(tmr.loopsLeft % 2 == 0) {
 					if (boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing'))
@@ -3123,17 +3121,13 @@ class PlayState extends MusicBeatState
 					if (dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
 					{
 						dad.dance();
-						if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
-						pastaanimcheckerDAD(); //Poderia colocar isso direto em character.hx mas sabe como é né? Preguiça de pensar
-						}
+						pastaanimcheckerDAD(); 
 					}
 				}
 				else if(dad.danceIdle && dad.animation.curAnim != null && !dad.stunned && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing"))
 				{
 					dad.dance();
-					if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
-						pastaanimcheckerDAD();
-					}
+					pastaanimcheckerDAD();
 				}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
@@ -4477,9 +4471,7 @@ class PlayState extends MusicBeatState
 						if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3') {
 							gf.playAnim(animToPlay + altAnim, true);
 							gf.holdTimer = 0;
-							if(curSong.toLowerCase() == 'pasta-night'){
-								pastaanimcheckerGF(animToPlay);
-							}
+							pastaanimcheckerGF(animToPlay);
 						} else if (curStage == 'needle')
 						{
 							dad.playAnim(animToPlay + altAnim, true);
@@ -4490,9 +4482,7 @@ class PlayState extends MusicBeatState
 						} else {
 							dad.playAnim(animToPlay + altAnim, true);
 							dad.holdTimer = 0;
-							if(curSong.toLowerCase() == 'pasta-night'){
-								pastaanimcheckerDAD(animToPlay);
-							}
+							pastaanimcheckerDAD(animToPlay);
 						}
 					}
 
@@ -5564,6 +5554,11 @@ class PlayState extends MusicBeatState
 								generateStaticArrows(1);
 								triggerEventNote('noteskinchangeBF', 'NOTE-supa_assets', ''); //must do Arrumar esse sprite.
 								FlxG.camera.flash(FlxColor.YELLOW, 2);
+
+								opponentStrums.forEach(function(tofade:FlxSprite)
+									{
+										tofade.alpha = 0;
+									});
 	
 							case 3400:
 								#if desktop
@@ -5596,6 +5591,10 @@ class PlayState extends MusicBeatState
 							case 4480:
 								FlxG.camera.flash(FlxColor.RED, 5);
 								tela_preta.alpha = 1;
+								opponentStrums.forEach(function(tofade:FlxSprite)
+									{
+										tofade.alpha = 1;
+									});
 
 							case 4498:
 								FlxTween.tween(sonicHUD, {alpha: 0}, 0.5,{ease: FlxEase.cubeInOut}); //sÓ pq fica estranho com a cinematics
@@ -6037,13 +6036,14 @@ class PlayState extends MusicBeatState
 		}
 		
 		
-		
+		if(nomehistorico != 'Gran Finale'){
 		if (SONG.notes[Std.int(curStep / 16)].gfSection){
 			
 			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0];
 			camFollow.y += gf.cameraPosition[1];
 			tweenCamIn();
+		}
 		}
 		
 	}
@@ -6804,9 +6804,7 @@ class PlayState extends MusicBeatState
 
 		if(daNote.noteType == 'GF Sing' || daNote.noteType == 'player3' && animToPlay != 'none') {
 			gf.playAnim(animToPlay, true);
-			if(curSong.toLowerCase() == 'pasta-night'){
-				pastaanimcheckerGF(animToPlay);
-			}
+			pastaanimcheckerGF(animToPlay);
 		} else {
 			var daAlt = '';
 			if(daNote.noteType == 'Alt Animation') daAlt = '-alt';
@@ -6975,9 +6973,7 @@ class PlayState extends MusicBeatState
 			}
 
 				if(note.noteType == 'GF Sing' || note.noteType == 'player3') {
-					if(curSong.toLowerCase() == 'pasta-night'){
-						pastaanimcheckerGF(animToPlay);
-					}
+					pastaanimcheckerGF(animToPlay);
 					gf.playAnim(animToPlay + daAlt, true);
 					gf.holdTimer = 0;
 				} else {
@@ -7419,9 +7415,7 @@ class PlayState extends MusicBeatState
 		if (curBeat % gfSpeed == 0 && !gf.stunned && gf.animation.curAnim.name != null && !gf.animation.curAnim.name.startsWith("sing"))
 		{
 			gf.dance();
-			if(curSong.toLowerCase() == 'pasta-night'){
-				pastaanimcheckerGF();
-			}
+			pastaanimcheckerGF();
 		}
 
 		if(curBeat % 2 == 0) {
@@ -7432,15 +7426,11 @@ class PlayState extends MusicBeatState
 			if (dad.animation.curAnim.name != null && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned)
 			{
 				dad.dance();
-				if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
-					pastaanimcheckerDAD();
-				}
+				pastaanimcheckerDAD();
 			}
 		} else if(dad.danceIdle && dad.animation.curAnim.name != null && !dad.curCharacter.startsWith('gf') && !dad.animation.curAnim.name.startsWith("sing") && !dad.stunned) {
 			dad.dance();
-			if(nomehistorico.toLowerCase() == 'noite da rapaziada') {
-				pastaanimcheckerDAD();
-			}
+			pastaanimcheckerDAD();
 		}
 
 		switch (curStage)
@@ -7774,6 +7764,8 @@ class PlayState extends MusicBeatState
 		}
 
 	function pastaanimcheckerGF(animToPlay:String = 'idle'){
+		if (curSong.toLowerCase()!='pasta-night')
+			return;
 		if (ordem[0] == 8){
 			bracosmx.animation.play(animToPlay);
 		} else if (ordem[2] == 8){
@@ -7782,6 +7774,8 @@ class PlayState extends MusicBeatState
 	}
 
 	function pastaanimcheckerDAD(animToPlay:String = 'idle'){
+		if (curSong.toLowerCase()!='pasta-night')
+			return;
 		if (ordem[0] == 0){
 			bracosmx.animation.play(animToPlay);
 		} else if (ordem[2] == 0){
@@ -7790,6 +7784,8 @@ class PlayState extends MusicBeatState
 	}
 
 	public function pastaanimcheckerBF(animToPlay:String = 'idle', force:Bool = false, reversed:Bool = false, frame:Int = 0){
+		if (curSong.toLowerCase()!='pasta-night')
+			return;
 		if (ordem[0] == 4){
 			bracosmx.animation.play(animToPlay, force, reversed, frame);
 		} else if (ordem[2] == 4){

@@ -81,10 +81,10 @@
 		<library name="week-clickbait"      	 preload="true" />
 		<library name="week-confronting"         preload="true" />
 		<library name="week-control"       		 preload="true" />
+		<library name="week-escapada"       	 preload="true" />
 		<library name="week-fantasmas"       	 preload="true" />
 		<library name="week-farsa"        		 preload="true" />
 		<library name="week-fest"        		 preload="true" />
-		<library name="week-final"        		 preload="true" />
 		<library name="week-infinite"        	 preload="true" />
 		<library name="week-infinitecycles"      preload="true" />
 		<library name="week-lerdeza"        	 preload="true" />
@@ -117,10 +117,10 @@
 		<library name="week-clickbait"      	 preload="false" />
 		<library name="week-confronting"         preload="false" />
 		<library name="week-control"       		 preload="false" />
+		<library name="week-escapada"       	 preload="false" />
 		<library name="week-fantasmas"       	 preload="false" />
 		<library name="week-farsa"        		 preload="false" />
 		<library name="week-fest"        		 preload="false" />
-		<library name="week-final"        		 preload="false" />
 		<library name="week-infinite"        	 preload="false" />
 		<library name="week-infinitecycles"      preload="false" />
 		<library name="week-lerdeza"        	 preload="false" />
@@ -163,14 +163,14 @@
 	<assets path="assets/week-confronting"         library="week-confronting"         exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-control"         	   library="week-control"             exclude="*.ogg" if="web"/>
 	<assets path="assets/week-control"         	   library="week-control"             exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-escapada"            library="week-escapada"            exclude="*.ogg" if="web"/>
+	<assets path="assets/week-escapada"            library="week-escapada"            exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-fantasmas"           library="week-fantasmas"           exclude="*.ogg" if="web"/>
 	<assets path="assets/week-fantasmas"           library="week-fantasmas"           exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-farsa"               library="week-farsa"               exclude="*.ogg" if="web"/>
 	<assets path="assets/week-farsa"         	   library="week-farsa"               exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-fest"         	   library="week-fest"                exclude="*.ogg" if="web"/>
 	<assets path="assets/week-fest"         	   library="week-fest"                exclude="*.mp3" unless="web"/>
-	<assets path="assets/week-final"         	   library="week-final"               exclude="*.ogg" if="web"/>
-	<assets path="assets/week-final"         	   library="week-final"               exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-infinite"            library="week-infinite"            exclude="*.ogg" if="web"/>
 	<assets path="assets/week-infinite"            library="week-infinite"            exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-infinitecycles"      library="week-infinitecycles"      exclude="*.ogg" if="web"/>

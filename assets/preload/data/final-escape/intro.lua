@@ -165,12 +165,12 @@ instructionShow = false
 function onUpdatePost(elapsed)
 
 
-if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.SPACE') and not skipped and skipable then
+if keyJustPressed('space') and not skipped and skipable then
 
 
-	setPropertyFromClass('Conductor', 'songPosition', 13.6 * 1000  ) -- 13.6
-	setPropertyFromClass('flixel.FlxG', 'sound.music.time', getPropertyFromClass('Conductor', 'songPosition'))
-	setProperty('vocals.time', getPropertyFromClass('Conductor', 'songPosition'))
+	--setPropertyFromClass('Conductor', 'songPosition', 13.6 * 1000  ) -- 13.6
+	--setPropertyFromClass('flixel.FlxG', 'sound.music.time', getPropertyFromClass('Conductor', 'songPosition'))
+	--setProperty('vocals.time', getPropertyFromClass('Conductor', 'songPosition'))
 	
 --Remove intro stuff	
 	
@@ -187,7 +187,7 @@ end
 
 
 
-if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.TAB') then
+if keyJustPressed('tab') then
 
     if not instructionShow then
      instructionShow = true

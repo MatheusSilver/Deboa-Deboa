@@ -22,7 +22,7 @@ end
 function goodNoteHit(id, noteData, noteType, isSustainNote)
 	if noteType == 'Goal Notes' then
 		--bruh
-		addLuaScript('general_scripts/ignore')
+		pushScriptData('ignore')
 		setProperty('boyfriend.stunned',true)
 		setProperty('dad.stunned',true)
 		

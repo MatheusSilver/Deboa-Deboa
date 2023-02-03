@@ -1,6 +1,8 @@
 function onCreate()
     pushScriptData('intro');
     pushScriptData('run');
+    pushScriptData('missRING');
+   -- pushScriptData('precache');
 end
 
 --Por motivos de:

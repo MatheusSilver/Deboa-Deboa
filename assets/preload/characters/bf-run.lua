@@ -1,6 +1,6 @@
 function onCreate()
 
-	makeAnimatedLuaSprite('legs', 'characters/bfrun-legs', getProperty('boyfriend.x'), getProperty('boyfriend.y'))
+	makeAnimatedLuaSprite('legs', 'bfrun-legs', getProperty('boyfriend.x'), getProperty('boyfriend.y'))
 	addAnimationByPrefix('legs', 'run', 'legs0', 24, true)
 	
 	setScrollFactor('legs', 1, 1);
@@ -9,7 +9,7 @@ function onCreate()
 	addLuaSprite('legs', false);	
 	
 	
-	makeAnimatedLuaSprite('legJump', 'characters/bfrun-legsJUMP', 0, 0)
+	makeAnimatedLuaSprite('legJump', 'bfrun-legsJUMP', 0, 0)
 	
 	addAnimationByPrefix('legJump', 'jump', 'leg 1 jump', 24, true)
 	

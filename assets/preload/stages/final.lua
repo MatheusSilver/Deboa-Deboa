@@ -225,26 +225,7 @@ setProperty('bfIcon.visible',false )
 
 
 
-luaDebugMode = true;
-	--runHaxeCode([[
-		--for (strum in game.strumLineNotes)
-		--{
-			--strum.cameras = [game.camGame];
-			--strum.scrollFactor.set(1, 0);
-		--}
 
-		--for (note in game.unspawnNotes)
-		--{
-			--note.cameras = [game.camGame];
-			--note.scrollFactor.set(1, 0);
-		--}
-
-		--for (splash in game.grpNoteSplashes)
-		--{
-			--splash.cameras = [game.camGame];
-			--splash.scrollFactor.set(1, 0);
-		--}
-	--]])
 
 
 
