@@ -1,19 +1,20 @@
 package;
 
 import LoadingState.LoadingsState;
-import PlayState;
-import Shaders;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import openfl.utils.Assets as OpenFlAssets;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import openfl.filters.ShaderFilter;
-import openfl.utils.Assets as OpenFlAssets;
+import MusicBeatSubstate;
+import PlayState;
 #if desktop
 import Discord.DiscordClient;
 #end
+import openfl.display.GraphicsShader;
+import openfl.filters.ShaderFilter;
 
 class PastaNightSelect extends MusicBeatState {
     public static var selectCam:FlxCamera;
@@ -21,8 +22,8 @@ class PastaNightSelect extends MusicBeatState {
     var characterSprites:Array<Array<FlxSprite>> = [];
     var selectorArrow:FlxSprite;
     var displacementList:Array<Int> = [-4,2,0];
+	var crt:ShaderFilter;
 	var paracomessapohameno:Bool = false;
-	//public static var instance:PastaNightSelect;
 
 
 	override public function create()
@@ -38,9 +39,9 @@ class PastaNightSelect extends MusicBeatState {
 		selector = -1;
 		selectCam = new FlxCamera(0, 0, 768, 672);
 		FlxG.cameras.reset(selectCam);
-		//crt = new ShaderFilter(new CRTEffectShader()); //Just Testing
-		FunkinLua.addShaderToCamera('campasta', new FitaVHSRoundaBout(1.0));
-		//selectCam.setFilters([crt]);
+		
+		crt = new ShaderFilter(new CRTEffectShader()); //Just Testing
+		selectCam.setFilters([crt]);
 		selectCam.x += (FlxG.width / 2 - selectCam.width / 2);
 		selectCam.y += (FlxG.height / 2 - selectCam.height / 2);
 
@@ -86,7 +87,11 @@ class PastaNightSelect extends MusicBeatState {
 
     public static var selector:Int = -1;
     public var oldSelector:Int = 0;
+	public var totalElapsed:Float = 0;
     override public function update(elapsed:Float) {
+		totalElapsed += elapsed;
+		if (crt != null)
+			crt.shader.data.time.value = [totalElapsed];
 		
         if (controls.UI_LEFT_P)
 			updateSelection(selector - 1);
@@ -123,7 +128,6 @@ class PastaNightSelect extends MusicBeatState {
 				openSubState(new LoadingsState());
 				new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 					LoadingState.loadAndSwitchState(new PlayState());
-					FunkinLua.removeShaderFromCamera('campasta', new FitaVHSRoundaBout(1.0));
 					/*selectCam.height=720;
 					selectCam.width=1280;
 					FlxG.cameras.reset(selectCam);*/

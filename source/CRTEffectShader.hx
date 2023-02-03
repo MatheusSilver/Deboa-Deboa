@@ -16,7 +16,7 @@ class CRTEffectShader extends FlxShader
   /**
   * Source: https://www.shadertoy.com/view/wllBDM
   */
-  uniform float time;
+  uniform float time = 1.0;
   
   float scanSpeedAdd = 1.0;
   float lineCut = 0.1;
