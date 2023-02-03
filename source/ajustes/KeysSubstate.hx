@@ -47,15 +47,15 @@ class KeysSubstate extends MusicBeatState {
 		['Cima', 'ui_up'],
 		['Direita', 'ui_right'],
 		[''],
-		['Resetar música', 'reset'],
+		['Resetar', 'reset'],
 		['Aceitar', 'accept'],
 		['Voltar', 'back'],
 		['Pausar', 'pause'],
 		[''],
 		['VOLUME'],
 		['Mutar', 'volume_mute'],
-		['Aumentar som', 'volume_up'],
-		['Abaixar som', 'volume_down'],
+		['Aumentar', 'volume_up'],
+		['Abaixar', 'volume_down'],
 		[''],
 		['DEBUG'],
 		['Tecla 1', 'debug_1'],
@@ -71,8 +71,8 @@ class KeysSubstate extends MusicBeatState {
 	public function new() {
 		super();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('escolhendo-vermelho'));
-		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('escolhendo-branco'));
+		bg.color = 0xffffffff; //arrumem a cor a vosso gosto
 		bg.updateHitbox();
 
 		bg.screenCenter();
@@ -92,7 +92,7 @@ class KeysSubstate extends MusicBeatState {
 				isCentered = true;
 			}
 
-			var optionText:Alphabet = new Alphabet(0, (10 * i), optionShit[i][0], (!isCentered || isDefaultKey), false);
+			var optionText:Alphabet = new Alphabet(0, (10 * i), optionShit[i][0], (!isCentered || isDefaultKey), false, 0, 0, 'padrao');
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);

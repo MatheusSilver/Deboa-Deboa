@@ -230,7 +230,7 @@ class CreditsMusics extends MusicBeatState
     
                     //dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected]+')'));
     
-                        if(curSelected-1 > -1)
+                        if(curSelected-1 < -1)
                             {
                                 dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected-1]+')'));
                             }
@@ -252,7 +252,7 @@ class CreditsMusics extends MusicBeatState
     
                     if(curSelected-1 > -1)
                         {
-                            dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[0]+')'));
+                            dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected-1]+')'));
                         }
                     else
                         {

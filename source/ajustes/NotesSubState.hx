@@ -44,8 +44,8 @@ class NotesSubState extends MusicBeatState
 		super();
 
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('escolhendo-vermelho'));
-		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('escolhendo-branco'));
+		bg.color = 0xffffffff; //arrumem a cor a vosso gosto
 		bg.updateHitbox();
 
 		bg.screenCenter();

@@ -210,17 +210,17 @@ class AjustesState extends MusicBeatState
 		//haxe me obrigou a ser um cara organizado, mas ainda assim sou rebelde
 		//musica de novela de 2010 starts playing
 
-		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
-		FlxTween.tween(configuracoesbotao, {x: FlxG.width - 2.5*configuracoesbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+		FlxTween.tween(configuracoesbotao, {x: FlxG.width - 2.5*configuracoesbotao.width + 696 + 90}, 0.6, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(0.6, function(tmr:FlxTimer) {
-		FlxTween.tween(controlesbotao, {x: FlxG.width - 2.5*controlesbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		new FlxTimer().start(0.4, function(tmr:FlxTimer) {
+		FlxTween.tween(controlesbotao, {x: FlxG.width - 2.5*controlesbotao.width + 696 + 90}, 0.6, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(0.9, function(tmr:FlxTimer) {
-		FlxTween.tween(setasbotao, {x: FlxG.width - 2.5*setasbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut});
+		new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+		FlxTween.tween(setasbotao, {x: FlxG.width - 2.5*setasbotao.width + 696 + 90}, 0.6, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(1.2, function(tmr:FlxTimer) {
-		FlxTween.tween(gamejoltbotao, {x: FlxG.width - 2.5*gamejoltbotao.width + 696 + 90}, 1.5, {ease: FlxEase.expoInOut,
+		new FlxTimer().start(1, function(tmr:FlxTimer) {
+		FlxTween.tween(gamejoltbotao, {x: FlxG.width - 2.5*gamejoltbotao.width + 696 + 90}, 0.6, {ease: FlxEase.expoInOut,
 			onComplete: function(twn:FlxTween) {pode=true;
 			}});
 		});

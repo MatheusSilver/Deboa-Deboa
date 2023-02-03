@@ -117,7 +117,7 @@ class PauseSubState extends MusicBeatSubstate
 		practiceText.x = FlxG.width - (practiceText.width + 20);
 		practiceText.updateHitbox();
 		practiceText.visible = PlayState.practiceMode;
-		add(practiceText);
+		//add(practiceText);
 
 		botplayText = new FlxText(20, FlxG.height - 40, 0, "BOTPLAY", 32);
 		botplayText.scrollFactor.set();
@@ -125,7 +125,7 @@ class PauseSubState extends MusicBeatSubstate
 		botplayText.x = FlxG.width - (botplayText.width + 20);
 		botplayText.updateHitbox();
 		botplayText.visible = PlayState.cpuControlled;
-		add(botplayText);
+		//add(botplayText);
 
 		blueballedTxt.alpha = 0;
 		levelDifficulty.alpha = 0;
