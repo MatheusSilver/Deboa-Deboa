@@ -124,7 +124,7 @@ class Main extends Sprite
 		*/ 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 		//Use Flixel 4.11.0 - haxelib install flixel 4.11.0 e flixel-addons 2.11.0
-
+		// muito obrigado, tenha um ótimo dia 😎
 
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
 		addChild(fpsVar);

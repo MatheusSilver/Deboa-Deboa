@@ -127,7 +127,7 @@ class FreeplayState extends MusicBeatState
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
 			add(icon);
-			songText.x = 700;
+			songText.x = 600;
 		}
 	
 		WeekData.setDirectoryFromWeek();
@@ -141,8 +141,8 @@ class FreeplayState extends MusicBeatState
 
 		var leText:String = "Aperte " + #if desktop "Espaço" #else "X" #end + " para ouvir uma prévia da música";
 		//space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
-		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 25, FlxG.width, leText, 18);
-		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
+		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
 
@@ -151,7 +151,7 @@ class FreeplayState extends MusicBeatState
 		#end
 
 		disc.loadGraphic(Paths.image("freeplay-disc/disco", 'preload')); 
-		disc.x = (FlxG.width - 560) / 2 - 350; //Bem vindo a turma de matemática avançada
+		disc.x = (FlxG.width - 460) / 2 - 250; //Bem vindo a turma de matemática avançada
 		add(disc);
 		perfilSprite = new FlxSprite(0, 0);
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
@@ -164,11 +164,12 @@ class FreeplayState extends MusicBeatState
 		disc.screenCenter(Y);
 		perfilSprite.screenCenter(Y);
 		outroperfilSprite.screenCenter(Y);
-		disc.x = 48;
-		perfilSprite.x = 118 + 38;
+		disc.x = 38;
+		disc.x=disc.x-82.5;
+		perfilSprite.x = 18 + 38;
 		perfilSprite.alpha = 0;
 		outroperfilSprite.alpha = 0;
-		outroperfilSprite.x = 118 + 38;
+		outroperfilSprite.x = 18 + 38;
 
 		changeSelection();
 		
