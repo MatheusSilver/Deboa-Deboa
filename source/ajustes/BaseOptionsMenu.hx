@@ -29,8 +29,9 @@ class BaseOptionsMenu extends MusicBeatState
 {
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
-		'GRAFICOS',
-		'GAMEPLAY'
+		'VISUAL',
+		'GAMEPLAY',
+		'SONS'
 	];
 	static var noCheckbox:Array<String> = [
 		'FPS',
@@ -41,13 +42,17 @@ class BaseOptionsMenu extends MusicBeatState
 	];
 
 	static var options:Array<String> = [
-		'GRAFICOS',
+		'VISUAL',
 		'Baixa Qualidade',
 		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
 		//Vai que o Sirox e seu celular da NASA joguem esse mod, por via das duvidas, os shaders ficam desativados por padrão em mobile
 		'Anti-Aliasing',
 		'Limpar Cache',
 		'FullScreen',
+		'Esconder HUD',
+		'Esconder barra de tempo',
+		'Luzes Piscantes',
+		'FPS visível',
 		#if !html5
 		'FPS', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
@@ -58,16 +63,13 @@ class BaseOptionsMenu extends MusicBeatState
 		'Ghost Tapping',
 		'Delay da Nota',
 		'Note Splashes',
-		'Esconder HUD',
-		'Esconder barra de tempo',
+		'Legendas',
+		'Efeitos de Camera',
+		'SONS',
 		'Hitsounds',
 		'Volume do Hitsound',
 		'Som do Hitsound',
-		'Teste o HitSound',
-		'Luzes Piscantes',
-		'Legendas',
-		'Zooms de Camera',
-		'Contadores (FPS e memoria)'
+		'Teste o HitSound'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -195,7 +197,7 @@ class BaseOptionsMenu extends MusicBeatState
 		if(usesCheckbox) {
 			if(controls.ACCEPT && nextAccept <= 0) {
 				switch(options[curSelected]) {
-					case 'Contadores (FPS e memória)':
+					case 'FPS visível':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
 						if(Main.fpsVar != null)
 							Main.fpsVar.visible = ClientPrefs.showFPS;
@@ -256,7 +258,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Ghost Tapping':
 						ClientPrefs.ghostTapping = !ClientPrefs.ghostTapping;
 
-					case 'Zooms de Camera':
+					case 'Efeitos de Camera':
 						ClientPrefs.camZooms = !ClientPrefs.camZooms;
 
 					case 'Esconder HUD':
@@ -358,7 +360,7 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Determina o entre áspas limite do seu FPS.";
 			case 'Delay da Nota':
 				daText = "Troca o quão cedo uma nota aparece.\n(feitos para fones com delay.)";
-			case 'Contadores (FPS e memória)':
+			case 'FPS visível':
 				daText = "Se desmarcado, desativa os contadores do jogo,\ntais como o contador de FPS e de memória.";
 			case 'Shaders':
 				daText = "Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)";
@@ -394,7 +396,7 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
 			case 'Legendas':
 				daText = "Se ativado, você irá ver as legendas nas músicas.";	
-			case 'Zooms de Camera':
+			case 'Efeitos de Camera':
 				daText = "Se desmarcado, a tela não irá dar zoom quando acertar uma nota.";
 			case 'Esconder HUD':
 				daText = "Se marcado, tira muitas coisas da tela.";
@@ -444,7 +446,7 @@ class BaseOptionsMenu extends MusicBeatState
 			if(checkbox != null) {
 				var daValue:Bool = false;
 				switch(options[checkboxNumber[i]]) {
-					case 'Contadores (FPS e memória)':
+					case 'FPS visível':
 						daValue = ClientPrefs.showFPS;
 					case 'Shaders':
 						daValue = ClientPrefs.shaders;
@@ -452,6 +454,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.lowQuality;
 					case 'Anti-Aliasing':
 						daValue = ClientPrefs.globalAntialiasing;
+					case 'Efeitos de Camera':
+						daValue = ClientPrefs.camZooms;
 					case 'Note Splashes':
 						daValue = ClientPrefs.noteSplashes;
 					case 'Luzes Piscantes':

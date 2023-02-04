@@ -812,7 +812,7 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(OpenFlAssets.exists(Paths.image(image))){
+			if(OpenFlAssets.exists(Paths.imagechecker(image))){
 				leSprite.loadGraphic(Paths.image(image));
 				} else {
 					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
@@ -830,7 +830,7 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(OpenFlAssets.exists(Paths.image(image))){
+			if(OpenFlAssets.exists(Paths.imagechecker(image))){
 				leSprite.loadGraphic(Paths.image(image));
 				} else {
 					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
@@ -847,7 +847,7 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(OpenFlAssets.exists(Paths.image(image))){
+			if(OpenFlAssets.exists(Paths.imagechecker(image))){
 				leSprite.frames = Paths.getSparrowAtlas(image);
 				} else {
 					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
