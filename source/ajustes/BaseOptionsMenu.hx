@@ -199,7 +199,6 @@ class BaseOptionsMenu extends MusicBeatState
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
 						if(Main.fpsVar != null)
 							Main.fpsVar.visible = ClientPrefs.showFPS;
-							Main.memoryCounter.visible = ClientPrefs.showFPS;
 
 					case 'Baixa Qualidade':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;

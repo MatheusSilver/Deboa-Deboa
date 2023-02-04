@@ -78,7 +78,7 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
-	var precacheList:Map<String, String> = new Map<String, String>();
+	public var precacheList:Map<String, String> = new Map<String, String>(); //Eu amo tanto usar Luas... 
 
 	public static var cccVidaCounter:Int = 2;
 
@@ -2591,8 +2591,7 @@ class PlayState extends MusicBeatState
 		cachePopUpScore();
 		//trace("Iniciando precache no PlayState.");
 
-		var data:BitmapData;
-		var graph:FlxGraphic;
+		
 
 		//trace('executando precachelist');
 
@@ -2601,15 +2600,12 @@ class PlayState extends MusicBeatState
 				
 				switch(type)
 				{
-					case 'image':
-						data = BitmapData.fromFile(Paths.image(key));
-						graph = FlxGraphic.fromBitmapData(data);
-						graph.persist = !ClientPrefs.imagesPersist;
-						FlxG.bitmap.addGraphic(graph);
+					case 'image':					
+						Paths.image(key);
 					case 'sound':
-						FlxG.sound.cache(Paths.sound(key));
+						Paths.sound(key);
 					case 'music':
-						FlxG.sound.cache(Paths.music(key));
+						Paths.music(key);
 				}
 			}
 			
@@ -3179,7 +3175,7 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 1:
 						var ready:FlxSprite; 
-						if(Assets.exists(Paths.image(introAlts[0]))){
+						if(Assets.exists(Paths.imagechecker(introAlts[0]))){
 						ready = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
 						} else {
 							ready = new FlxSprite().loadGraphic(Paths.image(introAlts[0], 'preload'));
@@ -3206,7 +3202,7 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 2:
 						var set:FlxSprite;
-						if(Assets.exists(Paths.image(introAlts[1]))){
+						if(Assets.exists(Paths.imagechecker(introAlts[1]))){
 							set = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 							} else {
 								set = new FlxSprite().loadGraphic(Paths.image(introAlts[1], 'preload'));
@@ -3233,7 +3229,7 @@ class PlayState extends MusicBeatState
 					case 3:
 						var go:FlxSprite; //bruh + meme = breme
 
-						if(Assets.exists(Paths.image(introAlts[1]))){
+						if(Assets.exists(Paths.imagechecker(introAlts[1]))){
 							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 							} else {
 								go = new FlxSprite().loadGraphic(Paths.image(introAlts[2], 'preload'));
@@ -3522,13 +3518,13 @@ class PlayState extends MusicBeatState
 			case 'Adicionar Imagens':
 				if(ClientPrefs.legendas){
 					//trace('executando cache de lyrics');
-				if(OpenFlAssets.exists(Paths.image(event[3]))){
+				if(OpenFlAssets.exists(Paths.imagechecker(event[3]))){
 					precacheList.set(event[3], 'image');
 				}
-				if(OpenFlAssets.exists(Paths.image(event[4]))){
+				if(OpenFlAssets.exists(Paths.imagechecker(event[4]))){
 					precacheList.set(event[4], 'image');
 				}
-				if(OpenFlAssets.exists(Paths.image(event[5]))){
+				if(OpenFlAssets.exists(Paths.imagechecker(event[5]))){
 					precacheList.set(event[5], 'image');
 				}
 				}
@@ -3777,7 +3773,7 @@ class PlayState extends MusicBeatState
 		vocals.play();
 	}
 
-	private var paused:Bool = false;
+	public var paused:Bool = false;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
@@ -4621,12 +4617,14 @@ class PlayState extends MusicBeatState
 				vocals.stop();
 				FlxG.sound.music.stop();
 
+				for (tween in modchartTweens) {
+					tween.active = true;
+				}
 				for (timer in modchartTimers) {
 					timer.active = true;
 				}
 
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
-
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 				
 				#if desktop
@@ -5631,8 +5629,8 @@ class PlayState extends MusicBeatState
 								furnaceTheEnd.visible = true;
 								boyfriend.x = 998 -208;
 								boyfriend.y = 302;
-								dad.x = 1308 -208;
-								dad.y = 202;
+								dad.x = 1308 -195;
+								dad.y = 175;
 								health = 0.05;
 
 								case 4505:
@@ -6495,7 +6493,7 @@ class PlayState extends MusicBeatState
 			pixelShitPart2 = '-pixel';
 		}
 
-		if(Assets.exists(Paths.image(pixelShitPart1 + daRating + pixelShitPart2))) {
+		if(Assets.exists(Paths.imagechecker(pixelShitPart1 + daRating + pixelShitPart2))) {
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
 		} else {
 			rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2, 'preload'));
@@ -7332,7 +7330,7 @@ class PlayState extends MusicBeatState
 
 		if(lastBeatHit >= curBeat) {
 			#if debug
-			trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
+			//trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
 			#end
 			return;
 		}
@@ -7819,18 +7817,27 @@ class PlayState extends MusicBeatState
 			});
 		}
 
-	public function callOnLuas(event:String, args:Array<Dynamic>):Dynamic {
-		var returnVal:Dynamic = FunkinLua.Function_Continue;
-		#if LUA_ALLOWED
-		for (i in 0...luaArray.length) {
-			var ret:Dynamic = luaArray[i].call(event, args);
-			if(ret != FunkinLua.Function_Continue) {
-				returnVal = ret;
+		public function callOnLuas(event:String, args:Array<Dynamic>, ignoreStops = true, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
+			var returnVal = FunkinLua.Function_Continue;
+			#if LUA_ALLOWED
+			if(exclusions == null) exclusions = [];
+			if(excludeValues == null) excludeValues = [];
+	
+			for (script in luaArray) {
+				if(exclusions.contains(script.scriptName))
+					continue;
+	
+				var myValue = script.call(event, args);
+				if(myValue == FunkinLua.Function_StopLua && !ignoreStops)
+					break;
+				
+				if(myValue != null && myValue != FunkinLua.Function_Continue) {
+					returnVal = myValue;
+				}
 			}
+			#end
+			return returnVal;
 		}
-		#end
-		return returnVal;
-	}
 
 	public function setOnLuas(variable:String, arg:Dynamic) {
 		#if LUA_ALLOWED

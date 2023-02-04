@@ -297,7 +297,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.canuseevents = true;
 					PlayState.desesperada = false;
 					CustomFadeTransition.nextCamera = transCamera;
-					MusicBeatState.resetState();
+					restartSong();
 					if (PlayState.useVideo)
 					{
 						GlobalVideo.get().stop();
@@ -340,6 +340,23 @@ class PauseSubState extends MusicBeatSubstate
 			}
 		}
 	}
+
+	public static function restartSong(noTrans:Bool = false)
+		{
+			PlayState.instance.paused = true; // For lua
+			FlxG.sound.music.volume = 0;
+			PlayState.instance.vocals.volume = 0;
+	
+			if(noTrans)
+			{
+				flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
+				FlxG.resetState();
+			}
+			else
+			{
+				MusicBeatState.resetState();
+			}
+		}
 
 	override function destroy()
 	{

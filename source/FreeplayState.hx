@@ -410,7 +410,7 @@ class FreeplayState extends MusicBeatState
 			
 			FlxTween.tween(outroperfilSprite, {alpha: 0}, curtimer, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
-					if(OpenFlAssets.exists(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
+					if(OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
 						outroperfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload')); 
 						outroperfilSprite.updateHitbox();
 						outroperfilSprite.screenCenter(Y);
@@ -422,7 +422,7 @@ class FreeplayState extends MusicBeatState
 					}
 				}
 			});
-			if(OpenFlAssets.exists(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
+			if(OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
 				perfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload')); 
 				perfilSprite.updateHitbox();
 				perfilSprite.screenCenter(Y);

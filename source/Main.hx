@@ -29,7 +29,6 @@ class Main extends Sprite
 	var startFullscreen:Bool = ClientPrefs.fullscreen; // Whether to start the game in fullscreen on desktop targets
 	//Quando tu for começar o jooj, verifica se isso aqui não tá crashando não fiz o teste disso quando fullscreen não foi setado ainda
 	public static var fpsVar:FPS;
-	public static var memoryCounter:MemoryCounter;
 	#if desktop
 	//public static var gjToastManager:GJToastManager;
 	#end
@@ -130,13 +129,6 @@ class Main extends Sprite
 		addChild(fpsVar);
 		if(fpsVar != null) {
 			fpsVar.visible = false;
-		}
-
-
-		memoryCounter = new MemoryCounter(10, 3, 0xffffff);
-		addChild(memoryCounter);
-		if(memoryCounter != null) {
-			memoryCounter.visible = ClientPrefs.showFPS;
 		}
 		
 		#if html5

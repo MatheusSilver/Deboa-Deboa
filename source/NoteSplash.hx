@@ -77,7 +77,7 @@ class NoteSplash extends FlxSprite
 	}
 
 	function loadAnims(skin:String) {
-		if(openfl.utils.Assets.exists(Paths.image('splashes/'+skin))){
+		if(openfl.utils.Assets.exists(Paths.imagechecker('splashes/'+skin))){
 			frames = Paths.getSparrowAtlas('splashes/'+skin); //Aparentemente isso tenta puxar o note splash da pasta shared/images, mas e se...
 			} else {
 				//FlxG.log.add('não achei ' + skin + " em " + LoadingState.directoryreader + "splashes/ então vou procurar em shared");

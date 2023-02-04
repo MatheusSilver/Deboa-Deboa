@@ -420,7 +420,7 @@ class AlphaCharacter extends FlxSprite
 	{
 		var tex:FlxAtlasFrames;
 		super(x, y);
-		if (OpenFlAssets.exists(Paths.image('alphabet/'+fontTexture, 'preload'))){
+		if (OpenFlAssets.exists(Paths.imagechecker('alphabet/'+fontTexture, 'preload'))){
 		tex = Paths.getSparrowAtlas('alphabet/'+fontTexture, 'preload');
 		}
 		else

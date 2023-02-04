@@ -133,7 +133,12 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new PibbyTela());
-		}else {
+		}
+		else if(FlxG.save.data.flashing == null && !FlashingState.leftState){ //Só por colocar de volta mesmo
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new FlashingState());
+		} else { //Não sei se tiraram isso pq não ia ser usado, ou se alguem FORGOR :SKULL: de add isso, mas anyway, ta ai de volta
 			if (initialized)
 				startIntro();
 			else

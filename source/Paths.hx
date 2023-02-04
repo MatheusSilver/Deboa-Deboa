@@ -1,5 +1,6 @@
 package;
 
+import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import lime.utils.Assets;
@@ -85,7 +86,9 @@ class Paths
 
 	static public function sound(key:String, ?library:String):Dynamic
 	{
-		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		var bagulhos_sinistros = getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		FlxG.sound.cache(bagulhos_sinistros);
+		return bagulhos_sinistros;
 	}
 	
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
@@ -95,7 +98,9 @@ class Paths
 
 	inline static public function music(key:String, ?library:String):Dynamic
 	{
-		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
+		var bagulhos_sinistros = getPath('music/$key.$SOUND_EXT', MUSIC, library);
+		FlxG.sound.cache(bagulhos_sinistros);
+		return bagulhos_sinistros;
 	}
 
 	inline static public function voices(song:String):Any
@@ -108,9 +113,18 @@ class Paths
 		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Inst.$SOUND_EXT';
 	}
 
+	inline static public function imagechecker(key:String, ?library:String):Dynamic
+		{
+			return getPath('images/$key.png', IMAGE, library);
+		}
+
 	inline static public function image(key:String, ?library:String):Dynamic
 	{
-		return getPath('images/$key.png', IMAGE, library);
+		var bagulhos_sinistros = getPath('images/$key.png', IMAGE, library);
+		var graph:FlxGraphic = FlxG.bitmap.add(bagulhos_sinistros, false, bagulhos_sinistros);
+		graph.persist = !ClientPrefs.imagesPersist;
+		FlxG.bitmap.addGraphic(graph);
+		return bagulhos_sinistros;
 	}
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
@@ -133,6 +147,10 @@ class Paths
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{
+		var bagulhos_sinistros = getPath('images/$key.png', IMAGE, library);
+		var graph:FlxGraphic = FlxG.bitmap.add(bagulhos_sinistros, false, bagulhos_sinistros);
+		graph.persist = !ClientPrefs.imagesPersist;
+		FlxG.bitmap.addGraphic(graph);
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 

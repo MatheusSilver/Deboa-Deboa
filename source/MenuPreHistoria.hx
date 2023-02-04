@@ -127,7 +127,7 @@ class MenuPreHistoria extends MusicBeatState
 			//ALO TEGER, MANDA UM SALVE!!!
 			var weekescolhida:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 			var assetName:String = weekescolhida.weekBackground;
-			if(OpenFlAssets.exists(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'))) {
+			if(OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'))) {
 				bigmenu.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'));
 			} else {
 				FlxG.log.warn('Não foi possível achar ' + Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'));
@@ -165,13 +165,13 @@ class MenuPreHistoria extends MusicBeatState
 		blackbarup.visible = true;
 		blackbardown.visible = true;
 		var assetName:String = leWeek.weekBackground;
-			if(OpenFlAssets.exists(Paths.image("Story_Mode/BG_" + assetName, 'preload'))) { //anti crashing moment 
+			if(OpenFlAssets.exists(Paths.imagechecker("Story_Mode/BG_" + assetName, 'preload'))) { //anti crashing moment 
 				bgSprite.loadGraphic(Paths.image("Story_Mode/BG_" + assetName, 'preload'));
 			} else {
 				FlxG.log.warn('Não foi possível achar ' + "assets/images/Story_Mode/BG_" + assetName);
 				bgSprite.loadGraphic('assets/images/menuDesat.png');
 			}
-			if(OpenFlAssets.exists(Paths.image("Story_Mode/PERFIL" + assetName, 'preload'))) { //anti crashing moment 
+			if(OpenFlAssets.exists(Paths.imagechecker("Story_Mode/PERFIL" + assetName, 'preload'))) { //anti crashing moment 
 				perfilSprite.loadGraphic(Paths.image("Story_Mode/PERFIL" + assetName, 'preload')); 
 				//PQP EU SOU MUITO BURRO... Ass:Silvio
 			} else {
@@ -182,12 +182,12 @@ class MenuPreHistoria extends MusicBeatState
 			bgSprite.screenCenter(XY);
 			perfilSprite.updateHitbox();
 
-		if(OpenFlAssets.exists(Paths.image("Story_Mode/Linha" + assetName))) { //anti crashing moment 
+		if(OpenFlAssets.exists(Paths.imagechecker("Story_Mode/Linha" + assetName))) { //anti crashing moment 
 			blackbardown.loadGraphic(Paths.image("Story_Mode/Linha" + assetName));
 		} else {
 			blackbardown.makeGraphic(FlxG.width, 53, FlxColor.BLACK);
 		}
-		if(OpenFlAssets.exists(Paths.image("Story_Mode/LinhaUP_" + assetName))) { //anti crashing moment 
+		if(OpenFlAssets.exists(Paths.imagechecker("Story_Mode/LinhaUP_" + assetName))) { //anti crashing moment 
 			blackbarup.loadGraphic(Paths.image("Story_Mode/LinhaUP_" + assetName));
 		} else {
 			blackbarup.makeGraphic(FlxG.width, 53, FlxColor.BLACK);

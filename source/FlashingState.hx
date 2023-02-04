@@ -31,7 +31,7 @@ class FlashingState extends MusicBeatState
 			Recomendamos ir ao menu de opcoes antes de jogar,\n
 			Aperte ENTER para ir ate as configuracoes,\n
 			ou aperte BACKSPACE para ir direto ao jogo.\n
-			Uma boa jogatina.",
+			Uma boa jogatina.", //Tenho certeza que foi o X02
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
