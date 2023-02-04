@@ -48,6 +48,7 @@ class FunkinLua {
 	#end
 
 	public var scriptName:String = '';
+	public var closed:Bool = false;
 	var gonnaClose:Bool = false;
 
 	public var accessedProps:Map<String, Dynamic> = null;
@@ -1336,6 +1337,11 @@ class FunkinLua {
 			}
 		});
 
+		Lua_helper.add_callback(lua, "close", function() {
+			closed = true;
+			return closed;
+		});
+
 		Lua_helper.add_callback(lua, "debugPrint", function(text1:Dynamic = '', text2:Dynamic = '', text3:Dynamic = '', text4:Dynamic = '', text5:Dynamic = '') {
 			if (text1 == null) text1 = '';
 			if (text2 == null) text2 = '';
@@ -2155,31 +2161,66 @@ class FunkinLua {
 	
 			return Reflect.getProperty(instance, variable);
 		}
-	
-	public function call(event:String, args:Array<Dynamic>):Dynamic {
+
+			function getErrorMessage(status:Int):String {
 		#if LUA_ALLOWED
-		if(lua == null) {
-			return Function_Continue;
+		var v:String = Lua.tostring(lua, -1);
+		Lua.pop(lua, 1);
+
+		if (v != null) v = v.trim();
+		if (v == null || v == "") {
+			switch(status) {
+				case Lua.LUA_ERRRUN: return "Runtime Error";
+				case Lua.LUA_ERRMEM: return "Memory Allocation Error";
+				case Lua.LUA_ERRERR: return "Critical Error";
+			}
+			return "Unknown Error";
 		}
 
-		Lua.getglobal(lua, event);
+		return v;
+		#end
+		return null;
+	}
+	
+	var lastCalledFunction:String = '';
+	public function call(func:String, args:Array<Dynamic>):Dynamic {
+		#if LUA_ALLOWED
+		if(closed) return Function_Continue;
 
-		for (arg in args) {
-			Convert.toLua(lua, arg);
-		}
+		lastCalledFunction = func;
+		try {
+			if(lua == null) return Function_Continue;
 
-		var result:Null<Int> = Lua.pcall(lua, args.length, 1, 0);
-		if(result != null && resultIsAllowed(lua, result)) {
-			if(Lua.type(lua, -1) == Lua.LUA_TSTRING) {
-				var error:String = Lua.tostring(lua, -1);
+			Lua.getglobal(lua, func);
+			var type:Int = Lua.type(lua, -1);
+
+			if (type != Lua.LUA_TFUNCTION) {
+				if (type > Lua.LUA_TNIL)
+					luaTrace("ERROR (" + func + "): attempt to call a " + typeToString(type) + " value", false, false, FlxColor.RED);
+
 				Lua.pop(lua, 1);
-				if(error == 'attempt to call a nil value') { //Makes it ignore warnings and not break stuff if you didn't put the functions on your lua file
-					return Function_Continue;
-				}
+				return Function_Continue;
 			}
 
-			var conv:Dynamic = Convert.fromLua(lua, result);
-			return conv;
+			for (arg in args) Convert.toLua(lua, arg);
+			var status:Int = Lua.pcall(lua, args.length, 1, 0);
+
+			// Checks if it's not successful, then show a error.
+			if (status != Lua.LUA_OK) {
+				var error:String = getErrorMessage(status);
+				luaTrace("ERROR (" + func + "): " + error, false, false, FlxColor.RED);
+				return Function_Continue;
+			}
+
+			// If successful, pass and then return the result.
+			var result:Dynamic = cast Convert.fromLua(lua, -1);
+			if (result == null) result = Function_Continue;
+
+			Lua.pop(lua, 1);
+			return result;
+		}
+		catch (e:Dynamic) {
+			trace(e);
 		}
 		#end
 		return Function_Continue;

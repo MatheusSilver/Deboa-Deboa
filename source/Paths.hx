@@ -86,9 +86,7 @@ class Paths
 
 	static public function sound(key:String, ?library:String):Dynamic
 	{
-		var bagulhos_sinistros = getPath('sounds/$key.$SOUND_EXT', SOUND, library);
-		FlxG.sound.cache(bagulhos_sinistros);
-		return bagulhos_sinistros;
+		return getPath('sounds/$key.$SOUND_EXT', SOUND, library); //Depois penso em algo pra mobile, essa ideia foi estupida.
 	}
 	
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
@@ -98,9 +96,7 @@ class Paths
 
 	inline static public function music(key:String, ?library:String):Dynamic
 	{
-		var bagulhos_sinistros = getPath('music/$key.$SOUND_EXT', MUSIC, library);
-		FlxG.sound.cache(bagulhos_sinistros);
-		return bagulhos_sinistros;
+		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
 	}
 
 	inline static public function voices(song:String):Any
@@ -147,10 +143,6 @@ class Paths
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{
-		var bagulhos_sinistros = getPath('images/$key.png', IMAGE, library);
-		var graph:FlxGraphic = FlxG.bitmap.add(bagulhos_sinistros, false, bagulhos_sinistros);
-		graph.persist = !ClientPrefs.imagesPersist;
-		FlxG.bitmap.addGraphic(graph);
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 

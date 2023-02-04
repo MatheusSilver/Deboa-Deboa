@@ -2603,9 +2603,9 @@ class PlayState extends MusicBeatState
 					case 'image':					
 						Paths.image(key);
 					case 'sound':
-						Paths.sound(key);
+						FlxG.sound.cache(Paths.sound(key));
 					case 'music':
-						Paths.music(key);
+						FlxG.sound.cache(Paths.music(key));
 				}
 			}
 			
