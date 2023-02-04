@@ -116,11 +116,10 @@ class Paths
 
 	inline static public function image(key:String, ?library:String):Dynamic
 	{
-		var bagulhos_sinistros = getPath('images/$key.png', IMAGE, library);
-		var graph:FlxGraphic = FlxG.bitmap.add(bagulhos_sinistros, false, bagulhos_sinistros);
+		var graph:FlxGraphic = FlxG.bitmap.add(getPath('images/$key.png', IMAGE, library), false, getPath('images/$key.png', IMAGE, library));
 		graph.persist = !ClientPrefs.imagesPersist;
 		FlxG.bitmap.addGraphic(graph);
-		return bagulhos_sinistros;
+		return getPath('images/$key.png', IMAGE, library);
 	}
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
