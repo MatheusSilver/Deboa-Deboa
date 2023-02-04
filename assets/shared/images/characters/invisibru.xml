@@ -11,4 +11,5 @@
 	<SubTexture name="GF Right Note0000" x="0" y="0" width="1" height="1"/>
 	<SubTexture name="GF Up Note0000" x="0" y="0" width="1" height="1"/>
 	<SubTexture name="GF left note0000" x="0" y="0" width="1" height="1"/>
+	<SubTexture name="idle0000" x="0" y="0" width="1" height="1"/>
 </TextureAtlas>

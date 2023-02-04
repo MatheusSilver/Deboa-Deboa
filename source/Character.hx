@@ -1,9 +1,7 @@
 package;
 
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.tweens.FlxTween;
-import flixel.animation.FlxBaseAnimation;
 import haxe.Json;
 import openfl.utils.Assets;
 
@@ -39,7 +37,6 @@ class Character extends FlxSprite
 {
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
-	var tex:FlxAtlasFrames;
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = DEFAULT_CHARACTER;
@@ -265,9 +262,7 @@ class Character extends FlxSprite
 			{
 		specialAnim = false;
 		animation.play(AnimName, Force, Reversed, Frame);
-		if(PlayState.nomehistorico.toLowerCase() == 'noite da rapaziada' && isPlayer){
-			PlayState.instance.pastaanimcheckerBF(AnimName, Force, Reversed, Frame);
-		}
+		PlayState.instance.pastaanimcheckerBF(AnimName, Force, Reversed, Frame);
 
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))

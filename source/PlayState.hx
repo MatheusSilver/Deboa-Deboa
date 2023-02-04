@@ -331,6 +331,7 @@ class PlayState extends MusicBeatState
 	var needleSky:BGSprite;
 	var needleRuins:BGSprite;
 	var needleFg:FlxSprite;
+	var vcr:ShaderFilter;
 
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
@@ -1214,12 +1215,21 @@ class PlayState extends MusicBeatState
                 tempogravador.visible = ClientPrefs.shaders;
 				tempogravador.antialiasing = false;
 				add(tempogravador);
+				
 
 				if(ClientPrefs.shaders) {
-			FunkinLua.addShaderToCamera('hud', new VCRDistortionEffect(0.0,true,true,true));
-			FunkinLua.addShaderToCamera('game', new VCRDistortionEffect(0.0,true,true,true)); //testing
-			FunkinLua.addShaderToCamera('hud', new ScanlineEffect(true));
-			FunkinLua.addShaderToCamera('game', new ScanlineEffect(true)); //testing					
+					vcr = new ShaderFilter(new VCRDistortionShader());
+					vcr.shader.data.iTime.value = [0];
+					vcr.shader.data.vignetteOn.value = [true];
+					vcr.shader.data.perspectiveOn.value = [true];
+					vcr.shader.data.distortionOn.value = [true];
+					vcr.shader.data.scanlinesOn.value = [true];
+					vcr.shader.data.vignetteMoving.value = [true];
+					vcr.shader.data.glitchModifier.value = [0];
+					vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth,Lib.current.stage.stageHeight];
+
+					camGame.setFilters([vcr]);
+					camHUD.setFilters([vcr]);				
 				}
 
 			case 'chasing':
@@ -3682,6 +3692,7 @@ class PlayState extends MusicBeatState
 	{
 		if (paused)
 		{
+					
 			if (FlxG.sound.music != null && !startingSong)
 			{
 				resyncVocals();
@@ -3784,12 +3795,20 @@ class PlayState extends MusicBeatState
 
 	var starvedSpeed:Float = 15;
 
+	public var totalElapsed:Float = 0;
+
 	override public function update(elapsed:Float)
 	{
 		/*if (FlxG.keys.justPressed.NINE)
 		{
 			iconP1.swapOldIcon();
 		}*/
+
+		if (curSong.toLowerCase()=='round-a-bout'&&ClientPrefs.shaders){
+			totalElapsed += elapsed;
+			if (vcr != null)
+				vcr.shader.data.iTime.value = [totalElapsed];
+		}
 
 		if(curSong.toLowerCase()== 'pasta-night'){
 			var swagRecta = FlxRect.weak(0, 0, saladfingers.width, saladfingers.height - 16);

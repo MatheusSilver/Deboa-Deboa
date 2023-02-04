@@ -6,7 +6,7 @@
 				3,
 				0
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "cheer",
 			"indices": [
 				0
@@ -19,7 +19,7 @@
 				0,
 				-19
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "singLEFT",
 			"indices": [
 				0
@@ -32,7 +32,7 @@
 				0,
 				-20
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "singDOWN",
 			"indices": [
 				0
@@ -45,7 +45,7 @@
 				0,
 				4
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "singUP",
 			"indices": [
 				0
@@ -58,7 +58,7 @@
 				0,
 				-20
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "singRIGHT",
 			"indices": [],
 			"name": "GF Right Note"
@@ -82,7 +82,7 @@
 				0,
 				-9
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "danceLeft",
 			"indices": [
 				0
@@ -95,7 +95,7 @@
 				27
 			],
 			"loop": false,
-			"fps": 24,
+			"fps": 1,
 			"anim": "singUPmiss",
 			"indices": [
 				0
@@ -108,7 +108,7 @@
 				21
 			],
 			"loop": false,
-			"fps": 24,
+			"fps": 1,
 			"anim": "singRIGHTmiss",
 			"indices": [
 				0
@@ -121,7 +121,7 @@
 				24
 			],
 			"loop": false,
-			"fps": 24,
+			"fps": 1,
 			"anim": "singLEFTmiss",
 			"indices": [
 				0
@@ -134,7 +134,7 @@
 				-19
 			],
 			"loop": false,
-			"fps": 24,
+			"fps": 1,
 			"anim": "singDOWNmiss",
 			"indices": [
 				0
@@ -147,7 +147,7 @@
 				0,
 				-9
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "danceRight",
 			"indices": [
 				0
@@ -160,7 +160,7 @@
 				45,
 				-8
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "hairBlow",
 			"indices": [
 				0
@@ -173,7 +173,7 @@
 				0,
 				-9
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "hairFall",
 			"indices": [
 				0
@@ -186,10 +186,21 @@
 				-2,
 				-17
 			],
-			"fps": 24,
+			"fps": 1,
 			"anim": "scared",
 			"indices": [],
 			"name": "GF FEAR"
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-2,
+				-17
+			],
+			"fps": 1,
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
 		}
 	],
 	"no_antialiasing": false,
