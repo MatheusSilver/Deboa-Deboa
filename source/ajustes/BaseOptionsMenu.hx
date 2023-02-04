@@ -31,13 +31,13 @@ class BaseOptionsMenu extends MusicBeatState
 	static var unselectableOptions:Array<String> = [
 		'VISUAL',
 		'GAMEPLAY',
-		'SONS'
+		'SONS EXTRAS'
 	];
 	static var noCheckbox:Array<String> = [
 		'FPS',
 		'Delay da Nota',
-		'Volume do Hitsound',
-		'Som do Hitsound',
+		'Volume',
+		'Tipo',
 		'Teste o HitSound'
 	];
 
@@ -65,10 +65,10 @@ class BaseOptionsMenu extends MusicBeatState
 		'Note Splashes',
 		'Legendas',
 		'Efeitos de Camera',
-		'SONS',
+		'SONS EXTRAS',
 		'Hitsounds',
-		'Volume do Hitsound',
-		'Som do Hitsound',
+		'Volume',
+		'Tipo',
 		'Teste o HitSound'
 	];
 
@@ -300,23 +300,23 @@ class BaseOptionsMenu extends MusicBeatState
 						ClientPrefs.noteOffset += add * mult;
 						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
 						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
-					case 'Volume do Hitsound':
+					case 'Volume':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.osusom += addo;
+						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
+						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
-						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
-						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
 					}
-					case 'Som do Hitsound':
-						if (ClientPrefs.hitSounds && ClientPrefs.hitSoundType > (0 + add) && ClientPrefs.hitSoundType < (3+add)){
-							ClientPrefs.hitSoundType += add;
+					case 'Tipo':
+						if (ClientPrefs.hitSounds){
+						ClientPrefs.hitSoundType += add;
+						if(ClientPrefs.hitSoundType < 0) ClientPrefs.hitSoundType = 0;
+						else if(ClientPrefs.hitSoundType > 3) ClientPrefs.hitSoundType = 3; //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
-						if(ClientPrefs.hitSoundType < 0) ClientPrefs.hitSoundType = 0;
-						else if(ClientPrefs.hitSoundType > 3) ClientPrefs.hitSoundType = 3; 
 						}
 				}
 				reloadValues();
@@ -378,9 +378,9 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Bom... Deixa o game em tela cheia uai";
 			case 'Teste o HitSound':
 				daText = "Aperte Enter para testar o volume e o som do Hitsound escolhido. \n a opção de hitsound precisa estar ativa para funcionar.";
-			case 'Som do Hitsound':
+			case 'Tipo':
 				daText = "Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis \n Os Hitsounds precisam estar ativos para mudar esta opção.";
-			case 'Volume do Hitsound':
+			case 'Volume':
 				daText = "Altere aqui o volume do som da Hitsound.\n(Esquerda para abaixar, direita para aumentar.) \n Os Hitsounds precisam estar ativos para mudar esta opção.";
 			case 'Middlescroll':
 				daText = "Se marcado, a nota do oponente irá sumir e a sua ficará no meio.";
@@ -497,10 +497,10 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = '' + ClientPrefs.framerate;
 					case 'Delay da Nota':
 						daText = ClientPrefs.noteOffset + 'ms';
-					case 'Volume do Hitsound':
-						daText = ClientPrefs.osusom + '';
-					case 'Som do Hitsound':
-						daText = 'Som ' + ClientPrefs.hitSoundType;
+					case 'Volume':
+						daText = Std.string(ClientPrefs.osusom);
+					case 'Tipo':
+						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType+1);
 					case 'Teste o HitSound':
 						daText = '';
 				}
