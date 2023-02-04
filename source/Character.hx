@@ -262,7 +262,9 @@ class Character extends FlxSprite
 			{
 		specialAnim = false;
 		animation.play(AnimName, Force, Reversed, Frame);
-		PlayState.instance.pastaanimcheckerBF(AnimName, Force, Reversed, Frame);
+		if(PlayState.nomehistorico.toLowerCase() == 'noite da rapaziada' && isPlayer){
+			PlayState.instance.pastaanimcheckerBF(AnimName, Force, Reversed, Frame);
+		}
 
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
