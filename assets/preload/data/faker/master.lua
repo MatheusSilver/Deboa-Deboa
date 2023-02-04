@@ -11,13 +11,6 @@ function onCreate()
     addLuaSprite('fakertransform', true)
     objectPlayAnimation('fakertransform', '1', true)
 
-    makeLuaSprite('blackFuck', '', 0, 0);
-	makeGraphic('blackFuck',screenWidth,screenHeight,'000000')
-	scaleObject('blackFuck', 6.0, 6.0);
-	setObjectCamera('blackFuck', 'hud2');
-	addLuaSprite('blackFuck', true);
-        removeLuaSprite('blackFuck', true);
-
     setScrollFactor('gf', 1.24, 1);
     setScrollFactor('dad', 1.25, 1);
     setScrollFactor('boyfriend', 1.25, 1);
@@ -56,9 +49,5 @@ function onStepHit()
 		setProperty('fakertransform.x', -72.65+-110)
 		setProperty('fakertransform.y', -249.2+318)
 		objectPlayAnimation('fakertransform', '4', true)
-	end
-
-	if curStep == 884 then
-		setProperty('blackFuck.alpha', 1)
 	end
 end

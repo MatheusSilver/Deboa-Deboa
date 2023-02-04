@@ -353,7 +353,17 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+
 		#if debug
+		if(controls.NOTE_SPACE){ //CUSTOM SILVIO'S HITBOOX WHEEEEEEEEEEEEEEEEEN?????????????????
+			trace('desvio segurado');
+		}
+		if(controls.NOTE_SPACE_P){
+			trace('desvio pressionado');
+		}
+		if(controls.NOTE_SPACE_R){
+			trace('desvio solto');
+		}
 		if(FlxG.keys.justPressed.FOUR){
 		add(new AchievementObject('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', camAchievement));
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);

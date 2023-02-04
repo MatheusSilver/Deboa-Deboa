@@ -2298,8 +2298,14 @@ class PlayState extends MusicBeatState
 			{
 				case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
 					controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, NONE);
+					if(curSong.toLowerCase('triple-trouble') || curSong.toLowerCase('chaos') || nomehistorico.toLowerCase('gran finale') || curSong.toLowerCase('prey') || curSong.toLowerCase('pasta-night')){
+						controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, A);
+						}
 				case HITBOX:
 					controls.setHitBoxNOTES(mcontrols._hitbox);
+					if(curSong.toLowerCase('triple-trouble') || curSong.toLowerCase('chaos') || nomehistorico.toLowerCase('gran finale') || curSong.toLowerCase('prey') || curSong.toLowerCase('pasta-night')){
+					controls.setSpecialHitBoxNOTES(mcontrols._hitbox);
+					}
 				default:
 			}
 			trackedinputsNOTES = controls.trackedinputsNOTES;
@@ -2873,7 +2879,7 @@ class PlayState extends MusicBeatState
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 			triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
-			triggerEventNote('noteskinchangeBF', 'NOTE_assets', '');
+			triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
 		}
 		
 		if(!OpenFlAssets.exists(source)){
@@ -3875,7 +3881,7 @@ class PlayState extends MusicBeatState
 		floaty2 += 0.01;
 		var targetSpeed:Float = 15;
 
-		if(desvioPrey && FlxG.keys.pressed.SPACE){
+		if(desvioPrey && controls.NOTE_SPACE_P){
 			desvioPrey = false;
 			desviou = true;
 			warning.visible = false;
@@ -6613,23 +6619,33 @@ class PlayState extends MusicBeatState
 		var up = controls.NOTE_UP;
 		var right = controls.NOTE_RIGHT;
 		var down = controls.NOTE_DOWN;
+		var space = controls.NOTE_SPACE;
 		var left = controls.NOTE_LEFT;
 
 		var upP = controls.NOTE_UP_P;
 		var rightP = controls.NOTE_RIGHT_P;
 		var downP = controls.NOTE_DOWN_P;
+		var spaceP = controls.NOTE_SPACE_P;
 		var leftP = controls.NOTE_LEFT_P;
 
 		var upR = controls.NOTE_UP_R;
 		var rightR = controls.NOTE_RIGHT_R;
 		var downR = controls.NOTE_DOWN_R;
+		var spaceR = controls.NOTE_SPACE_R;
 		var leftR = controls.NOTE_LEFT_R;
 
-		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
-		var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
-		var controlHoldArray:Array<Bool> = [left, down, up, right];
-		if (isRing)
-			controlHoldArray = [left, down, FlxG.keys.pressed.SPACE, up, right];
+		var controlArray:Array<Bool>;
+		var controlReleaseArray:Array<Bool>;
+		var controlHoldArray:Array<Bool>;
+		if (isRing){
+		controlArray = [leftP, downP, spaceP, upP, rightP];
+		controlReleaseArray = [leftR, downR, spaceR, upR, rightR];
+		controlHoldArray = [left, down, space, up, right];
+		} else{
+			controlArray = [leftP, downP, upP, rightP];
+			controlReleaseArray = [leftR, downR, upR, rightR];
+			controlHoldArray = [left, down, up, right];
+		}
 
 		// FlxG.watch.addQuick('asdfa', upP);
 		if (!boyfriend.stunned && generatedMusic)
@@ -7329,7 +7345,7 @@ class PlayState extends MusicBeatState
 						fakertransform.x += -110;
 						fakertransform.y += 318;
 						fakertransform.animation.play('4');
-					case 884:
+					case 881:
 						add(blackFuck);
 						blackFuck.alpha = 1;
 						blackFuck.visible = true;

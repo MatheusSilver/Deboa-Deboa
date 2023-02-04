@@ -31,7 +31,7 @@ class KeysSubstate extends MusicBeatState {
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
 
-	private static var defaultKey:String = 'Resetar para as keybinds padroes';
+	private static var defaultKey:String = 'Resetar para as keybinds padrões';
 	private var bindLength:Int = 0;
 
 	var optionShit:Array<Dynamic> = [
@@ -40,6 +40,7 @@ class KeysSubstate extends MusicBeatState {
 		['Baixo', 'note_down'],
 		['Cima', 'note_up'],
 		['Direita', 'note_right'],
+		['Desvio', 'note_space'],
 		[''],
 		['UI'],
 		['Esquerda', 'ui_left'],
