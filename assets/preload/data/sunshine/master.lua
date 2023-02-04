@@ -7,14 +7,11 @@ local darknotevisibility = false;
 function onCreate()
     setProperty('gf.visible', false);
 
-    addCharacterToList('TailsDoll', 'dad')
-    addCharacterToList('SSBF', 'bf')
-
-  --  usertimebar = getPropertyFromClass('ClientPrefs', 'timeBarType');
+    addCharacterToList('tailsdolldark', 'dad')
 
 end
 
---Lembrar de fazer o ínicio dessa música HARDCODE
+--Ideia abandonada, retornando ao normal
 
 function opponentNoteHit()
     if darknotevisibility == true then
@@ -28,8 +25,8 @@ end
 function onUpdate()
 
  --  if keyJustPressed('space') == true then
-     --   debugPrint('setting: ', getPropertyFromClass('ClientPrefs', 'timeBarType'))
-      --  debugPrint(usertimebar);
+       --   debugPrint('setting: ', getPropertyFromClass('ClientPrefs', 'timeBarType'))
+       --  debugPrint(usertimebar);
         -- debugPrint(getPropertyFromGroup('strumLineNotes', 4, 'x'));
         -- debugPrint(getPropertyFromGroup('strumLineNotes', 5, 'x'));
         -- debugPrint(getPropertyFromGroup('strumLineNotes', 6, 'x'));
@@ -57,8 +54,7 @@ function onStepHit()
     if curStep == 588 then
         setPropertyFromClass('ClientPrefs', 'timeBarType', 'Song Name')
         
-        triggerEvent('Change Character', '1', 'TailsDoll');
-        triggerEvent('Change Character', '0', 'SSBF');
+        triggerEvent('Change Character', '1', 'tailsdolldark');
         setProperty('defaultCamZoom', 0.9);
         setProperty('stage.alpha', 0);
         setProperty('boyfriend.visible', false);
@@ -90,10 +86,9 @@ function onStepHit()
     end
 
     if curStep == 860 then
-          --  setPropertyFromClass('ClientPrefs', 'timeBarType', usertimebar)
+            --setPropertyFromClass('ClientPrefs', 'timeBarType', usertimebar)
 
         triggerEvent('Change Character', '1', 'tailsdoll-cartoon');
-        triggerEvent('Change Character', '0', 'bf');
         setProperty('defaultCamZoom', 0.86);
         setProperty('stage.alpha', 1);
         setProperty('boyfriend.visible', true);
