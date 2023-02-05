@@ -2680,7 +2680,7 @@ class PlayState extends MusicBeatState
 			precacheList.set('intro3' + introSoundsSuffix, 'sound');
 			precacheList.set('intro2' + introSoundsSuffix, 'sound');
 			precacheList.set('intro1' + introSoundsSuffix, 'sound');
-			precacheList.set('introGo' + introSoundsSuffix, 'souind');
+			precacheList.set('introGo' + introSoundsSuffix, 'sound');
 		}
 
 	public var vidSound:FlxSound;

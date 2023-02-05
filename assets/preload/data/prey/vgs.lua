@@ -46,7 +46,7 @@ function onStepHit()
 	if curStep == 3430 then
         doTweenAlpha('vignetteAlpha3', 'vgbranco.alpha', 0.6, 1, 'linear');
     end
-    if cucurStep == 4480 then
+    if curStep == 4480 then
 		doTweenAlpha('vignetteAlpha4', 'vgbranco.alpha', 0, 1, 'linear');
 	end
 
