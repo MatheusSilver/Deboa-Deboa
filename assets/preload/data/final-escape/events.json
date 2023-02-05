@@ -184,45 +184,6 @@
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						320305.555555556,
-						-1,
-						"Change Character",
-						"dad",
-						"finalexe"
-					],
-					[
-						310305.555555556,
-						-1,
-						"Change Character",
-						"bf",
-						"bf-run"
-					],
-					[
-						310305.555555556,
-						-1,
-						"Change Character",
-						"bf",
-						"bf-tiny"
-					],
-					[
-						300305.555555556,
-						-1,
-						"Change Character",
-						"dad",
-						"exefront"
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
 			}
 		],
 		"splashSkin": "noteSplashes",
