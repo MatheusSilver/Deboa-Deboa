@@ -13,8 +13,9 @@ jumpable = true
 end
 
 
-if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.SPACE') and jumpable == true and not gameOver and not getProperty('cpuControlled') then
- 
+if keyJustPressed('space') and jumpable == true and not gameOver and not getProperty('cpuControlled') then
+ --Basicamente essa mudança serve para que o botão de desvio custom seja de fato usado até mesmo no lua
+ --Lembrar de colocar isso lá em Chaos
  Jump()
   
 

@@ -1,3 +1,4 @@
+import flixel.addons.transition.FlxTransitionableState;
 import DialogueBoxPsych;
 import Shaders;
 import Type.ValueType;
@@ -632,7 +633,7 @@ class FunkinLua {
 				case 'back': key = PlayState.instance.getControl('BACK');
 				case 'pause': key = PlayState.instance.getControl('PAUSE');
 				case 'reset': key = PlayState.instance.getControl('RESET');
-				case 'space': key = FlxG.keys.justPressed.SPACE;
+				case 'space': key = PlayState.instance.getControl('NOTE_SPACE_P'); //Apenas para que a Chaos e Final Escape possam usar o botão custom
 				case '0': key = FlxG.keys.justPressed.ZERO;
 				case '1': key = FlxG.keys.justPressed.ONE;
 				case '2': key = FlxG.keys.justPressed.TWO;
@@ -681,7 +682,7 @@ class FunkinLua {
 			Paths.image(name); //Tecnicamente isso deveria procurar tanto em libraries quanto em preload
 		});
 		Lua_helper.add_callback(lua, "precacheSound", function(name:String) {
-			Paths.sound(name);
+			CoolUtil.precacheSound(name);
 		});
 		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic) {
 			var value1:String = arg1;
@@ -842,14 +843,14 @@ class FunkinLua {
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
 		});
-		
+
 		Lua_helper.add_callback(lua, "makeAnimatedLuaSprite", function(tag:String, image:String, x:Float, y:Float) {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 			if(OpenFlAssets.exists(Paths.imagechecker(image))){
 				leSprite.frames = Paths.getSparrowAtlas(image);
-				} else {
+				} else if (image != 'nil'){
 					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
 					leSprite.frames = Paths.getSparrowAtlas(image, 'preload');
 				}
@@ -1527,6 +1528,7 @@ class FunkinLua {
 				PlayState.instance.modchartSprites.get(tag).animation.play(name, forced);
 			}
 		});
+		/* por algum motivo essa função estava repetida duas vezes, mas acredito que a de cima funcione melhor
 		Lua_helper.add_callback(lua, "setObjectCamera", function(obj:String, camera:String = '') {
 			/*if(PlayState.instance.modchartSprites.exists(obj)) {
 				PlayState.instance.modchartSprites.get(obj).cameras = [cameraFromString(camera)];
@@ -1535,7 +1537,7 @@ class FunkinLua {
 			else if(PlayState.instance.modchartTexts.exists(obj)) {
 				PlayState.instance.modchartTexts.get(obj).cameras = [cameraFromString(camera)];
 				return true;
-			}*/
+			}
 			var real = PlayState.instance.getLuaObject(obj);
 			if(real!=null){
 				real.cameras = [cameraFromString(camera)];
@@ -1554,7 +1556,7 @@ class FunkinLua {
 			}
 			luaTrace("setObjectCamera: Object " + obj + " doesn't exist!", false, false, FlxColor.RED);
 			return false;
-		});
+		});*/
 		
 		Lua_helper.add_callback(lua, "setLuaSpriteCamera", function(tag:String, camera:String = '') {
 			luaTrace("setLuaSpriteCamera is deprecated! Use setObjectCamera instead", false, true);
@@ -1697,6 +1699,73 @@ class FunkinLua {
 				Lua_helper.add_callback(lua, "clearEffects", function(camera:String) {
 					clearShaderFromCamera(camera);
 				});
+
+				//Coisas adicionadas exclusivamente para a Final Escape caso isso estrague o resto dos luas
+
+				Lua_helper.add_callback(lua, "restartSong", function(?skipTransition:Bool = false) {
+					PlayState.instance.persistentUpdate = false;
+					PauseSubState.restartSong(skipTransition);
+					return true;
+				});
+		
+				Lua_helper.add_callback(lua, "addAnimation", function(obj:String, name:String, frames:Array<Int>, framerate:Int = 24, loop:Bool = true) {
+					if(PlayState.instance.getLuaObject(obj,false)!=null) {
+						var cock:FlxSprite = PlayState.instance.getLuaObject(obj,false);
+						cock.animation.add(name, frames, framerate, loop);
+						if(cock.animation.curAnim == null) {
+							cock.animation.play(name, true);
+						}
+						return;
+					}
+		
+					var cock:FlxSprite = Reflect.getProperty(getInstance(), obj);
+					if(cock != null) {
+						cock.animation.add(name, frames, framerate, loop);
+						if(cock.animation.curAnim == null) {
+							cock.animation.play(name, true);
+						}
+					}
+				});
+		
+				Lua_helper.add_callback(lua, "loadGraphic", function(variable:String, image:String, ?gridX:Int = 0, ?gridY:Int = 0) {
+					var killMe:Array<String> = variable.split('.');
+					var spr:FlxSprite = getObjectDirectly(killMe[0]);
+					var animated = gridX != 0 || gridY != 0;
+		
+					if(killMe.length > 1) {
+						spr = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
+					}
+		
+					if(spr != null && image != null && image.length > 0)
+					{
+						//trace(image); //Eu até me preocuparia em fazer um sistema melhor pra isso mas na real... Isso só vai ser usado uma única vez então né?
+						spr.loadGraphic(Paths.image(image), animated, gridX, gridY);
+					}
+				});
+		
+				Lua_helper.add_callback(lua, "exitSong", function(?skipTransition:Bool = false) {
+					if(skipTransition)
+					{
+						FlxTransitionableState.skipNextTransIn = true;
+						FlxTransitionableState.skipNextTransOut = true;
+					}
+		
+					PlayState.cancelMusicFadeTween();
+					CustomFadeTransition.nextCamera = PlayState.instance.camOther;
+					if(FlxTransitionableState.skipNextTransIn)
+						CustomFadeTransition.nextCamera = null;
+		
+					if(PlayState.modohistoria)
+						MusicBeatState.switchState(new MenuPreHistoria());
+					else
+						MusicBeatState.switchState(new FreeplayState());
+		
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					PlayState.changedDifficulty = false;
+					PlayState.instance.transitioning = true;
+					return true;
+				});
+			
 		
 		call('onCreate', []);
 		#end

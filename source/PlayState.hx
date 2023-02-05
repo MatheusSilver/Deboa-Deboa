@@ -138,6 +138,8 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 	public static var majinstrums:Bool = false;
 	public static var desesperada:Bool = false;
+	public static var resetforcado = false; //Provavelmente vai ser usado no futuro em:
+	//"Eu digo quando acaba", na real
 
 	var vignetteEspecial:FlxSprite; //usado exclusivamente na simp into the chifres
 
@@ -578,6 +580,20 @@ class PlayState extends MusicBeatState
 				precacheList.set('P3Jumps/EggmanScreamLOL', 'sound');
 			}
 
+			else if(SONG.song.toLowerCase()=='final escape'){
+				precacheList.set('warning', 'sound');
+				precacheList.set('exe death', 'sound');
+				precacheList.set('grab', 'sound');
+				precacheList.set('hahaha', 'sound');
+				precacheList.set('jump', 'sound');
+				precacheList.set('jumpscare', 'sound');
+				precacheList.set('ring', 'sound');
+				precacheList.set('tick', 'sound');
+				precacheList.set('too-slow', 'sound');
+				precacheList.set('Warp', 'sound');
+				precacheList.set('woosh', 'sound');
+			}
+
 			else if (SONG.song.toLowerCase() == 'too-fest') 
 			{
 				if(ClientPrefs.legendas) 
@@ -605,10 +621,10 @@ class PlayState extends MusicBeatState
 				precacheList.set('Faker_Transformation', 'image');
 			}
 
-		FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
-		if (SONG.needsVoices){
-			FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
-		}
+		//FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
+		//if (SONG.needsVoices){
+		//	FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
+		//}
 
 		
 
@@ -622,6 +638,7 @@ class PlayState extends MusicBeatState
 
 		cccVidaCounter = 2; //meida...
         canRegen = true;
+		resetforcado = false;
         canuseevents = true; //Apenas para ter certeza de que a música não vai vir bugada da Prey
 
 		
@@ -2660,10 +2677,10 @@ class PlayState extends MusicBeatState
 			for (asset in introAlts)
 				precacheList.set(asset,'image');
 			
-			FlxG.sound.cache(Paths.sound('intro3' + introSoundsSuffix));
-			FlxG.sound.cache(Paths.sound('intro2' + introSoundsSuffix));
-			FlxG.sound.cache(Paths.sound('intro1' + introSoundsSuffix));
-			FlxG.sound.cache(Paths.sound('introGo' + introSoundsSuffix));
+			precacheList.set('intro3' + introSoundsSuffix, 'sound');
+			precacheList.set('intro2' + introSoundsSuffix, 'sound');
+			precacheList.set('intro1' + introSoundsSuffix, 'sound');
+			precacheList.set('introGo' + introSoundsSuffix, 'souind');
 		}
 
 	public var vidSound:FlxSound;
@@ -4288,6 +4305,7 @@ class PlayState extends MusicBeatState
 		// RESET = Quick Game Over Screen
 		if (controls.RESET && !inCutscene && !endingSong)
 		{
+			resetforcado = true;
 			majinstrums = false;
 			canRegen = true;
 			canuseevents = true;
@@ -6104,7 +6122,7 @@ class PlayState extends MusicBeatState
 	}
 
 
-	var transitioning = false;
+	public var transitioning = false;
 	public function endSong():Void
 	{
 		//Should kill you if you tried to cheat
@@ -7285,6 +7303,13 @@ class PlayState extends MusicBeatState
 		if(luaArray != null && !preventLuaRemove) {
 			luaArray.remove(lua);
 		}
+	}
+
+	public static function cancelMusicFadeTween() {
+		if(FlxG.sound.music.fadeTween != null) {
+			FlxG.sound.music.fadeTween.cancel();
+		}
+		FlxG.sound.music.fadeTween = null;
 	}
 
 	var lastStepHit:Int = -1;
