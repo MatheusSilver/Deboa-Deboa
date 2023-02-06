@@ -11,33 +11,34 @@ using StringTools;
 class Achievements {
 	//substituir os zeros pelos seus respectivos ID's de achievement da gamejolt
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
-		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 181570, 'geral', 'estrelas'], //na real, meio que tanto faz isso.
-		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false, 181571, 'meme maker', 'estrelas'],
-		["Bye, Bye",					"Vença a Cycles sem errar",							'bye_bye_fc',		false, 0, 'ira', 'estrelas'],
-		["Aquele que adora te olhar",	"Vença Control sem errar",							'control_fc',		false, 0, 'preguica', 'estrelas'],
-		["Super Sonic Racing",			"Não erre durante o evento da Sunshine",			'sunshine_fc',		false, 0, 'fome', 'estrelas'],
-		["Farsante",					"Vença Faker sem errar",							'faker_fc',			false, 0, 'inveja', 'estrelas'],
-		["Sarah as 3 da manhã",			"Jogue round-a-bout num horário específico",		'madrugada_fc',		false, 0, 'ganancia', 'estrelas'],
-		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 181572, 'discordia', 'estrelas'],
-		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 181719, 'geral', 'estrelas'],
-		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 181720, 'orgulho', 'estrelas'],
-		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false, 181721, 'geral', 'estrelas'],
-		["Nunca confie em robôs",		"Morra com o botplay ligado em caça",				'prey_bot',			true, 181722, 'bonus', 'estrelas'],
-		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		false, 181723, 'bonus', 'estrelas'],
-		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false, 181724, 'geral', 'estrelas'],
-		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false, 181725, 'orgulho', 'estrelas'],
+		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 181570, 'geral', 1], //na real, meio que tanto faz isso.
+		["GOTTA GO FAST",				"Vença a Too Fest sem errar",						'toofest_fc',		false, 181571, 'meme maker', 3],
+		["Bye, Bye",					"Vença a Cycles sem errar",							'bye_bye_fc',		false, 0, 'ira', 3],
+		["Aquele que adora te olhar",	"Vença Control sem errar",							'control_fc',		false, 0, 'preguica', 2],
+		["Super Sonic Racing",			"Não erre durante o evento da Sunshine",			'sunshine_fc',		false, 0, 'fome', 2],
+		["Farsante",					"Vença Faker sem errar",							'faker_fc',			false, 0, 'inveja', 2],
+		["Sarah as 3 da manhã",			"Jogue round-a-bout num horário específico",		'madrugada',		true, 0, 'ganancia', 3],
+		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 181572, 'discordia', 3],
+		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 181719, 'geral', 4],
+		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 181720, 'orgulho', 3],
+		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false, 181721, 'geral', 2],
+		["Nunca confie em robôs",		"Morra com o botplay ligado em caça",				'prey_bot',			true, 181722, 'bonus', 2],
+		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		false, 181723, 'bonus', 2],
+		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false, 181724, 'geral', 2],
+		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false, 181725, 'orgulho', 1],
 		//["Psicopata",					"Assista o Carlitos morrer 100 vezes.",				'roadkill_enthusiast',false, 0], guardado para a posteridade
-		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',		true, 181726, 'orgulho', 'estrelas'],
-		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',	true, 181727, 'orgulho', 'estrelas'],
-		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',		true, 181728, 'orgulho', 'estrelas'],
-		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',		false, 181729, 'orgulho', 'estrelas'],
-		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false, 181730, 'historias alternativas', 'estrelas'],
-		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false, 181731, 'geral', 'estrelas'],
-		["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 181732, 'orgulho', 'estrelas'],
-		["Me siga no OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 181733, 'meme maker', 'estrelas'],
-		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 181734, 'luxuria', 'estrelas'],
-		["Fruto do Jardim",				"Assista ao poema em Lerdeza",						'poems',			true, 181735, 'orgulho', 'estrelas'],
-		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 181736, 'historias alternativas', 'estrelas']  //True quer dizer que é secreto shhhhhhhh
+		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',		true, 181726, 'orgulho', 1],
+		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',	true, 181727, 'orgulho', 2],
+		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',		true, 181728, 'orgulho', 3],
+		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',		true, 181729, 'orgulho', 'estrelas'],
+		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false, 181730, 'alt', 2],
+		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false, 181731, 'geral', 1],
+		//["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 181732, 'orgulho', 'estrelas'],
+		["Me siga no OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 181733, 'meme maker', 1],
+		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 181734, 'luxuria', 1],
+		//["Fruto do Jardim",				"Assista ao poema em Lerdeza",						'poems',			true, 181735, 'orgulho', 'estrelas'],
+		//Não acho que teremos os poemas no modboa, pelo menos não agora.
+		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 181736, 'alt', 2]  //True quer dizer que é secreto shhhhhhhh
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
@@ -69,11 +70,6 @@ class Achievements {
 			if(achievementsStuff[i][2] == name) {
 				return i;
 			}
-			#if !debug 
-			else{
-				return 0; //Isso aqui serve apenas para evitar que o jogo crashe caso a gente esqueça alguma coisa
-			} //Em tese, nada irá ocorrer já que todo mundo ganha o primeiro achievement ao entrar no jooj
-			#end
 		}
 		return -1;
 	}
@@ -106,7 +102,7 @@ class AttachedAchievement extends FlxSprite {
 	}
 
 	public function reloadAchievementImage() {
-		loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-' + tag + ")"));
+		loadGraphic(Paths.imagechecker('conquistas/medalhas/achievements (btt-' + tag + ")"));
 		/*if(Achievements.isAchievementUnlocked(tag)) {
 			//To think: Como indicar pro manito quais achievements ele tem, e quais ele não tem?
 		} else {
@@ -127,43 +123,91 @@ class AttachedAchievement extends FlxSprite {
 class AchievementObject extends FlxSpriteGroup {
 	public var onFinish:Void->Void = null;
 	var alphaTween:FlxTween;
+	var estrela1:FlxSprite;
+	var estrela2:FlxSprite;
+	var estrela3:FlxSprite;
+	var estrela4:FlxSprite; //Tentei fazer do mesmo jeito que o menu principal maaaaaaaaaas.... Anyway são 4 da manhã e estou com sono então vai assim mesmo.
 	public function new(name:String, ?camera:FlxCamera = null)
 	{
 		super(x, y);
 		ClientPrefs.saveSettings();
 
 		var id:Int = Achievements.getAchievementIndex(name);
-		var achievementBG:FlxSprite = new FlxSprite(60, 50).makeGraphic(420, 120, FlxColor.RED);
+		var achievementBG:FlxSprite = new FlxSprite(60, 50);
+		var achievename:String = Achievements.achievementsStuff[id][5];
+		if(openfl.Assets.exists(Paths.imagechecker('conquistas/medalhas/achievements (btt-'+achievename+')', 'preload'))){ //Principalmente para ser usado na Clickbait, mas pode ser util para mais coisas
+			achievementBG.loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-'+achievename+')', 'preload'));
+		} else {
+			achievementBG.loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-geral)', 'preload'));
+		}
+		achievementBG.setGraphicSize(Std.int(achievementBG.width/4));
+		achievementBG.x -= achievementBG.width*0.1;
+		achievementBG.updateHitbox();
 		achievementBG.alpha = 0.70;
 		achievementBG.scrollFactor.set();
 
-		var amongusgameplayoficial:FlxSprite = new FlxSprite(achievementBG.x, achievementBG.y).loadGraphic(Paths.image('menus/bg-filtro'));
-		amongusgameplayoficial.setGraphicSize(FlxG.width, FlxG.height);
+		add(achievementBG);
+
+		var k:Int = 120;
+
+		estrela1 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 + k, achievementBG.y -5);
+		estrela2 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 - 1*30 + k, achievementBG.y -5);
+		estrela3 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 - 2*30 +k, achievementBG.y -5);
+		estrela4 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 - 3*30 +k, achievementBG.y -5);
+
+		if(openfl.Assets.exists(Paths.imagechecker('conquistas/keydSTARS/star-'+achievename, 'preload'))){ //Principalmente para ser usado na Clickbait, mas pode ser util para mais coisas
+			estrela1.loadGraphic(Paths.image('conquistas/keydSTARS/star-'+achievename, 'preload'));
+			estrela2.loadGraphic(Paths.image('conquistas/keydSTARS/star-'+achievename, 'preload'));
+			estrela3.loadGraphic(Paths.image('conquistas/keydSTARS/star-'+achievename, 'preload'));
+			estrela4.loadGraphic(Paths.image('conquistas/keydSTARS/star-'+achievename, 'preload'));
+		} else {
+			estrela1.loadGraphic(Paths.image('conquistas/keydSTARS/star-geral', 'preload'));
+			estrela2.loadGraphic(Paths.image('conquistas/keydSTARS/star-geral', 'preload'));
+			estrela3.loadGraphic(Paths.image('conquistas/keydSTARS/star-geral', 'preload'));
+			estrela4.loadGraphic(Paths.image('conquistas/keydSTARS/star-geral', 'preload'));
+		}
+
+		estrela1.setGraphicSize(Std.int(estrela1.width/8));
+		estrela2.setGraphicSize(Std.int(estrela2.width/8));
+		estrela3.setGraphicSize(Std.int(estrela3.width/8));
+		estrela4.setGraphicSize(Std.int(estrela4.width/8));
+
+
+		for (i in 1...(Std.int(Achievements.achievementsStuff[id][6])+1)){
+		switch(i){
+			case 1:
+				add(estrela1);
+			case 2:
+				add(estrela2);
+			case 3:
+				add(estrela3);
+			case 4:
+				add(estrela4);
+		}
+		}
 
 
 		var achievementIcon:FlxSprite = new FlxSprite(achievementBG.x + 10, achievementBG.y + 10).loadGraphic(Paths.image('conquistas/icones/' + name)); //Isso vai facilitar bastatne nossa vida com os icones dos achievements, confia.
 		achievementIcon.scrollFactor.set();
 		achievementIcon.setGraphicSize(Std.int(achievementIcon.width * (2 / 3)));
 		achievementIcon.updateHitbox();
+		achievementIcon.alpha = 0; //Servindo como um ótimo demarcador k
 		achievementIcon.antialiasing = true; //vai ficar legal, confia em mim.
-
-
 		
 
-		var achievementName:FlxText = new FlxText(achievementIcon.x + achievementIcon.width + 20, achievementIcon.y + 16, 280, Achievements.achievementsStuff[id][0], 16);
-		achievementName.setFormat(Paths.font("letravio.ttf"), 16, FlxColor.WHITE, LEFT);
+		var achievementName:FlxText = new FlxText(0, achievementBG.y + 45, achievementBG.width*0.4, Achievements.achievementsStuff[id][0], 16);
+		achievementName.setFormat(Paths.font("letravio.ttf"), 28, FlxColor.WHITE, RIGHT);
 		achievementName.scrollFactor.set();
 
-		var achievementText:FlxText = new FlxText(achievementName.x, achievementName.y + 32, 280, Achievements.achievementsStuff[id][1], 16);
-		achievementText.setFormat(Paths.font("letravio.ttf"), 16, FlxColor.WHITE, LEFT);
-		achievementText.scrollFactor.set();
+		//var achievementText:FlxText = new FlxText(achievementName.x, achievementName.y + 32, 280, Achievements.achievementsStuff[id][1], 16);
+		//achievementText.setFormat(Paths.font("letravio.ttf"), 16, FlxColor.WHITE, LEFT);
+		//achievementText.scrollFactor.set();
 
 
 
-		add(achievementBG);
-		add(amongusgameplayoficial);
+
 		add(achievementName);
-		add(achievementText);
+		//add(achievementText);
 		add(achievementIcon);
 
 		var cam:Array<FlxCamera> = FlxCamera.defaultCameras;
@@ -173,7 +217,11 @@ class AchievementObject extends FlxSpriteGroup {
 		alpha = 0;
 		achievementBG.cameras = cam;
 		achievementName.cameras = cam;
-		achievementText.cameras = cam;
+		estrela1.cameras = cam;
+		estrela2.cameras = cam;
+		estrela3.cameras = cam;
+		estrela4.cameras = cam;
+		//achievementText.cameras = cam;
 		achievementIcon.cameras = cam;
 		alphaTween = FlxTween.tween(this, {alpha: 1}, 0.5, {onComplete: function (twn:FlxTween) {
 			alphaTween = FlxTween.tween(this, {alpha: 0}, 0.5, {
