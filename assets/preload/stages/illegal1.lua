@@ -1,6 +1,6 @@
 function onCreate()
 	
-makeLuaSprite('MOONBACK','cenarios/piracy/BG',-500,-500)
+	makeLuaSprite('MOONBACK','cenarios/piracy/BG',-500,-500)
 	addLuaSprite('MOONBACK',false)
 	setLuaSpriteScrollFactor('MOONBACK',0,0)
 	--close(true);
@@ -23,7 +23,7 @@ makeLuaSprite('MOONBACK','cenarios/piracy/BG',-500,-500)
 
 	end
 
-function onBeat()
-	objectPlayAnimation('tailsd', 'bopidle', false)
-	objectPlayAnimation('KNUCKLESD', 'boppidle', false)
+function onBeatHit()
+	objectPlayAnimation('tailsd', 'bopidle', true)
+	objectPlayAnimation('KNUCKLESD', 'boppidle', true)
 end
