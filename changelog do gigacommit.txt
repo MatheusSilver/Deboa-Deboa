@@ -1,0 +1,18 @@
+- Menu de pausa otimizado e com retorno a musica similar ao osu
+
+- Personagens inutilizados apagados e o restante organizado em pastas de acordo com a musica?
+
+- BF e GF otimizados
+
+- Triple-Trouble rechartada e levemente otimizada
+
+- Quase todos os achievements são desbloqueáveis agora
+
+- Assets do ModBoa original excluídos
+
+- Script de CamFollowGlobal feito
+
+- Carregamento antes da música otimizado
+
+- Opções novas de otimização para músicas que começam com a strum do dad invisivel
+
