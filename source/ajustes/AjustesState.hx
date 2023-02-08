@@ -156,13 +156,20 @@ class AjustesState extends MusicBeatState
 		add(setasbotao);
 
 		gamejoltbotao = new FlxButton(FlxG.width, 15 + setasbotao.y + setasbotao.height, '');
-		gamejoltbotao.loadGraphic(Paths.image('optionsmenu/gamejooj', 'preload'));
+		if(!GJClient.logged)
+			{
+				gamejoltbotao.loadGraphic(Paths.image('optionsmenu/gamejooj', 'preload'));
+				gamejoltbotao.alpha = 0.75;
+			}else
+			{
+				gamejoltbotao.loadGraphic(Paths.image('optionsmenu/gamejooj-locked', 'preload'));
+				gamejoltbotao.alpha = 1;
+			}
 		gamejoltbotao.setGraphicSize(Std.int(gamejoltbotao.width * 0.6));
 
 		gamejoltbotao.updateHitbox();
 		gamejoltbotao.x = FlxG.width;
 		gamejoltbotao.y = 15 + setasbotao.y + setasbotao.height;
-        gamejoltbotao.alpha = 0.75;
         add(gamejoltbotao);
 
         line = new FlxSprite(0).loadGraphic(Paths.image('optionsmenu/ajuste_linhas', 'preload'));
@@ -205,11 +212,11 @@ class AjustesState extends MusicBeatState
 		new FlxTimer().start(0.7, function(tmr:FlxTimer) {
 		FlxTween.tween(setasbotao, {x: FlxG.width - 2.5*setasbotao.width + 696 + 90}, 0.6, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(1, function(tmr:FlxTimer) {
-		FlxTween.tween(gamejoltbotao, {x: FlxG.width - 2.5*gamejoltbotao.width + 696 + 90}, 0.6, {ease: FlxEase.expoInOut,
-			onComplete: function(twn:FlxTween) {pode=true;
-			}});
-		});
+			new FlxTimer().start(1, function(tmr:FlxTimer) {	
+			FlxTween.tween(gamejoltbotao, {x: FlxG.width - 2.5*gamejoltbotao.width + 696 + 90}, 0.6, {ease: FlxEase.expoInOut,
+				onComplete: function(twn:FlxTween) {pode=true;
+				}});
+			});
 
 		super.create();
 	}
@@ -339,9 +346,12 @@ class AjustesState extends MusicBeatState
 					checkiftouch = true;
 				}
 				if(gamejoltbotao.justPressed && !checkiftouch){
-					gamejoltbotao.alpha=1;
-					curSelected = 3;
-					checkiftouch = true;
+					if(!GJClient.logged)
+						{
+							gamejoltbotao.alpha=1;
+							curSelected = 3;
+							checkiftouch = true;
+						}
 				}
 			}
 
@@ -391,7 +401,7 @@ class AjustesState extends MusicBeatState
 								case 'gamejooj':
                                 if(GJClient.logged)
                                 {
-                                	MusicBeatState.switchState(new AlreadyLogged());
+                                	
                                 }
                                 else{
                                     MusicBeatState.switchState(new GameJoltLoginState());
@@ -447,13 +457,19 @@ class AjustesState extends MusicBeatState
 				
 			function gamejoltHover():Void
 			{
-				gamejoltbotao.alpha=1;
-				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+				if(!GJClient.logged)
+					{
+						gamejoltbotao.alpha=1;
+						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+					}
 			}
 			 
 			function gamejoltOut():Void
 			{
-				gamejoltbotao.alpha=0.75;
+				if(!GJClient.logged)
+					{
+						gamejoltbotao.alpha=0.75;
+					}
 			}
 
 			override function beatHit()

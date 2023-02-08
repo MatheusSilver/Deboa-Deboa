@@ -50,7 +50,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'Limpar Cache',
 		'FullScreen',
 		'Esconder HUD',
-		'Esconder barra de tempo',
+		'Esconder tempo',
 		'Luzes Piscantes',
 		'FPS visível',
 		#if !html5
@@ -400,7 +400,7 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Se desmarcado, a tela não irá dar zoom quando acertar uma nota.";
 			case 'Esconder HUD':
 				daText = "Se marcado, tira muitas coisas da tela.";
-			case 'Esconder barra de tempo':
+			case 'Esconder tempo':
 				daText = "Se marcado, a barrinha com o tempo da música, sumirá.";
 		}
 		descText.text = daText;

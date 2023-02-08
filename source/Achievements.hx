@@ -11,12 +11,12 @@ using StringTools;
 class Achievements {
 	//substituir os zeros pelos seus respectivos ID's de achievement da gamejolt
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
-		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 		181570, 		'geral', 		1], //ok
-		["Até o proximo encontro",		"Vença slaybells.",									'natal',			false, 		0, 				'geral', 		1], //ok
-		["G0TT4_G0_F4ST0",				"Irmão... Tu tá bem man? FC na too fest? medo...",	'toofest_fc',		true, 		181571, 		'meme maker', 	3], //ok
-		["Bye, Bye",					"Vença a Cycles sem errar",							'bye_bye_fc',		false, 		0, 				'ira', 			3], //ok
-		["Sob controle",				"Vença Control com os gifs Ativados",				'control_fc',		false, 		0, 				'preguica', 	2], //ok
-		["Sarah as 3 da manhã",			"Jogue round-a-bout num horário específico",		'madrugada',		true, 		0, 				'ganancia', 	3], //ok
+		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 		181570, 		'geral', 		1], //ok1
+		["Até o proximo encontro",		"Vença slaybells.",									'natal',			false, 		185532, 		'geral', 		1], //ok1
+		["G0TT4_G0_F4ST0",				"Irmão... Tu tá bem man? FC na too fest? medo...",	'toofest_fc',		true, 		181571, 		'meme maker', 	3], //ok1
+		["Bye, Bye",					"Vença a Cycles sem errar",							'bye_bye_fc',		false, 		185533, 		'ira', 			3], //ok1
+		["Sob controle",				"Vença Control com os gifs Ativados",				'control_fc',		false, 		185534, 		'preguica', 	2], //ok1
+		["Sarah as 3 da manhã",			"Jogue round-a-bout num horário específico",		'madrugada',		true, 		185535, 		'ganancia', 	3], //ok
 		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 		181572, 		'discordia', 	3],
 		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 		181719, 		'geral', 		4],
 		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 		181720, 		'orgulho', 		3], //ok
@@ -31,7 +31,7 @@ class Achievements {
 		["Até que a morte nos separe",	"Morra 5x seguidas em Sidekick",					'side_deaths',		true, 		181729, 		'orgulho', 		1],
 		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false, 		181730, 		'alt', 			2], //ok
 		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false, 		181731, 		'geral', 		1], //ok
-	  //["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 		181732, 		'orgulho', 'estrelas'],
+	  //["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 		181732, 		'orgulho', 'estrelas', 2],
 		["E também OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
 		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 		181734, 		'luxuria', 		1], //ok
 		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 		181736, 		'alt', 			2] //ok
