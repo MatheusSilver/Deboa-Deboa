@@ -231,7 +231,6 @@ class SobreState extends MusicBeatState
 
 			arrow.onOut.callback = function()
 			{
-				FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 				arrow.alpha=0.75;
 			};
 
@@ -264,7 +263,6 @@ class SobreState extends MusicBeatState
 				{
 					if(curSection==0)
 						{
-							FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 							vio.alpha=0.75;
 						}
 				}
@@ -289,7 +287,7 @@ class SobreState extends MusicBeatState
 							{
 								if(curSection==0)
 									{
-										FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+
 										exe.alpha=0.75;
 									}
 							}
@@ -314,7 +312,7 @@ class SobreState extends MusicBeatState
 										{
 											if(curSection==0)
 												{
-													FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+													
 													saster.alpha=0.75;
 												}
 										}
@@ -340,7 +338,7 @@ class SobreState extends MusicBeatState
 													{
 														if(curSection==1)
 															{
-																FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+																
 																sunny.alpha=0.75;
 															}
 													}
@@ -366,7 +364,7 @@ class SobreState extends MusicBeatState
 																{
 																	if(curSection==1)
 																		{
-																			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+																			
 																			dav.alpha=0.75;
 																		}
 																}

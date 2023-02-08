@@ -31,7 +31,7 @@ class KeysSubstate extends MusicBeatState {
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
 
-	private static var defaultKey:String = 'Resetar para as keybinds padrões';
+	private static var defaultKey:String = 'Resetar';
 	private var bindLength:Int = 0;
 
 	var optionShit:Array<Dynamic> = [

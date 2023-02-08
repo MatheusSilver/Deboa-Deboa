@@ -28,8 +28,8 @@ class AchievementsMenuState extends MusicBeatState
 	var apertavel:Bool = true;
 
 	override function create() {
-		//Conductor.changeBPM(112);
-		//isCoolBeata = true;
+		Conductor.changeBPM(112);
+		isCoolBeata = true;
 		#if desktop
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
@@ -78,7 +78,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		majin = new FlxSprite(512 - 80 + 30, -250);
 		majin.frames = Paths.getSparrowAtlas('conquistas/menu/majinnatalino', 'preload');
-		majin.animation.addByPrefix('majinnatalino idle', "majinnatalino idle", 30);
+		majin.animation.addByPrefix('majinnatalino idle', "majinnatalino idle", 24);
 		majin.flipX = true;
 		majin.setGraphicSize(Std.int(majin.width * 1.35));
 		majin.antialiasing = ClientPrefs.globalAntialiasing;

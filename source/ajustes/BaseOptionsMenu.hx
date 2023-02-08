@@ -50,7 +50,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'Limpar Cache',
 		'FullScreen',
 		'Esconder HUD',
-		'Esconder barra de tempo',
+		'Esconder tempo',
 		'Luzes Piscantes',
 		'FPS visível',
 		#if !html5
@@ -400,7 +400,7 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica";
 			case 'Esconder HUD':
 				daText = "Se marcado, tira muitas coisas da tela.";
-			case 'Esconder barra de tempo':
+			case 'Esconder tempo':
 				daText = "Se marcado, a barrinha com o tempo da música, sumirá.";
 		}
 		descText.text = daText;
