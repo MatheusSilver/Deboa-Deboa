@@ -295,6 +295,7 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(bg, {y: -bg.height}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(linhabaixo, {y: FlxG.height}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(preto, {alpha: 0}, 0.8, {ease: FlxEase.quartInOut});
 		FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
 			{
 				startCountdownback();
@@ -308,15 +309,19 @@ class PauseSubState extends MusicBeatSubstate
 
 			loops=0;
 			
-			new FlxTimer().start(0.55, function(tmr:FlxTimer){
+			new FlxTimer().start(0.35, function(tmr:FlxTimer){
 			loops++;
 			switch (Std.int(loops))
 			{ 
 				case 1:
+
+
+					FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);
+
+				case 2:
 					ready.scrollFactor.set();
 					ready.updateHitbox();
 
-					FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);
 					ready.screenCenter();
 					ready.antialiasing = ClientPrefs.globalAntialiasing;
 					add(ready);
@@ -331,9 +336,9 @@ class PauseSubState extends MusicBeatSubstate
 							FlxTween.tween(preto, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 						}
 					});
-				case 2:
 
-
+					FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);
+				case 3:
 					set.scrollFactor.set();
 
 					set.screenCenter();
@@ -349,8 +354,6 @@ class PauseSubState extends MusicBeatSubstate
 							set.destroy();
 						}
 					});
-					FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);
-				case 3:
 					FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);
 				case 4:
 					FlxG.sound.play(Paths.sound('introGo','shared'), 0.6);

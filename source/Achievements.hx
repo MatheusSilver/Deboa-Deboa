@@ -4,6 +4,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
 
 using StringTools;
@@ -201,10 +202,12 @@ class AchievementObject extends FlxSpriteGroup {
 		estrela4.cameras = cam;
 		//achievementText.cameras = cam;
 		alphaTween = FlxTween.tween(this, {alpha: 1}, 0.5, {onComplete: function (twn:FlxTween) {
-			alphaTween = FlxTween.tween(this, {alpha: 0}, 0.5, {
+			alphaTween = FlxTween.tween(this, {y: 1350}, 1.35,{
+				ease: FlxEase.quartInOut,
 				startDelay: 2.5,
 				onComplete: function(twn:FlxTween) {
 					alphaTween = null;
+					this.alpha=0;
 					remove(this);
 					if(onFinish != null) onFinish();
 				}
