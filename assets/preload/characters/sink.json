@@ -149,7 +149,7 @@
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/sink",
+	"image": "characters/sink/sink",
 	"position": [
 		0,
 		0
@@ -163,7 +163,7 @@
 	],
 	"camera_position": [
 		0,
-		0
+		-75
 	],
 	"sing_duration": 6.1,
 	"scale": 1.2

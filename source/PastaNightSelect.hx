@@ -122,15 +122,11 @@ class PastaNightSelect extends MusicBeatState {
 				PlayState.storyDifficulty = crossDifficulty;
 	
 				FlxG.camera.flash(FlxColor.RED, 1.0);
-				//selectCam.stopFX();
 				selectCam = new FlxCamera(0, 0, 1280, 720);
 				FlxG.cameras.reset(selectCam);
 				openSubState(new LoadingsState());
 				new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 					LoadingState.loadAndSwitchState(new PlayState());
-					/*selectCam.height=720;
-					selectCam.width=1280;
-					FlxG.cameras.reset(selectCam);*/
 					FlxG.sound.music.stop();
 					FlxG.sound.music = null;
 				});

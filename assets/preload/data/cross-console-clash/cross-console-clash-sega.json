@@ -7721,6 +7721,7 @@
 		"needsVoices": false,
 		"sections": 0,
 		"validScore": true,
+		"canfollowpermitido": true,
 		"stage": "console",
 		"arrowSkin": "arrows-sonic",
 		"bpm": 162,

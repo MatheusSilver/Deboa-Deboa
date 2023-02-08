@@ -44,19 +44,21 @@ function onStepHit()
 	--whitebgstuff
 
 	if curStep == 3430 then
-        doTweenAlpha('vignetteAlpha3', 'vgbranco.alpha', 0.6, 1, 'linear');
+        doTweenAlpha('vignetteAlpha3', 'vgbranco', 1, 1, 'linear');
     end
     if curStep == 4480 then
-		doTweenAlpha('vignetteAlpha4', 'vgbranco.alpha', 0, 1, 'linear');
+		doTweenAlpha('vignetteAlpha4', 'vgbranco', 0, 1, 'linear');
 	end
 
 	--black bg stuff
 	if curStep == 127 or curStep == 3328 then
-     	 doTweenAlpha('vignetteAlpha5', 'vgpreto.alpha', 0.6, 1, 'linear');
+     	 doTweenAlpha('vignetteAlpha5', 'vgpreto', 1, 1, 'linear');
     end
     if curStep == 245 or curStep == 3443 then
-		doTweenAlpha('vignetteAlpha6', 'vgpreto.alpha', 0, 1, 'linear');
+		doTweenAlpha('vignetteAlpha6', 'vgpreto', 0, 1, 'linear');
 	end
+
+	-- Man... Eu devo ser muito burro com Lua não é possílvio
 
 
 end

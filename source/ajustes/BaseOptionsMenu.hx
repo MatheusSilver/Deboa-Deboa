@@ -57,10 +57,10 @@ class BaseOptionsMenu extends MusicBeatState
 		'FPS', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
 		'GAMEPLAY',
-		'Antimash',
+		//'Antimash',
 		'Downscroll',
 		'Middlescroll',
-		'Ghost Tapping',
+		//'Ghost Tapping', //Isso é deveras é perigoso em algumas músicas
 		'Delay da Nota',
 		'Note Splashes',
 		'Legendas',
@@ -397,7 +397,7 @@ class BaseOptionsMenu extends MusicBeatState
 			case 'Legendas':
 				daText = "Se ativado, você irá ver as legendas nas músicas.";	
 			case 'Efeitos de Camera':
-				daText = "Se desmarcado, a tela não irá dar zoom quando acertar uma nota.";
+				daText = "Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica";
 			case 'Esconder HUD':
 				daText = "Se marcado, tira muitas coisas da tela.";
 			case 'Esconder barra de tempo':

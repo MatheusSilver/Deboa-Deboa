@@ -5754,6 +5754,7 @@
 		"splashSkin": "noteSplashes",
 		"validScore": true,
 		"needsVoices": false,
+		"canfollowpermitido": true,
 		"stage": "final",
 		"speed": 3,
 		"bpm": 195

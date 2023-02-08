@@ -34,16 +34,6 @@ class AchievementsMenuState extends MusicBeatState
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
 
-		//ARRUMEM AS POSIÇÕES DEPOIS : EU SOU HORRÍVEL COM ISSO
-		// mensagem:
-		// caso quiserem trocar alguma coisa aqui, troquem, eu não acho que ficou muito bom.
-		// dav/matheus leiam isso
-		// -mateusx02
-		// ps: a vio fez um menu maravilhoso, não precisa trocar mais nada, NADA aqui
-
-		//Silver reverso says:
-		//Ovô trocar sim, tô pokas hoje...
-		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
 		menuBG.setGraphicSize(FlxG.width, FlxG.height);
 		menuBG.updateHitbox();
@@ -63,14 +53,14 @@ class AchievementsMenuState extends MusicBeatState
 
 		for (i in 0...options.length) {
 			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][5];
-			var optionText:Alphabet = new Alphabet(-175, (250 * i) + 100, '', false, false);
+			var optionText:Alphabet = new Alphabet(0, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
 			optionText.x += 25;
 			optionText.xAdd = 25;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 
-			var icon:AttachedAchievement = new AttachedAchievement(optionText.x - 105 - 300 - 250, optionText.y, achieveAlbum);
+			var icon:AttachedAchievement = new AttachedAchievement(-125, optionText.y, achieveAlbum);
 			icon.sprTracker = optionText;
 			achievementArray.push(icon);
 			add(icon);
@@ -155,12 +145,12 @@ class AchievementsMenuState extends MusicBeatState
 			bullShit++;
 
 			if (item.targetY == 0) {
-				flixel.tweens.FlxTween.tween(item, {x: -100}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut,
+				flixel.tweens.FlxTween.tween(item, {x: -50}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut,
 					onComplete: function(twn:flixel.tweens.FlxTween) {
 						apertavel = true;
 			}});
-			} else if (item.targetY != 0 && item.x == -100){
-				flixel.tweens.FlxTween.tween(item, {x: -275}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
+			} else if (item.targetY != 0 && item.x == -50){
+				flixel.tweens.FlxTween.tween(item, {x: -125}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
 			}
 		}
 

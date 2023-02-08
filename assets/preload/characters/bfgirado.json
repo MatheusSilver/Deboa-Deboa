@@ -20,7 +20,7 @@
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
-			"name": "BF NOTE LEFT0"
+			"name": "BF NOTE RIGHT0"
 		},
 		{
 			"offsets": [
@@ -53,7 +53,7 @@
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "BF NOTE RIGHT0"
+			"name": "BF NOTE LEFT0"
 		},
 		{
 			"offsets": [
@@ -64,7 +64,7 @@
 			"fps": 24,
 			"anim": "singLEFTmiss",
 			"indices": [],
-			"name": "BF NOTE LEFT MISS"
+			"name": "BF NOTE RIGHT MISS"
 		},
 		{
 			"offsets": [
@@ -97,7 +97,7 @@
 			"fps": 24,
 			"anim": "singRIGHTmiss",
 			"indices": [],
-			"name": "BF NOTE RIGHT MISS"
+			"name": "BF NOTE LEFT MISS"
 		},
 		{
 			"offsets": [

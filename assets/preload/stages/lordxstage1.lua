@@ -49,3 +49,11 @@ function onCreate()
     scaleObject('flower2',0.53,0.54)
     addLuaSprite('flower2',false)
 end
+
+function onUpdate()
+    if mustHitSection == true then
+        setProperty('defaultCamZoom', 1);
+   else
+        setProperty('defaultCamZoom', 0.7);
+   end
+end

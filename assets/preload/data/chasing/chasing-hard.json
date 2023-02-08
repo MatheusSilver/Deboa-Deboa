@@ -4482,6 +4482,7 @@
 		"song": "chasing",
 		"validScore": true,
 		"needsVoices": false,
+		"canfollowpermitido": true,
 		"stage": "chasing",
 		"speed": 2.8,
 		"bpm": 134

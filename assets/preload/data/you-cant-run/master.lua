@@ -23,9 +23,6 @@ function onCreate()
     setScrollFactor('gf', 1.37, 1);
     setScrollFactor('dad', 1.37, 1);
     setScrollFactor('boyfriend', 1.37, 1);
-	addCharacterToList('sonicP2Pixel', 'dad')
-	addCharacterToList('gf-pixel-sonic', 'gf')
-	addCharacterToList('bf-pixel-sonic', 'bf')
 end
 
 function onSongStart()

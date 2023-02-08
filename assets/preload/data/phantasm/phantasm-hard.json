@@ -6853,6 +6853,7 @@
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,
+		"startinvisibru": true,
 		"stage": "fleetPHANTASM",
 		"speed": 2.8,
 		"bpm": 160

@@ -1,4 +1,8 @@
 function onCreate()
+
+    pushScriptData('Hud');
+    pushScriptData('events');
+    
     makeLuaSprite('blckfade', '', 0, 0);
 	makeGraphic('blckfade', 1280, 720, '000000');
 	setProperty('blckfade.alpha', 1.0)
@@ -11,9 +15,6 @@ function onCreate()
     screenCenter('fleeplay');
     setProperty('fleeplay.alpha', 1)
     addLuaSprite('fleeplay', false);
-
-    
-    pushScriptData('Hud');
 end
 
 function onSongStart()

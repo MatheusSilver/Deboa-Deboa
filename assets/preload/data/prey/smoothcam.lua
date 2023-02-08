@@ -267,9 +267,9 @@ function noteMiss(id, dir)
 	shiftCamNote(bfShift, dir)
 end
 
-function noteMissPress(key)
-	shiftCamNote(bfShift, key)
-end
+--function noteMissPress(key)
+--	shiftCamNote(bfShift, key)
+--end
 
 local isDead = false
 function onGameOverStart()

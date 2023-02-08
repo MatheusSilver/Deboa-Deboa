@@ -193,16 +193,16 @@ setProperty('cameraSpeed',4)
 	makeAnimatedLuaSprite('exeIcon', 'nil', 285, getProperty('healthBar.y') -80) -- NIL FILHA DUMA RAPARIGA ;-;
 	loadGraphic('exeIcon', 'icons/'..getProperty('dad.healthIcon'), 150)
 	addAnimation('exeIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
-	setObjectCamera('exeIcon', 'hud')
-	setObjectOrder('exeIcon',getObjectOrder('healthBar') + 8)
+	setObjectCamera('exeIcon', 'hud2') -- Eu até poderia ficar pensando sobre object order e talz... Mas na real, só colocar na camera da frente e sussa
+--	setObjectOrder('exeIcon', 80)
 	setProperty('exeIcon.alpha',0)
 	addLuaSprite('exeIcon')
 	
 	makeAnimatedLuaSprite('bfIcon', 'nil', 285, getProperty('healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/'..getProperty('boyfriend.healthIcon'), 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
-	setObjectCamera('bfIcon', 'hud')
-	setObjectOrder('bfIcon',getObjectOrder('healthBar') + 7)
+	setObjectCamera('bfIcon', 'hud2')
+--	setObjectOrder('bfIcon',79)
 	
 	setProperty('bfIcon.alpha',1)
 	

@@ -697,7 +697,7 @@
 						-1,
 						"Change Character",
 						"bf",
-						"bfprespective",
+						"bfprespectiveflipped",
 						""
 					]
 				],
@@ -1304,7 +1304,7 @@
 						-1,
 						"Change Character",
 						"bf",
-						"bfprespectiveflipped",
+						"bfprespective",
 						""
 					],
 					[

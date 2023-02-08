@@ -2,7 +2,6 @@ function onCreate()
     pushScriptData('intro');
     pushScriptData('run');
     pushScriptData('missRING');
-    pushScriptData('dyingState');
 end
 
 --Por motivos de:

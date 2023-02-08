@@ -9750,6 +9750,7 @@
 		"validScore": true,
 		"stage": "sonicfunstage1",
 		"noteStyle": "majinNOTES",
+		"canfollowpermitido": true,
 		"bpm": 155,
 		"speed": 3
 	}

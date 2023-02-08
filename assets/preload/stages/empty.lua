@@ -3,61 +3,15 @@ local followchars = true
 local modchart = true
 local sickness = true
 
-local xx = 1060
-local yy = 760
-local ofs = 50
-local ofs2 = 0
-local del = 0
-local del2 = 0
-
 local angleshit = 2;
 local anglevar = 2;
 
 function onUpdate(elapsed)
 	setProperty('timeBar.alpha',0)
 	setProperty('timeTxt.alpha',0)
-	if followchars == true then
-		if getProperty('dad.animation.curAnim.name') == 'singLEFT' then
-		triggerEvent('Camera Follow Pos',xx-ofs,yy)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'singRIGHT' then
-		triggerEvent('Camera Follow Pos',xx+ofs,yy)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'singUP' then
-		triggerEvent('Camera Follow Pos',xx,yy-ofs)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'singDOWN' then
-		triggerEvent('Camera Follow Pos',xx,yy+ofs)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'singLEFT-alt' then
-		triggerEvent('Camera Follow Pos',xx-ofs,yy)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'singRIGHT-alt' then
-		triggerEvent('Camera Follow Pos',xx+ofs,yy)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'singUP-alt' then
-		triggerEvent('Camera Follow Pos',xx,yy-ofs)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'singDOWN-alt' then
-		triggerEvent('Camera Follow Pos',xx,yy+ofs)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'idle-alt' then
-		triggerEvent('Camera Follow Pos',xx,yy)
-		end
-		if getProperty('dad.animation.curAnim.name') == 'idle' then
-		triggerEvent('Camera Follow Pos',xx,yy)
-		end
-		if curStep <= 1 then
-			setProperty('dad.specialAnim', true);
-			characterPlayAnim('dad', 'alt-idle', true);
-		end
-		if modchart == true then
-			for i = 0,3 do
-				setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
-			end
-		end
-	else
-		triggerEvent('Camera Follow Pos','','')
+	if curStep <= 1 then
+		setProperty('dad.specialAnim', true);
+		characterPlayAnim('dad', 'alt-idle', true);
 	end
 end
 

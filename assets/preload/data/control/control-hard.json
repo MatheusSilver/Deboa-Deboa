@@ -7059,6 +7059,7 @@
 		"sliderVelocities": null,
 		"song": "control",
 		"validScore": true,
+		"startinvisibru": true,
 		"stage": "empty",
 		"needsVoices": false,
 		"speed": 3.5,

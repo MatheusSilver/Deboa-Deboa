@@ -282,9 +282,7 @@ class Note extends FlxSprite
 		var skin:String = texture;
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
-			if (PlayState.isRing){
-				skin = 'RING_assets';
-			} else if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
+			if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
 				skin = 'Majin_Notes';
 			}else if(skin == null || skin.length < 1) {
 				skin = 'NOTE_assets';
@@ -318,10 +316,6 @@ class Note extends FlxSprite
 			antialiasing = false;
 		} else if (PlayState.majinstrums){
 			frames = Paths.getSparrowAtlas("Majin_Notes");
-			loadNoteAnims();
-			antialiasing = ClientPrefs.globalAntialiasing;
-		} else if (PlayState.isRing){
-			frames = Paths.getSparrowAtlas("RING_assets"); //Como não pensei nisso antes? k
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
 		} else {

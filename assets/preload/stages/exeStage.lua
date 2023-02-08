@@ -37,10 +37,10 @@ function onCreate()
     end
 end
 
-function onUpdate(elapsed)
-		if modchart == true then
-			for i = 0,3 do
-				setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
-			end
-		end
+function onUpdate()
+    if mustHitSection == true then
+        setProperty('defaultCamZoom', 1);
+   else
+        setProperty('defaultCamZoom', 0.7); -- put the zoom for the opponent here
+   end
 end

@@ -13599,6 +13599,7 @@
 		"splashSkin": "noteSplashesPixelSonic",
 		"arrowSkin": "",
 		"bpm": 176,
+		"canfollowpermitido": true,
 		"speed": 3.8
 	}
 }

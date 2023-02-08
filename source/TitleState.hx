@@ -105,10 +105,7 @@ class TitleState extends MusicBeatState
 
 		// DEBUG BULLSHIT
 
-		//swagShader = new ColorSwap();
-		//Essa linha de código de cima... Essa maldita linha me ensinou como usar shaders
-		//Na realidade, shaders no mobile não são problema, afinal...
-		//Eles estão rodando o tempo todo
+		swagShader = new ColorSwap();
 		super.create();
 
 		FlxG.save.bind('modboa' #if (flixel < "5.0.0"), 'galaccine' #end);
@@ -164,7 +161,7 @@ class TitleState extends MusicBeatState
 	var logoBl1:FlxSprite;
 	//var menuGif:FlxSprite;
 	var titleText:FlxSprite;
-	//var swagShader:ColorSwap = null;
+	var swagShader:ColorSwap = null;
 	var opacidade:Float = 0;
 	var opacidadesuporte:Int = -1;
 	var candothething:Bool = false;
@@ -209,6 +206,8 @@ class TitleState extends MusicBeatState
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
+		swagShader = new ColorSwap();
+
 		var logoBl2:FlxSprite;
 		logoBl2 = new FlxSprite(0, 0);
 		logoBl2.frames = Paths.getSparrowAtlas('effects/estatica');
@@ -238,17 +237,9 @@ class TitleState extends MusicBeatState
 		logoBl1.animation.addByPrefix('bump', 'MODBOA inicio', 24);
 		//logoBl1.animation.play('bump');
 		logoBl1.updateHitbox();
+		logoBl1.shader = swagShader.shader;
+		logoBl.shader = swagShader.shader;
 
-		/*
-		menuGif = new FlxSprite(0, 0).loadGraphic(Paths.image('funMenu.gif'));
-		menuGif.scale.set(1, 1);
-		menuGif.antialiasing = ClientPrefs.globalAntialiasing;
-		menuGif.updateHitbox();
-		*/
-
-
-		//swagShader = new ColorSwap();
-		//add(menuGif);
 		add(logoBl2);
 		add(supbg);
 		add(logoBl3);
@@ -256,7 +247,6 @@ class TitleState extends MusicBeatState
 
 		add(logoBl);
 		candothething = true;
-	//	logoBl.shader = swagShader.shader;
 
 		titleText = new FlxSprite(-80, 600).loadGraphic(Paths.image('titleEnter'));
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
@@ -267,10 +257,6 @@ class TitleState extends MusicBeatState
 		
 		add(titleText);
 		
-
-		// FlxTween.tween(logoBl, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG});
-		// FlxTween.tween(logo, {y: logoBl.y + 50}, 0.6, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.1});
-
 		credGroup = new FlxGroup();
 		add(credGroup);
 		textGroup = new FlxGroup();
@@ -335,13 +321,6 @@ class TitleState extends MusicBeatState
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
-
-		/*
-		if (FlxG.keys.justPressed.F)
-		{
-			FlxG.fullscreen = !FlxG.fullscreen;
-		}
-		*/
 
 		gradientBar.updateHitbox();
 		gradientBar.y = FlxG.height - gradientBar.height;
@@ -452,13 +431,15 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		}
 
-		//if(swagShader != null)
-		//{
-		//	if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
-		//	if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
-		//} 
-
 		opacidade += 0.01 * opacidadesuporte;
+
+		if(swagShader != null)
+			{
+				#if debug
+				if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
+				if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
+				#end
+			}
 
 		super.update(elapsed);
 	}

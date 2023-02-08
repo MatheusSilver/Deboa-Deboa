@@ -5,12 +5,9 @@ local ballScales = {}
 local dead = false
 local first = true
 local alphaLoop = true
-local followchars = true
 local gravity = 9.8
-local xx2 = 1030
 local speed = 0
-local yy2 = 580
-local ofs = 45
+local fadelooping = true
 
 local bgs = {'depths', 'floor', 'ceiling'}
 local xpos = {-50, -50, -70}
@@ -55,11 +52,11 @@ function onCreatePost()
 	setBlendMode('waves', 'subtract')
 	objectPlayAnimation('waves','idle',true)
 
-	--addLuaSprite('r', true)
+	addLuaSprite('r', true)
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
-	if first and curBeat < 510 and dead == false then
+	if first and curBeat < 510 and dead == false and fadelooping then
 		setProperty('dad.alpha', 0.4)
 		doTweenAlpha('boo1', 'dad', 0, 0.6, 'linear')
 		first = false
@@ -71,30 +68,6 @@ function noteMiss(id, direction, noteType, isSustainNote)
 end
 
 function onUpdate(elapsed)
-	if followchars == true then
-		if getProperty('boyfriend.animation.curAnim.name') == 'singLEFT' then
-			triggerEvent('Camera Follow Pos',xx2-ofs,yy2)
-		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singRIGHT' then
-			triggerEvent('Camera Follow Pos',xx2+ofs,yy2)
-		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singUP' then
-			triggerEvent('Camera Follow Pos',xx2,yy2-ofs)
-		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singDOWN' then
-			triggerEvent('Camera Follow Pos',xx2,yy2+ofs)
-		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'idle-alt' then
-			triggerEvent('Camera Follow Pos',xx2,yy2)
-		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'idle' then
-			triggerEvent('Camera Follow Pos',xx2,yy2)
-		  end
-	else
-		triggerEvent('Camera Follow Pos','','')
-	end
-
-
 	for i = 1,#fall do
 		moveBall(fall[i])
 	end
@@ -125,8 +98,8 @@ function onStepHit()
 end
 
 function onTweenCompleted(tag)
-	if tag == 'boo1' then doTweenAlpha('boo2', 'dad', 0.45, 0.6, 'linear') end
-	if tag == 'boo2' then doTweenAlpha('boo1', 'dad', 0.1, 0.6, 'linear') end
+	if tag == 'boo1' and fadelooping then doTweenAlpha('boo2', 'dad', 0.45, 0.6, 'linear') end
+	if tag == 'boo2' and fadelooping then doTweenAlpha('boo1', 'dad', 0.1, 0.6, 'linear') end
 	if tag == 'a' and alphaLoop then doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
 	if tag == 'b' and alphaLoop then doTweenAlpha('a', 'waves', 0.12, 0.8, 'linear') end
 	if tag == 'first' then alphaLoop = true; doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
@@ -140,11 +113,6 @@ function onBeatHit()
 		table.insert(fall, #fall+1, rng)
 		exclusion = exclusion..','..rng
 	end
-	if curBeat < 100 then
-		for i = 0,3 do
-			setPropertyFromGroup('strumLineNotes', i, 'alpha', 0)
-		end
-	end
 end
 
 function getHeight(baseH, tiempo)
@@ -152,4 +120,12 @@ function getHeight(baseH, tiempo)
 
     height = baseH + ((gravity)*tiempo*tiempo)/2
     return height
+end
+
+function onEvent(name, value1, value2)
+	if name == 'CharacterAlphaTween' then
+		if value1 == 'dad' then
+		fadelooping = false -- Isso serve basicamente pra ajustar o finalzinho da musica e fazer o GHOUL sumir de vez
+		end
+	end
 end

@@ -6799,6 +6799,7 @@
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,
+		"canfollowpermitido": true,
 		"speed": 2.8,
 		"bpm": 162
 	}

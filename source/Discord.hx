@@ -17,7 +17,7 @@ class DiscordClient
 		trace("Discord Client starting...");
 		DiscordRpc.start({
 			#if debug
-			clientID: "863222024192262205", //Assim poderei testar a parte do discord em paz
+			clientID: "949439388708917278", //Assim poderei testar a parte do discord em paz
 			//hopefully...
 			#else
 			clientID: "915352684826079232",

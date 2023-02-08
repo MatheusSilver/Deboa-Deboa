@@ -64,7 +64,7 @@
 			"fps": 24,
 			"anim": "singLEFTmiss",
 			"loop": false,
-			"name": "Left_Miss_Flip"
+			"name": "Right_Miss_Flip"
 		},
 		{
 			"offsets": [
@@ -75,7 +75,7 @@
 			"fps": 24,
 			"anim": "singRIGHTmiss",
 			"loop": false,
-			"name": "Right_Miss_Flip"
+			"name": "Left_Miss_Flip"
 		},
 		{
 			"offsets": [
@@ -86,7 +86,7 @@
 			"fps": 24,
 			"anim": "singRIGHT",
 			"loop": false,
-			"name": "Sing_Right"
+			"name": "Sing_Left"
 		},
 		{
 			"offsets": [
@@ -97,7 +97,7 @@
 			"fps": 24,
 			"anim": "singLEFT",
 			"loop": false,
-			"name": "Sing_Left"
+			"name": "Sing_Right"
 		}
 	],
 	"no_antialiasing": false,
@@ -107,7 +107,7 @@
 		330
 	],
 	"healthicon": "bf",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		49,
 		176,

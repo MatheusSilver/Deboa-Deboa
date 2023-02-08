@@ -108,7 +108,7 @@ class MainMenuStateMobile extends MusicBeatState
 		add(machine);
 
 		boom = new FlxSprite(0, 0); //ok
-		boom.frames = Paths.getSparrowAtlas('characters/sonicmenu1', 'shared');
+		boom.frames = Paths.getSparrowAtlas('menus/sonicmenu1', 'preload');
 		boom.animation.addByPrefix('idle', "sonicmenu1 idle",30);
 		boom.antialiasing = ClientPrefs.globalAntialiasing;
 		//boom.setGraphicSize(Std.int));
@@ -364,11 +364,8 @@ class MainMenuStateMobile extends MusicBeatState
 		if(controls.NOTE_SPACE_R){
 			trace('desvio solto');
 		}
-		if(FlxG.keys.justPressed.FOUR){
-		add(new AchievementObject('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
-		trace('Giving achievement "modboa"');
-		}
+		if(FlxG.keys.justPressed.FOUR) add(new AchievementObject('eggman_free', camAchievement));
+		
 		#end
 		
 		for (i in 0...Achievements.achievementsStuff.length) {

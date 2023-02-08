@@ -7,7 +7,7 @@ function onStartCountdown()
 		setProperty('dad.x', -700);
 		setProperty('dad.y', 600);
 		setProperty('camHUD.visible', false);
-            	doTweenZoom('zoom', 'camGame', 1, 1, 'sineOut');
+        doTweenZoom('zoom', 'camGame', 1, 1, 'sineOut');
 		triggerEvent('Camera Follow Pos','-400','350')
 		--playSound('sonic', 1, 'sonic');
 		--allowCountdown = true;

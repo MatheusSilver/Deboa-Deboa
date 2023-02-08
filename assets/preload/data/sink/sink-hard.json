@@ -29256,6 +29256,7 @@
 		"needsVoices": false,
 		"stage": "depths",
 		"validScore": true,
+		"startinvisibru": true,
 		"bpm": 140,
 		"speed": 2.8,
 		"noteStyle": "normal"

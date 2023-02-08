@@ -7649,6 +7649,7 @@
 		"stage": "exeStage",
 		"sections": 0,
 		"validScore": true,
+		"startinvisibru": true,
 		"noteStyle": null,
 		"speed": 3.1,
 		"bpm": 150

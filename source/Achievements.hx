@@ -21,8 +21,8 @@ class Achievements {
 		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 		181719, 		'geral', 		4],
 		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 		181720, 		'orgulho', 		3], //ok
 		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false, 		181721, 		'geral', 		2],
-		["Nunca confie em robôs",		"Morra com o botplay ligado em caça",				'prey_bot',			true, 		181722, 		'bonus', 		2], //ok
-		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		false, 		181723, 		'bonus', 		2], //ok
+		["Nunca confie em robos",		"Morra com o botplay ligado em caça",				'prey_bot',			true, 		181722, 		'alt', 		2], //ok
+		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		true, 		181723, 		'alt', 		2], //ok
 		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false, 		181724, 		'geral', 		2], //ok
 		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false, 		181725, 		'orgulho', 		1], //ok
 		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',		true, 		181726, 		'orgulho', 		1], //ok
@@ -32,7 +32,7 @@ class Achievements {
 		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false, 		181730, 		'alt', 			2], //ok
 		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false, 		181731, 		'geral', 		1], //ok
 	  //["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 		181732, 		'orgulho', 'estrelas'],
-		["E também OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
+		["E tambem no OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
 		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 		181734, 		'luxuria', 		1], //ok
 		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 		181736, 		'alt', 			2] //ok
 	];
@@ -95,12 +95,7 @@ class AttachedAchievement extends FlxSprite {
 
 	public function reloadAchievementImage() {
 		loadGraphic(Paths.imagechecker('conquistas/medalhas/achievements (btt-' + tag + ")"));
-		/*if(Achievements.isAchievementUnlocked(tag)) {
-			//To think: Como indicar pro manito quais achievements ele tem, e quais ele não tem?
-		} else {
-			loadGraphic(Paths.image('conquistas/png/exe_blocked'));
-		}*/
-		scale.set(0.35, 0.35);
+		scale.set(1.3, 1.3);
 		updateHitbox();
 	}
 
@@ -132,8 +127,8 @@ class AchievementObject extends FlxSpriteGroup {
 		} else {
 			achievementBG.loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-geral)', 'preload'));
 		}
-		achievementBG.setGraphicSize(Std.int(achievementBG.width/4));
-		achievementBG.x -= achievementBG.width*0.1;
+		achievementBG.setGraphicSize(Std.int(achievementBG.width));
+		achievementBG.x -= achievementBG.width*0.2;
 		achievementBG.updateHitbox();
 		achievementBG.alpha = 0.70;
 		achievementBG.scrollFactor.set();
@@ -142,10 +137,10 @@ class AchievementObject extends FlxSpriteGroup {
 
 		var k:Int = 120;
 
-		estrela1 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 + k, achievementBG.y -5);
-		estrela2 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 - 1*30 + k, achievementBG.y -5);
-		estrela3 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 - 2*30 +k, achievementBG.y -5);
-		estrela4 = new FlxSprite(achievementBG.x + achievementBG.width*0.2 - 3*30 +k, achievementBG.y -5);
+		estrela1 = new FlxSprite(achievementBG.x + achievementBG.width*0.35 + k, achievementBG.y + 75);
+		estrela2 = new FlxSprite(achievementBG.x + achievementBG.width*0.35 - 1*30 + k, achievementBG.y + 75);
+		estrela3 = new FlxSprite(achievementBG.x + achievementBG.width*0.35 - 2*30 +k, achievementBG.y + 75);
+		estrela4 = new FlxSprite(achievementBG.x + achievementBG.width*0.35 - 3*30 +k, achievementBG.y + 75);
 
 		if(openfl.Assets.exists(Paths.imagechecker('conquistas/keydSTARS/star-'+achievename, 'preload'))){ //Principalmente para ser usado na Clickbait, mas pode ser util para mais coisas
 			estrela1.loadGraphic(Paths.image('conquistas/keydSTARS/star-'+achievename, 'preload'));
@@ -159,10 +154,10 @@ class AchievementObject extends FlxSpriteGroup {
 			estrela4.loadGraphic(Paths.image('conquistas/keydSTARS/star-geral', 'preload'));
 		}
 
-		estrela1.setGraphicSize(Std.int(estrela1.width/8));
-		estrela2.setGraphicSize(Std.int(estrela2.width/8));
-		estrela3.setGraphicSize(Std.int(estrela3.width/8));
-		estrela4.setGraphicSize(Std.int(estrela4.width/8));
+		estrela1.setGraphicSize(Std.int(estrela1.width/2));
+		estrela2.setGraphicSize(Std.int(estrela2.width/2));
+		estrela3.setGraphicSize(Std.int(estrela3.width/2));
+		estrela4.setGraphicSize(Std.int(estrela4.width/2));
 
 
 		for (i in 1...(Std.int(Achievements.achievementsStuff[id][6])+1)){
@@ -177,18 +172,10 @@ class AchievementObject extends FlxSpriteGroup {
 				add(estrela4);
 		}
 		}
-
-
-		var achievementIcon:FlxSprite = new FlxSprite(achievementBG.x + 10, achievementBG.y + 10).loadGraphic(Paths.image('conquistas/icones/' + name)); //Isso vai facilitar bastatne nossa vida com os icones dos achievements, confia.
-		achievementIcon.scrollFactor.set();
-		achievementIcon.setGraphicSize(Std.int(achievementIcon.width * (2 / 3)));
-		achievementIcon.updateHitbox();
-		achievementIcon.alpha = 0; //Servindo como um ótimo demarcador k
-		achievementIcon.antialiasing = true; //vai ficar legal, confia em mim.
 		
 
-		var achievementName:FlxText = new FlxText(0, achievementBG.y + 45, achievementBG.width*0.4, Achievements.achievementsStuff[id][0], 16);
-		achievementName.setFormat(Paths.font("letravio.ttf"), 28, FlxColor.WHITE, RIGHT);
+		var achievementName:FlxText = new FlxText(0, achievementBG.y + 50, achievementBG.width*0.6, Achievements.achievementsStuff[id][0], 16);
+		achievementName.setFormat(Paths.font("letravio.ttf"), 24, FlxColor.WHITE, RIGHT);
 		achievementName.scrollFactor.set();
 
 		//var achievementText:FlxText = new FlxText(achievementName.x, achievementName.y + 32, 280, Achievements.achievementsStuff[id][1], 16);
@@ -200,7 +187,6 @@ class AchievementObject extends FlxSpriteGroup {
 
 		add(achievementName);
 		//add(achievementText);
-		add(achievementIcon);
 
 		var cam:Array<FlxCamera> = FlxCamera.defaultCameras;
 		if(camera != null) {
@@ -214,7 +200,6 @@ class AchievementObject extends FlxSpriteGroup {
 		estrela3.cameras = cam;
 		estrela4.cameras = cam;
 		//achievementText.cameras = cam;
-		achievementIcon.cameras = cam;
 		alphaTween = FlxTween.tween(this, {alpha: 1}, 0.5, {onComplete: function (twn:FlxTween) {
 			alphaTween = FlxTween.tween(this, {alpha: 0}, 0.5, {
 				startDelay: 2.5,

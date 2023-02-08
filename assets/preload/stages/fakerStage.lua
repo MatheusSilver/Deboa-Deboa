@@ -51,4 +51,8 @@ function onCreate()
     addLuaSprite('pillar1', false)
     addLuaSprite('flower1', false)
     addLuaSprite('flower2', false)
+
+    setScrollFactor('gf', 1.24, 1);
+    setScrollFactor('dad', 1.25, 1);
+    setScrollFactor('boyfriend', 1.25, 1);
 end
