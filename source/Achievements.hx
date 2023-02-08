@@ -32,7 +32,7 @@ class Achievements {
 		["Uma flor amarela",			"Vença a Melhores Amigos sem errar",				'besties',			false, 		181730, 		'alt', 			2], //ok
 		["Torradeira Gamer",			"Você tentou rodar isso em uma torradeira?",		'toastie',			false, 		181731, 		'geral', 		1], //ok
 	  //["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 		181732, 		'orgulho', 'estrelas', 2],
-		["E também OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
+		["E tambem OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
 		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 		181734, 		'luxuria', 		1], //ok
 		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 		181736, 		'alt', 			2] //ok
 	];

@@ -53,14 +53,14 @@ class AchievementsMenuState extends MusicBeatState
 
 		for (i in 0...options.length) {
 			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][5];
-			var optionText:Alphabet = new Alphabet(0, (250 * i) + 100, '', false, false);
+			var optionText:Alphabet = new Alphabet(-150, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
 			optionText.x += 25;
 			optionText.xAdd = 25;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 
-			var icon:AttachedAchievement = new AttachedAchievement(-125, optionText.y, achieveAlbum);
+			var icon:AttachedAchievement = new AttachedAchievement(-150, optionText.y, achieveAlbum);
 			icon.sprTracker = optionText;
 			achievementArray.push(icon);
 			add(icon);
@@ -150,7 +150,7 @@ class AchievementsMenuState extends MusicBeatState
 						apertavel = true;
 			}});
 			} else if (item.targetY != 0 && item.x == -50){
-				flixel.tweens.FlxTween.tween(item, {x: -125}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(item, {x: -150}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
 			}
 		}
 
