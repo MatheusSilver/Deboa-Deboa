@@ -231,7 +231,6 @@ class SobreState extends MusicBeatState
 
 			arrow.onOut.callback = function()
 			{
-				FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 				arrow.alpha=0.75;
 			};
 
@@ -264,7 +263,6 @@ class SobreState extends MusicBeatState
 				{
 					if(curSection==0)
 						{
-							FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 							vio.alpha=0.75;
 						}
 				}
