@@ -23,7 +23,7 @@ class Achievements {
 		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 		181720, 		'orgulho', 		3], //ok
 		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false, 		181721, 		'geral', 		2],
 		["Nunca confie em robos",		"Morra com o botplay ligado em caça",				'prey_bot',			true, 		181722, 		'alt', 		2], //ok
-		["Fake Full Combo",				"Full Combo, PARABENS!!! Pena que foi na soulless logo tudo foi anulado :)",				'fake_full_combo',			true, 		0, 		'meme maker', 		1], //ok
+		["Fake Full Combo",				"Full Combo, PARABENS!!! Pena que foi na soulless logo tudo foi anulado :)", 'fake_full_combo',			true, 		185666, 		'meme maker', 		1], //ok
 		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		true, 		181723, 		'alt', 		2], //ok
 		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false, 		181724, 		'geral', 		2], //ok
 		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false, 		181725, 		'orgulho', 		1], //ok
@@ -200,9 +200,10 @@ class AchievementObject extends FlxSpriteGroup {
 		alphaTween = FlxTween.tween(this, {x: 0}, 0.5, {ease: FlxEase.cubeInOut,
 			onComplete: function(twn:FlxTween) { 
 			//Honestamente eu não sabia que tinha que usar o 'this' "tmj dav slk man kkkk"
-			alphaTween = FlxTween.tween(this, {y: FlxG.height}, 1.35,{
-				ease: FlxEase.quartInOut,
-				startDelay: 1.5,
+			// 👍
+			alphaTween = FlxTween.tween(this, {y: FlxG.height}, 1.45,{
+				ease: FlxEase.quintOut,
+				startDelay: 1.8,
 				onComplete: function(twn:FlxTween) {
 					alphaTween = null;
 					this.alpha = 0;

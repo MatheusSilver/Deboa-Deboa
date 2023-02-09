@@ -3591,6 +3591,10 @@ class PlayState extends MusicBeatState
 
 				//Endless
 				if(curSong.toLowerCase()=='endless' && curStep >= 500){skin='Majin_Notes';}
+				if(curSong.toLowerCase()=='endless' && curStep >= 1289 && !cpuControlled)
+					{
+						startachieving("fisk");
+					}
 				//FIQUEI FUCKING 2 HORAS TENTANDO CONSERTAR ISSO...
 				//O problema? eu tinha trocado o nome da textura da strum depois de ela ter carregado a textura padrão...
 				//Sílvio == bulo...
