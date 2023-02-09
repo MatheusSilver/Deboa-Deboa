@@ -78,7 +78,7 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
-	var precacheList:Map<String, String> = new Map<String, String>(); 
+	public var precacheList:Map<String, String> = new Map<String, String>(); 
 
 	public static var cccVidaCounter:Int = 2;
 
@@ -4031,7 +4031,7 @@ class PlayState extends MusicBeatState
 			tempogravador.text = (leDate.getHours() <= 12 ? leDate.getHours() : leDate.getHours() - 12) + ":" + (leDate.getMinutes() < 10 ? "0" + Std.string(leDate.getMinutes()) : Std.string(leDate.getMinutes())) + ':' +
 			(leDate.getSeconds() < 10 ? "0" + Std.string(leDate.getSeconds()) : Std.string(leDate.getSeconds())) + '\n' + (leDate.getHours() <= 12 ? "AM" : "PM") + "\n"
 			+ Std.string(leDate.getDate()) + " " + meses[leDate.getMonth()];
-		if(leDate.getHours() == 3 && !Achievements.isAchievementUnlocked('madrugada')){
+		if(leDate.getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada')){
 			startachieving('madrugada');
 		}
 		}

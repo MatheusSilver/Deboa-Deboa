@@ -1,6 +1,6 @@
 function onCreate()
-	precacheImage('tails')
-	precacheImage('tails2')
+	precacheImage('cenarios/tails')
+	precacheImage('cenarios/tails2')
 	makeAnimationList();
 
 	makeLuaSprite('bg','cenarios/bg',-400,-170)

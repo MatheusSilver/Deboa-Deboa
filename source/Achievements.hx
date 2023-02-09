@@ -118,7 +118,8 @@ class AchievementObject extends FlxSpriteGroup {
 	public function new(name:String, ?camera:FlxCamera = null)
 	{
 		super(x, y);
-		ClientPrefs.saveSettings();
+		//ClientPrefs.saveSettings();
+		//Over do grover
 
 		var id:Int = Achievements.getAchievementIndex(name);
 		var achievementBG:FlxSprite = new FlxSprite(60, 50);
@@ -131,7 +132,6 @@ class AchievementObject extends FlxSpriteGroup {
 		achievementBG.setGraphicSize(Std.int(achievementBG.width));
 		achievementBG.x -= achievementBG.width*0.2;
 		achievementBG.updateHitbox();
-		achievementBG.alpha = 0.70;
 		achievementBG.scrollFactor.set();
 
 		add(achievementBG);
@@ -179,13 +179,6 @@ class AchievementObject extends FlxSpriteGroup {
 		achievementName.setFormat(Paths.font("letravio.ttf"), 24, FlxColor.WHITE, RIGHT);
 		achievementName.scrollFactor.set();
 
-		//var achievementText:FlxText = new FlxText(achievementName.x, achievementName.y + 32, 280, Achievements.achievementsStuff[id][1], 16);
-		//achievementText.setFormat(Paths.font("letravio.ttf"), 16, FlxColor.WHITE, LEFT);
-		//achievementText.scrollFactor.set();
-
-
-
-
 		add(achievementName);
 		//add(achievementText);
 
@@ -193,7 +186,6 @@ class AchievementObject extends FlxSpriteGroup {
 		if(camera != null) {
 			cam = [camera];
 		}
-		alpha = 0;
 		achievementBG.cameras = cam;
 		achievementName.cameras = cam;
 		estrela1.cameras = cam;
@@ -201,13 +193,18 @@ class AchievementObject extends FlxSpriteGroup {
 		estrela3.cameras = cam;
 		estrela4.cameras = cam;
 		//achievementText.cameras = cam;
-		alphaTween = FlxTween.tween(this, {alpha: 1}, 0.5, {onComplete: function (twn:FlxTween) {
-			alphaTween = FlxTween.tween(this, {y: 1350}, 1.35,{
+		x = -achievementBG.width;
+		y = 0;
+		alpha = 1;
+		alphaTween = FlxTween.tween(this, {x: 0}, 0.5, {ease: FlxEase.cubeInOut,
+			onComplete: function(twn:FlxTween) { 
+			//Honestamente eu não sabia que tinha que usar o 'this' "tmj dav slk man kkkk"
+			alphaTween = FlxTween.tween(this, {y: FlxG.height}, 1.35,{
 				ease: FlxEase.quartInOut,
-				startDelay: 2.5,
+				startDelay: 1.5,
 				onComplete: function(twn:FlxTween) {
 					alphaTween = null;
-					this.alpha=0;
+					this.alpha = 0;
 					remove(this);
 					if(onFinish != null) onFinish();
 				}
