@@ -1,5 +1,7 @@
-# <img src="art/icon64.png" align="center"> Friday Night Funkin' - BSL Engine Mobile - Projeto ModBoa</img>
+# <img src="art/icon64.png" align="center"> Friday Night Funkin' - BS Engine Mobile - Projeto ModBoa</img>
 Essa engine foi originalmente baseada na [Psych Engine](https://github.com/ShadowMario/FNF-PsychEngine) com alguns elementos característicos de outras engines como a [Mic'd Up](https://github.com/Verwex/Funkin-Mic-d-Up-SC) e a [Kade Engine](https://github.com/KadeDev/Kade-Engine), e almeja ser uma alternativa para os desenvolvedores que queiram criar mods ou porta-los para APK facilmente.
+
+Caso queira conferir a versão base da engine para seus próprios trabalhos e projetos veja o repositório oficial da [BS Engine Mobile](https://github.com/MatheusSilver/BS-Engine-Mobile).
 
 Os criadores desta engine também são grandes fãs de Osu, então você pode esperar uma abordagem muito mais arcade dos mods do que o normal com sistemas de ranqueamento, modifiers que aumentam a dificuldade e a pontuação, além de outras características de layout e gameplay de Osu
 ## Tutorial de Build simplificado:
@@ -10,9 +12,13 @@ https://gamebanana.com/tuts/13935
 
 Agora a parte específica para compilações de android:
 `haxelib set openfl 9.1.0`
+
 `haxelib set lime 7.9.0`
+
 `haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git`
+
 `haxelib install actuate`
+
 `haxelib git extension-webm https://github.com/Daninnocent/extension-webm`
 
 Caso esteja fazendo a build para PC, execute o seguinte comando:
