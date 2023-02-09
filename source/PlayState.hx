@@ -4031,7 +4031,7 @@ class PlayState extends MusicBeatState
 			tempogravador.text = (leDate.getHours() <= 12 ? leDate.getHours() : leDate.getHours() - 12) + ":" + (leDate.getMinutes() < 10 ? "0" + Std.string(leDate.getMinutes()) : Std.string(leDate.getMinutes())) + ':' +
 			(leDate.getSeconds() < 10 ? "0" + Std.string(leDate.getSeconds()) : Std.string(leDate.getSeconds())) + '\n' + (leDate.getHours() <= 12 ? "AM" : "PM") + "\n"
 			+ Std.string(leDate.getDate()) + " " + meses[leDate.getMonth()];
-		if(leDate.getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada')){
+		if(leDate.getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada') && songStarted){
 			startachieving('madrugada');
 		}
 		}
@@ -6163,7 +6163,7 @@ class PlayState extends MusicBeatState
 		} else {
 			var achieve:String = checkForAchievement(['toastie', 'besties', 'personel_clear', 
 			'control_fc', 'bye_bye_fc', 'natal', 
-			'sidekick', 'toofest_fc']);
+			'sidekick', 'toofest_fc', 'perfect', 'fake_full_combo']);
 
 			if(achieve != null) {
 				startAchievement(achieve);
@@ -8104,7 +8104,11 @@ class PlayState extends MusicBeatState
 							unlock = true;
 						}
 					case 'perfect':
-						if(!usedPractice && !cpuControlled && songMisses == 0) {
+						if(!usedPractice && !cpuControlled && songMisses == 0 && curSong.toLowerCase()!='soulless') {
+							unlock = true;
+						}
+					case 'fake_full_combo':
+						if(!usedPractice && !cpuControlled && songMisses == 0 && curSong.toLowerCase()=='soulless') {
 							unlock = true;
 						}
 					case 'bye_bye_fc':
