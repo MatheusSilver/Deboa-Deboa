@@ -28,7 +28,7 @@ agora, caso seja para Android (o que provavelmente é):
 `lime rebuild extension-webm android`
 
 e ainda deverá instalar essa ultima extensão:
-`haxelib git extension-webview https://github.com/MatheusSilver/extension-webview`
+`haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview`
 
 Caso o seu projeto não rode com Vídeos, basta remover o Videos_Allowed de project.xml
 Ou caso não queira Lua em seu projeto, basta remover o Lua_Allowed do seu projeto.
