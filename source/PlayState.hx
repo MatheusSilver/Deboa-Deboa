@@ -3595,6 +3595,7 @@ class PlayState extends MusicBeatState
 					{
 						startachieving("fisk");
 					}
+
 				//FIQUEI FUCKING 2 HORAS TENTANDO CONSERTAR ISSO...
 				//O problema? eu tinha trocado o nome da textura da strum depois de ela ter carregado a textura padrão...
 				//Sílvio == bulo...
@@ -4639,6 +4640,12 @@ class PlayState extends MusicBeatState
 	function doDeathCheck() {
 		if (health <= 0 && !practiceMode && !isDead)
 		{
+			// se puder dar uma ajuda aqui, n entendi mto bem se ta certo isso aqui das conquistas
+			// ass: dav
+			if(curSong.toLowerCase()=='chaos' && cpuControlled)
+				{
+					startachieving("chaos_bot");
+				}
 			var ret:Dynamic = callOnLuas('onGameOver', []);
 			if(ret != FunkinLua.Function_Stop) {
 				boyfriend.stunned = true;
@@ -8133,6 +8140,14 @@ class PlayState extends MusicBeatState
 						}
 					case 'control_fc':
 						if(SONG.song.toLowerCase() == 'control' && !usedPractice && !cpuControlled && ControlSongSubstate.gifPermitido) {
+							unlock = true;
+						}
+					case 'fisk':
+						if(SONG.song.toLowerCase() == 'endless' && !usedPractice && !cpuControlled) {
+							unlock = true;
+						}
+					case 'chaos_bot':
+						if(SONG.song.toLowerCase() == 'chaos' && cpuControlled) {
 							unlock = true;
 						}
 				}
