@@ -24,7 +24,7 @@ class FlashingState extends MusicBeatState
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Ooopa!\n
 			Esse mod contem luzes piscantes e gore!\n
-			Caso esta gravando sua tela:\n
+			Caso esteja gravando sua tela:\n
 			Recomendamos gravar somente a tela e nao diretamente o jogo.\n
 			Desmarque as opcoes de Luzes Piscantes e Gore,\n
 			Para nao causar problemas aos seus viewers.\n
@@ -32,9 +32,9 @@ class FlashingState extends MusicBeatState
 			Aperte ENTER para ir ate as configuracoes,\n
 			ou aperte BACKSPACE para ir direto ao jogo.\n
 			Uma boa jogatina.", //Tenho certeza que foi o X02
-			32);
+			32);			// k
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
-		warnText.screenCenter(Y);
+		warnText.screenCenter(XY);
 		add(warnText);
 	}
 

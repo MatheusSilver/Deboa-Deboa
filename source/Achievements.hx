@@ -202,7 +202,7 @@ class AchievementObject extends FlxSpriteGroup {
 			//Honestamente eu não sabia que tinha que usar o 'this' "tmj dav slk man kkkk"
 			// 👍
 			alphaTween = FlxTween.tween(this, {y: FlxG.height}, 1.45,{
-				ease: FlxEase.quintOut,
+				ease: FlxEase.expoOut, // não sei qual colocar, se quiser escolhe algum outro dps
 				startDelay: 1.8,
 				onComplete: function(twn:FlxTween) {
 					alphaTween = null;
