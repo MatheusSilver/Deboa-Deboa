@@ -3789,7 +3789,7 @@ class PlayState extends MusicBeatState
 
 	public var paused:Bool = false;
 	var startedCountdown:Bool = false;
-	var canPause:Bool = true;
+	public var canPause:Bool = true;
 	var limoSpeed:Float = 0;
 
 	public static var useVideo = false;
@@ -4640,8 +4640,7 @@ class PlayState extends MusicBeatState
 	function doDeathCheck() {
 		if (health <= 0 && !practiceMode && !isDead)
 		{
-			// se puder dar uma ajuda aqui, n entendi mto bem se ta certo isso aqui das conquistas
-			// ass: dav
+			// ja entendi como funciona bruh
 			if(curSong.toLowerCase()=='chaos' && cpuControlled)
 				{
 					startachieving("chaos_bot");

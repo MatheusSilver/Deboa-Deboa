@@ -38,6 +38,11 @@ class PauseSubState extends MusicBeatSubstate
 	var ready:FlxSprite;
 	var set:FlxSprite;
 	var go:FlxSprite; //bruh + meme = breme
+
+	var isDoingtheThing:Bool = false;
+	var aberto:Bool=false;
+
+	//var playState:PlayState;
 	
 	public static var pauseMusicName:String = 'breakfast';
 
@@ -130,7 +135,7 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(praticar, {x: -128}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(restart, {x: -128}, 0.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bot, {x: -128}, 0.6, {ease: FlxEase.quartInOut});
-		FlxTween.tween(voltar, {x: -128}, 0.7, {ease: FlxEase.quartInOut});
+		FlxTween.tween(voltar, {x: -128}, 0.7, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween){aberto=true;}});
 
 
 		FlxTween.tween(preto, {alpha: 0.45}, 0.3, {ease: FlxEase.quartInOut});
@@ -231,7 +236,15 @@ class PauseSubState extends MusicBeatSubstate
 			switch (daSelected)
 			{
 				case "Voltar para a musica":
-					saindodopause();
+					if(!isDoingtheThing && aberto)
+						{
+							isDoingtheThing=true;
+							saindodopause();
+						}
+						else
+							{
+								FlxG.sound.play(Paths.sound('Fail','preload'), 0.015);
+							}
 				case 'Modo praticar':
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
@@ -285,103 +298,102 @@ class PauseSubState extends MusicBeatSubstate
 	}
 
 	function saindodopause(){
-		FlxTween.tween(continuar, {x: 0-continuar.width}, 0.1, {ease: FlxEase.quartInOut});
-		FlxTween.tween(praticar, {x: 0-praticar.width}, 0.2, {ease: FlxEase.quartInOut});
-		FlxTween.tween(restart, {x: 0-restart.width}, 0.3, {ease: FlxEase.quartInOut});
-		FlxTween.tween(bot, {x: 0-bot.width}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(voltar, {x: 0-voltar.width}, 0.5, {ease: FlxEase.quartInOut});
-
-
-		FlxTween.tween(bg, {y: -bg.height}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(linhabaixo, {y: FlxG.height}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(preto, {alpha: 0}, 0.8, {ease: FlxEase.quartInOut});
-		FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
-			{
-				startCountdownback();
-			}
-		});
+				FlxTween.tween(continuar, {x: 0-continuar.width}, 0.1, {ease: FlxEase.quartInOut});
+				FlxTween.tween(praticar, {x: 0-praticar.width}, 0.2, {ease: FlxEase.quartInOut});
+				FlxTween.tween(restart, {x: 0-restart.width}, 0.3, {ease: FlxEase.quartInOut});
+				FlxTween.tween(bot, {x: 0-bot.width}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(voltar, {x: 0-voltar.width}, 0.5, {ease: FlxEase.quartInOut});
+		
+		
+				FlxTween.tween(bg, {y: -bg.height}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(linhabaixo, {y: FlxG.height}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(preto, {alpha: 0}, 0.8, {ease: FlxEase.quartInOut});
+				FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
+					{
+						startCountdownback();
+					}
+				});
 	}
 	var loops:Int;
-
 	function startCountdownback()
 		{
 
 			loops=0;
+					new FlxTimer().start(0.35, function(tmr:FlxTimer){
+						loops++;
+						switch (Std.int(loops))
+						{ 
+							case 1:
+								PlayState.instance.canPause = false;
+								FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);
 			
-			new FlxTimer().start(0.35, function(tmr:FlxTimer){
-			loops++;
-			switch (Std.int(loops))
-			{ 
-				case 1:
-
-
-					FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);
-
-				case 2:
-					ready.scrollFactor.set();
-					ready.updateHitbox();
-
-					ready.screenCenter();
-					ready.antialiasing = ClientPrefs.globalAntialiasing;
-					add(ready);
-					countDownSprites.push(ready);
-					FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, 0.4, {
-						ease: FlxEase.cubeInOut,
-						onComplete: function(twn:FlxTween)
-						{
-							countDownSprites.remove(ready);
-							remove(ready);
-							ready.destroy();
-							FlxTween.tween(preto, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+							case 2:
+								ready.scrollFactor.set();
+								ready.updateHitbox();
+			
+								ready.screenCenter();
+								ready.antialiasing = ClientPrefs.globalAntialiasing;
+								add(ready);
+								countDownSprites.push(ready);
+								FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, 0.4, {
+									ease: FlxEase.cubeInOut,
+									onComplete: function(twn:FlxTween)
+									{
+										countDownSprites.remove(ready);
+										remove(ready);
+										ready.destroy();
+										FlxTween.tween(preto, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+									}
+								});
+								PlayState.instance.canPause = false;
+			
+								FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);
+							case 3:
+								set.scrollFactor.set();
+								PlayState.instance.canPause = false;
+								set.screenCenter();
+								set.antialiasing = ClientPrefs.globalAntialiasing;
+								add(set);
+								countDownSprites.push(set);
+								FlxTween.tween(set, {y: set.y += 100, alpha: 0}, 0.9, {
+									ease: FlxEase.cubeInOut,
+									onComplete: function(twn:FlxTween)
+									{
+										countDownSprites.remove(set);
+										remove(set);
+										set.destroy();
+									}
+								});
+								FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);
+							case 4:
+								FlxG.sound.play(Paths.sound('introGo','shared'), 0.6);
+								PlayState.instance.canPause = false;			
+								go.scrollFactor.set();
+			
+								go.updateHitbox();
+			
+								go.screenCenter();
+								go.antialiasing = ClientPrefs.globalAntialiasing;
+								add(go);
+								countDownSprites.push(go);
+								FlxTween.tween(go, {y: go.y += 100, alpha: 0}, 0.4, {
+									ease: FlxEase.cubeInOut,
+									onComplete: function(twn:FlxTween)
+									{
+										countDownSprites.remove(go);
+										remove(go);
+										go.destroy();
+										new FlxTimer().start(0.75, function(tmr:FlxTimer){PlayState.instance.canPause = true; isDoingtheThing=false;});
+										close();
+										if (PlayState.useVideo)
+										{
+											GlobalVideo.get().resume();
+										}
+									}
+								});
 						}
-					});
-
-					FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);
-				case 3:
-					set.scrollFactor.set();
-
-					set.screenCenter();
-					set.antialiasing = ClientPrefs.globalAntialiasing;
-					add(set);
-					countDownSprites.push(set);
-					FlxTween.tween(set, {y: set.y += 100, alpha: 0}, 0.9, {
-						ease: FlxEase.cubeInOut,
-						onComplete: function(twn:FlxTween)
-						{
-							countDownSprites.remove(set);
-							remove(set);
-							set.destroy();
-						}
-					});
-					FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);
-				case 4:
-					FlxG.sound.play(Paths.sound('introGo','shared'), 0.6);
-										
-					go.scrollFactor.set();
-
-					go.updateHitbox();
-
-					go.screenCenter();
-					go.antialiasing = ClientPrefs.globalAntialiasing;
-					add(go);
-					countDownSprites.push(go);
-					FlxTween.tween(go, {y: go.y += 100, alpha: 0}, 0.4, {
-						ease: FlxEase.cubeInOut,
-						onComplete: function(twn:FlxTween)
-						{
-							countDownSprites.remove(go);
-							remove(go);
-							go.destroy();
-							close();
-							if (PlayState.useVideo)
-							{
-								GlobalVideo.get().resume();
-							}
-						}
-					});
-			}
-		}, 4);
+					}, 4);
 		}
 
 	public static function restartSong(noTrans:Bool = false)
