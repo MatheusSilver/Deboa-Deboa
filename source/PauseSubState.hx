@@ -243,7 +243,7 @@ class PauseSubState extends MusicBeatSubstate
 						}
 						else
 							{
-								FlxG.sound.play(Paths.sound('Fail','preload'), 0.015);
+								FlxG.sound.play(Paths.sound('negado','preload'), 0.015);
 							}
 				case 'Modo praticar':
 					PlayState.practiceMode = !PlayState.practiceMode;
