@@ -5513,6 +5513,7 @@
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,
+		"splashSkin": "noteSplashes",
 		"speed": 2.8,
 		"bpm": 117
 	}

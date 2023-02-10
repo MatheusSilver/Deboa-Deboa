@@ -5484,6 +5484,7 @@
 		"arrowSkin": "",
 		"validScore": true,
 		"sections": 0,
+		"splashSkin": "noteSplashes",
 		"needsVoices": false,
 		"speed": 2.8,
 		"bpm": 117

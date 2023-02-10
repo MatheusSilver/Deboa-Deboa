@@ -7,6 +7,17 @@
 			],
 			"loop": true,
 			"fps": 24,
+			"anim": "iamgod",
+			"indices": [],
+			"name": "sonicImmagetya"
+		},
+		{
+			"offsets": [
+				127,
+				10
+			],
+			"loop": true,
+			"fps": 24,
 			"anim": "idle",
 			"indices": [],
 			"name": "sonicImmagetya"

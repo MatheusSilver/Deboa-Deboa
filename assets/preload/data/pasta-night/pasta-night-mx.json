@@ -5555,6 +5555,7 @@
 		"sections": 0,
 		"needsVoices": false,
 		"speed": 2.8,
+		"splashSkin": "noteSplashes",
 		"bpm": 117
 	}
 }

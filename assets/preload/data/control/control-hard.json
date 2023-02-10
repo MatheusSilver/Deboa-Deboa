@@ -7058,6 +7058,7 @@
 		"splashSkin": "blood",
 		"sliderVelocities": null,
 		"song": "control",
+		"canfollowpermitido": true,
 		"validScore": true,
 		"startinvisibru": true,
 		"stage": "empty",

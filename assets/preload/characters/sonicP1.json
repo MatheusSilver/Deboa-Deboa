@@ -81,8 +81,8 @@
 	"no_antialiasing": false,
 	"image": "characters/too-slow/Sonic_EXE_Assets",
 	"position": [
-		0,
-		130
+		60,
+		-75
 	],
 	"healthicon": "sonicP1",
 	"flip_x": false,

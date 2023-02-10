@@ -2360,6 +2360,7 @@
 		"song": "faker",
 		"validScore": true,
 		"stage": "fakerStage",
+		"splashSkin": "noteSplashes",
 		"sections": 0,
 		"needsVoices": false,
 		"noteStyle": null,

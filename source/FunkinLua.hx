@@ -42,7 +42,7 @@ class FunkinLua {
 	#end
 
 	public var scriptName:String = '';
-	var gonnaClose:Bool = false;
+	public var closed:Bool = false;
 
 	public var accessedProps:Map<String, Dynamic> = null;
 	public function new(script:String) {
@@ -50,6 +50,8 @@ class FunkinLua {
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
+
+		trace(lua); //Só pra eu ter noção de como fazer um anticheat aqui
 
 		//trace('Lua version: ' + Lua.version());
 		//trace("LuaJIT version: " + Lua.versionJIT());
@@ -159,6 +161,8 @@ class FunkinLua {
 		set('noteOffset', ClientPrefs.noteOffset);
 		set('lowQuality', ClientPrefs.lowQuality);
 		set('hitSounds', ClientPrefs.hitSounds);
+
+		set('isRing', PlayState.isRing);
 
 		//stuff 4 noobz like you B)
 
@@ -1305,16 +1309,16 @@ class FunkinLua {
 			if (text5 == null) text5 = '';
 			//luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
 		});
-		Lua_helper.add_callback(lua, "close", function(printMessage:Bool) {
-			if(!gonnaClose) {
-				if(printMessage) {
-					//luaTrace('Stopping lua script in 100ms: ' + scriptName);
-				}
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					stop();
-				});
-			}
-			gonnaClose = true;
+		Lua_helper.add_callback(lua, "close", function() {
+			closed = true;
+			return closed;
+		});
+
+		Lua_helper.add_callback(lua, "startachieving", function(achieveID:String) {
+			if(achieveID != null && achieveID.length > 0 && Achievements.getAchievementIndex(achieveID) != -1)
+				return PlayState.instance.startachieving(achieveID);
+			else
+				FlxG.log.add('Não existe achievement com o nome de ' + achieveID);
 		});
 
 		//É... Aos poucos vou sendo cada vez mais obrigado a portar a arrumar a Final Escape...
@@ -2139,9 +2143,7 @@ class FunkinLua {
 	
 	public function call(event:String, args:Array<Dynamic>):Dynamic {
 		#if LUA_ALLOWED
-		if(lua == null) {
-			return Function_Continue;
-		}
+		if(lua == null || closed) return Function_Continue;
 
 		Lua.getglobal(lua, event);
 

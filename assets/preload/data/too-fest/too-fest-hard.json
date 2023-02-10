@@ -6969,6 +6969,7 @@
 		"song": "too-fest",
 		"stage": "sanicStage",
 		"validScore": true,
+		"splashSkin": "noteSplashes",
 		"needsVoices": false,
 		"speed": 5,
 		"bpm": 174,

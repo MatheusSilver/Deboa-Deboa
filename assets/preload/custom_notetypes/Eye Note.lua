@@ -5,12 +5,13 @@ function onCreate()
 		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'Eye Note' then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'notesEye'); --Change texture
 
-			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') then --Doesn't let Dad/Opponent notes get ignored
+			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') == true then --Doesn't let Dad/Opponent notes get ignored
+				setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true); --Miss has penalties
+			else
 				setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', false); --Miss has penalties
 			end
 		end
 	end
-	--debugPrint('Script started!')
 end
 
 -- Function called when you hit a note (after note hit calculations)

@@ -5914,6 +5914,7 @@
 		"validScore": true,
 		"needsVoices": false,
 		"stage": "tailsplace",
+		"splashSkin": "noteSplashes",
 		"bpm": 200,
 		"speed": 3.2
 	}

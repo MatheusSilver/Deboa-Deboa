@@ -24,7 +24,6 @@ function onCreatePost()
 end
 
 function onUpdate()
-	--[[
 	makeLuaSprite('timeBarFC', '', 0, 710);
 	makeGraphic('timeBarFC', 1280, 10, '424145');
 	setObjectCamera('timeBarFC','other')
@@ -39,5 +38,4 @@ function onUpdate()
 	makeGraphic('timeBarF', curStep/ 1.2, 10, 'FF0000');
 	setObjectCamera('timeBarF','other')
 	addLuaSprite('timeBarF', false);
-	]]
 end

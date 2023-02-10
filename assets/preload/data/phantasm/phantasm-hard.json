@@ -6854,6 +6854,7 @@
 		"sections": 0,
 		"needsVoices": false,
 		"startinvisibru": true,
+		"splashSkin": "noteSplashes",
 		"stage": "fleetPHANTASM",
 		"speed": 2.8,
 		"bpm": 160

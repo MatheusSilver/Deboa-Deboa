@@ -1,0 +1,103 @@
+{
+	"song": {
+		"speed": 2.8,
+		"stage": "seidenadasoutrabalhador",
+		"player1": "bf-darksidekick",
+		"player2": "sonicsidekick",
+		"player3": "invisibru",
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						84395.6043956044,
+						-1,
+						"Flash White",
+						"0.2",
+						"",
+						""
+					],
+					[
+						84478.021978022,
+						-1,
+						"Change Character",
+						"dad",
+						"tails-darksidekick",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						126510.989010989,
+						-1,
+						"Flash White",
+						"0.5",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						126593.406593407,
+						-1,
+						"Change Character",
+						"dad",
+						"tails-dark-altsidekick",
+						""
+					],
+					[
+						126675.824175824,
+						-1,
+						"Change Character",
+						"gf",
+						"sonicsidekick",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			}
+		],
+		"splashSkin": "blood",
+		"validScore": false,
+		"bpm": 182,
+		"arrowSkin": null,
+		"needsVoices": false,
+		"startinvisibru": null,
+		"canfollowpermitido": null,
+		"song": "Sidekick",
+		"isRing": null
+	}
+}

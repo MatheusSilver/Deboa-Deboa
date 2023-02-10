@@ -1,5 +1,6 @@
 function onCreate()
     if legendas == true then
+        precacheImage('letras/too-fest/Legenda');
         if downscroll == true then
             if legendasporcima == true then
                 makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, -350)

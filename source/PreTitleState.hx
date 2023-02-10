@@ -9,8 +9,8 @@ class PreTitleState extends MusicBeatState
 {
 	override function create()
 		{
-			var random1:Int = FlxG.random.int(0, 300);
-			if(!ClientPrefs.firstTime)
+			var random1:Int = FlxG.random.int(0, 8);
+			if(!ClientPrefs.firstTime) //Tem que tirar esse ! daqui
 				{
 					#if desktop
 		
@@ -18,6 +18,9 @@ class PreTitleState extends MusicBeatState
 							if(openfl.utils.Assets.exists('assets/videos/VideosRandom/haha' + random1+ '.mp4')) {
 								VideoStatePC.videoPath='assets/videos/VideosRandom/haha' + random1 + '.mp4';
 							}
+							#if debug
+							trace('assets/videos/VideosRandom/haha' + random1 + '.mp4');
+							#end
 							MusicBeatState.switchState(new VideoStatePC());
 						});
 

@@ -10339,6 +10339,7 @@
 		"song": "green-hills",
 		"needsVoices": false,
 		"validScore": true,
+		"splashSkin": "noteSplashes",
 		"arrowSkin": "",
 		"stage": "beachhouse",
 		"bpm": 194,

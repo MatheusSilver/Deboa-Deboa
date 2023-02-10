@@ -2,8 +2,8 @@
 	"song": {
 		"player1": "bf-darksidekick",
 		"events": [],
-		"gfVersion": "gf-dark",
-		"player2": "sonic",
+		"gfVersion": "invisibru",
+		"player2": "sonicsidekick",
 		"notes": [
 			{
 				"lengthInSteps": 16,
@@ -327,6 +327,22 @@
 						22252.7472527473,
 						1,
 						0
+					],
+					[
+						21098.9010989011,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						21428.5714285714,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": false
@@ -627,30 +643,6 @@
 						0
 					],
 					[
-						32142.8571428572,
-						3,
-						0
-					],
-					[
-						32307.6923076923,
-						2,
-						247.252747252747
-					],
-					[
-						31648.3516483517,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						31978.021978022,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						31648.3516483517,
 						5,
 						576.923076923077
@@ -664,6 +656,72 @@
 						32802.1978021978,
 						1,
 						0
+					],
+					[
+						31648.3516483517,
+						1,
+						0
+					],
+					[
+						31978.021978022,
+						1,
+						0
+					],
+					[
+						32142.8571428572,
+						2,
+						0
+					],
+					[
+						32307.6923076923,
+						3,
+						247.252747252747
+					],
+					[
+						31648.3516483517,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						31813.1868131868,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						31978.021978022,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						32142.8571428572,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						32307.6923076923,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						31648.3516483517,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						31978.021978022,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": true
@@ -991,18 +1049,27 @@
 						false
 					],
 					[
-						42527.4725274725,
-						6,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						42857.1428571429,
 						7,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						42197.8021978022,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						42527.4725274725,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": false
@@ -1064,18 +1131,27 @@
 						false
 					],
 					[
-						45164.8351648352,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						45494.5054945055,
 						3,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						44835.1648351648,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						45164.8351648352,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": true
@@ -1137,18 +1213,27 @@
 						false
 					],
 					[
-						47802.1978021978,
-						7,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						48131.8681318681,
 						6,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						47802.1978021978,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						47472.5274725275,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": false
@@ -1210,18 +1295,27 @@
 						false
 					],
 					[
-						50439.5604395604,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						50769.2307692308,
 						2,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						50109.8901098901,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						50439.5604395604,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": true
@@ -1296,25 +1390,27 @@
 						576.923076923077
 					],
 					[
-						52747.2527472527,
-						6,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						53076.923076923,
-						7,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						53406.5934065934,
 						6,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						52747.2527472527,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						53076.923076923,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": false
@@ -1369,25 +1465,33 @@
 						576.923076923077
 					],
 					[
-						55384.6153846154,
-						0,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						55714.2857142857,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						56043.956043956,
 						3,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						55384.6153846154,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						55714.2857142857,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						55384.6153846154,
+						0,
+						0,
+						"Eye Note"
 					]
 				],
 				"mustHitSection": true
@@ -1449,18 +1553,27 @@
 						false
 					],
 					[
-						58351.6483516483,
-						7,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						58681.3186813186,
 						6,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						58021.978021978,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						58351.6483516483,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": false
@@ -1515,13 +1628,6 @@
 						576.923076923077
 					],
 					[
-						60989.0109890109,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						61318.6813186813,
 						2,
 						0,
@@ -1534,6 +1640,22 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						60659.3406593406,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						60989.0109890109,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"mustHitSection": true
@@ -1674,10 +1796,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 150,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -1714,10 +1836,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -1749,10 +1871,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -1789,10 +1911,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -1857,10 +1979,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -1925,10 +2047,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -1988,10 +2110,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2049,10 +2171,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
 				"bpm": 154,
-				"changeBPM": false
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2089,10 +2211,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"chromaticAberrationsShader": false,
-				"bpm": 154,
 				"changeBPM": false,
-				"vignetteShader": false
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 154
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2129,10 +2251,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 154,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 154,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2164,10 +2286,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2204,10 +2326,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2256,26 +2378,45 @@
 						false
 					],
 					[
-						100879.120879121,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						101208.791208791,
 						0,
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						100219.78021978,
+						3,
+						0
+					],
+					[
+						100549.450549451,
+						0,
+						0
+					],
+					[
+						100879.120879121,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						100879.120879121,
+						1,
+						0
+					],
+					[
+						101208.791208791,
+						3,
+						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2305,25 +2446,6 @@
 						0
 					],
 					[
-						102692.307692308,
-						0,
-						0
-					],
-					[
-						101538.461538462,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						101868.131868132,
-						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						102197.802197802,
 						0,
 						0,
@@ -2336,14 +2458,57 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						101868.131868132,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						101538.461538462,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						101538.461538462,
+						1,
+						0
+					],
+					[
+						101868.131868132,
+						1,
+						0
+					],
+					[
+						102197.802197802,
+						3,
+						0
+					],
+					[
+						102527.472527473,
+						0,
+						0
+					],
+					[
+						102692.307692308,
+						3,
+						0
+					],
+					[
+						102692.307692308,
+						0,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2380,33 +2545,56 @@
 						false
 					],
 					[
+						102857.142857143,
+						0,
+						0
+					],
+					[
 						103186.813186813,
 						0,
-						0,
-						"Eye Note",
-						false
+						0
 					],
 					[
 						103516.483516484,
 						0,
+						0
+					],
+					[
+						103186.813186813,
+						3,
 						0,
-						"Eye Note",
-						false
+						"Eye Note"
+					],
+					[
+						103516.483516484,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						103351.648351648,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						103846.153846154,
+						1,
+						0,
+						"Eye Note"
 					],
 					[
 						103846.153846154,
 						2,
-						0,
-						"Eye Note",
-						false
+						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2441,33 +2629,45 @@
 						247.252747252747
 					],
 					[
+						104835.164835165,
+						2,
+						0
+					],
+					[
+						104835.164835165,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						104175.824175824,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
 						104175.824175824,
 						2,
+						0
+					],
+					[
+						104505.494505495,
+						2,
 						0,
-						"Eye Note",
-						false
+						"Eye Note"
 					],
 					[
 						104505.494505495,
 						1,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						104835.164835165,
-						2,
-						0,
-						"Eye Note",
-						false
+						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2525,10 +2725,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2579,10 +2779,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2619,10 +2819,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2659,10 +2859,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2713,10 +2913,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2757,10 +2957,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2820,10 +3020,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2881,10 +3081,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2904,11 +3104,6 @@
 						0
 					],
 					[
-						116538.461538462,
-						0,
-						0
-					],
-					[
 						116703.296703297,
 						3,
 						247.252747252747
@@ -2921,38 +3116,66 @@
 						false
 					],
 					[
-						116373.626373627,
-						2,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						116043.956043956,
 						7,
 						576.923076923077
 					],
 					[
+						116043.956043956,
+						0,
+						0
+					],
+					[
+						116538.461538462,
+						3,
+						0
+					],
+					[
+						116538.461538462,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						116373.626373627,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						116373.626373627,
+						2,
+						0
+					],
+					[
 						117032.967032967,
 						0,
-						0,
-						"Eye Note",
-						false
+						0
 					],
 					[
 						117197.802197802,
 						3,
+						0
+					],
+					[
+						117032.967032967,
+						3,
 						0,
-						"Eye Note",
-						false
+						"Eye Note"
+					],
+					[
+						117197.802197802,
+						0,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -2999,14 +3222,30 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						117362.637362637,
+						1,
+						0
+					],
+					[
+						117692.307692308,
+						3,
+						0
+					],
+					[
+						117857.142857143,
+						3,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3043,10 +3282,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3083,10 +3322,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3111,11 +3350,6 @@
 						0
 					],
 					[
-						122142.857142857,
-						2,
-						0
-					],
-					[
 						122307.692307692,
 						0,
 						247.252747252747
@@ -3133,14 +3367,35 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						121648.351648352,
+						1,
+						0
+					],
+					[
+						121978.021978022,
+						2,
+						0
+					],
+					[
+						122142.857142857,
+						1,
+						0
+					],
+					[
+						122142.857142857,
+						2,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3160,13 +3415,6 @@
 						576.923076923077
 					],
 					[
-						123296.703296703,
-						3,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						123626.373626374,
 						0,
 						0,
@@ -3174,17 +3422,39 @@
 						false
 					],
 					[
+						123296.703296703,
+						0,
+						0
+					],
+					[
+						123296.703296703,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
 						123791.208791209,
 						3,
+						0,
+						"Eye Note"
+					],
+					[
+						123626.373626374,
+						1,
+						0
+					],
+					[
+						123791.208791209,
+						2,
 						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3240,14 +3510,29 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						123956.043956044,
+						3,
+						0
+					],
+					[
+						124285.714285714,
+						2,
+						0
+					],
+					[
+						124945.054945055,
+						1,
+						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3301,14 +3586,29 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						125274.725274725,
+						0,
+						0
+					],
+					[
+						125604.395604396,
+						2,
+						0
+					],
+					[
+						125934.065934066,
+						3,
+						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3343,14 +3643,30 @@
 						0,
 						576.923076923077,
 						"GF Sing"
+					],
+					[
+						126593.406593407,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						126923.076923077,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3389,10 +3705,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3431,10 +3747,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3473,10 +3789,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3515,10 +3831,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3557,10 +3873,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3599,10 +3915,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3663,10 +3979,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3691,20 +4007,6 @@
 						576.923076923077
 					],
 					[
-						137472.527472528,
-						2,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						137472.527472528,
-						3,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						137142.857142857,
 						0,
 						0,
@@ -3742,14 +4044,42 @@
 						137142.857142857,
 						5,
 						576.923076923077
+					],
+					[
+						137142.857142857,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						137802.197802198,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						137142.857142857,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						137472.527472528,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3772,14 +4102,50 @@
 						139120.879120879,
 						3,
 						576.923076923077
+					],
+					[
+						138461.538461539,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						138461.538461539,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						138461.538461539,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						139120.879120879,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						139120.879120879,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						139120.879120879,
+						0,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3802,14 +4168,50 @@
 						140439.56043956,
 						0,
 						576.923076923077
+					],
+					[
+						139780.21978022,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						139780.21978022,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						139780.21978022,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						140439.560439561,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						140439.560439561,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						140439.560439561,
+						3,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3832,14 +4234,50 @@
 						141758.241758242,
 						3,
 						576.923076923077
+					],
+					[
+						141098.901098901,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						141098.901098901,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						141098.901098901,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						141758.241758242,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						141758.241758242,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						141758.241758242,
+						1,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3862,14 +4300,50 @@
 						143076.923076923,
 						1,
 						576.923076923077
+					],
+					[
+						142417.582417583,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						142417.582417583,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						142417.582417583,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						143076.923076923,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						143076.923076923,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						143076.923076923,
+						0,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3892,14 +4366,50 @@
 						144395.604395604,
 						3,
 						576.923076923077
+					],
+					[
+						143736.263736264,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						143736.263736264,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						143736.263736264,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						144395.604395604,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						144395.604395604,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						144395.604395604,
+						0,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3922,14 +4432,50 @@
 						145714.285714286,
 						3,
 						576.923076923077
+					],
+					[
+						145054.945054945,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						145054.945054945,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						145054.945054945,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						145714.285714286,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						145714.285714286,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						145714.285714286,
+						0,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -3952,14 +4498,50 @@
 						147032.967032967,
 						1,
 						576.923076923077
+					],
+					[
+						146373.626373626,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						146373.626373626,
+						1,
+						0,
+						"Eye Note"
+					],
+					[
+						146373.626373626,
+						3,
+						0,
+						"Eye Note"
+					],
+					[
+						147032.967032967,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						147032.967032967,
+						2,
+						0,
+						"Eye Note"
+					],
+					[
+						147032.967032967,
+						3,
+						0,
+						"Eye Note"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4079,14 +4661,48 @@
 						1,
 						0,
 						"Eye Note"
+					],
+					[
+						147692.307692308,
+						4,
+						0,
+						"Eye Note"
+					],
+					[
+						147692.307692308,
+						5,
+						0,
+						"Eye Note"
+					],
+					[
+						147692.307692308,
+						7,
+						0,
+						"Eye Note"
+					],
+					[
+						147692.307692308,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						148021.978021978,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4228,10 +4844,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4245,21 +4861,6 @@
 				"mustHitSection": false,
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
-					[
-						150329.67032967,
-						2,
-						247.252747252747
-					],
-					[
-						150659.340659341,
-						3,
-						0
-					],
-					[
-						150824.175824176,
-						0,
-						0
-					],
 					[
 						150659.340659341,
 						1,
@@ -4275,27 +4876,64 @@
 						false
 					],
 					[
-						150989.010989011,
+						150329.67032967,
+						2,
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						150659.340659341,
 						3,
-						247.252747252747
+						0,
+						"GF Sing"
+					],
+					[
+						150824.175824176,
+						0,
+						0,
+						"GF Sing"
 					],
 					[
 						151318.681318681,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						151483.516483517,
 						1,
-						0
+						0,
+						"dualSing"
+					],
+					[
+						150989.010989011,
+						3,
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						150329.67032967,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						150659.340659341,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4311,65 +4949,73 @@
 				"sectionNotes": [
 					[
 						151648.351648352,
+						2,
 						0,
-						0
+						"Eye Note",
+						false
 					],
 					[
-						151813.186813187,
-						1,
-						0
+						151978.021978022,
+						0,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						151648.351648352,
+						0,
+						0,
+						"GF Sing"
 					],
 					[
 						151978.021978022,
 						3,
-						0
+						0,
+						"GF Sing"
 					],
 					[
 						152142.857142857,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						152307.692307692,
 						2,
-						0
+						0,
+						"dualSing"
+					],
+					[
+						151813.186813187,
+						1,
+						0,
+						"dualSing"
 					],
 					[
 						152472.527472527,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						152637.362637363,
 						3,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						152802.197802198,
 						0,
-						0
-					],
-					[
-						151648.351648352,
-						2,
 						0,
-						"Eye Note",
-						false
-					],
-					[
-						151978.021978022,
-						0,
-						0,
-						"Eye Note",
-						false
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4384,61 +5030,84 @@
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
 					[
-						152967.032967033,
-						1,
-						0
-					],
-					[
-						153131.868131868,
-						3,
-						0
-					],
-					[
 						153296.703296703,
+						1,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						152967.032967033,
 						2,
-						0
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						153461.538461538,
 						0,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						153626.373626374,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						153791.208791209,
 						3,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						153956.043956044,
 						1,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
-						153296.703296703,
-						1,
+						153131.868131868,
+						3,
 						0,
-						"Eye Note",
-						false
+						"dualSing"
 					],
 					[
 						152967.032967033,
+						1,
+						0,
+						"GF Sing"
+					],
+					[
+						153296.703296703,
 						2,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
+					],
+					[
+						153296.703296703,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						152967.032967033,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4454,55 +5123,61 @@
 				"sectionNotes": [
 					[
 						154945.054945055,
-						1,
-						0
-					],
-					[
-						155109.89010989,
-						3,
-						0
+						0,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						155274.725274725,
-						2,
-						0
-					],
-					[
-						155439.56043956,
+						1,
 						0,
-						0
+						"Eye Note",
+						false
 					],
 					[
 						154285.714285714,
 						2,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						154615.384615385,
 						3,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						155109.89010989,
+						3,
+						0,
+						"dualSing"
+					],
+					[
+						155439.56043956,
+						0,
+						0,
+						"dualSing"
 					],
 					[
 						154945.054945055,
+						1,
 						0,
-						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						155274.725274725,
-						1,
+						2,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4518,65 +5193,89 @@
 				"sectionNotes": [
 					[
 						155604.395604396,
-						3,
-						0
+						2,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						155934.065934066,
+						0,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						155769.230769231,
 						1,
-						0
-					],
-					[
-						155934.065934066,
-						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						156098.901098901,
 						3,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						156263.736263736,
 						0,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						156428.571428571,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						156593.406593407,
 						3,
-						0
-					],
-					[
-						155604.395604396,
-						2,
 						0,
-						"Eye Note",
-						false
-					],
-					[
-						155934.065934066,
-						0,
-						0,
-						"Eye Note",
-						false
+						"dualSing"
 					],
 					[
 						156758.241758242,
 						0,
-						0
+						0,
+						"dualSing"
+					],
+					[
+						155604.395604396,
+						3,
+						0,
+						"GF Sing"
+					],
+					[
+						155934.065934066,
+						2,
+						0,
+						"GF Sing"
+					],
+					[
+						155604.395604396,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						155934.065934066,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4592,67 +5291,74 @@
 				"sectionNotes": [
 					[
 						156923.076923077,
-						1,
-						0
+						2,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						157582.417582418,
+						0,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						157912.087912088,
+						2,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						157087.912087912,
 						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						157417.582417582,
 						1,
-						0
-					],
-					[
-						157582.417582418,
-						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						157747.252747253,
 						3,
-						0
-					],
-					[
-						157912.087912088,
-						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						158076.923076923,
 						0,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						156923.076923077,
-						2,
+						1,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						157582.417582418,
+						2,
 						0,
-						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						157912.087912088,
-						2,
+						1,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4666,11 +5372,6 @@
 				"mustHitSection": true,
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
-					[
-						158241.758241758,
-						5,
-						576.923076923077
-					],
 					[
 						158241.758241758,
 						1,
@@ -4711,26 +5412,50 @@
 						false
 					],
 					[
+						158241.758241758,
+						5,
+						576.923076923077,
+						"dualSing"
+					],
+					[
+						158241.758241758,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						158571.428571429,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						159313.186813187,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
 						159230.769230769,
 						1,
-						0,
-						"Eye Note",
-						false
+						0
 					],
 					[
 						159395.604395604,
 						1,
-						0,
-						"Eye Note",
-						false
+						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4810,10 +5535,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4870,14 +5595,30 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						160879.120879121,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						161208.791208791,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -4948,10 +5689,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5018,14 +5759,30 @@
 						163516.483516483,
 						1,
 						0
+					],
+					[
+						163516.483516483,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						163846.153846154,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5086,10 +5843,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5156,14 +5913,30 @@
 						167307.692307692,
 						0,
 						0
+					],
+					[
+						166153.846153846,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
+					],
+					[
+						166483.516483516,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5236,10 +6009,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5255,31 +6028,34 @@
 				"sectionNotes": [
 					[
 						168791.208791209,
-						2,
+						6,
 						576.923076923077
+					],
+					[
+						168791.208791209,
+						2,
+						576.923076923077,
+						"dualSing"
 					],
 					[
 						169450.549450549,
 						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						169780.21978022,
 						3,
-						247.252747252747
-					],
-					[
-						168791.208791209,
-						6,
-						576.923076923077
+						247.252747252747,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5296,30 +6072,34 @@
 					[
 						170109.89010989,
 						2,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						170439.56043956,
 						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						170769.230769231,
 						1,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						171098.901098901,
 						3,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5336,25 +6116,28 @@
 					[
 						171428.571428571,
 						2,
-						576.923076923077
+						576.923076923077,
+						"dualSing"
 					],
 					[
 						172087.912087912,
 						3,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						172417.582417582,
 						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5371,30 +6154,34 @@
 					[
 						172747.252747253,
 						2,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						173076.923076923,
 						1,
-						247.252747252747
-					],
-					[
-						173736.263736264,
-						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						173406.593406593,
 						3,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						173736.263736264,
+						0,
+						247.252747252747,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5410,72 +6197,80 @@
 				"sectionNotes": [
 					[
 						174065.934065934,
+						1,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						174395.604395604,
 						3,
-						0
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						174725.274725275,
+						3,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						174230.769230769,
 						2,
-						0
-					],
-					[
-						174395.604395604,
-						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						174560.439560439,
 						2,
-						0
-					],
-					[
-						174725.274725275,
 						0,
-						0
+						"dualSing"
 					],
 					[
 						174890.10989011,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						175054.945054945,
 						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						175219.78021978,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						174065.934065934,
-						1,
+						3,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						174395.604395604,
-						3,
+						1,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						174725.274725275,
-						3,
 						0,
-						"Eye Note",
-						false
+						0,
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5491,72 +6286,80 @@
 				"sectionNotes": [
 					[
 						175384.615384615,
-						3,
-						0
+						2,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						175714.285714286,
+						2,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						176043.956043956,
+						1,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						175549.45054945,
 						0,
-						0
-					],
-					[
-						175714.285714286,
-						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						175879.120879121,
 						3,
-						0
-					],
-					[
-						176043.956043956,
-						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						176208.791208791,
 						0,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						176373.626373626,
 						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						176538.461538461,
 						3,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						175384.615384615,
-						2,
+						3,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						175714.285714286,
-						2,
+						1,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						176043.956043956,
-						1,
+						2,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5571,68 +6374,75 @@
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
 					[
+						177362.637362637,
+						3,
+						0,
+						"Eye Note",
+						false
+					],
+					[
 						176703.296703297,
-						2,
-						0
+						0,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						177032.967032967,
+						1,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						177197.802197802,
 						0,
-						0
-					],
-					[
-						177362.637362637,
-						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						177527.472527472,
 						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						177692.307692308,
 						3,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						177857.142857143,
 						2,
-						0
-					],
-					[
-						177362.637362637,
-						3,
 						0,
-						"Eye Note",
-						false
+						"dualSing"
 					],
 					[
 						176703.296703297,
+						2,
 						0,
-						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						177032.967032967,
 						3,
-						0
+						0,
+						"GF Sing"
 					],
 					[
-						177032.967032967,
-						1,
+						177362.637362637,
+						2,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5648,67 +6458,74 @@
 				"sectionNotes": [
 					[
 						178021.978021978,
+						1,
 						0,
-						0
+						"Eye Note",
+						false
+					],
+					[
+						178351.648351648,
+						0,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						178681.318681319,
+						1,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						178186.813186813,
 						2,
-						0
-					],
-					[
-						178351.648351648,
-						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						178516.483516483,
 						3,
-						0
-					],
-					[
-						178681.318681319,
-						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						178846.153846154,
 						0,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						179010.989010989,
 						1,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						178021.978021978,
-						1,
 						0,
-						"Eye Note",
-						false
+						0,
+						"GF Sing"
 					],
 					[
 						178351.648351648,
+						1,
 						0,
-						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						178681.318681319,
-						1,
+						2,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5724,11 +6541,6 @@
 				"sectionNotes": [
 					[
 						179340.659340659,
-						7,
-						576.923076923077
-					],
-					[
-						179340.659340659,
 						2,
 						576.923076923077
 					],
@@ -5741,14 +6553,20 @@
 						180329.67032967,
 						3,
 						247.252747252747
+					],
+					[
+						179340.659340659,
+						7,
+						576.923076923077,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5785,10 +6603,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5820,10 +6638,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5860,10 +6678,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -5941,10 +6759,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6022,10 +6840,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6098,10 +6916,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6174,10 +6992,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6193,60 +7011,67 @@
 				"sectionNotes": [
 					[
 						189890.10989011,
-						1,
-						0
+						0,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						190219.78021978,
+						0,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						190054.945054945,
 						2,
-						0
-					],
-					[
-						190219.78021978,
-						3,
-						0
-					],
-					[
-						190549.45054945,
 						0,
-						247.252747252747
-					],
-					[
-						190879.120879121,
-						3,
-						0
-					],
-					[
-						191043.956043956,
-						0,
-						0
-					],
-					[
-						189890.10989011,
-						0,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						190219.78021978,
-						0,
-						0,
-						"Eye Note",
-						false
+						"dualSing"
 					],
 					[
 						190384.615384615,
 						1,
-						0
+						0,
+						"dualSing"
+					],
+					[
+						190549.45054945,
+						0,
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						190879.120879121,
+						3,
+						0,
+						"dualSing"
+					],
+					[
+						191043.956043956,
+						0,
+						0,
+						"dualSing"
+					],
+					[
+						189890.10989011,
+						1,
+						0,
+						"GF Sing"
+					],
+					[
+						190219.78021978,
+						3,
+						0,
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6262,36 +7087,14 @@
 				"sectionNotes": [
 					[
 						191208.791208791,
-						2,
-						0
-					],
-					[
-						191868.131868132,
-						2,
-						247.252747252747
-					],
-					[
-						192197.802197802,
-						1,
-						247.252747252747
-					],
-					[
-						191208.791208791,
 						3,
 						0,
 						"Eye Note",
 						false
 					],
 					[
-						191868.131868132,
-						3,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						192197.802197802,
-						0,
+						191538.461538461,
+						2,
 						0,
 						"Eye Note",
 						false
@@ -6299,32 +7102,46 @@
 					[
 						191373.626373626,
 						1,
-						0
-					],
-					[
-						191538.461538461,
-						2,
 						0,
-						"Eye Note",
-						false
-					],
-					[
-						191538.461538461,
-						0,
-						0
+						"dualSing"
 					],
 					[
 						191703.296703296,
 						1,
-						0
+						0,
+						"dualSing"
+					],
+					[
+						191868.131868132,
+						2,
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						192197.802197802,
+						1,
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						191208.791208791,
+						2,
+						0,
+						"GF Sing"
+					],
+					[
+						191538.461538461,
+						0,
+						0,
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6341,30 +7158,34 @@
 					[
 						192527.472527472,
 						2,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						192857.142857143,
 						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						193186.813186813,
 						2,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						193516.483516483,
 						3,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6381,30 +7202,34 @@
 					[
 						193846.153846154,
 						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						194175.824175824,
 						2,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						194505.494505494,
 						3,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						194835.164835165,
 						1,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6419,56 +7244,62 @@
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
 					[
-						195164.835164835,
+						195494.505494505,
+						1,
 						0,
-						247.252747252747
+						"Eye Note",
+						false
 					],
 					[
-						195494.505494505,
+						195824.175824176,
 						3,
-						0
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						195164.835164835,
+						0,
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						195659.34065934,
 						2,
-						0
-					],
-					[
-						195824.175824176,
-						1,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						195989.010989011,
 						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						196153.846153846,
 						0,
-						247.252747252747
+						247.252747252747,
+						"dualSing"
 					],
 					[
 						195494.505494505,
-						1,
+						3,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					],
 					[
 						195824.175824176,
-						3,
+						1,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6482,54 +7313,58 @@
 				"mustHitSection": false,
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
+					[
+						197142.857142857,
+						1,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						197472.527472527,
+						2,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						197637.362637362,
+						1,
+						0,
+						"Eye Note",
+						false
+					],
 					[
 						196483.516483516,
 						2,
-						576.923076923077
+						576.923076923077,
+						"dualSing"
 					],
 					[
 						197142.857142857,
 						3,
-						0
+						0,
+						"GF Sing"
 					],
 					[
 						197472.527472527,
 						0,
-						0
+						0,
+						"GF Sing"
 					],
 					[
 						197637.362637362,
 						3,
-						0
-					],
-					[
-						197142.857142857,
-						1,
 						0,
-						"Eye Note",
-						false
-					],
-					[
-						197472.527472527,
-						2,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						197637.362637362,
-						1,
-						0,
-						"Eye Note",
-						false
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6544,77 +7379,82 @@
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
 					[
-						197802.197802197,
+						198131.868131868,
+						3,
 						0,
-						0
+						"Eye Note",
+						false
 					],
 					[
 						198461.538461538,
+						0,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						198791.208791208,
 						3,
-						0
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						197802.197802197,
+						2,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						198626.373626373,
 						1,
-						0
-					],
-					[
-						198791.208791208,
-						2,
-						0
-					],
-					[
-						198131.868131868,
-						3,
 						0,
-						"Eye Note",
-						false
-					],
-					[
-						198461.538461538,
-						0,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						198791.208791208,
-						3,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						197802.197802197,
-						2,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						198131.868131868,
-						0,
-						0,
-						"Eye Note",
-						false
+						"dualSing"
 					],
 					[
 						198296.703296703,
 						2,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						198956.043956044,
 						1,
-						0
+						0,
+						"dualSing"
+					],
+					[
+						197802.197802197,
+						0,
+						0,
+						"GF Sing"
+					],
+					[
+						198461.538461538,
+						3,
+						0,
+						"GF Sing"
+					],
+					[
+						198131.868131868,
+						0,
+						0,
+						"GF Sing"
+					],
+					[
+						198791.208791208,
+						2,
+						0,
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6630,67 +7470,74 @@
 				"sectionNotes": [
 					[
 						199120.879120879,
+						0,
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						199450.549450549,
 						2,
-						0
+						0,
+						"Eye Note",
+						false
+					],
+					[
+						199780.219780219,
+						1,
+						0,
+						"Eye Note",
+						false
 					],
 					[
 						199285.714285714,
 						1,
-						0
-					],
-					[
-						199450.549450549,
-						3,
-						0
+						0,
+						"dualSing"
 					],
 					[
 						199945.054945055,
 						0,
-						0
-					],
-					[
-						200109.89010989,
-						1,
-						247.252747252747
-					],
-					[
-						199120.879120879,
 						0,
-						0,
-						"Eye Note",
-						false
-					],
-					[
-						199450.549450549,
-						2,
-						0,
-						"Eye Note",
-						false
+						"dualSing"
 					],
 					[
 						199615.384615384,
 						0,
-						0
+						0,
+						"dualSing"
 					],
 					[
-						199780.219780219,
+						200109.89010989,
 						1,
+						247.252747252747,
+						"dualSing"
+					],
+					[
+						199120.879120879,
+						2,
 						0,
-						"Eye Note",
-						false
+						"GF Sing"
+					],
+					[
+						199450.549450549,
+						3,
+						0,
+						"GF Sing"
 					],
 					[
 						199780.219780219,
 						3,
-						0
+						0,
+						"GF Sing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6704,11 +7551,6 @@
 				"mustHitSection": true,
 				"cameraBeatSpeed": 4,
 				"sectionNotes": [
-					[
-						200439.56043956,
-						6,
-						576.923076923077
-					],
 					[
 						200439.56043956,
 						1,
@@ -6757,14 +7599,20 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						200439.56043956,
+						6,
+						576.923076923077,
+						"dualSing"
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6839,10 +7687,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6879,10 +7727,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6919,10 +7767,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -6983,10 +7831,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -7044,10 +7892,10 @@
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -7082,13 +7930,6 @@
 						0
 					],
 					[
-						208681.318681318,
-						3,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						209010.989010989,
 						0,
 						0,
@@ -7110,13 +7951,6 @@
 						false
 					],
 					[
-						208681.318681318,
-						0,
-						0,
-						"Eye Note",
-						false
-					],
-					[
 						208846.153846153,
 						2,
 						0
@@ -7125,14 +7959,25 @@
 						209505.494505494,
 						1,
 						0
+					],
+					[
+						208681.318681318,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						208681.318681318,
+						3,
+						0
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -7202,17 +8047,23 @@
 					[
 						210329.67032967,
 						1,
-						0,
-						"Eye Note",
-						false
+						0
+					],
+					[
+						210906.593406593,
+						-1,
+						"hudfade",
+						"0",
+						"5",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
 				"vignetteShader": false,
-				"chromaticAberrationsShader": false
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -7244,223 +8095,28 @@
 						0,
 						"Eye Note",
 						false
+					],
+					[
+						210989.010989011,
+						0,
+						0,
+						"Eye Note"
+					],
+					[
+						210989.010989011,
+						-1,
+						"Spin",
+						"",
+						"",
+						""
 					]
 				],
 				"lengthInSteps": 16,
 				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"bpm": 182,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"changeBPM": false,
 				"vignetteShader": false,
 				"chromaticAberrationsShader": false,
-				"bpm": 182
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
-				"bpm": 182
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
-				"bpm": 182
-			},
-			{
-				"vignetteShaderRadius": 0.05,
-				"changeDadCharacter": false,
-				"typeOfSection": 0,
-				"changeBFCharacter": false,
-				"changeDadCharacterChar": "dad",
-				"altAnim": false,
-				"changeBFCharacterChar": "bf",
-				"changeCameraBeat": false,
-				"mustHitSection": true,
-				"cameraBeatSpeed": 4,
-				"sectionNotes": [],
-				"lengthInSteps": 16,
-				"cameraBeatZoom": 1,
-				"changeBPM": false,
-				"vignetteShader": false,
-				"chromaticAberrationsShader": false,
-				"bpm": 182
+				"bpm": 182,
+				"changeBPM": false
 			},
 			{
 				"vignetteShaderRadius": 0.05,
@@ -7482,6 +8138,215 @@
 				"changeBPM": false
 			},
 			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false,
+				"vignetteShader": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false,
+				"vignetteShader": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false,
+				"vignetteShader": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"chromaticAberrationsShader": false,
+				"bpm": 182,
+				"changeBPM": false,
+				"vignetteShader": false
+			},
+			{
+				"vignetteShaderRadius": 0.05,
+				"changeDadCharacter": false,
+				"typeOfSection": 0,
+				"changeBFCharacter": false,
+				"changeDadCharacterChar": "dad",
+				"altAnim": false,
+				"changeBFCharacterChar": "bf",
+				"changeCameraBeat": false,
+				"mustHitSection": true,
+				"cameraBeatSpeed": 4,
+				"sectionNotes": [],
+				"lengthInSteps": 16,
+				"cameraBeatZoom": 1,
+				"bpm": 182,
+				"changeBPM": false,
+				"vignetteShader": false,
+				"chromaticAberrationsShader": false
+			},
+			{
 				"lengthInSteps": 16,
 				"typeOfSection": 0,
 				"sectionNotes": [],
@@ -7612,24 +8477,44 @@
 				"bpm": 182
 			},
 			{
-				"gfSection": false,
 				"lengthInSteps": 16,
-				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
 				"bpm": 182,
 				"changeBPM": false,
 				"mustHitSection": true
 			},
 			{
-				"gfSection": false,
 				"lengthInSteps": 16,
-				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
 				"bpm": 182,
 				"changeBPM": false,
 				"mustHitSection": true
+			},
+			{
+				"lengthInSteps": 16,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"altAnim": false,
+				"gfSection": false,
+				"bpm": 182,
+				"changeBPM": false,
+				"mustHitSection": true
+			},
+			{
+				"sectionNotes": [],
+				"typeOfSection": 0,
+				"lengthInSteps": 16,
+				"gfSection": false,
+				"altAnim": false,
+				"mustHitSection": true,
+				"changeBPM": false,
+				"bpm": 182
 			},
 			{
 				"gfSection": false,
@@ -7642,10 +8527,10 @@
 				"mustHitSection": true
 			}
 		],
-		"player3": "gf-darksidekick",
+		"player3": "invisibru",
+		"splashSkin": "blood",
 		"song": "Sidekick",
 		"stage": "seidenadasoutrabalhador",
-		"splashSkin": "blood",
 		"validScore": true,
 		"needsVoices": false,
 		"speed": 2.8,

@@ -2,6 +2,9 @@ function onCreate()
     pushScriptData('intro');
     pushScriptData('run');
     pushScriptData('missRING');
+    pushScriptData('precache');
+
+    close();
 end
 
 --Por motivos de:

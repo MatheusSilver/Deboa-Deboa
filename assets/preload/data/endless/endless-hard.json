@@ -9751,6 +9751,7 @@
 		"stage": "sonicfunstage1",
 		"noteStyle": "majinNOTES",
 		"canfollowpermitido": true,
+		"splashSkin": "noteSplashes",
 		"bpm": 155,
 		"speed": 3
 	}

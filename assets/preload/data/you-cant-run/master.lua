@@ -2,23 +2,17 @@
 
 function onCreate()
 
-    makeAnimatedLuaSprite('teste1', 'PhantomNote', -9999, -9999); --preload purposes
-    makeAnimatedLuaSprite('teste2', 'staticNotes', -9999, -9999);
-
-    addLuaSprite('teste1', true);
-    addLuaSprite('teste2', true);
-
-	removeLuaSprite('teste1', true);
-    removeLuaSprite('teste2', true);
+	precacheImage('PhantomNote');
+	precacheImage('staticNotes');
+	precacheImage('daSTAT');
+	precacheImage('hitStatic');
+	precacheImage('splashes/noteSplashesPixelSonic');
+	precacheSound('hitStatic1');
 
     makeLuaSprite('vg', 'RedVG', 0, 0);
 	setObjectCamera('vg', 'camHUD');
 	setProperty('vg.alpha', 0)
 	addLuaSprite('vg', true);
-
-    makeAnimatedLuaSprite('daStatic', 'daSTAT', 0, 0)
-    addAnimationByPrefix('daStatic', 'static', 'staticFLASH', 24, false)
-    objectPlayAnimation('daStatic', 'static', false)
 
     setScrollFactor('gf', 1.37, 1);
     setScrollFactor('dad', 1.37, 1);

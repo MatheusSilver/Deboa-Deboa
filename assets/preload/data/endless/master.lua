@@ -1,6 +1,15 @@
 	-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
 
     function onCreate()
+        precacheImage('simbolo_infinito');
+        precacheImage('Majin_Notes');
+        precacheImage('one');
+        precacheImage('three');
+        precacheImage('two');
+        precacheImage('gofun');
+
+
+
         makeLuaSprite('three', 'three', 260, 60);
         setScrollFactor('three', 0, 0);
         setProperty('three.alpha', 0.5)
@@ -26,47 +35,31 @@
         addLuaSprite('gofun', true);
     end
     
-    function onStepHit()
-        if curStep == 885 then
-        for i=0,7 do
-    
-     setPropertyFromGroup('strumLineNotes', i, 'texture', 'Majin_Notes')
-    end
-    
-        for i=0,
-        getProperty('unspawnNotes.length')-1 do
-    
-     setPropertyFromGroup('unspawnNotes', i, 'texture', 'Majin_Notes')
-     end
-    end
-    
-        if curStep == 10 then
-           -- playSound('laugh1', 0.7)
-    end
-    
+    function onStepHit() -- Isso é definitivamente um script já feito
+     
         if curStep == 888 then
             triggerEvent('Camera Follow Pos', '690', '820')
             doTweenZoom('bruh', 'camGame', 1.2, 0.7, 'cubeInOut')
             setProperty('three.visible', true)
             doTweenAlpha('threeAlpha', 'three', 0, 0.25, 'cubeOut');
-    end
+        end
     
         if curStep == 891 then
             doTweenZoom('bruh', 'camGame', 1.5, 0.7, 'cubeInOut')
             setProperty('two.visible', true)
             doTweenAlpha('twoAlpha', 'two', 0, 0.25, 'cubeOut');
-    end
+        end
     
         if curStep == 896 then
             doTweenZoom('bruh', 'camGame', 1.8, 0.7, 'cubeInOut')
             setProperty('one.visible', true)
             doTweenAlpha('oneAlpha', 'one', 0, 0.25, 'cubeOut');
-    end
+        end
     
         if curStep == 899 then
             triggerEvent('Camera Follow Pos', '', '')
             doTweenZoom('bruh', 'camGame', 0.9, 0.7, 'cubeInOut')
             setProperty('gofun.visible', true)
             doTweenAlpha('gofunAlpha', 'gofun', 0, 0.25, 'cubeOut');
-      end
+        end
     end
