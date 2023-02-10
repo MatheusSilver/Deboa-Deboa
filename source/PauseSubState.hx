@@ -241,10 +241,6 @@ class PauseSubState extends MusicBeatSubstate
 							isDoingtheThing=true;
 							saindodopause();
 						}
-						else
-							{
-								FlxG.sound.play(Paths.sound('negado','preload'), 0.015);
-							}
 				case 'Modo praticar':
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
@@ -326,7 +322,7 @@ class PauseSubState extends MusicBeatSubstate
 						{ 
 							case 1:
 								PlayState.instance.canPause = false;
-								FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);
+								if(isDoingtheThing){FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);}
 			
 							case 2:
 								ready.scrollFactor.set();
@@ -348,7 +344,7 @@ class PauseSubState extends MusicBeatSubstate
 								});
 								PlayState.instance.canPause = false;
 			
-								FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);
+								if(isDoingtheThing){FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);}
 							case 3:
 								set.scrollFactor.set();
 								PlayState.instance.canPause = false;
@@ -365,9 +361,12 @@ class PauseSubState extends MusicBeatSubstate
 										set.destroy();
 									}
 								});
-								FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);
+								if(isDoingtheThing){FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);}
 							case 4:
-								FlxG.sound.play(Paths.sound('introGo','shared'), 0.6);
+								if(isDoingtheThing)
+									{
+										FlxG.sound.play(Paths.sound('introGo','shared'), 0.6);
+									}
 								PlayState.instance.canPause = false;			
 								go.scrollFactor.set();
 			
