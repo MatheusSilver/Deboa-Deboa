@@ -41,7 +41,7 @@ class HealthIcon extends FlxSprite
 			if(OpenFlAssets.exists(Paths.imagechecker("icons/icon-" + char, "shared"))) name = 'icons/icon-' + char; //Older versions of psych engine's support
 			else if(OpenFlAssets.exists(Paths.imagechecker("icons/" + char, "shared"))){
 				name = 'icons/' + char;
-			}else{ name = 'icons/icon-face'; trace(Paths.image("icons/" + char, "shared") + " não foi encontrado");} //Prevents crash from missing icon
+			}else{ name = 'icons/icon-bf'; trace(Paths.imagechecker("icons/" + char, "shared") + " não foi encontrado");} //Prevents crash from missing icon
 			var file:Dynamic = Paths.image(name, 'shared');
 
 			loadGraphic(file); //Load stupidly first for getting the file size

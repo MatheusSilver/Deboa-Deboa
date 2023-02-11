@@ -116,9 +116,11 @@ class Paths
 
 	inline static public function image(key:String, ?library:String):Dynamic
 	{
+		if(OpenFlAssets.exists(getPath('images/$key.png', IMAGE, library))) {
 		var graph:FlxGraphic = FlxG.bitmap.add(getPath('images/$key.png', IMAGE, library), false, getPath('images/$key.png', IMAGE, library));
 		graph.persist = !ClientPrefs.imagesPersist;
 		FlxG.bitmap.addGraphic(graph);
+		}
 		return getPath('images/$key.png', IMAGE, library);
 	}
 	
