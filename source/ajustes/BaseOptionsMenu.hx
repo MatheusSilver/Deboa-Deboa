@@ -275,9 +275,9 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Limpar Cache':
 						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
 						FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
-						#if debug
+						/*#if debug
 						trace(ClientPrefs.imagesPersist); //O game deve começar com essa caixinha marcada
-						#end
+						#end*/
 					
 					case 'Esconder barra de tempo':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;

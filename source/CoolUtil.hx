@@ -96,6 +96,8 @@ class CoolUtil
 		var EmbeddedSound = Paths.sound(sound, library);
 		if (Assets.exists(EmbeddedSound, SOUND) || Assets.exists(EmbeddedSound, MUSIC))
 			Assets.getSound(EmbeddedSound, true);
+
+		//trace(Assets.exists(EmbeddedSound, SOUND));
 	}
 
 	public static function browserLoad(site:String) {
