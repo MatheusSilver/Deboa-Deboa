@@ -4868,12 +4868,6 @@ class PlayState extends MusicBeatState
 							FlxG.camera.flash(FlxColor.RED, 4);
 						case 1305:
 							cinematicBars(true);
-							triggerEventNote('Change Character', 'dad', 'sonicP1getya'); //must do Arrumar esse sprite.
-							dad.y += 200;
-							dad.x += 200;
-							dad.scale.x = 1.1;
-							dad.scale.y = 1.1;
-							dad.scrollFactor.set(1.37, 1);
 							FlxTween.tween(camHUD, {alpha: 0}, 0.3);
 							dad.playAnim('iamgod', true);
 							dad.nonanimated = true;
@@ -4883,12 +4877,6 @@ class PlayState extends MusicBeatState
 						case 1432:
 							cinematicBars(false);
 							FlxTween.tween(camHUD, {alpha: 1}, 0.3);
-							triggerEventNote('Change Character', 'dad', 'sonicP1');
-							dad.y += 200;
-							dad.x += 200;
-							dad.scale.x = 1.1;
-							dad.scale.y = 1.1;
-							dad.scrollFactor.set(1.37, 1);
 							dad.nonanimated = false;
 					}		
 

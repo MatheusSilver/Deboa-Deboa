@@ -51,7 +51,7 @@ class FunkinLua {
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
 
-		trace(lua); //Só pra eu ter noção de como fazer um anticheat aqui
+		//trace(lua); //Só pra eu ter noção de como fazer um anticheat aqui
 
 		//trace('Lua version: ' + Lua.version());
 		//trace("LuaJIT version: " + Lua.versionJIT());

@@ -865,22 +865,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						196305.555555556,
-						-1,
-						"Change Character",
-						"dad",
-						"sonicP1getya"
-					],
-					[
-						195555.555555556,
-						-1,
-						"TelaPreta",
-						"true",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
