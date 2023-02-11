@@ -60,7 +60,7 @@
 	"image": "characters/vinizito/sanic",
 	"position": [
 		0,
-		380
+		410
 	],
 	"healthicon": "sanic",
 	"flip_x": false,
@@ -71,7 +71,7 @@
 	],
 	"camera_position": [
 		0,
-		30
+		50
 	],
 	"sing_duration": 4,
 	"scale": 0.9

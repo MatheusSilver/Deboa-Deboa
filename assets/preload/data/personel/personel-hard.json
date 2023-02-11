@@ -11311,6 +11311,7 @@
 		"validScore": true,
 		"arrowSkin": "",
 		"needsVoices": false,
+		"canfollowpermitido": true,
 		"speed": 2.9,
 		"bpm": 190
 	}

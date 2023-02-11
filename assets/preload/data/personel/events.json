@@ -13,7 +13,25 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						2447.36842105263,
+						500.36842105263,
+						-1,
+						"eventos-personel",
+						"1",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						2840.36842105263,
 						-1,
 						"eventos-personel",
 						"32",

@@ -27,6 +27,7 @@ import Discord.DiscordClient;
 
 class BaseOptionsMenu extends MusicBeatState
 {
+
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
 		'VISUAL',
@@ -171,6 +172,12 @@ class BaseOptionsMenu extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
+		if(FlxG.sound.music == null) {
+			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
+
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -182,7 +189,7 @@ class BaseOptionsMenu extends MusicBeatState
 
 		if (controls.BACK) {			
 			ClientPrefs.saveSettings();
-			FlxG.switchState(new ajustes.AjustesState());
+			MusicBeatState.switchState(new ajustes.AjustesState());
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
@@ -267,6 +274,9 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Limpar Cache':
 						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
 						FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
+						#if debug
+						trace(ClientPrefs.imagesPersist); //O game deve começar com essa caixinha marcada
+						#end
 					
 					case 'Esconder barra de tempo':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;

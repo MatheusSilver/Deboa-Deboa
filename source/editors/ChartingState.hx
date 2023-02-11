@@ -257,8 +257,8 @@ class ChartingState extends MusicBeatState
 		
 		if(curSection >= _song.notes.length) curSection = _song.notes.length - 1;
 
-		FlxG.mouse.visible = true;
-		FlxG.save.bind('modboa' #if (flixel < "5.0.0"), 'galaccine' #end);
+
+		//FlxG.save.bind('funkin', CoolUtil.getSavePath());
 
 		tempBpm = _song.bpm;
 
@@ -1194,6 +1194,10 @@ class ChartingState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		curStep = recalculateSteps();
+
+		#if !mobile
+		FlxG.mouse.visible = true; //Só pra eu não ficar puto depois de apertar F2 e o mouse simplesmente sumir da tela ;-;
+		#end
 
 		if(FlxG.sound.music.time < 0) {
 			FlxG.sound.music.pause();

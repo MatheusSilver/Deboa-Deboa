@@ -14,23 +14,23 @@ function onCreate()
 	scaleObject('grass', 0.9, 0.9);
     
     makeLuaSprite('tree2', 'cenarios/FakerStage/tree2', -503.8, -423.15)
-    setScrollFactor('tree2', 1.225, 1);
+    setScrollFactor('tree2', 1.2, 1);
 	scaleObject('tree2', 0.9, 0.9);
     
     makeLuaSprite('pillar2', 'cenarios/FakerStage/pillar2', -503.8, -423.15)
-    setScrollFactor('pillar2', 1.25, 1);
+    setScrollFactor('pillar2', 1.2, 1);
 	scaleObject('pillar2', 0.9, 0.9);
     
     makeLuaSprite('plant', 'cenarios/FakerStage/plant', -503.8, -423.15)
-    setScrollFactor('plant', 1.25, 1);
+    setScrollFactor('plant', 1.2, 1);
 	scaleObject('plant', 0.9, 0.9);
     
     makeLuaSprite('tree1', 'cenarios/FakerStage/tree1', -503.8, -423.15)
-    setScrollFactor('tree1', 1.25, 1);
+    setScrollFactor('tree1', 1.2, 1);
 	scaleObject('tree1', 0.9, 0.9);
     
     makeLuaSprite('pillar1', 'cenarios/FakerStage/pillar1', -503.8, -423.15)
-    setScrollFactor('pillar1', 1.25, 1);
+    setScrollFactor('pillar1', 1.2, 1);
 	scaleObject('pillar1', 0.9, 0.9);
     
     makeLuaSprite('flower1', 'cenarios/FakerStage/flower1', -503.8, -423.15)
@@ -52,7 +52,7 @@ function onCreate()
     addLuaSprite('flower1', false)
     addLuaSprite('flower2', false)
 
-    setScrollFactor('gf', 1.24, 1);
-    setScrollFactor('dad', 1.25, 1);
-    setScrollFactor('boyfriend', 1.25, 1);
+    setScrollFactor('gf', 1.2, 1);
+    setScrollFactor('dad', 1.2, 1);
+    setScrollFactor('boyfriend', 1.2, 1);
 end

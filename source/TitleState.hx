@@ -25,13 +25,11 @@ import flixel.util.FlxGradient;
 import flixel.util.FlxTimer;
 import gamejolt.formats.*;
 import haxe.io.Bytes;
-import lime.app.Application;
 import openfl.Assets;
 import openfl.filters.ShaderFilter;
 
 using StringTools;
 #if desktop
-import Discord.DiscordClient;
 import sys.thread.Thread;
 //import GameJolt;
 //import GameJolt.GameJoltAPI;
@@ -108,7 +106,7 @@ class TitleState extends MusicBeatState
 		swagShader = new ColorSwap();
 		super.create();
 
-		FlxG.save.bind('modboa' #if (flixel < "5.0.0"), 'galaccine' #end);
+		FlxG.save.bind('modboa', CoolUtil.getSavePath());
 		ClientPrefs.loadPrefs();
 		/*PlayState.addShaderToCamera('game', new VCRDistortionEffect(0.5,true,false,true));
 		PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true));*/
@@ -120,12 +118,6 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
-		#if desktop
-		DiscordClient.initialize();
-		Application.current.onExit.add (function (exitCode) {
-			DiscordClient.shutdown();
-		});
-		#end
 		if (ClientPrefs.pibby){
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
@@ -135,7 +127,11 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
-		} else { //Não sei se tiraram isso pq não ia ser usado, ou se alguem FORGOR :SKULL: de add isso, mas anyway, ta ai de volta
+		} else if (!PreTitleState.jarodou){
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new PreTitleState()); //Não atrapalha no PC, e Resolve o problema do mobile, todos ganham k
+		} else {
 			if (initialized)
 				startIntro();
 			else
@@ -153,7 +149,6 @@ class TitleState extends MusicBeatState
 		//GameJoltAPI.connect();
 		//GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Na tela de título", null);
 		#end
 	}
 
@@ -365,18 +360,12 @@ class TitleState extends MusicBeatState
 
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					if (mustUpdate) {
+					if (mustUpdate)
 						MusicBeatState.switchState(new OutdatedState());
-					} else {
-						if(ClientPrefs.firstTime)
-							{
-								MusicBeatState.switchState(new MainMenuStateMobile());
-							}
-							else
-								{
-									MusicBeatState.switchState(new MainMenuStateMobile()); //lembrar de colocar o menu dps
-								}
-					}
+					else if (FlxG.save.data.firstTime == null)
+						MusicBeatState.switchState(new PreMainMenuState());
+					else 
+						MusicBeatState.switchState(new MainMenuStateMobile());
 					closedState = true;
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);

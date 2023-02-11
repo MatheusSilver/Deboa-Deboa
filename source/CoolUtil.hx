@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxSave;
 import flixel.FlxG;
 import openfl.utils.Assets;
 
@@ -103,5 +104,12 @@ class CoolUtil
 		#else
 		FlxG.openURL(site);
 		#end
+	}
+
+	public static function getSavePath():String {
+		@:privateAccess //galakxisne
+		return #if (flixel < "5.0.0") 'galaccine' #else FlxG.stage.application.meta.get('company')
+			+ '/'
+			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 }

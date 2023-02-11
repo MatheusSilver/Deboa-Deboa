@@ -13,7 +13,7 @@ class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var pibby:Bool = false; //Eu não sei se é assim mesmo que faz na psych
 	public static var middleScroll:Bool = false;
-	public static var showFPS:Bool = false;
+	public static var showFPS:Bool = true;
 	public static var flashing:Bool = true;
 	public static var legendas:Bool = true;
 	public static var legendasporcima:Bool = true;
@@ -106,8 +106,7 @@ class ClientPrefs {
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2' #if (flixel < "5.0.0"), 'galaccine' #end); //Fica tranquilo, não contarei pra Vio
-		//Reza a lenda que ela fica putassa com quem escreve o nome galaccine errado
+		save.bind('controls_v2', CoolUtil.getSavePath());
 		save.data.customControls = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -211,7 +210,7 @@ class ClientPrefs {
 		}
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2' #if (flixel < "5.0.0"), 'galaccine' #end);
+		save.bind('controls_v2', CoolUtil.getSavePath());
 		if(save != null && save.data.customControls != null) {
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {

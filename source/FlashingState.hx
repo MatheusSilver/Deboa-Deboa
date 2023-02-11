@@ -51,7 +51,8 @@ class FlashingState extends MusicBeatState
 					FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
 						new FlxTimer().start(0.5, function (tmr:FlxTimer) {
 							// Infelizmente isso vai ir direto pro menu
-							MusicBeatState.switchState(new ajustes.AjustesState());
+							//Não precisa mais ir pro menu base já que agora o BaseOptions não é mais um substate
+							MusicBeatState.switchState(new ajustes.BaseOptionsMenu());
 						});
 					});
 				} else {

@@ -1610,11 +1610,13 @@ class PlayState extends MusicBeatState
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 		'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-		if(curSong.toLowerCase()=='clickbait')
-			timeBar.numDivisions = 1000; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
-		else
-			timeBar.numDivisions = 1000;
+		if(SONG.song.toLowerCase()=='clickbait'){
+			timeBar.createFilledBar(0x63C9C9C9, 0xFFFF0000);
+			timeBar.numDivisions = 2000; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
+		}else{
+			timeBar.numDivisions = 400;
+			timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		}
 
 		timeBar.alpha = 0;
 		timeBar.visible = !ClientPrefs.hideTime;
@@ -1674,15 +1676,10 @@ class PlayState extends MusicBeatState
 		add(camFollowPos);
 
 		
-		if (curSong.toLowerCase() == 'too-slow')
-			{
-				FlxG.camera.follow(camFollowPos, LOCKON, 0.05 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
-			}
-			else if (curSong.toLowerCase() == 'faker')
-				{
-					fakertransform.setPosition(dad.getGraphicMidpoint().x - 400, dad.getGraphicMidpoint().y - 400);
-					FlxG.camera.follow(camFollowPos, LOCKON, 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
-				}
+		if (curSong.toLowerCase() == 'faker')
+		{
+			fakertransform.setPosition(dad.getGraphicMidpoint().x - 400, dad.getGraphicMidpoint().y - 400);
+		}
 
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
@@ -4890,7 +4887,10 @@ class PlayState extends MusicBeatState
 					{
 						switch (supertimerchaos)
 						{
+							case 1:
+								dad.nonanimated = true;
 							case 32:
+								dad.nonanimated = false;
 								camGame.alpha = 1;
 							case 288:
 								defaultCamZoom = 1.2;
@@ -7842,7 +7842,7 @@ class PlayState extends MusicBeatState
 						//Outra coisa, os desbloqueios colocados aqui serão notificados só ao final da musica.
 						//Caso queira que o desbloqueio aconteça durante a música, deverá usar o startachieving
 					case 'toastie':
-						if(ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing && !ClientPrefs.imagesPersist) {
+						if(ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) {
 							unlock = true;
 						}
 					case 'besties':

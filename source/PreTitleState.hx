@@ -7,10 +7,13 @@ using StringTools;
 
 class PreTitleState extends MusicBeatState
 {
+
+	public static var jarodou:Bool = false;
 	override function create()
 		{
+			jarodou = true;
 			var random1:Int = FlxG.random.int(0, 8);
-			if(!ClientPrefs.firstTime) //Tem que tirar esse ! daqui
+			if(FlxG.save.data.flashing != null) //Tem que tirar esse ! daqui
 				{
 					#if desktop
 		

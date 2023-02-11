@@ -6,7 +6,9 @@ function onCreatePost()
 	setTextFont('timeTxt', 'Arial.ttf');
 
 	makeLuaSprite('ytb', 'youtube', 0, 0);
-	setObjectCamera('ytb', 'other');
+	setObjectCamera('ytb', 'camHUD2');
+	screenCenter('ytb')
+	setProperty('ytb.y', screenHeight - 25);
 	addLuaSprite('ytb', false);
 
 --	setProperty('timeBar.y', 695);
