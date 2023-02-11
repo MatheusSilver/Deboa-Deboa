@@ -4424,8 +4424,16 @@ class PlayState extends MusicBeatState
 			if(eventNotes[0][4] != null)
 				value2 = eventNotes[0][4];
 
+			var value3:String = '';
+			if(eventNotes[0][5] != null)
+				value3 = eventNotes[0][5];
+
+			var value4:String = '';
+			if(eventNotes[0][6] != null)
+				value4 = eventNotes[0][6];
+
 			if (canuseevents){
-			triggerEventNote(eventNotes[0][2], value1, value2);
+			triggerEventNote(eventNotes[0][2], value1, value2, value3, value4);
 			}
 			eventNotes.shift();
 		}
@@ -4437,7 +4445,7 @@ class PlayState extends MusicBeatState
 		return pressed;
 	}
 
-	public function triggerEventNote(eventName:String, value1:String, value2:String) {
+	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String) {
 		switch(eventName) {
 			/*case 'Adicionar Imagem':
 				if (!ClientPrefs.Legendas)

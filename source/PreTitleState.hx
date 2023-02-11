@@ -13,7 +13,7 @@ class PreTitleState extends MusicBeatState
 		{
 			jarodou = true;
 			var random1:Int = FlxG.random.int(0, 8);
-			if(FlxG.save.data.flashing != null) //Tem que tirar esse ! daqui
+			if(FlxG.save.data.flashing != null)
 				{
 					#if desktop
 		
