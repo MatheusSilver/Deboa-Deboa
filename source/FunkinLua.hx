@@ -191,7 +191,7 @@ class FunkinLua {
 					}
 				}
 				PlayState.instance.luaArray.push(new FunkinLua(Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
-				trace(cervix + 'foi carregado');
+				//trace(cervix + 'foi carregado');
 				return;
 			}
 			trace("addLuaScript: Script doesn't exist!");
@@ -219,7 +219,7 @@ class FunkinLua {
 					}
 				}
 				PlayState.instance.luaArray.push(new FunkinLua(Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
-				trace(cervix + ' foi carregado por master.lua');
+				///trace(cervix + ' foi carregado por master.lua');
 				return;
 			}
 			trace("addLuaScript: Script doesn't exist!");
@@ -824,7 +824,7 @@ class FunkinLua {
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 			if(OpenFlAssets.exists(Paths.imagechecker(image))){
 				leSprite.loadGraphic(Paths.image(image));
-				} else {
+				} else if(image != 'nil' && image.length > 0){
 					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
 					if(image != null && image.length > 0) {
 						leSprite.loadGraphic(Paths.image(image, 'preload'));
@@ -842,7 +842,7 @@ class FunkinLua {
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 			if(OpenFlAssets.exists(Paths.imagechecker(image))){
 				leSprite.loadGraphic(Paths.image(image));
-				} else {
+				} else if(image != 'nil' && image.length > 0){
 					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
 					if(image != null && image.length > 0) {
 						leSprite.loadGraphic(Paths.image(image, 'preload'));
@@ -857,9 +857,9 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(OpenFlAssets.exists(Paths.imagechecker(image))){
+			if(OpenFlAssets.exists(Paths.imagechecker(image)) && image.length > 0){
 				leSprite.frames = Paths.getSparrowAtlas(image);
-				} else if (image != 'nil'){
+				} else if(image != 'nil' && image.length > 0){
 					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
 					leSprite.frames = Paths.getSparrowAtlas(image, 'preload');
 				}

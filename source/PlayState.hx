@@ -1611,7 +1611,11 @@ class PlayState extends MusicBeatState
 		'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
 		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
-		timeBar.numDivisions = 200; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
+		if(curSong.toLowerCase()=='clickbait')
+			timeBar.numDivisions = 1000; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
+		else
+			timeBar.numDivisions = 1000;
+
 		timeBar.alpha = 0;
 		timeBar.visible = !ClientPrefs.hideTime;
 		add(timeBar);
@@ -3945,7 +3949,7 @@ class PlayState extends MusicBeatState
 				if(updateTime) {
 					var curTime:Float = Conductor.songPosition - ClientPrefs.noteOffset;
 					if(curTime < 0) curTime = 0;
-					if (!majinstrums && curSong.toLowerCase() != 'clickbait'){
+					if (!majinstrums){
 						songPercent = (curTime / songLength);
 					}
 
@@ -3955,7 +3959,7 @@ class PlayState extends MusicBeatState
 
 					if(secondsTotal < 0){ secondsTotal = 0;}
 
-					if(!majinstrums && curSong.toLowerCase() != 'clickbait'){
+					if(!majinstrums){
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 					}
 					

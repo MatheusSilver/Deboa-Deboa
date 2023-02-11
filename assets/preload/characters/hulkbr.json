@@ -60,7 +60,7 @@
 	"image": "characters/clickbait/HulkBR_K7_Assets",
 	"position": [
 		-130,
-		110
+		160
 	],
 	"healthicon": "hulkbr",
 	"flip_x": true,
@@ -70,8 +70,8 @@
 		75
 	],
 	"camera_position": [
-		60,
-		90
+		340,
+		-60
 	],
 	"sing_duration": 4,
 	"scale": 1
