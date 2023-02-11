@@ -30,32 +30,19 @@ end
 function onUpdate()
    if canDodge == true and keyJustPressed('space') then
    
-   Dodged = true;
-   
-   setProperty('boyfriend.specialAnim', true);
-   removeLuaSprite('spacebar');
-   canDodge = false
-   
-   end
-
-   if canDodge == true and botPlay == true then
-    canDodge = false
     Dodged = true;
+    
     setProperty('boyfriend.specialAnim', true);
+    removeLuaSprite('spacebar');
+    canDodge = false
    end
 end
 
 function onTimerCompleted(tag, loops, loopsLeft)
-   if botPlay == true then
-    characterPlayAnim('boyfriend', 'dodge', true);
-    Dodged = false
-    removeLuaSprite('spacebar');
-   elseif tag == 'Died' and Dodged == false then
+   if tag == 'Died' and Dodged == false then
    setProperty('health', 0);
-   
    elseif tag == 'Died' and Dodged == true then
    characterPlayAnim('boyfriend', 'dodge', true);
    Dodged = false
-   
    end
 end
