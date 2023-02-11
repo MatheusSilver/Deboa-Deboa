@@ -1,4 +1,4 @@
-function onEvent(name, value1, value2, value3)
+function onEvent(name, value1, value2, value3, value4)
 
     if name == 'Adicionar Imagens' then
         if tostring(value1) == '' then
@@ -26,6 +26,16 @@ function onEvent(name, value1, value2, value3)
                             scaleObject('exe2', 1, 1);
                             setLuaSpriteCamera('exe2', 'camhud');
                             addLuaSprite('exe2', true);
+                        end
+                        if tostring(value4) == '' or tostring(value4) == 'null' then
+                            removeLuaSprite('exe3', true);
+                        else
+                            imagem3 = tostring(value4)
+                            makeLuaSprite('exe3', imagem3, 0, -350)
+                            setScrollFactor('exe3', 0, 0);
+                            scaleObject('exe3', 1, 1);
+                            setLuaSpriteCamera('exe3', 'camhud');
+                            addLuaSprite('exe3', true);
                         end
 
                         imagem = tostring(value1);
@@ -55,6 +65,17 @@ function onEvent(name, value1, value2, value3)
                             scaleObject('exe2', 1, 1);
                             addLuaSprite('exe2', true);
                         end
+
+                        if tostring(value4) == '' or tostring(value4) == 'null' then
+                            removeLuaSprite('exe3', true);
+                        else
+                            imagem3 = tostring(value4)
+                            makeLuaSprite('exe3', imagem3, 0, -350)
+                            setScrollFactor('exe3', 0, 0);
+                            scaleObject('exe3', 1, 1);
+                            addLuaSprite('exe3', true);
+                        end
+
                         imagem = tostring(value1);
                         makeLuaSprite('exe', imagem, 0, -350)
                         setScrollFactor('exe', 0, 0);
@@ -84,6 +105,17 @@ function onEvent(name, value1, value2, value3)
                             setLuaSpriteCamera('exe2', 'camhud');
                             addLuaSprite('exe2', true);
                         end
+                        if tostring(value4) == '' or tostring(value4) == 'null' then
+                            removeLuaSprite('exe3', true);
+                        else
+                            imagem3 = tostring(value4)
+                            makeLuaSprite('exe3', imagem3, 0, 0)
+                            setScrollFactor('exe3', 0, 0);
+                            scaleObject('exe3', 1, 1);
+                            setLuaSpriteCamera('exe3', 'camhud');
+                            addLuaSprite('exe3', true);
+                        end
+
                         imagem = tostring(value1);
                         makeLuaSprite('exe', imagem, 0, 0)
                         setScrollFactor('exe', 0, 0);
@@ -109,6 +141,16 @@ function onEvent(name, value1, value2, value3)
                             setScrollFactor('exe2', 0, 0);
                             scaleObject('exe2', 1, 1);
                             addLuaSprite('exe2', true);
+                        end
+
+                        if tostring(value4) == '' or tostring(value4) == 'null' then
+                            removeLuaSprite('exe3', true);
+                        else
+                            imagem3 = tostring(value4)
+                            makeLuaSprite('exe3', imagem3, 0, 0)
+                            setScrollFactor('exe3', 0, 0);
+                            scaleObject('exe3', 1, 1);
+                            addLuaSprite('exe3', true);
                         end
                         imagem = tostring(value1);
                         makeLuaSprite('exe', imagem, 0, 0)

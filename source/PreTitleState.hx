@@ -10,7 +10,7 @@ class PreTitleState extends MusicBeatState
 	override function create()
 		{
 			var random1:Int = FlxG.random.int(0, 8);
-			if(!ClientPrefs.firstTime) //Tem que tirar esse ! daqui
+			if(ClientPrefs.firstTime) //Tem que tirar esse ! daqui
 				{
 					#if desktop
 		

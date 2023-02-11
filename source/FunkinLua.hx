@@ -150,6 +150,7 @@ class FunkinLua {
 		// Some settings, no jokes
 		set('legendas', ClientPrefs.legendas);
 		set('legendasporcima', ClientPrefs.legendasporcima);
+		set('gore', ClientPrefs.gore);
 		set('downscroll', ClientPrefs.downScroll);
 		set('middlescroll', ClientPrefs.middleScroll);
 		set('framerate', ClientPrefs.framerate);
@@ -693,11 +694,12 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "precacheSound", function(name:String) {
 			PlayState.instance.precacheList.set(name, 'sound');
 		});
-		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic) {
+		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic, arg4:Dynamic) {
 			var value1:String = arg1;
 			var value2:String = arg2;
 			var value3:String = arg3;
-			PlayState.instance.triggerEventNote(name, value1, value2);
+			var value4:String = arg4;
+			PlayState.instance.triggerEventNote(name, value1, value2, value3, value4);
 			//trace('Triggered event: ' + name + ', ' + value1 + ', ' + value2);
 		});
 

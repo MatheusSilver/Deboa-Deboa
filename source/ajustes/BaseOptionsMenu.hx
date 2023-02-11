@@ -51,6 +51,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'FullScreen',
 		'Esconder HUD',
 		'Esconder tempo',
+		'Violencia',
 		'Luzes Piscantes',
 		'FPS visível',
 		#if !html5
@@ -356,6 +357,8 @@ class BaseOptionsMenu extends MusicBeatState
 		switch(options[curSelected]) {
 			case 'Antimash':
 				daText = "Caso tu for muito nutella mesmo,\naquele cara que spamma pq\nnão sabe jogar, ative isso.";
+			case 'Gore':
+				daText = "Desative isso para não visualizar\nos elementos com gore nas músicas.";
 			case 'FPS':
 				daText = "Determina o entre áspas limite do seu FPS.";
 			case 'Delay da Nota':
