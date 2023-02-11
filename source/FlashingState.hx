@@ -23,13 +23,13 @@ class FlashingState extends MusicBeatState
 
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Ooopa!\n
-			Este mod contém luzes piscantes e gore!\n
+			Esse mod contem luzes piscantes e gore!\n
 			Caso esteja gravando sua tela:\n
-			Recomendamos gravar somente a tela e não diretamente o jogo.\n
-			Desmarque as opções de Luzes Piscantes e Gore,\n
-			Para não causar problemas aos seus viewers.\n
-			Recomendamos ir ao menu de opções antes de jogar,\n
-			Aperte ENTER para ir ate as configurações,\n
+			Recomendamos gravar somente a tela e nao diretamente o jogo.\n
+			Desmarque as opcoes de Luzes Piscantes e Gore,\n
+			Para nao causar problemas aos seus viewers.\n
+			Recomendamos ir ao menu de opcoes antes de jogar,\n
+			Aperte ENTER para ir ate as configuracoes,\n
 			ou aperte BACKSPACE para ir direto ao jogo.\n
 			Uma boa jogatina.", //Tenho certeza que foi o X02
 			32);			// k
@@ -41,28 +41,26 @@ class FlashingState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if(!leftState) {
-			var back:Bool = controls.BACK;
-			if (controls.ACCEPT || back) {
+			if(controls.ACCEPT) {
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
-				if(!back) {
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-					FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
-						new FlxTimer().start(0.5, function (tmr:FlxTimer) {
-							// Infelizmente isso vai ir direto pro menu
-							//Não precisa mais ir pro menu base já que agora o BaseOptions não é mais um substate
-							MusicBeatState.switchState(new ajustes.BaseOptionsMenu());
-						});
+				FlxG.sound.play(Paths.sound('confirmMenu'));
+				FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
+					new FlxTimer().start(0.5, function (tmr:FlxTimer) {
+						MusicBeatState.switchState(new TitleState());
 					});
-				} else {
-					FlxG.sound.play(Paths.sound('cancelMenu'));
-					FlxTween.tween(warnText, {alpha: 0}, 1, {
-						onComplete: function (twn:FlxTween) {
-							MusicBeatState.switchState(new TitleState());
-						}
-					});
-				}
+				});
+			}else if(controls.BACK){
+				leftState = true;
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxTransitionableState.skipNextTransOut = true;
+				FlxG.sound.play(Paths.sound('cancelMenu'));
+				FlxTween.tween(warnText, {alpha: 0}, 1, {
+					onComplete: function (twn:FlxTween) {
+						MusicBeatState.switchState(new ajustes.BaseOptionsMenu());
+					}
+				});
 			}
 		}
 		super.update(elapsed);
