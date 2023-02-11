@@ -3752,7 +3752,7 @@
 			{
 				"endTime": 182752.293577982,
 				"altAnim": false,
-				"mustHitSection": true,
+				"mustHitSection": false,
 				"lengthInSteps": 16,
 				"typeOfSection": 0,
 				"sectionNotes": [
@@ -3774,7 +3774,7 @@
 			{
 				"endTime": 184954.128440367,
 				"altAnim": false,
-				"mustHitSection": true,
+				"mustHitSection": false,
 				"lengthInSteps": 16,
 				"typeOfSection": 0,
 				"sectionNotes": [
@@ -3791,7 +3791,7 @@
 			{
 				"endTime": 187155.963302752,
 				"altAnim": false,
-				"mustHitSection": true,
+				"mustHitSection": false,
 				"lengthInSteps": 16,
 				"typeOfSection": 0,
 				"sectionNotes": [
@@ -3818,7 +3818,7 @@
 			{
 				"endTime": 189357.798165138,
 				"altAnim": false,
-				"mustHitSection": true,
+				"mustHitSection": false,
 				"lengthInSteps": 16,
 				"typeOfSection": 0,
 				"sectionNotes": [
