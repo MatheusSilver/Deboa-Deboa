@@ -16,14 +16,14 @@ class PreTitleState extends MusicBeatState
 			if(FlxG.save.data.firstTime != null || !ClientPrefs.firstTime || FlxG.save.data.flashing != null) //Algum desses caras tem que funfar
 				{
 					#if desktop
-		
+					#if debug
+					trace('assets/videos/VideosRandom/haha' + random1 + '.mp4');
+					#end
 						new FlxTimer().start(1.5, function(tmr:FlxTimer){
 							if(openfl.utils.Assets.exists('assets/videos/VideosRandom/haha' + random1+ '.mp4')) {
 								VideoStatePC.videoPath='assets/videos/VideosRandom/haha' + random1 + '.mp4';
 							}
-							#if debug
-							trace('assets/videos/VideosRandom/haha' + random1 + '.mp4');
-							#end
+		
 							MusicBeatState.switchState(new VideoStatePC());
 						});
 
