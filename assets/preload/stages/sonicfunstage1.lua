@@ -41,8 +41,8 @@
 	end
 
 	function onBeatHit()
-		objectPlayAnimation('funboppers2ANIM', 'bumpypillar', false)
-		objectPlayAnimation('funpillarts1ANIM', 'bumpypillar', false)
-		objectPlayAnimation('funboppers1ANIM', 'bumpypillar', false)
-		objectPlayAnimation('funpillarts2ANIM', 'bumpypillar', false)
+		objectPlayAnimation('funboppers2ANIM', 'bumpypillar', true)
+		objectPlayAnimation('funpillarts1ANIM', 'bumpypillar', true)
+		objectPlayAnimation('funboppers1ANIM', 'bumpypillar', true)
+		objectPlayAnimation('funpillarts2ANIM', 'bumpypillar', true)
 	end
