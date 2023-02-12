@@ -44,8 +44,6 @@ class MusicBeatState extends FlxUIState
 
 		super.destroy();
 	}
-	#else
-	public function addVirtualPad(?DPad, ?Action){};
 	#end			
 
 	override function create() {

@@ -21,7 +21,6 @@ import Discord.DiscordClient;
 #end
 import Section.SwagSection;
 import Song.SwagSong;
-import WiggleEffect.WiggleEffectType;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -3577,20 +3576,12 @@ class PlayState extends MusicBeatState
 
 	var starvedSpeed:Float = 15;
 
-	public var totalElapsed:Float = 0;
-
 	override public function update(elapsed:Float)
 	{
 		/*if (FlxG.keys.justPressed.NINE)
 		{
 			iconP1.swapOldIcon();
 		}*/
-
-		if (curSong.toLowerCase()=='round-a-bout'&&ClientPrefs.shaders){
-			totalElapsed += elapsed;
-			if (vcr != null)
-				vcr.shader.data.iTime.value = [totalElapsed];
-		}
 
 		if(curSong.toLowerCase()== 'pasta-night'){
 			var swagRecta = FlxRect.weak(0, 0, saladfingers.width, saladfingers.height - 16);
