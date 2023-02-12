@@ -36,7 +36,8 @@ class Achievements {
 	  //["O ato do herói acabou",		"Vença a confronting yourself",						'cy_clear',			false, 		181732, 		'orgulho', 'estrelas', 2],
 		["E tambem OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
 		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 		181734, 		'luxuria', 		1], //ok
-		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 		181736, 		'alt', 			2] //ok
+		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 		181736, 		'alt', 			2], //ok
+		["Galeria",						"Veja toda a galeria",								'galeria',			true, 		185895, 		'geral', 		1] //ok
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
@@ -202,7 +203,7 @@ class AchievementObject extends FlxSpriteGroup {
 			//Honestamente eu não sabia que tinha que usar o 'this' "tmj dav slk man kkkk"
 			// 👍
 			alphaTween = FlxTween.tween(this, {y: FlxG.height}, 1.45,{
-				ease: FlxEase.expoOut, // não sei qual colocar, se quiser escolhe algum outro dps
+				ease: FlxEase.circInOut, // não sei qual colocar, se quiser escolhe algum outro dps
 				startDelay: 1.8,
 				onComplete: function(twn:FlxTween) {
 					alphaTween = null;

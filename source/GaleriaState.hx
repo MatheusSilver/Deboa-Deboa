@@ -1,7 +1,9 @@
 package;
 
+import Achievements;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxCamera;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -24,6 +26,7 @@ class GaleriaState extends MusicBeatState
 	var isGaleria:Bool = true;
 	var playsArray:FlxTypedGroup<FlxSprite>;
 	var menuItems:FlxTypedGroup<FlxSprite>;
+	public var camAchievement:FlxCamera;
 
 	var leSongs:Array<String> = [];
 	
@@ -31,7 +34,9 @@ class GaleriaState extends MusicBeatState
 		{
 
 					//DaMusic part
-
+					camAchievement = new FlxCamera();
+					camAchievement.bgColor.alpha = 0;
+					FlxG.cameras.add(camAchievement);
 						for (i in 0...WeekData.freeplayList.length) { //Extração da lista de músicas tanto do freeplas, quanto do modo história.
 							var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 							var leSongs:Array<String> = [];
@@ -188,7 +193,17 @@ class GaleriaState extends MusicBeatState
 
 		override function update(elapsed:Float)
 			{
-
+				if(bg.y<-8830)
+					{
+						Achievements.loadAchievements();
+						var achieveID:Int = Achievements.getAchievementIndex('galeria');
+						if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+							Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+							add(new AchievementObject('galeria', camAchievement));
+							FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+							ClientPrefs.saveSettings();
+						}
+					}
 				if (controls.BACK) {
 					FlxG.mouse.unload();
 					FlxG.sound.play(Paths.sound('cancelMenu'));
@@ -313,5 +328,4 @@ class GaleriaState extends MusicBeatState
 					}
 				super.update(elapsed);
 			}
-
 }
