@@ -2153,7 +2153,7 @@ class FunkinLua {
 
 			if (type != Lua.LUA_TFUNCTION) {
 				if (type > Lua.LUA_TNIL)
-					luaTrace("ERROR (" + func + "): attempt to call a " + typeToString(type) + " value", false, false, FlxColor.RED);
+					trace("ERROR (" + func + "): attempt to call a " + typeToString(type) + " value");
 
 				Lua.pop(lua, 1);
 				return Function_Continue;
@@ -2165,7 +2165,7 @@ class FunkinLua {
 			// Checks if it's not successful, then show a error.
 			if (status != Lua.LUA_OK) {
 				var error:String = getErrorMessage(status);
-				luaTrace("ERROR (" + func + "): " + error, false, false, FlxColor.RED);
+				trace("ERROR (" + func + "): " + error);
 				return Function_Continue;
 			}
 

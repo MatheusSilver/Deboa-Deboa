@@ -590,11 +590,14 @@ class PlayState extends MusicBeatState
 		loadingbar.setGraphicSize(Std.int(FlxG.width * 1));
 		loadingbar.updateHitbox();
 		loadingbar.antialiasing = ClientPrefs.globalAntialiasing;
+		loadingbar.cameras = [camHUD2];
 		modboalogo.setGraphicSize(Std.int(FlxG.width * 1));
 		modboalogo.updateHitbox();
+		modboalogo.cameras = [camHUD2];
 		art.cameras=[camHUD];
 		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
 		art.loadGraphic(Paths.image(loadingImage, 'preload'));
+		art.cameras = [camHUD2];
 		art.setGraphicSize(Std.int(FlxG.width * 1.0));
 		art.updateHitbox();
 		art.screenCenter(XY);
