@@ -190,6 +190,25 @@ class MainMenuStateMobile extends MusicBeatState
 		letext.alpha = 1;
 		add(letext);
 
+		if(GJClient.logged)
+			{
+				Achievements.loadAchievements();
+				for (i in 0...Achievements.achievementsStuff.length) {
+					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2]);
+				}
+				letext.text = GJClient.userName;
+				/*if(FlxG.keys.justPressed.SPACE)
+					{
+						Achievements.unlockAchievement("Seja bem vindo!");
+						trace('getting trophie');
+					}*/
+				letext.alpha = 1;
+			}
+			else
+			{
+				letext.text = "DESCONECTADO";
+			}
+
 		//haxe me obrigou a ser um cara organizado, mas ainda assim sou rebelde
 		//musica de novela de 2010 starts playing
 
@@ -237,8 +256,6 @@ class MainMenuStateMobile extends MusicBeatState
 		trace('Giving achievement "modboa"');
 	}
 	#end
-
-
 
 	var selectedSomethin:Bool = false;
 
@@ -367,28 +384,6 @@ class MainMenuStateMobile extends MusicBeatState
 		if(FlxG.keys.justPressed.FOUR) add(new AchievementObject('eggman_free', camAchievement));
 		
 		#end
-		
-		for (i in 0...Achievements.achievementsStuff.length) {
-			Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][0]);
-		  }
-
-		if(GJClient.logged)
-			{
-				
-			
-
-				letext.text = GJClient.userName;
-				/*if(FlxG.keys.justPressed.SPACE)
-					{
-						Achievements.unlockAchievement("Seja bem vindo!");
-						trace('getting trophie');
-					}*/
-				letext.alpha = 1;
-			}
-			else
-				{
-					letext.text = "DESCONECTADO";
-				}
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		historiabotao.updateHitbox();

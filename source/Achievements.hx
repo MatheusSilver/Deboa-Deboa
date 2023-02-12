@@ -54,7 +54,10 @@ class Achievements {
 	}
 
 	public static function isAchievementUnlocked(name:String) {
+		var id:Int = Achievements.getAchievementIndex(name);
 		if(achievementsMap.exists(name) && achievementsMap.get(name)) {
+			if(GJClient.logged)
+				GJClient.trophieAdd(achievementsStuff[id][4]);
 			return true;
 		}
 		return false;
