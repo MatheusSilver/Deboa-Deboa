@@ -443,6 +443,7 @@ class PlayState extends MusicBeatState
 	var desviou:Bool = false; //Serve como sensor para o resto da música pra saber se o player apertou na hora certa.
 	public static var canuseevents:Bool = true;
 	public static var canRegen:Bool = true;
+	public static var loadingImage:String;
 
 
 	
@@ -474,6 +475,11 @@ class PlayState extends MusicBeatState
 		// styles are sonic2 and sonic3
 		// defaults to sonic2 if its in sonicHUDSongs but not in here
 	];
+	//loading stuff
+	var art = new FlxSprite();
+	var loadingbar = new FlxSprite();
+	var modboalogo = new FlxSprite();
+	public static var veioNormal:Bool;
 
 	override public function create()
 	{
@@ -482,6 +488,8 @@ class PlayState extends MusicBeatState
 		// TODOS OS PRECACHES NECESSÁRIOS
 
 		Achievements.loadAchievements();
+		
+
 
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
@@ -570,6 +578,29 @@ class PlayState extends MusicBeatState
 		sonicHUD = new FlxSpriteGroup();
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
+
+		modboalogo.loadGraphic(Paths.image('loading/loading-logo',  'preload'));
+		modboalogo.cameras=[camHUD];
+		loadingbar.loadGraphic(Paths.image('loading/carregando',  'preload'));
+		loadingbar.x=0;
+
+		loadingbar.cameras=[camHUD];
+		//loadingbar.y=0;
+		modboalogo.y=0;
+		//modboalogo.x=0;		
+		loadingbar.setGraphicSize(Std.int(FlxG.width * 1));
+		loadingbar.updateHitbox();
+		loadingbar.antialiasing = ClientPrefs.globalAntialiasing;
+		modboalogo.setGraphicSize(Std.int(FlxG.width * 1));
+		modboalogo.updateHitbox();
+		art.cameras=[camHUD];
+		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
+		art.loadGraphic(Paths.image(loadingImage, 'preload'));
+		art.setGraphicSize(Std.int(FlxG.width * 1.0));
+		art.updateHitbox();
+		art.screenCenter(XY);
+		art.antialiasing = ClientPrefs.globalAntialiasing;
+		art.alpha=1;
 
 		#if desktop
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
@@ -2358,7 +2389,19 @@ class PlayState extends MusicBeatState
 						FlxG.sound.cache(Paths.music(key));
 				}
 			}
-			
+			if(veioNormal)
+				{
+					add(art); //Haha isso não é um NFT
+					add(modboalogo);
+					add(loadingbar);
+					veioNormal=false;
+				}
+			art.loadGraphic(Paths.image(loadingImage, 'preload'));
+			trace(loadingImage);
+
+			FlxTween.tween(art, {alpha: 0}, 0.85,{ease: FlxEase.linear, startDelay: 0.05});
+			FlxTween.tween(loadingbar, {x: 343}, 0.45,{ease: FlxEase.quartInOut, startDelay: 0.05});
+			FlxTween.tween(modboalogo, {y: 720}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.10});
 		//	trace("Precache finalizado");
 	}
 

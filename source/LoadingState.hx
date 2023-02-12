@@ -8,6 +8,7 @@ import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
+import flixel.util.FlxColor;
 import haxe.io.Path;
 import lime.app.Future;
 import lime.app.Promise;
@@ -33,11 +34,12 @@ class LoadingsState extends MusicBeatSubstate
 	var loadingbar = new FlxSprite();
 	var modboalogo = new FlxSprite();
 	var isgroup:Bool = false;
+	public static var instance1:LoadingsState;
 	var position:Int = 0;
 	var loadBar:FlxSprite;
 	override function create()
 	{
-
+		instance1 = this;
 		//Silver explicações pt2
 		//Basicamente é só tu enfiar a tela de loading na pasta loadings dentro de preload/images
 		//O NOME DO ARQUIVO DEVE SER O MESMO QUE O NOME DO JSON DA MUSICA 
@@ -59,19 +61,21 @@ class LoadingsState extends MusicBeatSubstate
 			isgroup = true;
 			position = loadingidentifier.lastIndexOf((Std.string(FreeplayState.justread).toLowerCase())) + 1;
 		}
+		PlayState.veioNormal=true;
 
 		art.alpha = 0;
 		#if !debug
 		if(OpenFlAssets.exists(Paths.imagechecker('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload'))) { //Você já olhou pra alguem e pensou... O que passa, na cabeça dela? 
 			art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
+			PlayState.loadingImage='loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 1] + '-' + loadingidentifier[position - 2]) : Std.string(FreeplayState.justread).toLowerCase());
 		} else {
 			art.loadGraphic('assets/images/menuBG.png'); 
 		}
 		#else
-		art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 2] + '-' + loadingidentifier[position - 1]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload')); //Fiz isso pensando nos modders que talvez modarão esse mod, mas isso não é o ideal...
+		art.loadGraphic(Paths.image('loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 2] + '-' + loadingidentifier[position - 1]) : Std.string(FreeplayState.justread).toLowerCase()), 'preload'));
+		PlayState.loadingImage='loading/' + (isgroup ? ((position % 2 != 0) ? (loadingidentifier[position - 1] + '-' + loadingidentifier[position]) : loadingidentifier[position - 2] + '-' + loadingidentifier[position - 1]) : Std.string(FreeplayState.justread).toLowerCase());
 		#end
 		//assim eu consigo ter um pequeno feedback se a loading screen não existe ou se só tá escrita errada mesmo.
-
 		FlxTween.tween(art, {alpha: 1}, 0.5,{ease: FlxEase.linear});
 		FlxTween.tween(loadingbar, {x: 0}, 0.6,{ease: FlxEase.quartInOut, startDelay: 0.4});
 		FlxTween.tween(modboalogo, {y: 0}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.5});
@@ -88,6 +92,13 @@ class LoadingsState extends MusicBeatSubstate
 		add(loadingbar);
 		super.create();
 	}
+
+	public function tirarCoisas():Void
+		{
+			FlxTween.tween(art, {alpha: 0}, 0.5,{ease: FlxEase.linear});
+			FlxTween.tween(loadingbar, {x: 343}, 0.25,{ease: FlxEase.quartInOut, startDelay: 0.05});
+			FlxTween.tween(modboalogo, {y: 720}, 0.3,{ease: FlxEase.quartInOut, startDelay: 0.15});
+		}
 
 	override function update(elapsed:Float)
 	{
@@ -115,6 +126,7 @@ class LoadingState extends MusicBeatState
 	public static var directoryreader:String;
 	public static var callbacks:MultiCallback;
 	public static var targetShit:Float = 0;
+
 	
 	function new(target:FlxState, stopMusic:Bool, actualdirectory:String)
 	{
@@ -193,6 +205,7 @@ class LoadingState extends MusicBeatState
 		
 		FlxG.switchState(target);
 	}
+
 	
 	static function getSongPath()
 	{
@@ -214,8 +227,8 @@ class LoadingState extends MusicBeatState
 		}
 
 		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
 		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
-
 			FlxG.switchState(getNextState(target, stopMusic));
 		});	
 	}

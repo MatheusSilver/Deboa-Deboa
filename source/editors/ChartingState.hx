@@ -750,7 +750,7 @@ class ChartingState extends MusicBeatState
 
 				var copiedNote:Array<Dynamic> = [strum, note[1], note[2], note[3]];
 				if(note[1] < 0) {
-					copiedNote = [strum, note[1], note[2], note[3], note[4], note, note[6]];
+					copiedNote = [strum, note[1], note[2], note[3], note[4], note[5], note[6]];
 				}
 				_song.notes[daSec].sectionNotes.push(copiedNote);
 			}
