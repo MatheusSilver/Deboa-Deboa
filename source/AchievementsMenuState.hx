@@ -65,7 +65,13 @@ class AchievementsMenuState extends MusicBeatState
 			achievementArray.push(icon);
 			add(icon);
 		}
-
+		if(GJClient.logged)
+			{
+				Achievements.loadAchievements();
+				for (i in 0...Achievements.achievementsStuff.length) {
+					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2]);
+				}
+			}
 		var linha:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("conquistas/menu/achievements_linha"));
 		linha.antialiasing = ClientPrefs.globalAntialiasing;
 		add(linha);

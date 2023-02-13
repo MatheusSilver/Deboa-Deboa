@@ -192,10 +192,6 @@ class MainMenuStateMobile extends MusicBeatState
 
 		if(GJClient.logged)
 			{
-				Achievements.loadAchievements();
-				for (i in 0...Achievements.achievementsStuff.length) {
-					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2]);
-				}
 				letext.text = GJClient.userName;
 				/*if(FlxG.keys.justPressed.SPACE)
 					{

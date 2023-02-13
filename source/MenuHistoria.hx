@@ -28,6 +28,8 @@ class MenuHistoria extends MusicBeatSubstate
 	var apertavel:Bool = false;
 	var textoSpriteTweens:FlxTween;
 
+	var naopodevoltar:Bool = false;
+
 	//transition stuff
 	var pastbgSprite:FlxSprite;
 	
@@ -109,7 +111,7 @@ class MenuHistoria extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 
-			if (controls.BACK && !movedBack && !selectedWeek && apertavel)
+			if (controls.BACK && !movedBack && !selectedWeek && apertavel && !naopodevoltar)
 				{
 						FlxTween.tween(perfilSprite, {alpha: 0}, 1.0, {ease: FlxEase.expoInOut});
 						FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut, 
@@ -223,6 +225,8 @@ class MenuHistoria extends MusicBeatSubstate
 				});
 			} else if (nombres[curSelected].toLowerCase() == 'noite da rapaziada'){
 				FlxG.sound.music.volume = 0;
+				naopodevoltar=true;
+				apertavel=false;
 				new FlxTimer().start(0.3, function(tmr:FlxTimer) {
 					MusicBeatState.switchState(new PastaNightSelect());
 				});
@@ -230,6 +234,8 @@ class MenuHistoria extends MusicBeatSubstate
 				#if desktop
 				DiscordClient.changePresence("Escolhendo um lado em", "Cross Console Clash", null);
 				#end
+				naopodevoltar=true;
+				apertavel=false;
 				new FlxTimer().start(0.3, function(tmr:FlxTimer) {
 					if(textoSpriteTweens != null){
 						textoSpriteTweens.active = false;
