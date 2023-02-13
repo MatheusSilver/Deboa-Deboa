@@ -1774,7 +1774,10 @@ class PlayState extends MusicBeatState
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
-		add(botplayTxt);
+		if(curSong.toLowerCase() != 'cross-console-clash')
+			{
+				add(botplayTxt);
+			}
 		if(ClientPrefs.downScroll) {
 			botplayTxt.y = timeBarBG.y - 78;
 		}
@@ -2175,6 +2178,17 @@ class PlayState extends MusicBeatState
 							sonicHUDCCC = new SonicHUDCCC();
 							add(sonicHUDCCC);
 							sonicHUDCCC.cameras = [camCCC];
+							botplayTxt.setFormat(Paths.font("smb1.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+							botplayTxt.cameras=[camCCC];
+							add(botplayTxt);
+							if(ClientPrefs.downScroll)
+								{
+									botplayTxt.y=90-SonicHUDCCC.ringsText.y;
+								}
+							else
+								{
+									botplayTxt.y=80+SonicHUDCCC.ringsText.y;
+								}
 							canRegen = false;
 
 							opponentStrums.forEach(function(tomove:FlxSprite)
