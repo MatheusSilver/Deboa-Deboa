@@ -94,6 +94,7 @@ class FunkinLua {
 		set('startedCountdown', false);
 
 		set('isStoryMode', PlayState.isStoryMode);
+		set('stage', PlayState.SONG.stage);
 		set('difficulty', PlayState.storyDifficulty);
 		set('weekRaw', PlayState.storyWeek);
 		set('week', WeekData.weeksList[PlayState.storyWeek]);
@@ -851,9 +852,10 @@ class FunkinLua {
 			leSprite.active = true;
 		});
 
-		Lua_helper.add_callback(lua, "makeAnimatedLuaSprite", function(tag:String, image:String, x:Float, y:Float) {
+		Lua_helper.add_callback(lua, "makeAnimatedLuaSprite", function(tag:String, image:String, x:Float, y:Float) { //Modificação usada única e exclusivamente em Pasta night... Maldito hypno...
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
+
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
 			if(OpenFlAssets.exists(Paths.imagechecker(image)) && image.length > 0){
 				leSprite.frames = Paths.getSparrowAtlas(image);
@@ -1771,6 +1773,11 @@ class FunkinLua {
 					PlayState.changedDifficulty = false;
 					PlayState.instance.transitioning = true;
 					return true;
+				});
+
+				//Adicional Pasta-Night
+				Lua_helper.add_callback(lua, "stringSplit", function(str:String, split:String) {
+					return str.split(split);
 				});
 			
 		

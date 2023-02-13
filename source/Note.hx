@@ -11,6 +11,8 @@ class Note extends FlxSprite
 	public var strumTime:Float = 0;
 
 	public var mustPress:Bool = false;
+
+	public var lateHitMult:Float = 1;
 	public var noteData:Int = 0;
 	public var canBeHit:Bool = false;
 	public var tooLate:Bool = false;
@@ -19,6 +21,7 @@ class Note extends FlxSprite
 	public var hitByOpponent:Bool = false;
 	public var noteWasHit:Bool = false;
 	public var prevNote:Note;
+	public var blockHit:Bool = false; // only works for player
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
@@ -52,6 +55,7 @@ class Note extends FlxSprite
 	public var offsetY:Float = 0;
 	public var offsetAngle:Float = 0;
 	public var multAlpha:Float = 1;
+	public var multSpeed(default, set):Float = 1;
 
 	public var copyX:Bool = true;
 	public var copyY:Bool = true;
@@ -65,6 +69,23 @@ class Note extends FlxSprite
 
 	public var noAnimation:Bool = false;
 	public var hitCausesMiss:Bool = false;
+	public var distance:Float = 2000; //plan on doing scroll directions soon -bb
+
+	private function set_multSpeed(value:Float):Float {
+		resizeByRatio(value / multSpeed);
+		multSpeed = value;
+		//trace('fuck cock');
+		return value;
+	}
+
+	public function resizeByRatio(ratio:Float) //haha funny twitter shit
+	{
+		if(isSustainNote && !animation.curAnim.name.endsWith('end'))
+		{
+			scale.y *= ratio;
+			updateHitbox();
+		}
+	}
 
 	private function set_texture(value:String):String {
 		if(texture != value) {
@@ -257,6 +278,7 @@ class Note extends FlxSprite
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.05 * PlayState.SONG.speed;
 				if(PlayState.isPixelStage) {
 					prevNote.scale.y *= 1.19;
+					prevNote.scale.y *= (6 / height); //Auto adjust note size
 				}
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
@@ -275,6 +297,8 @@ class Note extends FlxSprite
 		}
 	}
 
+	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
+	public var originalHeightForCalcs:Float = 6;
 	public function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '') {
 		if(prefix == null) prefix = '';
 		if(texture == null) texture = '';
@@ -305,6 +329,7 @@ class Note extends FlxSprite
 				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
 				width = width / 4;
 				height = height / 2;
+				originalHeightForCalcs = height;
 				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
 			} else {
 				loadGraphic(Paths.image('pixelUI/' + blahblah));
@@ -315,6 +340,12 @@ class Note extends FlxSprite
 			setGraphicSize(Std.int(width * PlayState.daPixelZoom));
 			loadPixelNoteAnims();
 			antialiasing = false;
+
+			if(isSustainNote) {
+				offsetX += lastNoteOffsetXForPixelAutoAdjusting;
+				lastNoteOffsetXForPixelAutoAdjusting = (width - 7) * (PlayState.daPixelZoom / 2);
+				offsetX -= lastNoteOffsetXForPixelAutoAdjusting;
+			}
 		} else if (PlayState.majinstrums){
 			frames = Paths.getSparrowAtlas("Majin_Notes");
 			loadNoteAnims();
@@ -362,9 +393,9 @@ class Note extends FlxSprite
 
 		if(PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada'){
 			setGraphicSize(Std.int(width * 0.7));
-			} else {
-				setGraphicSize(Std.int(width * 0.65));
-			}
+		} else {
+			setGraphicSize(Std.int(width * 0.65));
+		}
 		updateHitbox();
 	}
 
@@ -423,7 +454,7 @@ class Note extends FlxSprite
 		if (mustPress)
 		{
 			// ok river
-			if (strumTime > Conductor.songPosition - Conductor.safeZoneOffset
+			if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult)
 				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
 				canBeHit = true;
 			else
@@ -436,8 +467,11 @@ class Note extends FlxSprite
 		{
 			canBeHit = false;
 
-			if (strumTime <= Conductor.songPosition)
-				wasGoodHit = true;
+			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
+			{
+				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
+					wasGoodHit = true;
+			}
 		}
 
 		if (tooLate)
