@@ -1951,7 +1951,7 @@ class PlayState extends MusicBeatState
 								}
 							else
 								{
-									botplayTxt.y=80+SonicHUDCCC.ringsText.y;
+									botplayTxt.y=SonicHUDCCC.ringsText.y-75;
 								}
 							canRegen = false;
 
