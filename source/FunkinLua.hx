@@ -184,57 +184,13 @@ class FunkinLua {
 				if(!ignoreAlreadyRunning)
 				{
 					for (luaInstance in PlayState.instance.luaArray)
-				{
-					if(luaInstance.scriptName == cervix)
 					{
-						Lua.newtable(lua);
-						var tableIdx = Lua.gettop(lua);
-
-						Lua.pushvalue(luaInstance.lua, Lua.LUA_GLOBALSINDEX);
-						while(Lua.next(luaInstance.lua, -2) != 0) {
-							// key = -2
-							// value = -1
-
-							var pop:Int = 0;
-
-							// Manual conversion
-							// first we convert the key
-							if(Lua.isnumber(luaInstance.lua,-2)){
-								Lua.pushnumber(lua, Lua.tonumber(luaInstance.lua, -2));
-								pop++;
-							}else if(Lua.isstring(luaInstance.lua,-2)){
-								Lua.pushstring(lua, Lua.tostring(luaInstance.lua, -2));
-								pop++;
-							}else if(Lua.isboolean(luaInstance.lua,-2)){
-								Lua.pushboolean(lua, Lua.toboolean(luaInstance.lua, -2));
-								pop++;
-							}
-							// TODO: table
-
-
-							// then the value
-							if(Lua.isnumber(luaInstance.lua,-1)){
-								Lua.pushnumber(lua, Lua.tonumber(luaInstance.lua, -1));
-								pop++;
-							}else if(Lua.isstring(luaInstance.lua,-1)){
-								Lua.pushstring(lua, Lua.tostring(luaInstance.lua, -1));
-								pop++;
-							}else if(Lua.isboolean(luaInstance.lua,-1)){
-								Lua.pushboolean(lua, Lua.toboolean(luaInstance.lua, -1));
-								pop++;
-							}
-							// TODO: table
-
-							if(pop==2)Lua.rawset(lua, tableIdx); // then set it
-							Lua.pop(luaInstance.lua, 1); // for the loop
+						if(luaInstance.scriptName == cervix)
+						{
+							trace('addLuaScript: The script "' + cervix + '" is already running!');
+							return;
 						}
-						Lua.pop(luaInstance.lua,1); // end the loop entirely
-						Lua.pushvalue(lua, tableIdx); // push the table onto the stack so it gets returned
-
-						return;
 					}
-
-				}
 				}
 				PlayState.instance.luaArray.push(new FunkinLua(Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
 				//trace(cervix + 'foi carregado');
@@ -689,7 +645,6 @@ class FunkinLua {
 				case 'pause': key = PlayState.instance.getControl('PAUSE');
 				case 'reset': key = PlayState.instance.getControl('RESET');
 				case 'space': key = PlayState.instance.getControl('NOTE_SPACE_P'); //Apenas para que a Chaos e Final Escape possam usar o botão custom
-				case 'tab': key = FlxG.keys.justPressed.TAB;
 				case '0': key = FlxG.keys.justPressed.ZERO;
 				case '1': key = FlxG.keys.justPressed.ONE;
 				case '2': key = FlxG.keys.justPressed.TWO;
