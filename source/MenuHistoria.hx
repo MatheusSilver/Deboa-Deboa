@@ -209,6 +209,8 @@ class MenuHistoria extends MusicBeatSubstate
 			onComplete: function(twn:FlxTween) {
 				FlxTween.tween(pastbgSprite, {alpha: 0}, 1.0,{ease: FlxEase.linear});
 			}});
+
+			// Nesse eu não vou mexer, tô com medo de ferrar alguma coisa.
 			if(toPlay){
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
 				openSubState(new LoadingsState());

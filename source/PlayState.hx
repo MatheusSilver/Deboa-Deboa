@@ -483,12 +483,10 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 
-		Main.dumpCache(); //Apenas pra ter certeza mesmo.
-		// TODOS OS PRECACHES NECESSÁRIOS
-
+		Main.dumpCache();
 		Achievements.loadAchievements();
 		
-
+		//Precache geral
 
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
@@ -504,7 +502,7 @@ class PlayState extends MusicBeatState
 		precacheList.set('pausescrollmenu', 'sound');
 		precacheList.set('breakfast', 'music');
 
-		//Pre cache geral
+	
 		
 		FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
 		if (SONG.needsVoices){

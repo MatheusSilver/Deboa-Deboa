@@ -259,28 +259,35 @@ class MainMenuStateMobile extends MusicBeatState
 		//provavelmente um dos códigos mais feios que já fiz, mas na real
 		//não consigo pensar em outra forma de fazê-lo sem ter que reescrever tudo.
 
-			if (selecionado == 0){
-				historiabotao.alpha=1;
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-						new FlxTimer().start(0.65, function(tmr:FlxTimer) {
+
+		switch (selecionado) 
+		{
+			case 0:
+
+			//selecionado 0
+			historiabotao.alpha=1;
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
+			});
+					new FlxTimer().start(0.65, function(tmr:FlxTimer) {
 						FlxTween.tween(historiabotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-						});
-						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					});
+					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 						FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-						});
-						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					});
+					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 						FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-						});
-						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					});
+					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 						FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-						});
-						new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					});
+					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 						FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-						});
-			} else if (selecionado == 1){
-				freeplaybotao.alpha=1;
+					});
+
+			case 1:
+
+			freeplaybotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(freeplaybotao, {x: FlxG.width - freeplaybotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -298,9 +305,11 @@ class MainMenuStateMobile extends MusicBeatState
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-			} else if(selecionado == 2) {
-				achievementsbotao.alpha=1;
+				});	
+
+			case 2:
+
+			achievementsbotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
 			FlxTween.tween(achievementsbotao, {x: FlxG.width - achievementsbotao.width},0.5, {ease: FlxEase.expoInOut});
 			});
@@ -319,28 +328,10 @@ class MainMenuStateMobile extends MusicBeatState
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
-			} else if (selecionado == 4) {
-				opcaobotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
-			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
-			});
-				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-			} else if (selecionado == 3){ //!!!
-				sobrebotao.alpha=1;
+
+			case 3:
+
+			sobrebotao.alpha=1;
 			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			FlxTween.tween(sobrebotao, {x: FlxG.width - sobrebotao.width}, 0.5, {ease: FlxEase.expoInOut});
 			});
@@ -359,10 +350,31 @@ class MainMenuStateMobile extends MusicBeatState
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
-			}
-//manito do celta... Eu real preciso aprender a usar arrays e essas coisas...
-			
-	}
+
+
+			case 4:
+
+			opcaobotao.alpha=1;
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
+			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
+			});
+				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
+				FlxTween.tween(opcaobotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+
+		}
 
 	override function update(elapsed:Float)
 	{
