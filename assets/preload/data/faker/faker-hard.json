@@ -2244,15 +2244,7 @@
 				"bpm": 105
 			},
 			{
-				"sectionNotes": [
-					[
-						126000,
-						-1,
-						"Image Flash",
-						"0,0,10",
-						"blackscreen,other,10s"
-					]
-				],
+				"sectionNotes": [],
 				"typeOfSection": 0,
 				"lengthInSteps": 16,
 				"altAnim": false,

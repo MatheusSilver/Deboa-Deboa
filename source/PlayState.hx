@@ -108,7 +108,6 @@ class PlayState extends MusicBeatState
 	var daP3Static:FlxSprite = new FlxSprite(0, 0);
 	var bgSkychasing:FlxSprite;
 	var daNoteStatic:FlxSprite = new FlxSprite(0, 0);
-	var tela_preta:FlxSprite;
 
 
 	public static var STRUM_X = 42;
@@ -191,7 +190,7 @@ class PlayState extends MusicBeatState
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
 
-	public var noteKillOffset:Float = 350;
+	public var noteKillOffset:Float = 300;
 
 	// - flying shit
 	var flyTarg:Character;
@@ -268,7 +267,6 @@ class PlayState extends MusicBeatState
 
 	var botplaySine:Float = 0;
 	var botplayTxt:FlxText;
-	var comecarmovimento:Bool = false;
 
 	var startCircle:FlxSprite;
 	var startText:FlxSprite;
@@ -388,9 +386,6 @@ class PlayState extends MusicBeatState
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
 
-	var barraSuperior:FlxSprite;
-	var barraInferior:FlxSprite;
-
 	//Coisas
 	var jumpscareSound:FlxSound;
 	var jumpscareAuxiliar:FlxSound;
@@ -472,10 +467,6 @@ class PlayState extends MusicBeatState
 		Main.dumpCache(); //Apenas pra ter certeza mesmo.
 		// TODOS OS PRECACHES NECESSÁRIOS
 
-		Achievements.loadAchievements();
-		
-
-
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
 		precacheList.set('pause/praticarativado', 'image');
@@ -492,10 +483,10 @@ class PlayState extends MusicBeatState
 
 		//Pre cache geral
 		
-		FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
-		if (SONG.needsVoices){
-			FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
-		}
+		//FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
+		//if (SONG.needsVoices){
+		//	FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
+		//}
 
 		
 
@@ -510,6 +501,8 @@ class PlayState extends MusicBeatState
 		
 
 		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
+		add(blackFuck);
+		blackFuck.alpha = 0;
 		FlxG.mouse.visible = false;
 	
 				
@@ -612,11 +605,6 @@ class PlayState extends MusicBeatState
 
 		startCircle = new FlxSprite();
 		startText = new FlxSprite();
-
-		tela_preta = new FlxSprite().makeGraphic(Std.int(FlxG.width * 2), Std.int(FlxG.height * 2), FlxColor.BLACK);
-		tela_preta.cameras = [camHUD2];
-		tela_preta.alpha = 0;
-		add(tela_preta); //Assim... Isso passou a ser usado em mais do que uma só música então né? 
 
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
@@ -1823,9 +1811,8 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camHUD];
 		topBar.cameras = [camOther];
 		bottomBar.cameras = [camOther];
-		startCircle.cameras = [camOther];
-		startText.cameras = [camOther];
-		blackFuck.cameras = [camOther];
+		startCircle.cameras = [camHUD2];
+		startText.cameras = [camHUD2];
 		sonicHUD.cameras = [camHUD];
 
 		#if mobileC
@@ -1999,7 +1986,7 @@ class PlayState extends MusicBeatState
 						camHUD.alpha = 0;
 					}
 					startCountdown();
-					add(blackFuck);
+					blackFuck.alpha = 1;
 					startCircle.loadGraphic(Paths.image('StartScreen/Circle-'+ daSong));
 					startCircle.x += 900;
 					add(startCircle);
@@ -2015,13 +2002,7 @@ class PlayState extends MusicBeatState
 
 					new FlxTimer().start(1.9, function(tmr:FlxTimer)
 					{
-						FlxTween.tween(blackFuck, {alpha: 0}, 1, {
-							onComplete: function(twn:FlxTween)
-							{
-								remove(blackFuck);
-								blackFuck.destroy();
-							}
-						});
+						FlxTween.tween(blackFuck, {alpha: 0}, 1);
 						FlxTween.tween(startCircle, {alpha: 0}, 1, {
 							onComplete: function(twn:FlxTween)
 							{
@@ -2058,13 +2039,7 @@ class PlayState extends MusicBeatState
 
 					new FlxTimer().start(1.9, function(tmr:FlxTimer)
 					{
-						FlxTween.tween(blackFuck, {alpha: 0}, 1, {
-							onComplete: function(twn:FlxTween)
-							{
-								remove(blackFuck);
-								blackFuck.destroy();
-							}
-						});
+						FlxTween.tween(blackFuck, {alpha: 0}, 1);
 						FlxTween.tween(startCircle, {alpha: 0}, 1, {
 							onComplete: function(twn:FlxTween)
 							{
@@ -3140,10 +3115,6 @@ class PlayState extends MusicBeatState
 
 				//Endless
 				if(curSong.toLowerCase()=='endless' && curStep >= 500){skin='Majin_Notes';}
-				if(curSong.toLowerCase()=='endless' && curStep >= 1289 && !cpuControlled)
-					{
-						startachieving("fisk");
-					}
 
 				//FIQUEI FUCKING 2 HORAS TENTANDO CONSERTAR ISSO...
 				//O problema? eu tinha trocado o nome da textura da strum depois de ela ter carregado a textura padrão...
@@ -3354,11 +3325,6 @@ class PlayState extends MusicBeatState
 		{
 			iconP1.swapOldIcon();
 		}*/
-
-
-		if (curSong.toLowerCase() == 'prey' && curStep > 4490 && canuseevents == false){
-			canuseevents = true;
-		}
 
 			floaty += 0.03;
 
@@ -3664,7 +3630,7 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		if (dad.curCharacter == "TDoll") // Do you really wanna see sonic.exe fly? Me neither.
+		if (dad.curCharacter == "tailsdoll-cartoon") // Do you really wanna see sonic.exe fly? Me neither.
 			{
 				if (tailscircle == 'hovering' || tailscircle == 'circling')
 					dad.y += Math.sin(floaty) * 1.3;
@@ -3677,15 +3643,6 @@ class PlayState extends MusicBeatState
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
-
-		if(comecarmovimento){
-			if(barraSuperior.y <= -450 && barraInferior.y >= FlxG.height + 450){
-				barraSuperior.y = barraSuperior.y + 5;
-				barraInferior.y = barraInferior.y - 5;
-			} else{
-				comecarmovimento = false;
-			}
-		}
 
 		var iconOffset:Int = 26;
 
@@ -3700,9 +3657,9 @@ class PlayState extends MusicBeatState
 		else
 			iconP1.animation.curAnim.curFrame = 0;
 
-		if (healthBar.percent > 80 && curSong.toLowerCase()!='defender')
+		if (healthBar.percent > 80)
 			iconP2.animation.curAnim.curFrame = 1;
-		else if(healthBar.percent < 80 && curSong.toLowerCase()!='defender')
+		else if(healthBar.percent < 80)
 			iconP2.animation.curAnim.curFrame = 0;
 
 		if (startingSong)
@@ -3805,12 +3762,11 @@ class PlayState extends MusicBeatState
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
 
-		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
+		if (sonicHUDStyles.exists(SONG.song.toLowerCase())){
 			updateSonicScore();
 			updateSonicMisses();
 			updateSonicVida();
 		}
-		if(isRing){updateSonicRings();}
 
 		// RESET = Quick Game Over Screen
 		if (controls.RESET && !inCutscene && !endingSong)
@@ -3910,13 +3866,18 @@ class PlayState extends MusicBeatState
 						daNote.flipY = strumScroll;
 					}
 
+					if (daNote.animation.curAnim.name.endsWith('end')&& !PlayState.isPixelStage && stageData.isPixelStage)
+					{
+						daNote.scale.y = 1;
+						daNote.y -= 400;
+					}
 					//Jesus fuck this took me so much mother fucking time AAAAAAAAAA
 					if(strumScroll && daNote.isSustainNote)
 					{
 						if (daNote.animation.curAnim.name.endsWith('end')) {
 							daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * SONG.speed + (46 * (SONG.speed - 1));
 							daNote.y -= 46 * (1 - (fakeCrochet / 600)) * SONG.speed;
-							if(PlayState.isPixelStage) {
+							if(isPixelStage) {
 								daNote.y += 8 + (6 - daNote.originalHeightForCalcs) * PlayState.daPixelZoom;
 							} else {
 								daNote.y -= 19;
@@ -3971,7 +3932,7 @@ class PlayState extends MusicBeatState
 					}
 
 					// Kill extremely late notes and cause misses
-					if (Conductor.songPosition > noteKillOffset + daNote.strumTime)
+					if (Conductor.songPosition > noteKillOffset + daNote.strumTime-200) //Um pouco mais preciso
 					{
 						if (daNote.mustPress && !cpuControlled &&!daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit)) {
 							noteMiss(daNote);
@@ -4388,7 +4349,7 @@ class PlayState extends MusicBeatState
 			}
 
 			case 'events':
-				FlxTween.tween(tela_preta, {alpha: 1}, 1.5);	
+				FlxTween.tween(blackFuck, {alpha: 1}, 1.5);	
 				FlxTween.num(defaultCamZoom, 10, 1, {ease: FlxEase.cubeOut}, function (v:Float) {
 					defaultCamZoom = v;
 				}); //rápido e prático : D
@@ -4469,98 +4430,14 @@ class PlayState extends MusicBeatState
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
 					switch (supertimerchaos)
-					{ //Programar é tão legal...
-						//legal......
-						//muito legal..........
-						//anyway, não irei cometer o mesmo erro no port mesmo depois de 1 ano de lançamento
+					{
+						//Isso estava feio então unifiquei todos em um só, afinal, isso não é mais baseado em curstep
 						case 27:
-							doStaticSign(0);
-						case 130:
 							doStaticSign(0);
 						case 180:
 							doJumpscare();
-						case 265:
-							doStaticSign(0);
-						case 450:
-							doStaticSign(0);
-						case 645:
-							doStaticSign(0);
-						case 800:
-							doStaticSign(0);
-						case 855:
-							doStaticSign(0);
-						case 889:
-							doStaticSign(0);
 						case 921:
 							doSimpleJump();
-						case 938:
-							doStaticSign(0);
-						case 981:
-							doStaticSign(0);
-						case 1030:
-							doStaticSign(0);
-						case 1065:
-							doStaticSign(0);
-						case 1105:
-							doStaticSign(0);
-						case 1123:
-							doStaticSign(0);
-						case 1178:
-							doSimpleJump();
-						case 1245:
-							doStaticSign(0);
-						case 1337:
-							doSimpleJump();
-						case 1345:
-							doStaticSign(0);
-						case 1454:
-							doStaticSign(0);
-						case 1495:
-							doStaticSign(0);
-						case 1521:
-							doStaticSign(0);
-						case 1558:
-							doStaticSign(0);
-						case 1578:
-							doStaticSign(0);
-						case 1599:
-							doStaticSign(0);
-						case 1618:
-							doStaticSign(0);
-						case 1647:
-							doStaticSign(0);
-						case 1657:
-							doStaticSign(0);
-						case 1692:
-							doStaticSign(0);
-						case 1713:
-							doStaticSign(0);
-						case 1723:
-							doJumpscare();
-						case 1738:
-							doStaticSign(0);
-						case 1747:
-							doStaticSign(0);
-						case 1761:
-							doStaticSign(0);
-						case 1785:
-							doStaticSign(0);
-						case 1806:
-							doStaticSign(0);
-						case 1816:
-							doStaticSign(0);
-						case 1832:
-							doStaticSign(0);
-						case 1849:
-							doStaticSign(0);
-						case 1868:
-							doStaticSign(0);
-						case 1887:
-							doStaticSign(0);
-						case 1909:
-							doStaticSign(0);
-						case 1950: //haha
-							doJumpscare();
 						case 765:
 							FlxG.camera.flash(FlxColor.RED, 4);
 						case 1305:
@@ -4601,69 +4478,6 @@ class PlayState extends MusicBeatState
 								defaultCamZoom = 0.9;
 								FlxTween.tween(FlxG.camera, {zoom: 0.9}, 0.3);
 							case 1069:
-								for (str in playerStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-								for (str in opponentStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-							case 1087:
-								for (str in playerStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-								for (str in opponentStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-							case 1098:
-								for (str in playerStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-								for (str in opponentStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-							case 1101:
-								for (str in playerStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-								for (str in opponentStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-							case 1134:
-								for (str in playerStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-								for (str in opponentStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-							case 1151:
-								for (str in playerStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-								for (str in opponentStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-							case 1163:
-								for (str in playerStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-								for (str in opponentStrums)
-								{
-									str.angle = str.angle + 35;
-								}
-							case 1167:
 								for (str in playerStrums)
 								{
 									str.angle = str.angle + 35;
@@ -4727,7 +4541,7 @@ class PlayState extends MusicBeatState
 								FlxTween.num(defaultCamZoom, 0.8, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
 									defaultCamZoom = v;
 								});
-								FlxTween.tween(tela_preta, {alpha: 0.5}, 1, {ease: FlxEase.quadInOut});
+								FlxTween.tween(blackFuck, {alpha: 0.5}, 1, {ease: FlxEase.quadInOut});
 
 							case 765: //ok
 							var char:Character = gf;
@@ -4740,7 +4554,7 @@ class PlayState extends MusicBeatState
 								FlxTween.num(defaultCamZoom, 0.6, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
 									defaultCamZoom = v;
 								});
-								FlxTween.tween(tela_preta, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut});		
+								FlxTween.tween(blackFuck, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut});		
 							case 780:
 								var char:Character = gf; //isso provavelmente deve ser menos bugado
 								char.idleSuffix = ''; //e menos bagunçado que a solução anterior...
@@ -4962,7 +4776,7 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim("dialogue peel");
 							boyfriend.specialAnim = true;
 						case 3367:
-							tela_preta.alpha = 1;
+							blackFuck.alpha = 1;
 						case 3378: //Top 10 mecanicas que parecem difíceis de fazer, mas que já estavam prontas o tempo todo.
 							if (!desviou){
 									canuseevents = false;
@@ -5046,7 +4860,7 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(dad, {x: 580 - 450}, 3,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(gf, {x: 580 - 375}, 3,{ease: FlxEase.cubeInOut});
 								SONG.speed = 4.0;
-								FlxTween.tween(tela_preta, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
+								FlxTween.tween(blackFuck, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(camHUD, {alpha: 1}, 1,{ease: FlxEase.cubeInOut});
 
 								//A partir daqui é baseado no port do konan
@@ -5056,7 +4870,7 @@ class PlayState extends MusicBeatState
 
 							case 4480:
 								FlxG.camera.flash(FlxColor.RED, 5);
-								tela_preta.alpha = 1;
+								blackFuck.alpha = 1;
 								opponentStrums.forEach(function(tofade:FlxSprite)
 									{
 										tofade.alpha = 1;
@@ -5103,7 +4917,7 @@ class PlayState extends MusicBeatState
 
 								case 4505:
 									FlxG.camera.flash(FlxColor.WHITE, 1);
-									tela_preta.alpha = 0;
+									blackFuck.alpha = 0;
 
 								case 4750:
 									cpuControlled = true;
@@ -5162,9 +4976,9 @@ class PlayState extends MusicBeatState
 
 			case 'TelaPreta':
 				if(value1 == 'true'){
-					FlxTween.tween(tela_preta, {alpha: 1}, 0.3);
+					FlxTween.tween(blackFuck, {alpha: 1}, 0.3);
 				} else {
-					FlxTween.tween(tela_preta, {alpha: 0}, 0.3);
+					FlxTween.tween(blackFuck, {alpha: 0}, 0.3);
 				}
 
 			case 'CharacterAlphaTween':
@@ -5318,15 +5132,6 @@ class PlayState extends MusicBeatState
 			case 'comecarvideo': //TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
 				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2], Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]));
-
-
-			case 'Set Property':
-				var killMe:Array<String> = value1.split('.');
-				if(killMe.length > 1) {
-					FunkinLua.setVarInArray(FunkinLua.getPropertyLoopThingWhatever(killMe, true, true), killMe[killMe.length-1], value2);
-				} else {
-					FunkinLua.setVarInArray(this, value1, value2);
-				}
 
 			case 'tempo infinito':
 				
@@ -5522,19 +5327,13 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
 		vocals.pause();
-		FlxTween.tween(tela_preta, {alpha: 1}, 0.3, {
-			ease: FlxEase.cubeInOut,
-			onComplete: function(twn:FlxTween)
-			{
-				if(ClientPrefs.noteOffset <= 0) {
-					finishCallback();
-				} else {
-					finishTimer = new FlxTimer().start(ClientPrefs.noteOffset / 1000, function(tmr:FlxTimer) {
-						finishCallback();
-					});
-				}
-			}
+		if(ClientPrefs.noteOffset <= 0) {
+			finishCallback();
+		} else {
+			finishTimer = new FlxTimer().start(ClientPrefs.noteOffset / 1000, function(tmr:FlxTimer) {
+			finishCallback();
 		});
+		}
 	}
 
 
@@ -5682,8 +5481,6 @@ class PlayState extends MusicBeatState
 				}
 			}
 			else {
-
-				Achievements.loadAchievements();
 				var achieveID:Int = Achievements.getAchievementIndex('pibby');
 				
 				if (curSong != 'green-hills' || Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
@@ -5694,6 +5491,10 @@ class PlayState extends MusicBeatState
 						CustomFadeTransition.nextCamera = null;
 					}
 
+				FlxTween.tween(blackFuck, {alpha: 1}, 0.3, {
+					ease: FlxEase.cubeInOut,
+					onComplete: function(twn:FlxTween)
+				{
 					if(modohistoria){
 						MusicBeatState.switchState(new MenuPreHistoria());
 						lime.app.Application.current.window.title='FNF: ModBoa EXE';
@@ -5704,8 +5505,10 @@ class PlayState extends MusicBeatState
 					}
 				
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				
-			} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
+				}
+			});	
+			
+		} else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
 				ClientPrefs.pibby = true;
 				#if desktop
 				new FlxTimer().start(0.5, function(tmr:FlxTimer)
@@ -5732,7 +5535,7 @@ class PlayState extends MusicBeatState
 	#if ACHIEVEMENTS_ALLOWED
 	var achievementObj:AchievementObject = null;
 	function startAchievement(achieve:String) {
-		achievementObj = new AchievementObject(achieve, camOther);
+		achievementObj = new AchievementObject(achieve, camLegenda); //Só pra garantir que isso fique em cima de tudo e todos
 		achievementObj.onFinish = achievementEnd;
 		add(achievementObj);
 		trace('Giving achievement ' + achieve);
@@ -5832,32 +5635,6 @@ class PlayState extends MusicBeatState
 				vidaNumbers[idx].visible=true;
 			}else
 				vidaNumbers[idx].visible=false;
-
-		}
-	}
-
-	function updateSonicRings(){
-		var seperatedScore:Array<String> = Std.string(cNum).split("");
-		if(seperatedScore.length<ringsNumbers.length){
-			for(idx in seperatedScore.length...ringsNumbers.length){
-				if(hudStyle == 'chaotix' || hudStyle == 'sonic2' || hudStyle == 'soniccd'){
-					seperatedScore.unshift('');
-				}else{
-					seperatedScore.unshift('0');
-				}
-			}
-		}
-		if(seperatedScore.length>ringsNumbers.length)
-			seperatedScore.resize(ringsNumbers.length);
-
-		for(idx in 0...seperatedScore.length){
-			if(seperatedScore[idx]!='' || idx==ringsNumbers.length-1){
-				var val = Std.parseInt(seperatedScore[idx]);
-				if(Math.isNaN(val))val=0;
-				ringsNumbers[idx].number = val;
-				ringsNumbers[idx].visible=true;
-			}else
-				ringsNumbers[idx].visible=false;
 
 		}
 	}
@@ -6483,7 +6260,6 @@ class PlayState extends MusicBeatState
 			if (isRing && note.noteData == 2)
 				{
 					cNum += 1;
-					updateSonicRings();
 					FlxG.sound.play(Paths.sound('Ring'));
 				}
 			if(canRegen){
@@ -6837,6 +6613,13 @@ class PlayState extends MusicBeatState
 		}
 
 		//EVENTOS LASTSTEP
+		if(curSong.toLowerCase()=='endless' && curStep == 1289 && !cpuControlled)
+			startachieving("fisk");
+
+		if (curSong.toLowerCase() == 'prey' && curStep > 4490 && canuseevents == false)
+			canuseevents = true;
+
+
 		if (curSong == 'faker')
 			{
 				switch (curStep)
@@ -7618,10 +7401,6 @@ class PlayState extends MusicBeatState
 						}
 					case 'control_fc':
 						if(SONG.song.toLowerCase() == 'control' && !usedPractice && !cpuControlled && ControlSongSubstate.gifPermitido) {
-							unlock = true;
-						}
-					case 'fisk':
-						if(SONG.song.toLowerCase() == 'endless' && !usedPractice && !cpuControlled) {
 							unlock = true;
 						}
 					case 'chaos_bot':

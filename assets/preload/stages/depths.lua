@@ -63,10 +63,6 @@ function opponentNoteHit(id, direction, noteType, isSustainNote)
 	end
 end
 
-function noteMiss(id, direction, noteType, isSustainNote)
-	if getProperty('health') >= 0.20 then setProperty('health', getProperty('health') - 0.15) elseif getProperty('health') < 0.20 and dead == false then setProperty('health', 0.0001); die() end
-end
-
 function onUpdate(elapsed)
 	for i = 1,#fall do
 		moveBall(fall[i])
