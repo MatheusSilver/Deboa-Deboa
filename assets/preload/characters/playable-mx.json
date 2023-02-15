@@ -1,81 +1,81 @@
 {
 	"animations": [
 		{
+			"loop": true,
 			"offsets": [
-				68, 
-				5
+				0,
+				0
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "IdleBack"
+			"fps": 16,
+			"name": "IdleBack",
+			"indices": []
 		},
 		{
-			"offsets": [
-				451, 
-				-124
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				88,
+				0
+			],
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "LeftBack"
+			"fps": 24,
+			"name": "LeftBack",
+			"indices": []
 		},
 		{
-			"offsets": [
-				64, 
-				-122
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				25,
+				-46
+			],
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "DownBack"
+			"fps": 24,
+			"name": "DownBack",
+			"indices": []
 		},
 		{
-			"offsets": [
-				64, 
-				16
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				4,
+				135
+			],
 			"anim": "singUP",
-			"indices": [],
-			"name": "UpBack"
+			"fps": 24,
+			"name": "UpBack",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-10, 
-				-120
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				-52,
+				50
+			],
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "RightBack"
+			"fps": 24,
+			"name": "RightBack",
+			"indices": []
 		},
 		{
-			"offsets": [
-				111, 
-				-2
-			],
 			"loop": false,
+			"offsets": [
+				8,
+				0
+			],
+			"anim": "Hit1",
 			"fps": 24,
-			"anim": "hit1",
-			"indices": [],
-			"name": "Hit1Back"
+			"name": "Hit1Back",
+			"indices": []
 		},
 		{
-			"offsets": [
-				144, 
-				-110
-			],
 			"loop": false,
+			"offsets": [
+				11,
+				-13
+			],
+			"anim": "Hit2",
 			"fps": 24,
-			"anim": "hit2",
-			"indices": [],
-			"name": "Hit2Back"
+			"name": "Hit2Back",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
@@ -87,14 +87,14 @@
 	"healthicon": "mx",
 	"flip_x": true,
 	"healthbar_colors": [
-		63, 
-		9, 
+		63,
+		9,
 		4
 	],
 	"camera_position": [
 		0,
 		0
 	],
-	"sing_duration": 4.00000000000001,
-	"scale": 0.9
+	"sing_duration": 6.1,
+	"scale": 1
 }

@@ -1,59 +1,59 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "X IDLE",
-			"indices": []
+			"indices": [],
+			"name": "X IDLE"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				62,
-				11
+				41,
+				3
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "X LEFT",
-			"indices": []
+			"indices": [],
+			"name": "X LEFT"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
-				13
+				8
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "X DOWN",
-			"indices": []
+			"indices": [],
+			"name": "X DOWN"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
-				53
+				34
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "X UP",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "X UP"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-43,
-				247
+				-28,
+				164
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "X RIGHT",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "X RIGHT"
 		}
 	],
 	"no_antialiasing": false,
@@ -63,7 +63,7 @@
 		0
 	],
 	"healthicon": "lord-x-mx",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		61,
 		62,
@@ -73,6 +73,6 @@
 		0,
 		0
 	],
-	"sing_duration": 4.00000000000001,
+	"sing_duration": 6.1,
 	"scale": 1
 }

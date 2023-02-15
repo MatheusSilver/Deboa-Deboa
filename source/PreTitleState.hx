@@ -12,16 +12,16 @@ class PreTitleState extends MusicBeatState
 	override function create()
 		{
 			jarodou = true;
-			var random1:Int = FlxG.random.int(0, 8);
+			var random1:Int = FlxG.random.int(0, 100);
 			if(FlxG.save.data.firstTime != null || !ClientPrefs.firstTime || FlxG.save.data.flashing != null) //Algum desses caras tem que funfar
 				{
 					#if desktop
 					#if debug
-					trace('assets/videos/VideosRandom/haha' + random1 + '.mp4');
+					trace('assets/videos/VideosRandoms/haha' + random1 + '.mp4'); //O nome da pasta estava errado kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 					#end
 						new FlxTimer().start(1.5, function(tmr:FlxTimer){
-							if(openfl.utils.Assets.exists('assets/videos/VideosRandom/haha' + random1+ '.mp4')) {
-								VideoStatePC.videoPath='assets/videos/VideosRandom/haha' + random1 + '.mp4';
+							if(openfl.utils.Assets.exists('assets/videos/VideosRandoms/haha' + random1+ '.mp4')) {
+								VideoStatePC.videoPath='assets/videos/VideosRandoms/haha' + random1 + '.mp4';
 							}
 		
 							MusicBeatState.switchState(new VideoStatePC());

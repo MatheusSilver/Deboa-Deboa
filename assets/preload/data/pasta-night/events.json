@@ -3,7 +3,7 @@
 		"speed": 2.8,
 		"stage": "bar",
 		"player1": "playable-mx",
-		"player2": "PASTA_HYPNO",
+		"player2": "PASTA_HYPNO_LORD_X",
 		"player3": "lordx-mx",
 		"notes": [
 			{
@@ -11,98 +11,12 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						2051.28205128205,
+						0,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						4102.5641025641,
-						-1,
-						"Camera Follow Pos",
-						"",
-						"",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						10256.4102564103,
-						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						12307.6923076923,
-						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"0",
 						"",
 						"",
 						""
@@ -147,13 +61,73 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						20512.8205128205,
+						20256.4102564103,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
+						""
+					],
+					[
+						19230.7692307692,
+						-1,
+						"PastaPow",
+						"",
+						"",
+						"",
 						""
 					]
 				],
@@ -168,9 +142,10 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						22564.1025641026,
+						22307.6923076923,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"1",
 						"",
 						"",
 						""
@@ -197,11 +172,21 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						26666.6666666667,
+						24615.3846153846,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"0",
+						"",
+						"",
+						""
+					],
+					[
+						26538.4615384615,
+						-1,
+						"CamPasta",
+						"-1",
+						"",
+						"",
 						""
 					]
 				],
@@ -216,9 +201,10 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						28717.9487179487,
+						28589.7435897436,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"1",
 						"",
 						"",
 						""
@@ -234,6 +220,26 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						31666.6666666667,
+						-1,
+						"PastaPow",
+						"",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -247,9 +253,10 @@
 					[
 						32820.5128205128,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
 						""
 					]
 				],
@@ -262,21 +269,12 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						36923.0769230769,
+						36410.2564102564,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"0",
 						"",
 						"",
 						""
@@ -301,27 +299,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						40512.8205128205,
+						-1,
+						"CamPasta",
+						"1",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -333,14 +321,65 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						47179.4871794872,
+						41923.0769230769,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"PastaPow",
+						"",
+						"",
+						"",
 						""
 					]
 				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						44615.3846153846,
+						-1,
+						"CamPasta",
+						"0",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						46923.0769230769,
+						-1,
+						"CamPasta",
+						"-1",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -354,7 +393,8 @@
 					[
 						49230.7692307693,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"0",
 						"",
 						"",
 						""
@@ -389,7 +429,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						56282.0512820513,
+						-1,
+						"PastaPow",
+						"",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -403,9 +453,10 @@
 					[
 						57435.8974358975,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
 						""
 					]
 				],
@@ -452,7 +503,8 @@
 					[
 						65641.0256410257,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"1",
 						"",
 						"",
 						""
@@ -497,7 +549,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						74230.7692307693,
+						-1,
+						"PastaPow",
+						"",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -507,7 +569,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						75897.4358974359,
+						-1,
+						"CamPasta",
+						"0",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -551,9 +623,19 @@
 					[
 						84102.5641025641,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
+						""
+					],
+					[
+						85897.4358974359,
+						-1,
+						"CamPasta",
+						"1",
+						"",
+						"",
 						""
 					]
 				],
@@ -570,7 +652,8 @@
 					[
 						86153.8461538462,
 						-1,
-						"Camera Follow Pos",
+						"PastaPow",
+						"",
 						"",
 						"",
 						""
@@ -589,26 +672,8 @@
 					[
 						88205.1282051282,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						90256.4102564103,
-						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"0",
 						"",
 						"",
 						""
@@ -625,28 +690,19 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						92307.6923076923,
+						90512.8205128205,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"1",
+						"",
+						"",
 						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
+					],
 					[
-						94358.9743589743,
+						90769.2307692308,
 						-1,
-						"Camera Follow Pos",
+						"PastaPow",
+						"",
 						"",
 						"",
 						""
@@ -663,11 +719,61 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						96410.2564102564,
+						92564.1025641025,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						94871.7948717949,
+						-1,
+						"PastaPow",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						96666.6666666666,
+						-1,
+						"CamPasta",
+						"0",
+						"",
+						"",
+						""
+					],
+					[
+						98205.1282051282,
+						-1,
+						"CamPasta",
+						"1",
+						"",
+						"",
 						""
 					]
 				],
@@ -684,7 +790,28 @@
 					[
 						98461.5384615384,
 						-1,
-						"Camera Follow Pos",
+						"PastaPow",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						100512.82051282,
+						-1,
+						"CamPasta",
+						"0",
 						"",
 						"",
 						""
@@ -729,17 +856,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						108717.948717949,
+						-1,
+						"CamPasta",
+						"1",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -793,9 +920,10 @@
 					[
 						118974.358974359,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
 						""
 					]
 				],
@@ -842,7 +970,17 @@
 					[
 						127179.487179487,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"0",
+						"",
+						"",
+						""
+					],
+					[
+						128205.128205128,
+						-1,
+						"PastaPow",
+						"",
 						"",
 						"",
 						""
@@ -877,7 +1015,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						134102.564102564,
+						-1,
+						"PastaPow",
+						"",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -887,7 +1035,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						135384.615384615,
+						-1,
+						"CamPasta",
+						"1",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -901,9 +1059,10 @@
 					[
 						137435.897435897,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
 						""
 					]
 				],
@@ -920,28 +1079,19 @@
 					[
 						139487.179487179,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"0",
 						"",
 						"",
 						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
+					],
 					[
-						141538.461538462,
+						140512.82051282,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"PastaPow",
+						"",
+						"",
+						"",
 						""
 					]
 				],
@@ -955,6 +1105,26 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						143589.743589744,
+						-1,
+						"CamPasta",
+						"-1",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -968,7 +1138,8 @@
 					[
 						145641.025641026,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"0",
 						"",
 						"",
 						""
@@ -983,17 +1154,26 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						147692.307692308,
+						-1,
+						"CamPasta",
+						"1",
+						"",
+						"",
+						""
+					],
+					[
+						149487.179487179,
+						-1,
+						"CamPasta",
+						"0",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1025,14 +1205,34 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						155897.435897436,
+						155641.025641026,
 						-1,
-						"Camera Follow Pos",
-						"25",
-						"425",
+						"CamPasta",
+						"-1",
+						"",
+						"",
+						""
+					],
+					[
+						154358.974358974,
+						-1,
+						"PastaPow",
+						"",
+						"",
+						"",
 						""
 					]
 				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1046,12 +1246,23 @@
 					[
 						157948.717948718,
 						-1,
-						"Camera Follow Pos",
+						"CamPasta",
+						"1",
 						"",
 						"",
 						""
 					]
 				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1457,11 +1668,13 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 117,
 		"arrowSkin": "",
 		"needsVoices": false,
+		"startinvisibru": null,
+		"canfollowpermitido": null,
 		"song": "pasta-night",
 		"isRing": null
 	}

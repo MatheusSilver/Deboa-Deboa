@@ -65,7 +65,11 @@ class NoteSplash extends FlxSprite
 				colorSwap.hue = hueColor;
 				colorSwap.saturation = satColor;
 				colorSwap.brightness = brtColor;
-				offset.set(10, 10);
+				if(PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada'){
+					offset.set(10, 10);
+				} else {
+					offset.set(10*0.65/0.7, 10*0.65/0.7);
+				}
 
 				var animNum:Int = FlxG.random.int(1, 2);
 				animation.play('note' + note + '-' + animNum, true);
