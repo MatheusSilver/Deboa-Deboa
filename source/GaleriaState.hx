@@ -148,7 +148,7 @@ class GaleriaState extends MusicBeatState
 
 				playsArray.forEach(function(spr:FlxSprite)
 				{			
-					if(FlxG.mouse.overlaps(playsArray) || (FlxG.mouse.overlaps(galeriaButton)&&!isGaleria) || (FlxG.mouse.overlaps(musicButton)&&isGaleria)){
+					if(FlxG.mouse.overlaps(spr) || (FlxG.mouse.overlaps(galeriaButton)&&!isGaleria) || (FlxG.mouse.overlaps(musicButton)&&isGaleria)){
 						if(mouseskin != "pointerselected"){
 						mouseskin = 'pointerselected';
 						FlxG.mouse.load(Paths.image('sobremenu/galeria/'+mouseskin), 1, 0, 0);
