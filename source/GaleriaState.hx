@@ -1,5 +1,7 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import Achievements;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -28,29 +30,42 @@ class GaleriaState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	public var camAchievement:FlxCamera;
 
+	var alturamodificadaparacalculosmuitopikas:Float=0;
+
+	var holdthatY:Float = 0;
+
 	var leSongs:Array<String> = [];
+	var leMusic:Array<String> = [];
 	
 	override function create()
 		{
-
+			WeekData.reloadWeekFiles(true); //Obrigado silvio do passado por essa anotação em FreeplayState.hx
 					//DaMusic part
 					camAchievement = new FlxCamera();
 					camAchievement.bgColor.alpha = 0;
 					FlxG.cameras.add(camAchievement);
-						for (i in 0...WeekData.freeplayList.length) { //Extração da lista de músicas tanto do freeplas, quanto do modo história.
-							var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
-							var leSongs:Array<String> = [];
-							for (j in 0...leWeek.songs.length) {
-								leSongs.push(leWeek.songs[j][3]);
-							}
-						}
+
 						for (i in 0...WeekData.weeksList.length) {
 							var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
-							var leSongs:Array<String> = [];
 							for (j in 0...leWeek.songs.length) {
 								leSongs.push(leWeek.songs[j][3]);
+								leMusic.push(leWeek.songs[j][0]);
 							}
 						}
+						for (i in 0...WeekData.freeplayList.length) { //Extração da lista de músicas tanto do freeplas, quanto do modo história.
+							var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
+							for (j in 0...leWeek.songs.length) {
+								leSongs.push(leWeek.songs[j][3]);
+								leMusic.push(leWeek.songs[j][0]);
+							}
+						}
+						/*
+						leSongs.sort(function(a,b)
+							return Reflect.compare(a.toLowerCase(),b.toLowerCase())
+						);
+						leMusic.sort(function(a,b) //Basicamente isso faz com que a parada fique em ordem alfabética
+							return Reflect.compare(a.toLowerCase(),b.toLowerCase())
+						);*/
 
 			//DaGaleria part
 
@@ -90,46 +105,80 @@ class GaleriaState extends MusicBeatState
 			testeButton.alpha = 0;
 			//add(testeButton);
 			
-						menuItems = new FlxTypedGroup<FlxSprite>();
-						add(menuItems);
+			menuItems = new FlxTypedGroup<FlxSprite>();
+			add(menuItems);
 			
-						playsArray = new FlxTypedGroup<FlxSprite>();
-						add(playsArray);
+			playsArray = new FlxTypedGroup<FlxSprite>();
+			add(playsArray);
 			
-						for (i in 0...leSongs.length) { //Em busca da engine automática k
-							var menuItem:FlxSprite = new FlxSprite(50 + 290*(i%4), Math.floor(i/4)); //Nunca pensei que usaria função piso depois do fundamental
-							menuItem.loadGraphic(Paths.image('galeriamusicas/gm-' + leSongs[i].toLowerCase(), 'preload'));
-							menuItem.setGraphicSize(285, 360);
-							menuItem.ID = i;
-							menuItems.add(menuItem);
-							menuItem.visible = !isGaleria;
-							menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-							menuItem.updateHitbox();
+			for (i in 0...leSongs.length) { //Em busca da engine automática k
+				var menuItem:FlxSprite = new FlxSprite(50 + 290*(i%4), 450 + 475*Math.floor(i/4)); //Nunca pensei que usaria função piso depois do fundamental
+				leSongs[i]=leSongs[i].toLowerCase().replace("ç", "c"); //Você é super legal execução : D
+				leSongs[i]=leSongs[i].replace("ã", "a");
+				//Ahhhh mas Silvio... PQ não usar o nome real da música? ding ding ding, as músicas não ficariam em ordem alfabética
+				menuItem.loadGraphic(Paths.image('galeriamusicas/gm-' + leSongs[i].toLowerCase(), 'preload'));
+				menuItem.setGraphicSize(285, 360);
+				menuItem.ID = i;
+				menuItem.alpha = 0;
+				menuItems.add(menuItem);
+				menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+				menuItem.updateHitbox();
 				
-							var icon:FlxSprite = new FlxSprite(0,0);
-							icon.loadGraphic(Paths.image('galeriamusicas/play', 'preload'));
-							icon.x = (menuItem.x + menuItem.width - menuItem.width)/2;
-							icon.y = menuItem.y + menuItem.height;
-							icon.visible = !isGaleria;
-							icon.ID = i;
-							icon.antialiasing = ClientPrefs.globalAntialiasing;
-							playsArray.add(icon);
-							add(icon);
-						}
-			
-						//Na real, se pa a única coisa que talvez vá ser aproveitada desse code, é o sistema de formação de lista de icons...
-			
+				var icon:FlxSprite = new FlxSprite(0,0);
+				icon.loadGraphic(Paths.image('galeriamusicas/play', 'preload'));
+				icon.updateHitbox();
+				icon.x = menuItem.x + (menuItem.width - icon.width)/2;
+				icon.y = menuItem.y + menuItem.height + 20; //Aquele poquinhozinho omegalul
+				icon.ID = i;
+				icon.alpha = 0;
+				icon.antialiasing = ClientPrefs.globalAntialiasing;
+				playsArray.add(icon);
+				add(icon);
+
+				if(i == leSongs.length - 1)
+					holdthatY = menuItem.y  + 25+15*31; //Em busca da engine automática omega kek
+			}			
 
 			galeriaButton.onDown.callback = function()
 				{
+
+					bgmusica.y=0;
+					bgmusica.alpha=0;
+					bg.alpha=1;
+					bg.y=0;
+					musicButton.y = 376;
+					galeriaButton.y = 376;
+
 					FlxG.sound.play(Paths.sound('click'));
 					isGaleria=true;
+
+					playsArray.forEach(function(spr:FlxSprite)
+					{
+						FlxTween.tween(spr, {alpha: 0}, 0.4, {
+							ease: FlxEase.quadOut,
+						onComplete: function(twn:FlxTween)
+						{
+							spr.y -= alturamodificadaparacalculosmuitopikas;
+						}
+					});
+					});
+
+					menuItems.forEach(function(spr:FlxSprite)
+					{
+						FlxTween.tween(spr, {alpha: 0}, 0.40, {
+							ease: FlxEase.quadOut,
+							onComplete: function(twn:FlxTween)
+							{
+								spr.y -= alturamodificadaparacalculosmuitopikas;
+							}
+						});
+					});
 				};
 
-				galeriaButton.onOver.callback = function()
-					{
-						FlxG.mouse.load(Paths.image('sobremenu/galeria/pointerselected'), 1, 0, 0);
-					};
+					galeriaButton.onOver.callback = function()
+						{
+							FlxG.mouse.load(Paths.image('sobremenu/galeria/pointerselected'), 1, 0, 0);
+						};
 
 					galeriaButton.onOut.callback = function()
 						{
@@ -161,8 +210,24 @@ class GaleriaState extends MusicBeatState
 					{
 						FlxG.sound.play(Paths.sound('click'));
 						isGaleria=false;
-						playsArray.visible = true;
-						menuItems.visible = true;
+						bg.y=0;
+						bg.alpha=0;
+						bgmusica.alpha=1;
+						musicButton.y = 376;
+						galeriaButton.y = 376;
+						alturamodificadaparacalculosmuitopikas = 0;
+						
+						playsArray.forEach(function(spr:FlxSprite)
+							{
+								FlxTween.tween(spr, {alpha: 1}, 1, {
+									ease: FlxEase.quadOut});
+							});
+		
+							menuItems.forEach(function(spr:FlxSprite)
+							{
+								FlxTween.tween(spr, {alpha: 1}, 1, {
+									ease: FlxEase.quadOut});
+							});
 						
 					};
 
@@ -176,11 +241,6 @@ class GaleriaState extends MusicBeatState
 								FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
 							};
 
-							for (s in 0...leSongs.length)
-								{
-									Sys.println('Carreguei a música '+s);
-								}
-
 								sampleTxt = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "", 30);
 								sampleTxt.setFormat(Paths.font("vcr.ttf"), 15, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 								sampleTxt.scrollFactor.set();
@@ -193,6 +253,19 @@ class GaleriaState extends MusicBeatState
 
 		override function update(elapsed:Float)
 			{
+
+					playsArray.forEach(function(spr:FlxSprite)
+					{
+						
+					if(FlxG.mouse.overlaps(spr)){
+						FlxG.mouse.load(Paths.image('sobremenu/galeria/pointerselected'), 1, 0, 0);
+
+						if(FlxG.mouse.justPressed)
+							FlxG.sound.playMusic(Paths.inst(leMusic[spr.ID]), 0.7);
+					}
+
+					});
+
 				if(bg.y<-8830)
 					{
 						Achievements.loadAchievements();
@@ -246,6 +319,7 @@ class GaleriaState extends MusicBeatState
 							}
 						else if(FlxG.mouse.wheel<0)
 							{
+								
 								if(bg.y==-8842)
 									{
 										bg.y=-8842;
@@ -256,7 +330,6 @@ class GaleriaState extends MusicBeatState
 										bg.y=bg.y-15;
 										testeButton.y=testeButton.y-15;
 									}
-
 									if(galeriaButton.y==-376)
 										{
 											galeriaButton.y = -376;
@@ -275,6 +348,73 @@ class GaleriaState extends MusicBeatState
 												musicButton.y = musicButton.y-15;
 											}
 							}
+					}
+					//Parte da Música
+				else
+					{
+						if(FlxG.mouse.wheel>0) //Aparentemente isso aqui faz o bg subir.
+							{
+								//trace('estou subindo?'); //Sim
+								if(bgmusica.y==0)
+									{
+										bgmusica.y=0;
+									}
+								else if(bgmusica.y<0)
+								{
+									bgmusica.y=bgmusica.y+15;
+									alturamodificadaparacalculosmuitopikas = alturamodificadaparacalculosmuitopikas+15;
+									playsArray.forEach(function(spr:FlxSprite)
+										{spr.y = spr.y+15;});
+						
+										menuItems.forEach(function(spr:FlxSprite)
+										{spr.y = spr.y+15;});
+								}
+								if(galeriaButton.y==376) //Isso é importante
+									{
+										galeriaButton.y = 376;
+										musicButton.y = 376;
+									}
+								else
+									{
+										galeriaButton.y = galeriaButton.y+15;
+										musicButton.y = musicButton.y+15;
+									}
+							
+							}else if(FlxG.mouse.wheel<0){
+								//trace('estou descendo?'); //Sim
+								if(bgmusica.y == -holdthatY + FlxG.height)
+									{
+										bgmusica.y= -holdthatY + FlxG.height;
+									}
+								else if(bgmusica.y >-holdthatY + FlxG.height)
+									{
+										bgmusica.y=bgmusica.y-15;
+										alturamodificadaparacalculosmuitopikas=alturamodificadaparacalculosmuitopikas-15;
+										playsArray.forEach(function(spr:FlxSprite)
+											{spr.y = spr.y-15;});
+							
+											menuItems.forEach(function(spr:FlxSprite)
+											{spr.y = spr.y-15;});
+									}
+
+									if(galeriaButton.y==-376)
+										{
+											galeriaButton.y = -376;
+											musicButton.y = -376;
+										}
+									else
+										{
+											galeriaButton.y = galeriaButton.y-15;
+											musicButton.y = musicButton.y-15;
+										}
+							}
+						
+					}
+				super.update(elapsed);
+			}
+}
+
+//Não sei se isso ainda vai ser utilizado, então vo colocar aqui em baixo só pra tirar do meio do caminho
 		
 							/*if(isZoomActivated)
 								{
@@ -317,15 +457,3 @@ class GaleriaState extends MusicBeatState
 							{
 								isZoomActivated=true;
 							}*/
-					}
-				else
-					{
-						bg.y=0;
-						bg.alpha=0;
-						bgmusica.alpha=1;
-						musicButton.y = 376;
-						galeriaButton.y = 376;
-					}
-				super.update(elapsed);
-			}
-}
