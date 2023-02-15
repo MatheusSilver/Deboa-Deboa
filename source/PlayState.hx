@@ -1552,6 +1552,8 @@ class PlayState extends MusicBeatState
 
 				if(canon) 
 				{
+					paused = true;
+					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 					ClientPrefs.lowQuality = true;
 					ClientPrefs.globalAntialiasing = false;
 					ClientPrefs.shaders = false;
