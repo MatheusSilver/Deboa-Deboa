@@ -428,13 +428,13 @@ class PlayState extends MusicBeatState
 	var cNum:Int = 0;
 
 
-	var memuse:Float = Math.round(System.totalMemory / 1024 / 1024 * 100)/100; // :sunglasses: :trollface:
+	//var memuse:Float = Math.round(System.totalMemory / 1024 / 1024 * 100)/100; // :sunglasses: :trollface:
 
 	// Texto de aviso caso o PC/celular esteja sobrecarregando.
 
-	var sobrecarga:FlxText;
-	var canoff:Bool = canon;
-	var canon:Bool;
+	//var sobrecarga:FlxText;
+	//var canoff:Bool = canon;
+	//var canon:Bool;
 
 	/* Semelhante ao do OBS Studio:
 	 		Imagem de exemplo no chat #x02-room 
@@ -1517,7 +1517,8 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		if((!ClientPrefs.camZooms || SONG.canfollowpermitido || OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua')))&& curSong.toLowerCase()!='pasta-night')
 			moveCameraSection(0);
-
+		
+		/*
 		var textodesobrecarga:String = "Seu uso de memória está muito alto! As opções de performance serão ativadas.";
 		var systemtotalmemory:Float = Math.round(System.totalMemory);
 		var memoriavisi:Float;
@@ -1557,7 +1558,7 @@ class PlayState extends MusicBeatState
 		gtasan.alpha = 0;
 		add(gtasan);
 
-		var sobrecarga:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, textodesobrecarga, 18);
+		var sobrecarga = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, textodesobrecarga, 18);
 		if(!memoriavisi > systemtotalmemory) 
 		{
 		sobrecarga.alpha = 0;
@@ -1584,7 +1585,7 @@ class PlayState extends MusicBeatState
 		}
 		sobrecarga.setFormat(Paths.font("letravio.ttf"), 18, FlxColor.WHITE, RIGHT);
 		sobrecarga.scrollFactor.set();
-		add(sobrecarga);
+		add(sobrecarga); */
 
 		healthBarBG = new AttachedSprite('healthBar');
 		healthBarBG.y = FlxG.height * 0.89;
@@ -1898,7 +1899,7 @@ class PlayState extends MusicBeatState
 		healthBar.cameras = [camHUD];
 		blackFuck.cameras = [camHUD2];
 		healthBarBG.cameras = [camHUD];
-		sobrecarga.cameras = [camHUD];
+		//sobrecarga.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -5462,7 +5463,7 @@ class PlayState extends MusicBeatState
 		#if mobileC
 		mcontrols.visible = false;
 		#end
-		canoff = true; //Usado naquelas configs muito das loucas
+		//canoff = true; //Usado naquelas configs muito das loucas
 		majinstrums = false;
 		canRegen = true;
 		canuseevents = true;
