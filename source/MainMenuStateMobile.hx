@@ -376,6 +376,7 @@ class MainMenuStateMobile extends MusicBeatState
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
+			}
 
 		}
 
