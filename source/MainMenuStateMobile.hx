@@ -261,6 +261,9 @@ class MainMenuStateMobile extends MusicBeatState
 
 
 		switch (selecionado) 
+
+		// usando switchs "inteligentes"
+
 		{
 			case 0:
 

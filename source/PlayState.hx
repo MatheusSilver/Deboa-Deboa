@@ -424,10 +424,22 @@ class PlayState extends MusicBeatState
 	public static var canuseevents:Bool = true;
 	public static var canRegen:Bool = true;
 	public static var loadingImage:String;
-
-
 	
 	var cNum:Int = 0;
+
+
+	var memuse:Float = Math.round(System.totalMemory / 1024 / 1024 * 100)/100; // :sunglasses: :trollface:
+
+	// Texto de aviso caso o PC/celular esteja sobrecarregando.
+
+	var sobrecarga:FlxText;
+	var canoff:Bool = canon;
+	var canon:Bool;
+
+	/* Semelhante ao do OBS Studio:
+	 		Imagem de exemplo no chat #x02-room 
+			 https://cdn.discordapp.com/attachments/1050918953960091658/1075471038718160986/maxresdefault.png
+	*/
 
 	public var sonicHUDSongs:Array<String> = [
 		"prey",
@@ -464,15 +476,10 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 
-<<<<<<< HEAD
 		Main.dumpCache();
 		Achievements.loadAchievements();
 		
 		//Precache geral
-=======
-		Main.dumpCache(); //Apenas pra ter certeza mesmo.
-		// TODOS OS PRECACHES NECESSÁRIOS
->>>>>>> fa694a0910c6df5eea116b21eb01c288acd55667
 
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
@@ -1496,6 +1503,74 @@ class PlayState extends MusicBeatState
 		if((!ClientPrefs.camZooms || SONG.canfollowpermitido || OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua')))&& curSong.toLowerCase()!='pasta-night')
 			moveCameraSection(0);
 
+		var textodesobrecarga:String = "Seu uso de memória está muito alto! As opções de performance serão ativadas.";
+		var systemtotalmemory:Float = Math.round(System.totalMemory);
+		var memoriavisi:Float;
+
+		//Infelizmente eu não sei como fazer isso com cálculos, sinceramente.
+		// systemtotalmemory / 2 + 200;
+		// ???????????
+		switch(systemtotalmemory) 
+		{
+			case 500:
+				memoriavisi = 200;
+
+			case 1000:
+				memoriavisi = 800;
+
+			case 2000: 
+				memoriavisi = 1600;
+
+			case 6000:
+				memoriavisi = 4000;
+
+			case 8000:
+				memoriavisi = 5000;
+
+			case 12000:
+				memoriavisi = 8000;
+			
+			case 16000:
+				memoriavisi = 12000;
+
+			default:
+				memoriavisi = "1234";
+		}
+
+		var gtasan:FlxSprite(0, 0).loadGraphic(Paths.image("vaitomarnocu"));
+		gtasan.setGraphicSize(Std.int(FlxG.width, FlxG.height));
+		gtasan.alpha = 0;
+		add(gtasan);
+
+		var sobrecarga:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, textodesobrecarga, 18);
+		if(!memoriavisi > systemtotalmemory) 
+		{
+		sobrecarga.alpha = 0;
+		} else {
+		sobrecarga.alpha = 1;
+		canon = true;
+
+				if(canon) 
+				{
+					ClientPrefs.lowQuality = true;
+					ClientPrefs.globalAntialiasing = false;
+					ClientPrefs.shaders = false;
+					gtasan.alpha = 1;
+					new FlxTimer().start(0.8, function(tmr:FlxTimer)
+					{
+						gtasan.alpha = 0;
+					});
+
+				} else if (canoff) {
+					ClientPrefs.lowQuality = false;
+					ClientPrefs.globalAntialiasing = true;
+					ClientPrefs.shaders = true;
+				}
+		}
+		sobrecarga.setFormat(Paths.font("letravio.ttf"), 18, FlxColor.WHITE, RIGHT);
+		sobrecarga.scrollFactor.set();
+		add(sobrecarga);
+
 		healthBarBG = new AttachedSprite('healthBar');
 		healthBarBG.y = FlxG.height * 0.89;
 		healthBarBG.screenCenter(X);
@@ -1808,6 +1883,7 @@ class PlayState extends MusicBeatState
 		healthBar.cameras = [camHUD];
 		blackFuck.cameras = [camHUD2];
 		healthBarBG.cameras = [camHUD];
+		sobrecarga.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -5371,6 +5447,7 @@ class PlayState extends MusicBeatState
 		#if mobileC
 		mcontrols.visible = false;
 		#end
+		canoff = true; //Usado naquelas configs muito das loucas
 		majinstrums = false;
 		canRegen = true;
 		canuseevents = true;
