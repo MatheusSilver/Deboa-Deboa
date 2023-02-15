@@ -378,7 +378,7 @@ class BaseOptionsMenu extends MusicBeatState
 			case 'Shaders':
 				daText = "Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)";
 			case 'Baixa Qualidade':
-				daText = "Se desmarcado, retira elementos do cenário.\n(Aumenta performance e diminui tempos de loading.)";
+				daText = "Se marcado, retira elementos do cenário.\n(Desative isso caso a música que esteja jogando, trave demais.)";
 			case 'Limpar Cache':
 				daText = "Se desmarcado, o game não limpará o cache\n isso reduz o tempo de loading ao entrar numa música de novo\n mas pode sobrecarregar seu PC depois de muito tempo jogando";
 			case 'Anti-Aliasing':
