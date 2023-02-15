@@ -481,6 +481,14 @@ class PlayState extends MusicBeatState
 		
 		//Precache geral
 
+		if(SONG.song.toLowerCase() == 'defender' && SONG.song.toLowerCase() == 'illegal-download') {
+		precacheList.set('loading/' + curSong, 'image');
+		} else {
+		precacheList.set('loading/defender-illegal-download', 'image');
+		}
+		precacheList.set('loading/loading-logo', 'image');
+		precacheList.set('loading/carregando', 'image');
+		precacheList.set('vaitomarnocu', 'image');
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
 		precacheList.set('pause/praticarativado', 'image');
@@ -1311,6 +1319,7 @@ class PlayState extends MusicBeatState
 		if (nomehistorico.toLowerCase() == 'profundezas'){
 			var logoBl2:FlxSprite;
 			logoBl2 = new FlxSprite(0, 0);
+			
 			logoBl2.frames = Paths.getSparrowAtlas('cenarios/depths/waves');
 			logoBl2.antialiasing = ClientPrefs.globalAntialiasing;
 			logoBl2.scale.set(5, 3);
@@ -1323,7 +1332,13 @@ class PlayState extends MusicBeatState
 			vignetteEspecial.cameras = [camHUD2];
 			vignetteEspecial.setGraphicSize(FlxG.width, FlxG.height);
 			vignetteEspecial.alpha = 0.3;
+			// Caso o lowquality esteja ativado, o filtro não vai aparecer, consumindo pouca ram 
+			// Mas e se não desativar?
+			// Eu tenho autorização de colocar minha otimização aqui?
+			if(!ClientPrefs.lowQuality) 
+			{
 			add(logoBl2);
+			}
 			add(vignetteEspecial);
 
 		}
@@ -1552,8 +1567,6 @@ class PlayState extends MusicBeatState
 
 				if(canon) 
 				{
-					paused = true;
-					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 					ClientPrefs.lowQuality = true;
 					ClientPrefs.globalAntialiasing = false;
 					ClientPrefs.shaders = false;
