@@ -163,7 +163,7 @@ class FunkinLua {
 		set('noteOffset', ClientPrefs.noteOffset);
 		set('lowQuality', ClientPrefs.lowQuality);
 		set('hitSounds', ClientPrefs.hitSounds);
-
+		set('cutscene', PlayState.instance.inCutscene);
 		set('isRing', PlayState.isRing);
 
 		//stuff 4 noobz like you B)
@@ -645,7 +645,7 @@ class FunkinLua {
 				case 'pause': key = PlayState.instance.getControl('PAUSE');
 				case 'reset': key = PlayState.instance.getControl('RESET');
 				case 'space': key = PlayState.instance.getControl('NOTE_SPACE_P'); //Apenas para que a Chaos e Final Escape possam usar o botão custom
-				case '0': key = FlxG.keys.justPressed.ZERO;
+				case '0': key = FlxG.keys.justPressed.ZERO; // esses números eram do vs calculadora k
 				case '1': key = FlxG.keys.justPressed.ONE;
 				case '2': key = FlxG.keys.justPressed.TWO;
 				case '3': key = FlxG.keys.justPressed.THREE;	
@@ -695,12 +695,13 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "precacheSound", function(name:String) {
 			PlayState.instance.precacheList.set(name, 'sound');
 		});
-		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic, arg4:Dynamic) {
+		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic, arg4:Dynamic, arg5:Dynamic) {
 			var value1:String = arg1;
 			var value2:String = arg2;
 			var value3:String = arg3;
 			var value4:String = arg4;
-			PlayState.instance.triggerEventNote(name, value1, value2, value3, value4);
+			var path:String = arg5;
+			PlayState.instance.triggerEventNote(name, value1, value2, value3, value4, path);
 			//trace('Triggered event: ' + name + ', ' + value1 + ', ' + value2);
 		});
 
@@ -837,7 +838,7 @@ class FunkinLua {
 			}
 		});
 
-		Lua_helper.add_callback(lua, "makeLuaSpriteNoAntialiasing", function(tag:String, image:String, x:Float, y:Float) {
+		/*Lua_helper.add_callback(lua, "makeLuaSpriteNoAntialiasing", function(tag:String, image:String, x:Float, y:Float) {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
@@ -850,7 +851,7 @@ class FunkinLua {
 			leSprite.antialiasing = false;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
-		});
+		});*/ // tecnicamente n precisa disso já que é só mudar o property antialising do sprite por lua através do setProperty('nomedosprite', false ou true), na época (2021) eu n sabia disso e usava isso aqui pros sprites pixel
 
 		Lua_helper.add_callback(lua, "makeAnimatedLuaSprite", function(tag:String, image:String, x:Float, y:Float) { //Modificação usada única e exclusivamente em Pasta night... Maldito hypno...
 			tag = tag.replace('.', '');

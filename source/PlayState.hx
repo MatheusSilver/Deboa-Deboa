@@ -12,7 +12,7 @@ import sys.FileSystem;
 #end
 import sys.io.File;
 #end
-import lime.system.System;
+import openfl.system.System;
 import openfl.Lib;
 import webm.WebmPlayer;
 import flixel.addons.display.FlxTiledSprite;
@@ -433,7 +433,7 @@ class PlayState extends MusicBeatState
 	// Texto de aviso caso o PC/celular esteja sobrecarregando.
 
 	var sobrecarga:FlxText;
-	var canoff:Bool = canon;
+	var canoff:Bool;
 	var canon:Bool;
 
 	/* Semelhante ao do OBS Studio:
@@ -540,8 +540,8 @@ class PlayState extends MusicBeatState
 		camGame = new FlxCamera();
 		camCCC = new FlxCamera();
 		camHUD = new FlxCamera();
-		camOther = new FlxCamera();
 		camLegenda = new FlxCamera();
+		camOther = new FlxCamera();
 		camHUD2 = new FlxCamera();
 		camHUD2.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
@@ -549,12 +549,14 @@ class PlayState extends MusicBeatState
 		camOther.bgColor.alpha = 0;
 		camLegenda.bgColor.alpha = 0;
 
+		canoff=canon;
+
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camCCC);
 		FlxG.cameras.add(camHUD);
+		FlxG.cameras.add(camLegenda);
 		FlxG.cameras.add(camOther);
 		FlxG.cameras.add(camHUD2);
-		FlxG.cameras.add(camLegenda);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		FlxCamera.defaultCameras = [camGame];
@@ -1534,16 +1536,16 @@ class PlayState extends MusicBeatState
 				memoriavisi = 12000;
 
 			default:
-				memoriavisi = "1234";
+				memoriavisi = 1234;
 		}
 
-		var gtasan:FlxSprite(0, 0).loadGraphic(Paths.image("vaitomarnocu"));
-		gtasan.setGraphicSize(Std.int(FlxG.width, FlxG.height));
+		var gtasan:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image("vaitomarnocu")); // que grosseria é essa man
+		gtasan.setGraphicSize(Std.int(FlxG.width));
 		gtasan.alpha = 0;
 		add(gtasan);
 
 		var sobrecarga:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, textodesobrecarga, 18);
-		if(!memoriavisi > systemtotalmemory) 
+		if(memoriavisi > systemtotalmemory) 
 		{
 		sobrecarga.alpha = 0;
 		} else {
@@ -1552,7 +1554,7 @@ class PlayState extends MusicBeatState
 
 				if(canon) 
 				{
-					paused = true;
+					/*paused = true;
 					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 					ClientPrefs.lowQuality = true;
 					ClientPrefs.globalAntialiasing = false;
@@ -1561,7 +1563,7 @@ class PlayState extends MusicBeatState
 					new FlxTimer().start(0.8, function(tmr:FlxTimer)
 					{
 						gtasan.alpha = 0;
-					});
+					});*/
 
 				} else if (canoff) {
 					ClientPrefs.lowQuality = false;
@@ -2988,7 +2990,7 @@ class PlayState extends MusicBeatState
 				for (songNotes in section.sectionNotes)
 				{
 					if(songNotes[1] < 0) {
-						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5]]);
+						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6], songNotes[7]]);
 						eventPushed(songNotes);
 					}
 				}
@@ -3004,7 +3006,7 @@ class PlayState extends MusicBeatState
 				for (songNotes in section.sectionNotes)
 				{
 					if(songNotes[1] < 0) {
-						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5]]);
+						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6], songNotes[7]]);
 						eventPushed(songNotes);
 					}
 				}
@@ -3095,7 +3097,7 @@ class PlayState extends MusicBeatState
 						noteTypeMap.set(swagNote.noteType, true);
 					}
 				} else { //Event Notes
-					eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5]]);
+					eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6], songNotes[7]]);
 					eventPushed(songNotes);
 				}
 			}
@@ -3131,16 +3133,27 @@ class PlayState extends MusicBeatState
 
 			case 'Adicionar Imagens':
 				if(ClientPrefs.legendas){
-					//trace('executando cache de lyrics');
-				if(OpenFlAssets.exists(Paths.imagechecker(event[3]))){
-					precacheList.set(event[3], 'image');
-				}
-				if(OpenFlAssets.exists(Paths.imagechecker(event[4]))){
-					precacheList.set(event[4], 'image');
-				}
-				if(OpenFlAssets.exists(Paths.imagechecker(event[5]))){
-					precacheList.set(event[5], 'image');
-				}
+					trace('executando cache de lyrics');
+					if(OpenFlAssets.exists(Paths.imagechecker(event[3]))){
+						precacheList.set(event[3], 'image');
+					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[3])))
+					{
+						precacheList.set(event[7]+'/'+event[3], 'image');
+					}
+
+					if(OpenFlAssets.exists(Paths.imagechecker(event[4]))){
+						precacheList.set(event[4], 'image');
+					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[4])))
+					{
+						precacheList.set(event[7]+'/'+event[4], 'image');
+					}
+
+					if(OpenFlAssets.exists(Paths.imagechecker(event[4]))){
+						precacheList.set(event[4], 'image');
+					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[4])))
+					{
+						precacheList.set(event[7]+'/'+event[4], 'image');
+					}
 				}
 		}
 
@@ -4165,8 +4178,12 @@ class PlayState extends MusicBeatState
 			if(eventNotes[0][6] != null)
 				value4 = eventNotes[0][6];
 
+			var path:String = '';
+			if(eventNotes[0][7] != null)
+				path = eventNotes[0][7];
+
 			if (canuseevents){
-			triggerEventNote(eventNotes[0][2], value1, value2, value3, value4);
+			triggerEventNote(eventNotes[0][2], value1, value2, value3, value4, path);
 			}
 			eventNotes.shift();
 		}
@@ -4178,18 +4195,87 @@ class PlayState extends MusicBeatState
 		return pressed;
 	}
 
-	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String) {
+	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String, ?path:String) {
 		switch(eventName) {
-			/*case 'Adicionar Imagem':
-				if (!ClientPrefs.Legendas)
+			case 'Adicionar Imagens':
+				/*if (ClientPrefs.legendas)
 				{
-					
-				}
-				else
-				{
+					if(value1!=null || value1!= '')
+						{
+							if(value4!=null || value4!='')
+								{
+									var legenda4:FlxSprite = new FlxSprite(0, 0);
+									if(path!='')
+										{
+											legenda4.loadGraphic(Paths.image(path+'/'+value4));
+										}
+										else
+											{
+												legenda4.loadGraphic(Paths.image(value4));
+											}
+											if(ClientPrefs.downScroll)
+												{
+													legenda4.x=-350;
+												}
+									legenda4.cameras = [camLegenda];
+									legenda4.antialiasing = ClientPrefs.globalAntialiasing;
+								}
+							if(value3!=null || value3!='')
+								{
+									var legenda3:FlxSprite = new FlxSprite(0, 0);
+									if(path!='')
+										{
+											legenda3.loadGraphic(Paths.image(path+'/'+value3));
+										}
+										else
+											{
+												legenda3.loadGraphic(Paths.image(value3));
+											}
+											if(ClientPrefs.downScroll)
+												{
+													legenda3.x=-350;
+												}
+									legenda3.cameras = [camLegenda];
+									legenda3.antialiasing = ClientPrefs.globalAntialiasing;
+								}
+							if(value2!=null)
+								{
+									var legenda2:FlxSprite = new FlxSprite(0, 0);
+									if(path!='')
+										{
+											legenda2.loadGraphic(Paths.image(path+'/'+value2));
+										}
+										else
+											{
+												legenda2.loadGraphic(Paths.image(value2));
+											}
+											if(ClientPrefs.downScroll)
+												{
+													legenda2.x=-350;
+												}
+									legenda2.cameras = [camLegenda];
+									legenda2.antialiasing = ClientPrefs.globalAntialiasing;
+								}
 
-				}
-				*/
+								if(path!='')
+									{
+										legenda1.loadGraphic(Paths.image(path+'/'+value1));
+									}
+									else
+										{
+											legenda1.loadGraphic(Paths.image(value1));
+										}
+							var legenda1:FlxSprite = new FlxSprite(0, 0);
+							legenda1.cameras = [camLegenda];
+							legenda1.loadGraphic(Paths.image(value1));
+							if(ClientPrefs.downScroll)
+								{
+									legenda1.x=-350;
+								}
+							legenda1.antialiasing = ClientPrefs.globalAntialiasing;
+						}
+				}*/
+				 // irei chorar
 			case 'Socorro':
 				lime.app.Application.current.window.title=value1;
 			case 'Toggle Ghost Trail':
