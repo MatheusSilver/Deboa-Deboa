@@ -1584,7 +1584,7 @@ class PlayState extends MusicBeatState
 					ClientPrefs.globalAntialiasing = true;
 					ClientPrefs.shaders = true;
 				}*/
-		}
+		//}
 		//sobrecarga.setFormat(Paths.font("letravio.ttf"), 18, FlxColor.WHITE, RIGHT);
 		//sobrecarga.scrollFactor.set();
 		//add(sobrecarga); */
