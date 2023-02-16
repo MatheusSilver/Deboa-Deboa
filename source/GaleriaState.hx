@@ -84,7 +84,7 @@ class GaleriaState extends MusicBeatState
 			bgmusica = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria-musicas_back'));
 			bgmusica.antialiasing = ClientPrefs.globalAntialiasing;
 			bgmusica.updateHitbox();
-			bgmusica.alpha = 1;
+			bgmusica.alpha = 0;
             bgmusica.y=0;
 			
 			add(bg);
@@ -144,25 +144,25 @@ class GaleriaState extends MusicBeatState
         }
 
 		override function update(elapsed:Float)
-			{
-
-				playsArray.forEach(function(spr:FlxSprite)
-				{			
-					if(FlxG.mouse.overlaps(spr) || (FlxG.mouse.overlaps(galeriaButton)&&!isGaleria) || (FlxG.mouse.overlaps(musicButton)&&isGaleria)){
-						if(mouseskin != "pointerselected"){
+			{		
+					//A ordem aparentemente faz uma diferença ferrada na otimização disso.
+				if(FlxG.mouse.overlaps(playsArray) || (FlxG.mouse.overlaps(galeriaButton)&&!isGaleria) || (FlxG.mouse.overlaps(musicButton)&&isGaleria)){
+					if(mouseskin != "pointerselected"){
 						mouseskin = 'pointerselected';
 						FlxG.mouse.load(Paths.image('sobremenu/galeria/'+mouseskin), 1, 0, 0);
-						}
-					}else if (mouseskin!='pointer'){
-						mouseskin = 'pointer';
-						FlxG.mouse.load(Paths.image('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
 					}
+				}else if (mouseskin!='pointer'){
+					mouseskin = 'pointer';
+					FlxG.mouse.load(Paths.image('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
+				}
 
+				playsArray.forEach(function(spr:FlxSprite)
+					{	
 					if(FlxG.mouse.justPressed && clicavel)
 					{
 						if(FlxG.mouse.overlaps(spr)){
-							FlxG.sound.playMusic(Paths.inst(leMusic[spr.ID]), 0.7);
 							FlxG.sound.play(Paths.sound('click'));
+							FlxG.sound.playMusic(Paths.inst(leMusic[spr.ID]), 0.7);
 						}else if (FlxG.mouse.overlaps(galeriaButton) && !isGaleria){
 							galeriapressed();
 							FlxG.sound.play(Paths.sound('click'));
@@ -193,8 +193,6 @@ class GaleriaState extends MusicBeatState
 				}
 				if(isGaleria)
 					{
-						bg.alpha=1;
-						bgmusica.alpha=0;
 						if(FlxG.mouse.wheel>0)
 							{
 								if(bg.y==0)

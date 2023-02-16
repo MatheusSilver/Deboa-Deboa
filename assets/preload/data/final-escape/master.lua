@@ -3,7 +3,8 @@ function onCreate()
     pushScriptData('run');
     pushScriptData('missRING');
     pushScriptData('precache');
-
+    pushScriptData('dyingState');
+    
     close();
 end
 

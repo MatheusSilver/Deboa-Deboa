@@ -1,4 +1,3 @@
-
 attackpos = {}
 
 warningpos = {}
@@ -8,25 +7,23 @@ warningpos2 = {}
 warningColor = 1
 
 function onCreate()
+	--Iterate over all notes
+	for i = 0, getProperty('unspawnNotes.length')-1 do
+	--Check if the note is an Instakill Note
+		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'invisiblemarker' then
+			setPropertyFromGroup('unspawnNotes', i, 'texture', 'nota_invisivel'); --Change texture
+			setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true)
+			setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true);
 
-
-    for i = 0, getProperty('eventNotes.length')-1 do
-	
-        if getPropertyFromGroup('eventNotes', i, 'event') == 'exe attack' then
-				
-		    table.insert(attackpos, getPropertyFromGroup('eventNotes', i, 'strumTime'))
+			table.insert(attackpos, getPropertyFromGroup('unspawnNotes', i, 'strumTime'))
 			
-			table.insert(warningpos, getPropertyFromGroup('eventNotes', i, 'strumTime') - (crochet * 2) )
+			table.insert(warningpos, getPropertyFromGroup('unspawnNotes', i, 'strumTime') - (crochet * 2) )
 			
-			table.insert(warningpos2, getPropertyFromGroup('eventNotes', i, 'strumTime') - crochet )
-				
-        end
-        
-    end
- 
+			table.insert(warningpos2, getPropertyFromGroup('unspawnNotes', i, 'strumTime') - crochet )
+		end
+	end
 
 
-	
 	makeLuaSprite('warning1', 'final escape/warning1', 505, 250)
 	setObjectCamera('warning1', 'hud')
 	scaleObject('warning1',1.5,1.5)
@@ -40,13 +37,9 @@ function onCreate()
 	
 	setProperty('warning1.alpha',0)
 	setProperty('warning2.alpha',0)
-	
-	
-	
-	
-	
-	   
+
 end
+
 
 
 
