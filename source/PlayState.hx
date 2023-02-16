@@ -481,11 +481,7 @@ class PlayState extends MusicBeatState
 		
 		//Precache geral
 
-		if(SONG.song.toLowerCase() == 'defender' && SONG.song.toLowerCase() == 'illegal-download') {
-		precacheList.set('loading/' + curSong, 'image');
-		} else {
-		precacheList.set('loading/defender-illegal-download', 'image');
-		}
+		precacheList.set(loadingImage, 'image');
 		precacheList.set('loading/loading-logo', 'image');
 		precacheList.set('loading/carregando', 'image');
 		precacheList.set('vaitomarnocu', 'image');
