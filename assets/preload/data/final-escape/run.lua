@@ -13,7 +13,7 @@ jumpable = true
 end
 
 
-if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.SPACE') and jumpable == true and not gameOver and not getProperty('cpuControlled') then
+if keyJustPressed('space') and jumpable == true and not gameOver and not botPlay then
  
  Jump()
   
@@ -65,7 +65,7 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	
 	end
 	
-	if tag == 'autoJump' and getProperty('cpuControlled') then
+	if tag == 'autoJump' and botPlay then
 	Jump()
 	end
 	
