@@ -356,26 +356,28 @@ class MainMenuStateMobile extends MusicBeatState
 
 
 			case 4:
-				opcaobotao.alpha=1;
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
-				FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
+
+			opcaobotao.alpha=1;
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
+			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
+			});
+				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
+				FlxTween.tween(opcaobotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
 				});
-					new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-					FlxTween.tween(opcaobotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
 			}
+
 		}
 
 	override function update(elapsed:Float)

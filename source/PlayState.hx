@@ -428,13 +428,13 @@ class PlayState extends MusicBeatState
 	var cNum:Int = 0;
 
 
-	var memuse:Float = Math.round(System.totalMemory / 1024 / 1024 * 100)/100; // :sunglasses: :trollface:
+	//var memuse:Float = Math.round(System.totalMemory / 1024 / 1024 * 100)/100; // :sunglasses: :trollface:
 
 	// Texto de aviso caso o PC/celular esteja sobrecarregando.
 
-	var sobrecarga:FlxText;
-	var canoff:Bool;
-	var canon:Bool;
+	//var sobrecarga:FlxText;
+	//var canoff:Bool = canon;
+	//var canon:Bool;
 
 	/* Semelhante ao do OBS Studio:
 	 		Imagem de exemplo no chat #x02-room 
@@ -481,6 +481,14 @@ class PlayState extends MusicBeatState
 		
 		//Precache geral
 
+		if(SONG.song.toLowerCase() == 'defender' && SONG.song.toLowerCase() == 'illegal-download') {
+		precacheList.set('loading/' + curSong, 'image');
+		} else {
+		precacheList.set('loading/defender-illegal-download', 'image');
+		}
+		precacheList.set('loading/loading-logo', 'image');
+		precacheList.set('loading/carregando', 'image');
+		precacheList.set('vaitomarnocu', 'image');
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
 		precacheList.set('pause/praticarativado', 'image');
@@ -549,7 +557,7 @@ class PlayState extends MusicBeatState
 		camOther.bgColor.alpha = 0;
 		camLegenda.bgColor.alpha = 0;
 
-		canoff=canon;
+		//canoff=canon;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camCCC);
@@ -1313,6 +1321,7 @@ class PlayState extends MusicBeatState
 		if (nomehistorico.toLowerCase() == 'profundezas'){
 			var logoBl2:FlxSprite;
 			logoBl2 = new FlxSprite(0, 0);
+			
 			logoBl2.frames = Paths.getSparrowAtlas('cenarios/depths/waves');
 			logoBl2.antialiasing = ClientPrefs.globalAntialiasing;
 			logoBl2.scale.set(5, 3);
@@ -1325,7 +1334,13 @@ class PlayState extends MusicBeatState
 			vignetteEspecial.cameras = [camHUD2];
 			vignetteEspecial.setGraphicSize(FlxG.width, FlxG.height);
 			vignetteEspecial.alpha = 0.3;
+			// Caso o lowquality esteja ativado, o filtro não vai aparecer, consumindo pouca ram 
+			// Mas e se não desativar?
+			// Eu tenho autorização de colocar minha otimização aqui?
+			if(!ClientPrefs.lowQuality) 
+			{
 			add(logoBl2);
+			}
 			add(vignetteEspecial);
 
 		}
@@ -1504,7 +1519,8 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		if((!ClientPrefs.camZooms || SONG.canfollowpermitido || OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua')))&& curSong.toLowerCase()!='pasta-night')
 			moveCameraSection(0);
-
+		
+		/*
 		var textodesobrecarga:String = "Seu uso de memória está muito alto! As opções de performance serão ativadas.";
 		var systemtotalmemory:Float = Math.round(System.totalMemory);
 		var memoriavisi:Float;
@@ -1544,8 +1560,8 @@ class PlayState extends MusicBeatState
 		gtasan.alpha = 0;
 		add(gtasan);
 
-		var sobrecarga:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, textodesobrecarga, 18);
-		if(memoriavisi > systemtotalmemory) 
+		var sobrecarga = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, textodesobrecarga, 18);
+		if(!memoriavisi > systemtotalmemory) 
 		{
 		sobrecarga.alpha = 0;
 		} else {
@@ -1554,8 +1570,6 @@ class PlayState extends MusicBeatState
 
 				if(canon) 
 				{
-					/*paused = true;
-					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 					ClientPrefs.lowQuality = true;
 					ClientPrefs.globalAntialiasing = false;
 					ClientPrefs.shaders = false;
@@ -1565,15 +1579,15 @@ class PlayState extends MusicBeatState
 						gtasan.alpha = 0;
 					});*/
 
-				} else if (canoff) {
+				/*if (canoff) {
 					ClientPrefs.lowQuality = false;
 					ClientPrefs.globalAntialiasing = true;
 					ClientPrefs.shaders = true;
-				}
+				}*/
 		}
-		sobrecarga.setFormat(Paths.font("letravio.ttf"), 18, FlxColor.WHITE, RIGHT);
-		sobrecarga.scrollFactor.set();
-		add(sobrecarga);
+		//sobrecarga.setFormat(Paths.font("letravio.ttf"), 18, FlxColor.WHITE, RIGHT);
+		//sobrecarga.scrollFactor.set();
+		//add(sobrecarga); */
 
 		healthBarBG = new AttachedSprite('healthBar');
 		healthBarBG.y = FlxG.height * 0.89;
@@ -1887,7 +1901,7 @@ class PlayState extends MusicBeatState
 		healthBar.cameras = [camHUD];
 		blackFuck.cameras = [camHUD2];
 		healthBarBG.cameras = [camHUD];
-		sobrecarga.cameras = [camHUD];
+		//sobrecarga.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -5535,7 +5549,7 @@ class PlayState extends MusicBeatState
 		#if mobileC
 		mcontrols.visible = false;
 		#end
-		canoff = true; //Usado naquelas configs muito das loucas
+		//canoff = true; //Usado naquelas configs muito das loucas
 		majinstrums = false;
 		canRegen = true;
 		canuseevents = true;
