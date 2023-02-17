@@ -88,6 +88,8 @@ class PlayState extends MusicBeatState
 	var sonicAviso:FlxSound;
 	var sonicDash:FlxSound;
 
+	public var legendPath:String = '';
+
 	public static var modohistoria:Bool = false;
 
 	var blackFuck:FlxSprite;
@@ -507,7 +509,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		
-
+		legendPath = 'letras/'+curSong;
 
 		isRing = SONG.isRing; //Top 10 otimizações mais sodas do Mundo talvez do Brasil
 
@@ -578,11 +580,9 @@ class PlayState extends MusicBeatState
 		Conductor.changeBPM(SONG.bpm);
 
 		modboalogo.loadGraphic(Paths.image('loading/loading-logo',  'preload'));
-		modboalogo.cameras=[camHUD];
 		loadingbar.loadGraphic(Paths.image('loading/carregando',  'preload'));
 		loadingbar.x=0;
 
-		loadingbar.cameras=[camHUD];
 		//loadingbar.y=0;
 		modboalogo.y=0;
 		//modboalogo.x=0;		
@@ -602,6 +602,7 @@ class PlayState extends MusicBeatState
 		art.screenCenter(XY);
 		art.antialiasing = ClientPrefs.globalAntialiasing;
 		art.alpha=1;
+
 
 		#if desktop
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
@@ -629,6 +630,12 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		curStage = PlayState.SONG.stage;
+
+		if(songName.toLowerCase()=='milk')
+			{
+				precacheList.set('luanzitoanim', 'image');
+				precacheList.set('luanzito', 'image');
+			}
 		trace('stage is: ' + curStage);
 		if(PlayState.SONG.stage == null || PlayState.SONG.stage.length < 1) {
 			switch (songName)
@@ -3158,11 +3165,18 @@ class PlayState extends MusicBeatState
 						precacheList.set(event[7]+'/'+event[4], 'image');
 					}
 
-					if(OpenFlAssets.exists(Paths.imagechecker(event[4]))){
-						precacheList.set(event[4], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[4])))
+					if(OpenFlAssets.exists(Paths.imagechecker(event[5]))){
+						precacheList.set(event[5], 'image');
+					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[5])))
 					{
-						precacheList.set(event[7]+'/'+event[4], 'image');
+						precacheList.set(event[7]+'/'+event[5], 'image');
+					}
+
+					if(OpenFlAssets.exists(Paths.imagechecker(event[6]))){
+						precacheList.set(event[6], 'image');
+					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[6])))
+					{
+						precacheList.set(event[7]+'/'+event[6], 'image');
 					}
 				}
 		}
@@ -4185,11 +4199,11 @@ class PlayState extends MusicBeatState
 				value3 = eventNotes[0][5];
 
 			var value4:String = '';
-			if(eventNotes[0][6] != null)
+			if(eventNotes[0][6] != '')
 				value4 = eventNotes[0][6];
 
 			var path:String = '';
-			if(eventNotes[0][7] != null)
+			if(eventNotes[0][7] != '')
 				path = eventNotes[0][7];
 
 			if (canuseevents){

@@ -9,7 +9,12 @@ import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import openfl.Lib;
 import Shaders;
+import openfl.display.GraphicsShader;
+import openfl.filters.ShaderFilter;
+import flash.filters.BlurFilter;
+import flixel.tweens.misc.NumTween;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -41,6 +46,9 @@ class PauseSubState extends MusicBeatSubstate
 
 	var isDoingtheThing:Bool = false;
 	var aberto:Bool=false;
+	var blurShader:BlurFilter;
+	var dummySprite:FlxSprite;
+	var shaderativo:Bool;
 
 	//var playState:PlayState;
 	
@@ -51,9 +59,7 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
-
-		
-
+		blurShader = new BlurFilter();
 		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
 		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
@@ -175,6 +181,12 @@ class PauseSubState extends MusicBeatSubstate
 		camcontrol.bgColor.alpha = 0;
 		_virtualpad.cameras = [camcontrol];
 		#end
+		if(ClientPrefs.shaders)
+			{
+				PlayState.instance.camGame.setFilters([blurShader]);
+				PlayState.instance.camHUD.setFilters([blurShader]);
+				FlxTween.tween(blurShader, {blurX: 3, blurY: 3}, 1.25, {ease: FlxEase.quartInOut});
+			}
 	}
 
 	override function update(elapsed:Float)
@@ -299,8 +311,6 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(restart, {x: 0-restart.width}, 0.3, {ease: FlxEase.quartInOut});
 				FlxTween.tween(bot, {x: 0-bot.width}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(voltar, {x: 0-voltar.width}, 0.5, {ease: FlxEase.quartInOut});
-		
-		
 				FlxTween.tween(bg, {y: -bg.height}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(linhabaixo, {y: FlxG.height}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
@@ -310,6 +320,7 @@ class PauseSubState extends MusicBeatSubstate
 						startCountdownback();
 					}
 				});
+				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
 	}
 	var loops:Int;
 	function startCountdownback()
