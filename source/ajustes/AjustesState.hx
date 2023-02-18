@@ -156,7 +156,7 @@ class AjustesState extends MusicBeatState
 		add(setasbotao);
 
 		gamejoltbotao = new FlxButton(FlxG.width, 15 + setasbotao.y + setasbotao.height, '');
-		if(!GJClient.logged)
+		if(!GJClient.logged || TitleState.ModoOffline)
 			{
 				gamejoltbotao.loadGraphic(Paths.image('optionsmenu/gamejooj', 'preload'));
 				gamejoltbotao.alpha = 0.75;
@@ -346,7 +346,7 @@ class AjustesState extends MusicBeatState
 					checkiftouch = true;
 				}
 				if(gamejoltbotao.justPressed && !checkiftouch){
-					if(!GJClient.logged)
+					if(!GJClient.logged || TitleState.ModoOffline)
 						{
 							gamejoltbotao.alpha=1;
 							curSelected = 3;
@@ -399,7 +399,7 @@ class AjustesState extends MusicBeatState
 								case 'setatipos':
 								MusicBeatState.switchState(new ajustes.NotesSubState());
 								case 'gamejooj':
-                                if(GJClient.logged)
+                                if(GJClient.logged || !TitleState.ModoOffline)
                                 {
                                 	
                                 }
@@ -457,7 +457,7 @@ class AjustesState extends MusicBeatState
 				
 			function gamejoltHover():Void
 			{
-				if(!GJClient.logged)
+				if(!GJClient.logged || TitleState.ModoOffline)
 					{
 						gamejoltbotao.alpha=1;
 						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
@@ -466,7 +466,7 @@ class AjustesState extends MusicBeatState
 			 
 			function gamejoltOut():Void
 			{
-				if(!GJClient.logged)
+				if(!GJClient.logged || TitleState.ModoOffline)
 					{
 						gamejoltbotao.alpha=0.75;
 					}

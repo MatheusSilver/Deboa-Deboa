@@ -903,16 +903,16 @@ class ChartingState extends MusicBeatState
 		blockPressWhileTypingOn.push(value4InputText);
 
 		var text:FlxText = new FlxText(20, 250, 0, "Path:");
-		tab_group_event.add(text);
+		//tab_group_event.add(text);
 		pathInputText = new FlxUIInputText(20, 270, 100, "");
-		blockPressWhileTypingOn.push(pathInputText);
+		//blockPressWhileTypingOn.push(pathInputText);
 
 		tab_group_event.add(descText);
 		tab_group_event.add(value1InputText);
 		tab_group_event.add(value2InputText);
 		tab_group_event.add(value3InputText);
 		tab_group_event.add(value4InputText);
-		tab_group_event.add(pathInputText);
+		//tab_group_event.add(pathInputText);
 		tab_group_event.add(eventDropDown);
 
 		UI_box.addGroup(tab_group_event);

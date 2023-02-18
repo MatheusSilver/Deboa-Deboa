@@ -47,7 +47,7 @@ class Achievements {
 		achievementsMap.set(name, true);
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		var id:Int = Achievements.getAchievementIndex(name);
-		if(GJClient.logged)
+		if(GJClient.logged && !TitleState.ModoOffline)
 			GJClient.trophieAdd(achievementsStuff[id][4]);
 		
 		ClientPrefs.saveSettings();
@@ -56,7 +56,7 @@ class Achievements {
 	public static function isAchievementUnlocked(name:String) {
 		var id:Int = Achievements.getAchievementIndex(name);
 		if(achievementsMap.exists(name) && achievementsMap.get(name)) {
-			if(GJClient.logged)
+			if(GJClient.logged && !TitleState.ModoOffline)
 				GJClient.trophieAdd(achievementsStuff[id][4]);
 			return true;
 		}
