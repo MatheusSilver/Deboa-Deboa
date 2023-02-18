@@ -8,6 +8,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
+import flixel.util.FlxTimer;
 import flixel.util.FlxColor;
 
 using StringTools;
@@ -26,6 +27,7 @@ class AchievementsMenuState extends MusicBeatState
 	var descBox:FlxSprite;
 	var majin:FlxSprite;
 	var apertavel:Bool = true;
+	public static var FirstTimeAqui:Bool = true;
 
 	override function create() {
 		Conductor.changeBPM(112);
@@ -65,13 +67,6 @@ class AchievementsMenuState extends MusicBeatState
 			achievementArray.push(icon);
 			add(icon);
 		}
-		if(GJClient.logged)
-			{
-				Achievements.loadAchievements();
-				for (i in 0...Achievements.achievementsStuff.length) {
-					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2]);
-				}
-			}
 		var linha:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("conquistas/menu/achievements_linha"));
 		linha.antialiasing = ClientPrefs.globalAntialiasing;
 		add(linha);
@@ -115,6 +110,25 @@ class AchievementsMenuState extends MusicBeatState
 		titleText.y = descBox.y + 10;
 		titleText.borderSize = 2.4;
 		add(titleText);
+		if(GJClient.logged && FirstTimeAqui)
+			{
+				var announceText:FlxText;
+				announceText = new FlxText(0, 0, 0, "SINCRONIZANDO CONQUISTAS", 24);
+				announceText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				announceText.screenCenter(XY);
+				var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+				preto.alpha=0.75;
+				add(preto);
+				add(announceText);
+				new FlxTimer().start(1, function(tmr:FlxTimer) {
+				Achievements.loadAchievements();
+				for (i in 0...Achievements.achievementsStuff.length) {
+					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2]);
+					remove(preto);
+					remove(announceText);
+					FirstTimeAqui=false;
+				}});
+			}
 		changeSelection();
 
 		super.create();
