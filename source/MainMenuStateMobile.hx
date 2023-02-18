@@ -209,7 +209,7 @@ class MainMenuStateMobile extends MusicBeatState
 		letext.alpha = 1;
 		add(letext);
 
-		if(GJClient.logged && !TitleState.ModoOffline)
+		if(GJClient.logged)
 			{
 				letext.text = GJClient.userName;
 				trace(GJClient.avatarURL);
@@ -232,14 +232,19 @@ class MainMenuStateMobile extends MusicBeatState
 					gameJoltIcon.loadGraphic(graphicAsset);
 					gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
 					var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
+
+					var bordinha = new FlxSprite(0,0);
+					bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
 					tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
 					FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
 					FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
 					gameJoltIcon.x = gameJoltBG.x+10;
 					gameJoltIcon.y = gameJoltBG.y+2;
+					bordinha.x = gameJoltIcon.x-6.5;
+					bordinha.y = gameJoltIcon.y-4.5;
 					gameJoltIcon.visible = true;
 					add(gameJoltIcon);
-					
+					add(bordinha);
 				});
 				loader.load(new URLRequest(GJClient.avatarURL));
 				
