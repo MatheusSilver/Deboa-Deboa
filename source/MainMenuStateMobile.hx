@@ -197,7 +197,6 @@ class MainMenuStateMobile extends MusicBeatState
 		gameJoltIcon= new FlxSprite(0);
 		gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*0.5));
 		gameJoltIcon.updateHitbox();
-		gameJoltBG.loadGraphic(Paths.image('placeholderUserIcon', 'preload'));
 		gameJoltIcon.visible = false;
 		gameJoltIcon.antialiasing = ClientPrefs.globalAntialiasing;
 		gameJoltIcon.screenCenter(XY);
