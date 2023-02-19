@@ -123,7 +123,7 @@ class AchievementsMenuState extends MusicBeatState
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
 				Achievements.loadAchievements();
 				for (i in 0...Achievements.achievementsStuff.length) {
-					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2]);
+					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2], false);
 					remove(preto);
 					remove(announceText);
 					FirstTimeAqui=false;

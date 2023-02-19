@@ -509,7 +509,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		
-		legendPath = 'letras/'+curSong;
+		legendPath = 'letras/'+curSong.toLowerCase();
 
 		isRing = SONG.isRing; //Top 10 otimizações mais sodas do Mundo talvez do Brasil
 
@@ -582,7 +582,7 @@ class PlayState extends MusicBeatState
 		modboalogo.loadGraphic(Paths.image('loading/loading-logo',  'preload'));
 		loadingbar.loadGraphic(Paths.image('loading/carregando',  'preload'));
 		loadingbar.x=0;
-
+		canPause =false;
 		//loadingbar.y=0;
 		modboalogo.y=0;
 		//modboalogo.x=0;		
@@ -2887,6 +2887,8 @@ class PlayState extends MusicBeatState
 								go.destroy();
 							}
 						});
+						new FlxTimer().start(1, function(tmr:FlxTimer){canPause=true;});
+						
 						FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
 					case 4:
 				}
@@ -3432,7 +3434,7 @@ class PlayState extends MusicBeatState
 
 	public var paused:Bool = false;
 	var startedCountdown:Bool = false;
-	public var canPause:Bool = true;
+	public var canPause:Bool = false;
 	var limoSpeed:Float = 0;
 
 	public static var useVideo = false;
