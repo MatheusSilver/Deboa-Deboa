@@ -35,13 +35,17 @@ class GaleriaState extends MusicBeatState
 
 	var holdthatY:Float = 0;
 
-	var leSongs:Array<String> = [];
-	var leMusic:Array<String> = [];
+	public static var firsttimemusic:Bool = true;
+
+	public static var leSongs:Array<String> = [];
+	public static var leMusic:Array<String> = [];
+	public static var titulos:Array<String> = []; //Usados apenas para integração com o Discord por causa dos malditos acentos da lingua portuguesa.
 	
 	override function create()
 		{
 			WeekData.reloadWeekFiles(true); //Obrigado silvio do passado por essa anotação em FreeplayState.hx
 			//DaMusic part
+
 			camAchievement = new FlxCamera();
 			camAchievement.bgColor.alpha = 0;
 			FlxG.cameras.add(camAchievement);
@@ -51,22 +55,17 @@ class GaleriaState extends MusicBeatState
 				for (j in 0...leWeek.songs.length) {
 					leSongs.push(leWeek.songs[j][3]);
 					leMusic.push(leWeek.songs[j][0]);
-				}
+					titulos.push(leWeek.songs[j][3]);
+					}
 			}
 			for (i in 0...WeekData.freeplayList.length) { //Extração da lista de músicas tanto do freeplas, quanto do modo história.
 				var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 				for (j in 0...leWeek.songs.length) {
 					leSongs.push(leWeek.songs[j][3]);
 					leMusic.push(leWeek.songs[j][0]);
+					titulos.push(leWeek.songs[j][3]);
 				}
 			}
-			/*
-			leSongs.sort(function(a,b)
-				return Reflect.compare(a.toLowerCase(),b.toLowerCase())
-			);
-			leMusic.sort(function(a,b) //Basicamente isso faz com que a parada fique em ordem alfabética
-				return Reflect.compare(a.toLowerCase(),b.toLowerCase())
-			);*/
 
 			//DaGaleria part
 
@@ -107,7 +106,6 @@ class GaleriaState extends MusicBeatState
 				var menuItem:FlxSprite = new FlxSprite(50 + 290*(i%4), 450 + 475*Math.floor(i/4)); //Nunca pensei que usaria função piso depois do fundamental
 				leSongs[i]=leSongs[i].toLowerCase().replace("ç", "c"); //Você é super legal execução : D
 				leSongs[i]=leSongs[i].replace("ã", "a");	
-				//Ahhhh mas Silvio... PQ não usar o nome real da música? ding ding ding, as músicas não ficariam em ordem alfabética
 				menuItem.loadGraphic(Paths.image('galeriamusicas/gm-' + leSongs[i].toLowerCase(), 'preload'));
 				menuItem.setGraphicSize(285, 360);
 				menuItem.ID = i;
@@ -143,9 +141,29 @@ class GaleriaState extends MusicBeatState
 			super.create();
         }
 
+		public static var stoploading:Bool = false;
+
+		override function closeSubState()
+			{
+				
+				DiscordClient.changePresence("Vendo a galeria", null);
+				stoploading = false;
+
+				persistentDraw = true;
+				persistentUpdate = true;
+
+				
+				playsArray.visible = true;
+				menuItems.visible = true;
+
+				super.closeSubState();
+			}
+
 		override function update(elapsed:Float)
 			{		
-					//A ordem aparentemente faz uma diferença ferrada na otimização disso.
+
+				//A ordem aparentemente faz uma diferença ferrada na otimização disso.
+				if(!stoploading){
 				if(FlxG.mouse.overlaps(playsArray) || (FlxG.mouse.overlaps(galeriaButton)&&!isGaleria) || (FlxG.mouse.overlaps(musicButton)&&isGaleria)){
 					if(mouseskin != "pointerselected"){
 						mouseskin = 'pointerselected';
@@ -156,13 +174,35 @@ class GaleriaState extends MusicBeatState
 					FlxG.mouse.load(Paths.image('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
 				}
 
-				playsArray.forEach(function(spr:FlxSprite)
-					{	
+				menuItems.forEach(function(spr:FlxSprite)
+				{					
+					if(!isGaleria){
+						if(spr.y < FlxG.height + 500 && spr.y > bgmusica.y -500)
+							spr.visible = true;
+						else
+							spr.visible = false;
+					}
+				});
+
+				playsArray.forEach(function(spr:FlxSprite) //Aparentemente, quem controla se um objeto é ou não renderizado pela placa de vídeo é o visible ;-;
+				{	
+					if(!isGaleria){
+						if(spr.y < FlxG.height + 500 && spr.y > bgmusica.y -500)
+						spr.visible = true;
+					else
+						spr.visible = false;
+					}
+
 					if(FlxG.mouse.justPressed && clicavel)
 					{
 						if(FlxG.mouse.overlaps(spr)){
+							stoploading = true;
 							FlxG.sound.play(Paths.sound('click'));
-							FlxG.sound.playMusic(Paths.inst(leMusic[spr.ID]), 0.7);
+							playsArray.visible = false;
+							menuItems.visible = false;
+							persistentDraw = false;
+							persistentUpdate = false;
+							openSubState(new GaleriaSubStateMusic(spr.ID));
 						}else if (FlxG.mouse.overlaps(galeriaButton) && !isGaleria){
 							galeriapressed();
 							FlxG.sound.play(Paths.sound('click'));
@@ -173,6 +213,7 @@ class GaleriaState extends MusicBeatState
 					}
 
 				});
+				}
 
 				if(bg.y<-8830)
 					{

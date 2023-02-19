@@ -477,7 +477,7 @@ class TitleState extends MusicBeatState
 			sickBeats++;
 			switch (sickBeats)
 			{
-				case 1:
+				case 1: //Checar aqui depois
 					GJClient.initialize();
 					createCoolText(['Psych Engine por'], 45);
 				case 3:

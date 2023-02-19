@@ -18,19 +18,7 @@ import lime.app.Application;
 
 class Main extends Sprite
 {
-	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	#if mobile
-	var initialState:Class<FlxState> = TitleState; //Must do: Pensar em uma forma de iniciar o vídeo através do titlestate
-	#elseif desktop
-	var initialState:Class<FlxState> = PreTitleState; // The FlxState the game starts with.
-	#end
-	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
-	var framerate:Int = 60; // How many frames per second the game should run at.
-	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
-	var startFullscreen:Bool = ClientPrefs.fullscreen; // Whether to start the game in fullscreen on desktop targets
-	//Quando tu for começar o jooj, verifica se isso aqui não tá crashando não fiz o teste disso quando fullscreen não foi setado ainda
-	
+
 	#if desktop
 	//public static var gjToastManager:GJToastManager;
 	#end

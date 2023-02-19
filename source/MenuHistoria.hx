@@ -273,12 +273,12 @@ class MenuHistoria extends MusicBeatSubstate
 			var pasta:String = escolhaWeek.weekBackground;
 			FlxTween.tween(perfilSprite, {y: -FlxG.height}, 0.1, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
-					if(OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
-						perfilSprite.loadGraphic(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
+					if(OpenFlAssets.exists(Paths.imagechecker("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
+						perfilSprite.loadGraphic(Paths.image("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
 						perfilSprite.updateHitbox();
 						perfilSprite.screenCenter(X);
 					} else {
-						FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
+						FlxG.log.warn('Não foi possível achar ' + "scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
 					}
 					FlxTween.tween(perfilSprite, {y: 25}, 0.4, {ease: FlxEase.expoInOut,
 						onComplete: function(twn:FlxTween) {
@@ -359,11 +359,11 @@ class MenuHistoria extends MusicBeatSubstate
 			});
 			FlxTween.tween(perfilSprite, {x: 0 - perfilSprite.width}, curtimer, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
-					if(OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
-						perfilSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
+					if(OpenFlAssets.exists(Paths.imagechecker("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
+						perfilSprite.loadGraphic(Paths.image("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
 						perfilSprite.updateHitbox();
 					} else {
-						FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
+						FlxG.log.warn('Não foi possível achar ' + "scrolling/artes//scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
 					}
 					perfilSprite.x = FlxG.width + perfilSprite.width;
 					FlxTween.tween(perfilSprite, {x: (FlxG.width - perfilSprite.width) / 2}, curtimer, {ease: FlxEase.expoInOut});
@@ -384,11 +384,11 @@ class MenuHistoria extends MusicBeatSubstate
 				});
 				FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, curtimer, {ease: FlxEase.expoInOut,
 					onComplete: function(twn:FlxTween) {
-						if(OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
-							perfilSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
+						if(OpenFlAssets.exists(Paths.imagechecker("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
+							perfilSprite.loadGraphic(Paths.image("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
 							perfilSprite.updateHitbox();
 						} else {
-							FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
+							FlxG.log.warn('Não foi possível achar ' + "scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
 						}
 						perfilSprite.x = 0 - perfilSprite.width;
 						FlxTween.tween(perfilSprite, {x: ((FlxG.width - perfilSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});
