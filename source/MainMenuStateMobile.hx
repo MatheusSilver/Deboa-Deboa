@@ -14,6 +14,17 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import openfl.display.BitmapData;
+import openfl.display.Bitmap;
+import openfl.display.Loader;
+import openfl.events.Event;
+import flixel.graphics.frames.FlxImageFrame;
+import openfl.net.URLLoader;
+import flixel.graphics.FlxGraphic;
+import openfl.net.URLRequest;
+import flixel.system.FlxAssets;
+import flixel.util.FlxSpriteUtil;
+import flixel.util.FlxGradient;
 
 using StringTools;
 
@@ -50,6 +61,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var logoBl:FlxSprite;
 	var checkiftouch:Bool = false;
+	var gameJoltIcon:FlxSprite;
 
 	override function create()
 	{
@@ -182,6 +194,13 @@ class MainMenuStateMobile extends MusicBeatState
 		gameJoltBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(gameJoltBG);
 
+		gameJoltIcon= new FlxSprite(0);
+		gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*0.5));
+		gameJoltIcon.updateHitbox();
+		gameJoltIcon.visible = false;
+		gameJoltIcon.antialiasing = ClientPrefs.globalAntialiasing;
+		gameJoltIcon.screenCenter(XY);
+
 		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "DESCONECTADO", 32);
 		letext.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		letext.scrollFactor.set();
@@ -193,12 +212,43 @@ class MainMenuStateMobile extends MusicBeatState
 		if(GJClient.logged)
 			{
 				letext.text = GJClient.userName;
+				trace(GJClient.avatarURL);
+
+				letext.x=-345;
 				/*if(FlxG.keys.justPressed.SPACE)
 					{
 						Achievements.unlockAchievement("Seja bem vindo!");
 						trace('getting trophie');
 					}*/
 				letext.alpha = 1;
+
+				var loader:Loader = new Loader();
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
+					var bmp:Bitmap = cast(loader.content, Bitmap);
+					trace("peguei a foto");
+					var bmd:BitmapData = bmp.bitmapData;
+					var graphicAsset:FlxGraphic = FlxGraphic.fromBitmapData(bmd, false);
+					gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
+					gameJoltIcon.loadGraphic(graphicAsset);
+					gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
+					var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
+
+					var bordinha = new FlxSprite(0,0);
+					bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
+					tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
+					FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
+					FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
+					gameJoltIcon.x = gameJoltBG.x+10;
+					gameJoltIcon.y = gameJoltBG.y+2;
+					bordinha.x = gameJoltIcon.x-6.5;
+					bordinha.y = gameJoltIcon.y-4.5;
+					gameJoltIcon.visible = true;
+					add(gameJoltIcon);
+					add(bordinha);
+				});
+				loader.load(new URLRequest(GJClient.avatarURL));
+				
+				
 			}
 			else
 			{
@@ -254,6 +304,8 @@ class MainMenuStateMobile extends MusicBeatState
 	#end
 
 	var selectedSomethin:Bool = false;
+
+
 
 	function sumidao(selecionado:Int){ //do hokage omegalul
 		//provavelmente um dos códigos mais feios que já fiz, mas na real

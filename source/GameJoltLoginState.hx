@@ -29,6 +29,7 @@ class GameJoltLoginState extends MusicBeatState
 	
 	override function create()
 		{
+            GJClient.initialize();
             esconderTexto=false;
             /*if(GJClient.logged)
             {
@@ -170,10 +171,10 @@ class GameJoltLoginState extends MusicBeatState
                     {
                         if(userBar.text != "USERNAME" && tokenBar.text != "TOKEN")
                             {
+                                GJClient.logout();
                                 GJClient.shitt=true;
                                 GJClient.setUserInfo(userBar.text, tokenBar.text);
                                 GJClient.login();
-                                //GJClient.initialize();
                                 //msgBar.text="Conectando...";
                                 new FlxTimer().start(2, function(tmr:FlxTimer){
                                     esconderTexto=true;

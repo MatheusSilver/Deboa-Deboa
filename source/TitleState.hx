@@ -27,6 +27,10 @@ import gamejolt.formats.*;
 import haxe.io.Bytes;
 import openfl.Assets;
 import openfl.filters.ShaderFilter;
+import openfl.net.URLLoader;
+import openfl.net.URLRequest;
+import openfl.events.Event;
+import openfl.events.IOErrorEvent;
 
 using StringTools;
 #if desktop
@@ -54,13 +58,22 @@ class TitleState extends MusicBeatState
 	var easterEggEnabled:Bool = true; //Disable this to hide the easter egg
 	var easterEggKeyCombination:Array<FlxKey> = [FlxKey.B, FlxKey.B]; //bb stands for bbpanzu cuz he wanted this lmao
 	var lastKeysPressed:Array<FlxKey> = [];
+	private var urlLoader:URLLoader;
 
 	var mustUpdate:Bool = false;
 	public static var updateVersion:String = '';
 
+	public static var ModoOffline:Bool = false;
+
 	override public function create():Void
 	{
 		GJClient.initialize();
+		/*urlLoader = new URLLoader();
+        urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
+        urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
+        
+        var request = new URLRequest("https://www.google.com");
+        urlLoader.load(request);*/
 		//FlxG.switchState(new GameJoltLogin());
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
@@ -151,6 +164,19 @@ class TitleState extends MusicBeatState
 		// Updating Discord Rich Presence
 		#end
 	}
+
+	private function handleLoadComplete(event:Event):Void
+		{
+			trace("Conexão com a internet OK!");
+			GJClient.initialize();
+			ModoOffline=false;
+		}
+		
+		private function handleLoadError(event:IOErrorEvent):Void
+		{
+			trace("Falha ao conectar-se à internet!");
+			ModoOffline=true;
+		}
 
 	var logoBl:FlxSprite;
 	var logoBl1:FlxSprite;

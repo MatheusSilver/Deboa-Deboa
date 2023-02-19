@@ -53,10 +53,10 @@ class Achievements {
 		ClientPrefs.saveSettings();
 	}
 
-	public static function isAchievementUnlocked(name:String) {
+	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
 		var id:Int = Achievements.getAchievementIndex(name);
 		if(achievementsMap.exists(name) && achievementsMap.get(name)) {
-			if(GJClient.logged)
+			if(GJClient.logged && !naochecar)
 				GJClient.trophieAdd(achievementsStuff[id][4]);
 			return true;
 		}

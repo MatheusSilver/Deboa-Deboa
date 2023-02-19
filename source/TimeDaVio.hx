@@ -388,7 +388,6 @@ class TimeDaVio extends MusicBeatState
                     twitter.onOut.callback = function()
                     {
                         if(twitterLink[curSelected]!=''){
-                            FlxG.sound.play(Paths.sound('scrollMenu'), 1);
                             twitter.alpha=0.75;
                         }
                     };
@@ -425,7 +424,6 @@ class TimeDaVio extends MusicBeatState
                         {
                             if(youtubeLink[curSelected]!='')
                                 {
-                                    FlxG.sound.play(Paths.sound('scrollMenu'), 1);
                                     youtube.alpha=0.75;
                                 }
                         };
@@ -458,7 +456,7 @@ class TimeDaVio extends MusicBeatState
                             discord.onOut.callback = function()
                             {
                                 if(discordLink[curSelected]!='')
-                                    {                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                    {                            
                                 discord.alpha=0.75;}
                             };
                 

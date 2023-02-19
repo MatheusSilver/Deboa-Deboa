@@ -61,6 +61,7 @@ class GJClient
      * @param token The Game Token of the Player.
      */
     public static var userName:String;
+    public static var avatarURL:String;
     public static function setUserInfo(user:Null<String>, token:Null<String>)
     {
 
@@ -445,7 +446,7 @@ class GJClient
         function ()
         {
             var userData = getUserData();
-
+            avatarURL = userData.avatar_url;
             if (!logged) {printMsg('Logged Successfully! Welcome back ${getUser()}!');}
             if (onSuccess != null && !logged && userData != null) onSuccess(userData);
             logged = true;
@@ -526,7 +527,7 @@ class GJClient
         if (hasLoginInfo() && !logged)
         {
             authUser(function () {login(function (userData:User) {if (onSuccess != null && !logged) onSuccess(userData);},onFail);}, onFail);
-            if (logged) printMsg('Initialized successfully!');
+            if (logged) printMsg('Initialized successfully!'); var userData = getUserData();    avatarURL = userData.avatar_url;
         }
         else {printMsg('Initializing failed!'); if(shitt){GameJoltLoginState.Desesconder();}}
     }
