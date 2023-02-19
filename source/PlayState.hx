@@ -83,6 +83,7 @@ class PlayState extends MusicBeatState
 
 	public static var cccVidaCounter:Int = 2;
 
+	var ring:FlxSound; //Vio e seu "Vai!!!" servindo como ótimas influências : D
 	var hitsound:FlxSound;
 	var sonicPulo:FlxSound;
 	var sonicAviso:FlxSound;
@@ -744,6 +745,8 @@ class PlayState extends MusicBeatState
 					sSKY.scale.x = 1.2;
 					sSKY.scale.y = 1.2;
 					add(sSKY);
+
+					ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
 
 					p3staticbg = new FlxSprite(0, 0);
 					p3staticbg.frames = Paths.getSparrowAtlas('effects/estatica', 'shared');
@@ -1638,6 +1641,7 @@ class PlayState extends MusicBeatState
 		botplayTxt.visible = cpuControlled;
 		if(curSong.toLowerCase() != 'cross-console-clash')
 			{
+				ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
 				add(botplayTxt);
 			}
 		if(ClientPrefs.downScroll) {
@@ -6434,7 +6438,7 @@ class PlayState extends MusicBeatState
 							}
 						FlxG.sound.play(Paths.sound('powerup'), 0.5, false);
 						}else if(boyfriend.curCharacter.startsWith('sonic')){
-						FlxG.sound.play(Paths.sound('Ring'));	
+							ring.play();
 						}
 					cccVidaCounter++;
 					}
@@ -6453,7 +6457,7 @@ class PlayState extends MusicBeatState
 			if (isRing && note.noteData == 2)
 				{
 					cNum += 1;
-					FlxG.sound.play(Paths.sound('Ring'));
+					ring.play();
 				}
 			if(canRegen){
 			health += note.hitHealth;
