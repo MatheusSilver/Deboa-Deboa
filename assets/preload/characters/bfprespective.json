@@ -103,11 +103,11 @@
 	"no_antialiasing": false,
 	"image": "characters/triple/BFPhase3_Perspective",
 	"position": [
-		0,
-		330
+		180,
+		390
 	],
 	"healthicon": "bf",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		49,
 		176,

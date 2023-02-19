@@ -9,7 +9,9 @@ function onCreate()
 		makeLuaSprite('luanzito', 'luaznito', 0, 0);
 		setObjectCamera('luanzito', 'other');
 		setProperty('luanzito.visible', false)
+		preCacheImage('luanzito');
 	else
+		preCacheImage('luanzitoanim');
 		makeAnimatedLuaSprite('inicio', 'luanzitoanim', 0, 0);
 		addAnimationByPrefix('inicio', 'luanzitoanim play', 'luanzitoanim play', 30, false)
 		setObjectCamera('inicio', 'other');

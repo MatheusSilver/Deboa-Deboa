@@ -1,76 +1,76 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
-				0,
-				90
+				-5,
+				85
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "Beast_IDLE",
-			"indices": []
+			"indices": [],
+			"name": "Beast_IDLE"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				180,
-				-2
+				172,
+				-10
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "Beast_LEFT",
-			"indices": []
+			"indices": [],
+			"name": "Beast_LEFT"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				14,
-				-4
+				28,
+				-7
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Beast_DOWN",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Beast_DOWN"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				40,
+				20,
 				166
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "Beast_UP",
-			"indices": []
+			"anim": "singUP",
+			"indices": [],
+			"name": "Beast_UP"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-220,
+				500,
 				30
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Beast_RIGHT",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Beast_RIGHT"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-90,
-				-140
+				116,
+				-136
 			],
-			"anim": "laugh",
+			"loop": false,
 			"fps": 24,
-			"name": "Beast_LAUGH",
-			"indices": []
+			"anim": "laugh",
+			"indices": [],
+			"name": "Beast_LAUGH"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/triple/BeastTP",
 	"position": [
-		0,
+		870,
 		-70
 	],
 	"healthicon": "beast",
@@ -81,7 +81,7 @@
 		118
 	],
 	"camera_position": [
-		0,
+		-380,
 		0
 	],
 	"sing_duration": 6.1,

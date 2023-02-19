@@ -630,12 +630,7 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		curStage = PlayState.SONG.stage;
-
-		if(songName.toLowerCase()=='milk')
-			{
-				precacheList.set('luanzitoanim', 'image');
-				precacheList.set('luanzito', 'image');
-			}
+		
 		trace('stage is: ' + curStage);
 		if(PlayState.SONG.stage == null || PlayState.SONG.stage.length < 1) {
 			switch (songName)

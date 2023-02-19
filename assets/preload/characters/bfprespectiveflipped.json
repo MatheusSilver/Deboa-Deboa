@@ -103,18 +103,18 @@
 	"no_antialiasing": false,
 	"image": "characters/triple/BFPhase3_Perspective",
 	"position": [
-		0,
-		330
+		-450,
+		370
 	],
 	"healthicon": "bf",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		49,
 		176,
 		209
 	],
 	"camera_position": [
-		100,
+		-270,
 		-150
 	],
 	"sing_duration": 4,

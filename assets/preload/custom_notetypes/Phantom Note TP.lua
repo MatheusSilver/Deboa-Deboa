@@ -12,9 +12,9 @@ function onCreate()
 	end
 end
 
-function onUpdate()
-    setProperty('health', getProperty('health') - healthDrop); 
-end
+--function onUpdate()
+--    setProperty('health', getProperty('health') - healthDrop); 
+--end
 
 function noteMiss(id, direction, noteType, isSustainNote)
 	if noteType == 'Phantom Note' then

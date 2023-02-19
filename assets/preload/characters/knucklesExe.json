@@ -59,8 +59,8 @@
 	"no_antialiasing": false,
 	"image": "characters/triple/KnucklesEXE",
 	"position": [
-		750,
-		270
+		800,
+		190
 	],
 	"healthicon": "knucklesexe",
 	"flip_x": true,
@@ -70,8 +70,8 @@
 		0
 	],
 	"camera_position": [
-		-320,
-		20
+		-470,
+		80
 	],
 	"sing_duration": 6.1,
 	"scale": 1
