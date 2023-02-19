@@ -18,6 +18,7 @@ import openfl.display.BitmapData;
 import openfl.display.Bitmap;
 import openfl.display.Loader;
 import openfl.events.Event;
+import openfl.events.ErrorEvent;
 import flixel.graphics.frames.FlxImageFrame;
 import openfl.net.URLLoader;
 import flixel.graphics.FlxGraphic;
@@ -46,6 +47,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	var historiabotao:FlxButton;
 	var freeplaybotao:FlxButton;
+	var multiplayerbotao:FlxButton;
 	var achievementsbotao:FlxButton;
 	var opcaobotao:FlxButton;
 	var letext:FlxText;
@@ -126,8 +128,9 @@ class MainMenuStateMobile extends MusicBeatState
 		//boom.setGraphicSize(Std.int));
 		//boom.flipX = true;
 		boom.updateHitbox();
-		boom.y = -500;
-		boom.x = -765;
+		boom.y = -620;
+		boom.flipX=true;
+		boom.x = -720;
 		boom.alpha=1;
 		add(boom);
 
@@ -138,7 +141,7 @@ class MainMenuStateMobile extends MusicBeatState
 
         historiabotao.alpha = 0.75;
 		historiabotao.x = FlxG.width;
-		historiabotao.y = 15;
+		historiabotao.y = 8.5;
         add(historiabotao);
 
 		freeplaybotao = new FlxButton(FlxG.width, 15 + historiabotao.y + historiabotao.height - 367, '');
@@ -149,9 +152,20 @@ class MainMenuStateMobile extends MusicBeatState
         freeplaybotao.alpha = 0.75;
 
 		freeplaybotao.x = FlxG.width;
-		freeplaybotao.y = 15 + historiabotao.y + historiabotao.height;
+		freeplaybotao.y = 10 + historiabotao.y + historiabotao.height;
 
         add(freeplaybotao);
+
+		multiplayerbotao = new FlxButton(FlxG.width, 15 + freeplaybotao.y + freeplaybotao.height, '');
+		multiplayerbotao.loadGraphic(Paths.image('mainmenu/setmultiplayer-locked2', 'preload'));
+		multiplayerbotao.alpha = 1;
+		multiplayerbotao.setGraphicSize(Std.int(multiplayerbotao.width * 0.6));
+
+		multiplayerbotao.updateHitbox();
+
+		multiplayerbotao.x = FlxG.width;
+		multiplayerbotao.y = 10 + freeplaybotao.y + freeplaybotao.height;
+		add(multiplayerbotao);
 
 
 		achievementsbotao = new FlxButton(FlxG.width, 15 + freeplaybotao.y + freeplaybotao.height, '');
@@ -162,7 +176,7 @@ class MainMenuStateMobile extends MusicBeatState
 		achievementsbotao.updateHitbox();
 
 		achievementsbotao.x = FlxG.width;
-		achievementsbotao.y = 15 + freeplaybotao.y + freeplaybotao.height;
+		achievementsbotao.y = 10 + multiplayerbotao.y + multiplayerbotao.height;
 		add(achievementsbotao);
 
 		opcaobotao = new FlxButton(FlxG.width, 15 + achievementsbotao.y + achievementsbotao.height, '');
@@ -171,7 +185,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		opcaobotao.updateHitbox();
 		opcaobotao.x = FlxG.width;
-		opcaobotao.y = 15 + achievementsbotao.y + achievementsbotao.height;
+		opcaobotao.y = 10 + achievementsbotao.y + achievementsbotao.height;
         opcaobotao.alpha = 0.75;
         add(opcaobotao);
 
@@ -181,7 +195,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		sobrebotao.updateHitbox();
 		sobrebotao.x = FlxG.width;
-		sobrebotao.y = 15 + opcaobotao.y + opcaobotao.height;
+		sobrebotao.y = 10 + opcaobotao.y + opcaobotao.height;
 		sobrebotao.alpha = 0.75;
 		add(sobrebotao);
 
@@ -246,6 +260,26 @@ class MainMenuStateMobile extends MusicBeatState
 					add(gameJoltIcon);
 					add(bordinha);
 				});
+				loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, function(event:Event):Void {
+					trace("nao peguei a foto");
+					gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
+					gameJoltIcon.loadGraphic(Paths.image('placeholderUserIcon', 'preload'));
+					gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
+					var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
+
+					var bordinha = new FlxSprite(0,0);
+					bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
+					tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
+					FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
+					FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
+					gameJoltIcon.x = gameJoltBG.x+10;
+					gameJoltIcon.y = gameJoltBG.y+2;
+					bordinha.x = gameJoltIcon.x-6.5;
+					bordinha.y = gameJoltIcon.y-4.5;
+					gameJoltIcon.visible = true;
+					add(gameJoltIcon);
+					add(bordinha);
+				});
 				loader.load(new URLRequest(GJClient.avatarURL));
 				
 				
@@ -265,12 +299,15 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxTween.tween(freeplaybotao, {x: FlxG.width - 2.5*freeplaybotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
 		});
 		new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+			FlxTween.tween(multiplayerbotao, {x: FlxG.width - 2.5*multiplayerbotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
+			});
+		new FlxTimer().start(0.7, function(tmr:FlxTimer) {
 		FlxTween.tween(achievementsbotao, {x: FlxG.width - 2.5*achievementsbotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+		new FlxTimer().start(0.9, function(tmr:FlxTimer) {
 		FlxTween.tween(opcaobotao, {x: FlxG.width - 2.5*opcaobotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
 		});
-		new FlxTimer().start(0.9, function(tmr:FlxTimer) {
+		new FlxTimer().start(1.1, function(tmr:FlxTimer) {
 		FlxTween.tween(sobrebotao, {x: FlxG.width - 2.5*sobrebotao.width + 696 + 90}, 0.5, {
 			ease: FlxEase.expoInOut,
 			onComplete: function(twn:FlxTween) {
@@ -331,6 +368,9 @@ class MainMenuStateMobile extends MusicBeatState
 						FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 					});
 					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+						FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+					});
+					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 						FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 					});
 					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
@@ -351,6 +391,9 @@ class MainMenuStateMobile extends MusicBeatState
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
@@ -375,6 +418,9 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
@@ -395,6 +441,9 @@ class MainMenuStateMobile extends MusicBeatState
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
@@ -418,6 +467,9 @@ class MainMenuStateMobile extends MusicBeatState
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
+				});
+				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
 				});
 				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
