@@ -29,6 +29,8 @@ class PauseSubState extends MusicBeatSubstate
 
 	var pauseMusic:FlxSound;
 
+	var calabocavio:FlxSound;
+
 	var continuar:FlxSprite;
 	var restart:FlxSprite;
 	var praticar:FlxSprite;
@@ -63,6 +65,9 @@ class PauseSubState extends MusicBeatSubstate
 		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
 		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
+
+		calabocavio = new FlxSound().loadEmbedded(Paths.sound('introGo','shared'));
+		calabocavio.volume = 0.6;
 
 		menuItems = menuItemsOG;
 
@@ -379,7 +384,7 @@ class PauseSubState extends MusicBeatSubstate
 							case 4:
 								if(isDoingtheThing)
 									{
-										FlxG.sound.play(Paths.sound('introGo','shared'), 0.6);
+										calabocavio.play();
 									}
 								PlayState.instance.canPause = false;			
 								go.scrollFactor.set();
