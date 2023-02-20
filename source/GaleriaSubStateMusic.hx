@@ -1,3 +1,4 @@
+import flixel.system.FlxSound;
 import Discord.DiscordClient;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -15,6 +16,8 @@ using StringTools;
 class GaleriaSubStateMusic extends MusicBeatSubstate
 {
 
+		var curSong:FlxSound;
+		var prevSong:FlxSound;
 
 		var loopar:Bool = false;
 		var playsequencia:Bool = false;
@@ -298,6 +301,11 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 
 		function changeSong(direction:Int){
 
+			if(!loopar){
+				FlxG.sound.music.stop();
+				FlxG.sound.music.destroy();
+			}
+
 			curSelected = direction;
 			new FlxTimer().start(0.3, function(tmr:FlxTimer) {
 			FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[direction].toLowerCase()), 0);
@@ -317,7 +325,7 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 			{
 				if(!loopar){
 				FlxG.sound.music.stop();
-				FlxG.sound.music.kill();
+				//FlxG.sound.music.destroy();
 				}
 				if(playsequencia)
 					changeSong(curSelected+1);
@@ -373,12 +381,15 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 				secondsTotal = Math.floor((songLength - curTime) / 1000);
 				if(secondsTotal < 0) secondsTotal = 0;
 				timer.text = FlxStringUtil.formatTime(Math.floor(curTime/1000), false) + '/' + FlxStringUtil.formatTime(Math.floor(songLength/1000), false);
-			}else{
+			}else if (FlxG.sound.music == null){
 				timer.text = '0:00/0:00';
 			}
 
-			DiscordClient.changePresence("Ouvindo:", GaleriaState.titulos[curSelected], true, songLength - curTime);
-
+			if(!pausado)
+				DiscordClient.changePresence("Ouvindo:", GaleriaState.titulos[curSelected], true, songLength - curTime);
+			else
+				DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
+			
 
 			if(FlxG.mouse.overlaps(menuItems) || FlxG.mouse.overlaps(checkboxArray) || 
 				FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||
@@ -434,6 +445,9 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 					FlxG.sound.music.resume();
 					pausado = false;
 					FlxG.sound.play(Paths.sound('click'));
+					if(FlxG.sound.music == null)
+						FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[curSelected].toLowerCase()), 0);
+				
 				}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&!pausado){
 					FlxG.sound.music.pause();
 					pausado = true;

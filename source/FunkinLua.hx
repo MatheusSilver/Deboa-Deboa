@@ -1,3 +1,4 @@
+import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.transition.FlxTransitionableState;
 import DialogueBoxPsych;
 import Shaders;
@@ -839,6 +840,21 @@ class FunkinLua {
 			}
 		});
 
+		Lua_helper.add_callback(lua, "makeLuaTiledSprite", function(tag:String, image:String, width:Float, height:Float, repeteEmX:Bool, repeteEmY:Bool) {
+			tag = tag.replace('.', '');
+			resetTiledSpriteTag(tag);
+			var leSprite:ModchartTiledSprite = new ModchartTiledSprite(width, height, repeteEmX, repeteEmY);
+			if(OpenFlAssets.exists(Paths.imagechecker(image))){
+				leSprite.loadGraphic(Paths.image(image));
+				}else{
+					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
+					leSprite.loadGraphic(Paths.image(image, 'preload'));
+				}
+			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
+			PlayState.instance.modchartTiledSprites.set(tag, leSprite);
+			leSprite.active = true;
+		});
+
 		/*Lua_helper.add_callback(lua, "makeLuaSpriteNoAntialiasing", function(tag:String, image:String, x:Float, y:Float) {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
@@ -1607,19 +1623,18 @@ class FunkinLua {
 			}
 			return null;
 		});
-		Lua_helper.add_callback(lua, "setPropertyLuaSprite", function(tag:String, variable:String, value:Dynamic) {
-			//luaTrace("setPropertyLuaSprite is deprecated! Use setProperty instead", false, true);
-			if(PlayState.instance.modchartSprites.exists(tag)) {
+		Lua_helper.add_callback(lua, "setPropertyTiledLuaSprite", function(tag:String, variable:String, value:Dynamic) {
+			if(PlayState.instance.modchartTiledSprites.exists(tag)) {
 				var killMe:Array<String> = variable.split('.');
 				if(killMe.length > 1) {
-					var coverMeInPiss:Dynamic = Reflect.getProperty(PlayState.instance.modchartSprites.get(tag), killMe[0]);
+					var coverMeInPiss:Dynamic = Reflect.getProperty(PlayState.instance.modchartTiledSprites.get(tag), killMe[0]);
 					for (i in 1...killMe.length-1) {
 						coverMeInPiss = Reflect.getProperty(coverMeInPiss, killMe[i]);
 					}
 					Reflect.setProperty(coverMeInPiss, killMe[killMe.length-1], value);
 					return true;
 				}
-				Reflect.setProperty(PlayState.instance.modchartSprites.get(tag), variable, value);
+				Reflect.setProperty(PlayState.instance.modchartTiledSprites.get(tag), variable, value);
 				return true;
 			}
 			//luaTrace("setPropertyLuaSprite: Lua sprite with tag: " + tag + " doesn't exist!");
@@ -1799,6 +1814,20 @@ class FunkinLua {
 		}
 		pee.destroy();
 		PlayState.instance.modchartSprites.remove(tag);
+	}
+
+	function resetTiledSpriteTag(tag:String) {
+		if(!PlayState.instance.modchartSprites.exists(tag)) {
+			return;
+		}
+		
+		var pee:ModchartTiledSprite = PlayState.instance.modchartTiledSprites.get(tag);
+		pee.kill();
+		if(pee.wasAdded) {
+			PlayState.instance.remove(pee, true);
+		}
+		pee.destroy();
+		PlayState.instance.modchartTiledSprites.remove(tag);
 	}
 
 	function resetTextTag(tag:String) {
@@ -2115,6 +2144,11 @@ class FunkinLua {
 		return PlayState.instance.modchartTexts.exists(name) ? PlayState.instance.modchartTexts.get(name) : Reflect.getProperty(PlayState.instance, name);
 	}
 
+	inline static function getTiledSpriteObject(name:String):FlxTiledSprite
+		{
+			return PlayState.instance.modchartTiledSprites.exists(name) ? PlayState.instance.modchartTiledSprites.get(name) : Reflect.getProperty(PlayState.instance, name);
+		}
+
 	public static function getVarInArray(instance:Dynamic, variable:String):Any
 		{
 			var shit:Array<String> = variable.split('[');
@@ -2305,6 +2339,12 @@ class ModchartSprite extends FlxSprite
 		super(x, y);
 		antialiasing = ClientPrefs.globalAntialiasing;
 	}
+}
+
+class ModchartTiledSprite extends FlxTiledSprite
+{
+	public var wasAdded:Bool = false;
+	//public var isInFront:Bool = false;
 }
 
 class DebugLuaText extends FlxText

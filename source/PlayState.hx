@@ -152,12 +152,14 @@ class PlayState extends MusicBeatState
 	#if (haxe >= "4.0.0")
 	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
 	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, ModchartSprite>();
+	public var modchartTiledSprites:Map<String, ModchartTiledSprite> = new Map<String, ModchartTiledSprite>();
 	public var modchartTimers:Map<String, FlxTimer> = new Map();
 	public var modchartSounds:Map<String, FlxSound> = new Map();
 	public var modchartTexts:Map<String, ModchartText> = new Map<String, ModchartText>();
 	#else
 	public var modchartTweens:Map<String, FlxTween> = new Map();
 	public var modchartSprites:Map<String, ModchartSprite> = new Map();
+	public var modchartTiledSprites:Map<String, ModchartTiledSprite> = new Map();
 	public var modchartTimers:Map<String, FlxTimer> = new Map<String, FlxTimer>();
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	public var modchartTexts:Map<String, ModchartText> = new Map();
@@ -400,7 +402,7 @@ class PlayState extends MusicBeatState
 
 	//Sonic P2 Stage
 	var p2Ground:BGSprite;
-	public var p2greenhill:BGSprite; //isso é uma ação desesperada...
+	var p2greenhill:BGSprite;
 	var p2Sky:BGSprite;
 
 	// - ring counter bullshit
@@ -501,14 +503,6 @@ class PlayState extends MusicBeatState
 		precacheList.set('PauseEnter', 'sound');
 		precacheList.set('pausescrollmenu', 'sound');
 		precacheList.set('breakfast', 'music');
-
-	
-		
-		//FlxG.sound.cache(Paths.inst(PlayState.SONG.song));
-		//if (SONG.needsVoices){
-		//	FlxG.sound.cache(Paths.voices(PlayState.SONG.song));
-		//}
-
 		
 		legendPath = 'letras/'+curSong.toLowerCase();
 
