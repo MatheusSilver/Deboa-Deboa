@@ -1,12 +1,12 @@
 {
 	"song": {
 		"sectionLengths": [],
-		"player1": "sonic-player",
+		"player1": "sonic-ccc",
 		"events": [],
 		"gfVersion": "invisibru",
-		"player2": "invisibru",
+		"player3": "invisibru",
 		"notes": [],
-		"player3": "sonicP2Pixel",
+		"player2": "sonicP2Pixel",
 		"song": "confronting-yourself",
 		"stage": "confronting",
 		"splashSkin": "blood",
