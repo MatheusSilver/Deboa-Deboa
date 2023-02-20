@@ -1918,14 +1918,15 @@ class PlayState extends MusicBeatState
 			{
 				case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
 					controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, NONE);
-					if(curSong.toLowerCase('triple-trouble') || curSong.toLowerCase('chaos') || nomehistorico.toLowerCase('gran finale') || curSong.toLowerCase('prey') || curSong.toLowerCase('pasta-night')){
+					if(curSong.toLowerCase()=='triple-trouble' || curSong.toLowerCase() =='chaos'|| nomehistorico.toLowerCase()=='gran finale' || curSong.toLowerCase()=='prey' || curSong.toLowerCase()=='pasta-night'){
 						controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, A);
 						}
 				case HITBOX:
-					controls.setHitBoxNOTES(mcontrols._hitbox);
-					if(curSong.toLowerCase('triple-trouble') || curSong.toLowerCase('chaos') || nomehistorico.toLowerCase('gran finale') || curSong.toLowerCase('prey') || curSong.toLowerCase('pasta-night')){
-					controls.setSpecialHitBoxNOTES(mcontrols._hitbox);
-					}
+					if(curSong.toLowerCase()=='triple-trouble' || curSong.toLowerCase() =='chaos'|| nomehistorico.toLowerCase()=='gran finale' || curSong.toLowerCase()=='prey' || curSong.toLowerCase()=='pasta-night')
+						controls.setSpecialHitBoxNOTES(mcontrols._hitbox2);
+					else
+						controls.setHitBoxNOTES(mcontrols._hitbox);
+
 				default:
 			}
 			trackedinputsNOTES = controls.trackedinputsNOTES;

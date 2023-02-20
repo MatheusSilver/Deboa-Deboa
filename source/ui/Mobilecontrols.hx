@@ -13,6 +13,7 @@ class Mobilecontrols extends FlxSpriteGroup
 	public var mode:ControlsGroup = HITBOX;
 
 	public var _hitbox:Hitbox;
+	public var _hitbox2:Hitbox2;
 	public var _virtualPad:FlxVirtualPad;
 
 	var config:Config;

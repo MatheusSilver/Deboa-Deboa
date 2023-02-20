@@ -385,11 +385,13 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 				timer.text = '0:00/0:00';
 			}
 
+
+			#if desktop
 			if(!pausado)
 				DiscordClient.changePresence("Ouvindo:", GaleriaState.titulos[curSelected], true, songLength - curTime);
 			else
 				DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
-			
+			#end
 
 			if(FlxG.mouse.overlaps(menuItems) || FlxG.mouse.overlaps(checkboxArray) || 
 				FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||

@@ -12,6 +12,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.ui.FlxButton;
 import ui.FlxVirtualPad;
 import ui.Hitbox;
+import ui.Hitbox2; //OOOOOOOOOOOOMAGAWD HITBOX2?????? DOS MESMOS CRIADORES DE ZAPORUNGA SHARAPOVA 2????? OMAGAAAAAAAAAAAAAAAAAAAWD
 
 #if (haxe >= "4.0.0")
 enum abstract Action(String) to String from String
@@ -432,7 +433,7 @@ class Controls extends FlxActionSet
 		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addbuttonuNOTES(action, hitbox.buttonRight, state));	
 	}
 
-	public function setHitBoxNOTES(hitbox:Hitbox) //Ok... aqui vai dar um mini trampo
+	public function setSpecialHitBoxNOTES(hitbox:Hitbox2) //Ok... aqui vai dar um mini trampo //Parece mentira
 		{
 			inline forEachBound(Control.NOTE_UP, (action, state) -> addbuttonuNOTES(action, hitbox.buttonUp, state));
 			inline forEachBound(Control.NOTE_DOWN, (action, state) -> addbuttonuNOTES(action, hitbox.buttonDown, state));
