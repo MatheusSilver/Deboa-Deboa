@@ -45,17 +45,18 @@ class LoadingsState extends MusicBeatSubstate
 		//O NOME DO ARQUIVO DEVE SER O MESMO QUE O NOME DO JSON DA MUSICA 
 		//Para grupos de músicas que usem a mesma tela de loading, veja o exemplo de como foi feita a do lordx
 		modboalogo.loadGraphic(Paths.image('loading/loading-logo',  'preload'));
+		//modboalogo.setGraphicSize(Std.int(FlxG.width * 1));
+		modboalogo.updateHitbox();
+		modboalogo.screenCenter(X);
+		modboalogo.y=FlxG.height;
+		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
+
+
 		loadingbar.loadGraphic(Paths.image('loading/carregando',  'preload'));
-		loadingbar.x=343;
-		//loadingbar.y=0;
-		modboalogo.y=720;
-		//modboalogo.x=0;		
-		loadingbar.setGraphicSize(Std.int(FlxG.width * 1));
 		loadingbar.updateHitbox();
 		loadingbar.antialiasing = ClientPrefs.globalAntialiasing;
-		modboalogo.setGraphicSize(Std.int(FlxG.width * 1));
-		modboalogo.updateHitbox();
-		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
+		loadingbar.y = 15;
+		loadingbar.x=FlxG.width + loadingbar.width*1.5;
 
 		if (loadingidentifier.contains(Std.string(FreeplayState.justread).toLowerCase())){
 			isgroup = true;
@@ -77,15 +78,14 @@ class LoadingsState extends MusicBeatSubstate
 		#end
 		//assim eu consigo ter um pequeno feedback se a loading screen não existe ou se só tá escrita errada mesmo.
 		FlxTween.tween(art, {alpha: 1}, 0.5,{ease: FlxEase.linear});
-		FlxTween.tween(loadingbar, {x: 0}, 0.6,{ease: FlxEase.quartInOut, startDelay: 0.4});
-		FlxTween.tween(modboalogo, {y: 0}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.5});
+		FlxTween.tween(loadingbar, {x: FlxG.width-loadingbar.width}, 0.6,{ease: FlxEase.quartInOut, startDelay: 0.4});
+		FlxTween.tween(modboalogo, {y: (FlxG.height-modboalogo.height)/2}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.5});
 		
 		art.setGraphicSize(Std.int(FlxG.width * 1.2));
 		art.updateHitbox();
 		art.screenCenter(XY);
 		art.antialiasing = ClientPrefs.globalAntialiasing;
 		art.scrollFactor.set();
-		art.screenCenter();
 
 		add(art); //Haha isso não é um NFT
 		add(modboalogo);
@@ -96,8 +96,8 @@ class LoadingsState extends MusicBeatSubstate
 	public function tirarCoisas():Void
 		{
 			FlxTween.tween(art, {alpha: 0}, 0.5,{ease: FlxEase.linear});
-			FlxTween.tween(loadingbar, {x: 343}, 0.25,{ease: FlxEase.quartInOut, startDelay: 0.05});
-			FlxTween.tween(modboalogo, {y: 720}, 0.3,{ease: FlxEase.quartInOut, startDelay: 0.15});
+			FlxTween.tween(loadingbar, {x: FlxG.width+10}, 0.25,{ease: FlxEase.quartInOut, startDelay: 0.05});
+			FlxTween.tween(modboalogo, {y: FlxG.height+10}, 0.3,{ease: FlxEase.quartInOut, startDelay: 0.15});
 		}
 
 	override function update(elapsed:Float)

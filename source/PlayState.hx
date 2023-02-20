@@ -576,20 +576,17 @@ class PlayState extends MusicBeatState
 
 		modboalogo.loadGraphic(Paths.image('loading/loading-logo',  'preload'));
 		loadingbar.loadGraphic(Paths.image('loading/carregando',  'preload'));
-		loadingbar.x=0;
 		canPause =false;
-		//loadingbar.y=0;
-		modboalogo.y=0;
-		//modboalogo.x=0;		
-		loadingbar.setGraphicSize(Std.int(FlxG.width * 1));
 		loadingbar.updateHitbox();
+		loadingbar.x=FlxG.width-loadingbar.width;
+		loadingbar.y = 15;
 		loadingbar.antialiasing = ClientPrefs.globalAntialiasing;
 		loadingbar.cameras = [camHUD2];
-		modboalogo.setGraphicSize(Std.int(FlxG.width * 1));
+		//modboalogo.setGraphicSize(Std.int(FlxG.width * 1));
 		modboalogo.updateHitbox();
 		modboalogo.cameras = [camHUD2];
-		art.cameras=[camHUD];
 		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
+		modboalogo.screenCenter(XY);
 		art.loadGraphic(Paths.image(loadingImage, 'preload'));
 		art.cameras = [camHUD2];
 		art.setGraphicSize(Std.int(FlxG.width * 1.0));
@@ -749,7 +746,8 @@ class PlayState extends MusicBeatState
 					p3staticbg.screenCenter();
 					p3staticbg.scale.x = 4.5;
 					p3staticbg.scale.y = 4.5;
-					p3staticbg.visible = false;
+					p3staticbg.visible = true;
+					p3staticbg.alpha=0;
 					add(p3staticbg);
 
 					var bg:FlxSprite = new FlxSprite(-630.4, -266).loadGraphic(Paths.image('cenarios/ground'));
@@ -1512,7 +1510,7 @@ class PlayState extends MusicBeatState
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 
 		FlxG.fixedTimestep = false;
-		if((!ClientPrefs.camZooms || SONG.canfollowpermitido || OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua')))&& curSong.toLowerCase()!='pasta-night')
+		if(!ClientPrefs.camZooms || SONG.canfollowpermitido || OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua')))
 			moveCameraSection(0);
 		
 		/*
@@ -2266,8 +2264,8 @@ class PlayState extends MusicBeatState
 			trace(loadingImage);
 
 			FlxTween.tween(art, {alpha: 0}, 0.85,{ease: FlxEase.linear, startDelay: 0.05});
-			FlxTween.tween(loadingbar, {x: 343}, 0.45,{ease: FlxEase.quartInOut, startDelay: 0.05});
-			FlxTween.tween(modboalogo, {y: 720}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.10});
+			FlxTween.tween(loadingbar, {x: FlxG.width + 15}, 0.45,{ease: FlxEase.quartInOut, startDelay: 0.05});
+			FlxTween.tween(modboalogo, {y: FlxG.height*1.1}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.10});
 		//	trace("Precache finalizado");
 	}
 
@@ -3941,6 +3939,8 @@ class PlayState extends MusicBeatState
 				if (daNote.noteType == 'player3' && !daNote.mustPress)
 					strumGroup = thirdplayerStrums;
 
+				if(ClientPrefs.middleScroll && !daNote.mustPress)
+					daNote.visible = false;
 				
 				var strumX:Float = strumGroup.members[daNote.noteData].x;
 				var strumY:Float = strumGroup.members[daNote.noteData].y;
@@ -4782,14 +4782,14 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(FlxG.camera, {zoom: 0.9}, 2, {ease: FlxEase.cubeOut});
 					defaultCamZoom = 0.9;
 
-					p3staticbg.visible = true;
+					p3staticbg.alpha=1;
 
 				case 1296: // Entrada do knuckles omaga, use strum swap 1 aqui junto com os eventos de troca de boneco.
 
 					FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
 					defaultCamZoom = 1.1;
 
-					p3staticbg.visible = false;
+					p3staticbg.alpha=0;
 
 					doP3JumpKNUCKLES();
 
@@ -4797,7 +4797,7 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(FlxG.camera, {zoom: 0.9}, 2, {ease: FlxEase.cubeOut});
 					defaultCamZoom = 0.9;
 
-					p3staticbg.visible = true;
+					p3staticbg.alpha=1;
 					startachieving('knuckles_free');
 
 				case 2823: //Entrada do eggman, pra reverter o efeito das notas, use o evento strum swap 2
@@ -4805,7 +4805,7 @@ class PlayState extends MusicBeatState
 
 					FlxTween.tween(FlxG.camera, {zoom: 1}, 2, {ease: FlxEase.cubeOut});
 					defaultCamZoom = 1;
-					p3staticbg.visible = false;
+					p3staticbg.alpha=0;
 
 				case 2887, 3015, 4039:
 					dad.playAnim('laugh', true);
@@ -4814,7 +4814,7 @@ class PlayState extends MusicBeatState
 					dad.nonanimated = false;
 
 				case 4111: //Final, vá de acordo com a ordem no chat do discord pra trocar os bonecos.
-					p3staticbg.visible = true;
+					p3staticbg.alpha=1;
 					FlxTween.tween(playerStrums.members[2], {alpha: 0}, 1, {ease: FlxEase.cubeOut});
 					FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x + 160 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut});
 					FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x + 160 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut});
@@ -6929,9 +6929,8 @@ class PlayState extends MusicBeatState
 
 		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
 		{
-			if((!ClientPrefs.camZooms || SONG.canfollowpermitido || !OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua')))&&curSong.toLowerCase()!='pasta-night') //Apenas pra garantir que nenhum engraçadinho apague isso e fale: Aaaaaaaaa Mas sílvio... A camera tá bugada...
+			if(!ClientPrefs.camZooms || SONG.canfollowpermitido || !OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua'))) //Apenas pra garantir que nenhum engraçadinho apague isso e fale: Aaaaaaaaa Mas sílvio... A camera tá bugada...
 				moveCameraSection(Std.int(curStep / 16));
-
 			//Apenas para evitar conflito entre os dois e pra talvez consertar um uso excessivo de memória com isso.
 		}
 		if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && curBeat % 4 == 0)
@@ -7270,10 +7269,10 @@ class PlayState extends MusicBeatState
 		{
 			strumLineNotes.forEach(function(tospin:FlxSprite)
 				{
-					FlxTween.angle(tospin, 0, 360, 0.2, {ease: FlxEase.quintOut});
+					FlxTween.angle(tospin, 0, 360, 0.35, {ease: FlxEase.quintOut});
 				});
 			if (majinstrums){
-				FlxTween.angle(infinitesimbol, 0, 180, 0.2, {ease: FlxEase.quintOut}); //haha, simetria massa.
+				FlxTween.angle(infinitesimbol, 0, 180, 0.35, {ease: FlxEase.quintOut}); //haha, simetria massa.
 			}
 		}
 

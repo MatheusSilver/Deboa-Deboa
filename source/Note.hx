@@ -293,9 +293,6 @@ class Note extends FlxSprite
 			earlyHitMult = 1;
 		}
 		x += offsetX;
-		if(ClientPrefs.middleScroll && !mustPress){
-			visible = false;
-		}
 	}
 
 	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
