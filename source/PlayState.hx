@@ -5223,13 +5223,17 @@ class PlayState extends MusicBeatState
 					case 2: //Tenho minhas duvidas se isso aqui será usado, mas né? Tá ai.
 						thirdplayerStrums.forEach(function(tofade:FlxSprite)
 							{
+								if(!ClientPrefs.middleScroll){
 								FlxTween.tween(tofade, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]));
+								}
 							});
 					case 1:
 						opponentStrums.forEach(function(tofade:FlxSprite)
 							{
+								if(!ClientPrefs.middleScroll){
 								tofade.visible = true;
 								FlxTween.tween(tofade, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]));
+								}
 							});
 					case 0:
 						playerStrums.forEach(function(tofade:FlxSprite)
