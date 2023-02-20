@@ -740,7 +740,11 @@ class PlayState extends MusicBeatState
 					ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
 
 					p3staticbg = new FlxSprite(0, 0);
+					if(!ClientPrefs.lowQuality) {
 					p3staticbg.frames = Paths.getSparrowAtlas('effects/estatica', 'shared');
+					} else {
+					p3staticbg.frames = Paths.getSparrowAtlas('effects/estaticalq', 'shared');
+					}
 					p3staticbg.animation.addByPrefix('P3Static', 'TitleMenuSSBG instance 1', 24, true);
 					p3staticbg.animation.play('P3Static');
 					p3staticbg.screenCenter();
@@ -748,7 +752,9 @@ class PlayState extends MusicBeatState
 					p3staticbg.scale.y = 4.5;
 					p3staticbg.visible = true;
 					p3staticbg.alpha=0;
+					if(FlxG.save.data.framerate < 15) {
 					add(p3staticbg);
+					}
 
 					var bg:FlxSprite = new FlxSprite(-630.4, -266).loadGraphic(Paths.image('cenarios/ground'));
 					bg.antialiasing = true;
@@ -1314,8 +1320,12 @@ class PlayState extends MusicBeatState
 		if (nomehistorico.toLowerCase() == 'profundezas'){
 			var logoBl2:FlxSprite;
 			logoBl2 = new FlxSprite(0, 0);
-			
+			if(!ClientPrefs.lowQuality) 
+			{
 			logoBl2.frames = Paths.getSparrowAtlas('cenarios/depths/waves');
+			} else { 
+			logoBl2.frames = Paths.getSparrowAtlas('cenarios/depths/wavesLowQuality');
+			}
 			logoBl2.antialiasing = ClientPrefs.globalAntialiasing;
 			logoBl2.scale.set(5, 3);
 			logoBl2.alpha = 0.06;
@@ -1327,11 +1337,7 @@ class PlayState extends MusicBeatState
 			vignetteEspecial.cameras = [camHUD2];
 			vignetteEspecial.setGraphicSize(FlxG.width, FlxG.height);
 			vignetteEspecial.alpha = 0.3;
-			// Caso o lowquality esteja ativado, o filtro não vai aparecer, consumindo pouca ram 
-			// Mas e se não desativar?
-			// Eu tenho autorização de colocar minha otimização aqui?
-			if(!ClientPrefs.lowQuality) 
-			{
+			if(FlxG.save.data.framerate < 20) {
 			add(logoBl2);
 			}
 			add(vignetteEspecial);
