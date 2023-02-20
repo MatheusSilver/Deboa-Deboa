@@ -145,8 +145,9 @@ class GaleriaState extends MusicBeatState
 
 		override function closeSubState()
 			{
-				
+				#if destkop
 				DiscordClient.changePresence("Vendo a galeria", null);
+				#end
 				stoploading = false;
 
 				persistentDraw = true;
