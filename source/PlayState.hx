@@ -3689,7 +3689,13 @@ class PlayState extends MusicBeatState
 				#end
 			}
 		}
-
+		if (SONG.song.toLowerCase() == 'milk')
+			{
+				if(curStep == 1249)
+					{
+						startachieving("sunky_fatos");
+					}
+			}
 
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
 		{
@@ -7527,6 +7533,10 @@ class PlayState extends MusicBeatState
 						//Essa outra parte é só para os achievements que são desbloqueados apenas no final da musica.
 						//Outra coisa, os desbloqueios colocados aqui serão notificados só ao final da musica.
 						//Caso queira que o desbloqueio aconteça durante a música, deverá usar o startachieving
+					case 'milk_fatos':
+						if(SONG.song.toLowerCase() == 'milk' && !usedPractice && !cpuControlled) {
+							unlock = true;
+						}
 					case 'toastie':
 						if(ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) {
 							unlock = true;
