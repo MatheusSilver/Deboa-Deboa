@@ -1,5 +1,5 @@
 .coolBox {
-    background: #1a1a1aCC;
+    background: #ff0000cc;
     margin: 40px 4vw;
     padding: 25px;
     font-size: 120%;
@@ -23,7 +23,7 @@ h1 {
 }
 
 body {
-    background-image: url('img/skin-funkin-cardbordtoast.jpg');
+    background-image: url('bg-wfiltro.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -38,15 +38,15 @@ a { color:inherit;
 
 
 .hovertext a{
-    color:white;
-    text-shadow: 0px 0px #00000077;
+    color:rgba(136, 0, 0, 0.644);
+    text-shadow: 0px 0px #ff000077;
     transition: color 1s, text-shadow 1s;
 }
 
 .hovertext a:hover
 {
-    text-shadow: 2px 2px #00000077;
-    color: #ffb50e;
+    text-shadow: 2px 2px #ff000077;
+    color: #9100009f;
 }
 
 .linktext {
@@ -66,11 +66,11 @@ a { color:inherit;
 
 #itch a:hover
 {
-    color: #fa5c5c;
+    color: #c40000c4;
 }
 #twitter a:hover
 {
-    color: #00acee;
+    color: #c40000c4;
 }
 
 
