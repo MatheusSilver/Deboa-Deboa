@@ -58,7 +58,10 @@ function onCreatePost()
 	setProperty('waves.alpha', 0.12)
 	scaleObject('waves', 2.5, 1.6)
 	addLuaSprite('waves', true)
-	setBlendMode('waves', 'subtract')
+	if not lowQuality then
+	setBlendMode('waves', 'subtract') -- Pfv não me mate X02
+	--Assinado: Não foi o Dav
+	end
 	objectPlayAnimation('waves','idle',true)
 
 
