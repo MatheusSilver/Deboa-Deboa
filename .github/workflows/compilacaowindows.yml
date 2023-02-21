@@ -41,7 +41,7 @@ jobs:
           haxelib --quiet install flixel-addons
           haxelib install hscript
           haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc --quiet
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit --quiet
+          haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit --quiet
           haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview --quiet
           haxelib git extension-webm https://github.com/Daninnocent/extension-webm --quiet
           haxelib install actuate
