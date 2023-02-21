@@ -20,6 +20,7 @@ class Achievements {
 		["Sarah as 3 da manhã",			"Jogue round-a-bout num horário específico",		'madrugada',		true, 		185535, 		'ganancia', 	3], //ok
 		["Skill Issue",					"Morra com o botplay ligado em Caos",				'chaos_bot',		true, 		181572, 		'discordia', 	3],
 		["Colecionador",				"Consiga todos os troféus",							'colecionador',		false, 		181719, 		'geral', 		4],
+		["Cuspindo fatos",				"Ouça o sunky cuspir fatos em milk",				'sunky_fatos',		false, 		186689, 		'meme maker', 		1],
 		["Preciosos Aneis",				"Pegue todos os aneis em Ameaça Tripla",			'rings',			false, 		181720, 		'orgulho', 		3], //ok
 		["Herói da Profecia",			"Vença todos os pecados",							'heroi',			false, 		181721, 		'geral', 		2],
 		["Nunca confie em robos",		"Morra com o botplay ligado em caça",				'prey_bot',			true, 		181722, 		'alt', 		2], //ok
