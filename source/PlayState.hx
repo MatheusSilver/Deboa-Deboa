@@ -193,7 +193,7 @@ class PlayState extends MusicBeatState
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
 
-	public var noteKillOffset:Float = 300;
+	public var noteKillOffset:Float = 350;
 
 	// - flying shit
 	var flyTarg:Character;

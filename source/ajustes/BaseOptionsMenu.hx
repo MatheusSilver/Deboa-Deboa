@@ -89,8 +89,8 @@ class BaseOptionsMenu extends MusicBeatState
 
 		super();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('escolhendo-vermelho'));
-		bg.color = 0xFFea71fd; //arrumem a cor a vosso gosto
+		bg = new FlxSprite().loadGraphic(Paths.image('escolhendo-branco'));
+		bg.color = 0xfffc4f4f; //arrumem a cor a vosso gosto
 		bg.updateHitbox();
 
 		bg.screenCenter();
@@ -390,7 +390,7 @@ class BaseOptionsMenu extends MusicBeatState
 			case 'FullScreen':
 				daText = "Bom... Deixa o game em tela cheia uai";
 			case 'Teste o HitSound':
-				daText = "Aperte Enter para testar o volume e o som do Hitsound escolhido. \n a opção de hitsound precisa estar ativa para funcionar.";
+				daText = "Aperte Enter para testar o volume e o som do Hitsound escolhido. \n A opção de hitsound precisa estar ativa para funcionar.";
 			case 'Tipo':
 				daText = "Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis \n Os Hitsounds precisam estar ativos para mudar esta opção.";
 			case 'Volume':
