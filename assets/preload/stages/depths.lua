@@ -41,16 +41,27 @@ end
 
 function onCreatePost()
 
-	setProperty('healthLoss', 0)
+	--setProperty('healthLoss', 0)
 
-	makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
+	makeLuaSprite('vgpreto', 'blackvignette', 0, 0);
+	setObjectCamera('vgpreto', 'camHUD2');
+	setProperty('vgpreto.alpha', 0.6)
+	addLuaSprite('vgpreto', true);
+
+	if lowQuality then
+		makeAnimatedLuaSprite('waves', 'cenarios/depths/wavesLowQuality', 0, 0)
+	else
+		makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
+	end
 	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
-	setObjectCamera('waves', 'camhud')
-	setProperty('waves.alpha', 0.36 )
+	setObjectCamera('waves', 'camhud2')
+	setProperty('waves.alpha', 0.12)
 	scaleObject('waves', 2.5, 1.6)
 	addLuaSprite('waves', true)
 	setBlendMode('waves', 'subtract')
 	objectPlayAnimation('waves','idle',true)
+
+
 
 	addLuaSprite('r', true)
 end
@@ -85,12 +96,16 @@ function onStartCountdown() --ok
 	setProperty('dad.alpha', 0)
 	setProperty('iconP2.alpha', 0)
 	doTweenAlpha('b', 'waves', 0.06, 0.6, 'linear')
+	doTweenAlpha("c", 'vgpreto', 0.3, 0.6, 'linear')
 	return Function_Continue
 end
 
 function onStepHit()
 	if curStep == 512 then alphaLoop = false end
-	if curStep == 517 then doTweenAlpha('first', 'waves', 0.35, 0.8, 'linear') end
+	if curStep == 517 then 
+	doTweenAlpha('first', 'waves', 0.35, 0.8, 'linear') 
+	doTweenAlpha('third', 'vgpreto', 0.3, 0.8, 'linear') 
+	end
 end
 
 function onTweenCompleted(tag)
@@ -98,6 +113,8 @@ function onTweenCompleted(tag)
 	if tag == 'boo2' and fadelooping then doTweenAlpha('boo1', 'dad', 0.1, 0.6, 'linear') end
 	if tag == 'a' and alphaLoop then doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
 	if tag == 'b' and alphaLoop then doTweenAlpha('a', 'waves', 0.12, 0.8, 'linear') end
+	if tag == 'c' and alphaLoop then doTweenAlpha('d', 'vgpreto', 1, 0.8, 'linear') end
+	if tag == 'd' and alphaLoop then doTweenAlpha('c', 'vgpreto', 0.6, 0.8, 'linear') end
 	if tag == 'first' then alphaLoop = true; doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
 	if tag == 'r1' then doTweenAlpha('r2', 'r', 0.5, 1, 'linear') end
 	if tag == 'r2' then doTweenAlpha('r1', 'r', 1, 1, 'linear') end

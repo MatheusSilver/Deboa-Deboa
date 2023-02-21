@@ -120,8 +120,6 @@ class PlayState extends MusicBeatState
 	public static var resetforcado = false; //Provavelmente vai ser usado no futuro em:
 	//"Eu digo quando acaba", na real
 
-	var vignetteEspecial:FlxSprite; //usado exclusivamente na simp into the chifres
-
 	var infinitesimbol:FlxSprite; //detalhe gigachad
 
 	// - coldsteels spins
@@ -1316,33 +1314,6 @@ class PlayState extends MusicBeatState
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
-
-		if (nomehistorico.toLowerCase() == 'profundezas'){
-			var logoBl2:FlxSprite;
-			logoBl2 = new FlxSprite(0, 0);
-			if(!ClientPrefs.lowQuality) 
-			{
-			logoBl2.frames = Paths.getSparrowAtlas('cenarios/depths/waves');
-			} else { 
-			logoBl2.frames = Paths.getSparrowAtlas('cenarios/depths/wavesLowQuality');
-			}
-			logoBl2.antialiasing = ClientPrefs.globalAntialiasing;
-			logoBl2.scale.set(5, 3);
-			logoBl2.alpha = 0.06;
-			logoBl2.cameras = [camHUD2];
-			logoBl2.animation.addByPrefix('muitomedo', 'idle', 13);
-			logoBl2.animation.play('muitomedo');
-			logoBl2.updateHitbox();
-			vignetteEspecial = new FlxSprite(0, 0).loadGraphic(Paths.image('vignette'));
-			vignetteEspecial.cameras = [camHUD2];
-			vignetteEspecial.setGraphicSize(FlxG.width, FlxG.height);
-			vignetteEspecial.alpha = 0.3;
-			if(FlxG.save.data.framerate < 20) {
-			add(logoBl2);
-			}
-			add(vignetteEspecial);
-
-		}
 		
 		var camPos:FlxPoint = new FlxPoint(gf.getGraphicMidpoint().x, gf.getGraphicMidpoint().y);
 		camPos.x += gf.cameraPosition[0];
@@ -4537,14 +4508,6 @@ class PlayState extends MusicBeatState
 
 			case 'StaticMiss':
 				staticHitMiss();
-
-			case '"--------------': //vignetteEspecial
-			var duracao:Float = Std.parseFloat(value2);
-			if (value1 == 'true'){
-				vignetteEspecial.alpha = 0.7;
-			} else{
-				FlxTween.tween(vignetteEspecial, {alpha: 0.3}, duracao);
-			}
 
 			case 'events':
 				FlxTween.tween(blackFuck, {alpha: 1}, 1.5);	
