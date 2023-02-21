@@ -347,13 +347,6 @@
 						"CharacterAlphaTween",
 						"bf",
 						"1,0.4"
-					],
-					[
-						146250,
-						-1,
-						"--------------",
-						"true",
-						""
 					]
 				],
 				"bpm": 0,
@@ -365,15 +358,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						147428.571428571,
-						-1,
-						"--------------",
-						"false",
-						"6"
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false

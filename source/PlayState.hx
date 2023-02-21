@@ -5139,8 +5139,7 @@ class PlayState extends MusicBeatState
 			case 'CamZoomTween':
 				var quantidade:Float = Std.parseFloat(value1);
 				var duracao:Float = Std.parseFloat(value2);
-				FlxTween.tween(FlxG.camera, {zoom: quantidade}, duracao, {ease: FlxEase.linear});
-
+				FlxTween.num(defaultCamZoom, quantidade, duracao, {ease: FlxEase.linear}, function (v:Float) {defaultCamZoom = v;});
 			case 'TelaPreta':
 				if(value1 == 'true'){
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3);
