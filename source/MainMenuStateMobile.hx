@@ -65,6 +65,8 @@ class MainMenuStateMobile extends MusicBeatState
 	var checkiftouch:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
+	public static var version:String = '0.8.5';
+
 	override function create()
 	{
 		Main.dumpCache();
@@ -128,9 +130,9 @@ class MainMenuStateMobile extends MusicBeatState
 		//boom.setGraphicSize(Std.int));
 		//boom.flipX = true;
 		boom.updateHitbox();
-		boom.y = -620;
+		boom.y = -565;
 		boom.flipX=true;
-		boom.x = -720;
+		boom.x = -751;
 		boom.alpha=1;
 		add(boom);
 
@@ -327,7 +329,11 @@ class MainMenuStateMobile extends MusicBeatState
 		#end
 
 
-
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 34, 0, "ModBoa: EXE v" + version, 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("sonic-1-hud-font.ttf", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.updateHitbox();
+		add(versionShit);
 		super.create();
 	}
 

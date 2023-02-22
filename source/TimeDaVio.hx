@@ -66,12 +66,12 @@ class TimeDaVio extends MusicBeatState
                                     '',
                                     '',
                                     '',
-                                    'https://discord.gg/B3uAXgyr',
+                                    'https://discord.gg/jNdV8BEUZU',
                                     'https://www.facebook.com/MarianaSayuriFandubsFansings'];
 
                                     
     var twitterLink:Array<String> = ['https://twitter.com/galaccine', 'https://twitter.com/Davizinhn', 'https://twitter.com/Ashuro_Privety', '', 'https://twitter.com/Konan_Hatake13', 
-                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', '', 
+                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/Point15104219', 
                                     /*daqui pra frente é elenco*/ 
                                     'https://twitter.com/galaccine',
                                     'https://twitter.com/bluetufie',
@@ -82,7 +82,7 @@ class TimeDaVio extends MusicBeatState
                                     'https://www.facebook.com/christian.palheta', 
                                     'https://twitter.com/M0lt3nziito',
                                     'https://twitter.com/Nekop9123',
-                                    'https://twitter.com/DiazNih_',
+                                    '',
                                     'https://twitter.com/orochigad0',
                                     'https://twitter.com/sahriell_',
                                     'https://twitter.com/RealVinizitooo', 
@@ -110,10 +110,6 @@ class TimeDaVio extends MusicBeatState
 	override function create()
 		{
 			FlxG.mouse.visible = true;
-			#if desktop
-			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Vendo os créditos", null);
-			#end
 			/*bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();
@@ -217,6 +213,10 @@ class TimeDaVio extends MusicBeatState
 		}
 	override function update(elapsed:Float)
 		{
+            #if desktop
+			// Updating Discord Rich Presence
+			DiscordClient.changePresence("Vendo os créditos do(a) "+creditStuff[curSelected], null);
+			#end
             if (controls.BACK) {
                 FlxG.sound.play(Paths.sound('cancelMenu'));
                 MusicBeatState.switchState(new SobreState());

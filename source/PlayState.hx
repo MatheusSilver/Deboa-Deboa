@@ -2052,11 +2052,14 @@ class PlayState extends MusicBeatState
 						camGame.alpha = 0;
 						camHUD.alpha = 0;
 						startCountdown();
-	
+						
 					case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
 	
 					if (curSong.toLowerCase()=='triple-trouble'){
 						camHUD.alpha = 0;
+						precacheList.set('cards/sayuri-cartao', 'image');
+						precacheList.set('cards/brunito-cartao', 'image');
+						precacheList.set('cards/bluetufie-cartao', 'image');
 					}
 					startCountdown();
 					blackFuck.alpha = 1;
@@ -3210,6 +3213,7 @@ class PlayState extends MusicBeatState
 				//Endless
 				if(curSong.toLowerCase()=='endless' && curStep >= 500){skin='Majin_Notes';}
 
+
 				//FIQUEI FUCKING 2 HORAS TENTANDO CONSERTAR ISSO...
 				//O problema? eu tinha trocado o nome da textura da strum depois de ela ter carregado a textura padrão...
 				//Sílvio == bulo...
@@ -3613,6 +3617,7 @@ class PlayState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+
 
 		if (nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
 			
@@ -6790,6 +6795,112 @@ class PlayState extends MusicBeatState
 		if (curSong.toLowerCase() == 'prey' && curStep > 4490 && canuseevents == false)
 			canuseevents = true;
 
+				//cards triple trouble
+				if(curSong.toLowerCase()=='triple-trouble' && ClientPrefs.legendas)
+					{
+						switch(curStep)
+						{
+							case 16:
+								if(ClientPrefs.downScroll)
+									{
+										var sayuri:FlxSprite = new FlxSprite();
+										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
+										sayuri.cameras = [camHUD2];
+										sayuri.x=-421;
+										sayuri.y=107;
+										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
+										FlxTween.tween(sayuri, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+										sayuri.antialiasing = ClientPrefs.globalAntialiasing;
+										sayuri.alpha=1;
+										new FlxTimer().start(4, function(tmr:FlxTimer){
+											remove(sayuri);
+										});
+										add(sayuri);
+									}
+								else
+									{
+										var sayuri:FlxSprite = new FlxSprite();
+										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
+										sayuri.cameras = [camHUD2];
+										sayuri.x=-421;
+										sayuri.y=450;
+										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
+										FlxTween.tween(sayuri, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+										sayuri.antialiasing = ClientPrefs.globalAntialiasing;
+										sayuri.alpha=1;
+										new FlxTimer().start(4, function(tmr:FlxTimer){
+											remove(sayuri);
+										});
+										add(sayuri);
+									}
+							case 1304: // for testing (1304)
+								if(ClientPrefs.downScroll)
+									{
+										var blutufie:FlxSprite = new FlxSprite();
+										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
+										blutufie.cameras = [camHUD2];
+										blutufie.x=1280;
+										blutufie.y=72;
+										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
+										FlxTween.tween(blutufie, {x: 1280}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+										blutufie.antialiasing = ClientPrefs.globalAntialiasing;
+										blutufie.alpha=1;
+										new FlxTimer().start(4, function(tmr:FlxTimer){
+											remove(blutufie);
+										});
+										add(blutufie);
+									}
+								else
+									{
+										var blutufie:FlxSprite = new FlxSprite();
+										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
+										blutufie.cameras = [camHUD2];
+										blutufie.x=1280;
+										blutufie.y=421;
+										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
+										FlxTween.tween(blutufie, {x: 1280}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+										blutufie.antialiasing = ClientPrefs.globalAntialiasing;
+										blutufie.alpha=1;
+										new FlxTimer().start(4, function(tmr:FlxTimer){
+											remove(blutufie);
+										});
+										add(blutufie);
+									}
+							case 2840: // for testing (2840)
+								if(ClientPrefs.downScroll)
+									{
+										var brunito:FlxSprite = new FlxSprite();
+										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
+										brunito.cameras = [camHUD2];
+										brunito.x=-421;
+										brunito.y=107;
+										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
+										FlxTween.tween(brunito, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+										brunito.antialiasing = ClientPrefs.globalAntialiasing;
+										brunito.alpha=1;
+										new FlxTimer().start(4, function(tmr:FlxTimer){
+											remove(brunito);
+										});
+										add(brunito);
+									}
+								else
+									{
+										var brunito:FlxSprite = new FlxSprite();
+										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
+										brunito.cameras = [camHUD2];
+										brunito.x=-421;
+										brunito.y=450;
+										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
+										FlxTween.tween(brunito, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+										brunito.antialiasing = ClientPrefs.globalAntialiasing;
+										brunito.alpha=1;
+										new FlxTimer().start(4, function(tmr:FlxTimer){
+											remove(brunito);
+										});
+										add(brunito);
+									}
+						}
+					}
 
 		if (curSong == 'faker')
 			{
