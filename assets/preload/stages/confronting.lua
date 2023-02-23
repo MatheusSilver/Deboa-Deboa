@@ -16,6 +16,8 @@ local phase6cheetos = {'angelislandchao', 'angelislandarvores', 'angelislandbg'}
 
 local phase7cheetos = {'phase7-1', 'phase7-2', 'phase7-3', 'phase7-4'}
 
+local phase9cheetos = {'phase9-1', 'phase9-2', 'phase9-3'}
+
 function onCreatePost()
 	setProperty("boyfriendGroup.visible", false)
 	setProperty('dadGroup.visible', false)
@@ -291,7 +293,34 @@ function onCreate()
 	setProperty('phase8.scale.x', 1)
 	setProperty('phase8.scale.y', 1)
 	setProperty('phase8.visible', false)
+	setProperty('phase8.antialiasing', false)
 	addLuaSprite('phase8',false)
+
+	--phase 9 cheetos vulgo melhor phase do mod falo mesmo achou ruim cai no soco
+
+	makeLuaTiledSprite('phase9-2','cenarios/phase9/2',4096,1024,true,false) --1
+	setLuaSpriteScrollFactor('phase9-2',0.4,0.4)
+	setPropertyTiledLuaSprite("phase9-2.antialiasing", false)
+	setPropertyTiledLuaSprite("phase9-2.visible", false)
+	setPropertyTiledLuaSprite("phase9-2.x", -555)
+	setPropertyTiledLuaSprite("phase9-2.y", -160)
+	addLuaSprite('phase9-2', false);
+
+	makeLuaSprite('phase9-3','cenarios/phase9/3',-800,-500)--5
+	setLuaSpriteScrollFactor('phase9-3',1,1)
+	setProperty('phase9-3.scale.x', 0.3)
+	setProperty('phase9-3.scale.y', 0.3)
+	setProperty('phase9-3.visible', false)
+	setProperty('phase9-3.antialiasing', false)
+	addLuaSprite('phase9-3',false)
+
+	makeLuaTiledSprite('phase9-1','cenarios/phase9/1',4096,1024,true,false) --1
+	setLuaSpriteScrollFactor('phase9-1',0.4,0.4)
+	setPropertyTiledLuaSprite("phase9-1.antialiasing", false)
+	setPropertyTiledLuaSprite("phase9-1.visible", false)
+	setPropertyTiledLuaSprite("phase9-1.x", -555)
+	setPropertyTiledLuaSprite("phase9-1.y", -260)
+	addLuaSprite('phase9-1', true);
 
 
 end
@@ -369,7 +398,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty("defaultCamZoom",0.8) -- OU VAI OU VAI...
 		end		
 	elseif curPhase == 7 then
-		setProperty("defaultCamZoom",0.65)
+		setProperty("defaultCamZoom",0.75)
 		for i = 1,#phase1unico do
 			setProperty(phase1unico[i]..'.visible', false)
 		end
@@ -380,7 +409,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase7cheetos[i]..'.visible',true)
 		end
 	elseif curPhase == 8 then 	--0.75 de zoom
-		setProperty("defaultCamZoom",0.65)
+		setProperty("defaultCamZoom",0.8)
 		for i = 1,#phase1unico do
 			setProperty(phase1unico[i]..'.visible', false)
 		end
@@ -388,6 +417,17 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase2cheetos[i]..'.visible', false)
 		end
 		setProperty('phase8.visible',true)
+	elseif curPhase == 9 then 	--0.75 de zoom
+		setProperty("defaultCamZoom",0.65)
+		for i = 1,#phase1unico do
+			setProperty(phase1unico[i]..'.visible', false)
+		end
+		for i = 1,#phase2cheetos do
+			setProperty(phase2cheetos[i]..'.visible', false)
+		end
+		for i = 1,#phase9cheetos do
+			setProperty(phase9cheetos[i]..'.visible', true)
+		end
 	end
 end
 
@@ -407,7 +447,10 @@ function onUpdate()
 	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20)
 	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
 
+	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
+	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
+
 	if keyJustPressed("space") then
-		changePhases(8) 
+		changePhases(9) 
 	end
 end
