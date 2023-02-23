@@ -27,7 +27,7 @@ jobs:
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          ndk-version: r21e
+          ndk-version: r15c
 
       - name: Setup Java JDK
         uses: actions/setup-java@v1
@@ -51,7 +51,7 @@ jobs:
           cd hxcpp-new-ndk-support/tools/hxcpp
           haxe compile.hxml
           haxelib --quiet install lime-samples
-          haxelib --quiet install openfl 9.1.0
+          haxelib --quiet install openfl 
           haxelib --never --quiet install flixel
           haxelib --quiet install flixel-tools
           haxelib --quiet install flixel-ui
@@ -70,10 +70,9 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set openfl 9.1.0
-          haxelib run lime rebuild extension-webm android -y
-          haxelib dev hxcpp hxcpp-new-ndk-support
           haxelib dev lime lime
+          haxelib dev hxcpp hxcpp-new-ndk-support
+          haxelib run lime rebuild extension-webm android -y
           haxelib list
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
