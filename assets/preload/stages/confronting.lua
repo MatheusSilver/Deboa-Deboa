@@ -286,6 +286,12 @@ function onCreate()
 	addLuaSprite('phase7-4',true)
 
 	--phase 8 cheetos
+	makeLuaSprite('phase8','cenarios/phase8/sonic',-850,-320)--5
+	setLuaSpriteScrollFactor('phase8',1,1)
+	setProperty('phase8.scale.x', 1)
+	setProperty('phase8.scale.y', 1)
+	setProperty('phase8.visible', false)
+	addLuaSprite('phase8',false)
 
 
 end
@@ -373,6 +379,15 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase7cheetos do
 			setProperty(phase7cheetos[i]..'.visible',true)
 		end
+	elseif curPhase == 8 then 	--0.75 de zoom
+		setProperty("defaultCamZoom",0.65)
+		for i = 1,#phase1unico do
+			setProperty(phase1unico[i]..'.visible', false)
+		end
+		for i = 1,#phase2cheetos do
+			setProperty(phase2cheetos[i]..'.visible', false)
+		end
+		setProperty('phase8.visible',true)
 	end
 end
 
@@ -393,6 +408,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
 
 	if keyJustPressed("space") then
-		changePhases(6) 
+		changePhases(8) 
 	end
 end
