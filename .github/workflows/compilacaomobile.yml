@@ -45,9 +45,7 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev -y
-          git clone --single-branch --branch submodules --recurse-submodules https://github.com/MAJigsaw77/lime lime
-          haxelib dev lime lime
+          haxelib --quiet install lime
           git clone https://github.com/Sirox228/hxcpp-new-ndk-support
           haxelib dev hxcpp hxcpp-new-ndk-support
           cd hxcpp-new-ndk-support/tools/hxcpp
