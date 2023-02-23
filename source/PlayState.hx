@@ -807,7 +807,9 @@ class PlayState extends MusicBeatState
 				add(tempogravador);
 				
 
-				if(ClientPrefs.shaders) {
+				//if(ClientPrefs.shaders) {
+
+				//ISSO É SÓ UM TESTE
 					vcr = new ShaderFilter(new VCRDistortionShader());
 					vcr.shader.data.iTime.value = [0];
 					vcr.shader.data.vignetteOn.value = [true];
@@ -820,7 +822,7 @@ class PlayState extends MusicBeatState
 
 					camGame.setFilters([vcr]);
 					camHUD.setFilters([vcr]);				
-				}
+				//}
 
 			case 'chasing':
 
