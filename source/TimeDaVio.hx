@@ -35,11 +35,24 @@ class TimeDaVio extends MusicBeatState
 
     var creditStuff:Array<String> = ['vio', 'dav', 'ash', 'silver', 'konan', 'x02', 'hugo', 'cat',  
                                     /*daqui pra frente é elenco*/ 
-                                    'vio', 'blue', 'brunito', 'jinzo', 'lightwuz', 'lonny', 'mayoral', 'molten', 'neko', 'nih', 'orochi', 'sah', 'vinizitooo', 'sayuri'];
+                                    'vio', 
+                                    'blue', 
+                                    'brunito', 
+                                    'jinzo', 
+                                    'lightwuz', 
+                                    'lonny', 
+                                    'mayoral', 
+                                    'molten', 
+                                    'neko', 
+                                    'nih', 
+                                    'orochi', 
+                                    'sah', 
+                                    'vinizitooo', 
+                                    'sayuri'];
 
 
-    var discordLink:Array<String> = ['https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 
-                                    'https://discord.gg/kprH8WnP8Q', 'https://discord.gg/G3BmXXeshA', 'https://discord.gg/G3BmXXeshA', 
+    var discordLink:Array<String> = ['https://discord.gg/G3BmXXeshA', '', '', '', '', 
+                                    'https://discord.gg/kprH8WnP8Q', '', '', 
                                     /*daqui pra frente é elenco*/ 
                                     'https://discord.gg/G3BmXXeshA',
                                     '',
@@ -53,12 +66,12 @@ class TimeDaVio extends MusicBeatState
                                     '',
                                     '',
                                     '',
-                                    'https://discord.gg/B3uAXgyr',
+                                    'https://discord.gg/jNdV8BEUZU',
                                     'https://www.facebook.com/MarianaSayuriFandubsFansings'];
 
                                     
-    var twitterLink:Array<String> = ['https://twitter.com/galaccine', 'https://twitter.com/Davizinhn', 'https://twitter.com/Ashuro_Privety', 'https://twitter.com/galaccine', 'https://twitter.com/Konan_Hatake13', 
-                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/galaccine', 
+    var twitterLink:Array<String> = ['https://twitter.com/galaccine', 'https://twitter.com/Davizinhn', 'https://twitter.com/Ashuro_Privety', '', 'https://twitter.com/Konan_Hatake13', 
+                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/Point15104219', 
                                     /*daqui pra frente é elenco*/ 
                                     'https://twitter.com/galaccine',
                                     'https://twitter.com/bluetufie',
@@ -69,14 +82,15 @@ class TimeDaVio extends MusicBeatState
                                     'https://www.facebook.com/christian.palheta', 
                                     'https://twitter.com/M0lt3nziito',
                                     'https://twitter.com/Nekop9123',
-                                    'https://twitter.com/DiazNih_',
+                                    '',
                                     'https://twitter.com/orochigad0',
                                     'https://twitter.com/sahriell_',
-                                    'https://twitter.com/RealVinizitooo', 'https://twitter.com/mariana_sayuri'];
+                                    'https://twitter.com/RealVinizitooo', 
+                                    'https://twitter.com/mariana_sayuri'];
 
 
-    var youtubeLink:Array<String> = ['https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@Davizinhn', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/c/matheussilver', 
-                                    'https://www.youtube.com/@konan_hatake13', 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA', 'https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@GAT0192/', 
+    var youtubeLink:Array<String> = ['https://www.youtube.com/c/galaccine', 'https://www.youtube.com/@Davizinhn', '', 'https://www.youtube.com/c/matheussilver', 
+                                    'https://www.youtube.com/@konan_hatake13', 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA', '', 'https://www.youtube.com/@GAT0192/', 
                                     /*daqui pra frente é elenco*/ 
                                     'https://www.youtube.com/c/galaccine',
                                     'https://www.youtube.com/@bluezinkk',
@@ -85,19 +99,17 @@ class TimeDaVio extends MusicBeatState
                                     'https://www.youtube.com/@Lightwuz',
                                     'https://www.youtube.com/@samelonny', 
                                     'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g', 
-                                    'https://www.youtube.com/@M0lt3nziito',//
+                                    'https://www.youtube.com/@M0lt3nziito',
                                     '',
                                     'https://www.youtube.com/@nihdiaz1145',
                                     'https://www.youtube.com/c/OrochiDubzkkk',
-                                    'https://www.youtube.com/c/SahChan2019','https://www.youtube.com/@vinizitooo-lol', 'https://www.youtube.com/@MarianaSayuri'];
+                                    'https://www.youtube.com/c/SahChan2019',
+                                    'https://www.youtube.com/@vinizitooo-lol', 
+                                    'https://www.youtube.com/@MarianaSayuri'];
 	
 	override function create()
 		{
 			FlxG.mouse.visible = true;
-			#if desktop
-			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Vendo os créditos", null);
-			#end
 			/*bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();
@@ -201,6 +213,10 @@ class TimeDaVio extends MusicBeatState
 		}
 	override function update(elapsed:Float)
 		{
+            #if desktop
+			// Updating Discord Rich Presence
+			DiscordClient.changePresence("Vendo os créditos do(a) "+creditStuff[curSelected], null);
+			#end
             if (controls.BACK) {
                 FlxG.sound.play(Paths.sound('cancelMenu'));
                 MusicBeatState.switchState(new SobreState());

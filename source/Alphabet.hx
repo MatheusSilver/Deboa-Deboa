@@ -406,7 +406,7 @@ class AlphaCharacter extends FlxSprite
 	
 	public static var fontTexture:String = '';
 
-	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã§ó";
+	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã§óí";
 
 	public static var numbers:String = "1234567890";
 
