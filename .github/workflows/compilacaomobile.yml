@@ -27,7 +27,7 @@ jobs:
         uses: nttld/setup-ndk@v1
         id: setup-ndk
         with:
-          ndk-version: r15c
+          ndk-version: r21e
 
       - name: Setup Java JDK
         uses: actions/setup-java@v1
@@ -45,11 +45,10 @@ jobs:
       - name: Install Haxelib
         run: |
           haxelib setup ~/haxelib
-          haxelib --quiet install lime
-          git clone https://github.com/Sirox228/hxcpp-new-ndk-support
-          haxelib dev hxcpp hxcpp-new-ndk-support
-          cd hxcpp-new-ndk-support/tools/hxcpp
-          haxe compile.hxml
+          sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev -y
+          git clone --single-branch --branch submodules --recurse-submodules https://github.com/player-03/lime.git lime
+          haxelib dev lime lime
+          haxelib --quiet install hxcpp
           haxelib --quiet install lime-samples
           haxelib --quiet install openfl 
           haxelib --never --quiet install flixel
@@ -57,7 +56,7 @@ jobs:
           haxelib --quiet install flixel-ui
           haxelib --quiet install flixel-addons
           haxelib --quiet install actuate
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
+          haxelib --quiet install linc_luajit
           haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview
           haxelib git extension-webm https://github.com/Daninnocent/extension-webm
           haxelib list
@@ -70,8 +69,9 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib dev lime lime
-          haxelib dev hxcpp hxcpp-new-ndk-support
+          haxelib run lime rebuild tools
+          haxelib run lime rebuild android
+          ls lime/ndll/Android
           haxelib run lime rebuild extension-webm android -y
           haxelib list
         env:
