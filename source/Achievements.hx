@@ -38,7 +38,8 @@ class Achievements {
 		["E tambem OnlyFans",			"Vença o ColdSteel",								'personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
 		["Duolingo em dia",				"Sobreviva até o meio da Endless",					'fisk',				true, 		181734, 		'luxuria', 		1], //ok
 		["Achou que eu estava brincando?","Vença o Pibby Sonic numa batalha de rap",		'pibby',			true, 		181736, 		'alt', 			2], //ok
-		["Galeria",						"Veja toda a galeria",								'galeria',			true, 		185895, 		'geral', 		1] //ok
+		["Galeria",						"Veja toda a galeria",								'galeria',			true, 		185895, 		'geral', 		1], 
+		["Quem mandou ficar no pause?",	"Deixe seu jogo pausado por muito tempo em triple trouble",	'pause_jumpscare',	true, 		186989, 		'orgulho', 		1]//ok
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
