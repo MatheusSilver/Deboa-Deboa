@@ -281,7 +281,7 @@ function onCreate()
 	addLuaSprite('phase7-3',true)
 
 	makeLuaSprite('phase7-4','cenarios/phase7/4',-300,-50)--5
-	setLuaSpriteScrollFactor('phase7-4',0.4,0.4)
+	setLuaSpriteScrollFactor('phase7-4',0.6,0.4)
 	setProperty('phase7-4.scale.x', 1.65)
 	setProperty('phase7-4.scale.y', 1.65)
 	setProperty('phase7-4.visible', false)
@@ -451,6 +451,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
 
 	if keyJustPressed("space") then
-		changePhases(9) 
+		changePhases(7) 
 	end
 end
