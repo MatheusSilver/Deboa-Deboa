@@ -1,5 +1,6 @@
 package;
 
+import lime.math.Vector2;
 import flixel.util.FlxTimer;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -11,9 +12,11 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import openfl.Lib;
 import Shaders;
+import flixel.FlxGame;
 import openfl.display.GraphicsShader;
 import openfl.filters.ShaderFilter;
 import flash.filters.BlurFilter;
+import lime.ui.Window;
 import flixel.tweens.misc.NumTween;
 
 class PauseSubState extends MusicBeatSubstate
@@ -42,6 +45,10 @@ class PauseSubState extends MusicBeatSubstate
 	var linhabaixo:FlxSprite;
 	var perfil:FlxSprite;
 
+	var jumpscare:FlxSprite;
+	var inJumpscare:Bool = false;
+	var podeJumpscare:Bool = true;
+
 	var ready:FlxSprite;
 	var set:FlxSprite;
 	var go:FlxSprite; //bruh + meme = breme
@@ -52,6 +59,8 @@ class PauseSubState extends MusicBeatSubstate
 	var dummySprite:FlxSprite;
 	var shaderativo:Bool;
 
+	var lugarTelaX:Int;
+	var lugarTelaY:Int;
 	//var playState:PlayState;
 	
 	public static var pauseMusicName:String = 'breakfast';
@@ -176,9 +185,18 @@ class PauseSubState extends MusicBeatSubstate
 
 		changeSelection();
 
+		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble")
+			{
+				new FlxTimer().start(200, function(tmr:FlxTimer){
+					if(podeJumpscare)
+						{
+							jumpscareExecute();
+						}
+				});
+			}
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
-
-
+			lugarTelaX = Lib.current.stage.window.x;
+			lugarTelaY = Lib.current.stage.window.y;
 		#if mobileC
 		addVirtualPad(UP_DOWN, A);
 		var camcontrol = new FlxCamera();
@@ -199,6 +217,10 @@ class PauseSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
+		if(inJumpscare&&!ClientPrefs.fullscreen)
+			{
+				shakeWindow();
+			}
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
 
@@ -226,16 +248,16 @@ class PauseSubState extends MusicBeatSubstate
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 
-		if (upP)
+		if (upP&& !inJumpscare)
 		{
 			changeSelection(-1);
 		}
-		if (downP)
+		if (downP&& !inJumpscare)
 		{
 			changeSelection(1);
 		}
 
-		if (accepted)
+		if (accepted && !inJumpscare)
 		{
 			var daSelected:String = menuItems[curSelected];
 			for (i in 0...difficultyChoices.length-1) {
@@ -252,7 +274,7 @@ class PauseSubState extends MusicBeatSubstate
 					return;
 				}
 			} 
-
+			podeJumpscare=false;
 			switch (daSelected)
 			{
 				case "Voltar para a musica":
@@ -430,6 +452,43 @@ class PauseSubState extends MusicBeatSubstate
 				MusicBeatState.resetState();
 			}
 		}
+
+	public function jumpscareExecute():Void
+		{
+			inJumpscare=true;
+			FlxG.sound.volume = 1;
+			jumpscare = new FlxSprite(0,0);
+			jumpscare.loadGraphic(Paths.image('Tails', 'preload'));
+			jumpscare.setGraphicSize(Std.int(FlxG.width));
+			jumpscare.screenCenter(XY);
+			FlxG.sound.play(Paths.sound('TailsScreamLOL'), 1);
+			Lib.current.stage.window.focus();
+			PlayState.instance.startachieving('pause_jumpscare');
+			new FlxTimer().start(2.5, function(tmr:FlxTimer){
+				Lib.current.stage.window.close();
+			});
+			add(jumpscare);
+		}
+
+		function shakeWindow():Void
+			{
+				var window:Window = Lib.current.stage.window;
+				window.move(window.x-15, window.y-15);
+				window.move(window.x+20, window.y+20);
+				window.move(window.x-20, window.y-20);
+				window.x = lugarTelaX;
+				window.y = lugarTelaY;
+				window.move(window.x+20, window.y+10);
+				window.move(window.x+10, window.y+20);
+				window.move(window.x-20, window.y+10);
+				window.x = lugarTelaX;
+				window.y = lugarTelaY;
+				window.move(window.x+10, window.y-20);
+				window.move(window.x+15, window.y+15);
+				window.move(window.x-20, window.y+10);
+				window.x = lugarTelaX;
+				window.y = lugarTelaY;
+			}
 
 	override function destroy()
 	{

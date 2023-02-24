@@ -240,8 +240,8 @@
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 	
-	<architecture name="armv7" exclude="arm64" if="android" />
-	<architecture name="x86" if="android" />
+	<!-- <architecture name="armv7" exclude="arm64" if="android" /> -->
+	<!-- <architecture name="x86" if="android" /> -->
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->

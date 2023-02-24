@@ -78,6 +78,7 @@ class BuildingEffect {
 
 class BuildingShader extends FlxShader
 {
+#if desktop
   @:glFragmentSource('
     #pragma header
     uniform float alphaShit;
@@ -91,6 +92,21 @@ class BuildingShader extends FlxShader
       gl_FragColor = color;
     }
   ')
+  #else
+    @:glFragmentSource('
+    #pragma header
+    uniform float alphaShit;
+    void main()
+    {
+
+      vec4 color = flixel_texture2D(bitmap,openfl_TextureCoordv);
+      if (color.a > 0.0)
+        color-=alphaShit;
+
+      gl_FragColor = color;
+    }
+  ')
+  #end
   public function new()
   {
     super();
