@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Cross Platform Clash - EXE cover (Finished).png">
+	<!-- Created with Adobe Animate version 21.0.6.41649 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Xenophanes Down0000" x="0" y="0" width="35" height="34" pivotX="0" pivotY="0"/>
+	<SubTexture name="Xenophanes Down0001" x="0" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0002" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0003" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0004" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0005" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0006" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0007" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0008" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Down0009" x="35" y="0" width="35" height="34"/>
+	<SubTexture name="Xenophanes Idle0000" x="70" y="0" width="33" height="38" pivotX="0" pivotY="0"/>
+	<SubTexture name="Xenophanes Idle0001" x="70" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0002" x="103" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0003" x="103" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0004" x="136" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0005" x="136" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0006" x="169" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0007" x="169" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0008" x="202" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0009" x="202" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0010" x="202" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Idle0011" x="202" y="0" width="33" height="38"/>
+	<SubTexture name="Xenophanes Laugh0000" x="0" y="38" width="31" height="39" pivotX="0" pivotY="1.7"/>
+	<SubTexture name="Xenophanes Laugh0001" x="0" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0002" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0003" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0004" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0005" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0006" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0007" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0008" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Laugh0009" x="31" y="38" width="31" height="39"/>
+	<SubTexture name="Xenophanes Left0000" x="62" y="38" width="38" height="37" pivotX="0" pivotY="0"/>
+	<SubTexture name="Xenophanes Left0001" x="62" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0002" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0003" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0004" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0005" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0006" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0007" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0008" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Left0009" x="100" y="38" width="38" height="37"/>
+	<SubTexture name="Xenophanes Right0000" x="138" y="38" width="36" height="36" pivotX="1" pivotY="0"/>
+	<SubTexture name="Xenophanes Right0001" x="138" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0002" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0003" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0004" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0005" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0006" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0007" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0008" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Right0009" x="174" y="38" width="36" height="36"/>
+	<SubTexture name="Xenophanes Up0000" x="210" y="38" width="31" height="40" pivotX="1" pivotY="0"/>
+	<SubTexture name="Xenophanes Up0001" x="210" y="38" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0002" x="0" y="78" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0003" x="0" y="78" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0004" x="0" y="78" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0005" x="0" y="78" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0006" x="0" y="78" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0007" x="0" y="78" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0008" x="0" y="78" width="31" height="40"/>
+	<SubTexture name="Xenophanes Up0009" x="0" y="78" width="31" height="40"/>
+</TextureAtlas>

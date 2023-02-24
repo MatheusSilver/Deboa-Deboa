@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				120,
+				348
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Sonic Fear Idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				120,
+				348
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Sonic Fear Up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				120,
+				345
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Sonic Fear Down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				120,
+				348
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Sonic Fear Right"
+		},
+		{
+			"offsets": [
+				119,
+				348
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Sonic Fear Left"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/confronting/ato7/Sonic Fear",
+	"position": [
+		-50,
+		250
+	],
+	"healthicon": "sonicAH",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		0,
+		255
+	],
+	"camera_position": [
+		-70,
+		20
+	],
+	"sing_duration": 5.8,
+	"scale": 0.85
+}

@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "sonic hero exe idle"
+		},
+		{
+			"offsets": [
+				12,
+				5
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "sonic hero exe down"
+		},
+		{
+			"offsets": [
+				-86,
+				21
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "sonic hero exe up"
+		},
+		{
+			"offsets": [
+				-22,
+				-15
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "sonic hero exe left"
+		},
+		{
+			"offsets": [
+				-12,
+				-14
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "sonic hero exe right"
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/confronting/ato3/phase3vilao",
+	"position": [
+		120,
+		70
+	],
+	"healthicon": "sonicexeAH",
+	"flip_x": false,
+	"healthbar_colors": [
+		64,
+		64,
+		160
+	],
+	"camera_position": [
+		10,
+		250
+	],
+	"sing_duration": 6.1,
+	"scale": 0.6
+}

@@ -19,8 +19,8 @@ local phase7cheetos = {'phase7-1', 'phase7-2', 'phase7-3', 'phase7-4'}
 local phase9cheetos = {'phase9-1', 'phase9-2', 'phase9-3'}
 
 function onCreatePost()
-	setProperty("boyfriendGroup.visible", false)
-	setProperty('dadGroup.visible', false)
+	--setProperty("boyfriendGroup.visible", false)
+	--setProperty('dadGroup.visible', false)
 end
 
 function onCreate()
@@ -59,14 +59,14 @@ function onCreate()
 	addLuaSprite('awa',false)
 	objectPlayAnimation('awa', 'bg1', true)
 
-	makeLuaSprite('montesverdes','cenarios/phase1/GHGround',0,100)--5
+	makeLuaSprite('montesverdes','cenarios/phase1/GHGround',150,100)--5
 	setLuaSpriteScrollFactor('montesverdes',0.7,0.7)
 	setProperty('montesverdes.scale.x', 5)
 	setProperty('montesverdes.scale.y', 5)
 	setProperty('montesverdes.antialiasing', false)
 	addLuaSprite('montesverdes',false)
 
-	makeAnimatedLuaSprite('flores','cenarios/phase1/flowers',0,105) --6
+	makeAnimatedLuaSprite('flores','cenarios/phase1/flowers',150,105) --6
 	setLuaSpriteScrollFactor('flores',0.7,0.7)
 	addAnimationByPrefix('flores', 'flowerloop', 'flowerloop', 16, true);
 	setProperty('flores.antialiasing', false)
@@ -75,7 +75,7 @@ function onCreate()
 	addLuaSprite('flores',false)
 	objectPlayAnimation('flores', 'flowerloop', true)
 
-	makeAnimatedLuaSprite('trens','cenarios/phase1/objects',0,100) --7
+	makeAnimatedLuaSprite('trens','cenarios/phase1/objects',150,100) --7
 	setLuaSpriteScrollFactor('trens',0.7,0.7)
 	addAnimationByPrefix('trens', 'objects', 'objects', 16, true);
 	setProperty('trens.antialiasing', false)

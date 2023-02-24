@@ -1,9 +1,9 @@
 {
 	"directory": "week-confronting",
-	"defaultZoom": 0.75,
+	"defaultZoom": 0.8,
 	"isPixelStage": false,
 
-	"boyfriend": [450, 130],
-	"girlfriend": [0, 130],
-	"opponent": [-500, 80]
+	"boyfriend": [0, -160],
+	"girlfriend": [-150, 350],
+	"opponent": [-150, 350]
 }

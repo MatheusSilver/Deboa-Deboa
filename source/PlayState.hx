@@ -2053,7 +2053,7 @@ class PlayState extends MusicBeatState
 						camHUD.alpha = 0;
 						startCountdown();
 						
-					case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
+					case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout' | 'confronting-yourself':
 	
 					if (curSong.toLowerCase()=='triple-trouble'){
 						camHUD.alpha = 0;

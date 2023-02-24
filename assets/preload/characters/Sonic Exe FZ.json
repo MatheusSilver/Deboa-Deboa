@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Sonic Exe FZ Idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				40,
+				40
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Sonic Exe FZ Left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-40
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Sonic Exe FZ Down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				40
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Sonic Exe FZ Up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-40,
+				0
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Sonic Exe FZ Right",
+			"indices": []
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/confronting/ato10/Sonic Exe FZ",
+	"position": [
+		-570,
+		-200
+	],
+	"healthicon": "sonicexeCY",
+	"flip_x": false,
+	"healthbar_colors": [
+		45,
+		46,
+		111
+	],
+	"camera_position": [
+		200,
+		-80
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}

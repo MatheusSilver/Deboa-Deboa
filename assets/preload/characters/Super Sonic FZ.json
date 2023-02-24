@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Super Sonic FZ Idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				40,
+				20
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Super Sonic FZ Left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				-40
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Super Sonic FZ Down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-20,
+				40
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Super Sonic FZ Up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-40,
+				-20
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Super Sonic FZ Right",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/confronting/ato10/Super Sonic FZ",
+	"position": [
+		-440,
+		-130
+	],
+	"healthicon": "supersonicCY",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		165,
+		0
+	],
+	"camera_position": [
+		-160,
+		130
+	],
+	"sing_duration": 6.1,
+	"scale": 0.8
+}
