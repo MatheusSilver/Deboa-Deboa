@@ -27,21 +27,21 @@
 						0,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe",
+						"bsexe",
 						""
 					],
 					[
 						0,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe",
+						"bsexe",
 						""
 					],
 					[
 						400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe1",
+						"bsexe1",
 						""
 					]
 				],
@@ -102,7 +102,7 @@
 						3200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe2",
+						"bsexe2",
 						""
 					]
 				],
@@ -158,7 +158,7 @@
 						6800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bf",
+						"bf",
 						""
 					]
 				],
@@ -293,7 +293,7 @@
 						12800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe3",
+						"bsexe3",
 						""
 					]
 				],
@@ -342,7 +342,7 @@
 						15000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe4",
+						"bsexe4",
 						""
 					]
 				],
@@ -396,7 +396,7 @@
 						16000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe5",
+						"bsexe5",
 						""
 					]
 				],
@@ -465,7 +465,7 @@
 						17600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe6",
+						"bsexe6",
 						""
 					]
 				],
@@ -519,7 +519,7 @@
 						19200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bf",
+						"bf",
 						""
 					]
 				],
@@ -724,7 +724,7 @@
 						25600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe7",
+						"bsexe7",
 						""
 					]
 				],
@@ -768,7 +768,7 @@
 						27800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe8",
+						"bsexe8",
 						""
 					]
 				],
@@ -866,7 +866,7 @@
 						32000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bf",
+						"bf",
 						""
 					]
 				],
@@ -1021,14 +1021,14 @@
 						38400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe9",
+						"bsexe9",
 						""
 					],
 					[
 						39200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe10",
+						"bsexe10",
 						""
 					]
 				],
@@ -1082,7 +1082,7 @@
 						40000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe11",
+						"bsexe11",
 						""
 					]
 				],
@@ -1136,14 +1136,14 @@
 						41600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe12",
+						"bsexe12",
 						""
 					],
 					[
 						42800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe13",
+						"bsexe13",
 						""
 					]
 				],
@@ -1274,14 +1274,14 @@
 						44800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe14",
+						"bsexe14",
 						""
 					],
 					[
 						46000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe15",
+						"bsexe15",
 						""
 					]
 				],
@@ -1385,7 +1385,7 @@
 						47600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe16",
+						"bsexe16",
 						""
 					]
 				],
@@ -1479,7 +1479,7 @@
 						49200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe17",
+						"bsexe17",
 						""
 					]
 				],
@@ -1656,7 +1656,7 @@
 						51200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe18",
+						"bsexe18",
 						""
 					]
 				],
@@ -1713,14 +1713,14 @@
 						52800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe19",
+						"bsexe19",
 						""
 					],
 					[
 						54000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe20",
+						"bsexe20",
 						""
 					]
 				],
@@ -1887,7 +1887,7 @@
 						57600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bf",
+						"bf",
 						""
 					]
 				],
@@ -2069,14 +2069,14 @@
 						64000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe21",
+						"bsexe21",
 						""
 					],
 					[
 						65000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe22",
+						"bsexe22",
 						""
 					]
 				],
@@ -2328,7 +2328,7 @@
 						67200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe23",
+						"bsexe23",
 						""
 					]
 				],
@@ -2430,7 +2430,7 @@
 						68800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe24",
+						"bsexe24",
 						""
 					]
 				],
@@ -2555,7 +2555,7 @@
 						70400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe25",
+						"bsexe25",
 						""
 					]
 				],
@@ -2682,7 +2682,7 @@
 						73400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe26",
+						"bsexe26",
 						""
 					]
 				],
@@ -2809,7 +2809,7 @@
 						76600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe27",
+						"bsexe27",
 						""
 					]
 				],
@@ -2976,7 +2976,7 @@
 						78800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe28",
+						"bsexe28",
 						""
 					]
 				],
@@ -3090,7 +3090,7 @@
 						82400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe29",
+						"bsexe29",
 						""
 					]
 				],
@@ -3355,14 +3355,14 @@
 						84800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe30",
+						"bsexe30",
 						""
 					],
 					[
 						86000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe31",
+						"bsexe31",
 						""
 					]
 				],
@@ -3509,7 +3509,7 @@
 						89600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bf",
+						"bf",
 						""
 					]
 				],
@@ -3656,14 +3656,14 @@
 						96000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe32",
+						"bsexe32",
 						""
 					],
 					[
 						97200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe33",
+						"bsexe33",
 						""
 					]
 				],
@@ -3725,7 +3725,7 @@
 						98800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe34",
+						"bsexe34",
 						""
 					]
 				],
@@ -3807,7 +3807,7 @@
 						100200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe35",
+						"bsexe35",
 						""
 					]
 				],
@@ -3964,7 +3964,7 @@
 						102700,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe36",
+						"bsexe36",
 						""
 					]
 				],
@@ -4021,7 +4021,7 @@
 						104000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe37",
+						"bsexe37",
 						""
 					]
 				],
@@ -4083,7 +4083,7 @@
 						106000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe38",
+						"bsexe38",
 						""
 					]
 				],
@@ -4220,7 +4220,7 @@
 						109300,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bf",
+						"bf",
 						""
 					]
 				],
@@ -4702,7 +4702,7 @@
 						121600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe39",
+						"bsexe39",
 						""
 					]
 				],
@@ -4764,7 +4764,7 @@
 						124600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe40",
+						"bsexe40",
 						""
 					]
 				],
@@ -4911,7 +4911,7 @@
 						128600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe41",
+						"bsexe41",
 						""
 					]
 				],
@@ -4978,7 +4978,7 @@
 						130400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe42",
+						"bsexe42",
 						""
 					]
 				],
@@ -5155,7 +5155,7 @@
 						133600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe43",
+						"bsexe43",
 						""
 					]
 				],
@@ -5237,7 +5237,7 @@
 						135800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe44",
+						"bsexe44",
 						""
 					]
 				],
@@ -5399,14 +5399,14 @@
 						137600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe45",
+						"bsexe45",
 						""
 					],
 					[
 						138800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe46",
+						"bsexe46",
 						""
 					]
 				],
@@ -5523,7 +5523,7 @@
 						140800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe47",
+						"bsexe47",
 						""
 					]
 				],
@@ -5595,7 +5595,7 @@
 						142400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe48",
+						"bsexe48",
 						""
 					]
 				],
@@ -5672,7 +5672,7 @@
 						144000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe49",
+						"bsexe49",
 						""
 					]
 				],
@@ -5754,7 +5754,7 @@
 						145600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe50",
+						"bsexe50",
 						""
 					]
 				],
@@ -5851,7 +5851,7 @@
 						147600,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe51",
+						"bsexe51",
 						""
 					]
 				],
@@ -6043,7 +6043,7 @@
 						150800,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe52",
+						"bsexe52",
 						""
 					]
 				],
@@ -6230,7 +6230,7 @@
 						154000,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe53",
+						"bsexe53",
 						""
 					]
 				],
@@ -6407,7 +6407,7 @@
 						157200,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe54",
+						"bsexe54",
 						""
 					]
 				],
@@ -6509,7 +6509,7 @@
 						160400,
 						-1,
 						"Adicionar Imagens",
-						"letras/blacksun/bsexe",
+						"bsexe",
 						""
 					],
 					[

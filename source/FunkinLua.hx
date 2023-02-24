@@ -37,6 +37,8 @@ class FunkinLua {
 	public static var camGameShaders:Array<ShaderEffect> = [];
 	public static var camHUDShaders:Array<ShaderEffect> = [];
 	public static var camOtherShaders:Array<ShaderEffect> = [];
+
+	public static var instance:FunkinLua;
    
 	#if LUA_ALLOWED
 	public var lua:State = null;
@@ -51,7 +53,7 @@ class FunkinLua {
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
-
+		instance = this;
 		//trace(lua); //Só pra eu ter noção de como fazer um anticheat aqui
 
 		//trace('Lua version: ' + Lua.version());
@@ -100,7 +102,6 @@ class FunkinLua {
 		set('weekRaw', PlayState.storyWeek);
 		set('week', WeekData.weeksList[PlayState.storyWeek]);
 		set('seenCutscene', PlayState.seenCutscene);
-		set('pathLegenda', PlayState.instance.legendPath);
 
 		// Camera poo
 		set('cameraX', 0);
@@ -150,6 +151,8 @@ class FunkinLua {
 		set('dadName', PlayState.SONG.player2);
 		set('gfName', PlayState.SONG.player3); //Fix para Endless Cycles
 
+
+		set('legendaPath', PlayState.instance.legendPath);
 		// Some settings, no jokes
 		set('legendas', ClientPrefs.legendas);
 		set('legendasporcima', ClientPrefs.legendasporcima);

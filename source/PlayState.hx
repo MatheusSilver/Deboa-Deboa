@@ -19,6 +19,7 @@ import flixel.addons.display.FlxTiledSprite;
 #if desktop
 import Discord.DiscordClient;
 #end
+import openfl.utils.AssetType;
 import Section.SwagSection;
 import Song.SwagSong;
 import flixel.FlxBasic;
@@ -502,7 +503,6 @@ class PlayState extends MusicBeatState
 		precacheList.set('pausescrollmenu', 'sound');
 		precacheList.set('breakfast', 'music');
 		
-		legendPath = 'letras/'+curSong.toLowerCase();
 
 		isRing = SONG.isRing; //Top 10 otimizações mais sodas do Mundo talvez do Brasil
 
@@ -2944,9 +2944,13 @@ class PlayState extends MusicBeatState
 		// FlxG.log.add(ChartParser.parse());
 		
 		var songData = SONG;
-		Conductor.changeBPM(songData.bpm);
+		Conductor.changeBPM(songData.bpm); 
 		
 		curSong = songData.song;
+
+			legendPath = 'letras/'+curSong.toLowerCase()+'/';
+			FunkinLua.instance.set('legendaPath', legendPath);
+
 
 		if (SONG.needsVoices) {
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
