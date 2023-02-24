@@ -194,7 +194,7 @@ class PlayState extends MusicBeatState
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
 
-	public var noteKillOffset:Float = 350;
+	public var noteKillOffset:Float = 370;
 
 	// - flying shit
 	var flyTarg:Character;
@@ -3134,30 +3134,30 @@ class PlayState extends MusicBeatState
 					trace('executando cache de lyrics');
 					if(OpenFlAssets.exists(Paths.imagechecker(event[3]))){
 						precacheList.set(event[3], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[3])))
+					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[3])))
 					{
-						precacheList.set(event[7]+'/'+event[3], 'image');
+						precacheList.set(legendPath+event[3], 'image');
 					}
 
 					if(OpenFlAssets.exists(Paths.imagechecker(event[4]))){
 						precacheList.set(event[4], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[4])))
+					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[4])))
 					{
-						precacheList.set(event[7]+'/'+event[4], 'image');
+						precacheList.set(legendPath+event[4], 'image');
 					}
 
 					if(OpenFlAssets.exists(Paths.imagechecker(event[5]))){
 						precacheList.set(event[5], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[5])))
+					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[5])))
 					{
-						precacheList.set(event[7]+'/'+event[5], 'image');
+						precacheList.set(legendPath+event[5], 'image');
 					}
 
 					if(OpenFlAssets.exists(Paths.imagechecker(event[6]))){
 						precacheList.set(event[6], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(event[7]+'/'+event[6])))
+					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[6])))
 					{
-						precacheList.set(event[7]+'/'+event[6], 'image');
+						precacheList.set(legendPath+event[6], 'image');
 					}
 				}
 		}
