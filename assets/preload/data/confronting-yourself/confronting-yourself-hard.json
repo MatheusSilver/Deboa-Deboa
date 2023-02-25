@@ -1,12 +1,23 @@
 {
 	"song": {
 		"sectionLengths": [],
-		"player1": "Sonic Pixel Stand",
+		"player1": "Sonic Pixel pre",
 		"events": [],
 		"gfVersion": "invisibru",
 		"player3": "invisibru",
-		"notes": [],
-		"player2": "sonicexepixelstand",
+		"notes": [			
+			{
+			"lengthInSteps": 16,
+			"typeOfSection": 0,
+			"sectionNotes": [],
+			"altAnim": false,
+			"gfSection": false,
+			"bpm": 150,
+			"changeBPM": false,
+			"mustHitSection": true
+			}
+		],
+		"player2": "invisibru",
 		"song": "confronting-yourself",
 		"stage": "confronting",
 		"splashSkin": "blood",

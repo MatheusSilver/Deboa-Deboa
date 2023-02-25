@@ -1,146 +1,101 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-1,
 				-5
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
-			"indices": [],
-			"name": "Sonic idle"
-		},
-		{
-			"offsets": [
-				-11,
-				-20
-			],
-			"loop": false,
 			"fps": 24,
-			"anim": "singLEFT",
-			"indices": [],
-			"name": "Sonic left"
+			"name": "Sonic idle",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-26,
-				-19
-			],
 			"loop": false,
-			"fps": 24,
-			"anim": "singDOWN",
-			"indices": [],
-			"name": "Sonic down"
-		},
-		{
 			"offsets": [
-				-18,
-				-4
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singUP",
-			"indices": [],
-			"name": "Sonic up"
-		},
-		{
-			"offsets": [
-				-12,
+				-30,
 				-21
 			],
-			"loop": false,
+			"anim": "singLEFT",
 			"fps": 24,
+			"name": "Sonic left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-30,
+				-36
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "Sonic down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-46,
+				-21
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Sonic up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-15,
+				-37
+			],
 			"anim": "singDOWNmiss",
-			"indices": [],
-			"name": "MISS Sonic down"
-		},
-		{
-			"offsets": [
-				-11,
-				-6
-			],
-			"loop": false,
 			"fps": 24,
-			"anim": "singUPmiss",
-			"indices": [],
-			"name": "MISS Sonic up"
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-10,
-				-20
-			],
-			"anim": "singLEFTmiss",
-			"fps": 24,
-			"name": "MISS Sonic left",
+			"name": "MISS Sonic down",
 			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-21,
-				-20
-			],
-			"anim": "singRIGHTmiss",
-			"fps": 24,
-			"name": "MISS Sonic right",
-			"indices": []
-		},
-		{
-			"offsets": [
-				-11,
-				-20
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "firstDeath",
-			"indices": [
-				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7,
-				8,
-				9
-			],
-			"name": "GAME OVER"
-		},
-		{
-			"offsets": [
-				-9,
-				11
-			],
-			"loop": true,
-			"fps": 24,
-			"anim": "deathLoop",
-			"indices": [],
-			"name": "GAME OVER loop"
-		},
-		{
-			"offsets": [
-				-17,
-				11
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "deathConfirm",
-			"indices": [],
-			"name": "GAME OVER enter"
 		},
 		{
 			"loop": false,
 			"offsets": [
 				-31,
-				-21
+				-7
 			],
-			"anim": "singRIGHT",
+			"anim": "singUPmiss",
 			"fps": 24,
-			"name": "Sonic right",
+			"name": "MISS Sonic up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-31,
+				-37
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "MISS Sonic left"
+		},
+		{
+			"offsets": [
+				29,
+				-22
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "MISS Sonic right"
+		},
+		{
+			"offsets": [
+				29,
+				-36
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
 			"indices": [
 				2,
 				3,
@@ -153,14 +108,15 @@
 				10,
 				11,
 				12
-			]
+			],
+			"name": "Sonic right"
 		}
 	],
-	"no_antialiasing": false,
+	"no_antialiasing": true,
 	"image": "characters/confronting/ato8/sonic fw",
 	"position": [
-		0,
-		0
+		90,
+		500
 	],
 	"healthicon": "sonic icons",
 	"flip_x": true,
@@ -170,9 +126,9 @@
 		137
 	],
 	"camera_position": [
-		0,
-		0
+		70,
+		-240
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 15
 }

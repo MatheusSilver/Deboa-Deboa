@@ -451,6 +451,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
 
 	if keyJustPressed("space") then
-		changePhases(7) 
+		changePhases(8) 
 	end
 end
