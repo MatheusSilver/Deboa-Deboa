@@ -253,7 +253,7 @@ function onCreate()
 	setLuaSpriteScrollFactor('angelislandchao',0.4,0.4)
 	setPropertyTiledLuaSprite("angelislandchao.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandchao.x", -555)
-	setPropertyTiledLuaSprite("angelislandchao.y", -145)
+	setPropertyTiledLuaSprite("angelislandchao.y", -165)
 	setPropertyTiledLuaSprite("angelislandchao.visible", false)
 	addLuaSprite('angelislandchao');
 
@@ -302,7 +302,7 @@ function onCreate()
 	setLuaSpriteScrollFactor('phase9-2',0.4,0.4)
 	setPropertyTiledLuaSprite("phase9-2.antialiasing", false)
 	setPropertyTiledLuaSprite("phase9-2.visible", false)
-	setPropertyTiledLuaSprite("phase9-2.x", -555)
+	setPropertyTiledLuaSprite("phase9-2.x", -575)
 	setPropertyTiledLuaSprite("phase9-2.y", -160)
 	addLuaSprite('phase9-2', false);
 
@@ -318,7 +318,7 @@ function onCreate()
 	setLuaSpriteScrollFactor('phase9-1',0.4,0.4)
 	setPropertyTiledLuaSprite("phase9-1.antialiasing", false)
 	setPropertyTiledLuaSprite("phase9-1.visible", false)
-	setPropertyTiledLuaSprite("phase9-1.x", -555)
+	setPropertyTiledLuaSprite("phase9-1.x", -575)
 	setPropertyTiledLuaSprite("phase9-1.y", -260)
 	addLuaSprite('phase9-1', true);
 
@@ -451,6 +451,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
 
 	if keyJustPressed("space") then
-		changePhases(3) 
+		changePhases(9) 
 	end
 end
