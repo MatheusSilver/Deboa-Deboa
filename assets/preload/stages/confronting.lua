@@ -18,6 +18,8 @@ local phase7cheetos = {'phase7-1', 'phase7-2', 'phase7-3', 'phase7-4'}
 
 local phase9cheetos = {'phase9-1', 'phase9-2', 'phase9-3'}
 
+local phase10cheetos = {'phase10-1', 'phase10-2', 'phase10-3'}
+
 function onCreatePost()
 	--setProperty("boyfriendGroup.visible", false)
 	--setProperty('dadGroup.visible', false)
@@ -322,6 +324,29 @@ function onCreate()
 	setPropertyTiledLuaSprite("phase9-1.y", -260)
 	addLuaSprite('phase9-1', true);
 
+	--phase 10 cheetos
+
+	makeLuaSprite('phase10-1','cenarios/phase10/bg',-480,-75)--5
+	setLuaSpriteScrollFactor('phase7-1',0.4,0.4)
+	setProperty('phase10-1.scale.x', 1.3)
+	setProperty('phase10-1.scale.y', 1.4)
+	setProperty('phase10-1.visible', false)
+	addLuaSprite('phase10-1',false)
+
+	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-445,360)--5
+	setLuaSpriteScrollFactor('phase10-2',1,1)
+	setProperty('phase10-2.scale.x', 1.1)
+	setProperty('phase10-2.scale.y', 1.1)
+	setProperty('phase10-2.visible', false)
+	addLuaSprite('phase10-2',true)
+
+	makeLuaSprite('phase10-3','cenarios/phase10/stone2',590,350)--5
+	setLuaSpriteScrollFactor('phase10-3',1,1)
+	setProperty('phase10-3.scale.x', 1.1)
+	setProperty('phase10-3.scale.y', 1.1)
+	setProperty('phase10-3.visible', false)
+	addLuaSprite('phase10-3',true)
+
 
 end
 
@@ -431,6 +456,18 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase9cheetos do
 			setProperty(phase9cheetos[i]..'.visible', true)
 		end
+	elseif curPhase == 10 then
+		
+		for i = 1,#phase1unico do
+			setProperty(phase1unico[i]..'.visible', false)
+		end
+		for i = 1,#phase2cheetos do
+			setProperty(phase2cheetos[i]..'.visible', false)
+		end
+		for i = 1,#phase10cheetos do
+			setProperty(phase10cheetos[i]..'.visible',true)
+			setProperty("defaultCamZoom",0.8) -- OU VAI OU VAI...
+		end		
 	end
 end
 
@@ -454,6 +491,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
 
 	if keyJustPressed("space") then
-		changePhases(3) 
+		changePhases(10) 
 	end
 end

@@ -59,8 +59,8 @@
 	"no_antialiasing": true,
 	"image": "characters/confronting/ato10/Sonic Exe FZ",
 	"position": [
-		-570,
-		-200
+		-600,
+		-600
 	],
 	"healthicon": "sonicexeCY",
 	"flip_x": false,
@@ -74,5 +74,5 @@
 		-80
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 1.1
 }
