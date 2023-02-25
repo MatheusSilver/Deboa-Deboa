@@ -30,7 +30,7 @@
 			],
 			"anim": "singUP",
 			"fps": 24,
-			"name": "sonic hero atc up,
+			"name": "sonic hero atc up",
 			"indices": []
 		},
 		{
@@ -52,27 +52,27 @@
 			],
 			"anim": "singRIGHT",
 			"fps": 24,
-			"name": "sonic hero atc right,
+			"name": "sonic hero atc right",
 			"indices": []
 		}
 	],
-	"no_antialiasing": true,
+	"no_antialiasing": false,
 	"image": "characters/confronting/ato3/phase3heroi",
 	"position": [
-		0,
-		0
+		-350,
+		-130
 	],
 	"healthicon": "sonicAH",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		64,
 		64,
 		160
 	],
 	"camera_position": [
-		0,
-		250
+		-100,
+		50
 	],
 	"sing_duration": 6.1,
-	"scale": 0.6
+	"scale": 1
 }

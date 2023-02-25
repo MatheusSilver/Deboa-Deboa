@@ -105,7 +105,7 @@ function onCreate()
 
 	--phase3 cheetos só que do vilão pois sou uma pessoa extremamente imparcial, fonte: Confia yey
 
-	makeLuaSprite('vilaophase3-2','cenarios/phase3/vilao/2',-450,-125)--5
+	makeLuaSprite('vilaophase3-2','cenarios/phase3/vilao/2',-380,-125)--5
 	setLuaSpriteScrollFactor('vilaophase3-2',0.7,0.7)
 	setProperty('vilaophase3-2.scale.x', 1.5)
 	setProperty('vilaophase3-2.scale.y', 1.7)
@@ -366,8 +366,8 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase2cheetos do
 			setProperty(phase2cheetos[i]..'.visible', false)
 		end
-		for i = 1,#phase3cheetosheroi do
-			setProperty(phase3cheetosheroi[i]..'.visible', false)
+		for i = 1,#phase3cheetosvilao do
+			setProperty(phase3cheetosvilao[i]..'.visible', false)
 		end
 		for i = 1,#phase4cheetos do
 			setProperty(phase4cheetos[i]..'.visible', true)
@@ -454,6 +454,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
 
 	if keyJustPressed("space") then
-		changePhases(5) 
+		changePhases(3) 
 	end
 end

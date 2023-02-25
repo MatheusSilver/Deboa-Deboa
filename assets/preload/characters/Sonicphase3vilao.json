@@ -56,23 +56,23 @@
 			"name": "sonic hero exe right"
 		}
 	],
-	"no_antialiasing": true,
+	"no_antialiasing": false,
 	"image": "characters/confronting/ato3/phase3vilao",
 	"position": [
-		120,
-		70
+		-350,
+		-130
 	],
 	"healthicon": "sonicexeAH",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		64,
 		64,
 		160
 	],
 	"camera_position": [
-		10,
-		250
+		-110,
+		50
 	],
 	"sing_duration": 6.1,
-	"scale": 0.6
+	"scale": 1
 }
