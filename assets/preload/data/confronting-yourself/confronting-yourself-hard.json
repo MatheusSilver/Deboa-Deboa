@@ -1,7 +1,7 @@
 {
 	"song": {
 		"sectionLengths": [],
-		"player1": "flyingsonicCY",
+		"player1": "Sonic Exe AM",
 		"events": [],
 		"gfVersion": "invisibru",
 		"player3": "invisibru",
@@ -17,7 +17,7 @@
 			"mustHitSection": true
 			}
 		],
-		"player2": "Sonic Exe Pixel Flying flip ato9",
+		"player2": "invisibru",
 		"song": "confronting-yourself",
 		"stage": "confronting",
 		"splashSkin": "blood",

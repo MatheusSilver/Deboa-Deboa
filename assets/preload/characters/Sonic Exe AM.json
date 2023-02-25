@@ -56,23 +56,23 @@
 			"indices": []
 		}
 	],
-	"no_antialiasing": true,
+	"no_antialiasing": false,
 	"image": "characters/confronting/ato5/Sonic Exe AM",
 	"position": [
-		0,
-		0
+		280,
+		-70
 	],
 	"healthicon": "sonicexeAH",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		64,
 		64,
 		160
 	],
 	"camera_position": [
-		-230,
-		30
+		520,
+		90
 	],
 	"sing_duration": 6.1,
-	"scale": 0.6
+	"scale": 0.8
 }

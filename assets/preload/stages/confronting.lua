@@ -384,7 +384,10 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase2cheetos do
 			setProperty(phase2cheetos[i]..'.visible', false)
 		end
-		setProperty('nocumepausando.visible',true)
+		for i = 1,#phase5cheetos do
+			setProperty(phase5cheetos[i]..'.visible', true)
+		end
+		setProperty('nocumepausando.visible',false)
 	elseif curPhase == 6 then
 		
 		for i = 1,#phase1unico do
@@ -451,6 +454,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
 
 	if keyJustPressed("space") then
-		changePhases(9) 
+		changePhases(5) 
 	end
 end
