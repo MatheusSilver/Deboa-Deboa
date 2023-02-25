@@ -60,10 +60,10 @@
 	"image": "characters/confronting/corrida/sonicexechase",
 	"position": [
 		120,
-		70
+		-325
 	],
 	"healthicon": "sonicP2Pixel",
-	"flip_x": false,
+	"flip_x": true,
 	"healthbar_colors": [
 		64,
 		64,

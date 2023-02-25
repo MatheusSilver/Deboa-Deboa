@@ -98,7 +98,7 @@ function onCreate()
 	setLuaSpriteScrollFactor('chaorunning1',0.4,0.4)
 	setPropertyTiledLuaSprite("chaorunning1.antialiasing", false)
 	setPropertyTiledLuaSprite("chaorunning1.x", -555)
-	setPropertyTiledLuaSprite("chaorunning1.y", 600)
+	setPropertyTiledLuaSprite("chaorunning1.y", 575)
 	setPropertyTiledLuaSprite("chaorunning1.visible", false)
 	addLuaSprite('chaorunning1');
 
@@ -203,7 +203,7 @@ function onCreate()
 	setLuaSpriteScrollFactor('chaorunning1EXE',0.4,0.4)
 	setPropertyTiledLuaSprite("chaorunning1EXE.antialiasing", false)
 	setPropertyTiledLuaSprite("chaorunning1EXE.x", -500)
-	setPropertyTiledLuaSprite("chaorunning1EXE.y", 600)
+	setPropertyTiledLuaSprite("chaorunning1EXE.y", 550)
 	setPropertyTiledLuaSprite("chaorunning1EXE.visible", false)
 	addLuaSprite('chaorunning1EXE');
 
@@ -451,6 +451,6 @@ function onUpdate()
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
 
 	if keyJustPressed("space") then
-		changePhases(8) 
+		changePhases(3) 
 	end
 end

@@ -103,19 +103,19 @@
 	"no_antialiasing": true,
 	"image": "characters/confronting/corrida/running_sonic_sheet",
 	"position": [
-		0,
-		-120
+		-600,
+		0
 	],
 	"healthicon": "sonicsg",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		108,
 		108,
 		216
 	],
 	"camera_position": [
-		50,
-		400
+		-150,
+		200
 	],
 	"sing_duration": 6.1,
 	"scale": 7
