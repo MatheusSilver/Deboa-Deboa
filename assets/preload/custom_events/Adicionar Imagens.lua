@@ -6,7 +6,7 @@ function onEvent(name, value1, value2, value3, value4, path)
         else
             if legendas == true then
                 if downscroll == true then
-                        if tostring(value2) == ''  then
+                        if tostring(value2) == '' or tostring(value2) == 'nil' then
                             removeLuaSprite('exe1', true);
                         else
                             imagem1 = tostring(legendaPath)..tostring(value2)
@@ -16,7 +16,7 @@ function onEvent(name, value1, value2, value3, value4, path)
                             setLuaSpriteCamera('exe1', 'camhud');
                             addLuaSprite('exe1', true);
                         end
-                        if tostring(value3) == '' or tostring(value3) == 'null' then
+                        if tostring(value3) == '' or tostring(value3) == 'nil' then
                             removeLuaSprite('exe2', true);
                         else
                                 imagem2 = tostring(legendaPath)..tostring(value3)
@@ -26,7 +26,7 @@ function onEvent(name, value1, value2, value3, value4, path)
                             setLuaSpriteCamera('exe2', 'camhud');
                             addLuaSprite('exe2', true);
                         end
-                        if tostring(value4) == '' or tostring(value4) == 'null' then
+                        if tostring(value4) == '' or tostring(value4) == 'nil' then
                             removeLuaSprite('exe3', true);
                         else
                                 imagem3 = tostring(legendaPath)..tostring(value4)
@@ -43,7 +43,7 @@ function onEvent(name, value1, value2, value3, value4, path)
                         setLuaSpriteCamera('exe', 'camhud');
                         addLuaSprite('exe', true);
                 else
-                        if tostring(value2) == '' then
+                        if tostring(value2) == '' or tostring(value2) == 'nil'then
                             removeLuaSprite('exe1', true);
                         else
                                 imagem1 = tostring(legendaPath)..tostring(value2)
@@ -54,7 +54,7 @@ function onEvent(name, value1, value2, value3, value4, path)
                             addLuaSprite('exe1', true);
                         end
 
-                        if tostring(value3) == '' or tostring(value3) == 'null' then
+                        if tostring(value3) == '' or tostring(value3) == 'nil' then
                             removeLuaSprite('exe2', true);
                         else
                                 imagem2 = tostring(legendaPath)..tostring(value3)
@@ -64,7 +64,7 @@ function onEvent(name, value1, value2, value3, value4, path)
                             setLuaSpriteCamera('exe2', 'camhud');
                             addLuaSprite('exe2', true);
                         end
-                        if tostring(value4) == '' or tostring(value4) == 'null' then
+                        if tostring(value4) == '' or tostring(value4) == 'nil' then
                             removeLuaSprite('exe3', true);
                         else
                                 imagem3 = tostring(legendaPath)..tostring(value4)

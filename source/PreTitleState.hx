@@ -12,7 +12,7 @@ class PreTitleState extends MusicBeatState
 	override function create()
 		{
 			jarodou = true;
-			var random1:Int = FlxG.random.int(0, 250);
+			var random1:Int = FlxG.random.int(0, 300);
 			if(FlxG.save.data.firstTime != null || !ClientPrefs.firstTime || FlxG.save.data.flashing != null) //Algum desses caras tem que funfar
 				{
 					#if desktop
