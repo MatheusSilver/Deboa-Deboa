@@ -67,13 +67,15 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		GJClient.initialize();
-		/*urlLoader = new URLLoader();
-        urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
-        urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
-        
-        var request = new URLRequest("https://www.google.com");
-        urlLoader.load(request);*/
+		if(!initialized)
+			{
+				urlLoader = new URLLoader();
+				urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
+				urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
+				
+				var request = new URLRequest("https://www.google.com");
+				urlLoader.load(request);
+			}
 		//FlxG.switchState(new GameJoltLogin());
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
