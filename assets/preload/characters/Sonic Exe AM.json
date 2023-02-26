@@ -1,59 +1,70 @@
 {
 	"animations": [
 		{
+			"offsets": [
+				0,
+				0
+			],
 			"loop": true,
-			"offsets": [
-				0,
-				0
-			],
+			"fps": 24,
 			"anim": "idle",
-			"fps": 24,
-			"name": "Sonic Exe AM Idle",
-			"indices": []
+			"indices": [],
+			"name": "Sonic Exe AM Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWN",
-			"fps": 24,
-			"name": "Sonic Exe AM Down",
-			"indices": []
+			"indices": [],
+			"name": "Sonic Exe AM Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "Sonic Exe AM Up",
-			"indices": []
+			"indices": [],
+			"name": "Sonic Exe AM Up"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singLEFT",
-			"fps": 24,
-			"name": "Sonic Exe AM Left",
-			"indices": []
+			"indices": [],
+			"name": "Sonic Exe AM Left"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "singRIGHT",
+			"loop": false,
 			"fps": 24,
-			"name": "Sonic Exe AM Right",
-			"indices": []
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Sonic Exe AM Right"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"indices": [],
+			"fps": 10,
+			"anim": "laugh",
+			"loop": false,
+			"name": "Sonic Exe AM Laugh"
 		}
 	],
 	"no_antialiasing": false,

@@ -1,103 +1,103 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "sonic sing down"
+			"fps": 24,
+			"name": "sonic sing down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
-			"indices": [],
-			"name": "sonic sing up"
+			"fps": 24,
+			"name": "sonic sing up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
-			"indices": [],
-			"name": "sonic sing right"
+			"fps": 24,
+			"name": "sonic sing right",
+			"indices": []
 		},
 		{
-			"offsets": [
-				-240,
-				-440
-			],
 			"loop": true,
-			"fps": 24,
+			"offsets": [
+				-240,
+				-440
+			],
 			"anim": "idle",
-			"indices": [],
-			"name": "sonic idle"
+			"fps": 24,
+			"name": "sonic idle",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "sonic left sing"
+			"fps": 24,
+			"name": "sonic left sing",
+			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUPmiss",
-			"fps": 24,
-			"name": "sonic up miss",
-			"indices": []
+			"indices": [],
+			"name": "sonic up miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singRIGHTmiss",
-			"fps": 24,
-			"name": "sonic right miss",
-			"indices": []
+			"indices": [],
+			"name": "sonic right miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singDOWNmiss",
-			"fps": 24,
-			"name": "sonic down miss",
-			"indices": []
+			"indices": [],
+			"name": "sonic down miss"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-240,
 				-440
 			],
-			"anim": "singLEFTmiss",
+			"loop": false,
 			"fps": 24,
-			"name": "sonic left miss",
-			"indices": []
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "sonic left miss"
 		}
 	],
 	"no_antialiasing": true,

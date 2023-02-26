@@ -1,81 +1,70 @@
 {
 	"animations": [
 		{
+			"offsets": [
+				0,
+				0
+			],
 			"loop": true,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "idle",
 			"fps": 24,
-			"name": "Xenophanes Idle",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "singRIGHT",
-			"fps": 12,
-			"name": "Xenophanes Right",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "singLEFT",
-			"fps": 12,
-			"name": "Xenophanes Left",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "singUP",
-			"fps": 12,
-			"name": "Xenophanes Up",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "singDOWN",
-			"fps": 12,
-			"name": "Xenophanes Down",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				0,
-				0
-			],
-			"anim": "hey",
-			"fps": 12,
-			"name": "Xenophanes Laugh",
-			"indices": []
-		},
-		{
-			"offsets": [
-				0,
-				0
-			],
-			"loop": false,
-			"fps": 16,
-			"anim": "wave",
+			"anim": "idle",
 			"indices": [],
-			"name": "Xenophanes Calling"
+			"name": "Xenophanes Idle"
+		},
+		{
+			"offsets": [
+				-39,
+				-13
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Xenophanes Right"
+		},
+		{
+			"offsets": [
+				-11,
+				-7
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Xenophanes Left"
+		},
+		{
+			"offsets": [
+				-17,
+				13
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Xenophanes Up"
+		},
+		{
+			"offsets": [
+				-19,
+				-26
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Xenophanes Down"
+		},
+		{
+			"offsets": [
+				-12,
+				6
+			],
+			"loop": false,
+			"fps": 12,
+			"anim": "hey",
+			"indices": [],
+			"name": "Xenophanes Laugh"
 		}
 	],
 	"no_antialiasing": true,
