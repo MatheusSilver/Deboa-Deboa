@@ -139,7 +139,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--Phase 4 cheetos, basicamente um combo de phase 1 com phase 2 só que exe OOOOOOOOOOOOOOOOOMAGAAAAAAAAAWD
 	
-	makeLuaSprite('montanhasEXE','cenarios/phase4/montanhas',75,80-120) --2
+	makeLuaSprite('montanhasEXE','cenarios/phase4/montanhas',75+200,80-120) --2
 	setLuaSpriteScrollFactor('montanhasEXE',0.5,0.5)
 	setProperty('montanhasEXE.scale.x', 4.5)
 	setProperty('montanhasEXE.scale.y', 4.5)
@@ -147,7 +147,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('montanhasEXE.visible', false)
 	addLuaSprite('montanhasEXE',false)
 	
-	makeAnimatedLuaSprite('cachorreiraEXE','cenarios/phase4/cachorreira',-50,290-100) --3
+	makeAnimatedLuaSprite('cachorreiraEXE','cenarios/phase4/cachorreira',-50+200,290-100) --3
 	setLuaSpriteScrollFactor('cachorreiraEXE',0.6,0.6)
 	addAnimationByPrefix('cachorreiraEXE', 'bg2', 'bg2', 16, true);
 	setProperty('cachorreiraEXE.antialiasing', false)
@@ -157,7 +157,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('cachorreiraEXE',false)
 	objectPlayAnimation('cachorreiraEXE', 'bg2', true)
 	
-	makeAnimatedLuaSprite('awaEXE','cenarios/phase4/awa',-50-50,500-25) --4
+	makeAnimatedLuaSprite('awaEXE','cenarios/phase4/awa',-50+200-50,500-25) --4
 	setLuaSpriteScrollFactor('awaEXE',0.6,0.6)
 	addAnimationByPrefix('awaEXE', 'bg1', 'bg1', 16, true);
 	setProperty('awaEXE.scale.x', 5)
@@ -167,7 +167,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('awaEXE',false)
 	objectPlayAnimation('awaEXE', 'bg1', true)
 	
-	makeLuaSprite('florrandom2EXE','cenarios/phase4/random2',0,25)--5
+	makeLuaSprite('florrandom2EXE','cenarios/phase4/random2',-2000,-40)--5
 	setLuaSpriteScrollFactor('florrandom2EXE',0.7,0.7)
 	setProperty('florrandom2EXE.scale.x', 5)
 	setProperty('florrandom2EXE.scale.y', 5)
@@ -175,13 +175,13 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('florrandom2EXE.antialiasing', false)
 	addLuaSprite('florrandom2EXE',false)
 	
-	makeLuaSprite('florrandom3EXE','cenarios/phase4/random3',0,100)--5
+	makeLuaSprite('florrandom3EXE','cenarios/phase4/random1',-2000,-50)--5
 	setLuaSpriteScrollFactor('florrandom2EXE',0.7,0.7)
 	setProperty('florrandom3EXE.scale.x', 5)
 	setProperty('florrandom3EXE.scale.y', 5)
 	setProperty('florrandom3EXE.antialiasing', false)
 	setProperty('florrandom3EXE.visible', false)
-	--addLuaSprite('florrandom3EXE',false)
+	addLuaSprite('florrandom3EXE',false)
 	
 	makeLuaTiledSprite('chaorunning1EXE','cenarios/phase4/floorscroll',2303,256,true,false) --1
 	setLuaSpriteScrollFactor('chaorunning1EXE',0.4,0.4)
