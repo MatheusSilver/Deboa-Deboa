@@ -1,7 +1,7 @@
 {
 	"song": {
 		"sectionLengths": [],
-		"player1": "Super Sonic FZ",
+		"player1": "Sonic Pixel Stand",
 		"events": [],
 		"gfVersion": "invisibru",
 		"player3": "invisibru",
@@ -17,7 +17,7 @@
 			"mustHitSection": true
 			}
 		],
-		"player2": "Sonic Exe FZ",
+		"player2": "sonicexepixelstand",
 		"song": "confronting-yourself",
 		"stage": "confronting",
 		"splashSkin": "blood",

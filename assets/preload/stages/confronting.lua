@@ -1,31 +1,5 @@
-local speedChanger = 0
-
-local phase1unico = {'montesverdes', 'flores', 'trens'}
-local phase2cheetos = {'ceu', 'montanhas','cachorreira','awa', 'florrandom1', 'chaorunning1'}
-
---Sim Sim, sou uma pessoa bastante imparcial
-local phase3cheetosvilao = {'vilaophase3-1','vilaophase3-2', 'vilaophase3-3'}
-
-local phase3cheetosheroi = {'heroiphase3-1','heroiphase3-2', 'heroiphase3-3'}
-
-local phase4cheetos = {'ceuEXE', 'montanhasEXE','cachorreiraEXE','awaEXE', 'florrandom2EXE', 'florrandom3EXE', 'chaorunning1EXE'}
-
-local phase5cheetos = {'nocume', 'ardia'}
-
-local phase6cheetos = {'angelislandchao', 'angelislandarvores', 'angelislandbg'}
-
-local phase7cheetos = {'phase7-1', 'phase7-2', 'phase7-3', 'phase7-4'}
-
-local phase9cheetos = {'phase9-1', 'phase9-2', 'phase9-3'}
-
-local phase10cheetos = {'phase10-1', 'phase10-2', 'phase10-3'}
-
-function onCreatePost()
-	--setProperty("boyfriendGroup.visible", false)
-	--setProperty('dadGroup.visible', false)
-end
-
-function onCreate()
+function onCreate() -- Aqui só serve para dar carregar e configurar os cenários,
+	-- A parte massa da coisa mesmo está lá no Master.lua
 	
 
 	--phase1 stuff
@@ -33,17 +7,17 @@ function onCreate()
 	setLuaSpriteScrollFactor('ceu',0.4,0.4)
 	setPropertyTiledLuaSprite("ceu.antialiasing", false)
 	setPropertyTiledLuaSprite("ceu.x", -555)
-	setPropertyTiledLuaSprite("ceu.y", -260)
+	setPropertyTiledLuaSprite("ceu.y", -263)
 	addLuaSprite('ceu');
 
-	makeLuaSprite('montanhas','cenarios/phase1/montanhas',75-200,105-43) --2
+	makeLuaSprite('montanhas','cenarios/phase1/montanhas',75-200+100,105-43) --2
 	setLuaSpriteScrollFactor('montanhas',0.5,0.5)
 	setProperty('montanhas.scale.x', 5)
 	setProperty('montanhas.scale.y', 4.5)
 	setProperty('montanhas.antialiasing', false)
 	addLuaSprite('montanhas',false)
 
-	makeAnimatedLuaSprite('cachorreira','cenarios/phase1/cachorreira',-50-300,295-35) --3
+	makeAnimatedLuaSprite('cachorreira','cenarios/phase1/cachorreira',-50-300+140,295-35) --3
 	setLuaSpriteScrollFactor('cachorreira',0.6,0.6)
 	addAnimationByPrefix('cachorreira', 'bg2', 'bg2', 16, true);
 	setProperty('cachorreira.antialiasing', false)
@@ -52,10 +26,10 @@ function onCreate()
 	addLuaSprite('cachorreira',false)
 	objectPlayAnimation('cachorreira', 'bg2', true)
 
-	makeAnimatedLuaSprite('awa','cenarios/phase1/awa',-80-300,580-35) --4
+	makeAnimatedLuaSprite('awa','cenarios/phase1/awa',-80-300+100,580-35) --4
 	setLuaSpriteScrollFactor('awa',0.6,0.6)
 	addAnimationByPrefix('awa', 'bg1', 'bg1', 16, true);
-	setProperty('awa.scale.x', 5)
+	setProperty('awa.scale.x', 6)
 	setProperty('awa.scale.y', 5)
 	setProperty('awa.antialiasing', false)
 	addLuaSprite('awa',false)
@@ -95,6 +69,14 @@ function onCreate()
 	setProperty('florrandom1.antialiasing', false)
 	setProperty('florrandom1.visible', false)
 	addLuaSprite('florrandom1',false)
+
+	makeLuaSprite('florrandom2','cenarios/phase2/random2',-2000,40)--5
+	setLuaSpriteScrollFactor('florrandom2',0.7,0.7)
+	setProperty('florrandom2.scale.x', 5)
+	setProperty('florrandom2.scale.y', 5)
+	setProperty('florrandom2.antialiasing', false)
+	setProperty('florrandom2.visible', false)
+	addLuaSprite('florrandom2',false)
 
 	makeLuaTiledSprite('chaorunning1','cenarios/phase2/floorscroll',2303,373,true,false) --1
 	setLuaSpriteScrollFactor('chaorunning1',0.4,0.4)
@@ -348,149 +330,4 @@ function onCreate()
 	addLuaSprite('phase10-3',true)
 
 
-end
-
--- O plano é que Aqui vai ficar só o precache a criação de variaveis de cenário.
--- As mecânicas e todo o resto ficarão no master.lua (futuramente será criado.)
-
-
--- Não tenho certeza de setProperty("defaultCamZoom",0.8) está funcionando, então talvez tu precise alterar o json do stage pra ter uma ideia melhor
--- De todos modos, na música, esse evento vai funcionar com base no CamZoomTween, então não estou lá muito preocupado com isso.
-function changePhases(curPhase) -- Fazer um lua só pra isso.
-	if curPhase == 2 then
-		setProperty("defaultCamZoom",0.75)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', true)
-		end
-		doTweenX('florqueanda1', 'florrandom1', 2000, 10, 'linear')
-		doTweenX('montanhaqueanda1', 'montanhas', 400, 33, 'linear')
-		doTweenX('awaqueanda1', 'awa', 400, 33, 'linear')
-		doTweenX('eitacachorreira', 'cachorreira', 400, 33, 'linear')
-	elseif curPhase == 3 then
-		setProperty("defaultCamZoom",0.65)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		for i = 1,#phase3cheetosvilao do
-			setProperty(phase3cheetosvilao[i]..'.visible', true)
-		end
-	elseif curPhase == 4 then
-		setProperty("defaultCamZoom",0.65)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase3cheetosvilao do
-			setProperty(phase3cheetosvilao[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		for i = 1,#phase3cheetosvilao do
-			setProperty(phase3cheetosvilao[i]..'.visible', false)
-		end
-		for i = 1,#phase4cheetos do
-			setProperty(phase4cheetos[i]..'.visible', true)
-		end
-		doTweenX('florqueanda1', 'florrandom1', 2000, 10, 'linear')
-		doTweenX('montanhaqueanda1', 'montanhas', 400, 33, 'linear')
-		doTweenX('awaqueanda1', 'awa', 400, 33, 'linear')
-		doTweenX('eitacachorreira', 'cachorreira', 400, 33, 'linear')
-	elseif curPhase == 5 then
-		setProperty("defaultCamZoom",0.65)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		for i = 1,#phase5cheetos do
-			setProperty(phase5cheetos[i]..'.visible', true)
-		end
-		setProperty('nocumepausando.visible',false)
-	elseif curPhase == 6 then
-		
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		for i = 1,#phase6cheetos do
-			setProperty(phase6cheetos[i]..'.visible',true)
-			setProperty("defaultCamZoom",0.8) -- OU VAI OU VAI...
-		end		
-	elseif curPhase == 7 then
-		setProperty("defaultCamZoom",0.75)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		for i = 1,#phase7cheetos do
-			setProperty(phase7cheetos[i]..'.visible',true)
-		end
-	elseif curPhase == 8 then 	--0.75 de zoom
-		setProperty("defaultCamZoom",0.8)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		setProperty('phase8.visible',true)
-	elseif curPhase == 9 then 	--0.75 de zoom
-		setProperty("defaultCamZoom",0.65)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		for i = 1,#phase9cheetos do
-			setProperty(phase9cheetos[i]..'.visible', true)
-		end
-	elseif curPhase == 10 then
-		
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
-		for i = 1,#phase10cheetos do
-			setProperty(phase10cheetos[i]..'.visible',true)
-			setProperty("defaultCamZoom",0.8) -- OU VAI OU VAI...
-		end		
-	end
-end
-
-
---Pretendo transferir isso pro Master em Breve, afinal ainda no final teremos que dar um jeito de usar removeLuaSprite pra economizar memória
---já que o The End é a parte mais pesada do mod.
-function onUpdate()
-	speedChanger = speedChanger + 1
-
-	--Just testing
-	setPropertyTiledLuaSprite("ceu.scrollX", speedChanger*0.5)
-	setPropertyTiledLuaSprite("chaorunning1.scrollX", speedChanger*15)
-	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*15)
-
-
-	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45)
-	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20)
-	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
-
-	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
-	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
-
-	if keyJustPressed("space") then
-		changePhases(10) 
-	end
 end

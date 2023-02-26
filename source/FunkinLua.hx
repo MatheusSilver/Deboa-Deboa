@@ -1117,23 +1117,40 @@ class FunkinLua {
 			//luaTrace('Couldnt find object: ' + obj);
 		});
 		Lua_helper.add_callback(lua, "removeLuaSprite", function(tag:String, destroy:Bool = true) {
-			if(!PlayState.instance.modchartSprites.exists(tag)) {
+			if(!PlayState.instance.modchartSprites.exists(tag) && !PlayState.instance.modchartTiledSprites.exists(tag)) {
 				return;
 			}
 			
-			var pee:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
-			if(destroy) {
-				pee.kill();
-			}
-
-			if(pee.wasAdded) {
-				PlayState.instance.remove(pee, true);
-				pee.wasAdded = false;
-			}
-
-			if(destroy) {
-				pee.destroy();
-				PlayState.instance.modchartSprites.remove(tag);
+			if(!PlayState.instance.modchartTiledSprites.exists(tag)){
+				var pee:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
+				if(destroy) {
+					pee.kill();
+				}
+	
+				if(pee.wasAdded) {
+					PlayState.instance.remove(pee, true);
+					pee.wasAdded = false;
+				}
+	
+				if(destroy) {
+					pee.destroy();
+					PlayState.instance.modchartSprites.remove(tag);
+				}
+			}else{
+				var pee:ModchartTiledSprite = PlayState.instance.modchartTiledSprites.get(tag);
+				if(destroy) {
+					pee.kill();
+				}
+	
+				if(pee.wasAdded) {
+					PlayState.instance.remove(pee, true);
+					pee.wasAdded = false;
+				}
+	
+				if(destroy) {
+					pee.destroy();
+					PlayState.instance.modchartTiledSprites.remove(tag);
+				}
 			}
 		});
 
