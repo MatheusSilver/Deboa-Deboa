@@ -167,7 +167,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('awaEXE',false)
 	objectPlayAnimation('awaEXE', 'bg1', true)
 	
-	makeLuaSprite('florrandom2EXE','cenarios/phase4/random2',-2000,-40)--5
+	makeLuaSprite('florrandom2EXE','cenarios/phase4/random2',-2000,-30)--5
 	setLuaSpriteScrollFactor('florrandom2EXE',0.7,0.7)
 	setProperty('florrandom2EXE.scale.x', 5)
 	setProperty('florrandom2EXE.scale.y', 5)
@@ -290,10 +290,10 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setPropertyTiledLuaSprite("phase9-2.y", -160)
 	addLuaSprite('phase9-2', false);
 
-	makeLuaSprite('phase9-3','cenarios/phase9/3',-800,-500)--5
+	makeLuaSprite('phase9-3','cenarios/phase9/3',1000,-620)--5
 	setLuaSpriteScrollFactor('phase9-3',1,1)
-	setProperty('phase9-3.scale.x', 0.3)
-	setProperty('phase9-3.scale.y', 0.3)
+	setProperty('phase9-3.scale.x', 0.4)
+	setProperty('phase9-3.scale.y', 0.4)
 	setProperty('phase9-3.visible', false)
 	setProperty('phase9-3.antialiasing', false)
 	addLuaSprite('phase9-3',false)

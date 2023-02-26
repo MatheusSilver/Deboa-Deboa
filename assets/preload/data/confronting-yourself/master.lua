@@ -36,8 +36,13 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('awaqueanda1', 'awa', 400-250, 33, 'linear')
 		doTweenX('eitacachorreira', 'cachorreira', 400-250, 33, 'linear')
 	elseif curPhase == 3 then
+		cancelTween('florqueanda1')
+		cancelTween('montanhaqueanda1')
+		cancelTween('awaqueanda1')
+		cancelTween('eitacachorreira')
+		cancelTween('florqueanda2')
 		for i = 1,#phase2cheetos do
-			removeLuaSprite(phase2cheetos[i]..'.visible', false)
+			removeLuaSprite(phase2cheetos[i])
 		end
 		for i = 1,#phase3cheetosvilao do
 			setProperty(phase3cheetosvilao[i]..'.visible', true)
@@ -71,71 +76,53 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('awaqueanda1EXE', 'awaEXE', 400, 34, 'linear')
 		doTweenX('eitacachorreiraEXE', 'cachorreiraEXE', 400, 34, 'linear')
 	elseif curPhase == 7 then
-		setProperty("defaultCamZoom",0.65)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
+		cancelTween('florqueanda2EXE')
+		cancelTween('montanhaqueanda1EXE')
+		cancelTween('awaqueanda1EXE')
+		cancelTween('eitacachorreiraEXE')
+		cancelTween('florqueanda1EXE')
+		for i = 1,#phase4cheetos do
+			removeLuaSprite(phase4cheetos[i])
 		end
 		for i = 1,#phase5cheetos do
 			setProperty(phase5cheetos[i]..'.visible', true)
 		end
-		setProperty('nocumepausando.visible',false)
 	elseif curPhase == 8 then
-		
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
+		setProperty('nocumepausando.visible',true)
+		for i = 1,#phase5cheetos do
+			removeLuaSprite(phase5cheetos[i])
 		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
+	elseif curPhase == 9 then
+		removeLuaSprite('nocumepausando')
 		for i = 1,#phase6cheetos do
 			setProperty(phase6cheetos[i]..'.visible',true)
-			setProperty("defaultCamZoom",0.8) -- OU VAI OU VAI...
 		end		
-	elseif curPhase == 9 then
-		setProperty("defaultCamZoom",0.75)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
+	elseif curPhase == 10 then
+		for i = 1,#phase6cheetos do
+			removeLuaSprite(phase6cheetos[i])
 		end
 		for i = 1,#phase7cheetos do
 			setProperty(phase7cheetos[i]..'.visible',true)
 		end
-	elseif curPhase == 10 then 	--0.75 de zoom
-		setProperty("defaultCamZoom",0.8)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
+	elseif curPhase == 11 then
+		for i = 1,#phase7cheetos do
+			removeLuaSprite(phase7cheetos[i])
 		end
 		setProperty('phase8.visible',true)
-	elseif curPhase == 11 then 	--0.75 de zoom
-		setProperty("defaultCamZoom",0.65)
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
-		end
+	elseif curPhase == 12 then
+			removeLuaSprite('phase8')
 		for i = 1,#phase9cheetos do
 			setProperty(phase9cheetos[i]..'.visible', true)
 		end
-	elseif curPhase == 12 then	
-		for i = 1,#phase1unico do
-			setProperty(phase1unico[i]..'.visible', false)
-		end
-		for i = 1,#phase2cheetos do
-			setProperty(phase2cheetos[i]..'.visible', false)
+		doTweenX('deatheggqueanda', 'phase9-3', -2000, 70, 'linear')
+	elseif curPhase == 13 then	
+		cancelTween('deatheggqueanda')
+		for i = 1,#phase9cheetos do
+			removeLuaSprite(phase9cheetos[i])
 		end
 		for i = 1,#phase10cheetos do
 			setProperty(phase10cheetos[i]..'.visible',true)
-			setProperty("defaultCamZoom",0.8) -- OU VAI OU VAI...
-		end		
+		end
 	end
 end
 function onEvent(name, value1, value2)
@@ -173,14 +160,14 @@ function onUpdate()
     setPropertyTiledLuaSprite("ceu.scrollX", speedChanger*0.5*10)
 	elseif phasedetector == 6 then
 	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*30)
-	end
-
+	elseif phasedetector == 9 then
 	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45)
 	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20)
 	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
-
+	elseif phasedetector == 12 then
 	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
-	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*5)
+	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*0.5)
+	end
 
 	if keyJustPressed("space") then
 		changePhases(phasedetector+1) 
