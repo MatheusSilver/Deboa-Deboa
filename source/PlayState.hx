@@ -2949,7 +2949,7 @@ class PlayState extends MusicBeatState
 		curSong = songData.song;
 
 			legendPath = 'letras/'+curSong.toLowerCase()+'/';
-			FunkinLua.instance.set('legendaPath', legendPath);
+			setOnLuas('legendaPath', legendPath);
 
 
 		if (SONG.needsVoices) {
