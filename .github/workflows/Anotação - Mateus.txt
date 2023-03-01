@@ -1,0 +1,5 @@
+Eu vou fazer a compilação pra HTML. Já tenho a página formada e só falta a build do jogo em HTML.
+LEMBRANDO, que a compilação de HTML é diferente, ou seja, eu tenho que usar coisas diferentes.
+
+Faxe, luajit (andreirudenko), openfl, lime, flixel, e talvez mais algumas coisas
+O problema é só o suporte de tudo mesmo, o resto vai normal
