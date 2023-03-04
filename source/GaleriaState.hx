@@ -43,6 +43,9 @@ class GaleriaState extends MusicBeatState
 	
 	override function create()
 		{
+			Paths.clearStoredMemory();
+			Paths.clearUnusedMemory();
+
 			WeekData.reloadWeekFiles(true); //Obrigado silvio do passado por essa anotação em FreeplayState.hx
 			//DaMusic part
 
@@ -168,11 +171,11 @@ class GaleriaState extends MusicBeatState
 				if(FlxG.mouse.overlaps(playsArray) || (FlxG.mouse.overlaps(galeriaButton)&&!isGaleria) || (FlxG.mouse.overlaps(musicButton)&&isGaleria)){
 					if(mouseskin != "pointerselected"){
 						mouseskin = 'pointerselected';
-						FlxG.mouse.load(Paths.image('sobremenu/galeria/'+mouseskin), 1, 0, 0);
+						FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+mouseskin), 1, 0, 0);
 					}
 				}else if (mouseskin!='pointer'){
 					mouseskin = 'pointer';
-					FlxG.mouse.load(Paths.image('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
+					FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
 				}
 
 				menuItems.forEach(function(spr:FlxSprite)
@@ -199,11 +202,9 @@ class GaleriaState extends MusicBeatState
 						if(FlxG.mouse.overlaps(spr)){
 							stoploading = true;
 							FlxG.sound.play(Paths.sound('click'));
-							playsArray.visible = false;
-							menuItems.visible = false;
-							persistentDraw = false;
-							persistentUpdate = false;
-							openSubState(new GaleriaSubStateMusic(spr.ID));
+							GaleriaStateMusic.songPosInArray = spr.ID;
+							MusicBeatState.switchState(new GaleriaStateMusic());
+							FlxG.sound.music.fadeOut(1, 0);
 						}else if (FlxG.mouse.overlaps(galeriaButton) && !isGaleria){
 							galeriapressed();
 							FlxG.sound.play(Paths.sound('click'));

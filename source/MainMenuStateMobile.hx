@@ -69,7 +69,8 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function create()
 	{
-		Main.dumpCache();
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 		Conductor.changeBPM(112);
 		#if desktop
 		// Updating Discord Rich Presence

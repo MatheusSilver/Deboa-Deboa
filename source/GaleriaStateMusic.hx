@@ -1,3 +1,5 @@
+package;
+
 import flixel.system.FlxSound;
 #if desktop
 import Discord.DiscordClient;
@@ -15,11 +17,13 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-class GaleriaSubStateMusic extends MusicBeatSubstate
+class GaleriaStateMusic extends MusicBeatState
 {
 
 		var curSong:FlxSound;
 		var prevSong:FlxSound;
+
+		var scrollableArea:FlxSprite;
 
 		var loopar:Bool = false;
 		var playsequencia:Bool = false;
@@ -30,6 +34,9 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 		var barraInferior:FlxSprite;
 		var thumbnail:FlxSprite;
 		var thumbnailAuxiliar:FlxSprite;
+
+		var segureoPrimeiroY:Float;
+		var segureoUltimoY:Float;
 
 		var isLetras = false;
 
@@ -72,11 +79,12 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 
 		private var checkboxNumber:Array<Int> = [];
 
+		public static var songPosInArray:Int = 1;
+
 		private var menuItems:FlxTypedGroup<FlxSprite>;
 
-		public function new(songPosInArray:Int = 1)
+		override function create()
 		{
-			super();
 
 			curSelected = songPosInArray;
 
@@ -107,11 +115,11 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 			playListbotao.alpha = 0;
 			add(playListbotao);
 
-			var lugar:Float = 0.51; //Não entendi, só sei que foi assim ;-;
+			var lugar:Float = 0.50; //Não entendi, só sei que foi assim ;-;
 			barrabase = new FlxBar(playListbotao.x, playListbotao.y + playListbotao.height, LEFT_TO_RIGHT, Std.int(playListbotao.width+letrasbotao.width), 2, this, 'lugar', 0, 1, true);
 			barrabase.scrollFactor.set();
 			barrabase.alpha = 0;
-			barrabase.numDivisions = 1;
+			barrabase.numDivisions = 100;
 			barrabase.createFilledBar(0x63797979,0xFFFFFFFF);
 			add(barrabase);
 
@@ -129,6 +137,12 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 				scrollingStuff.antialiasing = ClientPrefs.globalAntialiasing;
 				scrollingStuff.updateHitbox();
 				scrollingStuff.ID = i;
+
+				if (i == 0)
+					segureoPrimeiroY = scrollingStuff.y;
+
+
+
 
 				//Propósitos de economizar renderização
 				menuItems.add(scrollingStuff);
@@ -200,7 +214,7 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 			timer.y = FlxG.height;
 			add(timer);
 
-			thumbnailAuxiliar = new FlxSprite().loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
+			thumbnailAuxiliar = new FlxSprite().loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'), false, 200);
 			thumbnailAuxiliar.setGraphicSize(Std.int(thumbnailAuxiliar.width * 1.25));
 			thumbnailAuxiliar.x = timer.x + 150;
 			thumbnailAuxiliar.y = FlxG.height - thumbnailAuxiliar.height;
@@ -222,6 +236,12 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 			tocandoagorasuporte.y = thumbtocandoagora.y - 5;
 			tocandoagorasuporte.alpha = 0;
 
+			scrollableArea= new FlxSprite(0,0).makeGraphic(Std.int(overlaySuporte.width), Std.int(FlxG.height - barraInferior.height - overlaySuporte.height*0.8), FlxColor.TRANSPARENT);
+			scrollableArea.x = overlaySuporte.x;
+			scrollableArea.y = thumbtocandoagora.y;
+			scrollableArea.visible=false;
+			add(scrollableArea);
+
 			add(tocandoagorasuporte);
 			add(thumbtocandoagora);
 
@@ -237,9 +257,13 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 			'songPercent', 0, 1);
 			timeBar.scrollFactor.set();
 			timeBar.createFilledBar(0x63C9C9C9, 0xFFFF0000);
-			timeBar.numDivisions = 1280;	
+			timeBar.numDivisions = 800;	
 			timeBar.alpha = 0;
 			add(timeBar);
+
+			FlxG.sound.music.fadeOut(1, 0);
+
+			super.create();
 
 			reloadValues();
 			entrada();
@@ -282,11 +306,11 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 										});
 									menuItems.forEach(function(spr:FlxSprite)
 										{
-											if(spr.y < FlxG.height + 500 && spr.y > overlaySuporte.height*0.8)
-												FlxTween.tween(spr, {alpha: 1}, 0.1, {ease: FlxEase.quadOut,
-												onComplete: function(twn:FlxTween)
+											FlxTween.tween(spr, {alpha: 1}, 0.1, {ease: FlxEase.quadOut,
+											onComplete: function(twn:FlxTween)
 												{
-													canRender = true;
+												canRender = true;
+										
 												}
 											});
 										});
@@ -303,20 +327,24 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 
 		function changeSong(direction:Int){
 
-			if(!loopar){
-				FlxG.sound.music.stop();
-				FlxG.sound.music.destroy();
-			}
+			if(direction < 0)
+				direction = GaleriaState.leMusic.length-1
+			else if (direction > GaleriaState.leMusic.length-1)
+				direction = 0;
+
+			FlxG.sound.music.stop();
+			
+			//HAHAHAHAHAHH ADEUS YOUTUBE MUSIC, AGORA O ELON MOSKA COMPRARÁ VOCÊ E TRANSFORMARÁ EM
+			//High Space Musical X NYEHEHEHHEHEHGEHEHYEHEHEHEHEHEHEHEHEH
 
 			curSelected = direction;
-			new FlxTimer().start(0.3, function(tmr:FlxTimer) {
 			FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[direction].toLowerCase()), 0);
+			menutoca=false;
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 			songLength = FlxG.sound.music.length + 1000; //Um segundo cheio sendo adicionado aqui pois achei que o player de musicas do haxe tivesse o mesmo erro que o player do meu PC que add um sec a mais sempre
 			FlxG.sound.music.onComplete = playlistChecker;
 			thumbnail.loadGraphic(Paths.image("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)", 'preload'));
 			FlxTween.tween(thumbnail, {x: 175}, 0.1, {ease: FlxEase.quartInOut});
-			});
 
 			thumbtocandoagora.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
 			thumbnailAuxiliar.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
@@ -325,17 +353,19 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 
 		function playlistChecker():Void
 			{
-				if(!loopar){
-				FlxG.sound.music.stop();
-				//FlxG.sound.music.destroy();
-				}
-				if(playsequencia)
+				//trace('o ato da musica acabou, os bugs parecem sem fim');
+				if(playsequencia){
 					changeSong(curSelected+1);
-				else if(playrandom)
-					changeSong(FlxG.random.int(0, GaleriaState.leMusic.length-1))
-				else if(!loopar)
+					//trace('tentando tocar sequencia');
+				}else if(playrandom){
+					//trace('tentando tocar random');
+					changeSong(FlxG.random.int(0, GaleriaState.leMusic.length-1));
+				}else if(!loopar){
 					FlxG.sound.playMusic(Paths.music('newmenu'), 0.7);
-
+					menutoca=true;
+					FlxG.sound.music.fadeIn(4, 0, 0.7);
+					pausado = true;
+				}
 			}
 
 		function reloadValues() {
@@ -360,33 +390,52 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 		var curTime:Float = 0;
 		var secondsTotal:Int = 0;
 
+		var menutoca:Bool = true;
+
 
 	override function update(elapsed:Float)
 		{
+			if(FlxG.mouse.overlaps(scrollableArea))
+				{
+				if(FlxG.mouse.wheel>0) //Aparentemente isso aqui faz o bg subir.
+					{
+						//trace('estou subindo?'); //Sim
+						if(menuItems.members[0].y <= segureoPrimeiroY)
+						{
+								menuItems.forEach(function(spr:FlxSprite)
+								{spr.y = spr.y+25;});
+						}
+					}else if(FlxG.mouse.wheel<0){
+						if(menuItems.members[GaleriaState.leMusic.length-1].y >= FlxG.height - barraInferior.y + 15*35 )
+						{
+								menuItems.forEach(function(spr:FlxSprite)
+								{spr.y = spr.y-25;});
+						}
+
+					}
+				}
+
 			if (controls.BACK || (FlxG.mouse.overlaps(sair) && FlxG.mouse.justPressed)) {
 				FlxG.sound.play(Paths.sound('click'));
 				GaleriaState.firsttimemusic = false;
 				GaleriaState.stoploading = false;
 				canRender = false;
-				FlxG.sound.music.fadeIn(4, 0, 0);
+				FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+				menutoca= true;
+				FlxG.sound.music.fadeIn(1, 0, 0.7);
 
-				new FlxTimer().start(4.1, function(tmr:FlxTimer) {
-				FlxG.sound.playMusic(Paths.music('newmenu'), 0.7);
-				});
-				close();
+				MusicBeatState.switchState(new GaleriaState());
 			}
-
-			if (!pausado && FlxG.sound.music != null){
-				curTime = FlxG.sound.music.time;
+			if (FlxG.sound.music == null)
+				timer.text = '0:00/0:00';
+			else if (!pausado){
+				curTime = FlxG.sound.music.time + 1000;
 				if(curTime < 0) curTime = 0;
 				songPercent = (curTime / songLength);
 				secondsTotal = Math.floor((songLength - curTime) / 1000);
 				if(secondsTotal < 0) secondsTotal = 0;
 				timer.text = FlxStringUtil.formatTime(Math.floor(curTime/1000), false) + '/' + FlxStringUtil.formatTime(Math.floor(songLength/1000), false);
-			}else if (FlxG.sound.music == null){
-				timer.text = '0:00/0:00';
 			}
-
 
 			#if desktop
 			if(!pausado)
@@ -397,15 +446,15 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 
 			if(FlxG.mouse.overlaps(menuItems) || FlxG.mouse.overlaps(checkboxArray) || 
 				FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||
-					FlxG.mouse.overlaps(botaoPauseContinue) || FlxG.mouse.overlaps(sair) ||
+					FlxG.mouse.overlaps(botaoPauseContinue) || FlxG.mouse.overlaps(sair) || 
 					(FlxG.mouse.overlaps(playListbotao)&&isLetras) || (FlxG.mouse.overlaps(letrasbotao)&&isLetras)){
 				if(mouseskin != "pointerselected"){
 					mouseskin = 'pointerselected';
-					FlxG.mouse.load(Paths.image('sobremenu/galeria/'+mouseskin), 1, 0, 0);
+					FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+mouseskin), 1, 0, 0);
 				}
 			}else if (mouseskin!='pointer'){
 				mouseskin = 'pointer';
-				FlxG.mouse.load(Paths.image('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
+				FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
 			} //Central do mouse
 
 			checkboxArray.forEach(function(spr:FlxSprite){
@@ -446,12 +495,16 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 					FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 					FlxG.sound.play(Paths.sound('click'));
 				}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&pausado){
-					FlxG.sound.music.resume();
 					pausado = false;
 					FlxG.sound.play(Paths.sound('click'));
-					if(FlxG.sound.music == null)
-						FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[curSelected].toLowerCase()), 0);
-				
+					if(menutoca){
+						FlxG.sound.music.fadeOut(1, 0);
+						FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[curSelected].toLowerCase()),0);
+						menutoca=false;
+						FlxG.sound.music.fadeIn(4, 0, 0.7);					
+					} else{
+						FlxG.sound.music.resume();
+					}
 				}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&!pausado){
 					FlxG.sound.music.pause();
 					pausado = true;
@@ -465,7 +518,7 @@ class GaleriaSubStateMusic extends MusicBeatSubstate
 						//Com isso, a placa só irá ter que carregar objetos que realmente estão na camera.
 						//Honestamente essa é a primeira vez que tenho que me preocupar com placa de vídeo ao invés de RAM
 
-					if(spr.y < (FlxG.height - barraInferior.height) && spr.y > overlaySuporte.height*0.8)
+					if(spr.y >= overlaySuporte.height*0.95 && spr.y <= FlxG.width)
 						spr.visible = true;
 					else
 						spr.visible = false;

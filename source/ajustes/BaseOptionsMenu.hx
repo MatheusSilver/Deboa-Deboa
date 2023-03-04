@@ -48,13 +48,13 @@ class BaseOptionsMenu extends MusicBeatState
 		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
 		//Vai que o Sirox e seu celular da NASA joguem esse mod, por via das duvidas, os shaders ficam desativados por padrão em mobile
 		'Anti-Aliasing',
-		'Limpar Cache',
 		'FullScreen',
 		'Esconder HUD',
 		'Esconder tempo',
 		'Violencia',
 		'Luzes Piscantes',
 		'FPS visível',
+		'Carregar rápido',
 		#if !html5
 		'FPS', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
@@ -257,6 +257,9 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Swearing':
 						ClientPrefs.cursing = !ClientPrefs.cursing;
 
+					case 'Carregar rápido':
+						ClientPrefs.loadingexperimental = !ClientPrefs.loadingexperimental;
+
 					case 'Downscroll':
 						ClientPrefs.downScroll = !ClientPrefs.downScroll;
 
@@ -271,13 +274,6 @@ class BaseOptionsMenu extends MusicBeatState
 
 					case 'Esconder HUD':
 						ClientPrefs.hideHud = !ClientPrefs.hideHud;
-
-					case 'Limpar Cache':
-						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
-						FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
-						/*#if debug
-						trace(ClientPrefs.imagesPersist); //O game deve começar com essa caixinha marcada
-						#end*/
 					
 					case 'Esconder barra de tempo':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
@@ -379,10 +375,10 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)";
 			case 'Baixa Qualidade':
 				daText = "Se marcado, retira elementos do cenário.\n(Desative isso caso a música que esteja jogando, trave demais.)";
-			case 'Limpar Cache':
-				daText = "Se desmarcado, o game não limpará o cache\n isso reduz o tempo de loading ao entrar numa música de novo\n mas pode sobrecarregar seu PC depois de muito tempo jogando";
 			case 'Anti-Aliasing':
 				daText = "Se marcado, desativa o AntiAliasing do jogo, deixando sprites com menos polimento.\n(Aumenta MUITA performance)";
+			case 'Carregar rápido':
+				daText = "Se marcado, a engine passará a usar\n um sistema alternativo para carregar os assets \n talvez mais rápido que o original dependendo da sua máquina.";	
 			case 'Downscroll':
 				daText = "Se marcado, as notas ficaram estilo Guitar Hero.\n(Irão pra baixo)";
 			case 'Hitsounds':
@@ -475,6 +471,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.flashing;
 					case 'Legendas':
 						daValue = ClientPrefs.legendas;
+					case 'Carregar rápido':
+						daValue = ClientPrefs.loadingexperimental;
 					case 'Downscroll':
 						daValue = ClientPrefs.downScroll;
 					case 'Middlescroll':
@@ -493,8 +491,6 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.camZooms;
 					case 'Esconder HUD':
 						daValue = ClientPrefs.hideHud;
-					case 'Limpar Cache':
-						daValue = ClientPrefs.imagesPersist;
 					case 'Esconder barra de tempo':
 						daValue = ClientPrefs.hideTime;
 				}

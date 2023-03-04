@@ -37,9 +37,7 @@ class FunkinLua {
 	public static var camGameShaders:Array<ShaderEffect> = [];
 	public static var camHUDShaders:Array<ShaderEffect> = [];
 	public static var camOtherShaders:Array<ShaderEffect> = [];
-
-	public static var instance:FunkinLua;
-   
+ 
 	#if LUA_ALLOWED
 	public var lua:State = null;
 	#end
@@ -53,7 +51,6 @@ class FunkinLua {
 		lua = LuaL.newstate();
 		LuaL.openlibs(lua);
 		Lua.init_callbacks(lua);
-		instance = this;
 		//trace(lua); //Só pra eu ter noção de como fazer um anticheat aqui
 
 		//trace('Lua version: ' + Lua.version());
@@ -152,7 +149,7 @@ class FunkinLua {
 		set('gfName', PlayState.SONG.player3); //Fix para Endless Cycles
 
 
-		set('legendaPath', PlayState.instance.legendPath);
+		set('legendaPath', PlayState.legendPath);
 		// Some settings, no jokes
 		set('legendas', ClientPrefs.legendas);
 		set('legendasporcima', ClientPrefs.legendasporcima);
@@ -706,7 +703,7 @@ class FunkinLua {
 			var value3:String = arg3;
 			var value4:String = arg4;
 			var path:String = arg5;
-			PlayState.instance.triggerEventNote(name, value1, value2, value3, value4, path);
+			PlayState.instance.triggerEventNote(name, value1, value2, value3, value4);
 			//trace('Triggered event: ' + name + ', ' + value1 + ', ' + value2);
 		});
 
@@ -831,12 +828,7 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(OpenFlAssets.exists(Paths.imagechecker(image))){
-				leSprite.loadGraphic(Paths.image(image));
-				} else if(image != 'nil' && image.length > 1 && image != 'nil'){
-					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
-						leSprite.loadGraphic(Paths.image(image, 'preload'));
-				}
+			leSprite.loadGraphic(Paths.image(image));
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 			leSprite.active = true;
@@ -847,12 +839,7 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetTiledSpriteTag(tag);
 			var leSprite:ModchartTiledSprite = new ModchartTiledSprite(width, height, repeteEmX, repeteEmY);
-			if(OpenFlAssets.exists(Paths.imagechecker(image))){
-				leSprite.loadGraphic(Paths.image(image));
-				}else{
-					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
-					leSprite.loadGraphic(Paths.image(image, 'preload'));
-				}
+			leSprite.loadGraphic(Paths.image(image));
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartTiledSprites.set(tag, leSprite);
 			leSprite.active = true;
@@ -878,12 +865,7 @@ class FunkinLua {
 			resetSpriteTag(tag);
 
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
-			if(OpenFlAssets.exists(Paths.imagechecker(image)) && image.length > 0){
-				leSprite.frames = Paths.getSparrowAtlas(image);
-				} else if(image != 'nil' && image.length > 0){
-					FlxG.log.add('não achei ' + image + " em " + LoadingState.directoryreader + " então vou procurar em preload");
-					leSprite.frames = Paths.getSparrowAtlas(image, 'preload');
-				}
+			leSprite.frames = Paths.getSparrowAtlas(image);
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});

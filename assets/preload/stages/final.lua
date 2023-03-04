@@ -190,18 +190,18 @@ setProperty('cameraSpeed',4)
 --EXE ICON
 
 
-	makeAnimatedLuaSprite('exeIcon', 'nil', 285, getProperty('healthBar.y') -80)
+	makeAnimatedLuaSprite('exeIcon', nil, 285, getProperty('healthBar.y') -80)
 	loadGraphic('exeIcon', 'icons/'..getProperty('dad.healthIcon'), 150)
 	addAnimation('exeIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
-	setObjectCamera('exeIcon', 'hud')
+	setObjectCamera('exeIcon', 'other')
 	setObjectOrder('exeIcon',getObjectOrder('healthBarBG') + 4)
 	setProperty('exeIcon.alpha',0)
 	addLuaSprite('exeIcon')
 	
-	makeAnimatedLuaSprite('bfIcon', 'nil', 285, getProperty('healthBar.y') -80)
+	makeAnimatedLuaSprite('bfIcon', nil, 285, getProperty('healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/'..getProperty('boyfriend.healthIcon'), 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
-	setObjectCamera('bfIcon', 'hud')
+	setObjectCamera('bfIcon', 'other')
 	setObjectOrder('bfIcon',getObjectOrder('healthBar') + 3)
 	
 	setProperty('bfIcon.alpha',1)
@@ -214,7 +214,7 @@ setProperty('cameraSpeed',4)
 	
 --HealthBar
 
-makeLuaSprite('HPbar', '', getProperty('healthBar.x'),getProperty('healthBar.y'));
+makeLuaSprite('HPbar', nil, getProperty('healthBar.x'),getProperty('healthBar.y'));
 makeGraphic('HPbar',getProperty('healthBar.width'),getProperty('healthBar.height'),'00B6FF')
 addLuaSprite('HPbar', true);
 setObjectOrder('HPbar',getObjectOrder('healthBar') + 1)

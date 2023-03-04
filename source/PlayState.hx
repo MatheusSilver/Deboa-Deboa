@@ -90,7 +90,7 @@ class PlayState extends MusicBeatState
 	var sonicAviso:FlxSound;
 	var sonicDash:FlxSound;
 
-	public var legendPath:String = '';
+	public static var legendPath:String = '';
 
 	public static var modohistoria:Bool = false;
 
@@ -194,7 +194,7 @@ class PlayState extends MusicBeatState
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
 
-	public var noteKillOffset:Float = 700;
+	public var noteKillOffset:Float = 320;
 
 	// - flying shit
 	var flyTarg:Character;
@@ -480,7 +480,8 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 
-		Main.dumpCache();
+		Paths.clearStoredMemory();
+
 		Achievements.loadAchievements();
 		
 		//Precache geral
@@ -502,6 +503,8 @@ class PlayState extends MusicBeatState
 		precacheList.set('PauseEnter', 'sound');
 		precacheList.set('pausescrollmenu', 'sound');
 		precacheList.set('breakfast', 'music');
+
+		legendPath = 'letras/'+SONG.song.toLowerCase()+'/';
 		
 
 		isRing = SONG.isRing; //Top 10 otimizações mais sodas do Mundo talvez do Brasil
@@ -2230,9 +2233,9 @@ class PlayState extends MusicBeatState
 					case 'image':				
 						Paths.image(key);
 					case 'sound':
-						CoolUtil.precacheSound(key);
+						Paths.sound(key);
 					case 'music':
-						FlxG.sound.cache(Paths.music(key));
+						Paths.music(key);
 				}
 			}
 			if(veioNormal)
@@ -2249,6 +2252,8 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(loadingbar, {x: FlxG.width + 15}, 0.45,{ease: FlxEase.quartInOut, startDelay: 0.05});
 			FlxTween.tween(modboalogo, {y: FlxG.height*1.1}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.10});
 		//	trace("Precache finalizado");
+
+		Paths.clearUnusedMemory();
 	}
 
 	private function cachePopUpScore()
@@ -2467,17 +2472,8 @@ class PlayState extends MusicBeatState
 	public function focusOut() {
 		if (paused)
 			return;
-		persistentUpdate = false;
-		persistentDraw = true;
-		paused = true;
 
-			if (FlxG.sound.music != null)
-			{
-				FlxG.sound.music.pause();
-				vocals.pause();
-			}
-
-		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		openPauseMenu();
 	}
 	public function focusIn() 
 	{ 
@@ -2948,10 +2944,6 @@ class PlayState extends MusicBeatState
 		
 		curSong = songData.song;
 
-			legendPath = 'letras/'+curSong.toLowerCase()+'/';
-			setOnLuas('legendaPath', legendPath);
-
-
 		if (SONG.needsVoices) {
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 		} else
@@ -2988,7 +2980,7 @@ class PlayState extends MusicBeatState
 				for (songNotes in section.sectionNotes)
 				{
 					if(songNotes[1] < 0) {
-						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6], songNotes[7]]);
+						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6]]);
 						eventPushed(songNotes);
 					}
 				}
@@ -3004,7 +2996,7 @@ class PlayState extends MusicBeatState
 				for (songNotes in section.sectionNotes)
 				{
 					if(songNotes[1] < 0) {
-						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6], songNotes[7]]);
+						eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6]]);
 						eventPushed(songNotes);
 					}
 				}
@@ -3095,7 +3087,7 @@ class PlayState extends MusicBeatState
 						noteTypeMap.set(swagNote.noteType, true);
 					}
 				} else { //Event Notes
-					eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6], songNotes[7]]);
+					eventNotes.push([songNotes[0], songNotes[1], songNotes[2], songNotes[3], songNotes[4], songNotes[5], songNotes[6]]);
 					eventPushed(songNotes);
 				}
 			}
@@ -3131,33 +3123,31 @@ class PlayState extends MusicBeatState
 
 			case 'Adicionar Imagens':
 				if(ClientPrefs.legendas){
-					trace('executando cache de lyrics');
-					if(OpenFlAssets.exists(Paths.imagechecker(event[3]))){
-						precacheList.set(event[3], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[3])))
+					//trace('executando cache de lyrics');
+					if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[3])))
 					{
+						//trace('precache value1 '+ legendPath+event[3]);
 						precacheList.set(legendPath+event[3], 'image');
 					}
 
-					if(OpenFlAssets.exists(Paths.imagechecker(event[4]))){
-						precacheList.set(event[4], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[4])))
+					if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[4])))
 					{
+						//trace('precache value2 '+ legendPath+event[4]);
 						precacheList.set(legendPath+event[4], 'image');
 					}
 
-					if(OpenFlAssets.exists(Paths.imagechecker(event[5]))){
-						precacheList.set(event[5], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[5])))
+					if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[5])))
 					{
+						//trace('precache value3 '+ legendPath+event[5]);
 						precacheList.set(legendPath+event[5], 'image');
 					}
 
-					if(OpenFlAssets.exists(Paths.imagechecker(event[6]))){
-						precacheList.set(event[6], 'image');
-					}else if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[6])))
+					if(OpenFlAssets.exists(Paths.imagechecker(legendPath+event[6])))
 					{
+						//trace('precache value3 '+ legendPath+event[6]);
 						precacheList.set(legendPath+event[6], 'image');
+
+						//Oh yeah boyuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 					}
 				}
 		}
@@ -3208,12 +3198,12 @@ class PlayState extends MusicBeatState
 				if(storyDifficulty == 3){
 				if(curSong.toLowerCase()=='cross-console-clash' && player == 0){skin='arrows-mario';}
 
-				if(curSong.toLowerCase()=='cross-console-clash' && player == 1){skin='arrows-sonic';}
+				if(curSong.toLowerCase()=='cross-console-clash' && player == 1){skin='arrows1-sonic';}
 				}
 				else if(storyDifficulty == 4){
 					if(curSong.toLowerCase()=='cross-console-clash' && player == 1){skin='arrows-mario';}
 	
-					if(curSong.toLowerCase()=='cross-console-clash' && player == 0){skin='arrows-sonic';}
+					if(curSong.toLowerCase()=='cross-console-clash' && player == 0){skin='arrows1-sonic';}
 				}
 
 				//Endless
@@ -3225,7 +3215,7 @@ class PlayState extends MusicBeatState
 				//Sílvio == bulo...
 
 				//Chasing
-				if(curSong.toLowerCase()=='chasing' && curStep <= 25){skin='arrows-sonic';}
+				if(curSong.toLowerCase()=='chasing' && curStep <= 25){skin='arrows1-sonic';}
 				if(curSong.toLowerCase()=='chasing' && curStep >= 25){skin='NOTE_assets';}
 
 				//Prey
@@ -3398,6 +3388,33 @@ class PlayState extends MusicBeatState
 		#end
 
 		super.onFocusLost();
+	}
+
+	function openPauseMenu()
+	{
+		persistentUpdate = false;
+		persistentDraw = true;
+		paused = true;
+
+			// no more gitaroo man easter egg :D
+			if(FlxG.sound.music != null) {
+				FlxG.sound.music.pause();
+				vocals.pause();
+			}
+			PauseSubState.transCamera = camOther;
+			pauseSound.play();
+			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+	
+		#if desktop
+		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		#end
+
+		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		//}
+
+		#if desktop
+		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		#end
 	}
 
 	function resyncVocals():Void
@@ -3682,22 +3699,7 @@ class PlayState extends MusicBeatState
 			{
 			var ret:Dynamic = callOnLuas('onPause', []);
 			if(ret != FunkinLua.Function_Stop) {
-				persistentUpdate = false;
-				persistentDraw = true;
-				paused = true;
-
-					// no more gitaroo man easter egg :D
-					if(FlxG.sound.music != null) {
-						FlxG.sound.music.pause();
-						vocals.pause();
-					}
-					PauseSubState.transCamera = camOther;
-					pauseSound.play();
-					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-			
-				#if desktop
-				DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-				#end
+				openPauseMenu();
 			}
 		}
 		if (SONG.song.toLowerCase() == 'milk')
@@ -4193,13 +4195,9 @@ class PlayState extends MusicBeatState
 			if(eventNotes[0][6] != '')
 				value4 = eventNotes[0][6];
 
-			var path:String = '';
-			if(eventNotes[0][7] != '')
-				path = eventNotes[0][7];
-
-			if (canuseevents){
-			triggerEventNote(eventNotes[0][2], value1, value2, value3, value4, path);
-			}
+			if (canuseevents)
+				triggerEventNote(eventNotes[0][2], value1, value2, value3, value4/*, path*/);
+			
 			eventNotes.shift();
 		}
 	}
@@ -4210,7 +4208,7 @@ class PlayState extends MusicBeatState
 		return pressed;
 	}
 
-	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String, ?path:String) {
+	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String/*,?path:String*/) {
 		switch(eventName) {
 			case 'Adicionar Imagens':
 				/*if (ClientPrefs.legendas)
@@ -4595,6 +4593,7 @@ class PlayState extends MusicBeatState
 			case 'Must Press Swap': //Transição mais estilosa usada exclusivamente em CCC
 				var k:Float = 0; //-565 ou 565
 				if(value1 == 'true'){k = 565 - 85;}
+				if(!ClientPrefs.middleScroll){
 				FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x - k}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x - k}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.tween(playerStrums.members[2], {x: playerStrums.members[2].x - k}, 1, {ease: FlxEase.quadInOut});
@@ -4604,7 +4603,7 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(opponentStrums.members[1], {x: opponentStrums.members[1].x + k}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.tween(opponentStrums.members[2], {x: opponentStrums.members[2].x + k}, 1, {ease: FlxEase.quadInOut});
 				FlxTween.tween(opponentStrums.members[3], {x: opponentStrums.members[3].x + k}, 1, {ease: FlxEase.quadInOut});
-
+				}
 			case 'eventos-tooslow':
 				var supertimerchaos:Float = Std.parseFloat(value1);
 					switch (supertimerchaos)
@@ -5424,7 +5423,7 @@ class PlayState extends MusicBeatState
 			case 'BG Freaks Expression':
 				if(bgGirls != null) bgGirls.swapDanceType();
 		}
-		callOnLuas('onEvent', [eventName, value1, value2]);
+		callOnLuas('onEvent', [eventName, value1, value2, value3, value4]);
 	}
 
 	function moveCameraSection(?id:Int = 0):Void {

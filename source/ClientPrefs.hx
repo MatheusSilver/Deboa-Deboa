@@ -16,6 +16,7 @@ class ClientPrefs {
 	public static var showFPS:Bool = true;
 	public static var flashing:Bool = true;
 	public static var legendas:Bool = true;
+	public static var loadingexperimental:Bool = false;
 	public static var legendasporcima:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
@@ -31,7 +32,6 @@ class ClientPrefs {
 	public static var osusom:Float = 0.5;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
-	public static var imagesPersist:Bool = true; //Tecnicamente era pra ser o contrário, assim os manos de pc humilde já começam o game limpando o cache
 	public static var ghostTapping:Bool = true;
 	public static var hideTime:Bool = false;
 	public static var firstTime:Bool = true;
@@ -81,6 +81,7 @@ class ClientPrefs {
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.osusom = osusom;
+		FlxG.save.data.loadingexperimental = loadingexperimental;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.hitSounds = hitSounds;
 		FlxG.save.data.fullscreen = fullscreen;
@@ -97,7 +98,6 @@ class ClientPrefs {
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.arrowHSV = arrowHSV;
-		FlxG.save.data.imagesPersist = imagesPersist;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.hideTime = hideTime;
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
@@ -149,6 +149,9 @@ class ClientPrefs {
 		if(FlxG.save.data.osusom != null) {
 			osusom = FlxG.save.data.osusom;
 		}
+		if(FlxG.save.data.loadingexperimental != null) {
+			loadingexperimental = FlxG.save.data.loadingexperimental;
+		}
 		if(FlxG.save.data.flashing != null) {
 			flashing = FlxG.save.data.flashing;
 		}
@@ -197,10 +200,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.arrowHSV != null) {
 			arrowHSV = FlxG.save.data.arrowHSV;
-		}
-		if(FlxG.save.data.imagesPersist != null) {
-			imagesPersist = FlxG.save.data.imagesPersist;
-			FlxGraphic.defaultPersist = !ClientPrefs.imagesPersist;
 		}
 		if(FlxG.save.data.ghostTapping != null) {
 			ghostTapping = FlxG.save.data.ghostTapping;
