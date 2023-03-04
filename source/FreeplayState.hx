@@ -56,6 +56,16 @@ class FreeplayState extends MusicBeatState
 //	var intendedColor:Int;
 //	var colorTween:FlxTween;
 
+	// fps fix stuff
+	private var UPDATE_INTERVAL:Float = 1.0 / 60.0;
+    private var timeAccumulated:Float = 0.0;
+
+
+	private function shouldUpdate():Bool
+		{
+			return timeAccumulated >= UPDATE_INTERVAL;
+		}
+	
 	override function create()
 	{
 		
@@ -188,6 +198,15 @@ class FreeplayState extends MusicBeatState
 	private static var vocals:FlxSound = null;
 	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+		timeAccumulated += elapsed;
+        while (shouldUpdate())
+        {
+			disc.angle +=2/(2*3.1415); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
+			perfilSprite.angle = disc.angle;
+			outroperfilSprite.angle = disc.angle;
+            timeAccumulated -= UPDATE_INTERVAL;
+        }
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -320,12 +339,6 @@ class FreeplayState extends MusicBeatState
 						
 				destroyFreeplayVocals();
 			}
-
-		disc.angle +=2/(2*3.1415); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
-		perfilSprite.angle = disc.angle;
-		outroperfilSprite.angle = disc.angle;
-	
-		super.update(elapsed);
 	}
 
 	function changeDiff(change:Int = 0)

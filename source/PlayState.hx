@@ -3439,15 +3439,42 @@ class PlayState extends MusicBeatState
 	public static var removedVideo = false;
 
 	var starvedSpeed:Float = 15;
+	// fps fix stuff
+	private var UPDATE_INTERVAL:Float = 1.0 / 60.0;
+    private var timeAccumulated:Float = 0.0;
+
+
+	private function shouldUpdate():Bool
+		{
+			return timeAccumulated >= UPDATE_INTERVAL;
+		}
+
 
 	override public function update(elapsed:Float)
 	{
+		timeAccumulated += elapsed;
+		while (shouldUpdate())
+			{
+				floaty2 += 0.01;
+				floaty += 0.03;
+				callOnLuas('onUpdate', [elapsed]);
+				switch (flyState)
+				{
+					case 'hover' | 'hovering':
+						flyTarg.y += Math.sin(floaty) * 1.5;
+					case 'fly' | 'flying':
+						flyTarg.y += Math.sin(floaty) * 1.5;
+						flyTarg.x += Math.cos(floaty) * 1.5;
+					case 'sHover' | 'sHovering':
+						flyTarg.y += Math.sin(floaty2) * 0.5;
+				}
+				timeAccumulated -= UPDATE_INTERVAL;
+			}
+
 		/*if (FlxG.keys.justPressed.NINE)
 		{
 			iconP1.swapOldIcon();
 		}*/
-
-			floaty += 0.03;
 
 
 		if (useVideo && GlobalVideo.get() != null)
@@ -3463,18 +3490,6 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-		switch (flyState)
-		{
-			case 'hover' | 'hovering':
-				flyTarg.y += Math.sin(floaty) * 1.5;
-			case 'fly' | 'flying':
-				flyTarg.y += Math.sin(floaty) * 1.5;
-				flyTarg.x += Math.cos(floaty) * 1.5;
-			case 'sHover' | 'sHovering':
-				flyTarg.y += Math.sin(floaty2) * 0.5;
-		}
-		callOnLuas('onUpdate', [elapsed]);
-
 		var targetHP:Float = health;
 
 		if (bfIsLeft)
@@ -3485,7 +3500,6 @@ class PlayState extends MusicBeatState
 		if (isRing){
 			counterNum.text = Std.string(cNum);
 		}
-		floaty2 += 0.01;
 		var targetSpeed:Float = 15;
 
 		if(desvioPrey && controls.NOTE_SPACE_P){
