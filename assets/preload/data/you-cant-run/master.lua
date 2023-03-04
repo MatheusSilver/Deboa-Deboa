@@ -14,9 +14,9 @@ function onCreate()
 	setProperty('vg.alpha', 0)
 	addLuaSprite('vg', true);
 
-    setScrollFactor('gf', 1.37, 1);
-    setScrollFactor('dad', 1.37, 1);
-    setScrollFactor('boyfriend', 1.37, 1);
+    setScrollFactor('gf', 1.1, 1);
+    setScrollFactor('dad', 1.1, 1);
+    setScrollFactor('boyfriend', 1.1, 1);
 end
 
 function onSongStart()
