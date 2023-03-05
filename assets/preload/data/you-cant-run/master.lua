@@ -14,13 +14,16 @@ function onCreate()
 	setProperty('vg.alpha', 0)
 	addLuaSprite('vg', true);
 
-    setScrollFactor('gf', 1.1, 1);
-    setScrollFactor('dad', 1.1, 1);
-    setScrollFactor('boyfriend', 1.1, 1);
+    setScrollFactor('gf', 1.1, 1.1);
+    setScrollFactor('dad', 1.1, 1.1);
+    setScrollFactor('boyfriend', 1.1, 1.1);
 end
 
 function opponentNoteHit()
-	triggerEvent('Screen Shake', '0.50, 0.005', '0, 0')
+	local isPixel = curStep > 531 and curStep < 783
+	if not isPixel then
+		triggerEvent('Screen Shake', '0.50, 0.005', '0, 0')
+	end
 end
 
 function onStepHit()

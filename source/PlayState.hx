@@ -731,7 +731,8 @@ class PlayState extends MusicBeatState
 				p2greenhill.setGraphicSize(Std.int(p2greenhill.width * 6)); //yeah yeah, matematics
 				p2greenhill.scale.x = 8;
 				p2greenhill.visible = false;
-				p2greenhill.antialiasing = true;
+				p2greenhill.antialiasing = false;
+				p2greenhill.scrollFactor.set(1.1, 1.1);
 				add(p2greenhill);
 
 				case 'P3Stage': // i fixed the bgs and shit!!! - razencro part 1 - bg's finalizados sílvio parte 2
