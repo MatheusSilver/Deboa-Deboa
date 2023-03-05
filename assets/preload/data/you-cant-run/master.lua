@@ -19,11 +19,6 @@ function onCreate()
     setScrollFactor('boyfriend', 1.1, 1);
 end
 
-function onSongStart()
-	runTimer('textmove', 0.6)
-	runTimer('textfade', 1.9)
-end
-
 function opponentNoteHit()
 	triggerEvent('Screen Shake', '0.50, 0.005', '0, 0')
 end

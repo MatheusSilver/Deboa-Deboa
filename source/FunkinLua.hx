@@ -33,6 +33,7 @@ import llua.State;
 class FunkinLua {
     public static var Function_Stop = "Function_Stop";
 	public static var Function_Continue = "Function_Continue";
+	public static var Function_StopLua:Dynamic = "Function_StopLua";
    
 	public static var camGameShaders:Array<ShaderEffect> = [];
 	public static var camHUDShaders:Array<ShaderEffect> = [];
@@ -77,6 +78,7 @@ class FunkinLua {
 		PlayState.instance = curState;
 
 		// Lua shit
+		set('Function_StopLua', "Function_StopLua");
         set('Function_Stop', "Function_Stop");
         set('Function_Continue', "Function_Continue");
 		set('luaDebugMode', false);
@@ -1475,7 +1477,6 @@ class FunkinLua {
 				return obj.text;
 			}
 			//luaTrace("getTextString: Object " + tag + " doesn't exist!", false, false, FlxColor.RED);
-			Lua.pushnil(lua);
 			return null;
 		});
 		Lua_helper.add_callback(lua, "getTextSize", function(tag:String) {
@@ -1494,7 +1495,6 @@ class FunkinLua {
 				return obj.font;
 			}
 			//luaTrace("getTextFont: Object " + tag + " doesn't exist!", false, false, FlxColor.RED);
-			Lua.pushnil(lua);
 			return null;
 		});
 		Lua_helper.add_callback(lua, "getTextWidth", function(tag:String) {

@@ -10,7 +10,6 @@ class StrumNote extends FlxSprite
 {
 	private var colorSwap:ColorSwap;
 	public var resetAnim:Float = 0;
-	var jatrocou:Bool = false;
 	private var noteData:Int = 0;
 	public var direction:Float = 90;//plan on doing scroll directions soon -bb
 	public var downScroll:Bool = false;//plan on doing scroll directions soon -bb
@@ -18,13 +17,33 @@ class StrumNote extends FlxSprite
 	
 	private var player:Int;
 	
-	public function new(x:Float, y:Float, leData:Int, player:Int, texture:String) {
+	public var texture(default, set):String = null;
+	private function set_texture(value:String):String {
+		if(texture != value) {
+			texture = value;
+			reloadNote();
+		}
+		return value;
+	}
+
+	public function new(x:Float, y:Float, leData:Int, player:Int) {
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
 		noteData = leData;
 		this.player = player;
 		this.noteData = leData;
 		super(x, y);
+
+		if(PlayState.storyDifficulty == 3){
+			if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 0){texture='arrows-mario';}
+
+			if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 1){texture='arrows1-sonic';}
+			}
+			else if(PlayState.storyDifficulty == 4){
+				if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 1){texture='arrows-mario';}
+
+				if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 0){texture='arrows1-sonic';}
+			}
 
 		if(texture == null){ texture = 'NOTE_assets';}
 		if(PlayState.isRing){texture = 'RING_assets';}
@@ -40,7 +59,9 @@ class StrumNote extends FlxSprite
 					visible = false;
 			}
 		}
+	}
 
+	public function reloadNote() {
 		var lastAnim:String = null;
 		if(animation.curAnim != null) lastAnim = animation.curAnim.name;
 
@@ -176,7 +197,7 @@ class StrumNote extends FlxSprite
 				case 1:
 					x += ((FlxG.width / 4) * -2) - (width * 2);
 				case 2:
-					x += ((FlxG.width / 4) * -3) - (width * 2); // Isso é uma atitude devéras desesperada de corrigir offsets...
+					x += ((FlxG.width / 4) * -3) - (width * 2);
 			}
 		}
 		ID = noteData;
@@ -191,9 +212,8 @@ class StrumNote extends FlxSprite
 			}
 		}
 		if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
-			centerOrigin(); //Esse trem serve apenas para consertar o spin das setas
-			//(embora eu realmente ache elas bugadas muito mais estilosas)
-		}	
+			centerOrigin();
+		}
 
 		super.update(elapsed);
 	}

@@ -25,7 +25,7 @@ class SobreState extends MusicBeatState
 	var vio:FlxButton;
 	var dav:FlxButton;
 	var arrow:FlxButton;
-	public static var curSection:Int=0;
+	var secao:Int=0; //Ai ai... Gringols...
 	
 	override function create()
 		{
@@ -158,7 +158,7 @@ class SobreState extends MusicBeatState
 		}
 	override function update(elapsed:Float)
 		{
-			if(curSection==0)
+			if(secao==0)
 				{
 					arrow.flipX=false;
 					arrow.x = 280;
@@ -179,9 +179,9 @@ class SobreState extends MusicBeatState
 
 			/*if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
 				FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-				if(curSection==0)
+				if(secao==0)
 					{
-						curSection=1;
+						secao=1;
 						arrow.flipX=false;
 						arrow.x = 280;
 						arrow.y=272;
@@ -189,7 +189,7 @@ class SobreState extends MusicBeatState
 					}
 				else
 					{
-						curSection=0;
+						secao=0;
 						arrow.flipX=true;
 						arrow.x = 836;
 						arrow.y=272;
@@ -240,13 +240,13 @@ class SobreState extends MusicBeatState
 			{
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				arrow.alpha=1;
-				if(curSection==0)
+				if(secao==0)
 					{
-						curSection=1;
+						secao=1;
 					}
 				else
 					{
-						curSection=0;
+						secao=0;
 					}
 					updateuwu();
 			};
@@ -254,7 +254,7 @@ class SobreState extends MusicBeatState
 
 		function vioHover():Void
 			{
-				if(curSection==0)
+				if(secao==0)
 					{
 						FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 						vio.alpha=1;
@@ -262,14 +262,14 @@ class SobreState extends MusicBeatState
 			}
 			function vioOut():Void
 				{
-					if(curSection==0)
+					if(secao==0)
 						{
 							vio.alpha=0.75;
 						}
 				}
 				function vioClick():Void
 					{
-						if(curSection==0)
+						if(secao==0)
 							{
 								FlxG.sound.play(Paths.sound('confirmMenu'));
 								vio.alpha=1;
@@ -278,7 +278,7 @@ class SobreState extends MusicBeatState
 					}
 					function exeHover():Void
 						{
-							if(curSection==0)
+							if(secao==0)
 								{
 									FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 									exe.alpha=1;
@@ -286,7 +286,7 @@ class SobreState extends MusicBeatState
 						}
 						function exeOut():Void
 							{
-								if(curSection==0)
+								if(secao==0)
 									{
 
 										exe.alpha=0.75;
@@ -294,7 +294,7 @@ class SobreState extends MusicBeatState
 							}
 							function exeClick():Void
 								{
-									if(curSection==0)
+									if(secao==0)
 										{
 											FlxG.sound.play(Paths.sound('confirmMenu'));
 											exe.alpha=1;
@@ -303,7 +303,7 @@ class SobreState extends MusicBeatState
 								}
 								function sasterHover():Void
 									{
-										if(curSection==0)
+										if(secao==0)
 											{
 												FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 												saster.alpha=1;
@@ -311,7 +311,7 @@ class SobreState extends MusicBeatState
 									}
 									function sasterOut():Void
 										{
-											if(curSection==0)
+											if(secao==0)
 												{
 													
 													saster.alpha=0.75;
@@ -319,7 +319,7 @@ class SobreState extends MusicBeatState
 										}
 										function sasterClick():Void
 											{
-												if(curSection==0)
+												if(secao==0)
 													{
 														FlxG.sound.play(Paths.sound('confirmMenu'));
 														saster.alpha=1;
@@ -329,7 +329,7 @@ class SobreState extends MusicBeatState
 			
 											function sunnyHover():Void
 												{
-													if(curSection==1)
+													if(secao==1)
 														{
 															FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 															sunny.alpha=1;
@@ -337,7 +337,7 @@ class SobreState extends MusicBeatState
 												}
 												function sunnyOut():Void
 													{
-														if(curSection==1)
+														if(secao==1)
 															{
 																
 																sunny.alpha=0.75;
@@ -345,7 +345,7 @@ class SobreState extends MusicBeatState
 													}
 													function sunnyClick():Void
 														{
-															if(curSection==1)
+															if(secao==1)
 																{
 																	FlxG.sound.play(Paths.sound('confirmMenu'));
 																	sunny.alpha=1;
@@ -355,7 +355,7 @@ class SobreState extends MusicBeatState
 
 														function davHover():Void
 															{
-																if(curSection==1)
+																if(secao==1)
 																	{
 																		FlxG.sound.play(Paths.sound('scrollMenu'), 1);
 																		dav.alpha=1;
@@ -363,7 +363,7 @@ class SobreState extends MusicBeatState
 															}
 															function davOut():Void
 																{
-																	if(curSection==1)
+																	if(secao==1)
 																		{
 																			
 																			dav.alpha=0.75;
@@ -371,7 +371,7 @@ class SobreState extends MusicBeatState
 																}
 																function davClick():Void
 																	{
-																		if(curSection==1)
+																		if(secao==1)
 																			{
 																				FlxG.sound.play(Paths.sound('confirmMenu'));
 																				dav.alpha=1;
@@ -385,7 +385,7 @@ class SobreState extends MusicBeatState
 
 	function updateuwu():Void
 		{
-			if(curSection==0)
+			if(secao==0)
 				{
 					faixa.x = 636;
 					gtext.alpha=0;

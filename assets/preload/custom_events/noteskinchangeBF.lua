@@ -8,6 +8,9 @@ function onEvent(name, value1, value2)
 			setPropertyFromGroup('unspawnNotes', i, 'texture', value1);
 			end
 		end
+		for i = 0, getProperty('playerStrums.length')-1 do
+			setPropertyFromGroup('playerStrums', i, 'texture', value1); -- Experimental, mas acho que deve funfar
+		end
 	end
 	if value2 == '' then
 	-- do nothing lol

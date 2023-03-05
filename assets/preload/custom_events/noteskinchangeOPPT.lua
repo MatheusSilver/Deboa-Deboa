@@ -4,9 +4,12 @@ function onEvent(name, value1, value2)
 	-- do nothing lol
 	else
 		for i = 0, getProperty('unspawnNotes.length')-1 do
-			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') == false then
+			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') == false and getPropertyFromGroup('unspawnNotes', i, 'spawned') == false then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', value1);
 			end
+		end
+		for i = 0, getProperty('opponentStrums.length')-1 do
+			setPropertyFromGroup('opponentStrums', i, 'texture', value1); -- Experimental, mas acho que deve funfar
 		end
 	end 
 	

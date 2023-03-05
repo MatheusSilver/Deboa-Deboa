@@ -7,6 +7,8 @@ if isRing == true then
     k = 1 -- assim ele não ira fazer movimento de camera ao pegar um anel.
 end
 
+local curHitting = false;
+
 function opponentNoteHit(id, direction, noteType, isSustainNote)
  if mustHitSection == false then
     if direction == 0 then
@@ -21,7 +23,9 @@ function opponentNoteHit(id, direction, noteType, isSustainNote)
     if direction == 1 then
         triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY+ofs)
     end
+    cancelTimer('returnDAD')
  end
+ runTimer('returnDAD', 1)
 end
 
 function goodNoteHit(id, direction, noteType, isSustainNote)
@@ -38,15 +42,26 @@ function goodNoteHit(id, direction, noteType, isSustainNote)
        if direction == 1 then
            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+ofs)
        end
+       cancelTimer('returnBF')
     end
-   end
-   
-function onStepHit()
-    if curStep % 16 == 0 then --Em tese esse é o tempo de uma section...
+    runTimer('returnBF', 1)
+end
+
+function onUpdate()
+    if not curHitting == mustHitSection then
         if mustHitSection == true then
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
         else
             triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
         end
+    end
+    curHitting = mustHitSection
+end
+
+function onTimerCompleted(tag)
+    if tag == 'returnBF' and mustHitSection == true then
+        triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
+    elseif tag == 'returnDAD' and mustHitSection == false then
+        triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
     end
 end

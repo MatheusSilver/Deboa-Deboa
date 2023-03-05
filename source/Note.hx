@@ -8,10 +8,16 @@ using StringTools;
 
 class Note extends FlxSprite
 {
+
+	public var extraData:Map<String,Dynamic> = [];
+	
 	public var strumTime:Float = 0;
 
 	public var mustPress:Bool = false;
 
+	public var tail:Array<Note> = []; // for sustains
+	public var parent:Note;
+	public var spawned:Bool = false;
 	public var lateHitMult:Float = 1;
 	public var noteData:Int = 0;
 	public var canBeHit:Bool = false;
@@ -22,8 +28,9 @@ class Note extends FlxSprite
 	public var noteWasHit:Bool = false;
 	public var prevNote:Note;
 	public var blockHit:Bool = false; // only works for player
+	public var lowPriority:Bool = false;
 
-	var ajustefino:Int = 40;
+	var ajustefino:Int = 0;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
@@ -121,6 +128,7 @@ class Note extends FlxSprite
 						missHealth = 0.3;
 					}
 					hitCausesMiss = true;
+					lowPriority = true;
 
 				case 'CCC Regen': //Silverson comentários aleatórios em momentos que ele está coringando			
 					colorSwap.hue = 0;
@@ -307,9 +315,7 @@ class Note extends FlxSprite
 		var skin:String = texture;
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
-			if (PlayState.nomehistorico.toLowerCase() == 'infinito' && PlayState.majinstrums){
-				skin = 'Majin_Notes';
-			}else if(skin == null || skin.length < 1) {
+			if(skin == null || skin.length < 1) {
 				skin = 'NOTE_assets';
 			}
 		}
@@ -346,10 +352,6 @@ class Note extends FlxSprite
 				lastNoteOffsetXForPixelAutoAdjusting = (width - 7) * (PlayState.daPixelZoom / 2);
 				offsetX -= lastNoteOffsetXForPixelAutoAdjusting;
 			}
-		} else if (PlayState.majinstrums){
-			frames = Paths.getSparrowAtlas("Majin_Notes");
-			loadNoteAnims();
-			antialiasing = ClientPrefs.globalAntialiasing;
 		} else {
 			frames = Paths.getSparrowAtlas(blahblah);
 			loadNoteAnims();
@@ -423,17 +425,6 @@ class Note extends FlxSprite
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
-		
-
-		//Como já dizia meu grande amigo
-		if (PlayState.majinstrums || PlayState.desesperada && jatrocou){ //ELA VAI...
-			reloadNote();
-			jatrocou = false;
-		} else if (!PlayState.desesperada && !jatrocou) { //E ELA VOLTAAAAAAAAAAAAAAAAAAAA
-			reloadNote();
-			jatrocou = true;
-		}
 		
 		if(noteType == 'CCC Regen' && curcounterCCC != PlayState.cccVidaCounter && PlayState.nomehistorico.toLowerCase()=='cross console clash'){			
 			//Skin Stuff

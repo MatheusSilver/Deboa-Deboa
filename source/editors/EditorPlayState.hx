@@ -825,7 +825,7 @@ class EditorPlayState extends MusicBeatState
 
 			var skin:String = "NOTE_assets";
 			// FlxG.log.add(i);
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player, skin);
+			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
 			babyArrow.alpha = 0;
 			FlxTween.tween(babyArrow, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 

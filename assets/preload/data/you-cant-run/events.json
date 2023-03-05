@@ -491,6 +491,33 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						170.454545454545,
+						-1,
+						"noteskinchangeBF",
+						"",
+						"",
+						"apenas para dar preload nesse evento"
+					],
+					[
+						170.454545454545,
+						-1,
+						"noteskinchangeOPPT",
+						"",
+						"",
+						"apenas para dar preload nesse evento"
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
 				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,

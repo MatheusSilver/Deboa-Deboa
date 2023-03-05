@@ -287,10 +287,8 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
 				case "Reiniciar musica":
-					PlayState.majinstrums = false;
 					PlayState.canRegen = true;
 					PlayState.canuseevents = true;
-					PlayState.desesperada = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					restartSong();
 					if (PlayState.useVideo)
@@ -310,10 +308,8 @@ class PauseSubState extends MusicBeatSubstate
 							PlayState.instance.remove(PlayState.instance.videoSprite);
 							PlayState.removedVideo = true;
 						}
-					PlayState.majinstrums = false;
 					PlayState.canRegen = true;
 					PlayState.canuseevents = true;
-					PlayState.desesperada = false;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;
