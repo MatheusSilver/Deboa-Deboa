@@ -22,6 +22,10 @@ local phase10cheetos = {'phase10-1', 'phase10-2', 'phase10-3'}
 
 local phasedetector = 1
 
+function onCreate()
+	pushScriptData("trans")
+end
+
 function changePhases(curPhase) -- Fazer um lua só pra isso.
     phasedetector = curPhase
     if curPhase == 2 then

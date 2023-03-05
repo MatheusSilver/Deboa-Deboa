@@ -6,6 +6,8 @@ function onCreate()
 	precacheImage('staticNotes');
 	precacheImage('daSTAT');
 	precacheImage('hitStatic');
+	precacheImage('pixelUI/arrows1-sonic')
+	precacheImage('pixelUI/arrows1-sonicENDS')
 	precacheImage('splashes/noteSplashesPixelSonic');
 	precacheSound('hitStatic1');
 
