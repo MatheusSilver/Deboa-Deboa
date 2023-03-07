@@ -2583,7 +2583,38 @@
 				"gfSection": false,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						183150,
+						-1,
+						"Change Character",
+						"dad",
+						"Soul Tails",
+						"",
+						"",
+						""
+					],
+					[
+						184000,
+						-1,
+						"Change Character",
+						"gf",
+						"Soul Knuckles",
+						"",
+						"",
+						""
+					],
+					[
+						183000,
+						-1,
+						"Change Character",
+						"bf",
+						"Sonic Fear",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"sectionBeats": 4,
 				"changeBPM": false,
@@ -4358,47 +4389,6 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [],
-				"bpm": 0,
-				"sectionBeats": 4,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						600000,
-						-1,
-						"Change Character",
-						"dad",
-						"Soul Tails",
-						"",
-						"",
-						""
-					],
-					[
-						600500,
-						-1,
-						"Change Character",
-						"gf",
-						"Soul Knuckles",
-						"",
-						"",
-						""
-					],
-					[
-						601000,
-						-1,
-						"Change Character",
-						"bf",
-						"Sonic Fear",
-						"",
-						"",
-						""
-					]
-				],
 				"bpm": 0,
 				"sectionBeats": 4,
 				"changeBPM": false,

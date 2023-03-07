@@ -86,20 +86,13 @@ class Conductor
 				bpmChangeMap.push(event);
 			}
 
-			var deltaSteps:Int = Math.round(getSectionBeats(song, i) * 4);
+			var deltaSteps:Int = song.notes[i].lengthInSteps;
 			totalSteps += deltaSteps;
 			totalPos += ((60 / curBPM) * 1000 / 4) * deltaSteps;
 		}
 		#if debug
 		trace("new BPM map BUDDY " + bpmChangeMap);
 		#end
-	}
-
-	static function getSectionBeats(song:SwagSong, section:Int)
-	{
-		var val:Null<Float> = null;
-		if(song.notes[section] != null) val = song.notes[section].sectionBeats;
-		return val != null ? val : 4;
 	}
 
 	public static function stepToSeconds(step:Float){

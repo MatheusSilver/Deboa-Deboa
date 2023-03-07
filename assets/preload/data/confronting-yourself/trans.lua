@@ -176,6 +176,8 @@ function onTweenCompleted(tag)
     end
     if tag == 'tweenLogoModBoaEXEFinal' then
         cameraFlash('legenda', '0xffffff', 2, true)
+        removeLuaSprite('modBoaLogoExe')
+        removeLuaSprite('modBoaLogo')
     end
     if tag == 'fogosobe1' then
         removeLuaSprite('paredefogo')
@@ -207,9 +209,6 @@ function onTimerCompleted(tag)
         cameraFlash('legenda', '0x0000ff', 1, true)
         triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
         triggerEvent("eventos-tripletrouble", '144', 'nada', 'nada', 'nada')
-        triggerEvent("Change Character", 'bf', 'Sonic Fear', 'nada', 'nada')
-        triggerEvent("Change Character", 'dad', 'Soul Tails', 'nada', 'nada')
-        triggerEvent("Change Character", 'gf', 'Soul Knuckles', 'nada', 'nada')
     end
 
     if tag == 'voltar1' then
