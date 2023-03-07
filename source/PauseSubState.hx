@@ -48,6 +48,7 @@ class PauseSubState extends MusicBeatSubstate
 	var jumpscare:FlxSprite;
 	var inJumpscare:Bool = false;
 	var podeJumpscare:Bool = true;
+	var jumpsTimer:FlxTimer = new FlxTimer();
 
 	var ready:FlxSprite;
 	var set:FlxSprite;
@@ -117,31 +118,31 @@ class PauseSubState extends MusicBeatSubstate
 
 
 		continuar = new FlxSprite().loadGraphic(Paths.image('pause/pause (continuar)'));
-		continuar.alpha = 0.75;
+		continuar.alpha = 0.5;
 		continuar.x=-693;
 		continuar.y=FlxG.height/6- k;
 		add(continuar);
 
 		restart = new FlxSprite().loadGraphic(Paths.image('pause/pause (restart)'));
-		restart.alpha = 0.75;
+		restart.alpha = 0.5;
 		restart.x=-620;
 		restart.y=FlxG.height/6*3- k - 15;
 		add(restart);
 
 		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplaydesativado'));
-		bot.alpha = 0.75;
+		bot.alpha = 0.5;
 		bot.x=-587;
 		bot.y=FlxG.height/6*4- k -15;
 		add(bot);
 
 		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticardesativado'));
-		praticar.alpha = 0.75;
+		praticar.alpha = 0.5;
 		praticar.x=-655;
 		praticar.y=FlxG.height/6*2- k -15;
 		add(praticar);
 		
 		voltar = new FlxSprite().loadGraphic(Paths.image('pause/pause (voltar)'));
-		voltar.alpha = 0.75;
+		voltar.alpha = 0.5;
 		voltar.x=-557;
 		voltar.y=FlxG.height/6*5 - k -15;
 		add(voltar);
@@ -158,7 +159,7 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(voltar, {x: -128}, 0.7, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween){aberto=true;}});
 
 
-		FlxTween.tween(preto, {alpha: 0.45}, 0.3, {ease: FlxEase.quartInOut});
+		FlxTween.tween(preto, {alpha: 0.75}, 0.3, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {y: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(linhabaixo, {y: FlxG.height-linhabaixo.height}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(perfil, {x: FlxG.width-perfil.width}, 0.4, {ease: FlxEase.quartInOut});
@@ -187,7 +188,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble")
 			{
-				new FlxTimer().start(200, function(tmr:FlxTimer){
+				jumpsTimer.start(200, function(tmr:FlxTimer){
 					if(podeJumpscare)
 						{
 							jumpscareExecute();
@@ -217,6 +218,10 @@ class PauseSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
+		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && podeJumpscare)
+			{
+				trace('fazendo o jumpscare em: '+jumpsTimer.timeLeft);
+			}
 		if(inJumpscare&&!ClientPrefs.fullscreen)
 			{
 				shakeWindow();
@@ -274,19 +279,21 @@ class PauseSubState extends MusicBeatSubstate
 					return;
 				}
 			} 
-			podeJumpscare=false;
 			switch (daSelected)
 			{
 				case "Voltar para a musica":
 					if(!isDoingtheThing && aberto)
 						{
+							podeJumpscare=false;
 							isDoingtheThing=true;
+							jumpsTimer.cancel();
 							saindodopause();
 						}
 				case 'Modo praticar':
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
 				case "Reiniciar musica":
+					podeJumpscare=false;
 					PlayState.canRegen = true;
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = transCamera;
@@ -302,6 +309,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.cpuControlled = !PlayState.cpuControlled;
 					PlayState.usedPractice = true;
 				case "Voltar para o menu":
+					podeJumpscare=false;
 					if (PlayState.useVideo)
 						{
 							GlobalVideo.get().stop();
@@ -451,6 +459,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function jumpscareExecute():Void
 		{
+			trace('haha troxa');
 			inJumpscare=true;
 			FlxG.sound.volume = 1;
 			jumpscare = new FlxSprite(0,0);
@@ -522,41 +531,41 @@ class PauseSubState extends MusicBeatSubstate
 				if(item == grpMenuShit.members[0])
 					{
 						continuar.alpha=1;
-						praticar.alpha=0.75;
-						restart.alpha=0.75;
-						bot.alpha=0.75;
-						voltar.alpha=0.75;
+						praticar.alpha=0.5;
+						restart.alpha=0.5;
+						bot.alpha=0.5;
+						voltar.alpha=0.5;
 					}
 				else if(item == grpMenuShit.members[1])
 					{
-						continuar.alpha=0.75;
+						continuar.alpha=0.5;
 						praticar.alpha=1;
-						restart.alpha=0.75;
-						bot.alpha=0.75;
-						voltar.alpha=0.75;
+						restart.alpha=0.5;
+						bot.alpha=0.5;
+						voltar.alpha=0.5;
 					}
 				else if(item == grpMenuShit.members[2])
 					{
-						continuar.alpha=0.75;
-						praticar.alpha=0.75;
+						continuar.alpha=0.5;
+						praticar.alpha=0.5;
 						restart.alpha=1;
-						bot.alpha=0.75;
-						voltar.alpha=0.75;
+						bot.alpha=0.5;
+						voltar.alpha=0.5;
 					}
 					else if(item == grpMenuShit.members[3])
 						{
-							continuar.alpha=0.75;
-							praticar.alpha=0.75;
-							restart.alpha=0.75;
+							continuar.alpha=0.5;
+							praticar.alpha=0.5;
+							restart.alpha=0.5;
 							bot.alpha=1;
-							voltar.alpha=0.75;
+							voltar.alpha=0.5;
 						}
 						else if(item == grpMenuShit.members[4])
 							{
-								continuar.alpha=0.75;
-								praticar.alpha=0.75;
-								restart.alpha=0.75;
-								bot.alpha=0.75;
+								continuar.alpha=0.5;
+								praticar.alpha=0.5;
+								restart.alpha=0.5;
+								bot.alpha=0.5;
 								voltar.alpha=1;
 							}
 			}

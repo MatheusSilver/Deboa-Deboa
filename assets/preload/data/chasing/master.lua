@@ -13,7 +13,7 @@ function onCreate()
                 makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, -350)
                 setScrollFactor('fundo', 0, 0);
                 scaleObject('fundo', 1, 1);
-                setLuaSpriteCamera('fundo', 'camhud');
+                setLuaSpriteCamera('fundo', 'camlegenda');
                 addLuaSprite('fundo', true);
                 setProperty('fundo.alpha', 0);
             else
@@ -28,7 +28,7 @@ function onCreate()
                 makeLuaSprite('fundo', 'letras/chasing/chapixel', 0, 0)
                 setScrollFactor('fundo', 0, 0);
                 scaleObject('fundo', 1, 1);
-                setLuaSpriteCamera('fundo', 'camhud');
+                setLuaSpriteCamera('fundo', 'camlegenda');
                 addLuaSprite('fundo', true);
                 setProperty('fundo.alpha', 0);
             else

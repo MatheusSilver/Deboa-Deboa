@@ -63,9 +63,12 @@ class MainMenuStateMobile extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var logoBl:FlxSprite;
 	var checkiftouch:Bool = false;
+	var canClick:Bool = false;
+	public static var newVersion:Bool = false;
 	var gameJoltIcon:FlxSprite;
+	public static var changelogString:String = 'V0.9.5\nIsso é apenas um\nteste pra ver\nse isso funciona\nmesmo.\nSerá que deu\ncerto????\nass:dav';
 
-	public static var version:String = '0.8.5';
+	public static var version:String = '0.9.5';
 
 	override function create()
 	{
@@ -335,6 +338,50 @@ class MainMenuStateMobile extends MusicBeatState
 		versionShit.setFormat("sonic-1-hud-font.ttf", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.updateHitbox();
 		add(versionShit);
+
+		if(newVersion)
+			{
+				var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+				preto.alpha=0.75;
+				preto.updateHitbox();
+				preto.cameras = [camAchievement];
+				add(preto);
+				var novoBG:FlxSprite = new FlxSprite(421, 87, Paths.image('mainmenu/updatescreen', 'preload'));
+				novoBG.cameras = [camAchievement];
+				add(novoBG);
+				var textinho:FlxText = new FlxText(0, 0, 0, changelogString, 12);
+				textinho.scrollFactor.set();
+				textinho.setFormat("sonic-1-hud-font.ttf", 36, FlxColor.GRAY, LEFT);
+				textinho.x = 446;
+				textinho.y = 162;
+				textinho.updateHitbox();
+				textinho.cameras = [camAchievement];
+				add(textinho);
+				var novoButton:FlxButton = new FlxButton(523, 548, '');
+				novoButton.cameras = [camAchievement];
+				novoButton.loadGraphic(Paths.image('mainmenu/btok', 'preload'));
+				novoButton.alpha = 0.75;
+				novoButton.onOver.callback = function(){novoButton.alpha=1; FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);};
+				novoButton.onOut.callback = function(){novoButton.alpha=0.75;};
+				novoButton.onDown.callback = function(){
+					FlxG.save.data.gameVersion = version;
+					ClientPrefs.saveSettings();
+					novoButton.visible=false;
+					novoBG.visible=false;
+					preto.visible=false;
+					textinho.visible=false;
+					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+					canClick = true;
+				};
+				add(novoButton);
+				canClick=false;
+			}
+		else
+			{
+				FlxG.save.data.gameVersion = version;
+				ClientPrefs.saveSettings();
+				canClick=true;
+			}
 		super.create();
 	}
 
@@ -509,48 +556,52 @@ class MainMenuStateMobile extends MusicBeatState
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		historiabotao.updateHitbox();
-		freeplaybotao.updateHitbox();
-		achievementsbotao.updateHitbox();
-		opcaobotao.updateHitbox();
-		sobrebotao.updateHitbox();
-		historiabotao.onOver.callback = historiaHover;
-        historiabotao.onOut.callback = historiaOut;
-		freeplaybotao.onOver.callback = freeplayHover;
-        freeplaybotao.onOut.callback = freeplayOut;
-		achievementsbotao.onOver.callback = achievementsHover;
-        achievementsbotao.onOut.callback = achievementsOut;
-		opcaobotao.onOver.callback = opcaoHover;
-        opcaobotao.onOut.callback = opcaoOut;
-		sobrebotao.onOver.callback = sobreHover;
-        sobrebotao.onOut.callback = sobreOut;
 		FlxG.mouse.visible = true;
 		//checker.y += 0.1;
 
-		if(historiabotao.justPressed && !checkiftouch && clicavel){
-			historiabotao.alpha=1;
-			curSelected = 0;
-			if(curSelected == 0 && checkiftouch == false){checkiftouch = true;}
-		}
-		if(freeplaybotao.justPressed && !checkiftouch && clicavel){
-			freeplaybotao.alpha=1;
-			curSelected = 1;
-			if(curSelected == 1 && checkiftouch == false){checkiftouch = true;}
-		}
-		if(achievementsbotao.justPressed && !checkiftouch && clicavel){
-			achievementsbotao.alpha=1;
-			curSelected = 2;		
-			if(curSelected == 2 && checkiftouch == false && clicavel){checkiftouch = true;}
-		}
-		if(opcaobotao.justPressed && !checkiftouch){
-			opcaobotao.alpha=1;
-			curSelected = 4;
-			if(curSelected == 4 && checkiftouch == false && clicavel){checkiftouch = true;}
-		}
-		if(sobrebotao.justPressed && !checkiftouch){
-			sobrebotao.alpha=1;
-			curSelected = 3;
-			if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
+		if(canClick)
+			{
+
+				historiabotao.updateHitbox();
+				freeplaybotao.updateHitbox();
+				achievementsbotao.updateHitbox();
+				opcaobotao.updateHitbox();
+				sobrebotao.updateHitbox();
+				historiabotao.onOver.callback = historiaHover;
+				historiabotao.onOut.callback = historiaOut;
+				freeplaybotao.onOver.callback = freeplayHover;
+				freeplaybotao.onOut.callback = freeplayOut;
+				achievementsbotao.onOver.callback = achievementsHover;
+				achievementsbotao.onOut.callback = achievementsOut;
+				opcaobotao.onOver.callback = opcaoHover;
+				opcaobotao.onOut.callback = opcaoOut;
+				sobrebotao.onOver.callback = sobreHover;
+				sobrebotao.onOut.callback = sobreOut;
+				if(historiabotao.justPressed && !checkiftouch && clicavel){
+					historiabotao.alpha=1;
+					curSelected = 0;
+					if(curSelected == 0 && checkiftouch == false){checkiftouch = true;}
+				}
+				if(freeplaybotao.justPressed && !checkiftouch && clicavel){
+					freeplaybotao.alpha=1;
+					curSelected = 1;
+					if(curSelected == 1 && checkiftouch == false){checkiftouch = true;}
+				}
+				if(achievementsbotao.justPressed && !checkiftouch && clicavel){
+					achievementsbotao.alpha=1;
+					curSelected = 2;		
+					if(curSelected == 2 && checkiftouch == false && clicavel){checkiftouch = true;}
+				}
+				if(opcaobotao.justPressed && !checkiftouch){
+					opcaobotao.alpha=1;
+					curSelected = 4;
+					if(curSelected == 4 && checkiftouch == false && clicavel){checkiftouch = true;}
+				}
+				if(sobrebotao.justPressed && !checkiftouch){
+					sobrebotao.alpha=1;
+					curSelected = 3;
+					if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
+					}
 			}
 
 		if (FlxG.sound.music.volume < 0.7)
@@ -561,7 +612,7 @@ class MainMenuStateMobile extends MusicBeatState
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
-		if (!selectedSomethin)
+		if (!selectedSomethin && canClick)
 		{
 
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)

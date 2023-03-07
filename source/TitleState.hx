@@ -67,6 +67,7 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
+		MainMenuStateMobile.newVersion = FlxG.save.data.gameVersion != MainMenuStateMobile.version && FlxG.save.data.gameVersion!=null;
 		if(!initialized)
 			{
 				urlLoader = new URLLoader();
