@@ -22,10 +22,6 @@ local phase10cheetos = {'phase10-1', 'phase10-2', 'phase10-3'}
 
 local phasedetector = 1
 
-function onCreate()
-	pushScriptData("trans")
-end
-
 function changePhases(curPhase) -- Fazer um lua só pra isso.
     phasedetector = curPhase
     if curPhase == 2 then
@@ -75,6 +71,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase4cheetos do
 			setProperty(phase4cheetos[i]..'.visible', true)
 		end
+		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 3, 'linear')
 		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 400, 34, 'linear')
 		doTweenX('awaqueanda1EXE', 'awaEXE', 400, 34, 'linear')
@@ -85,6 +82,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		cancelTween('awaqueanda1EXE')
 		cancelTween('eitacachorreiraEXE')
 		cancelTween('florqueanda1EXE')
+		doTweenY('nocumecheira', 'nocume', getProperty('nocume.y')-100, 1, 'smoothstepin')
 		for i = 1,#phase4cheetos do
 			removeLuaSprite(phase4cheetos[i])
 		end
@@ -92,6 +90,10 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase5cheetos[i]..'.visible', true)
 		end
 	elseif curPhase == 8 then
+		cancelTween('nocumecheira')
+		cancelTween('nocumesobem')
+		cancelTween('nocumedesce')
+		-- SUS... Para dizer o mínimo k
 		setProperty('nocumepausando.visible',true)
 		for i = 1,#phase5cheetos do
 			removeLuaSprite(phase5cheetos[i])
@@ -127,6 +129,9 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase10cheetos do
 			setProperty(phase10cheetos[i]..'.visible',true)
 		end
+		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-25, 1, 'smoothstepin')
+		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-25, 1, 'smoothstepin')
+
 	end
 end
 function onEvent(name, value1, value2)
@@ -135,7 +140,7 @@ function onEvent(name, value1, value2)
     end
 end
 
-function onTweenCompleted(tag)
+function onTweenCompleted(tag) --a
 	if tag == 'florqueanda1' and phasedetector == 2 then 
 		setProperty('florrandom1.x', -2000)
 		doTweenX('florqueanda2', 'florrandom2', 2000, 3.5, 'linear')
@@ -152,6 +157,31 @@ function onTweenCompleted(tag)
 		setProperty('florrandom2EXE.x', -2000)
 		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 3, 'linear')
 	end
+	if tag == 'nocumecheira' or  tag == 'nocumesobem' then
+		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 1, 'sineinout')
+	end
+	if tag == 'nocumedesce' then
+		doTweenY('nocumesobem', 'nocume', getProperty('nocume.y')-50, 1, 'sineinout')
+	end
+	if tag == 'pedrasobe1' or 'pedrasubidao1' then 
+		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+25, 1, 'sineinout')
+		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+25, 1, 'sineinout')
+	end
+	if tag == 'pedradesce1' then 
+		doTweenY('pedrasubidao2', 'phase10-3', getProperty('phase10-3.y')-25, 1, 'sineinout')
+		doTweenY('pedrasubidao1', 'phase10-2', getProperty('phase10-2.y')-25, 1, 'sineinout')
+	end
+
+end
+
+function onCreate()
+	pushScriptData("trans")
+
+	precacheImage('Tails')
+	precacheImage('Phase3Static')
+	precacheImage('vintage')
+	precacheSound('stat')
+	precacheSound('exerisadinha')
 end
 
 function onUpdate()
@@ -165,15 +195,11 @@ function onUpdate()
 	elseif phasedetector == 6 then
 	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*30)
 	elseif phasedetector == 9 then
-	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45)
-	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20)
-	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
+	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45 + 4.5*tonumber(getTextString('comunicador')))
+	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20 + 2*tonumber(getTextString('comunicador')))
+	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10 + tonumber(getTextString('comunicador')))
 	elseif phasedetector == 12 then
 	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*0.5)
-	end
-
-	if keyJustPressed("space") then
-		changePhases(phasedetector+1) 
 	end
 end

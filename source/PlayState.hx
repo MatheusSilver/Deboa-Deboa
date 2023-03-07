@@ -80,6 +80,8 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+
+	public static var movecameraallowed:Bool = true;
 	public var precacheList:Map<String, String> = new Map<String, String>(); 
 
 	var scrollModifierChecker:Bool; //Usado apenas para flipar a pontinha da nota caso a música mude de downscroll para upscroll no meio do caminho. - Vulgo Pasta Night
@@ -1471,8 +1473,7 @@ class PlayState extends MusicBeatState
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 
 		FlxG.fixedTimestep = false;
-		if(!ClientPrefs.camZooms || SONG.canfollowpermitido || OpenFlAssets.exists(Paths.getPreloadPath('custom_scripts/camFollowGlobal.lua')))
-			moveCameraSection();
+		moveCameraSection();
 		
 		/*
 		var textodesobrecarga:String = "Seu uso de memória está muito alto! As opções de performance serão ativadas.";
@@ -2057,7 +2058,7 @@ class PlayState extends MusicBeatState
 						camHUD.alpha = 0;
 						startCountdown();
 						
-					case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout' | 'confronting-yourself':
+					case  'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
 	
 					if (curSong.toLowerCase()=='triple-trouble'){
 						camHUD.alpha = 0;
@@ -2203,17 +2204,17 @@ class PlayState extends MusicBeatState
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
-		
-		callOnLuas('onCreatePost', []);
-
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 
 		setOnLuas('camPosDadX', dad.getMidpoint().x + 150 + dad.cameraPosition[0]);
 		setOnLuas('camPosDadY', dad.getMidpoint().y - 100 + dad.cameraPosition[1]);
 
 		setOnLuas('camPosBFX', boyfriend.getMidpoint().x - 100 - boyfriend.cameraPosition[0]);
 		setOnLuas('camPosBFY', boyfriend.getMidpoint().y - 100 + boyfriend.cameraPosition[1]);
+		
+		callOnLuas('onCreatePost', []);
+
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 
 		if(isRing){
 			controlArray = [
@@ -4742,6 +4743,9 @@ class PlayState extends MusicBeatState
 
 					p3staticbg.alpha=1;
 
+				case 99999: //Usado exclusivamente na CY
+					doP3JumpKNUCKLES();
+
 				case 1296: // Entrada do knuckles omaga, use strum swap 1 aqui junto com os eventos de troca de boneco.
 
 					FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
@@ -5098,7 +5102,7 @@ class PlayState extends MusicBeatState
 				var quantidade:Float = Std.parseFloat(value1);
 				var duracao:Float = Std.parseFloat(value2);
 				FlxTween.num(defaultCamZoom, quantidade, duracao, {ease: FlxEase.linear}, function (v:Float) {defaultCamZoom = v;});
-			case 'TelaPreta':
+			case 'TelaPreta'://a
 				if(value1 == 'true'){
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3);
 				} else {
@@ -5402,6 +5406,10 @@ class PlayState extends MusicBeatState
 
 	var cameraTwn:FlxTween;
 	public function moveCamera(isDad:Bool) {
+		if(!movecameraallowed)
+			return;
+
+
 		if(isDad || curSong.toLowerCase()=='control') {
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
 			camFollow.x += dad.cameraPosition[0];
@@ -7162,7 +7170,7 @@ class PlayState extends MusicBeatState
 	{
 		trace('SIMPLE JUMPSCARE');
 
-		var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Tails', 'week-xenophanes'));
+		var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Tails'));
 
 		doP3JumpTAILS.setGraphicSize(FlxG.width, FlxG.height);
 
@@ -7173,7 +7181,8 @@ class PlayState extends MusicBeatState
 		FlxG.camera.shake(0.0025, 0.50);
 			add(doP3JumpTAILS);
 
-		FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
+		if(curSong.toLowerCase()=='triple-trouble')
+			FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
 
 		new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{

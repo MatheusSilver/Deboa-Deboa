@@ -10,7 +10,7 @@ end
 local curHitting = false;
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
- if mustHitSection == false then
+ if mustHitSection == false and getCamMove() then
     if direction == 0 then
         triggerEvent('Camera Follow Pos',camPosDadX-ofs,camPosDadY)
     end
@@ -29,7 +29,7 @@ function opponentNoteHit(id, direction, noteType, isSustainNote)
 end
 
 function goodNoteHit(id, direction, noteType, isSustainNote)
-    if mustHitSection == true then
+    if mustHitSection == true and getCamMove() then
        if direction == 0 then
            triggerEvent('Camera Follow Pos',camPosBFX-ofs,camPosBFY)
        end
@@ -48,10 +48,10 @@ function goodNoteHit(id, direction, noteType, isSustainNote)
 end
 
 function onUpdate()
-    if not curHitting == mustHitSection then
+    if not curHitting == mustHitSection and getCamMove() then
         if mustHitSection == true then
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
-        else
+        elseif getCamMove() then
             triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
         end
     end
@@ -59,9 +59,9 @@ function onUpdate()
 end
 
 function onTimerCompleted(tag)
-    if tag == 'returnBF' and mustHitSection == true then
+    if tag == 'returnBF' and mustHitSection == true and getCamMove() then
         triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
-    elseif tag == 'returnDAD' and mustHitSection == false then
+    elseif tag == 'returnDAD' and mustHitSection == false and getCamMove() then
         triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
     end
 end

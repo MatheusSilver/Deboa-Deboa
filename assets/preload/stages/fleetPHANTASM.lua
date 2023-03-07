@@ -11,7 +11,7 @@ local del2 = 0
 local bgs = {'fleetPHANTASM', 'sonicPHANTASM'}
 
 function onCreate()
-	makeAnimatedLuaSprite('fx', 'cenarios/phantasm/vintage', 0, 0)
+	makeAnimatedLuaSprite('fx', 'vintage', 0, 0)
 	addAnimationByPrefix('fx', 'idle', 'idle', 16, true)
 	scaleObject('fx', 3, 3)
 	setObjectCamera('fx', 'camHud')

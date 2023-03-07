@@ -18,4 +18,12 @@
 
 <SubTexture name="down0000" x="0" y="144" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
 <SubTexture name="down0001" x="64" y="144" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
+
+
+<SubTexture name="hey0000" x="128" y="144" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
+<SubTexture name="hey0001" x="192" y="144" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
+<SubTexture name="loop0000" x="0" y="192" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
+<SubTexture name="loop0001" x="64" y="192" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
+<SubTexture name="loop0002" x="128" y="192" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
+<SubTexture name="loop0003" x="192" y="192" width="64" height="48" frameX="0" frameY="0" frameWidth="64" frameHeight="48" />
 </TextureAtlas>

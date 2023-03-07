@@ -259,6 +259,16 @@ class FunkinLua {
 			}
 			//luaTrace("removeLuaScript: Script doesn't exist!", false, false);
 		});
+
+		Lua_helper.add_callback(lua, "getPropertySpecial", function(variable:String) {
+			var result:Dynamic = null;
+			var killMe:Array<String> = variable.split('.');
+			if(killMe.length > 1)
+				result = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
+			else
+				result = getVarInArray(getInstance(), variable);
+			return result;
+		});
 		
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String) {
 			var killMe:Array<String> = variable.split('.');
@@ -704,7 +714,6 @@ class FunkinLua {
 			var value2:String = arg2;
 			var value3:String = arg3;
 			var value4:String = arg4;
-			var path:String = arg5;
 			PlayState.instance.triggerEventNote(name, value1, value2, value3, value4);
 			//trace('Triggered event: ' + name + ', ' + value1 + ', ' + value2);
 		});
@@ -1782,6 +1791,14 @@ class FunkinLua {
 					PlayState.instance.persistentUpdate = false;
 					PauseSubState.restartSong(skipTransition);
 					return true;
+				});
+
+				Lua_helper.add_callback(lua, "setCamMove", function(valor:Bool) {
+					PlayState.movecameraallowed = valor;
+				});
+
+				Lua_helper.add_callback(lua, "getCamMove", function() {
+					return PlayState.movecameraallowed;
 				});
 		
 				Lua_helper.add_callback(lua, "addAnimation", function(obj:String, name:String, frames:Array<Int>, framerate:Int = 24, loop:Bool = true) {

@@ -54,6 +54,28 @@
 			"fps": 8,
 			"name": "right0",
 			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "hey",
+			"fps": 12,
+			"name": "hey",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": true,
+			"fps": 16,
+			"anim": "hey-loop",
+			"indices": [],
+			"name": "loop"
 		}
 	],
 	"no_antialiasing": true,

@@ -1,16 +1,15 @@
 function onCreate() -- Aqui só serve para dar carregar e configurar os cenários,
 	-- A parte massa da coisa mesmo está lá no Master.lua
-	
 
 	--phase1 stuff
-	makeLuaTiledSprite('ceu','cenarios/phase1/ceu',2000,310,true,false) --1
+	makeLuaTiledSprite('ceu','cenarios/phase1/ceu',2000,330,true,false) --1
 	setLuaSpriteScrollFactor('ceu',0.4,0.4)
 	setPropertyTiledLuaSprite("ceu.antialiasing", false)
 	setPropertyTiledLuaSprite("ceu.x", -555)
-	setPropertyTiledLuaSprite("ceu.y", -263)
+	setPropertyTiledLuaSprite("ceu.y", -223)
 	addLuaSprite('ceu');
 
-	makeLuaSprite('montanhas','cenarios/phase1/montanhas',75-200+100,105-43) --2
+	makeLuaSprite('montanhas','cenarios/phase1/montanhas',75-200+100,105-23) --2
 	setLuaSpriteScrollFactor('montanhas',0.5,0.5)
 	setProperty('montanhas.scale.x', 5)
 	setProperty('montanhas.scale.y', 4.5)
@@ -35,15 +34,15 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('awa',false)
 	objectPlayAnimation('awa', 'bg1', true)
 
-	makeLuaSprite('montesverdes','cenarios/phase1/GHGround',150,100)--5
-	setLuaSpriteScrollFactor('montesverdes',0.7,0.7)
+	makeLuaSprite('montesverdes','cenarios/phase1/GHGround',0,100+1500)--5
+	setLuaSpriteScrollFactor('montesverdes',1,1)
 	setProperty('montesverdes.scale.x', 5)
 	setProperty('montesverdes.scale.y', 5)
 	setProperty('montesverdes.antialiasing', false)
 	addLuaSprite('montesverdes',false)
 
-	makeAnimatedLuaSprite('flores','cenarios/phase1/flowers',150,105) --6
-	setLuaSpriteScrollFactor('flores',0.7,0.7)
+	makeAnimatedLuaSprite('flores','cenarios/phase1/flowers',0,105+1500) --6
+	setLuaSpriteScrollFactor('flores',1,1)
 	addAnimationByPrefix('flores', 'flowerloop', 'flowerloop', 16, true);
 	setProperty('flores.antialiasing', false)
 	setProperty('flores.scale.x', 5)
@@ -51,8 +50,8 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('flores',false)
 	objectPlayAnimation('flores', 'flowerloop', true)
 
-	makeAnimatedLuaSprite('trens','cenarios/phase1/objects',150,100) --7
-	setLuaSpriteScrollFactor('trens',0.7,0.7)
+	makeAnimatedLuaSprite('trens','cenarios/phase1/objects',0,100+1500) --7
+	setLuaSpriteScrollFactor('trens',1,1)
 	addAnimationByPrefix('trens', 'objects', 'objects', 16, true);
 	setProperty('trens.antialiasing', false)
 	setProperty('trens.scale.x', 5)
@@ -330,4 +329,10 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('phase10-3',true)
 
 
+end
+
+function onCreatePost() -- Isso aqui se comunica com o trans.lua (está em post pra garantir que o trans pegue o y antes da alteração pra depois usar no tween.)
+	setCharacterY('bf', getCharacterY('bf')+1500)
+	setCharacterY('dad', getCharacterY('dad')+1500)
+	setCamMove(false);
 end
