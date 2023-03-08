@@ -2616,7 +2616,7 @@ class PlayState extends MusicBeatState
             var video:MP4Handler = new MP4Handler();
 			var videoSpr = new FlxSprite(FlxG.width, FlxG.height).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 			videoSpr.scrollFactor.set();
-			videoSpr.cameras = [camHUD2];
+			videoSpr.cameras = [camLegenda];
 			videoSpr.screenCenter(XY);
 			add(videoSpr);
             video.playMP4(diretorio, null, videoSpr);
