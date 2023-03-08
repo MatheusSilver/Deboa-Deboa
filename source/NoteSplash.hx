@@ -38,7 +38,7 @@ class NoteSplash extends FlxSprite
 		}
 
 		switch(texture){
-			case 'blood':
+			case 'blood' | 'bloodpixel':
 				alpha = 1;
 				antialiasing=true;
 				colorSwap.hue = 0;
@@ -90,7 +90,7 @@ class NoteSplash extends FlxSprite
 				}
 			}
 		switch(skin){
-			case 'blood':
+			case 'blood' | 'bloodpixel':
 					animation.addByPrefix("splash", "Squirt", 24, false);
 			case 'milk':
 				for (i in 1...3) {

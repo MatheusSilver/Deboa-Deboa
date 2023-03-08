@@ -5079,9 +5079,8 @@ class PlayState extends MusicBeatState
 					judgementCounter.visible = false;
 					p2greenhill.visible = true;
 					add(sonicHUD);
-					isPixelStage = true;
-					triggerEventNote('noteskinchangeOPPT', 'arrows1-sonic', ''); 
-					triggerEventNote('noteskinchangeBF', 'arrows1-sonic', 'noteSplashesPixelSonic');
+					triggerEventNote('noteskinchangeOPPT', 'arrows1-soniczoom', ''); 
+					triggerEventNote('noteskinchangeBF', 'arrows1-soniczoom', 'bloodpixel');
 				} else {
 					scoreTxt.visible=true;
 					timeBar.visible=true;
@@ -5090,7 +5089,6 @@ class PlayState extends MusicBeatState
 					p2greenhill.visible = false;
 					judgementCounter.visible = true;
 					remove(sonicHUD);
-					isPixelStage = false;
 					triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
 					triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
 				}

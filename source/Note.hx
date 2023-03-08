@@ -305,6 +305,7 @@ class Note extends FlxSprite
 		x += offsetX;
 	}
 
+	public static var offsetCoiso:Bool = false;
 	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
 	public var originalHeightForCalcs:Float = 6;
 	public function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '') {
@@ -319,6 +320,7 @@ class Note extends FlxSprite
 				skin = 'NOTE_assets';
 			}
 		}
+
 
 		var animName:String = null;
 		if(animation.curAnim != null) {
@@ -352,13 +354,34 @@ class Note extends FlxSprite
 				lastNoteOffsetXForPixelAutoAdjusting = (width - 7) * (PlayState.daPixelZoom / 2);
 				offsetX -= lastNoteOffsetXForPixelAutoAdjusting;
 			}
-		} else {
+		}else if(skin.endsWith('zoom')) {
+			if(isSustainNote) {
+				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
+				width = width / 4;
+				height = height / 2;
+				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
+			} else {
+				loadGraphic(Paths.image('pixelUI/' + blahblah));
+				width = width / 4;
+				height = height / 5;
+				loadGraphic(Paths.image('pixelUI/' + blahblah), true, Math.floor(width), Math.floor(height));
+			}
+			setGraphicSize(Std.int(width * 0.7));
+			loadPixelNoteAnims();
+			antialiasing = false;
+			if(isSustainNote)
+				offsetX += 34;
+			
+		}else {
 			frames = Paths.getSparrowAtlas(blahblah);
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
 		}
 		if(isSustainNote) {
-			scale.y = lastScaleY;
+			if(!skin.endsWith('zoom'))
+				scale.y = lastScaleY;
+			else
+				scale.y = 0.951*lastScaleY;
 		}
 		updateHitbox();
 
@@ -427,8 +450,6 @@ class Note extends FlxSprite
 		super.update(elapsed);
 		
 		if(noteType == 'CCC Regen' && curcounterCCC != PlayState.cccVidaCounter && PlayState.nomehistorico.toLowerCase()=='cross console clash'){			
-			//Skin Stuff
-			//trace('estou trocando a skin');
 			curcounterCCC = PlayState.cccVidaCounter;
 			if(PlayState.storyDifficulty == 4){ //4 = dificuldade do mauro
 				if(PlayState.cccVidaCounter == 0){

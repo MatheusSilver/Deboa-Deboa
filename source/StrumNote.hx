@@ -34,6 +34,11 @@ class StrumNote extends FlxSprite
 		this.noteData = leData;
 		super(x, y);
 
+		if(PlayState.SONG.arrowSkin != null)
+			texture = PlayState.SONG.arrowSkin;
+		else
+			texture = 'NOTE_assets';
+
 		if(PlayState.storyDifficulty == 3){
 			if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 0){texture='arrows-mario';}
 
@@ -45,9 +50,6 @@ class StrumNote extends FlxSprite
 				if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 0){texture='arrows1-sonic';}
 			}
 
-		if(texture == null){ texture = 'NOTE_assets';}
-		if(PlayState.isRing){texture = 'RING_assets';}
-		
 		if(ClientPrefs.middleScroll){
 			switch (player)
 			{
@@ -74,6 +76,38 @@ class StrumNote extends FlxSprite
 
 			antialiasing = false;
 			setGraphicSize(Std.int(width * PlayState.daPixelZoom));
+
+			animation.add('green', [6]);
+			animation.add('red', [7]);
+			animation.add('blue', [5]);
+			animation.add('purple', [4]);
+			switch (Math.abs(noteData) % 4)
+			{
+				case 0:
+					animation.add('static', [0]);
+					animation.add('pressed', [4, 8], 12, false);
+					animation.add('confirm', [12, 16], 24, false);
+				case 1:
+					animation.add('static', [1]);
+					animation.add('pressed', [5, 9], 12, false);
+					animation.add('confirm', [13, 17], 24, false);
+				case 2:
+					animation.add('static', [2]);
+					animation.add('pressed', [6, 10], 12, false);
+					animation.add('confirm', [14, 18], 12, false);
+				case 3:
+					animation.add('static', [3]);
+					animation.add('pressed', [7, 11], 12, false);
+					animation.add('confirm', [15, 19], 24, false);
+			}
+		}else if(texture.endsWith('zoom')){
+			loadGraphic(Paths.image('pixelUI/' + texture));
+			width = width / 4;
+			height = height / 5;
+			loadGraphic(Paths.image('pixelUI/' + texture), true, Math.floor(width), Math.floor(height));
+
+			antialiasing = false;
+			setGraphicSize(Std.int(width * 0.7));
 
 			animation.add('green', [6]);
 			animation.add('red', [7]);
@@ -211,7 +245,7 @@ class StrumNote extends FlxSprite
 				resetAnim = 0;
 			}
 		}
-		if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
+		if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage && !texture.endsWith('zoom')) {
 			centerOrigin();
 		}
 
@@ -234,7 +268,7 @@ class StrumNote extends FlxSprite
 				colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
 			}
 
-			if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
+			if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage && !texture.endsWith('zoom')) {
 				centerOrigin();
 			}
 		}
