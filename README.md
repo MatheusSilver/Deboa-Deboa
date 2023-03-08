@@ -42,11 +42,22 @@ Após isso, entre na aba Actions, abaixo do nome do repositório,
 ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workflows e aperte no botão verde.
 
 ## Creditos - Projeto ModBoa:
+# Direção:
 * Vio - Diretora do projeto
-* Dav - Programador Líder
-* Konan - Programador
+# Charts e outras coisas
+* Konan - Charts/legendas/luas/ports
+# Artistas
+* Ashuro - artista principal
+* Cat - artista auxiliar (mas importante)
+* Hugo - artista (também importante)
+# Coding
+* Dav - Diretor de code/luas
 * Team Silver - Port Mobile
-* MateusX02 - Ajuda no port Mobile
+- Matheus Silver - Diretor de code/port mobile
+- Lorena -
+- Clara -
+* Konan - Programador
+* MateusX02 - Ajuda no port Mobile/coding adicional
 
 ## Creditos - Psych Engine 4.2:
 * Shadow Mario - Programação
