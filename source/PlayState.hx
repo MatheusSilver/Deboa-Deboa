@@ -5642,7 +5642,7 @@ class PlayState extends MusicBeatState
 					onComplete: function(twn:FlxTween)
 				{
 					if(modohistoria){
-						MusicBeatState.switchState(new MenuPreHistoria());
+						MusicBeatState.switchState(new EstadoDeLimpeza());
 						lime.app.Application.current.window.title='FNF: ModBoa EXE';
 						modohistoria = false;
 					} else {

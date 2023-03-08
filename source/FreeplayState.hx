@@ -69,6 +69,8 @@ class FreeplayState extends MusicBeatState
 	override function create()
 	{
 		
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
 
 		WeekData.reloadWeekFiles(true); //note for future silver 
 		//Este code, SEMPRE, deve ser colocado quando não se utiliza 'dapreselected', ele é quem carrega as weeks.
