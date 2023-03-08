@@ -735,6 +735,9 @@ class PlayState extends MusicBeatState
 				p2greenhill.scrollFactor.set(1.1, 1.1);
 				add(p2greenhill);
 
+				case 'console':
+					ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
+
 				case 'P3Stage': // i fixed the bgs and shit!!! - razencro part 1 - bg's finalizados sílvio parte 2
 				{		
 					var sSKY:FlxSprite = new FlxSprite(-621.1, -395.65).loadGraphic(Paths.image('cenarios/Glitch'));
@@ -1593,7 +1596,6 @@ class PlayState extends MusicBeatState
 		botplayTxt.visible = cpuControlled;
 		if(curSong.toLowerCase() != 'cross-console-clash')
 			{
-				ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
 				add(botplayTxt);
 			}
 		if(ClientPrefs.downScroll) {

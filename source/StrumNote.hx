@@ -34,11 +34,6 @@ class StrumNote extends FlxSprite
 		this.noteData = leData;
 		super(x, y);
 
-		if(PlayState.SONG.arrowSkin != null)
-			texture = PlayState.SONG.arrowSkin;
-		else
-			texture = 'NOTE_assets';
-
 		if(PlayState.storyDifficulty == 3){
 			if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 0){texture='arrows-mario';}
 
@@ -50,6 +45,13 @@ class StrumNote extends FlxSprite
 				if(PlayState.SONG.song.toLowerCase()=='cross-console-clash' && player == 0){texture='arrows1-sonic';}
 			}
 
+		if(texture.length < 1) {
+			texture = PlayState.SONG.arrowSkin;
+			if(texture == null || texture.length < 1) {
+				texture = 'NOTE_assets';
+			}
+		}
+		
 		if(ClientPrefs.middleScroll){
 			switch (player)
 			{
