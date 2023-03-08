@@ -2606,7 +2606,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function videoPlayer(nomedovideo:String) {
-        var diretorio = "assets/videos/" + nomedovideo;
+        var diretorio = "assets/videos/" + nomedovideo+".mp4";
 
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
         if(Assets.exists(diretorio)) {
@@ -2619,7 +2619,7 @@ class PlayState extends MusicBeatState
 			videoSpr.cameras = [camHUD2];
 			videoSpr.screenCenter(XY);
 			add(videoSpr);
-            video.playMP4("assets/videos/"+diretorio+".mp4", null, videoSpr);
+            video.playMP4(diretorio, null, videoSpr);
 			video.canSkip = false;
 			videoSpr.setGraphicSize(FlxG.width, FlxG.height);
             #end
