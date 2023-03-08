@@ -2605,6 +2605,28 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function videoPlayer(nomedovideo:String) {
+        var diretorio = "assets/videos/" + nomedovideo;
+
+        // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
+        if(Assets.exists(diretorio)) {
+            #if mobile
+            comecarvideo(nomedovideo, 0, 0, "cheio", 0, 2);
+            #else
+            var video:MP4Handler = new MP4Handler();
+			var videoSpr = new FlxSprite(FlxG.width, FlxG.height).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+			videoSpr.scrollFactor.set();
+			videoSpr.cameras = [camHUD2];
+			videoSpr.screenCenter(XY);
+			add(videoSpr);
+            video.playMP4("assets/videos/"+diretorio+".mp4", null, videoSpr);
+			video.canSkip = false;
+			videoSpr.setGraphicSize(FlxG.width, FlxG.height);
+            #end
+        }
+
+    } 
+
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{
 		inCutscene = true;
@@ -4180,6 +4202,8 @@ class PlayState extends MusicBeatState
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String/*,?path:String*/) {
 		switch(eventName) {
+			case 'video player':
+				videoPlayer(value1);
 			case 'Adicionar Imagens':
 				/*if (ClientPrefs.legendas)
 				{
