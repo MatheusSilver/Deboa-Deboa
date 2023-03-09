@@ -482,6 +482,7 @@ class PlayState extends MusicBeatState
 	var loadingbar = new FlxSprite();
 	var modboalogo = new FlxSprite();
 	public static var veioNormal:Bool;
+	public var playingVideoMP4:Bool =false;
 
 	override public function create()
 	{
@@ -511,6 +512,7 @@ class PlayState extends MusicBeatState
 		precacheList.set('breakfast', 'music');
 
 		legendPath = 'letras/'+SONG.song.toLowerCase()+'/';
+		//to perdido
 		
 
 		isRing = SONG.isRing; //Top 10 otimizações mais sodas do Mundo talvez do Brasil
@@ -2607,7 +2609,10 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function videoPlayer(nomedovideo:String) {
+	public var videoSpr:FlxSprite = new FlxSprite(FlxG.width, FlxG.height).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+	public var video:MP4Handler;
+
+	public function videoPlayer(nomedovideo:String, audioVolume:String) {
         var diretorio = "assets/videos/" + nomedovideo+".mp4";
 
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
@@ -2615,19 +2620,31 @@ class PlayState extends MusicBeatState
             #if mobile
             comecarvideo(nomedovideo, 0, 0, "cheio", 0, 2);
             #else
-            var video:MP4Handler = new MP4Handler();
-			var videoSpr = new FlxSprite(FlxG.width, FlxG.height).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 			videoSpr.scrollFactor.set();
 			videoSpr.cameras = [camLegenda];
 			videoSpr.screenCenter(XY);
 			add(videoSpr);
+			video = new MP4Handler();
             video.playMP4(diretorio, null, videoSpr);
+			video.vimdoplaystatemano=true;
 			video.canSkip = false;
+			if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
 			videoSpr.setGraphicSize(FlxG.width, FlxG.height);
+			playingVideoMP4 = true;
             #end
         }
 
     } 
+	public function pausarVideo(pausar:Bool)
+		{
+			video.paused = pausar;
+		}
+
+	public function deletarSpriteNAAAAO():Void
+		{
+			remove(videoSpr);
+			playingVideoMP4=false;
+		}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{
@@ -3446,6 +3463,14 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		if(playingVideoMP4 && paused)
+			{
+				pausarVideo(true);
+			}
+		else if(playingVideoMP4 && !paused)
+			{
+				pausarVideo(false);
+			}
 		timeAccumulated += elapsed;
 		while (shouldUpdate())
 			{
@@ -4211,7 +4236,7 @@ class PlayState extends MusicBeatState
 	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String/*,?path:String*/) {
 		switch(eventName) {
 			case 'video player':
-				videoPlayer(value1);
+				videoPlayer(value1, value2);
 			case 'Adicionar Imagens':
 				/*if (ClientPrefs.legendas)
 				{
