@@ -89,7 +89,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	--phase3 cheetos só que do vilão pois sou uma pessoa extremamente imparcial, fonte: Confia yey
 
 	makeLuaSprite('vilaophase3-2','cenarios/phase3/vilao/2',-380,-125)--5
-	setLuaSpriteScrollFactor('vilaophase3-2',0.7,0.7)
+	setLuaSpriteScrollFactor('vilaophase3-2',1,1)
 	setProperty('vilaophase3-2.scale.x', 1.5)
 	setProperty('vilaophase3-2.scale.y', 1.7)
 	setProperty('vilaophase3-2.visible', false)
@@ -114,7 +114,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--Phase 3 cheetos só que do heroi pois novamente sou um cara deveras imparcial
 	makeLuaSprite('heroiphase3-2','cenarios/phase3/heroi/2',-450,-125)--5
-	setLuaSpriteScrollFactor('heroiphase3-2',0.7,0.7)
+	setLuaSpriteScrollFactor('heroiphase3-2',1,1)
 	setProperty('heroiphase3-2.scale.x', 1.5)
 	setProperty('heroiphase3-2.scale.y', 1.7)
 	setProperty('heroiphase3-2.visible', false)

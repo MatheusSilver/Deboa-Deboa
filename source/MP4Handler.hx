@@ -139,7 +139,6 @@ class MP4Handler
 				canSkip=false;
 				// Clean player, just in case! Actually no.
 		
-				FlxG.camera.fade(FlxColor.BLACK, 0, false);
 		
 		
 				#if debug
@@ -152,6 +151,7 @@ class MP4Handler
 					{
 						if(!vimdoplaystatemano)
 							{
+								FlxG.camera.fade(FlxColor.BLACK, 0, false);
 								LoadingState.loadAndSwitchState(finishCallback);
 							}
 						else
@@ -162,6 +162,7 @@ class MP4Handler
 					}
 					else if(finishCallback != null && VideoStatePC.NextState == "title" && !vimdoplaystatemano)
 						{
+							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 							VideoStatePC.NextState=="no";
 							MusicBeatState.switchState(new TitleState());
 						}

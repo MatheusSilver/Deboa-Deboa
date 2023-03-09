@@ -16,6 +16,7 @@ import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.geom.Rectangle;
 import vlc.LibVLC;
+import flash.utils.ByteArray;
 
 /**
  * ...
@@ -371,8 +372,8 @@ class VlcBitmap extends Bitmap
 					{
 						// BitmapData
 						libvlc.getPixelData();
+						NativeArray.setUnmanagedData(bufferMem, libvlc.getPixelData(), frameSize);
 						if (libvlc.getPixelData() != null)
-							NativeArray.setUnmanagedData(bufferMem, libvlc.getPixelData(), frameSize);
 							bitmapData.setPixels(frameRect, Bytes.ofData(bufferMem));
 
 						// (Stage3D)
