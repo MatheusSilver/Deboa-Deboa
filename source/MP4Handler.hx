@@ -20,12 +20,16 @@ class MP4Handler
 	public static var video:Video;
 	public static var netStream:NetStream;
 	public static var finishCallback:FlxState;
+	public var vimdoplaystatemano:Bool = false;
 	public var canSkip:Bool = false;
 	public var sprite:FlxSprite;
+	public var videoVolume:Float = 1;
+	public var paused:Bool = false;
 	public static var iAmSobre:Bool = false;
 	#if desktop
 	public static var vlcBitmap:VlcBitmap;
 	#end
+	var queronaoviver:Bool = false;
 
 	public function new()
 	{
@@ -99,6 +103,7 @@ class MP4Handler
 			sprite = outputTo;
 		}
 		#end
+		queronaoviver=true;
 		canSkip=false;
 	}
 
@@ -131,7 +136,6 @@ class MP4Handler
 	{
 		if(iAmSobre==false)
 			{
-				vlcBitmap.stop();
 				canSkip=false;
 				// Clean player, just in case! Actually no.
 		
@@ -139,24 +143,33 @@ class MP4Handler
 		
 		
 				#if debug
-				trace("Big, Big Chungus, Big Chungus!");
+				trace("to exibindo o video");
 				#end
 		
 				new FlxTimer().start(0.3, function (tmr:FlxTimer)
 				{
 					if (VideoStatePC.NextState != "title")
 					{
-						
-						LoadingState.loadAndSwitchState(finishCallback);
+						if(!vimdoplaystatemano)
+							{
+								LoadingState.loadAndSwitchState(finishCallback);
+							}
+						else
+							{
+								PlayState.instance.deletarSpriteNAAAAO();
+								vimdoplaystatemano = false;
+							}
 					}
-					else if(finishCallback != null && VideoStatePC.NextState == "title")
+					else if(finishCallback != null && VideoStatePC.NextState == "title" && !vimdoplaystatemano)
 						{
 							VideoStatePC.NextState=="no";
 							MusicBeatState.switchState(new TitleState());
 						}
-					vlcBitmap.dispose();
+					vimdoplaystatemano = false;
+					vlcBitmap.stop();
 					if (FlxG.game.contains(vlcBitmap))
 					{
+						vlcBitmap.dispose();
 						FlxG.game.removeChild(vlcBitmap);
 					}	
 				});	
@@ -168,9 +181,9 @@ class MP4Handler
 	public function stopVideo()
 		{
 			vlcBitmap.stop();
-			vlcBitmap.dispose();
 			if (FlxG.game.contains(vlcBitmap))
 			{
+				vlcBitmap.dispose();
 				FlxG.game.removeChild(vlcBitmap);
 			}	
 		}
@@ -185,21 +198,31 @@ class MP4Handler
 
 	function update(e:Event)
 	{
-		if (FlxG.keys.justReleased.SPACE && canSkip==true && iAmSobre==false)
+		if (FlxG.keys.justReleased.SPACE && canSkip==true && iAmSobre==false && vimdoplaystatemano==false)
 		{
 			if (vlcBitmap.isPlaying)
 			{
 				onVLCComplete();
+				stopVideo();
 				//VideoStatePC.canSkip=false;
 			}
 		}
+
+		if(paused && vlcBitmap.isPlaying && queronaoviver)
+			{
+				vlcBitmap.pause();
+			}
+		else if(!paused && !vlcBitmap.isPlaying && queronaoviver)
+			{
+				vlcBitmap.resume();
+			}
 
 		if(VideoStatePC.NextState != "title")
 			{
 				canSkip=false;
 			}
-		vlcBitmap.volume = FlxG.sound.volume + 0.3; // shitty volume fix. then make it louder.
-		if (FlxG.sound.volume <= 0.1) vlcBitmap.volume = 0;
+		vlcBitmap.volume = FlxG.sound.volume + 0.5 * videoVolume; // shitty volume fix. then make it louder.
+		if (FlxG.sound.volume <= 0.1) vlcBitmap.volume = 0 * videoVolume;
 	}
 	#end
 

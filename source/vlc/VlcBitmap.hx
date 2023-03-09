@@ -367,12 +367,12 @@ class VlcBitmap extends Bitmap
 			{
 				try
 				{
-					NativeArray.setUnmanagedData(bufferMem, libvlc.getPixelData(), frameSize);
 					if (bufferMem != null)
 					{
 						// BitmapData
 						// libvlc.getPixelData() sometimes is null and the exe hangs ...
 						if (libvlc.getPixelData() != null)
+							NativeArray.setUnmanagedData(bufferMem, libvlc.getPixelData(), frameSize);
 							bitmapData.setPixels(frameRect, Bytes.ofData(bufferMem));
 
 						// (Stage3D)
