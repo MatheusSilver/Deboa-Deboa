@@ -420,8 +420,8 @@ class ChartingState extends MusicBeatState
 		{
 			var songName:String = Paths.formatToSongPath(_song.song);
 			var file:String = Paths.json(songName + '/events');
-			#if desktop
-			if (#if aMODS_ALLOWED FileSystem.exists(Paths.modsJson(songName + '/events')) || #end FileSystem.exists(file))
+			#if debug
+			if (FileSystem.exists(file))
 			#else
 			if (OpenFlAssets.exists(file))
 			#end
@@ -436,23 +436,24 @@ class ChartingState extends MusicBeatState
 						}
 					}
 				}
-				#if desktop
-				if (FileSystem.exists(Paths.json(songName + '/letras'))){
-				#elseif mobile
-				if (OpenFlAssets.exists(Paths.json(songName + '/letras'))){
-				#end
-					var lyrics:SwagSong = Song.loadFromJson('letras', songName);
-					for (sec in 0...lyrics.notes.length) {
-						for (noteId in 0...lyrics.notes[sec].sectionNotes.length) {
-							var note:Array<Dynamic> = lyrics.notes[sec].sectionNotes[noteId];
-							if(note != null && note[1] < 0) {
-								_song.notes[sec].sectionNotes.push([note[0], note[1], note[2], note[3], note[4], note[5], note[6], note[7]]);
-							}
+			}
+			#if debug
+			if (FileSystem.exists(Paths.json(songName + '/letras')))
+			#elseif mobile
+			if (OpenFlAssets.exists(Paths.json(songName + '/letras')))
+			#end
+			{
+				var lyrics:SwagSong = Song.loadFromJson('letras', songName);
+				for (sec in 0...lyrics.notes.length) {
+					for (noteId in 0...lyrics.notes[sec].sectionNotes.length) {
+						var note:Array<Dynamic> = lyrics.notes[sec].sectionNotes[noteId];
+						if(note != null && note[1] < 0) {
+							_song.notes[sec].sectionNotes.push([note[0], note[1], note[2], note[3], note[4], note[5], note[6], note[7]]);
 						}
 					}
 				}
-				changeSection(curSection);
 			}
+			changeSection(curSection);
 		});
 
 		var saveEvents:FlxButton = new FlxButton(110, reloadSongJson.y, 'Save Events', function ()
