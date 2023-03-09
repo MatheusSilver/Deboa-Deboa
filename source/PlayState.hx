@@ -3375,6 +3375,12 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+		if (paused)
+			return;
+
+		openPauseMenu();
+			
+
 		super.onFocusLost();
 	}
 
