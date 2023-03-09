@@ -16,17 +16,17 @@
 						85.2272727272727,
 						-1,
 						"noteskinchangeBF",
-						"arrows1-sonic",
 						"",
-						""
+						"",
+						"precache purposes"
 					],
 					[
 						85.2272727272727,
 						-1,
 						"noteskinchangeOPPT",
-						"arrows1-sonic",
 						"",
-						""
+						"",
+						"precache purposes"
 					]
 				],
 				"bpm": 0,
@@ -1228,7 +1228,7 @@
 		"splashSkin": null,
 		"validScore": false,
 		"bpm": 134,
-		"arrowSkin": null,
+		"arrowSkin": "arrows1-soniczoom",
 		"needsVoices": false,
 		"song": "chasing",
 		"isRing": null

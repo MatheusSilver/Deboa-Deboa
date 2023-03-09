@@ -7,7 +7,7 @@ import sys.io.Process; // medo
 #end
 #if sys
 import Sys;
-#if desktop
+#if debug
 import sys.FileSystem;
 #end
 import sys.io.File;
@@ -492,10 +492,9 @@ class PlayState extends MusicBeatState
 		
 		//Precache geral
 
-		precacheList.set(loadingImage, 'image');
+		/*precacheList.set(loadingImage, 'image');
 		precacheList.set('loading/loading-logo', 'image');
-		precacheList.set('loading/carregando', 'image');
-		precacheList.set('vaitomarnocu', 'image');
+		precacheList.set('loading/carregando', 'image');*/
 		precacheList.set('pause/botplayativado', 'image');
 		precacheList.set('pause/botplaydesativado', 'image');
 		precacheList.set('pause/praticarativado', 'image');
@@ -875,7 +874,6 @@ class PlayState extends MusicBeatState
 
 			case 'starved-pixel':
 				defaultCamZoom = 0.6;
-				isPixelStage = true;
 
 				theendbg = new BGSprite('cenarios/starved/Prey End', 0, 0, 1, 1); //Tecnicamente ele está atrás de todo mundo
 				theendbg.scale.x = 1.3; //Não acho que vou precisar me preocupar com o visible dele
@@ -1623,7 +1621,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-		if (isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-revoltas' || curSong == 'you-cant-run'){
+		if (sonicHUDStyles.exists(SONG.song.toLowerCase())){
 
 		if(sonicHUDStyles.exists(SONG.song.toLowerCase()))hudStyle = sonicHUDStyles.get(SONG.song.toLowerCase());
 		var hudFolder = hudStyle;
@@ -1820,7 +1818,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(curSong == 'prey' || curSong == 'you-cant-run' && isPixelStage || nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
+		if(curSong == 'prey' || nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
 			scoreTxt.visible=false;
 			timeBar.visible=false;
 			if (curSong == 'round-a-bout'){
@@ -1837,6 +1835,9 @@ class PlayState extends MusicBeatState
 			timeBarBG.visible=false;
 			judgementCounter.visible = false;
 			add(sonicHUD);
+		}else if(curSong == 'you-cant-run'){
+			add(sonicHUD);
+			sonicHUD.visible=false;
 		}
 
 
@@ -2279,9 +2280,23 @@ class PlayState extends MusicBeatState
 			art.loadGraphic(Paths.image(loadingImage, 'preload'));
 			trace(loadingImage);
 
-			FlxTween.tween(art, {alpha: 0}, 0.85,{ease: FlxEase.linear, startDelay: 0.05});
-			FlxTween.tween(loadingbar, {x: FlxG.width + 15}, 0.45,{ease: FlxEase.quartInOut, startDelay: 0.05});
-			FlxTween.tween(modboalogo, {y: FlxG.height*1.1}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.10});
+			FlxTween.tween(art, {alpha: 0}, 0.85,{ease: FlxEase.linear, startDelay: 0.05,
+				onComplete: function(twn:FlxTween)
+				{
+					remove(art);
+					art.destroy();
+				}});
+			FlxTween.tween(loadingbar, {x: FlxG.width + 15}, 0.45,{ease: FlxEase.quartInOut, startDelay: 0.05, onComplete: function(twn:FlxTween)
+				{
+					remove(loadingbar);
+					loadingbar.destroy();
+				}});
+			FlxTween.tween(modboalogo, {y: FlxG.height*1.1}, 0.65,{ease: FlxEase.quartInOut, startDelay: 0.10,
+				onComplete: function(twn:FlxTween)
+				{
+					remove(modboalogo);
+					modboalogo.destroy();
+				}});
 		//	trace("Precache finalizado");
 
 		Paths.clearUnusedMemory();
@@ -2515,7 +2530,6 @@ class PlayState extends MusicBeatState
 		{
 		
 		if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){ //Top 10 codes mais feios dos animes
-			isPixelStage = false;
 			bgSkychasing.visible = true;
 			triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
 			triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
@@ -2758,14 +2772,12 @@ class PlayState extends MusicBeatState
 				if(ClientPrefs.middleScroll) thirdplayerStrums.members[i].visible = false; //Ainda pensando sobre isso...
 			}
 
-			if(curSong == 'prey' || curSong == 'you-cant-run'){
-				if(isPixelStage){
+			if(curSong == 'prey'){//Prestar Atenção a isso
 				healthBar.x += 150;
 				scoreTxt.x += 150;
 				iconP1.x += 150;
 				iconP2.x += 150;
 				healthBarBG.x += 150;
-				}
 			}
 
 			startedCountdown = true;
@@ -3013,7 +3025,11 @@ class PlayState extends MusicBeatState
 		if(curSong.toLowerCase()=='cross-console-clash'){
 			file = Paths.json(songName + '/events' + CoolUtil.difficultyStuff[storyDifficulty][1]);
 		}
+		#if debug
+		if (FileSystem.exists(file)) {
+		#else
 		if (OpenFlAssets.exists(file)) {
+		#end
 			var eventsData:Array<SwagSection>;
 			if(curSong.toLowerCase()=='cross-console-clash'){
 				eventsData = Song.loadFromJson('events' + CoolUtil.difficultyStuff[storyDifficulty][1], songName).notes;
@@ -3033,7 +3049,11 @@ class PlayState extends MusicBeatState
 		}
 
 		var fileletras:String = Paths.json(songName + '/letras');
+		#if debug
+		if (FileSystem.exists(fileletras)) {
+		#else
 		if (OpenFlAssets.exists(fileletras)) {
+		#end
 			var eventsDataletras:Array<SwagSection>;
 				eventsDataletras = Song.loadFromJson('letras', songName).notes;
 			for (section in eventsDataletras)
@@ -3827,7 +3847,7 @@ class PlayState extends MusicBeatState
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 					}
 					
-					if (isPixelStage || curSong == 'round-a-bout' || curSong == 'you-cant-run'){
+					if (sonicHUDStyles.exists(SONG.song.toLowerCase())){
 					var minutesRemaining:Int = Math.floor(secondsTotal / 60);
 					var secondsRemaining:String = '' + secondsTotal % 60;
 
@@ -3987,12 +4007,6 @@ class PlayState extends MusicBeatState
 
 					if (daNote.animation.curAnim.name.endsWith('end')&&scrollModifierChecker !=strumScroll) {
 						daNote.flipY = strumScroll;
-					}
-
-					if (daNote.animation.curAnim.name.endsWith('end')&& !PlayState.isPixelStage && stageData.isPixelStage)
-					{
-						daNote.scale.y = 1;
-						daNote.y -= 400;
 					}
 					//Jesus fuck this took me so much mother fucking time AAAAAAAAAA
 					if(strumScroll && daNote.isSustainNote)
@@ -4828,7 +4842,7 @@ class PlayState extends MusicBeatState
 							
 							camHUD.alpha = 0;
 							FlxTween.tween(boyfriend, {alpha: 1}, 6);	
-							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assets', '');
+							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
 							triggerEventNote('Change Character', 'dad', 'Furnace'); //Ele já foi carregado mesmo então tá safe
 							#if desktop
 							storyDifficultyText = 'Neutro';
@@ -4849,18 +4863,18 @@ class PlayState extends MusicBeatState
 						case 511:
 							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2'));
 							FlxG.camera.flash(FlxColor.WHITE, 3);
-							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assets', ''); //must do Arrumar esse sprite.
+							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); //must do Arrumar esse sprite.
 
 						case 1024:
 							FlxG.camera.flash(FlxColor.WHITE, 3);
-							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assets', ''); //must do Arrumar esse sprite.
+							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', ''); //must do Arrumar esse sprite.
 							triggerEventNote('Change Character', 'dad', 'Furnace'); //Ele já foi carregado mesmo então tá safe
 							FlxTween.tween(sonicHUD, {alpha: 0}, 0.5,{ease: FlxEase.cubeInOut}); //sÓ pq fica estranho com a cinematics
 							
 						case 1280:
 							stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3'));
 							FlxG.camera.flash(FlxColor.WHITE, 3);
-							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assets', ''); //must do Arrumar esse sprite.
+							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); //must do Arrumar esse sprite.
 							triggerEventNote('Change Character', 'dad', 'Furnace-rgb'); //Ele já foi carregado mesmo então tá safe
 							FlxTween.tween(sonicHUD, {alpha: 1}, 0.5,{ease: FlxEase.cubeInOut});
 
@@ -4878,7 +4892,7 @@ class PlayState extends MusicBeatState
 								dad.y -= 410; //Por que tá repetido?/
 								//Simples, PREGUIÇA!
 								dad.alpha = 1;
-								triggerEventNote('noteskinchangeOPPT', 'NOTE-STARVI_assets', ''); //must do Arrumar esse sprite.
+								triggerEventNote('noteskinchangeOPPT', 'NOTE-STARVI_assetszoom', ''); //must do Arrumar esse sprite.
 						case 1547: //Just settings tbh
 							health = 1;
 							SONG.speed = 3.3; //A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
@@ -4998,7 +5012,7 @@ class PlayState extends MusicBeatState
 
 							case 3420:
 								health = 1;
-								triggerEventNote('noteskinchangeBF', 'NOTE-supa_assets', ''); //must do Arrumar esse sprite.
+								triggerEventNote('noteskinchangeBF', 'NOTE-supa_assetszoom', ''); //must do Arrumar esse sprite.
 								FlxG.camera.flash(FlxColor.YELLOW, 2);
 
 								opponentStrums.forEach(function(tofade:FlxSprite)
@@ -5053,7 +5067,6 @@ class PlayState extends MusicBeatState
 								SONG.speed = 2.8; //Talvez isso seja muito lento, mas  a idéia é essa mesma k
 								timeBarBG.visible=true;
 								canRegen = false;
-								isPixelStage = false;
 								camHUD.alpha = 1; //Só pra garantir
 								if(desviou){
 								#if desktop
@@ -5110,7 +5123,12 @@ class PlayState extends MusicBeatState
 					timeBarBG.visible=false;
 					judgementCounter.visible = false;
 					p2greenhill.visible = true;
-					add(sonicHUD);
+					healthBar.x += 150;
+					scoreTxt.x += 150;
+					iconP1.x += 150;
+					iconP2.x += 150;
+					healthBarBG.x += 150;
+					sonicHUD.visible = true;
 					triggerEventNote('noteskinchangeOPPT', 'arrows1-soniczoom', ''); 
 					triggerEventNote('noteskinchangeBF', 'arrows1-soniczoom', 'bloodpixel');
 				} else {
@@ -5120,7 +5138,12 @@ class PlayState extends MusicBeatState
 					timeBarBG.visible=true;
 					p2greenhill.visible = false;
 					judgementCounter.visible = true;
-					remove(sonicHUD);
+					sonicHUD.visible = false;
+					healthBar.x -= 150;
+					scoreTxt.x -= 150;
+					iconP1.x -= 150;
+					iconP2.x -= 150;
+					healthBarBG.x -= 150;
 					triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
 					triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
 				}

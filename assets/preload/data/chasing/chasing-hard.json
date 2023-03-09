@@ -4481,6 +4481,7 @@
 		"splashSkin": "noteSplashesPixelSonic",
 		"song": "chasing",
 		"validScore": true,
+		"arrowSkin": "arrows1-soniczoom",
 		"needsVoices": false,
 		"canfollowpermitido": true,
 		"stage": "chasing",

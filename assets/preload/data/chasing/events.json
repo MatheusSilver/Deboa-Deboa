@@ -1346,7 +1346,7 @@
 		"splashSkin": null,
 		"validScore": false,
 		"bpm": 134,
-		"arrowSkin": null,
+		"arrowSkin": "arrows1-soniczoom",
 		"needsVoices": false,
 		"song": "chasing",
 		"isRing": null

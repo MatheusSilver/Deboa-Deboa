@@ -13597,7 +13597,7 @@
 		"validScore": true,
 		"stage": "starved-pixel",
 		"splashSkin": "noteSplashesPixelSonic",
-		"arrowSkin": "",
+		"arrowSkin": "NOTE_assetszoom",
 		"bpm": 176,
 		"canfollowpermitido": true,
 		"speed": 3.8

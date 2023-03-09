@@ -100,6 +100,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 	elseif curPhase == 9 then
 		removeLuaSprite('nocumepausando')
+		setProperty('dad.specialAnim', false)
 		for i = 1,#phase6cheetos do
 			setProperty(phase6cheetos[i]..'.visible',true)
 		end		

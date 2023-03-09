@@ -118,6 +118,7 @@ function onEvent(evento, valor1, valor2)
         if valor1 == '5-7' then
             triggerEvent("Change Character", 'bf', 'Sonic Exe AM', 'nada', 'nada')
             triggerEvent("Play Animation", 'laugh', 'bf', 'nada', 'nada')
+            setProperty('dad.specialAnim', true)
         end
         if valor1 == '6' then
             setProperty('paredefogo.visible', true)

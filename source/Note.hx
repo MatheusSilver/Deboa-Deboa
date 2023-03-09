@@ -303,9 +303,13 @@ class Note extends FlxSprite
 			earlyHitMult = 1;
 		}
 		x += offsetX;
+
+		if(isSustainNote && PlayState.SONG.arrowSkin.endsWith("zoom"))
+			offsetX += 35;
+
 	}
 
-	public static var offsetCoiso:Bool = false;
+	var zoomCoiso:Bool = false;
 	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
 	public var originalHeightForCalcs:Float = 6;
 	public function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '') {
@@ -368,20 +372,21 @@ class Note extends FlxSprite
 			}
 			setGraphicSize(Std.int(width * 0.7));
 			loadPixelNoteAnims();
-			antialiasing = false;
-			if(isSustainNote)
-				offsetX += 34;
-			
+			antialiasing = false;			
 		}else {
 			frames = Paths.getSparrowAtlas(blahblah);
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
 		}
-		if(isSustainNote) {
-			if(!skin.endsWith('zoom'))
+		if(isSustainNote) { //0.951
 				scale.y = lastScaleY;
-			else
-				scale.y = 0.951*lastScaleY;
+		}
+		if (texture.endsWith('zoom') && isSustainNote && !zoomCoiso){
+			scale.y = lastScaleY*0.951;
+			zoomCoiso = true;
+		}else if(!texture.endsWith('zoom') && isSustainNote && zoomCoiso){
+			scale.y = lastScaleY*1.05152;
+			zoomCoiso = false;
 		}
 		updateHitbox();
 

@@ -6,9 +6,9 @@ function onCreate()
 	precacheImage('staticNotes');
 	precacheImage('daSTAT');
 	precacheImage('hitStatic');
-	precacheImage('pixelUI/arrows1-sonic')
-	precacheImage('pixelUI/arrows1-sonicENDS')
-	precacheImage('splashes/noteSplashesPixelSonic');
+	precacheImage('pixelUI/arrows1-soniczoom')
+	precacheImage('pixelUI/arrows1-soniczoomENDS')
+	precacheImage('splashes/bloodpixel');
 	precacheSound('hitStatic1');
 
     makeLuaSprite('vg', 'RedVG', 0, 0);
