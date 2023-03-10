@@ -20,7 +20,7 @@ class MP4Handler
 	public static var video:Video;
 	public static var netStream:NetStream;
 	public static var finishCallback:FlxState;
-	public var vimdoplaystatemano:Bool = false;
+	public var vimdoplaystatemano:Bool;
 	public var canSkip:Bool = false;
 	public var sprite:FlxSprite;
 	public var videoVolume:Float = 1;
@@ -94,6 +94,7 @@ class MP4Handler
 
 		FlxG.addChildBelowMouse(vlcBitmap);
 		vlcBitmap.play(checkFile(path));
+
 		
 		if (outputTo != null)
 		{
@@ -103,8 +104,11 @@ class MP4Handler
 			sprite = outputTo;
 		}
 		#end
-		queronaoviver=true;
 		canSkip=false;
+		if(vimdoplaystatemano)
+			{
+				queronaoviver=true;
+			}
 	}
 
 	#if desktop
@@ -156,8 +160,8 @@ class MP4Handler
 							}
 						else
 							{
+								trace('beep bop skidep');
 								PlayState.instance.deletarSpriteNAAAAO();
-								vimdoplaystatemano = false;
 							}
 					}
 					else if(finishCallback != null && VideoStatePC.NextState == "title" && !vimdoplaystatemano)
@@ -166,7 +170,6 @@ class MP4Handler
 							VideoStatePC.NextState=="no";
 							MusicBeatState.switchState(new TitleState());
 						}
-					vimdoplaystatemano = false;
 					vlcBitmap.stop();
 					if (FlxG.game.contains(vlcBitmap))
 					{
@@ -199,7 +202,7 @@ class MP4Handler
 
 	function update(e:Event)
 	{
-		if (FlxG.keys.justReleased.SPACE && canSkip==true && iAmSobre==false && vimdoplaystatemano==false)
+		if (FlxG.keys.justReleased.SPACE && canSkip==true && iAmSobre==false && vimdoplaystatemano==false && !queronaoviver)
 		{
 			if (vlcBitmap.isPlaying)
 			{
@@ -209,17 +212,6 @@ class MP4Handler
 			}
 		}
 
-		if(paused && vlcBitmap.isPlaying && queronaoviver)
-			{
-				vlcBitmap.pause();
-				trace('tentei pausar');
-			}
-		else if(!paused && !vlcBitmap.isPlaying && queronaoviver)
-			{
-				trace('tentei resumir');
-				vlcBitmap.resume();
-			}
-
 		if(VideoStatePC.NextState != "title")
 			{
 				canSkip=false;
@@ -228,6 +220,20 @@ class MP4Handler
 		if (FlxG.sound.volume <= 0.1) vlcBitmap.volume = 0 * videoVolume;
 	}
 	#end
+
+	public function pausarvideo1(h:Bool)
+		{
+			if(h)
+				{
+					trace('tentei pausar');
+					vlcBitmap.pause();
+				}
+			else
+				{
+					trace('tentei resumir');
+					vlcBitmap.resume();
+				}
+		}
 
 	/////////////////////////////////////////////////////////////////////////////////////
 

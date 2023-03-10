@@ -2637,6 +2637,7 @@ class PlayState extends MusicBeatState
             comecarvideo(nomedovideo, 0, 0, "cheio", 0, 2);
             #else
 			videoSpr = new FlxSprite(0, 0);
+			VideoStatePC.NextState = "nenhum";
 			videoSpr.visible=true;
 			videoSpr.scrollFactor.set();
 			video = new MP4Handler();
@@ -2657,7 +2658,7 @@ class PlayState extends MusicBeatState
 	public function pausarVideo(pausar:Bool)
 		{
 			video.queronaoviver = true;
-			video.paused = pausar;
+			video.pausarvideo1(pausar);
 		}
 
 	public function deletarSpriteNAAAAO():Void
@@ -3374,6 +3375,7 @@ class PlayState extends MusicBeatState
 				timer.active = true;
 			}
 			paused = false;
+			pausarVideo(false);
 			callOnLuas('onResume', []);
 
 			#if desktop
@@ -3436,6 +3438,7 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;
+		pausarVideo(true);
 
 			// no more gitaroo man easter egg :D
 			if(FlxG.sound.music != null) {
@@ -3493,14 +3496,6 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		if(playingVideoMP4 && paused)
-			{
-				pausarVideo(true);
-			}
-		else if(playingVideoMP4 && !paused)
-			{
-				pausarVideo(false);
-			}
 		timeAccumulated += elapsed;
 		while (shouldUpdate())
 			{
@@ -6001,7 +5996,10 @@ class PlayState extends MusicBeatState
 			numScore.visible = !ClientPrefs.hideHud;
 
 			if (combo >= 10 || combo == 0)
-				add(numScore);
+				if(curSong.toLowerCase() != "confronting-yourself")
+					{
+						add(numScore);
+					}
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween)

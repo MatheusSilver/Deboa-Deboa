@@ -192,6 +192,7 @@ class PauseSubState extends MusicBeatSubstate
 					if(podeJumpscare)
 						{
 							jumpscareExecute();
+							podeJumpscare=false;
 						}
 				});
 			}
