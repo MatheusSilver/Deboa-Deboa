@@ -2657,8 +2657,11 @@ class PlayState extends MusicBeatState
     } 
 	public function pausarVideo(pausar:Bool)
 		{
-			video.queronaoviver = true;
-			video.pausarvideo1(pausar);
+			if(playingVideoMP4)
+				{
+					video.queronaoviver = true;
+					video.pausarvideo1(pausar);
+				}
 		}
 
 	public function deletarSpriteNAAAAO():Void
