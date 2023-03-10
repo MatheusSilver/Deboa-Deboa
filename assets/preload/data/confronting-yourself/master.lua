@@ -31,7 +31,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase2cheetos do
 			setProperty(phase2cheetos[i]..'.visible', true)
 		end
-		doTweenX('florqueanda1', 'florrandom1', 2000, 3.5, 'linear')
+		doTweenX('florqueanda1', 'florrandom1', 2000, 2, 'linear')
 		doTweenX('montanhaqueanda1', 'montanhas', 400-100, 33, 'linear')
 		doTweenX('awaqueanda1', 'awa', 400-250, 33, 'linear')
 		doTweenX('eitacachorreira', 'cachorreira', 400-250, 33, 'linear')
@@ -144,19 +144,19 @@ end
 function onTweenCompleted(tag) --a
 	if tag == 'florqueanda1' and phasedetector == 2 then 
 		setProperty('florrandom1.x', -2000)
-		doTweenX('florqueanda2', 'florrandom2', 2000, 3.5, 'linear')
+		doTweenX('florqueanda2', 'florrandom2', 2000, 2, 'linear')
 	end
 	if tag == 'florqueanda2' and phasedetector == 2 then 
 		setProperty('florrandom2.x', -2000)
-		doTweenX('florqueanda1', 'florrandom1', 2000, 3.5, 'linear')
+		doTweenX('florqueanda1', 'florrandom1', 2000, 2, 'linear')
 	end
 	if tag == 'florqueanda1EXE' and phasedetector == 6 then 
 		setProperty('florrandom3EXE.x', -2000)
-		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 3, 'linear')
+		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 2, 'linear')
 	end
 	if tag == 'florqueanda2EXE' and phasedetector == 6 then 
 		setProperty('florrandom2EXE.x', -2000)
-		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 3, 'linear')
+		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 2, 'linear')
 	end
 	if tag == 'nocumecheira' or  tag == 'nocumesobem' then
 		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 1, 'sineinout')

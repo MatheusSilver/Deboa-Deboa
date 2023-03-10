@@ -59,7 +59,7 @@
 	"no_antialiasing": false,
 	"image": "characters/confronting/ato7/Sonic Fear",
 	"position": [
-		-50,
+		50,
 		250
 	],
 	"healthicon": "sonicAH",
@@ -70,8 +70,8 @@
 		255
 	],
 	"camera_position": [
-		-70,
-		20
+		-110,
+		-190
 	],
 	"sing_duration": 5.8,
 	"scale": 0.85

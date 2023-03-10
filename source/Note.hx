@@ -305,7 +305,7 @@ class Note extends FlxSprite
 		x += offsetX;
 
 		if(isSustainNote && PlayState.SONG.arrowSkin.endsWith("zoom"))
-			offsetX += 35;
+			offsetX += 36;
 
 	}
 

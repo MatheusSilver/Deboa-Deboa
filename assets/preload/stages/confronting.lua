@@ -224,7 +224,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setLuaSpriteScrollFactor('angelislandarvores',0.4,1)
 	setPropertyTiledLuaSprite("angelislandarvores.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandarvores.x", -555)
-	setPropertyTiledLuaSprite("angelislandarvores.y", -175-60)
+	setPropertyTiledLuaSprite("angelislandarvores.y", -175-100)
 	setPropertyTiledLuaSprite("angelislandarvores.visible", false)
 	addLuaSprite('angelislandarvores');
 
@@ -238,22 +238,22 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--phase 7 cheetos
 
-	makeLuaSprite('phase7-1','cenarios/phase7/1',-545,-75*1.5)--5
+	makeLuaSprite('phase7-1','cenarios/phase7/1',-400,-75*1.5)--5
 	setLuaSpriteScrollFactor('phase7-1',0.9,0.9)
-	setProperty('phase7-1.scale.x', 1.6)
-	setProperty('phase7-1.scale.y', 1.6)
+	setProperty('phase7-1.scale.x', 1.7)
+	setProperty('phase7-1.scale.y', 1.7)
 	setProperty('phase7-1.visible', false)
 	addLuaSprite('phase7-1',false)
 
-	makeLuaSprite('phase7-2','cenarios/phase7/2',-445,-255)--5
+	makeLuaSprite('phase7-2','cenarios/phase7/2',-225,-205)--5
 	setLuaSpriteScrollFactor('phase7-2',0.7,0.7)
 	setProperty('phase7-2.scale.x', 1.6)
 	setProperty('phase7-2.scale.y', 1.5)
 	setProperty('phase7-2.visible', false)
 	addLuaSprite('phase7-2',true)
 
-	makeLuaSprite('phase7-3','cenarios/phase7/3',250,600)--5
-	setLuaSpriteScrollFactor('phase7-3',0.2,0.2)
+	makeLuaSprite('phase7-3','cenarios/phase7/3',150,600)--5
+	setLuaSpriteScrollFactor('phase7-3',0.6,0.4)
 	setProperty('phase7-3.scale.x', 1.3)
 	setProperty('phase7-3.scale.y', 1.3)
 	setProperty('phase7-3.visible', false)
@@ -304,7 +304,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	--phase 10 cheetos
 
 	makeLuaSprite('phase10-1','cenarios/phase10/bg',-480,-75)--5
-	setLuaSpriteScrollFactor('phase7-1',0.4,0.4)
+	setLuaSpriteScrollFactor('phase10-1',0.4,0.4)
 	setProperty('phase10-1.scale.x', 1.3)
 	setProperty('phase10-1.scale.y', 1.4)
 	setProperty('phase10-1.visible', false)

@@ -74,7 +74,7 @@
 	"no_antialiasing": false,
 	"image": "characters/confronting/ato7/tail-sex-e",
 	"position": [
-		-600,
+		-375,
 		-600
 	],
 	"healthicon": "tailsexe",
@@ -85,7 +85,7 @@
 		115
 	],
 	"camera_position": [
-		50,
+		75,
 		0
 	],
 	"sing_duration": 4,
