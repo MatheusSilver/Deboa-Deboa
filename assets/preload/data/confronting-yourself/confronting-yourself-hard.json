@@ -3018,68 +3018,7 @@
 			{
 				"lengthInSteps": 16,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						99840,
-						5,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						100080,
-						5,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						100320,
-						5,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						100560,
-						5,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						100800,
-						5,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						99960,
-						6,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						100200,
-						4,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						100440,
-						7,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						100680,
-						7,
-						0,
-						"invisible BF Sing"
-					],
-					[
-						101040,
-						4,
-						600,
-						"invisible BF Sing"
-					]
-				],
+				"sectionNotes": [],
 				"altAnim": false,
 				"gfSection": false,
 				"bpm": 125,

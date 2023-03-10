@@ -95,46 +95,42 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('vilaophase3-2.visible', false)
 	addLuaSprite('vilaophase3-2',false)
 
-	makeLuaSprite('vilaophase3-1','cenarios/phase3/vilao/1',-445,315)--5
-	setLuaSpriteScrollFactor('vilaophase3-1',0.7,0.7)
-	setProperty('vilaophase3-1.scale.x', 1.4)
+	makeLuaSprite('vilaophase3-1','cenarios/phase3/vilao/1',-335,315)--5
+	setLuaSpriteScrollFactor('vilaophase3-1',0.6,1)
+	setProperty('vilaophase3-1.scale.x', 1.45)
 	setProperty('vilaophase3-1.scale.y', 1.4)
 	setProperty('vilaophase3-1.visible', false)
 	addLuaSprite('vilaophase3-1',true)
 
-	makeLuaSprite('vilaophase3-3','cenarios/phase3/vilao/filtros',-450,-125)--5
-	setLuaSpriteScrollFactor('vilaophase3-3',0.7,0.7)
-	setProperty('vilaophase3-3.scale.x', 1)
-	setProperty('vilaophase3-3.scale.y', 1.1)
-	setObjectCamera('vilaophase3-3', 'camHUD');
-	screenCenter('vilaophase3-3','xy')
+	makeLuaSprite('vilaophase3-3','cenarios/phase3/vilao/filtros',-380,-125)--5
+	setLuaSpriteScrollFactor('vilaophase3-3',1,1)
+	setProperty('vilaophase3-3.scale.x', 1.5)
+	setProperty('vilaophase3-3.scale.y', 1.7)
 	setProperty('vilaophase3-3.visible', false)
-	addLuaSprite('vilaophase3-3')
+	addLuaSprite('vilaophase3-3', true)
 
 
 	--Phase 3 cheetos só que do heroi pois novamente sou um cara deveras imparcial
-	makeLuaSprite('heroiphase3-2','cenarios/phase3/heroi/2',-450,-125)--5
+	makeLuaSprite('heroiphase3-2','cenarios/phase3/heroi/2',-380,-125)--5
 	setLuaSpriteScrollFactor('heroiphase3-2',1,1)
 	setProperty('heroiphase3-2.scale.x', 1.5)
 	setProperty('heroiphase3-2.scale.y', 1.7)
 	setProperty('heroiphase3-2.visible', false)
 	addLuaSprite('heroiphase3-2',false)
 
-	makeLuaSprite('heroiphase3-1','cenarios/phase3/heroi/1',-480,290)--5
-	setLuaSpriteScrollFactor('heroiphase3-1',0.7,0.7)
-	setProperty('heroiphase3-1.scale.x', 1.5)
-	setProperty('heroiphase3-1.scale.y', 1.5)
+	makeLuaSprite('heroiphase3-1','cenarios/phase3/heroi/1',-335,315)--5
+	setLuaSpriteScrollFactor('heroiphase3-1',0.6,1)
+	setProperty('heroiphase3-1.scale.x', 1.45)
+	setProperty('heroiphase3-1.scale.y', 1.4)
 	setProperty('heroiphase3-1.visible', false)
 	addLuaSprite('heroiphase3-1',true)
 
-	makeLuaSprite('heroiphase3-3','cenarios/phase3/heroi/filtro',-450,-125)--5
-	setLuaSpriteScrollFactor('heroiphase3-3',0.7,0.7)
-	setProperty('heroiphase3-3.scale.x', 1)
-	setProperty('heroiphase3-3.scale.y', 1.1)
-	setObjectCamera('heroiphase3-3', 'camHUD');
-	screenCenter('heroiphase3-3','xy')
+	makeLuaSprite('heroiphase3-3','cenarios/phase3/heroi/filtro',-380,-125)--5
+	setLuaSpriteScrollFactor('heroiphase3-3',1,1)
+	setProperty('heroiphase3-3.scale.x', 1.5)
+	setProperty('heroiphase3-3.scale.y', 1.7)
 	setProperty('heroiphase3-3.visible', false)
-	addLuaSprite('heroiphase3-3')
+	addLuaSprite('heroiphase3-3', true)
 
 	--Phase 4 cheetos, basicamente um combo de phase 1 com phase 2 só que exe OOOOOOOOOOOOOOOOOMAGAAAAAAAAAWD
 	
@@ -217,26 +213,26 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--phase 6 cheetos
 	makeLuaTiledSprite('angelislandbg','cenarios/phase6/ceus',4096,1024,true,false) --1
-	setLuaSpriteScrollFactor('angelislandbg',0.4,0.4)
+	setLuaSpriteScrollFactor('angelislandbg',0.4,1)
 	setPropertyTiledLuaSprite("angelislandbg.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandbg.visible", false)
 	setPropertyTiledLuaSprite("angelislandbg.x", -555)
-	setPropertyTiledLuaSprite("angelislandbg.y", -260)
+	setPropertyTiledLuaSprite("angelislandbg.y", -260-60)
 	addLuaSprite('angelislandbg');
 
 	makeLuaTiledSprite('angelislandarvores','cenarios/phase6/arvores',4096,1024,true,false) --1
-	setLuaSpriteScrollFactor('angelislandarvores',0.4,0.4)
+	setLuaSpriteScrollFactor('angelislandarvores',0.4,1)
 	setPropertyTiledLuaSprite("angelislandarvores.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandarvores.x", -555)
-	setPropertyTiledLuaSprite("angelislandarvores.y", -175)
+	setPropertyTiledLuaSprite("angelislandarvores.y", -175-60)
 	setPropertyTiledLuaSprite("angelislandarvores.visible", false)
 	addLuaSprite('angelislandarvores');
 
 	makeLuaTiledSprite('angelislandchao','cenarios/phase6/gramado',6810,1024,true,false) --1
-	setLuaSpriteScrollFactor('angelislandchao',0.4,0.4)
+	setLuaSpriteScrollFactor('angelislandchao',0.4,1)
 	setPropertyTiledLuaSprite("angelislandchao.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandchao.x", -555)
-	setPropertyTiledLuaSprite("angelislandchao.y", -165)
+	setPropertyTiledLuaSprite("angelislandchao.y", -165-60)
 	setPropertyTiledLuaSprite("angelislandchao.visible", false)
 	addLuaSprite('angelislandchao');
 
