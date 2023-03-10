@@ -181,6 +181,10 @@ function onCreate()
 	precacheImage('Tails')
 	precacheImage('Phase3Static')
 	precacheImage('vintage')
+	precacheImage('NOTE_assets')
+	precacheImage('splashes/blood')
+	precacheImage('pixelUI/NOTE_assets_exezoom')
+	precacheImage('pixelUI/NOTE_assets_exezoomENDS')
 	precacheSound('stat')
 	precacheSound('exerisadinha')
 end
@@ -202,5 +206,11 @@ function onUpdate()
 	elseif phasedetector == 12 then
 	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*0.5)
+	end
+end
+
+function opponentNoteHit()
+	if phasedetector == 13 then -- OOOOOOMAGAWD, ELE É LULISTA, RÁPIDO, FALE ALGO DO BOLSONARO...
+		triggerEvent('Screen Shake', '0.50, 0.005', '0, 0')
 	end
 end
