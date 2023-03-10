@@ -404,7 +404,7 @@ class BaseOptionsMenu extends MusicBeatState
 			case 'Violencia':
 				daText = "Se desmarcado, você não verá gore, sangue, visceras, coisas ruins.\n(Desativa isso caso for sensível demais.\nP.S: Principalmente pro mod do EXE.)";
 			case 'Auto pause':
-				daText = "Se desmarcado, não irá pausar automaticamente\nse você sair da janela do jogo enquanto\nestá em uma música";
+				daText = "Se desmarcado, não irá pausar automaticamente\nse você sair da janela do jogo enquanto\nestá em uma música.";
 			case 'Note Splashes':
 				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
 			case 'Luzes Piscantes':
