@@ -2626,39 +2626,43 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public var videoSpr:FlxSprite = new FlxSprite(FlxG.width, FlxG.height).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+	public var videoSpr:FlxSprite;
 	public var video:MP4Handler;
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String) {
         var diretorio = "assets/videos/" + nomedovideo+".mp4";
-		videoSpr.cameras = [camHUD2];
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
         if(Assets.exists(diretorio)) {
             #if mobile
             comecarvideo(nomedovideo, 0, 0, "cheio", 0, 2);
             #else
+			videoSpr = new FlxSprite(0, 0);
+			videoSpr.visible=true;
 			videoSpr.scrollFactor.set();
-			videoSpr.screenCenter(XY);
 			video = new MP4Handler();
-            video.playMP4(diretorio, null, videoSpr);
 			video.vimdoplaystatemano=true;
 			MP4Handler.iAmSobre=false;
 			video.canSkip = false;
 			if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
-			videoSpr.setGraphicSize(FlxG.width, FlxG.height);
+			//videoSpr.setGraphicSize(FlxG.width, FlxG.height);
+			videoSpr.cameras = [camLegenda];
+			//videoSpr.screenCenter(XY);
 			playingVideoMP4 = true;
 			add(videoSpr);
+			video.playMP4(diretorio, null, videoSpr);
             #end
         }
 
     } 
 	public function pausarVideo(pausar:Bool)
 		{
+			video.queronaoviver = true;
 			video.paused = pausar;
 		}
 
 	public function deletarSpriteNAAAAO():Void
 		{
+			videoSpr.visible=false;
 			remove(videoSpr);
 			playingVideoMP4=false;
 		}

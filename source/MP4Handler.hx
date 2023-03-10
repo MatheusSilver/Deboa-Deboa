@@ -29,7 +29,7 @@ class MP4Handler
 	#if desktop
 	public static var vlcBitmap:VlcBitmap;
 	#end
-	var queronaoviver:Bool = false;
+	public var queronaoviver:Bool = false;
 
 	public function new()
 	{
@@ -142,7 +142,7 @@ class MP4Handler
 		
 		
 				#if debug
-				trace("to exibindo o video");
+				trace("exibi o video");
 				#end
 		
 				new FlxTimer().start(0.3, function (tmr:FlxTimer)
@@ -212,9 +212,11 @@ class MP4Handler
 		if(paused && vlcBitmap.isPlaying && queronaoviver)
 			{
 				vlcBitmap.pause();
+				trace('tentei pausar');
 			}
 		else if(!paused && !vlcBitmap.isPlaying && queronaoviver)
 			{
+				trace('tentei resumir');
 				vlcBitmap.resume();
 			}
 
