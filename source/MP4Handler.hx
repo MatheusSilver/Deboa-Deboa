@@ -149,8 +149,6 @@ class MP4Handler
 				trace("exibi o video");
 				#end
 		
-				new FlxTimer().start(0.3, function (tmr:FlxTimer)
-				{
 					if (VideoStatePC.NextState != "title")
 					{
 						if(!vimdoplaystatemano)
@@ -176,7 +174,6 @@ class MP4Handler
 						vlcBitmap.dispose();
 						FlxG.game.removeChild(vlcBitmap);
 					}	
-				});	
 			}
 		
 

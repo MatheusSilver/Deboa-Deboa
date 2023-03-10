@@ -2641,7 +2641,6 @@ class PlayState extends MusicBeatState
 			videoSpr = new FlxSprite(0, 0);
 			VideoStatePC.NextState = "nenhum";
 			videoSpr.visible=true;
-			videoSpr.scrollFactor.set();
 			video = new MP4Handler();
 			video.vimdoplaystatemano=true;
 			MP4Handler.iAmSobre=false;
@@ -2652,6 +2651,8 @@ class PlayState extends MusicBeatState
 			//videoSpr.screenCenter(XY);
 			playingVideoMP4 = true;
 			add(videoSpr);
+			//FlxG.sound.music.volume = 0;
+			//vocals.volume = 0;
 			video.playMP4(diretorio, null, videoSpr);
             #end
         }
@@ -2668,6 +2669,8 @@ class PlayState extends MusicBeatState
 
 	public function deletarSpriteNAAAAO():Void
 		{
+			//FlxG.sound.music.volume = 1;
+			//vocals.volume = 1;
 			videoSpr.visible=false;
 			remove(videoSpr);
 			playingVideoMP4=false;
