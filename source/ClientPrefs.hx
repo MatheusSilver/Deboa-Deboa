@@ -18,6 +18,7 @@ class ClientPrefs {
 	public static var legendas:Bool = true;
 	public static var loadingexperimental:Bool = true; // deixa tudo melhor
 	public static var legendasporcima:Bool = true;
+	public static var pausarauto:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
@@ -82,6 +83,7 @@ class ClientPrefs {
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.osusom = osusom;
 		FlxG.save.data.loadingexperimental = loadingexperimental;
+		FlxG.save.data.pausarauto = pausarauto;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.hitSounds = hitSounds;
 		FlxG.save.data.fullscreen = fullscreen;
@@ -115,6 +117,9 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(FlxG.save.data.gore != null) {
 			gore = FlxG.save.data.gore;
+		}
+		if(FlxG.save.data.pausarauto != null) {
+			pausarauto = FlxG.save.data.pausarauto;
 		}
 		if(FlxG.save.data.resolution != null) {
 			resolution = FlxG.save.data.resolution;

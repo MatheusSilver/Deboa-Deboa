@@ -357,7 +357,7 @@ class ChartingState extends MusicBeatState
 		zoomTxt = new FlxText(10, 10, 0, "Zoom: 1x", 16);
 		zoomTxt.scrollFactor.set();
 		add(zoomTxt);
-		
+		MP4Handler.iAmSobre=true;
 		updateGrid();
 		super.create();
 	}

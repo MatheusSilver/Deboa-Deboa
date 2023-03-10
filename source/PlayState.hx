@@ -2521,7 +2521,10 @@ class PlayState extends MusicBeatState
 		if (paused)
 			return;
 
-		openPauseMenu();
+		if(ClientPrefs.pausarauto)
+			{
+				openPauseMenu();
+			}
 	}
 	public function focusIn() 
 	{ 
@@ -2628,23 +2631,23 @@ class PlayState extends MusicBeatState
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String) {
         var diretorio = "assets/videos/" + nomedovideo+".mp4";
-
+		videoSpr.cameras = [camHUD2];
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
         if(Assets.exists(diretorio)) {
             #if mobile
             comecarvideo(nomedovideo, 0, 0, "cheio", 0, 2);
             #else
 			videoSpr.scrollFactor.set();
-			videoSpr.cameras = [camLegenda];
 			videoSpr.screenCenter(XY);
-			add(videoSpr);
 			video = new MP4Handler();
             video.playMP4(diretorio, null, videoSpr);
 			video.vimdoplaystatemano=true;
+			MP4Handler.iAmSobre=false;
 			video.canSkip = false;
 			if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
 			videoSpr.setGraphicSize(FlxG.width, FlxG.height);
 			playingVideoMP4 = true;
+			add(videoSpr);
             #end
         }
 
@@ -3415,7 +3418,10 @@ class PlayState extends MusicBeatState
 		if (paused)
 			return;
 
-		openPauseMenu();
+		if(ClientPrefs.pausarauto)
+			{
+				openPauseMenu();
+			}
 			
 
 		super.onFocusLost();
@@ -5940,7 +5946,10 @@ class PlayState extends MusicBeatState
 		rating.velocity.x -= FlxG.random.int(0, 10);
 		rating.visible = !ClientPrefs.hideHud;
 
-		add(rating);
+		if(curSong.toLowerCase() != "confronting-yourself")
+			{
+				add(rating);
+			}
 
 		if (!PlayState.isPixelStage)
 		{

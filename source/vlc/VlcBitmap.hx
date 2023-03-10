@@ -16,6 +16,7 @@ import openfl.errors.Error;
 import openfl.events.Event;
 import openfl.geom.Rectangle;
 import vlc.LibVLC;
+import flash.utils.ByteArray;
 
 /**
  * ...
@@ -370,9 +371,9 @@ class VlcBitmap extends Bitmap
 					if (bufferMem != null)
 					{
 						// BitmapData
-						// libvlc.getPixelData() sometimes is null and the exe hangs ...
+						libvlc.getPixelData();
+						NativeArray.setUnmanagedData(bufferMem, libvlc.getPixelData(), frameSize);
 						if (libvlc.getPixelData() != null)
-							NativeArray.setUnmanagedData(bufferMem, libvlc.getPixelData(), frameSize);
 							bitmapData.setPixels(frameRect, Bytes.ofData(bufferMem));
 
 						// (Stage3D)
@@ -380,11 +381,6 @@ class VlcBitmap extends Bitmap
 						// this.width++; //This is a horrible hack to force the texture to update... Surely there is a better way...
 						// this.width--;
 					}
-				}
-				catch (e:Error)
-				{
-					trace("error: " + e);
-					throw new Error("render broke xd");
 				}
 			}
 			#end
