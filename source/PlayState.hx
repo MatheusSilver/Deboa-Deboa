@@ -2270,6 +2270,8 @@ class PlayState extends MusicBeatState
 						Paths.sound(key);
 					case 'music':
 						Paths.music(key);
+					case 'video':
+						Paths.video(key);
 				}
 			}
 			if(veioNormal)
@@ -3200,7 +3202,11 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
-
+			case 'video player':
+				if(OpenFlAssets.exists(Paths.video(event[3])))
+					{
+						precacheList.set(Paths.video(event[3]), 'video');
+					}
 			case 'Adicionar Imagens':
 				if(ClientPrefs.legendas){
 					//trace('executando cache de lyrics');
