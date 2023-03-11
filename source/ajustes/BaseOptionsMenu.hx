@@ -279,7 +279,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Esconder HUD':
 						ClientPrefs.hideHud = !ClientPrefs.hideHud;
 					
-					case 'Esconder barra de tempo':
+					case 'Esconder tempo':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
