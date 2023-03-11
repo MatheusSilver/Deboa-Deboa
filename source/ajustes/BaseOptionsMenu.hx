@@ -499,7 +499,7 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.camZooms;
 					case 'Esconder HUD':
 						daValue = ClientPrefs.hideHud;
-					case 'Esconder barra de tempo':
+					case 'Esconder tempo':
 						daValue = ClientPrefs.hideTime;
 				}
 				checkbox.daValue = daValue;
