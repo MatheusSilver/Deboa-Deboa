@@ -1,5 +1,8 @@
 local speedChanger = 0
 
+local comunicador = 0; --Serve apenas para tirar aquela gambiarra com o texto
+--Agora que sei que as funções em lua se comunicam entre os diversos .lua, acho que isso seja mais fácil omega kek
+
 local phase1unico = {'montesverdes', 'flores', 'trens'}
 local phase2cheetos = {'ceu', 'montanhas','cachorreira','awa', 'florrandom1', 'florrandom2', 'chaorunning1'}
 
@@ -12,7 +15,7 @@ local phase4cheetos = {'ceuEXE', 'montanhasEXE','cachorreiraEXE','awaEXE', 'flor
 
 local phase5cheetos = {'nocume', 'ardia'}
 
-local phase6cheetos = {'angelislandchao', 'angelislandarvores', 'angelislandbg'}
+local phase6cheetos = {'angelislandchao', 'angelislandarvores', 'angelislandbg', 'knuxerabos'}
 
 local phase7cheetos = {'phase7-1', 'phase7-2', 'phase7-3', 'phase7-4'}
 
@@ -130,8 +133,8 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase10cheetos do
 			setProperty(phase10cheetos[i]..'.visible',true)
 		end
-		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-25, 1, 'smoothstepin')
-		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-25, 1, 'smoothstepin')
+		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-10, 1, 'smoothstepin')
+		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-10, 1, 'smoothstepin')
 
 	end
 end
@@ -165,16 +168,16 @@ function onTweenCompleted(tag) --a
 		doTweenY('nocumesobem', 'nocume', getProperty('nocume.y')-50, 1, 'sineinout')
 	end
 	if tag == 'pedrasobe1' or 'pedrasubidao1' then 
-		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+25, 1, 'sineinout')
+		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+10, 1, 'sineinout')
 	end
 	if tag == 'pedradesce1' then 
-		doTweenY('pedrasubidao1', 'phase10-2', getProperty('phase10-2.y')-25, 1, 'sineinout')
+		doTweenY('pedrasubidao1', 'phase10-2', getProperty('phase10-2.y')-10, 1, 'sineinout')
 	end
 	if tag == 'pedrasobe2' or 'pedrasubidao1' then
-		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+25, 1, 'sineinout')
+		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+10, 1, 'sineinout')
 	end
 	if tag == 'pedradesce1' then
-		doTweenY('pedrasubidao2', 'phase10-3', getProperty('phase10-3.y')-25, 1, 'sineinout')
+		doTweenY('pedrasubidao2', 'phase10-3', getProperty('phase10-3.y')-10, 1, 'sineinout')
 	end
 	
 
@@ -184,14 +187,50 @@ function onCreate()
 	pushScriptData("trans")
 
 	precacheImage('Tails')
+	precacheImage('Knuckles')
 	precacheImage('Phase3Static')
 	precacheImage('vintage')
 	precacheImage('NOTE_assets')
+	precacheImage("daSTAT")
 	precacheImage('splashes/blood')
 	precacheImage('pixelUI/NOTE_assets_exezoom')
 	precacheImage('pixelUI/NOTE_assets_exezoomENDS')
 	precacheSound('stat')
+	precacheSound('staticBUZZ')
 	precacheSound('exerisadinha')
+end
+
+function onTimerCompleted(tag)
+    if tag == 'desacelera1' then
+        comunicador = 3
+        runTimer('desacelera2', 0.5)
+		triggerEvent('Set Cam Zoom','0.9','')
+		triggerEvent('Camera Follow Pos',camPosBFX+80,camPosBFY)
+		setProperty('knuxerabos.y', getCharacterY('boyfriend')+300)
+		setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
+    end
+    if tag == 'desacelera2' then
+        comunicador = 5
+        runTimer('desacelera3', 0.5)
+		doTweenX('tchausonicoDUMALhuauahauahuah', 'dad', getCharacterX('dad')-800, 2.5, 'cubeout')
+    end
+    if tag == 'desacelera3' then
+        comunicador = 7
+        runTimer('desacelera4', 3.4)
+        doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+730, 3.5, 'cubein')
+    end
+    if tag == 'desacelera4' then
+        comunicador = 10
+        cameraFlash('legenda', '0xffffff', 2, true)
+        runTimer('switch', 0.1)
+    end
+
+    if tag == 'switch' then
+        setCharacterX('dad', dadXPosOriginal)
+        cameraFlash('legenda', '0x0000ff', 1, true)
+        triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
+        triggerEvent("eventos-tripletrouble", '144', 'nada', 'nada', 'nada')
+    end
 end
 
 function onUpdate()
@@ -205,9 +244,9 @@ function onUpdate()
 	elseif phasedetector == 6 then
 	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*30)
 	elseif phasedetector == 9 then
-	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45 + 4.5*tonumber(getTextString('comunicador')))
-	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20 + 2*tonumber(getTextString('comunicador')))
-	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10 + tonumber(getTextString('comunicador')))
+	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45 + 4.5*comunicador)
+	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20 + 2*comunicador)
+	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10 + comunicador)
 	elseif phasedetector == 12 then
 	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*0.5)
@@ -216,6 +255,6 @@ end
 
 function opponentNoteHit()
 	if phasedetector == 13 then -- OOOOOOMAGAWD, ELE É LULISTA, RÁPIDO, FALE ALGO DO BOLSONARO...
-		triggerEvent('Screen Shake', '0.50, 0.005', '0, 0')
+		triggerEvent('Screen Shake', '0.50, 0.015', '0, 0')
 	end
 end

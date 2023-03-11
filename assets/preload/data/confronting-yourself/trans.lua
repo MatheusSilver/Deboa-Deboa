@@ -9,10 +9,6 @@ function onCreate()
     bfYPosOriginal = getCharacterY('bf')
     dadYPosOriginal = getCharacterY('dad')
     dadXPosOriginal = getCharacterX('dad') -- usado no ato 7
-
-    makeLuaText('comunicador', '0', 1, 0, 0)
-    setProperty('comunicador.visible', false) -- yeah, comunicação de variaveis entre luas omagawd
-    addLuaText('comunicador', false)
 	
     makeLuaSprite('modBoaLogo','logodeboa',-1000,-1000)
 	setProperty('modBoaLogo.scale.x', 1.5)
@@ -28,12 +24,6 @@ function onCreate()
     screenCenter('modBoaLogoExe', 'xy')
     setProperty('modBoaLogoExe.visible', false)
 	addLuaSprite('modBoaLogoExe', false)
-
-    makeLuaSprite('knuxerabos','tailsknuckles',0,0)
-    setProperty("knuxerabos.x", getCharacterX('boyfriend'))
-    setProperty("knuxerabos.y", getCharacterY('boyfriend'))
-    setProperty('knuxerabos.visible', false)
-	addLuaSprite('knuxerabos',false)
 
     makeLuaSprite('paredefogo','firewall',0,screenHeight+300)
     setObjectCamera('paredefogo', 'legenda')
@@ -113,6 +103,7 @@ function onEvent(evento, valor1, valor2)
             setProperty('iconP2.alpha', 0)
             cameraFlash('legenda', '0xff0000', 3, true)
             triggerEvent("Change Character", 'bf', 'Sonic Exe AM', 'nada', 'nada')
+            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
         end
         if valor1 == '5-6' then
             cameraFlash('legenda', '0x0000ff', 3, true)
@@ -189,32 +180,6 @@ function onTweenCompleted(tag)
 end
 
 function onTimerCompleted(tag)
-    if tag == 'desacelera1' then
-        setTextString('comunicador', '3')
-        runTimer('desacelera2', 0.5)
-    end
-    if tag == 'desacelera2' then
-        setTextString('comunicador', '5')
-        runTimer('desacelera3', 0.5)
-    end
-    if tag == 'desacelera3' then
-        setTextString('comunicador', '7')
-        runTimer('desacelera4', 3)
-        doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+50, 4, 'linear')
-    end
-    if tag == 'desacelera4' then
-        setTextString('comunicador', '10')
-        cameraFlash('legenda', '0xffffff', 2, true)
-        runTimer('switch', 0.5)
-    end
-
-    if tag == 'switch' then
-        setCharacterX('dad', dadXPosOriginal)
-        cameraFlash('legenda', '0x0000ff', 1, true)
-        triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
-        triggerEvent("eventos-tripletrouble", '144', 'nada', 'nada', 'nada')
-    end
-
     if tag == 'voltar1' then
         runTimer('voltar2',0.5)
         screenCenter('modBoaLogo', 'x')

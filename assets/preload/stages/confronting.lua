@@ -236,6 +236,13 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setPropertyTiledLuaSprite("angelislandchao.visible", false)
 	addLuaSprite('angelislandchao');
 
+	makeLuaSprite('knuxerabos','tailsknuckles',800,2000)--5
+	setLuaSpriteScrollFactor('knuxerabos',0.9,0.9)
+	setProperty('knuxerabos.scale.x', 0.6)
+	setProperty('knuxerabos.scale.y', 0.6)
+	setProperty('knuxerabos.visible', false)
+	addLuaSprite('knuxerabos',false)
+
 	--phase 7 cheetos
 
 	makeLuaSprite('phase7-1','cenarios/phase7/1',-400,-75*1.5)--5
@@ -245,10 +252,10 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('phase7-1.visible', false)
 	addLuaSprite('phase7-1',false)
 
-	makeLuaSprite('phase7-2','cenarios/phase7/2',-225,-205)--5
+	makeLuaSprite('phase7-2','cenarios/phase7/2',-100,-205)--5
 	setLuaSpriteScrollFactor('phase7-2',0.7,0.7)
-	setProperty('phase7-2.scale.x', 1.6)
-	setProperty('phase7-2.scale.y', 1.5)
+	setProperty('phase7-2.scale.x', 1.7)
+	setProperty('phase7-2.scale.y', 1.55)
 	setProperty('phase7-2.visible', false)
 	addLuaSprite('phase7-2',true)
 
@@ -310,14 +317,14 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('phase10-1.visible', false)
 	addLuaSprite('phase10-1',false)
 
-	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-150,50)--5
+	makeLuaSprite('phase10-2','cenarios/phase10/stone1',0,0)--5
 	setLuaSpriteScrollFactor('phase10-2',1,1)
 	setProperty('phase10-2.scale.x', 1.1)
 	setProperty('phase10-2.scale.y', 1.1)
 	setProperty('phase10-2.visible', false)
 	addLuaSprite('phase10-2',true)
 
-	makeLuaSprite('phase10-3','cenarios/phase10/stone2',100,50)--5
+	makeLuaSprite('phase10-3','cenarios/phase10/stone2',0,0)--5
 	setLuaSpriteScrollFactor('phase10-3',1,1)
 	setProperty('phase10-3.scale.x', 1.1)
 	setProperty('phase10-3.scale.y', 1.1)

@@ -5190,9 +5190,10 @@ class PlayState extends MusicBeatState
 			case 'CamZoomTween':
 				var quantidade:Float = Std.parseFloat(value1);
 				var duracao:Float = Std.parseFloat(value2);
-				FlxTween.num(defaultCamZoom, quantidade, duracao, {ease: FlxEase.linear}, function (v:Float) {defaultCamZoom = v;});
-				new FlxTimer().start(Std.parseFloat(value2)+0.5, function(tmr:FlxTimer){defaultCamZoom=Std.parseFloat(value1);});
-
+				FlxTween.tween(camGame, {zoom: quantidade}, duracao, {ease: FlxEase.linear, 
+					onComplete: function(twn:FlxTween) {
+						defaultCamZoom = quantidade;
+					}});
 			case 'TelaPreta'://a
 				if(value1 == 'true'){
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3);
@@ -7340,7 +7341,7 @@ class PlayState extends MusicBeatState
 	{
 		trace('SIMPLE JUMPSCARE');
 
-		var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Knuckles', 'week-xenophanes'));
+		var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Knuckles'));
 
 		doP3JumpKNUCKLES.setGraphicSize(FlxG.width, FlxG.height);
 
@@ -7352,7 +7353,8 @@ class PlayState extends MusicBeatState
 
 		add(doP3JumpKNUCKLES);
 
-		FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), .1);
+		if(curSong.toLowerCase()=='triple-trouble')
+			FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), .1);
 
 		new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{
