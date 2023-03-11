@@ -6,6 +6,7 @@ import Discord.DiscordClient;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.ui.FlxButton;
+import flixel.addons.transition.FlxTransitionableState;
 
 using StringTools;
 
@@ -273,6 +274,7 @@ class SobreState extends MusicBeatState
 							{
 								FlxG.sound.play(Paths.sound('confirmMenu'));
 								vio.alpha=1;
+								FlxTransitionableState.skipNextTransOut = true;
 								MusicBeatState.switchState(new TimeDaVio());
 							}
 					}
@@ -298,6 +300,7 @@ class SobreState extends MusicBeatState
 										{
 											FlxG.sound.play(Paths.sound('confirmMenu'));
 											exe.alpha=1;
+											FlxTransitionableState.skipNextTransOut = true;
 											MusicBeatState.switchState(new CreditsMods());
 										}
 								}
@@ -323,6 +326,7 @@ class SobreState extends MusicBeatState
 													{
 														FlxG.sound.play(Paths.sound('confirmMenu'));
 														saster.alpha=1;
+														FlxTransitionableState.skipNextTransOut = true;
 														MusicBeatState.switchState(new CreditsMusics());
 													}
 											}
