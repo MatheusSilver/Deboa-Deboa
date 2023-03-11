@@ -2269,6 +2269,8 @@ class PlayState extends MusicBeatState
 						Paths.sound(key);
 					case 'music':
 						Paths.music(key);
+					case 'video':
+						Paths.video(key);
 				}
 			}
 			if(veioNormal)
@@ -2625,39 +2627,50 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public var videoSpr:FlxSprite = new FlxSprite(FlxG.width, FlxG.height).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+	public var videoSpr:FlxSprite;
 	public var video:MP4Handler;
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String) {
         var diretorio = "assets/videos/" + nomedovideo+".mp4";
-		videoSpr.cameras = [camHUD2];
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
         if(Assets.exists(diretorio)) {
             #if mobile
             comecarvideo(nomedovideo, 0, 0, "cheio", 0, 2);
             #else
-			videoSpr.scrollFactor.set();
-			videoSpr.screenCenter(XY);
+			videoSpr = new FlxSprite(0, 0);
+			VideoStatePC.NextState = "nenhum";
+			videoSpr.visible=true;
 			video = new MP4Handler();
-            video.playMP4(diretorio, null, videoSpr);
 			video.vimdoplaystatemano=true;
 			MP4Handler.iAmSobre=false;
 			video.canSkip = false;
 			if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
-			videoSpr.setGraphicSize(FlxG.width, FlxG.height);
+			//videoSpr.setGraphicSize(FlxG.width, FlxG.height);
+			videoSpr.cameras = [camLegenda];
+			//videoSpr.screenCenter(XY);
 			playingVideoMP4 = true;
 			add(videoSpr);
+			//FlxG.sound.music.volume = 0;
+			//vocals.volume = 0;
+			video.playMP4(diretorio, null, videoSpr);
             #end
         }
 
     } 
 	public function pausarVideo(pausar:Bool)
 		{
-			video.paused = pausar;
+			if(playingVideoMP4)
+				{
+					video.queronaoviver = true;
+					video.pausarvideo1(pausar);
+				}
 		}
 
 	public function deletarSpriteNAAAAO():Void
 		{
+			//FlxG.sound.music.volume = 1;
+			//vocals.volume = 1;
+			videoSpr.visible=false;
 			remove(videoSpr);
 			playingVideoMP4=false;
 		}
@@ -3191,7 +3204,11 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
-
+			case 'video player':
+				if(OpenFlAssets.exists(Paths.video(event[3])))
+					{
+						precacheList.set(Paths.video(event[3]), 'video');
+					}
 			case 'Adicionar Imagens':
 				if(ClientPrefs.legendas){
 					//trace('executando cache de lyrics');
@@ -3369,6 +3386,7 @@ class PlayState extends MusicBeatState
 				timer.active = true;
 			}
 			paused = false;
+			pausarVideo(false);
 			callOnLuas('onResume', []);
 
 			#if desktop
@@ -3431,6 +3449,7 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;
+		pausarVideo(true);
 
 			// no more gitaroo man easter egg :D
 			if(FlxG.sound.music != null) {
@@ -3488,14 +3507,6 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		if(playingVideoMP4 && paused)
-			{
-				pausarVideo(true);
-			}
-		else if(playingVideoMP4 && !paused)
-			{
-				pausarVideo(false);
-			}
 		timeAccumulated += elapsed;
 		while (shouldUpdate())
 			{
@@ -5994,7 +6005,10 @@ class PlayState extends MusicBeatState
 			numScore.visible = !ClientPrefs.hideHud;
 
 			if (combo >= 10 || combo == 0)
-				add(numScore);
+				if(curSong.toLowerCase() != "confronting-yourself")
+					{
+						add(numScore);
+					}
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
 				onComplete: function(tween:FlxTween)

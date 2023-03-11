@@ -279,7 +279,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Esconder HUD':
 						ClientPrefs.hideHud = !ClientPrefs.hideHud;
 					
-					case 'Esconder barra de tempo':
+					case 'Esconder tempo':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -499,7 +499,7 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.camZooms;
 					case 'Esconder HUD':
 						daValue = ClientPrefs.hideHud;
-					case 'Esconder barra de tempo':
+					case 'Esconder tempo':
 						daValue = ClientPrefs.hideTime;
 				}
 				checkbox.daValue = daValue;

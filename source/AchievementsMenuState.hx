@@ -110,7 +110,7 @@ class AchievementsMenuState extends MusicBeatState
 		titleText.y = descBox.y + 10;
 		titleText.borderSize = 2.4;
 		add(titleText);
-		if(GJClient.logged && FirstTimeAqui)
+		if(GJClient.logged && FirstTimeAqui && !TitleState.ModoOffline)
 			{
 				var announceText:FlxText;
 				announceText = new FlxText(0, 0, 0, "SINCRONIZANDO CONQUISTAS", 24);
