@@ -7,25 +7,22 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.FlxGraphic;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import openfl.display.BitmapData;
-import openfl.display.Bitmap;
-import openfl.display.Loader;
-import openfl.events.Event;
-import openfl.events.ErrorEvent;
-import flixel.graphics.frames.FlxImageFrame;
-import openfl.net.URLLoader;
-import flixel.graphics.FlxGraphic;
-import openfl.net.URLRequest;
-import flixel.system.FlxAssets;
 import flixel.util.FlxSpriteUtil;
-import flixel.util.FlxGradient;
+import flixel.util.FlxTimer;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import openfl.display.Loader;
+import openfl.events.ErrorEvent;
+import openfl.events.Event;
+import openfl.net.URLRequest;
 
 using StringTools;
 
@@ -36,7 +33,6 @@ import Discord.DiscordClient;
 class MainMenuStateMobile extends MusicBeatState
 {
 	public static var psychEngineVersion:String = 'V1'; //This is also used for Discord RPC
-	public static var curSelected:Int = 0;
 
 	public var camGame:FlxCamera;
 	public var camAchievement:FlxCamera;
@@ -45,19 +41,13 @@ class MainMenuStateMobile extends MusicBeatState
 	var boom:FlxSprite;
 	var gameJoltBG:FlxSprite;
 
-	var historiabotao:FlxButton;
-	var freeplaybotao:FlxButton;
-	var multiplayerbotao:FlxButton;
-	var achievementsbotao:FlxButton;
-	var opcaobotao:FlxButton;
 	var letext:FlxText;
-	var sobrebotao:FlxButton;
 	var isCoolBeat:Bool=true;
 	public static var instance:MainMenuStateMobile;
 	//var gradientBar:FlxGradient;
 	
-	var optionShit:Array<String> = ['story_mode','freeplay', 'awards', 'credits', 'options'];
-
+	var optionShit:Array<String> = ['historia','freeplay', 'multiplayer-locked2', 'conquistas', 'creditos', 'opcao'];
+	private var menuItems:FlxTypedGroup<FlxSprite>;
 	var machine:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
@@ -87,8 +77,8 @@ class MainMenuStateMobile extends MusicBeatState
 		camAchievement.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camAchievement);
-		FlxCamera.defaultCameras = [camGame];
+		FlxG.cameras.add(camAchievement, false);
+		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		#if !mobile
 		FlxG.mouse.visible = true;
 		#end
@@ -140,70 +130,21 @@ class MainMenuStateMobile extends MusicBeatState
 		boom.alpha=1;
 		add(boom);
 
-		historiabotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
-		historiabotao.loadGraphic(Paths.image('mainmenu/sethistoria', 'preload'));
-		historiabotao.setGraphicSize(Std.int(historiabotao.width * 0.6));
-		historiabotao.updateHitbox();
+		menuItems = new FlxTypedGroup<FlxSprite>();
+		add(menuItems);
 
-        historiabotao.alpha = 0.75;
-		historiabotao.x = FlxG.width;
-		historiabotao.y = 8.5;
-        add(historiabotao);
-
-		freeplaybotao = new FlxButton(FlxG.width, 15 + historiabotao.y + historiabotao.height - 367, '');
-		freeplaybotao.loadGraphic(Paths.image('mainmenu/setfreeplay', 'preload'));
-		freeplaybotao.setGraphicSize(Std.int(freeplaybotao.width * 0.6));
-
-		freeplaybotao.updateHitbox();
-        freeplaybotao.alpha = 0.75;
-
-		freeplaybotao.x = FlxG.width;
-		freeplaybotao.y = 10 + historiabotao.y + historiabotao.height;
-
-        add(freeplaybotao);
-
-		multiplayerbotao = new FlxButton(FlxG.width, 15 + freeplaybotao.y + freeplaybotao.height, '');
-		multiplayerbotao.loadGraphic(Paths.image('mainmenu/setmultiplayer-locked2', 'preload'));
-		multiplayerbotao.alpha = 1;
-		multiplayerbotao.setGraphicSize(Std.int(multiplayerbotao.width * 0.6));
-
-		multiplayerbotao.updateHitbox();
-
-		multiplayerbotao.x = FlxG.width;
-		multiplayerbotao.y = 10 + freeplaybotao.y + freeplaybotao.height;
-		add(multiplayerbotao);
-
-
-		achievementsbotao = new FlxButton(FlxG.width, 15 + freeplaybotao.y + freeplaybotao.height, '');
-		achievementsbotao.loadGraphic(Paths.image('mainmenu/setconquistas', 'preload'));
-		achievementsbotao.alpha = 0.75;
-		achievementsbotao.setGraphicSize(Std.int(achievementsbotao.width * 0.6));
-
-		achievementsbotao.updateHitbox();
-
-		achievementsbotao.x = FlxG.width;
-		achievementsbotao.y = 10 + multiplayerbotao.y + multiplayerbotao.height;
-		add(achievementsbotao);
-
-		opcaobotao = new FlxButton(FlxG.width, 15 + achievementsbotao.y + achievementsbotao.height, '');
-		opcaobotao.loadGraphic(Paths.image('mainmenu/setopcao', 'preload'));
-		opcaobotao.setGraphicSize(Std.int(opcaobotao.width * 0.6));
-
-		opcaobotao.updateHitbox();
-		opcaobotao.x = FlxG.width;
-		opcaobotao.y = 10 + achievementsbotao.y + achievementsbotao.height;
-        opcaobotao.alpha = 0.75;
-        add(opcaobotao);
-
-		sobrebotao = new FlxButton(FlxG.width, 15 + opcaobotao.y + opcaobotao.height, '');
-		sobrebotao.loadGraphic(Paths.image('mainmenu/setcreditos', 'preload')); //o 'preload' é apenas para não bugar após uma música.
-		sobrebotao.setGraphicSize(Std.int(sobrebotao.width * 0.6));
-
-		sobrebotao.updateHitbox();
-		sobrebotao.x = FlxG.width;
-		sobrebotao.y = 10 + opcaobotao.y + opcaobotao.height;
-		sobrebotao.alpha = 0.75;
-		add(sobrebotao);
+		for (i in 0...optionShit.length){
+			var botoes:FlxSprite = new FlxSprite(FlxG.width, 8.5 + FlxG.height/(optionShit.length+2)*(i));
+			botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
+			botoes.setGraphicSize(Std.int(botoes.width * 0.6)); //Matemática avançada para o caso de algum dia vir a adicionar, ou remover botões daqui
+			botoes.alpha = 0.75;
+			botoes.ID = i;
+			botoes.screenCenter(Y);
+			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-100;
+			menuItems.add(botoes);
+			botoes.antialiasing = ClientPrefs.globalAntialiasing;
+			botoes.updateHitbox();
+		}
 
 		gameJoltBG = new FlxSprite(0).loadGraphic(Paths.image('gamejoltUserBar', 'preload'));
 		gameJoltBG.setGraphicSize(Std.int(gameJoltBG.width*0.5));
@@ -235,11 +176,6 @@ class MainMenuStateMobile extends MusicBeatState
 				trace(GJClient.avatarURL);
 
 				letext.x=-345;
-				/*if(FlxG.keys.justPressed.SPACE)
-					{
-						Achievements.unlockAchievement("Seja bem vindo!");
-						trace('getting trophie');
-					}*/
 				letext.alpha = 1;
 
 				var loader:Loader = new Loader();
@@ -295,32 +231,15 @@ class MainMenuStateMobile extends MusicBeatState
 				letext.text = "DESCONECTADO";
 			}
 
-		//haxe me obrigou a ser um cara organizado, mas ainda assim sou rebelde
-		//musica de novela de 2010 starts playing
+		for (i in 0...optionShit.length){
+				FlxTween.tween(menuItems.members[i], {x: FlxG.width - 2.22*menuItems.members[i].width}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
+		}
 
-		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-		FlxTween.tween(historiabotao, {x: FlxG.width - 2.5*historiabotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
+		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
+			clicavel = true;
 		});
-		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
-		FlxTween.tween(freeplaybotao, {x: FlxG.width - 2.5*freeplaybotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
-		});
-		new FlxTimer().start(0.5, function(tmr:FlxTimer) {
-			FlxTween.tween(multiplayerbotao, {x: FlxG.width - 2.5*multiplayerbotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
-			});
-		new FlxTimer().start(0.7, function(tmr:FlxTimer) {
-		FlxTween.tween(achievementsbotao, {x: FlxG.width - 2.5*achievementsbotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
-		});
-		new FlxTimer().start(0.9, function(tmr:FlxTimer) {
-		FlxTween.tween(opcaobotao, {x: FlxG.width - 2.5*opcaobotao.width + 696 + 90}, 0.5, {ease: FlxEase.expoInOut});
-		});
-		new FlxTimer().start(1.1, function(tmr:FlxTimer) {
-		FlxTween.tween(sobrebotao, {x: FlxG.width - 2.5*sobrebotao.width + 696 + 90}, 0.5, {
-			ease: FlxEase.expoInOut,
-			onComplete: function(twn:FlxTween) {
-				clicavel = true; //Só pra garantir que a animação de entrada NÃO ocorra ao mesmo tempo que a de saida.
-			}
-		});
-	});
+
+		checkiftouch = false;
 
 		#if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
@@ -396,212 +315,77 @@ class MainMenuStateMobile extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
+	function sumidao(selecionado:Int){
+		//Honestamente, nunca pensei que um dia conseguiria fazer algo assim.
+		//É simples, mas só de ver a diferença entre a primeira versão desse code, pra de agora...
 
-
-	function sumidao(selecionado:Int){ //do hokage omegalul
-		//provavelmente um dos códigos mais feios que já fiz, mas na real
-		//não consigo pensar em outra forma de fazê-lo sem ter que reescrever tudo.
-
-
-		switch (selecionado) 
-
-		// usando switchs "inteligentes"
-
-		{
-			case 0:
-
-			//selecionado 0
-			historiabotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width - historiabotao.width}, 0.5, {ease: FlxEase.expoInOut});
+		menuItems.forEach(function(spr:FlxSprite)
+			{
+				if(spr.ID == selecionado){
+					spr.alpha = 1;
+					FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width - 2.33*spr.width}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
+						onComplete: function(proximo:FlxTween)
+						{
+							FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width+10}, 1.0, {ease: FlxEase.expoInOut, startDelay: 0.3});
+						}});
+				}else{
+					FlxTween.tween(spr, {x: FlxG.width+10}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1});
+				}
 			});
-					new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-						FlxTween.tween(historiabotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-					new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-						FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-					});
-
-			case 1:
-
-			freeplaybotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			FlxTween.tween(freeplaybotao, {x: FlxG.width - freeplaybotao.width}, 0.5, {ease: FlxEase.expoInOut});
-			});
-				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});	
-
-			case 2:
-
-			achievementsbotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
-			FlxTween.tween(achievementsbotao, {x: FlxG.width - achievementsbotao.width},0.5, {ease: FlxEase.expoInOut});
-			});
-				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-
-			case 3:
-
-			sobrebotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			FlxTween.tween(sobrebotao, {x: FlxG.width - sobrebotao.width}, 0.5, {ease: FlxEase.expoInOut});
-			});
-				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(sobrebotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-
-
-			case 4:
-
-			opcaobotao.alpha=1;
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) { //!!!
-			FlxTween.tween(opcaobotao, {x: FlxG.width - opcaobotao.width}, 0.5, {ease: FlxEase.expoInOut});
-			});
-				new FlxTimer().start(0.65, function(tmr:FlxTimer) {
-				FlxTween.tween(opcaobotao, {x: FlxG.width}, 1.0, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(historiabotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-					FlxTween.tween(multiplayerbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(freeplaybotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(achievementsbotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-				new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				FlxTween.tween(sobrebotao, {x: FlxG.width}, 0.5, {ease: FlxEase.expoInOut});
-				});
-			}
-
 		}
+
+	function trocaDeState(state:Int){
+		//FlxG.mouse.visible = false;
+		selectedSomethin = true;
+		clicavel = false;
+		checkiftouch = true;
+		sumidao(state);
+		FlxG.sound.play(Paths.sound('confirmMenu'));
+		var daChoice:String = optionShit[state];
+		sumidao(state);
+		new FlxTimer().start(1.7, function(tmr:FlxTimer) {
+			switch (daChoice)
+			{
+				case 'historia':
+					MusicBeatState.switchState(new MenuPreHistoria());
+				case 'freeplay':
+					MusicBeatState.switchState(new FreeplayState());
+				case 'conquistas':
+					MusicBeatState.switchState(new AchievementsMenuState());
+				case 'creditos':
+					MusicBeatState.switchState(new SobreState());
+				case 'opcao':
+					MusicBeatState.switchState(new ajustes.AjustesState()); // Deixa esse por enquanto KEK
+			}							
+		});
+	}
 
 	override function update(elapsed:Float)
 	{
-
 		#if debug
-		if(controls.NOTE_SPACE){ //CUSTOM SILVIO'S HITBOOX WHEEEEEEEEEEEEEEEEEN?????????????????
-			trace('desvio segurado');
-		}
-		if(controls.NOTE_SPACE_P){
-			trace('desvio pressionado');
-		}
-		if(controls.NOTE_SPACE_R){
-			trace('desvio solto');
-		}
 		if(FlxG.keys.justPressed.FOUR) add(new AchievementObject('eggman_free', camAchievement));
-		
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 		FlxG.mouse.visible = true;
-		//checker.y += 0.1;
 
 		if(canClick)
 			{
+				if(clicavel && !checkiftouch){
+					menuItems.forEach(function(spr:FlxSprite){
+					
+						if(FlxG.mouse.overlaps(spr) && spr.alpha == 0.75 && !optionShit[spr.ID].endsWith("locked2")){
+							menuItems.members[spr.ID].alpha=1;
+							FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+						}else if(!FlxG.mouse.overlaps(spr)){
+							spr.alpha=0.75;
+						}
 
-				historiabotao.updateHitbox();
-				freeplaybotao.updateHitbox();
-				achievementsbotao.updateHitbox();
-				opcaobotao.updateHitbox();
-				sobrebotao.updateHitbox();
-				historiabotao.onOver.callback = historiaHover;
-				historiabotao.onOut.callback = historiaOut;
-				freeplaybotao.onOver.callback = freeplayHover;
-				freeplaybotao.onOut.callback = freeplayOut;
-				achievementsbotao.onOver.callback = achievementsHover;
-				achievementsbotao.onOut.callback = achievementsOut;
-				opcaobotao.onOver.callback = opcaoHover;
-				opcaobotao.onOut.callback = opcaoOut;
-				sobrebotao.onOver.callback = sobreHover;
-				sobrebotao.onOut.callback = sobreOut;
-				if(historiabotao.justPressed && !checkiftouch && clicavel){
-					historiabotao.alpha=1;
-					curSelected = 0;
-					if(curSelected == 0 && checkiftouch == false){checkiftouch = true;}
+						if(FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed && !optionShit[spr.ID].endsWith("locked2")){
+							trocaDeState(spr.ID);
+						}
+					});
 				}
-				if(freeplaybotao.justPressed && !checkiftouch && clicavel){
-					freeplaybotao.alpha=1;
-					curSelected = 1;
-					if(curSelected == 1 && checkiftouch == false){checkiftouch = true;}
-				}
-				if(achievementsbotao.justPressed && !checkiftouch && clicavel){
-					achievementsbotao.alpha=1;
-					curSelected = 2;		
-					if(curSelected == 2 && checkiftouch == false && clicavel){checkiftouch = true;}
-				}
-				if(opcaobotao.justPressed && !checkiftouch){
-					opcaobotao.alpha=1;
-					curSelected = 4;
-					if(curSelected == 4 && checkiftouch == false && clicavel){checkiftouch = true;}
-				}
-				if(sobrebotao.justPressed && !checkiftouch){
-					sobrebotao.alpha=1;
-					curSelected = 3;
-					if(curSelected == 3 && checkiftouch == false && clicavel){checkiftouch = true;}
-					}
 			}
 
 		if (FlxG.sound.music.volume < 0.7)
@@ -621,41 +405,6 @@ class MainMenuStateMobile extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}
-
-			if (controls.ACCEPT || checkiftouch)
-			{
-				#if debug
-				FlxG.mouse.visible = false;
-				#end 
-				if (optionShit[curSelected] == 'donate')
-				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
-				}
-				else
-				{
-					selectedSomethin = true;
-					clicavel = false;
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-							checkiftouch = false; //This should be enough
-							var daChoice:String = optionShit[curSelected];
-							sumidao(curSelected);
-							new FlxTimer().start(1.7, function(tmr:FlxTimer) {
-							switch (daChoice)
-							{
-								case 'story_mode':
-									MusicBeatState.switchState(new MenuPreHistoria());
-								case 'freeplay':
-									MusicBeatState.switchState(new FreeplayState());
-								case 'awards':
-									MusicBeatState.switchState(new AchievementsMenuState());
-								case 'credits':
-									MusicBeatState.switchState(new SobreState());
-								case 'options':
-									MusicBeatState.switchState(new ajustes.AjustesState()); // Deixa esse por enquanto KEK
-							}							
-						});
-				}
-			}
 			
 			#if desktop
 			else if (FlxG.keys.justPressed.SEVEN)
@@ -671,65 +420,10 @@ class MainMenuStateMobile extends MusicBeatState
 
 	}
 
-	function historiaHover():Void
+	override function beatHit()
 		{
-			historiabotao.alpha=1;
-			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			super.beatHit();
+			if(isCoolBeat){boom.animation.play('idle', true);}
+			isCoolBeat = !isCoolBeat;
 		}
-	 
-		function historiaOut():Void
-		{
-			historiabotao.alpha=0.75;
-		}
-
-		function freeplayHover():Void
-			{
-				freeplaybotao.alpha=1;
-				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-			}
-		 
-			function freeplayOut():Void
-			{
-				freeplaybotao.alpha=0.75;
-			}
-
-			function achievementsHover():Void
-				{
-					achievementsbotao.alpha=1;
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-				}
-			 
-				function achievementsOut():Void
-				{
-					achievementsbotao.alpha=0.75;
-				}
-				
-			function opcaoHover():Void
-				{
-					opcaobotao.alpha=1;
-					FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-				}
-			 
-				function opcaoOut():Void
-				{
-					opcaobotao.alpha=0.75;
-				}
-
-				function sobreHover():Void
-					{
-						sobrebotao.alpha=1;
-						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
-					}
-				 
-					function sobreOut():Void
-					{
-						sobrebotao.alpha=0.75;
-					}
-
-					override function beatHit()
-						{
-							super.beatHit();
-							if(isCoolBeat){boom.animation.play('idle', true);}
-							isCoolBeat = !isCoolBeat;
-						}
 }

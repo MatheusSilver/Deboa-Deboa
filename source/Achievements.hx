@@ -122,7 +122,7 @@ class AchievementObject extends FlxSpriteGroup {
 	var estrela2:FlxSprite;
 	var estrela3:FlxSprite;
 	var estrela4:FlxSprite; //Tentei fazer do mesmo jeito que o menu principal maaaaaaaaaas.... Anyway são 4 da manhã e estou com sono então vai assim mesmo.
-	public function new(name:String, ?camera:FlxCamera = null)
+	public function new(name:String, camera:FlxCamera)
 	{
 		super(x, y);
 		//ClientPrefs.saveSettings();
@@ -189,10 +189,7 @@ class AchievementObject extends FlxSpriteGroup {
 		add(achievementName);
 		//add(achievementText);
 
-		var cam:Array<FlxCamera> = FlxCamera.defaultCameras;
-		if(camera != null) {
-			cam = [camera];
-		}
+		var cam:Array<FlxCamera> = [camera]; //Basicamente aquilo praticamente não era usado, a não ser é claro pra dar aviso de deprecated
 		achievementBG.cameras = cam;
 		achievementName.cameras = cam;
 		estrela1.cameras = cam;

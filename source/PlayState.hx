@@ -561,16 +561,15 @@ class PlayState extends MusicBeatState
 		//canoff=canon;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camCCC);
-		FlxG.cameras.add(camHUD);
-		FlxG.cameras.add(camLegenda);
-		FlxG.cameras.add(camOther);
-		FlxG.cameras.add(camHUD2);
+		FlxG.cameras.add(camCCC, false);
+		FlxG.cameras.add(camHUD, false);
+		FlxG.cameras.add(camLegenda, false);
+		FlxG.cameras.add(camOther, false);
+		FlxG.cameras.add(camHUD2, false);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
-		FlxCamera.defaultCameras = [camGame];
+		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		CustomFadeTransition.nextCamera = camOther;
-		//FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -3719,8 +3718,6 @@ class PlayState extends MusicBeatState
 
 		if (SONG.song.toLowerCase() == 'personel' && IsNoteSpinning)
 			{
-				var thisX:Float = Math.sin(SpinAmount * (SpinAmount / 2)) * 100;
-				var thisY:Float = Math.sin(SpinAmount * (SpinAmount)) * 100;
 				for (str in playerStrums)
 				{
 					str.angle = str.angle + SpinAmount; //Porque eu quero e posso...
