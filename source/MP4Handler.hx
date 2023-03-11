@@ -212,9 +212,9 @@ class MP4Handler
 		if(VideoStatePC.NextState != "title")
 			{
 				canSkip=false;
-			}
-		vlcBitmap.volume = FlxG.sound.volume + 0.5 * videoVolume; // shitty volume fix. then make it louder.
-		if (FlxG.sound.volume == 0) vlcBitmap.volume = 0;
+			} 
+			// shitty volume fix. then make it louder.
+		if (FlxG.sound.volume == 0) {vlcBitmap.volume = 0;} else {vlcBitmap.volume = FlxG.sound.volume + (0.5 * videoVolume);}
 	}
 	#end
 
