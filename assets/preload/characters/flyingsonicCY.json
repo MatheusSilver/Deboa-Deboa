@@ -70,8 +70,8 @@
 	"no_antialiasing": true,
 	"image": "characters/prey/FlyingSuper",
 	"position": [
-		0,
-		0
+		275,
+		375
 	],
 	"healthicon": "sonic-super",
 	"flip_x": true,

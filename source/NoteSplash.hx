@@ -47,7 +47,7 @@ class NoteSplash extends FlxSprite
 				if(texture=='blood')
 					offset.set(-40, -90);
 				else
-					offset.set(-60, -90);
+					offset.set(10, 10);
 				animation.play('splash', true);
 
 				animation.curAnim.frameRate = 24;

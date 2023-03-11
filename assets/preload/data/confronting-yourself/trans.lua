@@ -66,6 +66,9 @@ end
 
 function onEvent(evento, valor1, valor2)
     if evento == 'trans CY' then
+        if valor1 == '20' then
+            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
+        end
         if valor1 == '2' then
             cameraFlash('legenda', '0xffffff', 1, true)
         end

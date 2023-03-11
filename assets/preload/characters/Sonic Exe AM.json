@@ -63,7 +63,7 @@
 			"indices": [],
 			"fps": 10,
 			"anim": "laugh",
-			"loop": false,
+			"loop": true,
 			"name": "Sonic Exe AM Laugh"
 		}
 	],

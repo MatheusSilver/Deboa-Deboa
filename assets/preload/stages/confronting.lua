@@ -278,7 +278,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	--phase 9 cheetos vulgo melhor phase do mod falo mesmo achou ruim cai no soco
 
 	makeLuaTiledSprite('phase9-2','cenarios/phase9/2',4096,1024,true,false) --1
-	setLuaSpriteScrollFactor('phase9-2',0.4,0.4)
+	setLuaSpriteScrollFactor('phase9-2',0.4,0.3)
 	setPropertyTiledLuaSprite("phase9-2.antialiasing", false)
 	setPropertyTiledLuaSprite("phase9-2.visible", false)
 	setPropertyTiledLuaSprite("phase9-2.x", -575)
@@ -286,7 +286,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('phase9-2', false);
 
 	makeLuaSprite('phase9-3','cenarios/phase9/3',1000,-620)--5
-	setLuaSpriteScrollFactor('phase9-3',1,1)
+	setLuaSpriteScrollFactor('phase9-3',0.4,0.3)
 	setProperty('phase9-3.scale.x', 0.4)
 	setProperty('phase9-3.scale.y', 0.4)
 	setProperty('phase9-3.visible', false)
@@ -303,21 +303,21 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--phase 10 cheetos
 
-	makeLuaSprite('phase10-1','cenarios/phase10/bg',-480,-75)--5
-	setLuaSpriteScrollFactor('phase10-1',0.4,0.4)
-	setProperty('phase10-1.scale.x', 1.3)
-	setProperty('phase10-1.scale.y', 1.4)
+	makeLuaSprite('phase10-1','cenarios/phase10/bg',-530,-75)--5
+	setLuaSpriteScrollFactor('phase10-1',0.2,0.2)
+	setProperty('phase10-1.scale.x', 1.6)
+	setProperty('phase10-1.scale.y', 1.7)
 	setProperty('phase10-1.visible', false)
 	addLuaSprite('phase10-1',false)
 
-	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-445,360)--5
+	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-150,50)--5
 	setLuaSpriteScrollFactor('phase10-2',1,1)
 	setProperty('phase10-2.scale.x', 1.1)
 	setProperty('phase10-2.scale.y', 1.1)
 	setProperty('phase10-2.visible', false)
 	addLuaSprite('phase10-2',true)
 
-	makeLuaSprite('phase10-3','cenarios/phase10/stone2',590,350)--5
+	makeLuaSprite('phase10-3','cenarios/phase10/stone2',100,50)--5
 	setLuaSpriteScrollFactor('phase10-3',1,1)
 	setProperty('phase10-3.scale.x', 1.1)
 	setProperty('phase10-3.scale.y', 1.1)

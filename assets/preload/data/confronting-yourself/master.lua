@@ -72,10 +72,10 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase4cheetos[i]..'.visible', true)
 		end
 		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
-		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 3, 'linear')
-		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 400, 34, 'linear')
-		doTweenX('awaqueanda1EXE', 'awaEXE', 400, 34, 'linear')
-		doTweenX('eitacachorreiraEXE', 'cachorreiraEXE', 400, 34, 'linear')
+		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.5, 'linear')
+		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 300, 34, 'linear')
+		doTweenX('awaqueanda1EXE', 'awaEXE', 300, 34, 'linear')
+		doTweenX('eitacachorreiraEXE', 'cachorreiraEXE', 300, 34, 'linear')
 	elseif curPhase == 7 then
 		cancelTween('florqueanda2EXE')
 		cancelTween('montanhaqueanda1EXE')
@@ -152,11 +152,11 @@ function onTweenCompleted(tag) --a
 	end
 	if tag == 'florqueanda1EXE' and phasedetector == 6 then 
 		setProperty('florrandom3EXE.x', -2000)
-		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 2, 'linear')
+		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.5, 'linear')
 	end
 	if tag == 'florqueanda2EXE' and phasedetector == 6 then 
 		setProperty('florrandom2EXE.x', -2000)
-		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 2, 'linear')
+		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 1.5, 'linear')
 	end
 	if tag == 'nocumecheira' or  tag == 'nocumesobem' then
 		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 1, 'sineinout')
@@ -166,12 +166,17 @@ function onTweenCompleted(tag) --a
 	end
 	if tag == 'pedrasobe1' or 'pedrasubidao1' then 
 		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+25, 1, 'sineinout')
-		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+25, 1, 'sineinout')
 	end
 	if tag == 'pedradesce1' then 
-		doTweenY('pedrasubidao2', 'phase10-3', getProperty('phase10-3.y')-25, 1, 'sineinout')
 		doTweenY('pedrasubidao1', 'phase10-2', getProperty('phase10-2.y')-25, 1, 'sineinout')
 	end
+	if tag == 'pedrasobe2' or 'pedrasubidao1' then
+		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+25, 1, 'sineinout')
+	end
+	if tag == 'pedradesce1' then
+		doTweenY('pedrasubidao2', 'phase10-3', getProperty('phase10-3.y')-25, 1, 'sineinout')
+	end
+	
 
 end
 

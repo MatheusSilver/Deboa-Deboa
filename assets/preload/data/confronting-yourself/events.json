@@ -13,7 +13,7 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						840,
+						1,
 						-1,
 						"noteskinchangeOPPT",
 						"NOTE_assets_exezoom",
@@ -22,11 +22,11 @@
 						""
 					],
 					[
-						840,
+						1400,
 						-1,
 						"noteskinchangeBF",
 						"PIXELNOTE_assets_bf_zoom",
-						"bloodpixel",
+						"",
 						"",
 						""
 					]
@@ -1022,7 +1022,7 @@
 						""
 					],
 					[
-						101520,
+						101900,
 						-1,
 						"noteskinchangeBF",
 						"PIXELNOTE_assets_bf_zoom",
@@ -1180,17 +1180,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						119040,
-						-1,
-						"Add Camera Zoom",
-						"0.1",
-						"0.1",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1200,17 +1190,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						120960,
-						-1,
-						"Add Camera Zoom",
-						"0.1",
-						"0.1",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1220,62 +1200,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						122880,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						123120,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						123360,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						123600,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						123840,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						124200,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1285,62 +1210,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						124800,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						125040,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						125520,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						125760,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						126000,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					],
-					[
-						126360,
-						-1,
-						"Add Camera Zoom",
-						"0.05",
-						"0.05",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1350,26 +1220,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						127680,
-						-1,
-						"Add Camera Zoom",
-						"0.15",
-						"0.15",
-						"",
-						""
-					],
-					[
-						128040,
-						-1,
-						"Add Camera Zoom",
-						"0.15",
-						"0.15",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1379,26 +1230,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						128640,
-						-1,
-						"Add Camera Zoom",
-						"0.15",
-						"0.15",
-						"",
-						""
-					],
-					[
-						129600,
-						-1,
-						"Add Camera Zoom",
-						"0.15",
-						"0.15",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1511,7 +1343,7 @@
 						""
 					],
 					[
-						133680,
+						133162.5,
 						-1,
 						"noteskinchangeBF",
 						"NOTE_assets",
@@ -1580,122 +1412,72 @@
 					[
 						136320,
 						-1,
-						"Set Cam Zoom",
-						"0.8",
-						"",
-						"",
-						""
-					],
-					[
-						137280,
-						-1,
-						"Set Cam Zoom",
-						"0.75",
-						"",
-						"",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						138720,
-						-1,
-						"Set Cam Zoom",
-						"0.72",
-						"",
-						"",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						141120,
-						-1,
-						"Set Cam Zoom",
-						"0.68",
-						"",
-						"",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						143040,
-						-1,
-						"Set Cam Zoom",
-						"0.65",
-						"",
-						"",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						147840,
-						-1,
-						"Set Cam Zoom",
+						"CamZoomTween",
 						"0.63",
-						"",
-						"",
+						"10",
 						""
 					]
 				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1861,7 +1643,7 @@
 						""
 					],
 					[
-						166320,
+						166662.5,
 						-1,
 						"noteskinchangeBF",
 						"PIXELNOTE_assets_bf_zoom",
@@ -2185,10 +1967,19 @@
 						""
 					],
 					[
-						201120,
+						201240,
 						-1,
 						"trocar stage",
 						"11",
+						"",
+						"",
+						""
+					],
+					[
+						201340,
+						-1,
+						"trans CY",
+						"20",
 						"",
 						"",
 						""
@@ -2245,7 +2036,7 @@
 						-1,
 						"TelaPreta",
 						"false",
-						"Soanic Exe Pixel Flying flip ato9",
+						"Sonic Exe Pixel Flying flip ato9",
 						"",
 						""
 					],
@@ -2461,15 +2252,6 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
-					[
-						218040,
-						-1,
-						"video player",
-						"cutsceneCY",
-						"",
-						"",
-						"depois alguem configura isso"
-					],
 					[
 						218160,
 						-1,

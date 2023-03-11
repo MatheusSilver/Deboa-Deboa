@@ -870,44 +870,37 @@
 					[
 						36480,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						36720,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						36960,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						37200,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						37440,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						37680,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						37920,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					]
 				],
 				"lengthInSteps": 16,
@@ -6981,44 +6974,37 @@
 					[
 						197760,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						198000,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						198240,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						198480,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						198720,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						198960,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						199200,
 						1,
-						0,
-						"LAUGH THING idk"
+						0
 					],
 					[
 						197760,
@@ -7045,7 +7031,7 @@
 				"lengthInSteps": 16,
 				"gfSection": false,
 				"altAnim": false,
-				"mustHitSection": false,
+				"mustHitSection": true,
 				"changeBPM": false,
 				"bpm": 125
 			},

@@ -59,7 +59,7 @@
 	"no_antialiasing": true,
 	"image": "characters/confronting/corrida/sonicexechase",
 	"position": [
-		0,
+		-50,
 		-475
 	],
 	"healthicon": "sonicP2Pixel",
