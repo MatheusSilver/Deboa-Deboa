@@ -214,7 +214,7 @@ class MP4Handler
 				canSkip=false;
 			}
 		vlcBitmap.volume = FlxG.sound.volume + 0.5 * videoVolume; // shitty volume fix. then make it louder.
-		if (FlxG.sound.volume <= 0.1) vlcBitmap.volume = 0 * videoVolume;
+		if (FlxG.sound.volume == 0) vlcBitmap.volume = 0;
 	}
 	#end
 
