@@ -52,7 +52,7 @@ ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workfl
 * Hugo - artista, CY, Scrollings, ideias, sprites e mais artes 
 # Coding
 * Dav - Diretor de code/luas
-# <img src="art/icon64.png" align="center"> Team Silver - Port Mobile </img>
+# <img src="art/YT Matheus Silver (1).png" align="center"> Team Silver - Port Mobile </img>
 *  - Matheus Silver - Diretor de code/port mobile
 *  - Lorena - Port Mobile, Revisão de codes, otimização de codes, sistema de cache adaptado
 *  - Clara -  Port Mobile, otimização de alguns sprites, ajustes, e mais outras coisas
