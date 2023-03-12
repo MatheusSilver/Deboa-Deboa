@@ -53,7 +53,7 @@ ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workfl
 # Coding
 * Dav - Diretor de code/luas
 * 
-* **Team Silver - Port Mobile
+# Team Silver - Port Mobile
 *  - Matheus Silver - Diretor de code/port mobile
 *  - Lorena - Port Mobile, Revisão de codes, otimização de codes, sistema de cache adaptado
 *  - Clara -  Port Mobile, otimização de alguns sprites, ajustes, e mais outras coisas
