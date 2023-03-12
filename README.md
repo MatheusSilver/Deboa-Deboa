@@ -47,15 +47,17 @@ ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workfl
 # Charts e outras coisas
 * Konan - Charts/legendas/luas/ports
 # Artistas
-* Ashuro - artista principal
-* Cat - artista auxiliar (mas importante)
-* Hugo - artista (também importante)
+* Ashuro - artista principal - CY, Menus, Slaybells, Scrollings e mais artes
+* Cat - artista - CY, Scrollings, sprites e mais artes 
+* Hugo - artista, CY, Scrollings, ideias, sprites e mais artes 
 # Coding
 * Dav - Diretor de code/luas
-* Team Silver - Port Mobile
-- Matheus Silver - Diretor de code/port mobile
-- Lorena -
-- Clara -
+* 
+* **Team Silver - Port Mobile
+*  - Matheus Silver - Diretor de code/port mobile
+*  - Lorena - Port Mobile, Revisão de codes, otimização de codes, sistema de cache adaptado
+*  - Clara -  Port Mobile, otimização de alguns sprites, ajustes, e mais outras coisas
+*  
 * Konan - Programador
 * MateusX02 - Ajuda no port Mobile/coding adicional
 
