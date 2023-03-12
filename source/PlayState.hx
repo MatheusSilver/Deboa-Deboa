@@ -1937,7 +1937,7 @@ class PlayState extends MusicBeatState
 		if(OpenFlAssets.exists(luaFile)) 
 			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));	
 
-		if(ClientPrefs.camZooms && !SONG.canfollowpermitido && curSong.toLowerCase()!='pasta-night')
+		if(ClientPrefs.camZooms && !SONG.canfollowpermitido)
 		{
 		var luaFile2 = 'custom_scripts/camFollowGlobal.lua';
 		luaFile2 = Paths.getPreloadPath(luaFile2);
@@ -3440,7 +3440,9 @@ class PlayState extends MusicBeatState
 
 		if(ClientPrefs.pausarauto)
 			{
-				openPauseMenu();
+				new flixel.util.FlxTimer().start(0.2, function(tmr:flixel.util.FlxTimer) {
+					openPauseMenu(); //Fix jumpscare da triple bolo
+				});
 			}
 			
 
@@ -3489,7 +3491,7 @@ class PlayState extends MusicBeatState
 
 	public var paused:Bool = false;
 	var startedCountdown:Bool = false;
-	public var canPause:Bool = false;
+	public var canPause:Bool = false; //tmj dav meu bom
 	var limoSpeed:Float = 0;
 
 	public static var useVideo = false;
@@ -6182,7 +6184,7 @@ class PlayState extends MusicBeatState
 		var parsedHoldArray:Array<Bool> = parseKeys();
 
 		// FlxG.watch.addQuick('asdfa', upP);
-		if (startedCountdown && !boyfriend.stunned && generatedMusic)
+		if (startedCountdown && !boyfriend.stunned && generatedMusic && songStarted)
 		{
 			// rewritten inputs???
 			notes.forEachAlive(function(daNote:Note)

@@ -5514,6 +5514,7 @@
 		"sections": 0,
 		"needsVoices": false,
 		"splashSkin": "noteSplashes",
+		"canfollowpermitido": true,
 		"speed": 2.8,
 		"bpm": 117
 	}

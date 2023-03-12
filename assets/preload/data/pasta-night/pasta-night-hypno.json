@@ -5481,6 +5481,7 @@
 		"player3": "mx",
 		"song": "pasta-night",
 		"stage": "bar-hypno",
+		"canfollowpermitido": true,
 		"arrowSkin": "",
 		"validScore": true,
 		"sections": 0,

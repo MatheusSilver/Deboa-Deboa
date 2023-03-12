@@ -5551,6 +5551,7 @@
 		"song": "pasta-night",
 		"stage": "bar",
 		"arrowSkin": "",
+		"canfollowpermitido": true,
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,
