@@ -37,6 +37,8 @@ class VideoStatePC extends MusicBeatState
 			else if(NextState == "title")
 			{
 				video.playMP4(videoPath, new TitleState(), videoMenu);
+			}else if(NextState == 'playstate'){
+				video.playMP4(videoPath, new PlayState(), videoMenu);
 			}
 			else
 				{

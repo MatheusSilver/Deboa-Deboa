@@ -16,9 +16,6 @@ class PreTitleState extends MusicBeatState
 			if(FlxG.save.data.firstTime != null || !ClientPrefs.firstTime || FlxG.save.data.flashing != null) //Algum desses caras tem que funfar
 				{
 					#if desktop
-					#if debug
-					trace('assets/videos/VideosRandoms/haha' + random1 + '.mp4'); //O nome da pasta estava errado kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-					#end
 						new FlxTimer().start(1.5, function(tmr:FlxTimer){
 							if(openfl.utils.Assets.exists('assets/videos/VideosRandoms/haha' + random1+ '.mp4')) {
 								VideoStatePC.videoPath='assets/videos/VideosRandoms/haha' + random1 + '.mp4';
@@ -30,8 +27,8 @@ class PreTitleState extends MusicBeatState
 					#elseif mobile
 					//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 					new FlxTimer().start(1.5, function(tmr:FlxTimer){
-						if(openfl.utils.Assets.exists('assets/videos/VideosRandom/haha' + random1+ '.mp4')) {
-							MusicBeatState.switchState(new VideoState('assets/videos/VideosRandom/haha' + random1, (new TitleState()))); 
+						if(openfl.utils.Assets.exists('assets/videos/VideosRandoms/haha' + random1+ '.mp4')) {
+							MusicBeatState.switchState(new VideoState('assets/videos/VideosRandoms/haha' + random1, (new TitleState()))); 
 						} else{
 							MusicBeatState.switchState(new TitleState()); 
 						}						

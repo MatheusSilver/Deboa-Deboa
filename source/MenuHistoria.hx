@@ -213,8 +213,18 @@ class MenuHistoria extends MusicBeatSubstate
 			// Nesse eu não vou mexer, tô com medo de ferrar alguma coisa.
 			if(toPlay){
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				if(PlayState.SONG.videonombre!=null && PlayState.SONG.videonombre.length>5){
+					#if desktop
+						VideoStatePC.NextState = 'playstate';
+						VideoStatePC.videoPath="assets/videos/" + PlayState.SONG.videonombre +".mp4";
+						MusicBeatState.switchState(new VideoStatePC());
+					#elseif mobile
+					LoadingState.loadAndSwitchState(new VideoState('assets/videos/'+PlayState.SONG.videonombre.length, new PlayState()));
+					#end
+				}else{
 				openSubState(new LoadingsState());
 				LoadingState.loadAndSwitchState(new PlayState());
+				}
 			});
 			} else{
 				MusicBeatState.switchState(new editors.ChartingState());

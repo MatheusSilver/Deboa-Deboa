@@ -241,6 +241,7 @@ class ChartingState extends MusicBeatState
 		{
 			_song = {
 				song: 'Test',
+				videonombre: 'nada',
 				notes: [],
 				bpm: 150.0,
 				needsVoices: true,
@@ -2246,6 +2247,7 @@ class ChartingState extends MusicBeatState
 			notes: events,
 			bpm: _song.bpm,
 			needsVoices: _song.needsVoices,
+			videonombre: _song.videonombre,
 			startinvisibru: _song.startinvisibru,
 			isRing: _song.isRing,
 			speed: _song.speed,
