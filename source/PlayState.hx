@@ -2630,7 +2630,7 @@ class PlayState extends MusicBeatState
 	public var videoSpr:FlxSprite;
 	public var video:MP4Handler;
 
-	public function videoPlayer(nomedovideo:String, audioVolume:String) {
+	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String) {
         var diretorio = "assets/videos/" + nomedovideo+".mp4";
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
         if(Assets.exists(diretorio)) {
@@ -2650,8 +2650,11 @@ class PlayState extends MusicBeatState
 			//videoSpr.screenCenter(XY);
 			playingVideoMP4 = true;
 			add(videoSpr);
-			//FlxG.sound.music.volume = 0;
-			//vocals.volume = 0;
+			if(muteplayAudio!=null || muteplayAudio!="")
+				{
+					FlxG.sound.music.volume = 0;
+					vocals.volume = 0;
+				}
 			video.playMP4(diretorio, null, videoSpr);
             #end
         }
@@ -2668,8 +2671,8 @@ class PlayState extends MusicBeatState
 
 	public function deletarSpriteNAAAAO():Void
 		{
-			//FlxG.sound.music.volume = 1;
-			//vocals.volume = 1;
+			FlxG.sound.music.volume = 1;
+			vocals.volume = 1;
 			videoSpr.visible=false;
 			remove(videoSpr);
 			playingVideoMP4=false;
@@ -4264,7 +4267,7 @@ class PlayState extends MusicBeatState
 	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String/*,?path:String*/) {
 		switch(eventName) {
 			case 'video player':
-				videoPlayer(value1, value2);
+				videoPlayer(value1, value2, value3);
 			case 'Adicionar Imagens':
 				/*if (ClientPrefs.legendas)
 				{
@@ -4667,7 +4670,7 @@ class PlayState extends MusicBeatState
 						case 27:
 							doStaticSign(0);
 						case 180:
-							doJumpscare();
+							//doJumpscare();
 						case 921:
 							doSimpleJump();
 						case 765:

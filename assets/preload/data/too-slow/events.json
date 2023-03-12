@@ -18,6 +18,14 @@
 						"eventos-tooslow",
 						"27",
 						""
+					],
+					[
+						0,
+						-1,
+						"video player",
+						"AnimacoesJogaveis/tooslowcutscene",
+						"0.5",
+						"true"
 					]
 				],
 				"bpm": 0,
