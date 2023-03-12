@@ -2629,6 +2629,7 @@ class PlayState extends MusicBeatState
 
 	public var videoSpr:FlxSprite;
 	public var video:MP4Handler;
+	public var letext:FlxText;
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String) {
         var diretorio = "assets/videos/" + nomedovideo+".mp4";
@@ -2655,6 +2656,13 @@ class PlayState extends MusicBeatState
 					FlxG.sound.music.volume = 0;
 					vocals.volume = 0;
 				}
+				letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para sair", 32); //Achei cringe
+				letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				letext.scrollFactor.set();
+				letext.alpha = 0;
+				letext.cameras = [camLegenda];
+				add(letext);
+			trace(MP4Handler.vlcBitmap.length);
 			video.playMP4(diretorio, null, videoSpr);
             #end
         }
@@ -2668,6 +2676,47 @@ class PlayState extends MusicBeatState
 					video.pausarvideo1(pausar);
 				}
 		}
+		public function pularVideo()
+			{
+				if(playingVideoMP4)
+					{
+						video.onVLCComplete();
+						letext.alpha=0;
+						FlxG.sound.music.pause();
+						vocals.pause();
+						Conductor.songPosition += MP4Handler.vlcBitmap.length;
+						notes.forEachAlive(function(daNote:Note)
+						{
+							if(daNote.strumTime + 800 < Conductor.songPosition) {
+								daNote.active = false;
+								daNote.visible = false;
+		
+								daNote.kill();
+								notes.remove(daNote, true);
+								daNote.destroy();
+							}
+						});
+						for (i in 0...unspawnNotes.length) {
+							var daNote:Note = unspawnNotes[0];
+							if(daNote.strumTime + 800 >= Conductor.songPosition) {
+								break;
+							}
+		
+							daNote.active = false;
+							daNote.visible = false;
+		
+							daNote.kill();
+							unspawnNotes.splice(unspawnNotes.indexOf(daNote), 1);
+							daNote.destroy();
+						}
+		
+						FlxG.sound.music.time = Conductor.songPosition;
+						FlxG.sound.music.play();
+		
+						vocals.time = Conductor.songPosition;
+						vocals.play();
+					}
+			}
 
 	public function deletarSpriteNAAAAO():Void
 		{
@@ -3509,9 +3558,41 @@ class PlayState extends MusicBeatState
 			return timeAccumulated >= UPDATE_INTERVAL;
 		}
 
-
+		var twn:FlxTimer = new FlxTimer();
+		var alphaon:Bool = false;
+		function CompletedTimer()
+			{
+				alphaon=false;
+			}
 	override public function update(elapsed:Float)
 	{
+		if(playingVideoMP4 && !paused)
+			{
+				if(letext.alpha == 0 && FlxG.keys.justReleased.ANY)
+					{
+						alphaon=true;
+						twn.start(4, function(twn:FlxTimer){CompletedTimer();});
+					}
+	
+					if(alphaon && letext.alpha!=1)
+						{
+							letext.alpha= letext.alpha+0.25;
+							//video.canSkip = false;
+						}
+							else if(!alphaon && letext.alpha!=0)
+								{
+									letext.alpha= letext.alpha-0.25;
+									//video.canSkip = false;
+								}
+								else if(!alphaon && letext.alpha==0)
+									{
+										//video.canSkip = false;
+									}
+									if(alphaon && letext.alpha==1 && FlxG.keys.justReleased.SPACE)
+										{
+											pularVideo();
+										}
+			}
 		timeAccumulated += elapsed;
 		while (shouldUpdate())
 			{
