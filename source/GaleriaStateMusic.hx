@@ -365,6 +365,10 @@ class GaleriaStateMusic extends MusicBeatState
 					menutoca=true;
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 					pausado = true;
+					songPercent = 0;
+					timer.text = '0:00' + '/' + FlxStringUtil.formatTime(Math.floor(songLength/1000), false);
+
+					botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/play', 'preload'));
 				}
 			}
 
@@ -496,6 +500,7 @@ class GaleriaStateMusic extends MusicBeatState
 					FlxG.sound.play(Paths.sound('click'));
 				}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&pausado){
 					pausado = false;
+					botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/pause', 'preload'));
 					FlxG.sound.play(Paths.sound('click'));
 					if(menutoca){
 						FlxG.sound.music.fadeOut(1, 0);
@@ -507,7 +512,9 @@ class GaleriaStateMusic extends MusicBeatState
 					}
 				}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&!pausado){
 					FlxG.sound.music.pause();
+					botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/play', 'preload'));
 					pausado = true;
+
 					FlxG.sound.play(Paths.sound('click'));
 				}
 			}
