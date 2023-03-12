@@ -21,7 +21,7 @@ class VideoStatePC extends MusicBeatState
 	override function create()
 		{
 			video.canSkip=false;
-			if(NextState != "title")
+			if(NextState != "title" && NextState != "playstate")
 				{
 					FlxG.sound.music.fadeIn(0.35, 0.7, 0);
 				}

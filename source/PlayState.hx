@@ -2644,7 +2644,7 @@ class PlayState extends MusicBeatState
 			video.vimdoplaystatemano=true;
 			MP4Handler.iAmSobre=false;
 			video.canSkip = false;
-			if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
+			//if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
 			//videoSpr.setGraphicSize(FlxG.width, FlxG.height);
 			videoSpr.cameras = [camLegenda];
 			//videoSpr.screenCenter(XY);
