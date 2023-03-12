@@ -180,27 +180,51 @@ class MainMenuStateMobile extends MusicBeatState
 
 				var loader:Loader = new Loader();
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
-					var bmp:Bitmap = cast(loader.content, Bitmap);
-					trace("peguei a foto");
-					var bmd:BitmapData = bmp.bitmapData;
-					var graphicAsset:FlxGraphic = FlxGraphic.fromBitmapData(bmd, false);
-					gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
-					gameJoltIcon.loadGraphic(graphicAsset);
-					gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
-					var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
-
-					var bordinha = new FlxSprite(0,0);
-					bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
-					tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
-					FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
-					FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
-					gameJoltIcon.x = gameJoltBG.x+10;
-					gameJoltIcon.y = gameJoltBG.y+2;
-					bordinha.x = gameJoltIcon.x-6.5;
-					bordinha.y = gameJoltIcon.y-4.5;
-					gameJoltIcon.visible = true;
-					add(gameJoltIcon);
-					add(bordinha);
+					if(GJClient.avatarURL.contains("no-avatar"))
+						{
+							trace("nao peguei a foto");
+							gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
+							gameJoltIcon.loadGraphic(Paths.image('placeholderUserIcon', 'preload'));
+							gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
+							var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
+		
+							var bordinha = new FlxSprite(0,0);
+							bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
+							tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
+							FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
+							FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
+							gameJoltIcon.x = gameJoltBG.x+10;
+							gameJoltIcon.y = gameJoltBG.y+2;
+							bordinha.x = gameJoltIcon.x-6.5;
+							bordinha.y = gameJoltIcon.y-4.5;
+							gameJoltIcon.visible = true;
+							add(gameJoltIcon);
+							add(bordinha);
+						}
+					else
+						{
+							var bmp:Bitmap = cast(loader.content, Bitmap);
+							trace("peguei a foto");
+							var bmd:BitmapData = bmp.bitmapData;
+							var graphicAsset:FlxGraphic = FlxGraphic.fromBitmapData(bmd, false);
+							gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
+							gameJoltIcon.loadGraphic(graphicAsset);
+							gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
+							var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
+		
+							var bordinha = new FlxSprite(0,0);
+							bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
+							tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
+							FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
+							FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
+							gameJoltIcon.x = gameJoltBG.x+10;
+							gameJoltIcon.y = gameJoltBG.y+2;
+							bordinha.x = gameJoltIcon.x-6.5;
+							bordinha.y = gameJoltIcon.y-4.5;
+							gameJoltIcon.visible = true;
+							add(gameJoltIcon);
+							add(bordinha);
+						}
 				});
 				loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, function(event:Event):Void {
 					trace("nao peguei a foto");
