@@ -75,8 +75,6 @@ function onEvent(eventName, value1, value2)
             playAnim('cutscene', 'video', true)
         elseif value1=='flash' then
             cameraFlash('hud2', '0x000000', 0.05, true)
-        elseif value1=='flash2' then
-            cameraFlash('hud2', '0xff0000', 0.05, true)
         else
             cameraFlash('hud2', '0xff0000', 5, true)
             setProperty('bgSkychasing.visible', true)
