@@ -44,7 +44,7 @@ class VideoStatePC extends MusicBeatState
 				{
 					video.playMP4(videoPath, new MainMenuStateMobile(), videoMenu);
 				}
-			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para sair", 32); //Achei cringe
+			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para pular", 32); //Achei cringe
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
 			letext.alpha = 0;

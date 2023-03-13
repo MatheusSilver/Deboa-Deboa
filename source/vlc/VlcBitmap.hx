@@ -38,6 +38,7 @@ class VlcBitmap extends Bitmap
 	public var videoHeight:Int;
 	public var repeat:Int = 0;
 	public var duration:Float;
+	public var curTime:Float;
 	public var length:Float;
 	public var inWindow:Bool;
 	public var initComplete:Bool;
@@ -357,8 +358,8 @@ class VlcBitmap extends Bitmap
 	function render()
 	{
 		var cTime = Lib.getTimer();
-
-		if ((cTime - oldTime) > 28) // min 28 ms between renders, but this is not a good way to do it...
+		curTime = libvlc.getPosition();
+		if ((cTime - oldTime) > 16.33) // min 28 ms between renders, but this is not a good way to do it...
 		{
 			oldTime = cTime;
 

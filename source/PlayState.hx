@@ -2649,7 +2649,7 @@ class PlayState extends MusicBeatState
 					FlxG.sound.music.volume = 0;
 					vocals.volume = 0;
 				}
-				letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para sair", 32); //Achei cringe
+				letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para pular", 32); //Achei cringe
 				letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				letext.scrollFactor.set();
 				letext.alpha = 0;
@@ -2677,7 +2677,9 @@ class PlayState extends MusicBeatState
 						letext.alpha=0;
 						FlxG.sound.music.pause();
 						vocals.pause();
-						Conductor.songPosition += MP4Handler.vlcBitmap.length;
+						Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
+						trace(MP4Handler.vlcBitmap.length);
+						trace(MP4Handler.vlcBitmap.time);
 						notes.forEachAlive(function(daNote:Note)
 						{
 							if(daNote.strumTime + 800 < Conductor.songPosition) {
@@ -2716,6 +2718,8 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.volume = 1;
 			vocals.volume = 1;
 			videoSpr.visible=false;
+			letext.alpha = 0;
+			remove(letext);
 			remove(videoSpr);
 			playingVideoMP4=false;
 		}
