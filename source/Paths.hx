@@ -256,7 +256,7 @@ class Paths
 			localTrackedAssets["graphics"].push(path);
 			return currentTrackedAssets["graphics"].get(path);
 		}
-		FlxG.log.error('oh no $key is returning null NOOOO');
+		FlxG.log.error('oh no $path is returning null NOOOO');
 		return null; //Apenas para garantir que o jooj tentará carregar do jeito normal primeiro (ou então ajuidar a descobrir qual o pilantra.)
 	}
 

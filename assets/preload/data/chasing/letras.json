@@ -285,13 +285,6 @@
 						"hudfade",
 						"0",
 						"1.8"
-					],
-					[
-						46007.4626865672,
-						-1,
-						"comecarvideo",
-						"AnimacoesJogaveis/ChasingVideo",
-						"0,0,cheio,0"
 					]
 				],
 				"bpm": 0,
@@ -304,6 +297,13 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
+					[
+						47110,
+						-1,
+						"playchasing",
+						"true",
+						""
+					],
 					[
 						47350.7462686567,
 						-1,
@@ -335,35 +335,81 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						48340,
+						-1,
+						"playchasing",
+						"flash",
+						""
+					],
+					[
+						48670,
+						-1,
+						"playchasing",
+						"flash",
+						""
+					],
+					[
+						49000,
+						-1,
+						"playchasing",
+						"flash",
+						""
+					],
+					[
+						49300,
+						-1,
+						"playchasing",
+						"flash",
+						""
+					],
+					[
+						50200,
+						-1,
+						"playchasing",
+						"flash2",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
 			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
+						{
 				"gfSection": false,
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						53619.4029850746,
+						50650,
 						-1,
-						"Red Flash Camera",
-						"0.2",
+						"playchasing",
+						"false",
 						""
 					]
 				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -482,7 +528,7 @@
 						63246.2686567164,
 						-1,
 						"hudfade",
-						"1\t",
+						"1",
 						"2"
 					],
 					[

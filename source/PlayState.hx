@@ -117,7 +117,7 @@ class PlayState extends MusicBeatState
 	var fakertransform:FlxSprite;
 	var daJumpscare:FlxSprite = new FlxSprite(0, 0);
 	var daP3Static:FlxSprite = new FlxSprite(0, 0);
-	var bgSkychasing:FlxSprite;
+	public var bgSkychasing:FlxSprite;
 	var daNoteStatic:FlxSprite = new FlxSprite(0, 0);
 
 
@@ -2534,13 +2534,6 @@ class PlayState extends MusicBeatState
 
 	public function backgroundVideo(source:String, xPos:Float = 0, yPos:Float = 0, tamanho:String = 'cheio', chromakey:Float = 0, layering:Float = 0)
 		{
-		
-		if (nomehistorico.toLowerCase() == 'rastro' && curStep > 100){ //Top 10 codes mais feios dos animes
-			bgSkychasing.visible = true;
-			triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
-			triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
-		}
-		
 		if(!OpenFlAssets.exists(source)){
 			if(GlobalVideo.get() != null){
 				GlobalVideo.get().stop();
@@ -6265,7 +6258,7 @@ class PlayState extends MusicBeatState
 		var parsedHoldArray:Array<Bool> = parseKeys();
 
 		// FlxG.watch.addQuick('asdfa', upP);
-		if (startedCountdown && !boyfriend.stunned && generatedMusic && songStarted)
+		if (startedCountdown && !boyfriend.stunned && generatedMusic && songStarted) //Temporário pra pasta night
 		{
 			// rewritten inputs???
 			notes.forEachAlive(function(daNote:Note)

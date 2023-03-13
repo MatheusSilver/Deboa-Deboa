@@ -1,11 +1,19 @@
 function onCreate()
-    makeAnimatedLuaSprite('stat', 'daSTAT', 0, 0);
-	addAnimationByPrefix('stat', 'staticFLASH', 'staticFLASH', 24, true);
-    setObjectCamera('stat', 'other');
-    scaleObject('stat', 5, 5);
-    addLuaSprite('stat', true);
-    setProperty('stat.alpha', 0);
-	setScrollFactor('stat', 1, 1);
+    --makeAnimatedLuaSprite('stat', 'daSTAT', 0, 0);
+	--addAnimationByPrefix('stat', 'staticFLASH', 'staticFLASH', 24, true);
+    --setObjectCamera('stat', 'other');
+    --scaleObject('stat', 5, 5);
+    --addLuaSprite('stat', true);
+    --setProperty('stat.alpha', 0);
+	--setScrollFactor('stat', 1, 1);
+
+    makeAnimatedLuaSprite('cutscene', 'cutscenechasing', 0, 0);
+	addAnimationByPrefix('cutscene', 'video', 'chasingcutscene', 12, false);
+    setObjectCamera('cutscene', 'hud2');
+    setGraphicSize('cutscene', screenWidth, screenHeight)
+    screenCenter('cutscene', 'xy')
+    addLuaSprite('cutscene', true);
+    setProperty('cutscene.visible', false);
 
     if legendas == true then
         if downscroll == true then
@@ -58,3 +66,24 @@ function onStepHit()
     end
 
 end 
+
+function onEvent(eventName, value1, value2)
+    if eventName=='playchasing' then
+        if value1=='true' then
+            cameraFlash('hud2', '0xffffff', 0.5, true)
+            setProperty('cutscene.visible', true)
+            playAnim('cutscene', 'video', true)
+        elseif value1=='flash' then
+            cameraFlash('hud2', '0x000000', 0.05, true)
+        elseif value1=='flash2' then
+            cameraFlash('hud2', '0xff0000', 0.05, true)
+        else
+            cameraFlash('hud2', '0xff0000', 5, true)
+            setProperty('bgSkychasing.visible', true)
+            triggerEvent('noteskinchangeOPPT', 'NOTE_assets', '');
+            triggerEvent('noteskinchangeBF', 'NOTE_assets', 'blood');
+            setProperty('cutscene.visible', false)
+            removeLuaSprite('cutscene', true)
+        end
+    end             
+end
