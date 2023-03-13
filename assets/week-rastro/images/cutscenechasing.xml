@@ -50,4 +50,10 @@
   <SubTexture name="chasingcutscene0047" x="1280" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
   <SubTexture name="chasingcutscene0048" x="1920" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
   <SubTexture name="chasingcutscene0049" x="2560" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
+  <SubTexture name="chasingcutscene0050" x="1280" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
+  <SubTexture name="chasingcutscene0051" x="1920" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
+  <SubTexture name="chasingcutscene0052" x="2560" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
+  <SubTexture name="chasingcutscene0053" x="1280" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
+  <SubTexture name="chasingcutscene0054" x="1920" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
+  <SubTexture name="chasingcutscene0055" x="2560" y="2160"  width="640" height="360" frameX="-0" frameY="-0" frameWidth="640" frameHeight="360"/>
 </TextureAtlas>

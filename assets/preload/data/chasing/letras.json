@@ -368,7 +368,7 @@
 						50200,
 						-1,
 						"playchasing",
-						"flash2",
+						"flash",
 						""
 					]
 				],
@@ -383,7 +383,7 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						50650,
+						51600,
 						-1,
 						"playchasing",
 						"false",
