@@ -289,11 +289,19 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						47238.8059701493,
+						44000,
 						-1,
 						"Adicionar Imagens",
 						"",
 						""
+					],
+					[
+						44000,
+						-1,
+						"video player",
+						"AnimacoesJogaveis/ChasingVideo",
+						"1",
+						"false"
 					]
 				],
 				"bpm": 0,

@@ -2644,7 +2644,7 @@ class PlayState extends MusicBeatState
 			//videoSpr.screenCenter(XY);
 			playingVideoMP4 = true;
 			add(videoSpr);
-			if(muteplayAudio!=null || muteplayAudio!="")
+			if(muteplayAudio=="true")
 				{
 					FlxG.sound.music.volume = 0;
 					vocals.volume = 0;

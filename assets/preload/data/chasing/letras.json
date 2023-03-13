@@ -298,13 +298,6 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						47110,
-						-1,
-						"playchasing",
-						"true",
-						""
-					],
-					[
 						47350.7462686567,
 						-1,
 						"Change Character",
@@ -336,41 +329,6 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
-					[
-						48340,
-						-1,
-						"playchasing",
-						"flash",
-						""
-					],
-					[
-						48670,
-						-1,
-						"playchasing",
-						"flash",
-						""
-					],
-					[
-						49000,
-						-1,
-						"playchasing",
-						"flash",
-						""
-					],
-					[
-						49300,
-						-1,
-						"playchasing",
-						"flash",
-						""
-					],
-					[
-						50200,
-						-1,
-						"playchasing",
-						"flash",
-						""
-					]
 				],
 				"bpm": 0,
 				"changeBPM": false,

@@ -7,13 +7,13 @@ function onCreate()
     --setProperty('stat.alpha', 0);
 	--setScrollFactor('stat', 1, 1);
 
-    makeAnimatedLuaSprite('cutscene', 'cutscenechasing', 0, 0);
+    --[[makeAnimatedLuaSprite('cutscene', 'cutscenechasing', 0, 0);
 	addAnimationByPrefix('cutscene', 'video', 'chasingcutscene', 12, false);
     setObjectCamera('cutscene', 'hud2');
     setGraphicSize('cutscene', screenWidth, screenHeight)
     screenCenter('cutscene', 'xy')
     addLuaSprite('cutscene', true);
-    setProperty('cutscene.visible', false);
+    setProperty('cutscene.visible', false);]]--
 
     if legendas == true then
         if downscroll == true then
@@ -51,7 +51,7 @@ function onCreate()
 end
 
 function onStepHit()
-    if curStep == 392 then
+    if curStep == 394 then
         --playSound('hitStatic2');
         --setProperty('stat.alpha', 1);
         setProperty('fundo.alpha', 0);
@@ -80,8 +80,8 @@ function onEvent(eventName, value1, value2)
             setProperty('bgSkychasing.visible', true)
             triggerEvent('noteskinchangeOPPT', 'NOTE_assets', '');
             triggerEvent('noteskinchangeBF', 'NOTE_assets', 'blood');
-            setProperty('cutscene.visible', false)
-            removeLuaSprite('cutscene', true)
+            --setProperty('cutscene.visible', false)
+            --removeLuaSprite('cutscene', true)
         end
     end             
 end
