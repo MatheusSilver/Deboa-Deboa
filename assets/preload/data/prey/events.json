@@ -18,7 +18,8 @@
 						"eventos-prey",
 						"1",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						170.454545454545,
@@ -26,7 +27,8 @@
 						"noteskinchangeBF",
 						"",
 						"",
-						"apenas para dar preload nesse evento"
+						"apenas para dar preload nesse evento",
+						null
 					]
 				],
 				"bpm": 0,
@@ -38,7 +40,18 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						413034,
+						-1,
+						"video player",
+						"AnimacoesJogaveis/finalprey",
+						"1",
+						"false",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -95,7 +108,8 @@
 						"noteskinchangeOPPT",
 						"NOTE-FURNACEBLU_assetszoom",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -124,7 +138,8 @@
 						"eventos-prey",
 						"128",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -153,7 +168,8 @@
 						"Change Character",
 						"bf",
 						"bf-running-sonic",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -182,7 +198,8 @@
 						"Change Character",
 						"bf",
 						"bf-running-sonic-forward",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -201,7 +218,8 @@
 						"Change Character",
 						"bf",
 						"bf-running-sonic-sweat",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -220,7 +238,8 @@
 						"Play Animation",
 						"singLEFT",
 						"bf",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -239,7 +258,8 @@
 						"Change Character",
 						"bf",
 						"bf-running-sonic",
-						""
+						"",
+						null
 					],
 					[
 						20880.6818181818,
@@ -247,7 +267,8 @@
 						"Change Character",
 						"bf",
 						"bf-running-sonicsquint",
-						""
+						"",
+						null
 					],
 					[
 						20965.9090909091,
@@ -255,7 +276,8 @@
 						"eventos-prey",
 						"246",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -274,7 +296,8 @@
 						"Change Character",
 						"bf",
 						"bf-running-sonic",
-						""
+						"",
+						null
 					],
 					[
 						21903.4090909091,
@@ -282,7 +305,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -331,7 +355,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -380,7 +405,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -429,7 +455,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -478,7 +505,8 @@
 						"eventos-prey",
 						"511",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						43721.5909090909,
@@ -486,7 +514,8 @@
 						"Change Character",
 						"dad",
 						"Furnace-rgb",
-						""
+						"",
+						null
 					],
 					[
 						43806.8181818182,
@@ -494,7 +523,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						43892.0454545454,
@@ -502,7 +532,8 @@
 						"Cam Boom Speed",
 						"1",
 						"1",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -551,7 +582,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -600,7 +632,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -649,7 +682,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -698,7 +732,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -747,7 +782,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -796,7 +832,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -845,7 +882,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -884,7 +922,8 @@
 						"Cinematics",
 						"1",
 						"0.5",
-						""
+						"",
+						null
 					],
 					[
 						87102.2727272727,
@@ -892,7 +931,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.05",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -911,7 +951,8 @@
 						"eventos-prey",
 						"1024",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						87357.9545454545,
@@ -919,7 +960,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -968,7 +1010,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1017,7 +1060,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1066,7 +1110,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1105,7 +1150,8 @@
 						"Cinematics",
 						"2",
 						"0.5",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1124,7 +1170,8 @@
 						"eventos-prey",
 						"1280",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						109176.136363636,
@@ -1132,7 +1179,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1181,7 +1229,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1230,7 +1279,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1279,7 +1329,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1308,7 +1359,8 @@
 						"eventos-prey",
 						"1505",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1327,7 +1379,8 @@
 						"eventos-prey",
 						"1530",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1346,7 +1399,8 @@
 						"eventos-prey",
 						"1542",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						131460.454545455,
@@ -1354,7 +1408,8 @@
 						"Change Character",
 						"dad",
 						"starved-pixel",
-						""
+						"",
+						null
 					],
 					[
 						131761.363636364,
@@ -1362,7 +1417,8 @@
 						"Play Animation",
 						"first dialogue",
 						"bf",
-						""
+						"",
+						null
 					],
 					[
 						131761.363636364,
@@ -1370,7 +1426,8 @@
 						"Play Animation",
 						"dialogue",
 						"dad",
-						""
+						"",
+						null
 					],
 					[
 						132016.818181818,
@@ -1378,7 +1435,8 @@
 						"eventos-prey",
 						"1545",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						131846.590909091,
@@ -1386,7 +1444,8 @@
 						"eventos-prey",
 						"1547",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						130909.090909091,
@@ -1394,7 +1453,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1423,7 +1483,8 @@
 						"eventos-prey",
 						"1570",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1562,7 +1623,8 @@
 						"strum swap1",
 						"",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						152301.136363636,
@@ -1570,7 +1632,8 @@
 						"eventos-prey",
 						"1780",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						152471.590909091,
@@ -1578,7 +1641,8 @@
 						"Change Character",
 						"bf\t\t",
 						"bf-Sonic-Peelout",
-						""
+						"",
+						null
 					],
 					[
 						152642.045454545,
@@ -1586,7 +1650,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.5",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1605,7 +1670,8 @@
 						"eventos-prey",
 						"1781",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						152812.5,
@@ -1613,7 +1679,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1662,7 +1729,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1711,7 +1779,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1760,7 +1829,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1809,7 +1879,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1858,7 +1929,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1907,7 +1979,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -1956,7 +2029,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2005,7 +2079,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2084,7 +2159,8 @@
 						"eventos-prey",
 						"2400",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						207102.272727272,
@@ -2092,7 +2168,8 @@
 						"eventos-prey",
 						"2410",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2111,7 +2188,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						207357.954545454,
@@ -2119,7 +2197,8 @@
 						"eventos-prey",
 						"2432",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2198,7 +2277,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.05",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2217,7 +2297,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						"2560 - inicio do redvg pisca"
+						"2560 - inicio do redvg pisca",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2266,7 +2347,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2315,7 +2397,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2364,7 +2447,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2413,7 +2497,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						"2816 fim do redvg piscante"
+						"2816 fim do redvg piscante",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2462,7 +2547,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2511,7 +2597,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2560,7 +2647,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2609,7 +2697,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						261903.409090908,
@@ -2617,7 +2706,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.5",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2666,7 +2756,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2715,7 +2806,8 @@
 						"Set Cam Zoom",
 						"0.75",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2764,7 +2856,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2813,7 +2906,8 @@
 						"eventos-prey",
 						"3328",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						284232.954545453,
@@ -2821,7 +2915,8 @@
 						"eventos-prey",
 						"3335",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2850,7 +2945,8 @@
 						"eventos-prey",
 						"3364",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						287045.454545453,
@@ -2858,7 +2954,8 @@
 						"eventos-prey",
 						"3367",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2877,7 +2974,8 @@
 						"eventos-prey",
 						"3378",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2896,7 +2994,8 @@
 						"eventos-prey",
 						"3400",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2915,7 +3014,8 @@
 						"eventos-prey",
 						"3420",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						292477.272727272,
@@ -2923,7 +3023,8 @@
 						"strum swap2",
 						"",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						291732.954545453,
@@ -2931,7 +3032,8 @@
 						"Change Character",
 						"bf",
 						"flyingsonic",
-						""
+						"",
+						null
 					],
 					[
 						291647.727272726,
@@ -2939,7 +3041,8 @@
 						"Change Character",
 						"gf",
 						"starved-pixel",
-						""
+						"",
+						null
 					],
 					[
 						291562.499999999,
@@ -2947,7 +3050,8 @@
 						"Change Character",
 						"dad",
 						"furnace-starved",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -2966,7 +3070,8 @@
 						"eventos-prey",
 						"3425",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						291818.181818181,
@@ -2974,7 +3079,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3003,7 +3109,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						294630.681818181,
@@ -3011,7 +3118,8 @@
 						"Cam Boom Speed",
 						"1",
 						"1",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3060,7 +3168,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3109,7 +3218,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3158,7 +3268,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3207,7 +3318,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3256,7 +3368,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3305,7 +3418,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3354,7 +3468,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3403,7 +3518,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3452,7 +3568,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3471,7 +3588,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3490,7 +3608,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3509,7 +3628,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3528,7 +3648,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3617,7 +3738,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3666,7 +3788,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3715,7 +3838,8 @@
 						"Set Cam Zoom",
 						"0.8",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						370994.318181816,
@@ -3723,7 +3847,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.75",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3752,7 +3877,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.5",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3781,7 +3907,8 @@
 						"Set Cam Zoom",
 						"1.0",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						376448.863636362,
@@ -3789,7 +3916,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.25",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3818,7 +3946,8 @@
 						"Cam Boom Speed",
 						"1",
 						"0.05",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3837,7 +3966,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3856,7 +3986,8 @@
 						"eventos-prey",
 						"4480",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						383096.590909089,
@@ -3864,7 +3995,8 @@
 						"Change Character",
 						"gf",
 						"invisibru",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -3883,7 +4015,8 @@
 						"eventos-prey",
 						"4498",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						383552.272727271,
@@ -3891,7 +4024,8 @@
 						"eventos-prey",
 						"4505",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						383181.818181816,
@@ -3899,7 +4033,8 @@
 						"Change Character",
 						"bf",
 						"Sonic Fall",
-						""
+						"",
+						null
 					],
 					[
 						383267.045454544,
@@ -3907,7 +4042,8 @@
 						"Change Character",
 						"dad",
 						"starvedpapinha",
-						""
+						"",
+						null
 					],
 					[
 						383437.499999998,
@@ -3915,7 +4051,8 @@
 						"Set Cam Zoom",
 						"2.0",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -4004,7 +4141,8 @@
 						"Set Cam Zoom",
 						"0.6",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -4083,7 +4221,8 @@
 						"eventos-prey",
 						"4750",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -4112,7 +4251,8 @@
 						"eventos-prey",
 						"4768",
 						"",
-						""
+						"",
+						null
 					],
 					[
 						407556.818181816,
@@ -4120,7 +4260,8 @@
 						"eventos-prey",
 						"4782",
 						"",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -4149,7 +4290,8 @@
 						"Play Animation",
 						"hey",
 						"dad",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -5378,7 +5520,8 @@
 						"Change Character",
 						"bf",
 						"bf-Sonic-Peelout-sus",
-						""
+						"",
+						null
 					]
 				],
 				"bpm": 0,
@@ -5386,12 +5529,15 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "noteSplashesPixelSonic",
 		"validScore": false,
 		"bpm": 176,
-		"arrowSkin": "",
+		"arrowSkin": "NOTE_assetszoom",
 		"needsVoices": false,
+		"startinvisibru": null,
+		"canfollowpermitido": true,
 		"song": "prey",
-		"isRing": null
+		"isRing": null,
+		"videonombre": null
 	}
 }

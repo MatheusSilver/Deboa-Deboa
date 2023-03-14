@@ -6073,6 +6073,7 @@ class PlayState extends MusicBeatState
 			numScore.screenCenter();
 			numScore.x = coolText.x + (43 * daLoop) - 90;
 			numScore.y += 80;
+			
 
 			if (!PlayState.isPixelStage)
 			{
@@ -6090,8 +6091,18 @@ class PlayState extends MusicBeatState
 			numScore.velocity.x = FlxG.random.float(-5, 5);
 			numScore.visible = !ClientPrefs.hideHud;
 
+			var daSongsSemNumScore:Array<String> = ["confronting-yourself", "prey"]; //pras musicas sérias que isso aqui não se encaixaria em nenhum lugar
+			var podeScore:Bool = true;
+
+			for(i in daSongsSemNumScore)
+				{
+					if(curSong.toLowerCase() == daSongsSemNumScore[i])
+						{
+							podeScore=false;
+						}
+				}
 			if (combo >= 10 || combo == 0)
-				if(curSong.toLowerCase() != "confronting-yourself")
+				if(podeScore)
 					{
 						add(numScore);
 					}
