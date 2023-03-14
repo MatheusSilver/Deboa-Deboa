@@ -56,9 +56,9 @@ class MainMenuStateMobile extends MusicBeatState
 	var canClick:Bool = false;
 	public static var newVersion:Bool = false;
 	var gameJoltIcon:FlxSprite;
-	public static var changelogString:String = 'V0.9.5\nIsso é apenas um\nteste pra ver\nse isso funciona\nmesmo.\nSerá que deu\ncerto????\nass:dav';
 
-	public static var version:String = '0.9.5';
+	public static var version:String = '0.9.6';
+	public static var changelogString:String = 'V'+version+'\nIsso é apenas um\nteste pra ver\nse isso funciona\nmesmo.\nSerá que deu\ncerto????\nass:dav';
 
 	override function create()
 	{

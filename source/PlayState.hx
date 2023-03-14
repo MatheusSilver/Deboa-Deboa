@@ -6973,7 +6973,7 @@ class PlayState extends MusicBeatState
 									{
 										var sayuri:FlxSprite = new FlxSprite();
 										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
-										sayuri.cameras = [camHUD2];
+										sayuri.cameras = [camLegenda];
 										sayuri.x=-421;
 										sayuri.y=107;
 										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
@@ -6989,7 +6989,7 @@ class PlayState extends MusicBeatState
 									{
 										var sayuri:FlxSprite = new FlxSprite();
 										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
-										sayuri.cameras = [camHUD2];
+										sayuri.cameras = [camLegenda];
 										sayuri.x=-421;
 										sayuri.y=450;
 										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
@@ -7006,7 +7006,7 @@ class PlayState extends MusicBeatState
 									{
 										var blutufie:FlxSprite = new FlxSprite();
 										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
-										blutufie.cameras = [camHUD2];
+										blutufie.cameras = [camLegenda];
 										blutufie.x=1280;
 										blutufie.y=72;
 										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
@@ -7022,7 +7022,7 @@ class PlayState extends MusicBeatState
 									{
 										var blutufie:FlxSprite = new FlxSprite();
 										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
-										blutufie.cameras = [camHUD2];
+										blutufie.cameras = [camLegenda];
 										blutufie.x=1280;
 										blutufie.y=421;
 										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
@@ -7039,7 +7039,7 @@ class PlayState extends MusicBeatState
 									{
 										var brunito:FlxSprite = new FlxSprite();
 										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
-										brunito.cameras = [camHUD2];
+										brunito.cameras = [camLegenda];
 										brunito.x=-421;
 										brunito.y=107;
 										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
@@ -7055,7 +7055,7 @@ class PlayState extends MusicBeatState
 									{
 										var brunito:FlxSprite = new FlxSprite();
 										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
-										brunito.cameras = [camHUD2];
+										brunito.cameras = [camLegenda];
 										brunito.x=-421;
 										brunito.y=450;
 										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});

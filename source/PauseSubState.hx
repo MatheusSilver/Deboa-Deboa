@@ -188,6 +188,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble")
 			{
+				jumpsTimer.cancel();
 				jumpsTimer.start(200, function(tmr:FlxTimer){
 					if(podeJumpscare)
 						{
@@ -355,12 +356,14 @@ class PauseSubState extends MusicBeatSubstate
 						startCountdownback();
 					}
 				});
+				jumpsTimer.cancel();
 				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
 	}
 	var loops:Int;
 	function startCountdownback()
 		{
 
+			jumpsTimer.cancel();
 			loops=0;
 					new FlxTimer().start(0.35, function(tmr:FlxTimer){
 						loops++;
