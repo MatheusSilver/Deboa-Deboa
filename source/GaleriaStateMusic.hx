@@ -337,10 +337,12 @@ class GaleriaStateMusic extends MusicBeatState
 			//HAHAHAHAHAHH ADEUS YOUTUBE MUSIC, AGORA O ELON MOSKA COMPRARÁ VOCÊ E TRANSFORMARÁ EM
 			//High Space Musical X NYEHEHEHHEHEHGEHEHYEHEHEHEHEHEHEHEHEH
 
+			//NAAAO HIGH SPACE MUSICAL X NAAAAO CORRAM TODOS
+
 			curSelected = direction;
 			FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[direction].toLowerCase()), 0);
 			menutoca=false;
-			FlxG.sound.music.fadeIn(4, 0, 0.7);
+			FlxG.sound.music.fadeIn(4, 0, 0.85);
 			songLength = FlxG.sound.music.length + 1000; //Um segundo cheio sendo adicionado aqui pois achei que o player de musicas do haxe tivesse o mesmo erro que o player do meu PC que add um sec a mais sempre
 			FlxG.sound.music.onComplete = playlistChecker;
 			thumbnail.loadGraphic(Paths.image("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)", 'preload'));
@@ -363,7 +365,7 @@ class GaleriaStateMusic extends MusicBeatState
 				}else if(!loopar){
 					FlxG.sound.playMusic(Paths.music('newmenu'), 0.7);
 					menutoca=true;
-					FlxG.sound.music.fadeIn(4, 0, 0.7);
+					FlxG.sound.music.fadeIn(4, 0, 0.85);
 					pausado = true;
 					songPercent = 0;
 					timer.text = '0:00' + '/' + FlxStringUtil.formatTime(Math.floor(songLength/1000), false);
@@ -506,7 +508,7 @@ class GaleriaStateMusic extends MusicBeatState
 						FlxG.sound.music.fadeOut(1, 0);
 						FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[curSelected].toLowerCase()),0);
 						menutoca=false;
-						FlxG.sound.music.fadeIn(4, 0, 0.7);					
+						FlxG.sound.music.fadeIn(4, 0, 0.85);					
 					} else{
 						FlxG.sound.music.resume();
 					}

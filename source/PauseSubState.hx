@@ -62,6 +62,10 @@ class PauseSubState extends MusicBeatSubstate
 
 	var lugarTelaX:Int;
 	var lugarTelaY:Int;
+	var aaa:Bool = true;
+	var originalZoom:Float;
+	var originalZoomHUD:Float;
+	var originalZoomHUD2:Float;
 	//var playState:PlayState;
 	
 	public static var pauseMusicName:String = 'breakfast';
@@ -90,7 +94,9 @@ class PauseSubState extends MusicBeatSubstate
 		preto = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		preto.alpha=0;
 		add(preto);
-
+		originalZoom = PlayState.instance.camGame.zoom;
+		originalZoomHUD = PlayState.instance.camHUD.zoom;
+		originalZoomHUD2 = PlayState.instance.camHUD2.zoom;
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music(pauseMusicName), true, true);
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
@@ -151,6 +157,9 @@ class PauseSubState extends MusicBeatSubstate
 		add(linhabaixo);
 		add(perfil);
 		add(exe);
+		FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom+0.1}, 0.6, {ease: FlxEase.quartInOut});
+		FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD+0.1}, 0.6, {ease: FlxEase.quartInOut});
+		//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2+0.1}, 0.6, {ease: FlxEase.quartInOut});
 
 		FlxTween.tween(continuar, {x: -128}, 0.3, {ease: FlxEase.quartInOut});
 		FlxTween.tween(praticar, {x: -128}, 0.4, {ease: FlxEase.quartInOut});
@@ -188,6 +197,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble")
 			{
+				aaa = false;
 				jumpsTimer.cancel();
 				jumpsTimer.start(200, function(tmr:FlxTimer){
 					if(podeJumpscare)
@@ -351,6 +361,9 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(linhabaixo, {y: FlxG.height}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(preto, {alpha: 0}, 0.8, {ease: FlxEase.quartInOut});
+				FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom}, 0.6, {ease: FlxEase.quartInOut});
+				FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD}, 0.6, {ease: FlxEase.quartInOut});
+				//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2}, 0.6, {ease: FlxEase.quartInOut});
 				FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
 					{
 						startCountdownback();
@@ -463,20 +476,24 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function jumpscareExecute():Void
 		{
-			trace('haha troxa');
-			inJumpscare=true;
-			FlxG.sound.volume = 1;
-			jumpscare = new FlxSprite(0,0);
-			jumpscare.loadGraphic(Paths.image('Tails', 'preload'));
-			jumpscare.setGraphicSize(Std.int(FlxG.width));
-			jumpscare.screenCenter(XY);
-			FlxG.sound.play(Paths.sound('TailsScreamLOL'), 1);
-			Lib.current.stage.window.focus();
-			PlayState.instance.startachieving('pause_jumpscare');
-			new FlxTimer().start(2.5, function(tmr:FlxTimer){
-				Lib.current.stage.window.close();
-			});
-			add(jumpscare);
+			if(podeJumpscare && !aaa)
+				{
+					trace('haha troxa');
+					inJumpscare=true;
+					FlxG.sound.volume = 1;
+					jumpscare = new FlxSprite(0,0);
+					jumpscare.loadGraphic(Paths.image('Tails', 'preload'));
+					jumpscare.setGraphicSize(Std.int(FlxG.width));
+					jumpscare.screenCenter(XY);
+					FlxG.sound.play(Paths.sound('TailsScreamLOL'), 1);
+					Lib.current.stage.window.focus();
+					PlayState.instance.startachieving('pause_jumpscare');
+					new FlxTimer().start(2.5, function(tmr:FlxTimer){
+						Lib.current.stage.window.close();
+					});
+					aaa = true;
+					add(jumpscare);
+				}
 		}
 
 		function shakeWindow():Void
@@ -502,6 +519,8 @@ class PauseSubState extends MusicBeatSubstate
 	override function destroy()
 	{
 		pauseMusic.destroy();
+		podeJumpscare = false;
+		aaa = true;
 		//FunkinLua.removeShaderFromCamera('game', new GreyscaleEffect());
 		super.destroy();
 	}
