@@ -3469,6 +3469,12 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+		if (!isDead)
+		{
+			persistentUpdate = !paused;
+			persistentDraw = true;
+		}
+
 		super.onFocus();
 	}
 	
@@ -3481,12 +3487,18 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+		if (ClientPrefs.pausarauto && !isDead)
+		{
+			persistentUpdate = false;
+			persistentDraw = true;
+		}
+
 		if (paused)
 			return;
 
-		if(ClientPrefs.pausarauto)
+		if(ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused)
 			{
-				new flixel.util.FlxTimer().start(0.2, function(tmr:flixel.util.FlxTimer) {
+				new flixel.util.FlxTimer().start(0.1, function(tmr:flixel.util.FlxTimer) {
 					openPauseMenu(); //Fix jumpscare da triple bolo
 				});
 			}
