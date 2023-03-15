@@ -204,20 +204,20 @@ function onTimerCompleted(tag)
     if tag == 'desacelera1' then
         comunicador = 3
         runTimer('desacelera2', 0.5)
-		triggerEvent('Set Cam Zoom','0.9','')
-		triggerEvent('Camera Follow Pos',camPosBFX+80,camPosBFY)
-		setProperty('knuxerabos.y', getCharacterY('boyfriend')+300)
-		setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
+	triggerEvent('CamZoomTween','0.9','0.3')
+	triggerEvent('Camera Follow Pos',camPosBFX+120,camPosBFY)
+	setProperty('knuxerabos.y', getCharacterY('boyfriend')+300)
+	setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
     end
     if tag == 'desacelera2' then
         comunicador = 5
         runTimer('desacelera3', 0.5)
-		doTweenX('tchausonicoDUMALhuauahauahuah', 'dad', getCharacterX('dad')-800, 2.5, 'cubeout')
+	doTweenX('tchausonicoDUMALhuauahauahuah', 'dad', getCharacterX('dad')-900, 2.5, 'cubeout')
     end
     if tag == 'desacelera3' then
         comunicador = 7
         runTimer('desacelera4', 3.4)
-        doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+730, 3.5, 'cubein')
+        doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+730, 2.5, 'cubein')
     end
     if tag == 'desacelera4' then
         comunicador = 10
