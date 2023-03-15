@@ -371,7 +371,7 @@ class MainMenuStateMobile extends MusicBeatState
 			switch (daChoice)
 			{
 				case 'historia':
-					MusicBeatState.switchState(new MenuPreHistoria());
+					MusicBeatState.switchState(new EstadoDeLimpeza()); //Só pra garantir né???
 				case 'freeplay':
 					MusicBeatState.switchState(new FreeplayState());
 				case 'conquistas':
