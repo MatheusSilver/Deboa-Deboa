@@ -6096,7 +6096,7 @@ class PlayState extends MusicBeatState
 
 			for(i in daSongsSemNumScore)
 				{
-					if(curSong.toLowerCase() == daSongsSemNumScore[i])
+					if(curSong.toLowerCase() == i)
 						{
 							podeScore=false;
 						}
