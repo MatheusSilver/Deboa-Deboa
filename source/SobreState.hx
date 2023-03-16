@@ -26,7 +26,7 @@ class SobreState extends MusicBeatState
 	var vio:FlxButton;
 	var dav:FlxButton;
 	var arrow:FlxButton;
-	var curSection:Int=0;
+	static var curSection:Int=0;
 	
 	override function create()
 		{
