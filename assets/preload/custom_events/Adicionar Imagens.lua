@@ -9,7 +9,7 @@ function propriedadescomuns(var)
 end
 
 function onEvent(name, value1, value2, value3, value4)
-    if getPropertyFromGroup('playerStrums.strumScroll', true) then
+    if getProperty('playerStrums.strumScroll', true) then
         pos = -350
     else
         pos = 0
