@@ -62,7 +62,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	var lugarTelaX:Int;
 	var lugarTelaY:Int;
-	var aaa:Bool = true;
+	public static var aaa:Bool = true;
 	var originalZoom:Float;
 	var originalZoomHUD:Float;
 	var originalZoomHUD2:Float;
