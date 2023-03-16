@@ -9,9 +9,11 @@ function propriedadescomuns(var)
 end
 
 function onEvent(name, value1, value2, value3, value4)
-    if downscroll then
+    if getPropertyFromGroup('playerStrums.strumScroll', true) then
         pos = -350
-    end
+    else
+        pos = 0
+    end -- Usado exclusivamente na noite da broderagem
     if name == 'Adicionar Imagens' and legendas == true then
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
