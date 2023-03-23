@@ -3519,7 +3519,7 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.pause();
 				vocals.pause();
 			}
-			PauseSubState.transCamera = camOther;
+			PauseSubState.transCamera = camHUD2;
 			pauseSound.play();
 			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 	
@@ -3879,7 +3879,7 @@ class PlayState extends MusicBeatState
 			persistentUpdate = false;
 			paused = true;
 			cancelFadeTween();
-			CustomFadeTransition.nextCamera = camOther;
+			CustomFadeTransition.nextCamera = camHUD2;
 			MusicBeatState.switchState(new ChartingState());
 
 
@@ -5737,7 +5737,7 @@ class PlayState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 
 					cancelFadeTween();
-					CustomFadeTransition.nextCamera = camOther;
+					CustomFadeTransition.nextCamera = camHUD2;
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
@@ -5798,7 +5798,7 @@ class PlayState extends MusicBeatState
 				if (curSong != 'green-hills' || Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])){
 					trace('WENT BACK TO FREEPLAY??');
 					cancelFadeTween();
-					CustomFadeTransition.nextCamera = camOther;
+					CustomFadeTransition.nextCamera = camHUD2;
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
