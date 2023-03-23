@@ -569,7 +569,7 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		CustomFadeTransition.nextCamera = camOther;
+		CustomFadeTransition.nextCamera = camHUD2;
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -721,18 +721,18 @@ class PlayState extends MusicBeatState
 				p2Sky.scale.y = 0.8;
 				add(p2Sky);
 
-				p2Ground = new BGSprite('cenarios/ground', -425, -100, 1.1, 1.1);
+				p2Ground = new BGSprite('cenarios/ground', -425, -100, 1, 1);
 				p2Ground.scale.x = 1;
 				p2Ground.scale.y = 1;
 				add(p2Ground);
 				
 
-				p2greenhill = new BGSprite('cenarios/GreenHill', 180, 350, 1, 0.9);
+				p2greenhill = new BGSprite('cenarios/GreenHill', 215, 350, 1, 1);
 				p2greenhill.setGraphicSize(Std.int(p2greenhill.width * 6)); //yeah yeah, matematics
 				p2greenhill.scale.x = 8;
 				p2greenhill.visible = false;
 				p2greenhill.antialiasing = false;
-				p2greenhill.scrollFactor.set(1.1, 1.1);
+				p2greenhill.scrollFactor.set(1, 1);
 				add(p2greenhill);
 
 				case 'console':

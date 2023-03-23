@@ -157,8 +157,8 @@ class PauseSubState extends MusicBeatSubstate
 		add(linhabaixo);
 		add(perfil);
 		add(exe);
-		FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom+0.05}, 0.6, {ease: FlxEase.quartInOut});
-		FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD+0.05}, 0.7, {ease: FlxEase.quartInOut});
+		FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom+0.05}, 0.35, {ease: FlxEase.quartInOut});
+		FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD+0.05}, 0.45, {ease: FlxEase.quartInOut});
 		//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2+0.1}, 0.6, {ease: FlxEase.quartInOut});
 
 		FlxTween.tween(continuar, {x: -128}, 0.3, {ease: FlxEase.quartInOut});
@@ -361,8 +361,8 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(linhabaixo, {y: FlxG.height}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(preto, {alpha: 0}, 0.8, {ease: FlxEase.quartInOut});
-				FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom}, 0.6, {ease: FlxEase.quartInOut});
-				FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD}, 0.7, {ease: FlxEase.quartInOut});
+				FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom}, 0.35, {ease: FlxEase.quartInOut});
+				FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD}, 0.45, {ease: FlxEase.quartInOut});
 				//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2}, 0.6, {ease: FlxEase.quartInOut});
 				FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
 					{
@@ -476,7 +476,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function jumpscareExecute():Void
 		{
-			if(podeJumpscare && !aaa)
+			if(podeJumpscare && !aaa && PlayState.instance.paused)
 				{
 					trace('haha troxa');
 					inJumpscare=true;
