@@ -434,7 +434,7 @@ class PlayState extends MusicBeatState
 	public static var canuseevents:Bool = true;
 	public static var canRegen:Bool = true;
 	public static var loadingImage:String;
-	
+	var isexe:Bool = true;
 	var cNum:Int = 0;
 
 
@@ -6406,6 +6406,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
+
 	}
 
 	/*
@@ -6455,9 +6456,18 @@ class PlayState extends MusicBeatState
 			vocals.volume = 0;
 		}
 	}*/
-
 	function opponentNoteHit(note:Note):Void
 		{
+			if (Paths.formatToSongPath(SONG.song) == 'triple-trouble')
+				{
+					if(isexe)
+						{
+							if(health > 0.05)
+								{
+									health = health-0.035;
+								}
+						}
+				}
 			if (Paths.formatToSongPath(SONG.song) != 'tutorial')
 				camZooming = true;
 
@@ -6963,6 +6973,11 @@ class PlayState extends MusicBeatState
 		{
 			resyncVocals();
 		}
+
+		if(curSong == "triple-trouble")
+			{
+				isexe =	curStep > 1040 && curStep < 1295 || curStep > 2320 && curStep < 2831 || curStep > 4112 && curStep < 5220;
+			}
 
 		if(curStep == lastStepHit) {
 			return;
