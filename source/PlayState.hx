@@ -6356,11 +6356,11 @@ class PlayState extends MusicBeatState
 		}
 
 		if(canRegen){
-			if(isRing && cNum <= 0)
+			if(isRing && cNum <= 0 && daNote.noteData!=2)
 				{
 					health -= daNote.missHealth;
 				}
-			else if(isRing && cNum > 0)
+			else if(isRing && cNum > 0 && daNote.noteData!=2)
 				{
 					cNum--;
 				}
@@ -7024,7 +7024,7 @@ class PlayState extends MusicBeatState
 										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
 										sayuri.cameras = [camLegenda];
 										sayuri.x=-421;
-										sayuri.y=107;
+										sayuri.y=450;
 										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
 										FlxTween.tween(sayuri, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
 										sayuri.antialiasing = ClientPrefs.globalAntialiasing;
@@ -7040,7 +7040,7 @@ class PlayState extends MusicBeatState
 										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
 										sayuri.cameras = [camLegenda];
 										sayuri.x=-421;
-										sayuri.y=450;
+										sayuri.y=107;
 										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
 										FlxTween.tween(sayuri, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
 										sayuri.antialiasing = ClientPrefs.globalAntialiasing;
@@ -7057,7 +7057,7 @@ class PlayState extends MusicBeatState
 										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
 										blutufie.cameras = [camLegenda];
 										blutufie.x=1280;
-										blutufie.y=72;
+										blutufie.y=421;
 										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
 										FlxTween.tween(blutufie, {x: 1280}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
 										blutufie.antialiasing = ClientPrefs.globalAntialiasing;
@@ -7073,7 +7073,7 @@ class PlayState extends MusicBeatState
 										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
 										blutufie.cameras = [camLegenda];
 										blutufie.x=1280;
-										blutufie.y=421;
+										blutufie.y=72;
 										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
 										FlxTween.tween(blutufie, {x: 1280}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
 										blutufie.antialiasing = ClientPrefs.globalAntialiasing;
@@ -7090,7 +7090,7 @@ class PlayState extends MusicBeatState
 										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
 										brunito.cameras = [camLegenda];
 										brunito.x=-421;
-										brunito.y=107;
+										brunito.y=450;
 										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
 										FlxTween.tween(brunito, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
 										brunito.antialiasing = ClientPrefs.globalAntialiasing;
@@ -7106,7 +7106,7 @@ class PlayState extends MusicBeatState
 										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
 										brunito.cameras = [camLegenda];
 										brunito.x=-421;
-										brunito.y=450;
+										brunito.y=107;
 										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
 										FlxTween.tween(brunito, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
 										brunito.antialiasing = ClientPrefs.globalAntialiasing;

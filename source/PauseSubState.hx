@@ -199,7 +199,7 @@ class PauseSubState extends MusicBeatSubstate
 			{
 				aaa = false;
 				jumpsTimer.cancel();
-				jumpsTimer.start(200, function(tmr:FlxTimer){
+				jumpsTimer.start(650, function(tmr:FlxTimer){
 					if(podeJumpscare)
 						{
 							jumpscareExecute();
@@ -375,7 +375,7 @@ class PauseSubState extends MusicBeatSubstate
 	var loops:Int;
 	function startCountdownback()
 		{
-
+			jumpsTimer.start(10000000000000);
 			jumpsTimer.cancel();
 			loops=0;
 					new FlxTimer().start(0.35, function(tmr:FlxTimer){
