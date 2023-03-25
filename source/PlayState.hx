@@ -6356,7 +6356,18 @@ class PlayState extends MusicBeatState
 		}
 
 		if(canRegen){
-		health -= daNote.missHealth; //For testing purposes
+			if(isRing && cNum <= 0)
+				{
+					health -= daNote.missHealth;
+				}
+			else if(isRing && cNum > 0)
+				{
+					cNum--;
+				}
+			else if(!isRing)
+				{
+					health -= daNote.missHealth;
+				}
 		}//trace(daNote.missHealth);
 		songMisses++;
 		vocals.volume = 0;
