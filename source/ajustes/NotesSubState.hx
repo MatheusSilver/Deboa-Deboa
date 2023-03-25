@@ -60,7 +60,7 @@ class NotesSubState extends MusicBeatState
 		for (i in 0...ClientPrefs.arrowHSV.length) {
 			var yPos:Float = (165 * i) + 35;
 			for (j in 0...3) {
-				var optionText:Alphabet = new Alphabet(0, yPos, Std.string(ClientPrefs.arrowHSV[i][j]), false, false, 0.5, 1, 'branco');
+				var optionText:Alphabet = new Alphabet(0, yPos, Std.string(ClientPrefs.arrowHSV[i][j]), false, false, 0.5, 1);
 				optionText.x = posX + (225 * j) + 100 - ((optionText.lettersArray.length * 90) / 2);
 				grpNumbers.add(optionText);
 			}
@@ -216,12 +216,17 @@ class NotesSubState extends MusicBeatState
 				
 			}
 			*/
-			FlxG.switchState(new ajustes.AjustesState());
-			ClientPrefs.saveSettings();
+			if(!changingNote) {
+				FlxG.switchState(new ajustes.AjustesState());
+				ClientPrefs.saveSettings();
+			} else {
+				changeSelection();
+			}
 			changingNote = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
+		
 		if(nextAccept > 0) {
 			nextAccept -= 1;
 		}
@@ -248,10 +253,10 @@ class NotesSubState extends MusicBeatState
 		for (i in 0...grpNotes.length) {
 			var item = grpNotes.members[i];
 			item.alpha = 0.6;
-			item.scale.set(1, 1);
+			item.scale.set(0.75, 0.75);
 			if (curSelected == i) {
 				item.alpha = 1;
-				item.scale.set(1.2, 1.2);
+				item.scale.set(1, 1);
 				hsvText.setPosition(item.x + hsvTextOffsets[0], item.y - hsvTextOffsets[1]);
 			}
 		}

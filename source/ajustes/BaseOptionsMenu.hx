@@ -380,7 +380,7 @@ class BaseOptionsMenu extends MusicBeatState
 			case 'Baixa Qualidade':
 				daText = "Se marcado, retira elementos do cenário.\n(Desative isso caso a música que esteja jogando, trave demais.)";
 			case 'Anti-Aliasing':
-				daText = "Se marcado, desativa o AntiAliasing do jogo, deixando sprites com menos polimento.\n(Aumenta MUITA performance)";
+				daText = "Se desmarcado, desativa o anti-aliasing do jogo \n(Aumenta MUITO a performance)";
 			case 'Carregar rápido':
 				daText = "Se marcado, a engine passará a usar\n um sistema alternativo para carregar os assets \n talvez mais rápido que o original dependendo da sua máquina.";	
 			case 'Downscroll':

@@ -1848,7 +1848,7 @@ class PlayState extends MusicBeatState
 			strumLineNotes.cameras = [camHUD];
 			grpNoteSplashes.cameras = [camHUD];
 			notes.cameras = [camHUD];		
-			botplayTxt.cameras = [camHUD];
+			botplayTxt.cameras = [camHUD2];
 		} else{
 			strumLineNotes.cameras = [camHUD2];
 			grpNoteSplashes.cameras = [camHUD2];
