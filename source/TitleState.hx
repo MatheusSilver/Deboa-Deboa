@@ -390,9 +390,9 @@ class TitleState extends MusicBeatState
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					if (mustUpdate)
-						MusicBeatState.switchState(new OutdatedState());
+						MusicBeatState.switchState(new MainMenuStateMobile());
 					else if (FlxG.save.data.firstTime == null)
-						MusicBeatState.switchState(new PreMainMenuState());
+						MusicBeatState.switchState(new MainMenuStateMobile()); // aquele state la quebraria o clima da abertura k
 					else 
 						MusicBeatState.switchState(new MainMenuStateMobile());
 					closedState = true;
@@ -507,10 +507,9 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1: //Checar aqui depois
-					createCoolText(['Psych Engine por'], 45);
+					createCoolText(['Time da Vio'], 45);
 				case 3:
-					addMoreText('Shadow Mario', 45);
-					addMoreText('RiverOaken', 45);
+					addMoreText('Apresenta', 45);
 				case 4:
 					deleteCoolText();
 				case 5:
@@ -526,11 +525,10 @@ class TitleState extends MusicBeatState
 				case 12:
 					deleteCoolText();
 				case 13:
-					
+					addMoreText('FNF');
 				case 14:
-					//addMoreText('FNF');
+					addMoreText('ModBoa');
 				case 15:
-					//addMoreText('ModBoa');
 					skipIntro();
 				case 16:
 					skipIntro();
