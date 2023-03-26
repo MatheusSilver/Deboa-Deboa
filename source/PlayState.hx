@@ -6475,7 +6475,7 @@ class PlayState extends MusicBeatState
 						{
 							if(health > 0.05)
 								{
-									health = health-0.035;
+									health = health-0.04;
 								}
 						}
 				}
@@ -6572,6 +6572,20 @@ class PlayState extends MusicBeatState
 
 	function goodNoteHit(note:Note):Void
 	{
+		switch(note.noteType) {
+			case 'Phantom Note':
+				health = health-0.3;
+				if(boyfriend.animation.getByName('hurt') != null) {
+					boyfriend.playAnim('hurt', true);
+					boyfriend.specialAnim = true;
+				}
+			case 'Phantom Note TP':
+				health = health-0.3;
+				if(boyfriend.animation.getByName('hurt') != null) {
+					boyfriend.playAnim('hurt', true);
+					boyfriend.specialAnim = true;
+				}
+		}
 		if (!note.wasGoodHit)
 		{
 			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
@@ -6627,7 +6641,7 @@ class PlayState extends MusicBeatState
 						}
 					cccVidaCounter++;
 					}
-				}
+			}
 
 			if (!note.isSustainNote && ((isRing && note.noteData != 2) || !isRing))
 			{
