@@ -118,7 +118,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 			updateOptions();
 		}
 		if(controls.BACK) { //ok
-			//FlxG.sound.play(Paths.sound('cancelMenu'), 1);
+			FlxG.sound.play(Paths.sound('negado'), 1);
 			//FlxG.switchState(FlxG.state);
 			//paracomessapohameno = false; //Real tenho minhas duvidas se deveria deixar essa brecha...
 			//Note for future self, quando voltar a mexer na CCC, remover a possibilidade de voltar ao menu.

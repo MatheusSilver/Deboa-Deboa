@@ -4028,7 +4028,7 @@ class PlayState extends MusicBeatState
 			// Conductor.lastSongPos = FlxG.sound.music.time;
 		}
 
-		if (camZooming)
+		if (camZooming && curSong.toLowerCase() != "cross-console-clash")
 		{
 			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
@@ -6479,7 +6479,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				}
-			if (Paths.formatToSongPath(SONG.song) != 'tutorial')
+			if (Paths.formatToSongPath(SONG.song) != 'tutorial' && curSong.toLowerCase() != "cross-console-clash")
 				camZooming = true;
 
 			if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
@@ -6895,7 +6895,7 @@ class PlayState extends MusicBeatState
 			gf.playAnim('scared', true);
 		}
 
-		if(ClientPrefs.camZooms) {
+		if(ClientPrefs.camZooms && curSong.toLowerCase() != "cross-console-clash") {
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
 
@@ -7255,7 +7255,7 @@ class PlayState extends MusicBeatState
 		{
 			moveCameraSection(Std.int(curStep / 16));
 		}
-		if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && curBeat % 4 == 0)
+		if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms && curBeat % 4 == 0 && curSong.toLowerCase() != "cross-console-clash")
 		{
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
