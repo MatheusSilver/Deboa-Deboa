@@ -140,7 +140,7 @@ class MainMenuStateMobile extends MusicBeatState
 			botoes.alpha = 0.75;
 			botoes.ID = i;
 			botoes.screenCenter(Y);
-			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-100;
+			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-97.5;
 			menuItems.add(botoes);
 			botoes.antialiasing = ClientPrefs.globalAntialiasing;
 			botoes.updateHitbox();
