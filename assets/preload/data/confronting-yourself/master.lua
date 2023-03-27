@@ -48,6 +48,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			removeLuaSprite(phase2cheetos[i])
 		end
 		for i = 1,#phase3cheetosvilao do
+			cameraSetTarget('bf');
 			setProperty(phase3cheetosvilao[i]..'.visible', true)
 		end
 	elseif curPhase == 4 then

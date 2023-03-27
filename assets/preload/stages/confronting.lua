@@ -97,8 +97,8 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	makeLuaSprite('vilaophase3-1','cenarios/phase3/vilao/1',-335,315)--5
 	setLuaSpriteScrollFactor('vilaophase3-1',0.6,1)
-	setProperty('vilaophase3-1.scale.x', 1.45)
-	setProperty('vilaophase3-1.scale.y', 1.4)
+	setProperty('vilaophase3-1.scale.x', 1.5)
+	setProperty('vilaophase3-1.scale.y', 1.45)
 	setProperty('vilaophase3-1.visible', false)
 	addLuaSprite('vilaophase3-1',true)
 
@@ -120,8 +120,8 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	makeLuaSprite('heroiphase3-1','cenarios/phase3/heroi/1',-335,315)--5
 	setLuaSpriteScrollFactor('heroiphase3-1',0.6,1)
-	setProperty('heroiphase3-1.scale.x', 1.45)
-	setProperty('heroiphase3-1.scale.y', 1.4)
+	setProperty('heroiphase3-1.scale.x', 1.5)
+	setProperty('heroiphase3-1.scale.y', 1.45)
 	setProperty('heroiphase3-1.visible', false)
 	addLuaSprite('heroiphase3-1',true)
 

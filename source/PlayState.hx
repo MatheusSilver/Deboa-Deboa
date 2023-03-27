@@ -1848,7 +1848,7 @@ class PlayState extends MusicBeatState
 			strumLineNotes.cameras = [camHUD];
 			grpNoteSplashes.cameras = [camHUD];
 			notes.cameras = [camHUD];		
-			botplayTxt.cameras = [camHUD2];
+			botplayTxt.cameras = [camHUD];
 		} else{
 			strumLineNotes.cameras = [camHUD2];
 			grpNoteSplashes.cameras = [camHUD2];
@@ -3855,7 +3855,7 @@ class PlayState extends MusicBeatState
 			botplaySine += 180 * elapsed;
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
-		botplayTxt.visible = cpuControlled;
+		botplayTxt.visible = cpuControlled && !playingVideoMP4;
 
 		if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 			{
