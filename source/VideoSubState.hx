@@ -1,5 +1,7 @@
 package;
 
+//	Isso foi feito para ser usado naqueles vídeos que não nescessariamente trocam de state (cutscene da gf corrompida, monika codin, etc...)
+
 #if mobile
 import extension.webview.WebView;
 import flixel.FlxG;
@@ -12,6 +14,7 @@ class VideoSubState extends MusicBeatSubstate
 	public static var androidPath:String = 'file:///android_asset/';
 
 	var text:FlxText;
+	var changecount = 0;
 
 	public function new(source:String)
 	{
@@ -32,7 +35,7 @@ class VideoSubState extends MusicBeatSubstate
 
 	public override function update(dt:Float)
 	{
-		if (BSLTouchUtils.justTouched())
+		if (BSLTouchUtils.justTouched() || FlxG.android.justReleased.BACK)
 			onClose();
 
 		super.update(dt);
@@ -41,6 +44,7 @@ class VideoSubState extends MusicBeatSubstate
 	function onClose()
 	{ // not working
 		text.alpha = 0;
+		changecount = 0;
 		// FlxG.autoPause = true;
 		trace('aqui cabo!'); //==11x3 Fnatic :skull:
 		close();
@@ -48,8 +52,12 @@ class VideoSubState extends MusicBeatSubstate
 
 	function onURLChanging(url:String)
 	{
+		if (changecount == 2)
+			onClose();
+		else
+			changecount++;
 		text.alpha = 1;
-		if (url == 'http://exitme/')
+		if (url == 'http://exitme(.*)') //Não tenho certeza sobre isso tambem, mas deve fazer com que o player de vídeo feche sozinho.
 			onClose(); // drity hack lol
 		trace("WebView is about to open: " + url);
 	}

@@ -1,4 +1,4 @@
-package; //Rosbado do port de Doki Doki (Basicamente pra me lembrar de ajustar algumas coisas mobile specific depois
+package;
 
 import flixel.FlxSprite;
 import flixel.FlxBasic;
@@ -6,10 +6,11 @@ import flixel.FlxG;
 
 class BSLTouchUtils
 {
-	public static var prevTouched:Int = -100;
+	public static var prevTouched:Int = -1;
 
 	public static function justTouched():Bool //Copiado do Hsys k
 	{
+		#if (flixel && android)
 		var justTouched:Bool = false;
 
 		for (touch in FlxG.touches.list)
@@ -18,24 +19,103 @@ class BSLTouchUtils
 				justTouched = true;
 		}
 
-		#if (flixel && android)
 		return justTouched;
 		#else
-		return false;
+		return FlxG.mouse.justPressed; //Isso aqui é mais válido pro modboa mas né?
 		#end
 	}
 
-	public static function aperta(coisas:FlxSprite, coisasID:Int):String 
+	public static function aperta(coisas:Dynamic, coisasID:Int):String //Esse code foi feito só pq em outro projeto, eu usei um padrãozinho deste várias vezes e fiquei com preguiça de fazer isso de novo
     {
         var leToqueOrdem:String = '';
+	    #if desktop
 		if (FlxG.mouse.overlaps(coisas) && FlxG.mouse.justPressed && prevTouched == coisasID){
             leToqueOrdem = 'segundo';
 		}else if (FlxG.mouse.overlaps(coisas) && FlxG.mouse.justPressed){
 			prevTouched = coisasID;
 			leToqueOrdem = 'primeiro';
         }
+	    #elseif mobile
+		for (touch in FlxG.touches.list){
+			if (touch.overlaps(coisas) && touch.justPressed && prevTouched == coisasID)
+            	leToqueOrdem = 'segundo';
+			else if (touch.overlaps(coisas) && touch.justPressed){
+				prevTouched = coisasID;
+				leToqueOrdem = 'primeiro';
+        	}    
+		}
+	    #end
 		return leToqueOrdem;
     }
 
-    //Mais funções conforme forem nescessárias
+	public static function apertasimples(coisa:Dynamic):Bool
+    {
+	    #if desktop
+		if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justPressed)
+			return true;
+	    #elseif mobile
+		for (touch in FlxG.touches.list)
+			if (touch.overlaps(coisa) && touch.justPressed)
+				return true;
+	    #end
+
+		return false;
+    }
+
+	public static function pressionando(coisa:Dynamic):Bool
+	{
+		#if desktop
+		if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justPressed && !FlxG.mouse.justReleased)
+			return true;
+		#elseif mobile
+		for (touch in FlxG.touches.list)
+			if (touch.overlaps(coisa) && touch.justPressed && !touch.justReleased)
+				return true;
+		#end
+
+		return false;
+	}
+
+	/*
+	public static function solto(coisa:Dynamic):Bool
+	{
+		#if desktop
+		if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justReleased)
+			return true;
+		#elseif mobile
+		for (touch in FlxG.touches.list)
+			if (touch.overlaps(coisa) && touch.justReleased)
+				return true;
+		#end
+
+		return false;
+	}
+
+	#if desktop
+	public static function pegarpos(axes:custom.FlxAxes = XY):Int
+	{
+		if (axes.x)
+			return FlxG.mouse.x;
+		
+		if (axes.y)
+			return FlxG.mouse.y;
+
+		return 0;
+	}
+	#elseif mobile
+
+
+	public static function pegarpos(touch:flixel.input.touch.FlxTouch, axes:custom.FlxAxes = XY):Int
+	{
+		if (axes.x)
+			return touch.x;
+
+		if (axes.y)
+			return touch.y;
+
+		return 0;
+	}
+
+	#end*/
+	//Tirei essa função pois tenho minhas dúvidas se o Flixel do modboa aguentaria isso.
 }
