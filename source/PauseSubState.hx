@@ -20,24 +20,6 @@ import lime.ui.WindowAttributes;
 import flash.filters.BlurFilter;
 import lime.ui.Window;
 import flixel.tweens.misc.NumTween;
-#if windows
-import sys.io.Process;
-
-typedef HWND = Int;
-
-@:native("user32.dll")
-extern class User32 {
-    public static function GetForegroundWindow(): HWND;
-    public static function SetWindowPos(hwnd: HWND, hWndInsertAfter: HWND, x: Int, y: Int, cx: Int, cy: Int, uFlags: Int): Bool;
-}
-
-class WinAPI {
-    public static function setWindowAlwaysOnTop(windowHandle: Int): Void {
-        User32.SetWindowPos(windowHandle, -1, 0, 0, 0, 0, 0x0002 | 0x0010);
-    }
-}
-#end
-
 
 class PauseSubState extends MusicBeatSubstate
 {
