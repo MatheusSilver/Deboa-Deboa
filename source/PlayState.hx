@@ -3886,6 +3886,7 @@ class PlayState extends MusicBeatState
 			cancelFadeTween();
 			CustomFadeTransition.nextCamera = camHUD2;
 			MusicBeatState.switchState(new ChartingState());
+			limparCache = true;
 
 
 			if (useVideo)
