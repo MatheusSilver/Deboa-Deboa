@@ -15,9 +15,29 @@ import Shaders;
 import flixel.FlxGame;
 import openfl.display.GraphicsShader;
 import openfl.filters.ShaderFilter;
+import lime.app.Application;
+import lime.ui.WindowAttributes;
 import flash.filters.BlurFilter;
 import lime.ui.Window;
 import flixel.tweens.misc.NumTween;
+#if windows
+import sys.io.Process;
+
+typedef HWND = Int;
+
+@:native("user32.dll")
+extern class User32 {
+    public static function GetForegroundWindow(): HWND;
+    public static function SetWindowPos(hwnd: HWND, hWndInsertAfter: HWND, x: Int, y: Int, cx: Int, cy: Int, uFlags: Int): Bool;
+}
+
+class WinAPI {
+    public static function setWindowAlwaysOnTop(windowHandle: Int): Void {
+        User32.SetWindowPos(windowHandle, -1, 0, 0, 0, 0, 0x0002 | 0x0010);
+    }
+}
+#end
+
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -198,8 +218,7 @@ class PauseSubState extends MusicBeatSubstate
 		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble")
 			{
 				aaa = false;
-				jumpsTimer.cancel();
-				jumpsTimer.start(650, function(tmr:FlxTimer){
+				jumpsTimer.start(250, function(tmr:FlxTimer){
 					if(podeJumpscare)
 						{
 							jumpscareExecute();
@@ -375,8 +394,8 @@ class PauseSubState extends MusicBeatSubstate
 	var loops:Int;
 	function startCountdownback()
 		{
-			jumpsTimer.start(10000000000000);
-			jumpsTimer.cancel();
+			var manager:FlxTimerManager = new FlxTimerManager();
+			manager.clear();
 			loops=0;
 					new FlxTimer().start(0.35, function(tmr:FlxTimer){
 						loops++;
@@ -476,13 +495,14 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function jumpscareExecute():Void
 		{
-			if(podeJumpscare && !aaa && PlayState.instance.paused)
+			if(podeJumpscare && PlayState.instance.paused)
 				{
 					trace('haha troxa');
 					inJumpscare=true;
 					FlxG.sound.volume = 1;
 					jumpscare = new FlxSprite(0,0);
 					jumpscare.loadGraphic(Paths.image('Tails', 'preload'));
+					jumpscare.cameras = [transCamera];
 					jumpscare.setGraphicSize(Std.int(FlxG.width));
 					jumpscare.screenCenter(XY);
 					FlxG.sound.play(Paths.sound('TailsScreamLOL'), 1);
@@ -499,6 +519,7 @@ class PauseSubState extends MusicBeatSubstate
 		function shakeWindow():Void
 			{
 				var window:Window = Lib.current.stage.window;
+			
 				window.move(window.x-15, window.y-15);
 				window.move(window.x+20, window.y+20);
 				window.move(window.x-20, window.y-20);
