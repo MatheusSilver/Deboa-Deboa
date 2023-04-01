@@ -208,7 +208,7 @@
 
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
-	<assets path='speed.gif' rename='speed.gif' if="desktop"/>
+	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/> <!--organização de code, basicamente-->
 	<!-- <template path='mods' /> -->
 	
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
@@ -297,10 +297,4 @@
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>
 	<icon path="art/iconOG.png" />
-
-
-	<!-- _________________________________ Droid Stuff _______________________________ -->
-	<!-- Android Gradle, medo -->
-	<config:android gradle-version="7.5.1" if="android"/>
-	<config:android gradle-plugin="7.3.1" if="android"/>
 </project>

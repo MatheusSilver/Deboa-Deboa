@@ -2,9 +2,6 @@ package;
 
 import openfl.display.BitmapData;
 import SonicHUDCCC; //tive que trocar o nome pra não conflitar com o outro sonic hud usado na prey, YCR e talvez na nova confronting
-#if desktop
-import sys.io.Process; // medo
-#end
 #if sys
 import Sys;
 #if debug
@@ -7382,7 +7379,7 @@ class PlayState extends MusicBeatState
 	function doSimpleJump()
 		{
 			#if debug
-			trace('SIMPLE JUMPSCARE');
+			trace('Jumpscare simples comecou - lastStepHit = ' + lastStepHit); // Isso vai me ajudar MUITO
 			#end
 	
 			var simplejump:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PolishedP1/simplejump'));
@@ -7392,17 +7389,23 @@ class PlayState extends MusicBeatState
 			simplejump.screenCenter();
 	
 			simplejump.cameras = [camHUD2];
-	
-			FlxG.camera.shake(0.0025, 0.50);
+
+			simplejump.visible = false;
 	
 			add(simplejump);
+
+			FlxG.camera.shake(0.0025, 0.50);
+	
+			simplejump.visible = true;
 	
 			FlxG.sound.play(Paths.sound('sppok'), 1);
 	
 			new FlxTimer().start(0.2, function(tmr:FlxTimer)
 			{
-				trace('ended simple jump');
-				remove(simplejump);
+				#if debug
+				trace('cabô - ' + lastStepHit);
+				#end
+				invisibru(simplejump);
 			});
 	
 			// now for static
@@ -7416,10 +7419,14 @@ class PlayState extends MusicBeatState
 			daStatic.screenCenter();
 	
 			daStatic.cameras = [camHUD2];
+
+			daStatic.visible = false;
 	
 			daStatic.animation.addByPrefix('static', 'staticFLASH', 24, false);
 	
 			add(daStatic);
+
+			daStatic.visible = true;
 	
 			FlxG.sound.play(Paths.sound('staticBUZZ'));
 	
@@ -7431,13 +7438,13 @@ class PlayState extends MusicBeatState
 			daStatic.animation.finishCallback = function(pog:String)
 			{
 				trace('ended static');
-				remove(daStatic);
+				invisibru(daStatic);
 			}
 		}
 
 	function doP3JumpTAILS()
 	{
-		trace('SIMPLE JUMPSCARE');
+		trace('jumpscare tails comecou - ' + lastStepHit);
 
 		var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Tails'));
 
@@ -7447,15 +7454,21 @@ class PlayState extends MusicBeatState
 
 		doP3JumpTAILS.cameras = [camHUD2];
 
+		doP3JumpTAILS.visible = false;
+
+		add(doP3JumpTAILS);
+		
+		doP3JumpTAILS.visible = false;
+
 		FlxG.camera.shake(0.0025, 0.50);
-			add(doP3JumpTAILS);
 
 		if(curSong.toLowerCase()=='triple-trouble')
 			FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
 
 		new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{
-				remove(doP3JumpTAILS);
+			trace('tails cabô - ' + lastStepHit);
+				invisibru(doP3JumpTAILS);
 		});
 
 		balling.frames = Paths.getSparrowAtlas('daSTAT');
@@ -7467,25 +7480,28 @@ class PlayState extends MusicBeatState
 
 		balling.cameras = [camHUD2];
 
+		balling.visible = false;
+
 		add(balling);
 
-		FlxG.sound.play(Paths.sound('staticBUZZ'));
+		balling.alpha = 0.3;
 
-		if (balling.alpha != 0)
-			balling.alpha = FlxG.random.float(0.1, 0.5);
+		balling.visible = true;
+
+		FlxG.sound.play(Paths.sound('staticBUZZ'));
 
 		balling.animation.play('static');
 
 		balling.animation.finishCallback = function(pog:String)
 		{
 			trace('ended static');
-			remove(balling);
+			invisibru(balling);
 		}
 	}
 
 	function doP3JumpKNUCKLES()
 	{
-		trace('SIMPLE JUMPSCARE');
+		trace('jump knuck - ' + lastStepHit);
 
 		var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Knuckles'));
 
@@ -7495,20 +7511,26 @@ class PlayState extends MusicBeatState
 
 		doP3JumpKNUCKLES.cameras = [camHUD2];
 
-		FlxG.camera.shake(0.0025, 0.50);
+		doP3JumpKNUCKLES.visible = false;
 
 		add(doP3JumpKNUCKLES);
+
+		doP3JumpKNUCKLES.visible = true;
+
+		FlxG.camera.shake(0.0025, 0.50);
+
 
 		if(curSong.toLowerCase()=='triple-trouble')
 			FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), .1);
 
 		new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{
-			trace('ended simple jump');
-			remove(doP3JumpKNUCKLES);
+			trace('knuckelelas - ' + lastStepHit);
+			invisibru(doP3JumpKNUCKLES);
 		});
 
 		balling.frames = Paths.getSparrowAtlas('daSTAT');
+		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
 
 		balling.setGraphicSize(FlxG.width, FlxG.height);
 
@@ -7516,27 +7538,28 @@ class PlayState extends MusicBeatState
 
 		balling.cameras = [camHUD2];
 
-		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
+		balling.visible = false;
 
 		add(balling);
 
-		FlxG.sound.play(Paths.sound('staticBUZZ'));
+		balling.alpha = 0.3;
 
-		if (balling.alpha != 0)
-			balling.alpha = FlxG.random.float(0.1, 0.5);
+		balling.visible = true;
+
+		FlxG.sound.play(Paths.sound('staticBUZZ'));
 
 		balling.animation.play('static');
 
 		balling.animation.finishCallback = function(pog:String)
 		{
 			trace('ended static');
-			remove(balling);
+			invisibru(balling);
 		}
 	}
 
 	function doP3JumpEGGMAN()
 	{
-		trace('SIMPLE JUMPSCARE');
+		trace('egghomem - ' + lastStepHit);
 
 		var doP3JumpEGGMAN:FlxSprite = new FlxSprite().loadGraphic(Paths.image('eggman', 'week-xenophanes'));
 
@@ -7546,19 +7569,25 @@ class PlayState extends MusicBeatState
 
 		doP3JumpEGGMAN.cameras = [camHUD2];
 
-		FlxG.camera.shake(0.0025, 0.50);
+		doP3JumpEGGMAN.visible = false;
 
 		add(doP3JumpEGGMAN);
+
+		doP3JumpEGGMAN.visible = true;
+
+		FlxG.camera.shake(0.0025, 0.50);
+		
 
 		FlxG.sound.play(Paths.sound('P3Jumps/EggmanScreamLOL', 'week-xenophanes'), .1);
 
 		new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{
-			trace('ended simple jump');
+			trace('eggggmannnn - ' + lastStepHit);
 			remove(doP3JumpEGGMAN);
 		});
 
 		balling.frames = Paths.getSparrowAtlas('daSTAT');
+		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
 
 		balling.setGraphicSize(FlxG.width, FlxG.height);
 
@@ -7566,23 +7595,22 @@ class PlayState extends MusicBeatState
 
 		balling.cameras = [camHUD2];
 
-		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
+		balling.visible = false;
 
 		add(balling);
 
-		FlxG.sound.play(Paths.sound('staticBUZZ'));
+		balling.alpha = 0.3;
 
-		if (balling.alpha != 0)
-			balling.alpha = FlxG.random.float(0.1, 0.5);
+		balling.visible = true;
+
+		FlxG.sound.play(Paths.sound('staticBUZZ'));
 
 		balling.animation.play('static');
 
 		balling.animation.finishCallback = function(pog:String)
 		{
-			#if debug
 			trace('ended static');
-			#end
-			remove(balling);
+			invisibru(balling);
 		}
 	}
 
@@ -7933,27 +7961,10 @@ class PlayState extends MusicBeatState
 	var curLightEvent:Int = 0;
 }
 
-// code da you cant run porém em comentários pois pode dar erros e não tenho assets
-/*
-function endSong() {
-
-	if (SONG.song.toLowerCase() == 'you-cant-run') 
-	{
-		var sonicMedo:FlxSprite = new FlxSprite().loadGraphic(Paths.image("sonic"));
-		add(sonicMedo);
-
-		FlxG.log.add("Adicionando as mensagens do vírus");
-		lime.app.Application.current.window.alert("I AM GOD", "I can see you.");
-		lime.app.Application.current.window.alert("YOU CANT RUN", ".");
-		lime.app.Application.current.window.alert("...---...", "You're too slow. Want to try again?");
-		MusicBeatState.switchState(new FreeplayState());
-
-	}
-}
 //Oi monkaaaaaaaaaaaaa turu bão??? Aparentemente o x02 gostou de te deletar...
 //Seria legal dar o troco.
 
-/* Hi :)
+/* Bye
 Wc    ckkkkkkkkkc     ,xkkkkkkkxkxxkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx; 
 Wc   ,dkkkkkkkkk:     .:xkkkkkkkdcokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkc.
 Wc   :kkkkkkkkkl.  ..   :xkkkkkko,ckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx;
