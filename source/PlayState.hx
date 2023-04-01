@@ -5813,13 +5813,8 @@ class PlayState extends MusicBeatState
 					ease: FlxEase.cubeInOut,
 					onComplete: function(twn:FlxTween)
 				{
-					if(modohistoria){
-						MusicBeatState.switchState(new EstadoDeTrocaReverso());
-						lime.app.Application.current.window.title='FNF: ModBoa EXE';
-					} else {
-						MusicBeatState.switchState(new EstadoDeTrocaReverso());
-						lime.app.Application.current.window.title='FNF: ModBoa EXE';
-					}
+				MusicBeatState.switchState(new EstadoDeTrocaReverso());
+				lime.app.Application.current.window.title='FNF: ModBoa EXE';
 				
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				}
