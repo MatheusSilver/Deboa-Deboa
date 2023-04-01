@@ -237,6 +237,10 @@ class Paths
 				var bitmapData:BitmapData = OpenFlAssets.getBitmapData(path);
 
 				if (ClientPrefs.loadingexperimental) {
+					#if (debug && !mobile)
+					trace('carregando $path por GPU'); //Apenas para trackear se tem alguma coisa ocupando memória onde não deveria.
+					//Isso faz o jogo lagar um pouquinho, mas é só no debug mesmo pra saber se não tem nada absurdo sendo carregado.
+					#end
 					var texture:Texture = FlxG.stage.context3D.createTexture(bitmapData.width, bitmapData.height, BGRA, true);
 					texture.uploadFromBitmapData(bitmapData);
 					currentTrackedAssets["textures"].set(path, texture);
@@ -246,8 +250,12 @@ class Paths
 					bitmapData = null;
 
 					graphic = FlxGraphic.fromBitmapData(openfl.display.BitmapData.fromTexture(texture), false, path);
-				} else
+				} else{
+					#if (debug && !mobile)
+					trace('carregando $path por CPU');
+					#end
 					graphic = FlxGraphic.fromBitmapData(bitmapData, false, path);
+				}
 
 				graphic.persist = true;
 				currentTrackedAssets["graphics"].set(path, graphic);

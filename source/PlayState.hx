@@ -105,6 +105,7 @@ class PlayState extends MusicBeatState
 	private var controlArray:Array<String>;
 	private var keysArray:Array<Dynamic>;
 
+	public static var limparCache:Bool = true;
 	
 
 	//CCC Stuff
@@ -487,7 +488,8 @@ class PlayState extends MusicBeatState
 	override public function create()
 	{
 
-		Paths.clearStoredMemory();
+		if (limparCache) //Isso serve pro game não ficar limpando cache a cada vez que você reseta a música, fazendo assim o reset ser mais rápido.
+			Paths.clearStoredMemory();
 
 		Achievements.loadAchievements();
 		
@@ -2302,7 +2304,10 @@ class PlayState extends MusicBeatState
 				}});
 		//	trace("Precache finalizado");
 
-		Paths.clearUnusedMemory();
+		if (limparCache)
+			Paths.clearUnusedMemory();
+
+		limparCache = false;
 	}
 
 	private function cachePopUpScore()
@@ -3881,6 +3886,7 @@ class PlayState extends MusicBeatState
 			cancelFadeTween();
 			CustomFadeTransition.nextCamera = camHUD2;
 			MusicBeatState.switchState(new ChartingState());
+			limparCache = true;
 
 
 			if (useVideo)
@@ -5807,14 +5813,8 @@ class PlayState extends MusicBeatState
 					ease: FlxEase.cubeInOut,
 					onComplete: function(twn:FlxTween)
 				{
-					if(modohistoria){
-						MusicBeatState.switchState(new EstadoDeLimpeza());
-						lime.app.Application.current.window.title='FNF: ModBoa EXE';
-						modohistoria = false;
-					} else {
-						MusicBeatState.switchState(new FreeplayState());
-						lime.app.Application.current.window.title='FNF: ModBoa EXE';
-					}
+				MusicBeatState.switchState(new EstadoDeTrocaReverso());
+				lime.app.Application.current.window.title='FNF: ModBoa EXE';
 				
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				}
@@ -7918,6 +7918,17 @@ class PlayState extends MusicBeatState
 	}
 	#end
 
+	function destruirsprites(sprite:FlxSprite){
+		sprite.visible = false;
+		remove(sprite);
+		sprite.kill();
+		sprite.destroy();
+	}
+	
+	function invisibru(sprite:FlxSprite){
+		sprite.visible = !sprite.visible;
+	}
+
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;
 }
@@ -7938,6 +7949,48 @@ function endSong() {
 		MusicBeatState.switchState(new FreeplayState());
 
 	}
-
 }
+//Oi monkaaaaaaaaaaaaa turu bão??? Aparentemente o x02 gostou de te deletar...
+//Seria legal dar o troco.
+
+/* Hi :)
+Wc    ckkkkkkkkkc     ,xkkkkkkkxkxxkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx; 
+Wc   ,dkkkkkkkkk:     .:xkkkkkkkdcokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkc.
+Wc   :kkkkkkkkkl.  ..   :xkkkkkko,ckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx;
+Wc   'dkkkkkkkkc. 'kx'   :xkkkkkd'.lkkkkkkkkkkkkkkkkxxkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx;
+Wk.   :kkkkkkkx:  ;0Xk,   ,okkkkxc..lxkkkkkkkkkkkkxx:,lxkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx;
+MWl   ckkkkkkkl.  ;0XX0o.  .lxkkkd;..lkkkkkkkkkkkkkx, .:xkkkkkkkkkkkkkkkkkkkkkkkkkkdldkkkkkkkkkkkkx;
+MMK;  'okkkkkkc.  ;0XXXXx,   'lxkkx;..:dkkkkkkkkkkkx,   'lxkkkkkkkkkkkkkkkkkkkkkkkd,.ckkkkkkkkkkkkx;
+MMWk.  ckkkkkkc.  ;0KOOOOOd.   'coxd:..,oxkkkkkkkkkx,     'lxkkkkkkkkkkkkkkkkkkkkkd..ckkkkkkkkkkkkx;
+MMMNl  'okkkkkc.  .;'....';.     .'lxl. .;oxkkkkkkkx,       'lxkkkkkkkkkkkkkkkkkkkd..:xkkkkkkkkkkkx;
+MMMMK;  ;xkkkkc.   .        .'.     'cc,. .;oxkkkkkx,   cd'   'coxkkkkkkkkkkkkkkkkd. .lkkkkkkkkkkkd'
+MMMMWk. .:xkko'  .:.        .kXk;     .':,. .;oxkkkx,   :0Kd,   ..;lxkkkkkkkkkkkkkd. .lkkkkkkkkkkx; 
+MMMMMWk.  .cl'  .kd.         ,0MNOo,     ...  .,coxxl.  .dNX0xl'    .,coxkkkkkkkkkd.  ;xkkkkkkkkkx; 
+MMMMMMWk.   .   ;KO'         'OMMMMNOo,          .';:.   :0XXXX0dc,.   ...,ccoxxxkxc. .lkkkkkkkkkc. 
+MMMMMMWk.       .'cd;       .kWMMMMMMMNOd'               .dXKxl;'''.         ....;c;.  :xkkkkkkkx;  
+MMMMMWk.     ,do;. ..       .,;lxxkXMMMMMx. 'c;,,.        .:,.,;'         ..           .;dkkkkkkc. .
+MMMMWk.     :0NXX0kl;;;;;;;;;;;;,. ,okXNKc .;lox0Oxxxl;;;,. .dNK;         .lOOko:;.      .cdkkko'  ;
+MMMMK;     :0XXXXXXXKKKKKKKKKKKXKOd:. .'..,;;;'..l0KXXXXN0,.oNNo.          oWMMMMWKko:;.   .;cd;  .o
+MMMXc     'kNXXXXXXXXXKKKKKXXXXXXXXXd. .:kKKKKOo..,dXXXXX0;.;xOo.         ,OXXWMMMMMMMWKkl;.  .  .cx
+MMXc     .oXNXXXXXXXXXXXXXXXXXXXXXXNk. .xKK0000Kxdk0XXXXXXOo;',,.          ...:oOXWMMMMMMMNO;    ;xk
+MXc      :0XXXXXXXXXXXXXXXKKXXXXXXXX0l. .lkk0KXXXXXXXXXXXXXNX0OOxlcccccccccc:,....:oOWMMMMMK:   ,dkk
+Xc      .xNXXXXXXXXXXXXXXXd:dOKXXXXXXXko;',,:dOXXXXXXXXXXXXXXXXXXXNXKKKKKKKKK0OOo,. .;clccl,   ,dxkk
+:  .;.  .xNXXXXXXXXXXXXXXXKd;.,:cdkOKXXNX00000KXXXXXXXXXXXXXXXXXXXXXXXKKKOOKKXKXXKOo,......   ,dkkkk
+  .:o'  .xNXXXXXXXXXXXXXXXXXKxl,.'..,:;cdkkkk0XXXXXXXXXXXXXXXXXXKOkkko:;;;dXXXXXXXXXK0KKKk,  .okkkkk
+ .:xd'  .xNXXXXXXXXXXXXXXXXXXXXKKk'          .,;;;;;;;;;;;;;;;;;'.   ..';xKXXXXXXXXXXXXXO;  .cxkkkkk
+ ;xkd;  .lKXXXXXXXXXXXXXXXXXXXXXXO'        ..........      .''''';looxKKXXXXXXXXXXXXXXXO;  .cxkkkkkk
+.oxxko.  .xNXXXXXXXXXXXXXXXXXXXXXKx,     .';:;;;;;;'.   .cx0XXKXXXXXXXXXXXXXXXXXXXXXXX0;  ,dkkklcxkk
+oxkxkd;  .lKXXXXXXXXXXXXXXXXXXXXXXXKkl;.         .,,,cdx0XXXXXXXXXXXXXXXXXXXXXXXXXXXKx,  ,dkkkd:cxkk
+kkxxxkd;  .lKXXXXXXXXXXXXXXXXXXXXXXXXXX0kxxxxxxxxOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXKo.  ,dkkkk:;dkkk
+xxkxookd;  .lKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXKd.  ,dkkkkd,,dkkk
+kxxl;lkkd;  .l0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXKd.  ,dkkkkkc.'dkkk
+kxl;lkkxkd;   ,OXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXKd.  ,dkkkkkd,.:xkkk
+xl'ckkkkxo;    .o0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXd.  'dkkkkkx: 'dkkkk
+l.,dkxkxl.       .l0XXXXXXXXKKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXd.  'dkkkkkkl. ,dkkkk
+'.lkxxkd'   .'.    .:ok0XX0o',lOXXXXXXXXKOkk0XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX0l. .,dkkkkkkd' .okkkkk
+ ;xxdll,               .::. .  ,xKXXXXNO:. ..;o0XXXXXXXXXXXXXXXXXXXXXXXXX0ko:.  .cxkkkkkkx:  ,dkkkkk
+.;;'.      .............. .cOx. .lxOKKx,   ..  .;ok0XXXXXXOxxxxxOKXXX0ko:.     .cxkkkkkkx:. ,dkkkkkk
+     ..,;;:odddddddolcccc;lOXNk.   .''. ;oxO0l.....;c:;;;,.     .,;;;.        .oxkkkkkkx:. .okkkkkkk
+.,::ldddxxxxxdxxxdxdlc;;xkxoodxl.      cXNxcdxocccccc;.     ........          'ldkkkkkx:. .cxkkkkkkk
+ddxxxxxxxxddxxxxxdxdol;dNWW0l:llc'   .lXNklclldkOkkdlc.    'lddddddl;',,,,'.    'okkkko.  ;dkkkkkkkk
 */

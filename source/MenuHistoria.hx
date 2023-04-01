@@ -216,13 +216,16 @@ class MenuHistoria extends MusicBeatSubstate
 				if(PlayState.SONG.videonombre!=null && PlayState.SONG.videonombre.length>5){
 					#if desktop
 						VideoStatePC.NextState = 'playstate';
+						PlayState.limparCache = true;
 						VideoStatePC.videoPath="assets/videos/" + PlayState.SONG.videonombre +".mp4";
 						MusicBeatState.switchState(new VideoStatePC());
 					#elseif mobile
 					LoadingState.loadAndSwitchState(new VideoState('assets/videos/'+PlayState.SONG.videonombre.length, new PlayState()));
+					PlayState.limparCache = true;
 					#end
 				}else{
 				openSubState(new LoadingsState());
+				PlayState.limparCache = true;
 				LoadingState.loadAndSwitchState(new PlayState());
 				}
 			});
