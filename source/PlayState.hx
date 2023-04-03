@@ -2524,7 +2524,7 @@ class PlayState extends MusicBeatState
 		if (paused)
 			return;
 
-		if(ClientPrefs.pausarauto)
+		if(ClientPrefs.pausarauto&&curSong.toLowerCase()!='control')
 			{
 				openPauseMenu();
 			}
