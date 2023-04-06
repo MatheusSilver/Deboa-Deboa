@@ -7376,243 +7376,212 @@ class PlayState extends MusicBeatState
 		}
 	
 
-	function doSimpleJump()
+		function doSimpleJump()
+			{
+				#if debug
+				trace('SIMPLE JUMPSCARE');
+				#end
+		
+				var simplejump:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PolishedP1/simplejump'));
+		
+				simplejump.setGraphicSize(FlxG.width, FlxG.height);
+		
+				simplejump.screenCenter();
+		
+				simplejump.cameras = [camHUD2];
+		
+				FlxG.camera.shake(0.0025, 0.50);
+		
+				add(simplejump);
+		
+				FlxG.sound.play(Paths.sound('sppok'), 1);
+		
+				new FlxTimer().start(0.2, function(tmr:FlxTimer)
+				{
+					trace('ended simple jump');
+					remove(simplejump);
+				});
+		
+				// now for static
+		
+				var daStatic:FlxSprite = new FlxSprite(0, 0);
+		
+				daStatic.frames = Paths.getSparrowAtlas('daSTAT');
+		
+				daStatic.setGraphicSize(FlxG.width, FlxG.height);
+		
+				daStatic.screenCenter();
+		
+				daStatic.cameras = [camHUD2];
+		
+				daStatic.animation.addByPrefix('static', 'staticFLASH', 24, false);
+		
+				add(daStatic);
+		
+				FlxG.sound.play(Paths.sound('staticBUZZ'));
+		
+				if (daStatic.alpha != 0)
+					daStatic.alpha = FlxG.random.float(0.1, 0.5);
+		
+				daStatic.animation.play('static');
+		
+				daStatic.animation.finishCallback = function(pog:String)
+				{
+					trace('ended static');
+					remove(daStatic);
+				}
+			}
+	
+		function doP3JumpTAILS()
 		{
-			#if debug
-			trace('Jumpscare simples comecou - lastStepHit = ' + lastStepHit); // Isso vai me ajudar MUITO
-			#end
+			trace('SIMPLE JUMPSCARE');
 	
-			var simplejump:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PolishedP1/simplejump'));
+			var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Tails'));
 	
-			simplejump.setGraphicSize(FlxG.width, FlxG.height);
+			doP3JumpTAILS.setGraphicSize(FlxG.width, FlxG.height);
 	
-			simplejump.screenCenter();
+			doP3JumpTAILS.screenCenter();
 	
-			simplejump.cameras = [camHUD2];
-
-			simplejump.visible = false;
+			doP3JumpTAILS.cameras = [camHUD2];
 	
-			add(simplejump);
-
 			FlxG.camera.shake(0.0025, 0.50);
+				add(doP3JumpTAILS);
 	
-			simplejump.visible = true;
-	
-			FlxG.sound.play(Paths.sound('sppok'), 1);
+			if(curSong.toLowerCase()=='triple-trouble')
+				FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
 	
 			new FlxTimer().start(0.2, function(tmr:FlxTimer)
 			{
-				#if debug
-				trace('cabô - ' + lastStepHit);
-				#end
-				invisibru(simplejump);
+					remove(doP3JumpTAILS);
 			});
 	
-			// now for static
+			balling.frames = Paths.getSparrowAtlas('daSTAT');
+			balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
 	
-			var daStatic:FlxSprite = new FlxSprite(0, 0);
+			balling.setGraphicSize(FlxG.width, FlxG.height);
 	
-			daStatic.frames = Paths.getSparrowAtlas('daSTAT');
+			balling.screenCenter();
 	
-			daStatic.setGraphicSize(FlxG.width, FlxG.height);
+			balling.cameras = [camHUD2];
 	
-			daStatic.screenCenter();
-	
-			daStatic.cameras = [camHUD2];
-
-			daStatic.visible = false;
-	
-			daStatic.animation.addByPrefix('static', 'staticFLASH', 24, false);
-	
-			add(daStatic);
-
-			daStatic.visible = true;
+			add(balling);
 	
 			FlxG.sound.play(Paths.sound('staticBUZZ'));
 	
-			if (daStatic.alpha != 0)
-				daStatic.alpha = FlxG.random.float(0.1, 0.5);
+			if (balling.alpha != 0)
+				balling.alpha = FlxG.random.float(0.1, 0.5);
 	
-			daStatic.animation.play('static');
+			balling.animation.play('static');
 	
-			daStatic.animation.finishCallback = function(pog:String)
+			balling.animation.finishCallback = function(pog:String)
 			{
 				trace('ended static');
-				invisibru(daStatic);
+				remove(balling);
 			}
 		}
-
-	function doP3JumpTAILS()
-	{
-		trace('jumpscare tails comecou - ' + lastStepHit);
-
-		var doP3JumpTAILS:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Tails'));
-
-		doP3JumpTAILS.setGraphicSize(FlxG.width, FlxG.height);
-
-		doP3JumpTAILS.screenCenter();
-
-		doP3JumpTAILS.cameras = [camHUD2];
-
-		doP3JumpTAILS.visible = false;
-
-		add(doP3JumpTAILS);
-		
-		doP3JumpTAILS.visible = false;
-
-		FlxG.camera.shake(0.0025, 0.50);
-
-		if(curSong.toLowerCase()=='triple-trouble')
-			FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
-
-		new FlxTimer().start(0.2, function(tmr:FlxTimer)
+	
+		function doP3JumpKNUCKLES()
 		{
-			trace('tails cabô - ' + lastStepHit);
-				invisibru(doP3JumpTAILS);
-		});
-
-		balling.frames = Paths.getSparrowAtlas('daSTAT');
-		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
-
-		balling.setGraphicSize(FlxG.width, FlxG.height);
-
-		balling.screenCenter();
-
-		balling.cameras = [camHUD2];
-
-		balling.visible = false;
-
-		add(balling);
-
-		balling.alpha = 0.3;
-
-		balling.visible = true;
-
-		FlxG.sound.play(Paths.sound('staticBUZZ'));
-
-		balling.animation.play('static');
-
-		balling.animation.finishCallback = function(pog:String)
-		{
-			trace('ended static');
-			invisibru(balling);
+			trace('SIMPLE JUMPSCARE');
+	
+			var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Knuckles'));
+	
+			doP3JumpKNUCKLES.setGraphicSize(FlxG.width, FlxG.height);
+	
+			doP3JumpKNUCKLES.screenCenter();
+	
+			doP3JumpKNUCKLES.cameras = [camHUD2];
+	
+			FlxG.camera.shake(0.0025, 0.50);
+	
+			add(doP3JumpKNUCKLES);
+	
+			if(curSong.toLowerCase()=='triple-trouble')
+				FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), .1);
+	
+			new FlxTimer().start(0.2, function(tmr:FlxTimer)
+			{
+				trace('ended simple jump');
+				remove(doP3JumpKNUCKLES);
+			});
+	
+			balling.frames = Paths.getSparrowAtlas('daSTAT');
+	
+			balling.setGraphicSize(FlxG.width, FlxG.height);
+	
+			balling.screenCenter();
+	
+			balling.cameras = [camHUD2];
+	
+			balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
+	
+			add(balling);
+	
+			FlxG.sound.play(Paths.sound('staticBUZZ'));
+	
+			if (balling.alpha != 0)
+				balling.alpha = FlxG.random.float(0.1, 0.5);
+	
+			balling.animation.play('static');
+	
+			balling.animation.finishCallback = function(pog:String)
+			{
+				trace('ended static');
+				remove(balling);
+			}
 		}
-	}
-
-	function doP3JumpKNUCKLES()
-	{
-		trace('jump knuck - ' + lastStepHit);
-
-		var doP3JumpKNUCKLES:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Knuckles'));
-
-		doP3JumpKNUCKLES.setGraphicSize(FlxG.width, FlxG.height);
-
-		doP3JumpKNUCKLES.screenCenter();
-
-		doP3JumpKNUCKLES.cameras = [camHUD2];
-
-		doP3JumpKNUCKLES.visible = false;
-
-		add(doP3JumpKNUCKLES);
-
-		doP3JumpKNUCKLES.visible = true;
-
-		FlxG.camera.shake(0.0025, 0.50);
-
-
-		if(curSong.toLowerCase()=='triple-trouble')
-			FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), .1);
-
-		new FlxTimer().start(0.2, function(tmr:FlxTimer)
+	
+		function doP3JumpEGGMAN()
 		{
-			trace('knuckelelas - ' + lastStepHit);
-			invisibru(doP3JumpKNUCKLES);
-		});
-
-		balling.frames = Paths.getSparrowAtlas('daSTAT');
-		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
-
-		balling.setGraphicSize(FlxG.width, FlxG.height);
-
-		balling.screenCenter();
-
-		balling.cameras = [camHUD2];
-
-		balling.visible = false;
-
-		add(balling);
-
-		balling.alpha = 0.3;
-
-		balling.visible = true;
-
-		FlxG.sound.play(Paths.sound('staticBUZZ'));
-
-		balling.animation.play('static');
-
-		balling.animation.finishCallback = function(pog:String)
-		{
-			trace('ended static');
-			invisibru(balling);
+			trace('SIMPLE JUMPSCARE');
+	
+			var doP3JumpEGGMAN:FlxSprite = new FlxSprite().loadGraphic(Paths.image('eggman', 'week-xenophanes'));
+	
+			doP3JumpEGGMAN.setGraphicSize(FlxG.width, FlxG.height);
+	
+			doP3JumpEGGMAN.screenCenter();
+	
+			doP3JumpEGGMAN.cameras = [camHUD2];
+	
+			FlxG.camera.shake(0.0025, 0.50);
+	
+			add(doP3JumpEGGMAN);
+	
+			FlxG.sound.play(Paths.sound('P3Jumps/EggmanScreamLOL', 'week-xenophanes'), .1);
+	
+			new FlxTimer().start(0.2, function(tmr:FlxTimer)
+			{
+				trace('ended simple jump');
+				remove(doP3JumpEGGMAN);
+			});
+	
+			balling.frames = Paths.getSparrowAtlas('daSTAT');
+	
+			balling.setGraphicSize(FlxG.width, FlxG.height);
+	
+			balling.screenCenter();
+	
+			balling.cameras = [camHUD2];
+	
+			balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
+	
+			add(balling);
+	
+			FlxG.sound.play(Paths.sound('staticBUZZ'));
+	
+			if (balling.alpha != 0)
+				balling.alpha = FlxG.random.float(0.1, 0.5);
+	
+			balling.animation.play('static');
+	
+			balling.animation.finishCallback = function(pog:String)
+			{
+				#if debug
+				trace('ended static');
+				#end
+				remove(balling);
+			}
 		}
-	}
-
-	function doP3JumpEGGMAN()
-	{
-		trace('egghomem - ' + lastStepHit);
-
-		var doP3JumpEGGMAN:FlxSprite = new FlxSprite().loadGraphic(Paths.image('eggman', 'week-xenophanes'));
-
-		doP3JumpEGGMAN.setGraphicSize(FlxG.width, FlxG.height);
-
-		doP3JumpEGGMAN.screenCenter();
-
-		doP3JumpEGGMAN.cameras = [camHUD2];
-
-		doP3JumpEGGMAN.visible = false;
-
-		add(doP3JumpEGGMAN);
-
-		doP3JumpEGGMAN.visible = true;
-
-		FlxG.camera.shake(0.0025, 0.50);
-		
-
-		FlxG.sound.play(Paths.sound('P3Jumps/EggmanScreamLOL', 'week-xenophanes'), .1);
-
-		new FlxTimer().start(0.2, function(tmr:FlxTimer)
-		{
-			trace('eggggmannnn - ' + lastStepHit);
-			remove(doP3JumpEGGMAN);
-		});
-
-		balling.frames = Paths.getSparrowAtlas('daSTAT');
-		balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
-
-		balling.setGraphicSize(FlxG.width, FlxG.height);
-
-		balling.screenCenter();
-
-		balling.cameras = [camHUD2];
-
-		balling.visible = false;
-
-		add(balling);
-
-		balling.alpha = 0.3;
-
-		balling.visible = true;
-
-		FlxG.sound.play(Paths.sound('staticBUZZ'));
-
-		balling.animation.play('static');
-
-		balling.animation.finishCallback = function(pog:String)
-		{
-			trace('ended static');
-			invisibru(balling);
-		}
-	}
 
 	function spirospreidi()
 		{
