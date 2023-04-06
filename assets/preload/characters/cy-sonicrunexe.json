@@ -65,9 +65,9 @@
 	"healthicon": "exe",
 	"flip_x": true,
 	"healthbar_colors": [
-		0,
-		51,
-		255
+		45,
+		46,
+		111
 	],
 	"camera_position": [
 		-440,

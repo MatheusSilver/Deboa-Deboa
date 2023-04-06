@@ -80,9 +80,9 @@
 	"healthicon": "tailsexe",
 	"flip_x": false,
 	"healthbar_colors": [
-		115,
-		115,
-		115
+		102,
+		102,
+		102
 	],
 	"camera_position": [
 		75,
