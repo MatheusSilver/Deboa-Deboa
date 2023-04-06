@@ -40,7 +40,12 @@ class MenuHistoria extends MusicBeatSubstate
 
 	override function create()
 	{
-
+		if(FlxG.sound.music == null) {
+			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+		}
+		if(FlxG.sound.music.volume==0) {
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
         var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
         for (j in 0...leWeek.songs.length) {
             musicas.push(leWeek.songs[j][0]);

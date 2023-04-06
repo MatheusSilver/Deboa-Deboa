@@ -285,9 +285,7 @@
 	<!--Isso pode até ser útil, mas não deveria ser nescessário no Android-->
 	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 
-	<haxedef name="flixel.screen.width" value="1280" />
-	<haxedef name="flixel.screen.height" value="720" />
-	<haxedef name="flixel.screen.scaleMode" value="keep" />
+	<haxedef name="FLX_NO_DEFAULT_SCALE_FACTOR" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 
