@@ -17,7 +17,6 @@ using StringTools;
 class AchievementsMenuState extends MusicBeatState
 {
 	var options:Array<String> = [];
-	var isCoolBeata:Bool = true;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	private var achievementArray:Array<AttachedAchievement> = [];
@@ -28,10 +27,9 @@ class AchievementsMenuState extends MusicBeatState
 	var majin:FlxSprite;
 	var apertavel:Bool = true;
 	public static var FirstTimeAqui:Bool = true;
+	var isCoolBeat:Bool = true;
 
 	override function create() {
-		Conductor.changeBPM(112);
-		isCoolBeata = true;
 		#if desktop
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
@@ -79,7 +77,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		majin = new FlxSprite(512 - 80 + 30, -250);
 		majin.frames = Paths.getSparrowAtlas('conquistas/menu/majinnatalino', 'preload');
-		majin.animation.addByPrefix('majinnatalino idle', "majinnatalino idle", 30);
+		majin.animation.addByPrefix('majinnatalino idle', "majinnatalino idle", 28);
 		majin.flipX = true;
 		majin.setGraphicSize(Std.int(majin.width * 1.35));
 		majin.antialiasing = ClientPrefs.globalAntialiasing;
@@ -130,6 +128,7 @@ class AchievementsMenuState extends MusicBeatState
 				}});
 			}
 		changeSelection();
+		Conductor.changeBPM(112);
 
 		super.create();
 	}
@@ -187,8 +186,8 @@ class AchievementsMenuState extends MusicBeatState
 	override function beatHit()
 		{
 			super.beatHit(); //interessante, ovô rosbar
-			if(isCoolBeata){majin.animation.play('majinnatalino idle', false);}
-			isCoolBeata = !isCoolBeata;
+			if(isCoolBeat){majin.animation.play('majinnatalino idle', true);}
+			isCoolBeat = !isCoolBeat;
 		}
 
 }
