@@ -10,6 +10,17 @@ import openfl.utils.Assets as OpenFlAssets;
 import openfl.display3D.textures.Texture;
 import openfl.display.BitmapData;
 
+#if cpp
+import cpp.vm.Gc;
+#elseif hl
+import hl.Gc;
+#elseif java
+import java.vm.Gc;
+#elseif neko
+import neko.vm.Gc;
+#end
+
+
 using StringTools;
 
 class Paths
@@ -56,7 +67,10 @@ class Paths
 		}
 
 		// run the garbage collector for good measure lmfao
-		System.gc();
+		#if (cpp || neko || java || hl)
+		Gc.run(true);
+		Gc.compact();
+		#end
 	}
 
 	public static function clearStoredMemory():Void {
@@ -228,6 +242,33 @@ class Paths
 	inline static public function formatToSongPath(path:String) {
 		return path.toLowerCase().replace(' ', '-');
 	}
+	public static function limparspriteporchave(chave:String, library:String){ //Isso é uma tentativa desesperada de arrumar libitina
+		
+		var key:String = getPath('images/$chave.png', IMAGE, library);
+		@:privateAccess{
+		if (currentTrackedAssets["textures"].exists(key))
+			{
+				var texture:Null<Texture> = currentTrackedAssets["textures"].get(key);
+				texture.dispose();
+				#if (debug && !mobile)
+				trace('limpando $key das texturas');
+				#end
+				texture = null;
+				currentTrackedAssets["textures"].remove(key);
+			}
+
+			var graphic:Null<FlxGraphic> = currentTrackedAssets["graphics"].get(key);
+			OpenFlAssets.cache.removeBitmapData(key);
+			FlxG.bitmap._cache.remove(key);
+			graphic.destroy();
+			#if debug
+				trace('Removendo $key');
+			#end
+			currentTrackedAssets["graphics"].remove(key);
+			localTrackedAssets["graphics"].remove(key);
+		}
+	}
+
 
 	public static function returnGraphic(key:String, ?library:String) {
 		var path:String = getPath('images/$key.png', IMAGE, library);

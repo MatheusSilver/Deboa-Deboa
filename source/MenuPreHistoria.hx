@@ -31,6 +31,12 @@ class MenuPreHistoria extends MusicBeatState
 	
 	override function create()
 	{
+		if(FlxG.sound.music == null) {
+			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+		}
+		if(FlxG.sound.music.volume==0) {
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		MenuHistoria.curSelected = 0;
 		PlayState.modohistoria = false;

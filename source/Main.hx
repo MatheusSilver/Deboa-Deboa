@@ -63,8 +63,10 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-		var stageWidth:Int = Lib.current.stage.stageWidth;
-		var stageHeight:Int = Lib.current.stage.stageHeight;
+		Lib.application.window.height = 720;
+		Lib.application.window.width = 1280;
+		var stageWidth:Int = Lib.application.window.width;
+		var stageHeight:Int = Lib.application.window.height;
 
 		if (game.zoom == -1.0)
 		{

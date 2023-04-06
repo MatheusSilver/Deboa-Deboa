@@ -2384,6 +2384,7 @@ class PlayState extends MusicBeatState
 					boyfriendGroup.add(newBoyfriend);
 					startCharacterPos(newBoyfriend);
 					newBoyfriend.alpha = 0.00001;
+					newBoyfriend.visible = false;
 					newBoyfriend.alreadyLoaded = false;
 					startCharacterLua(newBoyfriend.curCharacter);
 				}
@@ -2395,6 +2396,7 @@ class PlayState extends MusicBeatState
 					dadGroup.add(newDad);
 					startCharacterPos(newDad, true);
 					newDad.alpha = 0.00001;
+					newDad.visible = false;
 					newDad.alreadyLoaded = false;
 					startCharacterLua(newDad.curCharacter);
 				}
@@ -2407,6 +2409,7 @@ class PlayState extends MusicBeatState
 					gfGroup.add(newGf);
 					startCharacterPos(newGf);
 					newGf.alpha = 0.00001;
+					newGf.visible = false;
 					newGf.alreadyLoaded = false;
 					startCharacterLua(newGf.curCharacter);
 				}
@@ -2524,7 +2527,7 @@ class PlayState extends MusicBeatState
 		if (paused)
 			return;
 
-		if(ClientPrefs.pausarauto)
+		if(ClientPrefs.pausarauto&&curSong.toLowerCase()!='control')
 			{
 				openPauseMenu();
 			}
@@ -7914,18 +7917,21 @@ class PlayState extends MusicBeatState
 		return null;
 	}
 	#end
-
-	function destruirsprites(sprite:FlxSprite){
-		sprite.visible = false;
-		remove(sprite);
-		sprite.kill();
-		sprite.destroy();
-	}
 	
 	function invisibru(sprite:FlxSprite){
 		sprite.visible = !sprite.visible;
 	}
 
+	//To Do:
+	//Integrar isso com Lua
+	function destruirsprites(sprite:FlxSprite, chave:String = '', library:String = ''){
+		sprite.visible = false;
+		remove(sprite);
+		sprite.kill();
+		sprite.destroy();
+		if(chave.length > 2)
+			Paths.limparspriteporchave(chave, library);
+	}
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;
 }
@@ -7933,7 +7939,9 @@ class PlayState extends MusicBeatState
 //Oi monkaaaaaaaaaaaaa turu bão??? Aparentemente o x02 gostou de te deletar...
 //Seria legal dar o troco.
 
-/* Bye
+/* OOOOOOOI DE NOOVO MONKA
+
+Aparentemente o X02 continua não gostando de ti...
 Wc    ckkkkkkkkkc     ,xkkkkkkkxkxxkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx; 
 Wc   ,dkkkkkkkkk:     .:xkkkkkkkdcokkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkc.
 Wc   :kkkkkkkkkl.  ..   :xkkkkkko,ckkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkx;

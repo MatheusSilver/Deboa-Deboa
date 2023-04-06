@@ -121,9 +121,9 @@
 	"healthicon": "sonic icons",
 	"flip_x": true,
 	"healthbar_colors": [
-		40,
-		66,
-		137
+		108,
+		108,
+		216
 	],
 	"camera_position": [
 		70,

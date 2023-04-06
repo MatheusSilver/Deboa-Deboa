@@ -65,9 +65,9 @@
 	"healthicon": "sonicP2Pixel",
 	"flip_x": true,
 	"healthbar_colors": [
-		64,
-		64,
-		160
+		45,
+		46,
+		111
 	],
 	"camera_position": [
 		-200,

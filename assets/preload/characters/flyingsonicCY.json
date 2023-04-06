@@ -76,8 +76,8 @@
 	"healthicon": "sonic-super",
 	"flip_x": true,
 	"healthbar_colors": [
-		235,
-		235,
+		255,
+		165,
 		0
 	],
 	"camera_position": [
