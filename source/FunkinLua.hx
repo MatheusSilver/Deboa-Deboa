@@ -839,6 +839,7 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetSpriteTag(tag);
 			var leSprite:ModchartSprite = new ModchartSprite(x, y);
+			leSprite.moves = false; //Experimental btw (Considerando que é uma mudança global para performance, tenho medo do que possa acontecer...)
 			leSprite.loadGraphic(Paths.image(image));
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartSprites.set(tag, leSprite);
@@ -851,6 +852,7 @@ class FunkinLua {
 			resetTiledSpriteTag(tag);
 			var leSprite:ModchartTiledSprite = new ModchartTiledSprite(width, height, repeteEmX, repeteEmY);
 			leSprite.loadGraphic(Paths.image(image));
+			leSprite.moves = false;
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartTiledSprites.set(tag, leSprite);
 			leSprite.active = true;

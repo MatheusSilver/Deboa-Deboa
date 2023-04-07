@@ -2626,7 +2626,9 @@ class PlayState extends MusicBeatState
 	}
 
 	public var videoSpr:FlxSprite;
+	#if desktop
 	public var video:MP4Handler;
+	#end
 	public var letext:FlxText;
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String) {
@@ -2634,7 +2636,7 @@ class PlayState extends MusicBeatState
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
         if(Assets.exists(diretorio)) {
             #if mobile
-            comecarvideo(nomedovideo, 0, 0, "cheio", 0, 2);
+			triggerEventNote('comecarvideo', 'nomedovideo', '0, 0, "cheio", 0, 2');
             #else
 			videoSpr = new FlxSprite(0, 0);
 			VideoStatePC.NextState = "nenhum";
@@ -2668,37 +2670,40 @@ class PlayState extends MusicBeatState
     } 
 	public function pausarVideo(pausar:Bool)
 		{
+			#if desktop
 			if(playingVideoMP4)
 				{
 					video.queronaoviver = true;
 					video.pausarvideo1(pausar);
 				}
+				#end
 		}
-		public function pularVideo()
+	public function pularVideo()
+	{
+		#if desktop
+		if(playingVideoMP4)
+		{
+			video.onVLCComplete();
+			letext.alpha=0;
+			FlxG.sound.music.pause();
+			vocals.pause();
+			Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
+			trace(MP4Handler.vlcBitmap.length);
+			trace(MP4Handler.vlcBitmap.time);
+			notes.forEachAlive(function(daNote:Note)
 			{
-				if(playingVideoMP4)
-					{
-						video.onVLCComplete();
-						letext.alpha=0;
-						FlxG.sound.music.pause();
-						vocals.pause();
-						Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
-						trace(MP4Handler.vlcBitmap.length);
-						trace(MP4Handler.vlcBitmap.time);
-						notes.forEachAlive(function(daNote:Note)
-						{
-							if(daNote.strumTime + 800 < Conductor.songPosition) {
-								daNote.active = false;
-								daNote.visible = false;
+				if(daNote.strumTime + 800 < Conductor.songPosition) {
+					daNote.active = false;
+					daNote.visible = false;
 		
-								daNote.kill();
-								notes.remove(daNote, true);
-								daNote.destroy();
-							}
-						});
-						for (i in 0...unspawnNotes.length) {
-							var daNote:Note = unspawnNotes[0];
-							if(daNote.strumTime + 800 >= Conductor.songPosition) {
+					daNote.kill();
+					notes.remove(daNote, true);
+					daNote.destroy();
+				}
+			});
+			for (i in 0...unspawnNotes.length) {
+				var daNote:Note = unspawnNotes[0];
+				if(daNote.strumTime + 800 >= Conductor.songPosition) {
 								break;
 							}
 		
@@ -2716,6 +2721,7 @@ class PlayState extends MusicBeatState
 						vocals.time = Conductor.songPosition;
 						vocals.play();
 					}
+					#end
 			}
 
 	public function deletarSpriteNAAAAO():Void
@@ -2927,11 +2933,7 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 1:
 						var ready:FlxSprite; 
-						if(Assets.exists(Paths.imagechecker(introAlts[0]))){
 						ready = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
-						} else {
-							ready = new FlxSprite().loadGraphic(Paths.image(introAlts[0], 'preload'));
-						}
 						ready.scrollFactor.set();
 						ready.updateHitbox();
 
@@ -2954,11 +2956,7 @@ class PlayState extends MusicBeatState
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 2:
 						var set:FlxSprite;
-						if(Assets.exists(Paths.imagechecker(introAlts[1]))){
-							set = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
-							} else {
-								set = new FlxSprite().loadGraphic(Paths.image(introAlts[1], 'preload'));
-							}
+						set = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 						set.scrollFactor.set();
 
 						if (PlayState.isPixelStage)
@@ -2981,11 +2979,7 @@ class PlayState extends MusicBeatState
 					case 3:
 						var go:FlxSprite; //bruh + meme = breme
 
-						if(Assets.exists(Paths.imagechecker(introAlts[1]))){
-							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
-							} else {
-								go = new FlxSprite().loadGraphic(Paths.image(introAlts[2], 'preload'));
-							} //Matando chasing, sunshine, green-hills e mais qualquer outra música numa tacada só.
+						go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 						go.scrollFactor.set();
 
 						if (PlayState.isPixelStage)
@@ -3492,21 +3486,21 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		if (ClientPrefs.pausarauto && !isDead)
+		/*if (ClientPrefs.pausarauto && !isDead)
 		{
 			persistentUpdate = false;
 			persistentDraw = true;
 		}
 
 		if (paused)
-			return;
+			return;*/
 
 		if(ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused)
-			{
-				new flixel.util.FlxTimer().start(0.1, function(tmr:flixel.util.FlxTimer) {
-					openPauseMenu(); //Fix jumpscare da triple bolo
-				});
-			}
+		{
+			new flixel.util.FlxTimer().start(0.05, function(tmr:flixel.util.FlxTimer) {
+				openPauseMenu(); //Fix jumpscare da triple bolo
+			});
+		}
 			
 
 		super.onFocusLost();
@@ -3604,7 +3598,9 @@ class PlayState extends MusicBeatState
 									}
 									if(alphaon && letext.alpha==1 && FlxG.keys.justReleased.SPACE)
 										{
+											#if desktop
 											pularVideo();
+											#end
 										}
 			}
 		timeAccumulated += elapsed;
@@ -4086,7 +4082,7 @@ class PlayState extends MusicBeatState
 		{
 			if(!cpuControlled) {
 				keyShit();
-			} else if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
+			} else if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
 				boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
 			}
@@ -6039,11 +6035,7 @@ class PlayState extends MusicBeatState
 			pixelShitPart2 = '-pixel';
 		}
 
-		if(Assets.exists(Paths.imagechecker(pixelShitPart1 + daRating + pixelShitPart2))) {
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
-		} else {
-			rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2, 'preload'));
-		}
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
@@ -6299,7 +6291,7 @@ class PlayState extends MusicBeatState
 			if (parsedHoldArray.contains(true) && !endingSong) {
 				//nada
 			}
-			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
 				boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
@@ -6965,7 +6957,7 @@ class PlayState extends MusicBeatState
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
 		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 	
-		FlxG.sound.music.pitch = 1;
+		/*FlxG.sound.music.pitch = 1;*/
 
 		super.destroy();
 	}
