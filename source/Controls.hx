@@ -9,7 +9,7 @@ import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
-import flixel.ui.FlxButton;
+import ui.FlxButton;
 import ui.FlxVirtualPad;
 import ui.Hitbox;
 import ui.Hitbox2; //OOOOOOOOOOOOMAGAWD HITBOX2?????? DOS MESMOS CRIADORES DE ZAPORUNGA SHARAPOVA 2????? OMAGAAAAAAAAAAAAAAAAAAAWD

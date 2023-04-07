@@ -6,7 +6,7 @@ import flixel.FlxSprite;
 import flixel.addons.ui.FlxUIButton;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
-import flixel.ui.FlxButton;
+import ui.FlxButton;
 import flixel.util.FlxColor;
 import haxe.Json;
 import ui.FlxVirtualPad;
@@ -44,7 +44,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 	var buttonistouched:Bool = false;
 
-	var bindbutton:flixel.ui.FlxButton;
+	var bindbutton:ui.FlxButton;
 
 	var config:Config;
 
@@ -309,7 +309,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 		}
 	}
 
-	function movebutton(touch:flixel.input.touch.FlxTouch, button:flixel.ui.FlxButton) {
+	function movebutton(touch:flixel.input.touch.FlxTouch, button:ui.FlxButton) {
 		button.x = touch.x - _pad.buttonUp.width / 2;
 		button.y = touch.y - _pad.buttonUp.height / 2;
 		bindbutton = button;
