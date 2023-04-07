@@ -60,6 +60,11 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var version:String = '0.9.6';
 	public static var changelogString:String = 'V'+version+'\nIsso é apenas um\nteste pra ver\nse isso funciona\nmesmo.\nSerá que deu\ncerto????\nass:dav';
 
+	var graphicAsset:FlxGraphic;
+	var tempMask:FlxSprite;
+	var bordinha:FlxSprite;
+	var loader:Loader;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -159,11 +164,23 @@ class MainMenuStateMobile extends MusicBeatState
 		add(gameJoltBG);
 
 		gameJoltIcon= new FlxSprite(0);
-		gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*0.5));
+		gameJoltIcon.x = gameJoltBG.x+10;
+		gameJoltIcon.y = gameJoltBG.y+2;
+		gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
 		gameJoltIcon.updateHitbox();
 		gameJoltIcon.visible = false;
 		gameJoltIcon.antialiasing = ClientPrefs.globalAntialiasing;
 		gameJoltIcon.screenCenter(XY);
+
+		tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
+		tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
+		FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
+		
+		bordinha = new FlxSprite(0,0);
+		bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
+		FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
+		bordinha.x = gameJoltIcon.x-6.5;
+		bordinha.y = gameJoltIcon.y-4.5;
 
 		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "DESCONECTADO", 32);
 		letext.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -176,30 +193,22 @@ class MainMenuStateMobile extends MusicBeatState
 		if(GJClient.logged)
 			{
 				letext.text = GJClient.userName;
-				trace(GJClient.avatarURL);
+				FlxG.log.add(GJClient.avatarURL);
 
 				letext.x=-345;
 				letext.alpha = 1;
 
-				var loader:Loader = new Loader();
+				loader = new Loader();
+
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
+					
 					if(GJClient.avatarURL.contains("no-avatar"))
 						{
-							trace("nao peguei a foto");
+							
+							FlxG.log.add("Não achei a foto");
+
 							gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
 							gameJoltIcon.loadGraphic(Paths.image('placeholderUserIcon', 'preload'));
-							gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
-							var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
-		
-							var bordinha = new FlxSprite(0,0);
-							bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
-							tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
-							FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
-							FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
-							gameJoltIcon.x = gameJoltBG.x+10;
-							gameJoltIcon.y = gameJoltBG.y+2;
-							bordinha.x = gameJoltIcon.x-6.5;
-							bordinha.y = gameJoltIcon.y-4.5;
 							gameJoltIcon.visible = true;
 							add(gameJoltIcon);
 							add(bordinha);
@@ -207,51 +216,32 @@ class MainMenuStateMobile extends MusicBeatState
 					else
 						{
 							var bmp:Bitmap = cast(loader.content, Bitmap);
-							trace("peguei a foto");
+							
+							trace("Achei a foto");
+
 							var bmd:BitmapData = bmp.bitmapData;
-							var graphicAsset:FlxGraphic = FlxGraphic.fromBitmapData(bmd, false);
+							graphicAsset = FlxGraphic.fromBitmapData(bmd, false);
 							gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
 							gameJoltIcon.loadGraphic(graphicAsset);
-							gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
-							var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
-		
-							var bordinha = new FlxSprite(0,0);
-							bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
-							tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
-							FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
-							FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
-							gameJoltIcon.x = gameJoltBG.x+10;
-							gameJoltIcon.y = gameJoltBG.y+2;
-							bordinha.x = gameJoltIcon.x-6.5;
-							bordinha.y = gameJoltIcon.y-4.5;
 							gameJoltIcon.visible = true;
 							add(gameJoltIcon);
 							add(bordinha);
 						}
 				});
+
 				loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, function(event:Event):Void {
-					trace("nao peguei a foto");
+					
+					trace("Não achei a foto");
+
 					gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
 					gameJoltIcon.loadGraphic(Paths.image('placeholderUserIcon', 'preload'));
-					gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
-					var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
-
-					var bordinha = new FlxSprite(0,0);
-					bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
-					tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
-					FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
-					FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
-					gameJoltIcon.x = gameJoltBG.x+10;
-					gameJoltIcon.y = gameJoltBG.y+2;
-					bordinha.x = gameJoltIcon.x-6.5;
-					bordinha.y = gameJoltIcon.y-4.5;
 					gameJoltIcon.visible = true;
 					add(gameJoltIcon);
 					add(bordinha);
 				});
+
 				loader.load(new URLRequest(GJClient.avatarURL));
-				
-				
+
 			}
 			else
 			{
