@@ -6547,12 +6547,14 @@ class PlayState extends MusicBeatState
 			if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 				time += 0.15;
 			}
+			if(!note.isinvisibru){
 			if (isRing){
 				StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 5, time);
 			} else if (note.noteData < 8 && note.noteType != 'player3'){
 				StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time);
 			} else {
 				StrumPlayAnim(true, Std.int(Math.abs(note.noteData)) % 4, time, true);
+			}
 			}
 				note.hitByOpponent = true;
 

@@ -17,6 +17,7 @@ class Note extends FlxSprite
 
 	public var tail:Array<Note> = []; // for sustains
 	public var parent:Note;
+	public var isinvisibru:Bool = false;
 	public var spawned:Bool = false;
 	public var lateHitMult:Float = 1;
 	public var noteData:Int = 0;

@@ -14,6 +14,7 @@ function onCreate()
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'nota_invisivel'); --Change texture
 			setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true)
 			setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true);
+			setPropertyFromGroup('unspawnNotes', i, 'isinvisibru', true)
 
 			table.insert(attackpos, getPropertyFromGroup('unspawnNotes', i, 'strumTime'))
 			

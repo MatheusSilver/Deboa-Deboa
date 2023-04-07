@@ -5,6 +5,7 @@ function onCreate()
 		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'invisible BF Sing' then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'nota_invisivel'); --Change texture
 			setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true)
+			setPropertyFromGroup('unspawnNotes', i, 'isinvisibru', true)
 		end
 	end
 	--debugPrint('Script started!')

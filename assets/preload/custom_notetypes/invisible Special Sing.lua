@@ -3,6 +3,7 @@ function onCreate()
 		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'invisible Special Sing' and not getPropertyFromGroup('unspawnNotes', i, 'mustPress') then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'nota_invisivel'); --Change texture
 			setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true)
+			setPropertyFromGroup('unspawnNotes', i, 'isinvisibru', true)
 		end
 	end
 end
