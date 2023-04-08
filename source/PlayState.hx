@@ -503,6 +503,7 @@ class PlayState extends MusicBeatState
 		precacheList.set('pause/pause (sonicexe)', 'image');
 		precacheList.set('pause/pause (continuar)', 'image');
 		precacheList.set('pause/pause (restart)', 'image');
+		precacheList.set('pause/pause (perfil)', 'image');
 		precacheList.set('pause/pause (voltar)', 'image');
 		precacheList.set('unpause', 'sound');
 		precacheList.set('PauseEnter', 'sound');

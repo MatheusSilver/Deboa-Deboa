@@ -5,7 +5,6 @@ import flixel.util.FlxTimer;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxSound;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -23,7 +22,6 @@ import flixel.tweens.misc.NumTween;
 
 class PauseSubState extends MusicBeatSubstate
 {
-	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var countDownSprites:Array<FlxSprite> = [];
 
@@ -41,6 +39,7 @@ class PauseSubState extends MusicBeatSubstate
 	var praticar:FlxSprite;
 	var bot:FlxSprite;
 	var voltar:FlxSprite;
+
 	var preto:FlxSprite;
 	var bg:FlxSprite;
 	var exe:FlxSprite;
@@ -175,19 +174,6 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(linhabaixo, {y: FlxG.height-linhabaixo.height}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(perfil, {x: FlxG.width-perfil.width}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(exe, {x: FlxG.width-exe.width}, 0.6, {ease: FlxEase.quartInOut});
-
-		grpMenuShit = new FlxTypedGroup<Alphabet>();
-		add(grpMenuShit);
-
-		for (i in 0...menuItems.length)
-		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menuItems[i], true);
-			songText.isMenuTrem = true;
-			songText.targetY = i;
-			songText.screenCenter(X);
-			songText.alpha=0;
-			grpMenuShit.add(songText);
-		}
 
 		if (PlayState.useVideo)
 			{
@@ -339,10 +325,6 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.usedPractice = false;
 					PlayState.changedDifficulty = false;
 					PlayState.cpuControlled = false;
-
-				case 'BACK':
-					menuItems = menuItemsOG;
-					regenMenu();
 			}
 		}
 	}
@@ -534,77 +516,38 @@ class PauseSubState extends MusicBeatSubstate
 		if (curSelected >= menuItems.length)
 			curSelected = 0;
 
-		var bullShit:Int = 0;
-
-		for (item in grpMenuShit.members)
-		{
-			item.targetY = bullShit - curSelected;
-			bullShit++;
-
-
-			item.alpha = 0;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
-
-			if (item.targetY == 0)
-			{
-				item.alpha = 0;
-				// item.setGraphicSize(Std.int(item.width));
-				if(item == grpMenuShit.members[0])
-					{
-						continuar.alpha=1;
-						praticar.alpha=0.5;
-						restart.alpha=0.5;
-						bot.alpha=0.5;
-						voltar.alpha=0.5;
-					}
-				else if(item == grpMenuShit.members[1])
-					{
-						continuar.alpha=0.5;
-						praticar.alpha=1;
-						restart.alpha=0.5;
-						bot.alpha=0.5;
-						voltar.alpha=0.5;
-					}
-				else if(item == grpMenuShit.members[2])
-					{
-						continuar.alpha=0.5;
-						praticar.alpha=0.5;
-						restart.alpha=1;
-						bot.alpha=0.5;
-						voltar.alpha=0.5;
-					}
-					else if(item == grpMenuShit.members[3])
-						{
-							continuar.alpha=0.5;
-							praticar.alpha=0.5;
-							restart.alpha=0.5;
-							bot.alpha=1;
-							voltar.alpha=0.5;
-						}
-						else if(item == grpMenuShit.members[4])
-							{
-								continuar.alpha=0.5;
-								praticar.alpha=0.5;
-								restart.alpha=0.5;
-								bot.alpha=0.5;
-								voltar.alpha=1;
-							}
-			}
+		//Eu queria fazer isso ser automático mas né? Não acho que esse code vá ser reutilizado depois, pelo menos não essa parte.
+		switch(curSelected){
+			case 0:
+				continuar.alpha=1;
+				praticar.alpha=0.5;
+				restart.alpha=0.5;
+				bot.alpha=0.5;
+				voltar.alpha=0.5;
+			case 1:
+				continuar.alpha=0.5;
+				praticar.alpha=1;
+				restart.alpha=0.5;
+				bot.alpha=0.5;
+				voltar.alpha=0.5;
+			case 2:
+				continuar.alpha=0.5;
+				praticar.alpha=0.5;
+				restart.alpha=1;
+				bot.alpha=0.5;
+				voltar.alpha=0.5;
+			case 3:
+				continuar.alpha=0.5;
+				praticar.alpha=0.5;
+				restart.alpha=0.5;
+				bot.alpha=1;
+				voltar.alpha=0.5;
+			case 4:
+				continuar.alpha=0.5;
+				praticar.alpha=0.5;
+				restart.alpha=0.5;
+				bot.alpha=0.5;
+				voltar.alpha=1;
 		}
-	}
-
-	function regenMenu():Void {
-		for (i in 0...grpMenuShit.members.length) {
-			this.grpMenuShit.remove(this.grpMenuShit.members[0], true);
-		}
-		for (i in 0...menuItems.length) {
-			var item = new Alphabet(0, 70 * i + 30, menuItems[i], true);
-			item.isMenuTrem = true;
-			item.targetY = i;
-			item.screenCenter(X);
-			grpMenuShit.add(item);
-		}
-		curSelected = 0;
-		changeSelection();
 	}
 }
