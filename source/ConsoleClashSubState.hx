@@ -2,6 +2,7 @@ import LoadingState.LoadingsState;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
@@ -31,6 +32,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 	var text:Alphabet;
 	private var entrada:Bool = true;
 	public static var consoleCam:FlxCamera;
+	var negadoAud:FlxSound;
 
 	var song:String;
 	var week:Int;
@@ -95,7 +97,8 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		} else {
 			console.loadGraphic(Paths.image('CCC Stuff/CCC-MD (MARIO)'));
 		}
-
+		negadoAud = new FlxSound().loadEmbedded(Paths.sound('negado','preload'));
+		negadoAud.volume = 0.6;
 		updateOptions();
 
 		#if mobileC
@@ -118,7 +121,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 			updateOptions();
 		}
 		if(controls.BACK) { //ok
-			FlxG.sound.play(Paths.sound('negado'), 1);
+			if(!negadoAud.playing){negadoAud.play();}
 			//FlxG.switchState(FlxG.state);
 			//paracomessapohameno = false; //Real tenho minhas duvidas se deveria deixar essa brecha...
 			//Note for future self, quando voltar a mexer na CCC, remover a possibilidade de voltar ao menu.
