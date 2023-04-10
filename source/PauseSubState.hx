@@ -517,36 +517,21 @@ class PauseSubState extends MusicBeatSubstate
 			curSelected = 0;
 
 		//Eu queria fazer isso ser automático mas né? Não acho que esse code vá ser reutilizado depois, pelo menos não essa parte.
+		continuar.alpha=0.5;
+		praticar.alpha=0.5;
+		restart.alpha=0.5;
+		bot.alpha=0.5;
+		voltar.alpha=0.5;
 		switch(curSelected){
 			case 0:
 				continuar.alpha=1;
-				praticar.alpha=0.5;
-				restart.alpha=0.5;
-				bot.alpha=0.5;
-				voltar.alpha=0.5;
 			case 1:
-				continuar.alpha=0.5;
 				praticar.alpha=1;
-				restart.alpha=0.5;
-				bot.alpha=0.5;
-				voltar.alpha=0.5;
 			case 2:
-				continuar.alpha=0.5;
-				praticar.alpha=0.5;
 				restart.alpha=1;
-				bot.alpha=0.5;
-				voltar.alpha=0.5;
 			case 3:
-				continuar.alpha=0.5;
-				praticar.alpha=0.5;
-				restart.alpha=0.5;
 				bot.alpha=1;
-				voltar.alpha=0.5;
 			case 4:
-				continuar.alpha=0.5;
-				praticar.alpha=0.5;
-				restart.alpha=0.5;
-				bot.alpha=0.5;
 				voltar.alpha=1;
 		}
 	}
