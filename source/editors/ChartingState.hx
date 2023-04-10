@@ -423,7 +423,7 @@ class ChartingState extends MusicBeatState
 		{
 			var songName:String = Paths.formatToSongPath(_song.song);
 			var file:String = Paths.json(songName + '/events');
-			#if debug
+			#if (debug && !mobile)
 			if (FileSystem.exists(file))
 			#else
 			if (OpenFlAssets.exists(file))
@@ -440,7 +440,7 @@ class ChartingState extends MusicBeatState
 					}
 				}
 			}
-			#if debug
+			#if (debug && desktop)
 			if (FileSystem.exists(Paths.json(songName + '/letras')))
 			#elseif mobile
 			if (OpenFlAssets.exists(Paths.json(songName + '/letras')))
