@@ -45,7 +45,7 @@ class PibbyTela extends MusicBeatState
 	// Unlocks "Freaky on a Friday Night" achievement
 	function giveAchievement() {
 		add(new AchievementObject('pibby', camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+		GlobalSoundManager.play('confirmMenu');
 		trace('Giving achievement "pibby"');
 	}
 	#end

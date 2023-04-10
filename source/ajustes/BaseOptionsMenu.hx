@@ -31,12 +31,14 @@ class BaseOptionsMenu extends MusicBeatState
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
 		'VISUAL',
+		'SOM GLOBAL',
 		'GAMEPLAY',
 		'SONS EXTRAS'
 	];
 	static var noCheckbox:Array<String> = [
 		'FPS',
 		'Delay da Nota',
+		'Volume ',
 		'Volume',
 		'Tipo',
 		'Teste o HitSound'
@@ -68,6 +70,8 @@ class BaseOptionsMenu extends MusicBeatState
 		'Note Splashes',
 		'Legendas',
 		'Efeitos de Camera',
+		'SOM GLOBAL',
+		'Volume ',
 		'SONS EXTRAS',
 		'Hitsounds',
 		'Volume',
@@ -192,7 +196,7 @@ class BaseOptionsMenu extends MusicBeatState
 		if (controls.BACK) {			
 			ClientPrefs.saveSettings();
 			MusicBeatState.switchState(new ajustes.AjustesState());
-			FlxG.sound.play(Paths.sound('cancelMenu'));
+			GlobalSoundManager.play('cancelMenu');
 		}
 
 		var usesCheckbox = true;
@@ -282,7 +286,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Esconder tempo':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 				}
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				GlobalSoundManager.play('scrollMenu');
 				reloadValues();
 			}
 		} else {
@@ -320,6 +324,15 @@ class BaseOptionsMenu extends MusicBeatState
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
 					}
+					case 'Volume ':
+						ClientPrefs.efeitosVolume += addo;
+						if(ClientPrefs.efeitosVolume < 0.05) ClientPrefs.efeitosVolume = 0;
+						else if(ClientPrefs.efeitosVolume > 0.95) ClientPrefs.efeitosVolume = 1.0; 
+						var teste:FlxSound = new FlxSound().loadEmbedded(Paths.sound('Metronome_Tick', 'shared')); 
+						//Podem trocar isso quando quiserem,
+						//o próprio nome da variável já diz o pq eu escolhi um som random
+						teste.volume = ClientPrefs.efeitosVolume;
+						teste.play();
 					case 'Tipo':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += add;
@@ -332,7 +345,7 @@ class BaseOptionsMenu extends MusicBeatState
 				}
 				reloadValues();
 
-				if(holdTime <= 0) FlxG.sound.play(Paths.sound('scrollMenu'));
+				if(holdTime <= 0) GlobalSoundManager.play('scrollMenu');
 				holdTime += elapsed;
 			} else if (controls.ACCEPT && options[curSelected] == 'Teste o HitSound' && ClientPrefs.hitSounds){
 				var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
@@ -373,6 +386,8 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Determina o entre áspas limite do seu FPS.";
 			case 'Delay da Nota':
 				daText = "Troca o quão cedo uma nota aparece.\n(feitos para fones com delay.)";
+			case 'Volume ':
+				daText = 'Altera o Volume dos efeitos sonoros do jogo inteiro.';
 			case 'FPS visível':
 				daText = "Se desmarcado, desativa os contadores do jogo,\ntais como o contador de FPS e de memória.";
 			case 'Shaders':
@@ -452,7 +467,7 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 
 		showCharacter.visible = (options[curSelected] == 'Anti-Aliasing');
-		FlxG.sound.play(Paths.sound('scrollMenu'));
+		GlobalSoundManager.play('scrollMenu');
 	}
 
 	function reloadValues() {
@@ -514,6 +529,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = '' + ClientPrefs.framerate;
 					case 'Delay da Nota':
 						daText = ClientPrefs.noteOffset + 'ms';
+					case 'Volume ':
+						daText = Std.string(ClientPrefs.efeitosVolume);
 					case 'Volume':
 						daText = Std.string(ClientPrefs.osusom);
 					case 'Tipo':

@@ -422,7 +422,7 @@ class GaleriaStateMusic extends MusicBeatState
 				}
 
 			if (controls.BACK || (FlxG.mouse.overlaps(sair) && FlxG.mouse.justPressed)) {
-				FlxG.sound.play(Paths.sound('click'));
+				GlobalSoundManager.play('click');
 				GaleriaState.firsttimemusic = false;
 				GaleriaState.stoploading = false;
 				canRender = false;
@@ -484,7 +484,7 @@ class GaleriaStateMusic extends MusicBeatState
 										loopar = false;
 										playsequencia = false;
 								}
-								FlxG.sound.play(Paths.sound('click'));
+								GlobalSoundManager.play('click');
 								reloadValues();
 							}
 
@@ -495,15 +495,15 @@ class GaleriaStateMusic extends MusicBeatState
 				if (FlxG.mouse.overlaps(botaodireita)){
 					FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 					changeSong(curSelected+1);
-					FlxG.sound.play(Paths.sound('click'));
+					GlobalSoundManager.play('click');
 				}else if (FlxG.mouse.overlaps(botaoesquerda)){
 					changeSong(curSelected-1);
 					FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
-					FlxG.sound.play(Paths.sound('click'));
+					GlobalSoundManager.play('click');
 				}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&pausado){
 					pausado = false;
 					botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/pause', 'preload'));
-					FlxG.sound.play(Paths.sound('click'));
+					GlobalSoundManager.play('click');
 					if(menutoca){
 						FlxG.sound.music.fadeOut(1, 0);
 						FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[curSelected].toLowerCase()),0);
@@ -517,7 +517,7 @@ class GaleriaStateMusic extends MusicBeatState
 					botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/play', 'preload'));
 					pausado = true;
 
-					FlxG.sound.play(Paths.sound('click'));
+					GlobalSoundManager.play('click');
 				}
 			}
 
@@ -537,7 +537,7 @@ class GaleriaStateMusic extends MusicBeatState
 					if(FlxG.mouse.justPressed) 
 						{
 							if(FlxG.mouse.overlaps(spr) && spr.visible){
-								FlxG.sound.play(Paths.sound('click'));
+								GlobalSoundManager.play('click');
 								FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 								changeSong(spr.ID);
 							}

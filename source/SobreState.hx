@@ -174,12 +174,12 @@ class SobreState extends MusicBeatState
 					arrow.updateHitbox();
 				}
             if (controls.BACK) {
-                FlxG.sound.play(Paths.sound('cancelMenu'));
+                GlobalSoundManager.play('cancelMenu');
                 MusicBeatState.switchState(new MainMenuStateMobile());
             }
 
 			/*if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
-				FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+				GlobalSoundManager.play('scrollMenu');
 				if(curSection==0)
 					{
 						curSection=1;
@@ -227,7 +227,7 @@ class SobreState extends MusicBeatState
 			//arrow
 			arrow.onOver.callback = function()
 			{
-				FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+				GlobalSoundManager.play('scrollMenu');
 				arrow.alpha=1;
 			};
 
@@ -239,7 +239,7 @@ class SobreState extends MusicBeatState
 
 			arrow.onDown.callback = function()
 			{
-				FlxG.sound.play(Paths.sound('confirmMenu'));
+				GlobalSoundManager.play('confirmMenu');
 				arrow.alpha=1;
 				if(curSection==0)
 					{
@@ -257,7 +257,7 @@ class SobreState extends MusicBeatState
 			{
 				if(curSection==0)
 					{
-						FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+						GlobalSoundManager.play('scrollMenu');
 						vio.alpha=1;
 					}
 			}
@@ -272,7 +272,7 @@ class SobreState extends MusicBeatState
 					{
 						if(curSection==0)
 							{
-								FlxG.sound.play(Paths.sound('confirmMenu'));
+								GlobalSoundManager.play('confirmMenu');
 								vio.alpha=1;
 								FlxTransitionableState.skipNextTransOut = true;
 								MusicBeatState.switchState(new TimeDaVio());
@@ -282,7 +282,7 @@ class SobreState extends MusicBeatState
 						{
 							if(curSection==0)
 								{
-									FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+									GlobalSoundManager.play('scrollMenu');
 									exe.alpha=1;
 								}
 						}
@@ -298,7 +298,7 @@ class SobreState extends MusicBeatState
 								{
 									if(curSection==0)
 										{
-											FlxG.sound.play(Paths.sound('confirmMenu'));
+											GlobalSoundManager.play('confirmMenu');
 											exe.alpha=1;
 											FlxTransitionableState.skipNextTransOut = true;
 											MusicBeatState.switchState(new CreditsMods());
@@ -308,7 +308,7 @@ class SobreState extends MusicBeatState
 									{
 										if(curSection==0)
 											{
-												FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+												GlobalSoundManager.play('scrollMenu');
 												saster.alpha=1;
 											}
 									}
@@ -324,7 +324,7 @@ class SobreState extends MusicBeatState
 											{
 												if(curSection==0)
 													{
-														FlxG.sound.play(Paths.sound('confirmMenu'));
+														GlobalSoundManager.play('confirmMenu');
 														saster.alpha=1;
 														FlxTransitionableState.skipNextTransOut = true;
 														MusicBeatState.switchState(new CreditsMusics());
@@ -335,7 +335,7 @@ class SobreState extends MusicBeatState
 												{
 													if(curSection==1)
 														{
-															FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+															GlobalSoundManager.play('scrollMenu');
 															sunny.alpha=1;
 														}
 												}
@@ -351,7 +351,7 @@ class SobreState extends MusicBeatState
 														{
 															if(curSection==1)
 																{
-																	FlxG.sound.play(Paths.sound('confirmMenu'));
+																	GlobalSoundManager.play('confirmMenu');
 																	sunny.alpha=1;
 																	MusicBeatState.switchState(new GaleriaState());
 																}
@@ -361,7 +361,7 @@ class SobreState extends MusicBeatState
 															{
 																if(curSection==1)
 																	{
-																		FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+																		GlobalSoundManager.play('scrollMenu');
 																		dav.alpha=1;
 																	}
 															}
@@ -377,7 +377,7 @@ class SobreState extends MusicBeatState
 																	{
 																		if(curSection==1)
 																			{
-																				FlxG.sound.play(Paths.sound('confirmMenu'));
+																				GlobalSoundManager.play('confirmMenu');
 																				dav.alpha=1;
 																				#if desktop
 																				MusicBeatState.switchState(new SobreVideo());

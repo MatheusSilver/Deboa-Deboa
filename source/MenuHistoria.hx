@@ -107,13 +107,13 @@ class MenuHistoria extends MusicBeatSubstate
 				//Consegui cometer o mesmo erro duas vezes seguidas...
 			{
 				changeSong(-1, true);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				GlobalSoundManager.play('scrollMenu');
 			}
 
 			if (controls.UI_RIGHT_P && apertavel && musicas.length > 1)
 			{
 				changeSong(1, false);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				GlobalSoundManager.play('scrollMenu');
 			}
 
 			if (controls.BACK && !movedBack && !selectedWeek && apertavel && !naopodevoltar)
@@ -175,7 +175,7 @@ class MenuHistoria extends MusicBeatSubstate
 	{
 			if (stopspamming == false)
 			{
-				FlxG.sound.play(Paths.sound('confirmMenu'));
+				GlobalSoundManager.play('confirmMenu');
 				stopspamming = true;
 			}
 

@@ -270,7 +270,7 @@ class FreeplayState extends MusicBeatState
 	//		if(colorTween != null) {
 		//		colorTween.cancel();
 		//	}
-			FlxG.sound.play(Paths.sound('cancelMenu'));
+			GlobalSoundManager.play('cancelMenu');
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
@@ -363,7 +363,7 @@ class FreeplayState extends MusicBeatState
 
 	function changeSelection(change:Int = 0)
 	{
-		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
+		GlobalSoundManager.play('scrollMenu');
 
 		apertavel = false;
 

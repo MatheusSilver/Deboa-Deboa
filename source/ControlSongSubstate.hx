@@ -106,7 +106,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 		}
 		if (!escolheualgo){
 		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
-			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+			GlobalSoundManager.play('scrollMenu');
 			onYes = !onYes;
 			updateOptions();
 		}
@@ -131,7 +131,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 					new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 						LoadingState.loadAndSwitchState(new PlayState());
 					});
-					FlxG.sound.play(Paths.sound('confirmMenu'), 1);
+					GlobalSoundManager.play('confirmMenu');
 
 					}
 					else if(confirmInt == 1) {
@@ -141,7 +141,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 						new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 							LoadingState.loadAndSwitchState(new PlayState());
 						});
-						FlxG.sound.play(Paths.sound('confirmMenu'), 1);
+						GlobalSoundManager.play('confirmMenu');
 					}
 				}
 			super.update(elapsed);

@@ -84,7 +84,7 @@ class PreMainMenuState extends MusicBeatState
 	function simHover():Void
 		{
 			simbotao.alpha=1;
-			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			GlobalSoundManager.play('scrollMenu');
 		}
 		function simOut():Void
 			{
@@ -93,7 +93,7 @@ class PreMainMenuState extends MusicBeatState
 
 			function simClick():Void
 				{
-					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+					GlobalSoundManager.play('confirmMenu');
 					#if desktop
 					VideoStatePC.videoPath = "assets/videos/aviso.mp4";
 					VideoStatePC.NextState = "mainmenu";
@@ -106,7 +106,7 @@ class PreMainMenuState extends MusicBeatState
 				function naoHover():Void
 					{
 						naobotao.alpha=1;
-						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+						GlobalSoundManager.play('scrollMenu');
 					}
 					function naoOut():Void
 						{
@@ -115,7 +115,7 @@ class PreMainMenuState extends MusicBeatState
 			
 						function naoClick():Void
 							{
-								FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+								GlobalSoundManager.play('confirmMenu');
 								MusicBeatState.switchState(new MainMenuStateMobile());
 							}
 }

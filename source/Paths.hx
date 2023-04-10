@@ -94,7 +94,7 @@ class Paths
 		for (key in OpenFlAssets.cache.getFontKeys())
 			OpenFlAssets.cache.removeFont(key);
 
-		localTrackedAssets["sounds"] = localTrackedAssets["graphics"] = [];
+		localTrackedAssets["sounds"] = GlobalSoundManager.listaDeSons = localTrackedAssets["graphics"] = [];
 	}
 
 	static public var currentModDirectory:String = null;

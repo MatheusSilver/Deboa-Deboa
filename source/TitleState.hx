@@ -382,7 +382,7 @@ class TitleState extends MusicBeatState
 			{
 
 				FlxG.camera.flash(FlxColor.WHITE, 1);
-				FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+				GlobalSoundManager.play('confirmMenu');
 
 				transitioning = true;
 				// FlxG.sound.music.stop();

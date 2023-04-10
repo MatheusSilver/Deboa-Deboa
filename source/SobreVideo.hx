@@ -47,7 +47,7 @@ class SobreVideo extends MusicBeatState
                 new FlxTimer().start(76, function(tmr:FlxTimer){
                     FlxG.mouse.unload();
                     video.stopVideo();
-                    FlxG.sound.play(Paths.sound('cancelMenu'));
+                    GlobalSoundManager.play('cancelMenu');
                     MusicBeatState.switchState(new SobreState());
                 });
             });
@@ -87,7 +87,7 @@ class SobreVideo extends MusicBeatState
             if (controls.BACK) {
                 FlxG.mouse.unload();
                 video.stopVideo();
-                FlxG.sound.play(Paths.sound('cancelMenu'));
+                GlobalSoundManager.play('cancelMenu');
                 MusicBeatState.switchState(new SobreState());
             }
 		}

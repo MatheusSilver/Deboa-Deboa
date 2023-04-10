@@ -86,13 +86,13 @@ class MenuPreHistoria extends MusicBeatState
 			if (controls.UI_LEFT_P && apertavel) //silver bulinho kekekek, não saber a diferença entre || e && ;-;
 			{
 				changeWeek(-1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				GlobalSoundManager.play('scrollMenu');
 			}
 
 			if (controls.UI_RIGHT_P && apertavel)
 			{
 				changeWeek(1);
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				GlobalSoundManager.play('scrollMenu');
 			}
 
 			if (controls.ACCEPT && apertavel)
@@ -103,7 +103,7 @@ class MenuPreHistoria extends MusicBeatState
 
 		if (controls.BACK && !movedBack && !selectedWeek)
 		{
-			FlxG.sound.play(Paths.sound('cancelMenu'));
+			GlobalSoundManager.play('cancelMenu');
 			movedBack = true;
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
@@ -119,7 +119,7 @@ class MenuPreHistoria extends MusicBeatState
 	{
 			if (stopspamming == false)
 			{
-				FlxG.sound.play(Paths.sound('confirmMenu'));
+				GlobalSoundManager.play('confirmMenu');
 				stopspamming = true;
 			}
 

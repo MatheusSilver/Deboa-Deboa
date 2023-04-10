@@ -99,7 +99,7 @@ class CreditsMods extends MusicBeatState
 	override function update(elapsed:Float)
 		{
             if (controls.BACK) {
-                FlxG.sound.play(Paths.sound('cancelMenu'));
+                GlobalSoundManager.play('cancelMenu');
                 MusicBeatState.switchState(new SobreState());
             }
 
@@ -119,7 +119,7 @@ class CreditsMods extends MusicBeatState
                                 changeSelection(curSelected);
                             }
                         canChange=false;
-                        FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                        GlobalSoundManager.play('scrollMenu');
                     }
 			}
 
@@ -139,7 +139,7 @@ class CreditsMods extends MusicBeatState
                                 changeSelection(curSelected);
                             }
                         canChange=false;
-                        FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                        GlobalSoundManager.play('scrollMenu');
                     }
 			}
 			super.update(elapsed);

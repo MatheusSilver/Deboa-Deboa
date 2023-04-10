@@ -36,6 +36,10 @@ class FlashingState extends MusicBeatState
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(XY);
 		add(warnText);
+
+		#if mobileC
+		addVirtualPad(NONE, A_B);
+		#end
 	}
 
 	override function update(elapsed:Float)
@@ -45,7 +49,7 @@ class FlashingState extends MusicBeatState
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
-				FlxG.sound.play(Paths.sound('confirmMenu'));
+				GlobalSoundManager.play('confirmMenu');
 				FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
 					new FlxTimer().start(0.5, function (tmr:FlxTimer) {
 						MusicBeatState.switchState(new TitleState());
@@ -55,7 +59,7 @@ class FlashingState extends MusicBeatState
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
+				GlobalSoundManager.play('cancelMenu');
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
 						MusicBeatState.switchState(new ajustes.BaseOptionsMenu());

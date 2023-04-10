@@ -31,6 +31,7 @@ class ClientPrefs {
 	public static var fullscreen:Bool = false;
 	public static var hitSoundType:Int = 0;
 	public static var osusom:Float = 0.5;
+	public static var efeitosVolume:Float = 0.8;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var ghostTapping:Bool = true;
@@ -82,6 +83,7 @@ class ClientPrefs {
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.osusom = osusom;
+		FlxG.save.data.efeitosVolume = efeitosVolume;
 		FlxG.save.data.loadingexperimental = loadingexperimental;
 		FlxG.save.data.pausarauto = pausarauto;
 		FlxG.save.data.flashing = flashing;
@@ -153,6 +155,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.osusom != null) {
 			osusom = FlxG.save.data.osusom;
+		}
+		if(FlxG.save.data.efeitosVolume != null) {
+			efeitosVolume = FlxG.save.data.efeitosVolume;
 		}
 		if(FlxG.save.data.loadingexperimental != null) {
 			loadingexperimental = FlxG.save.data.loadingexperimental;

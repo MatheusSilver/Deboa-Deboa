@@ -370,7 +370,7 @@ class AjustesState extends MusicBeatState
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
 				selectedSomethin = true;
-				FlxG.sound.play(Paths.sound('cancelMenu'));
+				GlobalSoundManager.play('cancelMenu');
 				ClientPrefs.saveSettings();
 				MusicBeatState.switchState(new MainMenuStateMobile());
 			}
@@ -381,7 +381,7 @@ class AjustesState extends MusicBeatState
 				FlxG.mouse.visible = false;
 				#end 
 					selectedSomethin = true;
-					FlxG.sound.play(Paths.sound('confirmMenu'));
+					GlobalSoundManager.play('confirmMenu');
 							checkiftouch = false; //This should be enough
 							var daChoice:String = optionShit[curSelected];
 							sumidao(curSelected);
@@ -426,7 +426,7 @@ class AjustesState extends MusicBeatState
 		function configuracoesHover():Void
 		{
 			configuracoesbotao.alpha=1;
-			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			GlobalSoundManager.play('scrollMenu');
 		}
 	 
 		function configuracoesOut():Void
@@ -437,7 +437,7 @@ class AjustesState extends MusicBeatState
 		function controlesHover():Void
 		{
 			controlesbotao.alpha=1;
-			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			GlobalSoundManager.play('scrollMenu');
 		}
 		 
 		function controlesOut():Void
@@ -448,7 +448,7 @@ class AjustesState extends MusicBeatState
 		function setasHover():Void
 			{
 				setasbotao.alpha=1;
-				FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+				GlobalSoundManager.play('scrollMenu');
 			}
 			 
 			function setasOut():Void
@@ -461,7 +461,7 @@ class AjustesState extends MusicBeatState
 				if(!GJClient.logged && !TitleState.ModoOffline)
 					{
 						gamejoltbotao.alpha=1;
-						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+						GlobalSoundManager.play('scrollMenu');
 					}
 			}
 			 

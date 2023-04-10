@@ -201,16 +201,16 @@ class GaleriaState extends MusicBeatState
 					{
 						if(FlxG.mouse.overlaps(spr)){
 							stoploading = true;
-							FlxG.sound.play(Paths.sound('click'));
+							GlobalSoundManager.play('click');
 							GaleriaStateMusic.songPosInArray = spr.ID;
 							MusicBeatState.switchState(new GaleriaStateMusic());
 							FlxG.sound.music.fadeOut(1, 0);
 						}else if (FlxG.mouse.overlaps(galeriaButton) && !isGaleria){
 							galeriapressed();
-							FlxG.sound.play(Paths.sound('click'));
+							GlobalSoundManager.play('click');
 						}else if (FlxG.mouse.overlaps(musicButton) && isGaleria){
 							musicpressed();
-							FlxG.sound.play(Paths.sound('click'));
+							GlobalSoundManager.play('click');
 						}
 					}
 
@@ -224,14 +224,14 @@ class GaleriaState extends MusicBeatState
 						if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
 							Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 							add(new AchievementObject('galeria', camAchievement));
-							FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+							GlobalSoundManager.play('confirmMenu');
 							ClientPrefs.saveSettings();
 						}
 					}
 				if (controls.BACK) {
 					mouseskin = '';
 					FlxG.mouse.unload();
-					FlxG.sound.play(Paths.sound('cancelMenu'));
+					GlobalSoundManager.play('cancelMenu');
 					MusicBeatState.switchState(new SobreState());
 				}
 				if(isGaleria)

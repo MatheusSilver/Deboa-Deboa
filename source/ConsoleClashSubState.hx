@@ -116,7 +116,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		}
 		//text.changeText(Std.string(console.x) + "\n"+Std.string(console.y));
 		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
-			FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+			GlobalSoundManager.play('scrollMenu');
 			onSonic = !onSonic;
 			updateOptions();
 		}

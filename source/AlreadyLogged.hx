@@ -80,7 +80,7 @@ class AlreadyLogged extends MusicBeatState
 	function simHover():Void
 		{
 			simbotao.alpha=1;
-			FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+			GlobalSoundManager.play('scrollMenu');
 		}
 		function simOut():Void
 			{
@@ -89,14 +89,14 @@ class AlreadyLogged extends MusicBeatState
 
 			function simClick():Void
 				{
-					FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+					GlobalSoundManager.play('confirmMenu');
 					GJClient.logout();
 					MusicBeatState.switchState(new GameJoltLoginState());
 				}
 				function naoHover():Void
 					{
 						naobotao.alpha=1;
-						FlxG.sound.play(Paths.sound('scrollMenu'), 0.7);
+						GlobalSoundManager.play('scrollMenu');
 					}
 					function naoOut():Void
 						{
@@ -105,7 +105,7 @@ class AlreadyLogged extends MusicBeatState
 			
 						function naoClick():Void
 							{
-								FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+								GlobalSoundManager.play('confirmMenu');
 								FlxG.switchState(new ajustes.AjustesState());
 							}
 }

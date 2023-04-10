@@ -218,7 +218,7 @@ class TimeDaVio extends MusicBeatState
 			DiscordClient.changePresence("Vendo os créditos do(a) "+creditStuff[curSelected], null);
 			#end
             if (controls.BACK) {
-                FlxG.sound.play(Paths.sound('cancelMenu'));
+                GlobalSoundManager.play('cancelMenu');
                 MusicBeatState.switchState(new SobreState());
             }
 
@@ -238,7 +238,7 @@ class TimeDaVio extends MusicBeatState
                                 changeSelection(curSelected);
                             }
                         canChange=false;
-                        FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                        GlobalSoundManager.play('scrollMenu');
                     }
 			}
 
@@ -258,7 +258,7 @@ class TimeDaVio extends MusicBeatState
                                 changeSelection(curSelected);
                             }
                         canChange=false;
-                        FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                        GlobalSoundManager.play('scrollMenu');
                     }
 			}
 			super.update(elapsed);
@@ -396,7 +396,7 @@ class TimeDaVio extends MusicBeatState
                     {
                         if(twitterLink[curSelected]!='')
                             {
-                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                GlobalSoundManager.play('scrollMenu');
                                 twitter.alpha=1;
                             }
                     };
@@ -413,7 +413,7 @@ class TimeDaVio extends MusicBeatState
                     {
                         if(twitterLink[curSelected]!='')
                             {
-                                FlxG.sound.play(Paths.sound('confirmMenu'));
+                                GlobalSoundManager.play('confirmMenu');
                                 twitter.alpha=1;
                             }
                         if(twitterLink[curSelected]!='')
@@ -431,7 +431,7 @@ class TimeDaVio extends MusicBeatState
                             if(youtubeLink[curSelected]!=''){
 
                             
-                                FlxG.sound.play(Paths.sound('scrollMenu'), 1);
+                                GlobalSoundManager.play('scrollMenu');
                                 youtube.alpha=1;
                             }
                         };
@@ -449,7 +449,7 @@ class TimeDaVio extends MusicBeatState
                         {
                             if(youtubeLink[curSelected]!='')
                                 {
-                                    FlxG.sound.play(Paths.sound('confirmMenu'));
+                                    GlobalSoundManager.play('confirmMenu');
                                     youtube.alpha=1;
                                 }
                             if(youtubeLink[curSelected]!='')
@@ -465,8 +465,10 @@ class TimeDaVio extends MusicBeatState
                         discord.onOver.callback = function()
                             {
                                 if(discordLink[curSelected]!='')
-                                    {                                    FlxG.sound.play(Paths.sound('scrollMenu'), 1);
-                                discord.alpha=1;}
+                                    { 
+                                        GlobalSoundManager.play('scrollMenu');
+                                        discord.alpha=1;
+                                    }
                             };
                 
                             discord.onOut.callback = function()
@@ -480,9 +482,9 @@ class TimeDaVio extends MusicBeatState
                             discord.onDown.callback = function()
                             {
                                 if(discordLink[curSelected]!='')
-                                    {                                    FlxG.sound.play(Paths.sound('confirmMenu'));
-                                discord.alpha=1;
-
+                                    {
+                                        GlobalSoundManager.play('confirmMenu');
+                                        discord.alpha=1;
                                     }
                                 if(discordLink[curSelected]!='')
                                     {
