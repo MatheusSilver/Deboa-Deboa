@@ -3866,13 +3866,6 @@ class PlayState extends MusicBeatState
 				openPauseMenu();
 			}
 		}
-		if (SONG.song.toLowerCase() == 'milk')
-			{
-				if(curStep == 1249)
-					{
-						startachieving("sunky_fatos");
-					}
-			}
 
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
 		{
@@ -7018,6 +7011,13 @@ class PlayState extends MusicBeatState
 		if(curSong.toLowerCase()=='endless' && curStep == 1289 && !cpuControlled)
 			startachieving("fisk");
 
+		if (SONG.song.toLowerCase() == 'milk' && !cpuControlled)
+			{
+				if(curStep == 1249)
+					{
+						startachieving("sunky_fatos");
+					}
+			}
 		if (curSong.toLowerCase() == 'prey' && curStep > 4490 && canuseevents == false)
 			canuseevents = true;
 
