@@ -403,6 +403,60 @@ class GJClient
         }
     }
 
+    public static function setData(txtContent:String, dataKey:String, ?onSuccess:DataStore -> Void, ?onFail:() -> Void) // GJClient.setData("valor", "key"); exemplo de aplicar algum valor
+        {
+            var daParams:Array<Array<String>> = [
+                ['game_id', Std.string(GJKeys.id)],
+                ['key', dataKey],
+                ['data', txtContent],
+                ['username', GJClient.userName],
+                ['user_token', getToken()]
+            ];
+    
+            if (logged)
+            {
+                var urlData = urlResult(urlConstruct('data-store', 'set', daParams),
+                function ()
+                {
+                    if (logged)
+                    {
+                        var daData:DataStore =
+                        {
+                            game_id: Std.string(GJKeys.id),
+                            key: dataKey,
+                            data: txtContent,
+                            username: GJClient.userName,
+                            user_token: getToken()
+                        };
+    
+                        printMsg('Data setted successfully!');
+                        if (onSuccess != null) onSuccess(daData);
+                    }
+                },
+                function ()
+                {
+                    printMsg('Data setting failed!');
+                    if (onFail != null) onFail();
+                });
+                if (urlData != null) urlData; else return;   
+            }
+        }
+    
+        public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void):String // GJClient.getData("key"); exemplo de puxar algum valor
+            {
+                var daParams:Array<Array<String>> = [
+                    ['game_id', Std.string(GJKeys.id)],
+                    ['key', dataKey],
+                    ['username', GJClient.userName],
+                    ['user_token', getToken()]
+                ];
+                var urlData = urlResult(urlConstruct('data-store', null, daParams),
+                function () {printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
+                function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();});
+                var daData:Null<DataStore> = urlData != null && logged ? urlData : null;
+                return daData.data;
+            }
+
     /**
      * Gives you the global rank you got in a certain score table in your game.
      * This is given according to the top score you have in that table.
@@ -594,6 +648,7 @@ class GJClient
 
         return success ? result : null;
     }
+
 
     static function getUser():Null<String> {return FlxG.save.data.user;}
     static function getToken():Null<String> {return FlxG.save.data.token;}
