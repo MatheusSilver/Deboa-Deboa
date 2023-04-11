@@ -67,13 +67,14 @@ class Achievements {
 
 	public static function syncAchievementsGJ()
 		{
+			if(GJClient.logged){
 			var GJList:Null<Array<Trophie>> = GJClient.getTrophiesList();
 			for (i in 0...GJList.length) {
 				if(GJList[i].achieved)
 					{
 						unlockAchievement(getAchievementID(GJList[i].id));
 					}
-			}
+			}}
 		}
 
 	public static function getAchievementIndex(name:String) {
