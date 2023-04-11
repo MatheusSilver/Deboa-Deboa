@@ -64,7 +64,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 
-		text = new Alphabet(0, 50, "Escolha seu lado", true);
+		text = new Alphabet(0, 25, "Escolha seu lado", true, false, 0, 1, "alfabetovio");
 		text.screenCenter(X);
 		alphabetArray.push(text);
 		text.alpha = 0;
@@ -80,8 +80,10 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		console.antialiasing = false;
 		console.updateHitbox();
 		console.alpha=1;
-		console.screenCenter(X);
+		console.x = 160;
+		console.y = 1600;
 		add(console);
+		flixel.tweens.FlxTween.tween(console, {y: 141}, 0.75, {ease: flixel.tweens.FlxEase.expoInOut});
 
 		clashsupBG = new FlxSprite(0,0).loadGraphic(Paths.image('CCC Stuff/CCC-MD (MegaDrive)'));
 		clashsupBG.antialiasing = ClientPrefs.globalAntialiasing;
@@ -90,6 +92,8 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		clashsupBG.cameras = [consoleCam];
 		clashsupBG.antialiasing = false;
 		clashsupBG.updateHitbox();
+		//x: 160
+		//y: 141
 		clashsupBG.screenCenter(XY);
 		add(clashsupBG);
 		if(onSonic){
@@ -100,7 +104,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		negadoAud = new FlxSound().loadEmbedded(Paths.sound('negado','preload'));
 		negadoAud.volume = 0.6;
 		updateOptions();
-
+		trace(console.x+"\n"+console.y);
 		#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
