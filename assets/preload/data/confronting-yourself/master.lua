@@ -49,9 +49,9 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 		for i = 1,#phase3cheetosvilao do
 			cameraSetTarget('bf');
-			setProperty(phase3cheetosvilao[i]..'.visible', true)
-			entra2D()
+			setProperty(phase3cheetosvilao[i]..'.visible', true
 		end
+		entra2D() -- Isso certamente não deveria estar naquele for ali em cima :skull:
 	elseif curPhase == 4 then
 		for i = 1,#phase3cheetosvilao do
 			setProperty(phase3cheetosvilao[i]..'.visible', false)
@@ -78,6 +78,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 		
 		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
+		sai2D()
 		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.5, 'linear')
 		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 300, 34, 'linear')
 		doTweenX('awaqueanda1EXE', 'awaEXE', 300, 34, 'linear')
@@ -207,6 +208,8 @@ function onCreate()
 	precacheSound('stat')
 	precacheSound('staticBUZZ')
 	precacheSound('exerisadinha')
+		
+	--Lembrar de colocar o som da estática inicial aqui tambem
 end
 
 function onTimerCompleted(tag)
@@ -215,6 +218,8 @@ function onTimerCompleted(tag)
         runTimer('desacelera2', 0.5)
 		setProperty('knuxerabos.y', getCharacterY('boyfriend')+450)
 		setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
+		setProperty('camZooming', false)
+		
     end
     if tag == 'desacelera2' then
         comunicador = 5
@@ -230,11 +235,12 @@ function onTimerCompleted(tag)
         comunicador = 10
         cameraFlash('legenda', '0xffffff', 2, true)
         runTimer('switch', 0.1)
+	cameraFlash('legenda', '0xffffff', 1, true)
     end
 
     if tag == 'switch' then
+	setCamMove(true);
         setCharacterX('dad', dadXPosOriginal)
-        cameraFlash('legenda', '0xffffff', 1, true)
         triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
     end
 end
