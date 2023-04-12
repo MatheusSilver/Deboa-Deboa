@@ -127,6 +127,7 @@ class AchievementsMenuState extends MusicBeatState
 					remove(announceText);
 					FirstTimeAqui=false;
 				}});
+				Achievements.syncAchievementsGJ();
 			}
 		changeSelection();
 		Conductor.changeBPM(112);

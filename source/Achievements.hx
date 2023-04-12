@@ -13,7 +13,7 @@ class Achievements {
 	//substituir os zeros pelos seus respectivos ID's de achievement da gamejolt
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
 		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 		181570, 		'geral', 		1], //ok1
-		["Até o proximo encontro",		"Vença slaybells.",									'natal',			false, 		185532, 		'geral', 		1], //ok1
+		["Ate o proximo encontro",		"Vença slaybells.",									'natal',			false, 		185532, 		'geral', 		1], //ok1
 		["G0TT4_G0_F4ST0",				"Irmão... Tu tá bem man? FC na too fest? medo...",	'toofest_fc',		true, 		181571, 		'meme maker', 	3], //ok1
 		["Bye, Bye",					"Vença a Cycles sem errar",							'bye_bye_fc',		false, 		185533, 		'ira', 			3], //ok1
 		["Sob controle",				"Vença Control com os gifs Ativados",				'control_fc',		false, 		185534, 		'preguica', 	2], //ok1
@@ -65,6 +65,18 @@ class Achievements {
 		return false;
 	}
 
+	public static function syncAchievementsGJ()
+		{
+			if(GJClient.logged){
+			var GJList:Null<Array<Trophie>> = GJClient.getTrophiesList();
+			for (i in 0...GJList.length) {
+				if(GJList[i].achieved)
+					{
+						unlockAchievement(getAchievementID(GJList[i].id));
+					}
+			}}
+		}
+
 	public static function getAchievementIndex(name:String) {
 		for (i in 0...achievementsStuff.length) {
 			if(achievementsStuff[i][2] == name) {
@@ -72,6 +84,15 @@ class Achievements {
 			}
 		}
 		return -1;
+	}
+
+	public static function getAchievementID(id:Int):String {
+		for (i in 0...achievementsStuff.length) {
+			if(achievementsStuff[i][4] == id) {
+				return achievementsStuff[i][2];
+			}
+		}
+		return "";
 	}
 
 	public static function loadAchievements():Void {

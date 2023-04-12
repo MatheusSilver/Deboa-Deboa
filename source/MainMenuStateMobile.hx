@@ -177,7 +177,6 @@ class MainMenuStateMobile extends MusicBeatState
 			{
 				letext.text = GJClient.userName;
 				trace(GJClient.avatarURL);
-
 				letext.x=-345;
 				letext.alpha = 1;
 
