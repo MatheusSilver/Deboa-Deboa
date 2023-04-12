@@ -50,6 +50,7 @@ function onUpdate()
 	doTweenAlpha('AlphaTween6', 'timeBar', 0, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 0, 0.1)
+	doTweenAlpha('AlphaTween9', 'judgementCounter', 0, 0.1)
 
 
 	end
@@ -75,6 +76,7 @@ function onUpdate()
 	doTweenAlpha('AlphaTween6', 'timeBar', 0, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 0, 0.1)
+	doTweenAlpha('AlphaTween9', 'judgementCounter', 0, 0.1)
 
 	end
 
@@ -100,6 +102,7 @@ function onUpdate()
 	doTweenAlpha('AlphaTween6', 'timeBar', 1, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 1, 0.1)
+	doTweenAlpha('AlphaTween9', 'judgementCounter', 1, 0.1)
 	--doTweenAlpha('AlphaTween9', 'botplayTxt', 1, 0.1)
 	
 	end
@@ -125,6 +128,7 @@ function onUpdate()
 	doTweenAlpha('AlphaTween6', 'timeBar', 1, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 1, 0.1)
+	doTweenAlpha('AlphaTween9', 'judgementCounter', 1, 0.1)
 	--doTweenAlpha('AlphaTween9', 'botplayTxt', 1, 0.1)
 	
 	end
@@ -135,6 +139,5 @@ function onEvent(name,value1,value2)
 	if name == 'Cinematics' then
 		StartStop = tonumber(value1)
 		Speed = tonumber(value2)
-			end
-	
-		end
+	end
+end

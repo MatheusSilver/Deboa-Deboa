@@ -1248,8 +1248,6 @@ class PlayState extends MusicBeatState
 		add(luaDebugGroup);
 		#end
 
-        var doPush:Bool = false;
-
 		var doPush:Bool = false;
 		var luaFile:String = 'stages/' + curStage + '.lua';
 		luaFile = Paths.getPreloadPath(luaFile);
@@ -1276,6 +1274,7 @@ class PlayState extends MusicBeatState
 		blammedLightsBlack.makeGraphic(Std.int(FlxG.width * 5), Std.int(FlxG.height * 5), FlxColor.BLACK);
 		var position:Int = members.indexOf(boyfriendGroup);
 		insert(position - 1, blammedLightsBlack);
+		
 		
 		if(curStage == 'philly') insert(members.indexOf(blammedLightsBlack) + 1, phillyCityLightsEvent);
 		blammedLightsBlack.alpha = 0.0;
@@ -4923,9 +4922,6 @@ class PlayState extends MusicBeatState
 
 					p3staticbg.alpha=1;
 
-				case 99999: //Usado exclusivamente na CY
-					doP3JumpKNUCKLES();
-
 				case 1296: // Entrada do knuckles omaga, use strum swap 1 aqui junto com os eventos de troca de boneco.
 
 					FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
@@ -7915,6 +7911,36 @@ class PlayState extends MusicBeatState
 	
 	function invisibru(sprite:FlxSprite){
 		sprite.visible = !sprite.visible;
+	}
+
+	public function saiDueto(){
+		var placement:Float = -320;
+		for (i in 0...4)
+			{
+				FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x - placement}, 1.5,
+					{ease: FlxEase.smootherStepInOut});
+				FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + placement}, 1.5,
+					{ease: FlxEase.smootherStepInOut});
+			}
+			opponentStrums.forEach(function(tofade:FlxSprite)
+				{
+					FlxTween.tween(tofade, {alpha: 1}, 1.5);
+				});
+	}
+
+	public function vaiDueto(){
+		var placement:Float = 320;
+		for (i in 0...4)
+		{
+			FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x - placement}, 2.5,
+				{ease: FlxEase.smootherStepInOut});
+			FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + placement}, 2.5,
+				{ease: FlxEase.smootherStepInOut});
+		}
+		opponentStrums.forEach(function(tofade:FlxSprite)
+			{
+				FlxTween.tween(tofade, {alpha: 0}, 2.5);
+			});
 	}
 
 	//To Do:

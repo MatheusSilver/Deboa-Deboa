@@ -1799,6 +1799,16 @@ class FunkinLua {
 					PlayState.movecameraallowed = valor;
 				});
 
+				Lua_helper.add_callback(lua, "dueto", function(vaiounao:Bool) { //Funções criadas por pura preguiça
+					if(!ClientPrefs.middleScroll){
+						if(vaiounao)
+							PlayState.instance.vaiDueto();
+						else
+							PlayState.instance.saiDueto();
+					}
+				});
+
+
 				Lua_helper.add_callback(lua, "getCamMove", function() {
 					return PlayState.movecameraallowed;
 				});

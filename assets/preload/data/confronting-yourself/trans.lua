@@ -63,15 +63,17 @@ function onEvent(evento, valor1, valor2)
             cameraFlash('legenda', '0xffffff', 1, true)
         end
         if valor1 == '3' then
-            for i = 0, getProperty('opponentStrums.length')-1 do
-                setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
-            end
+            --for i = 0, getProperty('opponentStrums.length')-1 do
+            --    setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
+            --end
+            dueto(true)
+            
             setProperty('dad.alpha', 0)
             setProperty('iconP2.alpha', 0)
             transVermelha()
         end
         if valor1 == '4' then
-            cameraFlash('legenda', '0x0000ff', 1, true)
+            cameraFlash('legenda', '0xffffff', 1, true)
         end
         if valor1 == '4-5' then
             transVermelha()
@@ -79,14 +81,15 @@ function onEvent(evento, valor1, valor2)
             triggerEvent("trocar stage", '5', 'nada', 'nada', 'nada')
         end
         if valor1 == '4-10' then
-            cameraFlash('legenda', '0x0000ff', 1, true)
+            cameraFlash('legenda', '0xffffff', 1, true)
             triggerEvent("Change Character", 'bf', 'Sonicphase3heroi', 'nada', 'nada')
             triggerEvent("trocar stage", '4', 'nada', 'nada', 'nada')
         end
         if valor1 == '5' then
-            for i = 0, getProperty('opponentStrums.length')-1 do
-                setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
-            end
+            --for i = 0, getProperty('opponentStrums.length')-1 do
+            --    setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
+            --end
+            dueto(false)
             cameraFlash('legenda', '0xff0000', 3, true)
             triggerEvent("Set Cam Zoom", '0.8', 'nada', 'nada', 'nada')
             setProperty('dad.alpha', 1)
@@ -96,8 +99,9 @@ function onEvent(evento, valor1, valor2)
         end
         if valor1 == '5-5' then
             for i = 0, getProperty('opponentStrums.length')-1 do
-                setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
+              setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
             end
+            triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
             setCamMove(false);
             setProperty('dad.alpha', 0)
             setProperty('iconP2.alpha', 0)
@@ -106,7 +110,7 @@ function onEvent(evento, valor1, valor2)
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
         end
         if valor1 == '5-6' then
-            cameraFlash('legenda', '0x0000ff', 3, true)
+            cameraFlash('legenda', '0xffffff', 3, true)
             triggerEvent("Change Character", 'bf', 'Sonic AM', 'nada', 'nada')
         end
         if valor1 == '5-7' then
@@ -117,13 +121,14 @@ function onEvent(evento, valor1, valor2)
         if valor1 == '6' then
             setProperty('paredefogo.visible', true)
             doTweenY('fogosobe1', 'paredefogo', 0-screenHeight*3.5, 1, 'linear')
+            triggerEvent("strum swap2", 'nada', 'nada', 'nada', 'nada')
         end
         if valor1 == '6-5' then
             setProperty('dad.alpha', 1)
             setProperty('iconP2.alpha', 1)
-            for i = 0, getProperty('opponentStrums.length')-1 do
-                setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
-            end
+            --for i = 0, getProperty('opponentStrums.length')-1 do
+            --  setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
+            --end
             setCamMove(true);
             triggerEvent("Change Character", 'bf', 'Sonic Pixel Running flip', 'nada', 'nada')
             triggerEvent("Change Character", 'dad', 'Sonic Exe Pixel Flying flip', 'nada', 'nada')
@@ -131,11 +136,17 @@ function onEvent(evento, valor1, valor2)
         if valor1 == '7' then
             doTweenX('tweendadGroup2', 'dadGroup', getProperty('dadGroup.x')-300, 7, 'linear')  
             runTimer('desacelera1', 2)
+            cameraFlash('legenda', '0x000000', 4, true)
+			setProperty('FlxG.camera.zoom',2)
+            cameraSetTarget('bf');
+			setProperty('camZooming', false)
+
+            setCamMove(true);
         end
 
         if valor1 == '8' then
-            cameraFlash('legenda', '0x0000ff', 1, true)
-            for i = 0, getProperty('opponentStrums.length')-1 do
+            cameraFlash('legenda', '0xffffff', 1, true)
+            for i = 0, getProperty('opponentStrums.length')-1 do -- Não há muita mudança aqui
                 setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
             end
             setProperty('dad.alpha', 0)
@@ -144,7 +155,9 @@ function onEvent(evento, valor1, valor2)
 
         if valor1 == '9' then
             for i = 0, getProperty('opponentStrums.length')-1 do
-                setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
+                if not middlescroll then
+                    setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
+                end
             end
             setProperty('dad.alpha', 1)
             setProperty('boyfriend.alpha', 1)

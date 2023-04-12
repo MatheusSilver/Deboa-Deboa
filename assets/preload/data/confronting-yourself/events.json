@@ -22,6 +22,15 @@
 						""
 					],
 					[
+						3,
+						-1,
+						"Cinematics-CY",
+						"65",
+						"0",
+						"",
+						""
+					],
+					[
 						1400,
 						-1,
 						"noteskinchangeBF",
@@ -607,7 +616,7 @@
 						""
 					],
 					[
-						71100,
+						71200,
 						-1,
 						"trans CY",
 						"3",
@@ -1856,17 +1865,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						186000,
-						-1,
-						"eventos-tripletrouble",
-						"99999",
-						"",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false

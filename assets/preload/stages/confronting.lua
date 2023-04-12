@@ -188,26 +188,26 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--phase 5 cheetos vilao
 
-	makeLuaSprite('nocumepausando','cenarios/phase5/monte paused',-1150,-350)--5
+	makeLuaSprite('nocumepausando','cenarios/phase5/monte paused',-1250,-450)--5
 	setLuaSpriteScrollFactor('nocumepausando',0.7,0.7)
-	setProperty('nocumepausando.scale.x', 0.95)
-	setProperty('nocumepausando.scale.y', 0.95)
+	setProperty('nocumepausando.scale.x', 0.75)
+	setProperty('nocumepausando.scale.y', 0.75)
 	setProperty('nocumepausando.visible', false)
 	addLuaSprite('nocumepausando',false)
 
 	--phase 5 cheetos heroi
 
-	makeLuaSprite('ardia','cenarios/phase5/bg',-1150,-350)--5
+	makeLuaSprite('ardia','cenarios/phase5/bg',-1250,-450)--5
 	setLuaSpriteScrollFactor('ardia',0.7,0.7)
-	setProperty('ardia.scale.x', 0.95)
-	setProperty('ardia.scale.y', 0.95)
+	setProperty('ardia.scale.x', 0.75)
+	setProperty('ardia.scale.y', 0.75)
 	setProperty('ardia.visible', false)
 	addLuaSprite('ardia',false)
 
 	makeLuaSprite('nocume','cenarios/phase5/objetos',-815,-300)--5
 	setLuaSpriteScrollFactor('nocume',0.7,0.7)
-	setProperty('nocume.scale.x', 0.9)
-	setProperty('nocume.scale.y', 0.9)
+	setProperty('nocume.scale.x', 0.75)
+	setProperty('nocume.scale.y', 0.75)
 	setProperty('nocume.visible', false)
 	addLuaSprite('nocume',false)
 

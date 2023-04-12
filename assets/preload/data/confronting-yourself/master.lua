@@ -50,6 +50,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase3cheetosvilao do
 			cameraSetTarget('bf');
 			setProperty(phase3cheetosvilao[i]..'.visible', true)
+			entra2D()
 		end
 	elseif curPhase == 4 then
 		for i = 1,#phase3cheetosvilao do
@@ -75,6 +76,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase4cheetos do
 			setProperty(phase4cheetos[i]..'.visible', true)
 		end
+		
 		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.5, 'linear')
 		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 300, 34, 'linear')
@@ -93,10 +95,12 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase5cheetos do
 			setProperty(phase5cheetos[i]..'.visible', true)
 		end
+		entra2D()
 	elseif curPhase == 8 then
 		cancelTween('nocumecheira')
 		cancelTween('nocumesobem')
 		cancelTween('nocumedesce')
+		
 		-- SUS... Para dizer o mínimo k
 		setProperty('nocumepausando.visible',true)
 		for i = 1,#phase5cheetos do
@@ -108,6 +112,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase6cheetos do
 			setProperty(phase6cheetos[i]..'.visible',true)
 		end		
+		sai2D()
 	elseif curPhase == 10 then
 		for i = 1,#phase6cheetos do
 			removeLuaSprite(phase6cheetos[i])
@@ -115,11 +120,13 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase7cheetos do
 			setProperty(phase7cheetos[i]..'.visible',true)
 		end
+		entra2D()
 	elseif curPhase == 11 then
 		for i = 1,#phase7cheetos do
 			removeLuaSprite(phase7cheetos[i])
 		end
 		setProperty('phase8.visible',true)
+		sai2D()
 	elseif curPhase == 12 then
 			removeLuaSprite('phase8')
 		for i = 1,#phase9cheetos do
@@ -127,6 +134,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 		doTweenX('deatheggqueanda', 'phase9-3', -2000, 70, 'linear')
 	elseif curPhase == 13 then	
+		entra2D()
 		cancelTween('deatheggqueanda')
 		for i = 1,#phase9cheetos do
 			removeLuaSprite(phase9cheetos[i])
@@ -187,8 +195,8 @@ end
 function onCreate()
 	pushScriptData("trans")
 
-	precacheImage('Tails')
-	precacheImage('Knuckles')
+	--precacheImage('Tails')
+	--precacheImage('Knuckles')
 	precacheImage('Phase3Static')
 	precacheImage('vintage')
 	precacheImage('NOTE_assets')
@@ -205,10 +213,8 @@ function onTimerCompleted(tag)
     if tag == 'desacelera1' then
         comunicador = 3
         runTimer('desacelera2', 0.5)
-	triggerEvent('CamZoomTween','0.9','0.3')
-	triggerEvent('Camera Follow Pos',camPosBFX+120,camPosBFY)
-	setProperty('knuxerabos.y', getCharacterY('boyfriend')+300)
-	setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
+		setProperty('knuxerabos.y', getCharacterY('boyfriend')+450)
+		setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
     end
     if tag == 'desacelera2' then
         comunicador = 5
@@ -228,9 +234,8 @@ function onTimerCompleted(tag)
 
     if tag == 'switch' then
         setCharacterX('dad', dadXPosOriginal)
-        cameraFlash('legenda', '0x0000ff', 1, true)
+        cameraFlash('legenda', '0xffffff', 1, true)
         triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
-        triggerEvent("eventos-tripletrouble", '144', 'nada', 'nada', 'nada')
     end
 end
 
@@ -258,4 +263,12 @@ function opponentNoteHit()
 	if phasedetector == 13 then -- OOOOOOMAGAWD, ELE É LULISTA, RÁPIDO, FALE ALGO DO BOLSONARO...
 		triggerEvent('Screen Shake', '0.50, 0.015', '0, 0')
 	end
+end
+
+function entra2D()
+	triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
+end
+
+function sai2D()
+	triggerEvent("Cinematics-CY", '2', '0.5', 'nada', 'nada')
 end
