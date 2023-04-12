@@ -5,18 +5,31 @@ local dadXPosOriginal = 0;
 function onCreate()
 
     setProperty('camHUD.alpha', 0)
+	
+    makeLuaText('introText1', 'Time da Vio', screenWidth, 0, -500)
+    setTextSize('introText1', 26)
+	setTextFont('introText1','letravio.ttf')
+	setTextAlignment('introText1','center')
+	screenCenter('introText1', 'x')
+	
+    makeLuaText('introText2', 'Apresenta:', screenWidth, 0, -500)
+    setTextSize('introText2', 26)
+	setTextFont('introText2','letravio.ttf')
+	setTextAlignment('introText2','center')
+	screenCenter('introText2', 'x')
 
     bfYPosOriginal = getCharacterY('bf')
     dadYPosOriginal = getCharacterY('dad')
     dadXPosOriginal = getCharacterX('dad') -- usado no ato 7
 	
-    makeLuaSprite('modBoaLogo','logodeboa',-1000,-1000)
-	setProperty('modBoaLogo.scale.x', 1.5)
-	setProperty('modBoaLogo.scale.y', 1.5)
-    screenCenter('modBoaLogo', 'x')
-    setObjectCamera('modBoaLogo', 'legenda')
-	addLuaSprite('modBoaLogo',false)
-
+    --makeLuaSprite('modBoaLogo','logodeboa',-1000,-1000)
+	--setProperty('modBoaLogo.scale.x', 1.5)
+	--setProperty('modBoaLogo.scale.y', 1.5)
+    --screenCenter('modBoaLogo', 'x')
+    --setObjectCamera('modBoaLogo', 'legenda')
+	--addLuaSprite('modBoaLogo',false)
+	--Deixando apenas como comentário pois vai que né?
+	
     makeLuaSprite('modBoaLogoExe','LogoModBoaEXE',-1000,-1000)
     setProperty('modBoaLogoExe.scale.x', 0.77)
 	setProperty('modBoaLogoExe.scale.y', 0.77)
@@ -50,7 +63,8 @@ end
 
 function onCountdownTick(value0)
     if value0 == 3 then
-        doTweenY('tweenlogodeboa', 'modBoaLogo', (screenHeight - getProperty('modBoaLogo.height'))/2, 1, 'cubeinout')
+        doTweenY('textoTween1', 'introText1', 100, 1, 'cubeinout')
+		doTweenY('textoTween2', 'introText2', 175, 2, 'cubeinout')
     end
 end
 
@@ -66,7 +80,8 @@ function onEvent(evento, valor1, valor2)
             --for i = 0, getProperty('opponentStrums.length')-1 do
             --    setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
             --end
-            dueto(true)
+            dueto(true) -- O problema principal disso:
+			--O sistema antigo foi feito com strum swap e os dois dão conflito entre si.
             
             setProperty('dad.alpha', 0)
             setProperty('iconP2.alpha', 0)
@@ -134,14 +149,14 @@ function onEvent(evento, valor1, valor2)
             triggerEvent("Change Character", 'dad', 'Sonic Exe Pixel Flying flip', 'nada', 'nada')
         end
         if valor1 == '7' then
-            doTweenX('tweendadGroup2', 'dadGroup', getProperty('dadGroup.x')-300, 7, 'linear')  
+            setCamMove(true);
+			doTweenX('tweendadGroup2', 'dadGroup', getProperty('dadGroup.x')-300, 7, 'linear')  
             runTimer('desacelera1', 2)
             cameraFlash('legenda', '0x000000', 4, true)
-			setProperty('FlxG.camera.zoom',2)
-            cameraSetTarget('bf');
-			setProperty('camZooming', false)
-
-            setCamMove(true);
+	    	setProperty('defaultcamzoom', 2) -- Zoom na cara do sonico parecido com Prey (hopefully)
+            cameraSetTarget('bf')
+			triggerEvent('Camera Follow Pos',camPosBFX+150,camPosBFY) -- Talvez seja - 150
+            setCamMove(false);
         end
 
         if valor1 == '8' then
@@ -156,8 +171,8 @@ function onEvent(evento, valor1, valor2)
         if valor1 == '9' then
             for i = 0, getProperty('opponentStrums.length')-1 do
                 if not middlescroll then
-                    setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
-                end
+                    setPropertyFromGroup('opponentStrums', i, 'visible', true);
+				end
             end
             setProperty('dad.alpha', 1)
             setProperty('boyfriend.alpha', 1)
@@ -174,9 +189,9 @@ function onEvent(evento, valor1, valor2)
 end
 
 function onTweenCompleted(tag)
-    if tag == 'tweenlogodeboa' then
+    if tag == 'textoTween1' then
         runTimer('voltar1', 0.1)
-        setProperty('modBoaLogo.x', getProperty('modBoaLogo.x')+100)
+        --setProperty('modBoaLogo.x', getProperty('modBoaLogo.x')+100)
     end
     if tag == 'tweendadGroup' then
         triggerEvent("hudfade", '1', '1', 'nada', 'nada')
@@ -185,7 +200,9 @@ function onTweenCompleted(tag)
     if tag == 'tweenLogoModBoaEXEFinal' then
         cameraFlash('legenda', '0xffffff', 2, true)
         removeLuaSprite('modBoaLogoExe')
-        removeLuaSprite('modBoaLogo')
+        --removeLuaSprite('modBoaLogo')
+		removeLuaText('introText1')
+		removeLuaText('introText2')
     end
     if tag == 'fogosobe1' then
         removeLuaSprite('paredefogo')
@@ -195,23 +212,15 @@ end
 function onTimerCompleted(tag)
     if tag == 'voltar1' then
         runTimer('voltar2',0.5)
-        screenCenter('modBoaLogo', 'x')
+        --screenCenter('modBoaLogo', 'x')
     end    
     if tag == 'voltar2' then
-        runTimer('voltar3',0.1)
-        setProperty('modBoaLogo.x', getProperty('modBoaLogo.x')-100)
-    end 
-    if tag == 'voltar3' then
-        runTimer('voltar4',0.3)
-        screenCenter('modBoaLogo', 'x')
-    end 
-    if tag == 'voltar4' then
-        runTimer('voltar5',1.5)
+        runTimer('voltar5',2.5)
         transVermelha()
         playSound('exerisadinha', 0.8)
-        setProperty('modBoaLogo.visible', false)
+        --setProperty('modBoaLogo.visible', false)
         setProperty('modBoaLogoExe.visible', true)
-    end 
+    end
     if tag == 'voltar5' then
         doTweenY('tweentrens', 'trens', getProperty('trens.y')-1550, 1.5, 'cubeinout')
         doTweenY('tweenflores', 'flores', getProperty('flores.y')-1550, 1.5, 'cubeinout')
@@ -219,5 +228,7 @@ function onTimerCompleted(tag)
         doTweenY('tweenboyfriendGroup', 'boyfriendGroup', getProperty('boyfriendGroup.y')-1500, 1.5, 'cubeinout')
         doTweenY('tweendadGroup', 'dadGroup', getProperty('dadGroup.y')-1500, 1.5, 'cubeinout')  
         doTweenY('tweenLogoModBoaEXEFinal', 'modBoaLogoExe', -500, 0.25, 'cubeinout')
+		doTweenY('tweenTexto1Final', 'introText1', -700, 0.25, 'cubeinout')
+		doTweenY('tweenTexto2Final', 'introText2', -650, 0.25, 'cubeinout')
     end
 end
