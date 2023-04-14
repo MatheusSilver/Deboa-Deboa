@@ -44,12 +44,13 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		cancelTween('awaqueanda1')
 		cancelTween('eitacachorreira')
 		cancelTween('florqueanda2')
+		dueto(true)
 		for i = 1,#phase2cheetos do
 			removeLuaSprite(phase2cheetos[i])
 		end
 		for i = 1,#phase3cheetosvilao do
 			cameraSetTarget('bf');
-			setProperty(phase3cheetosvilao[i]..'.visible', true
+			setProperty(phase3cheetosvilao[i]..'.visible', true)
 		end
 		entra2D() -- Isso certamente não deveria estar naquele for ali em cima :skull:
 	elseif curPhase == 4 then
@@ -89,6 +90,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		cancelTween('awaqueanda1EXE')
 		cancelTween('eitacachorreiraEXE')
 		cancelTween('florqueanda1EXE')
+		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		doTweenY('nocumecheira', 'nocume', getProperty('nocume.y')-100, 1, 'smoothstepin')
 		for i = 1,#phase4cheetos do
 			removeLuaSprite(phase4cheetos[i])
@@ -183,10 +185,10 @@ function onTweenCompleted(tag) --a
 	if tag == 'pedradesce1' then 
 		doTweenY('pedrasubidao1', 'phase10-2', getProperty('phase10-2.y')-10, 1, 'sineinout')
 	end
-	if tag == 'pedrasobe2' or 'pedrasubidao1' then
+	if tag == 'pedrasobe2' or 'pedrasubidao2' then
 		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+10, 1, 'sineinout')
 	end
-	if tag == 'pedradesce1' then
+	if tag == 'pedradesce2' then
 		doTweenY('pedrasubidao2', 'phase10-3', getProperty('phase10-3.y')-10, 1, 'sineinout')
 	end
 	
@@ -267,7 +269,7 @@ end
 
 function opponentNoteHit()
 	if phasedetector == 13 then -- OOOOOOMAGAWD, ELE É LULISTA, RÁPIDO, FALE ALGO DO BOLSONARO...
-		triggerEvent('Screen Shake', '0.50, 0.015', '0, 0')
+		triggerEvent('Screen Shake', '0.015, 0.015', '0, 0')
 	end
 end
 

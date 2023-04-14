@@ -81,6 +81,8 @@ class PlayState extends MusicBeatState
 	public static var movecameraallowed:Bool = true;
 	public var precacheList:Map<String, String> = new Map<String, String>(); 
 
+	var isSwapped:Bool = false; //Para ser usado exclusivamente na CY provavelmente
+
 	var scrollModifierChecker:Bool; //Usado apenas para flipar a pontinha da nota caso a música mude de downscroll para upscroll no meio do caminho. - Vulgo Pasta Night
 
 	public static var cccVidaCounter:Int = 2;
@@ -4449,6 +4451,7 @@ class PlayState extends MusicBeatState
 					}
 				});
 			case 'strum swap2': //	OMAGA 2???????? DOS MESMOS CRIADORES DO WHATSAPP 2??? OOOOOOOOOOOMAGAAAAAWD (Silvio momentos antes de coringar colocando eventos na Triple-Trouble)
+				isSwapped=false;
 				if(value2 != 'true'){ //Só pra corrigir um bugzinho na Prey
 				if (!ClientPrefs.middleScroll && value1 != 'true'){
 				playerStrums.forEach(function(spr:FlxSprite)
@@ -4478,6 +4481,7 @@ class PlayState extends MusicBeatState
 			iconP1.changeIcon(boyfriend.healthIcon);
 			reloadHealthBarColors();
 				case 'strum swap1':
+					isSwapped=true;
 					if (!ClientPrefs.middleScroll && value1 != 'true'){
 					playerStrums.forEach(function(spr:FlxSprite)
 					{
@@ -7914,7 +7918,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function saiDueto(){
-		var placement:Float = -320;
+		var placement:Float = (isSwapped ? 320 : -320);
 		for (i in 0...4)
 			{
 				FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x - placement}, 1.5,
@@ -7929,7 +7933,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public function vaiDueto(){
-		var placement:Float = 320;
+		var placement:Float = (isSwapped ? -320 : 320);
 		for (i in 0...4)
 		{
 			FlxTween.tween(playerStrums.members[i], {x: playerStrums.members[i].x - placement}, 2.5,

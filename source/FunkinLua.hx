@@ -1153,6 +1153,9 @@ class FunkinLua {
 			if(PlayState.instance.modchartSprites.exists(obj)) {
 				PlayState.instance.modchartSprites.get(obj).cameras = [cameraFromString(camera)];
 				return true;
+			}else if(PlayState.instance.modchartTexts.exists(obj)) {
+				PlayState.instance.modchartTexts.get(obj).cameras = [cameraFromString(camera)];
+				return true;
 			}
 
 			var object:FlxObject = Reflect.getProperty(PlayState.instance, obj);

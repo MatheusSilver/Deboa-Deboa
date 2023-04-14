@@ -5,21 +5,21 @@ StartStop = 0
 
 Speed = 0
 
-
+k = 60
 
 function onCreate()
 	
 
 	--THE TOP BAR
-	makeLuaSprite('UpperBar', 'empty', 0, -60)
-	makeGraphic('UpperBar', 1280, 60, '000000')
+	makeLuaSprite('UpperBar', 'empty', 0, -k)
+	makeGraphic('UpperBar', 1280, k, '000000')
 	setObjectCamera('UpperBar', 'other')
 	addLuaSprite('UpperBar', false)
 
 
 	--THE BOTTOM BAR
 	makeLuaSprite('LowerBar', 'empty', 0, 720)
-	makeGraphic('LowerBar', 1280, 60, '000000')
+	makeGraphic('LowerBar', 1280, k, '000000')
 	setObjectCamera('LowerBar', 'other')
 	addLuaSprite('LowerBar', false)
 
@@ -33,14 +33,14 @@ function onUpdate()
 	
 	doTweenY('Cinematics1', 'UpperBar', 0, Speed, 'Linear')
 	doTweenY('Cinematics2', 'LowerBar', 660, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 130, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 130, Speed, 'Linear')
+	noteTweenY('NOTEMOVE1', 0, 130-k, Speed, 'Linear')	
+	noteTweenY('NOTEMOVE2', 1, 130-k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE3', 2, 130-k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE4', 3, 130-k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE5', 4, 130-k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE6', 5, 130-k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE7', 6, 130-k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE8', 7, 130-k, Speed, 'Linear')
 	setProperty('botplayTxt.text', '')
 	doTweenAlpha('AlphaTween1', 'healthBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 0, 0.1)
@@ -59,14 +59,14 @@ function onUpdate()
 	
 	doTweenY('Cinematics1', 'UpperBar', 0, Speed, 'Linear')
 	doTweenY('Cinematics2', 'LowerBar', 660, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 480, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 480, Speed, 'Linear')
+	noteTweenY('NOTEMOVE1', 0, 480+k, Speed, 'Linear')	
+	noteTweenY('NOTEMOVE2', 1, 480+k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE3', 2, 480+k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE4', 3, 480+k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE5', 4, 480+k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE6', 5, 480+k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE7', 6, 480+k, Speed, 'Linear')
+	noteTweenY('NOTEMOVE8', 7, 480+k, Speed, 'Linear')
 	setProperty('botplayTxt.text', '')
 	doTweenAlpha('AlphaTween1', 'healthBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 0, 0.1)

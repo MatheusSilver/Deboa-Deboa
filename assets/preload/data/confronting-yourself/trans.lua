@@ -7,16 +7,22 @@ function onCreate()
     setProperty('camHUD.alpha', 0)
 	
     makeLuaText('introText1', 'Time da Vio', screenWidth, 0, -500)
-    setTextSize('introText1', 26)
+    setObjectCamera('introText1', 'legenda')
+    setTextSize('introText1', 60)
 	setTextFont('introText1','letravio.ttf')
 	setTextAlignment('introText1','center')
 	screenCenter('introText1', 'x')
+
+    addLuaText('introText1')
 	
     makeLuaText('introText2', 'Apresenta:', screenWidth, 0, -500)
-    setTextSize('introText2', 26)
+    setObjectCamera('introText2', 'legenda')
+    setTextSize('introText2', 60)
 	setTextFont('introText2','letravio.ttf')
 	setTextAlignment('introText2','center')
 	screenCenter('introText2', 'x')
+
+    addLuaText('introText2')
 
     bfYPosOriginal = getCharacterY('bf')
     dadYPosOriginal = getCharacterY('dad')
@@ -35,6 +41,7 @@ function onCreate()
 	setProperty('modBoaLogoExe.scale.y', 0.77)
     setObjectCamera('modBoaLogoExe', 'legenda')
     screenCenter('modBoaLogoExe', 'xy')
+    setProperty('modBoaLogoExe.y', getProperty('modBoaLogoExe.y')+50)
     setProperty('modBoaLogoExe.visible', false)
 	addLuaSprite('modBoaLogoExe', false)
 
@@ -63,8 +70,8 @@ end
 
 function onCountdownTick(value0)
     if value0 == 3 then
-        doTweenY('textoTween1', 'introText1', 100, 1, 'cubeinout')
-		doTweenY('textoTween2', 'introText2', 175, 2, 'cubeinout')
+        doTweenY('textoTween1', 'introText1', 50, 1, 'cubeinout')
+		doTweenY('textoTween2', 'introText2', 125, 2, 'cubeinout')
     end
 end
 
@@ -80,7 +87,7 @@ function onEvent(evento, valor1, valor2)
             --for i = 0, getProperty('opponentStrums.length')-1 do
             --    setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
             --end
-            dueto(true) -- O problema principal disso:
+            -- O problema principal disso:
 			--O sistema antigo foi feito com strum swap e os dois dão conflito entre si.
             
             setProperty('dad.alpha', 0)
@@ -116,7 +123,7 @@ function onEvent(evento, valor1, valor2)
             for i = 0, getProperty('opponentStrums.length')-1 do
               setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
             end
-            triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
+            --triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
             setCamMove(false);
             setProperty('dad.alpha', 0)
             setProperty('iconP2.alpha', 0)
@@ -137,6 +144,9 @@ function onEvent(evento, valor1, valor2)
             setProperty('paredefogo.visible', true)
             doTweenY('fogosobe1', 'paredefogo', 0-screenHeight*3.5, 1, 'linear')
             triggerEvent("strum swap2", 'nada', 'nada', 'nada', 'nada')
+            for i = 0, getProperty('opponentStrums.length')-1 do
+                setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
+            end
         end
         if valor1 == '6-5' then
             setProperty('dad.alpha', 1)
