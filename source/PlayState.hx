@@ -380,8 +380,8 @@ class PlayState extends MusicBeatState
 	#if desktop
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
-	var detailsText:String = "";
-	var detailsPausedText:String = "";
+	public static var detailsText:String = "";
+	public static var detailsPausedText:String = "";
 	#end
 
 	var pauseSound:FlxSound;
@@ -609,8 +609,12 @@ class PlayState extends MusicBeatState
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-		if (modohistoria)
+		if (SONG.song.toLowerCase() == "confronting-yourself")
 		{
+			detailsText = 'Prólogo';
+		}
+		else if(modohistoria)
+		{//Esqueci o else :skull:
 			detailsText = MenuHistoria.dapreselected;
 		}
 		else
@@ -3532,7 +3536,7 @@ class PlayState extends MusicBeatState
 		//}
 
 		#if desktop
-		DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 	}
 
@@ -6465,7 +6469,7 @@ class PlayState extends MusicBeatState
 								}
 						}
 				}
-			if (Paths.formatToSongPath(SONG.song) != 'tutorial' && curSong.toLowerCase() != "cross-console-clash")
+			if (Paths.formatToSongPath(SONG.song) != 'tutorial' && curSong.toLowerCase() != "cross-console-clash" && detailsText.toLowerCase() !="ato 6")
 				camZooming = true;
 
 			if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
@@ -7917,6 +7921,12 @@ class PlayState extends MusicBeatState
 		sprite.visible = !sprite.visible;
 	}
 
+	public function updateRPC(){
+		#if desktop
+		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
+		#end
+	}
+
 	public function saiDueto(){
 		var placement:Float = (isSwapped ? 320 : -320);
 		for (i in 0...4)
@@ -7930,6 +7940,18 @@ class PlayState extends MusicBeatState
 				{
 					FlxTween.tween(tofade, {alpha: 1}, 1.5);
 				});
+	}
+
+	public function cyCutscene(texto:String){
+		if(texto == 'blahblah'){
+			FlxG.camera.flash(FlxColor.BLACK, 5.5);
+			FlxG.camera.zoom = 2;
+			camZooming = false;
+			triggerEventNote('Cinematics', '1', '0.5'); //Ele já foi carregado mesmo então tá safe
+		}else{
+			camZooming = false;
+			triggerEventNote('Cinematics', '2', '0.5'); //Ele já foi carregado mesmo então tá safe
+		}
 	}
 
 	public function vaiDueto(){

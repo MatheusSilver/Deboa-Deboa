@@ -31,6 +31,15 @@
 						""
 					],
 					[
+						5,
+						-1,
+						"Cinematics",
+						"65",
+						"0",
+						"",
+						""
+					],
+					[
 						1400,
 						-1,
 						"noteskinchangeBF",
@@ -1782,15 +1791,6 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						181560,
-						-1,
-						"eventos-tripletrouble",
-						"1024",
-						"",
-						"",
-						""
-					],
-					[
 						182280,
 						-1,
 						"noteskinchangeBF",
@@ -2266,6 +2266,16 @@
 						"video player",
 						"AnimacoesJogaveis/cycutscene",
 						"1",
+						"",
+						"",
+						""
+					],
+					[
+						217015,
+						-1,
+						"trans CY",
+						"500",
+						"",
 						"",
 						"",
 						""

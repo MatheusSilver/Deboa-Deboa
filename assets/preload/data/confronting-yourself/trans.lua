@@ -77,6 +77,9 @@ end
 
 function onEvent(evento, valor1, valor2)
     if evento == 'trans CY' then
+        if valor1 == '500' then
+            mudarRPCdetalhes('Ato 8 - Intervalo')
+        end
         if valor1 == '20' then
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
         end
@@ -159,14 +162,10 @@ function onEvent(evento, valor1, valor2)
             triggerEvent("Change Character", 'dad', 'Sonic Exe Pixel Flying flip', 'nada', 'nada')
         end
         if valor1 == '7' then
-            setCamMove(true);
-			doTweenX('tweendadGroup2', 'dadGroup', getProperty('dadGroup.x')-300, 7, 'linear')  
-            runTimer('desacelera1', 2)
-            cameraFlash('legenda', '0x000000', 4, true)
-	    	setProperty('defaultcamzoom', 2) -- Zoom na cara do sonico parecido com Prey (hopefully)
-            cameraSetTarget('bf')
-			triggerEvent('Camera Follow Pos',camPosBFX+150,camPosBFY) -- Talvez seja - 150
-            setCamMove(false);
+			cyCut('blahblah');
+            setProperty('knuxerabos.y', getCharacterY('boyfriend')+325)
+		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
+            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+450, 5.7, 'cubein')
         end
 
         if valor1 == '8' then
@@ -199,6 +198,11 @@ function onEvent(evento, valor1, valor2)
 end
 
 function onTweenCompleted(tag)
+    if tag == 'knuxindo' then
+        cyCut('KEK');
+        setCamMove(true);
+        triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
+    end
     if tag == 'textoTween1' then
         runTimer('voltar1', 0.1)
         --setProperty('modBoaLogo.x', getProperty('modBoaLogo.x')+100)

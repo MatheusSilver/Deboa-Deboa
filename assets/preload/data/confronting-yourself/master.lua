@@ -1,6 +1,5 @@
 local speedChanger = 0
 
-local comunicador = 0; --Serve apenas para tirar aquela gambiarra com o texto
 --Agora que sei que as funções em lua se comunicam entre os diversos .lua, acho que isso seja mais fácil omega kek
 
 local phase1unico = {'montesverdes', 'flores', 'trens'}
@@ -38,6 +37,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('montanhaqueanda1', 'montanhas', 400-100, 33, 'linear')
 		doTweenX('awaqueanda1', 'awa', 400-250, 33, 'linear')
 		doTweenX('eitacachorreira', 'cachorreira', 400-250, 33, 'linear')
+		mudarRPCdetalhes('Ato 2')
 	elseif curPhase == 3 then
 		cancelTween('florqueanda1')
 		cancelTween('montanhaqueanda1')
@@ -52,6 +52,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			cameraSetTarget('bf');
 			setProperty(phase3cheetosvilao[i]..'.visible', true)
 		end
+		mudarRPCdetalhes('Ato 3')
 		entra2D() -- Isso certamente não deveria estar naquele for ali em cima :skull:
 	elseif curPhase == 4 then
 		for i = 1,#phase3cheetosvilao do
@@ -77,6 +78,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase4cheetos do
 			setProperty(phase4cheetos[i]..'.visible', true)
 		end
+		mudarRPCdetalhes('Ato 4')
 		
 		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		sai2D()
@@ -99,6 +101,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase5cheetos[i]..'.visible', true)
 		end
 		entra2D()
+		mudarRPCdetalhes('Ato 5')
 	elseif curPhase == 8 then
 		cancelTween('nocumecheira')
 		cancelTween('nocumesobem')
@@ -115,27 +118,32 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase6cheetos do
 			setProperty(phase6cheetos[i]..'.visible',true)
 		end		
+		mudarRPCdetalhes('Ato 6')
 		sai2D()
 	elseif curPhase == 10 then
+		setCharacterX('dad', dadXPosOriginal)
+		--Adicionado aqui sem testar, mas espero que conserte o ato 7 9 e 10
 		for i = 1,#phase6cheetos do
 			removeLuaSprite(phase6cheetos[i])
 		end
 		for i = 1,#phase7cheetos do
 			setProperty(phase7cheetos[i]..'.visible',true)
 		end
-		entra2D()
+		mudarRPCdetalhes('Ato 7')
 	elseif curPhase == 11 then
 		for i = 1,#phase7cheetos do
 			removeLuaSprite(phase7cheetos[i])
 		end
 		setProperty('phase8.visible',true)
 		sai2D()
+		mudarRPCdetalhes('Ato 8')
 	elseif curPhase == 12 then
 			removeLuaSprite('phase8')
 		for i = 1,#phase9cheetos do
 			setProperty(phase9cheetos[i]..'.visible', true)
 		end
 		doTweenX('deatheggqueanda', 'phase9-3', -2000, 70, 'linear')
+		mudarRPCdetalhes('Ato 9')
 	elseif curPhase == 13 then	
 		entra2D()
 		cancelTween('deatheggqueanda')
@@ -145,6 +153,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase10cheetos do
 			setProperty(phase10cheetos[i]..'.visible',true)
 		end
+		mudarRPCdetalhes('Epílogo')
 		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-10, 1, 'smoothstepin')
 		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-10, 1, 'smoothstepin')
 
@@ -214,39 +223,6 @@ function onCreate()
 	--Lembrar de colocar o som da estática inicial aqui tambem
 end
 
-function onTimerCompleted(tag)
-    if tag == 'desacelera1' then
-        comunicador = 3
-        runTimer('desacelera2', 0.5)
-		setProperty('knuxerabos.y', getCharacterY('boyfriend')+450)
-		setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
-		setProperty('camZooming', false)
-		
-    end
-    if tag == 'desacelera2' then
-        comunicador = 5
-        runTimer('desacelera3', 0.5)
-	doTweenX('tchausonicoDUMALhuauahauahuah', 'dad', getCharacterX('dad')-900, 2.5, 'cubeout')
-    end
-    if tag == 'desacelera3' then
-        comunicador = 7
-        runTimer('desacelera4', 3.4)
-        doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+730, 2.5, 'cubein')
-    end
-    if tag == 'desacelera4' then
-        comunicador = 10
-        cameraFlash('legenda', '0xffffff', 2, true)
-        runTimer('switch', 0.1)
-	cameraFlash('legenda', '0xffffff', 1, true)
-    end
-
-    if tag == 'switch' then
-	setCamMove(true);
-        setCharacterX('dad', dadXPosOriginal)
-        triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
-    end
-end
-
 function onUpdate()
 	speedChanger = speedChanger + 1
 
@@ -258,9 +234,9 @@ function onUpdate()
 	elseif phasedetector == 6 then
 	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*30)
 	elseif phasedetector == 9 then
-	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45 + 4.5*comunicador)
-	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20 + 2*comunicador)
-	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10 + comunicador)
+	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45)
+	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20)
+	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
 	elseif phasedetector == 12 then
 	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
 	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*0.5)

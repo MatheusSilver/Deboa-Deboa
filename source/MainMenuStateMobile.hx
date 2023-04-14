@@ -173,7 +173,9 @@ class MainMenuStateMobile extends MusicBeatState
 		letext.alpha = 1;
 		add(letext);
 
-		if(GJClient.logged)
+		//Isso por algum motivo estava crashando pra mim, então resolvi tirar temporariamente
+		//Lembre-se de tirar aquele "!" depois
+		if(!GJClient.logged)
 			{
 
 				letext.text = GJClient.userName;

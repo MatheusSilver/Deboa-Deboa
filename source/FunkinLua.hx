@@ -1260,6 +1260,14 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});
+		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
+			PlayState.detailsText = texto;
+			PlayState.detailsPausedText = "Pausado - " + texto;
+			PlayState.instance.updateRPC();
+		});
+		Lua_helper.add_callback(lua, "cyCut", function(texto:String) {
+			PlayState.instance.cyCutscene(texto);
+		});
 		Lua_helper.add_callback(lua, "playSound", function(sound:String, volume:Float = 1, ?tag:String = null) {
 			if(tag != null && tag.length > 0) {
 				tag = tag.replace('.', '');
