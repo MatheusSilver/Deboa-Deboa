@@ -24,13 +24,18 @@ class MenuPreHistoria extends MusicBeatState
 	var bgSprite:FlxSprite;
 	var perfilSprite:FlxSprite;
 
-	private static var curWeek:Int = 0;
+	public static var curWeek:Int = 0;
+	public static var curSave:String = "1,0,0,0,0,0,0,0,0";
+	var lockedWeeks:Array<Bool> = new Array<Bool>();
+	var lockSprite:FlxSprite;
+	var blackLock:FlxSprite;
 
 	var blackbarup:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 53, FlxColor.BLACK);
 	var blackbardown:FlxSprite = new FlxSprite(0, FlxG.height - 53).makeGraphic(FlxG.width, 53, FlxColor.BLACK);
 	
 	override function create()
 	{
+		verifySave();
 		if(FlxG.sound.music == null) {
 			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
 		}
@@ -54,18 +59,56 @@ class MenuPreHistoria extends MusicBeatState
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
 		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
+		lockSprite = new FlxSprite(0, 0);
+		lockSprite.loadGraphic(Paths.image("Story_Mode/lock", 'preload'));
+		lockSprite.screenCenter(XY);
+		lockSprite.antialiasing = ClientPrefs.globalAntialiasing;
+		lockSprite.alpha=0;
+
+		blackLock = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackLock.alpha=0;
 
 		add(bigmenu);
 		add(bgSprite);
 		add(blackbarup);
 		add(blackbardown);
 		add(perfilSprite);
+		add(blackLock);
+		add(lockSprite);
 
 		#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
+
+		if(lockedWeeks[curWeek] == true)
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0.55}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
+		else
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
 		super.create();
 	}
+
+	function verifySave()
+		{
+			var save:Array<String> = curSave.split(",");
+			for (s in save) 
+			{
+				if(s!="0")
+					{
+						lockedWeeks.push(false);
+					}
+				else
+					{
+						lockedWeeks.push(true);
+					}
+			}
+			trace(lockedWeeks);
+		}
 
 	override function closeSubState() {
 		changeWeek();
@@ -95,7 +138,7 @@ class MenuPreHistoria extends MusicBeatState
 				GlobalSoundManager.play('scrollMenu');
 			}
 
-			if (controls.ACCEPT && apertavel)
+			if (controls.ACCEPT && apertavel #if !debug && musicasLockadas[curSelected] != true #end)
 			{
 				selectWeek();
 			}
@@ -160,6 +203,18 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = 0;
 		if (curWeek < 0)
 			curWeek = WeekData.weeksList.length - 1;
+
+		
+		if(lockedWeeks[curWeek] == true)
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0.55}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
+		else
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
 
 		PlayState.storyWeek = curWeek;
 

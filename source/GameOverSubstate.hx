@@ -11,9 +11,24 @@ import Conductor;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
+	public var boyfriend:Boyfriend;
+	var camFollow:FlxPoint;
+	var camFollowPos:FlxObject;
+	var updateCamera:Bool = false;
+	var playingDeathSound:Bool = false;
+	var burrice:Bool = true;
+	var eletentou:Bool = false; //MALDITO S...
+
+	var stageSuffix:String = "";
+	var maoLord:FlxSprite;
+
+	public static var characterName:String = 'bf-dead';
+	public static var deathSoundName:String = 'fnf_loss_sfx';
+	public static var loopSoundName:String = 'gameOver';
+	public static var endSoundName:String = 'gameOverEnd';
 	var gameoverSprite:FlxSprite;
 	public static var instance:GameOverSubstate;
-	var nombre:String;
+	var nombre:String = "bf";
 
 	override function create()
 	{
@@ -23,12 +38,18 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		super.create();
 	}
+	public static function resetVariables() {
+		characterName = 'bf-dead';
+		deathSoundName = 'fnf_loss_sfx';
+		loopSoundName = 'gameOver';
+		endSoundName = 'gameOverEnd';
+	}
 
 	public function new(x:Float, y:Float, camX:Float, camY:Float)
 	{
 		super();
 
-		gameoverSprite.loadGraphic(Paths.image("gameover/" + nomeimagem, "preload"));
+		gameoverSprite.loadGraphic(Paths.image("gameover/" + nombre+"/sprite", "preload"));
 
 		PlayState.instance.setOnLuas('inGameOver', true);
 

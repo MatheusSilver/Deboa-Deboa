@@ -211,7 +211,28 @@ class GameJoltLoginState extends MusicBeatState
                 FlxG.save.data.user =userBar.text;
                 FlxG.save.data.token =tokenBar.text;
                 Achievements.syncAchievementsGJ();
+                syncProgress();
+                MenuPreHistoria.curSave = GJClient.getData("progress");
                 MusicBeatState.switchState(new ajustes.AjustesState());
+            }
+
+        public static function syncProgress()
+            {
+                var sum1:Int = 0;
+                var sum2:Int = 0;
+                for (i in 0...MenuPreHistoria.curSave.length) {
+                    sum1 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
+                    sum2 += Std.parseInt(GJClient.getData("progress").split(",")[i]);
+                }
+                
+                if (sum1 > sum2) {
+                    GJClient.setData("progress", MenuPreHistoria.curSave);
+                } else if (sum2 > sum1) {
+                    MenuPreHistoria.curSave = GJClient.getData("progress");
+                } else {
+                    MenuPreHistoria.curSave = GJClient.getData("progress");
+                }
+            
             }
             
 }

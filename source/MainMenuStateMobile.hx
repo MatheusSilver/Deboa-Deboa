@@ -175,11 +175,19 @@ class MainMenuStateMobile extends MusicBeatState
 
 		if(GJClient.logged)
 			{
+
 				letext.text = GJClient.userName;
 				trace(GJClient.avatarURL);
 				letext.x=-345;
 				letext.alpha = 1;
-
+				if(GJClient.getData("progress")!=null || GJClient.getData("progress")!="")
+					{
+						MenuPreHistoria.curSave = GJClient.getData("progress");
+					}
+				else
+					{
+						GJClient.setData(MenuPreHistoria.curSave, "progress");
+					}
 				var loader:Loader = new Loader();
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
 					if(GJClient.avatarURL.contains("no-avatar"))

@@ -4,6 +4,7 @@ import LoadingState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.system.FlxSound;
+import flixel.util.FlxColor;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
@@ -28,6 +29,11 @@ class MenuHistoria extends MusicBeatSubstate
 	var apertavel:Bool = false;
 	var textoSpriteTweens:FlxTween;
 
+	// lock stuff
+	var lockSprite:FlxSprite;
+	var blackLock:FlxSprite;
+	var musicasLockadas:Array<Bool> = new Array<Bool>();
+
 	var naopodevoltar:Bool = false;
 
 	//transition stuff
@@ -40,6 +46,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 	override function create()
 	{
+		applySave();
 		if(FlxG.sound.music == null) {
 			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
 		}
@@ -66,12 +73,24 @@ class MenuHistoria extends MusicBeatSubstate
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
 		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
+
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
+
+		lockSprite = new FlxSprite(0, 0);
+		lockSprite.loadGraphic(Paths.image("Story_Mode/lock", 'preload'));
+		lockSprite.screenCenter(XY);
+		lockSprite.antialiasing = ClientPrefs.globalAntialiasing;
+		lockSprite.alpha=0;
+
+		blackLock = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackLock.alpha=0;
 
 		add(bgSprite);
 		add(pastbgSprite);
 		add(perfilSprite);
 		add(textoSprite);
+		add(blackLock);
+		add(lockSprite);
 
 		changeSong();
 
@@ -81,8 +100,37 @@ class MenuHistoria extends MusicBeatSubstate
 
 		if(curSelected >= musicas.length) curSelected = 0;
 
+		if(musicasLockadas[curSelected] == true)
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0.55}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
+		else
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
 		super.create();
 	}
+
+	function applySave()
+		{
+			var saveStr:Array<String> = MenuPreHistoria.curSave.split(",");
+			var curWeekNum:Int = Std.parseInt(saveStr[MenuPreHistoria.curWeek]);
+			var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
+			for (j in 0...leWeek.songs.length) {
+				if(curWeekNum!=0)
+					{
+						curWeekNum--;
+						musicasLockadas.push(false);
+					}
+				else
+					{
+						musicasLockadas.push(true);
+					}
+			}
+			trace(musicasLockadas);
+		}
 
 	var instPlaying:Int = -1;
 	var executando:Bool = false;
@@ -127,7 +175,7 @@ class MenuHistoria extends MusicBeatSubstate
 					curSelected = 0;
 				}
 		
-				else if(FlxG.keys.justPressed.SPACE)
+				else if(FlxG.keys.justPressed.SPACE && musicasLockadas[curSelected] != true)
 				{
 					if(instPlaying != curSelected)
 					{
@@ -153,7 +201,7 @@ class MenuHistoria extends MusicBeatSubstate
 					}
 				}
 
-			if (controls.ACCEPT && apertavel)
+			if (controls.ACCEPT && apertavel #if !debug && musicasLockadas[curSelected] != true #end)
 			{
 				selectSong(true);
 			} 	
@@ -325,6 +373,17 @@ class MenuHistoria extends MusicBeatSubstate
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		WeekData.setDirectoryFromWeek(leWeek);
+
+		if(musicasLockadas[curSelected] == true)
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0.55}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
+		else
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
 
 		bgSprite.visible = true;
 		pastbgSprite.visible = true;
