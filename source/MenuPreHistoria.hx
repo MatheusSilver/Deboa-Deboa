@@ -25,16 +25,18 @@ class MenuPreHistoria extends MusicBeatState
 	var perfilSprite:FlxSprite;
 
 	public static var curWeek:Int = 0;
-	public static var curSave:String = "1,0,0,0,0,0,0,0,0";
+	public static var curSave:String;
 	var lockedWeeks:Array<Bool> = new Array<Bool>();
 	var lockSprite:FlxSprite;
 	var blackLock:FlxSprite;
+	public static var instance:MenuPreHistoria;
 
 	var blackbarup:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 53, FlxColor.BLACK);
 	var blackbardown:FlxSprite = new FlxSprite(0, FlxG.height - 53).makeGraphic(FlxG.width, 53, FlxColor.BLACK);
 	
 	override function create()
 	{
+		instance = this;
 		verifySave();
 		if(FlxG.sound.music == null) {
 			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
@@ -108,6 +110,33 @@ class MenuPreHistoria extends MusicBeatState
 					}
 			}
 			trace(lockedWeeks);
+			trace(curSave);
+		}
+
+	public static function addProgress(qual:String)
+		{
+			var saveArray:Array<Int> = curSave.split(",").map(function(s:String):Int { return Std.parseInt(s); });
+			if(qual == "outro")
+				{
+					if(curWeek+1 < saveArray.length)
+						{
+							saveArray[curWeek+1]++;
+						}
+				}
+			else
+				{
+					saveArray[curWeek]++;
+				}
+			curSave = saveArray.join(",");
+			trace(saveArray);
+			if(GJClient.logged)
+				{
+					GameJoltLoginState.syncProgress();
+				}
+			else
+				{
+					FlxG.save.data.progress = MenuPreHistoria.curSave;
+				}
 		}
 
 	override function closeSubState() {
@@ -138,7 +167,7 @@ class MenuPreHistoria extends MusicBeatState
 				GlobalSoundManager.play('scrollMenu');
 			}
 
-			if (controls.ACCEPT && apertavel #if !debug && musicasLockadas[curSelected] != true #end)
+			if (controls.ACCEPT && apertavel && lockedWeeks[curWeek] != true)
 			{
 				selectWeek();
 			}

@@ -211,28 +211,49 @@ class GameJoltLoginState extends MusicBeatState
                 FlxG.save.data.user =userBar.text;
                 FlxG.save.data.token =tokenBar.text;
                 Achievements.syncAchievementsGJ();
-                syncProgress();
-                MenuPreHistoria.curSave = GJClient.getData("progress");
                 MusicBeatState.switchState(new ajustes.AjustesState());
+                Sys.sleep(1);
+                syncProgress();
             }
 
         public static function syncProgress()
             {
                 var sum1:Int = 0;
                 var sum2:Int = 0;
+                var dataGJ:String = GJClient.getData("progress");
                 for (i in 0...MenuPreHistoria.curSave.length) {
                     sum1 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
-                    sum2 += Std.parseInt(GJClient.getData("progress").split(",")[i]);
+                    if(dataGJ!=null)
+                        {
+                            sum2 += Std.parseInt(dataGJ.split(",")[i]);
+                        }
+                    else
+                        {
+                            sum2 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
+                        }
                 }
-                
+                trace("Data GJ All: "+dataGJ);
+                trace("Local Num: "+sum1);
+                trace("Data GJ Num: "+sum2);
                 if (sum1 > sum2) {
-                    GJClient.setData("progress", MenuPreHistoria.curSave);
+                    updateData();
+                    FlxG.save.data.progress = MenuPreHistoria.curSave;
+                    trace("Salvando o progresso local na gj");
                 } else if (sum2 > sum1) {
-                    MenuPreHistoria.curSave = GJClient.getData("progress");
-                } else {
-                    MenuPreHistoria.curSave = GJClient.getData("progress");
+                    MenuPreHistoria.curSave = dataGJ;
+                    FlxG.save.data.progress = dataGJ;
+                    trace("Salvando o progresso gj no local");
+                } else if (sum2 == sum1) {
+                    updateData();
+                    FlxG.save.data.progress = MenuPreHistoria.curSave;
+                    trace("Salvando o progresso local na gj (os dois são iguais)");
                 }
+                trace("New Data GJ: "+GJClient.getData("progress"));
             
+            }
+        public static function updateData()
+            {
+                GJClient.setData(MenuPreHistoria.curSave, "progress");
             }
             
 }

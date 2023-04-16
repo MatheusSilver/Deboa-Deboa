@@ -71,11 +71,19 @@ class TitleState extends MusicBeatState
 		if(FlxG.save.data.progress!=null)
 			{
 				MenuPreHistoria.curSave = FlxG.save.data.progress;
+				if(GJClient.logged)
+					{
+						GameJoltLoginState.syncProgress();
+					}
 			}
 		else
 			{
 				FlxG.save.data.progress = "1,0,0,0,0,0,0,0,0";
 				MenuPreHistoria.curSave = FlxG.save.data.progress;
+				if(GJClient.logged)
+					{
+						GameJoltLoginState.syncProgress();
+					}
 			}
 		if(!initialized)
 			{

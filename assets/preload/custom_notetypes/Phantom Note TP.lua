@@ -17,22 +17,22 @@ end
 --end
 
 function noteMiss(id, direction, noteType, isSustainNote)
-	if noteType == 'Phantom Note' then
-		healthDrop = healthDrop + 0.00025;
-		if healthDrop == 0.00025 then
-			runTimer('BITCHLMAO', 0.1 , 100);
-		else 
-			FUCKYOU = 0;
-		end
-    end
+	--if noteType == 'Phantom Note' then
+	--	healthDrop = healthDrop + 0.00025;
+	--	if healthDrop == 0.00025 then
+	--		runTimer('BITCHLMAO', 0.1 , 100);
+	--	else 
+	--		FUCKYOU = 0;
+	--	end
+    --end
 end
 
 
 function onTimerCompleted(tag, loops, loopsLeft)
-	if tag == 'BITCHLMAO' then
-		FUCKYOU = FUCKYOU + 1;
-		if FUCKYOU >= 100 then
-			healthDrop = 0;
-		end
-	end
+	--if tag == 'BITCHLMAO' then
+	--	FUCKYOU = FUCKYOU + 1;
+	--	if FUCKYOU >= 100 then
+	--		healthDrop = 0;
+	--	end
+	--end
 end

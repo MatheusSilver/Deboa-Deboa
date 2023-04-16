@@ -5715,7 +5715,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
-
 		var ret:Dynamic = callOnLuas('onEndSong', []);
 
 		if(ret != FunkinLua.Function_Stop && !transitioning) {
@@ -5729,9 +5728,8 @@ class PlayState extends MusicBeatState
 			{
 				campaignScore += songScore;
 				campaignMisses += songMisses;
-
 				storyPlaylist.remove(storyPlaylist[0]);
-
+				
 				if (storyPlaylist.length <= 0)
 				{
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
@@ -5744,6 +5742,7 @@ class PlayState extends MusicBeatState
 
 					// if ()
 					if(!usedPractice) {
+
 						MenuHistoria.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 						FlxG.save.flush();
@@ -5802,6 +5801,11 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
+
+					if(modohistoria)
+						{
+							concluirMusicaProgresso();
+						}
 
 				FlxTween.tween(blackFuck, {alpha: 1}, 0.3, {
 					ease: FlxEase.cubeInOut,
@@ -6560,6 +6564,18 @@ class PlayState extends MusicBeatState
 				notes.remove(note, true);
 				note.destroy();
 			}
+		}
+
+	function concluirMusicaProgresso()
+		{
+			if(MenuHistoria.curSelected+1 < MenuHistoria.musicasLockadas.length && MenuHistoria.musicasLockadas[MenuHistoria.curSelected+1] == true)
+				{
+					MenuPreHistoria.addProgress("mesmo");
+				}
+			else if(MenuHistoria.curSelected+1 >= MenuHistoria.musicasLockadas.length)
+				{
+					MenuPreHistoria.addProgress("outro");
+				}
 		}
 
 	function goodNoteHit(note:Note):Void

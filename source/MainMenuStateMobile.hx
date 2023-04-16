@@ -175,21 +175,15 @@ class MainMenuStateMobile extends MusicBeatState
 
 		//Isso por algum motivo estava crashando pra mim, então resolvi tirar temporariamente
 		//Lembre-se de tirar aquele "!" depois
-		if(!GJClient.logged)
+
+		//nossa, eu n tinha visto isso antes e achei que tinha quebrado algo k
+		if(GJClient.logged)
 			{
 
 				letext.text = GJClient.userName;
 				trace(GJClient.avatarURL);
 				letext.x=-345;
 				letext.alpha = 1;
-				if(GJClient.getData("progress")!=null || GJClient.getData("progress")!="")
-					{
-						MenuPreHistoria.curSave = GJClient.getData("progress");
-					}
-				else
-					{
-						GJClient.setData(MenuPreHistoria.curSave, "progress");
-					}
 				var loader:Loader = new Loader();
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
 					if(GJClient.avatarURL.contains("no-avatar"))

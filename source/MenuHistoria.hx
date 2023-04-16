@@ -32,7 +32,7 @@ class MenuHistoria extends MusicBeatSubstate
 	// lock stuff
 	var lockSprite:FlxSprite;
 	var blackLock:FlxSprite;
-	var musicasLockadas:Array<Bool> = new Array<Bool>();
+	public static var musicasLockadas:Array<Bool> = new Array<Bool>();
 
 	var naopodevoltar:Bool = false;
 
@@ -115,6 +115,10 @@ class MenuHistoria extends MusicBeatSubstate
 
 	function applySave()
 		{
+			for (i in 0...musicasLockadas.length) {
+				musicasLockadas.splice(0, musicasLockadas.length);
+			}
+			
 			var saveStr:Array<String> = MenuPreHistoria.curSave.split(",");
 			var curWeekNum:Int = Std.parseInt(saveStr[MenuPreHistoria.curWeek]);
 			var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
@@ -201,7 +205,7 @@ class MenuHistoria extends MusicBeatSubstate
 					}
 				}
 
-			if (controls.ACCEPT && apertavel #if !debug && musicasLockadas[curSelected] != true #end)
+			if (controls.ACCEPT && apertavel && musicasLockadas[curSelected] != true)
 			{
 				selectSong(true);
 			} 	

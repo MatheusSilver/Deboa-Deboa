@@ -454,8 +454,58 @@ class GJClient
                 function () {printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
                 function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();});
                 var daData:Null<DataStore> = urlData != null && logged ? urlData : null;
-                return daData.data;
+                var valuetoReturn:String;
+                if(daData != null)
+                    {
+                        valuetoReturn = daData.data;
+                    }
+                else
+                    {
+                        valuetoReturn = null;
+                    }
+                return valuetoReturn;
             }
+
+            public static function removeData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void) // GJClient.removeData("key"); exemplo de deletar algum valor
+                {
+                    var daParams:Array<Array<String>> = [
+                        ['game_id', Std.string(GJKeys.id)],
+                        ['key', dataKey],
+                        ['username', GJClient.userName],
+                        ['user_token', getToken()]
+                    ];
+                    if(getData(dataKey)!=null)
+                        {
+                            var urlData = urlResult(urlConstruct('data-store', 'remove', daParams),
+                            function () {printMsg('Data removed successfully!'); if (onSuccess != null) onSuccess();},
+                            function () {printMsg('Data remove failed!'); if (onFail != null) onFail();});
+                        }
+                    else
+                        {
+                            printMsg('Could not found Data to remove!');
+                        }
+                }
+
+                public static function updateData(dataKey:String, txtContent:String, ?onSuccess:() -> Void, ?onFail:() -> Void) // GJClient.removeData("key"); exemplo de atualizar algum valor
+                    {
+                        var daParams:Array<Array<String>> = [
+                            ['game_id', Std.string(GJKeys.id)],
+                            ['key', dataKey],
+                            ['username', GJClient.userName],
+                            ['user_token', getToken()]
+                        ];
+                        if(getData(dataKey)!=null)
+                            {
+                                var urlData = urlResult(urlConstruct('data-store', 'remove', daParams),
+                                function () {printMsg('Data removed successfully!'); if (onSuccess != null) onSuccess();},
+                                function () {printMsg('Data remove failed!'); if (onFail != null) onFail();});
+                            }
+                        else
+                            {
+                                printMsg('Could not found Data to remove!');
+                            }
+                    }
+        
 
     /**
      * Gives you the global rank you got in a certain score table in your game.
