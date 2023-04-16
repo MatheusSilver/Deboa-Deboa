@@ -2,27 +2,26 @@ local dadYPosOriginal = 0;
 local bfYPosOriginal = 0;
 local dadXPosOriginal = 0;
 
+local animaisdegrandeporte = {'vilaophase3-sarah', 'vilaophase3-lordx', 'vilaophase3-speed'}
+--beta-alanina vai dar o efeito da coceira
+--sobe, sobe, mais uma
+--Vamo que não pode parar
+--Corre pra paralela, mas volta pra ajudar
+--Se não bateu no peito, pode fazer mais uma
+--se errou, faz de novo
+--se doeu, se acostuma
+--equipe tá formada, só viciado no esporte
+--SUPLEMENTAÇÃO PRA ANIMAL DE GRANDE PORTE
+--no pós-treino minha shakeira tá como?
+--sempre lotada
+--é whey, malto, gluta
+--e outras paradaaaaaaaaaaaaaaaaaaaa
+
+--Esse code foi revisto enquanto eu estava na temporada de Cirno Marombeira supremacy
+
 function onCreate()
 
     setProperty('camHUD.alpha', 0)
-	
-    makeLuaText('introText1', 'Time da Vio', screenWidth, 0, -500)
-    setObjectCamera('introText1', 'legenda')
-    setTextSize('introText1', 60)
-	setTextFont('introText1','letravio.ttf')
-	setTextAlignment('introText1','center')
-	screenCenter('introText1', 'x')
-
-    addLuaText('introText1')
-	
-    makeLuaText('introText2', 'Apresenta:', screenWidth, 0, -500)
-    setObjectCamera('introText2', 'legenda')
-    setTextSize('introText2', 60)
-	setTextFont('introText2','letravio.ttf')
-	setTextAlignment('introText2','center')
-	screenCenter('introText2', 'x')
-
-    addLuaText('introText2')
 
     bfYPosOriginal = getCharacterY('bf')
     dadYPosOriginal = getCharacterY('dad')
@@ -121,6 +120,9 @@ function onEvent(evento, valor1, valor2)
             setProperty('iconP2.alpha', 1)
             triggerEvent("Change Character", 'dad', 'Sonic Exe Pixel Flying', 'nada', 'nada')
             triggerEvent("Change Character", 'bf', 'Sonic Pixel Running', 'nada', 'nada')
+            for i = 1,#animaisdegrandeporte do
+                removeLuaSprite(animaisdegrandeporte[i], true)
+            end
         end
         if valor1 == '5-5' then
             for i = 0, getProperty('opponentStrums.length')-1 do
@@ -163,9 +165,11 @@ function onEvent(evento, valor1, valor2)
         end
         if valor1 == '7' then
 			cyCut('blahblah');
-            setProperty('knuxerabos.y', getCharacterY('boyfriend')+325)
-		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1000)
-            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+450, 5.7, 'cubein')
+            runTimer('triggerstatic', 2.5)
+            setProperty('knuxerabos.y', getCharacterY('boyfriend')+425)
+		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1150)
+            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+575, 5.5, 'cubein')
+            triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
 
         if valor1 == '8' then
@@ -193,7 +197,14 @@ function onEvent(evento, valor1, valor2)
             cameraFlash('legenda', '0xffff00', 3, true)
         end
 
-
+        if valor1 == 'animaisdegrandeporte' then
+            --cameraFlash('legenda', '0xff0000', 3, true)
+            --triggerEvent("Add Camera Zoom", '0.25', '0.25', 'nada', 'nada')
+            for i = 1,#animaisdegrandeporte do
+                setProperty(animaisdegrandeporte[i]..'.visible', true)
+                doTweenAlpha('tween'..animaisdegrandeporte[i], animaisdegrandeporte[i], 1, 3, 'linear')
+            end
+        end
     end
 end
 
@@ -224,6 +235,9 @@ function onTweenCompleted(tag)
 end
 
 function onTimerCompleted(tag)
+    if tag == 'triggerstatic' then
+        triggerEvent("eventos-tripletrouble", '1024', 'nada', 'nada', 'nada')
+    end
     if tag == 'voltar1' then
         runTimer('voltar2',0.5)
         --screenCenter('modBoaLogo', 'x')

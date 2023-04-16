@@ -1,22 +1,44 @@
 function onCreate() -- Aqui só serve para dar carregar e configurar os cenários,
 	-- A parte massa da coisa mesmo está lá no Master.lua
 
+	setCamMove(true); 
+	-- Só pra corrigir um bug caso o player resete o jooj em partes específicas
+
+	--textos
+	makeLuaText('introText1', 'Time da Vio', screenWidth, 0, -500)
+    setObjectCamera('introText1', 'legenda')
+    setTextSize('introText1', 60)
+	setTextFont('introText1','letravio.ttf')
+	setTextAlignment('introText1','center')
+	screenCenter('introText1', 'x')
+
+    addLuaText('introText1')
+	
+    makeLuaText('introText2', 'Apresenta:', screenWidth, 0, -500)
+    setObjectCamera('introText2', 'legenda')
+    setTextSize('introText2', 60)
+	setTextFont('introText2','letravio.ttf')
+	setTextAlignment('introText2','center')
+	screenCenter('introText2', 'x')
+
+    addLuaText('introText2')
+
 	--phase1 stuff
-	makeLuaTiledSprite('ceu','cenarios/phase1/ceu',2000,330,true,false) --1
+	makeLuaTiledSprite('ceu','cenarios/phase1/ceu',2000,512,true,false) --1
 	setLuaSpriteScrollFactor('ceu',0.4,0.4)
 	setPropertyTiledLuaSprite("ceu.antialiasing", false)
 	setPropertyTiledLuaSprite("ceu.x", -555)
 	setPropertyTiledLuaSprite("ceu.y", -223)
 	addLuaSprite('ceu');
 
-	makeLuaSprite('montanhas','cenarios/phase1/montanhas',75-200+100,105-23) --2
-	setLuaSpriteScrollFactor('montanhas',0.5,0.5)
+	makeLuaSprite('montanhas','cenarios/phase1/montanhas',75-200+100,105-58) --2
+	setLuaSpriteScrollFactor('montanhas',0.5,0.6)
 	setProperty('montanhas.scale.x', 5)
 	setProperty('montanhas.scale.y', 4.5)
 	setProperty('montanhas.antialiasing', false)
 	addLuaSprite('montanhas',false)
 
-	makeAnimatedLuaSprite('cachorreira','cenarios/phase1/cachorreira',-50-300+140,295-35) --3
+	makeAnimatedLuaSprite('cachorreira','cenarios/phase1/cachorreira',-50-300+140,295-38) --3
 	setLuaSpriteScrollFactor('cachorreira',0.6,0.6)
 	addAnimationByPrefix('cachorreira', 'bg2', 'bg2', 16, true);
 	setProperty('cachorreira.antialiasing', false)
@@ -95,7 +117,37 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('vilaophase3-2.visible', false)
 	addLuaSprite('vilaophase3-2',false)
 
-	makeLuaSprite('vilaophase3-1','cenarios/phase3/vilao/1',-335,315)--5
+	makeAnimatedLuaSprite('vilaophase3-speed','cenarios/phase3/vilao/speed',-390,-200)--5
+	setLuaSpriteScrollFactor('vilaophase3-speed',1,1)
+	setProperty('vilaophase3-speed.scale.x', 1.4)
+	setProperty('vilaophase3-speed.alpha', 0)
+	setProperty('vilaophase3-speed.scale.y', 1.5)
+	setProperty('vilaophase3-speed.visible', false)
+	addAnimationByPrefix('vilaophase3-speed', 'idle', 'Speed Idle', 24, true);
+	objectPlayAnimation('vilaophase3-speed', 'idle', true)
+	addLuaSprite('vilaophase3-speed',false)
+
+	makeAnimatedLuaSprite('vilaophase3-lordx','cenarios/phase3/vilao/lordx',-600,120)--5
+	setLuaSpriteScrollFactor('vilaophase3-lordx',1,1)
+	setProperty('vilaophase3-lordx.scale.x', 1.5)
+	setProperty('vilaophase3-lordx.alpha', 0)
+	setProperty('vilaophase3-lordx.scale.y', 1.7)
+	setProperty('vilaophase3-lordx.visible', false)
+	addAnimationByPrefix('vilaophase3-lordx', 'idle', 'Lord X Idle', 24, true);
+	objectPlayAnimation('vilaophase3-lordx', 'idle', true)
+	addLuaSprite('vilaophase3-lordx',false)
+
+	makeAnimatedLuaSprite('vilaophase3-sarah','cenarios/phase3/vilao/sara',650,-150)--5
+	setLuaSpriteScrollFactor('vilaophase3-sarah',1,1)
+	setProperty('vilaophase3-sarah.scale.x', 1.5)
+	setProperty('vilaophase3-sarah.alpha', 0)
+	setProperty('vilaophase3-sarah.scale.y', 1.7)
+	setProperty('vilaophase3-sarah.visible', false)
+	addAnimationByPrefix('vilaophase3-sarah', 'idle', 'Sarah Idle', 24, true);
+	objectPlayAnimation('vilaophase3-sarah', 'idle', true)
+	addLuaSprite('vilaophase3-sarah',false)
+
+	makeLuaSprite('vilaophase3-1','cenarios/phase3/vilao/1',-335,265)--5
 	setLuaSpriteScrollFactor('vilaophase3-1',0.6,1)
 	setProperty('vilaophase3-1.scale.x', 1.5)
 	setProperty('vilaophase3-1.scale.y', 1.45)
@@ -204,7 +256,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('ardia.visible', false)
 	addLuaSprite('ardia',false)
 
-	makeLuaSprite('nocume','cenarios/phase5/objetos',-875,-300)--5
+	makeLuaSprite('nocume','cenarios/phase5/objetos', 3000,-2000)--5 originalmente era -875, -300
 	setLuaSpriteScrollFactor('nocume',0.7,0.7)
 	setProperty('nocume.scale.x', 0.75)
 	setProperty('nocume.scale.y', 0.75)
@@ -317,15 +369,15 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('phase10-1.visible', false)
 	addLuaSprite('phase10-1',false)
 
-	makeLuaSprite('phase10-2','cenarios/phase10/stone1',0,0)--5
-	setLuaSpriteScrollFactor('phase10-2',1,1)
+	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-400,50)--5
+	setLuaSpriteScrollFactor('phase10-2',0.2,0.2)
 	setProperty('phase10-2.scale.x', 1.1)
 	setProperty('phase10-2.scale.y', 1.1)
 	setProperty('phase10-2.visible', false)
 	addLuaSprite('phase10-2',true)
 
-	makeLuaSprite('phase10-3','cenarios/phase10/stone2',0,0)--5
-	setLuaSpriteScrollFactor('phase10-3',1,1)
+	makeLuaSprite('phase10-3','cenarios/phase10/stone2',50,50)--5
+	setLuaSpriteScrollFactor('phase10-3',0.2,0.2)
 	setProperty('phase10-3.scale.x', 1.1)
 	setProperty('phase10-3.scale.y', 1.1)
 	setProperty('phase10-3.visible', false)

@@ -39,11 +39,11 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('eitacachorreira', 'cachorreira', 400-250, 33, 'linear')
 		mudarRPCdetalhes('Ato 2')
 	elseif curPhase == 3 then
-		cancelTween('florqueanda1')
-		cancelTween('montanhaqueanda1')
-		cancelTween('awaqueanda1')
-		cancelTween('eitacachorreira')
-		cancelTween('florqueanda2')
+		--cancelTween('florqueanda1')
+		--cancelTween('montanhaqueanda1')
+		--cancelTween('awaqueanda1')
+		--cancelTween('eitacachorreira')
+		--cancelTween('florqueanda2')
 		dueto(true)
 		for i = 1,#phase2cheetos do
 			removeLuaSprite(phase2cheetos[i])
@@ -79,21 +79,20 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase4cheetos[i]..'.visible', true)
 		end
 		mudarRPCdetalhes('Ato 4')
-		
-		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
+		--triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		sai2D()
 		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.5, 'linear')
 		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 300, 34, 'linear')
 		doTweenX('awaqueanda1EXE', 'awaEXE', 300, 34, 'linear')
 		doTweenX('eitacachorreiraEXE', 'cachorreiraEXE', 300, 34, 'linear')
 	elseif curPhase == 7 then
-		cancelTween('florqueanda2EXE')
-		cancelTween('montanhaqueanda1EXE')
-		cancelTween('awaqueanda1EXE')
-		cancelTween('eitacachorreiraEXE')
-		cancelTween('florqueanda1EXE')
+		--cancelTween('florqueanda2EXE')
+		--cancelTween('montanhaqueanda1EXE')
+		--cancelTween('awaqueanda1EXE')
+		--cancelTween('eitacachorreiraEXE')
+		--cancelTween('florqueanda1EXE')
 		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
-		doTweenY('nocumecheira', 'nocume', getProperty('nocume.y')-100, 1, 'smoothstepin')
+		--doTweenY('nocumecheira', 'nocume', getProperty('nocume.y')-100, 1, 'smoothstepin')
 		for i = 1,#phase4cheetos do
 			removeLuaSprite(phase4cheetos[i])
 		end
@@ -102,10 +101,12 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 		entra2D()
 		mudarRPCdetalhes('Ato 5')
+		doTweenX('nocumeX','nocume', -875, 30)
+		doTweenY('nocumeY','nocume', -300, 30)
 	elseif curPhase == 8 then
-		cancelTween('nocumecheira')
-		cancelTween('nocumesobem')
-		cancelTween('nocumedesce')
+		--cancelTween('nocumecheira')
+		--cancelTween('nocumesobem')
+		--cancelTween('nocumedesce')
 		
 		-- SUS... Para dizer o mínimo k
 		setProperty('nocumepausando.visible',true)
@@ -121,7 +122,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		mudarRPCdetalhes('Ato 6')
 		sai2D()
 	elseif curPhase == 10 then
-		setCharacterX('dad', dadXPosOriginal)
+		--setCharacterX('dad', dadXPosOriginal)
 		--Adicionado aqui sem testar, mas espero que conserte o ato 7 9 e 10
 		for i = 1,#phase6cheetos do
 			removeLuaSprite(phase6cheetos[i])
@@ -146,7 +147,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		mudarRPCdetalhes('Ato 9')
 	elseif curPhase == 13 then	
 		entra2D()
-		cancelTween('deatheggqueanda')
+		--cancelTween('deatheggqueanda')
 		for i = 1,#phase9cheetos do
 			removeLuaSprite(phase9cheetos[i])
 		end
@@ -182,12 +183,12 @@ function onTweenCompleted(tag) --a
 		setProperty('florrandom2EXE.x', -2000)
 		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 1.5, 'linear')
 	end
-	if tag == 'nocumecheira' or  tag == 'nocumesobem' then
+	--[[if tag == 'nocumecheira' or  tag == 'nocumesobem' then
 		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 1, 'sineinout')
 	end
 	if tag == 'nocumedesce' then
 		doTweenY('nocumesobem', 'nocume', getProperty('nocume.y')-50, 1, 'sineinout')
-	end
+	end]]
 	if tag == 'pedrasobe1' or 'pedrasubidao1' then 
 		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+10, 1, 'sineinout')
 	end

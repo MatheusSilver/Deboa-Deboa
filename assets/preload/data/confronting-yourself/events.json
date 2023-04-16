@@ -31,15 +31,6 @@
 						""
 					],
 					[
-						5,
-						-1,
-						"Cinematics",
-						"65",
-						"0",
-						"",
-						""
-					],
-					[
 						1400,
 						-1,
 						"noteskinchangeBF",
@@ -792,6 +783,15 @@
 						-1,
 						"trans CY",
 						"3",
+						"",
+						"",
+						""
+					],
+					[
+						86540,
+						-1,
+						"trans CY",
+						"animaisdegrandeporte",
 						"",
 						"",
 						""
