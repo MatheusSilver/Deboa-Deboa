@@ -6568,11 +6568,11 @@ class PlayState extends MusicBeatState
 
 	function concluirMusicaProgresso()
 		{
-			if(MenuHistoria.curSelected+1 < MenuHistoria.musicasLockadas.length && MenuHistoria.musicasLockadas[MenuHistoria.curSelected+1] == true)
+			if(MenuHistoria.curSelected+1 < MenuHistoria.musicasLockadas.length && MenuHistoria.musicasLockadas[MenuHistoria.curSelected+1] == true && MenuHistoria.musicasLockadas[MenuHistoria.curSelected] == false)
 				{
 					MenuPreHistoria.addProgress("mesmo");
 				}
-			else if(MenuHistoria.curSelected+1 >= MenuHistoria.musicasLockadas.length)
+			else if(MenuHistoria.curSelected+1 >= MenuHistoria.musicasLockadas.length && MenuHistoria.musicasLockadas[MenuHistoria.curSelected] == false)
 				{
 					MenuPreHistoria.addProgress("outro");
 				}

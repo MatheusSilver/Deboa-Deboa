@@ -167,7 +167,7 @@ class MenuPreHistoria extends MusicBeatState
 				GlobalSoundManager.play('scrollMenu');
 			}
 
-			if (controls.ACCEPT && apertavel && lockedWeeks[curWeek] != true)
+			if (controls.ACCEPT && apertavel #if !debug && lockedWeeks[curWeek] != true #end)
 			{
 				selectWeek();
 			}

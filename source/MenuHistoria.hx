@@ -205,7 +205,7 @@ class MenuHistoria extends MusicBeatSubstate
 					}
 				}
 
-			if (controls.ACCEPT && apertavel && musicasLockadas[curSelected] != true)
+			if (controls.ACCEPT && apertavel #if !debug  && musicasLockadas[curSelected] != true #end)
 			{
 				selectSong(true);
 			} 	
