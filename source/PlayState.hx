@@ -380,9 +380,10 @@ class PlayState extends MusicBeatState
 	#if desktop
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
-	public static var detailsText:String = "";
 	public static var detailsPausedText:String = "";
 	#end
+
+	public static var detailsText:String = "";
 
 	var pauseSound:FlxSound;
 
@@ -607,7 +608,9 @@ class PlayState extends MusicBeatState
 
 		#if desktop
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
+		#end
 
+		// Nenhum problema pra só uma string
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (SONG.song.toLowerCase() == "confronting-yourself")
 		{
@@ -622,7 +625,7 @@ class PlayState extends MusicBeatState
 			detailsText = FreeplayState.weekNombre;
 		}
 
-		// String for when the game is paused
+		#if desktop
 		detailsPausedText = "Pausado - " + detailsText;
 		#end
 
@@ -7936,7 +7939,8 @@ class PlayState extends MusicBeatState
 	function invisibru(sprite:FlxSprite){
 		sprite.visible = !sprite.visible;
 	}
-
+	
+	// Tá, isso tá safe
 	public function updateRPC(){
 		#if desktop
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
