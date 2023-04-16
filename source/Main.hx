@@ -1,41 +1,39 @@
 package;
 
-import openfl.display.StageScaleMode;
+import flixel.graphics.FlxGraphic;
 #if desktop
-///import GameJolt;
-///import GameJolt.GameJoltAPI;
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
-import openfl.Assets;
 import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import lime.app.Application;
+using StringTools;
 
 class Main extends Sprite
 {
-
-	#if desktop
-	//public static var gjToastManager:GJToastManager;
-	#end
-
-	var game = {
-		width: 1280, // WINDOW width
-		height: 720, // WINDOW height
-		initialState: TitleState, 
-		zoom: -1.0, // game state bounds
-		framerate: 60, // default framerate
-		skipSplash: true, // if the default flixel splash screen should be skipped
-		startFullscreen: ClientPrefs.fullscreen // if the game should start at fullscreen mode
-	};
+	var game:FlxGame;
+	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
+	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
+	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
+	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
+	var framerate:Int = 60; // How many frames per second the game should run at.
+	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
+	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 
 	public static var fpsVar:FPS;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
+
+	public static function main():Void
+	{
+		// quick checks
+		Lib.current.addChild(new Main());
+	}
 
 	public function new()
 	{
@@ -51,6 +49,20 @@ class Main extends Sprite
 		}
 	}
 
+	public static function setFPSCap(cap:Int)
+	{
+		if (cap > FlxG.drawFramerate)
+		{
+			FlxG.updateFramerate = cap;
+			FlxG.drawFramerate = cap;
+		}
+		else
+		{
+			FlxG.drawFramerate = cap;
+			FlxG.updateFramerate = cap;
+		}
+	}
+
 	private function init(?E:Event):Void
 	{
 		if (hasEventListener(Event.ADDED_TO_STAGE))
@@ -63,37 +75,29 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
-		Lib.application.window.height = 720;
-		Lib.application.window.width = 1280;
-		var stageWidth:Int = Lib.application.window.width;
-		var stageHeight:Int = Lib.application.window.height;
+		#if (flixel < "5.0.0")
+		var stageWidth:Int = Lib.current.stage.stageWidth;
+		var stageHeight:Int = Lib.current.stage.stageHeight;
 
-		if (game.zoom == -1.0)
+		if (zoom == -1)
 		{
-			var ratioX:Float = stageWidth / game.width;
-			var ratioY:Float = stageHeight / game.height;
-			game.zoom = Math.min(ratioX, ratioY);
-			game.width = Math.ceil(stageWidth / game.zoom);
-			game.height = Math.ceil(stageHeight / game.zoom);
+			var ratioX:Float = stageWidth / gameWidth;
+			var ratioY:Float = stageHeight / gameHeight;
+			zoom = Math.min(ratioX, ratioY);
+			gameWidth = Math.ceil(stageWidth / zoom);
+			gameHeight = Math.ceil(stageHeight / zoom);
 		}
-	
-		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
-
-
-		fpsVar = new FPS(5, 3, 0xFFFFFF);
-		addChild(fpsVar);
-		Lib.current.stage.align = "tl";
-		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
-			fpsVar.visible = ClientPrefs.showFPS;
-		}
-
-
-		#if html5
-		FlxG.autoPause = false;
-		FlxG.mouse.visible = false;
 		#end
+		game = new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen);
+		addChild(game);
+
+		fpsVar = new FPS(10, 3, 0xFFFFFF);
+		addChild(fpsVar);
+
+		FlxG.fixedTimestep = false;
+
+		if (fpsVar != null)
+			fpsVar.visible = ClientPrefs.showFPS;
 		
 		#if desktop
 		if (!DiscordClient.isInitialized) {

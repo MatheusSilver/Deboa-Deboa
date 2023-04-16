@@ -18,7 +18,7 @@ function goodNoteHit(id, direction, noteType, isSustainNote)
 	if noteType == 'Glitch' then
 		health = getProperty('health')
 		setProperty('health', health- 0.7);
-		playSound('glitchhit', 2);
+		playSound('glitchhit', 2, 'glitchSom');
     end
 end
 

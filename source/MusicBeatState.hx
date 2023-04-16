@@ -20,8 +20,6 @@ class MusicBeatState extends FlxUIState
 	private var curBeat:Int = 0;
 	private var controls(get, never):Controls;
 
-	public static var camBeat:FlxCamera;
-
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
@@ -50,9 +48,12 @@ class MusicBeatState extends FlxUIState
 	#end			
 
 	override function create() {
-		camBeat = FlxG.camera;
+		
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		super.create();
+
+		GlobalSoundManager.listaDeSons = [];
+		CoolUtil.setFPSCap(ClientPrefs.framerate);
 
 		// Custom made Trans out
 		if(!skip) {
@@ -63,24 +64,44 @@ class MusicBeatState extends FlxUIState
 
 	override function update(elapsed:Float)
 	{
-		//everyStep();
-		var oldStep:Int = curStep;
+		var nextStep:Int = updateCurStep();
 
-		updateCurStep();
-		updateBeat();
+		if (nextStep >= 0)
+		{
+			if (nextStep > curStep)
+			{
+				for (i in curStep...nextStep)
+				{
+					curStep++;
+					updateBeat();
+					stepHit();
+				}
+			}
+			else if (nextStep < curStep)
+			{
+				// Song reset?
+				curStep = nextStep;
+				updateBeat();
+				stepHit();
+			}
+		}
 
-		if (oldStep != curStep && curStep > 0)
-			stepHit();
+		if (CoolUtil.getFPSCap() != ClientPrefs.framerate)
+			CoolUtil.setFPSCap(ClientPrefs.framerate);
+
+		if (FlxG.autoPause != ClientPrefs.autoPause)
+			FlxG.autoPause = ClientPrefs.autoPause;
 
 		super.update(elapsed);
 	}
 
 	private function updateBeat():Void
 	{
+		lastBeat = curBeat;
 		curBeat = Math.floor(curStep / 4);
 	}
 
-	private function updateCurStep():Void
+	private function updateCurStep():Int
 	{
 		var lastChange:BPMChangeEvent = {
 			stepTime: 0,
@@ -93,7 +114,7 @@ class MusicBeatState extends FlxUIState
 				lastChange = Conductor.bpmChangeMap[i];
 		}
 
-		curStep = lastChange.stepTime + Math.floor(((Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / Conductor.stepCrochet);
+		return lastChange.stepTime + Math.floor((Conductor.songPosition - lastChange.songTime) / Conductor.stepCrochet);
 	}
 
 	public static function switchState(nextState:FlxState) {
@@ -122,12 +143,6 @@ class MusicBeatState extends FlxUIState
 
 	public static function resetState() {
 		MusicBeatState.switchState(FlxG.state);
-	}
-
-	public static function getState():MusicBeatState {
-		var curState:Dynamic = FlxG.state;
-		var leState:MusicBeatState = curState;
-		return leState;
 	}
 
 	public function stepHit():Void

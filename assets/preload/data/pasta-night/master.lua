@@ -364,7 +364,7 @@ function onEvent(eventName, value1, value2)
     if eventName=='PastaPow' then
     
     playAnim('MXArms','Hit1',true)
-    playSound('HandUp',1)
+    playSound('HandUp',1, 'batidasom')
     triggerEvent('Play Animation','Hit1',whoisMX)
     end
     if eventName=='CamPasta' then
@@ -395,7 +395,7 @@ function onUpdate(elapsed)
 end
     
 function dropStart()
-    playSound('POW',1)
+    playSound('POW',1, 'powsound')
     cameraShake('FlxG.camera',0.05,0.5)    
 end
 

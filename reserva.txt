@@ -1,0 +1,81 @@
+			case 'Adicionar Imagens':
+				/*if (ClientPrefs.legendas)
+				{
+					if(value1!=null || value1!= '')
+						{
+							if(value4!=null || value4!='')
+								{
+									var legenda4:FlxSprite = new FlxSprite(0, 0);
+									if(path!='')
+										{
+											legenda4.loadGraphic(Paths.image(path+'/'+value4));
+										}
+										else
+											{
+												legenda4.loadGraphic(Paths.image(value4));
+											}
+											if(ClientPrefs.downScroll)
+												{
+													legenda4.x=-350;
+												}
+									legenda4.cameras = [camLegenda];
+									legenda4.antialiasing = ClientPrefs.globalAntialiasing;
+								}
+							if(value3!=null || value3!='')
+								{
+									var legenda3:FlxSprite = new FlxSprite(0, 0);
+									if(path!='')
+										{
+											legenda3.loadGraphic(Paths.image(path+'/'+value3));
+										}
+										else
+											{
+												legenda3.loadGraphic(Paths.image(value3));
+											}
+											if(ClientPrefs.downScroll)
+												{
+													legenda3.x=-350;
+												}
+									legenda3.cameras = [camLegenda];
+									legenda3.antialiasing = ClientPrefs.globalAntialiasing;
+								}
+							if(value2!=null)
+								{
+									var legenda2:FlxSprite = new FlxSprite(0, 0);
+									if(path!='')
+										{
+											legenda2.loadGraphic(Paths.image(path+'/'+value2));
+										}
+										else
+											{
+												legenda2.loadGraphic(Paths.image(value2));
+											}
+											if(ClientPrefs.downScroll)
+												{
+													legenda2.x=-350;
+												}
+									legenda2.cameras = [camLegenda];
+									legenda2.antialiasing = ClientPrefs.globalAntialiasing;
+								}
+
+								if(path!='')
+									{
+										legenda1.loadGraphic(Paths.image(path+'/'+value1));
+									}
+									else
+										{
+											legenda1.loadGraphic(Paths.image(value1));
+										}
+							var legenda1:FlxSprite = new FlxSprite(0, 0);
+							legenda1.cameras = [camLegenda];
+							legenda1.loadGraphic(Paths.image(value1));
+							if(ClientPrefs.downScroll)
+								{
+									legenda1.x=-350;
+								}
+							legenda1.antialiasing = ClientPrefs.globalAntialiasing;
+						}
+				}*/
+                
+
+                Coloquei isso aqui pro jooj parar de chamar isso e o evento em lua ao mesmo tempo tava chatão já man...

@@ -64,7 +64,7 @@ end
 function transVermelha()
     setProperty('fx.alpha', 0.8)
 	doTweenAlpha('fleetON', 'fx', 0, 1, 'linear')
-	playSound('stat', 0.3)
+	playSound('stat', 0.3, 'stat')
 end
 
 function onCountdownTick(value0)
@@ -165,10 +165,11 @@ function onEvent(evento, valor1, valor2)
         end
         if valor1 == '7' then
 			cyCut('blahblah');
-            runTimer('triggerstatic', 2.5)
+            runTimer('triggerstatic', 3.5)
             setProperty('knuxerabos.y', getCharacterY('boyfriend')+425)
 		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1150)
-            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+575, 5.5, 'cubein')
+            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+575, 5.55, 'cubein')
+            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+120)
             triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
 
@@ -245,7 +246,7 @@ function onTimerCompleted(tag)
     if tag == 'voltar2' then
         runTimer('voltar5',2.5)
         transVermelha()
-        playSound('exerisadinha', 0.8)
+        playSound('exerisadinha', 0.8, 'risadinha')
         --setProperty('modBoaLogo.visible', false)
         setProperty('modBoaLogoExe.visible', true)
     end

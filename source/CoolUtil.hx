@@ -81,6 +81,16 @@ class CoolUtil
 		return maxKey;
 	}
 
+	public static function setFPSCap(cap:Int):Void
+	{
+		Main.setFPSCap(cap);
+	}
+
+	public static function getFPSCap():Int
+		{
+			return Std.int(openfl.Lib.current.stage.frameRate);
+		}
+
 	public static function numberArray(max:Int, ?min = 0):Array<Int>
 	{
 		var dumbArray:Array<Int> = [];

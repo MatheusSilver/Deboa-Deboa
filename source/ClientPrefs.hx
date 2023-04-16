@@ -13,12 +13,12 @@ class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var pibby:Bool = false; //Eu não sei se é assim mesmo que faz na psych
 	public static var middleScroll:Bool = false;
+	public static var autoPause:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var flashing:Bool = true;
 	public static var legendas:Bool = true;
 	public static var loadingexperimental:Bool = true; // deixa tudo melhor
 	public static var legendasporcima:Bool = true;
-	public static var pausarauto:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
@@ -81,11 +81,11 @@ class ClientPrefs {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.pibby = pibby;
 		FlxG.save.data.middleScroll = middleScroll;
+		FlxG.save.data.autoPause = autoPause;
 		FlxG.save.data.showFPS = showFPS;
 		FlxG.save.data.osusom = osusom;
 		FlxG.save.data.efeitosVolume = efeitosVolume;
 		FlxG.save.data.loadingexperimental = loadingexperimental;
-		FlxG.save.data.pausarauto = pausarauto;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.hitSounds = hitSounds;
 		FlxG.save.data.fullscreen = fullscreen;
@@ -120,9 +120,6 @@ class ClientPrefs {
 		if(FlxG.save.data.gore != null) {
 			gore = FlxG.save.data.gore;
 		}
-		if(FlxG.save.data.pausarauto != null) {
-			pausarauto = FlxG.save.data.pausarauto;
-		}
 		if(FlxG.save.data.resolution != null) {
 			resolution = FlxG.save.data.resolution;
 		}
@@ -137,6 +134,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;
+		}
+		if(FlxG.save.data.autoPause != null) {
+			autoPause = FlxG.save.data.autoPause;
 		}
 		if(FlxG.save.data.hitSounds != null) {
 			hitSounds = FlxG.save.data.hitSounds;

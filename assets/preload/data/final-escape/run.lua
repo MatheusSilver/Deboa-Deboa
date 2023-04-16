@@ -47,7 +47,7 @@ playAnim('legJump', 'jump', true, false, 0)
 
 runTimer('JumpCooldown', crochet / 500, 1)
 
-playSound('jump', 1)
+playSound('jump', 1, 'puloSom')
 
 
 

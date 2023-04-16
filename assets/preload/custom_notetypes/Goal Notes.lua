@@ -30,7 +30,7 @@ function goodNoteHit(id, noteData, noteType, isSustainNote)
 		
 		soundGone = true
 		
-		playSound('Warp',1)
+		playSound('Warp',1, 'Warp')
 		runTimer('BOOM',0.6,1)
 		
 		

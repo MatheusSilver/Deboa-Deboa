@@ -488,7 +488,6 @@ class DialogueCharacterEditorState extends MusicBeatState
 			return;
 		}
 
-		MusicBeatState.camBeat = FlxG.camera;
 		if(character.animation.curAnim != null) {
 			if(daText.finishedText) {
 				if(character.animationIsLoop()) {

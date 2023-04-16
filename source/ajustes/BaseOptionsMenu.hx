@@ -53,7 +53,6 @@ class BaseOptionsMenu extends MusicBeatState
 		'FullScreen',
 		'Esconder HUD',
 		'Esconder tempo',
-		'Auto pause',
 		'Violencia',
 		'Luzes Piscantes',
 		'FPS visível',
@@ -69,6 +68,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'Delay da Nota',
 		'Note Splashes',
 		'Legendas',
+		'Auto Pause',
 		'Efeitos de Camera',
 		'SOM GLOBAL',
 		'Volume ',
@@ -255,6 +255,8 @@ class BaseOptionsMenu extends MusicBeatState
 					
 					case 'Legendas':
 						ClientPrefs.legendas = !ClientPrefs.legendas;	
+					case 'Auto Pause':
+						ClientPrefs.autoPause = !ClientPrefs.autoPause;
 
 					case 'Violencia':
 						ClientPrefs.gore = !ClientPrefs.gore;
@@ -264,9 +266,6 @@ class BaseOptionsMenu extends MusicBeatState
 
 					case 'Carregar rápido':
 						ClientPrefs.loadingexperimental = !ClientPrefs.loadingexperimental;
-
-					case 'Auto pause':
-							ClientPrefs.pausarauto = !ClientPrefs.pausarauto ;
 
 					case 'Downscroll':
 						ClientPrefs.downScroll = !ClientPrefs.downScroll;
@@ -418,14 +417,14 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "If unchecked, your mom won't be angry at you.";
 			case 'Violencia':
 				daText = "Se desmarcado, você não verá gore, sangue, visceras, coisas ruins.\n(Desativa isso caso for sensível demais.\nP.S: Principalmente pro mod do EXE.)";
-			case 'Auto pause':
-				daText = "Se desmarcado, não irá pausar automaticamente\nse você sair da janela do jogo enquanto\nestá em uma música.";
 			case 'Note Splashes':
 				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
 			case 'Luzes Piscantes':
 				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
 			case 'Legendas':
 				daText = "Se ativado, você irá ver as legendas nas músicas.";	
+			case 'Auto Pause':
+				daText = "Se ativado, o game irá pausar sempre que você fechar a janela.";
 			case 'Efeitos de Camera':
 				daText = "Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica";
 			case 'Esconder HUD':
@@ -492,6 +491,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.flashing;
 					case 'Legendas':
 						daValue = ClientPrefs.legendas;
+					case 'Auto Pause':
+						daValue = ClientPrefs.autoPause;
 					case 'Carregar rápido':
 						daValue = ClientPrefs.loadingexperimental;
 					case 'Downscroll':
@@ -508,8 +509,6 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.fullscreen;
 					case 'Violencia':
 						daValue = ClientPrefs.gore;
-					case 'Auto pause':
-						daValue = ClientPrefs.pausarauto;
 					case 'Zooms da Camera':
 						daValue = ClientPrefs.camZooms;
 					case 'Esconder HUD':

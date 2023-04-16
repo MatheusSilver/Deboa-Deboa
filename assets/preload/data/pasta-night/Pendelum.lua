@@ -161,7 +161,7 @@ function Psyshock()
     setProperty('Psyshock.alpha',1)
 
 playAnim('Psyshock','Psyshock')
-playSound('Psyshock',0.6)
+playSound('Psyshock',0.6, 'shock')
 if flashingLights then cameraFlash('camHUD','0xFFFFAFC1',1) end
 trance =trance+ 0.25
 end

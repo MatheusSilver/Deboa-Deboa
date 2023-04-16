@@ -347,7 +347,7 @@ setProperty('dad.stunned',true)
 
 triggerEvent('window_shake', 200, 200)
 
-playSound('exe death',1)
+playSound('exe death',1, 'deathsound')
 
 doTweenY('SonicFallingahhh','dad',getProperty('dad.y') + 1300,4,'backIn')
 

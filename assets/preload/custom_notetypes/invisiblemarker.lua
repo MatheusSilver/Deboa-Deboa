@@ -105,7 +105,7 @@ end
 
 for i=#warningpos,1,-1 do
 	if spos >= warningpos[i] then
-		playSound('warning',0.9)
+		playSound('warning',0.9, 'aviso')
 		popWarning(1)
 		
 		
@@ -115,7 +115,7 @@ end
 
 for i=#warningpos2,1,-1 do
 	if spos >= warningpos2[i] then
-		playSound('warning',0.9)
+		playSound('warning',0.9, 'aviso')
 		popWarning(2)
 		
 		table.remove(warningpos2, i)

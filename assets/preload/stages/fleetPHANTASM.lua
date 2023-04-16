@@ -56,7 +56,7 @@ function fleetON()
 	setProperty('fx.alpha', 0.8)
 	setProperty('sonicPHANTASM.alpha', 0)
 	doTweenAlpha('fleetON', 'fx', 0, 1, 'linear')
-	playSound('stat', 0.3)
+	playSound('stat', 0.3, 'estatica')
 	triggerEvent('Change Character', 0, 'fleetwayPHANTASM')
 end
 
@@ -64,7 +64,7 @@ function fleetOFF()
 	setProperty('fx.alpha', 0.8)
 	setProperty('sonicPHANTASM.alpha', 1)
 	doTweenAlpha('fleetON', 'fx', 0, 1, 'linear')
-	playSound('stat', 0.3)
+	playSound('stat', 0.3, 'estatica')
 	triggerEvent('Change Character', 0, 'sonicPHANTASM')
 end
 

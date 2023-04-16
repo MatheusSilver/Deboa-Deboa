@@ -31,6 +31,7 @@ class PauseSubState extends MusicBeatSubstate
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
+	var scrollingSound:FlxSound;
 
 	var calabocavio:FlxSound;
 
@@ -83,6 +84,9 @@ class PauseSubState extends MusicBeatSubstate
 
 		calabocavio = new FlxSound().loadEmbedded(Paths.sound('introGo','shared'));
 		calabocavio.volume = 0.6;
+
+		scrollingSound = new FlxSound().loadEmbedded(Paths.sound('pausescrollmenu'));
+		scrollingSound.volume = 0.4;
 
 		menuItems = menuItemsOG;
 
@@ -174,12 +178,6 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(linhabaixo, {y: FlxG.height-linhabaixo.height}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(perfil, {x: FlxG.width-perfil.width}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(exe, {x: FlxG.width-exe.width}, 0.6, {ease: FlxEase.quartInOut});
-
-		if (PlayState.useVideo)
-			{
-				if (GlobalVideo.get().playing)
-					GlobalVideo.get().pause();
-			}
 
 		changeSelection();
 
@@ -297,24 +295,12 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = transCamera;
 					restartSong();
-					if (PlayState.useVideo)
-					{
-						GlobalVideo.get().stop();
-						PlayState.instance.remove(PlayState.instance.videoSprite);
-						PlayState.removedVideo = true;
-					}
 					FlxG.sound.music.volume = 0;
 				case 'Botplay':
 					PlayState.cpuControlled = !PlayState.cpuControlled;
 					PlayState.usedPractice = true;
 				case "Voltar para o menu":
 					podeJumpscare=false;
-					if (PlayState.useVideo)
-						{
-							GlobalVideo.get().stop();
-							PlayState.instance.remove(PlayState.instance.videoSprite);
-							PlayState.removedVideo = true;
-						}
 					PlayState.canRegen = true;
 					PlayState.canuseevents = true;
 					PlayState.deathCounter = 0;
@@ -425,10 +411,6 @@ class PauseSubState extends MusicBeatSubstate
 										go.destroy();
 										new FlxTimer().start(0.75, function(tmr:FlxTimer){PlayState.instance.canPause = true; isDoingtheThing=false;});
 										close();
-										if (PlayState.useVideo)
-										{
-											GlobalVideo.get().resume();
-										}
 									}
 								});
 						}
@@ -509,7 +491,7 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		curSelected += change;
 
-		FlxG.sound.play(Paths.sound('pausescrollmenu'), 0.4);
+		scrollingSound.play(true);
 
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;

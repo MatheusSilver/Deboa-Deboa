@@ -223,8 +223,6 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="linc_luajit"/>
 	<haxelib name="faxe" if='switch'/>
-	<haxelib name="actuate" />
-	<haxelib name="extension-webm"/>
 	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
 	<!--<haxelib name="hxCodec" if="desktop"/>-->
@@ -254,7 +252,7 @@
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
 	<!--haxedef name="FLX_NO_MOUSE" if="mobile" /> -->
 	<!-- <haxedef name="FLX_NO_KEYBOARD" if="mobile" /> -->
-	<!-- <haxedef name="FLX_NO_TOUCH" if="desktop" /> -->
+	<haxedef name="FLX_NO_TOUCH" if="desktop" />
 	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
 
 	<!--Disable the Flixel core sound tray-->

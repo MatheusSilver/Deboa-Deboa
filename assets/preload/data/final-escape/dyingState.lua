@@ -120,7 +120,7 @@ runTimer('grabbed',0.2,1)
 doTweenZoom('zoomGrab1', 'camGame', 1.3, 0.2, 'quadOut')
 
 
-playSound('grab',1)
+playSound('grab',1, 'pega')
 
 	
 runTimer('tooslow',0.5,1)	
@@ -283,7 +283,7 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	
 	if tag == "tooslow" then 
 	  
-     playSound('too-slow',1)
+     playSound('too-slow',1, 'too-slow')
 	  
 	  
 	  
@@ -291,7 +291,7 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	
 	if tag == 'hahaha' then
 	
-	playSound('hahaha',1)
+	playSound('hahaha',1, 'hahaha')
 	
 	runTimer('laugh',0.6,5)
 	
@@ -417,7 +417,7 @@ if tag == 'timeLeft' then
 
 playAnim('hands', 'kill', true, false, 0)
 
-playSound('woosh',1)
+playSound('woosh',1, 'woosh')
 
 runTimer('Clap',0.95,1)	
 
@@ -432,7 +432,7 @@ end
 
 if tag == 'ticking' then
 
-playSound('tick',1)
+playSound('tick',1, 'tickSom')
 
 ringleft = ringleft - 1
 
@@ -441,7 +441,7 @@ end
 
 if tag == "Clap" then
 
-playSound('jumpscare',1)
+playSound('jumpscare',1, 'jumpscareSom')
 
 setProperty('camGame.alpha',0)
 
@@ -525,7 +525,7 @@ if DeathScreen == true and CanPressRetry then
 
 if keyJustPressed('accept') then
 
-playSound('ring',1)
+playSound('ring',1, 'ringSom')
 
 cancelTimer('timeLeft')
 cancelTimer('ticking')

@@ -883,25 +883,6 @@ class FunkinLua {
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
 
-		Lua_helper.add_callback(lua,"playVideo", function() {
-			if (!GlobalVideo.get().playing)
-				GlobalVideo.get().play();
-		});
-
-		Lua_helper.add_callback(lua,"pauseVideo", function() {
-			if (!GlobalVideo.get().paused)
-				GlobalVideo.get().pause();
-		});
-
-		Lua_helper.add_callback(lua,"resumeVideo", function() {
-			if (GlobalVideo.get().paused)
-				GlobalVideo.get().pause(); //Talvez eu deveria arrumar isso...
-		});
-		
-		Lua_helper.add_callback(lua,"restartVideo", function() {
-			GlobalVideo.get().restart();
-		});
-
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {
 			var colorNum:Int = Std.parseInt(color);
 			if(!color.startsWith('0x')) colorNum = Std.parseInt('0xff' + color);
@@ -1235,36 +1216,14 @@ class FunkinLua {
 				}
 			}
 		});
-		Lua_helper.add_callback(lua, "startVideo", function(videoFile:String) {
-			#if VIDEOS_ALLOWED
-			if(OpenFlAssets.exists("assets/videos/" + videoFile + ".webm")) 
-			{
-				PlayState.instance.startVideo(videoFile);
-			} 
-			else 
-			{
-				//luaTrace('Video file not found: ' + videoFile);
-			}
-			#else
-			if(PlayState.instance.endingSong) 
-			{
-				PlayState.instance.endSong();
-			} 
-			else 
-			{
-				PlayState.instance.startCountdown();
-			}
-			#end
-		});
 		
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
-			PlayState.detailsText = texto;
-			PlayState.detailsPausedText = "Pausado - " + texto;
-			PlayState.instance.updateRPC();
-		});
+			PlayState.instance.updateRPC(texto);
+		}); //Simplificando coisas
+
 		Lua_helper.add_callback(lua, "cyCut", function(texto:String) {
 			PlayState.instance.cyCutscene(texto);
 		});

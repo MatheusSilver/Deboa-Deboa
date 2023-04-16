@@ -37,8 +37,10 @@ class LoadingsState extends MusicBeatSubstate
 	public static var instance1:LoadingsState;
 	var position:Int = 0;
 	var loadBar:FlxSprite;
+	public static var fechesubstate = false;
 	override function create()
 	{
+		fechesubstate = false;
 		instance1 = this;
 		//Silver explicações pt2
 		//Basicamente é só tu enfiar a tela de loading na pasta loadings dentro de preload/images
@@ -104,6 +106,8 @@ class LoadingsState extends MusicBeatSubstate
 	{
 		super.update(elapsed);
 
+		if(!fechesubstate){
+
 		art.setGraphicSize(Std.int(FlxG.width * 1.0));
 		art.updateHitbox();
 		art.screenCenter(XY);
@@ -111,6 +115,10 @@ class LoadingsState extends MusicBeatSubstate
 		if(LoadingState.callbacks != null) {
 			LoadingState.targetShit = FlxMath.remapToRange(LoadingState.callbacks.numRemaining / LoadingState.callbacks.length, 1, 0, 0, 1);
 			loadBar.scale.x += 0.5 * (LoadingState.targetShit - loadBar.scale.x);
+		}
+		}else{
+			close();
+			fechesubstate = false;
 		}
 	}
 }
@@ -229,6 +237,7 @@ class LoadingState extends MusicBeatState
 		FlxTransitionableState.skipNextTransIn = true;
 		FlxTransitionableState.skipNextTransOut = true;
 		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
+			LoadingsState.fechesubstate = true;
 			FlxG.switchState(getNextState(target, stopMusic));
 		});	
 	}

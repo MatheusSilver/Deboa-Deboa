@@ -68,6 +68,7 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		MainMenuStateMobile.newVersion = FlxG.save.data.gameVersion != MainMenuStateMobile.version && FlxG.save.data.gameVersion!=null;
+		ClientPrefs.loadDefaultKeys();
 		if(FlxG.save.data.progress!=null)
 			{
 				MenuPreHistoria.curSave = FlxG.save.data.progress;
