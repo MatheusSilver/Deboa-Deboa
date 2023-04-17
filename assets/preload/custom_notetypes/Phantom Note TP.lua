@@ -4,10 +4,11 @@ function onCreate()
 	for i = 0, getProperty('unspawnNotes.length')-1 do
 		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'Phantom Note TP' then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'PhantomNote');
-			setPropertyFromGroup('unspawnNotes', i, 'hitHealth', '0');
-			setPropertyFromGroup('unspawnNotes', i, 'missHealth', '0');
 			setPropertyFromGroup('unspawnNotes', i, 'hitCausesMiss', true);
 			setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true);
+			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') then --Doesn't let Dad/Opponent notes get ignored
+				setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true); --Miss has no penalties
+			end
 		end
 	end
 end

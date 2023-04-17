@@ -1262,7 +1262,9 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
 			PlayState.detailsText = texto;
+			#if desktop
 			PlayState.detailsPausedText = "Pausado - " + texto;
+			#end
 			PlayState.instance.updateRPC();
 		});
 		Lua_helper.add_callback(lua, "cyCut", function(texto:String) {

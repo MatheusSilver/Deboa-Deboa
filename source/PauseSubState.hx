@@ -285,7 +285,7 @@ class PauseSubState extends MusicBeatSubstate
 						{
 							podeJumpscare=false;
 							isDoingtheThing=true;
-							jumpsTimer.cancel();
+							jumpsTimer.destroy();
 							saindodopause();
 						}
 				case 'Modo praticar':
@@ -347,7 +347,7 @@ class PauseSubState extends MusicBeatSubstate
 						startCountdownback();
 					}
 				});
-				jumpsTimer.cancel();
+				jumpsTimer.destroy();
 				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
 	}
 	var loops:Int;
