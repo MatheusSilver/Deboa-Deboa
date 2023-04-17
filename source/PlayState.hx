@@ -5804,8 +5804,7 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-
-					if(modohistoria)
+					if(modohistoria && !usedPractice)
 						{
 							concluirMusicaProgresso();
 						}
