@@ -11,7 +11,7 @@ addLuaText('Skip')
 
 doTweenAlpha('textSkip','Skip',0,4,'linear')
 
-makeLuaText('instruct','Press TAB to Toggle instructions',500,800, 80)
+makeLuaText('instruct','Press SHIFT to Toggle instructions',500,800, 80)
 setTextSize('instruct', 20)
 setTextAlignment('instruct','center')
 setObjectCamera('instruct','other')
@@ -187,7 +187,7 @@ end
 
 
 
-if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.TAB') then
+if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.SHIFT') then
 
     if not instructionShow then
      instructionShow = true

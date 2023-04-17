@@ -5804,7 +5804,7 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					if(modohistoria && !usedPractice)
+					if(modohistoria #if !debug && !usedPractice #end)
 						{
 							concluirMusicaProgresso();
 						}
@@ -6582,20 +6582,23 @@ class PlayState extends MusicBeatState
 
 	function goodNoteHit(note:Note):Void
 	{
-		switch(note.noteType) {
-			case 'Phantom Note':
-				health = health-0.3;
-				if(boyfriend.animation.getByName('hurt') != null) {
-					boyfriend.playAnim('hurt', true);
-					boyfriend.specialAnim = true;
+		if(!cpuControlled)
+			{
+				switch(note.noteType) {
+					case 'Phantom Note':
+						health = health-0.3;
+						if(boyfriend.animation.getByName('hurt') != null) {
+							boyfriend.playAnim('hurt', true);
+							boyfriend.specialAnim = true;
+						}
+					case 'Phantom Note TP':
+						health = health-0.3;
+						if(boyfriend.animation.getByName('hurt') != null) {
+							boyfriend.playAnim('hurt', true);
+							boyfriend.specialAnim = true;
+						}
 				}
-			case 'Phantom Note TP':
-				health = health-0.3;
-				if(boyfriend.animation.getByName('hurt') != null) {
-					boyfriend.playAnim('hurt', true);
-					boyfriend.specialAnim = true;
-				}
-		}
+			}
 		if (!note.wasGoodHit)
 		{
 			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;

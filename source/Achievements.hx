@@ -44,10 +44,13 @@ class Achievements {
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 
 	public static var henchmenDeath:Int = 0;
-	public static function unlockAchievement(name:String):Void {
+	public static function unlockAchievement(name:String, ?makeSound:Bool=true):Void {
 		FlxG.log.add('Completed achievement "' + name +'"');
 		achievementsMap.set(name, true);
-		GlobalSoundManager.play('confirmMenu');
+		if(makeSound)
+			{
+				GlobalSoundManager.play('confirmMenu');
+			}
 		var id:Int = Achievements.getAchievementIndex(name);
 		if(GJClient.logged)
 			GJClient.trophieAdd(achievementsStuff[id][4]);
@@ -72,7 +75,7 @@ class Achievements {
 			for (i in 0...GJList.length) {
 				if(GJList[i].achieved)
 					{
-						unlockAchievement(getAchievementID(GJList[i].id));
+						unlockAchievement(getAchievementID(GJList[i].id), false);
 					}
 			}}
 		}
