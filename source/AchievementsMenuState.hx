@@ -121,13 +121,16 @@ class AchievementsMenuState extends MusicBeatState
 				add(announceText);
 				new FlxTimer().start(1, function(tmr:FlxTimer) {
 				Achievements.loadAchievements();
+					new FlxTimer().start(1, function(tmr:FlxTimer)
+						{
+							Achievements.syncAchievementsGJ();
+						});
 				for (i in 0...Achievements.achievementsStuff.length) {
 					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2], false);
 					remove(preto);
 					remove(announceText);
 					FirstTimeAqui=false;
 				}});
-				Achievements.syncAchievementsGJ();
 			}
 		changeSelection();
 		Conductor.changeBPM(112);

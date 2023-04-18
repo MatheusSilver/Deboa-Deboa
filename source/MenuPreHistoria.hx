@@ -171,6 +171,12 @@ class MenuPreHistoria extends MusicBeatState
 			{
 				selectWeek();
 			}
+			#if !debug
+			else if(controls.ACCEPT && apertavel && lockedWeeks[curWeek] == true)
+				{
+					GlobalSoundManager.play('negado');
+				}
+			#end
 		}
 
 		if (controls.BACK && !movedBack && !selectedWeek)

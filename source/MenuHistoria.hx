@@ -209,6 +209,12 @@ class MenuHistoria extends MusicBeatSubstate
 			{
 				selectSong(true);
 			} 	
+			#if !debug
+			else if(controls.ACCEPT && apertavel && musicasLockadas[curSelected] == true)
+				{
+					GlobalSoundManager.play('negado');
+				}
+			#end
 			#if debug
 			else if (FlxG.keys.justPressed.SEVEN && nombres[curSelected].toLowerCase() != 'controle' && nombres[curSelected] != 'Cross Console Clash' && nombres[curSelected] != 'Noite da Rapaziada'){
 				selectSong(false);
