@@ -87,7 +87,11 @@ class DiscordClient
 			details: details,
 			state: state,
 			largeImageKey: 'icon',
+			#if debug
 			largeImageText: "ModBoa.EXE",
+			#else
+			largeImageText: "Psych Engine",
+			#end
 			smallImageKey : smallImageKey,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),
