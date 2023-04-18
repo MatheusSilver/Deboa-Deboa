@@ -485,26 +485,6 @@ class GJClient
                             printMsg('Could not found Data to remove!');
                         }
                 }
-
-                public static function updateData(dataKey:String, txtContent:String, ?onSuccess:() -> Void, ?onFail:() -> Void) // GJClient.removeData("key"); exemplo de atualizar algum valor
-                    {
-                        var daParams:Array<Array<String>> = [
-                            ['game_id', Std.string(GJKeys.id)],
-                            ['key', dataKey],
-                            ['username', GJClient.userName],
-                            ['user_token', getToken()]
-                        ];
-                        if(getData(dataKey)!=null)
-                            {
-                                var urlData = urlResult(urlConstruct('data-store', 'remove', daParams),
-                                function () {printMsg('Data removed successfully!'); if (onSuccess != null) onSuccess();},
-                                function () {printMsg('Data remove failed!'); if (onFail != null) onFail();});
-                            }
-                        else
-                            {
-                                printMsg('Could not found Data to remove!');
-                            }
-                    }
         
 
     /**
