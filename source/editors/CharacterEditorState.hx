@@ -896,6 +896,7 @@ class CharacterEditorState extends MusicBeatState
 		var charsLoaded:Map<String, Bool> = new Map();
 
 		characterList = [];
+		#if desktop
 		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
@@ -911,7 +912,9 @@ class CharacterEditorState extends MusicBeatState
 					}
 				}
 			}
-		}
+		#else
+		characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		#end
 
 		charDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(characterList, true));
 		charDropDown.selectedLabel = daAnim;
