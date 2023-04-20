@@ -118,7 +118,7 @@ class MenuPreHistoria extends MusicBeatState
 			var saveArray:Array<Int> = curSave.split(",").map(function(s:String):Int { return Std.parseInt(s); });
 			if(qual == "outro")
 				{
-					if(curWeek+1 < saveArray.length)
+					if(curWeek+1 < saveArray.length && saveArray[curWeek+1]==0)
 						{
 							saveArray[curWeek+1]++;
 						}
