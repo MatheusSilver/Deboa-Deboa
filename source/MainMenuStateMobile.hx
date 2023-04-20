@@ -59,6 +59,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	public static var version:String = '0.9.6';
 	public static var changelogString:String = 'V'+version+'\nIsso é apenas um\nteste pra ver\nse isso funciona\nmesmo.\nSerá que deu\ncerto????\nass:dav';
+	public static var verificaDnvIdiota:Bool = false;
 
 	override function create()
 	{
@@ -179,7 +180,7 @@ class MainMenuStateMobile extends MusicBeatState
 		//nossa, eu n tinha visto isso antes e achei que tinha quebrado algo k
 		if(GJClient.logged)
 			{
-				GameJoltLoginState.syncProgress();
+				if(verificaDnvIdiota){GameJoltLoginState.syncProgress(); verificaDnvIdiota = false;}
 				letext.text = GJClient.userName;
 				trace(GJClient.avatarURL);
 				letext.x=-345;
