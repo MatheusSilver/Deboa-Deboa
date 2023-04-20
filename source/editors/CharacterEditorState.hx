@@ -847,7 +847,8 @@ class CharacterEditorState extends MusicBeatState
 		}
 	}
 
-	function reloadAnimationDropDown() {
+	function reloadAnimationDropDown() 
+	{
 		var anims:Array<String> = [];
 		var ghostAnims:Array<String> = [''];
 		for (anim in char.animationsArray) {
@@ -861,7 +862,8 @@ class CharacterEditorState extends MusicBeatState
 		reloadGhost();
 	}
 
-	function reloadGhost() {
+	function reloadGhost() 
+	{
 		ghostChar.frames = char.frames;
 		for (anim in char.animationsArray) {
 			var animAnim:String = '' + anim.anim;
@@ -892,7 +894,8 @@ class CharacterEditorState extends MusicBeatState
 		ghostChar.updateHitbox();
 	}
 
-	function reloadCharacterDropDown() {
+	function reloadCharacterDropDown() 
+	{
 		var charsLoaded:Map<String, Bool> = new Map();
 
 		characterList = [];
@@ -910,6 +913,7 @@ class CharacterEditorState extends MusicBeatState
 							charsLoaded.set(charToCheck, true);
 						}
 					}
+					}
 				}
 			}
 		#else
@@ -920,20 +924,22 @@ class CharacterEditorState extends MusicBeatState
 		charDropDown.selectedLabel = daAnim;
 	}
 
-	function resetHealthBarColor() {
+	function resetHealthBarColor() 
+	{
 		healthColorStepperR.value = char.healthColorArray[0];
 		healthColorStepperG.value = char.healthColorArray[1];
 		healthColorStepperB.value = char.healthColorArray[2];
 		healthBarBG.color = FlxColor.fromRGB(char.healthColorArray[0], char.healthColorArray[1], char.healthColorArray[2]);
 	}
 
-	function updatePresence() {
+	function updatePresence() 
+	{
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Character Editor", "Character: " + daAnim, leHealthIcon.getCharacter());
 		#end
 	}
-
+	
 	override function update(elapsed:Float)
 	{
 		if(char.animationsArray[curAnim] != null) {

@@ -493,7 +493,7 @@ class ChartingState extends MusicBeatState
 
 		var tempMap:Map<String, Bool> = new Map<String, Bool>();
 		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
-		var charToCheck:Array<String>;
+		var charToCheck:Array<String> = new Array<String>();
 		for (i in 0...characters.length) {
 			tempMap.set(characters[i], true);
 		}
@@ -505,10 +505,10 @@ class ChartingState extends MusicBeatState
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
-						charToCheck = file.substr(0, file.length - 5);
-						if(!charToCheck.endsWith('-dead') && !tempMap.exists(charToCheck)) {
-							tempMap.set(charToCheck, true);
-							characters.push(charToCheck);
+						charToCheck[i] = file.substr(0, file.length - 5);
+						if(!charToCheck[i].endsWith('-dead') && !tempMap.exists(charToCheck[i])) {
+							tempMap.set(charToCheck[i], true);
+							characters.push(charToCheck[i]);
 						}
 					}
 				}
@@ -559,7 +559,7 @@ class ChartingState extends MusicBeatState
 			tempMap.set(stageToCheck, true);
 		}
 
-		var stageToCheck:Array<String>;
+		var stageToCheck:Array<String> = new Array<String>();
 
 		#if desktop
 		for (i in 0...directories.length) {
@@ -568,10 +568,10 @@ class ChartingState extends MusicBeatState
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
-						stageToCheck = file.substr(0, file.length - 5);
-						if(!tempMap.exists(stageToCheck)) {
-							tempMap.set(stageToCheck, true);
-							stages.push(stageToCheck);
+						stageToCheck[i] = file.substr(0, file.length - 5);
+						if(!tempMap.exists(stageToCheck[i])) {
+							tempMap.set(stageToCheck[i], true);
+							stages.push(stageToCheck[i]);
 						}
 					}
 				}
