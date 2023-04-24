@@ -2976,6 +2976,15 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
+		#if debug
+		if(FlxG.keys.justPressed.B)
+			camHUD.visible = !camHUD.visible;
+		else if(FlxG.keys.justPressed.N)
+			camGame.visible = !camGame.visible;
+		else if(FlxG.keys.justPressed.M)
+			camHUD2.visible = !camHUD2.visible;
+		#end
+
 
 		if (nomehistorico.toLowerCase() == 'voltas-e-revoltas'){
 			
