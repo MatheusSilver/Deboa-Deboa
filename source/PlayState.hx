@@ -2641,7 +2641,7 @@ class PlayState extends MusicBeatState
         // O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
         if(Assets.exists(diretorio)) {
             #if mobile
-			triggerEventNote('comecarvideo', 'nomedovideo', '0, 0, "cheio", 0, 2');
+			triggerEventNote('comecarvideo', nomedovideo, '0, 0, "cheio", 0, 2');
             #else
 			videoSpr = new FlxSprite(0, 0);
 			VideoStatePC.NextState = "nenhum";
@@ -2656,6 +2656,9 @@ class PlayState extends MusicBeatState
 			//videoSpr.screenCenter(XY);
 			playingVideoMP4 = true;
 			add(videoSpr);
+			camGame.alpha = 0;
+			camHUD.alpha = 0;
+			camCCC.alpha = 0;
 			if(muteplayAudio=="true")
 				{
 					FlxG.sound.music.volume = 0;
@@ -2680,6 +2683,7 @@ class PlayState extends MusicBeatState
 				{
 					video.queronaoviver = true;
 					video.pausarvideo1(pausar);
+					letext.alpha=0;
 				}
 				#end
 		}
@@ -2692,6 +2696,9 @@ class PlayState extends MusicBeatState
 			letext.alpha=0;
 			FlxG.sound.music.pause();
 			vocals.pause();
+			camHUD.alpha = 1;
+			camCCC.alpha = 1;
+			camGame.alpha = 1;
 			Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
 			trace(MP4Handler.vlcBitmap.length);
 			trace(MP4Handler.vlcBitmap.time);
@@ -2725,9 +2732,9 @@ class PlayState extends MusicBeatState
 		
 						vocals.time = Conductor.songPosition;
 						vocals.play();
-					}
-					#end
 			}
+			#end
+		}
 
 	public function deletarSpriteNAAAAO():Void
 		{
@@ -2735,6 +2742,9 @@ class PlayState extends MusicBeatState
 			vocals.volume = 1;
 			videoSpr.visible=false;
 			letext.alpha = 0;
+			camHUD.alpha = 1;
+			camCCC.alpha = 1;
+			camGame.alpha = 1;
 			remove(letext);
 			remove(videoSpr);
 			playingVideoMP4=false;
