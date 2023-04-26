@@ -321,6 +321,7 @@ class MainMenuStateMobile extends MusicBeatState
 					preto.visible=false;
 					textinho.visible=false;
 					GlobalSoundManager.play('confirmMenu');
+					newVersion = false;
 					canClick = true;
 				};
 				add(novoButton);
