@@ -35,8 +35,6 @@ import openfl.events.IOErrorEvent;
 using StringTools;
 #if desktop
 import sys.thread.Thread;
-//import GameJolt;
-//import GameJolt.GameJoltAPI;
 #end
 
 class TitleState extends MusicBeatState
@@ -55,8 +53,8 @@ class TitleState extends MusicBeatState
 	var curWacky:Array<String> = [];
 
 	var wackyImage:FlxSprite;
-	var easterEggEnabled:Bool = true; //Disable this to hide the easter egg
-	var easterEggKeyCombination:Array<FlxKey> = [FlxKey.B, FlxKey.B]; //bb stands for bbpanzu cuz he wanted this lmao
+	var easterEggEnabled:Bool = false; //Disable this to hide the easter egg
+	var easterEggKeyCombination:Array<FlxKey> = [FlxKey.V, FlxKey.I, FlxKey.O]; //bb stands for bbpanzu cuz he wanted this lmao
 	var lastKeysPressed:Array<FlxKey> = [];
 	private var urlLoader:URLLoader;
 
