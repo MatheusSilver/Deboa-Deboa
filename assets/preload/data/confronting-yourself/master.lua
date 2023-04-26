@@ -33,6 +33,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase2cheetos do
 			setProperty(phase2cheetos[i]..'.visible', true)
 		end
+		setProperty('gfGroup.visible', false)
 		doTweenX('florqueanda1', 'florrandom1', 2000, 2, 'linear')
 		doTweenX('montanhaqueanda1', 'montanhas', 400-100, 33, 'linear')
 		doTweenX('awaqueanda1', 'awa', 400-250, 33, 'linear')
@@ -124,6 +125,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 	elseif curPhase == 10 then
 		--setCharacterX('dad', dadXPosOriginal)
 		--Adicionado aqui sem testar, mas espero que conserte o ato 7 9 e 10
+		setProperty('gfGroup.visible', true)
 		for i = 1,#phase6cheetos do
 			removeLuaSprite(phase6cheetos[i])
 		end
@@ -135,6 +137,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase7cheetos do
 			removeLuaSprite(phase7cheetos[i])
 		end
+		setProperty('gfGroup.visible', false)
 		setProperty('phase8.visible',true)
 		sai2D()
 		mudarRPCdetalhes('Ato 8')

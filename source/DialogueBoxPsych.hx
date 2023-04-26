@@ -273,21 +273,6 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	{
 		if(ignoreThisFrame) {
 			ignoreThisFrame = false;
-			CoolUtil.precacheSound('papsfala1');
-			CoolUtil.precacheSound('papsfala2');
-			CoolUtil.precacheSound('papsfala3');
-			/*
-			CoolUtil.precacheSound('papsfala4');
-			CoolUtil.precacheSound('papsfala5');
-			CoolUtil.precacheSound('papsfala6');
-			CoolUtil.precacheSound('papsfala7');
-			CoolUtil.precacheSound('papsfala8');
-			CoolUtil.precacheSound('papsfala9');
-			CoolUtil.precacheSound('papsfala10');
-			CoolUtil.precacheSound('papsfala11');
-			CoolUtil.precacheSound('papsfala12');
-			CoolUtil.precacheSound('papsfala13');
-			CoolUtil.precacheSound('papsfala14'); */
 			super.update(elapsed);
 			return;
 		}

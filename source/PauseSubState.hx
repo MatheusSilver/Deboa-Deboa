@@ -10,7 +10,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import openfl.Lib;
-import Shaders;
 import flixel.FlxGame;
 import openfl.display.GraphicsShader;
 import openfl.filters.ShaderFilter;
@@ -140,13 +139,13 @@ class PauseSubState extends MusicBeatSubstate
 		restart.y=FlxG.height/6*3- k - 15;
 		add(restart);
 
-		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplaydesativado'));
+		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplay'+PlayState.cpuControlled));
 		bot.alpha = 0.5;
 		bot.x=-587;
 		bot.y=FlxG.height/6*4- k -15;
 		add(bot);
 
-		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticardesativado'));
+		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
 		praticar.alpha = 0.5;
 		praticar.x=-655;
 		praticar.y=FlxG.height/6*2- k -15;
@@ -228,24 +227,6 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
-		if(PlayState.cpuControlled)
-			{
-				bot.loadGraphic(Paths.image('pause/botplayativado'));
-			}
-		else
-			{
-				bot.loadGraphic(Paths.image('pause/botplaydesativado'));
-			}
-
-
-			if(PlayState.practiceMode)
-				{
-					praticar.loadGraphic(Paths.image('pause/praticarativado'));
-				}
-			else
-				{
-					praticar.loadGraphic(Paths.image('pause/praticardesativado'));
-				}
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
@@ -289,6 +270,7 @@ class PauseSubState extends MusicBeatSubstate
 				case 'Modo praticar':
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
+					praticar.loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
 				case "Reiniciar musica":
 					podeJumpscare=false;
 					PlayState.canRegen = true;
@@ -299,6 +281,8 @@ class PauseSubState extends MusicBeatSubstate
 				case 'Botplay':
 					PlayState.cpuControlled = !PlayState.cpuControlled;
 					PlayState.usedPractice = true;
+					bot.loadGraphic(Paths.image('pause/botplay'+PlayState.cpuControlled));
+				
 				case "Voltar para o menu":
 					podeJumpscare=false;
 					PlayState.canRegen = true;

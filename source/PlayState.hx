@@ -64,7 +64,6 @@ import Achievements;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
-import Shaders;
 
 import flixel.graphics.FlxGraphic;
 
@@ -298,7 +297,7 @@ class PlayState extends MusicBeatState
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
 	public var camHUD2:FlxCamera; // jumpscares, ect..
-	public var camGame:FlxCamera;
+	public var camGame:SwagCamera;
 	public var camOther:FlxCamera;
 	public var camLegenda:FlxCamera;
 	public var cameraSpeed:Float = 1;
@@ -441,10 +440,10 @@ class PlayState extends MusicBeatState
 		
 		//Precache geral
 
-		precacheList.set('pause/botplayativado', 'image');
-		precacheList.set('pause/botplaydesativado', 'image');
-		precacheList.set('pause/praticarativado', 'image');
-		precacheList.set('pause/praticardesativado', 'image');
+		precacheList.set('pause/botplaytrue', 'image');
+		precacheList.set('pause/botplayfalse', 'image');
+		precacheList.set('pause/praticartrue', 'image');
+		precacheList.set('pause/praticarfalse', 'image');
 		precacheList.set('pause/pause (linhas)', 'image');
 		precacheList.set('pause/pause (sonicexe)', 'image');
 		precacheList.set('pause/pause (continuar)', 'image');
@@ -469,6 +468,7 @@ class PlayState extends MusicBeatState
 		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
 		add(blackFuck);
 		blackFuck.alpha = 0;
+		blackFuck.visible = false;
 		FlxG.mouse.visible = false;
 	
 				
@@ -489,7 +489,7 @@ class PlayState extends MusicBeatState
 
 		practiceMode = false;
 		// var gameCam:FlxCamera = FlxG.camera;
-		camGame = new FlxCamera();			
+		camGame = new SwagCamera();			
 		camHUD = new FlxCamera();
 		camLegenda = new FlxCamera();
 		camOther = new FlxCamera();
@@ -505,14 +505,12 @@ class PlayState extends MusicBeatState
 			camCCC.bgColor.alpha = 0;
 			FlxG.cameras.add(camCCC, false);
 		}
-			
-		FlxG.cameras.add(camHUD, false);
-		FlxG.cameras.add(camLegenda, false);
-		FlxG.cameras.add(camOther, false);
-		FlxG.cameras.add(camHUD2, false);
+		FlxG.cameras.add(camHUD);
+		FlxG.cameras.add(camLegenda);
+		FlxG.cameras.add(camOther);
+		FlxG.cameras.add(camHUD2);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
-
-		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxCamera.defaultCameras = [camGame];
 		CustomFadeTransition.nextCamera = camHUD2;
 
 		persistentUpdate = true;
@@ -522,6 +520,9 @@ class PlayState extends MusicBeatState
 			SONG = Song.loadFromJson('tutorial');
 
 		sonicHUD = new FlxSpriteGroup();
+		if (!sonicHUDStyles.exists(SONG.song.toLowerCase()))
+			sonicHUD.visible = false;
+		
 		Conductor.mapBPMChanges(SONG);
 		Conductor.changeBPM(SONG.bpm);
 
@@ -570,6 +571,9 @@ class PlayState extends MusicBeatState
 
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
 		bottomBar = new FlxSprite(0, 720).makeGraphic(1280, 170, FlxColor.BLACK);
+
+		topBar.visible = false;
+		bottomBar.visible = false;
 
 		startCircle = new FlxSprite();
 		startText = new FlxSprite();
@@ -752,9 +756,7 @@ class PlayState extends MusicBeatState
 				add(tempogravador);
 				
 
-				//if(ClientPrefs.shaders) {
-
-				//ISSO É SÓ UM TESTE
+				if(ClientPrefs.shaders) {
 					vcr = new ShaderFilter(new VCRDistortionShader());
 					vcr.shader.data.iTime.value = [0];
 					vcr.shader.data.vignetteOn.value = [true];
@@ -767,7 +769,7 @@ class PlayState extends MusicBeatState
 
 					camGame.setFilters([vcr]);
 					camHUD.setFilters([vcr]);				
-				//}
+				}
 
 			case 'chasing':
 
@@ -1042,13 +1044,13 @@ class PlayState extends MusicBeatState
 		if (OpenFlAssets.exists(file)) {
 			dialogue = CoolUtil.coolTextFile(file);
 		}
-		var doof:DialogueBox = new DialogueBox(false, dialogue);
+		/*var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;
 		// doof.y = FlxG.height * 0.5;
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 		doof.nextDialogueThing = startNextDialogue;
-		doof.skipDialogueThing = skipDialogue;
+		doof.skipDialogueThing = skipDialogue;*/
 
 		Conductor.songPosition = -5000;
 
@@ -1193,9 +1195,7 @@ class PlayState extends MusicBeatState
 				ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('cenarios/Counter'));
 				add(ringCounter);
 				ringCounter.cameras = [camHUD];
-	
-				var strumArray = [0, 1, 3, 4];
-	
+		
 				counterNum = new FlxText(1207, 606, 0, '0', 10, false);
 				counterNum.setFormat('EurostileTBla', 60, FlxColor.fromRGB(255, 204, 51), FlxTextBorderStyle.OUTLINE, FlxColor.fromRGB(204, 102, 0));
 				counterNum.setBorderStyle(OUTLINE, FlxColor.fromRGB(204, 102, 0), 3, 1);
@@ -1449,11 +1449,11 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		judgementCounter.cameras = [camHUD];
+		judgementCounter.cameras = [camHUD]; //OK
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
-		doof.cameras = [camHUD];
+		//doof.cameras = [camHUD];
 		topBar.cameras = [camOther];
 		bottomBar.cameras = [camOther];
 		startCircle.cameras = [camHUD2];
@@ -1595,6 +1595,7 @@ class PlayState extends MusicBeatState
 						precacheList.set('cards/bluetufie-cartao', 'image');
 					}
 					startCountdown();
+					blackFuck.visible = true;
 					blackFuck.alpha = 1;
 					startCircle.loadGraphic(Paths.image('StartScreen/Circle-'+ daSong));
 					startCircle.x += 900;
@@ -1615,6 +1616,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(startCircle, {alpha: 0}, 1, {
 							onComplete: function(twn:FlxTween)
 							{
+								blackFuck.visible = false;
 								remove(startCircle);
 								startCircle.destroy();
 							}
@@ -1652,6 +1654,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(startCircle, {alpha: 0}, 1, {
 							onComplete: function(twn:FlxTween)
 							{
+								blackFuck.visible = false;
 								remove(startCircle);
 								startCircle.destroy();
 							}
@@ -2025,9 +2028,7 @@ class PlayState extends MusicBeatState
 		// TO DO: Make this more flexible, maybe?
 		if(dialogueFile.dialogue.length > 0) {
 			inCutscene = true;
-			CoolUtil.precacheSound('dialogue');
-			CoolUtil.precacheSound('dialogueClose');
-			var doof:DialogueBoxPsych = new DialogueBoxPsych(dialogueFile, song);
+			/*var doof:DialogueBoxPsych = new DialogueBoxPsych(dialogueFile, song);
 			doof.scrollFactor.set();
 			if(endingSong) {
 				doof.finishThing = endSong;
@@ -2037,7 +2038,7 @@ class PlayState extends MusicBeatState
 			doof.nextDialogueThing = startNextDialogue;
 			doof.skipDialogueThing = skipDialogue;
 			doof.cameras = [camHUD];
-			add(doof);
+			add(doof);*/
 		} else {
 			FlxG.log.warn('Your dialogue file is badly formatted!');
 			if(endingSong) {
@@ -2640,9 +2641,9 @@ class PlayState extends MusicBeatState
 	private function generateStaticArrows(player:Int):Void
 		{
 			var keyCount:Int = 4;
-			if (isRing){
+			if (isRing)
 				keyCount = 5;
-			}
+			
 			for (i in 0...keyCount)
 			{
 				
@@ -2804,9 +2805,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (!FlxG.autoPause && !paused && startedCountdown && !isDead && canPause && !cpuControlled)
-			new flixel.util.FlxTimer().start(0.05, function(tmr:flixel.util.FlxTimer) {
-				openPauseMenu(); //Fix jumpscare da triple bolo
-			});
+			openPauseMenu();
 
 		super.onFocus();
 	}
@@ -2978,11 +2977,13 @@ class PlayState extends MusicBeatState
 
 		#if debug
 		if(FlxG.keys.justPressed.B)
-			camHUD.visible = !camHUD.visible;
+			for (str in playerStrums)
+				str.visible = !str.visible;
 		else if(FlxG.keys.justPressed.N)
-			camGame.visible = !camGame.visible;
+			for (str in opponentStrums)
+				str.visible = !str.visible;
 		else if(FlxG.keys.justPressed.M)
-			camHUD2.visible = !camHUD2.visible;
+			judgementCounter.visible = !judgementCounter.visible;
 		#end
 
 
@@ -3722,6 +3723,7 @@ class PlayState extends MusicBeatState
 				staticHitMiss();
 
 			case 'events':
+				blackFuck.visible = true;
 				FlxTween.tween(blackFuck, {alpha: 1}, 1.5);	
 				FlxTween.num(defaultCamZoom, 10, 1, {ease: FlxEase.cubeOut}, function (v:Float) {
 					defaultCamZoom = v;
@@ -3915,6 +3917,7 @@ class PlayState extends MusicBeatState
 								FlxTween.num(defaultCamZoom, 0.8, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
 									defaultCamZoom = v;
 								});
+								blackFuck.visible = true;
 								FlxTween.tween(blackFuck, {alpha: 0.5}, 1, {ease: FlxEase.quadInOut});
 
 							case 765: //ok
@@ -3928,7 +3931,9 @@ class PlayState extends MusicBeatState
 								FlxTween.num(defaultCamZoom, 0.6, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
 									defaultCamZoom = v;
 								});
-								FlxTween.tween(blackFuck, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut});		
+								FlxTween.tween(blackFuck, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween){
+									blackFuck.visible = false;
+								}});		
 							case 780:
 								var char:Character = gf; //isso provavelmente deve ser menos bugado
 								char.idleSuffix = ''; //e menos bagunçado que a solução anterior...
@@ -4138,6 +4143,7 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim("dialogue peel");
 							boyfriend.specialAnim = true;
 						case 3367:
+							blackFuck.visible = true;
 							blackFuck.alpha = 1;
 						case 3378: //Top 10 mecanicas que parecem difíceis de fazer, mas que já estavam prontas o tempo todo.
 							if (!desviou){
@@ -4219,7 +4225,9 @@ class PlayState extends MusicBeatState
 								FlxTween.tween(dad, {x: 580 - 450}, 3,{ease: FlxEase.cubeInOut});
 								FlxTween.tween(gf, {x: 580 - 375}, 3,{ease: FlxEase.cubeInOut});
 								SONG.speed = 4.0;
-								FlxTween.tween(blackFuck, {alpha: 0}, 1,{ease: FlxEase.cubeInOut});
+								FlxTween.tween(blackFuck, {alpha: 0}, 1,{ease: FlxEase.cubeInOut, onComplete: function(twn:FlxTween){
+									blackFuck.visible = false;
+								}});
 								FlxTween.tween(camHUD, {alpha: 1}, 1,{ease: FlxEase.cubeInOut});
 
 								//A partir daqui é baseado no port do konan
@@ -4229,6 +4237,7 @@ class PlayState extends MusicBeatState
 
 							case 4480:
 								FlxG.camera.flash(FlxColor.RED, 5);
+								blackFuck.visible = true;
 								blackFuck.alpha = 1;
 								opponentStrums.forEach(function(tofade:FlxSprite)
 									{
@@ -4273,6 +4282,7 @@ class PlayState extends MusicBeatState
 								case 4505:
 									FlxG.camera.flash(FlxColor.WHITE, 1);
 									blackFuck.alpha = 0;
+									blackFuck.visible = false;
 
 								case 4750:
 									cpuControlled = true;
@@ -4334,9 +4344,12 @@ class PlayState extends MusicBeatState
 					});
 			case 'TelaPreta'://a
 				if(value1 == 'true'){
+					blackFuck.visible = true;
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3);
 				} else {
-					FlxTween.tween(blackFuck, {alpha: 0}, 0.3);
+					FlxTween.tween(blackFuck, {alpha: 0}, 0.3, {ease: FlxEase.linear, onComplete: function(twn:FlxTween){
+						blackFuck.visible = true;
+					}});
 				}
 
 			case 'CharacterAlphaTween':
@@ -4823,6 +4836,7 @@ class PlayState extends MusicBeatState
 						CustomFadeTransition.nextCamera = null;
 					}
 
+				blackFuck.visible = true;
 				FlxTween.tween(blackFuck, {alpha: 1}, 0.3, {
 					ease: FlxEase.cubeInOut,
 					onComplete: function(twn:FlxTween)
@@ -6640,6 +6654,8 @@ class PlayState extends MusicBeatState
 	{
 		if (appear)
 		{
+			topBar.visible = true;
+			bottomBar.visible = true;
 			add(topBar);
 			add(bottomBar);
 			FlxTween.tween(topBar, {y: 0}, 0.5, {ease: FlxEase.quadOut});
@@ -6650,6 +6666,8 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(topBar, {y: -170}, 0.5, {ease: FlxEase.quadOut});
 			FlxTween.tween(bottomBar, {y: 720}, 0.5, {ease: FlxEase.quadOut, onComplete: function(fuckme:FlxTween)
 			{
+				topBar.visible = false;
+				bottomBar.visible = false;
 				remove(topBar);
 				remove(bottomBar);
 			}});
@@ -6784,8 +6802,6 @@ class PlayState extends MusicBeatState
 		remove(sprite);
 		sprite.kill();
 		sprite.destroy();
-		if(chave.length > 2)
-			Paths.limparspriteporchave(chave, library);
 	}
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;

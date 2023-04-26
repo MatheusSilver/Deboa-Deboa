@@ -5,20 +5,15 @@ import flixel.FlxSprite;
 
 class NoteSplash extends FlxSprite
 {
-	public var colorSwap:ColorSwap = null;
 	private var idleAnim:String;
 	private var textureLoaded:String = null;
 
 	public function new(x:Float = 0, y:Float = 0, ?note:Int = 0) {
 		super(x, y);
-
 		var skin:String = 'noteSplashes';
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
 
 		loadAnims(skin);
-
-		colorSwap = new ColorSwap();
-		shader = colorSwap.shader;
 
 		setupNoteSplash(x, y, note);
 		antialiasing = ClientPrefs.globalAntialiasing;
@@ -41,9 +36,6 @@ class NoteSplash extends FlxSprite
 			case 'blood' | 'bloodpixel':
 				alpha = 1;
 				antialiasing=texture!='bloodpixel';
-				colorSwap.hue = 0;
-				colorSwap.saturation = 0;
-				colorSwap.brightness = 0;
 				if(texture=='blood')
 					offset.set(-40, -90);
 				else
@@ -65,9 +57,6 @@ class NoteSplash extends FlxSprite
 			default:
 				alpha = 0.6;
 				antialiasing=true;
-				colorSwap.hue = hueColor;
-				colorSwap.saturation = satColor;
-				colorSwap.brightness = brtColor;
 				if(PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada'){
 					offset.set(10, 10);
 				} else {
@@ -84,14 +73,7 @@ class NoteSplash extends FlxSprite
 	}
 
 	function loadAnims(skin:String) {
-		if(openfl.utils.Assets.exists(Paths.imagechecker('splashes/'+skin))){
-			frames = Paths.getSparrowAtlas('splashes/'+skin); //Aparentemente isso tenta puxar o note splash da pasta shared/images, mas e se...
-			} else {
-				//FlxG.log.add('não achei ' + skin + " em " + LoadingState.directoryreader + "splashes/ então vou procurar em shared");
-				if(skin != null && skin.length > 0) {
-					frames = Paths.getSparrowAtlas('splashes/'+skin, 'shared'); //Aparentemente isso tenta puxar o note splash da pasta shared/images, mas e se...
-				}
-			}
+		frames = Paths.getSparrowAtlas('splashes/'+skin);
 		switch(skin){
 			case 'blood' | 'bloodpixel':
 					animation.addByPrefix("splash", "Squirt", 24, false);

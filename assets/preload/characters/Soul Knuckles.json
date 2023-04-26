@@ -1,13 +1,14 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				84,
 				-50
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "idle",
+			"fps": 24,
+			"name": "knuckles idle",
 			"indices": [
 				0,
 				1,
@@ -23,17 +24,17 @@
 				11,
 				12,
 				13
-			],
-			"name": "knuckles idle"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				75,
 				-43
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singUP",
+			"fps": 24,
+			"name": "knuckles up",
 			"indices": [
 				0,
 				1,
@@ -51,17 +52,17 @@
 				13,
 				14,
 				15
-			],
-			"name": "knuckles up"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				100,
 				-61
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singDOWN",
+			"fps": 24,
+			"name": "knuckles down",
 			"indices": [
 				0,
 				1,
@@ -79,17 +80,17 @@
 				13,
 				14,
 				15
-			],
-			"name": "knuckles down"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				27,
 				-62
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singLEFT",
+			"fps": 24,
+			"name": "knuckles left",
 			"indices": [
 				0,
 				1,
@@ -107,17 +108,17 @@
 				13,
 				14,
 				15
-			],
-			"name": "knuckles left"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				60,
 				-44
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "knuckles right",
 			"indices": [
 				0,
 				1,
@@ -135,15 +136,14 @@
 				13,
 				14,
 				15
-			],
-			"name": "knuckles right"
+			]
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/confronting/ato7/red boi",
 	"position": [
-		-950,
-		-500
+		-820,
+		-380
 	],
 	"healthicon": "knucklesexe",
 	"flip_x": true,
