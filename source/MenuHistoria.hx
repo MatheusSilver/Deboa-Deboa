@@ -337,7 +337,7 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		function tweenprabaixo(){
-			textoSpriteTweens = FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height - 5}, 3, {ease: FlxEase.quadInOut,
+			textoSpriteTweens = FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height*1.2}, 3, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween) {
 				if(!canceltweens)
 					tweenpracima();
@@ -347,7 +347,7 @@ class MenuHistoria extends MusicBeatSubstate
 		function entrada(){
 			var escolhaWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 			var pasta:String = escolhaWeek.weekBackground;
-			FlxTween.tween(perfilSprite, {y: -FlxG.height}, 0.1, {ease: FlxEase.expoInOut,
+			FlxTween.tween(perfilSprite, {y: -FlxG.height}, 0.05, {ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
 					if(OpenFlAssets.exists(Paths.imagechecker("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload'))) { //anti crashing moment 
 						perfilSprite.loadGraphic(Paths.image("scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)", 'preload')); 
@@ -356,7 +356,7 @@ class MenuHistoria extends MusicBeatSubstate
 					} else {
 						FlxG.log.warn('Não foi possível achar ' + "scrolling/artes/scroll-" + musicas[curSelected].toLowerCase() + " (scroll)");
 					}
-					FlxTween.tween(perfilSprite, {y: 25}, 0.4, {ease: FlxEase.expoInOut,
+					FlxTween.tween(perfilSprite, {y: 25}, 0.15, {ease: FlxEase.expoInOut,
 						onComplete: function(twn:FlxTween) {
 									if(OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload'))) { //anti crashing moment 
 										textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload')); 
