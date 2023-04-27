@@ -329,7 +329,7 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		function tweenpracima(){
-			textoSpriteTweens = FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, 3, {ease: FlxEase.quadInOut,
+			textoSpriteTweens = FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, 1.5, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween) {
 				if(!canceltweens)
 					tweenprabaixo();
@@ -337,7 +337,7 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		function tweenprabaixo(){
-			textoSpriteTweens = FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height*1.2}, 3, {ease: FlxEase.quadInOut,
+			textoSpriteTweens = FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height*1.2}, 1.5, {ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween) {
 				if(!canceltweens)
 					tweenpracima();
