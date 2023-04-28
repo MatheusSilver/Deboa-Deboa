@@ -898,6 +898,7 @@ class CharacterEditorState extends MusicBeatState
 		characterList = [];
 		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
 		for (i in 0...directories.length) {
+			#if desktop
 			var directory:String = directories[i];
 			if(FileSystem.exists(directory)) {
 				for (file in FileSystem.readDirectory(directory)) {
@@ -910,7 +911,9 @@ class CharacterEditorState extends MusicBeatState
 						}
 					}
 				}
-			}
+				#else
+				characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
+				#end
 		}
 
 		charDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(characterList, true));

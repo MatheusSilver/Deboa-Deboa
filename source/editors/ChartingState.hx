@@ -423,11 +423,7 @@ class ChartingState extends MusicBeatState
 		{
 			var songName:String = Paths.formatToSongPath(_song.song);
 			var file:String = Paths.json(songName + '/events');
-			#if (debug && !mobile)
-			if (FileSystem.exists(file))
-			#else
-			if (OpenFlAssets.exists(file))
-			#end
+			if (Utils.exists(file))
 			{
 				clearEvents();
 				var events:SwagSong = Song.loadFromJson('events', songName);
@@ -440,11 +436,7 @@ class ChartingState extends MusicBeatState
 					}
 				}
 			}
-			#if (debug && desktop)
-			if (FileSystem.exists(Paths.json(songName + '/letras')))
-			#elseif mobile
-			if (OpenFlAssets.exists(Paths.json(songName + '/letras')))
-			#end
+			if (Utils.exists(Paths.json(songName + '/letras')))
 			{
 				var lyrics:SwagSong = Song.loadFromJson('letras', songName);
 				for (sec in 0...lyrics.notes.length) {
@@ -500,6 +492,7 @@ class ChartingState extends MusicBeatState
 
 		var tempMap:Map<String, Bool> = new Map<String, Bool>();
 		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		var charToCheck:Array<String>;
 		for (i in 0...characters.length) {
 			tempMap.set(characters[i], true);
 		}
@@ -511,7 +504,7 @@ class ChartingState extends MusicBeatState
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
-						var charToCheck:String = file.substr(0, file.length - 5);
+						charToCheck = file.substr(0, file.length - 5);
 						if(!charToCheck.endsWith('-dead') && !tempMap.exists(charToCheck)) {
 							tempMap.set(charToCheck, true);
 							characters.push(charToCheck);
@@ -520,6 +513,8 @@ class ChartingState extends MusicBeatState
 				}
 			}
 		}
+		#else
+		charToCheck = CoolUtil.coolTextFile(Paths.txt('characterList'));
 		#end
 
 		var player1DropDown = new FlxUIDropDownMenuCustom(10, stepperSpeed.y + 45, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true), function(character:String)
@@ -562,6 +557,8 @@ class ChartingState extends MusicBeatState
 			}
 			tempMap.set(stageToCheck, true);
 		}
+		var stageToCheck:Array<String>;
+
 		#if desktop
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
@@ -569,7 +566,7 @@ class ChartingState extends MusicBeatState
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
-						var stageToCheck:String = file.substr(0, file.length - 5);
+						stageToCheck = file.substr(0, file.length - 5);
 						if(!tempMap.exists(stageToCheck)) {
 							tempMap.set(stageToCheck, true);
 							stages.push(stageToCheck);
@@ -578,6 +575,8 @@ class ChartingState extends MusicBeatState
 				}
 			}
 		}
+		#else 
+		stageToCheck = CoolUtil.coolTextFile(Paths.txt('stageList'));
 		#end
 
 		if(stages.length < 1) stages.push('stage');
@@ -793,7 +792,7 @@ class ChartingState extends MusicBeatState
 			noteTypeIntMap.set(key, noteTypeList[key]);
 			key++;
 		}
-
+		var notetypeslista:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('custom_notetypes/luaList'));
 		#if desktop
 		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
@@ -813,6 +812,8 @@ class ChartingState extends MusicBeatState
 				}
 			}
 		}
+		#else 
+		displayNameList = notetypeslista;
 		#end
 
 		for (i in 1...displayNameList.length) {
@@ -846,6 +847,8 @@ class ChartingState extends MusicBeatState
 		var tab_group_event = new FlxUI(null, UI_box);
 		tab_group_event.name = 'Events';
 
+		var robertaeventos:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('custom_events/eventoslist'));
+
 		#if desktop
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 		var directories:Array<String> = [Paths.getPreloadPath('custom_events/')];
@@ -866,6 +869,8 @@ class ChartingState extends MusicBeatState
 		}
 		eventPushedMap.clear();
 		eventPushedMap = null;
+		#else
+		eventStuff = robertaeventos;
 		#end
 
 		descText = new FlxText(20, 270, 0, eventStuff[0][0]);

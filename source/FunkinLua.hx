@@ -190,7 +190,7 @@ class FunkinLua {
 						}
 					}
 				}
-				PlayState.instance.luaArray.push(new FunkinLua(Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
+				PlayState.instance.luaArray.push(new FunkinLua(Utils.Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
 				//trace(cervix + 'foi carregado');
 				return;
 			}
@@ -218,7 +218,7 @@ class FunkinLua {
 						}
 					}
 				}
-				PlayState.instance.luaArray.push(new FunkinLua(Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
+				PlayState.instance.luaArray.push(new FunkinLua(Utils.Asset2File.getPath(cervix))); //asset2file é apenas um micro ajuste tanto pra mobile quanto pra PC
 				///trace(cervix + ' foi carregado por master.lua');
 				return;
 			}

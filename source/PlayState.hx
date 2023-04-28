@@ -2,13 +2,6 @@ package;
 
 import openfl.display.BitmapData;
 import SonicHUDCCC; //tive que trocar o nome pra não conflitar com o outro sonic hud usado na prey, YCR e talvez na nova confronting
-#if sys
-import Sys;
-#if debug
-import sys.FileSystem;
-#end
-import sys.io.File;
-#end
 import openfl.system.System;
 import openfl.Lib;
 import flixel.addons.display.FlxTiledSprite;
@@ -950,7 +943,7 @@ class PlayState extends MusicBeatState
 		}
 		
 		if(doPush) 
-			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));
+			luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaFile)));
 
 		blammedLightsBlack = new FlxSprite(BF_X - FlxG.width*2, BF_Y - FlxG.height*2);
 		blammedLightsBlack.makeGraphic(Std.int(FlxG.width * 5), Std.int(FlxG.height * 5), FlxColor.BLACK);
@@ -1507,14 +1500,14 @@ class PlayState extends MusicBeatState
 			var luaToLoad:String = 'custom_notetypes/' + notetype + '.lua';
 		    luaToLoad = Paths.getPreloadPath(luaToLoad);			
 			if(OpenFlAssets.exists(luaToLoad)) {
-				luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
+				luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaToLoad)));
 			}
 		}
 		for (event in eventPushedMap.keys()) {
 			var luaToLoad:String = 'custom_events/' + event + '.lua';
 		    luaToLoad = Paths.getPreloadPath(luaToLoad);			
 			if(OpenFlAssets.exists(luaToLoad)) {
-				luaArray.push(new FunkinLua(Asset2File.getPath(luaToLoad)));
+				luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaToLoad)));
 			}
 		}	
 		#end		
@@ -1526,7 +1519,7 @@ class PlayState extends MusicBeatState
 	    luaFile = Paths.getPreloadPath(luaFile);
 	
 		if(OpenFlAssets.exists(luaFile)) 
-			luaArray.push(new FunkinLua(Asset2File.getPath(luaFile)));	
+			luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaFile)));	
 		
 		var daSong:String = Paths.formatToSongPath(curSong).toLowerCase();
 		if (isStoryMode && !seenCutscene)
@@ -1926,7 +1919,7 @@ class PlayState extends MusicBeatState
 			luaFile = Paths.getPreloadPath(luaFile);
 	
 			if(OpenFlAssets.exists(luaFile))
-				luaArray.push(new FunkinLua(Asset2File.getPath(luaFile))); //Ajustes para mobile
+				luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaFile))); //Ajustes para mobile
 			
 			#end
 		}
@@ -2400,11 +2393,7 @@ class PlayState extends MusicBeatState
 		if(curSong.toLowerCase()=='cross-console-clash'){
 			file = Paths.json(songName + '/events' + CoolUtil.difficultyStuff[storyDifficulty][1]);
 		}
-		#if debug
-		if (FileSystem.exists(file)) {
-		#else
-		if (OpenFlAssets.exists(file)) {
-		#end
+		if (Utils.exists(file)) {
 			var eventsData:Array<SwagSection>;
 			if(curSong.toLowerCase()=='cross-console-clash'){
 				eventsData = Song.loadFromJson('events' + CoolUtil.difficultyStuff[storyDifficulty][1], songName).notes;
@@ -2424,11 +2413,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var fileletras:String = Paths.json(songName + '/letras');
-		#if debug
-		if (FileSystem.exists(fileletras)) {
-		#else
-		if (OpenFlAssets.exists(fileletras)) {
-		#end
+		if (Utils.exists(file)) {
 			var eventsDataletras:Array<SwagSection>;
 				eventsDataletras = Song.loadFromJson('letras', songName).notes;
 			for (section in eventsDataletras)
