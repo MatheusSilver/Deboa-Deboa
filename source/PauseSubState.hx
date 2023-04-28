@@ -192,8 +192,10 @@ class PauseSubState extends MusicBeatSubstate
 				});
 			}
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
-		lugarTelaX = Lib.current.stage.window.x;
-		lugarTelaY = Lib.current.stage.window.y;
+		new FlxTimer().start(0.15, function(tmr:FlxTimer){
+			lugarTelaX = Lib.current.stage.window.x;
+			lugarTelaY = Lib.current.stage.window.y;
+		}); //Evitar crash no alt + f4
 		#if mobileC
 		addVirtualPad(UP_DOWN, A);
 		var camcontrol = new FlxCamera();

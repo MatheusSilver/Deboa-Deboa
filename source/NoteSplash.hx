@@ -69,6 +69,8 @@ class NoteSplash extends FlxSprite
 				animation.curAnim.frameRate = 24 + FlxG.random.int(-2, 2);
 		}
 
+		animation.finishCallback = function(name) kill();
+
 
 	}
 
@@ -95,8 +97,6 @@ class NoteSplash extends FlxSprite
 	}
 
 	override function update(elapsed:Float) {
-		if(animation.curAnim.finished) kill();
-
 		super.update(elapsed);
 	}
 }

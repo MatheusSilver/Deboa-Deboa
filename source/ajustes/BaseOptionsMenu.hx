@@ -63,6 +63,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'GAMEPLAY',
 		//'Antimash',
 		'Downscroll',
+		'Camera interativa',
 		'Middlescroll',
 		//'Ghost Tapping', //Isso é deveras é perigoso em algumas músicas
 		'Delay da Nota',
@@ -240,6 +241,9 @@ class BaseOptionsMenu extends MusicBeatState
 
 					case 'Note Splashes':
 						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
+
+					case 'Camera interativa':
+						ClientPrefs.camSegue = !ClientPrefs.camSegue;
 
 					case 'Luzes Piscantes':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
@@ -419,6 +423,8 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Se desmarcado, você não verá gore, sangue, visceras, coisas ruins.\n(Desativa isso caso for sensível demais.\nP.S: Principalmente pro mod do EXE.)";
 			case 'Note Splashes':
 				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
+			case 'Camera interativa':
+				daText = 'Se ativo irá fazer a camera se mover ao acertar as setas.';
 			case 'Luzes Piscantes':
 				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
 			case 'Legendas':
@@ -487,6 +493,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.camZooms;
 					case 'Note Splashes':
 						daValue = ClientPrefs.noteSplashes;
+					case 'Camera interativa':
+						daValue = ClientPrefs.camSegue;
 					case 'Luzes Piscantes':
 						daValue = ClientPrefs.flashing;
 					case 'Legendas':

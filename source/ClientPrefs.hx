@@ -16,6 +16,7 @@ class ClientPrefs {
 	public static var autoPause:Bool = false;
 	public static var showFPS:Bool = true;
 	public static var flashing:Bool = true;
+	public static var camSegue:Bool = true;
 	public static var legendas:Bool = true;
 	public static var loadingexperimental:Bool = true; // deixa tudo melhor
 	public static var legendasporcima:Bool = true;
@@ -87,6 +88,7 @@ class ClientPrefs {
 		FlxG.save.data.efeitosVolume = efeitosVolume;
 		FlxG.save.data.loadingexperimental = loadingexperimental;
 		FlxG.save.data.flashing = flashing;
+		FlxG.save.data.camSegue = camSegue;
 		FlxG.save.data.hitSounds = hitSounds;
 		FlxG.save.data.fullscreen = fullscreen;
 		FlxG.save.data.hitSoundType = hitSoundType;
@@ -164,6 +166,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.flashing != null) {
 			flashing = FlxG.save.data.flashing;
+		}
+		if(FlxG.save.data.camSegue != null) {
+			camSegue = FlxG.save.data.camSegue;
 		}
 		if(FlxG.save.data.legendas != null) {
 			legendas = FlxG.save.data.legendas;
