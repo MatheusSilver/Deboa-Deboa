@@ -3856,7 +3856,7 @@ class PlayState extends MusicBeatState
 			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0' + '\n' + ''; //Isso me incomoda muito nos prints que voces mandam...
 		} else {
-			judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nErros: ${songMisses}' + '\n' + '';
+			judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads:    ${bads}\nShits: ${shits}\nErros: ${songMisses}' + '\n' + ''; //Fix do texto "Bads:" torto, quando o número tem 2 algarismos, isso me dava tique nervoso
 			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
 		}
 
