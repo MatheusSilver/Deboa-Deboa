@@ -8,12 +8,15 @@ function propriedadescomuns(var)
     screenCenter(var, 'x')
 end
 
-function onEvent(name, value1, value2, value3, value4)
-    if getProperty('playerStrums.strumScroll', true) then
+function onCreatePost()
+    if downscroll then
         pos = -350
     else
         pos = 0
-    end -- Usado exclusivamente na noite da broderagem
+    end
+end
+
+function onEvent(name, value1, value2, value3, value4)
     if name == 'Adicionar Imagens' and legendas == true then
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
