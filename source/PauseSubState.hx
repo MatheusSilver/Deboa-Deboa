@@ -10,7 +10,6 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import openfl.Lib;
-import Shaders;
 import flixel.FlxGame;
 import openfl.display.GraphicsShader;
 import openfl.filters.ShaderFilter;
@@ -31,6 +30,7 @@ class PauseSubState extends MusicBeatSubstate
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
+	var scrollingSound:FlxSound;
 
 	var calabocavio:FlxSound;
 
@@ -84,6 +84,9 @@ class PauseSubState extends MusicBeatSubstate
 		calabocavio = new FlxSound().loadEmbedded(Paths.sound('introGo','shared'));
 		calabocavio.volume = 0.6;
 
+		scrollingSound = new FlxSound().loadEmbedded(Paths.sound('pausescrollmenu'));
+		scrollingSound.volume = 0.4;
+
 		menuItems = menuItemsOG;
 
 		for (i in 0...CoolUtil.difficultyStuff.length) {
@@ -136,13 +139,13 @@ class PauseSubState extends MusicBeatSubstate
 		restart.y=FlxG.height/6*3- k - 15;
 		add(restart);
 
-		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplaydesativado'));
+		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplay'+PlayState.cpuControlled));
 		bot.alpha = 0.5;
 		bot.x=-587;
 		bot.y=FlxG.height/6*4- k -15;
 		add(bot);
 
-		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticardesativado'));
+		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
 		praticar.alpha = 0.5;
 		praticar.x=-655;
 		praticar.y=FlxG.height/6*2- k -15;
@@ -175,12 +178,6 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(perfil, {x: FlxG.width-perfil.width}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(exe, {x: FlxG.width-exe.width}, 0.6, {ease: FlxEase.quartInOut});
 
-		if (PlayState.useVideo)
-			{
-				if (GlobalVideo.get().playing)
-					GlobalVideo.get().pause();
-			}
-
 		changeSelection();
 
 		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble")
@@ -195,8 +192,10 @@ class PauseSubState extends MusicBeatSubstate
 				});
 			}
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
-		lugarTelaX = Lib.current.stage.window.x;
-		lugarTelaY = Lib.current.stage.window.y;
+		new FlxTimer().start(0.15, function(tmr:FlxTimer){
+			lugarTelaX = Lib.current.stage.window.x;
+			lugarTelaY = Lib.current.stage.window.y;
+		}); //Evitar crash no alt + f4
 		#if mobileC
 		addVirtualPad(UP_DOWN, A);
 		var camcontrol = new FlxCamera();
@@ -230,24 +229,6 @@ class PauseSubState extends MusicBeatSubstate
 
 		super.update(elapsed);
 
-		if(PlayState.cpuControlled)
-			{
-				bot.loadGraphic(Paths.image('pause/botplayativado'));
-			}
-		else
-			{
-				bot.loadGraphic(Paths.image('pause/botplaydesativado'));
-			}
-
-
-			if(PlayState.practiceMode)
-				{
-					praticar.loadGraphic(Paths.image('pause/praticarativado'));
-				}
-			else
-				{
-					praticar.loadGraphic(Paths.image('pause/praticardesativado'));
-				}
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
@@ -285,36 +266,27 @@ class PauseSubState extends MusicBeatSubstate
 						{
 							podeJumpscare=false;
 							isDoingtheThing=true;
-							jumpsTimer.destroy();
+							jumpsTimer.cancel();
 							saindodopause();
 						}
 				case 'Modo praticar':
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
+					praticar.loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
 				case "Reiniciar musica":
 					podeJumpscare=false;
 					PlayState.canRegen = true;
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = transCamera;
 					restartSong();
-					if (PlayState.useVideo)
-					{
-						GlobalVideo.get().stop();
-						PlayState.instance.remove(PlayState.instance.videoSprite);
-						PlayState.removedVideo = true;
-					}
 					FlxG.sound.music.volume = 0;
 				case 'Botplay':
 					PlayState.cpuControlled = !PlayState.cpuControlled;
 					PlayState.usedPractice = true;
+					bot.loadGraphic(Paths.image('pause/botplay'+PlayState.cpuControlled));
+				
 				case "Voltar para o menu":
 					podeJumpscare=false;
-					if (PlayState.useVideo)
-						{
-							GlobalVideo.get().stop();
-							PlayState.instance.remove(PlayState.instance.videoSprite);
-							PlayState.removedVideo = true;
-						}
 					PlayState.canRegen = true;
 					PlayState.canuseevents = true;
 					PlayState.deathCounter = 0;
@@ -347,7 +319,7 @@ class PauseSubState extends MusicBeatSubstate
 						startCountdownback();
 					}
 				});
-				jumpsTimer.destroy();
+				jumpsTimer.cancel();
 				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
 	}
 	var loops:Int;
@@ -425,10 +397,6 @@ class PauseSubState extends MusicBeatSubstate
 										go.destroy();
 										new FlxTimer().start(0.75, function(tmr:FlxTimer){PlayState.instance.canPause = true; isDoingtheThing=false;});
 										close();
-										if (PlayState.useVideo)
-										{
-											GlobalVideo.get().resume();
-										}
 									}
 								});
 						}
@@ -509,7 +477,7 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		curSelected += change;
 
-		FlxG.sound.play(Paths.sound('pausescrollmenu'), 0.4);
+		scrollingSound.play(true);
 
 		if (curSelected < 0)
 			curSelected = menuItems.length - 1;

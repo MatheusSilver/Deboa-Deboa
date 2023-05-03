@@ -165,10 +165,11 @@ function onEvent(evento, valor1, valor2)
         end
         if valor1 == '7' then
 			cyCut('blahblah');
-            runTimer('triggerstatic', 2.5)
+            runTimer('triggerstatic', 3.5)
             setProperty('knuxerabos.y', getCharacterY('boyfriend')+425)
 		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1150)
-            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+575, 5.5, 'cubein')
+            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+575, 5.55, 'cubein')
+            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+120)
             triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
 

@@ -303,7 +303,7 @@ class PlayState extends MusicBeatState
 	public var camHUD:FlxCamera;
 	public var camCCC:FlxCamera;
 	public var camHUD2:FlxCamera; // jumpscares, ect..
-	public var camGame:FlxCamera;
+	public var camGame:SwagCamera;
 	public var camOther:FlxCamera;
 	public var camLegenda:FlxCamera;
 	public var cameraSpeed:Float = 1;
@@ -494,10 +494,10 @@ class PlayState extends MusicBeatState
 		/*precacheList.set(loadingImage, 'image');
 		precacheList.set('loading/loading-logo', 'image');
 		precacheList.set('loading/carregando', 'image');*/
-		precacheList.set('pause/botplayativado', 'image');
-		precacheList.set('pause/botplaydesativado', 'image');
-		precacheList.set('pause/praticarativado', 'image');
-		precacheList.set('pause/praticardesativado', 'image');
+		precacheList.set('pause/botplaytrue', 'image');
+		precacheList.set('pause/botplayfalse', 'image');
+		precacheList.set('pause/praticartrue', 'image');
+		precacheList.set('pause/praticarfalse', 'image');
 		precacheList.set('pause/pause (linhas)', 'image');
 		precacheList.set('pause/pause (sonicexe)', 'image');
 		precacheList.set('pause/pause (continuar)', 'image');
@@ -525,6 +525,7 @@ class PlayState extends MusicBeatState
 		blackFuck = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
 		add(blackFuck);
 		blackFuck.alpha = 0;
+		blackFuck.visible = false;
 		FlxG.mouse.visible = false;
 	
 				
@@ -545,7 +546,7 @@ class PlayState extends MusicBeatState
 
 		practiceMode = false;
 		// var gameCam:FlxCamera = FlxG.camera;
-		camGame = new FlxCamera();
+		camGame = new SwagCamera();
 		camCCC = new FlxCamera();
 		camHUD = new FlxCamera();
 		camLegenda = new FlxCamera();
@@ -986,10 +987,6 @@ class PlayState extends MusicBeatState
 				halloweenWhite.alpha = 0;
 				halloweenWhite.blend = ADD;
 
-				//PRECACHE SOUNDS
-				CoolUtil.precacheSound('thunder_1');
-				CoolUtil.precacheSound('thunder_2');
-
 			case 'philly': //Week 3
 				if(!ClientPrefs.lowQuality) {
 					var bg:BGSprite = new BGSprite('philly/sky', -100, 0, 0.1, 0.1);
@@ -1022,7 +1019,6 @@ class PlayState extends MusicBeatState
 				add(phillyTrain);
 
 				trainSound = new FlxSound().loadEmbedded(Paths.sound('train_passes'));
-				CoolUtil.precacheSound('train_passes');
 				FlxG.sound.list.add(trainSound);
 
 				var street:BGSprite = new BGSprite('philly/street', -40, 50);
@@ -1067,8 +1063,6 @@ class PlayState extends MusicBeatState
 					grpLimoParticles.add(particle);
 					resetLimoKill();
 
-					//PRECACHE SOUND
-					CoolUtil.precacheSound('dancerdeath');
 				}
 
 				limo = new BGSprite('limo/limoDrive', -120, 550, 1, 1, ['Limo stage'], true);
@@ -1109,7 +1103,6 @@ class PlayState extends MusicBeatState
 
 				santa = new BGSprite('christmas/santa', -840, 150, 1, 1, ['santa idle in fear']);
 				add(santa);
-				CoolUtil.precacheSound('Lights_Shut_off');
 
 			case 'mallEvil': //Week 5 - Winter Horrorland
 				var bg:BGSprite = new BGSprite('christmas/evilBG', -400, -500, 0.2, 0.2);
@@ -1590,6 +1583,7 @@ class PlayState extends MusicBeatState
 		judgementCounter.borderQuality = 2;
 		judgementCounter.scrollFactor.set();
 		judgementCounter.screenCenter(Y);
+		judgementCounter.visible = false; //Temporariamente, ou não... Sei lá
 		if(!ClientPrefs.hideHud) {add(judgementCounter);}
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
@@ -2073,6 +2067,7 @@ class PlayState extends MusicBeatState
 						precacheList.set('cards/bluetufie-cartao', 'image');
 					}
 					startCountdown();
+					blackFuck.visible = true;
 					blackFuck.alpha = 1;
 					startCircle.loadGraphic(Paths.image('StartScreen/Circle-'+ daSong));
 					startCircle.x += 900;
@@ -2094,6 +2089,7 @@ class PlayState extends MusicBeatState
 							onComplete: function(twn:FlxTween)
 							{
 								remove(startCircle);
+								blackFuck.visible = false;
 								startCircle.destroy();
 							}
 						});
@@ -2130,6 +2126,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(startCircle, {alpha: 0}, 1, {
 							onComplete: function(twn:FlxTween)
 							{
+								blackFuck.visible = false;
 								remove(startCircle);
 								startCircle.destroy();
 							}
@@ -2505,8 +2502,6 @@ class PlayState extends MusicBeatState
 		// TO DO: Make this more flexible, maybe?
 		if(dialogueFile.dialogue.length > 0) {
 			inCutscene = true;
-			CoolUtil.precacheSound('dialogue');
-			CoolUtil.precacheSound('dialogueClose');
 			var doof:DialogueBoxPsych = new DialogueBoxPsych(dialogueFile, song);
 			doof.scrollFactor.set();
 			if(endingSong) {
@@ -3853,11 +3848,11 @@ class PlayState extends MusicBeatState
 			}
 
 		if(ratingString == '?') {
-			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString;
+			scoreTxt.text = 'Pontos: ' + songScore + ' | Erros: ' + songMisses + ' | Precisão: ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0' + '\n' + ''; //Isso me incomoda muito nos prints que voces mandam...
 		} else {
 			judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads:  ${bads}\nShits: ${shits}\nErros: ${songMisses}' + '\n' + ''; //Fix do texto "Bads:" torto, quando o número tem 2 algarismos, isso me dava tique nervoso
-			scoreTxt.text = 'Pontos: ' + songScore + ' | Precisão: ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
+			scoreTxt.text = 'Pontos: ' + songScore + ' | Erros: ' + songMisses + ' | Precisão: ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
 		}
 
 		if(cpuControlled) {
@@ -4680,6 +4675,7 @@ class PlayState extends MusicBeatState
 				staticHitMiss();
 
 			case 'events':
+				blackFuck.visible = true;
 				FlxTween.tween(blackFuck, {alpha: 1}, 1.5);	
 				FlxTween.num(defaultCamZoom, 10, 1, {ease: FlxEase.cubeOut}, function (v:Float) {
 					defaultCamZoom = v;
@@ -4873,6 +4869,7 @@ class PlayState extends MusicBeatState
 								FlxTween.num(defaultCamZoom, 0.8, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
 									defaultCamZoom = v;
 								});
+								blackFuck.visible = true;
 								FlxTween.tween(blackFuck, {alpha: 0.5}, 1, {ease: FlxEase.quadInOut});
 
 							case 765: //ok
@@ -4886,7 +4883,9 @@ class PlayState extends MusicBeatState
 								FlxTween.num(defaultCamZoom, 0.6, 0.5, {ease: FlxEase.cubeOut}, function (v:Float) {
 									defaultCamZoom = v;
 								});
-								FlxTween.tween(blackFuck, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut});		
+								FlxTween.tween(blackFuck, {alpha: 0.0}, 1, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween){
+									blackFuck.visible = false;
+								}});		
 							case 780:
 								var char:Character = gf; //isso provavelmente deve ser menos bugado
 								char.idleSuffix = ''; //e menos bagunçado que a solução anterior...
@@ -5187,6 +5186,7 @@ class PlayState extends MusicBeatState
 
 							case 4480:
 								FlxG.camera.flash(FlxColor.RED, 5);
+								blackFuck.visible = true;
 								blackFuck.alpha = 1;
 								opponentStrums.forEach(function(tofade:FlxSprite)
 									{
@@ -5196,7 +5196,7 @@ class PlayState extends MusicBeatState
 							case 4498:
 								FlxTween.tween(sonicHUD, {alpha: 0}, 0.5,{ease: FlxEase.cubeInOut}); //sÓ pq fica estranho com a cinematics
 								timeBar.visible=true;
-								judgementCounter.visible=true;
+								//judgementCounter.visible=true;
 								scoreTxt.visible=true;
 								timeBar.createFilledBar(0xFF000000, 0xFFFF0000);
 								timeTxt.visible=true;
@@ -5231,6 +5231,7 @@ class PlayState extends MusicBeatState
 								case 4505:
 									FlxG.camera.flash(FlxColor.WHITE, 1);
 									blackFuck.alpha = 0;
+									blackFuck.visible = false;
 
 								case 4750:
 									cpuControlled = true;
@@ -5273,7 +5274,7 @@ class PlayState extends MusicBeatState
 					timeTxt.visible=true;
 					timeBarBG.visible=true;
 					p2greenhill.visible = false;
-					judgementCounter.visible = true;
+					//judgementCounter.visible = true;
 					sonicHUD.visible = false;
 					healthBar.x -= 150;
 					scoreTxt.x -= 150;
@@ -5287,15 +5288,17 @@ class PlayState extends MusicBeatState
 			case 'CamZoomTween':
 				var quantidade:Float = Std.parseFloat(value1);
 				var duracao:Float = Std.parseFloat(value2);
-				FlxTween.tween(camGame, {zoom: quantidade}, duracao, {ease: FlxEase.linear, 
-					onComplete: function(twn:FlxTween) {
-						defaultCamZoom = quantidade;
-					}});
+				FlxTween.num(defaultCamZoom, quantidade, duracao, {ease: FlxEase.linear}, function (v2:Float) {
+					defaultCamZoom = v2;
+					});
 			case 'TelaPreta'://a
 				if(value1 == 'true'){
+					blackFuck.visible = true;
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3);
 				} else {
-					FlxTween.tween(blackFuck, {alpha: 0}, 0.3);
+					FlxTween.tween(blackFuck, {alpha: 0}, 0.3, {ease: FlxEase.linear, onComplete: function(twn:FlxTween){
+						blackFuck.visible = true;
+					}});
 				}
 
 			case 'CharacterAlphaTween':
@@ -5808,6 +5811,7 @@ class PlayState extends MusicBeatState
 							concluirMusicaProgresso();
 						}
 
+				blackFuck.visible = true;
 				FlxTween.tween(blackFuck, {alpha: 1}, 0.3, {
 					ease: FlxEase.cubeInOut,
 					onComplete: function(twn:FlxTween)
@@ -7942,8 +7946,10 @@ class PlayState extends MusicBeatState
 	}
 	
 	// Tá, isso tá safe
-	public function updateRPC(){
+	public function updateRPC(texto:String){ //Unificando tudo aqui (usado exclusivamente na CY provavelmente... Mas pode expandir pra Prey também)
 		#if desktop
+		detailsText = texto;
+		detailsPausedText = "Pausado - " + texto;
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
 		#end
 	}
@@ -7997,8 +8003,6 @@ class PlayState extends MusicBeatState
 		remove(sprite);
 		sprite.kill();
 		sprite.destroy();
-		if(chave.length > 2)
-			Paths.limparspriteporchave(chave, library);
 	}
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;

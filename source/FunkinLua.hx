@@ -1261,11 +1261,7 @@ class FunkinLua {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
-			PlayState.detailsText = texto;
-			#if desktop
-			PlayState.detailsPausedText = "Pausado - " + texto;
-			#end
-			PlayState.instance.updateRPC();
+			PlayState.instance.updateRPC(texto);
 		});
 		Lua_helper.add_callback(lua, "cyCut", function(texto:String) {
 			PlayState.instance.cyCutscene(texto);

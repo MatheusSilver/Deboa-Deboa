@@ -91,13 +91,9 @@ class CoolUtil
 		return dumbArray;
 	}
 
-	//uhhhh does this even work at all? i'm starting to doubt
-	public static function precacheSound(sound:String, ?library:String = null):Void {
-		var EmbeddedSound = Paths.sound(sound, library);
-		if (Assets.exists(EmbeddedSound, SOUND) || Assets.exists(EmbeddedSound, MUSIC))
-			Assets.getSound(EmbeddedSound, true);
-
-		//trace(Assets.exists(EmbeddedSound, SOUND));
+	public static function camLerpShit(lerp:Float):Float
+	{
+		return lerp * (FlxG.elapsed / (1 / 60));
 	}
 
 	public static function browserLoad(site:String) {
