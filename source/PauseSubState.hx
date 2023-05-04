@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxObject;
 import lime.math.Vector2;
 import flixel.util.FlxTimer;
 import flixel.FlxCamera;
@@ -49,7 +50,9 @@ class PauseSubState extends MusicBeatSubstate
 	var jumpscare:FlxSprite;
 	var inJumpscare:Bool = false;
 	var podeJumpscare:Bool = true;
-	var jumpsTimer:FlxTimer = new FlxTimer();
+	var didJumpscare:Bool = false;
+
+	public static var jafizJumpscare:Bool = false;
 
 	var ready:FlxSprite;
 	var set:FlxSprite;
@@ -60,6 +63,7 @@ class PauseSubState extends MusicBeatSubstate
 	var blurShader:BlurFilter;
 	var dummySprite:FlxSprite;
 	var shaderativo:Bool;
+	var jumpecare:FlxObject;
 
 	var lugarTelaX:Int;
 	var lugarTelaY:Int;
@@ -83,6 +87,15 @@ class PauseSubState extends MusicBeatSubstate
 
 		calabocavio = new FlxSound().loadEmbedded(Paths.sound('introGo','shared'));
 		calabocavio.volume = 0.6;
+
+		if(FlxG.save.data.didJumpscare==null)
+			{
+				FlxG.save.data.didJumpscare = jafizJumpscare;
+			}
+		else
+			{
+				jafizJumpscare = FlxG.save.data.didJumpscare;
+			}
 
 		scrollingSound = new FlxSound().loadEmbedded(Paths.sound('pausescrollmenu'));
 		scrollingSound.volume = 0.4;
@@ -180,16 +193,12 @@ class PauseSubState extends MusicBeatSubstate
 
 		changeSelection();
 
-		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble")
+		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && !jafizJumpscare)
 			{
 				aaa = false;
-				jumpsTimer.start(250, function(tmr:FlxTimer){
-					if(podeJumpscare)
-						{
-							jumpscareExecute();
-							podeJumpscare=false;
-						}
-				});
+				jumpecare = new FlxObject();
+				jumpecare.x = 0;
+				FlxTween.tween(jumpecare, {x: 1000}, 180, {ease: FlxEase.linear});
 			}
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 		new FlxTimer().start(0.15, function(tmr:FlxTimer){
@@ -216,9 +225,13 @@ class PauseSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
-		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && podeJumpscare)
+		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && podeJumpscare && !jafizJumpscare)
 			{
-				trace('fazendo o jumpscare em: '+jumpsTimer.timeLeft);
+				if(jumpecare.x==1000)
+					{
+						jumpscareExecute();
+						podeJumpscare=false;
+					}
 			}
 		if(inJumpscare&&!ClientPrefs.fullscreen)
 			{
@@ -266,7 +279,6 @@ class PauseSubState extends MusicBeatSubstate
 						{
 							podeJumpscare=false;
 							isDoingtheThing=true;
-							jumpsTimer.cancel();
 							saindodopause();
 						}
 				case 'Modo praticar':
@@ -279,6 +291,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = transCamera;
 					restartSong();
+					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					FlxG.sound.music.volume = 0;
 				case 'Botplay':
 					PlayState.cpuControlled = !PlayState.cpuControlled;
@@ -297,6 +310,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.usedPractice = false;
 					PlayState.changedDifficulty = false;
 					PlayState.cpuControlled = false;
+					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 			}
 		}
 	}
@@ -319,8 +333,8 @@ class PauseSubState extends MusicBeatSubstate
 						startCountdownback();
 					}
 				});
-				jumpsTimer.cancel();
 				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
+				jumpecare.destroy();
 	}
 	var loops:Int;
 	function startCountdownback()
@@ -395,7 +409,8 @@ class PauseSubState extends MusicBeatSubstate
 										countDownSprites.remove(go);
 										remove(go);
 										go.destroy();
-										new FlxTimer().start(0.75, function(tmr:FlxTimer){PlayState.instance.canPause = true; isDoingtheThing=false;});
+										if(didJumpscare){PlayState.instance.startachieving('pause_jumpscare');}
+										new FlxTimer().start(0.75, function(tmr:FlxTimer){PlayState.instance.canPause = true; isDoingtheThing=false; });
 										close();
 									}
 								});
@@ -434,9 +449,13 @@ class PauseSubState extends MusicBeatSubstate
 					jumpscare.screenCenter(XY);
 					FlxG.sound.play(Paths.sound('TailsScreamLOL'), 1);
 					Lib.current.stage.window.focus();
-					PlayState.instance.startachieving('pause_jumpscare');
 					new FlxTimer().start(2.5, function(tmr:FlxTimer){
-						Lib.current.stage.window.close();
+						aaa=false;
+						jumpscare.destroy();
+						jafizJumpscare=true;
+						FlxG.save.data.didJumpscare = true;
+						inJumpscare=false;
+						didJumpscare=true;
 					});
 					aaa = true;
 					add(jumpscare);
