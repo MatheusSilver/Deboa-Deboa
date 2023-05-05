@@ -193,7 +193,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		changeSelection();
 
-		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && !jafizJumpscare)
+		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" #if !debug && !jafizJumpscare #end)
 			{
 				aaa = false;
 				jumpecare = new FlxObject();
@@ -225,8 +225,9 @@ class PauseSubState extends MusicBeatSubstate
 
 	override function update(elapsed:Float)
 	{
-		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && podeJumpscare && !jafizJumpscare)
+		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && podeJumpscare #if !debug && !jafizJumpscare #end)
 			{
+				#if debug trace(jumpecare.x); #end
 				if(jumpecare.x==1000)
 					{
 						jumpscareExecute();
