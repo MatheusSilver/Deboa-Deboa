@@ -199,16 +199,19 @@ function onEvent(evento, valor1, valor2)
         end
 
         if valor1 == 'animaisdegrandeporte' then
-            --cameraFlash('legenda', '0xff0000', 3, true)
-            --triggerEvent("Add Camera Zoom", '0.25', '0.25', 'nada', 'nada')
-            for i = 1,#animaisdegrandeporte do
-                setProperty(animaisdegrandeporte[i]..'.visible', true)
-                doTweenAlpha('tween'..animaisdegrandeporte[i], animaisdegrandeporte[i], 1, 3, 'linear')
-            end
+            criarAnimaisdeGrandePorte() --garantia
         end
     end
 end
 
+function criarAnimaisdeGrandePorte()
+    --cameraFlash('legenda', '0xff0000', 3, true)
+    --triggerEvent("Add Camera Zoom", '0.25', '0.25', 'nada', 'nada')
+    for i = 1,#animaisdegrandeporte do
+        setProperty(animaisdegrandeporte[i]..'.visible', true)
+        doTweenAlpha('tween'..animaisdegrandeporte[i], animaisdegrandeporte[i], 1, 3, 'linear')
+    end
+end
 function onTweenCompleted(tag)
     if tag == 'knuxindo' then
         cyCut('KEK');

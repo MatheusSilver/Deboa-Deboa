@@ -256,7 +256,9 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('ardia.visible', false)
 	addLuaSprite('ardia',false)
 
-	makeLuaSprite('nocume','cenarios/phase5/objetos', 3000,-2000)--5 originalmente era -875, -300
+	makeLuaSprite('nocume','cenarios/phase5/objetos', -875, -300)--5 originalmente era -875, -300
+	--makeLuaSprite('nocume','cenarios/phase5/objetos', 3000,-2000)
+	--Obrigado Sílvio do Passado.
 	setLuaSpriteScrollFactor('nocume',0.7,0.7)
 	setProperty('nocume.scale.x', 0.75)
 	setProperty('nocume.scale.y', 0.75)

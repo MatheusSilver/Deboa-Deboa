@@ -3701,7 +3701,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						356761,
+						-1,
+						"eventos-prey",
+						"100000000",
+						"",
+						"",
+						null
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -4143,6 +4153,14 @@
 						"",
 						"",
 						null
+					],
+					[
+						395584,
+						-1,
+						"eventos-prey",
+						"1010101",
+						"",
+						""
 					]
 				],
 				"bpm": 0,

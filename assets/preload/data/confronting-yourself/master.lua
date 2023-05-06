@@ -93,7 +93,8 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		--cancelTween('eitacachorreiraEXE')
 		--cancelTween('florqueanda1EXE')
 		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
-		--doTweenY('nocumecheira', 'nocume', getProperty('nocume.y')-100, 1, 'smoothstepin')
+		doTweenY('nocumecheira', 'nocume', getProperty('nocume.y')-100, 5, 'smoothstepin')
+		-- Maybe add efeito de tremederioa.
 		for i = 1,#phase4cheetos do
 			removeLuaSprite(phase4cheetos[i])
 		end
@@ -102,8 +103,11 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 		entra2D()
 		mudarRPCdetalhes('Ato 5')
-		doTweenX('nocumeX','nocume', -875, 30)
-		doTweenY('nocumeY','nocume', -300, 30)
+		--O code abaixo faz o movimento original da concept da Vio.
+		--Como não tenho uma ideia muito boa de como fazer aquilo ser um pouco mais suave.
+		--Vou deixar só o code base aqui mesmo.
+		--doTweenX('nocumeX','nocume', -875, 30)
+		--doTweenY('nocumeY','nocume', -300, 30)
 	elseif curPhase == 8 then
 		--cancelTween('nocumecheira')
 		--cancelTween('nocumesobem')
@@ -186,12 +190,12 @@ function onTweenCompleted(tag) --a
 		setProperty('florrandom2EXE.x', -2000)
 		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 1.5, 'linear')
 	end
-	--[[if tag == 'nocumecheira' or  tag == 'nocumesobem' then
-		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 1, 'sineinout')
-	end
+	if tag == 'nocumecheira' or  tag == 'nocumesobem' then
+		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 5, 'sineinout')
+	end -- Maybe deixar isso mais demorado resolva algo
 	if tag == 'nocumedesce' then
-		doTweenY('nocumesobem', 'nocume', getProperty('nocume.y')-50, 1, 'sineinout')
-	end]]
+		doTweenY('nocumesobem', 'nocume', getProperty('nocume.y')-50, 5, 'sineinout')
+	end
 	if tag == 'pedrasobe1' or 'pedrasubidao1' then 
 		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+10, 1, 'sineinout')
 	end

@@ -303,7 +303,7 @@ class PlayState extends MusicBeatState
 	public var camHUD:FlxCamera;
 	public var camCCC:FlxCamera;
 	public var camHUD2:FlxCamera; // jumpscares, ect..
-	public var camGame:SwagCamera;
+	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var camLegenda:FlxCamera;
 	public var cameraSpeed:Float = 1;
@@ -546,7 +546,7 @@ class PlayState extends MusicBeatState
 
 		practiceMode = false;
 		// var gameCam:FlxCamera = FlxG.camera;
-		camGame = new SwagCamera();
+		camGame = new FlxCamera();
 		camCCC = new FlxCamera();
 		camHUD = new FlxCamera();
 		camLegenda = new FlxCamera();
@@ -888,9 +888,9 @@ class PlayState extends MusicBeatState
 				theendbg.visible = false;
 				add(theendbg);
 
-				furnaceTheEnd = new BGSprite('cenarios/starved/Furnace', 226, 526, 1, 1, ['Furnace Idle']);
+				furnaceTheEnd = new BGSprite('cenarios/starved/Furnace', 226, 1200, 1, 1, ['Furnace Idle']);
 				furnaceTheEnd.scale.x = 1.5;
-				furnaceTheEnd.scale.y = 1.5; //Já você é um outro caso.
+				furnaceTheEnd.scale.y = 1.6; //Já você é um outro caso.
 				furnaceTheEnd.visible = false;
 
 
@@ -4991,6 +4991,9 @@ class PlayState extends MusicBeatState
 							stardustFloorPixel.visible = true;
 							cinematicBars(true);
 
+						case 1010101:
+							FlxTween.tween(furnaceTheEnd, {y: 526}, 1.5, {ease: FlxEase.cubeInOut});
+
 						case 246:
 							FlxTween.tween(dad, {x: 580 - 250*2}, 1, {ease: FlxEase.cubeInOut});
 							FlxTween.tween(camHUD, {alpha: 1}, 1.2,{ease: FlxEase.cubeInOut});
@@ -5095,6 +5098,7 @@ class PlayState extends MusicBeatState
 							boyfriend.playAnim("dialogue peel");
 							boyfriend.specialAnim = true;
 						case 3367:
+							blackFuck.visible = true;
 							blackFuck.alpha = 1;
 						case 3378: //Top 10 mecanicas que parecem difíceis de fazer, mas que já estavam prontas o tempo todo.
 							if (!desviou){
@@ -5134,12 +5138,12 @@ class PlayState extends MusicBeatState
 									vocals.play();
 							}
 						case 3364:
-							var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1000, boyfriend.y + 405).loadGraphic(Paths.image('furnace_gotcha'));
+							var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1000, boyfriend.y + 475).loadGraphic(Paths.image('furnace_gotcha'));
 							gotcha.setGraphicSize(Std.int(gotcha.width * 5));
 							gotcha.antialiasing = false;
 							gotcha.flipX = false;
 							add(gotcha);
-							FlxTween.tween(gotcha, {x: boyfriend.x + 500}, 0.3, {onComplete: function(yes:FlxTween)
+							FlxTween.tween(gotcha, {x: boyfriend.x + 500}, 0.15, {onComplete: function(yes:FlxTween)
 							{
 								FlxG.camera.flash(FlxColor.RED, 1);
 								remove(gotcha);
@@ -5154,6 +5158,10 @@ class PlayState extends MusicBeatState
 									{
 										tofade.alpha = 0;
 									});
+
+							case 100000000:
+								FlxG.camera.flash(FlxColor.RED, 0.5);
+								triggerEventNote('Add Camera Zoom', '0.3', '0.3');
 	
 							case 3400:
 								#if desktop
@@ -5170,6 +5178,8 @@ class PlayState extends MusicBeatState
 								gf.x -= 1000;
 								gf.y += 150;
 								gf.y -= 410; 
+								gfGroup.visible = true;
+								gf.visible = true;
 								boyfriend.y += 450;
 								dad.x -= 1000;
 								dad.y += 50;
