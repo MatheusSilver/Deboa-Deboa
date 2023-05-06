@@ -63,7 +63,7 @@ class PauseSubState extends MusicBeatSubstate
 	var blurShader:BlurFilter;
 	var dummySprite:FlxSprite;
 	var shaderativo:Bool;
-	var jumpecare:FlxObject;
+	var jumpecare:FlxObject = new FlxObject();
 
 	var lugarTelaX:Int;
 	var lugarTelaY:Int;
