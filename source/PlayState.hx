@@ -481,6 +481,8 @@ class PlayState extends MusicBeatState
 	public static var veioNormal:Bool;
 	public var playingVideoMP4:Bool =false;
 
+	var blackStuff:FlxSprite;
+
 	override public function create()
 	{
 
@@ -696,7 +698,11 @@ class PlayState extends MusicBeatState
 						bg.scrollFactor.set(1.3, 1);
 						bg.active = false;
 						add(bg);
+						blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);						
+						blackStuff.cameras = [camLegenda];
+						add(blackStuff);
 
+						
 						jumpscareSound = new FlxSound().loadEmbedded(Paths.sound('jumpscare'));
 						jumpscareAuxiliar = new FlxSound().loadEmbedded(Paths.sound('datOneSound'));
 
@@ -2667,6 +2673,17 @@ class PlayState extends MusicBeatState
 				add(letext);
 			trace(MP4Handler.vlcBitmap.length);
 			video.playMP4(diretorio, null, videoSpr);
+			if(curSong == "prey")
+				{
+					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);						
+					blackStuff.cameras = [camHUD];
+					add(blackStuff);
+				}
+			else if(curStage == "too-slow")
+				{
+					blackStuff.destroy();
+					remove(blackStuff);
+				}
             #end
         }
 
@@ -6123,9 +6140,8 @@ class PlayState extends MusicBeatState
 			for(i in daSongsSemNumScore)
 				{
 					if(curSong.toLowerCase() == i)
-						{
-							podeScore=false;
-						}
+						podeScore=false;
+						break;
 				}
 			if (combo >= 10 || combo == 0)
 				if(podeScore)
