@@ -888,9 +888,9 @@ class PlayState extends MusicBeatState
 				theendbg.visible = false;
 				add(theendbg);
 
-				furnaceTheEnd = new BGSprite('cenarios/starved/Furnace', 226, 1200, 1, 1, ['Furnace Idle']);
-				furnaceTheEnd.scale.x = 1.5;
-				furnaceTheEnd.scale.y = 1.6; //Já você é um outro caso.
+				furnaceTheEnd = new BGSprite('cenarios/starved/Furnace', 50, 2500, 1, 1, ['Furnace Idle']);
+				furnaceTheEnd.scale.x = 2;
+				furnaceTheEnd.scale.y = 2; //Já você é um outro caso.
 				furnaceTheEnd.visible = false;
 
 
@@ -4992,7 +4992,7 @@ class PlayState extends MusicBeatState
 							cinematicBars(true);
 
 						case 1010101:
-							FlxTween.tween(furnaceTheEnd, {y: 526}, 1.5, {ease: FlxEase.cubeInOut});
+							FlxTween.tween(furnaceTheEnd, {y: -50}, 1.5, {ease: FlxEase.cubeInOut});
 
 						case 246:
 							FlxTween.tween(dad, {x: 580 - 250*2}, 1, {ease: FlxEase.cubeInOut});
@@ -5087,6 +5087,7 @@ class PlayState extends MusicBeatState
 							}
 							FlxTween.tween(stardustFurnace, {x: 3000}, 10, {onComplete: function(yes:FlxTween)
 								{
+									stardustFurnace.visible = false;
 									if(desviou)
 										triggerEventNote('Change Character', 'bf', 'bf-Sonic-Peelout');
 								}});
@@ -5234,8 +5235,12 @@ class PlayState extends MusicBeatState
 								furnaceTheEnd.visible = true;
 								boyfriend.x = 998 -208;
 								boyfriend.y = 302;
+								boyfriend.y -= 20;
+								boyfriend.x -= 40;
 								dad.x = 1308 -195;
 								dad.y = 175;
+								dad.x += 45;
+								dad.y -= 210;
 								health = 0.05;
 
 								case 4505:

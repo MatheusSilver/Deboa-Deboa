@@ -22,6 +22,14 @@ function onCreate()
 
 end
 
+function onEvent(name, value1, value2)
+	if name == "eventos-prey" and value1 == '100000000' then
+		setProperty('vgbranco.visible', false)
+		setProperty('vg.visible', true)
+		setProperty('vg.alpha', 0.7)
+    end
+end
+
 function onStepHit()
 
 	-- RedVG Stuff
@@ -46,9 +54,6 @@ function onStepHit()
 	if curStep == 3430 then
         doTweenAlpha('vignetteAlpha3', 'vgbranco', 0.6, 1, 'linear');
     end
-    if curStep == 4480 then
-		doTweenAlpha('vignetteAlpha4', 'vgbranco', 0, 1, 'linear');
-	end
 
 	--black bg stuff
 	if curStep == 127 or curStep == 3328 then
