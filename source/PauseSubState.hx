@@ -349,7 +349,7 @@ class PauseSubState extends MusicBeatSubstate
 						{ 
 							case 1:
 								PlayState.instance.canPause = false;
-								if(isDoingtheThing){FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);}
+								if(isDoingtheThing&& PlayState.instance.paused){FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);}
 			
 							case 2:
 								ready.scrollFactor.set();
@@ -371,7 +371,7 @@ class PauseSubState extends MusicBeatSubstate
 								});
 								PlayState.instance.canPause = false;
 			
-								if(isDoingtheThing){FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);}
+								if(isDoingtheThing&& PlayState.instance.paused){FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);}
 							case 3:
 								set.scrollFactor.set();
 								PlayState.instance.canPause = false;
@@ -388,9 +388,9 @@ class PauseSubState extends MusicBeatSubstate
 										set.destroy();
 									}
 								});
-								if(isDoingtheThing){FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);}
+								if(isDoingtheThing && PlayState.instance.paused){FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);}
 							case 4:
-								if(isDoingtheThing)
+								if(isDoingtheThing && PlayState.instance.paused)
 									{
 										calabocavio.play();
 									}
@@ -411,7 +411,7 @@ class PauseSubState extends MusicBeatSubstate
 										remove(go);
 										go.destroy();
 										if(didJumpscare){PlayState.instance.startachieving('pause_jumpscare');}
-										new FlxTimer().start(0.75, function(tmr:FlxTimer){PlayState.instance.canPause = true; isDoingtheThing=false; });
+										new FlxTimer().start(0.75, function(tmr:FlxTimer){PlayState.instance.canPause = true; isDoingtheThing=false; manager.clear();});
 										close();
 									}
 								});
