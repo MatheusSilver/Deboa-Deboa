@@ -137,7 +137,7 @@ class PauseSubState extends MusicBeatSubstate
 		exe.alpha = 1;
 		exe.x = FlxG.width;
 
-		var k:Int = 40;
+		var k:Int = 38;
 
 
 		continuar = new FlxSprite().loadGraphic(Paths.image('pause/pause (continuar)'));
@@ -149,25 +149,25 @@ class PauseSubState extends MusicBeatSubstate
 		restart = new FlxSprite().loadGraphic(Paths.image('pause/pause (restart)'));
 		restart.alpha = 0.5;
 		restart.x=-620;
-		restart.y=FlxG.height/6*3- k - 15;
+		restart.y=FlxG.height/6*3- k;
 		add(restart);
 
 		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplay'+PlayState.cpuControlled));
 		bot.alpha = 0.5;
 		bot.x=-587;
-		bot.y=FlxG.height/6*4- k -15;
+		bot.y=FlxG.height/6*4- k;
 		add(bot);
 
 		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
 		praticar.alpha = 0.5;
 		praticar.x=-655;
-		praticar.y=FlxG.height/6*2- k -15;
+		praticar.y=FlxG.height/6*2- k;
 		add(praticar);
 		
 		voltar = new FlxSprite().loadGraphic(Paths.image('pause/pause (voltar)'));
 		voltar.alpha = 0.5;
 		voltar.x=-557;
-		voltar.y=FlxG.height/6*5 - k -15;
+		voltar.y=FlxG.height/6*5 - k;
 		add(voltar);
 
 		add(bg);

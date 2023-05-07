@@ -4058,7 +4058,7 @@ class PlayState extends MusicBeatState
 		var roundedSpeed:Float = FlxMath.roundDecimal(SONG.speed, 2);
 		if (unspawnNotes[0] != null)
 		{
-			var time:Float = 1000;
+			var time:Float = 1500;
 			if(roundedSpeed < 1) time /= roundedSpeed;
 			if(unspawnNotes[0].multSpeed < 1) time /= unspawnNotes[0].multSpeed;
 
@@ -4992,7 +4992,7 @@ class PlayState extends MusicBeatState
 							cinematicBars(true);
 
 						case 1010101:
-							FlxTween.tween(furnaceTheEnd, {y: -50}, 1.5, {ease: FlxEase.cubeInOut});
+							FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
 
 						case 246:
 							FlxTween.tween(dad, {x: 580 - 250*2}, 1, {ease: FlxEase.cubeInOut});
