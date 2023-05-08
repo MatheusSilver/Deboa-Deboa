@@ -76,6 +76,9 @@ end
 
 function onEvent(evento, valor1, valor2)
     if evento == 'trans CY' then
+        if valor == '5-99' then
+            fastChar('Invisibru AM', 'Sonic Exe AM')
+        end
         if valor1 == '500' then
             mudarRPCdetalhes('Ato 8 - Intervalo')
         end
@@ -92,21 +95,23 @@ function onEvent(evento, valor1, valor2)
             -- O problema principal disso:
 			--O sistema antigo foi feito com strum swap e os dois dão conflito entre si.
             
-            setProperty('dad.alpha', 0)
+            fastChar('invisibruphase3heroi', 'Sonicphase3vilao')
             setProperty('iconP2.alpha', 0)
             transVermelha()
         end
         if valor1 == '4' then
+            fastChar('Sonicphase3heroi', 'invisibruphase3vilao')
             cameraFlash('legenda', '0xffffff', 1, true)
         end
         if valor1 == '4-5' then
             transVermelha()
-            triggerEvent("Change Character", 'bf', 'Sonicphase3vilao', 'nada', 'nada')
+            fastChar('invisibruphase3heroi', 'Sonicphase3vilao')
             triggerEvent("trocar stage", '5', 'nada', 'nada', 'nada')
         end
         if valor1 == '4-10' then
             cameraFlash('legenda', '0xffffff', 1, true)
-            triggerEvent("Change Character", 'bf', 'Sonicphase3heroi', 'nada', 'nada')
+            fastChar('Sonicphase3heroi', 'invisibruphase3vilao')
+            --fastChar('Sonicphase3heroi', 'Sonicphase3vilao')
             triggerEvent("trocar stage", '4', 'nada', 'nada', 'nada')
         end
         if valor1 == '5' then
@@ -116,45 +121,46 @@ function onEvent(evento, valor1, valor2)
             dueto(false)
             cameraFlash('legenda', '0xff0000', 3, true)
             triggerEvent("Set Cam Zoom", '0.8', 'nada', 'nada', 'nada')
-            setProperty('dad.alpha', 1)
             setProperty('iconP2.alpha', 1)
-            triggerEvent("Change Character", 'dad', 'Sonic Exe Pixel Flying', 'nada', 'nada')
-            triggerEvent("Change Character", 'bf', 'Sonic Pixel Running', 'nada', 'nada')
+            fastChar('Sonic Pixel Running', 'Sonic Exe Pixel Flying')
             for i = 1,#animaisdegrandeporte do
                 removeLuaSprite(animaisdegrandeporte[i], true)
             end
         end
         if valor1 == '5-5' then
-            for i = 0, getProperty('opponentStrums.length')-1 do
-              setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
+            if not middlescroll then
+                for i = 0, getProperty('opponentStrums.length')-1 do
+                    setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
+                end
             end
             --triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
             setCamMove(false);
-            setProperty('dad.alpha', 0)
             setProperty('iconP2.alpha', 0)
             cameraFlash('legenda', '0xff0000', 3, true)
-            triggerEvent("Change Character", 'bf', 'Sonic Exe AM', 'nada', 'nada')
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
+            fastChar('Invisibru AM', 'Sonic Exe AM')
         end
         if valor1 == '5-6' then
             cameraFlash('legenda', '0xffffff', 3, true)
-            triggerEvent("Change Character", 'bf', 'Sonic AM', 'nada', 'nada')
+            fastChar('Sonic AM', 'Invisibru Exe AM')
         end
         if valor1 == '5-7' then
-            triggerEvent("Change Character", 'bf', 'Sonic Exe AM', 'nada', 'nada')
-            triggerEvent("Play Animation", 'laugh', 'bf', 'nada', 'nada')
+            fastChar('Invisibru AM', 'Sonic Exe AM')
+            triggerEvent("Change Character", 'dad', 'Sonic Exe AM', 'nada', 'nada')
+            triggerEvent("Play Animation", 'laugh', 'dad', 'nada', 'nada')
             setProperty('dad.specialAnim', true)
         end
         if valor1 == '6' then
             setProperty('paredefogo.visible', true)
             doTweenY('fogosobe1', 'paredefogo', 0-screenHeight*3.5, 1, 'linear')
             triggerEvent("strum swap2", 'nada', 'nada', 'nada', 'nada')
-            for i = 0, getProperty('opponentStrums.length')-1 do
-                setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
+            if not middlescroll then
+                for i = 0, getProperty('opponentStrums.length')-1 do
+                    setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
+                end
             end
         end
         if valor1 == '6-5' then
-            setProperty('dad.alpha', 1)
             setProperty('iconP2.alpha', 1)
             --for i = 0, getProperty('opponentStrums.length')-1 do
             --  setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
@@ -164,27 +170,31 @@ function onEvent(evento, valor1, valor2)
             triggerEvent("Change Character", 'dad', 'Sonic Exe Pixel Flying flip', 'nada', 'nada')
         end
         if valor1 == '7' then
+            setCamMove(false)
 			cyCut('blahblah');
             runTimer('triggerstatic', 3.5)
             setProperty('knuxerabos.y', getCharacterY('boyfriend')+425)
-		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1150)
-            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+575, 5.55, 'cubein')
-            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+120)
+		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1800)
+            runTimer('followdepois', 2)
+            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+625, 5.6, 'cubein')
+            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+180)
             triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
 
         if valor1 == '8' then
             cameraFlash('legenda', '0xffffff', 1, true)
-            for i = 0, getProperty('opponentStrums.length')-1 do -- Não há muita mudança aqui
-                setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
+            if not middlescroll then
+                for i = 0, getProperty('opponentStrums.length')-1 do -- Não há muita mudança aqui
+                    setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
+                end
             end
             setProperty('dad.alpha', 0)
             setProperty('iconP2.alpha', 0)
         end
 
         if valor1 == '9' then
-            for i = 0, getProperty('opponentStrums.length')-1 do
-                if not middlescroll then
+            if not middlescroll then
+                for i = 0, getProperty('opponentStrums.length')-1 do
                     setPropertyFromGroup('opponentStrums', i, 'visible', true);
 				end
             end
@@ -214,6 +224,7 @@ function criarAnimaisdeGrandePorte()
 end
 function onTweenCompleted(tag)
     if tag == 'knuxindo' then
+        transVermelha()
         cyCut('KEK');
         setCamMove(true);
         triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
@@ -239,6 +250,9 @@ function onTweenCompleted(tag)
 end
 
 function onTimerCompleted(tag)
+    if tag == 'followdepois' then
+        triggerEvent('Camera Follow Pos',camPosBFX+200,camPosBFY+180)
+    end
     if tag == 'triggerstatic' then
         triggerEvent("eventos-tripletrouble", '1024', 'nada', 'nada', 'nada')
     end
@@ -263,4 +277,9 @@ function onTimerCompleted(tag)
 		doTweenY('tweenTexto1Final', 'introText1', -700, 0.25, 'cubeinout')
 		doTweenY('tweenTexto2Final', 'introText2', -650, 0.25, 'cubeinout')
     end
+end
+
+function fastChar(bf, dad)
+    triggerEvent("Change Character", 'bf', bf, 'nada', 'nada')
+    triggerEvent("Change Character", 'dad', dad, 'nada', 'nada')
 end

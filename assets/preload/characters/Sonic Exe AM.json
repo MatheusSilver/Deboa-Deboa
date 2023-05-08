@@ -70,11 +70,11 @@
 	"no_antialiasing": false,
 	"image": "characters/confronting/ato5/Sonic Exe AM",
 	"position": [
-		280,
-		-70
+		425,
+		-580
 	],
 	"healthicon": "sonicexeAH",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		45,
 		46,

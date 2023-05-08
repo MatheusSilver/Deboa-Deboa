@@ -1477,75 +1477,6 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 		moveCameraSection(0);
-		
-		/*
-		var textodesobrecarga:String = "Seu uso de memória está muito alto! As opções de performance serão ativadas.";
-		var systemtotalmemory:Float = Math.round(System.totalMemory);
-		var memoriavisi:Float;
-
-		//Infelizmente eu não sei como fazer isso com cálculos, sinceramente.
-		// systemtotalmemory / 2 + 200;
-		// ???????????
-		switch(systemtotalmemory) 
-		{
-			case 500:
-				memoriavisi = 200;
-
-			case 1000:
-				memoriavisi = 800;
-
-			case 2000: 
-				memoriavisi = 1600;
-
-			case 6000:
-				memoriavisi = 4000;
-
-			case 8000:
-				memoriavisi = 5000;
-
-			case 12000:
-				memoriavisi = 8000;
-			
-			case 16000:
-				memoriavisi = 12000;
-
-			default:
-				memoriavisi = 1234;
-		}
-
-		var gtasan:FlxSprite = new FlxSprite(0).loadGraphic(Paths.image("vaitomarnocu")); // que grosseria é essa man
-		gtasan.setGraphicSize(Std.int(FlxG.width));
-		gtasan.alpha = 0;
-		add(gtasan);
-
-		var sobrecarga = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, textodesobrecarga, 18);
-		if(!memoriavisi > systemtotalmemory) 
-		{
-		sobrecarga.alpha = 0;
-		} else {
-		sobrecarga.alpha = 1;
-		canon = true;
-
-				if(canon) 
-				{
-					ClientPrefs.lowQuality = true;
-					ClientPrefs.globalAntialiasing = false;
-					ClientPrefs.shaders = false;
-					gtasan.alpha = 1;
-					new FlxTimer().start(0.8, function(tmr:FlxTimer)
-					{
-						gtasan.alpha = 0;
-					});*/
-
-				/*if (canoff) {
-					ClientPrefs.lowQuality = false;
-					ClientPrefs.globalAntialiasing = true;
-					ClientPrefs.shaders = true;
-				}*/
-		//}
-		//sobrecarga.setFormat(Paths.font("letravio.ttf"), 18, FlxColor.WHITE, RIGHT);
-		//sobrecarga.scrollFactor.set();
-		//add(sobrecarga); */
 
 		healthBarBG = new AttachedSprite('healthBar');
 		healthBarBG.y = FlxG.height * 0.89;
@@ -7994,10 +7925,10 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + placement}, 1.5,
 					{ease: FlxEase.smootherStepInOut});
 			}
-			opponentStrums.forEach(function(tofade:FlxSprite)
+			/*opponentStrums.forEach(function(tofade:FlxSprite)
 				{
 					FlxTween.tween(tofade, {alpha: 1}, 1.5);
-				});
+				});*/
 	}
 
 	public function cyCutscene(texto:String){
@@ -8021,10 +7952,10 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + placement}, 2.5,
 				{ease: FlxEase.smootherStepInOut});
 		}
-		opponentStrums.forEach(function(tofade:FlxSprite)
+		/*opponentStrums.forEach(function(tofade:FlxSprite)
 			{
 				FlxTween.tween(tofade, {alpha: 0}, 2.5);
-			});
+			});*/
 	}
 
 	//To Do:

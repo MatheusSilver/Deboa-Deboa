@@ -256,7 +256,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('ardia.visible', false)
 	addLuaSprite('ardia',false)
 
-	makeLuaSprite('nocume','cenarios/phase5/objetos', -875, -300)--5 originalmente era -875, -300
+	makeLuaSprite('nocume','cenarios/phase5/objetos', -935, -300)--5 originalmente era -875, -300
 	--makeLuaSprite('nocume','cenarios/phase5/objetos', 3000,-2000)
 	--Obrigado Sílvio do Passado.
 	setLuaSpriteScrollFactor('nocume',0.7,0.7)
@@ -306,7 +306,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('phase7-1.visible', false)
 	addLuaSprite('phase7-1',false)
 
-	makeLuaSprite('phase7-2','cenarios/phase7/2',-100,-205)--5
+	makeLuaSprite('phase7-2','cenarios/phase7/2',-175,-165)--5
 	setLuaSpriteScrollFactor('phase7-2',0.7,0.7)
 	setProperty('phase7-2.scale.x', 1.7)
 	setProperty('phase7-2.scale.y', 1.55)
@@ -328,7 +328,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('phase7-4',true)
 
 	--phase 8 cheetos
-	makeLuaSprite('phase8','cenarios/phase8/sonic',-850,-320)--5
+	makeLuaSprite('phase8','cenarios/phase8/sonic',-775,-320)--5
 	setLuaSpriteScrollFactor('phase8',1,1)
 	setProperty('phase8.scale.x', 1)
 	setProperty('phase8.scale.y', 1)
@@ -338,12 +338,12 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--phase 9 cheetos vulgo melhor phase do mod falo mesmo achou ruim cai no soco
 
-	makeLuaTiledSprite('phase9-2','cenarios/phase9/2',4096,1024,true,false) --1
+	makeLuaSprite('phase9-2','cenarios/phase9/2', 0, 0) --1
 	setLuaSpriteScrollFactor('phase9-2',0.4,0.3)
-	setPropertyTiledLuaSprite("phase9-2.antialiasing", false)
-	setPropertyTiledLuaSprite("phase9-2.visible", false)
-	setPropertyTiledLuaSprite("phase9-2.x", -575)
-	setPropertyTiledLuaSprite("phase9-2.y", -160)
+	setProperty("phase9-2.antialiasing", false)
+	setProperty("phase9-2.visible", false)
+	setProperty("phase9-2.x", -400)
+	setProperty("phase9-2.y", -160)
 	addLuaSprite('phase9-2', false);
 
 	makeLuaSprite('phase9-3','cenarios/phase9/3',1000,-620)--5
@@ -371,17 +371,17 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('phase10-1.visible', false)
 	addLuaSprite('phase10-1',false)
 
-	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-400,50)--5
+	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-150,260)--5
 	setLuaSpriteScrollFactor('phase10-2',0.2,0.2)
 	setProperty('phase10-2.scale.x', 1.1)
 	setProperty('phase10-2.scale.y', 1.1)
 	setProperty('phase10-2.visible', false)
 	addLuaSprite('phase10-2',true)
 
-	makeLuaSprite('phase10-3','cenarios/phase10/stone2',50,50)--5
+	makeLuaSprite('phase10-3','cenarios/phase10/stone2',950,300)--5
 	setLuaSpriteScrollFactor('phase10-3',0.2,0.2)
-	setProperty('phase10-3.scale.x', 1.1)
-	setProperty('phase10-3.scale.y', 1.1)
+	setProperty('phase10-3.scale.x', 0.9)
+	setProperty('phase10-3.scale.y', 0.9)
 	setProperty('phase10-3.visible', false)
 	addLuaSprite('phase10-3',true)
 end

@@ -607,6 +607,15 @@
 						""
 					],
 					[
+						71180,
+						-1,
+						"strum swap2",
+						"99999",
+						"",
+						"",
+						""
+					],					
+					[
 						71200,
 						-1,
 						"trans CY",
@@ -619,7 +628,7 @@
 						71170,
 						-1,
 						"Change Character",
-						"bf",
+						"dad",
 						"Sonicphase3vilao",
 						"",
 						""
@@ -788,7 +797,7 @@
 						""
 					],
 					[
-						86515,
+						86505,
 						-1,
 						"trans CY",
 						"animaisdegrandeporte",
@@ -802,15 +811,6 @@
 						"trocar stage",
 						"5",
 						"",
-						"",
-						""
-					],
-					[
-						86520,
-						-1,
-						"Change Character",
-						"bf",
-						"Sonicphase3vilao",
 						"",
 						""
 					]
@@ -861,15 +861,6 @@
 						"Add Camera Zoom",
 						"0.25",
 						"0.25",
-						"",
-						""
-					],
-					[
-						94312.5,
-						-1,
-						"Change Character",
-						"bf",
-						"Sonicphase3heroi",
 						"",
 						""
 					],
@@ -1327,18 +1318,9 @@
 					[
 						133250,
 						-1,
-						"Change Character",
-						"bf",
-						"Sonic Exe AM",
+						"trans CY",
+						"5-99",
 						"",
-						""
-					],
-					[
-						133375,
-						-1,
-						"Change Character",
-						"bf",
-						"Sonic AM",
 						"",
 						""
 					],
@@ -2981,7 +2963,62 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						999999,
+						-1,
+						"Change Character",
+						"bf",
+						"invisibruphase3heroi",
+						"",
+						""
+					],
+					[
+						999998,
+						-1,
+						"Change Character",
+						"dad",
+						"invisibruphase3vilao",
+						"",
+						""
+					],
+					[
+						999997,
+						-1,
+						"Change Character",
+						"dad",
+						"Invisibru Exe AM",
+						"",
+						""
+					],
+					[
+						999996,
+						-1,
+						"Change Character",
+						"bf",
+						"Invisibru AM",
+						"",
+						""
+					],
+					[
+						999992,
+						-1,
+						"Change Character",
+						"dad",
+						"Sonic Exe AM",
+						"",
+						""
+					],
+					[
+						999991,
+						-1,
+						"Change Character",
+						"bf",
+						"Sonic AM",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false

@@ -59,8 +59,8 @@
 	"no_antialiasing": false,
 	"image": "characters/confronting/ato10/Super Sonic FZ",
 	"position": [
-		100,
-		-50
+		0,
+		-75
 	],
 	"healthicon": "supersonicCY",
 	"flip_x": true,
@@ -70,9 +70,9 @@
 		0
 	],
 	"camera_position": [
-		680,
-		120
+		625,
+		-280
 	],
 	"sing_duration": 6.1,
-	"scale": 2.1
+	"scale": 1.6
 }

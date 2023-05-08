@@ -39,7 +39,7 @@
 				0,
 				0
 			],
-			"anim": "singLEFT",
+			"anim": "singRIGHT",
 			"fps": 24,
 			"name": "sonic hero exe left",
 			"indices": []
@@ -50,7 +50,7 @@
 				-3,
 				0
 			],
-			"anim": "singRIGHT",
+			"anim": "singLEFT",
 			"fps": 24,
 			"name": "sonic hero exe right",
 			"indices": []
@@ -59,8 +59,8 @@
 	"no_antialiasing": false,
 	"image": "characters/confronting/ato3/phase3vilao",
 	"position": [
-		-225,
-		-130
+		-25,
+		-650
 	],
 	"healthicon": "sonicexeAH",
 	"flip_x": true,
@@ -70,7 +70,7 @@
 		111
 	],
 	"camera_position": [
-		-110,
+		-200,
 		50
 	],
 	"sing_duration": 6.1,

@@ -1,6 +1,3 @@
--- Created by RamenDominoes (Feel free to credit or not I don't really care)
---Not bad for my first event created... I think
-
 StartStop = 0
 
 Speed = 0
@@ -13,15 +10,20 @@ function onCreate()
 	--THE TOP BAR
 	makeLuaSprite('UpperBar', 'empty', 0, -k)
 	makeGraphic('UpperBar', 1280, k, '000000')
-	setObjectCamera('UpperBar', 'other')
+	setObjectCamera('UpperBar', 'hud')
 	addLuaSprite('UpperBar', false)
+	setObjectOrder('UpperBar', getObjectOrder('timeTxt') - 2)
 
 
 	--THE BOTTOM BAR
 	makeLuaSprite('LowerBar', 'empty', 0, 720)
 	makeGraphic('LowerBar', 1280, k, '000000')
-	setObjectCamera('LowerBar', 'other')
+	setObjectCamera('LowerBar', 'hud')
 	addLuaSprite('LowerBar', false)
+	setObjectOrder('LowerBar', getObjectOrder('timeTxt') - 1)
+
+	setProperty('UpperBar.visible', false)
+	setProperty('LowerBar.visible', false)
 
 
 end
@@ -29,24 +31,18 @@ end
 
 function onUpdate()
 
-	if StartStop == 1 then
+	if StartStop == 1 then -- Entrada upscroll
 	
-	doTweenY('Cinematics1', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 660, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 130-k, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 130-k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 130-k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 130-k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 130-k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 130-k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 130-k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 130-k, Speed, 'Linear')
+	setProperty('UpperBar.visible', true)
+	setProperty('LowerBar.visible', true)
+	doTweenY('Cinematics1entrada', 'UpperBar', 0, Speed, 'Linear')
+	doTweenY('Cinematics2entrada', 'LowerBar', 660, Speed, 'Linear')
 	setProperty('botplayTxt.text', '')
-	doTweenAlpha('AlphaTween1', 'healthBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween2', 'healthBar', 0, 0.1)
+	--[[doTweenY('AlphaTween1', 'healthBarBG', 0, 0.1)
+	doTweenY('AlphaTween2', 'healthBar', 0, 0.1)
+	doTweenY('AlphaTween4', 'iconP1', 0, 0.1)
+	doTweenY('AlphaTween5', 'iconP2', 0, 0.1)]]
 	doTweenAlpha('AlphaTween3', 'scoreTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween4', 'iconP1', 0, 0.1)
-	doTweenAlpha('AlphaTween5', 'iconP2', 0, 0.1)
 	doTweenAlpha('AlphaTween6', 'timeBar', 0, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 0, 0.1)
@@ -55,24 +51,17 @@ function onUpdate()
 
 	end
 
-	if downscroll and StartStop == 1 then
-	
-	doTweenY('Cinematics1', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 660, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 480+k, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 480+k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 480+k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 480+k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 480+k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 480+k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 480+k, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 480+k, Speed, 'Linear')
+	if downscroll and StartStop == 1 then -- entrada downscroll
+	setProperty('UpperBar.visible', true)
+	setProperty('LowerBar.visible', true)
+	doTweenY('Cinematics1entrada', 'UpperBar', 0, Speed, 'Linear')
+	doTweenY('Cinematics2entrada', 'LowerBar', 660, Speed, 'Linear')
 	setProperty('botplayTxt.text', '')
-	doTweenAlpha('AlphaTween1', 'healthBarBG', 0, 0.1)
+	--[[doTweenAlpha('AlphaTween1', 'healthBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 0, 0.1)
-	doTweenAlpha('AlphaTween3', 'scoreTxt', 0, 0.1)
 	doTweenAlpha('AlphaTween4', 'iconP1', 0, 0.1)
-	doTweenAlpha('AlphaTween5', 'iconP2', 0, 0.1)
+	doTweenAlpha('AlphaTween5', 'iconP2', 0, 0.1)]]
+	doTweenAlpha('AlphaTween3', 'scoreTxt', 0, 0.1)
 	doTweenAlpha('AlphaTween6', 'timeBar', 0, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 0, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 0, 0.1)
@@ -81,18 +70,10 @@ function onUpdate()
 	end
 
 
-	if StartStop == 2 then
+	if StartStop == 2 then -- Saida upscroll
 	
-	doTweenY('Cinematics1', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 720, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 50, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 50, Speed, 'Linear')
+	doTweenY('Cinematics1saida', 'UpperBar', -120, Speed, 'Linear')
+	doTweenY('Cinematics2saida', 'LowerBar', 720, Speed, 'Linear')
 	setProperty('botplayTxt.text', 'BOTPLAY')
 	doTweenAlpha('AlphaTween1', 'healthBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 1, 0.1)
@@ -103,36 +84,33 @@ function onUpdate()
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 1, 0.1)
 	doTweenAlpha('AlphaTween9', 'judgementCounter', 1, 0.1)
-	--doTweenAlpha('AlphaTween9', 'botplayTxt', 1, 0.1)
 	
 	end
 
-	if downscroll and StartStop == 2 then
+	if downscroll and StartStop == 2 then -- Saida downscroll
 	
-	doTweenY('Cinematics1', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 720, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 570, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 570, Speed, 'Linear')
+	doTweenY('Cinematics1saida', 'UpperBar', -120, Speed, 'Linear')
+	doTweenY('Cinematics2saida', 'LowerBar', 720, Speed, 'Linear')
 	setProperty('botplayTxt.text', 'BOTPLAY')
-	doTweenAlpha('AlphaTween1', 'healthBarBG', 1, 0.1)
+	--[[doTweenAlpha('AlphaTween1', 'healthBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween2', 'healthBar', 1, 0.1)
-	doTweenAlpha('AlphaTween3', 'scoreTxt', 1, 0.1)
 	doTweenAlpha('AlphaTween4', 'iconP1', 1, 0.1)
-	doTweenAlpha('AlphaTween5', 'iconP2', 1, 0.1)
+	doTweenAlpha('AlphaTween5', 'iconP2', 1, 0.1)]]
+	doTweenAlpha('AlphaTween3', 'scoreTxt', 1, 0.1)
 	doTweenAlpha('AlphaTween6', 'timeBar', 1, 0.1)
 	doTweenAlpha('AlphaTween7', 'timeBarBG', 1, 0.1)
 	doTweenAlpha('AlphaTween8', 'timeTxt', 1, 0.1)
 	doTweenAlpha('AlphaTween9', 'judgementCounter', 1, 0.1)
-	--doTweenAlpha('AlphaTween9', 'botplayTxt', 1, 0.1)
 	
 	end
 	
+end
+
+function onTweenCompleted(tag)
+	if tag == 'Cinematics1saida' then
+		setProperty('UpperBar.visible', false)
+		setProperty('LowerBar.visible', false)
+	end
 end
 
 function onEvent(name,value1,value2)

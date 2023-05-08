@@ -2,6 +2,8 @@ local speedChanger = 0
 
 --Agora que sei que as funções em lua se comunicam entre os diversos .lua, acho que isso seja mais fácil omega kek
 
+healthDrain = false;
+
 local phase1unico = {'montesverdes', 'flores', 'trens'}
 local phase2cheetos = {'ceu', 'montanhas','cachorreira','awa', 'florrandom1', 'florrandom2', 'chaorunning1'}
 
@@ -82,7 +84,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		mudarRPCdetalhes('Ato 4')
 		--triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		sai2D()
-		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.5, 'linear')
+		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.0, 'linear')
 		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 300, 34, 'linear')
 		doTweenX('awaqueanda1EXE', 'awaEXE', 300, 34, 'linear')
 		doTweenX('eitacachorreiraEXE', 'cachorreiraEXE', 300, 34, 'linear')
@@ -109,9 +111,8 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		--doTweenX('nocumeX','nocume', -875, 30)
 		--doTweenY('nocumeY','nocume', -300, 30)
 	elseif curPhase == 8 then
-		--cancelTween('nocumecheira')
-		--cancelTween('nocumesobem')
-		--cancelTween('nocumedesce')
+		cancelTween('nocumesobem') -- Talvez isso seja nescessário
+		cancelTween('nocumedesce')
 		
 		-- SUS... Para dizer o mínimo k
 		setProperty('nocumepausando.visible',true)
@@ -143,17 +144,18 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 		setProperty('gfGroup.visible', false)
 		setProperty('phase8.visible',true)
-		sai2D()
+		triggerEvent("Cinematics-CY", '2', '0.5', 'nada', 'nada')
 		mudarRPCdetalhes('Ato 8')
 	elseif curPhase == 12 then
 			removeLuaSprite('phase8')
 		for i = 1,#phase9cheetos do
 			setProperty(phase9cheetos[i]..'.visible', true)
 		end
+		doTweenX('espacoqueandadeboa', 'phase9-2', -3000, 80, 'linear')
 		doTweenX('deatheggqueanda', 'phase9-3', -2000, 70, 'linear')
 		mudarRPCdetalhes('Ato 9')
 	elseif curPhase == 13 then	
-		entra2D()
+		triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
 		--cancelTween('deatheggqueanda')
 		for i = 1,#phase9cheetos do
 			removeLuaSprite(phase9cheetos[i])
@@ -162,8 +164,8 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase10cheetos[i]..'.visible',true)
 		end
 		mudarRPCdetalhes('Epílogo')
-		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-10, 1, 'smoothstepin')
-		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-10, 1, 'smoothstepin')
+		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-20, 1, 'smoothstepin')
+		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-20, 1, 'smoothstepin')
 
 	end
 end
@@ -184,29 +186,29 @@ function onTweenCompleted(tag) --a
 	end
 	if tag == 'florqueanda1EXE' and phasedetector == 6 then 
 		setProperty('florrandom3EXE.x', -2000)
-		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.5, 'linear')
+		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.0, 'linear')
 	end
 	if tag == 'florqueanda2EXE' and phasedetector == 6 then 
 		setProperty('florrandom2EXE.x', -2000)
-		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 1.5, 'linear')
+		doTweenX('florqueanda1EXE', 'florrandom3EXE', 2000, 1.0, 'linear')
 	end
 	if tag == 'nocumecheira' or  tag == 'nocumesobem' then
-		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 5, 'sineinout')
+		doTweenY('nocumedesce', 'nocume', getProperty('nocume.y')+50, 3, 'sineinout')
 	end -- Maybe deixar isso mais demorado resolva algo
 	if tag == 'nocumedesce' then
-		doTweenY('nocumesobem', 'nocume', getProperty('nocume.y')-50, 5, 'sineinout')
+		doTweenY('nocumesobem', 'nocume', getProperty('nocume.y')-50, 3, 'sineinout')
 	end
-	if tag == 'pedrasobe1' or 'pedrasubidao1' then 
-		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+10, 1, 'sineinout')
+	if tag == 'pedrasobe1' then 
+		doTweenY('pedradesce1', 'phase10-2', getProperty('phase10-2.y')+20, 1, 'sineinout')
 	end
 	if tag == 'pedradesce1' then 
-		doTweenY('pedrasubidao1', 'phase10-2', getProperty('phase10-2.y')-10, 1, 'sineinout')
+		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-20, 1, 'sineinout')
 	end
-	if tag == 'pedrasobe2' or 'pedrasubidao2' then
-		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+10, 1, 'sineinout')
+	if tag == 'pedrasobe2' then
+		doTweenY('pedradesce2', 'phase10-3', getProperty('phase10-3.y')+20, 1, 'sineinout')
 	end
 	if tag == 'pedradesce2' then
-		doTweenY('pedrasubidao2', 'phase10-3', getProperty('phase10-3.y')-10, 1, 'sineinout')
+		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-20, 1, 'sineinout')
 	end
 	
 
@@ -227,8 +229,30 @@ function onCreate()
 	precacheSound('stat')
 	precacheSound('staticBUZZ')
 	precacheSound('exerisadinha')
+
+	makeLuaSprite('oppIcon', 'empty', getProperty('healthBar.y') -80)
 		
 	--Lembrar de colocar o som da estática inicial aqui tambem
+end
+
+function onCreatePost()
+	makeLuaSprite('oppIcon', 'empty', 285 ,getProperty('healthBar.y') -80)
+	loadGraphic('oppIcon', 'icons/icon-sonicexeAH', 150)
+	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
+	setProperty('oppIcon.visible', false)
+	setObjectCamera('oppIcon', 'camHUD')
+	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 1)
+	addLuaSprite('oppIcon')
+	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 1)
+
+	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
+	loadGraphic('bfIcon', 'icons/icon-sonicAH', 150)
+	addAnimation('bfIcon', 'icon/'..getProperty('bf.healthIcon'), {0, 1}, 0, true)
+	setProperty('bfIcon.visible', false)
+	setObjectCamera('bfIcon', 'camHUD')
+	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 2)
+	addLuaSprite('bfIcon')
+	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 2)
 end
 
 function onUpdate()
@@ -240,14 +264,13 @@ function onUpdate()
     setPropertyTiledLuaSprite("chaorunning1.scrollX", speedChanger*20)
     setPropertyTiledLuaSprite("ceu.scrollX", speedChanger*0.5*10)
 	elseif phasedetector == 6 then
-	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*30)
+	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*40)
 	elseif phasedetector == 9 then
 	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45)
 	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20)
 	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
 	elseif phasedetector == 12 then
 	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
-	setPropertyTiledLuaSprite("phase9-2.scrollX", -speedChanger*0.5)
 	end
 end
 
@@ -255,12 +278,27 @@ function opponentNoteHit()
 	if phasedetector == 13 then -- OOOOOOMAGAWD, ELE É LULISTA, RÁPIDO, FALE ALGO DO BOLSONARO...
 		triggerEvent('Screen Shake', '0.015, 0.015', '0, 0')
 	end
+	if healthDrain and getProperty('health') > 0.3 then
+		setProperty('health', getProperty('health') - 0.02)
+	end
 end
 
 function entra2D()
+	setProperty('health',1)
+	healthDrain = true
+	setProperty('oppIcon.visible', true)
+	setProperty('bfIcon.visible', true)
+	setProperty('iconP1.visible', false)
+	setProperty('iconP2.visible', false)
 	triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
 end
 
 function sai2D()
+	healthDrain = false
+	setProperty('health',1) --Design purposes
+	setProperty('oppIcon.visible', false)
+	setProperty('bfIcon.visible', false)
+	setProperty('iconP1.visible', true)
+	setProperty('iconP2.visible', true)
 	triggerEvent("Cinematics-CY", '2', '0.5', 'nada', 'nada')
 end

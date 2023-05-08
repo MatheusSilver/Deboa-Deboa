@@ -907,13 +907,18 @@ class FunkinLua {
 			if(!color.startsWith('0x')) colorNum = Std.parseInt('0xff' + color);
 
 			if(PlayState.instance.modchartSprites.exists(obj)) {
-				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, colorNum);
+				if (color == '000000')
+					PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, FlxColor.BLACK);
+				else
+					PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, colorNum);
+				//Sussy hack pro meu PC racista, feminista, taxista, violinista, cavalista, etc... etc... etc...
+				//Podem cancelar ele no tinder.
 				return;
 			}
 
 			var object:FlxSprite = Reflect.getProperty(PlayState.instance, obj);
 			if(object != null) {
-				object.makeGraphic(width, height, colorNum);
+					object.makeGraphic(width, height, colorNum);
 			}
 		});
 		Lua_helper.add_callback(lua, "addAnimationByPrefix", function(obj:String, name:String, prefix:String, framerate:Int = 24, loop:Bool = true) {
