@@ -106,12 +106,12 @@
 		400,
 		50
 	],
-	"healthicon": "sonicsg",
+	"healthicon": "sonicpixel",
 	"flip_x": true,
 	"healthbar_colors": [
-		108,
-		108,
-		216
+		109,
+		107,
+		213
 	],
 	"camera_position": [
 		-80,

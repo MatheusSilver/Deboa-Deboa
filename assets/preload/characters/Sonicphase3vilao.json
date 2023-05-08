@@ -65,9 +65,9 @@
 	"healthicon": "sonicexeAH",
 	"flip_x": true,
 	"healthbar_colors": [
-		45,
-		46,
-		111
+		20,
+		6,
+		42
 	],
 	"camera_position": [
 		-200,

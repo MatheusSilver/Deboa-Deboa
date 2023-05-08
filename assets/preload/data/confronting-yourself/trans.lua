@@ -137,7 +137,7 @@ function onEvent(evento, valor1, valor2)
             setCamMove(false);
             setProperty('iconP2.alpha', 0)
             cameraFlash('legenda', '0xff0000', 3, true)
-            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
+            triggerEvent('Camera Follow Pos',camPosBFX+125,camPosBFY)
             fastChar('Invisibru AM', 'Sonic Exe AM')
         end
         if valor1 == '5-6' then
@@ -224,7 +224,7 @@ function criarAnimaisdeGrandePorte()
 end
 function onTweenCompleted(tag)
     if tag == 'knuxindo' then
-        transVermelha()
+        triggerEvent('eventos-tripletrouble','400289222','nada')
         cyCut('KEK');
         setCamMove(true);
         triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')
@@ -251,7 +251,7 @@ end
 
 function onTimerCompleted(tag)
     if tag == 'followdepois' then
-        triggerEvent('Camera Follow Pos',camPosBFX+200,camPosBFY+180)
+        triggerEvent('Camera Follow Pos',camPosBFX+205,camPosBFY+165)
     end
     if tag == 'triggerstatic' then
         triggerEvent("eventos-tripletrouble", '1024', 'nada', 'nada', 'nada')

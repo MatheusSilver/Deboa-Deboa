@@ -84,12 +84,12 @@
 		350,
 		490
 	],
-	"healthicon": "sonicsg",
+	"healthicon": "sonicpixel",
 	"flip_x": false,
 	"healthbar_colors": [
-		129,
-		129,
-		221
+		109,
+		107,
+		213
 	],
 	"camera_position": [
 		230,

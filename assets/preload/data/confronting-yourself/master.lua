@@ -217,7 +217,7 @@ end
 function onCreate()
 	pushScriptData("trans")
 
-	--precacheImage('Tails')
+	precacheImage('Tails')
 	--precacheImage('Knuckles')
 	precacheImage('Phase3Static')
 	precacheImage('vintage')
@@ -278,14 +278,15 @@ function opponentNoteHit()
 	if phasedetector == 13 then -- OOOOOOMAGAWD, ELE É LULISTA, RÁPIDO, FALE ALGO DO BOLSONARO...
 		triggerEvent('Screen Shake', '0.015, 0.015', '0, 0')
 	end
-	if healthDrain and getProperty('health') > 0.3 then
-		setProperty('health', getProperty('health') - 0.02)
+	if healthDrain and getProperty('health') > 0.15 then
+		setProperty('health', getProperty('health') - 0.01)
 	end
 end
 
 function entra2D()
 	setProperty('health',1)
 	healthDrain = true
+	setProperty('isGrad', true)
 	setProperty('oppIcon.visible', true)
 	setProperty('bfIcon.visible', true)
 	setProperty('iconP1.visible', false)
@@ -296,6 +297,7 @@ end
 function sai2D()
 	healthDrain = false
 	setProperty('health',1) --Design purposes
+	setProperty('isGrad', false)
 	setProperty('oppIcon.visible', false)
 	setProperty('bfIcon.visible', false)
 	setProperty('iconP1.visible', true)

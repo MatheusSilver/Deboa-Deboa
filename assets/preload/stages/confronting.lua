@@ -117,33 +117,33 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('vilaophase3-2.visible', false)
 	addLuaSprite('vilaophase3-2',false)
 
-	makeAnimatedLuaSprite('vilaophase3-speed','cenarios/phase3/vilao/speed',-390,-120)--5
+	makeAnimatedLuaSprite('vilaophase3-speed','cenarios/phase3/vilao/speed',-525,-320)--5
 	setLuaSpriteScrollFactor('vilaophase3-speed',1,1)
-	setProperty('vilaophase3-speed.scale.x', 1.4)
+	setProperty('vilaophase3-speed.scale.x', 0.8)
 	setProperty('vilaophase3-speed.alpha', 0)
-	setProperty('vilaophase3-speed.scale.y', 1.5)
+	setProperty('vilaophase3-speed.scale.y', 0.8)
 	setProperty('vilaophase3-speed.visible', false)
-	addAnimationByPrefix('vilaophase3-speed', 'idle', 'Speed Idle', 24, true);
+	addAnimationByPrefix('vilaophase3-speed', 'idle', 'Speed.Gif Idle', 18, true);
 	objectPlayAnimation('vilaophase3-speed', 'idle', true)
 	addLuaSprite('vilaophase3-speed',false)
 
-	makeAnimatedLuaSprite('vilaophase3-lordx','cenarios/phase3/vilao/lordx',-600,120)--5
+	makeAnimatedLuaSprite('vilaophase3-lordx','cenarios/phase3/vilao/lordx',-825,-135)--5
 	setLuaSpriteScrollFactor('vilaophase3-lordx',1,1)
-	setProperty('vilaophase3-lordx.scale.x', 1.5)
+	setProperty('vilaophase3-lordx.scale.x', 0.85)
 	setProperty('vilaophase3-lordx.alpha', 0)
-	setProperty('vilaophase3-lordx.scale.y', 1.7)
+	setProperty('vilaophase3-lordx.scale.y', 0.85)
 	setProperty('vilaophase3-lordx.visible', false)
-	addAnimationByPrefix('vilaophase3-lordx', 'idle', 'Lord X Idle', 24, true);
+	addAnimationByPrefix('vilaophase3-lordx', 'idle', 'Lord X Idle', 18, true);
 	objectPlayAnimation('vilaophase3-lordx', 'idle', true)
 	addLuaSprite('vilaophase3-lordx',false)
 
-	makeAnimatedLuaSprite('vilaophase3-sarah','cenarios/phase3/vilao/sara',650,-150)--5
+	makeAnimatedLuaSprite('vilaophase3-sarah','cenarios/phase3/vilao/sara',475,-300)--5
 	setLuaSpriteScrollFactor('vilaophase3-sarah',1,1)
-	setProperty('vilaophase3-sarah.scale.x', 1.5)
+	setProperty('vilaophase3-sarah.scale.x', 0.8)
 	setProperty('vilaophase3-sarah.alpha', 0)
-	setProperty('vilaophase3-sarah.scale.y', 1.7)
+	setProperty('vilaophase3-sarah.scale.y', 0.8)
 	setProperty('vilaophase3-sarah.visible', false)
-	addAnimationByPrefix('vilaophase3-sarah', 'idle', 'Sarah Idle', 24, true);
+	addAnimationByPrefix('vilaophase3-sarah', 'idle', 'Sarah Idle', 18, true);
 	objectPlayAnimation('vilaophase3-sarah', 'idle', true)
 	addLuaSprite('vilaophase3-sarah',false)
 

@@ -62,12 +62,12 @@
 		120,
 		-325
 	],
-	"healthicon": "sonicP2Pixel",
+	"healthicon": "xenopixel",
 	"flip_x": true,
 	"healthbar_colors": [
-		45,
-		46,
-		111
+		24,
+		14,
+		59
 	],
 	"camera_position": [
 		-200,

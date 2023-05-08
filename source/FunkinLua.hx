@@ -492,6 +492,8 @@ class FunkinLua {
 				//luaTrace('Couldnt find object: ' + vars);
 			}
 		});
+
+		
 		Lua_helper.add_callback(lua, "doTweenColor", function(tag:String, vars:String, targetColor:String, duration:Float, ease:String) {
 			var penisExam:Dynamic = tweenShit(tag, vars);
 			if(penisExam != null) {

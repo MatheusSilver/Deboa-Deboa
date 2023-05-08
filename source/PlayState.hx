@@ -411,6 +411,7 @@ class PlayState extends MusicBeatState
 	var ringCounter:FlxSprite;
 	var counterNum:FlxText;
 	var bfIsLeft:Bool = false;
+	public var isGrad = false;
 
 	//exe p3 trens
 	var balling:FlxSprite = new FlxSprite(0, 0);
@@ -2305,12 +2306,22 @@ class PlayState extends MusicBeatState
 
 	public function reloadHealthBarColors()
 		{
+			//if(!isGrad){
 			if (!bfIsLeft)
 				healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 					FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 			else
 				healthBar.createFilledBar(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
 					FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+			/*}else{
+				if (!bfIsLeft)
+					healthBar.createGradientBar([FlxColor.RED,FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])],
+				[FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]), FlxColor.RED]);
+				else
+					healthBar.createGradientBar([FlxColor.RED, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]), FlxColor.RED],
+				[FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]), FlxColor.RED]);
+
+			}*/
 			healthBar.updateBar();
 		}
 
@@ -4860,6 +4871,8 @@ class PlayState extends MusicBeatState
 					opponentStrums.members[3].x = opponentStrums.members[3].x - 28*3;
 					opponentStrums.members[4].x = opponentStrums.members[4].x - 28*3;
 				}
+				case 400289222:
+					doP3JumpTAILS(true);
 				case 144:
 					doP3JumpTAILS();
 				case 1024, 1088, 1216, 1280, 2305, 2810, 3199, 4096:
@@ -7421,7 +7434,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 	
-		function doP3JumpTAILS()
+		function doP3JumpTAILS(special:Bool = false)
 		{
 			trace('SIMPLE JUMPSCARE');
 	
@@ -7438,11 +7451,19 @@ class PlayState extends MusicBeatState
 	
 			if(curSong.toLowerCase()=='triple-trouble')
 				FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
-	
+			
+			if(!special){
 			new FlxTimer().start(0.2, function(tmr:FlxTimer)
 			{
 					remove(doP3JumpTAILS);
 			});
+			}else{
+				FlxTween.tween(doP3JumpTAILS.scale, {x: 1.1, y: 1.1}, 0.5, {
+					onComplete: function(twn:FlxTween) {
+						remove(doP3JumpTAILS);
+					}
+					});
+			}
 	
 			balling.frames = Paths.getSparrowAtlas('daSTAT');
 			balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
@@ -7910,6 +7931,7 @@ class PlayState extends MusicBeatState
 	
 	// Tá, isso tá safe
 	public function updateRPC(texto:String){ //Unificando tudo aqui (usado exclusivamente na CY provavelmente... Mas pode expandir pra Prey também)
+		
 		#if desktop
 		detailsText = texto;
 		detailsPausedText = "Pausado - " + texto;
