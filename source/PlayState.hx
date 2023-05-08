@@ -3886,7 +3886,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
+		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene && !playingVideoMP4)
 		{
 			canRegen = true;
 			canuseevents = true;
@@ -6134,7 +6134,8 @@ class PlayState extends MusicBeatState
 			numScore.velocity.x = FlxG.random.float(-5, 5);
 			numScore.visible = !ClientPrefs.hideHud;
 
-			var daSongsSemNumScore:Array<String> = ["confronting-yourself", "prey"]; //pras musicas sérias que isso aqui não se encaixaria em nenhum lugar
+			var daSongsSemNumScore:Array<String> = ["confronting-yourself", "prey-hard", "sink-hard"]; //pras musicas "sérias" que isso aqui não se encaixaria em nenhum lugar
+																									// resumindo, pra musicas que ficam melhores sem esse negócio feio
 			var podeScore:Bool = true;
 
 			for(i in daSongsSemNumScore)
