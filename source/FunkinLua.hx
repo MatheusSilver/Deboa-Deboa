@@ -586,6 +586,10 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "cancelTimer", function(tag:String) {
 			cancelTimer(tag);
 		});
+		Lua_helper.add_callback(lua, "changeHealthBar", function(isGrad:Bool) {
+			PlayState.instance.isGrad = isGrad;
+			PlayState.instance.reloadHealthBarColors();
+		});
 
 		/*Lua_helper.add_callback(lua, "getPropertyAdvanced", function(varsStr:String) {
 			var variables:Array<String> = varsStr.replace(' ', '').split(',');
@@ -978,6 +982,22 @@ class FunkinLua {
 			var spr:FlxSprite = Reflect.getProperty(PlayState.instance, obj);
 			if(spr != null) {
 				spr.animation.play(name, forced);
+			}
+		});
+		//Usado especificamente nos icones da barra de vida da CY. (Talvez possa ser usado na Final Escape tambem :eyes:)
+		Lua_helper.add_callback(lua, "objectPlayIndexedAnimation", function(obj:String, index:Int) {
+			if(PlayState.instance.modchartSprites.exists(obj)) {
+				PlayState.instance.modchartSprites.get(obj).animation.frameIndex = index;
+				return;
+			}
+			else if(PlayState.instance.modchartTiledSprites.exists(obj)) {
+				PlayState.instance.modchartSprites.get(obj).animation.frameIndex = index;
+				return;
+			}
+
+			var spr:FlxSprite = Reflect.getProperty(PlayState.instance, obj);
+			if(spr != null) {
+				spr.animation.frameIndex = index;
 			}
 		});
 

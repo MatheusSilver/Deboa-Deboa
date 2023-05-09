@@ -176,6 +176,9 @@ function onEvent(name, value1, value2)
 end
 
 function onTweenCompleted(tag) --a
+	if tag == 'vidaSpin' and healthDrain then
+		doTweenAngle('vidaSpin','healthFollower', 360, 1, 'linear')
+	end
 	if tag == 'florqueanda1' and phasedetector == 2 then 
 		setProperty('florrandom1.x', -2000)
 		doTweenX('florqueanda2', 'florrandom2', 2000, 2, 'linear')
@@ -230,32 +233,55 @@ function onCreate()
 	precacheSound('staticBUZZ')
 	precacheSound('exerisadinha')
 
-	makeLuaSprite('oppIcon', 'empty', getProperty('healthBar.y') -80)
-		
-	--Lembrar de colocar o som da estática inicial aqui tambem
 end
 
 function onCreatePost()
+
+	--Icons code
 	makeLuaSprite('oppIcon', 'empty', 285 ,getProperty('healthBar.y') -80)
 	loadGraphic('oppIcon', 'icons/icon-sonicexeAH', 150)
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setProperty('oppIcon.visible', false)
 	setObjectCamera('oppIcon', 'camHUD')
-	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 1)
+	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
 	addLuaSprite('oppIcon')
-	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 1)
+	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
 
 	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/icon-sonicAH', 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('bf.healthIcon'), {0, 1}, 0, true)
 	setProperty('bfIcon.visible', false)
 	setObjectCamera('bfIcon', 'camHUD')
-	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 2)
+	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
 	addLuaSprite('bfIcon')
-	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 2)
+	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
+
+	--Ring code
+	makeLuaSprite('healthFollower', 'empty', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health') ,getProperty('healthBar.y') -80)
+	makeGraphic('healthFollower', 50, getProperty('healthBarBG.height')*1.2, '000000')
+	--Quando um sprite para o coiso de vida nos atos 3 e 5 forem definidos, é só tirar esse makeGraphic e usar o debaixo aqui.
+	--loadGraphic('healthFollower', 'ringFollow')
+	setProperty('healthFollower.visible', false)
+	setObjectCamera('healthFollower', 'camHUD')
+	setGraphicSize('healthFollower', 50, getProperty('healthBarBG.height')*1.2)
+
+	setObjectOrder('healthFollower', getObjectOrder('healthBarBG') + 1)
+	addLuaSprite('healthFollower')
+	setObjectOrder('healthFollower', getObjectOrder('healthBarBG') + 1)
 end
 
 function onUpdate()
+	if healthDrain then
+		if getProperty('health') < 0.25 then
+			objectPlayIndexedAnimation('bfIcon', 1)
+		elseif getPropety('health') > 1.8 then
+			objectPlayIndexedAnimation('oppIcon', 1)
+		else
+			objectPlayIndexedAnimation('oppIcon', 0)
+			objectPlayIndexedAnimation('oppIcon', 0)
+		end
+		setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health'))
+	end
 	speedChanger = speedChanger + 1
 
     if phasedetector == 1 then
@@ -285,10 +311,12 @@ end
 
 function entra2D()
 	setProperty('health',1)
+	doTweenAngle('vidaSpin','healthFollower', 360, 1, 'linear')
 	healthDrain = true
-	setProperty('isGrad', true)
+	changeHealthBar(true)
 	setProperty('oppIcon.visible', true)
 	setProperty('bfIcon.visible', true)
+	setProperty('healthFollower.visible', true)
 	setProperty('iconP1.visible', false)
 	setProperty('iconP2.visible', false)
 	triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
@@ -297,7 +325,9 @@ end
 function sai2D()
 	healthDrain = false
 	setProperty('health',1) --Design purposes
-	setProperty('isGrad', false)
+	changeHealthBar(false)
+	cancelTween('vidaSpin')
+	setProperty('healthFollower.visible', false)
 	setProperty('oppIcon.visible', false)
 	setProperty('bfIcon.visible', false)
 	setProperty('iconP1.visible', true)

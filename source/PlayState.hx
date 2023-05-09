@@ -2306,22 +2306,41 @@ class PlayState extends MusicBeatState
 
 	public function reloadHealthBarColors()
 		{
-			//if(!isGrad){
+		/*
+			O fim e o começo devem possuir a mesma cor para um poder se ligar ao outro.
+			sendo assim, o vazio é aquele que fica a esquerda
+			e o fill, é aquele que fica a direita.			
+			Não tenho tanta certeza de como isso funciona na real Ass:Sílvio
+		*/
+		if(!isGrad){
 			if (!bfIsLeft)
 				healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 					FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
 			else
 				healthBar.createFilledBar(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
 					FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
-			/*}else{
+		}else{
 				if (!bfIsLeft)
-					healthBar.createGradientBar([FlxColor.RED,FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])],
-				[FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]), FlxColor.RED]);
+					healthBar.createGradientBar(
+					[
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])
+					],
+					[
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]), 
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2])
+					]);
 				else
-					healthBar.createGradientBar([FlxColor.RED, FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]), FlxColor.RED],
-				[FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]), FlxColor.RED]);
-
-			}*/
+					healthBar.createGradientBar(
+					[
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2],
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]))
+					],
+					[
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2], 
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]))
+					]);
+			}
 			healthBar.updateBar();
 		}
 
