@@ -5949,7 +5949,7 @@ class PlayState extends MusicBeatState
 
 	private function popUpScore(note:Note = null):Void
 	{
-		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + 8); 
+		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition - 35); 
 
 		vocals.volume = 1;
 		if(!SONG.needsVoices){
@@ -6362,6 +6362,7 @@ class PlayState extends MusicBeatState
 				}
 		}//trace(daNote.missHealth);
 		songMisses++;
+		songScore -= 100;
 		vocals.volume = 0;
 		RecalculateRating();
 
@@ -7818,7 +7819,7 @@ class PlayState extends MusicBeatState
 
 		var ret:Dynamic = callOnLuas('onRecalculateRating', []);
 		if(ret != FunkinLua.Function_Stop) {
-			ratingPercent = songScore / (songHits*300);
+			ratingPercent = songScore / ((songHits+songMisses)*300);
 			if(!Math.isNaN(ratingPercent) && ratingPercent < 0) ratingPercent = 0;
 
 			if(Math.isNaN(ratingPercent)) {

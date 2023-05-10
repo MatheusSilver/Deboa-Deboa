@@ -31,8 +31,6 @@ class Note extends FlxSprite
 	public var blockHit:Bool = false; // only works for player
 	public var lowPriority:Bool = false;
 
-	var ajustefino:Int = 0;
-
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
 	public var noteType(default, set):String = null;
@@ -162,7 +160,7 @@ class Note extends FlxSprite
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y -= 2000;
 		this.strumTime = strumTime;
-		if(!inEditor) this.strumTime += ClientPrefs.noteOffset;
+		if(!inEditor) this.strumTime += ClientPrefs.noteOffset /*-35*/;
 
 		this.noteData = noteData;
 
@@ -473,7 +471,7 @@ class Note extends FlxSprite
 		{
 			// ok river
 			if (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult)
-				&& strumTime < Conductor.songPosition - ajustefino +(Conductor.safeZoneOffset * earlyHitMult))
+				&& strumTime < Conductor.songPosition +(Conductor.safeZoneOffset * earlyHitMult))
 				canBeHit = true;
 			else
 				canBeHit = false;
