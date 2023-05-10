@@ -4,6 +4,8 @@ local speedChanger = 0
 
 healthDrain = false;
 
+ato8Change = false;
+
 local phase1unico = {'montesverdes', 'flores', 'trens'}
 local phase2cheetos = {'ceu', 'montanhas','cachorreira','awa', 'florrandom1', 'florrandom2', 'chaorunning1'}
 
@@ -146,8 +148,11 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		setProperty('phase8.visible',true)
 		triggerEvent("Cinematics-CY", '2', '0.5', 'nada', 'nada')
 		mudarRPCdetalhes('Ato 8')
+		ato8Change = true
+		entra2D()
 	elseif curPhase == 12 then
 			removeLuaSprite('phase8')
+			sai2D()
 		for i = 1,#phase9cheetos do
 			setProperty(phase9cheetos[i]..'.visible', true)
 		end
@@ -176,9 +181,6 @@ function onEvent(name, value1, value2)
 end
 
 function onTweenCompleted(tag) --a
-	if tag == 'vidaSpin' and healthDrain then
-		doTweenAngle('vidaSpin','healthFollower', 360, 1, 'linear')
-	end
 	if tag == 'florqueanda1' and phasedetector == 2 then 
 		setProperty('florrandom1.x', -2000)
 		doTweenX('florqueanda2', 'florrandom2', 2000, 2, 'linear')
@@ -225,12 +227,10 @@ function onCreate()
 	precacheImage('Phase3Static')
 	precacheImage('vintage')
 	precacheImage('NOTE_assets')
-	precacheImage("daSTAT")
 	precacheImage('splashes/blood')
 	precacheImage('pixelUI/NOTE_assets_exezoom')
 	precacheImage('pixelUI/NOTE_assets_exezoomENDS')
 	precacheSound('stat')
-	precacheSound('staticBUZZ')
 	precacheSound('exerisadinha')
 
 end
@@ -238,7 +238,7 @@ end
 function onCreatePost()
 
 	--Icons code
-	makeLuaSprite('oppIcon', 'empty', 285 ,getProperty('healthBar.y') -80)
+	makeLuaSprite('oppIcon', 'empty', 215 ,getProperty('healthBar.y') -80)
 	loadGraphic('oppIcon', 'icons/icon-sonicexeAH', 150)
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setProperty('oppIcon.visible', false)
@@ -257,8 +257,8 @@ function onCreatePost()
 	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
 
 	--Ring code
-	makeLuaSprite('healthFollower', 'empty', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health') ,getProperty('healthBar.y') -80)
-	makeGraphic('healthFollower', 50, getProperty('healthBarBG.height')*1.2, '000000')
+	makeLuaSprite('healthFollower', 'empty', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y'))
+	makeGraphic('healthFollower', 50, getProperty('healthBarBG.height')*1.2, 'FFFFFF')
 	--Quando um sprite para o coiso de vida nos atos 3 e 5 forem definidos, é só tirar esse makeGraphic e usar o debaixo aqui.
 	--loadGraphic('healthFollower', 'ringFollow')
 	setProperty('healthFollower.visible', false)
@@ -274,13 +274,17 @@ function onUpdate()
 	if healthDrain then
 		if getProperty('health') < 0.25 then
 			objectPlayIndexedAnimation('bfIcon', 1)
-		elseif getPropety('health') > 1.8 then
+		elseif getProperty('health') > 1.8 then
 			objectPlayIndexedAnimation('oppIcon', 1)
 		else
 			objectPlayIndexedAnimation('oppIcon', 0)
-			objectPlayIndexedAnimation('oppIcon', 0)
+			objectPlayIndexedAnimation('bfIcon', 0)
 		end
-		setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health'))
+		-- Caso o sonico esteja na esquerda e o opp esteja na direita, é a formula abaixo
+		-- setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2)
+		-- Caso contrário, bf na direita e opp na esquerda (que é o caso da CY), então...
+		setProperty('healthFollower.x', getProperty('healthBar.x') - 30 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
 	end
 	speedChanger = speedChanger + 1
 
@@ -309,28 +313,35 @@ function opponentNoteHit()
 	end
 end
 
+prevTwisted = false
+
 function entra2D()
 	setProperty('health',1)
-	doTweenAngle('vidaSpin','healthFollower', 360, 1, 'linear')
 	healthDrain = true
-	changeHealthBar(true)
 	setProperty('oppIcon.visible', true)
 	setProperty('bfIcon.visible', true)
 	setProperty('healthFollower.visible', true)
 	setProperty('iconP1.visible', false)
+	prevTwisted = getProperty('bfIsLeft')
+	setProperty('bfIsLeft', false)
 	setProperty('iconP2.visible', false)
+	changeHealthBar(true)
 	triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
+	if ato8Change then
+		loadGraphic('oppIcon', 'icons/icon-xenopixel', 150)
+		loadGraphic('bfIcon', 'icons/sonic icons', 150)
+	end
 end
 
 function sai2D()
 	healthDrain = false
 	setProperty('health',1) --Design purposes
-	changeHealthBar(false)
-	cancelTween('vidaSpin')
+	setProperty('bfIsLeft', prevTwisted)
 	setProperty('healthFollower.visible', false)
 	setProperty('oppIcon.visible', false)
 	setProperty('bfIcon.visible', false)
 	setProperty('iconP1.visible', true)
 	setProperty('iconP2.visible', true)
+	changeHealthBar(false)
 	triggerEvent("Cinematics-CY", '2', '0.5', 'nada', 'nada')
 end

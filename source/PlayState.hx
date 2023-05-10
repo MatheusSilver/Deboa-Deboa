@@ -410,7 +410,7 @@ class PlayState extends MusicBeatState
 	// - ring counter bullshit
 	var ringCounter:FlxSprite;
 	var counterNum:FlxText;
-	var bfIsLeft:Bool = false;
+	public var bfIsLeft:Bool = false;
 	public var isGrad = false;
 
 	//exe p3 trens
@@ -2320,25 +2320,16 @@ class PlayState extends MusicBeatState
 				healthBar.createFilledBar(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
 					FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
 		}else{
-				if (!bfIsLeft)
 					healthBar.createGradientBar(
 					[
 						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])
 					],
 					[
-						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]), 
-						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2])
-					]);
-				else
-					healthBar.createGradientBar(
-					[
-						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2],
-						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]))
-					],
-					[
-						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2], 
-						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]))
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]),
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])
 					]);
 			}
 			healthBar.updateBar();
@@ -2995,10 +2986,13 @@ class PlayState extends MusicBeatState
 				}
 			} //solução preguiçosa, fodasi
 
-				notes.forEachAlive(function(note:Note) {
+			notes.forEachAlive(function(note:Note) {
+				if(note.mustPress) //Fix para o dueto da CY
+				{
 					note.copyAlpha = false;
-					note.alpha = 1 * note.multAlpha;
-				});
+					note.alpha = note.multAlpha;
+				}
+			});
 				callOnLuas('onCountdownTick', [swagCounter]);
 
 				swagCounter += 1;
@@ -4082,6 +4076,7 @@ class PlayState extends MusicBeatState
 				var strumAngle:Float = strumGroup.members[daNote.noteData].angle;
 				var strumDirection:Float = strumGroup.members[daNote.noteData].direction;
 				var strumAlpha:Float = strumGroup.members[daNote.noteData].alpha;
+				var strumVisible:Bool = strumGroup.members[daNote.noteData].visible;
 				var strumScroll:Bool = strumGroup.members[daNote.noteData].downScroll;
 
 				strumX += daNote.offsetX;
@@ -4104,8 +4099,10 @@ class PlayState extends MusicBeatState
 				if (daNote.copyAngle)
 					daNote.angle = strumDirection - 90 + strumAngle;
 
-				if(daNote.copyAlpha)
+				if(daNote.copyAlpha){
 					daNote.alpha = strumAlpha;
+					daNote.visible = strumVisible;
+				}
 
 				if(daNote.copyX)
 					daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
@@ -7477,12 +7474,14 @@ class PlayState extends MusicBeatState
 					remove(doP3JumpTAILS);
 			});
 			}else{
-				FlxTween.tween(doP3JumpTAILS.scale, {x: 1.1, y: 1.1}, 0.5, {
+				FlxTween.tween(doP3JumpTAILS.scale, {x: 1.05, y: 1.05}, 0.2, {
 					onComplete: function(twn:FlxTween) {
 						remove(doP3JumpTAILS);
 					}
 					});
 			}
+
+			if(!special){
 	
 			balling.frames = Paths.getSparrowAtlas('daSTAT');
 			balling.animation.addByPrefix('static', 'staticFLASH', 24, false);
@@ -7506,6 +7505,7 @@ class PlayState extends MusicBeatState
 			{
 				trace('ended static');
 				remove(balling);
+			}
 			}
 		}
 	
@@ -7967,10 +7967,10 @@ class PlayState extends MusicBeatState
 				FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + placement}, 1.5,
 					{ease: FlxEase.smootherStepInOut});
 			}
-			/*opponentStrums.forEach(function(tofade:FlxSprite)
+			opponentStrums.forEach(function(tofade:FlxSprite)
 				{
-					FlxTween.tween(tofade, {alpha: 1}, 1.5);
-				});*/
+					FlxTween.tween(tofade, {alpha: 1}, 1);
+				});
 	}
 
 	public function cyCutscene(texto:String){
@@ -7994,10 +7994,10 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(opponentStrums.members[i], {x: opponentStrums.members[i].x + placement}, 2.5,
 				{ease: FlxEase.smootherStepInOut});
 		}
-		/*opponentStrums.forEach(function(tofade:FlxSprite)
+		opponentStrums.forEach(function(tofade:FlxSprite)
 			{
-				FlxTween.tween(tofade, {alpha: 0}, 2.5);
-			});*/
+				FlxTween.tween(tofade, {alpha: 0}, 1.5);
+			});
 	}
 
 	//To Do:

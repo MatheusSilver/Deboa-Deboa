@@ -68,7 +68,7 @@ function transVermelha()
 end
 
 function onCountdownTick(value0)
-    if value0 == 3 then
+    if value0 == 4 then
         doTweenY('textoTween1', 'introText1', 50, 1, 'cubeinout')
 		doTweenY('textoTween2', 'introText2', 125, 2, 'cubeinout')
     end
@@ -151,9 +151,12 @@ function onEvent(evento, valor1, valor2)
             setProperty('dad.specialAnim', true)
         end
         if valor1 == '6' then
+            -- Lembrar de buscar o som da parede de fogo no Sonic 3 & Knuckles
+            -- A parte do knux é importante!!!
             setProperty('paredefogo.visible', true)
             doTweenY('fogosobe1', 'paredefogo', 0-screenHeight*3.5, 1, 'linear')
             triggerEvent("strum swap2", 'nada', 'nada', 'nada', 'nada')
+            triggerEvent("Set Cam Zoom", '1', 'nada', 'nada', 'nada')
             if not middlescroll then
                 for i = 0, getProperty('opponentStrums.length')-1 do
                     setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
@@ -192,7 +195,8 @@ function onEvent(evento, valor1, valor2)
             setProperty('iconP2.alpha', 0)
         end
 
-        if valor1 == '9' then
+        if valor1 == '9' then -- Antecede a mudança de stage
+            --Verificar com a Vio se tem como integrar uma transição no vídeo.
             if not middlescroll then
                 for i = 0, getProperty('opponentStrums.length')-1 do
                     setPropertyFromGroup('opponentStrums', i, 'visible', true);
@@ -201,7 +205,8 @@ function onEvent(evento, valor1, valor2)
             setProperty('dad.alpha', 1)
             setProperty('boyfriend.alpha', 1)
             setProperty('iconP2.alpha', 1)
-            cameraFlash('legenda', '0xffff00', 2, true)
+            cameraFlash('legenda', '0xffff00', 4, true)
+            changeHealthBar(false)
         end
 
         if valor1 == '10' then
