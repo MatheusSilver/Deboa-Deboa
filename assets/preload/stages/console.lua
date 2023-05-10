@@ -33,6 +33,16 @@ function onCreate()
 	scaleObject('bg', 10, 10);
 end
 
+function onEvent(name, value1, value2)
+	if name == 'flipaMario' then
+		if value1 == 'bf' then
+			setProperty('boyfriend.flipX', not getProperty('boyfriend.flipX'))
+		else
+			setProperty('dad.flipX', not getProperty('dad.flipX'))
+		end
+	end
+end
+
 function onBeatHit()
 	if curBeat == 156 then
 		setProperty('tail2.alpha', 1);

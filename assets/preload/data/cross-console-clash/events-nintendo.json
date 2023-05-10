@@ -81,6 +81,33 @@
 						"wave",
 						"dad",
 						""
+					],
+					[
+						57129,
+						-1,
+						"flipaMario",
+						"bf",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						60000,
+						-1,
+						"flipaMario",
+						"bf",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
