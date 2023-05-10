@@ -519,6 +519,7 @@ class PlayState extends MusicBeatState
 		isRing = SONG.isRing; //Top 10 otimizações mais sodas do Mundo talvez do Brasil
 
 		cccVidaCounter = 2; //meida...
+		luigienter=false;
         canRegen = true;
 		resetforcado = false;
         canuseevents = true; //Apenas para ter certeza de que a música não vai vir bugada da Prey
@@ -7223,6 +7224,7 @@ class PlayState extends MusicBeatState
 				gf.y -=200;
 				gf.playAnim("jump", true);
 				gf.specialAnim = true;
+				gf.visible = true;
 				FlxTween.tween(gf, {x: GF_X}, 0.5, {ease: FlxEase.quintOut});
 				FlxTween.tween(gf, {y: GF_Y}, 0.3, {ease: FlxEase.sineIn, onComplete: function(tween:FlxTween){
 				gf.specialAnim = false;
