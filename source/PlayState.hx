@@ -7474,7 +7474,7 @@ class PlayState extends MusicBeatState
 					remove(doP3JumpTAILS);
 			});
 			}else{
-				FlxTween.tween(doP3JumpTAILS.scale, {x: 1.05, y: 1.05}, 0.2, {
+				FlxTween.tween(doP3JumpTAILS.scale, {x: 1.1, y: 1.1}, 0.4, {
 					onComplete: function(twn:FlxTween) {
 						remove(doP3JumpTAILS);
 					}

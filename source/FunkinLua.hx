@@ -889,6 +889,21 @@ class FunkinLua {
 			PlayState.instance.modchartSprites.set(tag, leSprite);
 		});
 
+		Lua_helper.add_callback(lua,"changeIcon", function(icon:String, image:String) {
+			if(icon=='bf')
+				PlayState.instance.iconP1.changeIcon(image)
+			else if (icon=='dad')
+				PlayState.instance.iconP2.changeIcon(image)
+			else if (icon=='switch'){
+				PlayState.instance.iconP2.changeIcon(PlayState.instance.boyfriend.healthIcon);
+				PlayState.instance.iconP1.changeIcon(PlayState.instance.dad.healthIcon);
+			}else {
+				PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+				PlayState.instance.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
+			}
+
+		});
+
 		Lua_helper.add_callback(lua,"playVideo", function() {
 			if (!GlobalVideo.get().playing)
 				GlobalVideo.get().play();

@@ -67,11 +67,9 @@ function transVermelha()
 	playSound('stat', 0.3)
 end
 
-function onCountdownTick(value0)
-    if value0 == 4 then
-        doTweenY('textoTween1', 'introText1', 50, 1, 'cubeinout')
-		doTweenY('textoTween2', 'introText2', 125, 2, 'cubeinout')
-    end
+function onSongStart()
+    doTweenY('textoTween1', 'introText1', 50, 1, 'cubeinout')
+	doTweenY('textoTween2', 'introText2', 125, 2, 'cubeinout')
 end
 
 function onEvent(evento, valor1, valor2)
@@ -171,6 +169,7 @@ function onEvent(evento, valor1, valor2)
             setCamMove(true);
             triggerEvent("Change Character", 'bf', 'Sonic Pixel Running flip', 'nada', 'nada')
             triggerEvent("Change Character", 'dad', 'Sonic Exe Pixel Flying flip', 'nada', 'nada')
+            changeIcon('normal')
         end
         if valor1 == '7' then
             setCamMove(false)
@@ -179,7 +178,7 @@ function onEvent(evento, valor1, valor2)
             setProperty('knuxerabos.y', getCharacterY('boyfriend')+425)
 		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1800)
             runTimer('followdepois', 2)
-            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+625, 5.6, 'cubein')
+            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+625, 5.2, 'cubein')
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+180)
             triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
@@ -229,6 +228,11 @@ function criarAnimaisdeGrandePorte()
 end
 function onTweenCompleted(tag)
     if tag == 'knuxindo' then
+        triggerEvent('Change Character','gf','Soul Knuckles')
+        triggerEvent('Change Character','bf','Sonic Fear')
+        triggerEvent('Change Character','dad','Soul Tails')
+        triggerEvent('noteskinchangeBF','NOTE_assets','')
+        triggerEvent('noteskinchangeOPPT','NOTE_assets','')
         triggerEvent('eventos-tripletrouble','400289222','nada')
         cyCut('KEK');
         setCamMove(true);

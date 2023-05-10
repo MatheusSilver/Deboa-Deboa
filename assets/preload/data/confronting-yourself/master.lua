@@ -90,6 +90,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('montanhaqueanda1EXE', 'montanhasEXE', 300, 34, 'linear')
 		doTweenX('awaqueanda1EXE', 'awaEXE', 300, 34, 'linear')
 		doTweenX('eitacachorreiraEXE', 'cachorreiraEXE', 300, 34, 'linear')
+		changeIcon('switch')
 	elseif curPhase == 7 then
 		--cancelTween('florqueanda2EXE')
 		--cancelTween('montanhaqueanda1EXE')
@@ -129,6 +130,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end		
 		mudarRPCdetalhes('Ato 6')
 		sai2D()
+		setProperty('bfIsLeft', false)
 	elseif curPhase == 10 then
 		setProperty('gfGroup.visible', true)
 		--setCharacterX('dad', dadXPosOriginal)
@@ -238,7 +240,7 @@ end
 function onCreatePost()
 
 	--Icons code
-	makeLuaSprite('oppIcon', 'empty', 215 ,getProperty('healthBar.y') -80)
+	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('healthBar.y') -80)
 	loadGraphic('oppIcon', 'icons/icon-sonicexeAH', 150)
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setProperty('oppIcon.visible', false)
@@ -283,7 +285,7 @@ function onUpdate()
 		-- Caso o sonico esteja na esquerda e o opp esteja na direita, é a formula abaixo
 		-- setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2)
 		-- Caso contrário, bf na direita e opp na esquerda (que é o caso da CY), então...
-		setProperty('healthFollower.x', getProperty('healthBar.x') - 30 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+		setProperty('healthFollower.x', getProperty('healthBar.x') - 25 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
 		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
 	end
 	speedChanger = speedChanger + 1

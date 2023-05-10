@@ -605,7 +605,16 @@
 						"blood",
 						"",
 						""
-					],		
+					],
+					[
+						71165,
+						-1,
+						"noteskinchangeOPPT",
+						"NOTE_assets",
+						"",
+						"",
+						""
+					],			
 					[
 						71200,
 						-1,
@@ -1008,6 +1017,15 @@
 						-1,
 						"Set Cam Zoom",
 						"0.9",
+						"",
+						"",
+						""
+					],
+					[
+						101900,
+						-1,
+						"noteskinchangeOPPT",
+						"NOTE_assets_exezoom",
 						"",
 						"",
 						""
@@ -1762,26 +1780,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						182280,
-						-1,
-						"noteskinchangeBF",
-						"NOTE_assets",
-						"blood",
-						"",
-						""
-					],
-					[
-						182160,
-						-1,
-						"noteskinchangeOPPT",
-						"NOTE_assets",
-						"",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -1791,35 +1790,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						182400,
-						-1,
-						"Change Character",
-						"dad",
-						"Soul Tails",
-						"",
-						""
-					],
-					[
-						182520,
-						-1,
-						"Change Character",
-						"bf",
-						"Sonic Fear",
-						"",
-						""
-					],
-					[
-						182640,
-						-1,
-						"Change Character",
-						"gf",
-						"Soul Knuckles",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -3659,7 +3630,37 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					
+					[
+						999997,
+						-1,
+						"Change Character",
+						"dad",
+						"Soul Tails",
+						"",
+						""
+					],
+					[
+						9999998,
+						-1,
+						"Change Character",
+						"bf",
+						"Sonic Fear",
+						"",
+						""
+					],
+					[
+						9999999,
+						-1,
+						"Change Character",
+						"gf",
+						"Soul Knuckles",
+						"",
+						""
+					]
+				
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
