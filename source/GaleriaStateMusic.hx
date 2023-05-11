@@ -527,6 +527,8 @@ class GaleriaStateMusic extends MusicBeatState
 						//Com isso, a placa só irá ter que carregar objetos que realmente estão na camera.
 						//Honestamente essa é a primeira vez que tenho que me preocupar com placa de vídeo ao invés de RAM
 
+						// bla bla bla
+
 					if(spr.y >= overlaySuporte.height*0.95 && spr.y <= FlxG.width)
 						spr.visible = true;
 					else
@@ -536,7 +538,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 					if(FlxG.mouse.justPressed) 
 						{
-							if(FlxG.mouse.overlaps(spr) && spr.visible){
+							if(FlxG.mouse.overlaps(spr) && spr.visible && !FlxG.mouse.overlaps(barraInferior)){
 								GlobalSoundManager.play('click');
 								FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 								changeSong(spr.ID);

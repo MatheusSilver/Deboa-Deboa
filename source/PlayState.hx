@@ -3580,11 +3580,15 @@ class PlayState extends MusicBeatState
 										}
 			}
 		timeAccumulated += elapsed;
+		if(SONG.song.toLowerCase()  == "confronting-yourself")
+			{
+				callOnLuas('onUpdate', [elapsed]);
+			}
 		while (shouldUpdate())
 			{
 				floaty2 += 0.01;
 				floaty += 0.03;
-				callOnLuas('onUpdate', [elapsed]);
+				if(SONG.song.toLowerCase() != "confronting-yourself"){callOnLuas('onUpdate', [elapsed]);}
 				switch (flyState)
 				{
 					case 'hover' | 'hovering':
