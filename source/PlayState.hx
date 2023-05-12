@@ -7017,7 +7017,7 @@ class PlayState extends MusicBeatState
 
 		if(curSong.toLowerCase() == "sink" && ClientPrefs.shaders)
 			{
-				switch(curStep)
+				switch(curStep) // x02 deve estar orgulhoso
 				{
 					case 1602:
 						blurShader = new BlurFilter();
@@ -7026,11 +7026,12 @@ class PlayState extends MusicBeatState
 						canPause = false;
 						camGame.setFilters([blurShader]);
 						camHUD.setFilters([blurShader]);
-						FlxTween.tween(blurShader, {blurX: 6, blurY: 16}, 5.75, {ease: FlxEase.linear});
-					case 1660:
-						blurShader.blurX=0;
-						blurShader.blurY=0;
-						canPause=true;
+						FlxTween.tween(blurShader, {blurX: 10, blurY: 20}, 6.75, {ease: FlxEase.linear});
+					case 1673:
+						FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 2.5, {ease: FlxEase.linear, onComplete: function(tween:FlxTween){
+							canPause=true;
+						}});
+						
 				}
 			}
 
