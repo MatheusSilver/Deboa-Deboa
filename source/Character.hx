@@ -263,10 +263,11 @@ class Character extends FlxSprite
 	{
 			/*if (PlayState.detailsPausedText == "Pausado - " + 'Ato 4')
 				color = 0x353535;
-			else if(PlayState.detailsPausedText == "Pausado - " + 'Ato 6')
-				color = 0x5E1E07;
+			/*else if(PlayState.detailsPausedText == "Pausado - " + 'Ato 6')
+				color = 0x5E1E07;*/
 			else
-				color = 0xFFFFFF;*/
+				color = 0xFFFFFF;
+			*/
 
 		if (!nonanimated)
 			{
