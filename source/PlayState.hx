@@ -2337,6 +2337,21 @@ class PlayState extends MusicBeatState
 					]);
 			}
 			healthBar.updateBar();
+
+			if(curSong.toLowerCase()=='pasta-night'){
+				healthBar.createGradientBar(
+					[
+						FlxColor.fromRGB(gf.healthColorArray[0], gf.healthColorArray[1], gf.healthColorArray[2]),
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])
+					],
+					[
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2])
+					], 1, 90);
+		
+			//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
+			healthBar.updateBar();
+			}
+			
 		}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -4720,20 +4735,6 @@ class PlayState extends MusicBeatState
 				{
 					tofade.alpha = 0.4;
 				});
-				
-				if(curSong.toLowerCase()=='pasta-night'){
-					healthBar.createGradientBar(
-						[
-							FlxColor.fromRGB(gf.healthColorArray[0], gf.healthColorArray[1], gf.healthColorArray[2]),
-							FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])
-						],
-						[
-							FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2])
-						], 1, 90);
-			
-				//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
-				healthBar.updateBar();
-				}
 				
 			}
 
