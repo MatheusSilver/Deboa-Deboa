@@ -31,9 +31,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var keysPlayer1:Array<Bool> = [false,false,false,false];
 	var keysPlayer2:Array<Bool> = [false,false,false,false];
 
+	var textinhoDebug:FlxText;
+
 
 	override function create()
 		{
+			textinhoDebug = new FlxText(0,0,0,"",25,true);
+			textinhoDebug.screenCenter(XY);
+			add(textinhoDebug);
 			/*keysArray = [
 				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
 				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
@@ -102,6 +107,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 											case "esquerda":
 												keysPlayer1[3]=true;
 										}
+										server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Segurei", verb: 'input' });
 									}
 								else
 									{
@@ -116,6 +122,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 											case "esquerda":
 												keysPlayer2[3]=true;
 										}
+										server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Segurei", verb: 'input' });
 									}
 							}
 							else
@@ -133,6 +140,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 												case "esquerda":
 													keysPlayer1[3]=false;
 											}
+											server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Soltei", verb: 'input' });
 										}
 									else
 										{
@@ -147,6 +155,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 												case "esquerda":
 													keysPlayer2[3]=false;
 											}
+											server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Soltei", verb: 'input' });
 										}
 								}
 
@@ -191,6 +200,74 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 
 					client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
+						if(e.data.verb == 'input' && myID==1)
+							{
+								var qualEquem:Array<String> = e.data.message.split(" ");
+								//trace("\nCliente: "+qualEquem[0] +"\nSeta: "+qualEquem[1] +"\nAcao: "+qualEquem[2]);
+								
+								if(qualEquem[2] == "Segurei")
+								{
+									if(qualEquem[0]=="0")
+										{
+											switch(qualEquem[1])
+											{
+												case "cima":
+													keysPlayer1[0]=true;
+												case "baixo":
+													keysPlayer1[1]=true;
+												case "direita":
+													keysPlayer1[2]=true;
+												case "esquerda":
+													keysPlayer1[3]=true;
+											}
+										}
+									else
+										{
+											switch(qualEquem[1])
+											{
+												case "cima":
+													keysPlayer2[0]=true;
+												case "baixo":
+													keysPlayer2[1]=true;
+												case "direita":
+													keysPlayer2[2]=true;
+												case "esquerda":
+													keysPlayer2[3]=true;
+											}
+										}
+								}
+								else
+									{
+										if(qualEquem[0]=="0")
+											{
+												switch(qualEquem[1])
+												{
+													case "cima":
+														keysPlayer1[0]=false;
+													case "baixo":
+														keysPlayer1[1]=false;
+													case "direita":
+														keysPlayer1[2]=false;
+													case "esquerda":
+														keysPlayer1[3]=false;
+												}
+											}
+										else
+											{
+												switch(qualEquem[1])
+												{
+													case "cima":
+														keysPlayer2[0]=false;
+													case "baixo":
+														keysPlayer2[1]=false;
+													case "direita":
+														keysPlayer2[2]=false;
+													case "esquerda":
+														keysPlayer2[3]=false;
+												}
+											}
+									}
+							}
 						trace(e.data.message); 
 					});	
 					
@@ -214,20 +291,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	function inputShit()
 		{
-
+			textinhoDebug.text=keysPlayer1.toString()+"\n"+keysPlayer2.toString();
 			if(FlxG.keys.justPressed.W)
 				{
 					segureiObotao("cima");
 				}
-			else if(FlxG.keys.justPressed.S)
+			if(FlxG.keys.justPressed.S)
 				{
 					segureiObotao("baixo");
 				}
-			else if(FlxG.keys.justPressed.D)
+			if(FlxG.keys.justPressed.D)
 				{
 					segureiObotao("direita");
 				}
-			else if(FlxG.keys.justPressed.A)
+			if(FlxG.keys.justPressed.A)
 				{
 					segureiObotao("esquerda");
 				}
@@ -236,15 +313,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 					{
 						solteiObotao("cima");
 					}
-				else if(FlxG.keys.justReleased.S)
+				if(FlxG.keys.justReleased.S)
 					{
 						solteiObotao("baixo");
 					}
-				else if(FlxG.keys.justReleased.D)
+				if(FlxG.keys.justReleased.D)
 					{
 						solteiObotao("direita");
 					}
-				else if(FlxG.keys.justReleased.A)
+				if(FlxG.keys.justReleased.A)
 					{
 						solteiObotao("esquerda");
 					}
