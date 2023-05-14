@@ -4216,6 +4216,20 @@ class PlayState extends MusicBeatState
 		checkEventNote();
 		
 		#if debug
+		if(SONG.song.toLowerCase()=='confronting-yourself') {
+
+		// Uma fix pros bugs que acontecem quando você pula o ato da música
+		// Vale a pena mexer aqui muito? Não, fiz isso por detalhe mesmo :skull:
+		// Caso eu achar, ou os coders que estarem vendo isso acharem outros bugs quando você aperta pra pular,
+		// ajudem colocando soluções deles aqui.
+
+			//cutscene bugando o ato = resolvido
+			if(playingVideoMP4) {
+				pularVideo();
+			}
+
+		}
+
 		if(!endingSong && !startingSong) {
 			if (FlxG.keys.justPressed.ONE) {
 				KillNotes();
