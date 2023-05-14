@@ -259,14 +259,15 @@ function onCreatePost()
 	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
 
 	--Ring code
-	makeLuaSprite('healthFollower', 'empty', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y'))
+	makeAnimatedLuaSprite('healthFollower', 'ring', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y'))
+	addAnimationByPrefix('healthFollower', 'ring idle', 'ring idle', 24, true)
 	makeGraphic('healthFollower', 50, getProperty('healthBarBG.height')*1.2, 'FFFFFF')
 	--Quando um sprite para o coiso de vida nos atos 3 e 5 forem definidos, é só tirar esse makeGraphic e usar o debaixo aqui.
 	--loadGraphic('healthFollower', 'ringFollow')
 	setProperty('healthFollower.visible', false)
 	setObjectCamera('healthFollower', 'camHUD')
 	setGraphicSize('healthFollower', 50, getProperty('healthBarBG.height')*1.2)
-
+	PlayAnim("healthFollower", "ring idle") 
 	setObjectOrder('healthFollower', getObjectOrder('healthBarBG') + 1)
 	addLuaSprite('healthFollower')
 	setObjectOrder('healthFollower', getObjectOrder('healthBarBG') + 1)
