@@ -46,7 +46,7 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var instance:MainMenuStateMobile;
 	//var gradientBar:FlxGradient;
 	
-	var optionShit:Array<String> = ['historia','freeplay', 'multiplayer-locked2', 'conquistas', 'creditos', 'opcao'];
+	var optionShit:Array<String> = ['historia','freeplay', 'multiplayer', 'conquistas', 'creditos', 'opcao'];
 	private var menuItems:FlxTypedGroup<FlxSprite>;
 	var machine:FlxSprite;
 	var camFollow:FlxObject;
@@ -138,10 +138,20 @@ class MainMenuStateMobile extends MusicBeatState
 		add(menuItems);
 
 		for (i in 0...optionShit.length){
+			
 			var botoes:FlxSprite = new FlxSprite(FlxG.width, 8.5 + FlxG.height/(optionShit.length+2)*(i));
-			botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
+
+			if(!GJClient.logged && optionShit[i]=="multiplayer")
+				{
+					botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i] + "-locked2", 'preload'));
+				}
+			else
+				{
+					botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
+				}
+
 			botoes.setGraphicSize(Std.int(botoes.width * 0.6)); //Matemática avançada para o caso de algum dia vir a adicionar, ou remover botões daqui
-			botoes.alpha = 0.75;
+			botoes.alpha = !GJClient.logged && TitleState.ModoOffline && optionShit[i]=="multiplayer" ? 1 : 0.75;
 			botoes.ID = i;
 			botoes.screenCenter(Y);
 			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-97.5;
@@ -379,7 +389,7 @@ class MainMenuStateMobile extends MusicBeatState
 			switch (daChoice)
 			{
 				case 'historia':
-					MusicBeatState.switchState(new EstadoDeLimpeza()); //Só pra garantir né???
+					MusicBeatState.switchState(new EstadoDeLimpeza());
 				case 'freeplay':
 					MusicBeatState.switchState(new FreeplayState());
 				case 'conquistas':
@@ -387,8 +397,10 @@ class MainMenuStateMobile extends MusicBeatState
 				case 'creditos':
 					MusicBeatState.switchState(new SobreState());
 				case 'opcao':
-					MusicBeatState.switchState(new ajustes.AjustesState()); // Deixa esse por enquanto KEK
-			}							
+					MusicBeatState.switchState(new ajustes.AjustesState());
+				case 'multiplayer':
+					MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState());
+			}			
 		});
 	}
 
