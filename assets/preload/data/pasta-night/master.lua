@@ -148,7 +148,7 @@ function onCreate()
     scaleObject('Jack',consistentSize* 0.5,consistentSize* 0.5)
     addLuaSprite('Jack',false)
 
-    makeLuaSprite('OtherTable','cenarios/TableMisc',595*1.4-630,355*1.3)
+    makeLuaSprite('OtherTable','cenarios/TableMisc',750+110,210*1.3+110)
     setScrollFactor('OtherTable',0.9, 0.9)
     scaleObject('OtherTable',consistentSize* 0.5,consistentSize* 0.5)
 
@@ -156,27 +156,27 @@ function onCreate()
     makeAnimatedLuaSprite('SlenderBitch','cenarios/Buds_Slender_Effects',735*1.15,35*4)
     addAnimationByPrefix('SlenderBitch','bop','Slenderman Full',24,false)
     setScrollFactor('SlenderBitch',0.9, 0.9)
-    scaleObject('SlenderBitch',consistentSize* 0.5,consistentSize* 0.5)
+    scaleObject('SlenderBitch',consistentSize* 0.55,consistentSize* 0.55)
     addLuaSprite('SlenderBitch',false)
 
     makeAnimatedLuaSprite('Ben','cenarios/Ben_Drowned_BG',1145+55,175*1.5)
     addAnimationByPrefix('Ben','idle','ben drowned0',24,false)
     addAnimationByPrefix('Ben','look','ben drowned looking',24,false)
     setScrollFactor('Ben',0.9, 0.9)
-    scaleObject('Ben',consistentSize* 0.45,consistentSize* 0.45)
+    scaleObject('Ben',consistentSize* 0.55,consistentSize* 0.55)
     addLuaSprite('Ben',false)
     playAnim('Ben','idle')
 
-    makeAnimatedLuaSprite('Squid','cenarios/Squirtward',750+40,210*1.18)
+    makeAnimatedLuaSprite('Squid','cenarios/Squirtward',750+40,210*1.18-20)
     addAnimationByPrefix('Squid','bop','Squidward_idleBody',24,false)
     setScrollFactor('Squid',0.9, 0.9)
-    scaleObject('Squid',consistentSize* 0.5,consistentSize* 0.5)
+    scaleObject('Squid',consistentSize* 0.6,consistentSize* 0.6)
     addLuaSprite('Squid',false)
 
-    makeAnimatedLuaSprite('SquidHead','cenarios/Squirtward',750+40,210*1.18)
+    makeAnimatedLuaSprite('SquidHead','cenarios/Squirtward',750+40,210*1.18-20)
     addAnimationByPrefix('SquidHead','bop','Squidward_idleHead',24,false)
     setScrollFactor('SquidHead',0.9, 0.9)
-    scaleObject('SquidHead',consistentSize* 0.5,consistentSize* 0.5)
+    scaleObject('SquidHead',consistentSize* 0.6,consistentSize* 0.6)
     addLuaSprite('SquidHead',false)
 
     addLuaSprite('OtherTable',false)
@@ -320,13 +320,17 @@ function onBeatHit()
         playAnim('Shinto','bop')
         playAnim('POW','bop')
 	end
-	if curBeat >= 84 then
+	if getProperty('health') < 0.75 then
 		playAnim('Ben','look')
-	end
+    else
+        playAnim('Ben','idle')  
+    end
 	
 end
 function onCreatePost()
-	triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)),tostring(LordX[2]+245-200))
+	triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)),tostring(LordX[2]+245-200)-35)
+
+    
 end
 
 function onUpdatePost(elapsed)
@@ -370,11 +374,11 @@ function onEvent(eventName, value1, value2)
     if eventName=='CamPasta' then
 
         if tonumber(value1)==-1 then
-            triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)-200),tostring(LordX[2]+245-200))
+            triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)-200),tostring(LordX[2]+245-200-35))
         elseif tonumber(value1)==1 then
-            triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)+200),tostring(LordX[2]+245-200))
+            triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)+200),tostring(LordX[2]+245-200)-35)
         else
-            triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)),tostring(LordX[2]+245-200))
+            triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)),tostring(LordX[2]+245-200)-35)
         end
     end 
 end
@@ -473,6 +477,6 @@ function ScrollChanges()
         for i = 0, getProperty('notes.length')-1 do
             setPropertyFromGroup('notes', i, 'multSpeed',0.7) 
         end
-    
-        
+
+
 end

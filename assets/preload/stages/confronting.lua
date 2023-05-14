@@ -1,3 +1,6 @@
+daConstantX = - 400;
+daConstantY = -75;
+
 function onCreate() -- Aqui só serve para dar carregar e configurar os cenários,
 	-- A parte massa da coisa mesmo está lá no Master.lua
 
@@ -84,7 +87,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 
 	--phase 2 cheetos
 	makeLuaSprite('florrandom1','cenarios/phase2/random1',-2000,40)--5
-	setLuaSpriteScrollFactor('florrandom1',0.7,0.7)
+	setLuaSpriteScrollFactor('florrandom1',1,1)
 	setProperty('florrandom1.scale.x', 5)
 	setProperty('florrandom1.scale.y', 5)
 	setProperty('florrandom1.antialiasing', false)
@@ -92,7 +95,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('florrandom1',false)
 
 	makeLuaSprite('florrandom2','cenarios/phase2/random2',-2000,40)--5
-	setLuaSpriteScrollFactor('florrandom2',0.7,0.7)
+	setLuaSpriteScrollFactor('florrandom2',1,1)
 	setProperty('florrandom2.scale.x', 5)
 	setProperty('florrandom2.scale.y', 5)
 	setProperty('florrandom2.antialiasing', false)
@@ -100,10 +103,11 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('florrandom2',false)
 
 	makeLuaTiledSprite('chaorunning1','cenarios/phase2/floorscroll',2303,373,true,false) --1
-	setLuaSpriteScrollFactor('chaorunning1',0.4,0.4)
+	setLuaSpriteScrollFactor('chaorunning1',1,1)
 	setPropertyTiledLuaSprite("chaorunning1.antialiasing", false)
-	setPropertyTiledLuaSprite("chaorunning1.x", -555)
-	setPropertyTiledLuaSprite("chaorunning1.y", 575)
+	setPropertyTiledLuaSprite("chaorunning1.x", -555 + daConstantX)
+	setPropertyTiledLuaSprite("chaorunning1.y", 575 + daConstantY)
+	--setPropertyTiledLuaSprite("chaorunning1.scrollFactor.y", 1)
 	setPropertyTiledLuaSprite("chaorunning1.visible", false)
 	addLuaSprite('chaorunning1');
 
@@ -215,7 +219,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	objectPlayAnimation('awaEXE', 'bg1', true)
 	
 	makeLuaSprite('florrandom2EXE','cenarios/phase4/random2',-2000,-30)--5
-	setLuaSpriteScrollFactor('florrandom2EXE',0.7,0.7)
+	setLuaSpriteScrollFactor('florrandom2EXE',1,1)
 	setProperty('florrandom2EXE.scale.x', 5)
 	setProperty('florrandom2EXE.scale.y', 5)
 	setProperty('florrandom2EXE.visible', false)
@@ -223,7 +227,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('florrandom2EXE',false)
 	
 	makeLuaSprite('florrandom3EXE','cenarios/phase4/random1',-2000,-50)--5
-	setLuaSpriteScrollFactor('florrandom2EXE',0.7,0.7)
+	setLuaSpriteScrollFactor('florrandom2EXE',1,1)
 	setProperty('florrandom3EXE.scale.x', 5)
 	setProperty('florrandom3EXE.scale.y', 5)
 	setProperty('florrandom3EXE.antialiasing', false)
@@ -231,10 +235,10 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('florrandom3EXE',false)
 	
 	makeLuaTiledSprite('chaorunning1EXE','cenarios/phase4/floorscroll',2303,256,true,false) --1
-	setLuaSpriteScrollFactor('chaorunning1EXE',0.4,0.4)
+	setLuaSpriteScrollFactor('chaorunning1EXE',1,1)
 	setPropertyTiledLuaSprite("chaorunning1EXE.antialiasing", false)
-	setPropertyTiledLuaSprite("chaorunning1EXE.x", -500)
-	setPropertyTiledLuaSprite("chaorunning1EXE.y", 550)
+	setPropertyTiledLuaSprite("chaorunning1EXE.x", -500 + daConstantX)
+	setPropertyTiledLuaSprite("chaorunning1EXE.y", 550 + daConstantY*0.9)
 	setPropertyTiledLuaSprite("chaorunning1EXE.visible", false)
 	addLuaSprite('chaorunning1EXE');
 

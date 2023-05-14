@@ -432,7 +432,7 @@ class MenuHistoria extends MusicBeatSubstate
 				}
 			});
 			if (!side && executando){
-			FlxTween.tween(textoSprite, {x: 0 - textoSprite.width}, curtimer, {ease: FlxEase.expoInOut,
+			FlxTween.tween(textoSprite, {x: 0 - textoSprite.width}, curtimer, {ease: FlxEase.expoIn,
 				onComplete: function(twn:FlxTween) {
 					if(OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload'))) { //anti crashing moment 
 						textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload')); 
@@ -457,7 +457,7 @@ class MenuHistoria extends MusicBeatSubstate
 				}
 			});
 			} else if (executando) {
-				FlxTween.tween(textoSprite, {x: FlxG.width + textoSprite.width}, curtimer, {ease: FlxEase.expoInOut,
+				FlxTween.tween(textoSprite, {x: FlxG.width + textoSprite.width}, curtimer, {ease: FlxEase.expoIn,
 					onComplete: function(twn:FlxTween) {
 						if(OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload'))) { //anti crashing moment 
 							textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)", 'preload')); 

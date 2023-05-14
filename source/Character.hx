@@ -261,12 +261,13 @@ class Character extends FlxSprite
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-			if (PlayState.detailsPausedText == "Pausado - " + 'Ato 4')
+			/*if (PlayState.detailsPausedText == "Pausado - " + 'Ato 4')
 				color = 0x353535;
 			/*else if(PlayState.detailsPausedText == "Pausado - " + 'Ato 6')
-				color = 0x5E1E07;*/
+				color = 0x5E1E07;
 			else
 				color = 0xFFFFFF;
+			*/
 
 		if (!nonanimated)
 			{

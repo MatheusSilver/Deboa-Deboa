@@ -62,6 +62,7 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Shaders;
+import flash.filters.BlurFilter;
 
 import flixel.graphics.FlxGraphic;
 
@@ -473,6 +474,8 @@ class PlayState extends MusicBeatState
 	var modboalogo = new FlxSprite();
 	public static var veioNormal:Bool;
 	public var playingVideoMP4:Bool =false;
+
+	var blurShader:BlurFilter;
 
 	var blackStuff:FlxSprite;
 
@@ -2326,6 +2329,21 @@ class PlayState extends MusicBeatState
 					]);
 			}
 			healthBar.updateBar();
+
+			if(curSong.toLowerCase()=='pasta-night'){
+				healthBar.createGradientBar(
+					[
+						FlxColor.fromRGB(gf.healthColorArray[0], gf.healthColorArray[1], gf.healthColorArray[2]),
+						FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2])
+					],
+					[
+						FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2])
+					], 1, 90);
+		
+			//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
+			healthBar.updateBar();
+			}
+			
 		}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -4709,9 +4727,8 @@ class PlayState extends MusicBeatState
 				{
 					tofade.alpha = 0.4;
 				});
-			
-				//Ah sim, utilizando esse evento, você poderá modificar a ordem das setas.
-				}
+				
+			}
 
 			case 'Must Press Swap': //Transição mais estilosa usada exclusivamente em CCC
 				var k:Float = 0; //-565 ou 565
@@ -5945,7 +5962,7 @@ class PlayState extends MusicBeatState
 
 	private function popUpScore(note:Note = null):Void
 	{
-		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition - 35); 
+		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition /*- 35*/ +8); 
 
 		vocals.volume = 1;
 		if(!SONG.needsVoices){
@@ -6091,7 +6108,7 @@ class PlayState extends MusicBeatState
 			numScore.velocity.x = FlxG.random.float(-5, 5);
 			numScore.visible = !ClientPrefs.hideHud;
 
-			var daSongsSemNumScore:Array<String> = ["confronting-yourself", "prey-hard", "sink-hard"]; //pras musicas "sérias" que isso aqui não se encaixaria em nenhum lugar
+			var daSongsSemNumScore:Array<String> = ["confronting-yourself", "prey", "sink"]; //pras musicas "sérias" que isso aqui não se encaixaria em nenhum lugar
 																									// resumindo, pra musicas que ficam melhores sem esse negócio feio
 			var podeScore:Bool = true;
 
@@ -6099,7 +6116,6 @@ class PlayState extends MusicBeatState
 				{
 					if(curSong.toLowerCase() == i)
 						podeScore=false;
-						break;
 				}
 			if (combo >= 10 || combo == 0)
 				if(podeScore)
@@ -7004,6 +7020,26 @@ class PlayState extends MusicBeatState
 		{
 			resyncVocals();
 		}
+
+		if(curSong.toLowerCase() == "sink" && ClientPrefs.shaders)
+			{
+				switch(curStep) // x02 deve estar orgulhoso
+				{
+					case 1602:
+						blurShader = new BlurFilter();
+						blurShader.blurX=0;
+						blurShader.blurY=0;
+						canPause = false;
+						camGame.setFilters([blurShader]);
+						camHUD.setFilters([blurShader]);
+						FlxTween.tween(blurShader, {blurX: 10, blurY: 20}, 6.75, {ease: FlxEase.linear});
+					case 1673:
+						FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 2.5, {ease: FlxEase.linear, onComplete: function(tween:FlxTween){
+							canPause=true;
+						}});
+						
+				}
+			}
 
 		if(curSong == "triple-trouble")
 			{
