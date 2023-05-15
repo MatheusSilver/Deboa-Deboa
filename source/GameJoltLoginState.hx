@@ -48,15 +48,17 @@ class GameJoltLoginState extends MusicBeatState
 			supbg.alpha = 1;
 			add(supbg);
 
-            userBar = new FlxUIInputText(0, 0, 575, "USERNAME", 50, FlxColor.WHITE, FlxColor.TRANSPARENT, true);
+            userBar = new FlxUIInputText(0, 0, 575, "USERNAME", 50, FlxColor.GREEN, FlxColor.TRANSPARENT, true);
             userBar.background=false;
             userBar.x = 354;
             userBar.y = 195;
+            userBar.alignment = CENTER;
 
-            tokenBar = new FlxUIInputText(0, 0, 575, "TOKEN", 50, FlxColor.WHITE, FlxColor.TRANSPARENT, true);
+            tokenBar = new FlxUIInputText(0, 0, 575, "TOKEN", 50, FlxColor.GREEN, FlxColor.TRANSPARENT, true);
             tokenBar.background=false;
             tokenBar.x = 354;
             tokenBar.y = 306;
+            tokenBar.alignment = CENTER;
 
             loginbotao = new FlxButton(FlxG.width, 100, '');
 			loginbotao.loadGraphic(Paths.image('optionsmenu/login_button', 'preload'));

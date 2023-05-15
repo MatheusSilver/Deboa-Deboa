@@ -118,6 +118,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 					trace("não consegui hostear");
 				  });
 
+				  server.addEventListener(NetworkEvent.DISCONNECTED, function(e: NetworkEvent)
+					{
+						Network.destroySession(server);
+					});
+
 
 			}
 
