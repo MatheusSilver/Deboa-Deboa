@@ -289,45 +289,43 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 			}
 
-
-			// input
-
-			var input:Array<String> = [wJP, aJP, sJP, dJP, wR, aR, sR, dR];
-
-					// j. pressed :
-			var wJP = FlxG.keys.justPressed.W;
-			var aJP = FlxG.keys.justPressed.A;
-			var sJP = FlxG.keys.justPressed.S;
-			var dJP = FlxG.keys.justPressed.D;
-
-					// just released :
-			var wR = FlxG.keys.justReleased.W;
-			var aR = FlxG.keys.justReleased.A;
-			var sR = FlxG.keys.justReleased.S;
-			var dR = FlxG.keys.justReleased.D;
-
 	function inputShit()
 		{
 			textinhoDebug.text=keysPlayer1.toString()+"\n"+keysPlayer2.toString();
-			
-			switch(input) {
-				case [1]:
+			if(FlxG.keys.justPressed.W)
+				{
 					segureiObotao("cima");
-				case [2]:
-					segureiObotao("esquerda");
-				case [3]:
+				}
+			if(FlxG.keys.justPressed.S)
+				{
 					segureiObotao("baixo");
-				case [4]:
+				}
+			if(FlxG.keys.justPressed.D)
+				{
 					segureiObotao("direita");
-				case [5]:
-					solteiObotao("cima");
-				case [6]:
-					solteiObotao("esquerda");
-				case [7]:
-					solteiObotao("baixo");
-				case [8]:
-					solteiObotao("direita");
-			}		
+				}
+			if(FlxG.keys.justPressed.A)
+				{
+					segureiObotao("esquerda");
+				}
+
+				if(FlxG.keys.justReleased.W)
+					{
+						solteiObotao("cima");
+					}
+				if(FlxG.keys.justReleased.S)
+					{
+						solteiObotao("baixo");
+					}
+				if(FlxG.keys.justReleased.D)
+					{
+						solteiObotao("direita");
+					}
+				if(FlxG.keys.justReleased.A)
+					{
+						solteiObotao("esquerda");
+					}
+			
 		}
 
 
