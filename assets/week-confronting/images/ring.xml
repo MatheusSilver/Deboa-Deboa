@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="ring.png">
+<SubTexture name="ring idle0000" x="0" y="0" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0001" x="498" y="0" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0002" x="0" y="498" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0003" x="498" y="498" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0004" x="996" y="0" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0005" x="996" y="498" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0006" x="0" y="996" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0007" x="498" y="996" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0008" x="996" y="996" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0009" x="1494" y="0" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0010" x="1494" y="498" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0011" x="1494" y="996" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0012" x="0" y="1494" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0013" x="498" y="1494" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0014" x="996" y="1494" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0015" x="1494" y="1494" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0016" x="1992" y="0" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+<SubTexture name="ring idle0017" x="1992" y="498" width="498" height="498" frameX="0" frameY="0" frameWidth="498" frameHeight="498" />
+</TextureAtlas>

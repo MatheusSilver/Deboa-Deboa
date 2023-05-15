@@ -222,6 +222,10 @@ function onTweenCompleted(tag) --a
 end
 
 function onCreate()
+
+	addCharacterToList('Sonic Pixel Running ato4', 'bf')
+    addCharacterToList('Sonic Exe Pixel Flying ato4', 'dad')
+	
 	pushScriptData("trans")
 
 	precacheImage('Tails')
@@ -259,13 +263,12 @@ function onCreatePost()
 	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
 
 	--Ring code
-	makeLuaSprite('healthFollower', 'empty', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y'))
-	makeGraphic('healthFollower', 50, getProperty('healthBarBG.height')*1.2, 'FFFFFF')
-	--Quando um sprite para o coiso de vida nos atos 3 e 5 forem definidos, é só tirar esse makeGraphic e usar o debaixo aqui.
-	--loadGraphic('healthFollower', 'ringFollow')
+	makeAnimatedLuaSprite('healthFollower', 'ring', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y')-27)
+	addAnimationByPrefix('healthFollower', 'idle', 'ring idle', 12, true)
+	objectPlayAnimation('healthFollower', 'idle', true)
 	setProperty('healthFollower.visible', false)
 	setObjectCamera('healthFollower', 'camHUD')
-	setGraphicSize('healthFollower', 50, getProperty('healthBarBG.height')*1.2)
+	setGraphicSize('healthFollower', 75)
 
 	setObjectOrder('healthFollower', getObjectOrder('healthBarBG') + 1)
 	addLuaSprite('healthFollower')
@@ -285,7 +288,7 @@ function onUpdate()
 		-- Caso o sonico esteja na esquerda e o opp esteja na direita, é a formula abaixo
 		-- setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2)
 		-- Caso contrário, bf na direita e opp na esquerda (que é o caso da CY), então...
-		setProperty('healthFollower.x', getProperty('healthBar.x') - 25 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+		setProperty('healthFollower.x', getProperty('healthBar.x') - 35 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
 		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
 	end
 	speedChanger = speedChanger + 1

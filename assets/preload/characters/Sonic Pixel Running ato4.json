@@ -1,0 +1,122 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-240,
+				-440
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "sonic sing down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-240,
+				-440
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "sonic sing up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-240,
+				-440
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "sonic sing right",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-240,
+				-440
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "sonic idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-240,
+				-440
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "sonic left sing",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-240,
+				-440
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "sonic up miss"
+		},
+		{
+			"offsets": [
+				-240,
+				-440
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"indices": [],
+			"name": "sonic right miss"
+		},
+		{
+			"offsets": [
+				-240,
+				-440
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWNmiss",
+			"indices": [],
+			"name": "sonic down miss"
+		},
+		{
+			"offsets": [
+				-240,
+				-440
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"indices": [],
+			"name": "sonic left miss"
+		}
+	],
+	"no_antialiasing": true,
+	"image": "characters/confronting/corrida/Sonic Pixel Running ato4",
+	"position": [
+		-500,
+		0
+	],
+	"healthicon": "sonicpixel",
+	"flip_x": false,
+	"healthbar_colors": [
+		109,
+		107,
+		213
+	],
+	"camera_position": [
+		-150,
+		200
+	],
+	"sing_duration": 6.1,
+	"scale": 7
+}

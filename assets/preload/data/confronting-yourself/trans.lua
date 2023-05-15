@@ -120,7 +120,7 @@ function onEvent(evento, valor1, valor2)
             cameraFlash('legenda', '0xff0000', 3, true)
             triggerEvent("Set Cam Zoom", '0.8', 'nada', 'nada', 'nada')
             setProperty('iconP2.alpha', 1)
-            fastChar('Sonic Pixel Running', 'Sonic Exe Pixel Flying')
+            fastChar('Sonic Pixel Running ato4', 'Sonic Exe Pixel Flying ato4')
             for i = 1,#animaisdegrandeporte do
                 removeLuaSprite(animaisdegrandeporte[i], true)
             end

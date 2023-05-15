@@ -237,7 +237,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	makeLuaTiledSprite('chaorunning1EXE','cenarios/phase4/floorscroll',2303,256,true,false) --1
 	setLuaSpriteScrollFactor('chaorunning1EXE',1,1)
 	setPropertyTiledLuaSprite("chaorunning1EXE.antialiasing", false)
-	setPropertyTiledLuaSprite("chaorunning1EXE.x", -500 + daConstantX)
+	setPropertyTiledLuaSprite("chaorunning1EXE.x", -500 + daConstantX*0.9)
 	setPropertyTiledLuaSprite("chaorunning1EXE.y", 550 + daConstantY*0.9)
 	setPropertyTiledLuaSprite("chaorunning1EXE.visible", false)
 	addLuaSprite('chaorunning1EXE');
