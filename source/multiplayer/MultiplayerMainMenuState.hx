@@ -92,75 +92,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 							var qualEquem:Array<String> = e.data.message.split(" ");
 							//trace("\nCliente: "+qualEquem[0] +"\nSeta: "+qualEquem[1] +"\nAcao: "+qualEquem[2]);
 							
-							if(qualEquem[2] == "Segurei")
-							{
-								if(qualEquem[0]=="0")
-									{
-										switch(qualEquem[1])
-										{
-											case "cima":
-												keysPlayer1[0]=true;
-											case "baixo":
-												keysPlayer1[1]=true;
-											case "direita":
-												keysPlayer1[2]=true;
-											case "esquerda":
-												keysPlayer1[3]=true;
-										}
-										server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Segurei", verb: 'input' });
-									}
-								else
-									{
-										switch(qualEquem[1])
-										{
-											case "cima":
-												keysPlayer2[0]=true;
-											case "baixo":
-												keysPlayer2[1]=true;
-											case "direita":
-												keysPlayer2[2]=true;
-											case "esquerda":
-												keysPlayer2[3]=true;
-										}
-										server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Segurei", verb: 'input' });
-									}
-							}
-							else
-								{
-									if(qualEquem[0]=="0")
-										{
-											switch(qualEquem[1])
-											{
-												case "cima":
-													keysPlayer1[0]=false;
-												case "baixo":
-													keysPlayer1[1]=false;
-												case "direita":
-													keysPlayer1[2]=false;
-												case "esquerda":
-													keysPlayer1[3]=false;
-											}
-											server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Soltei", verb: 'input' });
-										}
-									else
-										{
-											switch(qualEquem[1])
-											{
-												case "cima":
-													keysPlayer2[0]=false;
-												case "baixo":
-													keysPlayer2[1]=false;
-												case "direita":
-													keysPlayer2[2]=false;
-												case "esquerda":
-													keysPlayer2[3]=false;
-											}
-											server.send({ message: qualEquem[0]+" "+qualEquem[1] +" Soltei", verb: 'input' });
-										}
-								}
+							mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2], true);
 
-							trace("Player 1 Input: "+keysPlayer1);
-							trace("Player 2 Input: "+keysPlayer2);							
+							//trace("Player 1 Input: "+keysPlayer1);
+							//trace("Player 2 Input: "+keysPlayer2);							
 						}
 					else
 						{
@@ -204,69 +139,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 							{
 								var qualEquem:Array<String> = e.data.message.split(" ");
 								//trace("\nCliente: "+qualEquem[0] +"\nSeta: "+qualEquem[1] +"\nAcao: "+qualEquem[2]);
+								mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2]);
 								
-								if(qualEquem[2] == "Segurei")
-								{
-									if(qualEquem[0]=="0")
-										{
-											switch(qualEquem[1])
-											{
-												case "cima":
-													keysPlayer1[0]=true;
-												case "baixo":
-													keysPlayer1[1]=true;
-												case "direita":
-													keysPlayer1[2]=true;
-												case "esquerda":
-													keysPlayer1[3]=true;
-											}
-										}
-									else
-										{
-											switch(qualEquem[1])
-											{
-												case "cima":
-													keysPlayer2[0]=true;
-												case "baixo":
-													keysPlayer2[1]=true;
-												case "direita":
-													keysPlayer2[2]=true;
-												case "esquerda":
-													keysPlayer2[3]=true;
-											}
-										}
-								}
-								else
-									{
-										if(qualEquem[0]=="0")
-											{
-												switch(qualEquem[1])
-												{
-													case "cima":
-														keysPlayer1[0]=false;
-													case "baixo":
-														keysPlayer1[1]=false;
-													case "direita":
-														keysPlayer1[2]=false;
-													case "esquerda":
-														keysPlayer1[3]=false;
-												}
-											}
-										else
-											{
-												switch(qualEquem[1])
-												{
-													case "cima":
-														keysPlayer2[0]=false;
-													case "baixo":
-														keysPlayer2[1]=false;
-													case "direita":
-														keysPlayer2[2]=false;
-													case "esquerda":
-														keysPlayer2[3]=false;
-												}
-											}
-									}
 							}
 						trace(e.data.message); 
 					});	
@@ -339,6 +213,85 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 									// quem clicou | oq clicou
 			client.send({ message: myID+" "+qual +" Soltei", verb: 'input' });
+		}
+
+	function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
+		{
+			if(two == "Segurei")
+				{
+					if(zero=="0")
+						{
+							switch(one)
+							{
+								case "cima":
+									keysPlayer1[0]=true;
+								case "baixo":
+									keysPlayer1[1]=true;
+								case "direita":
+									keysPlayer1[2]=true;
+								case "esquerda":
+									keysPlayer1[3]=true;
+							}
+							if(isServer){
+								server.send({ message: zero+" "+one +" Segurei", verb: 'input' });
+							}
+
+						}
+					else
+						{
+							switch(one)
+							{
+								case "cima":
+									keysPlayer2[0]=true;
+								case "baixo":
+									keysPlayer2[1]=true;
+								case "direita":
+									keysPlayer2[2]=true;
+								case "esquerda":
+									keysPlayer2[3]=true;
+							}
+							if(isServer){
+								server.send({ message: zero+" "+one +" Segurei", verb: 'input' });
+							}
+						}
+				}
+				else
+					{
+						if(zero=="0")
+							{
+								switch(one)
+								{
+									case "cima":
+										keysPlayer1[0]=false;
+									case "baixo":
+										keysPlayer1[1]=false;
+									case "direita":
+										keysPlayer1[2]=false;
+									case "esquerda":
+										keysPlayer1[3]=false;
+								}
+								if(isServer){
+									server.send({ message: zero+" "+one +" Soltei", verb: 'input' });
+								}
+							}
+						else
+							{
+								switch(one)
+								{
+									case "cima":
+										keysPlayer2[0]=false;
+									case "baixo":
+										keysPlayer2[1]=false;
+									case "direita":
+										keysPlayer2[2]=false;
+									case "esquerda":
+										keysPlayer2[3]=false;
+								}
+								if(isServer){
+									server.send({ message: zero+" "+one +" Soltei", verb: 'input' });
+								}
+							}
+					}
 		}
 
             
