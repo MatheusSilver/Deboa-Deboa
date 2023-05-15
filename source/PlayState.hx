@@ -437,17 +437,9 @@ class PlayState extends MusicBeatState
 	var cNum:Int = 0;
 
 
-	//var memuse:Float = Math.round(System.totalMemory / 1024 / 1024 * 100)/100; // :sunglasses: :trollface:
-
-	// Texto de aviso caso o PC/celular esteja sobrecarregando.
-
-	//var sobrecarga:FlxText;
-	//var canoff:Bool = canon;
-	//var canon:Bool;
-
-	/* Semelhante ao do OBS Studio:
-	 		Imagem de exemplo no chat #x02-room 
-			 https://cdn.discordapp.com/attachments/1050918953960091658/1075471038718160986/maxresdefault.png
+	/* 
+	Anotações do MateusX02:
+	 	Preparar a source do ModBoa pra uma possível cross build entre android, iOS, Windows e Linux.
 	*/
 
 	public var sonicHUDSongs:Array<String> = [
@@ -4224,6 +4216,20 @@ class PlayState extends MusicBeatState
 		checkEventNote();
 		
 		#if debug
+		if(SONG.song.toLowerCase()=='confronting-yourself') {
+
+		// Uma fix pros bugs que acontecem quando você pula o ato da música
+		// Vale a pena mexer aqui muito? Não, fiz isso por detalhe mesmo :skull:
+		// Caso eu achar, ou os coders que estarem vendo isso acharem outros bugs quando você aperta pra pular,
+		// ajudem colocando soluções deles aqui.
+
+			//cutscene bugando o ato = resolvido
+			if(playingVideoMP4) {
+				pularVideo();
+			}
+
+		}
+
 		if(!endingSong && !startingSong) {
 			if (FlxG.keys.justPressed.ONE) {
 				KillNotes();

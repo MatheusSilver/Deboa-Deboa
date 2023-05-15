@@ -57,6 +57,7 @@
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 
 	<define name="GAMEJOLT_ALLOWED" if="desktop" />
+
 	
 
 	<!-- Isso vai ser tãaaaaaaaaaaaaaaaaaaaaao chato de fazer... -->
@@ -225,6 +226,7 @@
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="actuate" />
 	<haxelib name="extension-webm"/>
+	<haxelib name="extension-networking"/>
 	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
 	<!--<haxelib name="hxCodec" if="desktop"/>-->
