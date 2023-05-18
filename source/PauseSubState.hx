@@ -33,8 +33,6 @@ class PauseSubState extends MusicBeatSubstate
 	var pauseMusic:FlxSound;
 	var scrollingSound:FlxSound;
 
-	var calabocavio:FlxSound;
-
 	var continuar:FlxSprite;
 	var restart:FlxSprite;
 	var praticar:FlxSprite;
@@ -84,9 +82,6 @@ class PauseSubState extends MusicBeatSubstate
 		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
 		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
-
-		calabocavio = new FlxSound().loadEmbedded(Paths.sound('introGo','shared'));
-		calabocavio.volume = 0.6;
 
 		if(FlxG.save.data.didJumpscare==null)
 			{
@@ -349,7 +344,7 @@ class PauseSubState extends MusicBeatSubstate
 						{ 
 							case 1:
 								PlayState.instance.canPause = false;
-								if(isDoingtheThing&& PlayState.instance.paused){FlxG.sound.play(Paths.sound('intro3','shared'), 0.6);}
+								if(isDoingtheThing&& PlayState.instance.paused){PlayState.instance.intro3.play();}
 			
 							case 2:
 								ready.scrollFactor.set();
@@ -371,7 +366,7 @@ class PauseSubState extends MusicBeatSubstate
 								});
 								PlayState.instance.canPause = false;
 			
-								if(isDoingtheThing&& PlayState.instance.paused){FlxG.sound.play(Paths.sound('intro2','shared'), 0.6);}
+								if(isDoingtheThing&& PlayState.instance.paused){PlayState.instance.intro2.play();}
 							case 3:
 								set.scrollFactor.set();
 								PlayState.instance.canPause = false;
@@ -388,11 +383,11 @@ class PauseSubState extends MusicBeatSubstate
 										set.destroy();
 									}
 								});
-								if(isDoingtheThing && PlayState.instance.paused){FlxG.sound.play(Paths.sound('intro1','shared'), 0.6);}
+								if(isDoingtheThing && PlayState.instance.paused){PlayState.instance.intro1.play();}
 							case 4:
 								if(isDoingtheThing && PlayState.instance.paused)
 									{
-										calabocavio.play();
+										PlayState.instance.introgo.play();
 									}
 								PlayState.instance.canPause = false;			
 								go.scrollFactor.set();

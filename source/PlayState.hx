@@ -90,6 +90,12 @@ class PlayState extends MusicBeatState
 	var sonicAviso:FlxSound;
 	var sonicDash:FlxSound;
 
+	public var intro1:FlxSound;
+	public var intro2:FlxSound;
+	public var intro3:FlxSound;
+	public var introgo:FlxSound;
+
+
 	public static var legendPath:String = '';
 
 	public static var modohistoria:Bool = false;
@@ -1216,7 +1222,10 @@ class PlayState extends MusicBeatState
 		}
 
 		if(ClientPrefs.noteSplashes){
-			precacheList.set('splashes/'+SONG.splashSkin, 'image');
+			if (SONG.splashSkin == null)
+				precacheList.set('splashes/noteSplashes', 'image');
+			else
+				precacheList.set('splashes/'+SONG.splashSkin, 'image');
 		}
 
 		if (ClientPrefs.hitSounds){
@@ -2275,10 +2284,14 @@ class PlayState extends MusicBeatState
 			for (asset in introAlts)
 				precacheList.set(asset,'image');
 			
-			precacheList.set('intro3' + introSoundsSuffix, 'sound');
-			precacheList.set('intro2' + introSoundsSuffix, 'sound');
-			precacheList.set('intro1' + introSoundsSuffix, 'sound');
-			precacheList.set('introGo' + introSoundsSuffix, 'sound');
+			intro1 = new FlxSound().loadEmbedded(Paths.sound('intro1' + introSoundsSuffix, 'preload'));
+			intro1.volume = 0.6;
+			intro2 = new FlxSound().loadEmbedded(Paths.sound('intro2' + introSoundsSuffix, 'preload'));
+			intro2.volume = 0.6;
+			intro3 = new FlxSound().loadEmbedded(Paths.sound('intro3' + introSoundsSuffix, 'preload'));
+			intro3.volume = 0.6;
+			introgo = new FlxSound().loadEmbedded(Paths.sound('introGo' + introSoundsSuffix, 'preload'));
+			introgo.volume = 0.6;
 		}
 
 	public var vidSound:FlxSound;
@@ -2920,7 +2933,7 @@ class PlayState extends MusicBeatState
 				switch (swagCounter)
 				{
 					case 0:
-						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
+						intro3.play();
 					case 1:
 						var ready:FlxSprite; 
 						ready = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
@@ -2943,7 +2956,7 @@ class PlayState extends MusicBeatState
 								ready.destroy();
 							}
 						});
-						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
+						intro2.play();
 					case 2:
 						var set:FlxSprite;
 						set = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
@@ -2965,7 +2978,7 @@ class PlayState extends MusicBeatState
 								set.destroy();
 							}
 						});
-						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
+						intro1.play();
 					case 3:
 						var go:FlxSprite; //bruh + meme = breme
 
@@ -2992,7 +3005,7 @@ class PlayState extends MusicBeatState
 						});
 						new FlxTimer().start(1, function(tmr:FlxTimer){canPause=true;});
 						
-						FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
+						introgo.play();
 					case 4:
 				}
 			} //solução preguiçosa, fodasi
