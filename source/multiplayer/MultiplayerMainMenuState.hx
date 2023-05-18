@@ -1,5 +1,7 @@
 package multiplayer;
 
+import openfl.events.KeyboardEvent;
+import flixel.input.keyboard.FlxKey;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.ui.FlxUIInputText;
@@ -27,36 +29,60 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var isHost:Bool = false;
 	var myID:Int = 0;
 	//var	keysArray:Array<Dynamic>;
-						// cima, baixo, direita, esquerda
+				// cima, baixo, direita, esquerda
+	private var controlArray:Array<String>;
+	private var keysArray:Array<Dynamic>;
+	private var translator:Array<String> = ['esquerda','baixo','cima','direita'];
 	var keysPlayer1:Array<Bool> = [false,false,false,false];
 	var keysPlayer2:Array<Bool> = [false,false,false,false];
 
 	var textinhoDebug:FlxText;
 
+	private function parseKeys(?suffix:String = ''):Array<Bool>
+		{
+			var ret:Array<Bool> = [];
+			for (i in 0...controlArray.length)
+			{
+				ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
+			}
+			return ret;
+		}
+
 
 	override function create()
-		{
-			textinhoDebug = new FlxText(0,0,0,"",25,true);
-			textinhoDebug.screenCenter(XY);
-			add(textinhoDebug);
-			/*keysArray = [
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
-				];*/
-            hostearBt = new FlxButton(FlxG.width, 100, 'HOSTEAR');
-			hostearBt.updateHitbox();
-			hostearBt.x = 100; // 405
-			hostearBt.y = 100;
-			add(hostearBt);
-			entrarBt = new FlxButton(FlxG.width, 100, 'ENTRAR');
-			entrarBt.updateHitbox();
-			entrarBt.x = 200; // 405
-			entrarBt.y = 200;
-			add(entrarBt);
-			super.create();
-		}
+	{
+		textinhoDebug = new FlxText(0,0,0,"",25,true);
+		textinhoDebug.screenCenter(XY);
+		add(textinhoDebug);
+        
+		hostearBt = new FlxButton(FlxG.width, 100, 'HOSTEAR');
+		hostearBt.updateHitbox();
+		hostearBt.x = 100; // 405
+		hostearBt.y = 100;
+		add(hostearBt);
+		entrarBt = new FlxButton(FlxG.width, 100, 'ENTRAR');
+		entrarBt.updateHitbox();
+		entrarBt.x = 200; // 405
+		entrarBt.y = 200;
+		add(entrarBt);
+		super.create();
+
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
+
+		controlArray = [
+			'NOTE_LEFT',
+			'NOTE_DOWN',
+			'NOTE_UP',
+			'NOTE_RIGHT'
+			];
+		keysArray = [
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
+			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
+		];
+	}
 	override function update(elapsed:Float)
 		{
             if (controls.BACK && !isOnServer) {
@@ -64,12 +90,30 @@ class MultiplayerMainMenuState extends MusicBeatState
                 MusicBeatState.switchState(new MainMenuStateMobile());
             }
 			hostearBt.onDown.callback= hostear;
-			if(isOnServer)
-				{inputShit();}
+			/*if(isOnServer)
+				{inputShit();}*/
 			entrarBt.onDown.callback= entrar;
             super.update(elapsed);
 
 		}
+
+		private function getKeyFromEvent(key:FlxKey):Int
+			{
+				if(key != NONE)
+				{
+					for (i in 0...keysArray.length)
+					{
+						for (j in 0...keysArray[i].length)
+						{
+							if(key == keysArray[i][j])
+							{
+								return i;
+							}
+						}
+					}
+				}
+				return -1;
+			}
 
 		public function hostear()
 			{
@@ -126,6 +170,27 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 			}
 
+	override function destroy() {
+		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
+		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
+
+		super.destroy();
+	}
+
+	private function onKeyRelease(event:KeyboardEvent):Void
+	{
+		var eventKey:FlxKey = event.keyCode;
+		var key:Int = getKeyFromEvent(eventKey);
+		client.send({ message: myID+" "+translator[key] +" Soltei", verb: 'input' });
+	}
+
+	private function onKeyPress(event:KeyboardEvent):Void
+	{
+		var eventKey:FlxKey = event.keyCode;
+		var key:Int = getKeyFromEvent(eventKey);
+		client.send({ message: myID+" "+translator[key] +" Segurei", verb: 'input' });
+	}
+
 		public function entrar()
 			{
 					var server_ip = '127.0.0.1';
@@ -167,45 +232,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 					});
 
 			}
-
-	function inputShit()
-		{
-			textinhoDebug.text=keysPlayer1.toString()+"\n"+keysPlayer2.toString();
-			if(FlxG.keys.justPressed.W)
-				{
-					segureiObotao("cima");
-				}
-			if(FlxG.keys.justPressed.S)
-				{
-					segureiObotao("baixo");
-				}
-			if(FlxG.keys.justPressed.D)
-				{
-					segureiObotao("direita");
-				}
-			if(FlxG.keys.justPressed.A)
-				{
-					segureiObotao("esquerda");
-				}
-
-				if(FlxG.keys.justReleased.W)
-					{
-						solteiObotao("cima");
-					}
-				if(FlxG.keys.justReleased.S)
-					{
-						solteiObotao("baixo");
-					}
-				if(FlxG.keys.justReleased.D)
-					{
-						solteiObotao("direita");
-					}
-				if(FlxG.keys.justReleased.A)
-					{
-						solteiObotao("esquerda");
-					}
-			
-		}
 
 
 	function segureiObotao(qual:String)
@@ -298,6 +324,45 @@ class MultiplayerMainMenuState extends MusicBeatState
 							}
 					}
 		}
+
+		/*function inputShit()
+		{
+			textinhoDebug.text=keysPlayer1.toString()+"\n"+keysPlayer2.toString();
+			if(FlxG.keys.justPressed.W)
+				{
+					segureiObotao("cima");
+				}
+			if(FlxG.keys.justPressed.S)
+				{
+					segureiObotao("baixo");
+				}
+			if(FlxG.keys.justPressed.D)
+				{
+					segureiObotao("direita");
+				}
+			if(FlxG.keys.justPressed.A)
+				{
+					segureiObotao("esquerda");
+				}
+
+				if(FlxG.keys.justReleased.W)
+					{
+						solteiObotao("cima");
+					}
+				if(FlxG.keys.justReleased.S)
+					{
+						solteiObotao("baixo");
+					}
+				if(FlxG.keys.justReleased.D)
+					{
+						solteiObotao("direita");
+					}
+				if(FlxG.keys.justReleased.A)
+					{
+						solteiObotao("esquerda");
+					}
+			
+		}*/
 
             
 }
