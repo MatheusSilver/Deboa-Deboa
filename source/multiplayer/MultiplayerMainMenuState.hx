@@ -43,6 +43,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	var textinhoDebug:FlxText;
 
+	var player1BF:Boyfriend;
+	var player2BF:Boyfriend;
+	var nomes:Array<String> = ["Player 1", "Player 2"];
+	var textinhoBF1:FlxText;
+	var textinhoBF2:FlxText;
+
 	// TO DO: UMA JANELINHA QUE INFORMA ERROS QUANDO VC TENTA SE CONECTAR E N CONSEGUE, QUANDO A SALA TA CHEIA E QUANDO O HOST SAI DA SALA
 
 	/*private function parseKeys(?suffix:String = ''):Array<Bool>
@@ -82,7 +88,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		textinhoDebug = new FlxText(0,0,0,"",25,true);
 		textinhoDebug.screenCenter(XY);
-		add(textinhoDebug);
         
 		hostearBt = new FlxButton(FlxG.width, 100, '');
 		hostearBt.loadGraphic(Paths.image('multiplayer/hospedarBt', 'preload'));
@@ -120,15 +125,43 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		FlxTween.tween(multiplayerTxt, {y: 51}, 0.75, {ease: FlxEase.expoInOut});
 		FlxTween.tween(ipBar, {y: 253}, 1, {ease: FlxEase.expoInOut});
-		FlxTween.tween(entrarBt, {y: 488}, 1.95, {ease: FlxEase.expoInOut, onComplete: function(tween:FlxTween){canClick=true;}});
+		FlxTween.tween(entrarBt, {y: 488}, 1.45, {ease: FlxEase.expoInOut, onComplete: function(tween:FlxTween){canClick=true;}});
 		FlxTween.tween(hostearBt, {y: 348}, 1.25, {ease: FlxEase.expoInOut});
+
+		textinhoBF1 = new FlxText(0,0,0,"",50, true);
+		textinhoBF1.alignment = CENTER;
+		add(textinhoBF1);
+		textinhoBF2 = new FlxText(0,0,0,"",50, true);
+		textinhoBF2.alignment = CENTER;
+		add(textinhoBF2);
+		player1BF = new Boyfriend(174, 190);
+		player1BF.visible=false;
+		player2BF = new Boyfriend(681, 190);
+		player2BF.visible=false;
+		player1BF.playAnim('idle', true, false, 10);
+		player2BF.playAnim('idle', true, false, 10);
+		add(player1BF);
+		add(player2BF);
+		//add(textinhoDebug);
 	}
 	override function update(elapsed:Float)
 		{
+			textinhoBF2.alignment = CENTER;
+			textinhoBF1.text=nomes[0];
+			textinhoBF1.x = player1BF.x+90;
+			textinhoBF1.y = player1BF.y-60;
+			textinhoBF1.visible = player1BF.visible;
+
+			textinhoBF2.alignment = CENTER;
+			textinhoBF2.text=nomes[1];
+			textinhoBF2.x = player2BF.x+90;
+			textinhoBF2.y = player2BF.y-60;
+			textinhoBF2.visible = player2BF.visible;
+
             if (controls.BACK && !ipBar.hasFocus) {
 				if(isOnServer)
 					{
-						if(isHost){Network.destroySession(server);}else{client.disconnectClient();}
+						if(isHost){Network.destroySession(server); client.disconnectClient();}else{client.disconnectClient();}
 					}
 				else
 					{
@@ -150,7 +183,19 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 			entrarBt.onDown.callback= entrar;
 
-				if(isOnServer){inputShit();}
+				if(isOnServer)
+					{
+						inputShit();
+						player1BF.visible=true;
+						player2BF.visible=true;
+
+					}
+					else
+						{
+							player1BF.visible=false;
+							player2BF.visible=false;
+						}
+				
 
 
             super.update(elapsed);
@@ -177,7 +222,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		public function hostear()
 			{
-				if(!canClick)
+				if(!canClick || ipBar.hasFocus)
 					return;
 
 				GlobalSoundManager.play('confirmMenu');
@@ -191,6 +236,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 				  
 				  server.addEventListener(NetworkEvent.CONNECTED, function(e: NetworkEvent) {
 					server.send({ message: 'Você entrou no servidor!', verb: 'test' });
+					if(nomes[0]!="Player 1")
+						{
+							server.send({ message: "0\n"+nomes[0], verb: 'name' });
+						}
+
 				  });
 
 				  server.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
@@ -209,6 +259,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 						{
 							trace(e.data.message); 
 						}
+					
+						if(e.data.verb == "name")
+							{
+								var quemEqual:Array<String> = e.data.message.split("\n");
+								nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
+							}
 
 				});	
 
@@ -257,7 +313,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		public function entrar()
 			{
-				if(!canClick)
+				if(!canClick || ipBar.hasFocus)
 					return;
 
 
@@ -281,6 +337,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 								mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2]);
 								
 							}
+						
+							if(e.data.verb == "name")
+								{
+									var quemEqual:Array<String> = e.data.message.split("\n");
+									nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
+								}
 						trace(e.data.message); 
 					});	
 					
@@ -288,6 +350,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 					client.addEventListener(NetworkEvent.INIT_SUCCESS, function(e: NetworkEvent)
 					{
 						myID = isHost ? 0 : 1;
+						client.send({ message: myID+"\n"+ GJClient.userName, verb: 'name' });
+						nomes[myID] = GJClient.userName;
 						isOnServer=true;
 						entrarBt.visible=false;
 						hostearBt.visible=false;
@@ -299,6 +363,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 					client.addEventListener(NetworkEvent.DISCONNECTED, function(e: NetworkEvent)
 						{
+							client.send({ message: myID+"\n"+ "Player "+myID+1, verb: 'name' });
 							isOnServer=false;
 							entrarBt.visible=true;
 							hostearBt.visible=true;
@@ -310,6 +375,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 						client.addEventListener(NetworkEvent.CLOSED, function(e: NetworkEvent)
 							{
+								client.send({ message: myID+"\n"+ "Player "+myID+1, verb: 'name' });
 								isOnServer=false;
 								entrarBt.visible=true;
 								hostearBt.visible=true;
@@ -359,6 +425,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 								server.send({ message: zero+" "+one +" Segurei", verb: 'input' });
 							}
 
+							bfAnims(one, player1BF);
+
 						}
 					else
 						{
@@ -376,6 +444,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 							if(isServer){
 								server.send({ message: zero+" "+one +" Segurei", verb: 'input' });
 							}
+
+							bfAnims(one, player2BF);
 						}
 				}
 				else
@@ -396,6 +466,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 								if(isServer){
 									server.send({ message: zero+" "+one +" Soltei", verb: 'input' });
 								}
+								if(keysPlayer1[0]==false && keysPlayer1[1]==false && keysPlayer1[2]==false && keysPlayer1[3]==false)
+									{
+										bfAnims(one, player1BF, true);
+									}
+								
 							}
 						else
 							{
@@ -413,6 +488,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 								if(isServer){
 									server.send({ message: zero+" "+one +" Soltei", verb: 'input' });
 								}
+
+								if(keysPlayer2[0]==false && keysPlayer2[1]==false && keysPlayer2[2]==false && keysPlayer2[3]==false)
+									{
+										bfAnims(one, player2BF, true);
+									}
+								
 							}
 					}
 		}
@@ -455,6 +536,30 @@ class MultiplayerMainMenuState extends MusicBeatState
 					}
 			
 		}
+
+		function bfAnims(direction:String, qualBF:Boyfriend, ?soltou:Bool=false)
+			{
+				if(!soltou)
+					{
+							switch (direction)
+							{
+								case "esquerda":
+									qualBF.playAnim('singLEFT', true);
+								case "baixo":
+									qualBF.playAnim('singDOWN', true);
+								case "cima":
+									qualBF.playAnim('singUP', true);
+								case "direita":
+									qualBF.playAnim('singRIGHT', true);
+							}
+					}
+				
+				if(soltou)
+					{
+						qualBF.playAnim('idle', false, false, 10);
+					}
+
+			}
 
             
 }
