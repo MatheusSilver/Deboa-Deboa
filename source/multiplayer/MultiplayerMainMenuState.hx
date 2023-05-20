@@ -136,6 +136,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		add(textinhoBF2);
 		player1BF = new Boyfriend(174, 190);
 		player1BF.visible=false;
+		//player1BF.flipX=true; fica estranho assimk
 		player2BF = new Boyfriend(681, 190);
 		player2BF.visible=false;
 		player1BF.playAnim('idle', true, false, 10);
@@ -144,6 +145,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		add(player2BF);
 		//add(textinhoDebug);
 	}
+	var jatoqueiinferno:Bool=false;
 	override function update(elapsed:Float)
 		{
 			textinhoBF2.alignment = CENTER;
@@ -151,12 +153,16 @@ class MultiplayerMainMenuState extends MusicBeatState
 			textinhoBF1.x = player1BF.x+90;
 			textinhoBF1.y = player1BF.y-60;
 			textinhoBF1.visible = player1BF.visible;
+			textinhoBF1.alpha = player1BF.alpha;
 
 			textinhoBF2.alignment = CENTER;
 			textinhoBF2.text=nomes[1];
 			textinhoBF2.x = player2BF.x+90;
 			textinhoBF2.y = player2BF.y-60;
 			textinhoBF2.visible = player2BF.visible;
+			textinhoBF2.alpha = player2BF.alpha;
+
+			player2BF.alpha = nomes[1]!="Player 2" ? 1 : 0.5;
 
             if (controls.BACK && !ipBar.hasFocus) {
 				if(isOnServer)
@@ -172,14 +178,16 @@ class MultiplayerMainMenuState extends MusicBeatState
             }
 			hostearBt.onDown.callback= hostear;
 
-			hostearBt.alpha = FlxG.mouse.overlaps(hostearBt) && canClick ? 1 : 0.75;
+			hostearBt.alpha = FlxG.mouse.overlaps(hostearBt) && canClick  && entrarBt.visible ? 1 : 0.75;
 			
-			if((FlxG.mouse.overlaps(hostearBt) || FlxG.mouse.overlaps(entrarBt)) && canClick)
+			if((FlxG.mouse.overlaps(hostearBt) || FlxG.mouse.overlaps(entrarBt)) && canClick && entrarBt.visible && hostearBt.visible && !jatoqueiinferno)
 				{
+					jatoqueiinferno=true;
 					GlobalSoundManager.play('scrollMenu');
 				}
+			if(FlxG.mouse.overlaps(bGround) && !FlxG.mouse.overlaps(hostearBt) && !FlxG.mouse.overlaps(entrarBt)){jatoqueiinferno=false;}
 
-			entrarBt.alpha = FlxG.mouse.overlaps(entrarBt) && canClick ? 1 : 0.75;
+			entrarBt.alpha = FlxG.mouse.overlaps(entrarBt) && canClick && entrarBt.visible ? 1 : 0.75;
 
 			entrarBt.onDown.callback= entrar;
 
