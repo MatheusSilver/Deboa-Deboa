@@ -1,5 +1,6 @@
 package multiplayer;
 
+import flixel.addons.display.FlxStarField.FlxStarField2D;
 import openfl.events.KeyboardEvent;
 import flixel.input.keyboard.FlxKey;
 import flixel.FlxG;
@@ -23,6 +24,8 @@ import Discord.DiscordClient;
 
 class MultiplayerMainMenuState extends MusicBeatState
 {
+
+	// COISAS UI
 	var hostearBt:FlxButton;
 	var entrarBt:FlxButton;
 	var comecarBt:FlxButton;
@@ -30,25 +33,36 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var bGround:FlxSprite;
 	var ipBar:FlxUIInputText;
 	var multiplayerTxt:FlxText;
+	var canClick:Bool = false;
+	var textinhoDebug:FlxText;
+
+	// SUBMENU OPÇÕES
+	var voltarBt:FlxButton;
+	var opcoesBg:FlxSprite;
+	var blackTrans:FlxSprite;
+	var isOnOptions:Bool = false;
+
+
+	// SERVER
 	var client:Dynamic = null;
 	var server:Dynamic = null;
 	var isOnServer:Bool = false;
 	var isHost:Bool = false;
-	var myID:Int = 0;
+	var myID:Int = 0;	
+	var canInitMatch:Bool = false;
+	var selectedMusic:String="confronting-yourself";
+
+	// INPUT
 	var keysPlayer1:Array<Bool> = [false,false,false,false];
 	var keysPlayer2:Array<Bool> = [false,false,false,false];
 
-	var canClick:Bool = false;
-
-	var textinhoDebug:FlxText;
-
+	// BFS
 	var player1BF:Boyfriend;
 	var player2BF:Boyfriend;
 	var nomes:Array<String> = ["Player 1", "Player 2"];
 	var textinhoBF1:FlxText;
 	var textinhoBF2:FlxText;
 
-	var canInitMatch:Bool = false;
 
 	// TO DO: UMA JANELINHA QUE INFORMA ERROS QUANDO VC TENTA SE CONECTAR E N CONSEGUE, QUANDO A SALA TA CHEIA E QUANDO O HOST SAI DA SALA
 
@@ -133,29 +147,56 @@ class MultiplayerMainMenuState extends MusicBeatState
 		configBt.y=563;
 		configBt.visible=false;
 		add(configBt);
+
+		blackTrans = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackTrans.alpha=0.75;
+		blackTrans.visible=isOnOptions;
+		add(blackTrans);
+
+		opcoesBg = new FlxSprite(75, 20).loadGraphic(Paths.image('multiplayer/submenus/opcoesPanel', 'preload'));
+		opcoesBg.antialiasing = ClientPrefs.globalAntialiasing;
+		opcoesBg.updateHitbox();
+		opcoesBg.x=75;
+		opcoesBg.y=20;
+		opcoesBg.visible=isOnOptions;
+		add(opcoesBg);
+
+		voltarBt = new FlxButton(FlxG.width, 100, '');
+		voltarBt.loadGraphic(Paths.image('multiplayer/submenus/voltarBt', 'preload'));
+		voltarBt.updateHitbox();
+		voltarBt.x=475;
+		voltarBt.y=617;
+		voltarBt.visible=isOnOptions;
+		add(voltarBt);
+
 	}
-	var jatoqueiinferno:Bool=false;
+
+	public function onOverBtns()
+		{
+			GlobalSoundManager.play("scrollMenu");
+		}
+
 	override function update(elapsed:Float)
 		{
-			configBt.visible=isOnServer && isHost;
-			comecarBt.visible=isOnServer && isHost;
-	
+
+
+			// bfs texts
 			textinhoBF2.alignment = CENTER;
 			textinhoBF1.text=nomes[0];
 			textinhoBF1.x = player1BF.x+90;
 			textinhoBF1.y = player1BF.y-60;
 			textinhoBF1.visible = player1BF.visible;
 			textinhoBF1.alpha = player1BF.alpha;
-
 			textinhoBF2.alignment = CENTER;
 			textinhoBF2.text=nomes[1];
 			textinhoBF2.x = player2BF.x+90;
 			textinhoBF2.y = player2BF.y-60;
 			textinhoBF2.visible = player2BF.visible;
 			textinhoBF2.alpha = player2BF.alpha;
-
 			player2BF.alpha = nomes[1]!="Player 2" ? 1 : 0.5;
 
+
+			// LEMBRAR DE ARRUMAR ISSO AQ DPS
             if (controls.BACK && !ipBar.hasFocus) {
 				if(isOnServer)
 					{
@@ -165,45 +206,51 @@ class MultiplayerMainMenuState extends MusicBeatState
 					{
 						FlxG.sound.play(Paths.sound('cancelMenu'));
 						MusicBeatState.switchState(new MainMenuStateMobile());
-					}
+					}			
+
 
             }
-			hostearBt.onDown.callback= hostear;
 
-			hostearBt.alpha = FlxG.mouse.overlaps(hostearBt) && canClick  && entrarBt.visible ? 1 : 0.75;
-			
-			if((FlxG.mouse.overlaps(hostearBt) || FlxG.mouse.overlaps(entrarBt)) && canClick && entrarBt.visible && hostearBt.visible && !jatoqueiinferno)
-				{
-					jatoqueiinferno=true;
-					GlobalSoundManager.play('scrollMenu');
-				}
+			// pra fazer o barulhinho
+			entrarBt.onOver.callback=onOverBtns;
+			configBt.onOver.callback=onOverBtns;
+			comecarBt.onOver.callback=canInitMatch ? onOverBtns : null;
+			hostearBt.onOver.callback=onOverBtns;
+			voltarBt.onOver.callback=onOverBtns;
 
-			if((FlxG.mouse.overlaps(comecarBt) || FlxG.mouse.overlaps(configBt) ) && isOnServer && canClick && isHost && !jatoqueiinferno)
-				{
-					if(FlxG.mouse.overlaps(comecarBt) && !canInitMatch)
-						{
-							// aviso naquela janelinha uwu
-						}
-					else
-						{
-							jatoqueiinferno=true;
-							GlobalSoundManager.play('scrollMenu');
-						}
-
-				}
-
-			if(FlxG.mouse.overlaps(bGround) && !FlxG.mouse.overlaps(hostearBt) && !FlxG.mouse.overlaps(entrarBt) && !isOnServer){jatoqueiinferno=false;}
-
-			if(FlxG.mouse.overlaps(bGround) && !FlxG.mouse.overlaps(comecarBt) && !FlxG.mouse.overlaps(configBt) && isOnServer && isHost){jatoqueiinferno=true;}
-
-			entrarBt.alpha = FlxG.mouse.overlaps(entrarBt) && canClick && entrarBt.visible ? 1 : 0.75;
-
-			comecarBt.alpha = FlxG.mouse.overlaps(comecarBt) && canClick && comecarBt.visible && canInitMatch ? 1 : 0.75;
-
-			configBt.alpha = FlxG.mouse.overlaps(configBt) && canClick && configBt.visible ? 1 : 0.75;
-
+			// click stuff
 			entrarBt.onDown.callback= entrar;
+			hostearBt.onDown.callback= hostear;
+			configBt.onDown.callback = function(){
+				if(isOnOptions)
+					return;
+				GlobalSoundManager.play('confirmMenu');
+				isOnOptions=true;
+			}
+			voltarBt.onDown.callback = function(){
+				if(!isOnOptions)
+					return;
+				GlobalSoundManager.play('confirmMenu');
+				isOnOptions=false;
+			};
 
+			// alpha stuff lesgo
+			hostearBt.alpha = FlxG.mouse.overlaps(hostearBt) && canClick ? 1 : 0.75;
+			entrarBt.alpha = FlxG.mouse.overlaps(entrarBt) && canClick ? 1 : 0.75;
+			comecarBt.alpha = FlxG.mouse.overlaps(comecarBt) && canClick && canInitMatch ? 1 : 0.75;
+			configBt.alpha = FlxG.mouse.overlaps(configBt) && canClick ? 1 : 0.75;
+			voltarBt.alpha = FlxG.mouse.overlaps(voltarBt) && canClick && isOnOptions ? 1 : 0.75;
+
+			// submenu options stuff
+			blackTrans.visible=isOnOptions;
+			opcoesBg.visible=isOnOptions;
+			voltarBt.visible=isOnOptions;
+
+
+				// server shit			
+				multiplayerTxt.visible=!isOnServer;
+				configBt.visible=isOnServer && isHost && !isOnOptions;
+				comecarBt.visible=isOnServer && isHost && !isOnOptions;
 				if(isOnServer)
 					{
 						inputShit();
@@ -228,6 +275,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 				if(!canClick || ipBar.hasFocus)
 					return;
 
+				
+				canClick=false;
 				GlobalSoundManager.play('confirmMenu');
 				server = Network.registerSession(NetworkMode.SERVER, {
 					ip: '0.0.0.0',
@@ -268,17 +317,18 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 
 				  server.addEventListener(NetworkEvent.INIT_SUCCESS, function(e: NetworkEvent) {
+					canClick=true;	
 					isHost = true;
 					entrar();				  
 					entrarBt.visible=false;
 					hostearBt.visible=false;	
 					ipBar.visible=false;		
-					multiplayerTxt.visible=false;	
 					trace("to hosteando");
 				  });
 
 
 				  server.addEventListener(NetworkEvent.INIT_FAILURE, function(e: NetworkEvent) {			
+					canClick=true;	
 					trace("não consegui hostear");
 				  });
 
@@ -295,7 +345,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				if(!canClick || ipBar.hasFocus)
 					return;
 
-
+					canClick=false;
 					GlobalSoundManager.play('confirmMenu');
 					var server_ip = ipBar.text;
 					
@@ -327,6 +377,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					
 					client.addEventListener(NetworkEvent.INIT_SUCCESS, function(e: NetworkEvent)
 					{
+						canClick=true;	
 						myID = isHost ? 0 : 1;
 						client.send({ message: myID+"\n"+ GJClient.userName, verb: 'name' });
 						nomes[myID] = GJClient.userName;
@@ -334,7 +385,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 						entrarBt.visible=false;
 						hostearBt.visible=false;
 						ipBar.visible=false;	
-						multiplayerTxt.visible=false;	
 						trace(client.uuid);
 						trace("to entrando");
 					});
@@ -346,7 +396,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 							entrarBt.visible=true;
 							hostearBt.visible=true;
 							ipBar.visible=true;	
-							multiplayerTxt.visible=true;	
 							textinhoDebug.text="";
 							trace("to saindo");
 						});
@@ -358,12 +407,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 								entrarBt.visible=true;
 								hostearBt.visible=true;
 								ipBar.visible=true;	
-								multiplayerTxt.visible=true;	
 								textinhoDebug.text="";
 								trace("to saindo");
 							});
 
-					client.addEventListener(NetworkEvent.INIT_FAILURE, function(e: NetworkEvent) {			
+					client.addEventListener(NetworkEvent.INIT_FAILURE, function(e: NetworkEvent) {		
+						canClick=true;	
 						trace("não consegui entrar");
 					});
 
