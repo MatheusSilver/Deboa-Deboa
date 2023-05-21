@@ -25,6 +25,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 {
 	var hostearBt:FlxButton;
 	var entrarBt:FlxButton;
+	var comecarBt:FlxButton;
+	var configBt:FlxButton;
 	var bGround:FlxSprite;
 	var ipBar:FlxUIInputText;
 	var multiplayerTxt:FlxText;
@@ -48,6 +50,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var nomes:Array<String> = ["Player 1", "Player 2"];
 	var textinhoBF1:FlxText;
 	var textinhoBF2:FlxText;
+
+	var canInitMatch:Bool = false;
 
 	// TO DO: UMA JANELINHA QUE INFORMA ERROS QUANDO VC TENTA SE CONECTAR E N CONSEGUE, QUANDO A SALA TA CHEIA E QUANDO O HOST SAI DA SALA
 
@@ -144,10 +148,31 @@ class MultiplayerMainMenuState extends MusicBeatState
 		add(player1BF);
 		add(player2BF);
 		//add(textinhoDebug);
+
+		comecarBt = new FlxButton(FlxG.width, 100, '');
+		comecarBt.loadGraphic(Paths.image('multiplayer/iniciarBt', 'preload'));
+		comecarBt.setGraphicSize(Std.int(comecarBt.width * 0.6));
+		comecarBt.updateHitbox();
+		comecarBt.x=276;
+		comecarBt.y=563;
+		comecarBt.visible=false;
+		add(comecarBt);
+
+		configBt = new FlxButton(FlxG.width, 100, '');
+		configBt.loadGraphic(Paths.image('multiplayer/configBt', 'preload'));
+		configBt.setGraphicSize(Std.int(configBt.width * 0.6));
+		configBt.updateHitbox();
+		configBt.x=857;
+		configBt.y=563;
+		configBt.visible=false;
+		add(configBt);
 	}
 	var jatoqueiinferno:Bool=false;
 	override function update(elapsed:Float)
 		{
+			configBt.visible=isOnServer && isHost;
+			comecarBt.visible=isOnServer && isHost;
+	
 			textinhoBF2.alignment = CENTER;
 			textinhoBF1.text=nomes[0];
 			textinhoBF1.x = player1BF.x+90;
@@ -185,9 +210,30 @@ class MultiplayerMainMenuState extends MusicBeatState
 					jatoqueiinferno=true;
 					GlobalSoundManager.play('scrollMenu');
 				}
-			if(FlxG.mouse.overlaps(bGround) && !FlxG.mouse.overlaps(hostearBt) && !FlxG.mouse.overlaps(entrarBt)){jatoqueiinferno=false;}
+
+			if((FlxG.mouse.overlaps(comecarBt) || FlxG.mouse.overlaps(configBt) ) && isOnServer && canClick && isHost && !jatoqueiinferno)
+				{
+					if(FlxG.mouse.overlaps(comecarBt) && !canInitMatch)
+						{
+							// aviso naquela janelinha uwu
+						}
+					else
+						{
+							jatoqueiinferno=true;
+							GlobalSoundManager.play('scrollMenu');
+						}
+
+				}
+
+			if(FlxG.mouse.overlaps(bGround) && !FlxG.mouse.overlaps(hostearBt) && !FlxG.mouse.overlaps(entrarBt) && !isOnServer){jatoqueiinferno=false;}
+
+			if(FlxG.mouse.overlaps(bGround) && !FlxG.mouse.overlaps(comecarBt) && !FlxG.mouse.overlaps(configBt) && isOnServer && isHost){jatoqueiinferno=true;}
 
 			entrarBt.alpha = FlxG.mouse.overlaps(entrarBt) && canClick && entrarBt.visible ? 1 : 0.75;
+
+			comecarBt.alpha = FlxG.mouse.overlaps(comecarBt) && canClick && comecarBt.visible && canInitMatch ? 1 : 0.75;
+
+			configBt.alpha = FlxG.mouse.overlaps(configBt) && canClick && configBt.visible ? 1 : 0.75;
 
 			entrarBt.onDown.callback= entrar;
 
