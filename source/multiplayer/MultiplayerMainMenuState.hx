@@ -35,9 +35,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var isOnServer:Bool = false;
 	var isHost:Bool = false;
 	var myID:Int = 0;
-	/*private var controlArray:Array<String>;
-	private var keysArray:Array<Dynamic>;
-	private var translator:Array<String> = ['esquerda','baixo','cima','direita'];*/
 	var keysPlayer1:Array<Bool> = [false,false,false,false];
 	var keysPlayer2:Array<Bool> = [false,false,false,false];
 
@@ -55,17 +52,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	// TO DO: UMA JANELINHA QUE INFORMA ERROS QUANDO VC TENTA SE CONECTAR E N CONSEGUE, QUANDO A SALA TA CHEIA E QUANDO O HOST SAI DA SALA
 
-	/*private function parseKeys(?suffix:String = ''):Array<Bool>
-		{
-			var ret:Array<Bool> = [];
-			for (i in 0...controlArray.length)
-			{
-				ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
-			}
-			return ret;
-		}*/
-
-
 	override function create()
 	{
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
@@ -78,9 +64,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		ipBar.y = 1500;
 		ipBar.alignment = CENTER;
 
-		#if mobile
-		FlxG.stage.window.textInputEnabled = true;
-		#end
 		bGround = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
 		bGround.setGraphicSize(Std.int(bGround.width));
 		bGround.antialiasing = ClientPrefs.globalAntialiasing;
@@ -110,22 +93,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		add(multiplayerTxt);
 		super.create();
-
-		/*FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
-
-		controlArray = [
-			'NOTE_LEFT',
-			'NOTE_DOWN',
-			'NOTE_UP',
-			'NOTE_RIGHT'
-			];
-		keysArray = [
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-			ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
-		];*/
 
 		FlxTween.tween(multiplayerTxt, {y: 51}, 0.75, {ease: FlxEase.expoInOut});
 		FlxTween.tween(ipBar, {y: 253}, 1, {ease: FlxEase.expoInOut});
@@ -256,24 +223,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		}
 
-		/*private function getKeyFromEvent(key:FlxKey):Int
-			{
-				if(key != NONE)
-				{
-					for (i in 0...keysArray.length)
-					{
-						for (j in 0...keysArray[i].length)
-						{
-							if(key == keysArray[i][j])
-							{
-								return i;
-							}
-						}
-					}
-				}
-				return -1;
-			}*/
-
 		public function hostear()
 			{
 				if(!canClick || ipBar.hasFocus)
@@ -302,12 +251,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					if(e.data.verb == 'input')
 						{
 							var qualEquem:Array<String> = e.data.message.split(" ");
-							//trace("\nCliente: "+qualEquem[0] +"\nSeta: "+qualEquem[1] +"\nAcao: "+qualEquem[2]);
-							
-							mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2], true);
-
-							//trace("Player 1 Input: "+keysPlayer1);
-							//trace("Player 2 Input: "+keysPlayer2);							
+							mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2], true);			
 						}
 					else
 						{
@@ -346,25 +290,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 			}
 
-	override function destroy() {
-		/*FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);*/
-
-		super.destroy();
-	}
-
-	/*private function onKeyRelease(event:KeyboardEvent):Void
-	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-	}
-
-	private function onKeyPress(event:KeyboardEvent):Void
-	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-	}*/
-
 		public function entrar()
 			{
 				if(!canClick || ipBar.hasFocus)
@@ -387,7 +312,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 						if(e.data.verb == 'input' && myID==1)
 							{
 								var qualEquem:Array<String> = e.data.message.split(" ");
-								//trace("\nCliente: "+qualEquem[0] +"\nSeta: "+qualEquem[1] +"\nAcao: "+qualEquem[2]);
 								mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2]);
 								
 							}
