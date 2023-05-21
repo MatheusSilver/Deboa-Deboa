@@ -329,6 +329,8 @@ function onBeatHit()
 end
 function onCreatePost()
 	triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)),tostring(LordX[2]+245-200)-35)
+    setPropertyFromClass('GameOverSubstate', 'bgType', 'pasta'); --Character json file for the death animation
+
 
     
 end

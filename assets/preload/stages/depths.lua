@@ -37,6 +37,10 @@ function onCreate()
 
 	speed = 240 / getPropertyFromClass('ClientPrefs', 'framerate')
 	for i = 1,10 do fallPos[i] = 0 end
+	--setGameover('sonic', 'drowning', 'breakfast')
+	setPropertyFromClass('GameOverSubstate', 'bgType', 'sonic'); --Character json file for the death animation
+    setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'drowning'); --put in mods/sounds/
+    setPropertyFromClass('GameOverSubstate', 'loopSoundName', 'breakfast'); --put in mods/sounds/
 end
 
 function onCreatePost()

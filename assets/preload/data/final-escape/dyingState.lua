@@ -142,8 +142,6 @@ if justDied == true then
 end
 	
 	
-	
-	return Function_Stop;
 end
 
 

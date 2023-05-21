@@ -26,5 +26,7 @@ function onCreate()
 	addLuaSprite('desk', false);
 	addLuaSprite('crate', false);
 	
+	--setGameover() -- Para casos em que é só o BF, basta colocar essa linha de code.
+	
 	close(true); --For performance reasons, close this script once the stage is fully loaded, as this script won't be used anymore after loading the stage
 end

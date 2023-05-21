@@ -6,4 +6,5 @@ function onCreate()
     setScrollFactor('bg', 0.91, 0.91);
     
     addLuaSprite('bg', false)
+    close()
 end

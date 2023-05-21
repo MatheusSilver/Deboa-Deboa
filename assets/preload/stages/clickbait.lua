@@ -13,6 +13,10 @@ function onCreate()
 	addLuaSprite('cama', false);
 
 	addLuaScript('custom_scripts/ytb_player');
+
+	setPropertyFromClass('GameOverSubstate', 'bgType', 'fleeplay'); --Character json file for the death animation
+	--setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'risadamenes'); --put in mods/sounds/
+
 end
 
 function onUpdate()

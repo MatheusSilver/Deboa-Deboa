@@ -31,6 +31,13 @@ function onCreate()
 	addLuaSprite('tail2', false);
 	scaleObject('tail2', 10, 10);
 	scaleObject('bg', 10, 10);
+
+	setPropertyFromClass('GameOverSubstate', 'bgType', 'pasta'); --Character json file for the death animation
+	--[[if difficulty == 4 then
+		setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'mariogameover'); --put in mods/sounds/
+	else
+		setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'sonic-pixelGameover'); --put in mods/sounds/	
+	end]]
 end
 
 function onEvent(name, value1, value2)

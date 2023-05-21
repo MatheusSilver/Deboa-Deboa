@@ -2,10 +2,6 @@ finishedGameover = false;
 startedPlaying = false;
 
 function onCreate()
-	setPropertyFromClass('GameOverSubstate', 'characterName', 'fleetway_death_BF');
-	setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'laser_moment');
-	setPropertyFromClass('GameOverSubstate', 'loopSoundName', 'chaosgameover');
-	setPropertyFromClass('GameOverSubstate', 'endSoundName', 'gameOverEnd');
 	-- background shit
 	makeLuaSprite('Wall', 'fleet/Wall', -3800, -1000);
 	setScrollFactor('Wall', 0.7, 0.7);
@@ -52,7 +48,7 @@ function onBeatHit()
 	end
 end
 
-function onUpdate(elapsed)
+--[[function onUpdate(elapsed)
 	
 	if inGameOver and not startedPlaying and not finishedGameover then
 		setPropertyFromClass('flixel.FlxG', 'sound.music.volume', 0.2);
@@ -63,7 +59,7 @@ end
 function onGameOver()
 	runTimer('playFleetLine', 2.7);
 	return Function_Continue;
-end
+end]]
 
 function onGameOverConfirm(reset)
 	finishedGameover = true;

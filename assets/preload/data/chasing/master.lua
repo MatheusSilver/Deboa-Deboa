@@ -48,6 +48,11 @@ function onCreate()
             end
         end
     end
+
+    --setGameover('sonic', 'gameOverEndSonic', 'breakfast')
+    setPropertyFromClass('GameOverSubstate', 'bgType', 'sonic'); --Character json file for the death animation
+    setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'gameOverEndSonic'); --put in mods/sounds/
+    setPropertyFromClass('GameOverSubstate', 'loopSoundName', 'breakfast'); --put in mods/sounds/
 end
 
 function onStepHit()

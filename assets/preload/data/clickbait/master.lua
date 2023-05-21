@@ -8,7 +8,7 @@ function onCreate()
     setObjectCamera('blckfade', 'other')
 	addLuaSprite('blckfade', false);
 
-    makeLuaSprite('fleeplay', 'fleeplay', 0, 0);
+    makeLuaSprite('fleeplay', 'gameovers/fleeplay', 0, 0);
     setObjectCamera('fleeplay', 'camHUD2')
     scaleObject('fleeplay', 1.0,1.0)
     screenCenter('fleeplay');
