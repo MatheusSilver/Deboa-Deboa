@@ -509,36 +509,36 @@ class MultiplayerMainMenuState extends MusicBeatState
 		function inputShit()
 		{
 			textinhoDebug.text=keysPlayer1.toString()+"\n"+keysPlayer2.toString();
-			if(FlxG.keys.justPressed.W)
+			if(controls.NOTE_UP_P)
 				{
 					segureiObotao("cima");
 				}
-			if(FlxG.keys.justPressed.S)
+			if(controls.NOTE_DOWN_P)
 				{
 					segureiObotao("baixo");
 				}
-			if(FlxG.keys.justPressed.D)
+			if(controls.NOTE_RIGHT_P)
 				{
 					segureiObotao("direita");
 				}
-			if(FlxG.keys.justPressed.A)
+			if(controls.NOTE_LEFT_P)
 				{
 					segureiObotao("esquerda");
 				}
 
-				if(FlxG.keys.justReleased.W)
+				if(controls.NOTE_UP_R)
 					{
 						solteiObotao("cima");
 					}
-				if(FlxG.keys.justReleased.S)
+				if(controls.NOTE_DOWN_R)
 					{
 						solteiObotao("baixo");
 					}
-				if(FlxG.keys.justReleased.D)
+				if(controls.NOTE_RIGHT_R)
 					{
 						solteiObotao("direita");
 					}
-				if(FlxG.keys.justReleased.A)
+				if(controls.NOTE_LEFT_R)
 					{
 						solteiObotao("esquerda");
 					}
