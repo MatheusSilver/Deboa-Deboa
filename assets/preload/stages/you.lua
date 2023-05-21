@@ -44,8 +44,8 @@ function makeAnimationList()
 end
 
 function onBeatHit()
-	if curBeat % 3 == 0 then
-		playAnim('tail', 'idle', true);
+	if curBeat % 2 == 0 then
+		objectPlayAnimation('tail', 'idle', true);
 	end
 end
 
@@ -64,7 +64,7 @@ end
 function playAnimation(character, animId, forced)
 	animName = animationsList[animId];
 	if character == 'tail' then
-		playAnim('tail', animName, forced); -- this part is easily broke if you use objectPlayAnim (I have no idea why its like this)
+		objectPlayAnimation('tail', animName, forced); -- this part is easily broke if you use objectPlayAnim (I have no idea why its like this)
 	end
 end
 --tails shit ends
