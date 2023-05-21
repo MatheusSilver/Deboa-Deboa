@@ -1,5 +1,9 @@
 package multiplayer;
 
+import networking.sessions.items.ServerObject;
+import networking.sessions.server.Server;
+import networking.sessions.items.ClientObject;
+import networking.sessions.client.Client;
 import flixel.addons.display.FlxStarField.FlxStarField2D;
 import openfl.events.KeyboardEvent;
 import flixel.input.keyboard.FlxKey;
@@ -42,6 +46,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var blackTrans:FlxSprite;
 	var isOnOptions:Bool = false;
 
+	// SUBMENU AVISOS	
+	var blackTransBG:FlxSprite;
+	var avisoBg:FlxSprite;	
+	var avisoTexto:FlxText;
+	var okBt:FlxButton;
+
 
 	// SERVER
 	var client:Dynamic = null;
@@ -63,8 +73,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var textinhoBF1:FlxText;
 	var textinhoBF2:FlxText;
 
-
-	// TO DO: UMA JANELINHA QUE INFORMA ERROS QUANDO VC TENTA SE CONECTAR E N CONSEGUE, QUANDO A SALA TA CHEIA E QUANDO O HOST SAI DA SALA
 
 	override function create()
 	{
@@ -121,11 +129,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 		add(textinhoBF2);
 		player1BF = new Boyfriend(174, 190);
 		player1BF.visible=false;
+
 		//player1BF.flipX=true; fica estranho assimk
 		player2BF = new Boyfriend(681, 190);
 		player2BF.visible=false;
 		player1BF.playAnim('idle', true, false, 10);
-		player2BF.playAnim('idle', true, false, 10);
+		player2BF.playAnim('idle', true, false, 10);		
 		add(player1BF);
 		add(player2BF);
 		//add(textinhoDebug);
@@ -173,6 +182,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function onOverBtns()
 		{
+			if(!canClick)
+				return;
 			GlobalSoundManager.play("scrollMenu");
 		}
 
@@ -197,18 +208,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 
 			// LEMBRAR DE ARRUMAR ISSO AQ DPS
-            if (controls.BACK && !ipBar.hasFocus) {
+            if (controls.BACK && !ipBar.hasFocus && !isOnOptions) {
 				if(isOnServer)
 					{
-						if(isHost){Network.destroySession(server); client.disconnectClient();}else{client.disconnectClient();}
+						Network.destroySession(client);
+						if(isHost){
+							server.send({message: 'fechei o server mano :c ', verb: 'all-leave'});
+							Network.destroySession(server);
+						}
 					}
 				else
 					{
 						FlxG.sound.play(Paths.sound('cancelMenu'));
 						MusicBeatState.switchState(new MainMenuStateMobile());
 					}			
-
-
             }
 
 			// pra fazer o barulhinho
@@ -219,6 +232,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			voltarBt.onOver.callback=onOverBtns;
 
 			// click stuff
+			if(!canClick){ipBar.hasFocus=false;}
 			entrarBt.onDown.callback= entrar;
 			hostearBt.onDown.callback= hostear;
 			configBt.onDown.callback = function(){
@@ -275,7 +289,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				if(!canClick || ipBar.hasFocus)
 					return;
 
-				
+				ipBar.hasFocus=false;
 				canClick=false;
 				GlobalSoundManager.play('confirmMenu');
 				server = Network.registerSession(NetworkMode.SERVER, {
@@ -293,6 +307,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 							server.send({ message: "0\n"+nomes[0], verb: 'name' });
 						}
 
+				  });
+
+				  server.addEventListener(NetworkEvent.CLOSED, function(e: NetworkEvent) {
+					server.send({message: 'fechei o server mano :c ', verb: 'all-leave'});
+				  });
+				  
+
+				  server.addEventListener(NetworkEvent.DISCONNECTED, function(e: NetworkEvent) {
+					nomes[1]="Player 2";
 				  });
 
 				  server.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e: NetworkEvent) {
@@ -328,14 +351,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 
 				  server.addEventListener(NetworkEvent.INIT_FAILURE, function(e: NetworkEvent) {			
-					canClick=true;	
-					trace("não consegui hostear");
+					avisarAlgo("Erro no servidor");
 				  });
-
-				  server.addEventListener(NetworkEvent.DISCONNECTED, function(e: NetworkEvent)
-					{
-						Network.destroySession(server);
-					});
 
 
 			}
@@ -345,6 +362,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				if(!canClick || ipBar.hasFocus)
 					return;
 
+					ipBar.hasFocus=false;
 					canClick=false;
 					GlobalSoundManager.play('confirmMenu');
 					var server_ip = ipBar.text;
@@ -366,10 +384,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 								
 							}
 						
-							if(e.data.verb == "name")
+							if(e.data.verb == 'name')
 								{
 									var quemEqual:Array<String> = e.data.message.split("\n");
 									nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
+								}
+
+							if(e.data.verb == 'all-leave')
+								{
+									client.disconnectClient();
 								}
 						trace(e.data.message); 
 					});	
@@ -397,23 +420,25 @@ class MultiplayerMainMenuState extends MusicBeatState
 							hostearBt.visible=true;
 							ipBar.visible=true;	
 							textinhoDebug.text="";
-							trace("to saindo");
+							avisarAlgo("Conexão perdida");
+
 						});
 
-						client.addEventListener(NetworkEvent.CLOSED, function(e: NetworkEvent)
-							{
-								client.send({ message: myID+"\n"+ "Player "+myID+1, verb: 'name' });
-								isOnServer=false;
-								entrarBt.visible=true;
-								hostearBt.visible=true;
-								ipBar.visible=true;	
-								textinhoDebug.text="";
-								trace("to saindo");
-							});
+					client.addEventListener(NetworkEvent.CLOSED, function(e: NetworkEvent)
+						{
+							client.send({ message: myID+"\n"+ "Player "+myID+1, verb: 'name' });
+							isOnServer=false;
+							entrarBt.visible=true;
+							hostearBt.visible=true;
+							ipBar.visible=true;	
+							textinhoDebug.text="";
+						});
 
 					client.addEventListener(NetworkEvent.INIT_FAILURE, function(e: NetworkEvent) {		
-						canClick=true;	
-						trace("não consegui entrar");
+						avisarAlgo("Servidor não encontrado");
+					});
+					client.addEventListener(NetworkEvent.SERVER_FULL, function(e: NetworkEvent) {		
+						avisarAlgo("O servidor está cheio");
 					});
 
 			}
@@ -583,10 +608,54 @@ class MultiplayerMainMenuState extends MusicBeatState
 				
 				if(soltou)
 					{
-						qualBF.playAnim('idle', false, false, 10);
+						qualBF.playAnim('idle', false);
 					}
 
 			}
+
+	function avisarAlgo(avisarIssoAqui:String)
+		{
+			GlobalSoundManager.play("negado");
+			canClick=false;
+			blackTransBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+			blackTransBG.alpha=0.75;
+			add(blackTransBG);
+
+			avisoBg = new FlxSprite(281, 102).loadGraphic(Paths.image('multiplayer/submenus/avisoPanel', 'preload'));
+			avisoBg.antialiasing = ClientPrefs.globalAntialiasing;
+			avisoBg.updateHitbox();
+			avisoBg.x=281;
+			avisoBg.y=102;
+			add(avisoBg);
+
+			avisoTexto = new FlxText(281, 300, 725, avisarIssoAqui, 40, false);
+			avisoTexto.alignment=CENTER;
+			add(avisoTexto);
+	
+			okBt = new FlxButton(0, 0, '');
+			okBt.loadGraphic(Paths.image('mainmenu/btok', 'preload'));
+			okBt.updateHitbox();
+			okBt.alpha=0.75;
+			okBt.x=527;
+			okBt.y=532;
+			add(okBt);
+			okBt.onDown.callback = function(){remove(blackTransBG); remove(avisoBg); remove(okBt);  remove(avisoTexto); canClick=true; GlobalSoundManager.play("confirmMenu");}
+			okBt.onOver.callback = function(){okBt.alpha=1;GlobalSoundManager.play("scrollMenu");}
+			okBt.onOut.callback = function(){okBt.alpha=0.75;}
+		}
+	
+	override function beatHit()
+		{
+			super.beatHit();
+			if(keysPlayer1 == [false, false, false, false])
+				{
+					player1BF.playAnim('idle', true);
+				}
+			if(keysPlayer2 == [false, false, false, false])
+				{
+					player2BF.playAnim('idle', true);
+				}
+		}
 
             
 }
