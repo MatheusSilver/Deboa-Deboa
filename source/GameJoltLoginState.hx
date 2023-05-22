@@ -169,8 +169,9 @@ class GameJoltLoginState extends MusicBeatState
             {
                 FlxG.save.data.user ="";
                 FlxG.save.data.token ="";
-                tokenBar.alpha=1;
-                userBar.alpha=1;
+                if(tokenBar!=null)
+                    tokenBar.alpha=1;
+                    userBar.alpha=1;
                 new FlxTimer().start(2, function(tmr:FlxTimer){
                     esconderTexto=true;
                 });

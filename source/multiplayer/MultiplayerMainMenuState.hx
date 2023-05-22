@@ -208,7 +208,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 
 			// LEMBRAR DE ARRUMAR ISSO AQ DPS
-            if (controls.BACK && !ipBar.hasFocus && !isOnOptions) {
+            if (controls.BACK && !ipBar.hasFocus && !isOnOptions && canClick) {
 				GlobalSoundManager.play("cancelMenu");
 				if(isOnServer)
 					{
@@ -232,7 +232,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			voltarBt.onOver.callback=onOverBtns;
 
 			// click stuff
-			if(!canClick){ipBar.hasFocus=false;}
+			if(!canClick || isOnServer){ipBar.hasFocus=false;}
 			entrarBt.onDown.callback= entrar;
 			hostearBt.onDown.callback= hostear;
 			configBt.onDown.callback = function(){
@@ -364,8 +364,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 					ipBar.hasFocus=false;
 					canClick=false;
-					GlobalSoundManager.play('confirmMenu');
-					var server_ip = ipBar.text;
+					GlobalSoundManager.play('confirmMenu');					
+					var server_ip = isHost ? "127.0.0.1" : ipBar.text;
+
 					
 					client = Network.registerSession(NetworkMode.CLIENT, {
 					  ip: server_ip,
@@ -473,6 +474,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 								case "esquerda":
 									keysPlayer1[3]=true;
 							}
+							
 							if(isServer){
 								server.send({ message: zero+" "+one +" Segurei", verb: 'input' });
 							}

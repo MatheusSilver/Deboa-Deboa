@@ -20,9 +20,11 @@ function onCreate()
 end
 
 function onUpdate()
+	if not inGameOver then
 	if mustHitSection == false then
 		setProperty("defaultCamZoom", 0.8);
 	else
 		setProperty("defaultCamZoom", 0.75);
 	end	
+end
 end
