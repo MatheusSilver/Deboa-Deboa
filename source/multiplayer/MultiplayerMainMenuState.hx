@@ -209,6 +209,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 			// LEMBRAR DE ARRUMAR ISSO AQ DPS
             if (controls.BACK && !ipBar.hasFocus && !isOnOptions) {
+				GlobalSoundManager.play("cancelMenu");
 				if(isOnServer)
 					{
 						Network.destroySession(client);
@@ -219,7 +220,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 					}
 				else
 					{
-						FlxG.sound.play(Paths.sound('cancelMenu'));
 						MusicBeatState.switchState(new MainMenuStateMobile());
 					}			
             }
@@ -390,7 +390,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 									nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
 								}
 
-							if(e.data.verb == 'all-leave')
+							if(e.data.verb == 'all-leave' && !isHost)
 								{
 									client.disconnectClient();
 								}
