@@ -1962,7 +1962,7 @@ class PlayState extends MusicBeatState
 		super.create();
 
 		cacheCountdown();
-		cachePopUpScore();
+		//cachePopUpScore();
 		//trace("Iniciando precache no PlayState.");
 
 		
@@ -5764,13 +5764,13 @@ class PlayState extends MusicBeatState
 			//lxG.sound.volume = 1;
 		}
 
-		var placement:String = Std.string(combo);
+		//var placement:String = Std.string(combo);
 
-		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
-		coolText.screenCenter();
-		coolText.x = FlxG.width * 0.55;
+		//var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
+		//coolText.screenCenter();
+		//coolText.x = FlxG.width * 0.55;
 
-		var rating:FlxSprite = new FlxSprite();
+		//var rating:FlxSprite = new FlxSprite();
 		var score:Int = 300;
 		//Basicamente um sistema mais justo baseado em pontuação.
 
@@ -5843,7 +5843,7 @@ class PlayState extends MusicBeatState
 			pixelShitPart2 = '-pixel';
 		}
 
-		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
+		/*rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
 		rating.screenCenter();
 		rating.x = coolText.x - 40;
 		rating.y -= 60;
@@ -5868,6 +5868,7 @@ class PlayState extends MusicBeatState
 		}
 
 		rating.updateHitbox();
+		*/
 
 		var seperatedScore:Array<Int> = [];
 
@@ -5878,7 +5879,7 @@ class PlayState extends MusicBeatState
 		seperatedScore.push(Math.floor(combo / 10) % 10);
 		seperatedScore.push(combo % 10);
 
-		var daLoop:Int = 0;
+		/*var daLoop:Int = 0;
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
@@ -5927,13 +5928,13 @@ class PlayState extends MusicBeatState
 			});
 
 			daLoop++;
-		}
+		}*/
 		/* 
 			trace(combo);
 			trace(seperatedScore);
 		 */
 
-		coolText.text = Std.string(seperatedScore);
+		/*coolText.text = Std.string(seperatedScore);
 		// add(coolText);
 
 		FlxTween.tween(rating, {alpha: 0}, 0.2, {
@@ -5947,7 +5948,7 @@ class PlayState extends MusicBeatState
 				rating.destroy();
 			},
 			startDelay: Conductor.crochet * 0.001
-		});
+		});*/
 	}
 
 	private function parseKeys(?suffix:String = ''):Array<Bool>

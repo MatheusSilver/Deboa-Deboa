@@ -1,6 +1,7 @@
 	-- Port By Lechan (Jos), Bubcraft19, Enginer Gaming
 
     function onCreate()
+        setCamMove = true
         precacheImage('simbolo_infinito');
         precacheImage('Majin_Notes');
         precacheImage('one');
@@ -38,6 +39,7 @@
     function onStepHit() -- Isso é definitivamente um script já feito
      
         if curStep == 888 then
+            setCamMove = false
             triggerEvent('Camera Follow Pos', '690', '820')
             doTweenZoom('bruh', 'camGame', 1.2, 0.7, 'cubeInOut')
             setProperty('three.visible', true)
@@ -57,6 +59,7 @@
         end
     
         if curStep == 899 then
+            setCamMove = true
             triggerEvent('Camera Follow Pos', '', '')
             doTweenZoom('bruh', 'camGame', 0.9, 0.7, 'cubeInOut')
             setProperty('gofun.visible', true)

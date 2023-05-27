@@ -4,7 +4,7 @@ function propriedadescomuns(var)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
     setLuaSpriteCamera(var, 'camlegenda');
-    setGraphicSize(var, screenWidth) -- k
+    --setGraphicSize(var, screenWidth) -- k
     screenCenter(var, 'x')
 end
 

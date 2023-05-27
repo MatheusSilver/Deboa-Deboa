@@ -19,8 +19,8 @@
 		addAnimationByPrefix('funpillarts1ANIM', 'bumpypillar', 'MajinBop1 instance 1', 24, true)
 		setScrollFactor('funpillarts1ANIM', 0.6, 0.6);
 		
-		makeLuaSprite('funfloor', 'cenarios/MajinStage/floor BG', -340, 660)
-		setScrollFactor('funfloor', 0.5, 0.5);
+		makeLuaSprite('funfloor', 'cenarios/MajinStage/floor BG', -340, 790)
+		setScrollFactor('funfloor', 1, 0.9);
 		
 		makeAnimatedLuaSprite('funboppers1ANIM', 'cenarios/MajinStage/majin FG1', 1126, 903)
 		addAnimationByPrefix('funboppers1ANIM', 'bumpypillar', 'majin front bopper1', 24, true)
