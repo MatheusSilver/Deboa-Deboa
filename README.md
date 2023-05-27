@@ -60,7 +60,7 @@ ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workfl
 * Konan - Programador
 * MateusX02 - Ajuda no port Mobile/coding adicional
 
-## Creditos - Psych Engine 4.2:
+## Creditos - Psych Engine 0.4.2:
 * Shadow Mario - Programação
 * RiverOaken - Artes e Animações
 
