@@ -1,5 +1,6 @@
 package;
 
+import sys.FileSystem;
 import FunkinLua;
 import flash.display.Sprite;
 import flixel.FlxG;
@@ -7,6 +8,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
+import openfl.utils.Assets as OpenFlAssets;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import flixel.graphics.frames.FlxAtlasFrames;

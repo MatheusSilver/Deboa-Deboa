@@ -1,5 +1,8 @@
 package;
 
+#if (windows && debug)
+import sys.FileSystem;
+#end
 import openfl.system.System;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
@@ -327,7 +330,24 @@ class Paths
 
 			localTrackedAssets.push(key);
 			return currentTrackedAssets.get(key);
+		}#if (windows && debug)
+		else if(FileSystem.exists(getPreloadPath('images/$key.png'))){
+			if (!currentTrackedAssets.exists(key))
+				{
+					var bitmap:BitmapData = BitmapData.fromFile(getPreloadPath('images/$key.png'));
+					var graphic:FlxGraphic = null; //Isso provavelmente só será usado para uma eventual mudança para testes nas legendas
+					//logo provavelmente não vai precisar usar gpu
+
+					graphic = FlxGraphic.fromBitmapData(bitmap, false, key, false);
+	
+					graphic.persist = true;
+					currentTrackedAssets.set(key, graphic);
+				}
+				localTrackedAssets.push(key);
+				return currentTrackedAssets.get(key);
 		}
+		#end
+
 
 		FlxG.log.error('Could not find image at path $path');
 		return null; //Apenas para garantir que o jooj tentará carregar do jeito normal primeiro (ou então ajuidar a descobrir qual o pilantra.)

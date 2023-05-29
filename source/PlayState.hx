@@ -498,6 +498,7 @@ class PlayState extends MusicBeatState
 		/*precacheList.set(loadingImage, 'image');
 		precacheList.set('loading/loading-logo', 'image');
 		precacheList.set('loading/carregando', 'image');*/
+		precacheList.set('confirmMenu', 'sound'); //Provavelmente deve consertar o lag ao desbloquear conquistas.
 		precacheList.set('pause/botplaytrue', 'image');
 		precacheList.set('pause/botplayfalse', 'image');
 		precacheList.set('pause/praticartrue', 'image');
@@ -5511,7 +5512,7 @@ class PlayState extends MusicBeatState
 		if(achievementObj != null) {
 			return;
 		} else {
-			var achieve:String = checkForAchievement(['toastie', 'besties', 'personel_clear', 
+			var achieve:String = checkForAchievement(['toastie', 'besties', 'personel_clear', 'cy_clear', 'fe_clear',
 			'control_fc', 'bye_bye_fc', 'natal', 
 			'sidekick', 'toofest_fc', 'perfect', 'fake_full_combo']);
 
@@ -7719,6 +7720,10 @@ class PlayState extends MusicBeatState
 						if(SONG.song.toLowerCase() == 'milk' && !usedPractice && !cpuControlled) {
 							unlock = true;
 						}
+					case 'fe_clear':
+						if(nomehistorico.toLowerCase()=='gran finale' && !usedPractice && !cpuControlled) {
+							unlock = true;
+						}
 					case 'toastie':
 						if(ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) {
 							unlock = true;
@@ -7753,6 +7758,10 @@ class PlayState extends MusicBeatState
 						}
 					case 'personel_clear':
 						if(SONG.song.toLowerCase() == 'personel' && !usedPractice && !cpuControlled) {
+							unlock = true;
+						}
+					case 'cy_clear':
+						if(SONG.song.toLowerCase() == 'confronting-yourself' && !usedPractice && !cpuControlled) {
 							unlock = true;
 						}
 					case 'control_fc':

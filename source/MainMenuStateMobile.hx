@@ -287,9 +287,13 @@ class MainMenuStateMobile extends MusicBeatState
 			var achieveID:Int = Achievements.getAchievementIndex('modboa');
 			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
 				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement();
+				giveAchievement('modboa');
 				ClientPrefs.saveSettings();
 		}
+
+		new FlxTimer().start(300, function(tmr:FlxTimer){
+			unlockTarado();
+		});
 		#end
 
 
@@ -348,14 +352,19 @@ class MainMenuStateMobile extends MusicBeatState
 
 	#if ACHIEVEMENTS_ALLOWED
 	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
-		add(new AchievementObject('modboa', camAchievement));
+	function giveAchievement(achievementname) {
+		add(new AchievementObject(achievementname, camAchievement));
 		GlobalSoundManager.play('confirmMenu');
 		trace('Giving achievement "modboa"');
 	}
 	#end
 
 	var selectedSomethin:Bool = false;
+
+	function unlockTarado(){
+		Achievements.unlockAchievement('tarado_do_menu');
+		giveAchievement('tarado_do_menu');
+	}
 
 	function sumidao(selecionado:Int){
 		//Honestamente, nunca pensei que um dia conseguiria fazer algo assim.
@@ -411,7 +420,7 @@ class MainMenuStateMobile extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		#if debug
-		if(FlxG.keys.justPressed.FOUR) add(new AchievementObject('eggman_free', camAchievement));
+		if(FlxG.keys.justPressed.FOUR) unlockTarado();
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
