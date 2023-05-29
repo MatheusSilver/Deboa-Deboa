@@ -9,7 +9,7 @@
 			"fps": 24,
 			"anim": "idle",
 			"indices": [],
-			"name": "SPEED_IDLE"
+			"name": "Idle"
 		},
 		{
 			"offsets": [
@@ -20,7 +20,7 @@
 			"fps": 24,
 			"anim": "singLEFT",
 			"indices": [],
-			"name": "SPEED_LEFT"
+			"name": "Left"
 		},
 		{
 			"offsets": [
@@ -31,7 +31,7 @@
 			"fps": 24,
 			"anim": "singRIGHT",
 			"indices": [],
-			"name": "SPEED_RIGHT"
+			"name": "Right"
 		},
 		{
 			"offsets": [
@@ -42,7 +42,7 @@
 			"fps": 24,
 			"anim": "singUP",
 			"indices": [],
-			"name": "SPEED_UP"
+			"name": "Up"
 		},
 		{
 			"offsets": [
@@ -53,7 +53,7 @@
 			"fps": 24,
 			"anim": "singDOWN",
 			"indices": [],
-			"name": "SPEED_DOWN"
+			"name": "Down"
 		},
 		{
 			"offsets": [
@@ -75,7 +75,7 @@
 			"fps": 24,
 			"anim": "stareidle",
 			"indices": [],
-			"name": "stareidle"
+			"name": "Turned"
 		},
 		{
 			"offsets": [
@@ -86,14 +86,14 @@
 			"fps": 24,
 			"anim": "alt-idle",
 			"indices": [],
-			"name": "stareidle"
+			"name": "Turned"
 		}
 	],
 	"no_antialiasing": false,
 	"image": "characters/control/SPEED_FULL_ASS_SETS",
 	"position": [
-		0,
-		0
+		-300,
+		-100
 	],
 	"healthicon": "cyclops",
 	"flip_x": false,
@@ -107,5 +107,5 @@
 		50
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 2
 }

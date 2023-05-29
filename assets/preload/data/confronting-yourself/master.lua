@@ -28,6 +28,35 @@ local phase10cheetos = {'phase10-1', 'phase10-2', 'phase10-3'}
 
 local phasedetector = 1
 
+local newValue = -5
+local mult = -5
+
+
+function onBeatHit()
+	if healthDrain then
+		scaleObject('oppIcon', 1.2, 1.2)
+		scaleObject('bfIcon', 1.2, 1.2)
+	end
+end
+
+function onUpdatePost(elapsed)
+	if healthDrain then
+    	mult = lerp(1, getProperty('iconP1.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
+    	scaleObject('oppIcon', mult, mult)
+		scaleObject('bfIcon', mult, mult)
+	end
+end
+
+function lerp(a, b, ratio)
+    return a + ratio * (b - a)
+end
+
+function boundTo(value, min, max)
+    newValue = value
+    if newValue < min then newValue = min elseif newValue > max then newValue = max end
+    return newValue
+end
+
 function changePhases(curPhase) -- Fazer um lua só pra isso.
     phasedetector = curPhase
     if curPhase == 2 then

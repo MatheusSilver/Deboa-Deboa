@@ -5513,7 +5513,7 @@ class PlayState extends MusicBeatState
 			return;
 		} else {
 			var achieve:String = checkForAchievement(['toastie', 'besties', 'personel_clear', 'cy_clear', 'fe_clear',
-			'control_fc', 'bye_bye_fc', 'natal', 
+			'control_fc', 'bye_bye_fc', 'natal', 'hypno_clear', 'mx_clear', 'lx_clear',
 			'sidekick', 'toofest_fc', 'perfect', 'fake_full_combo']);
 
 			if(achieve != null) {
@@ -7734,6 +7734,18 @@ class PlayState extends MusicBeatState
 						}
 					case 'toofest_fc':
 						if(SONG.song.toLowerCase() == 'too-fest' && !usedPractice && !cpuControlled && songMisses == 0) {
+							unlock = true;
+						}
+					case 'lx_clear':
+						if(SONG.song.toLowerCase() == 'pasta-night' && !usedPractice && !cpuControlled && storyDifficulty == 6) {
+							unlock = true;
+						}
+					case 'hypno_clear':
+						if(SONG.song.toLowerCase() == 'pasta-night' && !usedPractice && !cpuControlled && storyDifficulty == 7) {
+							unlock = true;
+						}
+					case 'mx_clear':
+						if(SONG.song.toLowerCase() == 'pasta-night' && !usedPractice && !cpuControlled && storyDifficulty == 5) {
 							unlock = true;
 						}
 					case 'perfect':

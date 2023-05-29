@@ -290,10 +290,6 @@ class MainMenuStateMobile extends MusicBeatState
 				giveAchievement('modboa');
 				ClientPrefs.saveSettings();
 		}
-
-		new FlxTimer().start(300, function(tmr:FlxTimer){
-			unlockTarado();
-		});
 		#end
 
 
@@ -361,11 +357,6 @@ class MainMenuStateMobile extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-	function unlockTarado(){
-		Achievements.unlockAchievement('tarado_do_menu');
-		giveAchievement('tarado_do_menu');
-	}
-
 	function sumidao(selecionado:Int){
 		//Honestamente, nunca pensei que um dia conseguiria fazer algo assim.
 		//É simples, mas só de ver a diferença entre a primeira versão desse code, pra de agora...
@@ -420,7 +411,7 @@ class MainMenuStateMobile extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		#if debug
-		if(FlxG.keys.justPressed.FOUR) unlockTarado();
+		if(FlxG.keys.justPressed.FOUR) giveAchievement('modboa');
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;

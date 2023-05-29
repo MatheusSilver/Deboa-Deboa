@@ -14,7 +14,9 @@ class Achievements {
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
 		["Aquele maldito menu",			"Olhe atentamente o menu por um bom tempo...",		'tarado_do_menu',	true,		0, 				'geral', 		1],
 		["O fim de tudo",				"Vença a Gran Finale",								'fe_clear',			false,		0, 				'orgulho', 		2],
-		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 		181570, 		'geral', 		1], //ok1
+		["hypno pasta conquista",		"Vença a Pasta-Night jogando como Hypno",		'hypno_clear',		false,		0, 				'alt', 			1],
+		["mx pasta conquista",			"Vença a Pasta-Night jogando como MX",		'mx_clear',			false,		0, 				'alt', 			2],
+		["lx pasta conquista",			"Vença a Pasta-Night jogando como Lord-X",		'lx_clear',			false,		0, 				'alt', 			3],		["Seja bem vindo!",				"Abra o jogo pela primeira vez.",					'modboa',			true, 		181570, 		'geral', 		1], //ok1
 		["Ate o proximo encontro",		"Vença slaybells.",									'natal',			false, 		185532, 		'geral', 		1], //ok1
 		["G0TT4_G0_F4ST0",				"Irmão... Tu tá bem man? FC na too fest? medo...",	'toofest_fc',		true, 		181571, 		'meme maker', 	3], //ok1
 		["Bye, Bye",					"Vença a Cycles sem errar",							'bye_bye_fc',		false, 		185533, 		'ira', 			3], //ok1

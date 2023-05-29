@@ -5,6 +5,25 @@ local sickness = true
 
 local angleshit = 2;
 local anglevar = 2;
+local newValue = -5
+local mult = -5
+
+
+function onUpdatePost(elapsed)
+	mult = lerp(1, getProperty('iconP2.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
+	scaleObject('cyclopIcon', mult, mult)
+end
+
+function lerp(a, b, ratio)
+	return a + ratio * (b - a)
+end
+
+function boundTo(value, min, max)
+	newValue = value
+	if newValue < min then newValue = min elseif newValue > max then newValue = max end
+	return newValue
+end
+
 
 function onUpdate(elapsed)
 	setProperty('timeBar.alpha',0)
@@ -13,10 +32,21 @@ function onUpdate(elapsed)
 		setProperty('dad.specialAnim', true);
 		characterPlayAnim('dad', 'alt-idle', true);
 	end
+
+	setProperty('cyclopIcon.x', getProperty('healthBar.x') - 150 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+
+	if getProperty('health') < 0.4 then
+		objectPlayAnimation('cyclopIcon', 'perdendo', false);
+	else
+		objectPlayAnimation('cyclopIcon', 'idle', false);
+	end
 end
 
 function onCreate()
 	local midX = screenWidth/2
+
+	-- nome da animação, prefixo do xml
+
 	makeAnimatedLuaSprite('barrier','sprites/Thingy',0, 0)
 	addAnimationByPrefix('barrier','barrier','thingy',24,false)
 	setScrollFactor('barrier', 0, 0);
@@ -38,6 +68,16 @@ function onStartCountdown()
 	setProperty("dad.stunned",true)
 	--setProperty('scoreTxt.alpha', 0)
 	return Function_Continue
+end
+
+function onCreatePost()
+	makeAnimatedLuaSprite('cyclopIcon', 'icon_cyclops', getProperty('healthBar.x')-150 + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y')-75)
+	addAnimationByPrefix('cyclopIcon', 'perdendo', 'losing', 24, true)
+	addAnimationByPrefix('cyclopIcon', 'idle', 'natural', 24, true)
+	setObjectCamera('cyclopIcon', 'camHUD')
+	setObjectOrder('cyclopIcon', getObjectOrder('healthBarBG') + 1)
+	setProperty('iconP2.visible', false)
+	addLuaSprite('cyclopIcon', true)
 end
 
 function onCountdownStarted()
@@ -90,6 +130,7 @@ function onStepHit()
 end
 
 function onBeatHit()
+	scaleObject('cyclopIcon', 1.2, 1.2)
 	if curBeat == 433 then
 		cameraFade('camGame', '000000', '1')
 	end
