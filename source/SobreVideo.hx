@@ -30,7 +30,7 @@ class SobreVideo extends MusicBeatState
 		{
             video.canSkip = false;
             FlxG.mouse.visible = true;
-			#if desktop
+			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo o sobre", null);
 			#end

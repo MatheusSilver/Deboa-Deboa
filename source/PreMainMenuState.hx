@@ -26,7 +26,7 @@ class PreMainMenuState extends MusicBeatState
 	override function create()
 		{
 			FlxG.mouse.visible = true;
-			#if desktop
+			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os creditos", null);
 			#end

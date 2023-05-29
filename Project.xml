@@ -278,6 +278,9 @@
 	<!--Isso pode até ser útil, mas não deveria ser nescessário no Android-->
 	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 
+	<haxedef name="rpc" unless="debug | mobile"/>
+	<!--só trocar se quiser rpc-->
+
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->

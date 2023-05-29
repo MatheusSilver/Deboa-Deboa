@@ -42,8 +42,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			position: [0, 0],
 			idle_anim: 'M Dad Idle',
 			confirm_anim: 'M Dad Idle'
-		};
-		#if desktop
+		};#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
 		#end
@@ -232,8 +231,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		confirmDescText.visible = (curTypeSelected == 1);
 		confirmInputText.visible = (curTypeSelected == 1);
 		updateOffset();
-		
-		#if desktop
+		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Menu Character Editor", "Editting: " + characterFile.image);
 		#end

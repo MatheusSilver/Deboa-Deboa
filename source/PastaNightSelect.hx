@@ -30,7 +30,7 @@ class PastaNightSelect extends MusicBeatState {
 	{
 		super.create();
 
-		#if desktop
+		#if rpc
 		DiscordClient.changePresence("Escolhendo um personagem em", "Noite da Rapaziada", null);
 		#end
 

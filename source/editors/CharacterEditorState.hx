@@ -934,7 +934,7 @@ class CharacterEditorState extends MusicBeatState
 
 	function updatePresence() 
 	{
-		#if desktop
+		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Character Editor", "Character: " + daAnim, leHealthIcon.getCharacter());
 		#end

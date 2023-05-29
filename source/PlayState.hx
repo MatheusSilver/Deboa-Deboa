@@ -380,7 +380,7 @@ class PlayState extends MusicBeatState
 	public var inCutscene:Bool = false;
 	var songLength:Float = 0;
 
-	#if desktop
+	#if rpc
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
 	public static var detailsPausedText:String = "";
@@ -1914,7 +1914,7 @@ class PlayState extends MusicBeatState
 	//	precacheList.set('missnote2', 'sound');
 	//	precacheList.set('missnote3', 'sound');
 
-		#if desktop
+	#if rpc
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
@@ -2834,7 +2834,7 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		
-		#if desktop
+		#if rpc
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
@@ -3204,7 +3204,7 @@ class PlayState extends MusicBeatState
 			pausarVideo(false);
 			callOnLuas('onResume', []);
 
-			#if desktop
+			#if rpc
 			if (startTimer.finished)
 			{
 				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);
@@ -3221,7 +3221,7 @@ class PlayState extends MusicBeatState
 
 	override public function onFocus():Void
 	{
-		#if desktop
+		#if rpc
 		if (health > 0 && !paused)
 		{
 			if (Conductor.songPosition > 0.0)
@@ -3246,7 +3246,7 @@ class PlayState extends MusicBeatState
 	
 	override public function onFocusLost():Void
 	{
-		#if desktop
+		#if rpc
 		if (health > 0 && !paused)
 		{
 			DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
@@ -3289,14 +3289,14 @@ class PlayState extends MusicBeatState
 			pauseSound.play();
 			openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 	
-		#if desktop
+			#if rpc
 		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
-		#if desktop
+		#if rpc
 		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 	}
@@ -3661,7 +3661,7 @@ class PlayState extends MusicBeatState
 					removedVideo = true;
 				}
 
-			#if desktop
+				#if rpc
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
 		}
@@ -4092,7 +4092,7 @@ class PlayState extends MusicBeatState
 				openSubState(new GameOverSubstate());
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 				
-				#if desktop
+				#if rpc
 				// Game Over doesn't get his own variable because it's only used here
 				DiscordClient.changePresence("Game Over - " + detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
@@ -7791,7 +7791,7 @@ class PlayState extends MusicBeatState
 	// Tá, isso tá safe
 	public function updateRPC(texto:String){ //Unificando tudo aqui (usado exclusivamente na CY provavelmente... Mas pode expandir pra Prey também)
 		
-		#if desktop
+		#if rpc
 		detailsText = texto;
 		detailsPausedText = "Pausado - " + texto;
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength - Conductor.songPosition - ClientPrefs.noteOffset);

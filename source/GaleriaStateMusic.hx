@@ -443,7 +443,7 @@ class GaleriaStateMusic extends MusicBeatState
 				timer.text = FlxStringUtil.formatTime(Math.floor(curTime/1000), false) + '/' + FlxStringUtil.formatTime(Math.floor(songLength/1000), false);
 			}
 
-			#if desktop
+			#if rpc
 			if(!pausado)
 				DiscordClient.changePresence("Ouvindo:", GaleriaState.titulos[curSelected], true, songLength - curTime);
 			else

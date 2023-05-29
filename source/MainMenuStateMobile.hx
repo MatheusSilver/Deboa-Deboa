@@ -66,7 +66,7 @@ class MainMenuStateMobile extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		Conductor.changeBPM(112);
-		#if desktop
+		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No menu principal", null);
 		#end

@@ -32,7 +32,7 @@ class SobreState extends MusicBeatState
 		{
 			FlxG.mouse.load(Paths.image('sobremenu/galeria/cursor'), 1, 0, 0);
 			FlxG.mouse.visible = true;
-			#if desktop
+			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo o sobre", null);
 			#end

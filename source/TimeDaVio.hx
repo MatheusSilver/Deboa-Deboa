@@ -213,7 +213,7 @@ class TimeDaVio extends MusicBeatState
 		}
 	override function update(elapsed:Float)
 		{
-            #if desktop
+            #if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os créditos do(a) "+creditStuff[curSelected], null);
 			#end

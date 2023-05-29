@@ -194,7 +194,7 @@ class ChartingState extends MusicBeatState
 	override function create()
 	{
 
-		#if desktop
+		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Chartando uhull", null);
 		#end
