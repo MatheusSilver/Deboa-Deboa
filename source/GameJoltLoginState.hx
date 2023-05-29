@@ -39,7 +39,7 @@ class GameJoltLoginState extends MusicBeatState
             FlxG.stage.window.textInputEnabled = true;
             #end
 
-			#if desktop
+			#if rpc
 			DiscordClient.changePresence("Logando", null);
 			#end
 

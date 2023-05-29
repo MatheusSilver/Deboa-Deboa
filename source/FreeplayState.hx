@@ -76,7 +76,7 @@ class FreeplayState extends MusicBeatState
 		//Este code, SEMPRE, deve ser colocado quando não se utiliza 'dapreselected', ele é quem carrega as weeks.
 
 		//WeekData.reloadWeekFiles(false);
-		#if desktop
+		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No Freeplay", null);
 		#end

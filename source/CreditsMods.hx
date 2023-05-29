@@ -31,7 +31,7 @@ class CreditsMods extends MusicBeatState
 		{
 			FlxG.mouse.visible = false;
             canChange=false;
-			#if desktop
+			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os créditos", null);
 			#end

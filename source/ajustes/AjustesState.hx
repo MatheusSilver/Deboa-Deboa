@@ -46,7 +46,7 @@ class AjustesState extends MusicBeatState
 	override function create()
 	{
 		//Conductor.changeBPM(112);
-		#if desktop
+		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Nas configurações.", null);
 		#end

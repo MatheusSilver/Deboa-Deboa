@@ -143,7 +143,7 @@ class MenuHistoria extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 
-		#if desktop
+		#if rpc
 		if(!selectedWeek){
 		DiscordClient.changePresence("Escolhendo uma musica em: ", dapreselected, null);
 		}
@@ -309,7 +309,7 @@ class MenuHistoria extends MusicBeatSubstate
 					MusicBeatState.switchState(new PastaNightSelect());
 				});
 			} else if (nombres[curSelected].toLowerCase() == 'cross console clash'){
-				#if desktop
+				#if rpc
 				DiscordClient.changePresence("Escolhendo um lado em", "Cross Console Clash", null);
 				#end
 				naopodevoltar=true;

@@ -31,7 +31,7 @@ class CreditsMusics extends MusicBeatState
 	override function create()
 		{
 			FlxG.mouse.visible = false;
-			#if desktop
+			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo os créditos", null);
 			#end

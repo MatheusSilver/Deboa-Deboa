@@ -149,7 +149,7 @@ class MenuPreHistoria extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		#if desktop
+		#if rpc
 		DiscordClient.changePresence("Pensando em joojar a Week: ", WeekData.weeksList[curWeek], null);
 		#end
 
