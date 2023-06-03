@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;

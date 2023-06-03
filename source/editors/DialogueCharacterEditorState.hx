@@ -1,6 +1,6 @@
 package editors;
 
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 import DialogueBoxPsych;

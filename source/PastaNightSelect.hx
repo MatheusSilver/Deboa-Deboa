@@ -10,7 +10,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import MusicBeatSubstate;
 import PlayState;
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 import openfl.display.GraphicsShader;

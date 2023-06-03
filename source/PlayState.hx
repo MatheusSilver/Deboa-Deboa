@@ -9,7 +9,7 @@ import openfl.system.System;
 import openfl.Lib;
 import webm.WebmPlayer;
 import flixel.addons.display.FlxTiledSprite;
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 import openfl.utils.AssetType;
@@ -76,6 +76,7 @@ class PlayState extends MusicBeatState
 {
 
 	public static var movecameraallowed:Bool = true;
+	public static var isPlayState:Bool = false;
 	public var precacheList:Map<String, String> = new Map<String, String>(); 
 
 	var isSwapped:Bool = false; //Para ser usado exclusivamente na CY provavelmente
@@ -609,7 +610,7 @@ class PlayState extends MusicBeatState
 		art.alpha=1;
 
 
-		#if desktop
+		#if rpc
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
 		#end
 
@@ -628,7 +629,7 @@ class PlayState extends MusicBeatState
 			detailsText = FreeplayState.weekNombre;
 		}
 
-		#if desktop
+		#if rpc
 		detailsPausedText = "Pausado - " + detailsText;
 		#end
 
@@ -3019,11 +3020,6 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
-			case 'video player':
-				if(OpenFlAssets.exists(Paths.video(event[3])))
-					{
-						precacheList.set(Paths.video(event[3]), 'video');
-					}
 			case 'Adicionar Imagens':
 				if(ClientPrefs.legendas){
 					//trace('executando cache de lyrics');
@@ -3997,6 +3993,7 @@ class PlayState extends MusicBeatState
 		checkEventNote();
 		
 		#if debug
+		/*
 		if(SONG.song.toLowerCase()=='confronting-yourself') {
 
 		// Uma fix pros bugs que acontecem quando você pula o ato da música
@@ -4009,7 +4006,7 @@ class PlayState extends MusicBeatState
 				pularVideo();
 			}
 
-		}
+		}*/
 
 		if(!endingSong && !startingSong) {
 			if (FlxG.keys.justPressed.ONE) {
@@ -4766,7 +4763,7 @@ class PlayState extends MusicBeatState
 							FlxTween.tween(boyfriend, {alpha: 1}, 6);	
 							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
 							triggerEventNote('Change Character', 'dad', 'Furnace'); //Ele já foi carregado mesmo então tá safe
-							#if desktop
+							#if rpc
 							storyDifficultyText = 'Neutro';
 							#end
 							dad.x -= 1000;
@@ -4952,7 +4949,7 @@ class PlayState extends MusicBeatState
 								triggerEventNote('Add Camera Zoom', '0.3', '0.3');
 	
 							case 3400:
-								#if desktop
+								#if rpc
 								storyDifficultyText = 'Good ending?'; //detalhe que achei soda
 								#end
 								endingTweens('good_ending');
@@ -5003,12 +5000,12 @@ class PlayState extends MusicBeatState
 								canRegen = false;
 								camHUD.alpha = 1; //Só pra garantir
 								if(desviou){
-								#if desktop
+								#if rpc
 								storyDifficultyText = 'True Ending'; //detalhe que achei soda
 								#end
 								endingTweens('true_ending');
 								} else {
-								#if desktop
+								#if rpc
 								storyDifficultyText = 'Bad ending'; //detalhe que achei soda
 								#end
 								endingTweens('bad_ending');

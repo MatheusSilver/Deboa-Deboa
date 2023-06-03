@@ -26,7 +26,7 @@ import openfl.net.URLRequest;
 
 using StringTools;
 
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 

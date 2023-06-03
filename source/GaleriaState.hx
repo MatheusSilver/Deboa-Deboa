@@ -12,7 +12,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 
 using StringTools;
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 
@@ -149,7 +149,7 @@ class GaleriaState extends MusicBeatState
 
 		override function closeSubState()
 			{
-				#if destkop
+				#if rpc
 				DiscordClient.changePresence("Vendo a galeria", null);
 				#end
 				stoploading = false;

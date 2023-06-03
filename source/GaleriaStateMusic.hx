@@ -1,7 +1,7 @@
 package;
 
 import flixel.system.FlxSound;
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;

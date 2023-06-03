@@ -231,7 +231,7 @@ function onTweenCompleted(tag)
         triggerEvent('Change Character','gf','Soul Knuckles')
         triggerEvent('Change Character','bf','Sonic Fear')
         triggerEvent('Change Character','dad','Soul Tails')
-        triggerEvent('noteskinchangeBF','NOTE_assets','')
+        triggerEvent('noteskinchangeBF','NOTE_assets','blood')
         triggerEvent('noteskinchangeOPPT','NOTE_assets','')
         triggerEvent('eventos-tripletrouble','400289222','nada')
         cyCut('KEK');

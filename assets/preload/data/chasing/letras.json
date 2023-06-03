@@ -285,13 +285,6 @@
 						"hudfade",
 						"0",
 						"1.8"
-					],
-					[
-						46007.4626865672,
-						-1,
-						"comecarvideo",
-						"AnimacoesJogaveis/ChasingVideo",
-						"0,0,cheio,0"
 					]
 				],
 				"bpm": 0,
@@ -335,35 +328,46 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
 			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
+						{
 				"gfSection": false,
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						53619.4029850746,
+						51600,
 						-1,
-						"Red Flash Camera",
-						"0.2",
+						"playchasing",
+						"false",
 						""
 					]
 				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false

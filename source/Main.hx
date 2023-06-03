@@ -1,7 +1,7 @@
 package;
 
 import openfl.display.StageScaleMode;
-#if desktop
+#if rpc
 ///import GameJolt;
 ///import GameJolt.GameJoltAPI;
 import Discord.DiscordClient;

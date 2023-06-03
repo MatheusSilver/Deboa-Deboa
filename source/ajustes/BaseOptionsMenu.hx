@@ -21,7 +21,7 @@ import haxe.Json;
 import lime.utils.Assets;
 
 using StringTools;
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 
@@ -296,7 +296,7 @@ class BaseOptionsMenu extends MusicBeatState
 				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
 				switch(options[curSelected]) {
 					case 'FPS':
-						ClientPrefs.framerate += add;
+						ClientPrefs.framerate += add*10;
 						if(ClientPrefs.framerate < 60) ClientPrefs.framerate = 60;
 						else if(ClientPrefs.framerate > 240) ClientPrefs.framerate = 240;
 

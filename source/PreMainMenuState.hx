@@ -9,7 +9,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 
 using StringTools;
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 

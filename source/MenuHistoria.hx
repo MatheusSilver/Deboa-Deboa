@@ -11,7 +11,7 @@ import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
 
 using StringTools;
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 

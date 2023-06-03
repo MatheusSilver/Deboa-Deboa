@@ -1,6 +1,6 @@
 package;
 
-#if desktop
+#if rpc
 import Discord.DiscordClient;
 #end
 import Achievements;
@@ -30,7 +30,7 @@ class AchievementsMenuState extends MusicBeatState
 	var isCoolBeat:Bool = true;
 
 	override function create() {
-		#if desktop
+		#if rpc
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
 
