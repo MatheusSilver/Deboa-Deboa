@@ -2400,7 +2400,6 @@ class PlayState extends MusicBeatState
 			//videoSpr.setGraphicSize(FlxG.width, FlxG.height);
 			videoSpr.cameras = [camLegenda];
 			//videoSpr.screenCenter(XY);
-			playingVideoMP4 = true;
 			add(videoSpr);
 			camGame.alpha = 0;
 			camHUD.alpha = 0;
@@ -2418,6 +2417,7 @@ class PlayState extends MusicBeatState
 				add(letext);
 			trace(MP4Handler.vlcBitmap.length);
 			video.playMP4(diretorio, null, videoSpr);
+			playingVideoMP4 = true;
 			if(curSong == "prey")
 				{
 					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);						

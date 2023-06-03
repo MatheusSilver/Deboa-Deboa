@@ -189,7 +189,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.sound.play(Paths.music(endSoundName));
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
-				FlxTween.tween(blackScreen, {alpha: 1}, 1, {ease: FlxEase.linear, onComplete: function(twn:FlxTween)
+				FlxTween.tween(blackScreen, {alpha: 1}, 1.5, {ease: FlxEase.linear, onComplete: function(twn:FlxTween)
 				{
 					MusicBeatState.switchState(new PlayState()); //Não imagino que alguem vá apertar enter esperando ir pra qualquer outro lugar então né?
 				}});
