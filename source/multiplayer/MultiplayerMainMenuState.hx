@@ -323,18 +323,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 					if(e.data.verb == 'input')
 						{
 							var qualEquem:Array<String> = e.data.message.split(" ");
-							mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2], true);			
+							mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2], true);
 						}
-					else
+					if(e.data.verb == "name")
 						{
-							trace(e.data.message); 
+							var quemEqual:Array<String> = e.data.message.split("\n");
+							nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
 						}
-					
-						if(e.data.verb == "name")
+					if(e.data.verb == 'version')
+						{
+							if(e.data.message != MainMenuStateMobile.version)
 							{
-								var quemEqual:Array<String> = e.data.message.split("\n");
-								nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
+								server.send({message: "versao inconpativel", verb: 'all-leave'});
 							}
+						}
 
 				});	
 
@@ -393,7 +395,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 							if(e.data.verb == 'all-leave' && !isHost)
 								{
-									client.disconnectClient();
+									client.disconnectClient();									
+									if(e.data.message=="versao inconpativel")
+										{
+											avisarAlgo("Versões inconpatíveis");
+										}
 								}
 						trace(e.data.message); 
 					});	
@@ -404,13 +410,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 						canClick=true;	
 						myID = isHost ? 0 : 1;
 						client.send({ message: myID+"\n"+ GJClient.userName, verb: 'name' });
+
 						nomes[myID] = GJClient.userName;
 						isOnServer=true;
 						entrarBt.visible=false;
 						hostearBt.visible=false;
 						ipBar.visible=false;	
 						trace(client.uuid);
-						trace("to entrando");
+						trace("to entrando");						
+						client.send({ message: MainMenuStateMobile.version, verb: 'version' });
 					});
 
 					client.addEventListener(NetworkEvent.DISCONNECTED, function(e: NetworkEvent)
