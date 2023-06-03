@@ -1,0 +1,4101 @@
+{
+	"song": {
+		"speed": 2.8,
+		"stage": "fleetPHANTASM",
+		"player1": "sonicPHANTASM",
+		"player2": "sonicPHANTASM",
+		"player3": "invisibru",
+		"notes": [
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						0,
+						-1,
+						"Adicionar Imagens",
+						"phantasm1",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						0,
+						-1,
+						"Adicionar Imagens",
+						"phantasm1",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						2062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm2",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						2062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm2",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						3656.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm3",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						3656.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm3",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						4968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm4",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						4968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm4",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						6375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm5",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						6375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm5",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						8250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm6",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						8250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm6",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						9375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm7",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						9375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm7",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						10968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm8",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						10968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm8",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						12000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm9",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						12843.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm10",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						12000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm9",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						12843.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm10",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						14250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm11",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						14250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm11",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						15000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm12",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						15937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm13",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						15000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm12",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						15937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm13",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						16500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm14",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						16500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm14",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						18375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm15",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						18375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm15",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						19875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm16",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						20625,
+						-1,
+						"Adicionar Imagens",
+						"phantasm17",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						19875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm16",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						20625,
+						-1,
+						"Adicionar Imagens",
+						"phantasm17",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						21000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm18",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						22125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm19",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						21000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm18",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						22125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm19",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						23343.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm20",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						23343.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm20",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						24375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm21",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						24375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm21",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						25875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm22",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						26812.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm23",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						25875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm22",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						26812.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm23",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						27937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm24",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						27937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm24",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						30375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm26",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						30375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm26",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						31500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm26",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						31500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm26",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						33375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm27",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						33375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm27",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						34500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm28",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						35437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm29",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						34500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm28",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						35437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm29",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						36000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm30",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						36937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm31",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						36000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm30",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						36937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm31",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						38156.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm32",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						38156.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm32",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						39000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm33",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						40125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm34",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						39000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm33",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						40125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm34",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						42000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm35",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						42937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm36",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						42000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm35",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						42937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm36",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						43781.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm37",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						43781.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm37",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						45000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm38",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						45937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm39",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						45000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm38",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						45937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm39",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						47062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm40",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						47062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm40",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						48375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm41",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						48375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm41",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						49687.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm42",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						49687.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm42",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						51000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm43",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						51000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm43",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						52500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm44",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						52500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm44",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						54000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm45",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						54000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm45",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						55687.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm46",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						55687.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm46",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						57187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm47",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						57187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm47",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						58500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm48",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						58500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm48",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						60375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm49",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						60375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm49",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						62437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm50",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						62437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm50",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						64125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm51",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						64125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm51",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						65250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm52",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						65250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm52",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						66281.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm53",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						66281.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm53",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						67875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm54",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						67875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm54",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						69656.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm56",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						69656.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm56",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						70875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm56",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						70875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm56",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						72000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm57",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						73031.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm58",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						72000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm57",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						73031.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm58",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						73968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm59",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						73968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm59",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						75000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm60",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						76125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm61",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						75000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm60",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						76125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm61",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						78375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm62",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						78375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm62",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						79500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm63",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						79500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm63",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						81000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm64",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						81000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm64",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						83156.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm65",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						83156.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm65",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						84000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm66",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						84000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm66",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						85500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm67",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						85500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm67",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						87000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm68",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						87000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm68",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						89437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm69",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						89437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm69",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						91031.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm70",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						91031.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm70",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						92250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm71",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						92250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm71",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						93000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm72",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						93000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm72",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						94875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm73",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						94875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm73",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						96000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm74",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						96000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm74",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						97500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm75",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						98250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm76",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						97500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm75",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						98250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm76",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						100125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm77",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						100125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm77",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						100781.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm78",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						100781.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm78",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						102375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm79",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						102375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm79",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						103687.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm80",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						103687.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm80",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						105750,
+						-1,
+						"Adicionar Imagens",
+						"phantasm81",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						105750,
+						-1,
+						"Adicionar Imagens",
+						"phantasm81",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						106875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm82",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						106875,
+						-1,
+						"Adicionar Imagens",
+						"phantasm82",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						108187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm83",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						108187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm83",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						110250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm84",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						110250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm84",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						114000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm85",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						114000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm85",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						116250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm86",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						116250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm86",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						120187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm87",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						120187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm87",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						122250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm88",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						122250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm88",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						123000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm89",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						123000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm89",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						125062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm90",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						125062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm90",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						126000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm91",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						126000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm91",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						128250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm92",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						128250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm92",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						130125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm93",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						130125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm93",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						132000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm94",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						133312.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm95",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						132000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm94",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						133312.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm95",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						134437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm96",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						134437.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm96",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						135187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm97",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						135937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm98",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						135187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm97",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						135937.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm98",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						137625,
+						-1,
+						"Adicionar Imagens",
+						"phantasm99",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						137625,
+						-1,
+						"Adicionar Imagens",
+						"phantasm99",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						138375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm16",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						138375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm16",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						140625,
+						-1,
+						"Adicionar Imagens",
+						"phantasm17",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						140625,
+						-1,
+						"Adicionar Imagens",
+						"phantasm17",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						141000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm18",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						142125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm100",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						141000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm18",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						142125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm100",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						144000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm57",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						145031.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm58",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						144000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm57",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						145031.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm58",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						146062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm59",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						146062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm59",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						147000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm60",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						148125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm61",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						147000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm60",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						148125,
+						-1,
+						"Adicionar Imagens",
+						"phantasm61",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						150375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm101",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						150375,
+						-1,
+						"Adicionar Imagens",
+						"phantasm101",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						151500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm102",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						151500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm102",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						153187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm103",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						153187.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm103",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						155250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm104",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						155250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm104",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						156000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm105",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						156000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm105",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						157500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm106",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						157968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm107",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						157500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm106",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						157968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasm107",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						159000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm108",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						159000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm108",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						161250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm109",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						161250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm109",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						162000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm110",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						163406.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm111",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						162000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm110",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						163406.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasm111",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						165000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm112",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						165000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm112",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						166500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm113",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						166500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm113",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						168000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm114",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						168000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm114",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						169500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm115",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						169500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm115",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						171000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm116",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						171000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm116",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						172500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm117",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						173062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm118",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						172500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm117",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						173062.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm118",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						174000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm119",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						174000,
+						-1,
+						"Adicionar Imagens",
+						"phantasm119",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						175500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm120",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						176812.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm121",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						175500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm120",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						176812.5,
+						-1,
+						"Adicionar Imagens",
+						"phantasm121",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						178500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm122",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						179250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm123",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						178500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm122",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						179250,
+						-1,
+						"Adicionar Imagens",
+						"phantasm123",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						180750,
+						-1,
+						"Adicionar Imagens",
+						"phantasm124",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						181500,
+						-1,
+						"Adicionar Imagens",
+						"phantasm123",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						181593.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasms",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						181968.75,
+						-1,
+						"Adicionar Imagens",
+						"phantasmf",
+						"",
+						"",
+						"",
+						""
+					],
+					[
+						182531.25,
+						-1,
+						"Adicionar Imagens",
+						"phantasms",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						183000,
+						-1,
+						"Adicionar Imagens",
+						"",
+						"",
+						"",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
+				"sectionNotes": [],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			}
+		],
+		"splashSkin": "noteSplashes",
+		"validScore": false,
+		"bpm": 160,
+		"arrowSkin": null,
+		"needsVoices": false,
+		"startinvisibru": true,
+		"canfollowpermitido": null,
+		"song": "phantasm",
+		"isRing": null
+	}
+}
