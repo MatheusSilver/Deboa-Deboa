@@ -2,7 +2,11 @@ import LoadingState.LoadingsState;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
+#if (flixel >= "5.3.0")
+import flixel.sound.FlxSound;
+#else
 import flixel.system.FlxSound;
+#end
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;

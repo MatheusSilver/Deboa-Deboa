@@ -4,7 +4,11 @@ import flixel.FlxG;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else
+#if (flixel >= "5.3.0")
+import flixel.sound.FlxSound;
+#else
 import flixel.system.FlxSound;
+#end
 #end
 
 class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
