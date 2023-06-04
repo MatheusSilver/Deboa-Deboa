@@ -52,7 +52,7 @@ class TimeDaVio extends MusicBeatState
 
 
     var discordLink:Array<String> = ['https://discord.gg/G3BmXXeshA', '', '', '', '', 
-                                    'https://discord.gg/kprH8WnP8Q', '', '', 
+                                    'https://discord.gg/G3BmXXeshA', '', '', 
                                     /*daqui pra frente é elenco*/ 
                                     'https://discord.gg/G3BmXXeshA',
                                     '',
@@ -71,7 +71,7 @@ class TimeDaVio extends MusicBeatState
 
                                     
     var twitterLink:Array<String> = ['https://twitter.com/galaccine', 'https://twitter.com/Davizinhn', 'https://twitter.com/Ashuro_Privety', '', 'https://twitter.com/Konan_Hatake13', 
-                                    'https://twitter.com/mateus_x02', 'https://twitter.com/Hugo09723233', 'https://twitter.com/Point15104219', 
+                                    'https://twitter.com/matex02_', 'https://twitter.com/Hugo09723233', 'https://twitter.com/Point15104219', 
                                     /*daqui pra frente é elenco*/ 
                                     'https://twitter.com/galaccine',
                                     'https://twitter.com/bluetufie',
