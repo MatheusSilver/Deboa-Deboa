@@ -21,5 +21,11 @@ function onCreate()
 	addLuaSprite('ground', false);
 	addLuaSprite('gf-dark', false);
 
-	close(true); --For performance reasons, close this script once the stage is fully loaded, as this script won't be used anymore after loading the stage
+end
+
+function onEvent(name, value1, value2)
+	if name == "Change Character" and value1 == 'dad' and value2 == 'tails-dark-altsidekick' then
+		setProperty('gfGroup.visible', true)
+    	setProperty('gf.visible', true)
+    end
 end
