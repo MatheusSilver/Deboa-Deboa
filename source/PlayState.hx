@@ -1924,11 +1924,7 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
-		setOnLuas('camPosDadX', dad.getMidpoint().x + 150 + dad.cameraPosition[0]);
-		setOnLuas('camPosDadY', dad.getMidpoint().y - 100 + dad.cameraPosition[1]);
-
-		setOnLuas('camPosBFX', boyfriend.getMidpoint().x - 100 - boyfriend.cameraPosition[0]);
-		setOnLuas('camPosBFY', boyfriend.getMidpoint().y - 100 + boyfriend.cameraPosition[1]);
+		updateCamPos('all');
 		
 		callOnLuas('onCreatePost', []);
 
@@ -5320,9 +5316,7 @@ class PlayState extends MusicBeatState
 							if (!bfIsLeft) iconP1.changeIcon(boyfriend.healthIcon) else iconP1.changeIcon(dad.healthIcon);
 						}
 
-						setOnLuas('camPosBFX', boyfriend.getMidpoint().x - 100 - boyfriend.cameraPosition[0]);
-						setOnLuas('camPosBFY', boyfriend.getMidpoint().y - 100 + boyfriend.cameraPosition[1]);
-
+						updateCamPos('bf');
 					case 1:
 						if(dad.curCharacter != value2) {
 							if(!dadMap.exists(value2)) {
@@ -5347,8 +5341,7 @@ class PlayState extends MusicBeatState
 							if (!bfIsLeft) iconP2.changeIcon(dad.healthIcon) else iconP2.changeIcon(boyfriend.healthIcon);
 						}
 
-						setOnLuas('camPosDadX', dad.getMidpoint().x + 150 + dad.cameraPosition[0]);
-						setOnLuas('camPosDadY', dad.getMidpoint().y - 100 + dad.cameraPosition[1]);
+						updateCamPos('dad');
 
 					case 2:
 						if(gf.curCharacter != value2) {
@@ -7851,6 +7844,23 @@ class PlayState extends MusicBeatState
 			{
 				FlxTween.tween(tofade, {alpha: 0}, 1.5);
 			});
+	}
+
+
+	public function updateCamPos(char:String){
+		if (char == 'dad'){
+			setOnLuas('camPosDadX', dad.getMidpoint().x + 150 + dad.cameraPosition[0]);
+			setOnLuas('camPosDadY', dad.getMidpoint().y - 100 + dad.cameraPosition[1]);
+		}else if (char == 'bf'){
+			setOnLuas('camPosBFX', boyfriend.getMidpoint().x - 100 - boyfriend.cameraPosition[0]);
+			setOnLuas('camPosBFY', boyfriend.getMidpoint().y - 100 + boyfriend.cameraPosition[1]);
+		}else if (char == 'all'){
+			setOnLuas('camPosBFX', boyfriend.getMidpoint().x - 100 - boyfriend.cameraPosition[0]);
+			setOnLuas('camPosBFY', boyfriend.getMidpoint().y - 100 + boyfriend.cameraPosition[1]);
+
+			setOnLuas('camPosDadX', dad.getMidpoint().x + 150 + dad.cameraPosition[0]);
+			setOnLuas('camPosDadY', dad.getMidpoint().y - 100 + dad.cameraPosition[1]);
+		}
 	}
 
 	//To Do:

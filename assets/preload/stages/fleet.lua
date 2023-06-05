@@ -1,5 +1,6 @@
 finishedGameover = false;
 startedPlaying = false;
+camMoving = false
 
 function onCreate()
 	-- background shit
@@ -40,6 +41,8 @@ function onCreate()
 	addLuaSprite('pebles', true);
 	addLuaSprite('porkerbop', true); -- false = add behind characters, true = add over characters
 
+	setCamMove(false)
+
 end
 
 function onBeatHit()
@@ -48,10 +51,14 @@ function onBeatHit()
 	end
 end
 
---[[function onUpdate(elapsed)
-	
-	if inGameOver and not startedPlaying and not finishedGameover then
-		setPropertyFromClass('flixel.FlxG', 'sound.music.volume', 0.2);
+function onUpdate(elapsed)
+	if curBeat == 3 then
+		setCamMove(true)
+		camMoving = true
+	end
+	if curBeat < 20 and mustHitSection and camMoving then
+		updateCamPos('dad')
+		triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
 	end
 end
 
@@ -59,7 +66,7 @@ end
 function onGameOver()
 	runTimer('playFleetLine', 2.7);
 	return Function_Continue;
-end]]
+end
 
 function onGameOverConfirm(reset)
 	finishedGameover = true;

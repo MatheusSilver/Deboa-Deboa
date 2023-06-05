@@ -577,6 +577,10 @@ class FunkinLua {
 			cancelTween(tag);
 		});
 
+		Lua_helper.add_callback(lua, "updateCamPos", function(char:String) {
+			PlayState.instance.updateCamPos(char);
+		});
+
 		Lua_helper.add_callback(lua, "runTimer", function(tag:String, time:Float = 1, loops:Int = 1) {
 			cancelTimer(tag);
 			PlayState.instance.modchartTimers.set(tag, new FlxTimer().start(time, function(tmr:FlxTimer) {
