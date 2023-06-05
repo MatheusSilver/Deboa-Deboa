@@ -62,9 +62,11 @@ function onCreate()
 end
 
 function transVermelha()
+    soundFadeCancel('statica')
     setProperty('fx.alpha', 0.8)
 	doTweenAlpha('fleetON', 'fx', 0, 1, 'linear')
-	playSound('stat', 0.3)
+    playSound('stat', 0.4, 'statica')
+    soundFadeOut('statica', 1.5)
 end
 
 function onSongStart()
