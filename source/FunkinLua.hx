@@ -1310,11 +1310,38 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});
+		Lua_helper.add_callback(lua, "justTouched", function() {
+			BSLTouchUtils.justTouched();
+		});
+
+		Lua_helper.add_callback(lua, "aperta", function(coisas:Dynamic, coisasID:Int) {
+			BSLTouchUtils.aperta(coisas, coisasID);
+		});
+
+		Lua_helper.add_callback(lua, "apertasimples", function(coisa:Dynamic) {
+			BSLTouchUtils.apertasimples(coisa);
+		});
+
+		Lua_helper.add_callback(lua, "pressionando", function(coisa:Dynamic) {
+			BSLTouchUtils.pressionando(coisa);
+		});
+
+		Lua_helper.add_callback(lua, "solto", function(coisa:Dynamic) {
+			BSLTouchUtils.solto(coisa);
+		});
+
+		Lua_helper.add_callback(lua, "pegarpos", function(touch:flixel.input.touch.FlxTouch, pos:String) {
+			BSLTouchUtils.pegarpos(touch, pos);
+		});
+		
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
 			PlayState.instance.updateRPC(texto);
 		});
 		Lua_helper.add_callback(lua, "cyCut", function(texto:String) {
 			PlayState.instance.cyCutscene(texto);
+		});
+		Lua_helper.add_callback(lua, "destruirsprites", function(sprite:FlxSprite, chave:String = '', library:String = '') {
+			PlayState.instance.destruirsprites(sprite, chave, library);
 		});
 		Lua_helper.add_callback(lua, "playSound", function(sound:String, volume:Float = 1, ?tag:String = null) {
 			if(tag != null && tag.length > 0) {
