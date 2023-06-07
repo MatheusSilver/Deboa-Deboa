@@ -8,6 +8,8 @@
         precacheImage('three');
         precacheImage('two');
         precacheImage('gofun');
+        precacheImage('conquistas/medalhas/achievements (btt-luxuria)');
+        precacheImage('conquistas/keydSTARS/star-luxuria');
 
 
 

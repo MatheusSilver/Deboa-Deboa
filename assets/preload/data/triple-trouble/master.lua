@@ -8,6 +8,9 @@ function onCreate()
     precacheSound('P3Jumps/KnucklesScreamLOL');
     precacheSound('P3Jumps/EggmanScreamLOL');
 
+    precacheImage('conquistas/medalhas/achievements (btt-orgulho)');
+    precacheImage('conquistas/keydSTARS/star-orgulho');
+
     precacheImage('Phase3Static');
     precacheImage('eggman');
     precacheImage('Knuckles');

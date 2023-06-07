@@ -4,6 +4,9 @@
 		makeLuaSprite('sponge', 'SpingeBinge', 79.5, 467);
 		setProperty('sponge.visible', false)
 		addLuaSprite('sponge', true);
+
+		precacheImage('conquistas/medalhas/achievements (btt-meme maker)');
+        precacheImage('conquistas/keydSTARS/star-meme maker');
 	
 		if lowQuality == true then
 			makeLuaSprite('luanzito', 'luaznito', 0, 0);

@@ -6872,104 +6872,47 @@ class PlayState extends MusicBeatState
 						switch(curStep)
 						{
 							case 16:
-								if(ClientPrefs.downScroll)
-									{
-										var sayuri:FlxSprite = new FlxSprite();
-										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
-										sayuri.cameras = [camLegenda];
-										sayuri.x=-421;
-										sayuri.y=450;
-										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
-										FlxTween.tween(sayuri, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
-										sayuri.antialiasing = ClientPrefs.globalAntialiasing;
-										sayuri.alpha=1;
-										new FlxTimer().start(4, function(tmr:FlxTimer){
-											remove(sayuri);
-										});
-										add(sayuri);
-									}
-								else
-									{
-										var sayuri:FlxSprite = new FlxSprite();
-										sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
-										sayuri.cameras = [camLegenda];
-										sayuri.x=-421;
-										sayuri.y=107;
-										FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
-										FlxTween.tween(sayuri, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
-										sayuri.antialiasing = ClientPrefs.globalAntialiasing;
-										sayuri.alpha=1;
-										new FlxTimer().start(4, function(tmr:FlxTimer){
-											remove(sayuri);
-										});
-										add(sayuri);
-									}
+								var sayuri:FlxSprite = new FlxSprite();
+								sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
+								sayuri.cameras = [camLegenda];
+								sayuri.x=-421;
+								sayuri.y= ClientPrefs.downScroll ? 450 : 107;
+								FlxTween.tween(sayuri, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
+								FlxTween.tween(sayuri, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+								sayuri.antialiasing = ClientPrefs.globalAntialiasing;
+								sayuri.alpha=1;
+								new FlxTimer().start(4, function(tmr:FlxTimer){
+									remove(sayuri);
+								});
+								add(sayuri);
 							case 1304: // for testing (1304)
-								if(ClientPrefs.downScroll)
-									{
-										var blutufie:FlxSprite = new FlxSprite();
-										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
-										blutufie.cameras = [camLegenda];
-										blutufie.x=1280;
-										blutufie.y=421;
-										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
-										FlxTween.tween(blutufie, {x: 1280}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
-										blutufie.antialiasing = ClientPrefs.globalAntialiasing;
-										blutufie.alpha=1;
-										new FlxTimer().start(4, function(tmr:FlxTimer){
-											remove(blutufie);
-										});
-										add(blutufie);
-									}
-								else
-									{
-										var blutufie:FlxSprite = new FlxSprite();
-										blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
-										blutufie.cameras = [camLegenda];
-										blutufie.x=1280;
-										blutufie.y=72;
-										FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
-										FlxTween.tween(blutufie, {x: 1280}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
-										blutufie.antialiasing = ClientPrefs.globalAntialiasing;
-										blutufie.alpha=1;
-										new FlxTimer().start(4, function(tmr:FlxTimer){
-											remove(blutufie);
-										});
-										add(blutufie);
-									}
+								var blutufie:FlxSprite = new FlxSprite();
+								blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
+								blutufie.cameras = [camLegenda];
+								blutufie.x=1280;
+								blutufie.y= ClientPrefs.downScroll ? 421 : 72;
+								FlxTween.tween(blutufie, {x: 874}, 0.65, {ease: FlxEase.quartInOut});
+								FlxTween.tween(blutufie, {x: 1280}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+								blutufie.antialiasing = ClientPrefs.globalAntialiasing;
+								blutufie.alpha=1;
+								new FlxTimer().start(4, function(tmr:FlxTimer){
+									remove(blutufie);
+								});
+								add(blutufie);
 							case 2840: // for testing (2840)
-								if(ClientPrefs.downScroll)
-									{
-										var brunito:FlxSprite = new FlxSprite();
-										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
-										brunito.cameras = [camLegenda];
-										brunito.x=-421;
-										brunito.y=450;
-										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
-										FlxTween.tween(brunito, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
-										brunito.antialiasing = ClientPrefs.globalAntialiasing;
-										brunito.alpha=1;
-										new FlxTimer().start(4, function(tmr:FlxTimer){
-											remove(brunito);
-										});
-										add(brunito);
-									}
-								else
-									{
-										var brunito:FlxSprite = new FlxSprite();
-										brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
-										brunito.cameras = [camLegenda];
-										brunito.x=-421;
-										brunito.y=107;
-										FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
-										FlxTween.tween(brunito, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
-										brunito.antialiasing = ClientPrefs.globalAntialiasing;
-										brunito.alpha=1;
-										new FlxTimer().start(4, function(tmr:FlxTimer){
-											remove(brunito);
-										});
-										add(brunito);
-									}
+								var brunito:FlxSprite = new FlxSprite();
+								brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
+								brunito.cameras = [camLegenda];
+								brunito.x=-421;
+								brunito.y= ClientPrefs.downScroll ? 450 : 107;
+								FlxTween.tween(brunito, {x: 0}, 0.65, {ease: FlxEase.quartInOut});
+								FlxTween.tween(brunito, {x: -421}, 0.65, {ease: FlxEase.quartInOut, startDelay: 2.65});
+								brunito.antialiasing = ClientPrefs.globalAntialiasing;
+								brunito.alpha=1;
+								new FlxTimer().start(4, function(tmr:FlxTimer){
+									remove(brunito);
+								});
+								add(brunito);
 						}
 					}
 
