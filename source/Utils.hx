@@ -164,6 +164,20 @@ class BSLTouchUtils
 
 		return false;
 	}
+	
+		public static function solto(coisa:Dynamic):Bool
+		{
+			#if desktop
+			if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justReleased)
+				return true;
+			#elseif mobile
+			for (touch in FlxG.touches.list)
+				if (touch.overlaps(coisa) && touch.justReleased)
+					return true;
+			#end
+	
+			return false;
+		}
 }
 
 /*

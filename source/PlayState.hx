@@ -7808,7 +7808,7 @@ class PlayState extends MusicBeatState
 
 	//To Do:
 	//Integrar isso com Lua
-	function destruirsprites(sprite:FlxSprite, chave:String = '', library:String = ''){
+	public function destruirsprites(sprite:FlxSprite, chave:String = '', library:String = ''){
 		sprite.visible = false;
 		remove(sprite);
 		sprite.kill();

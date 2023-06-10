@@ -1311,27 +1311,23 @@ class FunkinLua {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});
 		Lua_helper.add_callback(lua, "justTouched", function() {
-			BSLTouchUtils.justTouched();
+			Utils.BSLTouchUtils.justTouched();
 		});
 
 		Lua_helper.add_callback(lua, "aperta", function(coisas:Dynamic, coisasID:Int) {
-			BSLTouchUtils.aperta(coisas, coisasID);
+			Utils.BSLTouchUtils.aperta(coisas, coisasID);
 		});
 
 		Lua_helper.add_callback(lua, "apertasimples", function(coisa:Dynamic) {
-			BSLTouchUtils.apertasimples(coisa);
+			Utils.BSLTouchUtils.apertasimples(coisa);
 		});
 
 		Lua_helper.add_callback(lua, "pressionando", function(coisa:Dynamic) {
-			BSLTouchUtils.pressionando(coisa);
+			Utils.BSLTouchUtils.pressionando(coisa);
 		});
 
 		Lua_helper.add_callback(lua, "solto", function(coisa:Dynamic) {
-			BSLTouchUtils.solto(coisa);
-		});
-
-		Lua_helper.add_callback(lua, "pegarpos", function(touch:flixel.input.touch.FlxTouch, pos:String) {
-			BSLTouchUtils.pegarpos(touch, pos);
+			Utils.BSLTouchUtils.solto(coisa);
 		});
 		
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
