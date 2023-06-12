@@ -47,14 +47,12 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		imagem.screenCenter(XY);
 		add(imagem);
 		if(isTransIn) {
-			trace('transin');
 			transBlack.visible=true;
 			imagem.scale.x=0.5;
 			imagem.scale.y=0.5;
-			
-            new FlxTimer().start(0.75, function(tmr:FlxTimer){
+            new FlxTimer().start(0.5, function(tmr:FlxTimer){
                 transBlack.visible=false;
-				FlxTween.tween(imagem.scale, {x:230, y:230}, duration, {
+				FlxTween.tween(imagem.scale, {x:240, y:240}, duration, {
 					onComplete: function(twn:FlxTween) {
 						close();
 					},
