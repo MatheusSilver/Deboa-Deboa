@@ -221,7 +221,7 @@ class GameJoltLoginState extends MusicBeatState
                 } else if (sum2 == sum1) {
                     updateData();
                     FlxG.save.data.progress = MenuPreHistoria.curSave;
-                    trace("Salvando o progresso local na gj (os dois são iguais)");
+                    trace("Salvando o progresso local na gj (os dois sao iguais)");
                 }
 
                 trace("New Data GJ: " + GJClient.getData("progress"));
