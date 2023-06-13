@@ -563,7 +563,7 @@ class TitleState extends MusicBeatState
 		if (!skippedIntro)
 		{
 
-			FlxG.camera.flash(FlxColor.WHITE, 4);
+			FlxG.camera.flash(FlxColor.WHITE, 1);
 			remove(credGroup);
 			remove(gradientBar);
 			skippedIntro = true;

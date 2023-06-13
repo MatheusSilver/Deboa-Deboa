@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.addons.transition.FlxTransitionableState;
 
 using StringTools;
 
@@ -37,6 +38,7 @@ class VideoStatePC extends MusicBeatState
 			else if(NextState == "title")
 			{
 				video.playMP4(videoPath, new TitleState(), videoMenu);
+				FlxTransitionableState.skipNextTransOut = true;
 			}else if(NextState == 'playstate'){
 				video.playMP4(videoPath, new PlayState(), videoMenu);
 			}

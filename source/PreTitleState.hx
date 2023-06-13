@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxG;
 import flixel.util.FlxTimer;
+import flixel.addons.transition.FlxTransitionableState;
 
 using StringTools;
 
@@ -11,6 +12,7 @@ class PreTitleState extends MusicBeatState
 	public static var jarodou:Bool = false;
 	override function create()
 		{
+			FlxTransitionableState.skipNextTransOut = true;
 			jarodou = true;
 			var random1:Int = FlxG.random.int(0, 350);
 			if(FlxG.save.data.firstTime != null || !ClientPrefs.firstTime || FlxG.save.data.flashing != null) //Algum desses caras tem que funfar

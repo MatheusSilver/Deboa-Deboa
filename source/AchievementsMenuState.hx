@@ -28,6 +28,7 @@ class AchievementsMenuState extends MusicBeatState
 	var apertavel:Bool = true;
 	public static var FirstTimeAqui:Bool = true;
 	var isCoolBeat:Bool = true;
+	var sincronizando:Bool = false;
 
 	override function create() {
 		#if rpc
@@ -112,6 +113,7 @@ class AchievementsMenuState extends MusicBeatState
 		if(GJClient.logged && FirstTimeAqui && !TitleState.ModoOffline)
 			{
 				var announceText:FlxText;
+				sincronizando=true;
 				announceText = new FlxText(0, 0, 0, "SINCRONIZANDO CONQUISTAS", 24);
 				announceText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				announceText.screenCenter(XY);
@@ -119,7 +121,7 @@ class AchievementsMenuState extends MusicBeatState
 				preto.alpha=0.75;
 				add(preto);
 				add(announceText);
-				new FlxTimer().start(1, function(tmr:FlxTimer) {
+				new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 				Achievements.loadAchievements();
 					new FlxTimer().start(1, function(tmr:FlxTimer)
 						{
@@ -129,13 +131,18 @@ class AchievementsMenuState extends MusicBeatState
 						{
 						remove(preto);
 						remove(announceText);
+						sincronizando=false;		
+						changeSelection();
 						});
 				for (i in 0...Achievements.achievementsStuff.length) {
 					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2], false);
 					FirstTimeAqui=false;
 				}});
 			}
-		changeSelection();
+		if(!sincronizando)
+			{
+				changeSelection();
+			}
 		Conductor.changeBPM(112);
 
 		super.create();
@@ -151,7 +158,7 @@ class AchievementsMenuState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (controls.BACK) {
+		if (controls.BACK && !sincronizando) {
 			GlobalSoundManager.play('cancelMenu');
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
