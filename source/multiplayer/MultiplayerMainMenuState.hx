@@ -294,7 +294,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				GlobalSoundManager.play('confirmMenu');
 				server = Network.registerSession(NetworkMode.SERVER, {
 					ip: '0.0.0.0',
-					port: 8888,
+					port: 8080,
 					max_connections: 2
 				  });
 
@@ -372,7 +372,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					
 					client = Network.registerSession(NetworkMode.CLIENT, {
 					  ip: server_ip,
-					  port: 8888
+					  port: 8080
 					});
 
 
@@ -384,7 +384,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 							{
 								var qualEquem:Array<String> = e.data.message.split(" ");
 								mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2]);
-								
 							}
 						
 							if(e.data.verb == 'name')
