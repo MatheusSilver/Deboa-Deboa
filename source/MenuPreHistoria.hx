@@ -54,7 +54,7 @@ class MenuPreHistoria extends MusicBeatState
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
-		MenuHistoria.curSelected = 0;
+
 		PlayState.modohistoria = false;
 		#if !mobile
 		FlxG.mouse.visible = false;
@@ -191,7 +191,7 @@ class MenuPreHistoria extends MusicBeatState
 				{
 					FlxG.camera.flash(FlxColor.WHITE, 0.5);
 				}
-				FlxG.camera.shake(0.035, 0.45);
+				FlxG.camera.shake(0.04, 0.43);
 				blackLock.alpha = 0;
 				lockSprite.alpha = 0;
 
@@ -228,7 +228,7 @@ class MenuPreHistoria extends MusicBeatState
 			#end
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek)
+		if (controls.BACK && !movedBack && !selectedWeek && !inCut && !makeAnimUnlock)
 		{
 			GlobalSoundManager.play('cancelMenu');
 			movedBack = true;
@@ -244,6 +244,11 @@ class MenuPreHistoria extends MusicBeatState
 
 	function selectWeek()
 	{
+		if (MenuHistoria.preHistoriaSelected != curWeek)
+		{
+			MenuHistoria.curSelected = 0;
+		}
+		MenuHistoria.preHistoriaSelected = curWeek;
 		if (stopspamming == false)
 		{
 			GlobalSoundManager.play('confirmMenu');
@@ -257,19 +262,7 @@ class MenuPreHistoria extends MusicBeatState
 		// Teoricamente, isso deve fazer com que o menu se desfaça uma última vez e dê lugar ao menu de historia...
 
 		// ALO TEGER, MANDA UM SALVE!!!
-		var weekescolhida:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
-		var assetName:String = weekescolhida.weekBackground;
-		if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)",
-			'preload')))
-		{
-			bigmenu.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'));
-		}
-		else
-		{
-			FlxG.log.warn('Não foi possível achar '
-				+ Paths.image("scrolling/scroll-" + assetName + "/scroll-" + weekescolhida.songs[0][0].toLowerCase() + " (back)", 'preload'));
-			bigmenu.loadGraphic('assets/images/menuDesat.png');
-		}
+		updateBG();
 		bigmenu.setGraphicSize(FlxG.width, FlxG.height);
 		bigmenu.screenCenter(XY);
 		FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, 1, {ease: FlxEase.expoInOut});
@@ -385,6 +378,32 @@ class MenuPreHistoria extends MusicBeatState
 				lockSprite.alpha = 1;
 				blackLock.alpha = 0.55;
 			}
+		}
+	}
+
+	public function updateBG()
+	{
+		var weekescolhida:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
+		var assetName:String = weekescolhida.weekBackground;
+		if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-"
+			+ assetName
+			+ "/scroll-"
+			+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)", 'preload')))
+		{
+			bigmenu.loadGraphic(Paths.image("scrolling/scroll-"
+				+ assetName
+				+ "/scroll-"
+				+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)", 'preload'));
+		}
+		else
+		{
+			FlxG.log.warn('Não foi possível achar '
+				+ Paths.image("scrolling/scroll-"
+					+ assetName
+					+ "/scroll-"
+					+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)",
+					'preload'));
+			bigmenu.loadGraphic('assets/images/menuDesat.png');
 		}
 	}
 }
