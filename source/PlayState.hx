@@ -5534,14 +5534,6 @@ class PlayState extends MusicBeatState
 					triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
 					triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
 				}
-
-			case 'CamZoomTween':
-				var quantidade:Float = Std.parseFloat(value1);
-				var duracao:Float = Std.parseFloat(value2);
-				FlxTween.num(defaultCamZoom, quantidade, duracao, {ease: FlxEase.linear}, function(v2:Float)
-				{
-					defaultCamZoom = v2;
-				});
 			case 'TelaPreta': // a
 				if (value1 == 'true')
 				{

@@ -60,7 +60,7 @@
 	"image": "characters/sidekick/tailsDarksidekick",
 	"position": [
 		52,
-		340
+		295
 	],
 	"healthicon": "tailsdarksidekick",
 	"flip_x": false,
@@ -74,5 +74,5 @@
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 1.2
 }
