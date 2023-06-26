@@ -3669,28 +3669,24 @@ class PlayState extends MusicBeatState
 		{
 			var targetSpeed:Float = 15;
 
-		if(desvioPrey && controls.NOTE_SPACE_P){
-			desvioPrey = false;
-			desviou = true;
-			warning.visible = false;
-		}
-		switch (hungryManJackTime) //A velocidade do cenário e da chart é governada por essa parte aqui
-		//Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
-		{
-			case 1:
-				targetSpeed = 40; //Usada na parte da entrada do starved
-			case 2:
-				targetSpeed = 50; //Usada na hora do super sonico
-			default:
-				targetSpeed = 25; //Padrão usada no começo da música
-		}
-		starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3*(elapsed/(1/60)));
-		if (targetSpeed - starvedSpeed < 0.2)
-			{
-				starvedSpeed = targetSpeed;
+			if(desvioPrey && controls.NOTE_SPACE_P){
+				desvioPrey = false;
+				desviou = true;
+				warning.visible = false;
 			}
-		if (curStage == 'starved-pixel')
-		{
+			switch (hungryManJackTime) //A velocidade do cenário e da chart é governada por essa parte aqui
+			//Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
+			{
+				case 1:
+					targetSpeed = 40; //Usada na parte da entrada do starved
+				case 2:
+					targetSpeed = 50; //Usada na hora do super sonico
+				default:
+					targetSpeed = 25; //Padrão usada no começo da música
+			}
+			starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3*(elapsed/(1/60)));
+			if (targetSpeed - starvedSpeed < 0.2)
+				starvedSpeed = targetSpeed;
 			stardustBgPixel.scrollX -= (starvedSpeed * stardustBgPixel.scrollFactor.x) * (elapsed/(1/120));
 			stardustFloorPixel.scrollX -= starvedSpeed * (elapsed/(1/120));
 		}
