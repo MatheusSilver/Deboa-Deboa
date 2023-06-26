@@ -75,10 +75,10 @@ class MenuPreHistoria extends MusicBeatState
 		lockSprite.loadGraphic(Paths.image("Story_Mode/lock", 'preload'));
 		lockSprite.screenCenter(XY);
 		lockSprite.antialiasing = ClientPrefs.globalAntialiasing;
-		lockSprite.alpha = makeAnimUnlock ? 1 : 0;
+		lockSprite.alpha = 0;
 
 		blackLock = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-		blackLock.alpha = makeAnimUnlock ? 1 : 0.55;
+		blackLock.alpha = 0;
 
 		add(bigmenu);
 		add(bgSprite);
@@ -99,23 +99,13 @@ class MenuPreHistoria extends MusicBeatState
 		}
 		else if (lockedWeeks[curWeek] == false && !makeAnimUnlock)
 		{
-			if (!makeAnimUnlock)
-			{
-				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
-				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
-			}
-			else
-			{
-				blackLock.alpha = 0.55;
-				lockSprite.alpha = 1;
-			}
+			flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+			flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
 		}
 
 		if (makeAnimUnlock)
 		{
 			curWeek = weekAnimNum;
-			blackLock.alpha = 0.55;
-			lockSprite.alpha = 1;
 		}
 
 		super.create();
