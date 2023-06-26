@@ -5949,7 +5949,8 @@ class PlayState extends MusicBeatState
 	function finishSong():Void
 	{
 		var finishCallback:Void->Void = endSong; // In case you want to change it in a specific song.
-
+					FlxTransitionableState.skipNextTransIn = true;
+					FlxTransitionableState.skipNextTransOut = true;
 		updateTime = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
@@ -6002,6 +6003,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
 		#if mobileC
 		mcontrols.visible = false;
 		#end
