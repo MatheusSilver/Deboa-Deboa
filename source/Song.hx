@@ -63,7 +63,7 @@ class Song
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 
 		if(rawJson == null) { //Isso aqui só foi feito pra engine poder reconhecer as lyrics que o konan for colocar sem precisar serem compiladas
-			#if debug
+			#if (debug && windows)
 			rawJson = sys.io.File.getContent(Paths.json(formattedFolder + '/' + formattedSong)).trim();
 			#else
 			rawJson = Assets.getText(Paths.json(formattedFolder + '/' + formattedSong)).trim();

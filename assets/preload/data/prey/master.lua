@@ -1,7 +1,5 @@
 function onCreate()
-    pushScriptData('camfollow especifico');
     pushScriptData('vgs');
-    pushScriptData('smoothcam');
     precacheImage('conquistas/medalhas/achievements (btt-alt)');
     precacheImage('conquistas/keydSTARS/star-alt');
 
@@ -18,6 +16,7 @@ function onCreate()
     precacheImage('pixelUI/NOTE-supa_assetszoomENDS')
     precacheImage('NOTE_assets')
     precacheImage('cenarios/starved/stardustBg')
+    precacheImage('cenarios/starved/stardustBg2')
     precacheImage('cenarios/starved/stardustFloor1')
     precacheImage('cenarios/starved/stardustFloor2')
     precacheImage('cenarios/starved/stardustFloor3')

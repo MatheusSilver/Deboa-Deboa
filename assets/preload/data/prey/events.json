@@ -40,27 +40,6 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						413034,
-						-1,
-						"video player",
-						"AnimacoesJogaveis/finalprey",
-						"1",
-						"false",
-						"",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
 				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
@@ -4961,6 +4940,27 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
+				"sectionNotes": [
+					[
+						413034,
+						-1,
+						"video player",
+						"AnimacoesJogaveis/finalprey",
+						"1",
+						"false",
+						"",
+						""
+					]
+				],
+				"bpm": 0,
+				"changeBPM": false,
+				"mustHitSection": false
+			},
+			{
+				"gfSection": false,
+				"lengthInSteps": 16,
+				"altAnim": false,
+				"typeOfSection": 0,
 				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
@@ -5553,7 +5553,6 @@
 		"arrowSkin": "NOTE_assetszoom",
 		"needsVoices": false,
 		"startinvisibru": null,
-		"canfollowpermitido": true,
 		"song": "prey",
 		"isRing": null,
 		"videonombre": null

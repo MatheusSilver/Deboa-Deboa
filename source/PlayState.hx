@@ -572,14 +572,14 @@ class PlayState extends MusicBeatState
 		//canoff=canon;
 
 		FlxG.cameras.reset(camGame);
-		FlxG.cameras.add(camCCC, false);
-		FlxG.cameras.add(camHUD, false);
-		FlxG.cameras.add(camLegenda, false);
-		FlxG.cameras.add(camOther, false);
-		FlxG.cameras.add(camHUD2, false);
+		FlxG.cameras.add(camCCC);
+		FlxG.cameras.add(camHUD);
+		FlxG.cameras.add(camLegenda);
+		FlxG.cameras.add(camOther);
+		FlxG.cameras.add(camHUD2);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
-		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+		FlxCamera.defaultCameras = [camGame];
 		CustomFadeTransition.nextCamera = camHUD2;
 
 		persistentUpdate = true;
@@ -909,11 +909,11 @@ class PlayState extends MusicBeatState
 				furnaceTheEnd.visible = false;
 
 
-				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2'), 4608, 2832, true, true);
+				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2'), 4608, 2832, true, false);
 				stardustBgPixel.scrollFactor.set(0.4, 0.4);
 
 
-				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1'), 4608, 2832, true, true);
+				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1'), 4608, 2832, true, false);
 
 				stardustBgPixel.visible = false;
 				stardustFloorPixel.visible = false;
@@ -3418,30 +3418,30 @@ class PlayState extends MusicBeatState
 		if (isRing){
 			counterNum.text = Std.string(cNum);
 		}
-		var targetSpeed:Float = 15;
-
-		if(desvioPrey && controls.NOTE_SPACE_P){
-			desvioPrey = false;
-			desviou = true;
-			warning.visible = false;
-		}
-		switch (hungryManJackTime) //A velocidade do cenário e da chart é governada por essa parte aqui
-		//Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
-		{
-			case 1:
-				targetSpeed = 40; //Usada na parte da entrada do starved
-			case 2:
-				targetSpeed = 50; //Usada na hora do super sonico
-			default:
-				targetSpeed = 25; //Padrão usada no começo da música
-		}
-		starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3*(elapsed/(1/60)));
-		if (targetSpeed - starvedSpeed < 0.2)
-			{
-				starvedSpeed = targetSpeed;
-			}
 		if (curStage == 'starved-pixel')
 		{
+			var targetSpeed:Float = 15;
+
+			if(desvioPrey && controls.NOTE_SPACE_P){
+				desvioPrey = false;
+				desviou = true;
+				warning.visible = false;
+			}
+			switch (hungryManJackTime) //A velocidade do cenário e da chart é governada por essa parte aqui
+			//Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
+			{
+				case 1:
+					targetSpeed = 40; //Usada na parte da entrada do starved
+				case 2:
+					targetSpeed = 50; //Usada na hora do super sonico
+				default:
+					targetSpeed = 25; //Padrão usada no começo da música
+			}
+			starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3*(elapsed/(1/60)));
+			if (targetSpeed - starvedSpeed < 0.2)
+				{
+					starvedSpeed = targetSpeed;
+				}
 			stardustBgPixel.scrollX -= (starvedSpeed * stardustBgPixel.scrollFactor.x) * (elapsed/(1/120));
 			stardustFloorPixel.scrollX -= starvedSpeed * (elapsed/(1/120));
 		}
@@ -4774,6 +4774,7 @@ class PlayState extends MusicBeatState
 							stardustBgPixel.visible = true;
 							stardustFloorPixel.visible = true;
 							cinematicBars(true);
+							camLegenda.visible = true;
 
 						case 1010101:
 							FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
