@@ -12,10 +12,10 @@ import flash.display.BitmapData;
 import flixel.graphics.FlxGraphic;
 import openfl.utils.ByteArray;
 
-@:keep @:bitmap("assets/controlesmobile/virtual-input.png")
+@:keep @:bitmap("assets/mobilecontrols/virtual-input.png")
 class GraphicVirtualInput extends BitmapData {}
  
-@:file("assets/controlesmobile/virtual-input.txt")
+@:file("assets/mobilecontrols/virtual-input.txt")
 class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
 
 class FlxVirtualPad extends FlxSpriteGroup
