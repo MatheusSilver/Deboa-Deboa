@@ -42,7 +42,7 @@ class CustomFadeTransition extends MusicBeatSubstate {
 		add(transBlack);
 		imagem = new FlxSprite();
 		imagem.loadGraphic(Paths.image('transicoes/transition', 'preload'));
-		imagem.antialiasing = ClientPrefs.globalAntialiasing;
+		imagem.antialiasing = true; // A imagem tava muito pixelada pro meu gosto então fiz isso
 		imagem.scrollFactor.set();
 		imagem.screenCenter(XY);
 		add(imagem);
