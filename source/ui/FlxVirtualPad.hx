@@ -12,10 +12,10 @@ import flash.display.BitmapData;
 import flixel.graphics.FlxGraphic;
 import openfl.utils.ByteArray;
 
-@:keep @:bitmap("assets/mobilecontrols/virtual-input.png")
+@:keep @:bitmap("assets/mobilecontrols/images/virtual-input.png")
 class GraphicVirtualInput extends BitmapData {}
  
-@:file("assets/mobilecontrols/virtual-input.txt")
+@:file("assets/mobilecontrols/images/virtual-input.txt")
 class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
 
 class FlxVirtualPad extends FlxSpriteGroup
@@ -149,7 +149,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		var graphic:FlxGraphic = FlxGraphic.fromBitmapData(bitmapData);
 		return FlxAtlasFrames.fromSpriteSheetPacker(graphic, Std.string(new VirtualInputData()));
 		#else
-		var graphic:FlxGraphic = FlxGraphic.fromAssetKey(Paths.image('virtual-input', 'controlesmobile'));
+		var graphic:FlxGraphic = FlxGraphic.fromAssetKey(Paths.image('virtual-input', 'mobilecontrols'));
 		return FlxAtlasFrames.fromSpriteSheetPacker(graphic, Std.string(new VirtualInputData()));
 		#end
 	}
