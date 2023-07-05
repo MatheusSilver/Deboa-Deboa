@@ -26,7 +26,6 @@
 	<!--Mobile/Switch-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 	<define name="mobileC" if="mobile" />
-	<assets path="assets/shared/images/hitbox"/>
 
 	<!-- _____________________________ Path Settings ____________________________ -->
 
@@ -95,6 +94,7 @@
 		<library name="week-soulless"      		 preload="true" />
 		<library name="week-sunshine"        	 preload="true" />
 		<library name="week-xenophanes"          preload="true" />
+		<library name="controlesmobile"        	 preload="true" />
 
 	</section>
 	
@@ -131,6 +131,7 @@
 		<library name="week-soulless"      		 preload="false" />
 		<library name="week-sunshine"        	 preload="false" />
 		<library name="week-xenophanes"          preload="false" />
+		<library name="controlesmobile"          preload="false" />
 	</section>
 	<!-- EU NÃO ESTOU SUPORTANDO MAIS... AAAAAAAAAAAAAAAAA -->
 	<assets path="assets/songs"       			   library="songs"        			  exclude="*.ogg" if="web"/>
@@ -197,7 +198,7 @@
 	<assets path="assets/week-sunshine"            library="week-sunshine"            exclude="*.ogg" if="web"/>
 	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.ogg" if="web"/>
-
+	<assets path="assets/controlesmobile"          library="controlesmobile"          if="mobile"/>
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/> <!--organização de code, basicamente-->
