@@ -6167,18 +6167,12 @@ class PlayState extends MusicBeatState
 				}
 				else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2]))
 				{
-					ClientPrefs.pibby = true;
-					#if desktop
-					new FlxTimer().start(0.5, function(tmr:FlxTimer)
-					{
-						System.exit(0);
-					});
+					// Sim, isso funciona no android/mobile
+					// Aparentemente eu e o Silver ficamos em dúvida se isso funfava ou não, mas como eu tenho certeza, tá aqui k
+					ClientPrefs.pibby = true;	
 					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
-					#end
+					lime.system.System.exit(0);	
 					ClientPrefs.saveSettings();
-					// if (FlxG.keys.justPressed.ENTER){
-
-					// }
 				}
 				usedPractice = false;
 				changedDifficulty = false;
