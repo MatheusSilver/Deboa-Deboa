@@ -35,6 +35,7 @@ class MenuPreHistoria extends MusicBeatState
 
 	public static var makeAnimUnlock:Bool = false;
 	public static var weekAnimNum:Int = 0;
+	public static var firstTime:Bool = true;
 
 	public static var instance:MenuPreHistoria;
 
@@ -97,10 +98,18 @@ class MenuPreHistoria extends MusicBeatState
 			flixel.tweens.FlxTween.tween(lockSprite, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
 			flixel.tweens.FlxTween.tween(blackLock, {alpha: 0.55}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
 		}
-		else if (lockedWeeks[curWeek] == false && !makeAnimUnlock)
+		else if (lockedWeeks[curWeek] == false)
 		{
-			flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
-			flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			if (makeAnimUnlock)
+			{
+				lockSprite.alpha = 0;
+				blackLock.alpha = 0;
+			}
+			else
+			{
+				flixel.tweens.FlxTween.tween(lockSprite, {alpha: 0}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
+				flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
+			}
 		}
 
 		if (makeAnimUnlock)
