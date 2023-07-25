@@ -150,7 +150,8 @@ class TitleState extends MusicBeatState
 		super.create();
 
 		FlxG.save.bind('modboa', CoolUtil.getSavePath());
-		ClientPrefs.loadPrefs();
+		ClientPrefs.init();
+		ClientPrefs.carregarControles();
 		/*PlayState.addShaderToCamera('game', new VCRDistortionEffect(0.5,true,false,true));
 			PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true)); */
 		Highscore.load();

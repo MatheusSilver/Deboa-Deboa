@@ -42,7 +42,7 @@ class AlreadyLogged extends MusicBeatState
 			letext.alpha = 1;
 			add(letext);
 			ClientPrefs.firstTime=false;
-			ClientPrefs.saveSettings();
+			ClientPrefs.save();
 			simbotao = new FlxButton(FlxG.width, 100, '');
 			simbotao.loadGraphic(Paths.image('mainmenu/btsim', 'preload'));
 			simbotao.setGraphicSize(Std.int(simbotao.width * 0.75));

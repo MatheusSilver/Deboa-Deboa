@@ -288,7 +288,7 @@ class MainMenuStateMobile extends MusicBeatState
 			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
 				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 				giveAchievement('modboa');
-				ClientPrefs.saveSettings();
+				ClientPrefs.save();
 		}
 		#end
 
@@ -325,7 +325,7 @@ class MainMenuStateMobile extends MusicBeatState
 				novoButton.onOut.callback = function(){novoButton.alpha=0.75;};
 				novoButton.onDown.callback = function(){
 					FlxG.save.data.gameVersion = version;
-					ClientPrefs.saveSettings();
+					ClientPrefs.save();
 					novoButton.visible=false;
 					novoBG.visible=false;
 					preto.visible=false;
@@ -340,7 +340,7 @@ class MainMenuStateMobile extends MusicBeatState
 		else
 			{
 				FlxG.save.data.gameVersion = version;
-				ClientPrefs.saveSettings();
+				ClientPrefs.save();
 				canClick=true;
 			}
 		super.create();

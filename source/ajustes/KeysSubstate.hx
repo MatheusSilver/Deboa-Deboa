@@ -136,7 +136,7 @@ class KeysSubstate extends MusicBeatState {
 					spr.alpha = 0;
 				}); */
 				MusicBeatState.switchState(new ajustes.AjustesState());
-				ClientPrefs.saveSettings();
+				ClientPrefs.salvarControles();
 				GlobalSoundManager.play('cancelMenu');
 			}
 

@@ -371,7 +371,7 @@ class AjustesState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				GlobalSoundManager.play('cancelMenu');
-				ClientPrefs.saveSettings();
+				ClientPrefs.save();
 				MusicBeatState.switchState(new MainMenuStateMobile());
 			}
 

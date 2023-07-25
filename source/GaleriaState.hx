@@ -228,7 +228,7 @@ class GaleriaState extends MusicBeatState
 							Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 							add(new AchievementObject('galeria', camAchievement));
 							GlobalSoundManager.play('confirmMenu');
-							ClientPrefs.saveSettings();
+							ClientPrefs.save();
 						}
 					}
 				if (controls.BACK) {

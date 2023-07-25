@@ -82,7 +82,9 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
+		if(ClientPrefs.shaders) {
 		blurShader = new BlurFilter();
+		}
 		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
 		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
@@ -333,7 +335,9 @@ class PauseSubState extends MusicBeatSubstate
 						startCountdownback();
 					}
 				});
+				if(ClientPrefs.shaders) {
 				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
+				}
 				jumpecare.destroy();
 	}
 	var loops:Int;

@@ -45,7 +45,9 @@ class ScoreScreenSubstate extends MusicBeatSubstate
 	{
 		//Eventualmente, caso a ideia do multiplayer seja realmente feita, o isMultiplayer deve marcar o uso ou não das informações sobre quem ganhou.
 		super();
+		if(ClientPrefs.shaders) {
 		blurShader = new BlurFilter();
+		}
 		var soundsArray:Array<String> = ['good','great','awesome','outstanding','amazing'];
 
 		//FlxG.sound.music.fadeOut(0, 1.0);

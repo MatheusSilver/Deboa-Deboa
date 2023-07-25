@@ -520,9 +520,6 @@ class PlayState extends MusicBeatState
 
 		// Precache geral
 
-		/*precacheList.set(loadingImage, 'image');
-			precacheList.set('loading/loading-logo', 'image');
-			precacheList.set('loading/carregando', 'image'); */
 		precacheList.set('confirmMenu', 'sound'); // Provavelmente deve consertar o lag ao desbloquear conquistas.
 		precacheList.set('pause/botplaytrue', 'image');
 		precacheList.set('pause/botplayfalse', 'image');
@@ -585,8 +582,6 @@ class PlayState extends MusicBeatState
 		camOther.bgColor.alpha = 0;
 		camLegenda.bgColor.alpha = 0;
 
-		// canoff=canon;
-
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camCCC);
 		FlxG.cameras.add(camHUD);
@@ -602,7 +597,7 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 
 		if (SONG == null)
-			SONG = Song.loadFromJson('tutorial');
+			SONG = Song.loadFromJson('confronting-yourself');
 
 		sonicHUD = new FlxSpriteGroup();
 		Conductor.mapBPMChanges(SONG);
@@ -718,7 +713,12 @@ class PlayState extends MusicBeatState
 		{
 			case 'too-slow':
 				{
-					var bg:FlxSprite = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
+					var bg:FlxSprite;
+					if(ClientPrefs.gore) {
+						bg = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
+					} else {
+						bg = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/antigore'));
+					}
 					bg.antialiasing = true;
 					bg.scrollFactor.set(1.3, 1);
 					bg.active = false;
@@ -850,9 +850,7 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
-				// if(ClientPrefs.shaders) {
-
-				// ISSO É SÓ UM TESTE
+				if(ClientPrefs.shaders) {
 				vcr = new ShaderFilter(new VCRDistortionShader());
 				vcr.shader.data.iTime.value = [0];
 				vcr.shader.data.vignetteOn.value = [true];
@@ -865,7 +863,7 @@ class PlayState extends MusicBeatState
 
 				camGame.setFilters([vcr]);
 				camHUD.setFilters([vcr]);
-			// }
+				}
 
 			case 'chasing':
 				var contadordevida:FlxSprite;
@@ -1630,7 +1628,6 @@ class PlayState extends MusicBeatState
 		healthBar.cameras = [camHUD];
 		blackFuck.cameras = [camHUD2];
 		healthBarBG.cameras = [camHUD];
-		// sobrecarga.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
@@ -2461,7 +2458,9 @@ class PlayState extends MusicBeatState
 			videoSprite.alpha = 1;
 			if (chromakey == 1)
 			{
+				if(ClientPrefs.shaders) {
 				videoSprite.shader = new GreenScreenShader();
+				}
 			}
 
 			if (tamanho != "cheio")
@@ -6008,7 +6007,6 @@ class PlayState extends MusicBeatState
 		#if mobileC
 		mcontrols.visible = false;
 		#end
-		// canoff = true; //Usado naquelas configs muito das loucas
 		majinstrums = false;
 		canRegen = true;
 		canuseevents = true;
@@ -6172,7 +6170,7 @@ class PlayState extends MusicBeatState
 					ClientPrefs.pibby = true;	
 					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
 					lime.system.System.exit(0);	
-					ClientPrefs.saveSettings();
+					ClientPrefs.save();
 				}
 				usedPractice = false;
 				changedDifficulty = false;
@@ -7440,7 +7438,7 @@ class PlayState extends MusicBeatState
 
 	function killHenchmen():Void
 	{
-		if (!ClientPrefs.lowQuality && ClientPrefs.violence && curStage == 'limo')
+		if (!ClientPrefs.lowQuality && curStage == 'limo')
 		{
 			if (limoKillingState < 1)
 			{
@@ -7545,14 +7543,19 @@ class PlayState extends MusicBeatState
 			switch (curStep) // x02 deve estar orgulhoso
 			{
 				case 1602:
+					if(ClientPrefs.shaders) {
 					blurShader = new BlurFilter();
 					blurShader.blurX = 0;
 					blurShader.blurY = 0;
+					}
 					canPause = false;
+					if(ClientPrefs.shaders) {
 					camGame.setFilters([blurShader]);
 					camHUD.setFilters([blurShader]);
 					FlxTween.tween(blurShader, {blurX: 10, blurY: 20}, 6.75, {ease: FlxEase.linear});
+					}
 				case 1673:
+					if(ClientPrefs.shaders) {
 					FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 2.5, {
 						ease: FlxEase.linear,
 						onComplete: function(tween:FlxTween)
@@ -7560,6 +7563,9 @@ class PlayState extends MusicBeatState
 							canPause = true;
 						}
 					});
+				} else {
+					canPause = true;
+				}
 			}
 		}
 
