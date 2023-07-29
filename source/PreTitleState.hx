@@ -38,7 +38,7 @@ class PreTitleState extends MusicBeatState
 				}
 				else
 				{
-					MusicBeatState.switchState(new TitleState());
+					MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
 				}
 			});
 			#end
@@ -53,7 +53,7 @@ class PreTitleState extends MusicBeatState
 			#elseif mobile
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
-				FlxG.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
+				MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
 			});
 			#end
 		}

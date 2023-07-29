@@ -23,13 +23,9 @@ class AttachedSprite extends FlxSprite
 			frames = Paths.getSparrowAtlas(file, library);
 			animation.addByPrefix('idle', anim, 24, loop);
 			animation.play('idle');
-		} else {
-			if(openfl.Assets.exists(Paths.imagechecker(file, LoadingState.directory))){ //Principalmente para ser usado na Clickbait, mas pode ser util para mais coisas
-				loadGraphic(Paths.image(file, LoadingState.directory));
-			} else {
-				loadGraphic(Paths.image(file, 'preload'));
-			}			
-		}
+		} else 
+			loadGraphic(Paths.image(file));
+			
 		antialiasing = ClientPrefs.globalAntialiasing;
 		scrollFactor.set();
 	}

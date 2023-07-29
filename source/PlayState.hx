@@ -103,7 +103,7 @@ class PlayState extends MusicBeatState
 
 	public static var modohistoria:Bool = false;
 
-	var blackFuck:FlxSprite;
+	public var blackFuck:FlxSprite;
 
 	var stageData:StageFile;
 
@@ -270,7 +270,7 @@ class PlayState extends MusicBeatState
 	public var health:Float = 1;
 	public var combo:Int = 0;
 
-	private var healthBarBG:AttachedSprite;
+	public var healthBarBG:AttachedSprite;
 
 	public var healthBar:FlxBar;
 
@@ -464,7 +464,7 @@ class PlayState extends MusicBeatState
 	var desviou:Bool = false; // Serve como sensor para o resto da música pra saber se o player apertou na hora certa.
 
 	public static var canuseevents:Bool = true;
-	public static var canRegen:Bool = true;
+	public var canRegen:Bool = true;
 	public static var loadingImage:String;
 
 	var isexe:Bool = true;
@@ -1294,8 +1294,10 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.downScroll)
 			healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-			'healthbarval', 0, 2);
+		if (SONG.song.toLowerCase() == 'gran-finale')
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 -49), Std.int(healthBarBG.height - 8 -26), this,'healthbarval', 0, 2);
+		else
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,'healthbarval', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
@@ -2525,7 +2527,7 @@ class PlayState extends MusicBeatState
 			video = new MP4Handler();
 			video.vimdoplaystatemano = true;
 			MP4Handler.iAmSobre = false;
-			video.canSkip = false;
+			video.canSkip = true;
 			// if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
 			// videoSpr.setGraphicSize(FlxG.width, FlxG.height);
 			videoSpr.cameras = [camLegenda];
@@ -2629,6 +2631,8 @@ class PlayState extends MusicBeatState
 
 	public function deletarSpriteNAAAAO():Void
 	{
+
+		callOnLuas('onVideoEnd', []);
 		FlxG.sound.music.volume = 1;
 		vocals.volume = 1;
 		videoSpr.visible = false;
@@ -2784,7 +2788,6 @@ class PlayState extends MusicBeatState
 				iconP2.x += 150;
 				healthBarBG.x += 150;
 			}
-
 			startedCountdown = true;
 			Conductor.songPosition = 0;
 			Conductor.songPosition -= Conductor.crochet * 5;
@@ -4978,6 +4981,8 @@ class PlayState extends MusicBeatState
 					// doJumpscare();
 					case 921:
 						doSimpleJump();
+					case 763:
+						FlxG.camera.flash(FlxColor.RED, 0.5, true);
 					case 765:
 						FlxG.camera.flash(FlxColor.RED, 4);
 					case 1305:
@@ -6939,8 +6944,6 @@ class PlayState extends MusicBeatState
 						animToPlay = 'singLEFT';
 					case 1:
 						animToPlay = 'singDOWN';
-					case 2:
-					// fica feliz e dá pulinho, ihaaaaaaaa
 					case 3:
 						animToPlay = 'singUP';
 					case 4:
@@ -7173,15 +7176,16 @@ class PlayState extends MusicBeatState
 							animToPlay = 'singLEFT';
 						case 1:
 							animToPlay = 'singDOWN';
-						case 2:
-							animToPlay = 'none';
 						case 3:
 							animToPlay = 'singUP';
 						case 4:
 							animToPlay = 'singRIGHT';
 					}
 				}
-				else
+				else if((boyfriend.animation.getByName('singLEFT') != null
+				&& boyfriend.animation.getByName('singDOWN') != null
+				&& boyfriend.animation.getByName('singUP') != null
+				&& boyfriend.animation.getByName('singRIGHT') != null))
 				{
 					switch (Std.int(Math.abs(note.noteData)))
 					{
@@ -7194,7 +7198,8 @@ class PlayState extends MusicBeatState
 						case 3:
 							animToPlay = 'singRIGHT';
 					}
-				}
+				}else
+					animToPlay = 'none';
 
 				if (note.noteType == 'GF Sing' || note.noteType == 'player3')
 				{

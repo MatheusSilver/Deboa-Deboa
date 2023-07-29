@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="daHandTrans" width="455" height="558">
+  <SubTexture name="hand0000" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0001" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0002" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0003" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0004" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0005" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0006" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0007" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0008" x="0" y="0"  width="236" height="199" frameX="-639" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0009" x="0" y="199"  width="230" height="200" frameX="-644" frameY="-209" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0010" x="0" y="199"  width="230" height="200" frameX="-644" frameY="-209" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0011" x="236" y="0"  width="219" height="195" frameX="-651" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0012" x="236" y="0"  width="219" height="195" frameX="-651" frameY="-212" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0013" x="236" y="195"  width="213" height="184" frameX="-656" frameY="-215" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0014" x="236" y="195"  width="213" height="184" frameX="-656" frameY="-215" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0015" x="0" y="399"  width="146" height="159" frameX="-722" frameY="-231" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0016" x="146" y="399"  width="126" height="129" frameX="-739" frameY="-258" frameWidth="1280" frameHeight="720"/>
+  <SubTexture name="hand0017" x="272" y="379"  width="125" height="124" frameX="-740" frameY="-263" frameWidth="1280" frameHeight="720"/>
+</TextureAtlas>

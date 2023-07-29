@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				-62,
+				91
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "xeno_idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-82,
+				94
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "xeno_left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-73,
+				179
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "xeno_up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-62,
+				26
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "xeno_down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-35,
+				73
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "xeno_right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-26,
+				175
+			],
+			"anim": "laugh",
+			"fps": 24,
+			"name": "laugh",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/gran-finale/xenoholding",
+	"position": [
+		100,
+		650
+	],
+	"healthicon": "xeno",
+	"flip_x": false,
+	"healthbar_colors": [
+		0,
+		15,
+		255
+	],
+	"camera_position": [
+		-310,
+		-360
+	],
+	"sing_duration": 4,
+	"scale": 1.4
+}

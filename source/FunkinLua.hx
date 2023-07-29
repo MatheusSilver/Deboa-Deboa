@@ -573,6 +573,10 @@ class FunkinLua {
 			}
 		});
 
+		Lua_helper.add_callback(lua, "startsWith", function(tag:String, comeco:String) { //To puto...
+			return tag.startsWith(comeco);
+		});
+
 		Lua_helper.add_callback(lua, "cancelTween", function(tag:String) {
 			cancelTween(tag);
 		});
@@ -1872,6 +1876,12 @@ class FunkinLua {
 				//Coisas adicionadas exclusivamente para a Final Escape caso isso estrague o resto dos luas
 
 				Lua_helper.add_callback(lua, "restartSong", function(?skipTransition:Bool = false) {
+					PlayState.instance.persistentUpdate = false;
+					PauseSubState.restartSong(skipTransition);
+					return true;
+				});
+
+				Lua_helper.add_callback(lua, "reloadGraphic", function(?skipTransition:Bool = false) {
 					PlayState.instance.persistentUpdate = false;
 					PauseSubState.restartSong(skipTransition);
 					return true;

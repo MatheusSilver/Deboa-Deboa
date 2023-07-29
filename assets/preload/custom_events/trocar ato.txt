@@ -1,0 +1,2 @@
+Preguiça purposes
+basicamente serve como demarcador global para os eventos no master.lua da FinalEscape

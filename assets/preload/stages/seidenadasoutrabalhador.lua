@@ -3,7 +3,8 @@ function onCreate()
 
 	precacheImage('notesEye');
 
-    makeAnimatedLuaSprite('static','cenarios/staticBACKGROUND2',-850,-400)addAnimationByPrefix('static','dance','menuSTATICNEW instance ',24,true)
+    makeAnimatedLuaSprite('static','effects/staticBACKGROUND2',-850,-400)
+	addAnimationByPrefix('static','dance','menuSTATICNEW instance ',24,true)
     objectPlayAnimation('static','dance',false)
     setScrollFactor('static', 0.9, 0.9);
     scaleObject('static', 2, 2);

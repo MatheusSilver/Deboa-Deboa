@@ -58,8 +58,6 @@
 
 	<define name="GAMEJOLT_ALLOWED" if="desktop" />
 
-	
-
 	<!-- Isso vai ser tãaaaaaaaaaaaaaaaaaaaaao chato de fazer... -->
 	<!-- Vocês agora me devem um pudim, Ass. Silvio -->
 	<section if="PRELOAD_ALL">
@@ -74,6 +72,7 @@
 		<library name="week-confronting"         preload="true" />
 		<library name="week-control"       		 preload="true" />
 		<library name="week-escapada"       	 preload="true" />
+		<library name="week-final-remake"      	 preload="true" />
 		<library name="week-fantasmas"       	 preload="true" />
 		<library name="week-farsa"        		 preload="true" />
 		<library name="week-fest"        		 preload="true" />
@@ -110,6 +109,7 @@
 		<library name="week-confronting"         preload="false" />
 		<library name="week-control"       		 preload="false" />
 		<library name="week-escapada"       	 preload="false" />
+		<library name="week-final-remake"      	 preload="false" />
 		<library name="week-fantasmas"       	 preload="false" />
 		<library name="week-farsa"        		 preload="false" />
 		<library name="week-fest"        		 preload="false" />
@@ -155,6 +155,8 @@
 	<assets path="assets/week-control"         	   library="week-control"             exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-escapada"            library="week-escapada"            exclude="*.ogg" if="web"/>
 	<assets path="assets/week-escapada"            library="week-escapada"            exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-final-remake"        library="week-final-remake"        exclude="*.ogg" if="web"/>
+	<assets path="assets/week-final-remake"        library="week-final-remake"        exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-fantasmas"           library="week-fantasmas"           exclude="*.ogg" if="web"/>
 	<assets path="assets/week-fantasmas"           library="week-fantasmas"           exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-farsa"               library="week-farsa"               exclude="*.ogg" if="web"/>
@@ -254,7 +256,7 @@
 	<!--<haxedef name="FLX_NO_NATIVE_CURSOR" />-->
 
 	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
-	<!--haxedef name="FLX_NO_MOUSE" if="mobile" /> -->
+	<haxedef name="FLX_NO_MOUSE" if="mobile" unless='debug' />
 	<!-- <haxedef name="FLX_NO_KEYBOARD" if="mobile" /> -->
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
 	<!--<haxedef name="FLX_NO_GAMEPAD" />-->

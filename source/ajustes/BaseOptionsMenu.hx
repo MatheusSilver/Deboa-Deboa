@@ -340,8 +340,8 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Tipo':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += add;
-						if(ClientPrefs.hitSoundType < 0) ClientPrefs.hitSoundType = 0;
-						else if(ClientPrefs.hitSoundType > 3) ClientPrefs.hitSoundType = 3; //A ordem importa k
+						if(ClientPrefs.hitSoundType < 1) ClientPrefs.hitSoundType = 1;
+						else if(ClientPrefs.hitSoundType > 4) ClientPrefs.hitSoundType = 4; //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();

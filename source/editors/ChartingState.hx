@@ -493,29 +493,42 @@ class ChartingState extends MusicBeatState
 
 		var tempMap:Map<String, Bool> = new Map<String, Bool>();
 		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
-		var charToCheck:Array<String> = new Array<String>();
 		for (i in 0...characters.length) {
 			tempMap.set(characters[i], true);
 		}
 
-		#if desktop
+		#if windows
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(FileSystem.exists(directory)) {
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
-						charToCheck[i] = file.substr(0, file.length - 5);
-						if(!charToCheck[i].endsWith('-dead') && !tempMap.exists(charToCheck[i])) {
-							tempMap.set(charToCheck[i], true);
-							characters.push(charToCheck[i]);
+						var charToCheck:String = file.substr(0, file.length - 5);
+						if(!charToCheck.endsWith('-dead') && !tempMap.exists(charToCheck)) {
+							tempMap.set(charToCheck, true);
+							characters.push(charToCheck);
 						}
 					}
 				}
 			}
 		}
 		#else
-		charToCheck = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		for (i in 0...directories.length) {
+			var directory:String = directories[i];
+			if(Utils.exists(directory)) {
+				for (file in Utils.readDirectory(directory)) {
+					var path:String = Paths.getPreloadPath(directory + '/' + file); // Isso funciona para android????
+					if (!Utils.exists(path) && file.endsWith('.json')) {
+						var charToCheck:String = file.substr(0, file.length - 5);
+						if(!charToCheck.endsWith('-dead') && !tempMap.exists(charToCheck)) {
+							tempMap.set(charToCheck, true);
+							characters.push(charToCheck);
+						}
+					}
+				}
+			}
+		}
 		#end
 
 		var player1DropDown = new FlxUIDropDownMenuCustom(10, stepperSpeed.y + 45, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true), function(character:String)
@@ -554,27 +567,38 @@ class ChartingState extends MusicBeatState
 			}
 			tempMap.set(stageToCheck, true);
 		}
-
-		var stageToCheck:Array<String> = new Array<String>();
-
-		#if desktop
+		#if windows
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
-			if(Assets.exists(directory)) {
+			if(FileSystem.exists(directory)) {
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
 					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
-						stageToCheck[i] = file.substr(0, file.length - 5);
-						if(!tempMap.exists(stageToCheck[i])) {
-							tempMap.set(stageToCheck[i], true);
-							stages.push(stageToCheck[i]);
+						var stageToCheck:String = file.substr(0, file.length - 5);
+						if(!tempMap.exists(stageToCheck)) {
+							tempMap.set(stageToCheck, true);
+							stages.push(stageToCheck);
 						}
 					}
 				}
 			}
 		}
-		#else 
-		stageToCheck = CoolUtil.coolTextFile(Paths.txt('stageList'));
+		#else
+		for (i in 0...directories.length) {
+			var directory:String = directories[i];
+			if(Utils.exists(directory)) {
+				for (file in Utils.readDirectory(directory)) {
+					var path:String = Paths.getPreloadPath(directory + '/' + file); // Isso funciona para android????
+					if (!Utils.exists(path) && file.endsWith('.json')) {
+						var stageToCheck:String = file.substr(0, file.length - 5);
+						if(!tempMap.exists(stageToCheck)) {
+							tempMap.set(stageToCheck, true);
+							stages.push(stageToCheck);
+						}
+					}
+				}
+			}
+		}
 		#end
 
 		if(stages.length < 1) stages.push('stage');
@@ -791,8 +815,7 @@ class ChartingState extends MusicBeatState
 			key++;
 		}
 
-		var notetypeslista:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('custom_notetypes/luaList'));
-		#if desktop
+		#if windows
 		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
@@ -811,8 +834,25 @@ class ChartingState extends MusicBeatState
 				}
 			}
 		}
-		#else 
-		displayNameList = notetypeslista;
+		#else
+		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/')];
+		for (i in 0...directories.length) {
+			var directory:String =  directories[i];
+			if(Utils.exists(directory)) {
+				for (file in Utils.readDirectory(directory)) {
+					var path:String = Paths.getPreloadPath(directory + '/' + file); // Isso funciona para android????
+					if (!Utils.exists(path) && file.endsWith('.lua')) {
+						var fileToCheck:String = file.substr(0, file.length - 4);
+						if(!noteTypeMap.exists(fileToCheck)) {
+							displayNameList.push(fileToCheck);
+							noteTypeMap.set(fileToCheck, key);
+							noteTypeIntMap.set(key, fileToCheck);
+							key++;
+						}
+					}
+				}
+			}
+		}
 		#end
 
 		for (i in 1...displayNameList.length) {
@@ -846,8 +886,7 @@ class ChartingState extends MusicBeatState
 		var tab_group_event = new FlxUI(null, UI_box);
 		tab_group_event.name = 'Events';
 
-		var robertaeventos:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('custom_events/eventoslist'));
-		#if desktop
+		#if windows
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 		var directories:Array<String> = [Paths.getPreloadPath('custom_events/')];
 		for (i in 0...directories.length) {
@@ -859,7 +898,7 @@ class ChartingState extends MusicBeatState
 						var fileToCheck:String = file.substr(0, file.length - 4);
 						if(!eventPushedMap.exists(fileToCheck)) {
 							eventPushedMap.set(fileToCheck, true);
-							eventStuff.push([fileToCheck, Assets.getText(path)]);
+							eventStuff.push([fileToCheck, File.getContent(path)]);
 						}
 					}
 				}
@@ -868,7 +907,25 @@ class ChartingState extends MusicBeatState
 		eventPushedMap.clear();
 		eventPushedMap = null;
 		#else
-		eventStuff = robertaeventos;
+		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
+		var directories:Array<String> = [Paths.getPreloadPath('custom_events/')];
+		for (i in 0...directories.length) {
+			var directory:String =  directories[i];
+			if(Utils.exists(directory)) {
+				for (file in Utils.readDirectory(directory)) {
+					var path:String = directory + '/' + file;
+					if (!Utils.exists(path) && file.endsWith('.lua')) {
+						var fileToCheck:String = file.substr(0, file.length - 4);
+						if(!eventPushedMap.exists(fileToCheck)) {
+							eventPushedMap.set(fileToCheck, true);
+							eventStuff.push([fileToCheck, Assets.getText(path)]);
+						}
+					}
+				}
+			}
+		}
+		eventPushedMap.clear();
+		eventPushedMap = null;
 		#end
 
 		descText = new FlxText(20, 270, 0, eventStuff[0][0]);

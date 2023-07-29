@@ -43,6 +43,10 @@ function onCreate()
 
 	setCamMove(false)
 
+	if cameraZoomOnBeat then
+		pushScriptData('camFollowEspecifico')
+	end
+
 end
 
 function onBeatHit()

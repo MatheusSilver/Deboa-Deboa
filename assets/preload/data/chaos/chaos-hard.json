@@ -8545,6 +8545,7 @@
 		"sections": 0,
 		"bpm": 189,
 		"speed": 3,
+		"canfollowpermitido": true,
 		"splashSkin": "noteSplashes",
 		"noteStyle": null
 	}

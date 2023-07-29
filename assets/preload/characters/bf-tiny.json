@@ -1,63 +1,63 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "bf back idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "bf back idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
 				-2,
 				-7
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "bf back down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "bf back down"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				1,
+				-2,
 				15
 			],
-			"anim": "singUP",
+			"loop": false,
 			"fps": 24,
-			"name": "bf back up",
+			"anim": "singUP",
+			"indices": [],
+			"name": "bf back up"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-13,
+				-2
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "bf back left",
 			"indices": []
 		},
 		{
-			"offsets": [
-				-13,
-				-1
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singRIGHT",
 			"loop": false,
-			"name": "bf back left"
-		},
-		{
 			"offsets": [
 				20,
 				0
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singLEFT",
-			"loop": false,
-			"name": "bf back right"
+			"fps": 24,
+			"name": "bf back right",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/final-escape/bfback",
+	"image": "characters/gran-finale/bfback",
 	"position": [
 		158,
 		610
@@ -71,7 +71,7 @@
 	],
 	"camera_position": [
 		-150,
-		-230
+		-260
 	],
 	"sing_duration": 6.1,
 	"scale": 0.999999999999999

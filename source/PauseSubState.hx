@@ -287,7 +287,7 @@ class PauseSubState extends MusicBeatSubstate
 					praticar.loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
 				case "Reiniciar musica":
 					podeJumpscare=false;
-					PlayState.canRegen = true;
+					PlayState.instance.canRegen = true;
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = transCamera;
 					restartSong();
@@ -300,7 +300,7 @@ class PauseSubState extends MusicBeatSubstate
 				
 				case "Voltar para o menu":
 					podeJumpscare=false;
-					PlayState.canRegen = true;
+					PlayState.instance.canRegen = true;
 					PlayState.canuseevents = true;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;

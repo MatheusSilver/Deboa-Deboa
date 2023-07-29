@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				61,
+				-112
+			],
+			"loop": false,
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "sonic left",
+			"indices": []
+		},
+		{
+			"offsets": [
+				5,
+				-156
+			],
+			"loop": false,
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "sonic down",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-11,
+				184
+			],
+			"loop": false,
+			"anim": "singUP",
+			"fps": 24,
+			"name": "sonic up",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-11,
+				-58
+			],
+			"loop": false,
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "sonic right",
+			"indices": []
+		},
+		{
+			"offsets": [
+				-11,
+				-49
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "sonic idle"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/gran-finale/xeno-ftf",
+	"position": [
+		-775,
+		-550
+	],
+	"healthicon": "beast-alt-alt",
+	"flip_x": false,
+	"healthbar_colors": [
+		45,
+		3,
+		115
+	],
+	"camera_position": [
+		30,
+		200
+	],
+	"sing_duration": 6.1,
+	"scale": 0.8
+}
