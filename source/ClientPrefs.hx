@@ -26,6 +26,7 @@ class ClientPrefs
 	public static var lowQuality:Null<Bool> = false;
 	public static var noteSplashes:Null<Bool> = true;
 	public static var framerate:Null<Int> = 60;
+	public static var gore:Null<Bool> = false;
 	public static var cursing:Null<Bool> = true;
 	public static var camZooms:Null<Bool> = true;
 	public static var hideHud:Null<Bool> = false;

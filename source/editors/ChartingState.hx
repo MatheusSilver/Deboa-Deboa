@@ -1,5 +1,7 @@
 package editors;
 
+import sys.io.File;
+import sys.FileSystem;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -493,7 +495,7 @@ class ChartingState extends MusicBeatState
 			tempMap.set(characters[i], true);
 		}
 
-		#if desktop
+		#if nada
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
 			if(FileSystem.exists(directory)) {
@@ -510,7 +512,7 @@ class ChartingState extends MusicBeatState
 			}
 		}
 		#else
-		charToCheck = CoolUtil.coolTextFile(Paths.txt('characterList'));
+		var charToCheck = CoolUtil.coolTextFile(Paths.txt('characterList'));
 		#end
 
 		var player1DropDown = new FlxUIDropDownMenuCustom(10, stepperSpeed.y + 45, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true), function(character:String)
