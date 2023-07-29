@@ -78,7 +78,7 @@ class DialogueEditorState extends MusicBeatState
 		add(box);
 
 		addEditorBox();
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 
 		var addLineText:FlxText = new FlxText(10, 10, FlxG.width - 20, 'Press O to remove the current dialogue line, Press P to add another line after the current one.', 8);
 		addLineText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -357,7 +357,7 @@ class DialogueEditorState extends MusicBeatState
 			}
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 1);
+				FlxG.sound.playMusic(Paths.music('newmenu'), 1);
 				transitioning = true;
 			}
 			var negaMult:Array<Int> = [1, -1];

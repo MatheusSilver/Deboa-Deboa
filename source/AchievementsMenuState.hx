@@ -13,12 +13,13 @@ import flixel.util.FlxColor;
 
 using StringTools;
 
-
 class AchievementsMenuState extends MusicBeatState
 {
 	var options:Array<String> = [];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
+
 	private static var curSelected:Int = 0;
+
 	private var achievementArray:Array<AttachedAchievement> = [];
 	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
@@ -26,11 +27,14 @@ class AchievementsMenuState extends MusicBeatState
 	var descBox:FlxSprite;
 	var majin:FlxSprite;
 	var apertavel:Bool = true;
+
 	public static var FirstTimeAqui:Bool = true;
+
 	var isCoolBeat:Bool = true;
 	var sincronizando:Bool = false;
 
-	override function create() {
+	override function create()
+	{
 		#if rpc
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
@@ -45,14 +49,17 @@ class AchievementsMenuState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		for (i in 0...Achievements.achievementsStuff.length) {
-			if(!Achievements.achievementsStuff[i][3] || Achievements.achievementsMap.exists(Achievements.achievementsStuff[i][2])) {
+		for (i in 0...Achievements.achievementsStuff.length)
+		{
+			if (!Achievements.achievementsStuff[i][3] || Achievements.achievementsMap.exists(Achievements.achievementsStuff[i][2]))
+			{
 				options.push(Achievements.achievementsStuff[i]);
 				achievementIndex.push(i);
 			}
 		}
 
-		for (i in 0...options.length) {
+		for (i in 0...options.length)
+		{
 			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][5];
 			var optionText:Alphabet = new Alphabet(-150, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
@@ -86,10 +93,10 @@ class AchievementsMenuState extends MusicBeatState
 		majin.animation.play('majinnatalino idle', true);
 
 		descBox = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_texto'));
-		//descBox.alpha = 0.6;
-		//descBox.alpha = 0.6;
-		descBox.scale.x = 1280/1920;
-		descBox.scale.y = 720/1080;
+		// descBox.alpha = 0.6;
+		// descBox.alpha = 0.6;
+		descBox.scale.x = 1280 / 1920;
+		descBox.scale.y = 720 / 1080;
 		descBox.updateHitbox();
 		descBox.x = FlxG.width - 29 - descBox.width;
 		descBox.y = FlxG.height - 10 - descBox.height;
@@ -110,61 +117,69 @@ class AchievementsMenuState extends MusicBeatState
 		titleText.y = descBox.y + 10;
 		titleText.borderSize = 2.4;
 		add(titleText);
-		if(GJClient.logged && FirstTimeAqui && !TitleState.ModoOffline)
+		if (GJClient.logged && FirstTimeAqui && !TitleState.ModoOffline)
+		{
+			var announceText:FlxText;
+			sincronizando = true;
+			announceText = new FlxText(0, 0, 0, "SINCRONIZANDO CONQUISTAS", 24);
+			announceText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			announceText.screenCenter(XY);
+			var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+			preto.alpha = 0.75;
+			add(preto);
+			add(announceText);
+			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
-				var announceText:FlxText;
-				sincronizando=true;
-				announceText = new FlxText(0, 0, 0, "SINCRONIZANDO CONQUISTAS", 24);
-				announceText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				announceText.screenCenter(XY);
-				var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-				preto.alpha=0.75;
-				add(preto);
-				add(announceText);
-				new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 				Achievements.loadAchievements();
-					new FlxTimer().start(1, function(tmr:FlxTimer)
-						{
-							Achievements.syncAchievementsGJ();
-						});
-					new FlxTimer().start(1.5, function(tmr:FlxTimer)
-						{
-						remove(preto);
-						remove(announceText);
-						sincronizando=false;		
-						changeSelection();
-						});
-				for (i in 0...Achievements.achievementsStuff.length) {
+				new FlxTimer().start(1, function(tmr:FlxTimer)
+				{
+					Achievements.syncAchievementsGJ();
+				});
+				new FlxTimer().start(1.5, function(tmr:FlxTimer)
+				{
+					remove(preto);
+					remove(announceText);
+					sincronizando = false;
+					changeSelection();
+				});
+				for (i in 0...Achievements.achievementsStuff.length)
+				{
 					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2], false);
-					FirstTimeAqui=false;
-				}});
-			}
-		if(!sincronizando)
-			{
-				changeSelection();
-			}
+					FirstTimeAqui = false;
+				}
+			});
+		}
+		if (!sincronizando)
+		{
+			changeSelection();
+		}
 		Conductor.changeBPM(112);
 
 		super.create();
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		super.update(elapsed);
 
-		if (controls.UI_UP_P && apertavel) {
+		if (controls.UI_UP_P && apertavel)
+		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P && apertavel) {
+		if (controls.UI_DOWN_P && apertavel)
+		{
 			changeSelection(1);
 		}
 
-		if (controls.BACK && !sincronizando) {
+		if (controls.BACK && !sincronizando)
+		{
 			GlobalSoundManager.play('cancelMenu');
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 	}
 
-	function changeSelection(change:Int = 0) {
+	function changeSelection(change:Int = 0)
+	{
 		apertavel = false;
 		curSelected += change;
 		if (curSelected < 0)
@@ -174,35 +189,46 @@ class AchievementsMenuState extends MusicBeatState
 
 		var bullShit:Int = 0;
 
-		for (item in grpOptions.members) {
+		for (item in grpOptions.members)
+		{
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			if (item.targetY == 0) {
-				flixel.tweens.FlxTween.tween(item, {x: -50}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut,
-					onComplete: function(twn:flixel.tweens.FlxTween) {
+			if (item.targetY == 0)
+			{
+				flixel.tweens.FlxTween.tween(item, {x: -50}, 0.5, {
+					ease: flixel.tweens.FlxEase.expoInOut,
+					onComplete: function(twn:flixel.tweens.FlxTween)
+					{
 						apertavel = true;
-			}});
-			} else if (item.targetY != 0 && item.x == -50){
+					}
+				});
+			}
+			else if (item.targetY != 0 && item.x == -50)
+			{
 				flixel.tweens.FlxTween.tween(item, {x: -150}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
 			}
 		}
 
-		for (i in 0...achievementArray.length) {
+		for (i in 0...achievementArray.length)
+		{
 			achievementArray[i].alpha = 0.6;
-			if(i == curSelected) {
+			if (i == curSelected)
+			{
 				achievementArray[i].alpha = 1;
 			}
 		}
 		descText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][1];
 		titleText.text = Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achievementIndex[curSelected]][2]) ? Achievements.achievementsStuff[achievementIndex[curSelected]][0] : '?????';
 	}
-	
-	override function beatHit()
-		{
-			super.beatHit(); //interessante, ovô rosbar
-			if(isCoolBeat){majin.animation.play('majinnatalino idle', true);}
-			isCoolBeat = !isCoolBeat;
-		}
 
+	override function beatHit()
+	{
+		super.beatHit(); // interessante, ovô rosbar
+		if (isCoolBeat)
+		{
+			majin.animation.play('majinnatalino idle', true);
+		}
+		isCoolBeat = !isCoolBeat;
+	}
 }

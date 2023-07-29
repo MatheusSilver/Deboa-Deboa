@@ -84,11 +84,8 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		#if !mobile
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 		#end
-		//FunkinLua.addShaderToCamera('achMenu', new VCRDistortionEffect(0,false,false,false));
-		//FunkinLua.addShaderToCamera('gameMenu', new BloomEffect(0.05/512.0,0.05));
-		//FunkinLua.addShaderToCamera('gameMenu', new ChromaticAberrationEffect(0.0015));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -288,7 +285,7 @@ class MainMenuStateMobile extends MusicBeatState
 			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
 				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 				giveAchievement('modboa');
-				ClientPrefs.saveSettings();
+				ClientPrefs.save();
 		}
 		#end
 
@@ -325,7 +322,7 @@ class MainMenuStateMobile extends MusicBeatState
 				novoButton.onOut.callback = function(){novoButton.alpha=0.75;};
 				novoButton.onDown.callback = function(){
 					FlxG.save.data.gameVersion = version;
-					ClientPrefs.saveSettings();
+					ClientPrefs.save();
 					novoButton.visible=false;
 					novoBG.visible=false;
 					preto.visible=false;
@@ -340,7 +337,7 @@ class MainMenuStateMobile extends MusicBeatState
 		else
 			{
 				FlxG.save.data.gameVersion = version;
-				ClientPrefs.saveSettings();
+				ClientPrefs.save();
 				canClick=true;
 			}
 		super.create();
@@ -415,7 +412,7 @@ class MainMenuStateMobile extends MusicBeatState
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 
 		if(canClick)
 			{

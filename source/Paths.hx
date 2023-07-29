@@ -1,6 +1,6 @@
 package;
 
-#if (windows && debug)
+#if DESKTOPDEBUG
 import sys.FileSystem;
 #end
 import openfl.system.System;
@@ -219,7 +219,11 @@ class Paths
 
 	static public function video(key:String)
 	{
-		return 'assets/videos/$key.$VIDEO_EXT';
+		if(!key.endsWith('.mp4')) {
+			return 'assets/videos/$key';
+		} else {
+			return 'assets/videos/$key.$VIDEO_EXT';
+		}
 	}
 
 	static public function sound(key:String, ?library:String) {
@@ -330,7 +334,7 @@ class Paths
 
 			localTrackedAssets.push(key);
 			return currentTrackedAssets.get(key);
-		}#if (windows && debug)
+		}#if DESKTOPDEBUG // Isso não vai usar filesystem no debug do mobile tbm?
 		else if(FileSystem.exists(getPreloadPath('images/$key.png'))){
 			if (!currentTrackedAssets.exists(key))
 				{

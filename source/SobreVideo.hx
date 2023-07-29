@@ -23,13 +23,13 @@ class SobreVideo extends MusicBeatState
 	var sampleTxt:FlxText;
     var ha:Float=0;
     var ha2:Float=177;
-	public static var videoPath:String = "assets/videos/EngineBase/aviso.mp4";
+	public static var videoPath:String = Paths.video("EngineBase/aviso.mp4");
 
 
 	override function create()
 		{
             video.canSkip = false;
-            FlxG.mouse.visible = true;
+            FlxG.mouse.visible = Main.mouse;
 			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo o sobre", null);

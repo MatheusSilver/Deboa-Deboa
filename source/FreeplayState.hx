@@ -57,8 +57,6 @@ class FreeplayState extends MusicBeatState
 	var bg:FlxSprite;
 	var perfilSprite:FlxSprite = null;
 	var outroperfilSprite:FlxSprite = null; //Fuuuuuuuuuuuuuuuuuuuuuuu
-//	var intendedColor:Int;
-//	var colorTween:FlxTween;
 
 	// fps fix stuff
 	private var UPDATE_INTERVAL:Float = 1.0 / 60.0;
@@ -208,7 +206,7 @@ class FreeplayState extends MusicBeatState
 		timeAccumulated += elapsed;
         while (shouldUpdate())
         {
-			disc.angle +=2/(2*3.1415); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
+			disc.angle +=2/(2*3.1415/*926535*/); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
 			perfilSprite.angle = disc.angle;
 			outroperfilSprite.angle = disc.angle;
             timeAccumulated -= UPDATE_INTERVAL;
@@ -242,11 +240,11 @@ class FreeplayState extends MusicBeatState
 			lerpRating = intendedRating;
 
 		var ratingSplit:Array<String> = Std.string(Highscore.floorDecimal(lerpRating * 100, 2)).split('.');
-		if(ratingSplit.length < 2) { //No decimals, add an empty space
+		if(ratingSplit.length < 2) {
 			ratingSplit.push('');
 		}
 
-		while(ratingSplit[1].length < 2) { //Less than 2 decimals in it, add decimals then
+		while(ratingSplit[1].length < 2) {
 			ratingSplit[1] += '0';
 		}
 
@@ -271,14 +269,10 @@ class FreeplayState extends MusicBeatState
 
 		if (controls.BACK && apertavel)
 		{
-	//		if(colorTween != null) {
-		//		colorTween.cancel();
-		//	}
 			GlobalSoundManager.play('cancelMenu');
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
-		//#if PRELOAD_ALL
 		if(space && instPlaying != curSelected && apertavel)
 		{
 			destroyFreeplayVocals();
@@ -299,7 +293,6 @@ class FreeplayState extends MusicBeatState
 
 			FlxG.sound.list.add(vocals);
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-			//Conductor.changeBPM(PlayState.SONG.bpm); dps eu vejo se tem como colocar isso de uma forma melhor
 			vocals.play();
 			vocals.persist = true;
 			vocals.looped = true;
@@ -308,7 +301,6 @@ class FreeplayState extends MusicBeatState
 		}
 		else if (accepted && apertavel)
 			{
-				//Conductor.changeBPM(112);
 				persistentUpdate = false;
 				var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 				infoextended = songs[curSelected].display;
@@ -328,10 +320,6 @@ class FreeplayState extends MusicBeatState
 				PlayState.storyDifficulty = curDifficulty;
 	
 				justread = songs[curSelected].songName;
-
-			//	if(colorTween != null) {
-			//		colorTween.cancel();
-			//	}
 
 				new FlxTimer().start(0.5, function(tmr:FlxTimer) {
 					openSubState(new LoadingsState()); 
@@ -378,23 +366,6 @@ class FreeplayState extends MusicBeatState
 		if (curSelected >= songs.length)
 			curSelected = 0;
 
-		/*
-		var newColor:Int = songs[curSelected].color;
-		if(newColor != intendedColor) {
-			if(colorTween != null) {
-				colorTween.cancel();
-			}
-			intendedColor = newColor;
-			colorTween = FlxTween.color(disc, 1, disc.color, intendedColor, {
-				onComplete: function(twn:FlxTween) {
-					colorTween = null;
-				}
-			});
-		}
-		*/
-
-		// selector.y = (70 * curSelected) + 30;
-
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
@@ -415,12 +386,10 @@ class FreeplayState extends MusicBeatState
 			bullShit++;
 
 			item.alpha = 0.4;
-			// item.setGraphicSize(Std.int(item.width * 0.8));
 
 			if (item.targetY == 0)
 			{
 				item.alpha = 1;
-				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
 		Paths.currentModDirectory = songs[curSelected].folder;
@@ -472,7 +441,7 @@ class SongMetadata
 	public var songName:String = "";
 	public var week:Int = 0;
 	public var songCharacter:String = "";
-	public var display:String = ""; //vai se foder Marcos
+	public var display:String = "";
 	public var color:Int = -7179779;
 	public var folder:String = "";
 
@@ -481,7 +450,7 @@ class SongMetadata
 		this.songName = song;
 		this.week = week;
 		this.songCharacter = songCharacter;
-		this.display = display; //vai se foder Marcos
+		this.display = display;
 		this.color = color;
 		this.folder = Paths.currentModDirectory;
 		if(this.folder == null) this.folder = '';

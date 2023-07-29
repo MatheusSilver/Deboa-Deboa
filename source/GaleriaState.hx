@@ -73,7 +73,7 @@ class GaleriaState extends MusicBeatState
 
 			//DaGaleria part
 
-			FlxG.mouse.visible = true;
+			FlxG.mouse.visible = Main.mouse;
 			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo a galeria", null);
@@ -228,7 +228,7 @@ class GaleriaState extends MusicBeatState
 							Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 							add(new AchievementObject('galeria', camAchievement));
 							GlobalSoundManager.play('confirmMenu');
-							ClientPrefs.saveSettings();
+							ClientPrefs.save();
 						}
 					}
 				if (controls.BACK) {

@@ -60,7 +60,7 @@ class Achievements {
 		if(GJClient.logged)
 			GJClient.trophieAdd(achievementsStuff[id][4]);
 		
-		ClientPrefs.saveSettings();
+		ClientPrefs.save();
 	}
 
 	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
@@ -154,7 +154,7 @@ class AchievementObject extends FlxSpriteGroup {
 	public function new(name:String, camera:FlxCamera)
 	{
 		super(x, y);
-		//ClientPrefs.saveSettings();
+		//ClientPrefs.save();
 		//Over do grover
 
 		var id:Int = Achievements.getAchievementIndex(name);

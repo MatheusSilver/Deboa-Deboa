@@ -1957,7 +1957,7 @@ class FunkinLua {
 					else
 						MusicBeatState.switchState(new FreeplayState());
 		
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('newmenu'));
 					PlayState.changedDifficulty = false;
 					PlayState.instance.transitioning = true;
 					return true;

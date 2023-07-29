@@ -33,7 +33,7 @@ class PibbyTela extends MusicBeatState
 			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) {
 				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 				giveAchievement();
-				ClientPrefs.saveSettings();
+				ClientPrefs.save();
 			}
 		#end
             });
@@ -69,7 +69,7 @@ class PibbyTela extends MusicBeatState
 		if (pressedEnter){
             ClientPrefs.pibby = false;
 			FlxG.switchState(new TitleState());
-            ClientPrefs.saveSettings();
+            ClientPrefs.save();
 		}
 		
 		

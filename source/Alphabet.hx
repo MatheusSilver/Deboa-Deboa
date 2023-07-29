@@ -31,7 +31,7 @@ class Alphabet extends FlxSpriteGroup
 	public var yAdd:Float = 0;
 	public var isMenuItem:Bool = false;
 	public var isMenuTrem:Bool = false;
-	public var isFreeplayTrem:Bool = false; //Programar é tão legal ;-;
+	public var isFreeplayTrem:Bool = false; // Programar é tão legal ;-;
 	public var textSize:Float = 1.0;
 
 	public var text:String = "";
@@ -47,13 +47,16 @@ class Alphabet extends FlxSpriteGroup
 	var splitWords:Array<String> = [];
 
 	var isBold:Bool = false;
+
 	public var lettersArray:Array<AlphaCharacter> = [];
 
 	public var finishedText:Bool = false;
 	public var typed:Bool = false;
 
 	public var typingSpeed:Float = 0.05;
-	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, ?typingSpeed:Float = 0.05, ?textSize:Float = 1, ?font:String = 'padrao')
+
+	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false, ?typingSpeed:Float = 0.05, ?textSize:Float = 1,
+			?font:String = 'padrao')
 	{
 		AlphaCharacter.fontTexture = font;
 
@@ -76,15 +79,17 @@ class Alphabet extends FlxSpriteGroup
 			{
 				addText();
 			}
-		} else {
+		}
+		else
+		{
 			finishedText = true;
 		}
 	}
 
 	public function changeText(newText:String, newTypingSpeed:Float = -1)
 	{
-
-		for (i in 0...lettersArray.length) {
+		for (i in 0...lettersArray.length)
+		{
 			var letter = lettersArray[0];
 			remove(letter);
 			lettersArray.remove(letter);
@@ -103,18 +108,24 @@ class Alphabet extends FlxSpriteGroup
 		x = 0;
 		_finalText = newText;
 		text = newText;
-		if(newTypingSpeed != -1) {
+		if (newTypingSpeed != -1)
+		{
 			typingSpeed = newTypingSpeed;
 		}
 
-		if (text != "") {
+		if (text != "")
+		{
 			if (typed)
 			{
 				startTypedText(typingSpeed);
-			} else {
+			}
+			else
+			{
 				addText();
 			}
-		} else {
+		}
+		else
+		{
 			finishedText = true;
 		}
 		x = lastX;
@@ -156,40 +167,43 @@ class Alphabet extends FlxSpriteGroup
 				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 0, textSize);
 
-				if(AlphaCharacter.fontTexture != 'alfabetovio'){
-				if (isBold)
+				if (AlphaCharacter.fontTexture != 'alfabetovio')
 				{
-					if (isNumber)
+					if (isBold)
 					{
-						letter.createBoldNumber(character);
-					}
-					else if (isSymbol)
-					{
-						letter.createBoldSymbol(character);
+						if (isNumber)
+						{
+							letter.createBoldNumber(character);
+						}
+						else if (isSymbol)
+						{
+							letter.createBoldSymbol(character);
+						}
+						else
+						{
+							letter.createBoldLetter(character);
+						}
 					}
 					else
 					{
-						letter.createBoldLetter(character);
+						if (isNumber)
+						{
+							letter.createNumber(character);
+						}
+						else if (isSymbol)
+						{
+							letter.createSymbol(character);
+						}
+						else
+						{
+							letter.createLetter(character);
+						}
 					}
 				}
 				else
 				{
-					if (isNumber)
-					{
-						letter.createNumber(character);
-					}
-					else if (isSymbol)
-					{
-						letter.createSymbol(character);
-					}
-					else
-					{
-						letter.createLetter(character);
-					}
+					letter.createvioLetter(character.toLowerCase());
 				}
-			} else{
-				letter.createvioLetter(character.toLowerCase());
-			}
 
 				add(letter);
 				lettersArray.push(letter);
@@ -208,11 +222,14 @@ class Alphabet extends FlxSpriteGroup
 
 	var loopNum:Int = 0;
 	var xPos:Float = 0;
+
 	public var curRow:Int = 0;
+
 	var dialogueSound:FlxSound = null;
 	var consecutiveSpaces:Int = 0;
 
 	var typeTimer:FlxTimer = null;
+
 	public function startTypedText(speed:Float):Void
 	{
 		_finalText = text;
@@ -220,42 +237,58 @@ class Alphabet extends FlxSpriteGroup
 
 		// trace(arrayShit);
 
-		if(speed <= 0) {
-			while(!finishedText) { 
+		if (speed <= 0)
+		{
+			while (!finishedText)
+			{
 				timerCheck();
 			}
-			if(dialogueSound != null) dialogueSound.stop();
+			if (dialogueSound != null)
+				dialogueSound.stop();
 			dialogueSound = FlxG.sound.play(Paths.sound('dialogue'));
-		} else {
-			typeTimer = new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-				typeTimer = new FlxTimer().start(speed, function(tmr:FlxTimer) {
+		}
+		else
+		{
+			typeTimer = new FlxTimer().start(0.1, function(tmr:FlxTimer)
+			{
+				typeTimer = new FlxTimer().start(speed, function(tmr:FlxTimer)
+				{
 					timerCheck(tmr);
 				}, 0);
 			});
 		}
 	}
 
-	var LONG_TEXT_ADD:Float = -24; //text is over 2 rows long, make it go up a bit
-	public function timerCheck(?tmr:FlxTimer = null) {
+	var LONG_TEXT_ADD:Float = -24; // text is over 2 rows long, make it go up a bit
+
+	public function timerCheck(?tmr:FlxTimer = null)
+	{
 		var autoBreak:Bool = false;
-		if ((loopNum <= splitWords.length - 2 && splitWords[loopNum] == "\\" && splitWords[loopNum+1] == "n") ||
-			((autoBreak = true) && xPos >= FlxG.width * 0.65 && splitWords[loopNum] == ' ' ))
+		if ((loopNum <= splitWords.length - 2 && splitWords[loopNum] == "\\" && splitWords[loopNum + 1] == "n")
+			|| ((autoBreak = true) && xPos >= FlxG.width * 0.65 && splitWords[loopNum] == ' '))
 		{
-			if(autoBreak) {
-				if(tmr != null) tmr.loops -= 1;
+			if (autoBreak)
+			{
+				if (tmr != null)
+					tmr.loops -= 1;
 				loopNum += 1;
-			} else {
-				if(tmr != null) tmr.loops -= 2;
+			}
+			else
+			{
+				if (tmr != null)
+					tmr.loops -= 2;
 				loopNum += 2;
 			}
 			yMulti += 1;
 			xPosResetted = true;
 			xPos = 0;
 			curRow += 1;
-			if(curRow == 2) y += LONG_TEXT_ADD;
+			if (curRow == 2)
+				y += LONG_TEXT_ADD;
 		}
 
-		if(loopNum <= splitWords.length && splitWords[loopNum] != null) {
+		if (loopNum <= splitWords.length && splitWords[loopNum] != null)
+		{
 			var spaceChar:Bool = (splitWords[loopNum] == " " || splitWords[loopNum] == "_");
 			if (spaceChar)
 			{
@@ -289,44 +322,49 @@ class Alphabet extends FlxSpriteGroup
 				// var letter:AlphaCharacter = new AlphaCharacter(30 * loopNum, 0, textSize);
 				var letter:AlphaCharacter = new AlphaCharacter(xPos, 55 * yMulti, textSize);
 				letter.row = curRow;
-				if(AlphaCharacter.fontTexture != 'alfabetovio'){
-				if (isBold)
+				if (AlphaCharacter.fontTexture != 'alfabetovio')
 				{
-					if (isNumber)
+					if (isBold)
 					{
-						letter.createBoldNumber(splitWords[loopNum]);
-					}
-					else if (isSymbol)
-					{
-						letter.createBoldSymbol(splitWords[loopNum]);
+						if (isNumber)
+						{
+							letter.createBoldNumber(splitWords[loopNum]);
+						}
+						else if (isSymbol)
+						{
+							letter.createBoldSymbol(splitWords[loopNum]);
+						}
+						else
+						{
+							letter.createBoldLetter(splitWords[loopNum]);
+						}
 					}
 					else
 					{
-						letter.createBoldLetter(splitWords[loopNum]);
+						if (isNumber)
+						{
+							letter.createNumber(splitWords[loopNum]);
+						}
+						else if (isSymbol)
+						{
+							letter.createSymbol(splitWords[loopNum]);
+						}
+						else
+						{
+							letter.createLetter(splitWords[loopNum]);
+						}
 					}
 				}
 				else
 				{
-					if (isNumber)
-					{
-						letter.createNumber(splitWords[loopNum]);
-					}
-					else if (isSymbol)
-					{
-						letter.createSymbol(splitWords[loopNum]);
-					}
-					else
-					{
-						letter.createLetter(splitWords[loopNum]);
-					}
-				}
-			}else{
 					letter.createvioLetter(splitWords[loopNum]);
 				}
 				letter.x += 90;
 
-				if(tmr != null) {
-					if(dialogueSound != null) dialogueSound.stop();
+				if (tmr != null)
+				{
+					if (dialogueSound != null)
+						dialogueSound.stop();
 					dialogueSound = FlxG.sound.play(Paths.sound('dialogue'));
 				}
 
@@ -337,8 +375,10 @@ class Alphabet extends FlxSpriteGroup
 		}
 
 		loopNum++;
-		if(loopNum >= splitWords.length) {
-			if(tmr != null) {
+		if (loopNum >= splitWords.length)
+		{
+			if (tmr != null)
+			{
 				typeTimer = null;
 				tmr.cancel();
 				tmr.destroy();
@@ -355,37 +395,40 @@ class Alphabet extends FlxSpriteGroup
 
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 			y = FlxMath.lerp(y, (scaledY * yMult) + (FlxG.height * 0.48) + yAdd, lerpVal);
-			if(forceX != Math.NEGATIVE_INFINITY) {
+			if (forceX != Math.NEGATIVE_INFINITY)
+			{
 				x = forceX;
-			} else {
+			}
+			else
+			{
 				x = FlxMath.lerp(x, (targetY * 20) + 90 + xAdd, lerpVal);
 			}
 		}
 		else if (isFreeplayTrem)
-			{
-				var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
+		{
+			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
-				var tendency:Float =  1; //Agora é uma média simples (bem mais fácil de calcular)
-	
-				y = FlxMath.lerp(y, (scaledY * 65) + (FlxG.height * 0.39), tendency);
-				//lerp = média diferenciada tendenciosa tal que sua tendencia, é definida pelo ultimo termo, no caso 0.16/(qualquer coisa)
-				//Se você quiser que o valor abaixe de 30 pixels, você precisa fornecer + 30 * (1 + tendencia)
-				x = FlxMath.lerp(x,Math.exp(scaledY * 0.8) * 70 + (FlxG.width * 0.1), tendency);
-				if (scaledY < 0)
-					x = FlxMath.lerp(x, -(300 * (1 + tendency)) + Math.exp(scaledY * -0.8) * 70 + (FlxG.width * 0.1), tendency);
+			var tendency:Float = 1; // Agora é uma média simples (bem mais fácil de calcular)
 
-				//Isso aqui mexe com a distância do objeto adjacente ao centralizado do mesmo.
-				if (x > FlxG.width + 30)
-					x = FlxG.width + 30;
-			}
+			y = FlxMath.lerp(y, (scaledY * 65) + (FlxG.height * 0.39), tendency);
+			// lerp = média diferenciada tendenciosa tal que sua tendencia, é definida pelo ultimo termo, no caso 0.16/(qualquer coisa)
+			// Se você quiser que o valor abaixe de 30 pixels, você precisa fornecer + 30 * (1 + tendencia)
+			x = FlxMath.lerp(x, Math.exp(scaledY * 0.8) * 70 + (FlxG.width * 0.1), tendency);
+			if (scaledY < 0)
+				x = FlxMath.lerp(x, -(300 * (1 + tendency)) + Math.exp(scaledY * -0.8) * 70 + (FlxG.width * 0.1), tendency);
+
+			// Isso aqui mexe com a distância do objeto adjacente ao centralizado do mesmo.
+			if (x > FlxG.width + 30)
+				x = FlxG.width + 30;
+		}
 		else if (isMenuTrem && AlphaCharacter.fontTexture != 'alfabetovio')
-		{ //usado em achievement
-			//basicamente organiza o eixo Y enquanto mantem o eixo X livre para ser movimentado.
+		{ // usado em achievement
+			// basicamente organiza o eixo Y enquanto mantem o eixo X livre para ser movimentado.
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 
 			y = FlxMath.lerp(y, (scaledY * 180) + (FlxG.height * 0.48), 0.16);
-
-		} else if (isMenuTrem && AlphaCharacter.fontTexture == 'alfabetovio')
+		}
+		else if (isMenuTrem && AlphaCharacter.fontTexture == 'alfabetovio')
 		{
 			var scaledY = FlxMath.remapToRange(targetY, 0, 1, 0, 1.3);
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
@@ -396,8 +439,10 @@ class Alphabet extends FlxSpriteGroup
 		super.update(elapsed);
 	}
 
-	public function killTheTimer() {
-		if(typeTimer != null) {
+	public function killTheTimer()
+	{
+		if (typeTimer != null)
+		{
 			typeTimer.cancel();
 			typeTimer.destroy();
 		}
@@ -407,7 +452,6 @@ class Alphabet extends FlxSpriteGroup
 
 class AlphaCharacter extends FlxSprite
 {
-	
 	public static var fontTexture:String = '';
 
 	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã§óíá";
@@ -415,7 +459,7 @@ class AlphaCharacter extends FlxSprite
 	public static var numbers:String = "1234567890";
 
 	public static var symbols:String = "#%()*+-:;<=>@[]^_.,'!?";
-	
+
 	public var row:Int = 0;
 
 	private var textSize:Float = 1;
@@ -424,8 +468,9 @@ class AlphaCharacter extends FlxSprite
 	{
 		var tex:FlxAtlasFrames;
 		super(x, y);
-		if (OpenFlAssets.exists(Paths.imagechecker('alphabet/'+fontTexture, 'preload'))){
-		tex = Paths.getSparrowAtlas('alphabet/'+fontTexture, 'preload');
+		if (OpenFlAssets.exists(Paths.imagechecker('alphabet/' + fontTexture, 'preload')))
+		{
+			tex = Paths.getSparrowAtlas('alphabet/' + fontTexture, 'preload');
 		}
 		else
 		{
@@ -437,7 +482,6 @@ class AlphaCharacter extends FlxSprite
 		updateHitbox();
 		this.textSize = textSize;
 		antialiasing = ClientPrefs.globalAntialiasing;
-
 	}
 
 	public function createBoldLetter(letter:String)
@@ -484,7 +528,7 @@ class AlphaCharacter extends FlxSprite
 			case "'":
 				y -= 20 * textSize;
 			case '-':
-				//x -= 35 - (90 * (1.0 - textSize));
+				// x -= 35 - (90 * (1.0 - textSize));
 				y += 20 * textSize;
 			case '(':
 				x -= 65 * textSize;
@@ -502,14 +546,14 @@ class AlphaCharacter extends FlxSprite
 	}
 
 	public function createvioLetter(letter:String):Void
-		{	
-			animation.addByPrefix(letter, letter, 24);
-			animation.play(letter);
-			updateHitbox();
-	
-			y = (110 - height);
-			y += row * 60;
-		}
+	{
+		animation.addByPrefix(letter, letter, 24);
+		animation.play(letter);
+		updateHitbox();
+
+		y = (110 - height);
+		y += row * 60;
+	}
 
 	public function createLetter(letter:String):Void
 	{
@@ -569,7 +613,7 @@ class AlphaCharacter extends FlxSprite
 			case "'":
 				y -= 20;
 			case '-':
-				//x -= 35 - (90 * (1.0 - textSize));
+				// x -= 35 - (90 * (1.0 - textSize));
 				y -= 16;
 		}
 	}

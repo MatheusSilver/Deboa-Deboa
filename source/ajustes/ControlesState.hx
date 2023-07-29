@@ -46,14 +46,9 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 	var bindbutton:ui.FlxButton;
 
-	var config:Config;
-
 	public function new()
 	{
 		super();
-
-		//init config
-		config = new Config();
 
 		// bg
 		var bg:FlxSprite = new FlxSprite(-80).loadGraphic('assets/images/menuBG.png');
@@ -65,7 +60,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 		bg.antialiasing = true;
 
 		// load curSelected
-		curSelected = config.getcontrolmode();
+		curSelected = Config.getcontrolmode();
 
 
 		//pad
@@ -327,7 +322,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 	function save() {
 
-		config.setcontrolmode(curSelected);
+		Config.setcontrolmode(curSelected);
 
 		if (curSelected == 3){
 			savecustom();
@@ -339,12 +334,12 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 		//Config.setdata(55);
 
-		config.savecustom(_pad);
+		Config.savecustom(_pad);
 	}
 
 	function loadcustom():Void{
 		//load pad
-		_pad = config.loadcustom(_pad);
+		_pad = Config.loadcustom(_pad);
 
 	}
 

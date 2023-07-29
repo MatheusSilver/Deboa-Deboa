@@ -24,27 +24,28 @@ class FlashingState extends MusicBeatState
 		warnText = new FlxText(0, 0, FlxG.width,
 			"Ooopa!\n
 			Este mod contém luzes piscantes e gore!\n
-			Caso esteja gravando sua tela:\n
+			Caso esteja gravando sua tela (youtubers/streamers):\n
 			Recomendamos gravar a tela e não diretamente o jogo.\n
 			Desmarque as opções de Luzes Piscantes e Gore\n
-			para não causar problemas aos seus viewers.\n
-			Aperte ESC para desativar essas configurações\n
-			ou aperte ENTER para ignorar essa mensagem.\n
-			Uma boa jogatina!", //Tenho certeza que foi o X02
+			para não causar problemas aos seus viewers.\n" +
+			#if windows
+			"Aperte ESC para desativar essas configurações\n
+			ou aperte ENTER para ignorar essa mensagem.\n" +
+			#else
+			"Aperte VOLTAR do celular para desativar essas configurações\n
+			ou TOQUE NA TELA para ignorar essa mensagem.\n" +
+			#end
+			"Uma boa jogatina!", //Tenho certeza que foi o X02
 			25);			// k
 		warnText.setFormat("VCR OSD Mono", 25, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(XY);
 		add(warnText);
-
-		#if mobileC
-		addVirtualPad(NONE, A_B);
-		#end
 	}
 
 	override function update(elapsed:Float)
 	{
 		if(!leftState) {
-			if(controls.ACCEPT) {
+			if(controls.ACCEPT #if mobile || BSLTouchUtils.justTouched() #end) {
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
@@ -54,7 +55,7 @@ class FlashingState extends MusicBeatState
 						MusicBeatState.switchState(new TitleState());
 					});
 				});
-			}else if(controls.BACK){
+			}else if(controls.BACK #if mobile || FlxG.android.justReleased.BACK #end){
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;

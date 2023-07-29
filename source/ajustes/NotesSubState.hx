@@ -266,7 +266,7 @@ class NotesSubState extends MusicBeatState
 			if (!changingNote)
 			{
 				MusicBeatState.switchState(new ajustes.AjustesState());
-				ClientPrefs.saveSettings();
+				ClientPrefs.save();
 			}
 			else
 			{

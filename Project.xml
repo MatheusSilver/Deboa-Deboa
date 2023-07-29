@@ -7,8 +7,9 @@
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 
-		<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
-	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- stable luas PUT AFTER FIRST LINE WITH APP NAME AND ETC -->
+	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
+	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/>
+	<!-- stable luas PUT AFTER FIRST LINE WITH APP NAME AND ETC -->
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -26,7 +27,6 @@
 	<!--Mobile/Switch-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 	<define name="mobileC" if="mobile" />
-	<assets path="assets/shared/images/hitbox"/>
 
 	<!-- _____________________________ Path Settings ____________________________ -->
 
@@ -34,18 +34,19 @@
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
 
-	<assets path="plugins/"     		rename=''               if="desktop" />
-	<assets path="dlls/"                rename=''               if="desktop" />
+	<assets path="plugins/" rename='' if="desktop" />
+	<assets path="dlls/" rename='' if="desktop" />
 	<!-- NÃO APAGA ESSE TREM -->
 
 	<classpath name="source" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
-	
+	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
+
 	<!-- PSYCH ENGINE CUSTOMIZATION -->
 	<define name="MODS_ALLOWED" />
 	<define name="LUA_ALLOWED" />
+	<define name="DESKTOPDEBUG" if="windows debug" unless="mobile || web" />
 	<!-- Yeah Yeah -->
 	<define name="ACHIEVEMENTS_ALLOWED" />
 
@@ -96,7 +97,7 @@
 		<library name="week-xenophanes"          preload="true" />
 
 	</section>
-	
+
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"        			 preload="false" />
 		<library name="shared"       			 preload="false" />
@@ -202,9 +203,10 @@
 
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
-	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/> <!--organização de code, basicamente-->
+	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/>
+	<!--organização de code, basicamente-->
 	<!-- <template path='mods' /> -->
-	
+
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
 
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
@@ -229,14 +231,9 @@
 	<haxelib name="actuate" />
 	<haxelib name="extension-webm"/>
 	<haxelib name="extension-networking"/>
-	<!--<haxelib name="polymod"/> -->
 	<haxelib name="discord_rpc" if="desktop"/>
-	<!--<haxelib name="hxCodec" if="desktop"/>-->
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
-	
-	<!-- <architecture name="armv7" exclude="arm64" if="android" /> -->
-	<!-- <architecture name="x86" if="android" /> -->
 
 	<!-- <haxelib name="markdown" /> -->
 	<!-- <haxelib name="HtmlParser" /> -->
@@ -275,7 +272,7 @@
 
 	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-	
+
 	<!--Allow working memory greater than 1 Gig-->
 	<!--Isso pode até ser útil, mas não deveria ser nescessário no Android-->
 	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
@@ -286,7 +283,7 @@
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
-	
+
 	<icon path="art/icon16.png" size='16'/>
 	<icon path="art/icon32.png" size='32'/>
 	<icon path="art/icon64.png" size='64'/>

@@ -39,7 +39,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		PlayState.instance.callOnLuas('onGameOverStart', []);
 
 		#if desktop
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 		#end
 
 		bg = new FlxSprite(0,0).loadGraphic(Paths.image('gameovers/'+bgType));
@@ -133,7 +133,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.seenCutscene = false;
 			MusicBeatState.switchState(new EstadoDeTrocaReverso());
 
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('newmenu'));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 
