@@ -219,11 +219,7 @@ class Paths
 
 	static public function video(key:String)
 	{
-		if(!key.endsWith('.mp4')) {
-			return 'assets/videos/$key';
-		} else {
-			return 'assets/videos/$key.$VIDEO_EXT';
-		}
+		return 'assets/videos/$key';
 	}
 
 	static public function sound(key:String, ?library:String) {
