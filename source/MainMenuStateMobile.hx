@@ -84,11 +84,8 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		#if !mobile
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 		#end
-		//FunkinLua.addShaderToCamera('achMenu', new VCRDistortionEffect(0,false,false,false));
-		//FunkinLua.addShaderToCamera('gameMenu', new BloomEffect(0.05/512.0,0.05));
-		//FunkinLua.addShaderToCamera('gameMenu', new ChromaticAberrationEffect(0.0015));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -415,7 +412,7 @@ class MainMenuStateMobile extends MusicBeatState
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 
 		if(canClick)
 			{

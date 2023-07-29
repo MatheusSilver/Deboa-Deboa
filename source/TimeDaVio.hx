@@ -140,7 +140,7 @@ class TimeDaVio extends MusicBeatState
 
 	override function create()
 	{
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 		/*bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();

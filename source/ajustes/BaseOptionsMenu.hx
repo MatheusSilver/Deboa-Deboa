@@ -57,8 +57,9 @@ class BaseOptionsMenu extends MusicBeatState
 		'FullScreen',
 		'Esconder HUD',
 		'Esconder tempo',
+		#if desktop
 		'Auto pause',
-		'Violencia',
+		#end
 		'Luzes Piscantes',
 		'FPS visível',
 		'Texturas na GPU',
@@ -256,17 +257,16 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Legendas':
 						ClientPrefs.legendas = !ClientPrefs.legendas;	
 
-					case 'Violencia':
-						ClientPrefs.gore = !ClientPrefs.gore;
-
 					case 'Swearing':
 						ClientPrefs.cursing = !ClientPrefs.cursing;
 
 					case 'Texturas na GPU':
 						ClientPrefs.loadingexperimental = !ClientPrefs.loadingexperimental;
 
+					#if desktop
 					case 'Auto pause':
 							ClientPrefs.pausarauto = !ClientPrefs.pausarauto ;
+#end
 
 					case 'Downscroll':
 						ClientPrefs.downScroll = !ClientPrefs.downScroll;
@@ -415,10 +415,10 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Se marcado, você não errará por apertar teclas aleatóriamente.\n(Não funciona caso errar uma nota da música.)";
 			case 'Swearing':
 				daText = "If unchecked, your mom won't be angry at you.";
-			case 'Violencia':
-				daText = "Se desmarcado, você não verá gore, sangue, visceras, coisas ruins.\n(Desativa isso caso for sensível demais.\nP.S: Principalmente pro mod do EXE.)";
+				#if desktop
 			case 'Auto pause':
 				daText = "Se desmarcado, não irá pausar automaticamente\nse você sair da janela do jogo enquanto\nestá em uma música.";
+			#end
 			case 'Note Splashes':
 				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
 			case 'Luzes Piscantes':
@@ -505,10 +505,10 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.hitSounds;
 					case 'FullScreen':
 						daValue = ClientPrefs.fullscreen;
-					case 'Violencia':
-						daValue = ClientPrefs.gore;
+						#if desktop
 					case 'Auto pause':
 						daValue = ClientPrefs.pausarauto;
+						#end
 					case 'Zooms da Camera':
 						daValue = ClientPrefs.camZooms;
 					case 'Esconder HUD':

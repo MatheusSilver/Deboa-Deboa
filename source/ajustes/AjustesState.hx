@@ -62,7 +62,7 @@ class AjustesState extends MusicBeatState
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];*/
 		#if !mobile
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 		#end
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -329,7 +329,7 @@ class AjustesState extends MusicBeatState
 				setasbotao.onOut.callback = setasOut;
 				gamejoltbotao.onOver.callback = gamejoltHover;
 				gamejoltbotao.onOut.callback = gamejoltOut;
-				FlxG.mouse.visible = true;
+				FlxG.mouse.visible = Main.mouse;
 				
 				if(configuracoesbotao.justPressed && !checkiftouch){
 					configuracoesbotao.alpha=1;

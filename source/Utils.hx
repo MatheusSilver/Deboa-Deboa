@@ -91,6 +91,14 @@ class Asset2File {
 		return #if sys Sys.getCwd() + #end id;
 		#end
 	}
+
+	public static function copiarclipboard(coisa:String) {
+		#if mobile
+		// Isso faz que o jogo copie as coisas no mobile
+		// Tipo copiar um texto
+		openfl.system.System.setClipboard(coisa.trim());
+		#end
+	}
 }
 
 class BSLTouchUtils

@@ -73,7 +73,7 @@ class GaleriaState extends MusicBeatState
 
 			//DaGaleria part
 
-			FlxG.mouse.visible = true;
+			FlxG.mouse.visible = Main.mouse;
 			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo a galeria", null);

@@ -6,11 +6,12 @@ import lime.app.Application;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Controls;
+import PlayerSettings;
+import TitleState;
 
 class ClientPrefs
 {
 	// Novamente um state feito pelo Silver no mesmo port da hatsune miku
-	public static var gore:Null<Bool> = true;
 	public static var shaders:Null<Bool> = #if windows true #else false #end;
 	public static var downScroll:Null<Bool> = false;
 	public static var pibby:Null<Bool> = false;

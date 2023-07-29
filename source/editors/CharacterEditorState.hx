@@ -1,5 +1,6 @@
 package editors;
 
+import lime.utils.Assets;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -191,7 +192,7 @@ class CharacterEditorState extends MusicBeatState
 		addAnimationsUI();
 		UI_characterbox.selected_tab_id = 'Character';
 
-		FlxG.mouse.visible = true;
+		FlxG.mouse.visible = Main.mouse;
 		reloadCharacterOptions();
 
 		super.create();
@@ -899,14 +900,13 @@ class CharacterEditorState extends MusicBeatState
 		var charsLoaded:Map<String, Bool> = new Map();
 
 		characterList = [];
-		#if desktop
 		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
-			if(FileSystem.exists(directory)) {
-				for (file in FileSystem.readDirectory(directory)) {
-					var path = haxe.io.Path.join([directory, file]);
-					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
+			if(Assets.exists(directory)) {
+				for (file in Utils.readDirectory(directory)) {
+					var path:String = directory + '/' + file;
+					if (!Assets.exists(path) && file.endsWith('.json')) {
 						var charToCheck:String = file.substr(0, file.length - 5);
 						if(!charsLoaded.exists(charToCheck)) {
 							characterList.push(charToCheck);
@@ -916,9 +916,6 @@ class CharacterEditorState extends MusicBeatState
 					}
 				}
 			}
-		#else
-		characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
-		#end
 
 		charDropDown.setData(FlxUIDropDownMenuCustom.makeStrIdLabelArray(characterList, true));
 		charDropDown.selectedLabel = daAnim;

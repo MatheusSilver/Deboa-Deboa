@@ -1,6 +1,7 @@
 package;
 
 //	Isso foi feito para ser usado naqueles vídeos que não nescessariamente trocam de state (cutscene da gf corrompida, monika codin, etc...)
+//  Mais uma vez code do DDTO+ kek, Silvio tava inspirado
 
 #if mobile
 import extension.webview.WebView;
