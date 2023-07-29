@@ -399,6 +399,9 @@ class PlayState extends MusicBeatState
 
 	var songLength:Float = 0;
 
+	// eu n sei onde oclocar isso pq eu to perdido socorro eu tenho medo do playstate alguém me ajuda preciso ser salvo
+	var omagaaaa:FlxSprite;
+
 	#if rpc
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
@@ -1290,16 +1293,24 @@ class PlayState extends MusicBeatState
 			healthBarBG.y = 0.11 * FlxG.height;
 
 		if (SONG.song.toLowerCase() == 'gran-finale')
+		{
+			trace('dav burro');
+			omagaaaa = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
+			omagaaaa.screenCenter(XY);
+			add(omagaaaa);
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 - 49),
 				Std.int(healthBarBG.height - 8 - 26), this, 'healthbarval', 0, 2);
+		}
 		else
+		{
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
 				'healthbarval', 0, 2);
-		healthBar.scrollFactor.set();
-		// healthBar
-		healthBar.visible = !ClientPrefs.hideHud;
-		add(healthBar);
-		healthBarBG.sprTracker = healthBar;
+			healthBar.scrollFactor.set();
+			// healthBar
+			healthBar.visible = !ClientPrefs.hideHud;
+			add(healthBar);
+			healthBarBG.sprTracker = healthBar;
+		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
@@ -2549,16 +2560,18 @@ class PlayState extends MusicBeatState
 			trace(MP4Handler.vlcBitmap.length);
 			video.playMP4(diretorio, null, videoSpr);
 			playingVideoMP4 = true;
-			if (curSong == "prey")
+			switch (curSong)
 			{
-				blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-				blackStuff.cameras = [camHUD];
-				add(blackStuff);
-			}
-			else if (curStage == "too-slow")
-			{
-				blackStuff.destroy();
-				remove(blackStuff);
+				case "prey":
+					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					blackStuff.cameras = [camHUD];
+					add(blackStuff);
+				case "too-slow":
+					blackStuff.destroy();
+					remove(blackStuff);
+				case "gran-finale":
+					omagaaaa.destroy();
+					remove(omagaaaa);
 			}
 			#end
 		}
