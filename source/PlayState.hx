@@ -464,7 +464,9 @@ class PlayState extends MusicBeatState
 	var desviou:Bool = false; // Serve como sensor para o resto da música pra saber se o player apertou na hora certa.
 
 	public static var canuseevents:Bool = true;
+
 	public var canRegen:Bool = true;
+
 	public static var loadingImage:String;
 
 	var isexe:Bool = true;
@@ -846,19 +848,20 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
-				if(ClientPrefs.shaders) {
-				vcr = new ShaderFilter(new VCRDistortionShader());
-				vcr.shader.data.iTime.value = [0];
-				vcr.shader.data.vignetteOn.value = [true];
-				vcr.shader.data.perspectiveOn.value = [true];
-				vcr.shader.data.distortionOn.value = [true];
-				vcr.shader.data.scanlinesOn.value = [true];
-				vcr.shader.data.vignetteMoving.value = [true];
-				vcr.shader.data.glitchModifier.value = [0];
-				vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth, Lib.current.stage.stageHeight];
+				if (ClientPrefs.shaders)
+				{
+					vcr = new ShaderFilter(new VCRDistortionShader());
+					vcr.shader.data.iTime.value = [0];
+					vcr.shader.data.vignetteOn.value = [true];
+					vcr.shader.data.perspectiveOn.value = [true];
+					vcr.shader.data.distortionOn.value = [true];
+					vcr.shader.data.scanlinesOn.value = [true];
+					vcr.shader.data.vignetteMoving.value = [true];
+					vcr.shader.data.glitchModifier.value = [0];
+					vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth, Lib.current.stage.stageHeight];
 
-				camGame.setFilters([vcr]);
-				camHUD.setFilters([vcr]);
+					camGame.setFilters([vcr]);
+					camHUD.setFilters([vcr]);
 				}
 
 			case 'chasing':
@@ -912,10 +915,8 @@ class PlayState extends MusicBeatState
 				furnaceTheEnd.scale.y = 2; // Já você é um outro caso.
 				furnaceTheEnd.visible = false;
 
-
 				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2'), 4608, 2832, true, false);
 				stardustBgPixel.scrollFactor.set(0.4, 0.4);
-
 
 				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1'), 4608, 2832, true, true);
 
@@ -1289,9 +1290,11 @@ class PlayState extends MusicBeatState
 			healthBarBG.y = 0.11 * FlxG.height;
 
 		if (SONG.song.toLowerCase() == 'gran-finale')
-			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 -49), Std.int(healthBarBG.height - 8 -26), this,'healthbarval', 0, 2);
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 - 49),
+				Std.int(healthBarBG.height - 8 - 26), this, 'healthbarval', 0, 2);
 		else
-			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,'healthbarval', 0, 2);
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+				'healthbarval', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
@@ -2456,8 +2459,9 @@ class PlayState extends MusicBeatState
 			videoSprite.alpha = 1;
 			if (chromakey == 1)
 			{
-				if(ClientPrefs.shaders) {
-				videoSprite.shader = new GreenScreenShader();
+				if (ClientPrefs.shaders)
+				{
+					videoSprite.shader = new GreenScreenShader();
 				}
 			}
 
@@ -2626,7 +2630,6 @@ class PlayState extends MusicBeatState
 
 	public function deletarSpriteNAAAAO():Void
 	{
-
 		callOnLuas('onVideoEnd', []);
 		FlxG.sound.music.volume = 1;
 		vocals.volume = 1;
@@ -3667,27 +3670,28 @@ class PlayState extends MusicBeatState
 		{
 			var targetSpeed:Float = 15;
 
-			if(desvioPrey && controls.NOTE_SPACE_P) { // Ia criar uma função nova e etc pra fazer o desvio
+			if (desvioPrey && controls.NOTE_SPACE_P)
+			{ // Ia criar uma função nova e etc pra fazer o desvio
 				// OBRIGADO SILVER E LORE POR TEREM POUPADO TRABALHO AMO VCS
 				desvioPrey = false;
 				desviou = true;
 				warning.visible = false;
 			}
-			switch (hungryManJackTime) //A velocidade do cenário e da chart é governada por essa parte aqui
-			//Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
+			switch (hungryManJackTime) // A velocidade do cenário e da chart é governada por essa parte aqui
+				// Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
 			{
 				case 1:
-					targetSpeed = 40; //Usada na parte da entrada do starved
+					targetSpeed = 40; // Usada na parte da entrada do starved
 				case 2:
-					targetSpeed = 50; //Usada na hora do super sonico
+					targetSpeed = 50; // Usada na hora do super sonico
 				default:
-					targetSpeed = 25; //Padrão usada no começo da música
+					targetSpeed = 25; // Padrão usada no começo da música
 			}
-			starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3*(elapsed/(1/60)));
+			starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3 * (elapsed / (1 / 60)));
 			if (targetSpeed - starvedSpeed < 0.2)
 				starvedSpeed = targetSpeed;
-			stardustBgPixel.scrollX -= (starvedSpeed * stardustBgPixel.scrollFactor.x) * (elapsed/(1/120));
-			stardustFloorPixel.scrollX -= starvedSpeed * (elapsed/(1/120));
+			stardustBgPixel.scrollX -= (starvedSpeed * stardustBgPixel.scrollFactor.x) * (elapsed / (1 / 120));
+			stardustFloorPixel.scrollX -= starvedSpeed * (elapsed / (1 / 120));
 		}
 
 		switch (curStage)
@@ -3957,9 +3961,9 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		if (dad.curCharacter == "tailsdoll-cartoon") 
-		// Do you really wanna see sonic.exe fly? Me neither.
-		// isso me dá ideias kek
+		if (dad.curCharacter == "tailsdoll-cartoon")
+			// Do you really wanna see sonic.exe fly? Me neither.
+			// isso me dá ideias kek
 		{
 			if (tailscircle == 'hovering' || tailscircle == 'circling')
 				dad.y += Math.sin(floaty) * 1.3;
@@ -4484,7 +4488,7 @@ class PlayState extends MusicBeatState
 			case 'video player':
 				videoPlayer(value1, value2, value3);
 			case 'Adicionar Imagens':
-				//uéeeee
+			// uéeeee
 			case 'Socorro':
 				lime.app.Application.current.window.title = value1;
 			case 'Toggle Ghost Trail':
@@ -5105,26 +5109,26 @@ class PlayState extends MusicBeatState
 
 			case 'eventos-prey':
 				var supertimer:Float = Std.parseFloat(value1);
-						switch (supertimer)
-							{
-						case 1:
-							boyfriend.alpha = 0;
-							
-							camHUD.alpha = 0;
-							FlxTween.tween(boyfriend, {alpha: 1}, 6);	
-							triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
-							triggerEventNote('Change Character', 'dad', 'Furnace'); //Ele já foi carregado mesmo então tá safe
-							#if rpc
-							storyDifficultyText = 'Neutro';
-							#end
-							dad.x -= 1000;
-						case 128:
-							FlxG.camera.flash(FlxColor.BLACK, 4);
-							FlxG.camera.zoom = 2;
-							camZooming = false;
-							stardustBgPixel.visible = true;
-							stardustFloorPixel.visible = true;
-							cinematicBars(true);
+				switch (supertimer)
+				{
+					case 1:
+						boyfriend.alpha = 0;
+
+						camHUD.alpha = 0;
+						FlxTween.tween(boyfriend, {alpha: 1}, 6);
+						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
+						triggerEventNote('Change Character', 'dad', 'Furnace'); // Ele já foi carregado mesmo então tá safe
+						#if rpc
+						storyDifficultyText = 'Neutro';
+						#end
+						dad.x -= 1000;
+					case 128:
+						FlxG.camera.flash(FlxColor.BLACK, 4);
+						FlxG.camera.zoom = 2;
+						camZooming = false;
+						stardustBgPixel.visible = true;
+						stardustFloorPixel.visible = true;
+						cinematicBars(true);
 
 					case 1010101:
 						FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
@@ -5862,8 +5866,8 @@ class PlayState extends MusicBeatState
 	function finishSong():Void
 	{
 		var finishCallback:Void->Void = endSong; // In case you want to change it in a specific song.
-					FlxTransitionableState.skipNextTransIn = true;
-					FlxTransitionableState.skipNextTransOut = true;
+		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
 		updateTime = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
@@ -5916,8 +5920,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
 		#if mobileC
 		mcontrols.visible = false;
 		#end
@@ -6081,9 +6085,9 @@ class PlayState extends MusicBeatState
 				{
 					// Sim, isso funciona no android/mobile
 					// Aparentemente eu e o Silver ficamos em dúvida se isso funfava ou não, mas como eu tenho certeza, tá aqui k
-					ClientPrefs.pibby = true;	
+					ClientPrefs.pibby = true;
 					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
-					lime.system.System.exit(0);	
+					lime.system.System.exit(0);
 					ClientPrefs.save();
 				}
 				usedPractice = false;
@@ -7083,10 +7087,10 @@ class PlayState extends MusicBeatState
 							animToPlay = 'singRIGHT';
 					}
 				}
-				else if((boyfriend.animation.getByName('singLEFT') != null
-				&& boyfriend.animation.getByName('singDOWN') != null
-				&& boyfriend.animation.getByName('singUP') != null
-				&& boyfriend.animation.getByName('singRIGHT') != null))
+				else if ((boyfriend.animation.getByName('singLEFT') != null
+					&& boyfriend.animation.getByName('singDOWN') != null
+					&& boyfriend.animation.getByName('singUP') != null
+					&& boyfriend.animation.getByName('singRIGHT') != null))
 				{
 					switch (Std.int(Math.abs(note.noteData)))
 					{
@@ -7099,7 +7103,8 @@ class PlayState extends MusicBeatState
 						case 3:
 							animToPlay = 'singRIGHT';
 					}
-				}else
+				}
+				else
 					animToPlay = 'none';
 
 				if (note.noteType == 'GF Sing' || note.noteType == 'player3')
@@ -7457,29 +7462,34 @@ class PlayState extends MusicBeatState
 			switch (curStep) // x02 deve estar orgulhoso
 			{
 				case 1602:
-					if(ClientPrefs.shaders) {
-					blurShader = new BlurFilter();
-					blurShader.blurX = 0;
-					blurShader.blurY = 0;
+					if (ClientPrefs.shaders)
+					{
+						blurShader = new BlurFilter();
+						blurShader.blurX = 0;
+						blurShader.blurY = 0;
 					}
 					canPause = false;
-					if(ClientPrefs.shaders) {
-					camGame.setFilters([blurShader]);
-					camHUD.setFilters([blurShader]);
-					FlxTween.tween(blurShader, {blurX: 10, blurY: 20}, 6.75, {ease: FlxEase.linear});
+					if (ClientPrefs.shaders)
+					{
+						camGame.setFilters([blurShader]);
+						camHUD.setFilters([blurShader]);
+						FlxTween.tween(blurShader, {blurX: 10, blurY: 20}, 6.75, {ease: FlxEase.linear});
 					}
 				case 1673:
-					if(ClientPrefs.shaders) {
-					FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 2.5, {
-						ease: FlxEase.linear,
-						onComplete: function(tween:FlxTween)
-						{
-							canPause = true;
-						}
-					});
-				} else {
-					canPause = true;
-				}
+					if (ClientPrefs.shaders)
+					{
+						FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 2.5, {
+							ease: FlxEase.linear,
+							onComplete: function(tween:FlxTween)
+							{
+								canPause = true;
+							}
+						});
+					}
+					else
+					{
+						canPause = true;
+					}
 			}
 		}
 
@@ -7668,7 +7678,6 @@ class PlayState extends MusicBeatState
 				}
 			});
 		}
-
 
 		if (curBeat % 2 == 0 && superZoomShit)
 		{
