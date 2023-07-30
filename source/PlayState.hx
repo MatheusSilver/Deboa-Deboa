@@ -2398,9 +2398,11 @@ class PlayState extends MusicBeatState
 		// nada
 	}
 
+	public static var isPlayStateVideo:Bool = false;
+
 	public function backgroundVideo(source:String, xPos:Float = 0, yPos:Float = 0, tamanho:String = 'cheio', chromakey:Float = 0, layering:Float = 0)
 	{
-		if (!OpenFlAssets.exists(source))
+		if (!OpenFlAssets.exists("assets/videos/"+source+'.webm'))
 		{
 			if (GlobalVideo.get() != null)
 			{
@@ -2408,7 +2410,7 @@ class PlayState extends MusicBeatState
 
 				FlxG.stage.window.onFocusOut.remove(focusOut);
 				FlxG.stage.window.onFocusIn.remove(focusIn);
-				// remove(videoSprite);
+				remove(videoSprite);
 				videoSprite.visible = false;
 				useVideo = false;
 			}
@@ -2419,7 +2421,25 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
+
+			if (SONG.song.toLowerCase()== 'illegal-download' && !ClientPrefs.lowQuality)
+					camLegenda.visible = false;
+			else
+				return;
+
 			useVideo = true;
+			isPlayStateVideo = true;
+
+			FlxG.stage.window.onFocusOut.add(focusOut);
+			FlxG.stage.window.onFocusIn.add(focusIn);
+
+			// !!!;;; assets/videos/daWeirdVid/dontDelete.webm
+
+			if (!FileSystem.exists("assets/videos/daWeirdVid/dontDelete.webm")){
+				var file = openfl.Assets.getBytes("assets/videos/daWeirdVid/dontDelete.webm");
+
+				File.saveBytes("assets/videos/daWeirdVid/dontDelete.webm", file);
+			}
 
 			var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
 			// WebmPlayer.SKIP_STEP_LIMIT = 90;
@@ -2431,7 +2451,13 @@ class PlayState extends MusicBeatState
 
 			GlobalVideo.setWebm(webmHandler);
 
-			GlobalVideo.get().source(source);
+			if (!FileSystem.exists("assets/videos/"+source+'.webm')){
+				var file = openfl.Assets.getBytes("assets/videos/"+source+'.webm');
+
+				File.saveBytes("assets/videos/"+source+'.webm', file);
+			}
+
+			GlobalVideo.get().source("assets/videos/"+source+'.webm');
 			GlobalVideo.get().clearPause();
 			if (GlobalVideo.isWebm)
 			{
@@ -2450,34 +2476,18 @@ class PlayState extends MusicBeatState
 
 			var data = webmHandler.webm.bitmapData;
 
-			videoSprite = new FlxSprite().loadGraphic(data);
+			videoSprite = new FlxSprite(xPos, yPos).loadGraphic(data);
 
-			videoSprite.visible = true;
-			videoSprite.alpha = 1;
-			if (chromakey == 1)
-			{
-				if(ClientPrefs.shaders) {
-				videoSprite.shader = new GreenScreenShader();
-				}
-			}
-
-			if (tamanho != "cheio")
-			{
-				videoSprite.scale.x = Std.parseFloat(tamanho);
-				videoSprite.scale.y = Std.parseFloat(tamanho);
-			}
+			if (tamanho == "cheio")
+				videoSprite.setGraphicSize(FlxG.width, FlxG.height);
 			else
-			{
-				videoSprite.setGraphicSize(FlxG.width, FlxG.height); // Revisar isso amanhã tambem
-			}
+				videoSprite.setGraphicSize(Std.int(videoSprite.width*Std.parseFloat(tamanho)));
 
 			trace('poggers');
 
 			if (layering == 1)
 			{ // Layering = 1 significa que o video ficará abaixo dos bonecos mas acima do cenário
 				videoSprite.cameras = [camGame];
-				videoSprite.x = xPos + 0.001;
-				videoSprite.y = yPos + 0.001;
 				remove(gf);
 				remove(boyfriend);
 				remove(dad);
@@ -2489,8 +2499,6 @@ class PlayState extends MusicBeatState
 			else
 			{ // Significa que o vídeo ficará acima de literalmente tudo.
 				videoSprite.cameras = [camHUD2];
-				videoSprite.x = xPos + 0.001;
-				videoSprite.y = yPos + 0.001;
 				add(videoSprite);
 			}
 
@@ -3638,19 +3646,6 @@ class PlayState extends MusicBeatState
 			{
 				iconP1.swapOldIcon();
 		}*/
-
-		if (useVideo && GlobalVideo.get() != null)
-		{
-			if (GlobalVideo.get().ended && !removedVideo)
-			{
-				videoSprite.visible = false;
-				//	remove(videoSprite);
-				FlxG.stage.window.onFocusOut.remove(focusOut);
-				FlxG.stage.window.onFocusIn.remove(focusIn);
-				removedVideo = true;
-				useVideo = false;
-			}
-		}
 
 		var targetHP:Float = health;
 
@@ -5483,15 +5478,32 @@ class PlayState extends MusicBeatState
 							charType = Std.parseInt(value1);
 							if (Math.isNaN(charType)) charType = 0;
 					}
-
+					var alphaValue = Std.parseFloat(opa_Cidade[0]);
 					switch (charType)
 					{
 						case 2:
-							FlxTween.tween(gf, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut});
+							if (!gf.visible && alphaValue > 0)
+								gf.visible = true;
+							FlxTween.tween(gf, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut, onComplete:function(twn:FlxTween){
+								if (alphaValue == 0)
+									gf.visible = false;
+
+							}});
 						case 1:
-							FlxTween.tween(dad, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut});
+							if (!dad.visible && alphaValue > 0)
+								dad.visible = true;
+							FlxTween.tween(dad, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut, onComplete:function(twn:FlxTween){
+								if (alphaValue == 0)
+									dad.visible = false;
+
+							}});
 						case 0:
-							FlxTween.tween(boyfriend, {alpha: Std.parseFloat(opa_Cidade[0])}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut});
+							if (!boyfriend.visible && alphaValue > 0)
+								boyfriend.visible = true;
+							FlxTween.tween(boyfriend, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut, onComplete:function(twn:FlxTween){
+								if (alphaValue == 0)
+									boyfriend.visible = false;
+							}});
 					}
 				}
 
@@ -5643,7 +5655,7 @@ class PlayState extends MusicBeatState
 
 			case 'comecarvideo': // TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo('assets/videos/' + value1 + '.webm', Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1),
+				backgroundVideo(value1, Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1),
 					posAvancado[2], Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]));
 
 			case 'tempo infinito':
@@ -5866,8 +5878,10 @@ class PlayState extends MusicBeatState
 					FlxTransitionableState.skipNextTransOut = true;
 		updateTime = false;
 		FlxG.sound.music.volume = 0;
-		vocals.volume = 0;
-		vocals.pause();
+		if (vocals != null){
+			vocals.volume = 0;
+			vocals.pause();
+		}
 		if (ClientPrefs.noteOffset <= 0)
 		{
 			finishCallback();
@@ -5939,7 +5953,7 @@ class PlayState extends MusicBeatState
 			FlxG.stage.window.onFocusOut.remove(focusOut);
 			FlxG.stage.window.onFocusIn.remove(focusIn);
 			videoSprite.visible = false;
-			//	remove(videoSprite);
+			remove(videoSprite);
 		}
 
 		deathCounter = 0;
@@ -6094,6 +6108,21 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function endWebm()
+		{
+			if (SONG.song.toLowerCase()== 'illegal-download')
+				camLegenda.visible = true;
+			trace('ended');
+			videoSprite.alpha = 0;
+			GlobalVideo.get().stop();
+			GlobalVideo.get().hide();
+			destruirsprites(videoSprite);
+			callOnLuas('onVideoEnd', []);
+			FlxG.stage.window.onFocusOut.remove(focusOut);
+			FlxG.stage.window.onFocusIn.remove(focusIn);			
+			removedVideo = true;
+		}
+	
 	#if ACHIEVEMENTS_ALLOWED
 	var achievementObj:AchievementObject = null;
 
@@ -8568,7 +8597,7 @@ class PlayState extends MusicBeatState
 
 	// To Do:
 	// Integrar isso com Lua
-	public function destruirsprites(sprite:FlxSprite, chave:String = '', library:String = '')
+	public function destruirsprites(sprite:FlxSprite)
 	{
 		sprite.visible = false;
 		remove(sprite);

@@ -42,6 +42,7 @@ class ClientPrefs
 	public static var firstTime:Null<Bool> = true;
 	public static var buttonsMode:Array<Dynamic> = [];
 	public static var buttons:Array<Dynamic> = [];
+	public static var achievementsMap:Map<String, Bool> = [];
 
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [

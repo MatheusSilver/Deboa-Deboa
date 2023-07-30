@@ -129,6 +129,12 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (controls.BACK)
 		{
 			FlxG.sound.music.stop();
+
+			if (PlayState.useVideo)
+			{
+				GlobalVideo.get().stop();
+				PlayState.instance.remove(PlayState.instance.videoSprite);
+			}
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 			MusicBeatState.switchState(new EstadoDeTrocaReverso());
@@ -191,6 +197,12 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				FlxTween.tween(blackScreen, {alpha: 1}, 1.5, {ease: FlxEase.linear, onComplete: function(twn:FlxTween)
 				{
+					if (PlayState.useVideo)
+					{
+						GlobalVideo.get().stop();
+						PlayState.instance.remove(PlayState.instance.videoSprite);
+						PlayState.removedVideo = true;
+					}
 					MusicBeatState.switchState(new PlayState()); //Não imagino que alguem vá apertar enter esperando ir pra qualquer outro lugar então né?
 				}});
 			});

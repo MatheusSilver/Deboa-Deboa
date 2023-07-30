@@ -283,7 +283,7 @@ class MainMenuStateMobile extends MusicBeatState
 		Achievements.loadAchievements();
 			var achieveID:Int = Achievements.getAchievementIndex('modboa');
 			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+				ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 				giveAchievement('modboa');
 				ClientPrefs.save();
 		}

@@ -225,7 +225,7 @@ class GaleriaState extends MusicBeatState
 						Achievements.loadAchievements();
 						var achieveID:Int = Achievements.getAchievementIndex('galeria');
 						if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-							Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+							ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 							add(new AchievementObject('galeria', camAchievement));
 							GlobalSoundManager.play('confirmMenu');
 							ClientPrefs.save();

@@ -1340,8 +1340,8 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "cyCut", function(texto:String) {
 			PlayState.instance.cyCutscene(texto);
 		});
-		Lua_helper.add_callback(lua, "destruirsprites", function(sprite:FlxSprite, chave:String = '', library:String = '') {
-			PlayState.instance.destruirsprites(sprite, chave, library);
+		Lua_helper.add_callback(lua, "destruirsprites", function(sprite:FlxSprite) {
+			PlayState.instance.destruirsprites(sprite);
 		});
 		Lua_helper.add_callback(lua, "playSound", function(sound:String, volume:Float = 1, ?tag:String = null) {
 			if(tag != null && tag.length > 0) {

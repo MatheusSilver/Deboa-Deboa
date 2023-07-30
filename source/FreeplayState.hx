@@ -77,6 +77,8 @@ class FreeplayState extends MusicBeatState
 		WeekData.reloadWeekFiles(true); //note for future silver 
 		//Este code, SEMPRE, deve ser colocado quando não se utiliza 'dapreselected', ele é quem carrega as weeks.
 
+		apertavel = false;
+
 		//WeekData.reloadWeekFiles(false);
 		#if rpc
 		// Updating Discord Rich Presence
@@ -184,6 +186,10 @@ class FreeplayState extends MusicBeatState
 		outroperfilSprite.x = 18 + 38;
 
 		changeSelection();
+
+		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+			apertavel = true;
+		});
 		
 		super.create();
 	}
@@ -211,6 +217,11 @@ class FreeplayState extends MusicBeatState
 			outroperfilSprite.angle = disc.angle;
             timeAccumulated -= UPDATE_INTERVAL;
         }
+
+		if(FlxG.sound.music == null) {
+			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+		}
+		
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
