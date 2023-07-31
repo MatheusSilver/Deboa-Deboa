@@ -61,12 +61,6 @@ class FreeplayState extends MusicBeatState
 	// fps fix stuff
 	private var UPDATE_INTERVAL:Float = 1.0 / 60.0;
     private var timeAccumulated:Float = 0.0;
-
-
-	private function shouldUpdate():Bool
-		{
-			return timeAccumulated >= UPDATE_INTERVAL;
-		}
 	
 	override function create()
 	{
@@ -185,7 +179,7 @@ class FreeplayState extends MusicBeatState
 		outroperfilSprite.alpha = 0;
 		outroperfilSprite.x = 18 + 38;
 
-		changeSelection();
+		changeSelection(true);
 
 		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
 			apertavel = true;
@@ -199,6 +193,15 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
+	private function cd_spin()
+	{
+			FlxTween.tween(disc, {angle: disc.angle+180}, 30, {ease: FlxEase.linear,
+				onComplete: function(twn:FlxTween) {
+					cd_spin();
+				}
+			});
+	}
+
 	public function addSong(songName:String,weekNum:Int, songCharacter:String, color:Int, display:String)
 	{
 		songs.push(new SongMetadata(songName, weekNum, songCharacter, color, display));
@@ -209,14 +212,8 @@ class FreeplayState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		timeAccumulated += elapsed;
-        while (shouldUpdate())
-        {
-			disc.angle +=2/(2*3.1415/*926535*/); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
-			perfilSprite.angle = disc.angle;
-			outroperfilSprite.angle = disc.angle;
-            timeAccumulated -= UPDATE_INTERVAL;
-        }
+		perfilSprite.angle = disc.angle;
+		outroperfilSprite.angle = disc.angle;
 
 		if(FlxG.sound.music == null) {
 			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
@@ -364,7 +361,7 @@ class FreeplayState extends MusicBeatState
 		PlayState.storyDifficulty = curDifficulty;
 	}
 
-	function changeSelection(change:Int = 0)
+	function changeSelection(change:Int = 0, firstTime:Bool = false)
 	{
 		GlobalSoundManager.play('scrollMenu');
 
@@ -434,6 +431,10 @@ class FreeplayState extends MusicBeatState
 				onComplete: function(twn:FlxTween) {
 					perfilSprite.alpha = 0;
 					apertavel = true;
+					if (firstTime){
+						cd_spin();
+						firstTime=false;
+					}
 				}
 			});
 	}
