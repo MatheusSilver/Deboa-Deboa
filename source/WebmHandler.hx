@@ -12,6 +12,7 @@ class WebmHandler
 	public var vidPath:String = "";
 	public var io:WebmIo;
 	public var initialized:Bool = false;
+	var stopUpdate:Bool = false;
 	
 	public function new()
 	{
@@ -27,6 +28,7 @@ class WebmHandler
 	
 	public function makePlayer():Void
 	{
+		stopUpdate = false;
 		io = new WebmIoFile(vidPath);
 		webm = new WebmPlayer();
 		webm.fuck(io, false);
@@ -78,10 +80,18 @@ class WebmHandler
 	
 	public function update(elapsed:Float)
 	{
-		webm.x = GlobalVideo.calc(0);
-		webm.y = GlobalVideo.calc(1);
-		webm.width = GlobalVideo.calc(2);
-		webm.height = GlobalVideo.calc(3);
+		if(!stopUpdate)
+		{
+			webm.x = GlobalVideo.calc(0);
+			webm.y = GlobalVideo.calc(1);
+			webm.width = GlobalVideo.calc(2);
+			webm.height = GlobalVideo.calc(3);
+		}else{
+			webm.x = 0;
+			webm.y = 0;
+			webm.width = 0.01;
+			webm.height = 0.01;
+		}
 	}
 	
 	public var stopped:Bool = false;
@@ -136,6 +146,10 @@ class WebmHandler
 	public function onEnd():Void
 	{
 		trace("IT ENDED!");
+		PlayState.instance.endWebm();
+		webm.visible = false;
+		webm.alpha = 0;
+		stopUpdate = true;
 		ended = true;
 	}
 	

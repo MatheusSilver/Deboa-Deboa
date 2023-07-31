@@ -292,6 +292,12 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.canRegen = true;
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = transCamera;
+					if (PlayState.useVideo)
+					{
+						GlobalVideo.get().stop();
+						PlayState.instance.remove(PlayState.instance.videoSprite);
+						PlayState.removedVideo = true;
+					}
 					restartSong();
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					FlxG.sound.music.volume = 0;
@@ -302,12 +308,19 @@ class PauseSubState extends MusicBeatSubstate
 				
 				case "Voltar para o menu":
 					podeJumpscare=false;
+					if (PlayState.useVideo)
+					{
+						GlobalVideo.get().stop();
+						PlayState.instance.remove(PlayState.instance.videoSprite);
+						PlayState.removedVideo = true;
+					}
 					PlayState.instance.canRegen = true;
 					PlayState.canuseevents = true;
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					MusicBeatState.switchState(new EstadoDeTrocaReverso());
+					FlxG.sound.music.stop();
 					FlxG.sound.playMusic(Paths.music('newmenu'));
 					PlayState.usedPractice = false;
 					PlayState.changedDifficulty = false;

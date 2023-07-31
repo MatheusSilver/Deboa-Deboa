@@ -46,12 +46,10 @@ class Achievements {
 		["Galeria",						"Veja toda a galeria",								'galeria',			true, 		185895, 		'geral', 		1], 
 		["Quem mandou ficar no pause?",	"Deixe seu jogo pausado por muito tempo em triple trouble",	'pause_jumpscare',	true, 		186989, 		'orgulho', 		1]//ok
 	];
-	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
-
 	public static var henchmenDeath:Int = 0;
 	public static function unlockAchievement(name:String, ?makeSound:Bool=true):Void {
 		FlxG.log.add('Completed achievement "' + name +'"');
-		achievementsMap.set(name, true);
+		ClientPrefs.achievementsMap.set(name, true);
 		if(makeSound)
 			{
 				GlobalSoundManager.play('confirmMenu');
@@ -65,7 +63,7 @@ class Achievements {
 
 	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
 		var id:Int = Achievements.getAchievementIndex(name);
-		if(achievementsMap.exists(name) && achievementsMap.get(name)) {
+		if(ClientPrefs.achievementsMap.exists(name) && ClientPrefs.achievementsMap.get(name)) {
 			if(GJClient.logged && !naochecar)
 				GJClient.trophieAdd(achievementsStuff[id][4]);
 			return true;
@@ -106,7 +104,7 @@ class Achievements {
 	public static function loadAchievements():Void {
 		if(FlxG.save.data != null) {
 			if(FlxG.save.data.achievementsMap != null) {
-				achievementsMap = FlxG.save.data.achievementsMap;
+				ClientPrefs.achievementsMap = FlxG.save.data.achievementsMap;
 			}
 			if(henchmenDeath == 0 && FlxG.save.data.henchmenDeath != null) {
 				henchmenDeath = FlxG.save.data.henchmenDeath;

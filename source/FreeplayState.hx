@@ -62,12 +62,6 @@ class FreeplayState extends MusicBeatState
 	// Eu acho, mas acho que isso tá dando um pouco de problema no PC/Android
 	private var UPDATE_INTERVAL:Float = 1.0 / 60.0; 
     private var timeAccumulated:Float = 0.0;
-
-
-	private function shouldUpdate():Bool
-		{
-			return timeAccumulated >= UPDATE_INTERVAL;
-		}
 	
 	override function create()
 	{
@@ -77,6 +71,8 @@ class FreeplayState extends MusicBeatState
 
 		WeekData.reloadWeekFiles(true); //note for future silver 
 		//Este code, SEMPRE, deve ser colocado quando não se utiliza 'dapreselected', ele é quem carrega as weeks.
+
+		apertavel = false;
 
 		//WeekData.reloadWeekFiles(false);
 		#if rpc
@@ -180,7 +176,11 @@ class FreeplayState extends MusicBeatState
 		outroperfilSprite.alpha = 0;
 		outroperfilSprite.x = 18 + 38;
 
-		changeSelection();
+		changeSelection(true);
+
+		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+			apertavel = true;
+		});
 
 		// Ordem importa
 		#if mobileC
@@ -195,6 +195,15 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
+	private function cd_spin()
+	{
+			FlxTween.tween(disc, {angle: disc.angle+180}, 30, {ease: FlxEase.linear,
+				onComplete: function(twn:FlxTween) {
+					cd_spin();
+				}
+			});
+	}
+
 	public function addSong(songName:String,weekNum:Int, songCharacter:String, color:Int, display:String)
 	{
 		songs.push(new SongMetadata(songName, weekNum, songCharacter, color, display));
@@ -205,14 +214,13 @@ class FreeplayState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		timeAccumulated += elapsed;
-        while (shouldUpdate())
-        {
-			disc.angle +=2/(2*3.1415); //RAPIDO DUVIDO TU PREENCHER MAIS CASAS DECIMAIS DO PI QUE ISSO
-			perfilSprite.angle = disc.angle;
-			outroperfilSprite.angle = disc.angle;
-            timeAccumulated -= UPDATE_INTERVAL;
-        }
+		perfilSprite.angle = disc.angle;
+		outroperfilSprite.angle = disc.angle;
+
+		if(FlxG.sound.music == null) {
+			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+		}
+		
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -358,7 +366,7 @@ class FreeplayState extends MusicBeatState
 		PlayState.storyDifficulty = curDifficulty;
 	}
 
-	function changeSelection(change:Int = 0)
+	function changeSelection(change:Int = 0, firstTime:Bool = false)
 	{
 		GlobalSoundManager.play('scrollMenu');
 
@@ -428,6 +436,10 @@ class FreeplayState extends MusicBeatState
 				onComplete: function(twn:FlxTween) {
 					perfilSprite.alpha = 0;
 					apertavel = true;
+					if (firstTime){
+						cd_spin();
+						firstTime=false;
+					}
 				}
 			});
 	}
