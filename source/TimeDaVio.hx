@@ -248,6 +248,10 @@ class TimeDaVio extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Vendo os créditos do(a) " + creditStuff[curSelected], null);
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo os créditos do(a) " + creditStuff[curSelected]);
+		#end
 		if (controls.BACK)
 		{
 			GlobalSoundManager.play('cancelMenu');

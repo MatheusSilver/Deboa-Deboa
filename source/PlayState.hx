@@ -401,7 +401,8 @@ class PlayState extends MusicBeatState
 
 	// eu n sei onde oclocar isso pq eu to perdido socorro eu tenho medo do playstate alguém me ajuda preciso ser salvo
 	var omagaaaa:FlxSprite;
-
+	
+	// nao vo faze o playstate mim ter pregricinha
 	#if rpc
 	// Discord RPC variables
 	var storyDifficultyText:String = "";

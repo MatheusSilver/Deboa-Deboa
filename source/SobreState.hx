@@ -36,6 +36,10 @@ class SobreState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Vendo o sobre", null);
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo o sobre");
+		#end
 		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.updateHitbox();

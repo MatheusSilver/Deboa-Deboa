@@ -79,6 +79,12 @@ class FreeplayState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No Freeplay", null);
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "No freeplay");
+		#end
+
+		
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 
 		for (i in 0...WeekData.freeplayList.length) {

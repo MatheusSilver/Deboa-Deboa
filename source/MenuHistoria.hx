@@ -167,6 +167,10 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 		#end
 
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Escolhendo uma musica em: " + dapreselected);
+		#end
+
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
 
@@ -367,6 +371,10 @@ class MenuHistoria extends MusicBeatSubstate
 		{
 			#if rpc
 			DiscordClient.changePresence("Escolhendo um lado em", "Cross Console Clash", null);
+			#end
+
+			#if android
+			KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Escolhendo um lado em Cross Console Clash");
 			#end
 			naopodevoltar = true;
 			apertavel = false;

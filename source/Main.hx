@@ -160,5 +160,16 @@ class Main extends Sprite
 			});
 		}
 		#end
+
+		// To do: Fazer um menu estilo gamejolt pra trocar o token
+		#if android
+		if(!KizzyBackend.token.length < 4 && KizzyBackend.token.length = 4) 
+		{ // Prevenção pra que o kizzy não tenrte carregar um token inválido
+		KizzyBackend.setup();
+		Application.current.window.onClose.add(function() {
+			KizzyBackend.close();
+			});
+		}
+		#end
 	}
 }

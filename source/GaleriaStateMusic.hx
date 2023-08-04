@@ -454,6 +454,13 @@ class GaleriaStateMusic extends MusicBeatState
 				DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
 			#end
 
+			#if android
+			if(!pausado)
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Ouvindo musicas na galeria"); // Não sei trocar pro nome do título da música aqui
+			else
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Musica pausada");
+			#end
+
 			if(FlxG.mouse.overlaps(menuItems) || FlxG.mouse.overlaps(checkboxArray) || 
 				FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||
 					FlxG.mouse.overlaps(botaoPauseContinue) || FlxG.mouse.overlaps(sair) || 
