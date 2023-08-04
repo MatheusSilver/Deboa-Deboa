@@ -31,8 +31,6 @@ class GaleriaStateMusic extends MusicBeatState
 	var daLyric:Array<String>;
 	var textGroup:FlxTypedGroup<FlxText>;
 
-
-
 	var curSong:FlxSound;
 	var prevSong:FlxSound;
 
@@ -60,8 +58,6 @@ class GaleriaStateMusic extends MusicBeatState
 	var timer:FlxText;
 
 	var songPercent:Float = 0;
-
-	var barrabase:FlxBar;
 
 	var curSelected:Int = 0;
 
@@ -127,14 +123,6 @@ class GaleriaStateMusic extends MusicBeatState
 		playListbotao.y = letrasbotao.y;
 		playListbotao.alpha = 0;
 		add(playListbotao);
-
-		var lugar:Float = 1; //Não entendi, só sei que foi assim ;-;
-		barrabase = new FlxBar(playListbotao.x, playListbotao.y + playListbotao.height, LEFT_TO_RIGHT, Std.int(playListbotao.width+letrasbotao.width), 2, this, 'lugar', 0, 2, true);
-		barrabase.scrollFactor.set();
-		barrabase.alpha = 0;
-		barrabase.numDivisions = 2;
-		barrabase.createFilledBar(0x63797979,0xFFFFFFFF);
-		add(barrabase);
 
 		tocandoagora = new FlxText(playListbotao.x, overlaySuporte.height - 30, 100, 'Tocando Agora:', 13);
 		tocandoagora.setFormat(Paths.font("Arial.ttf"), 13, 0xFF808080, LEFT);
@@ -313,7 +301,6 @@ class GaleriaStateMusic extends MusicBeatState
 								FlxTween.tween(playListbotao, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 								FlxTween.tween(tocandoagora, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 								FlxTween.tween(letrasbotao, {alpha: 0.5}, 0.1, {ease: FlxEase.quartInOut});
-								FlxTween.tween(barrabase, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 								FlxTween.tween(tocandoagorasuporte, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 								FlxTween.tween(thumbtocandoagora, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 								optionTextsArray.forEach(function(spr:FlxText)
@@ -554,8 +541,8 @@ class GaleriaStateMusic extends MusicBeatState
 				changeSong(curSelected+1);
 				GlobalSoundManager.play('click');
 			}else if (FlxG.mouse.overlaps(botaoesquerda)){
-				changeSong(curSelected-1);
 				FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
+				changeSong(curSelected-1);
 				GlobalSoundManager.play('click');
 			}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&pausado){
 				pausado = false;
@@ -622,11 +609,13 @@ class GaleriaStateMusic extends MusicBeatState
 
 	private function reloadLyrics(reShow:Bool = false)
 	{
+		textGroup.clear();
+
+		//Limpa primeiro, depois recarrega a letra
 		if (openfl.utils.Assets.exists(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase())))
 			daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase()));
 		else
-			daLyric = [];
-		untyped textGroup.length = 0;
+			daLyric = ['Não', 'Existem', 'Letras', 'Nyehehehehehehehhe'];
 
 
 		for (i in 0...daLyric.length) {
@@ -647,7 +636,6 @@ class GaleriaStateMusic extends MusicBeatState
 	{
 		FlxTween.tween(playListbotao, {alpha: 0.5}, 0.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(letrasbotao, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
-		barrabase.createFilledBar(0xFFFFFFFF,0x63797979);
 		isLetras = true;
 		textGroup.visible = true;
 		menuItems.visible=false;
@@ -665,7 +653,6 @@ class GaleriaStateMusic extends MusicBeatState
 	{
 		FlxTween.tween(playListbotao, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(letrasbotao, {alpha: 0.5}, 0.5, {ease: FlxEase.quartInOut});
-		barrabase.createFilledBar(0x63797979,0xFFFFFFFF);
 		isLetras = false;
 		textGroup.visible = false;
 		menuItems.visible=true;
