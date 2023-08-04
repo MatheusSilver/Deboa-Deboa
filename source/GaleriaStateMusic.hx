@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.FlxAssets.FlxTexturePackerSource;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else
@@ -127,11 +128,11 @@ class GaleriaStateMusic extends MusicBeatState
 		playListbotao.alpha = 0;
 		add(playListbotao);
 
-		var lugar:Float = 0.50; //Não entendi, só sei que foi assim ;-;
-		barrabase = new FlxBar(playListbotao.x, playListbotao.y + playListbotao.height, LEFT_TO_RIGHT, Std.int(playListbotao.width+letrasbotao.width), 2, this, 'lugar', 0, 1, true);
+		var lugar:Float = 1; //Não entendi, só sei que foi assim ;-;
+		barrabase = new FlxBar(playListbotao.x, playListbotao.y + playListbotao.height, LEFT_TO_RIGHT, Std.int(playListbotao.width+letrasbotao.width), 2, this, 'lugar', 0, 2, true);
 		barrabase.scrollFactor.set();
 		barrabase.alpha = 0;
-		barrabase.numDivisions = 100;
+		barrabase.numDivisions = 2;
 		barrabase.createFilledBar(0x63797979,0xFFFFFFFF);
 		add(barrabase);
 
@@ -159,6 +160,9 @@ class GaleriaStateMusic extends MusicBeatState
 			//Propósitos de economizar renderização
 			menuItems.add(scrollingStuff);
 		}
+		//Lyrics Stuff
+		textGroup = new FlxTypedGroup<FlxText>();
+		add(textGroup);
 
 		optionTextsArray = new FlxTypedGroup<FlxText>();
 		add(optionTextsArray);
@@ -274,16 +278,6 @@ class GaleriaStateMusic extends MusicBeatState
 		add(timeBar);
 
 		FlxG.sound.music.fadeOut(1, 0);
-
-
-		//Lyrics Stuff
-		daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase()));
-	
-
-		textGroup = new FlxTypedGroup<FlxText>();
-		add(textGroup);
-		
-
 
 		textGroup.visible = false;
 		isLetras = false;
@@ -437,21 +431,36 @@ class GaleriaStateMusic extends MusicBeatState
 		if(FlxG.mouse.overlaps(scrollableArea))
 			{
 			if(FlxG.mouse.wheel>0) //Aparentemente isso aqui faz o bg subir.
-				{
+			{
 					//trace('estou subindo?'); //Sim
+				if (!isLetras)
+				{
 					if(menuItems.members[0].y <= segureoPrimeiroY)
 					{
 							menuItems.forEach(function(spr:FlxSprite)
 							{spr.y = spr.y+25;});
 					}
-				}else if(FlxG.mouse.wheel<0){
+				}else
+					if(textGroup.members[0].y <= segureoPrimeiroY)
+						{
+							textGroup.forEach(function(spr:FlxText)
+								{spr.y = spr.y+25;});
+						}
+			}else if(FlxG.mouse.wheel<0){
+				if (!isLetras){
 					if(menuItems.members[GaleriaState.leMusic.length-1].y >= FlxG.height - barraInferior.y + 15*35 )
-					{
-							menuItems.forEach(function(spr:FlxSprite)
-							{spr.y = spr.y-25;});
-					}
-
+						{
+								menuItems.forEach(function(spr:FlxSprite)
+								{spr.y = spr.y-25;});
+						}
+				}else{
+					if(textGroup.members[textGroup.length-1].y >= FlxG.height - barraInferior.y + 15*35 )
+						{
+							textGroup.forEach(function(spr:FlxText)
+								{spr.y = spr.y-25;});
+						}
 				}
+			}
 			}
 
 		if (controls.BACK || (FlxG.mouse.overlaps(sair) && FlxG.mouse.justPressed)) {
@@ -490,7 +499,7 @@ class GaleriaStateMusic extends MusicBeatState
 				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Musica pausada");
 			#end
 
-		if(FlxG.mouse.overlaps(menuItems) || FlxG.mouse.overlaps(checkboxArray) || 
+		if((FlxG.mouse.overlaps(menuItems)&&!isLetras) || FlxG.mouse.overlaps(checkboxArray) || 
 			FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||
 				FlxG.mouse.overlaps(botaoPauseContinue) || FlxG.mouse.overlaps(sair) || 
 				(FlxG.mouse.overlaps(playListbotao)&&isLetras) || (FlxG.mouse.overlaps(letrasbotao)&&!isLetras)){
@@ -532,7 +541,6 @@ class GaleriaStateMusic extends MusicBeatState
 		});
 
 		//Feito muito, mas MUITO TEMPO DEPOIS...
-
 		if(Utils.BSLTouchUtils.apertasimples(playListbotao)&&isLetras)
 			showPlaylist();
 		else if(Utils.BSLTouchUtils.apertasimples(letrasbotao)&&!isLetras)
@@ -570,30 +578,41 @@ class GaleriaStateMusic extends MusicBeatState
 			}
 		}
 
-		menuItems.forEach(function(spr:FlxSprite)
-			{				
-				if(canRender){ //Isso aqui serve apenas para não sobrecarregar a placa de vídeo com muitos objetos sendo renderizados ao memso tempo
-					//Com isso, a placa só irá ter que carregar objetos que realmente estão na camera.
-					//Honestamente essa é a primeira vez que tenho que me preocupar com placa de vídeo ao invés de RAM
+		if (!isLetras)
+			menuItems.forEach(function(spr:FlxSprite)
+				{				
+					if(canRender){ //Isso aqui serve apenas para não sobrecarregar a placa de vídeo com muitos objetos sendo renderizados ao memso tempo
+						//Com isso, a placa só irá ter que carregar objetos que realmente estão na camera.
+						//Honestamente essa é a primeira vez que tenho que me preocupar com placa de vídeo ao invés de RAM
 
-					// bla bla bla
+						// bla bla bla
 
-				if(spr.y >= overlaySuporte.height*0.95 && spr.y <= FlxG.width)
-					spr.visible = true;
-				else
-					spr.visible = false;
+					if(spr.y >= overlaySuporte.height*0.95 && spr.y <= FlxG.width)
+						spr.visible = true;
+					else
+						spr.visible = false;
 
-				}
-
-				if(FlxG.mouse.justPressed) 
-					{
-						if(FlxG.mouse.overlaps(spr) && spr.visible && !FlxG.mouse.overlaps(barraInferior)){
-							GlobalSoundManager.play('click');
-							FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
-							changeSong(spr.ID);
-						}
 					}
 
+					if(FlxG.mouse.justPressed) 
+						{
+							if(FlxG.mouse.overlaps(spr) && spr.visible && !FlxG.mouse.overlaps(barraInferior)){
+								GlobalSoundManager.play('click');
+								FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
+								changeSong(spr.ID);
+							}
+						}
+
+				});
+		else
+			textGroup.forEach(function(spr:FlxText)
+			{				
+				if(canRender)
+					if(spr.y >= overlaySuporte.height*0.95 && spr.y <= FlxG.width)
+						spr.visible = true;
+					else
+						spr.visible = false;
+				
 			});
 
 			
@@ -605,10 +624,12 @@ class GaleriaStateMusic extends MusicBeatState
 	{
 		untyped textGroup.length = 0;
 
+		daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase()));
+
 		for (i in 0...daLyric.length) {
-			var daText:FlxText = new FlxText(0,0, overlaySuporte.width, daLyric[i], 16);
-			daText.setFormat(Paths.font('Arial'), 16, FlxColor.WHITE, CENTER);
-			daText.setBorderStyle(SHADOW, FlxColor.BLACK, 2, 1);
+			var daText:FlxText = new FlxText(overlaySuporte.x,tocandoagora.y+75+i*55 , thumbtocandoagora.width, daLyric[i], 24);
+			daText.setFormat(Paths.font('Arial'), 24, FlxColor.WHITE, CENTER);
+			//daText.setBorderStyle(SHADOW, FlxColor.BLACK, 2, 1);
 			daText.alpha = 0;
 			daText.ID = i;
 			textGroup.add(daText);
@@ -621,7 +642,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 	private function showLyrics()
 	{
-		FlxTween.tween(playListbotao, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+		FlxTween.tween(playListbotao, {alpha: 0.5}, 0.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(letrasbotao, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
 		barrabase.createFilledBar(0xFFFFFFFF,0x63797979);
 		isLetras = true;
@@ -640,7 +661,7 @@ class GaleriaStateMusic extends MusicBeatState
 	private function showPlaylist()
 	{
 		FlxTween.tween(playListbotao, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
-		FlxTween.tween(letrasbotao, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+		FlxTween.tween(letrasbotao, {alpha: 0.5}, 0.5, {ease: FlxEase.quartInOut});
 		barrabase.createFilledBar(0x63797979,0xFFFFFFFF);
 		isLetras = false;
 		textGroup.visible = false;
