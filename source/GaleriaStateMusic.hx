@@ -622,9 +622,12 @@ class GaleriaStateMusic extends MusicBeatState
 
 	private function reloadLyrics(reShow:Bool = false)
 	{
+		if (openfl.utils.Assets.exists(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase())))
+			daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase()));
+		else
+			daLyric = [];
 		untyped textGroup.length = 0;
 
-		daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase()));
 
 		for (i in 0...daLyric.length) {
 			var daText:FlxText = new FlxText(overlaySuporte.x,tocandoagora.y+75+i*55 , thumbtocandoagora.width, daLyric[i], 24);
