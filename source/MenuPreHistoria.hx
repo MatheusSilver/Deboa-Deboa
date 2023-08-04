@@ -117,6 +117,7 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = weekAnimNum;
 		}
 
+		changeWeek(1);
 		super.create();
 	}
 
@@ -185,6 +186,10 @@ class MenuPreHistoria extends MusicBeatState
 	{
 		#if rpc
 		DiscordClient.changePresence("Pensando em jogar a Week ", WeekData.weeksList[curWeek], null);
+		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Pensando em jogar a Week" + WeekData.weeksList[curWeek]);
 		#end
 
 		if (makeAnimUnlock && !inCut && apertavel && !movedBack && !selectedWeek)

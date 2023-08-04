@@ -39,6 +39,10 @@ class AchievementsMenuState extends MusicBeatState
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
 
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "No menu de conquistas");
+		#end
+
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
 		menuBG.setGraphicSize(FlxG.width, FlxG.height);
 		menuBG.updateHitbox();
@@ -154,6 +158,10 @@ class AchievementsMenuState extends MusicBeatState
 			changeSelection();
 		}
 		Conductor.changeBPM(112);
+
+		#if mobileC
+		addVirtualPad(UP_DOWN, A_B);
+		#end
 
 		super.create();
 	}

@@ -34,6 +34,8 @@ class TimeDaVio extends MusicBeatState
 
 	/*var newcredit:FlxSprite;
 		var dummycredit:FlxSprite; */
+	// desculpa pra quem estiver olhando esse script, pf me perdoe
+	// o eu dessa época era tão burro ao nível de não saber usar dictionary
 	var creditStuff:Array<String> = [
 		'vio',
 		'dav',
@@ -247,6 +249,10 @@ class TimeDaVio extends MusicBeatState
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Vendo os créditos do(a) " + creditStuff[curSelected], null);
+		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo os créditos do(a) " + creditStuff[curSelected]);
 		#end
 		if (controls.BACK)
 		{

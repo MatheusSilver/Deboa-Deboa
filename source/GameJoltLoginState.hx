@@ -43,6 +43,10 @@ class GameJoltLoginState extends MusicBeatState
 			DiscordClient.changePresence("Logando", null);
 			#end
 
+            #if android
+            KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Logando");
+            #end
+
 			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('optionsmenu/login_back'));		
 			supbg.antialiasing = ClientPrefs.globalAntialiasing;
 			supbg.alpha = 1;

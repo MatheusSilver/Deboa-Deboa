@@ -41,6 +41,11 @@ class CreditsMods extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Vendo os créditos", null);
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo os creditos");
+		#end
+		
 		/*bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();

@@ -476,12 +476,19 @@ class GaleriaStateMusic extends MusicBeatState
 			timer.text = FlxStringUtil.formatTime(Math.floor(curTime/1000), false) + '/' + FlxStringUtil.formatTime(Math.floor(songLength/1000), false);
 		}
 
-		#if rpc
-		if(!pausado)
-			DiscordClient.changePresence("Ouvindo:", GaleriaState.titulos[curSelected], true, songLength - curTime);
-		else
-			DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
-		#end
+			#if rpc
+			if(!pausado)
+				DiscordClient.changePresence("Ouvindo:", GaleriaState.titulos[curSelected], true, songLength - curTime);
+			else
+				DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
+			#end
+
+			#if android
+			if(!pausado)
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Ouvindo musicas na galeria"); // Não sei trocar pro nome do título da música aqui
+			else
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Musica pausada");
+			#end
 
 		if(FlxG.mouse.overlaps(menuItems) || FlxG.mouse.overlaps(checkboxArray) || 
 			FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||

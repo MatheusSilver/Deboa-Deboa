@@ -141,7 +141,7 @@ class ClientPrefs
     public static function salvarControles() {
 
         var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', CoolUtil.getSavePath());
+		save.bind('controlesmodboa', CoolUtil.getSavePath());
 		save.data.customControls = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -161,7 +161,7 @@ class ClientPrefs
 
     public static function carregarControles() {
         var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', CoolUtil.getSavePath());
+		save.bind('controlesmodboa', CoolUtil.getSavePath());
 		if(save != null && save.data.customControls != null) {
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {

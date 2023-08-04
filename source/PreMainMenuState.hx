@@ -31,6 +31,10 @@ class PreMainMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Vendo os creditos", null);
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo os creditos");
+		#end
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
 		supbg.antialiasing = ClientPrefs.globalAntialiasing;

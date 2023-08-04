@@ -50,6 +50,10 @@ class AjustesState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Nas configurações.", null);
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Nas configurações.");
+		#end
 		
 		if(FlxG.sound.music.volume==0) {
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
