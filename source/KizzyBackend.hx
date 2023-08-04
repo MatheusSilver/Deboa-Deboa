@@ -8,7 +8,7 @@ using StringTools;
 class KizzyBackend {
 
         // O token é o meu por enquanto só pra testar kek
-        public static var token:String = 'NzQ2MDIzODc3ODQyNDM2MTEx.GL3Hm9.VI9-CjzmimF7t6AoATv972LHQahVpf1gIL-0vM';
+        public static var token:String = 'sus';
         public static var kizzyClient:KizzyClient;
         public function setup() {
             kizzyClient = new KizzyClient(token);
@@ -28,16 +28,20 @@ class KizzyBackend {
         }
 
         public static function trocardetalhes(nome:String = "FNF: Modboa.EXE", detalhes:String = "Nos menus", imagemgrande:String = "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", imagempequena:String = "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/icon16.png?raw=true", botao1nombre:String = "Canal Galaccine:", botao1acao:String = "https://www.youtube.com/@Galaccine") {
-            kizzyClient.setName(nome);
-            kizzyClient.setDetails(detalhes);
-            kizzyClient.setLargeImage(imagemgrande);
-            kizzyClient.setSmallImage(imagempequena);
-            kizzyClient.setButton1(botao1nombre, botao1acao);
-            kizzyClient.setType(0);
-            kizzyClient.setState('State');
-            kizzyClient.setStatus('idle');
-            kizzyClient.closeOnDestroy(true);
-            kizzyClient.rebuildClient();
+            if(token.length < 4 || token.length == 4) {
+                trace("token tá sus");
+            } else {
+                kizzyClient.setName(nome);
+                kizzyClient.setDetails(detalhes);
+                kizzyClient.setLargeImage(imagemgrande);
+                kizzyClient.setSmallImage(imagempequena);
+                kizzyClient.setButton1(botao1nombre, botao1acao);
+                kizzyClient.setType(0);
+                kizzyClient.setState('State');
+                kizzyClient.setStatus('idle');
+                kizzyClient.closeOnDestroy(true);
+                kizzyClient.rebuildClient();
+            }
         }
 
         public static function close() {

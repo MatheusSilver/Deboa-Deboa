@@ -402,13 +402,10 @@ class PlayState extends MusicBeatState
 	// eu n sei onde oclocar isso pq eu to perdido socorro eu tenho medo do playstate alguém me ajuda preciso ser salvo
 	var omagaaaa:FlxSprite;
 	
-	// nao vo faze o playstate mim ter pregricinha
-	#if rpc
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
 
 	public static var detailsPausedText:String = "";
-	#end
 
 	public static var detailsText:String = "";
 
@@ -630,9 +627,7 @@ class PlayState extends MusicBeatState
 		art.antialiasing = ClientPrefs.globalAntialiasing;
 		art.alpha = 1;
 
-		#if rpc
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
-		#end
 
 		// Nenhum problema pra só uma string
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
@@ -649,9 +644,7 @@ class PlayState extends MusicBeatState
 			detailsText = FreeplayState.weekNombre;
 		}
 
-		#if rpc
 		detailsPausedText = "Pausado - " + detailsText;
-		#end
 
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
 		bottomBar = new FlxSprite(0, 720).makeGraphic(1280, 170, FlxColor.BLACK);
@@ -2010,6 +2003,10 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+		#end
+
 		updateCamPos('all');
 
 		callOnLuas('onCreatePost', []);
@@ -3020,6 +3017,10 @@ class PlayState extends MusicBeatState
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
 	}
@@ -3461,6 +3462,19 @@ class PlayState extends MusicBeatState
 				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
+
+			#if android
+			if(startTimer.finished)
+			{
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+			}
+			else
+			{
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+			}
+			#end
+
+			
 		}
 
 		super.closeSubState();
@@ -3488,6 +3502,20 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+		#if android
+		if (health > 0 && !paused)
+			{
+				if (Conductor.songPosition > 0.0)
+					{
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+			}
+			else
+			{
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+			}
+			}
+			#end
+
 		if (!isDead)
 		{
 			persistentUpdate = !paused;
@@ -3505,6 +3533,11 @@ class PlayState extends MusicBeatState
 			DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		}
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+		#end
+		
 
 		/*if (ClientPrefs.pausarauto && !isDead)
 			{
@@ -3547,12 +3580,19 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+#end
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		// }
 
 		#if rpc
 		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+#end
 	}
 
 	function resyncVocals():Void
@@ -3964,6 +4004,9 @@ class PlayState extends MusicBeatState
 			#if rpc
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
+			#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "chart editor");
+#end
 		}
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
@@ -4441,6 +4484,10 @@ class PlayState extends MusicBeatState
 				// Game Over doesn't get his own variable because it's only used here
 				DiscordClient.changePresence("Game Over - " + detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
+
+				#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Game Over - " +detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+#end
 				isDead = true;
 				return true;
 			}
@@ -5126,9 +5173,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(boyfriend, {alpha: 1}, 6);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
 						triggerEventNote('Change Character', 'dad', 'Furnace'); // Ele já foi carregado mesmo então tá safe
-						#if rpc
 						storyDifficultyText = 'Neutro';
-						#end
 						dad.x -= 1000;
 					case 128:
 						FlxG.camera.flash(FlxColor.BLACK, 4);
@@ -5324,9 +5369,7 @@ class PlayState extends MusicBeatState
 						triggerEventNote('Add Camera Zoom', '0.3', '0.3');
 
 					case 3400:
-						#if rpc
 						storyDifficultyText = 'Good ending?'; // detalhe que achei soda
-						#end
 						endingTweens('good_ending');
 						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor4')); // AGORA SIM TU VAI PODER VER O OLHO DELE
 						stardustBgPixel.loadGraphic(Paths.image('cenarios/starved/stardustBg')); // AGORA SIM TU VAI PODER VER O OLHO DELE
@@ -5376,16 +5419,12 @@ class PlayState extends MusicBeatState
 						camHUD.alpha = 1; // Só pra garantir
 						if (desviou)
 						{
-							#if rpc
 							storyDifficultyText = 'True Ending'; // detalhe que achei soda
-							#end
 							endingTweens('true_ending');
 						}
 						else
 						{
-							#if rpc
 							storyDifficultyText = 'Bad ending'; // detalhe que achei soda
-							#end
 							endingTweens('bad_ending');
 						}
 						cinematicBars(false);
@@ -8538,9 +8577,9 @@ class PlayState extends MusicBeatState
 	public function updateRPC(texto:String)
 	{ // Unificando tudo aqui (usado exclusivamente na CY provavelmente... Mas pode expandir pra Prey também)
 
-		#if rpc
 		detailsText = texto;
 		detailsPausedText = "Pausado - " + texto;
+		#if rpc
 		DiscordClient.changePresence(detailsText, nomehistorico
 			+ " ("
 			+ storyDifficultyText
@@ -8548,6 +8587,10 @@ class PlayState extends MusicBeatState
 			songLength
 			- Conductor.songPosition
 			- ClientPrefs.noteOffset);
+		#end
+
+		#if android
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
 		#end
 	}
 
