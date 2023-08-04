@@ -117,6 +117,7 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = weekAnimNum;
 		}
 
+		changeWeek(1);
 		super.create();
 	}
 

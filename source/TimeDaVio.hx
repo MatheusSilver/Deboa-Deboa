@@ -34,6 +34,8 @@ class TimeDaVio extends MusicBeatState
 
 	/*var newcredit:FlxSprite;
 		var dummycredit:FlxSprite; */
+	// desculpa pra quem estiver olhando esse script, pf me perdoe
+	// o eu dessa época era tão burro ao nível de não saber usar dictionary
 	var creditStuff:Array<String> = [
 		'vio',
 		'dav',

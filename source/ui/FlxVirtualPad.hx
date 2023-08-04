@@ -1,20 +1,20 @@
 package ui;
 
+import flash.display.BitmapData;
 import flixel.FlxG;
+import flixel.graphics.FlxGraphic;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxTileFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
 import flixel.system.FlxAssets;
 import flixel.util.FlxDestroyUtil;
-import ui.FlxButton;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flash.display.BitmapData;
-import flixel.graphics.FlxGraphic;
 import openfl.utils.ByteArray;
+import ui.FlxButton;
 
 @:keep @:bitmap("assets/mobilecontrols/images/virtual-input.png")
 class GraphicVirtualInput extends BitmapData {}
- 
+
 @:file("assets/mobilecontrols/images/virtual-input.txt")
 class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
 
@@ -25,11 +25,13 @@ class FlxVirtualPad extends FlxSpriteGroup
 	public var buttonC:FlxButton;
 	public var buttonY:FlxButton;
 	public var buttonX:FlxButton;
-	public var buttonDodge:FlxButton;	
+	public var buttonDodge:FlxButton;
 	public var buttonLeft:FlxButton;
 	public var buttonUp:FlxButton;
 	public var buttonRight:FlxButton;
 	public var buttonDown:FlxButton;
+
+	public static var instance:FlxVirtualPad;
 
 	public var dPad:FlxSpriteGroup;
 	public var actions:FlxSpriteGroup;
@@ -37,6 +39,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 	public function new(?DPad:FlxDPadMode, ?Action:FlxActionMode)
 	{
 		super();
+		instance = this;
 		scrollFactor.set();
 
 		if (DPad == null)
@@ -79,7 +82,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		{
 			case A:
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "a")));
-                        case B:
+			case B:
 				actions.add(add(buttonB = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "b")));
 			case A_B:
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "a")));
@@ -87,14 +90,14 @@ class FlxVirtualPad extends FlxSpriteGroup
 			case A_B_C:
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "a")));
 				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "b")));
-                                actions.add(add(buttonC = createButton(FlxG.width - (45 * 3), FlxG.height / 2 - 45 / 2, 44 * 3, 45 * 3, "c")));	
+				actions.add(add(buttonC = createButton(FlxG.width - (45 * 3), FlxG.height / 2 - 45 / 2, 44 * 3, 45 * 3, "c")));
 			case A_B_X_Y:
 				actions.add(add(buttonY = createButton(FlxG.width - 86 * 3, FlxG.height - 85 * 3, 44 * 3, 45 * 3, "y")));
-				actions.add(add(buttonX = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3, 44 * 3, 45 * 3, "x")));					
+				actions.add(add(buttonX = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3, 44 * 3, 45 * 3, "x")));
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "a")));
-				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "b")));	
+				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "b")));
 			case D:
-				actions.add(add(buttonDodge = createButton(FlxG.width - (45 * 3), FlxG.height / 2 - 45 / 2, 44 * 3, 45 * 3, "d")));				
+				actions.add(add(buttonDodge = createButton(FlxG.width - (45 * 3), FlxG.height / 2 - 45 / 2, 44 * 3, 45 * 3, "d")));
 			case NONE: // do nothing
 		}
 	}
@@ -144,7 +147,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		#if !web
 		var bitmapData = new GraphicVirtualInput(0, 0);
 		#end
-		
+
 		#if !web
 		var graphic:FlxGraphic = FlxGraphic.fromBitmapData(bitmapData);
 		return FlxAtlasFrames.fromSpriteSheetPacker(graphic, Std.string(new VirtualInputData()));
@@ -169,7 +172,7 @@ enum FlxActionMode
 {
 	NONE;
 	A;
-    B;
+	B;
 	A_B;
 	A_B_C;
 	A_B_X_Y;

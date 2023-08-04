@@ -401,7 +401,7 @@ class PlayState extends MusicBeatState
 
 	// eu n sei onde oclocar isso pq eu to perdido socorro eu tenho medo do playstate alguém me ajuda preciso ser salvo
 	var omagaaaa:FlxSprite;
-	
+
 	// Discord RPC variables
 	var storyDifficultyText:String = "";
 
@@ -2004,7 +2004,15 @@ class PlayState extends MusicBeatState
 		#end
 
 		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
+			+ nomehistorico
+			+ " ("
+			+ storyDifficultyText
+			+ ")",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+			+ iconP2.getCharacter()
+			+ ".png?raw=true");
 		#end
 
 		updateCamPos('all');
@@ -2414,7 +2422,7 @@ class PlayState extends MusicBeatState
 
 	public function backgroundVideo(source:String, xPos:Float = 0, yPos:Float = 0, tamanho:String = 'cheio', chromakey:Float = 0, layering:Float = 0)
 	{
-		if (!OpenFlAssets.exists("assets/videos/"+source+'.webm'))
+		if (!OpenFlAssets.exists("assets/videos/" + source + '.webm'))
 		{
 			if (GlobalVideo.get() != null)
 			{
@@ -2433,9 +2441,8 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-
-			if (SONG.song.toLowerCase()== 'illegal-download' && !ClientPrefs.lowQuality)
-					camLegenda.visible = false;
+			if (SONG.song.toLowerCase() == 'illegal-download' && !ClientPrefs.lowQuality)
+				camLegenda.visible = false;
 			else
 				return;
 
@@ -2447,7 +2454,8 @@ class PlayState extends MusicBeatState
 
 			// !!!;;; assets/videos/daWeirdVid/dontDelete.webm
 
-			if (!FileSystem.exists("assets/videos/daWeirdVid/dontDelete.webm")){
+			if (!FileSystem.exists("assets/videos/daWeirdVid/dontDelete.webm"))
+			{
 				var file = openfl.Assets.getBytes("assets/videos/daWeirdVid/dontDelete.webm");
 
 				File.saveBytes("assets/videos/daWeirdVid/dontDelete.webm", file);
@@ -2463,13 +2471,14 @@ class PlayState extends MusicBeatState
 
 			GlobalVideo.setWebm(webmHandler);
 
-			if (!FileSystem.exists("assets/videos/"+source+'.webm')){
-				var file = openfl.Assets.getBytes("assets/videos/"+source+'.webm');
+			if (!FileSystem.exists("assets/videos/" + source + '.webm'))
+			{
+				var file = openfl.Assets.getBytes("assets/videos/" + source + '.webm');
 
-				File.saveBytes("assets/videos/"+source+'.webm', file);
+				File.saveBytes("assets/videos/" + source + '.webm', file);
 			}
 
-			GlobalVideo.get().source("assets/videos/"+source+'.webm');
+			GlobalVideo.get().source("assets/videos/" + source + '.webm');
 			GlobalVideo.get().clearPause();
 			if (GlobalVideo.isWebm)
 			{
@@ -2493,7 +2502,7 @@ class PlayState extends MusicBeatState
 			if (tamanho == "cheio")
 				videoSprite.setGraphicSize(FlxG.width, FlxG.height);
 			else
-				videoSprite.setGraphicSize(Std.int(videoSprite.width*Std.parseFloat(tamanho)));
+				videoSprite.setGraphicSize(Std.int(videoSprite.width * Std.parseFloat(tamanho)));
 
 			trace('poggers');
 
@@ -2571,12 +2580,15 @@ class PlayState extends MusicBeatState
 					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					blackStuff.cameras = [camHUD];
 					add(blackStuff);
-				case "too-slow":
-					blackStuff.destroy();
-					remove(blackStuff);
 				case "gran-finale":
 					omagaaaa.destroy();
 					remove(omagaaaa);
+			}
+			switch (curStage)
+			{
+				case "too-slow":
+					blackStuff.destroy();
+					remove(blackStuff);
 			}
 			#end
 		}
@@ -3019,7 +3031,16 @@ class PlayState extends MusicBeatState
 		#end
 
 		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
+			+ nomehistorico
+			+ " ("
+			+ storyDifficultyText
+			+ ") "
+			+ songLength,
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+			+ iconP2.getCharacter()
+			+ ".png?raw=true");
 		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
@@ -3464,17 +3485,32 @@ class PlayState extends MusicBeatState
 			#end
 
 			#if android
-			if(startTimer.finished)
+			if (startTimer.finished)
 			{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
+					+ nomehistorico
+					+ " ("
+					+ storyDifficultyText
+					+ ") "
+					+ songLength,
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+					+ iconP2.getCharacter()
+					+ ".png?raw=true");
 			}
 			else
 			{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
+					+ nomehistorico
+					+ " ("
+					+ storyDifficultyText
+					+ ")",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+					+ iconP2.getCharacter()
+					+ ".png?raw=true");
 			}
 			#end
-
-			
 		}
 
 		super.closeSubState();
@@ -3504,17 +3540,34 @@ class PlayState extends MusicBeatState
 
 		#if android
 		if (health > 0 && !paused)
+		{
+			if (Conductor.songPosition > 0.0)
 			{
-				if (Conductor.songPosition > 0.0)
-					{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
+					+ nomehistorico
+					+ " ("
+					+ storyDifficultyText
+					+ ") "
+					+ songLength,
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+					+ iconP2.getCharacter()
+					+ ".png?raw=true");
 			}
 			else
 			{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
+					+ nomehistorico
+					+ " ("
+					+ storyDifficultyText
+					+ ")",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+					+ iconP2.getCharacter()
+					+ ".png?raw=true");
 			}
-			}
-			#end
+		}
+		#end
 
 		if (!isDead)
 		{
@@ -3535,9 +3588,16 @@ class PlayState extends MusicBeatState
 		#end
 
 		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
+			+ nomehistorico
+			+ " ("
+			+ storyDifficultyText
+			+ ")",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+			+ iconP2.getCharacter()
+			+ ".png?raw=true");
 		#end
-		
 
 		/*if (ClientPrefs.pausarauto && !isDead)
 			{
@@ -3581,8 +3641,16 @@ class PlayState extends MusicBeatState
 		#end
 
 		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
-#end
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
+			+ nomehistorico
+			+ " ("
+			+ storyDifficultyText
+			+ ")",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+			+ iconP2.getCharacter()
+			+ ".png?raw=true");
+		#end
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		// }
 
@@ -3591,8 +3659,16 @@ class PlayState extends MusicBeatState
 		#end
 
 		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
-#end
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
+			+ nomehistorico
+			+ " ("
+			+ storyDifficultyText
+			+ ")",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+			+ iconP2.getCharacter()
+			+ ".png?raw=true");
+		#end
 	}
 
 	function resyncVocals():Void
@@ -4005,8 +4081,8 @@ class PlayState extends MusicBeatState
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
 			#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "chart editor");
-#end
+			KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "chart editor");
+			#end
 		}
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
@@ -4486,8 +4562,17 @@ class PlayState extends MusicBeatState
 				#end
 
 				#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Game Over - " +detailsText + nomehistorico + " (" + storyDifficultyText + ")", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
-#end
+				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Game Over - "
+					+ detailsText
+					+ nomehistorico
+					+ " ("
+					+ storyDifficultyText
+					+ ")",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+					+ iconP2.getCharacter()
+					+ ".png?raw=true");
+				#end
 				isDead = true;
 				return true;
 			}
@@ -5540,26 +5625,36 @@ class PlayState extends MusicBeatState
 						case 2:
 							if (!gf.visible && alphaValue > 0)
 								gf.visible = true;
-							FlxTween.tween(gf, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut, onComplete:function(twn:FlxTween){
-								if (alphaValue == 0)
-									gf.visible = false;
-
-							}});
+							FlxTween.tween(gf, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {
+								ease: FlxEase.quadInOut,
+								onComplete: function(twn:FlxTween)
+								{
+									if (alphaValue == 0)
+										gf.visible = false;
+								}
+							});
 						case 1:
 							if (!dad.visible && alphaValue > 0)
 								dad.visible = true;
-							FlxTween.tween(dad, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut, onComplete:function(twn:FlxTween){
-								if (alphaValue == 0)
-									dad.visible = false;
-
-							}});
+							FlxTween.tween(dad, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {
+								ease: FlxEase.quadInOut,
+								onComplete: function(twn:FlxTween)
+								{
+									if (alphaValue == 0)
+										dad.visible = false;
+								}
+							});
 						case 0:
 							if (!boyfriend.visible && alphaValue > 0)
 								boyfriend.visible = true;
-							FlxTween.tween(boyfriend, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {ease: FlxEase.quadInOut, onComplete:function(twn:FlxTween){
-								if (alphaValue == 0)
-									boyfriend.visible = false;
-							}});
+							FlxTween.tween(boyfriend, {alpha: alphaValue}, Std.parseFloat(opa_Cidade[1]), {
+								ease: FlxEase.quadInOut,
+								onComplete: function(twn:FlxTween)
+								{
+									if (alphaValue == 0)
+										boyfriend.visible = false;
+								}
+							});
 					}
 				}
 
@@ -5711,8 +5806,8 @@ class PlayState extends MusicBeatState
 
 			case 'comecarvideo': // TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo(value1, Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1),
-					posAvancado[2], Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]));
+				backgroundVideo(value1, Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2],
+					Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]));
 
 			case 'tempo infinito':
 				majinstrums = true;
@@ -5934,7 +6029,8 @@ class PlayState extends MusicBeatState
 		FlxTransitionableState.skipNextTransOut = true;
 		updateTime = false;
 		FlxG.sound.music.volume = 0;
-		if (vocals != null){
+		if (vocals != null)
+		{
 			vocals.volume = 0;
 			vocals.pause();
 		}
@@ -6165,20 +6261,20 @@ class PlayState extends MusicBeatState
 	}
 
 	public function endWebm()
-		{
-			if (SONG.song.toLowerCase()== 'illegal-download')
-				camLegenda.visible = true;
-			trace('ended');
-			videoSprite.alpha = 0;
-			GlobalVideo.get().stop();
-			GlobalVideo.get().hide();
-			destruirsprites(videoSprite);
-			callOnLuas('onVideoEnd', []);
-			FlxG.stage.window.onFocusOut.remove(focusOut);
-			FlxG.stage.window.onFocusIn.remove(focusIn);			
-			removedVideo = true;
-		}
-	
+	{
+		if (SONG.song.toLowerCase() == 'illegal-download')
+			camLegenda.visible = true;
+		trace('ended');
+		videoSprite.alpha = 0;
+		GlobalVideo.get().stop();
+		GlobalVideo.get().hide();
+		destruirsprites(videoSprite);
+		callOnLuas('onVideoEnd', []);
+		FlxG.stage.window.onFocusOut.remove(focusOut);
+		FlxG.stage.window.onFocusIn.remove(focusIn);
+		removedVideo = true;
+	}
+
 	#if ACHIEVEMENTS_ALLOWED
 	var achievementObj:AchievementObject = null;
 
@@ -8590,7 +8686,16 @@ class PlayState extends MusicBeatState
 		#end
 
 		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText + nomehistorico + " (" + storyDifficultyText + ") " + songLength, "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true", "https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/" + iconP2.getCharacter() + ".png?raw=true");
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
+			+ nomehistorico
+			+ " ("
+			+ storyDifficultyText
+			+ ") "
+			+ songLength,
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
+			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
+			+ iconP2.getCharacter()
+			+ ".png?raw=true");
 		#end
 	}
 
