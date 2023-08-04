@@ -104,9 +104,13 @@ class GaleriaStateMusic extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
-		overlaySuporte = new FlxSprite(0,0).makeGraphic(Std.int(FlxG.width*0.353), Std.int(FlxG.height*0.45), FlxColor.BLACK);
+		//Lyrics Stuff
+		textGroup = new FlxTypedGroup<FlxText>();
+		add(textGroup);
+
+		overlaySuporte = new FlxSprite(0,0).makeGraphic(Std.int(FlxG.width*0.353), 60, FlxColor.BLACK);
 		overlaySuporte.y = 0;
-		overlaySuporte.alpha = 0;
+		overlaySuporte.visible = false;
 		overlaySuporte.x = FlxG.width - overlaySuporte.width;
 		add(overlaySuporte);
 
@@ -115,16 +119,14 @@ class GaleriaStateMusic extends MusicBeatState
 		letrasbotao.x = FlxG.width - 50 - letrasbotao.width;
 		letrasbotao.y = 0;
 		letrasbotao.alpha = 0;
-		add(letrasbotao);
 
 		playListbotao = new FlxSprite();
 		playListbotao.loadGraphic(Paths.image('galeriamusicas/youtubemusic/playlist_botao', 'preload'));
 		playListbotao.x = letrasbotao.x - playListbotao.width;
 		playListbotao.y = letrasbotao.y;
 		playListbotao.alpha = 0;
-		add(playListbotao);
 
-		tocandoagora = new FlxText(playListbotao.x, overlaySuporte.height - 30, 100, 'Tocando Agora:', 13);
+		tocandoagora = new FlxText(playListbotao.x, FlxG.height*0.45 - 30, 100, 'Tocando Agora:', 13);
 		tocandoagora.setFormat(Paths.font("Arial.ttf"), 13, 0xFF808080, LEFT);
 		tocandoagora.alpha = 0;
 		add(tocandoagora);
@@ -148,9 +150,6 @@ class GaleriaStateMusic extends MusicBeatState
 			//Propósitos de economizar renderização
 			menuItems.add(scrollingStuff);
 		}
-		//Lyrics Stuff
-		textGroup = new FlxTypedGroup<FlxText>();
-		add(textGroup);
 
 		optionTextsArray = new FlxTypedGroup<FlxText>();
 		add(optionTextsArray);
@@ -240,7 +239,7 @@ class GaleriaStateMusic extends MusicBeatState
 		tocandoagorasuporte.y = thumbtocandoagora.y - 5;
 		tocandoagorasuporte.alpha = 0;
 
-		scrollableArea= new FlxSprite(0,0).makeGraphic(Std.int(overlaySuporte.width), Std.int(FlxG.height - barraInferior.height - overlaySuporte.height*0.8), FlxColor.TRANSPARENT);
+		scrollableArea= new FlxSprite(0,0).makeGraphic(Std.int(overlaySuporte.width), Std.int(FlxG.height - barraInferior.height - FlxG.height*0.45*0.8), FlxColor.TRANSPARENT);
 		scrollableArea.x = overlaySuporte.x;
 		scrollableArea.y = thumbtocandoagora.y;
 		scrollableArea.visible=false;
@@ -270,6 +269,9 @@ class GaleriaStateMusic extends MusicBeatState
 		textGroup.visible = false;
 		isLetras = false;
 
+		add(playListbotao);
+		add(letrasbotao);
+
 		super.create();
 
 		reloadLyrics();
@@ -297,7 +299,6 @@ class GaleriaStateMusic extends MusicBeatState
 						FlxTween.tween(thumbnailAuxiliar, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut,
 							onComplete: function(twn:FlxTween)
 							{
-								overlaySuporte.alpha = 1;
 								FlxTween.tween(playListbotao, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 								FlxTween.tween(tocandoagora, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 								FlxTween.tween(letrasbotao, {alpha: 0.5}, 0.1, {ease: FlxEase.quartInOut});
@@ -428,20 +429,20 @@ class GaleriaStateMusic extends MusicBeatState
 							{spr.y = spr.y+25;});
 					}
 				}else
-					if(textGroup.members[0].y <= playListbotao.height+playListbotao.y)
+					if(textGroup.members[0].y <= playListbotao.height+playListbotao.y - 25)
 						{
 							textGroup.forEach(function(spr:FlxText)
 								{spr.y = spr.y+25;});
 						}
 			}else if(FlxG.mouse.wheel<0){
 				if (!isLetras){
-					if(menuItems.members[GaleriaState.leMusic.length-1].y >= FlxG.height - barraInferior.y + 15*35 )
+					if(menuItems.members[GaleriaState.leMusic.length-1].y >= FlxG.height - barraInferior.y +15*35)
 						{
 								menuItems.forEach(function(spr:FlxSprite)
 								{spr.y = spr.y-25;});
 						}
 				}else{
-					if(textGroup.members[textGroup.length-1].y >= FlxG.height - barraInferior.height +15*35)
+					if(textGroup.members[textGroup.length-1].y >= FlxG.height - barraInferior.height - 30)
 						{
 							textGroup.forEach(function(spr:FlxText)
 								{spr.y = spr.y-25;});
@@ -574,7 +575,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 						// bla bla bla
 
-					if(spr.y >= overlaySuporte.height*0.95 && spr.y <= FlxG.width)
+					if(spr.y >= FlxG.height*0.45*0.95 && spr.y <= FlxG.width)
 						spr.visible = true;
 					else
 						spr.visible = false;
@@ -658,10 +659,10 @@ class GaleriaStateMusic extends MusicBeatState
 		if (visible)
 		{
 			FlxTween.tween(thumbtocandoagora, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
-			FlxTween.tween(overlaySuporte, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
 			FlxTween.tween(tocandoagorasuporte, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
 			FlxTween.tween(tocandoagora, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut, onComplete:function(twn:FlxTween)
 				{
+					overlaySuporte.visible = false;
 					canChange = true;
 				}});
 			optionTextsArray.forEach(function(spr:FlxText)
@@ -674,8 +675,8 @@ class GaleriaStateMusic extends MusicBeatState
 				});
 		}else
 		{
+			overlaySuporte.visible = true;
 			FlxTween.tween(thumbtocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
-			FlxTween.tween(overlaySuporte, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 			FlxTween.tween(tocandoagorasuporte, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
 			FlxTween.tween(tocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut, onComplete:function(twn:FlxTween)
 				{
