@@ -428,7 +428,7 @@ class GaleriaStateMusic extends MusicBeatState
 							{spr.y = spr.y+25;});
 					}
 				}else
-					if(textGroup.members[0].y <= segureoPrimeiroY)
+					if(textGroup.members[0].y <= playListbotao.height+playListbotao.y)
 						{
 							textGroup.forEach(function(spr:FlxText)
 								{spr.y = spr.y+25;});
@@ -441,7 +441,7 @@ class GaleriaStateMusic extends MusicBeatState
 								{spr.y = spr.y-25;});
 						}
 				}else{
-					if(textGroup.members[textGroup.length-1].y >= FlxG.height - barraInferior.y + 15*35 )
+					if(textGroup.members[textGroup.length-1].y >= FlxG.height - barraInferior.height +15*35)
 						{
 							textGroup.forEach(function(spr:FlxText)
 								{spr.y = spr.y-25;});
@@ -528,9 +528,9 @@ class GaleriaStateMusic extends MusicBeatState
 		});
 
 		//Feito muito, mas MUITO TEMPO DEPOIS...
-		if(Utils.BSLTouchUtils.apertasimples(playListbotao)&&isLetras)
+		if(Utils.BSLTouchUtils.apertasimples(playListbotao)&&isLetras&&canChange)
 			showPlaylist();
-		else if(Utils.BSLTouchUtils.apertasimples(letrasbotao)&&!isLetras)
+		else if(Utils.BSLTouchUtils.apertasimples(letrasbotao)&&!isLetras&&canChange)
 			showLyrics();
 
 		//Só essa parte mesmo, o resto to com preguiça de converter pra TouchUtils.
@@ -595,7 +595,7 @@ class GaleriaStateMusic extends MusicBeatState
 			textGroup.forEach(function(spr:FlxText)
 			{				
 				if(canRender)
-					if(spr.y >= overlaySuporte.height*0.95 && spr.y <= FlxG.width)
+					if(spr.y >= playListbotao.y && spr.y <= FlxG.width)
 						spr.visible = true;
 					else
 						spr.visible = false;
@@ -619,8 +619,9 @@ class GaleriaStateMusic extends MusicBeatState
 
 
 		for (i in 0...daLyric.length) {
-			var daText:FlxText = new FlxText(overlaySuporte.x,tocandoagora.y+75+i*55 , thumbtocandoagora.width, daLyric[i], 24);
-			daText.setFormat(Paths.font('Arial'), 24, FlxColor.WHITE, CENTER);
+			var daText:FlxText = new FlxText(overlaySuporte.x,playListbotao.y + playListbotao.height , thumbtocandoagora.width, daLyric[i], 20);
+			daText.setFormat(Paths.font('YouTubeSansMedium'), 20, FlxColor.WHITE, LEFT);
+			daText.y += daText.height*i;
 			//daText.setBorderStyle(SHADOW, FlxColor.BLACK, 2, 1);
 			daText.alpha = 0;
 			daText.ID = i;
@@ -636,6 +637,7 @@ class GaleriaStateMusic extends MusicBeatState
 	{
 		FlxTween.tween(playListbotao, {alpha: 0.5}, 0.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(letrasbotao, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
+		tweenItens(false);
 		isLetras = true;
 		textGroup.visible = true;
 		menuItems.visible=false;
@@ -649,10 +651,52 @@ class GaleriaStateMusic extends MusicBeatState
 		});
 	}
 
+	var canChange:Bool = true;
+	private function tweenItens(visible)
+	{
+		canChange = false;
+		if (visible)
+		{
+			FlxTween.tween(thumbtocandoagora, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
+			FlxTween.tween(overlaySuporte, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
+			FlxTween.tween(tocandoagorasuporte, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
+			FlxTween.tween(tocandoagora, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut, onComplete:function(twn:FlxTween)
+				{
+					canChange = true;
+				}});
+			optionTextsArray.forEach(function(spr:FlxText)
+				{
+					FlxTween.tween(spr, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+				});
+			checkboxArray.forEach(function(spr:CheckboxThingie)
+				{
+					FlxTween.tween(spr, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+				});
+		}else
+		{
+			FlxTween.tween(thumbtocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+			FlxTween.tween(overlaySuporte, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+			FlxTween.tween(tocandoagorasuporte, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
+			FlxTween.tween(tocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut, onComplete:function(twn:FlxTween)
+				{
+					canChange = true;
+				}});
+			optionTextsArray.forEach(function(spr:FlxText)
+				{
+					FlxTween.tween(spr, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
+				});
+			checkboxArray.forEach(function(spr:CheckboxThingie)
+				{
+					FlxTween.tween(spr, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
+				});
+		}
+	}
+
 	private function showPlaylist()
 	{
 		FlxTween.tween(playListbotao, {alpha: 1}, 0.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(letrasbotao, {alpha: 0.5}, 0.5, {ease: FlxEase.quartInOut});
+		tweenItens(true);
 		isLetras = false;
 		textGroup.visible = false;
 		menuItems.visible=true;
