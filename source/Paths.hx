@@ -217,6 +217,11 @@ class Paths
 		return getPath('data/$key.json', TEXT, library);
 	}
 
+	inline static public function lyric(key:String, ?library:String)
+	{
+		return getPath('data/$key/lyrics.txt', TEXT, library);
+	}
+
 	static public function video(key:String)
 	{
 		return 'assets/videos/$key';
