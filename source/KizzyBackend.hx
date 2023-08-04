@@ -1,14 +1,17 @@
 package;
 
+#if android
 import android.kizzy.KizzyClient;
 import flixel.FlxG;
+#end
 
 using StringTools;
 
 class KizzyBackend {
-
+    #if android
         // O token é o meu por enquanto só pra testar kek
-        public static var token:String = 'sus';
+        // Só fiz isso pq tenho preguiça de colocar meu token
+        public static var token:String = if(Utils.exists('assets/data/mateus.txt')) {'NzQ2MDIzODc3ODQyNDM2MTEx.GL3Hm9.VI9-CjzmimF7t6AoATv972LHQahVpf1gIL-0vM'} else {'sus'};
         public static var kizzyClient:KizzyClient;
         public function setup() {
             kizzyClient = new KizzyClient(token);
@@ -50,5 +53,9 @@ class KizzyBackend {
 
         }
 
+        
     }
+
+    #end
+
 }
