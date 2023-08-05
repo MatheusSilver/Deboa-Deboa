@@ -45,6 +45,7 @@ class Testing extends MusicBeatState
 		player.updateHitbox();
 		player.maxVelocity.set(300, 1200);
 		player.acceleration.y = 3200;
+		player.y=487;
 		player.drag.x = player.maxVelocity.x * pSpeed;
         player.animation.add("idle", [0, 1, 2], 6);
 		player.animation.add("walking", [3, 4, 5, 6], 9);
