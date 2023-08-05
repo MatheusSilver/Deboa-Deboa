@@ -39,11 +39,16 @@ class Testing extends MusicBeatState
 
 
 		player = new FlxSprite(FlxG.width / 2 - 5);
-		player.makeGraphic(80, 150, FlxColor.RED);
+		player.loadGraphic(Paths.image('minigame/tails'), true, 45, 32);
+		player.setGraphicSize(Std.int(player.width*3));
+		player.antialiasing = false;
+		player.updateHitbox();
 		player.maxVelocity.set(300, 1200);
 		player.acceleration.y = 3200;
 		player.drag.x = player.maxVelocity.x * pSpeed;
-        player.updateHitbox();
+        player.animation.add("idle", [0, 1, 2], 6);
+		player.animation.add("walking", [3, 4, 5, 6], 9);
+		player.animation.play("idle");
 		add(player);
 
         
@@ -52,16 +57,19 @@ class Testing extends MusicBeatState
 	override public function update(elapsed:Float):Void
 	{
 		player.acceleration.x = 0;
+		player.animation.play(FlxG.keys.anyPressed([LEFT, A, RIGHT, D]) && canMove ? "walking" : "idle");
 
 		if(canMove){
 			if (FlxG.keys.anyPressed([LEFT, A]))
 			{
 				player.acceleration.x = -player.maxVelocity.x * pSpeed;
+				player.flipX=true;
 			}
 
 			if (FlxG.keys.anyPressed([RIGHT, D]))
 			{
 				player.acceleration.x = player.maxVelocity.x * pSpeed;
+				player.flipX=false;
 			}
 		}
 
