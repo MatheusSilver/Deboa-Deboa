@@ -1,17 +1,9 @@
 package;
 
-import flixel.system.FlxAssets.FlxTexturePackerSource;
-#if (flixel >= "5.3.0")
-import flixel.sound.FlxSound;
-#else
-import flixel.system.FlxSound;
-#end
-#if rpc
-import Discord.DiscordClient;
-#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.system.FlxAssets.FlxTexturePackerSource;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -21,6 +13,14 @@ import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 
 using StringTools;
+#if (flixel >= "5.3.0")
+import flixel.sound.FlxSound;
+#else
+import flixel.system.FlxSound;
+#end
+#if rpc
+import Discord.DiscordClient;
+#end
 
 class GaleriaStateMusic extends MusicBeatState
 {
@@ -676,9 +676,9 @@ class GaleriaStateMusic extends MusicBeatState
 		}else
 		{
 			overlaySuporte.visible = true;
-			FlxTween.tween(thumbtocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
-			FlxTween.tween(tocandoagorasuporte, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut});
-			FlxTween.tween(tocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quartInOut, onComplete:function(twn:FlxTween)
+			FlxTween.tween(thumbtocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
+			FlxTween.tween(tocandoagorasuporte, {alpha: 0}, 0.5, {ease: FlxEase.quadOut});
+			FlxTween.tween(tocandoagora, {alpha: 0}, 0.5, {ease: FlxEase.quadOut, onComplete:function(twn:FlxTween)
 				{
 					canChange = true;
 				}});

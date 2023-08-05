@@ -1,27 +1,27 @@
 package;
 
 #if mobile
-import sys.io.Process;
-import haxe.io.Path;
-import haxe.CallStack;
 import haxe.CallStack.StackItem;
+import haxe.CallStack;
+import haxe.io.Path;
 import openfl.events.UncaughtErrorEvent;
+import sys.io.Process;
 #end
+import flixel.FlxG;
+import flixel.FlxGame;
+import flixel.FlxState;
+import lime.app.Application;
+import openfl.Assets;
+import openfl.Lib;
+import openfl.display.FPS;
+import openfl.display.Sprite;
 import openfl.display.StageScaleMode;
+import openfl.events.Event;
 #if rpc
 ///import GameJolt;
 ///import GameJolt.GameJoltAPI;
 import Discord.DiscordClient;
 #end
-import flixel.FlxG;
-import flixel.FlxGame;
-import flixel.FlxState;
-import openfl.Assets;
-import openfl.Lib;
-import openfl.display.FPS;
-import openfl.display.Sprite;
-import openfl.events.Event;
-import lime.app.Application;
 
 class Main extends Sprite
 {
