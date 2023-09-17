@@ -31,55 +31,32 @@ class TimeDaVio extends MusicBeatState
 	var curSelected:Int = 0;
 	var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
-
-	var creditStuff:Array<String> = [
-		'vio',
-		'dav',
-		'ash',
-		'silver',
-		'konan',
-		'x02',
-		'hugo',
-		'cat',
-		/*daqui pra frente é elenco*/
-		'vio',
-		'blue',
-		'brunito',
-		'jinzo',
-		'lightwuz',
-		'lonny',
-		'mayoral',
-		'molten',
-		'neko',
-		'nih',
-		'orochi',
-		'sah',
-		'vinizitooo',
-		'sayuri'
-	];
 	
-	var creditInfo:Map<String, Map<String, String>> = {
-		'vio': { 'discord': 'https://discord.gg/G3BmXXeshA', 'twitter': 'https://twitter.com/galaccine', 'youtube': 'https://www.youtube.com/c/galaccine' },
-		'dav': { 'discord': '', 'twitter': 'https://twitter.com/Davizinhn', 'youtube': 'https://www.youtube.com/@Davizinhn' },
-		'ash': { 'discord': '', 'twitter': 'https://twitter.com/Ashuro_Privety', 'youtube': '' },
-		'silver': { 'discord': '', 'twitter': '', 'youtube': 'https://www.youtube.com/c/matheussilver' },
-		'konan': { 'discord': '', 'twitter': 'https://twitter.com/Konan_Hatake13', 'youtube': 'https://www.youtube.com/@konan_hatake13' },
-		'x02': { 'discord': 'https://discord.gg/G3BmXXeshA', 'twitter': 'https://twitter.com/matex02_', 'youtube': 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' },
-		'hugo': { 'discord': '', 'twitter': 'https://twitter.com/Hugo09723233', 'youtube': '' },
-		'cat': { 'discord': '', 'twitter': 'https://twitter.com/Point15104219', 'youtube': '' },
-		'blue': { 'discord': '', 'twitter': 'https://twitter.com/bluetufie', 'youtube': 'https://www.youtube.com/@bluezinkk' },
-		'brunito': { 'discord': 'https://discord.gg/nU3ZRvQfwP', 'twitter': 'https://twitter.com/brunitofnf', 'youtube': 'https://www.youtube.com/@brunitomusic' },
-		'jinzo': { 'discord': 'https://discord.gg/YxMwmAY39p', 'twitter': 'https://twitter.com/JinzoM', 'youtube': '' },
-		'lightwuz': { 'discord': 'https://discord.com/invite/5prgn8H2P8', 'twitter': 'https://twitter.com/lightwuz', 'youtube': 'https://www.youtube.com/@Lightwuz' },
-		'lonny': { 'discord': 'https://discord.gg/a7PEnvCaxU', 'twitter': 'https://twitter.com/lonejustchillin', 'youtube': 'https://www.youtube.com/@samelonny' },
-		'mayoral': { 'discord': '', 'twitter': 'https://www.facebook.com/christian.palheta', 'youtube': 'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g' },
-		'molten': { 'discord': '', 'twitter': 'https://twitter.com/M0lt3nziito', 'youtube': 'https://www.youtube.com/@M0lt3nziito' },
-		'neko': { 'discord': '', 'twitter': '', 'youtube': 'https://www.youtube.com/@nihdiaz1145' },
-		'nih': { 'discord': 'https://discord.gg/jNdV8BEUZU', 'twitter': 'https://twitter.com/orochigad0', 'youtube': 'https://www.youtube.com/c/OrochiDubzkkk' },
-		'orochi': { 'discord': '', 'twitter': 'https://twitter.com/sahriell_', 'youtube': 'https://www.youtube.com/c/SahChan2019' },
-		'sah': { 'discord': 'https://www.facebook.com/MarianaSayuriFandubsFansings', 'twitter': 'https://twitter.com/RealVinizitooo', 'youtube': 'https://www.youtube.com/@vinizitooo-lol' },
-		'sayuri': { 'discord': '', 'twitter': 'https://twitter.com/mariana_sayuri', 'youtube': 'https://www.youtube.com/@MarianaSayuri' }
-	};
+	// nome,  discord,  twitter,  youtube
+	var creditInfo:Array<Dynamic> = [
+		[	'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
+		[	'dav',  '',  'https://twitter.com/Davizinhn',  'https://www.youtube.com/@Davizinhn' ],
+		[	'ash',  '',  'https://twitter.com/Ashuro_Privety',  '' ],
+		[	'silver',  '',  '',  'https://www.youtube.com/c/matheussilver' ],
+		[	'konan',  '',  'https://twitter.com/Konan_Hatake13',  'https://www.youtube.com/@konan_hatake13' ],
+		[	'x02',  'https://discord.gg/G3BmXXeshA',  'https://twitter.com/matex02_',  'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' ],
+		[	'hugo',  '',  'https://twitter.com/Hugo09723233',  '' ],
+		[	'cat',  '',  'https://twitter.com/Point15104219',  '' ],
+		/* daqui pra frente é elenco */
+		[   'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
+		[	'blue',   '',  'https://twitter.com/bluetufie',  'https://www.youtube.com/@bluezinkk' ],
+		[	'brunito',   'https://discord.gg/nU3ZRvQfwP',  'https://twitter.com/brunitofnf',  'https://www.youtube.com/@brunitomusic' ],
+		[	'jinzo',   'https://discord.gg/YxMwmAY39p',  'https://twitter.com/JinzoM',  '' ],
+		[	'lightwuz',   'https://discord.com/invite/5prgn8H2P8',  'https://twitter.com/lightwuz',  'https://www.youtube.com/@Lightwuz' ],
+		[	'lonny',   'https://discord.gg/a7PEnvCaxU',  'https://twitter.com/lonejustchillin',  'https://www.youtube.com/@samelonny' ],
+		[	'mayoral',   '',  'https://www.facebook.com/christian.palheta',  'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g' ],
+		[	'molten',   '',  'https://twitter.com/M0lt3nziito',  'https://www.youtube.com/@M0lt3nziito' ],
+		[	'neko',   '',  '',  'https://www.youtube.com/@nihdiaz1145' ],
+		[	'nih',   'https://discord.gg/jNdV8BEUZU',  'https://twitter.com/orochigad0',  'https://www.youtube.com/c/OrochiDubzkkk' ],
+		[	'orochi',   '',  'https://twitter.com/sahriell_',  'https://www.youtube.com/c/SahChan2019' ],
+		[	'sah',   'https://www.facebook.com/MarianaSayuriFandubsFansings',  'https://twitter.com/RealVinizitooo',  'https://www.youtube.com/@vinizitooo-lol' ],
+		[	'sayuri',  '',  'https://twitter.com/mariana_sayuri',  'https://www.youtube.com/@MarianaSayuri']
+	];
 
 	override function create()
 	{
@@ -92,7 +69,7 @@ class TimeDaVio extends MusicBeatState
 			add(bg); */
 
 		FlxTransitionableState.skipNextTransOut = true;
-		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/back'));
+		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.updateHitbox();
 		// faixa.setGraphicSize(Std.int(0.5));
@@ -100,7 +77,7 @@ class TimeDaVio extends MusicBeatState
 		bg.y = 720;
 		add(bg);
 
-		perfil = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/perfil'));
+		perfil = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/perfil'));
 		perfil.antialiasing = ClientPrefs.globalAntialiasing;
 		perfil.updateHitbox();
 		// faixa.setGraphicSize(Std.int(0.5));
@@ -108,7 +85,7 @@ class TimeDaVio extends MusicBeatState
 		perfil.x = 1280;
 		add(perfil);
 
-		estante = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/estante'));
+		estante = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/estante'));
 		estante.antialiasing = ClientPrefs.globalAntialiasing;
 		estante.updateHitbox();
 		// faixa.setGraphicSize(Std.int(0.5));
@@ -140,14 +117,14 @@ class TimeDaVio extends MusicBeatState
 		youtube.alpha = 0.75;
 		add(youtube);
 
-		icon = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/icon'));
+		icon = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon'));
 		icon.antialiasing = ClientPrefs.globalAntialiasing;
 		icon.updateHitbox();
 		// faixa.setGraphicSize(Std.int(0.5));
 		icon.alpha = 1;
 		icon.x = -665;
 		add(icon);
-		desc = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/desc'));
+		desc = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc'));
 		desc.antialiasing = ClientPrefs.globalAntialiasing;
 		desc.updateHitbox();
 		// faixa.setGraphicSize(Std.int(0.5));
@@ -189,11 +166,11 @@ class TimeDaVio extends MusicBeatState
 	{
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Vendo os créditos do(a) " + creditStuff[curSelected], null);
+		DiscordClient.changePresence("Vendo os créditos do(a) " + creditInfo[curSelected][0], null);
 		#end
 
 		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo os créditos do(a) " + creditStuff[curSelected]);
+		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo os créditos do(a) " + creditInfo[curSelected][0]);
 		#end
 		if (controls.BACK)
 		{
@@ -205,7 +182,7 @@ class TimeDaVio extends MusicBeatState
 		{ // ok
 			if (canChange)
 			{
-				if (curSelected + 1 > creditStuff.length - 1)
+				if (curSelected + 1 > creditInfo.length - 1)
 				{
 					curSelectedBkp = curSelected;
 					curSelected = 0;
@@ -229,7 +206,7 @@ class TimeDaVio extends MusicBeatState
 				if (curSelected - 1 < 0)
 				{
 					curSelectedBkp = curSelected;
-					curSelected = creditStuff.length - 1;
+					curSelected = creditInfo.length - 1;
 					changeSelection(curSelected);
 				}
 				else
@@ -302,11 +279,11 @@ class TimeDaVio extends MusicBeatState
 				discord.x = 1291;
 				twitter.y = 378;
 				twitter.x = 1291;
-				bg.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditStuff[curSelected] + '/back'));
-				perfil.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditStuff[curSelected] + '/perfil'));
-				estante.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditStuff[curSelected] + '/estante'));
-				icon.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditStuff[curSelected] + '/icon'));
-				desc.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditStuff[curSelected] + '/desc'));
+				bg.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/back'));
+				perfil.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/perfil'));
+				estante.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/estante'));
+				icon.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/icon'));
+				desc.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/desc'));
 
 				FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
@@ -329,11 +306,11 @@ class TimeDaVio extends MusicBeatState
 				discord.x = -148;
 				twitter.y = 203;
 				twitter.x = -148;
-				bg.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/back'));
-				perfil.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/perfil'));
-				estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/estante'));
-				icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/icon'));
-				desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditStuff[curSelected] + '/desc'));
+				bg.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
+				perfil.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/perfil'));
+				estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/estante'));
+				icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon'));
+				desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc'));
 				FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(mic, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
@@ -377,7 +354,7 @@ class TimeDaVio extends MusicBeatState
 		discord.alpha = 0.75;
 		twitter.onOver.callback = function()
 		{
-			if (creditInfo[curSelected].get(twitter) != '')
+			if (creditInfo[curSelected][2] != '')
 			{
 				GlobalSoundManager.play('scrollMenu');
 				twitter.alpha = 1;
@@ -386,7 +363,7 @@ class TimeDaVio extends MusicBeatState
 
 		twitter.onOut.callback = function()
 		{
-			if (creditInfo[curSelected].get(twitter) != '')
+			if (creditInfo[curSelected][2] != '')
 			{
 				twitter.alpha = 0.75;
 			}
@@ -394,20 +371,20 @@ class TimeDaVio extends MusicBeatState
 
 		twitter.onDown.callback = function()
 		{
-			if (creditInfo[curSelected].get(twitter) != '')
+			if (creditInfo[curSelected][2] != '')
 			{
 				GlobalSoundManager.play('confirmMenu');
 				twitter.alpha = 1;
 			}
-			if (creditInfo[curSelected].get(twitter) != '')
+			if (creditInfo[curSelected][2] != '')
 			{
-				CoolUtil.browserLoad(creditInfo[curSelected].get(twitter));
+				CoolUtil.browserLoad(creditInfo[curSelected][2]);
 			}
 		};
 
 		youtube.onOver.callback = function()
 		{
-			if (creditInfo[curSelected].get(youtube) != '')
+			if (creditInfo[curSelected][3] != '')
 			{
 				GlobalSoundManager.play('scrollMenu');
 				youtube.alpha = 1;
@@ -416,7 +393,7 @@ class TimeDaVio extends MusicBeatState
 
 		youtube.onOut.callback = function()
 		{
-			if (creditInfo[curSelected].get(youtube) != '')
+			if (creditInfo[curSelected][3]  != '')
 			{
 				youtube.alpha = 0.75;
 			}
@@ -424,14 +401,14 @@ class TimeDaVio extends MusicBeatState
 
 		youtube.onDown.callback = function()
 		{
-			if (creditInfo[curSelected].get(youtube) != '')
+			if (creditInfo[curSelected][3]  != '')
 			{
 				GlobalSoundManager.play('confirmMenu');
 				youtube.alpha = 1;
 			}
-			if (creditInfo[curSelected].get(youtube) != '')
+			if (creditInfo[curSelected][3]  != '')
 			{
-				CoolUtil.browserLoad(creditInfo[curSelected].get(youtube));
+				CoolUtil.browserLoad(creditInfo[curSelected][3] );
 			}
 			else
 			{
@@ -441,7 +418,7 @@ class TimeDaVio extends MusicBeatState
 
 		discord.onOver.callback = function()
 		{
-			if (creditInfo[curSelected].get(discord) != '')
+			if (creditInfo[curSelected][1] != '')
 			{
 				GlobalSoundManager.play('scrollMenu');
 				discord.alpha = 1;
@@ -450,7 +427,7 @@ class TimeDaVio extends MusicBeatState
 
 		discord.onOut.callback = function()
 		{
-			if (creditInfo[curSelected].get(discord) != '')
+			if (creditInfo[curSelected][1] != '')
 			{
 				discord.alpha = 0.75;
 			}
@@ -458,14 +435,14 @@ class TimeDaVio extends MusicBeatState
 
 		discord.onDown.callback = function()
 		{
-			if (creditInfo[curSelected].get(discord) != '')
+			if (creditInfo[curSelected][1] != '')
 			{
 				GlobalSoundManager.play('confirmMenu');
 				discord.alpha = 1;
 			}
-			if (discordLink[curSelected] != '')
+			if (creditInfo[curSelected][1] != '')
 			{
-				CoolUtil.browserLoad(creditInfo[curSelected].get(discord));
+				CoolUtil.browserLoad(creditInfo[curSelected][1]);
 			}
 		};
 	}
