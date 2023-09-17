@@ -32,10 +32,6 @@ class TimeDaVio extends MusicBeatState
 	var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
 
-	/*var newcredit:FlxSprite;
-		var dummycredit:FlxSprite; */
-	// desculpa pra quem estiver olhando esse script, pf me perdoe
-	// o eu dessa época era tão burro ao nível de não saber usar dictionary
 	var creditStuff:Array<String> = [
 		'vio',
 		'dav',
@@ -61,84 +57,29 @@ class TimeDaVio extends MusicBeatState
 		'vinizitooo',
 		'sayuri'
 	];
-
-	var discordLink:Array<String> = [
-		'https://discord.gg/G3BmXXeshA',
-		'',
-		'',
-		'',
-		'',
-		'https://discord.gg/G3BmXXeshA',
-		'',
-		'',
-		/*daqui pra frente é elenco*/
-		'https://discord.gg/G3BmXXeshA',
-		'',
-		'https://discord.gg/nU3ZRvQfwP',
-		'https://discord.gg/YxMwmAY39p',
-		'https://discord.com/invite/5prgn8H2P8',
-		'https://discord.gg/a7PEnvCaxU',
-		'',
-		'',
-		'',
-		'',
-		'',
-		'',
-		'https://discord.gg/jNdV8BEUZU',
-		'https://www.facebook.com/MarianaSayuriFandubsFansings'
-	];
-
-	var twitterLink:Array<String> = [
-		'https://twitter.com/galaccine',
-		'https://twitter.com/Davizinhn',
-		'https://twitter.com/Ashuro_Privety',
-		'',
-		'https://twitter.com/Konan_Hatake13',
-		'https://twitter.com/matex02_',
-		'https://twitter.com/Hugo09723233',
-		'https://twitter.com/Point15104219',
-		/*daqui pra frente é elenco*/
-		'https://twitter.com/galaccine',
-		'https://twitter.com/bluetufie',
-		'https://twitter.com/brunitofnf',
-		'https://twitter.com/JinzoM',
-		'https://twitter.com/lightwuz',
-		'https://twitter.com/lonejustchillin',
-		'https://www.facebook.com/christian.palheta',
-		'https://twitter.com/M0lt3nziito',
-		'https://twitter.com/Nekop9123',
-		'',
-		'https://twitter.com/orochigad0',
-		'https://twitter.com/sahriell_',
-		'https://twitter.com/RealVinizitooo',
-		'https://twitter.com/mariana_sayuri'
-	];
-
-	var youtubeLink:Array<String> = [
-		'https://www.youtube.com/c/galaccine',
-		'https://www.youtube.com/@Davizinhn',
-		'',
-		'https://www.youtube.com/c/matheussilver',
-		'https://www.youtube.com/@konan_hatake13',
-		'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA',
-		'',
-		'https://www.youtube.com/@GAT0192/',
-		/*daqui pra frente é elenco*/
-		'https://www.youtube.com/c/galaccine',
-		'https://www.youtube.com/@bluezinkk',
-		'https://www.youtube.com/@brunitomusic',
-		'',
-		'https://www.youtube.com/@Lightwuz',
-		'https://www.youtube.com/@samelonny',
-		'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g',
-		'https://www.youtube.com/@M0lt3nziito',
-		'',
-		'https://www.youtube.com/@nihdiaz1145',
-		'https://www.youtube.com/c/OrochiDubzkkk',
-		'https://www.youtube.com/c/SahChan2019',
-		'https://www.youtube.com/@vinizitooo-lol',
-		'https://www.youtube.com/@MarianaSayuri'
-	];
+	
+	var creditInfo:Map<String, Map<String, String>> = {
+		'vio': { 'discord': 'https://discord.gg/G3BmXXeshA', 'twitter': 'https://twitter.com/galaccine', 'youtube': 'https://www.youtube.com/c/galaccine' },
+		'dav': { 'discord': '', 'twitter': 'https://twitter.com/Davizinhn', 'youtube': 'https://www.youtube.com/@Davizinhn' },
+		'ash': { 'discord': '', 'twitter': 'https://twitter.com/Ashuro_Privety', 'youtube': '' },
+		'silver': { 'discord': '', 'twitter': '', 'youtube': 'https://www.youtube.com/c/matheussilver' },
+		'konan': { 'discord': '', 'twitter': 'https://twitter.com/Konan_Hatake13', 'youtube': 'https://www.youtube.com/@konan_hatake13' },
+		'x02': { 'discord': 'https://discord.gg/G3BmXXeshA', 'twitter': 'https://twitter.com/matex02_', 'youtube': 'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' },
+		'hugo': { 'discord': '', 'twitter': 'https://twitter.com/Hugo09723233', 'youtube': '' },
+		'cat': { 'discord': '', 'twitter': 'https://twitter.com/Point15104219', 'youtube': '' },
+		'blue': { 'discord': '', 'twitter': 'https://twitter.com/bluetufie', 'youtube': 'https://www.youtube.com/@bluezinkk' },
+		'brunito': { 'discord': 'https://discord.gg/nU3ZRvQfwP', 'twitter': 'https://twitter.com/brunitofnf', 'youtube': 'https://www.youtube.com/@brunitomusic' },
+		'jinzo': { 'discord': 'https://discord.gg/YxMwmAY39p', 'twitter': 'https://twitter.com/JinzoM', 'youtube': '' },
+		'lightwuz': { 'discord': 'https://discord.com/invite/5prgn8H2P8', 'twitter': 'https://twitter.com/lightwuz', 'youtube': 'https://www.youtube.com/@Lightwuz' },
+		'lonny': { 'discord': 'https://discord.gg/a7PEnvCaxU', 'twitter': 'https://twitter.com/lonejustchillin', 'youtube': 'https://www.youtube.com/@samelonny' },
+		'mayoral': { 'discord': '', 'twitter': 'https://www.facebook.com/christian.palheta', 'youtube': 'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g' },
+		'molten': { 'discord': '', 'twitter': 'https://twitter.com/M0lt3nziito', 'youtube': 'https://www.youtube.com/@M0lt3nziito' },
+		'neko': { 'discord': '', 'twitter': '', 'youtube': 'https://www.youtube.com/@nihdiaz1145' },
+		'nih': { 'discord': 'https://discord.gg/jNdV8BEUZU', 'twitter': 'https://twitter.com/orochigad0', 'youtube': 'https://www.youtube.com/c/OrochiDubzkkk' },
+		'orochi': { 'discord': '', 'twitter': 'https://twitter.com/sahriell_', 'youtube': 'https://www.youtube.com/c/SahChan2019' },
+		'sah': { 'discord': 'https://www.facebook.com/MarianaSayuriFandubsFansings', 'twitter': 'https://twitter.com/RealVinizitooo', 'youtube': 'https://www.youtube.com/@vinizitooo-lol' },
+		'sayuri': { 'discord': '', 'twitter': 'https://twitter.com/mariana_sayuri', 'youtube': 'https://www.youtube.com/@MarianaSayuri' }
+	};
 
 	override function create()
 	{
@@ -436,7 +377,7 @@ class TimeDaVio extends MusicBeatState
 		discord.alpha = 0.75;
 		twitter.onOver.callback = function()
 		{
-			if (twitterLink[curSelected] != '')
+			if (creditInfo[curSelected].get(twitter) != '')
 			{
 				GlobalSoundManager.play('scrollMenu');
 				twitter.alpha = 1;
@@ -445,7 +386,7 @@ class TimeDaVio extends MusicBeatState
 
 		twitter.onOut.callback = function()
 		{
-			if (twitterLink[curSelected] != '')
+			if (creditInfo[curSelected].get(twitter) != '')
 			{
 				twitter.alpha = 0.75;
 			}
@@ -453,24 +394,20 @@ class TimeDaVio extends MusicBeatState
 
 		twitter.onDown.callback = function()
 		{
-			if (twitterLink[curSelected] != '')
+			if (creditInfo[curSelected].get(twitter) != '')
 			{
 				GlobalSoundManager.play('confirmMenu');
 				twitter.alpha = 1;
 			}
-			if (twitterLink[curSelected] != '')
+			if (creditInfo[curSelected].get(twitter) != '')
 			{
-				CoolUtil.browserLoad(twitterLink[curSelected]);
-			}
-			else
-			{
-				// CoolUtil.browserLoad(twitterLink[0]);
+				CoolUtil.browserLoad(creditInfo[curSelected].get(twitter));
 			}
 		};
 
 		youtube.onOver.callback = function()
 		{
-			if (youtubeLink[curSelected] != '')
+			if (creditInfo[curSelected].get(youtube) != '')
 			{
 				GlobalSoundManager.play('scrollMenu');
 				youtube.alpha = 1;
@@ -479,7 +416,7 @@ class TimeDaVio extends MusicBeatState
 
 		youtube.onOut.callback = function()
 		{
-			if (youtubeLink[curSelected] != '')
+			if (creditInfo[curSelected].get(youtube) != '')
 			{
 				youtube.alpha = 0.75;
 			}
@@ -487,14 +424,14 @@ class TimeDaVio extends MusicBeatState
 
 		youtube.onDown.callback = function()
 		{
-			if (youtubeLink[curSelected] != '')
+			if (creditInfo[curSelected].get(youtube) != '')
 			{
 				GlobalSoundManager.play('confirmMenu');
 				youtube.alpha = 1;
 			}
-			if (youtubeLink[curSelected] != '')
+			if (creditInfo[curSelected].get(youtube) != '')
 			{
-				CoolUtil.browserLoad(youtubeLink[curSelected]);
+				CoolUtil.browserLoad(creditInfo[curSelected].get(youtube));
 			}
 			else
 			{
@@ -504,7 +441,7 @@ class TimeDaVio extends MusicBeatState
 
 		discord.onOver.callback = function()
 		{
-			if (discordLink[curSelected] != '')
+			if (creditInfo[curSelected].get(discord) != '')
 			{
 				GlobalSoundManager.play('scrollMenu');
 				discord.alpha = 1;
@@ -513,7 +450,7 @@ class TimeDaVio extends MusicBeatState
 
 		discord.onOut.callback = function()
 		{
-			if (discordLink[curSelected] != '')
+			if (creditInfo[curSelected].get(discord) != '')
 			{
 				discord.alpha = 0.75;
 			}
@@ -521,18 +458,14 @@ class TimeDaVio extends MusicBeatState
 
 		discord.onDown.callback = function()
 		{
-			if (discordLink[curSelected] != '')
+			if (creditInfo[curSelected].get(discord) != '')
 			{
 				GlobalSoundManager.play('confirmMenu');
 				discord.alpha = 1;
 			}
 			if (discordLink[curSelected] != '')
 			{
-				CoolUtil.browserLoad(discordLink[curSelected]);
-			}
-			else
-			{
-				// CoolUtil.browserLoad(discordLink[0]);
+				CoolUtil.browserLoad(creditInfo[curSelected].get(discord));
 			}
 		};
 	}
