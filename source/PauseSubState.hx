@@ -294,6 +294,7 @@ class PauseSubState extends MusicBeatSubstate
 					CustomFadeTransition.nextCamera = transCamera;
 					if (PlayState.useVideo)
 					{
+						PlayState.useVideo = false;
 						GlobalVideo.get().stop();
 						PlayState.instance.remove(PlayState.instance.videoSprite);
 						PlayState.removedVideo = true;
@@ -310,6 +311,7 @@ class PauseSubState extends MusicBeatSubstate
 					podeJumpscare=false;
 					if (PlayState.useVideo)
 					{
+						PlayState.useVideo = false;
 						GlobalVideo.get().stop();
 						PlayState.instance.remove(PlayState.instance.videoSprite);
 						PlayState.removedVideo = true;

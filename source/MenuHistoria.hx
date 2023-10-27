@@ -219,7 +219,8 @@ class MenuHistoria extends MusicBeatSubstate
 						vocals = new FlxSound();
 
 					FlxG.sound.list.add(vocals);
-					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7, false);
+					FlxG.sound.music.onComplete = finishSong;
 					vocals.play();
 					vocals.persist = true;
 					vocals.looped = true;
@@ -251,6 +252,13 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		super.update(elapsed);
+	}
+
+	private function finishSong():Void
+	{
+		FlxG.sound.music.stop();
+		FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+		FlxG.sound.music.fadeIn(4, 0, 0.7);
 	}
 
 	var movedBack:Bool = false;

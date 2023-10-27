@@ -456,9 +456,14 @@ class GaleriaStateMusic extends MusicBeatState
 			GaleriaState.firsttimemusic = false;
 			GaleriaState.stoploading = false;
 			canRender = false;
-			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+			FlxG.sound.music.fadeOut(1.5, 0, function(twn:FlxTween){
+				flixel.FlxG.sound.music.stop();
+				FlxG.sound.playMusic(Paths.music('newmenu'), 0.7, true);
+			});
+			
+			
 			menutoca= true;
-			FlxG.sound.music.fadeIn(1, 0, 0.7);
+			
 
 			MusicBeatState.switchState(new GaleriaState());
 		}

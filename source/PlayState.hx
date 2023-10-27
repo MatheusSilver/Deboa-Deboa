@@ -4067,6 +4067,7 @@ class PlayState extends MusicBeatState
 
 			if (useVideo)
 			{
+				useVideo = false;
 				GlobalVideo.get().stop();
 				videoSprite.visible = false;
 				//	remove(videoSprite);
@@ -6101,6 +6102,7 @@ class PlayState extends MusicBeatState
 
 		if (useVideo)
 		{
+			useVideo = false;
 			GlobalVideo.get().stop();
 			FlxG.stage.window.onFocusOut.remove(focusOut);
 			FlxG.stage.window.onFocusIn.remove(focusIn);
@@ -6236,10 +6238,10 @@ class PlayState extends MusicBeatState
 						ease: FlxEase.cubeInOut,
 						onComplete: function(twn:FlxTween)
 						{
-							MusicBeatState.switchState(new EstadoDeTrocaReverso());
 							lime.app.Application.current.window.title = 'FNF: ModBoa EXE';
 
-							FlxG.sound.playMusic(Paths.music('newmenu'));
+							FlxG.sound.music.stop();
+							MusicBeatState.switchState(new EstadoDeTrocaReverso());
 						}
 					});
 				}
@@ -6250,7 +6252,7 @@ class PlayState extends MusicBeatState
 					ClientPrefs.pibby = true;
 					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
 					lime.system.System.exit(0);
-					ClientPrefs.save();
+					ClientPrefs.save(); //Isso aqui deveria estar em cima...
 				}
 				usedPractice = false;
 				changedDifficulty = false;

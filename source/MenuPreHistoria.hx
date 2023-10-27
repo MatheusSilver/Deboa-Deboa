@@ -118,8 +118,16 @@ class MenuPreHistoria extends MusicBeatState
 		}
 
 		changeWeek(1);
+
+		if (FlxG.sound.music == null || FlxG.sound.music.name != "newmenu" || FlxG.sound.music.volume  == 0){
+			FlxG.sound.playMusic(Paths.music('newmenu'), 0.7, true);
+		}
 		super.create();
+
+		trace(FlxG.sound.music.name);
 	}
+
+	
 
 	function verifySave()
 	{

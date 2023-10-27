@@ -194,6 +194,11 @@ class FreeplayState extends MusicBeatState
 		#end
 		
 		super.create();
+
+		if (FlxG.sound.music.name != "newmenu")
+			finishSong();
+
+		trace(FlxG.sound.music.name);
 	}
 
 	override function closeSubState() {
@@ -219,6 +224,7 @@ class FreeplayState extends MusicBeatState
 	private static var vocals:FlxSound = null;
 	override function update(elapsed:Float)
 	{
+
 		super.update(elapsed);
 		perfilSprite.angle = disc.angle;
 		outroperfilSprite.angle = disc.angle;
@@ -313,7 +319,8 @@ class FreeplayState extends MusicBeatState
 				vocals = new FlxSound();
 
 			FlxG.sound.list.add(vocals);
-			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7, false);
+			FlxG.sound.music.onComplete = finishSong;
 			vocals.play();
 			vocals.persist = true;
 			vocals.looped = true;
@@ -355,6 +362,13 @@ class FreeplayState extends MusicBeatState
 						
 				destroyFreeplayVocals();
 			}
+	}
+
+	private function finishSong():Void
+	{
+		FlxG.sound.music.stop();
+		FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+		FlxG.sound.music.fadeIn(4, 0, 0.7);
 	}
 
 	function changeDiff(change:Int = 0)
