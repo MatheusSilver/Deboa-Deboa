@@ -321,13 +321,13 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;
-					MusicBeatState.switchState(new EstadoDeTrocaReverso());
 					FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('newmenu'));
+					FlxG.sound.playMusic(Paths.music('newmenu'),0);
 					PlayState.usedPractice = false;
 					PlayState.changedDifficulty = false;
 					PlayState.cpuControlled = false;
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
+					MusicBeatState.switchState(new EstadoDeTrocaReverso());
 			}
 		}
 	}

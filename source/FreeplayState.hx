@@ -194,11 +194,6 @@ class FreeplayState extends MusicBeatState
 		#end
 		
 		super.create();
-
-		if (FlxG.sound.music.name != "newmenu")
-			finishSong();
-
-		trace(FlxG.sound.music.name);
 	}
 
 	override function closeSubState() {
@@ -230,7 +225,7 @@ class FreeplayState extends MusicBeatState
 		outroperfilSprite.angle = disc.angle;
 
 		if(FlxG.sound.music == null) {
-			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		}
 		
 		if (FlxG.sound.music.volume < 0.7)
