@@ -362,7 +362,7 @@ class FreeplayState extends MusicBeatState
 	private function finishSong():Void
 	{
 		FlxG.sound.music.stop();
-		FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		FlxG.sound.music.fadeIn(4, 0, 0.7);
 	}
 

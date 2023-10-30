@@ -161,7 +161,7 @@ class ScoreScreenSubstate extends MusicBeatSubstate
 		MusicBeatState.switchState(new EstadoDeTrocaReverso());
 		lime.app.Application.current.window.title='FNF: ModBoa EXE';
 				
-		FlxG.sound.playMusic(Paths.music('newmenu'));
+		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 	}
 
 	override function update(elapsed:Float)

@@ -183,7 +183,7 @@ class BaseOptionsMenu extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if(FlxG.sound.music == null) {
-			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}

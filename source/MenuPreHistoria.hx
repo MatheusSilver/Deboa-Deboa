@@ -48,7 +48,7 @@ class MenuPreHistoria extends MusicBeatState
 		verifySave();
 		if (FlxG.sound.music == null)
 		{
-			FlxG.sound.playMusic(Paths.music('newmenu'), 0);
+			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		}
 		if (FlxG.sound.music.volume == 0)
 		{
@@ -68,6 +68,7 @@ class MenuPreHistoria extends MusicBeatState
 		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		bigmenu = new FlxSprite(-1000, 0);
 		bigmenu.antialiasing = ClientPrefs.globalAntialiasing;
+		bigmenu.visible = false;
 		perfilSprite = new FlxSprite(-1000, 0);
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
@@ -117,7 +118,7 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = weekAnimNum;
 		}
 
-		changeWeek(1);
+		changeWeek();
 		super.create();
 	}
 
@@ -308,10 +309,10 @@ class MenuPreHistoria extends MusicBeatState
 		var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 		WeekData.setDirectoryFromWeek(leWeek);
 
-		bgSprite.visible = true;
-		perfilSprite.visible = true;
-		blackbarup.visible = true;
-		blackbardown.visible = true;
+		bgSprite.visible = change != 0;
+		perfilSprite.visible = change != 0;
+		blackbarup.visible = change != 0;
+		blackbardown.visible = change != 0;
 		var assetName:String = leWeek.weekBackground;
 		if (OpenFlAssets.exists(Paths.imagechecker("Story_Mode/BG_" + assetName, 'preload')))
 		{ // anti crashing moment
@@ -372,7 +373,7 @@ class MenuPreHistoria extends MusicBeatState
 				bigmenu.loadGraphic(Paths.image("Story_Mode/BIGMENU_" + assetName, 'preload'));
 				bigmenu.setGraphicSize(FlxG.width);
 				bigmenu.screenCenter(XY);
-				bigmenu.alpha = 1;
+				bigmenu.visible = true;
 			}
 		});
 		// EU DEFINITIVAMENTE NÃO QUERO FALAR SOBRE ESTE CODE... Ass: Sílvio

@@ -139,7 +139,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.seenCutscene = false;
 			MusicBeatState.switchState(new EstadoDeTrocaReverso());
 
-			FlxG.sound.playMusic(Paths.music('newmenu'));
+			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 

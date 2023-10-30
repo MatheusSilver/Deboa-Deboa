@@ -322,7 +322,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.seenCutscene = false;
 					CustomFadeTransition.nextCamera = transCamera;
 					FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('newmenu'),0);
+					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'),0);
 					PlayState.usedPractice = false;
 					PlayState.changedDifficulty = false;
 					PlayState.cpuControlled = false;

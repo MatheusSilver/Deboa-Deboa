@@ -378,7 +378,7 @@ class GaleriaStateMusic extends MusicBeatState
 				//trace('tentando tocar random');
 				changeSong(FlxG.random.int(0, GaleriaState.leMusic.length-1));
 			}else if(!loopar){
-				FlxG.sound.playMusic(Paths.music('newmenu'), 0.7);
+				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0.7);
 				menutoca=true;
 				FlxG.sound.music.fadeIn(4, 0, 0.85);
 				pausado = true;
@@ -458,7 +458,7 @@ class GaleriaStateMusic extends MusicBeatState
 			canRender = false;
 			FlxG.sound.music.fadeOut(1.5, 0, function(twn:FlxTween){
 				flixel.FlxG.sound.music.stop();
-				FlxG.sound.playMusic(Paths.music('newmenu'), 0.7, true);
+				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0.7, true);
 			});
 			
 			

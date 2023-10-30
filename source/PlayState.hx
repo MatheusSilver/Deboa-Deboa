@@ -840,7 +840,7 @@ class PlayState extends MusicBeatState
 				tempogravador.cameras = [camHUD];
 				tempogravador.screenCenter(XY);
 				tempogravador.x += 125;
-				tempogravador.y += 175;
+				tempogravador.y += 125;
 				tempogravador.visible = ClientPrefs.shaders;
 				tempogravador.antialiasing = false;
 				add(tempogravador);
@@ -859,6 +859,7 @@ class PlayState extends MusicBeatState
 
 					camGame.setFilters([vcr]);
 					camHUD.setFilters([vcr]);
+					camLegenda.setFilters([vcr]);
 				}
 
 			case 'chasing':
@@ -1592,7 +1593,7 @@ class PlayState extends MusicBeatState
 				timeBar.visible = false;
 				if (curSong == 'round-a-bout')
 				{
-					timeTxt.x = FlxG.width - timeTxt.width + 75;
+					timeTxt.x = FlxG.width - timeTxt.width + 100;
 				}
 				if (hudFolder != 'sonic3')
 				{
@@ -3608,7 +3609,7 @@ class PlayState extends MusicBeatState
 			if (paused)
 				return; */
 
-		if (ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused)
+		if (ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused && (!ControlSongSubstate.gifPermitido || curSong.toLowerCase() != 'control') )
 		{
 			new flixel.util.FlxTimer().start(0.05, function(tmr:flixel.util.FlxTimer)
 			{
@@ -3986,7 +3987,7 @@ class PlayState extends MusicBeatState
 				+ "\n"
 				+ Std.string(leDate.getDate())
 				+ " "
-				+ meses[leDate.getMonth()];
+				+ meses[leDate.getMonth() ] + "\n";
 			if (leDate.getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada') && songStarted)
 			{
 				startachieving('madrugada');
@@ -6151,7 +6152,7 @@ class PlayState extends MusicBeatState
 
 				if (storyPlaylist.length <= 0)
 				{
-					FlxG.sound.playMusic(Paths.music('newmenu'));
+					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 
 					cancelFadeTween();
 					CustomFadeTransition.nextCamera = camHUD2;

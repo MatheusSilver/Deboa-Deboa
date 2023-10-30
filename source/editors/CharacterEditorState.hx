@@ -903,10 +903,10 @@ class CharacterEditorState extends MusicBeatState
 		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
 		for (i in 0...directories.length) {
 			var directory:String = directories[i];
-			if(Assets.exists(directory)) {
-				for (file in Utils.readDirectory(directory)) {
-					var path:String = directory + '/' + file;
-					if (!Assets.exists(path) && file.endsWith('.json')) {
+			if(FileSystem.exists(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
+					var path = haxe.io.Path.join([directory, file]);
+					if (!FileSystem.isDirectory(path) && file.endsWith('.json')) {
 						var charToCheck:String = file.substr(0, file.length - 5);
 						if(!charsLoaded.exists(charToCheck)) {
 							characterList.push(charToCheck);
@@ -978,7 +978,7 @@ class CharacterEditorState extends MusicBeatState
 					MusicBeatState.switchState(new PlayState());
 				} else {
 					MusicBeatState.switchState(new editors.MasterEditorMenu());
-					FlxG.sound.playMusic(Paths.music('newmenu'));
+					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 				}
 				FlxG.mouse.visible = false;
 				return;
