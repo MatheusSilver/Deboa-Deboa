@@ -1,50 +1,53 @@
 local pos = 0;
 
-function propriedadescomuns(var)
+function propriedadescomuns(var,name)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
-    setLuaSpriteCamera(var, 'camlegenda');
+    setLuaSpriteCamera(var, 'other');
     setGraphicSize(var, screenWidth) -- k
+    adjustPos(var, name)
     screenCenter(var, 'x')
+
+    addLuaSprite(var, true);
 end
 
-function onCreatePost()
-    if downscroll then
-        pos = -350
-    else
-        pos = 0
+function adjustPos(object, image)
+    if string.find(image, "preycutscene") then
+        setProperty(object..'.y', getProperty(object..'.y')+50)
+    elseif not getProperty("canRegen") and downscroll then
+        setProperty(object..'.y', getProperty(object..'.y')-550)
+    elseif downscroll and curStep > 3425 and curStep < 4480 then
+        setProperty(object..'.y', getProperty(object..'.y')-360)
+    elseif downscroll then
+        setProperty(object..'.y', getProperty(object..'.y')-410)
     end
 end
 
 function onEvent(name, value1, value2, value3, value4)
-    if name == 'Adicionar Imagens diferenciado' and legendas == true then
+    if name == 'Adicionar Imagens diferenciado' and (legendas == true or string.find(value1, "preycutscene")) then
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
             makeLuaSprite('exe1', legendaPath..value2, 0, pos)
-            propriedadescomuns('exe1')
-            addLuaSprite('exe1', true);
+            propriedadescomuns('exe1', value2)
         end
         if value3 == '' or value3 == 'null' or value3 == nil then
             removeLuaSprite('exe2', true);
         else
             makeLuaSprite('exe2', legendaPath..value3, 0, pos)
-            propriedadescomuns('exe2')
-            addLuaSprite('exe2', true);
+            propriedadescomuns('exe2', value3)
         end
         if value4 == '' or value4 == 'null' or value4 == nil then
             removeLuaSprite('exe3', true);
         else
             makeLuaSprite('exe3', legendaPath..value4, 0, pos)
-            propriedadescomuns('exe3')
-            addLuaSprite('exe3', true);
+            propriedadescomuns('exe3', value4)
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
         makeLuaSprite('exe', legendaPath..value1, 0, pos)
-        propriedadescomuns('exe')
-        addLuaSprite('exe', true);
+        propriedadescomuns('exe', value1)
         end
     end
 end

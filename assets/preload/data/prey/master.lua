@@ -2,7 +2,6 @@ function onCreate()
     pushScriptData('vgs');
     precacheImage('conquistas/medalhas/achievements (btt-alt)');
     precacheImage('conquistas/keydSTARS/star-alt');
-
     precacheImage('bad_ending');
     precacheImage('good_ending');
     precacheImage('true_ending')

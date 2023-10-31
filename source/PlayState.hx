@@ -3270,8 +3270,8 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
-			case 'Adicionar Imagens':
-				if (ClientPrefs.legendas)
+			case 'Adicionar Imagens' | 'Adicionar Imagens diferenciado':
+				if (ClientPrefs.legendas || (event[3].startsWith("preycutscene") && curSong.toLowerCase() == "prey"))
 				{
 					// trace('executando cache de lyrics');
 					if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[3])))
@@ -4629,8 +4629,6 @@ class PlayState extends MusicBeatState
 		{
 			case 'video player':
 				videoPlayer(value1, value2, value3);
-			case 'Adicionar Imagens':
-			// uéeeee
 			case 'Socorro':
 				lime.app.Application.current.window.title = value1;
 			case 'Toggle Ghost Trail':
@@ -5493,11 +5491,16 @@ class PlayState extends MusicBeatState
 							tofade.alpha = 1;
 						});
 
+
 					case 4498:
 						FlxTween.tween(sonicHUD, {alpha: 0}, 0.5, {ease: FlxEase.cubeInOut}); // sÓ pq fica estranho com a cinematics
 						timeBar.visible = true;
 						// judgementCounter.visible=true;
-						scoreTxt.visible = true;
+						healthBar.visible = false;
+						healthBarBG.visible = false;
+						iconP1.visible = false;
+						iconP2.visible = false;
+						scoreTxt.visible = false;
 						timeBar.createFilledBar(0xFF000000, 0xFFFF0000);
 						timeTxt.visible = true;
 						SONG.speed = 2.8; // Talvez isso seja muito lento, mas  a idéia é essa mesma k
@@ -5529,7 +5532,6 @@ class PlayState extends MusicBeatState
 						dad.y = 175;
 						dad.x += 45;
 						dad.y -= 210;
-						health = 0.05;
 
 					case 4505:
 						FlxG.camera.flash(FlxColor.WHITE, 1);
