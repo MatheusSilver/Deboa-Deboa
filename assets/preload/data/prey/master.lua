@@ -1,5 +1,6 @@
 function onCreate()
     pushScriptData('vgs');
+    pushScriptData('Adicionar Imagens diferenciado');
     precacheImage('conquistas/medalhas/achievements (btt-alt)');
     precacheImage('conquistas/keydSTARS/star-alt');
     precacheImage('bad_ending');

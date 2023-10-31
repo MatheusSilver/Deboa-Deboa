@@ -4,19 +4,19 @@ function onCreate()
 
 	--BlackVG Stuff 
 	makeLuaSprite('vgpreto', 'blackvignette', 0, 0);
-	setObjectCamera('vgpreto', 'camHUD2');
+	setObjectCamera('vgpreto', 'other');
 	setProperty('vgpreto.alpha', 0)
 	addLuaSprite('vgpreto', true);
 
     --RedVG Stuff
     makeLuaSprite('vg', 'RedVG', 0, 0);
-	setObjectCamera('vg', 'camHUD2');
+	setObjectCamera('vg', 'other');
 	setProperty('vg.alpha', 0)
 	addLuaSprite('vg', true);
 
     --WhiteVG Stuff
     makeLuaSprite('vgbranco', 'VGBranco', 0, 0);
-	setObjectCamera('vgbranco', 'camHUD2');
+	setObjectCamera('vgbranco', 'other');
 	setProperty('vgbranco.alpha', 0)
 	addLuaSprite('vgbranco', true);
 

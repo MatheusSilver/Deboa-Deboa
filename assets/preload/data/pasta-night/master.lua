@@ -366,6 +366,65 @@ function opponentNoteHit(membersIndex, noteData, noteType, isSustainNote)
     end
 end
 
+local pos = 0;
+
+function propriedadescomuns(var,name)
+    setScrollFactor(var, 0, 0);
+    scaleObject(var, 1, 1);
+    setLuaSpriteCamera(var, 'legenda');
+    setGraphicSize(var, screenWidth) -- k
+    adjustPos(var, name)
+    screenCenter(var, 'x')
+
+    addLuaSprite(var, true);
+end
+
+function adjustPos(object, image)
+    --nada maybe
+end
+
+function onEvent(name, value1, value2, value3, value4)
+    if name == 'Adicionar Imagens diferenciado' and legendas then
+        if value2 == '' or value2 == 'null' or value2 == nil then
+            removeLuaSprite('exe1', true);
+        else
+            if stage == 'bar-lordx' and string.find(value2, "pastalx0") then
+                makeLuaSprite('exe', legendaPath.."pastalx", 0, pos)
+            else
+                makeLuaSprite('exe', legendaPath..value2, 0, pos)
+            end
+            propriedadescomuns('exe1', value2)
+        end
+        if value3 == '' or value3 == 'null' or value3 == nil then
+            removeLuaSprite('exe2', true);
+        else
+            if stage == 'bar-hypno' and string.find(value3, "pastahyp0") then
+                makeLuaSprite('exe', legendaPath.."pastahyp", 0, pos)
+            else
+                makeLuaSprite('exe', legendaPath..value3, 0, pos)
+            end
+            propriedadescomuns('exe2', value3)
+        end
+        if value4 == '' or value4 == 'null' or value4 == nil then
+            removeLuaSprite('exe3', true);
+        else
+            makeLuaSprite('exe3', legendaPath..value4, 0, pos)
+            propriedadescomuns('exe3', value4)
+        end
+        if value1 == '' or value1 == 'null' or value1 == nil then
+            removeLuaSprite('exe', true)
+        else
+            if stage == 'bar' and string.find(value1, "pastamx0") then
+                makeLuaSprite('exe', legendaPath.."pastamx", 0, pos)
+            else
+                makeLuaSprite('exe', legendaPath..value1, 0, pos)
+            end
+            propriedadescomuns('exe', value1)
+        end
+    end
+end
+
+
 function onEvent(eventName, value1, value2)
     if eventName=='PastaPow' then
     
