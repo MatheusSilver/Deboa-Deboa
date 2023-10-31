@@ -331,6 +331,13 @@ function onCreatePost()
 	triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)),tostring(LordX[2]+245-200)-35)
     setPropertyFromClass('GameOverSubstate', 'bgType', 'pasta'); --Character json file for the death animation
 
+    setObjectOrder("healthBarBG", getObjectOrder("timeBarBG")-5)
+    setObjectOrder("scoreTxt", getObjectOrder("timeBarBG")-4)
+    setObjectOrder("healthBar", getObjectOrder("timeBarBG")-3)
+    setObjectOrder("iconP2", getObjectOrder("timeBarBG")-2)
+    setObjectOrder("iconP1", getObjectOrder("timeBarBG")-1)
+
+
 
     
 end
@@ -371,68 +378,56 @@ local pos = 0;
 function propriedadescomuns(var,name)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
-    setLuaSpriteCamera(var, 'legenda');
+    setLuaSpriteCamera(var, 'hud'); --legenda por baixo das setas.
+    --setLuaSpriteCamera(var, 'legenda'); --Legenda por cima das setas
     setGraphicSize(var, screenWidth) -- k
+    
+    screenCenter(var, 'xy')
     adjustPos(var, name)
-    screenCenter(var, 'x')
 
-    addLuaSprite(var, true);
+    addLuaSprite(var)
 end
 
 function adjustPos(object, image)
-    --nada maybe
+    if string.find(image, "pastahyp") then
+        setProperty(object..".y", getProperty(object..".y") + 80)
+    else
+        setProperty(object..".y", getProperty(object..".y") - 75)
+    end
 end
+
+
 
 function onEvent(name, value1, value2, value3, value4)
     if name == 'Adicionar Imagens diferenciado' and legendas then
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
-            if stage == 'bar-lordx' and string.find(value2, "pastalx0") then
-                makeLuaSprite('exe', legendaPath.."pastalx", 0, pos)
-            else
-                makeLuaSprite('exe', legendaPath..value2, 0, pos)
-            end
+            makeLuaSprite('exe1', legendaPath..value2, 0, pos)
             propriedadescomuns('exe1', value2)
         end
         if value3 == '' or value3 == 'null' or value3 == nil then
             removeLuaSprite('exe2', true);
         else
-            if stage == 'bar-hypno' and string.find(value3, "pastahyp0") then
-                makeLuaSprite('exe', legendaPath.."pastahyp", 0, pos)
-            else
-                makeLuaSprite('exe', legendaPath..value3, 0, pos)
-            end
+            makeLuaSprite('exe2', legendaPath..value3, 0, pos)
             propriedadescomuns('exe2', value3)
-        end
-        if value4 == '' or value4 == 'null' or value4 == nil then
-            removeLuaSprite('exe3', true);
-        else
-            makeLuaSprite('exe3', legendaPath..value4, 0, pos)
-            propriedadescomuns('exe3', value4)
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
-            if stage == 'bar' and string.find(value1, "pastamx0") then
-                makeLuaSprite('exe', legendaPath.."pastamx", 0, pos)
-            else
-                makeLuaSprite('exe', legendaPath..value1, 0, pos)
-            end
+            makeLuaSprite('exe', legendaPath..value1, 0, pos)
             propriedadescomuns('exe', value1)
         end
     end
-end
-
-
-function onEvent(eventName, value1, value2)
-    if eventName=='PastaPow' then
+    
+    if name=='PastaPow' then
     
     playAnim('MXArms','Hit1',true)
     playSound('HandUp',1)
     triggerEvent('Play Animation','Hit1',whoisMX)
     end
-    if eventName=='CamPasta' then
+
+    if name=='CamPasta' then
 
         if tonumber(value1)==-1 then
             triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)-200),tostring(LordX[2]+245-200-35))
