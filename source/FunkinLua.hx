@@ -744,7 +744,7 @@ class FunkinLua {
 			PlayState.instance.endSong();
 		});
 		Lua_helper.add_callback(lua, "getSongPosition", function() {
-			return Conductor.songPosition;
+			return Conductor.songPosition - 18; //sei lá porque mas é isso... (usado no debugging da chasing)
 		});
 
 		Lua_helper.add_callback(lua, "getCharacterX", function(type:String) {
@@ -1903,6 +1903,10 @@ class FunkinLua {
 
 				Lua_helper.add_callback(lua, "getCamMove", function() {
 					return PlayState.movecameraallowed;
+				});
+
+				Lua_helper.add_callback(lua, "traceLog", function(message:String) {
+					return trace(message);
 				});
 		
 				Lua_helper.add_callback(lua, "addAnimation", function(obj:String, name:String, frames:Array<Int>, framerate:Int = 24, loop:Bool = true) {

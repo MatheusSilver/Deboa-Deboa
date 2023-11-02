@@ -47,6 +47,9 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 		[0, 65]
 	];
 
+	public static var barralateral:FlxSprite;
+	public static var barralateral2:FlxSprite;
+
 
 	// eep
 	public function new()
@@ -71,14 +74,14 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 		UIBox.screenCenter(X);
 		add(UIBox);
 
-		var barralateral:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('barra lateral'));
+		barralateral = new FlxSprite(0,0).loadGraphic(Paths.image('barra lateral'));
 		barralateral.antialiasing = false;
 		barralateral.scale.x = 1.68;
 		barralateral.scale.y = 2.05;
 
 		add(barralateral);
 
-		var barralateral2:FlxSprite = new FlxSprite(0,0).loadGraphic(Paths.image('barra lateral'));
+		barralateral2 = new FlxSprite(0,0).loadGraphic(Paths.image('barra lateral'));
 		barralateral2.antialiasing = false;
 		barralateral2.flipX = true;
 		barralateral2.scale.x = 3.225;

@@ -2,6 +2,9 @@
 
     function onCreate()
         setCamMove = true
+        if legendas then
+            pushScriptData("Adicionar Imagens diferenciado")
+        end
         precacheImage('simbolo_infinito');
         precacheImage('Majin_Notes');
         precacheImage('one');

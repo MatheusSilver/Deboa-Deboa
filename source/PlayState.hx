@@ -1809,44 +1809,44 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 
 				case 'cross-console-clash':
-					if (curSong.toLowerCase() == 'cross-console-clash')
+					camHUD.alpha = 0;
+					sonicHUDCCC = new SonicHUDCCC();
+					add(sonicHUDCCC);
+					sonicHUDCCC.cameras = [camCCC];
+					botplayTxt.setFormat(Paths.font("smb1.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
+					botplayTxt.cameras = [camCCC];
+					add(botplayTxt);
+					
+					SonicHUDCCC.barralateral2.cameras = [camHUD2];
+					SonicHUDCCC.barralateral.cameras = [camHUD2];
+					if (ClientPrefs.downScroll)
 					{
-						camHUD.alpha = 0;
-						sonicHUDCCC = new SonicHUDCCC();
-						add(sonicHUDCCC);
-						sonicHUDCCC.cameras = [camCCC];
-						botplayTxt.setFormat(Paths.font("smb1.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.WHITE);
-						botplayTxt.cameras = [camCCC];
-						add(botplayTxt);
-						if (ClientPrefs.downScroll)
-						{
-							botplayTxt.y = 90 - SonicHUDCCC.ringsText.y;
-						}
-						else
-						{
-							botplayTxt.y = SonicHUDCCC.ringsText.y - 75;
-						}
-						canRegen = false;
+						botplayTxt.y = 90 - SonicHUDCCC.ringsText.y;
+					}
+					else
+					{
+						botplayTxt.y = SonicHUDCCC.ringsText.y - 75;
+					}
+					canRegen = false;
 
-						opponentStrums.forEach(function(tomove:FlxSprite)
-						{
-							tomove.x += 160 * 0.7;
-						});
-						playerStrums.forEach(function(tomove:FlxSprite)
-						{
-							tomove.x -= 160 * 0.7;
-						});
+					opponentStrums.forEach(function(tomove:FlxSprite)
+					{
+						tomove.x += 160 * 0.7;
+					});
+					playerStrums.forEach(function(tomove:FlxSprite)
+					{
+						tomove.x -= 160 * 0.7;
+					});
 
-						if (storyDifficulty == 4)
+					if (storyDifficulty == 4)
+					{
+						for (i in 0...playerStrums.length)
 						{
-							for (i in 0...playerStrums.length)
-							{
-								playerStrums.members[i].x -= 80;
-							}
-							for (i in 0...opponentStrums.length)
-							{
-								opponentStrums.members[i].x += 80;
-							}
+							playerStrums.members[i].x -= 80;
+						}
+						for (i in 0...opponentStrums.length)
+						{
+							opponentStrums.members[i].x += 80;
 						}
 					}
 					startCountdown();

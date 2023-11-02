@@ -712,20 +712,10 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						30375,
+						30468.75,
 						-1,
 						"Adicionar Imagens",
-						"phantasm26",
-						"",
-						"",
-						"",
-						""
-					],
-					[
-						30375,
-						-1,
-						"Adicionar Imagens",
-						"phantasm26",
+						"phantasm25",
 						"",
 						"",
 						"",
@@ -1600,17 +1590,7 @@
 						69656.25,
 						-1,
 						"Adicionar Imagens",
-						"phantasm56",
-						"",
-						"",
-						"",
-						""
-					],
-					[
-						69656.25,
-						-1,
-						"Adicionar Imagens",
-						"phantasm56",
+						"phantasm55",
 						"",
 						"",
 						"",
@@ -4096,6 +4076,7 @@
 		"startinvisibru": true,
 		"canfollowpermitido": null,
 		"song": "phantasm",
-		"isRing": null
+		"isRing": null,
+		"videonombre": null
 	}
 }

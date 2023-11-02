@@ -806,10 +806,10 @@ class ChartingState extends MusicBeatState
 		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
 			var directory:String =  directories[i];
-			if(Assets.exists(directory)) {
-				for (file in Utils.readDirectory(directory)) {
+			if(FileSystem.isDirectory(directory)) {
+				for (file in FileSystem.readDirectory(directory)) {
 					var path:String = Paths.getPreloadPath(directory + '/' + file); // Isso funciona para android????
-					if (!Assets.exists(path) && file.endsWith('.lua')) {
+					if (!FileSystem.exists(path) && file.endsWith('.lua')) {
 						var fileToCheck:String = file.substr(0, file.length - 4);
 						if(!noteTypeMap.exists(fileToCheck)) {
 							displayNameList.push(fileToCheck);
