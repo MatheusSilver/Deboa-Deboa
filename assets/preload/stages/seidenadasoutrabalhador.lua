@@ -24,9 +24,51 @@ function onCreate()
 
 end
 
+
+function onCreatePost()
+    if downscroll then
+        pos = -350
+    else
+        pos = 0
+    end
+end
+
 function onEvent(name, value1, value2)
 	if name == "Change Character" and value1 == 'dad' and value2 == 'tails-dark-altsidekick' then
 		setProperty('gfGroup.visible', true)
     	setProperty('gf.visible', true)
     end
+	if name == 'Adicionar Imagens diferenciado' and legendas then
+        if value2 == '' or value2 == 'null' or value2 == nil then
+            removeLuaSprite('exe1', true);
+        else
+            makeLuaSprite('exe1', legendaPath..value2, 0, pos)
+            propriedadescomuns('exe1', value2)
+            addLuaSprite('exe1', true);
+        end
+        if value1 == '' or value1 == 'null' or value1 == nil then
+            removeLuaSprite('exe', true)
+        else
+        makeLuaSprite('exe', legendaPath..value1, 0, pos)
+        propriedadescomuns('exe', value1)
+        addLuaSprite('exe', true);
+        end
+    end
+end
+
+local pos = 0;
+
+function propriedadescomuns(var, value)
+    setScrollFactor(var, 0, 0);
+    scaleObject(var, 1, 1);
+    setLuaSpriteCamera(var, 'camlegenda');
+    --setGraphicSize(var, screenWidth) -- k
+    if var == "exe1" and string.find(value, "tailside") then
+        adjustPos(var)
+    end
+    screenCenter(var, 'x')
+end
+
+function adjustPos(var) 
+    setProperty(var..".y", getProperty(var..".y")+72)
 end

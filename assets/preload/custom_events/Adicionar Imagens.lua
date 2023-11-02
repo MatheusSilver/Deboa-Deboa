@@ -24,6 +24,7 @@ function onEvent(name, value1, value2, value3, value4)
             makeLuaSprite('exe1', legendaPath..value2, 0, pos)
             propriedadescomuns('exe1')
             addLuaSprite('exe1', true);
+            --traceLog("value 2 invocou, "..value2.." em: "..getSongPosition())
         end
         if value3 == '' or value3 == 'null' or value3 == nil then
             removeLuaSprite('exe2', true);
@@ -45,6 +46,7 @@ function onEvent(name, value1, value2, value3, value4)
         makeLuaSprite('exe', legendaPath..value1, 0, pos)
         propriedadescomuns('exe')
         addLuaSprite('exe', true);
+        --traceLog("value 1 invocou, "..value1.." em: "..getSongPosition())
         end
     end
 end
