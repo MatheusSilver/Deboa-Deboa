@@ -101,6 +101,7 @@ function onVideoEnd()
     if not bot_antes then
         botPlay = false
     end
+    setProperty('camHUD2.visible', true)
 end
 
 function deslocamento(inicio, Speed)
@@ -191,6 +192,7 @@ end
 
 function onEvent(name, value1, value2)
     if name=="video player" then
+        setProperty('camHUD2.visible', false)
         bot_antes = botPlay
         botPlay= true
     end
