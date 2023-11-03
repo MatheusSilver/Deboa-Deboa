@@ -20,6 +20,7 @@ class MenuPreHistoria extends MusicBeatState
 
 	public static var returnedfromsubstate:Bool = false;
 	public static var bigmenu:FlxSprite;
+	public static var maintainVisible:Bool = false;
 
 	// Eu acho que tenho um probleminha...
 	// Na real... Eu só fiquei muito puto fazendo esse menu, mas no fim deu bom, PONTO PRA GRIFINÓRIA!
@@ -235,6 +236,7 @@ class MenuPreHistoria extends MusicBeatState
 
 			if (controls.ACCEPT && apertavel #if !debug && lockedWeeks[curWeek] != true #end)
 			{
+				maintainVisible = true;
 				selectWeek();
 			}
 			#if !debug
@@ -249,6 +251,7 @@ class MenuPreHistoria extends MusicBeatState
 		{
 			GlobalSoundManager.play('cancelMenu');
 			movedBack = true;
+			maintainVisible = false;
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
@@ -309,10 +312,10 @@ class MenuPreHistoria extends MusicBeatState
 		var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 		WeekData.setDirectoryFromWeek(leWeek);
 
-		bgSprite.visible = change != 0;
-		perfilSprite.visible = change != 0;
-		blackbarup.visible = change != 0;
-		blackbardown.visible = change != 0;
+		bgSprite.visible = change != 0 || maintainVisible;
+		perfilSprite.visible = change != 0 || maintainVisible;
+		blackbarup.visible = change != 0 || maintainVisible;
+		blackbardown.visible = change != 0 || maintainVisible; 
 		var assetName:String = leWeek.weekBackground;
 		if (OpenFlAssets.exists(Paths.imagechecker("Story_Mode/BG_" + assetName, 'preload')))
 		{ // anti crashing moment
@@ -374,6 +377,7 @@ class MenuPreHistoria extends MusicBeatState
 				bigmenu.setGraphicSize(FlxG.width);
 				bigmenu.screenCenter(XY);
 				bigmenu.visible = true;
+				bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible=true;
 			}
 		});
 		// EU DEFINITIVAMENTE NÃO QUERO FALAR SOBRE ESTE CODE... Ass: Sílvio

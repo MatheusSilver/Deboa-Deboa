@@ -6154,7 +6154,6 @@ class PlayState extends MusicBeatState
 
 				if (storyPlaylist.length <= 0)
 				{
-					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 
 					cancelFadeTween();
 					CustomFadeTransition.nextCamera = camHUD2;
@@ -6242,8 +6241,6 @@ class PlayState extends MusicBeatState
 						onComplete: function(twn:FlxTween)
 						{
 							lime.app.Application.current.window.title = 'FNF: ModBoa EXE';
-
-							FlxG.sound.music.stop();
 							MusicBeatState.switchState(new EstadoDeTrocaReverso());
 						}
 					});

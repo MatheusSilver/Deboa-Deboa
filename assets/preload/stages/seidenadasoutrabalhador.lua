@@ -29,7 +29,7 @@ function onCreatePost()
     if downscroll then
         pos = -350
     else
-        pos = 0
+        pos = -60
     end
 end
 

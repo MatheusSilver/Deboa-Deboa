@@ -4,7 +4,7 @@ function adjustPos(var, name)
     if downscroll then
         setProperty(var..".y", getProperty(var..".y")-318-72)
     else
-        setProperty(var..".y", getProperty(var..".y")-100)
+        setProperty(var..".y", getProperty(var..".y")+18)
     end
     if string.find(name, "luigiccc") then
         if not string.find(name, "luigiccc10") and not string.find(name, "luigiccc11") and not string.find(name, "luigiccc12") and not string.find(name, "luigiccc13") and not string.find(name, "luigiccc14") then

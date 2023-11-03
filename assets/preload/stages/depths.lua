@@ -14,6 +14,7 @@ local xpos = {-50, -50, -70}
 local ypos = {-80, 0, -50}
 
 function onCreate()
+	setCamMove(true);
 	setPropertyFromClass('GameOverSubstate', 'characterName', 'dead')
 
 	setProperty("defaultCamZoom",1.3)
@@ -64,7 +65,8 @@ function onCreatePost()
 	addLuaSprite('waves', true)
 	if not lowQuality then
 	setBlendMode('waves', 'subtract') -- Pfv não me mate X02
-	--Assinado: Não foi o Dav
+									  --Assinado: Não foi o Dav
+									  --Fonte: Confia (não foi o Sílvio)
 	end
 	objectPlayAnimation('waves','idle',true)
 
@@ -126,13 +128,26 @@ function onTweenCompleted(tag)
 	if tag == 'r1' then doTweenAlpha('r2', 'r', 0.5, 1, 'linear') end
 	if tag == 'r2' then doTweenAlpha('r1', 'r', 1, 1, 'linear') end
 end
-
+local wasLooping = false
 function onBeatHit()
 	if curBeat % 16 == 0 and #fall < 10 then
 		local rng = getRandomInt(1,10, exclusion)
 		table.insert(fall, #fall+1, rng)
 		exclusion = exclusion..','..rng
 	end
+	if curBeat == 326 then
+		doTweenAlpha('vgVAI', 'vgpreto', 0.8, 0.5, 'linear') 
+		setCamMove(false);
+		wasLooping = alphaLoop
+		alphaLoop=false
+		triggerEvent("Camera Follow Pos", '1200', '475')
+		setProperty("defaultCamZoom",getProperty("defaultCamZoom")+0.3);
+	elseif curBeat == 340 then
+		doTweenAlpha('vgVAI', 'vgpreto', 0.3, 0.5, 'linear') 
+		setCamMove(true);
+		alphaLoop= wasLooping
+	end
+
 end
 
 function getHeight(baseH, tiempo)
@@ -145,7 +160,7 @@ end
 function onEvent(name, value1, value2)
 	if name == 'CharacterAlphaTween' then
 		if value1 == 'dad' then
-		fadelooping = false -- Isso serve basicamente pra ajustar o finalzinho da musica e fazer o GHOUL sumir de vez
+			fadelooping = false -- Isso serve basicamente pra ajustar o finalzinho da musica e fazer o GHOUL sumir de vez
 		end
 	end
 end

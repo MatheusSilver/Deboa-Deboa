@@ -1956,9 +1956,10 @@ class FunkinLua {
 					if(FlxTransitionableState.skipNextTransIn)
 						CustomFadeTransition.nextCamera = null;
 		
-					if(PlayState.modohistoria)
+					if(PlayState.modohistoria){
 						MusicBeatState.switchState(new MenuPreHistoria());
-					else
+						MenuPreHistoria.maintainVisible = false;
+					}else
 						MusicBeatState.switchState(new FreeplayState());
 		
 					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));

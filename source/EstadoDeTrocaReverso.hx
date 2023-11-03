@@ -8,11 +8,16 @@ class EstadoDeTrocaReverso extends MusicBeatState
 		Paths.clearUnusedMemory();
 		PlayState.limparCache = true;
 
+		flixel.FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
+		flixel.FlxG.sound.music.fadeIn(4, 0, 0.7);
+		//As vezes brutalidade não é a melhor solução : D
+
 		new flixel.util.FlxTimer().start(0.5, function(tmr:flixel.util.FlxTimer)
 		{
 			if (PlayState.modohistoria){
 				PlayState.modohistoria = false;
 				MusicBeatState.switchState(new MenuPreHistoria());
+				MenuPreHistoria.maintainVisible = false;
 			}else
 				MusicBeatState.switchState(new FreeplayState());
 		});

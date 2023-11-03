@@ -20,6 +20,8 @@ function adjustPos(object, image)
         setProperty(object..'.y', getProperty(object..'.y')-360)
     elseif downscroll then
         setProperty(object..'.y', getProperty(object..'.y')-410)
+    elseif not downscroll then
+        setProperty(object..'.y', getProperty(object..'.y')-90)
     end
 end
 

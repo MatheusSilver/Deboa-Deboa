@@ -2313,7 +2313,7 @@ class ChartingState extends MusicBeatState
 			var arrayNotes:Array<Dynamic> = [];
 			for (i in 0..._song.notes[sec].sectionNotes.length) {
 				var note:Array<Dynamic> = _song.notes[sec].sectionNotes[i];
-				if(note != null && note[1] < 0 && note[2] == "Adicionar Imagens") {
+				if(note != null && note[1] < 0 && (note[2] == "Adicionar Imagens" || note[2] == "Adicionar Imagens diferenciado")) {
 					arrayNotes.push(note);
 				}
 			}
