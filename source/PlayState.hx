@@ -5434,6 +5434,11 @@ class PlayState extends MusicBeatState
 							}
 						});
 
+
+					//case 4544:
+						//FlxG.camera.flash(FlxColor.YELLOW, 0.3); //Usado na Too Fest por motivos de preguiça
+						//triggerEventNote('Add Camera Zoom', '0.3', '0.3');
+
 					case 3420:
 						health = 1;
 						triggerEventNote('noteskinchangeBF', 'NOTE-supa_assetszoom', ''); // must do Arrumar esse sprite.
