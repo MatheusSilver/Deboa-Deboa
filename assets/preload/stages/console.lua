@@ -3,6 +3,10 @@ function onCreate()
 	precacheImage('cenarios/tails2')
 	makeAnimationList();
 
+	if legendas then
+        pushScriptData("Adicionar Imagens diferenciado")
+    end
+
 	makeLuaSprite('bg','cenarios/bg',-400,-170)
     setScrollFactor('bg', 1, 1);
 		

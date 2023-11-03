@@ -1,8 +1,5 @@
 function onCreate()
 
-    if legendas then
-        pushScriptData("Adicionar Imagens diferenciado")
-    end
     if storyDifficulty == 4 then 
         precacheImage('pixelUI/flower-clash');
         precacheImage('pixelUI/shroom-clash');
