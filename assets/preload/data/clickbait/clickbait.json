@@ -6094,7 +6094,7 @@
 		"song": "clickbait",
 		"stage": "clickbait",
 		"validScore": true,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"needsVoices": false,
 		"speed": 2.8,
 		"bpm": 180

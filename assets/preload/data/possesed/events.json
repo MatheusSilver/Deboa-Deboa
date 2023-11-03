@@ -551,7 +551,7 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 140,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "possesed",
 		"isRing": null

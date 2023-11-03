@@ -11309,7 +11309,7 @@
 		"song": "personel",
 		"stage": "void",
 		"validScore": true,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"needsVoices": false,
 		"canfollowpermitido": true,
 		"speed": 2.9,

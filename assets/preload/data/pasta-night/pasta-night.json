@@ -5509,7 +5509,7 @@
 		"player3": "playable-mx",
 		"song": "pasta-night",
 		"stage": "bar-lordx",
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,

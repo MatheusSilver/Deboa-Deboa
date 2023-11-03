@@ -10340,7 +10340,7 @@
 		"needsVoices": false,
 		"validScore": true,
 		"splashSkin": "noteSplashes",
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"stage": "beachhouse",
 		"bpm": 194,
 		"speed": 3

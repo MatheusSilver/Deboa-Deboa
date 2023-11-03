@@ -5482,7 +5482,7 @@
 		"song": "pasta-night",
 		"stage": "bar-hypno",
 		"canfollowpermitido": true,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"validScore": true,
 		"sections": 0,
 		"splashSkin": "noteSplashes",

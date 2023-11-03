@@ -5550,7 +5550,7 @@
 		"player3": "lordx-mx",
 		"song": "pasta-night",
 		"stage": "bar",
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"canfollowpermitido": true,
 		"validScore": true,
 		"sections": 0,

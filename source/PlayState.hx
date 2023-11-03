@@ -1984,13 +1984,6 @@ class PlayState extends MusicBeatState
 				default:
 					startCountdown();
 			}
-
-			switch (curSong)
-			{
-				case 'sunshine':
-				default:
-					startCountdown();
-			}
 		}
 		RecalculateRating();
 
@@ -2074,8 +2067,10 @@ class PlayState extends MusicBeatState
 			add(loadingbar);
 			veioNormal = false;
 		}
-		art.loadGraphic(Paths.image(loadingImage, 'preload'));
-		trace(loadingImage);
+		//art.loadGraphic(Paths.image(loadingImage, 'preload'));
+		//trace(loadingImage);
+
+		//wut?
 
 		FlxTween.tween(art, {alpha: 0}, 0.85, {
 			ease: FlxEase.linear,

@@ -2226,7 +2226,7 @@
 		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 160,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"needsVoices": false,
 		"startinvisibru": null,
 		"canfollowpermitido": null,

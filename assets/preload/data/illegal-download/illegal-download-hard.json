@@ -7395,7 +7395,7 @@
 		"splashSkin": "noteSplashes",
 		"song": "illegal-download",
 		"needsVoices": false,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"validScore": true,
 		"stage": "illegal1",
 		"bpm": 140,

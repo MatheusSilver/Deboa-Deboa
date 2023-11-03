@@ -1473,7 +1473,7 @@
 		"splashSkin": null,
 		"validScore": false,
 		"bpm": 194,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "green-hills",
 		"isRing": null

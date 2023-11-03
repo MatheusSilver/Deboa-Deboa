@@ -2068,7 +2068,7 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 180,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"needsVoices": false,
 		"startinvisibru": null,
 		"canfollowpermitido": null,

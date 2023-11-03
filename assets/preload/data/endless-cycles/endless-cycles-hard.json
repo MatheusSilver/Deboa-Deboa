@@ -2859,7 +2859,7 @@
 		"splashSkin": "blood",
 		"song": "endless-cycles",
 		"needsVoices": false,
-		"arrowSkin": "",
+		"arrowSkin": null,
 		"validScore": true,
 		"stage": "crimge",
 		"bpm": 79,
