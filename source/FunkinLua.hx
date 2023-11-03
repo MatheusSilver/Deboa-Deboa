@@ -869,7 +869,7 @@ class FunkinLua {
 			tag = tag.replace('.', '');
 			resetTiledSpriteTag(tag);
 			var leSprite:ModchartTiledSprite = new ModchartTiledSprite(width, height, repeteEmX, repeteEmY);
-			leSprite.loadGraphic(Paths.image(image));
+			leSprite.loadGraphic(Paths.image(image, false));
 			leSprite.moves = false;
 			leSprite.antialiasing = ClientPrefs.globalAntialiasing;
 			PlayState.instance.modchartTiledSprites.set(tag, leSprite);

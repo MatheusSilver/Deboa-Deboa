@@ -266,8 +266,11 @@ class Paths
 			return getPath('images/$key.png', IMAGE, library);
 		}
 
-	inline static public function image(key:String, ?library:String):FlxGraphic {
-		var returnAsset:FlxGraphic = returnGraphic(key, library);
+	inline static public function image(key:String, ?library:String, canGPU:Bool = true):FlxGraphic { //canGPU serve pra evitar um erro MUITO CRÍTICO em FlxTiledSprite
+		var gpu:Bool = false;
+		if (canGPU)
+			gpu = ClientPrefs.loadingexperimental;
+		var returnAsset:FlxGraphic = returnGraphic(key, library, gpu);
 		return returnAsset;
 	}
 	
@@ -289,20 +292,26 @@ class Paths
 		return false;
 	}
 
-	inline static public function getSparrowAtlas(key:String, ?library:String)
+	inline static public function getSparrowAtlas(key:String, ?library:String, canGPU:Bool = true)
 	{
+		var gpu:Bool = false;
+		if (canGPU)
+			gpu = ClientPrefs.loadingexperimental;
 		return FlxAtlasFrames.fromSparrow(image(key, library), file('images/$key.xml', library));
 	}
 
-	inline static public function getPackerAtlas(key:String, ?library:String)
+	inline static public function getPackerAtlas(key:String, ?library:String, canGPU:Bool = true)
 	{
+		var gpu:Bool = false;
+		if (canGPU)
+			gpu = ClientPrefs.loadingexperimental;
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
 	}
 
 	inline static public function formatToSongPath(path:String) {
 		return path.toLowerCase().replace(' ', '-');
 	}
-	public static function returnGraphic(key:String, ?library:String) {
+	public static function returnGraphic(key:String, ?library:String, gpu:Bool) {
 		var path:String = '';
 
 		path = getPath('images/$key.png', IMAGE, library);
@@ -314,7 +323,7 @@ class Paths
 				var bitmap:BitmapData = OpenFlAssets.getBitmapData(path, false);
 				var graphic:FlxGraphic = null;
 
-				if (ClientPrefs.loadingexperimental)
+				if (gpu)
 				{
 					var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, false, 0);
 					texture.uploadFromBitmapData(bitmap);

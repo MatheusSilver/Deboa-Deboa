@@ -913,10 +913,10 @@ class PlayState extends MusicBeatState
 				furnaceTheEnd.scale.y = 2; // Já você é um outro caso.
 				furnaceTheEnd.visible = false;
 
-				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2'), 4608, 2832, true, false);
+				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2', false), 4608, 2832, true, false);
 				stardustBgPixel.scrollFactor.set(0.4, 0.4);
 
-				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1'), 4608, 2832, true, true);
+				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1', false), 4608, 2832, true, true);
 
 				stardustBgPixel.visible = false;
 				stardustFloorPixel.visible = false;
