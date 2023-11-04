@@ -21,9 +21,9 @@ class PreTitleState extends MusicBeatState
 			#if desktop
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
-				if (openfl.utils.Assets.exists(Paths.video('VideosRandoms/haha' + random1 + '.mp4')))
+				if (openfl.utils.Assets.exists(Paths.video('VideosRandoms/haha' + random1 + '.mp')))
 				{
-					VideoStatePC.videoPath = Paths.video('VideosRandoms/haha' + random1 + '.mp4');
+					VideoStatePC.videoPath = Paths.video('VideosRandoms/haha' + random1 + '.mp');
 				}
 
 				MusicBeatState.switchState(new VideoStatePC());

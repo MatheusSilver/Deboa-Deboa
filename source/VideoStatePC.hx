@@ -15,7 +15,7 @@ class VideoStatePC extends MusicBeatState
 	var video:MP4Handler = new MP4Handler();
 	var letext:FlxText;
 
-	public static var videoPath:String = Paths.video("EngineBase/intromic.mp4");
+	public static var videoPath:String = Paths.video("EngineBase/intromic.mp");
 	public static var NextState:String = "title";
 
 	override function create()

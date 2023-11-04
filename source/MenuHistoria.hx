@@ -336,7 +336,7 @@ class MenuHistoria extends MusicBeatSubstate
 						#if desktop
 						VideoStatePC.NextState = 'playstate';
 						PlayState.limparCache = true;
-						VideoStatePC.videoPath = Paths.video(PlayState.SONG.videonombre + ".mp4");
+						VideoStatePC.videoPath = Paths.video(PlayState.SONG.videonombre + ".mp");
 						MusicBeatState.switchState(new VideoStatePC());
 						#elseif mobile
 						LoadingState.loadAndSwitchState(new VideoState('assets/videos/' + PlayState.SONG.videonombre, new PlayState()));
