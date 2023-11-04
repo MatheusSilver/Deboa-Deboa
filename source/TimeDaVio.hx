@@ -241,7 +241,7 @@ class TimeDaVio extends MusicBeatState
 			newcredit.y=-724;
 			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-'+creditStuff[curSelected])); */
 
-		if (curSelectedBkp > 9)
+		if (curSelectedBkp > 7)
 		{
 			FlxTween.tween(bg, {y: 728}, 0.8, {ease: FlxEase.quartInOut});
 			FlxTween.tween(perfil, {x: -1280}, 0.5, {ease: FlxEase.quartInOut});
@@ -267,7 +267,7 @@ class TimeDaVio extends MusicBeatState
 
 		new FlxTimer().start(1.05, function(tmr:FlxTimer)
 		{
-			if (curSelected > 9)
+			if (curSelected > 7)
 			{
 				estante.x = 593;
 				perfil.x = -1280;
@@ -332,7 +332,7 @@ class TimeDaVio extends MusicBeatState
 	function updateButtons()
 	{
 		// tudo veio
-		if (curSelected == 16)
+		if (curSelected == 14)
 		{
 			twitter.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
 		}
@@ -340,7 +340,7 @@ class TimeDaVio extends MusicBeatState
 		{
 			twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
 		}
-		if (curSelected == 23)
+		if (curSelected == 21)
 		{
 			discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
 		}
