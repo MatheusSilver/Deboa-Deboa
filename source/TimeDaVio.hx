@@ -37,13 +37,11 @@ class TimeDaVio extends MusicBeatState
 		[	'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
 		[	'dav',  '',  'https://twitter.com/Davizinhn',  'https://www.youtube.com/@Davizinhn' ],
 		[	'ash',  '',  'https://twitter.com/Ashuro_Privety',  '' ],
-		[	'silver',  'https://discord.gg/KXTxpAFz8S',  '',  'https://www.youtube.com/c/matheussilver' ],
+		[	'silver',  '',  '',  'https://www.youtube.com/c/matheussilver' ],
 		[	'konan',  '',  'https://twitter.com/Konan_Hatake13',  'https://www.youtube.com/@konan_hatake13' ],
 		[	'x02',  'https://discord.gg/G3BmXXeshA',  'https://twitter.com/matex02_',  'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' ],
-		[	'lore',  'https://discord.gg/KXTxpAFz8S',  '',  'https://www.youtube.com/c/matheussilver' ],
 		[	'hugo',  '',  'https://twitter.com/Hugo09723233',  '' ],
 		[	'cat',  '',  'https://twitter.com/Point15104219',  '' ],
-		[	'frost',  'https://discord.gg/PegJDERhFw',  'https://twitter.com/FROST_0101?t',  'https://youtube.com/@FROST_001' ], // Frost tem todos os links funcionando
 		/* daqui pra frente é elenco */
 		[   'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
 		[	'blue',   '',  'https://twitter.com/bluetufie',  'https://www.youtube.com/@bluezinkk' ],
