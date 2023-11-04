@@ -40,7 +40,7 @@ function onEvent(name, value1, value2)
 			setProperty('camGame.angle',0)
             setPropertyTiledLuaSprite("circusBG.visible", true)
             
-            close()
+            --close()
              -- A razão pra eu ter feito cada ato em um lua k
             -- Basicamente queria deixar esse mano que usa o Tiled Sprite bem isolado do resto.
         end

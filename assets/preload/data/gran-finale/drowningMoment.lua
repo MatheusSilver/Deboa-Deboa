@@ -21,7 +21,7 @@ function onTweenCompleted(tag)
         if startsWith(tag, 'drowningArt') then
             removeLuaSprite(tag, true)
             if tag == 'drowningArt4' then
-                close()
+                --close()
             end
         end
     end

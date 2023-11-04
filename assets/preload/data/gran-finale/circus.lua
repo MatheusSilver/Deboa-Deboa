@@ -27,7 +27,7 @@ function onEvent(name, value1, value2)
             fastChar('sbf1', 'xenomad')
             removeLuaSprite('circusBG', true)
             -- Basicamente queria deixar esse mano que usa o Tiled Sprite bem isolado do resto.
-            close()
+            --close()
         end
     end
 end

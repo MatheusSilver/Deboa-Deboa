@@ -7,6 +7,7 @@ class EstadoDeTrocaReverso extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		PlayState.limparCache = true;
+		PlayState.movecameraallowed = true;
 
 		flixel.FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		flixel.FlxG.sound.music.fadeIn(4, 0, 0.7);
