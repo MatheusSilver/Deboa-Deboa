@@ -31,14 +31,14 @@ using StringTools;
 class Paths
 {
 	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
-	inline public static var VIDEO_EXT = "mp4";
+	inline public static var VIDEO_EXT = "mp";
 
 	public static var localTrackedAssets:Array<String> = [];
 	public static var currentTrackedTextures:Map<String, Texture> = [];
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 
-	public static final extensions:Map<String, String> = ["image" => "png", "audio" => "ogg", "video" => "mp4"];
+	public static final extensions:Map<String, String> = ["image" => "png", "audio" => "ogg", "video" => "mp"];
 
 	public static var dumpExclusions:Array<String> = [];
 
