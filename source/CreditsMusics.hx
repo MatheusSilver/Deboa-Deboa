@@ -19,7 +19,7 @@ class CreditsMusics extends MusicBeatState
 	var bg:FlxSprite;
 	// var faixa:FlxSprite;
 	// var exe:FlxSprite;
-	var curSelected:Int = 0;
+	var curSelected:Int = 1;
 	var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
 	var newcredit:FlxSprite;
@@ -49,42 +49,42 @@ class CreditsMusics extends MusicBeatState
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();
 			//bg.setGraphicSize(Std.int(0.5));
-			bg.alpha = 1;
+			bg.visible = true;
 			add(bg); */
 
 		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (back)'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.updateHitbox();
 		// faixa.setGraphicSize(Std.int(0.5));
-		bg.alpha = 1;
+		bg.visible = true;
 		bg.y = -720;
 		add(bg);
 
 		dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
 		dummycredit.antialiasing = ClientPrefs.globalAntialiasing;
-		dummycredit.alpha = 0;
+		dummycredit.visible = false;
 		dummycredit.y = 25;
 		dummycredit1 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp + 1] + ')'));
 		dummycredit1.antialiasing = ClientPrefs.globalAntialiasing;
-		dummycredit1.alpha = 0;
+		dummycredit1.visible = false;
 		dummycredit1.y = 25;
 		dummycredit2 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1] + ')'));
 		dummycredit2.antialiasing = ClientPrefs.globalAntialiasing;
-		dummycredit2.alpha = 0;
+		dummycredit2.visible = false;
 		dummycredit2.y = 25;
-		newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
+		newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
 		newcredit.antialiasing = ClientPrefs.globalAntialiasing;
 		// newcredit.setGraphicSize(Std.int(0.8));
-		newcredit.alpha = 1;
+		newcredit.visible = true;
 		// newcredit.x=525;
 		newcredit.x = -279;
 		newcredit.y = 724;
 		add(newcredit);
 
-		newcredit1 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1] + ')'));
+		newcredit1 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
 		newcredit1.antialiasing = ClientPrefs.globalAntialiasing;
 		// newcredit.setGraphicSize(Std.int(0.8));
-		newcredit1.alpha = 1;
+		newcredit1.visible = true;
 		// newcredit.x=525;
 		newcredit1.x = 274;
 		newcredit1.y = 724;
@@ -115,176 +115,90 @@ class CreditsMusics extends MusicBeatState
 			MusicBeatState.switchState(new SobreState());
 		}
 
-		if (controls.UI_RIGHT_P || controls.UI_LEFT_P)
-		{ // ok
-			if (canChange)
-			{
-				if (curSelected + 1 > creditStuff.length - 1)
-				{
-					curSelectedBkp = curSelected;
-					curSelected = 0;
-					changeSelection(curSelected);
-				}
-				else
-				{
-					curSelectedBkp = curSelected;
-					curSelected = curSelected + 1;
-					changeSelection(curSelected);
-				}
-				canChange = false;
-				GlobalSoundManager.play('scrollMenu');
-			}
-		}
+		if (canChange)
+			if (controls.UI_RIGHT_P)
+				changeSelection(1);
+			else if (controls.UI_LEFT_P)
+				changeSelection(-1, false);
 
-		/*if(controls.UI_LEFT_P) { //ok
-			if(canChange)
-				{
-					if(curSelected-1 < 0)
-						{
-							curSelectedBkp=curSelected;
-							curSelected=creditStuff.length-1;
-							changeSelection(curSelected);
-						}
-					else
-						{
-							curSelectedBkp=curSelected;
-							curSelected=curSelected-1; 
-							changeSelection(curSelected);
-						}
-					canChange=false;
-					GlobalSoundManager.play('scrollMenu');
-				}
-		}*/ // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		super.update(elapsed);
 		if (FlxG.sound.music.volume == 0)
 		{
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
+
 	}
 
-	function changeSelection(newCurselected:Int)
+	private function load_dummies(isRight:Bool){
+		if (isRight){
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp - 1 == -1 ? creditStuff.length - 1 : curSelectedBkp - 1] + ')'));
+			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
+			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
+		}else{
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
+			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1 == creditStuff.length ? 0 : curSelected + 1] + ')'));
+			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
+		}
+
+	}
+
+	private function restore_values()
 	{
-		dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
-		dummycredit.alpha = 1;
+		dummycredit2.visible = dummycredit.visible = dummycredit1.visible = false;
+		newcredit.visible = newcredit1.visible = canChange = true;
+	}
+
+	function changeSelection(dir:Int, goRight:Bool = true)
+	{
+		canChange = false;
+		GlobalSoundManager.play('scrollMenu');
+
+		curSelectedBkp += dir;
+		curSelected += dir;
+
+		if (curSelectedBkp == creditStuff.length)
+			curSelectedBkp = 0;
+		else if (curSelectedBkp == -1)
+			curSelectedBkp = creditStuff.length - 1;
+		
+		if (curSelected == creditStuff.length)
+			curSelected = 0;
+		else if (curSelected == -1)
+			curSelected = creditStuff.length - 1;
+
+		load_dummies(goRight);
+
+		dummycredit.visible = true;
 		dummycredit.x = newcredit.x;
 		dummycredit.y = newcredit.y;
 
-		// dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected]+')'));
-
-		if (curSelected + 1 < creditStuff.length)
-		{
-			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1] + ')'));
-		}
-		else
-		{
-			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[0] + ')'));
-		}
-		dummycredit1.alpha = 1;
+		dummycredit1.visible = true;
 		dummycredit1.x = newcredit1.x;
 		dummycredit1.y = newcredit1.y;
-		dummycredit2.alpha = 1;
+		dummycredit2.visible = true;
 		dummycredit2.x = 900;
 
-		// newcredit.x=newcredit1.x;
-		// newcredit1.x = -279;
-		newcredit.alpha = 0;
-		newcredit1.alpha = 0;
+		newcredit.visible = false;
+		newcredit1.visible = false;
 
-		if (curSelected + 1 > creditStuff.length - 1)
-		{
-			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[creditStuff.length - 1] + ')'));
-		}
-		else
-		{
-			dummycredit1.loadGraphic(newcredit1.graphic);
-		}
+		if (goRight){
 		FlxTween.tween(dummycredit, {x: -900}, 0.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(dummycredit1, {x: newcredit.x}, 0.6, {ease: FlxEase.quartInOut});
-		FlxTween.tween(dummycredit2, {x: newcredit1.x}, 0.7, {ease: FlxEase.quartInOut});
-		// FlxTween.tween(dummycredit1, {alpha: 0}, 0.3, {ease: FlxEase.quartInOut});
-		// FlxTween.tween(newcredit, {x: 18}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
+		FlxTween.tween(dummycredit2, {x: newcredit1.x}, 0.7, {ease: FlxEase.quartInOut, onComplete:function(twn:FlxTween){
+			restore_values();
+		}});
+		}else{
+			dummycredit2.x = -900;
+			FlxTween.tween(dummycredit1, {x: FlxG.width+900}, 0.5, {ease: FlxEase.quartInOut});
+			FlxTween.tween(dummycredit, {x: newcredit1.x}, 0.6, {ease: FlxEase.quartInOut});
+			FlxTween.tween(dummycredit2, {x: newcredit.x}, 0.7, {ease: FlxEase.quartInOut, onComplete:function(twn:FlxTween){
+				restore_values();
+			}});
+		}
 
-		new FlxTimer().start(0.75, function(tmr:FlxTimer)
-		{
-			dummycredit1.alpha = 0;
-			dummycredit2.alpha = 0;
-			dummycredit.alpha = 0;
-			newcredit.alpha = 1;
-			newcredit1.alpha = 1;
-			canChange = true;
-		});
-		// newcredit.y=-724;
-		newcredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
-		if (curSelected + 1 < creditStuff.length)
-		{
-			newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1] + ')'));
-		}
-		else
-		{
-			newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[0] + ')'));
-		}
-	}
 
-	function changeSelectionMinus(newCurselected:Int)
-	{
-		dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
-		dummycredit.alpha = 1;
-		dummycredit.x = newcredit.x;
-		dummycredit.y = newcredit.y;
+		newcredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
+		newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
 
-		// dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica ('+creditStuff[curSelected]+')'));
-
-		if (curSelected - 1 < -1)
-		{
-			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected - 1] + ')'));
-		}
-		else
-		{
-			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[creditStuff.length - 1] + ')'));
-		}
-		dummycredit1.alpha = 1;
-		dummycredit1.x = newcredit1.x;
-		dummycredit1.y = newcredit1.y;
-		dummycredit2.alpha = 1;
-		dummycredit2.x = 900;
-
-		// newcredit.x=newcredit1.x;
-		// newcredit1.x = -279;
-		newcredit.alpha = 0;
-		newcredit1.alpha = 0;
-
-		if (curSelected - 1 > -1)
-		{
-			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected - 1] + ')'));
-		}
-		else
-		{
-			dummycredit1.loadGraphic(newcredit1.graphic);
-		}
-		FlxTween.tween(dummycredit, {x: -900}, 0.5, {ease: FlxEase.quartInOut});
-		FlxTween.tween(dummycredit1, {x: newcredit.x}, 0.6, {ease: FlxEase.quartInOut});
-		FlxTween.tween(dummycredit2, {x: newcredit1.x}, 0.7, {ease: FlxEase.quartInOut});
-		// FlxTween.tween(dummycredit1, {alpha: 0}, 0.3, {ease: FlxEase.quartInOut});
-		// FlxTween.tween(newcredit, {x: 18}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
-
-		new FlxTimer().start(0.75, function(tmr:FlxTimer)
-		{
-			dummycredit1.alpha = 0;
-			dummycredit2.alpha = 0;
-			dummycredit.alpha = 0;
-			newcredit.alpha = 1;
-			newcredit1.alpha = 1;
-			canChange = true;
-		});
-		// newcredit.y=-724;
-		newcredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
-		if (curSelected - 1 < -1)
-		{
-			newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected - 1] + ')'));
-		}
-		else
-		{
-			newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[creditStuff.length - 1] + ')'));
-		}
 	}
 }
