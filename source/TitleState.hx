@@ -65,6 +65,8 @@ class TitleState extends MusicBeatState
 	var lastKeysPressed:Array<FlxKey> = [];
 	private var urlLoader:URLLoader;
 
+	var canSkipIntro:Bool = false;
+
 	var mustUpdate:Bool = false;
 
 	public static var updateVersion:String = '';
@@ -183,12 +185,16 @@ class TitleState extends MusicBeatState
 		else
 		{
 			if (initialized)
+			{
 				startIntro();
+				canSkipIntro=true;
+			}
 			else
 			{
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					startIntro();
+					canSkipIntro=true;
 				});
 			}
 		}
@@ -479,7 +485,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		if (pressedEnter && !skippedIntro)
+		if (pressedEnter && !skippedIntro && canSkipIntro)
 		{
 			skipIntro();
 		}

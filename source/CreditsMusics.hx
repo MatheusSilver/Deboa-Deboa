@@ -57,7 +57,7 @@ class CreditsMusics extends MusicBeatState
 		bg.updateHitbox();
 		// faixa.setGraphicSize(Std.int(0.5));
 		bg.visible = true;
-		bg.y = -720;
+		bg.y = 720;
 		add(bg);
 
 		dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));

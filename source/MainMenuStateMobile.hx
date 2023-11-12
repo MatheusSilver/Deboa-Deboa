@@ -265,7 +265,7 @@ class MainMenuStateMobile extends MusicBeatState
 					add(gameJoltIcon);
 					add(bordinha);
 				});
-				loader.load(new URLRequest(GJClient.avatarURL));
+				loader.load(new URLRequest(GJClient.avatarURL.replace(".webp", ".png")));
 				
 				
 			}
