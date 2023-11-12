@@ -6055,6 +6055,8 @@ class PlayState extends MusicBeatState
 
 	public function endSong():Void
 	{
+		FlxTransitionableState.skipNextTransIn = true;
+		FlxTransitionableState.skipNextTransOut = true;
 		// Should kill you if you tried to cheat
 		#if !debug
 		if (!startingSong)
@@ -6086,8 +6088,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
-		FlxTransitionableState.skipNextTransIn = true;
-		FlxTransitionableState.skipNextTransOut = true;
+
 		#if mobileC
 		mcontrols.visible = false;
 		#end

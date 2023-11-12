@@ -54,69 +54,73 @@ class CreditsMods extends MusicBeatState
 			//bg.setGraphicSize(Std.int(0.5));
 			bg.alpha = 1;
 			add(bg); */
+		new FlxTimer().start(0.15, function(tmr:FlxTimer)
+			{
 
-		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (back)'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		bg.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
-		bg.alpha = 1;
-		bg.y = -720;
-		add(bg);
+				bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (back)'));
+				bg.antialiasing = ClientPrefs.globalAntialiasing;
+				bg.updateHitbox();
+				// faixa.setGraphicSize(Std.int(0.5));
+				bg.alpha = 1;
+				bg.y = 720;
+				add(bg);
 
-		dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
-		dummycredit.antialiasing = ClientPrefs.globalAntialiasing;
-		dummycredit.alpha = 0;
-		dummycredit.y = 0;
-		add(dummycredit);
-		newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
-		newcredit.antialiasing = ClientPrefs.globalAntialiasing;
-		// newcredit.setGraphicSize(Std.int(0.8));
-		newcredit.alpha = 1;
-		// newcredit.x=525;
-		newcredit.y = -724;
-		add(newcredit);
+				dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
+				dummycredit.antialiasing = ClientPrefs.globalAntialiasing;
+				dummycredit.alpha = 0;
+				dummycredit.y = 0;
+				add(dummycredit);
+				newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
+				newcredit.antialiasing = ClientPrefs.globalAntialiasing;
+				// newcredit.setGraphicSize(Std.int(0.8));
+				newcredit.alpha = 1;
+				// newcredit.x=525;
+				newcredit.y = -724;
+				add(newcredit);
 
-		faixa = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (faixa)'));
-		faixa.antialiasing = ClientPrefs.globalAntialiasing;
-		faixa.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
-		faixa.alpha = 1;
-		faixa.x = 973;
-		add(faixa);
+				faixa = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (faixa)'));
+				faixa.antialiasing = ClientPrefs.globalAntialiasing;
+				faixa.updateHitbox();
+				// faixa.setGraphicSize(Std.int(0.5));
+				faixa.alpha = 1;
+				faixa.x = 973;
+				add(faixa);
 
-		exe = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (sonic)'));
-		exe.antialiasing = ClientPrefs.globalAntialiasing;
-		exe.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
-		exe.alpha = 1;
-		exe.x = 1029;
-		add(exe);
+				exe = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (sonic)'));
+				exe.antialiasing = ClientPrefs.globalAntialiasing;
+				exe.updateHitbox();
+				// faixa.setGraphicSize(Std.int(0.5));
+				exe.alpha = 1;
+				exe.x = 1029;
+				add(exe);
 
-		FlxTween.tween(faixa, {x: 376}, 1, {ease: FlxEase.quartInOut});
-		FlxTween.tween(exe, {x: 326}, 1.25, {ease: FlxEase.quartInOut});
-		FlxTween.tween(bg, {y: 0}, 0.8, {ease: FlxEase.quartInOut});
-		FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1.35});
+				FlxTween.tween(faixa, {x: 376}, 1, {ease: FlxEase.quartInOut});
+				FlxTween.tween(exe, {x: 326}, 1.25, {ease: FlxEase.quartInOut});
+				FlxTween.tween(bg, {y: 0}, 0.8, {ease: FlxEase.quartInOut});
+				FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1.35});
 
-		new FlxTimer().start(1.8, function(tmr:FlxTimer)
-		{
-			canChange = true;
-		});
+				new FlxTimer().start(1.8, function(tmr:FlxTimer)
+				{
+					canChange = true;
+				});
 
-		#if mobileC
-		addVirtualPad(LEFT_RIGHT, A_B);
-		#end
+				#if mobileC
+				addVirtualPad(LEFT_RIGHT, A_B);
+				#end
+			});
+
 		super.create();
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (controls.BACK)
+		if (controls.BACK && canChange)
 		{
 			GlobalSoundManager.play('cancelMenu');
 			MusicBeatState.switchState(new SobreState());
 		}
 
-		if (controls.UI_RIGHT_P)
+		if (controls.UI_RIGHT_P || controls.UI_UP_P)
 		{ // ok
 			if (canChange)
 			{
@@ -137,7 +141,7 @@ class CreditsMods extends MusicBeatState
 			}
 		}
 
-		if (controls.UI_LEFT_P)
+		if (controls.UI_LEFT_P || controls.UI_DOWN_P)
 		{ // ok
 			if (canChange)
 			{
@@ -145,13 +149,13 @@ class CreditsMods extends MusicBeatState
 				{
 					curSelectedBkp = curSelected;
 					curSelected = creditStuff.length - 1;
-					changeSelection(curSelected);
+					changeSelection(curSelected, true);
 				}
 				else
 				{
 					curSelectedBkp = curSelected;
 					curSelected = curSelected - 1;
-					changeSelection(curSelected);
+					changeSelection(curSelected, true);
 				}
 				canChange = false;
 				GlobalSoundManager.play('scrollMenu');
@@ -164,20 +168,39 @@ class CreditsMods extends MusicBeatState
 		}
 	}
 
-	function changeSelection(newCurselected:Int)
+	function changeSelection(newCurselected:Int, ?cima:Bool = false)
 	{
-		dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
-		dummycredit.alpha = 1;
-		dummycredit.y = 0;
-		FlxTween.tween(dummycredit, {y: 724}, 0.5, {ease: FlxEase.quartInOut});
-
-		FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
-
-		new FlxTimer().start(1.1, function(tmr:FlxTimer)
+		if(!cima)
 		{
-			canChange = true;
-		});
-		newcredit.y = -724;
-		newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
+			dummycredit.alpha = 1;
+			dummycredit.y = 0;
+			FlxTween.tween(dummycredit, {y: 724}, 0.5, {ease: FlxEase.quartInOut});
+	
+			FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
+	
+			new FlxTimer().start(1.1, function(tmr:FlxTimer)
+			{
+				canChange = true;
+			});
+			newcredit.y = -724;
+			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
+		}
+		else
+		{
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
+			dummycredit.alpha = 1;
+			dummycredit.y = 0;
+			FlxTween.tween(dummycredit, {y: -724}, 0.5, {ease: FlxEase.quartInOut});
+	
+			FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
+	
+			new FlxTimer().start(1.1, function(tmr:FlxTimer)
+			{
+				canChange = true;
+			});
+			newcredit.y = 724;
+			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
+		}
 	}
 }
