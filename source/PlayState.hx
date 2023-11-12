@@ -2532,6 +2532,31 @@ class PlayState extends MusicBeatState
 	#end
 	public var letext:FlxText;
 
+	public function videoPlayerLegal(nomedovideo:String)
+	{
+		var diretorio = "assets/videos/" + nomedovideo + ".mp";
+		// O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
+		if (Assets.exists(diretorio))
+		{
+			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "", 32); // Achei cringe
+			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			letext.scrollFactor.set();
+			letext.alpha = 0;
+			add(letext); //ESSE TROÇO CRASHA SEM ESSE MARDITO TEXTO AAAAAAAAAAAAAAA
+
+			videoSpr = new FlxSprite(0, 0);
+			VideoStatePC.NextState = "nenhum";
+			videoSpr.visible = true;
+			video = new MP4Handler();
+			video.vimdoplaystatemano = true;
+			MP4Handler.iAmSobre = false;
+			video.canSkip = false;
+			add(videoSpr);
+			video.playMP4(diretorio, null, videoSpr);
+			playingVideoMP4 = true;
+		}
+	}
+
 	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String)
 	{
 		var diretorio = "assets/videos/" + nomedovideo + ".mp";
@@ -4622,8 +4647,10 @@ class PlayState extends MusicBeatState
 	{
 		switch (eventName)
 		{
+			case 'video player super legal demais':
+				videoPlayerLegal(value1);
 			case 'video player':
-				videoPlayer(value1, value2, value3);
+				videoPlayer(value1, value2, value3); //Preguiça de mexer aqui.
 			case 'Socorro':
 				lime.app.Application.current.window.title = value1;
 			case 'Toggle Ghost Trail':

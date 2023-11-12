@@ -151,9 +151,9 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	objectPlayAnimation('vilaophase3-sarah', 'idle', true)
 	addLuaSprite('vilaophase3-sarah',false)
 
-	makeLuaSprite('vilaophase3-1','cenarios/phase3/vilao/1',-335,265)--5
-	setLuaSpriteScrollFactor('vilaophase3-1',0.6,1)
-	setProperty('vilaophase3-1.scale.x', 1.5)
+	makeLuaSprite('vilaophase3-1','cenarios/phase3/vilao/1',-325,-120)--5
+	setLuaSpriteScrollFactor('vilaophase3-1',0.9,1)
+	setProperty('vilaophase3-1.scale.x', 1.4)
 	setProperty('vilaophase3-1.scale.y', 1.45)
 	setProperty('vilaophase3-1.visible', false)
 	addLuaSprite('vilaophase3-1',true)
