@@ -72,7 +72,7 @@ class PauseSubState extends MusicBeatSubstate
 	public static var aaa:Bool = true;
 	var originalZoom:Float;
 	var originalZoomHUD:Float;
-	var originalZoomHUD2:Float;
+	var originalZoomLegenda:Float;
 	//var playState:PlayState;
 	
 	public static var pauseMusicName:String = 'breakfast';
@@ -114,7 +114,7 @@ class PauseSubState extends MusicBeatSubstate
 		add(preto);
 		originalZoom = PlayState.instance.camGame.zoom;
 		originalZoomHUD = PlayState.instance.camHUD.zoom;
-		originalZoomHUD2 = PlayState.instance.camHUD2.zoom;
+		originalZoomLegenda = PlayState.instance.camLegenda.zoom;
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music(pauseMusicName), true, true);
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
@@ -176,8 +176,8 @@ class PauseSubState extends MusicBeatSubstate
 		add(perfil);
 		add(exe);
 		FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom+0.05}, 0.35, {ease: FlxEase.quartInOut});
-		FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD+0.05}, 0.45, {ease: FlxEase.quartInOut});
-		//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2+0.1}, 0.6, {ease: FlxEase.quartInOut});
+		FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD+0.05}, 0.35, {ease: FlxEase.quartInOut});
+		FlxTween.tween(PlayState.instance.camLegenda, {zoom: originalZoomLegenda+0.05}, 0.35, {ease: FlxEase.quartInOut});
 
 		FlxTween.tween(continuar, {x: -128}, 0.3, {ease: FlxEase.quartInOut});
 		FlxTween.tween(praticar, {x: -128}, 0.4, {ease: FlxEase.quartInOut});
@@ -219,6 +219,7 @@ class PauseSubState extends MusicBeatSubstate
 				{
 					PlayState.instance.camGame.setFilters([blurShader]);
 					PlayState.instance.camHUD.setFilters([blurShader]);
+					PlayState.instance.camLegenda.setFilters([blurShader]);
 				}
 				FlxTween.tween(blurShader, {blurX: 3, blurY: 3}, 1.25, {ease: FlxEase.quartInOut});
 			}
@@ -343,8 +344,8 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(preto, {alpha: 0}, 0.8, {ease: FlxEase.quartInOut});
 				FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom}, 0.35, {ease: FlxEase.quartInOut});
-				FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD}, 0.45, {ease: FlxEase.quartInOut});
-				//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2}, 0.6, {ease: FlxEase.quartInOut});
+				FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD}, 0.35, {ease: FlxEase.quartInOut});
+				FlxTween.tween(PlayState.instance.camLegenda, {zoom: originalZoomLegenda}, 0.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
 					{
 						startCountdownback();
@@ -361,7 +362,7 @@ class PauseSubState extends MusicBeatSubstate
 			var manager:FlxTimerManager = new FlxTimerManager();
 			manager.clear();
 			loops=0;
-					new FlxTimer().start(0.35, function(tmr:FlxTimer){
+					new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer){
 						loops++;
 						switch (Std.int(loops))
 						{ 

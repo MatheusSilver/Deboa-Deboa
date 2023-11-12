@@ -3653,7 +3653,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 		}
-		PauseSubState.transCamera = camHUD2;
+		PauseSubState.transCamera = camOther;
 		pauseSound.play();
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
@@ -7680,6 +7680,7 @@ class PlayState extends MusicBeatState
 					{
 						camGame.setFilters([blurShader]);
 						camHUD.setFilters([blurShader]);
+						camLegenda.setFilters([blurShader]);
 						FlxTween.tween(blurShader, {blurX: 10, blurY: 20}, 6.75, {ease: FlxEase.linear});
 					}
 				case 1673:
