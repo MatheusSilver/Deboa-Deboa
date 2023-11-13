@@ -5834,6 +5834,10 @@ class PlayState extends MusicBeatState
 				var opacidade:Float = Std.parseFloat(value1);
 				var timer:Float = Std.parseFloat(value2);
 				FlxTween.tween(camHUD, {alpha: opacidade}, timer, {ease: FlxEase.cubeInOut});
+				if(value3.toString()=="true")
+					{
+						FlxTween.tween(camLegenda, {alpha: opacidade}, timer, {ease: FlxEase.cubeInOut});
+					}
 
 			case 'comecarvideo': // TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
