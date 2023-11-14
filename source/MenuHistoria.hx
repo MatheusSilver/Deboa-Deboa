@@ -9,6 +9,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.text.FlxText;
 
 using StringTools;
 
@@ -53,6 +54,9 @@ class MenuHistoria extends MusicBeatSubstate
 	var perfilSprite:FlxSprite;
 	var textoSprite:FlxSprite;
 
+	public var numText:FlxText;
+	public var highscoreText:FlxText;
+
 	override function create()
 	{
 		FlxTransitionableState.skipNextTransOut = true;
@@ -88,8 +92,6 @@ class MenuHistoria extends MusicBeatSubstate
 
 		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
 
-		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
-
 		lockSprite = new FlxSprite(0, 0);
 		lockSprite.loadGraphic(Paths.image("Story_Mode/lock", 'preload'));
 		lockSprite.screenCenter(XY);
@@ -99,10 +101,27 @@ class MenuHistoria extends MusicBeatSubstate
 		blackLock = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackLock.alpha = 0;
 
+		numText = new FlxText(FlxG.width - 225, FlxG.height-690, 200);
+		numText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 25, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		numText.borderSize = 2;
+		numText.text = Std.string(curSelected+1)+"/"+Std.string(musicas.length);
+		numText.updateHitbox();
+		numText.alpha=0;
+
+		highscoreText = new FlxText(FlxG.width -1250, FlxG.height -690, 600);
+		highscoreText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		highscoreText.borderSize = 2;
+		highscoreText.text = "HIGHSCORE: ";
+		highscoreText.updateHitbox();
+		highscoreText.alpha=0;
+		
+
 		add(bgSprite);
 		add(pastbgSprite);
 		add(perfilSprite);
 		add(textoSprite);
+		add(numText);
+		add(highscoreText);
 		add(blackLock);
 		add(lockSprite);
 
@@ -191,6 +210,8 @@ class MenuHistoria extends MusicBeatSubstate
 
 			if (controls.BACK && !movedBack && !selectedWeek && apertavel && !naopodevoltar)
 			{
+				FlxTween.tween(numText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+				FlxTween.tween(highscoreText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfilSprite, {alpha: 0}, 1.0, {ease: FlxEase.expoInOut});
 				FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {
 					ease: FlxEase.expoInOut,
@@ -464,19 +485,25 @@ class MenuHistoria extends MusicBeatSubstate
 						tweenpracima();
 					}
 				});
+				FlxTween.tween(numText, {alpha: 1}, 0.65, {ease: FlxEase.quartInOut});
+				FlxTween.tween(highscoreText, {alpha: 1}, 0.65, {ease: FlxEase.quartInOut});
 			}
 		});
+		var songLowerCase:String = Paths.formatToSongPath(musicas[curSelected]);
+		highscoreText.text = "HIGHSCORE: \n"+Std.string(Highscore.getScore(songLowerCase, 2));
 	}
 
 	public function changeSong(change:Int = 0, side:Bool = false):Void
 	{
 		apertavel = false;
 		curSelected += change;
-
 		if (curSelected < 0)
 			curSelected = musicas.length - 1;
 		if (curSelected >= musicas.length)
 			curSelected = 0;
+		var songLowerCase:String = Paths.formatToSongPath(musicas[curSelected]);
+		highscoreText.text = "HIGHSCORE: \n"+Std.string(Highscore.getScore(songLowerCase, 2));
+		numText.text = Std.string(curSelected+1)+"/"+Std.string(musicas.length);
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		WeekData.setDirectoryFromWeek(leWeek);

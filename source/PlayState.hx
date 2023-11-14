@@ -3486,6 +3486,10 @@ class PlayState extends MusicBeatState
 			}
 			paused = false;
 			pausarVideo(false);
+			if(useVideo)
+				{
+					webmHandler.resume();
+				}
 			callOnLuas('onResume', []);
 
 			#if rpc
@@ -3646,6 +3650,10 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 		paused = true;
 		pausarVideo(true);
+		if(useVideo)
+		{
+			webmHandler.pause();
+		}
 
 		// no more gitaroo man easter egg :D
 		if (FlxG.sound.music != null)
@@ -5834,7 +5842,7 @@ class PlayState extends MusicBeatState
 				var opacidade:Float = Std.parseFloat(value1);
 				var timer:Float = Std.parseFloat(value2);
 				FlxTween.tween(camHUD, {alpha: opacidade}, timer, {ease: FlxEase.cubeInOut});
-				if(value3.toString()=="true")
+				if(Std.string(value3)=="true")
 					{
 						FlxTween.tween(camLegenda, {alpha: opacidade}, timer, {ease: FlxEase.cubeInOut});
 					}
