@@ -66,6 +66,7 @@ class PauseSubState extends MusicBeatSubstate
 	var dummySprite:FlxSprite;
 	var shaderativo:Bool;
 	var jumpecare:FlxObject = new FlxObject();
+	
 
 	var lugarTelaX:Int;
 	var lugarTelaY:Int;
@@ -73,6 +74,9 @@ class PauseSubState extends MusicBeatSubstate
 	var originalZoom:Float;
 	var originalZoomHUD:Float;
 	var originalZoomLegenda:Float;
+
+	var saindoPause:Bool = false;
+
 	//var playState:PlayState;
 	
 	public static var pauseMusicName:String = 'breakfast';
@@ -249,16 +253,16 @@ class PauseSubState extends MusicBeatSubstate
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 
-		if (upP&& !inJumpscare)
+		if (upP&& !inJumpscare && !saindoPause)
 		{
 			changeSelection(-1);
 		}
-		if (downP&& !inJumpscare)
+		if (downP&& !inJumpscare && !saindoPause)
 		{
 			changeSelection(1);
 		}
 
-		if (accepted && !inJumpscare)
+		if (accepted && !inJumpscare && !saindoPause)
 		{
 			var daSelected:String = menuItems[curSelected];
 			for (i in 0...difficultyChoices.length-1) {
@@ -332,8 +336,8 @@ class PauseSubState extends MusicBeatSubstate
 			}
 		}
 	}
-
 	function saindodopause(){
+				saindoPause = true;
 				FlxTween.tween(continuar, {x: 0-continuar.width}, 0.1, {ease: FlxEase.quartInOut});
 				FlxTween.tween(praticar, {x: 0-praticar.width}, 0.2, {ease: FlxEase.quartInOut});
 				FlxTween.tween(restart, {x: 0-restart.width}, 0.3, {ease: FlxEase.quartInOut});
@@ -357,6 +361,7 @@ class PauseSubState extends MusicBeatSubstate
 				jumpecare.destroy();
 	}
 	var loops:Int;
+
 	function startCountdownback()
 		{
 			var manager:FlxTimerManager = new FlxTimerManager();

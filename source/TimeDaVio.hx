@@ -1,5 +1,7 @@
 package;
 
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -7,6 +9,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
+import flixel.util.FlxSpriteUtil;
 
 using StringTools;
 
@@ -19,7 +22,8 @@ class TimeDaVio extends MusicBeatState
 	//	var videoMenu:FlxSprite = new FlxSprite(0,0);
 	//	var video:MP4Handler = new MP4Handler();
 	// var letext:FlxText;
-	var bg:FlxSprite;
+	var bgBaixo:FlxSprite;
+	var bgCima:FlxSprite;
 	var icon:FlxSprite;
 	var perfil:FlxSprite;
 	var desc:FlxSprite;
@@ -31,6 +35,7 @@ class TimeDaVio extends MusicBeatState
 	var curSelected:Int = 0;
 	var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
+	
 	
 	// nome,  discord,  twitter,  youtube
 	var creditInfo:Array<Dynamic> = [
@@ -57,30 +62,23 @@ class TimeDaVio extends MusicBeatState
 		[	'sah',   'https://www.facebook.com/MarianaSayuriFandubsFansings',  'https://twitter.com/RealVinizitooo',  'https://www.youtube.com/@vinizitooo-lol' ],
 		[	'sayuri',  '',  'https://twitter.com/mariana_sayuri',  'https://www.youtube.com/@MarianaSayuri']
 	];
-
 	override function create()
 	{
 		FlxG.mouse.visible = Main.mouse;
-		/*bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
-			bg.antialiasing = ClientPrefs.globalAntialiasing;
-			bg.updateHitbox();
-			//bg.setGraphicSize(Std.int(0.5));
-			bg.alpha = 1;
-			add(bg); */
-
-		FlxTransitionableState.skipNextTransOut = true;
-		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
-		bg.antialiasing = ClientPrefs.globalAntialiasing;
-		bg.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
-		bg.alpha = 1;
-		bg.y = 720;
-		add(bg);
+		bgBaixo = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
+		bgBaixo.antialiasing = ClientPrefs.globalAntialiasing;
+		bgBaixo.alpha = 1;
+		bgBaixo.y = 720;
+		add(bgBaixo);
+		bgCima = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back1'));
+		bgCima.antialiasing = ClientPrefs.globalAntialiasing;
+		bgCima.alpha = 1;
+		bgCima.y = -720;
+		add(bgCima);
 
 		perfil = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/perfil'));
 		perfil.antialiasing = ClientPrefs.globalAntialiasing;
 		perfil.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
 		perfil.alpha = 1;
 		perfil.x = 1280;
 		add(perfil);
@@ -88,7 +86,6 @@ class TimeDaVio extends MusicBeatState
 		estante = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/estante'));
 		estante.antialiasing = ClientPrefs.globalAntialiasing;
 		estante.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
 		estante.alpha = 1;
 		estante.x = -593;
 		add(estante);
@@ -120,14 +117,14 @@ class TimeDaVio extends MusicBeatState
 		icon = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon'));
 		icon.antialiasing = ClientPrefs.globalAntialiasing;
 		icon.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
+		
 		icon.alpha = 1;
 		icon.x = -665;
 		add(icon);
 		desc = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc'));
 		desc.antialiasing = ClientPrefs.globalAntialiasing;
 		desc.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
+		
 		desc.alpha = 1;
 		desc.x = -631;
 		add(desc);
@@ -135,12 +132,13 @@ class TimeDaVio extends MusicBeatState
 		mic = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/microfone-galaccine'));
 		mic.antialiasing = ClientPrefs.globalAntialiasing;
 		mic.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
+		
 		mic.alpha = 1;
 		mic.x = 257;
 		add(mic);
 
-		FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bgCima, {y: 0}, 1, {ease: FlxEase.quartInOut});
+		FlxTween.tween(bgBaixo, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
 		FlxTween.tween(mic, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
 		FlxTween.tween(perfil, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
 		FlxTween.tween(desc, {x: 0}, 1.5, {ease: FlxEase.quartInOut});
@@ -160,7 +158,10 @@ class TimeDaVio extends MusicBeatState
 		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
 		super.create();
-	}
+	}// 420
+
+
+
 
 	override function update(elapsed:Float)
 	{
@@ -168,6 +169,7 @@ class TimeDaVio extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Vendo os créditos do(a) " + creditInfo[curSelected][0], null);
 		#end
+
 
 		#if android
 		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo os créditos do(a) " + creditInfo[curSelected][0]);
@@ -228,22 +230,11 @@ class TimeDaVio extends MusicBeatState
 
 	function changeSelection(newCurselected:Int)
 	{
-		/*dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-'+creditStuff[curSelectedBkp]));
-			dummycredit.alpha=1;
-			dummycredit.y=0;
-			FlxTween.tween(dummycredit, {y: 724}, 0.5, {ease: FlxEase.quartInOut});
-
-			FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
-
-			new FlxTimer().start(1.1, function(tmr:FlxTimer){
-				canChange=true;
-			});
-			newcredit.y=-724;
-			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-'+creditStuff[curSelected])); */
 
 		if (curSelectedBkp > 7)
 		{
-			FlxTween.tween(bg, {y: 728}, 0.8, {ease: FlxEase.quartInOut});
+			FlxTween.tween(bgCima, {y: -720}, 0.65, {ease: FlxEase.quartInOut});
+			FlxTween.tween(bgBaixo, {y: 720}, 0.8, {ease: FlxEase.quartInOut});
 			FlxTween.tween(perfil, {x: -1280}, 0.5, {ease: FlxEase.quartInOut});
 			FlxTween.tween(desc, {x: 663}, 0.7, {ease: FlxEase.quartInOut});
 			FlxTween.tween(estante, {x: 593}, 0.9, {ease: FlxEase.quartInOut});
@@ -254,7 +245,8 @@ class TimeDaVio extends MusicBeatState
 		}
 		else
 		{
-			FlxTween.tween(bg, {y: 728}, 0.8, {ease: FlxEase.quartInOut});
+			FlxTween.tween(bgCima, {y: -720}, 0.65, {ease: FlxEase.quartInOut});
+			FlxTween.tween(bgBaixo, {y: 720}, 0.8, {ease: FlxEase.quartInOut});
 			FlxTween.tween(mic, {x: 257}, 0.9, {ease: FlxEase.quartInOut});
 			FlxTween.tween(perfil, {x: 1280}, 0.5, {ease: FlxEase.quartInOut});
 			FlxTween.tween(desc, {x: -663}, 0.7, {ease: FlxEase.quartInOut});
@@ -279,13 +271,15 @@ class TimeDaVio extends MusicBeatState
 				discord.x = 1291;
 				twitter.y = 378;
 				twitter.x = 1291;
-				bg.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/back'));
+				bgBaixo.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/back'));
+				bgCima.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/back1'));
 				perfil.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/perfil'));
 				estante.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/estante'));
 				icon.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/icon'));
 				desc.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/desc'));
 
-				FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgCima, {y: 0}, 1, {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgBaixo, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(desc, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
 				FlxTween.tween(estante, {x: 0}, 1.55, {ease: FlxEase.quartInOut});
@@ -306,12 +300,14 @@ class TimeDaVio extends MusicBeatState
 				discord.x = -148;
 				twitter.y = 203;
 				twitter.x = -148;
-				bg.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
+				bgBaixo.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
+				bgCima.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back1'));
 				perfil.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/perfil'));
 				estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/estante'));
 				icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon'));
 				desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc'));
-				FlxTween.tween(bg, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgCima, {y: 0}, 1, {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgBaixo, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(mic, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(desc, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
@@ -340,7 +336,7 @@ class TimeDaVio extends MusicBeatState
 		{
 			twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
 		}
-		if (curSelected == 21)
+		if (curSelected == 20)
 		{
 			discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
 		}
