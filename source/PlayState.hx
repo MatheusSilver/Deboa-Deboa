@@ -2403,7 +2403,7 @@ class PlayState extends MusicBeatState
 		if (paused)
 			return;
 
-		if (ClientPrefs.pausarauto && curSong.toLowerCase() != 'control')
+		if (ClientPrefs.pausarauto && curSong.toLowerCase() != 'control' && canPause)
 		{
 			openPauseMenu();
 		}
@@ -6826,8 +6826,8 @@ class PlayState extends MusicBeatState
 	{
 		if (statement)
 		{
-			// noteMissPress(direction, ghostMiss);
-			// callOnLuas('noteMissPress', [direction]);
+			//noteMissPress(direction, ghostMiss);
+			//callOnLuas('noteMissPress', [direction]);
 		}
 	} // Aparentemente essa função dobrava o erro caso tu apertasse uma nota quando não era pra apertar mesmo com ghost tapping ligado
 
@@ -6976,8 +6976,8 @@ class PlayState extends MusicBeatState
 		]);
 	}
 
-	/*
-		function noteMissPress(direction:Int = 1, ?ghostMiss:Bool = false):Void //You pressed a key when there was no notes to press for this key
+	
+		/*function noteMissPress(direction:Int = 1, ?ghostMiss:Bool = false):Void //You pressed a key when there was no notes to press for this key
 		{
 			if (!boyfriend.stunned)
 			{
@@ -7021,8 +7021,9 @@ class PlayState extends MusicBeatState
 				}
 				}
 				vocals.volume = 0;
+				
 			}
-	}*/
+		}*/
 	function opponentNoteHit(note:Note):Void
 	{
 		if (Paths.formatToSongPath(SONG.song) == 'triple-trouble')

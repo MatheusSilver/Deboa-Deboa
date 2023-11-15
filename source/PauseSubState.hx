@@ -469,7 +469,7 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.sound.volume = 1;
 					jumpscare = new FlxSprite(0,0);
 					jumpscare.loadGraphic(Paths.image('Tails', 'preload'));
-					jumpscare.cameras = [transCamera];
+					jumpscare.cameras = [PlayState.instance.camOther];
 					jumpscare.setGraphicSize(Std.int(FlxG.width));
 					jumpscare.screenCenter(XY);
 					FlxG.sound.play(Paths.sound('TailsScreamLOL'), 1);
