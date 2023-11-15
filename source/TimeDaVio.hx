@@ -60,7 +60,7 @@ class TimeDaVio extends MusicBeatState
 		[	'nih',   'https://discord.gg/jNdV8BEUZU',  'https://twitter.com/orochigad0',  'https://www.youtube.com/c/OrochiDubzkkk' ],
 		[	'orochi',   '',  'https://twitter.com/sahriell_',  'https://www.youtube.com/c/SahChan2019' ],
 		[	'sah',   'https://www.facebook.com/MarianaSayuriFandubsFansings',  'https://twitter.com/RealVinizitooo',  'https://www.youtube.com/@vinizitooo-lol' ],
-		[	'sayuri',  '',  'https://twitter.com/mariana_sayuri',  'https://www.youtube.com/@MarianaSayuri']
+		[	'sayuri',  'https://www.facebook.com/MarianaSayuriFandubsFansings',  'https://twitter.com/mariana_sayuri',  'https://www.youtube.com/@MarianaSayuri']
 	];
 	override function create()
 	{
