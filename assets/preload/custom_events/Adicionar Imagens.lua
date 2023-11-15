@@ -6,6 +6,7 @@ function propriedadescomuns(var)
     setLuaSpriteCamera(var, 'camlegenda');
     --setGraphicSize(var, screenWidth) -- k
     screenCenter(var, 'x')
+    addLuaSprite(var, true);
 end
 
 function onCreatePost()
@@ -23,7 +24,6 @@ function onEvent(name, value1, value2, value3, value4)
         else
             makeLuaSprite('exe1', legendaPath..value2, 0, pos)
             propriedadescomuns('exe1')
-            addLuaSprite('exe1', true);
             --traceLog("value 2 invocou, "..value2.." em: "..getSongPosition())
         end
         if value3 == '' or value3 == 'null' or value3 == nil then
@@ -31,21 +31,18 @@ function onEvent(name, value1, value2, value3, value4)
         else
             makeLuaSprite('exe2', legendaPath..value3, 0, pos)
             propriedadescomuns('exe2')
-            addLuaSprite('exe2', true);
         end
         if value4 == '' or value4 == 'null' or value4 == nil then
             removeLuaSprite('exe3', true);
         else
             makeLuaSprite('exe3', legendaPath..value4, 0, pos)
             propriedadescomuns('exe3')
-            addLuaSprite('exe3', true);
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
         makeLuaSprite('exe', legendaPath..value1, 0, pos)
         propriedadescomuns('exe')
-        addLuaSprite('exe', true);
         --traceLog("value 1 invocou, "..value1.." em: "..getSongPosition())
         end
     end

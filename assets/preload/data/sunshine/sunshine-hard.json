@@ -3126,13 +3126,6 @@
 						"Adicionar Imagens",
 						"tailsdoll",
 						""
-					],
-					[
-						83714.2857142857,
-						-1,
-						"Cinematics",
-						"1",
-						"0.5"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3173,7 +3166,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll30",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3204,7 +3197,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll31",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3287,7 +3280,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll32",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3318,7 +3311,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll33",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3462,7 +3455,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll34",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3612,14 +3605,14 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll35",
-						""
+						"tailsdoll0"
 					],
 					[
 						108571.428571429,
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll36",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3670,14 +3663,14 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll37",
-						""
+						"tailsdoll0"
 					],
 					[
 						110571.428571429,
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll38",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3802,7 +3795,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll39",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3883,7 +3876,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll40",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3939,7 +3932,7 @@
 						-1,
 						"Adicionar Imagens",
 						"tailsdoll41",
-						""
+						"tailsdoll0"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3954,13 +3947,6 @@
 						121142.857142857,
 						1,
 						1571.42857142857
-					],
-					[
-						123000,
-						-1,
-						"Cinematics",
-						"2",
-						"0.5"
 					]
 				],
 				"lengthInSteps": 16,
