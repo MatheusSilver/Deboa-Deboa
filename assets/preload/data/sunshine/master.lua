@@ -20,6 +20,14 @@
         addCharacterToList("tailsdoll_dream", 'dad')
     end
 
+    function onCreatePost()
+        if downscroll then
+            pos = -350
+        else
+            pos = 0
+        end
+    end
+
     function onEvent(name, value1, value2)
         if name == "eventos_sunshine" then
             if value1== "580" then
@@ -37,10 +45,11 @@
 
                 setProperty("blackFuck.visible", false)
                 setProperty("blackFuck.alpha", 0)
+                sunshine_shaders(true)
                 
                 triggerEvent('Change Character', 'dad', 'tailsdoll_dream');
                 triggerEvent('Change Character', 'bf', 'bf_dream');
-                triggerEvent('video player super legal demais', 'AnimacoesJogaveis/sunshine', '835', '500', '1.5');
+                triggerEvent('video player super legal demais', 'AnimacoesJogaveis/sunshine-rema', '700', '500', '1.5');
                 setObjectOrder("videoSpr", getObjectOrder("stage"))
                 setProperty('defaultCamZoom', 2.2);
                 setProperty('stage.visible', false);
@@ -76,6 +85,7 @@
 
                 doTweenAlpha("blackFucktween", "blackFuck", 1, 1.5, "linear")
             elseif value1 == "860" then
+                sunshine_shaders(false)
                 setCamMove(true)
                 cancelTween("tween_dad_abaja")
                 cancelTween("tween_dad_arriba")
@@ -119,7 +129,34 @@
                 darknotevisibility = false;
             end
         end
+        if name == 'Adicionar Imagens diferenciado' and legendas == true then
+            if value2 == '' or value2 == 'null' or value2 == nil then
+                removeLuaSprite('exe1', true);
+            else
+                makeLuaSprite('exe1', legendaPath..value2, 0, pos)
+                propriedadescomuns('exe1')
+            end
+            if value1 == '' or value1 == 'null' or value1 == nil then
+                removeLuaSprite('exe', true)
+            else
+            makeLuaSprite('exe', legendaPath..value1, 0, pos)
+            propriedadescomuns('exe')
+            end
+        end
     end
+
+    local pos = 0;
+
+function propriedadescomuns(var)
+    setScrollFactor(var, 0, 0);
+    scaleObject(var, 1, 1);
+    setLuaSpriteCamera(var, 'camhud'); -- O único motivo de eu usar o diferenciado é esse aqui
+                                       -- Assim poupo de ter que colocar um shader a mais pra camLegenda.
+    --setGraphicSize(var, screenWidth) -- k
+    screenCenter(var, 'x')
+    addLuaSprite(var, true);
+end
+
 
     function onTweenCompleted(tag)
         if tag == 'tween_bf_arriba' then

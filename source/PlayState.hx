@@ -845,22 +845,7 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
-				if (ClientPrefs.shaders)
-				{
-					vcr = new ShaderFilter(new VCRDistortionShader());
-					vcr.shader.data.iTime.value = [0];
-					vcr.shader.data.vignetteOn.value = [true];
-					vcr.shader.data.perspectiveOn.value = [true];
-					vcr.shader.data.distortionOn.value = [true];
-					vcr.shader.data.scanlinesOn.value = [true];
-					vcr.shader.data.vignetteMoving.value = [true];
-					vcr.shader.data.glitchModifier.value = [0];
-					vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth, Lib.current.stage.stageHeight];
-
-					camGame.setFilters([vcr]);
-					camHUD.setFilters([vcr]);
-					camLegenda.setFilters([vcr]);
-				}
+				analog_shader();
 
 			case 'chasing':
 				var contadordevida:FlxSprite;
@@ -7518,6 +7503,36 @@ class PlayState extends MusicBeatState
 
 			if (phillyTrain.x < -4000 && trainFinishing)
 				trainReset();
+		}
+	}
+
+	public var shaders_running:Bool=false;
+
+	public function analog_shader(start:Bool = true){
+		if (!ClientPrefs.shaders)
+			return;
+
+		shaders_running=start;
+		if (start){
+			vcr = new ShaderFilter(new VCRDistortionShader());
+			vcr.shader.data.iTime.value = [0];
+			vcr.shader.data.vignetteOn.value = [true];
+			vcr.shader.data.perspectiveOn.value = [true];
+			vcr.shader.data.distortionOn.value = [true];
+			vcr.shader.data.scanlinesOn.value = [true];
+			vcr.shader.data.vignetteMoving.value = [true];
+			vcr.shader.data.glitchModifier.value = [0];
+			vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth, Lib.current.stage.stageHeight];
+
+			camGame.setFilters([vcr]);
+			camHUD.setFilters([vcr]);
+			if (curSong != "sunshine")
+				camLegenda.setFilters([vcr]);
+		}else{
+			camGame.filtersEnabled = false;
+			camHUD.filtersEnabled = false;
+			if (curSong != "sunshine")
+				camLegenda.filtersEnabled = false;
 		}
 	}
 

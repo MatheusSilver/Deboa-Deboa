@@ -1854,11 +1854,6 @@ class FunkinLua {
 					addShaderToCamera(camera, new GreyscaleEffect());
 					}
 				});
-				Lua_helper.add_callback(lua, "addGrayscaleEffect", function(camera:String) { //for dem funkies
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new GreyscaleEffect());
-					}
-				});
 				Lua_helper.add_callback(lua, "add3DEffect", function(camera:String,xrotation:Float=0,yrotation:Float=0,zrotation:Float=0,depth:Float=0) { //for dem funkies
 					if(ClientPrefs.shaders) {
 					addShaderToCamera(camera, new ThreeDEffect(xrotation,yrotation,zrotation,depth));
@@ -1872,6 +1867,10 @@ class FunkinLua {
 				Lua_helper.add_callback(lua, "clearEffects", function(camera:String) {
 					clearShaderFromCamera(camera);
 				});
+				Lua_helper.add_callback(lua, "sunshine_shaders", function(start:Bool) {
+					PlayState.instance.analog_shader(start);
+				});
+				
 
 				//Coisas adicionadas exclusivamente para a Final Escape caso isso estrague o resto dos luas
 

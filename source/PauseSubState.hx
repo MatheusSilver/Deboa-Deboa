@@ -219,7 +219,7 @@ class PauseSubState extends MusicBeatSubstate
 		#end
 		if(ClientPrefs.shaders)
 			{
-				if(PlayState.instance.curSong.toLowerCase()!="round-a-bout")
+				if(!PlayState.instance.shaders_running)
 				{
 					PlayState.instance.camGame.setFilters([blurShader]);
 					PlayState.instance.camHUD.setFilters([blurShader]);
