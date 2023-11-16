@@ -115,7 +115,7 @@ class MenuHistoria extends MusicBeatSubstate
 		highscoreText = new FlxText(FlxG.width -1250, FlxG.height -690, 600);
 		highscoreText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		highscoreText.borderSize = 2;
-		highscoreText.text = "HIGHSCORE: \n0";
+		highscoreText.text = "RECORDE: \n0";
 		highscoreText.updateHitbox();
 		highscoreText.alpha=0;
 		
@@ -190,7 +190,7 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 		#end
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		highscoreText.text = "HIGHSCORE: \n"+Std.string(lerpScore);
+		highscoreText.text = "RECORDE: \n"+Std.string(lerpScore);
 		#if android
 		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Escolhendo uma musica em: " + dapreselected);
 		#end

@@ -21,11 +21,11 @@ class VideoStatePC extends MusicBeatState
 	override function create()
 	{
 		video.canSkip = false;
+		videoMenu.makeGraphic(1, 1, FlxColor.BLACK);
 		if (NextState != "title" && NextState != "playstate")
 		{
 			FlxG.sound.music.fadeIn(0.35, 0.7, 0);
 		}
-		add(videoMenu);
 
 		// Nashira, és tu??????????
 		// Sei que o if else if é bastante usado na unity e etc, desculpa dav!!!!
@@ -50,6 +50,8 @@ class VideoStatePC extends MusicBeatState
 		letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		letext.scrollFactor.set();
 		letext.alpha = 0;
+
+		add(videoMenu);
 		add(letext);
 
 		super.create();
