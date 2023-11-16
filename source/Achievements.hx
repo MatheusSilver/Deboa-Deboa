@@ -32,7 +32,7 @@ class Achievements {
 		["Fake Full Combo",				"Full Combo, PARABENS!!! Pena que foi na soulless logo tudo foi anulado :)", 'fake_full_combo',			true, 		185666, 		'meme maker', 		1], //ok
 		["Deja vu",						"Sobreviva ao ataque do Furnace em prey",			'prey_survive',		true, 		181723, 		'alt', 		2], //ok
 		["Jogador Nato",				"Complete uma música sem errar",					'perfect',			false, 		181724, 		'geral', 		2], //ok
-		["Nada será como antes...",		"Vença a sidekick",									'sidekick',			false, 		181725, 		'orgulho', 		1], //ok
+		["Nada sera como antes...",		"Vença a sidekick",									'sidekick',			false, 		181725, 		'orgulho', 		1], //ok
 		["Livre para Voar",				"Liberte Tails em Ameaça Tripla",					'tails_free',		true, 		181726, 		'orgulho', 		1], //ok
 		["Livre para Defender",			"Liberte Knuckles em Ameaça Tripla",				'knuckles_free',	true, 		181727, 		'orgulho', 		2], //ok
 		["Livre para Sacrificar",		"Liberte Eggman em Ameaça Tripla",					'eggman_free',		true, 		181728, 		'orgulho', 		3], //ok

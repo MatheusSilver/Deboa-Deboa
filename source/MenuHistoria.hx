@@ -10,6 +10,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
 import flixel.text.FlxText;
+import flixel.math.FlxMath;
 
 using StringTools;
 
@@ -56,6 +57,9 @@ class MenuHistoria extends MusicBeatSubstate
 
 	public var numText:FlxText;
 	public var highscoreText:FlxText;
+
+	var intendedScore:Int = 0;
+	var lerpScore:Int = 0;
 
 	override function create()
 	{
@@ -111,7 +115,7 @@ class MenuHistoria extends MusicBeatSubstate
 		highscoreText = new FlxText(FlxG.width -1250, FlxG.height -690, 600);
 		highscoreText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		highscoreText.borderSize = 2;
-		highscoreText.text = "HIGHSCORE: ";
+		highscoreText.text = "RECORDE: \n0";
 		highscoreText.updateHitbox();
 		highscoreText.alpha=0;
 		
@@ -185,7 +189,8 @@ class MenuHistoria extends MusicBeatSubstate
 			DiscordClient.changePresence("Escolhendo uma musica em: ", dapreselected, null);
 		}
 		#end
-
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
+		highscoreText.text = "RECORDE: \n"+Std.string(lerpScore);
 		#if android
 		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Escolhendo uma musica em: " + dapreselected);
 		#end
@@ -338,6 +343,8 @@ class MenuHistoria extends MusicBeatSubstate
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 
 			PlayState.storyDifficulty = 2;
+			FlxTween.tween(numText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
+			FlxTween.tween(highscoreText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
 			FlxTween.tween(textoSprite, {alpha: 0}, 0.5, {
 				ease: FlxEase.expoInOut,
@@ -502,7 +509,7 @@ class MenuHistoria extends MusicBeatSubstate
 		if (curSelected >= musicas.length)
 			curSelected = 0;
 		var songLowerCase:String = Paths.formatToSongPath(musicas[curSelected]);
-		highscoreText.text = "HIGHSCORE: \n"+Std.string(Highscore.getScore(songLowerCase, 2));
+		intendedScore = Highscore.getScore(songLowerCase, 2);
 		numText.text = Std.string(curSelected+1)+"/"+Std.string(musicas.length);
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
