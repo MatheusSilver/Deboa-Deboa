@@ -69,12 +69,18 @@ class TitleState extends MusicBeatState
 
 	var mustUpdate:Bool = false;
 
+	public static var instance:TitleState;
+
 	public static var updateVersion:String = '';
 
 	public static var ModoOffline:Bool = false;
 
 	override public function create():Void
 	{
+		if(instance == null)
+		{
+			instance=this;
+		}
 		FlxTransitionableState.skipNextTransOut = true;
 		MainMenuStateMobile.newVersion = FlxG.save.data.gameVersion != MainMenuStateMobile.version && FlxG.save.data.gameVersion != null;
 		if (FlxG.save.data.progress != null)

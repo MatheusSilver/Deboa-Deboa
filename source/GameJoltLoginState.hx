@@ -192,6 +192,10 @@ class GameJoltLoginState extends MusicBeatState
 
         public static function syncProgress()
             {
+                TitleState.instance.verificarConexao();
+                if(TitleState.ModoOffline)
+                    FlxG.save.data.progress = MenuPreHistoria.curSave;
+                    return;
                 var sum1:Int = 0;
                 var sum2:Int = 0;
                 var dataGJ:String = GJClient.getData("progress");

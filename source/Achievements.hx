@@ -55,7 +55,8 @@ class Achievements {
 				GlobalSoundManager.play('confirmMenu');
 			}
 		var id:Int = Achievements.getAchievementIndex(name);
-		if(GJClient.logged)
+		TitleState.instance.verificarConexao();
+		if(GJClient.logged && !TitleState.ModoOffline)
 			GJClient.trophieAdd(achievementsStuff[id][4]);
 		
 		ClientPrefs.save();
@@ -63,8 +64,9 @@ class Achievements {
 
 	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
 		var id:Int = Achievements.getAchievementIndex(name);
+		TitleState.instance.verificarConexao();
 		if(ClientPrefs.achievementsMap.exists(name) && ClientPrefs.achievementsMap.get(name)) {
-			if(GJClient.logged && !naochecar)
+			if(GJClient.logged && !naochecar && !TitleState.ModoOffline)
 				GJClient.trophieAdd(achievementsStuff[id][4]);
 			return true;
 		}
@@ -73,7 +75,8 @@ class Achievements {
 
 	public static function syncAchievementsGJ()
 		{
-			if(GJClient.logged){
+			TitleState.instance.verificarConexao();
+			if(GJClient.logged && !TitleState.ModoOffline){
 			var GJList:Null<Array<Trophie>> = GJClient.getTrophiesList();
 			for (i in 0...GJList.length) {
 				if(GJList[i].achieved)
