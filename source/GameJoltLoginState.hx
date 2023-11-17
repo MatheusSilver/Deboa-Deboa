@@ -251,7 +251,7 @@ class GameJoltLoginState extends MusicBeatState
     public static function syncProgressFreeplay()
     {
         TitleState.instance.verificarConexao();
-        if(TitleState.ModoOffline)
+        if(TitleState.ModoOffline || !GJClient.logged)
             FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
             return;
         var dataGJ:String = GJClient.getData("progressFreeplay");
