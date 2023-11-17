@@ -2611,18 +2611,20 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function pularVideo()
+	public function pularVideo(?naoPularTempo:Bool = false)
 	{
 		#if desktop
 		if (playingVideoMP4)
 		{
 			video.onVLCComplete();
 			letext.alpha = 0;
-			FlxG.sound.music.pause();
 			vocals.pause();
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
 			camGame.alpha = 1;
+			if(naoPularTempo)
+				return;
+			FlxG.sound.music.pause();
 			Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
 			trace(MP4Handler.vlcBitmap.length);
 			trace(MP4Handler.vlcBitmap.time);
@@ -6263,6 +6265,11 @@ class PlayState extends MusicBeatState
 						concluirMusicaProgresso();
 					}
 
+					if(!modohistoria #if !debug && !usedPractice #end)
+					{
+						FreeplayState.addProgress();
+					}
+
 					blackFuck.visible = true;
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3, {
 						ease: FlxEase.cubeInOut,
@@ -6277,6 +6284,10 @@ class PlayState extends MusicBeatState
 				{
 					// Sim, isso funciona no android/mobile
 					// Aparentemente eu e o Silver ficamos em dúvida se isso funfava ou não, mas como eu tenho certeza, tá aqui k
+					if(!modohistoria #if !debug && !usedPractice #end)
+						{
+							FreeplayState.addProgress();
+						}
 					ClientPrefs.pibby = true;
 					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
 					lime.system.System.exit(0);
