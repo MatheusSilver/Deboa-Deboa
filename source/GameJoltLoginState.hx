@@ -195,6 +195,13 @@ class GameJoltLoginState extends MusicBeatState
                 TitleState.instance.verificarConexao();
                 if(TitleState.ModoOffline)
                     FlxG.save.data.progress = MenuPreHistoria.curSave;
+                    var sum1:Int = 0;
+                    for (i in 0...MenuPreHistoria.curSave.length) {
+
+                        sum1 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
+
+                    }
+                    MainMenuStateMobile.passouCY = sum1 > 1;
                     return;
                 var sum1:Int = 0;
                 var sum2:Int = 0;
@@ -231,7 +238,8 @@ class GameJoltLoginState extends MusicBeatState
                     FlxG.save.data.progress = MenuPreHistoria.curSave;
                     trace("Salvando o progresso local na gj (os dois sao iguais)");
                 }
-
+                
+                MainMenuStateMobile.passouCY = sum1 > 1;
                 trace("New Data GJ: " + GJClient.getData("progress"));
             
             }
