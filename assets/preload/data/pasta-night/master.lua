@@ -396,10 +396,34 @@ function adjustPos(object, image)
     end
 end
 
+--opponent_legendas={"pastamx0", "pastalx0", "pastahyp0"}
+--legenda_atual={"", "", ""}
+--amigo_legendas={"pastamx","pastalx","pastahyp"}
 
-
-function onEvent(name, value1, value2, value3, value4)
+function onEvent(name, value1, value2, value3)
     if name == 'Adicionar Imagens diferenciado' and legendas then
+        if MXPos == 'bf' and value1~="pastamx0" then
+            if value2=="pastalx0" then
+                value2="pastalx"
+            end
+            if value3=="pastahyp0" then
+                value3="pastahyp"
+            end
+        elseif LordPos == 'bf'  and value2~="pastalx0" then
+            if value1=="pastamx0" then
+                value1="pastamx"
+            end
+            if value3=="pastahyp0" then
+                value3="pastahyp"
+            end
+        elseif HypnoPos == 'bf'  and value3~="pastahyp0" then
+            if value1=="pastamx0" then
+                value1="pastamx"
+            end
+            if value2=="pastalx0" then
+                value2="pastalx"
+            end
+        end
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
@@ -413,10 +437,10 @@ function onEvent(name, value1, value2, value3, value4)
             propriedadescomuns('exe2', value3)
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
-            removeLuaSprite('exe', true)
+            removeLuaSprite('exe3', true)
         else
-            makeLuaSprite('exe', legendaPath..value1, 0, pos)
-            propriedadescomuns('exe', value1)
+            makeLuaSprite('exe3', legendaPath..value1, 0, pos)
+            propriedadescomuns('exe3', value1)
         end
     end
     

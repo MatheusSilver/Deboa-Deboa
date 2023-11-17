@@ -4347,15 +4347,9 @@ class PlayState extends MusicBeatState
 					strumAlpha *= daNote.multAlpha;
 
 					if (strumScroll) // Downscroll
-					{
-						// daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed);
 						daNote.distance = (0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed * daNote.multSpeed);
-					}
 					else // Upscroll
-					{
-						// daNote.y = (strumY - 0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed);
 						daNote.distance = (-0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed * daNote.multSpeed);
-					}
 
 					var angleDir = strumDirection * Math.PI / 180;
 					if (daNote.copyAngle)
@@ -4379,7 +4373,7 @@ class PlayState extends MusicBeatState
 							daNote.flipY = strumScroll;
 						}
 						// Jesus fuck this took me so much mother fucking time AAAAAAAAAA
-						if (strumScroll && daNote.isSustainNote)
+						if (ClientPrefs.downScroll && daNote.isSustainNote)
 						{
 							if (daNote.animation.curAnim.name.endsWith('end'))
 							{
@@ -4396,6 +4390,11 @@ class PlayState extends MusicBeatState
 							}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (SONG.speed - 1));
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (SONG.speed - 1);
+							if (!strumScroll){
+								daNote.y += 230;
+							}
+						}else if(strumScroll && daNote.isSustainNote){
+							daNote.y -= 180;
 						}
 					}
 
@@ -5285,7 +5284,10 @@ class PlayState extends MusicBeatState
 						cinematicBars(true);
 
 					case 1010101:
-						FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
+						if (ClientPrefs.gore)
+							FlxTween.tween(furnaceTheEnd, {y: 170, x: furnaceTheEnd.x +45}, 1.5, {ease: FlxEase.cubeInOut});
+						else
+							FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
 
 					case 246:
 						FlxTween.tween(dad, {x: 580 - 250 * 2}, 1, {ease: FlxEase.cubeInOut});
@@ -7929,9 +7931,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (generatedMusic)
-		{
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
-		}
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);

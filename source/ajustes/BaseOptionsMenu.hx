@@ -51,6 +51,7 @@ class BaseOptionsMenu extends MusicBeatState
 	static var options:Array<String> = [
 		'VISUAL',
 		'Baixa Qualidade',
+		'Gore',
 		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
 		//Vai que o Sirox e seu celular da NASA joguem esse mod, por via das duvidas, os shaders ficam desativados por padrão em mobile
 		'Anti-Aliasing',
@@ -221,6 +222,9 @@ class BaseOptionsMenu extends MusicBeatState
 
 					case 'Baixa Qualidade':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
+
+					case 'Gore':
+						ClientPrefs.gore = !ClientPrefs.gore;
 					
 					case 'Shaders':
 						ClientPrefs.shaders = !ClientPrefs.shaders;
@@ -481,6 +485,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.shaders;
 					case 'Baixa Qualidade':
 						daValue = ClientPrefs.lowQuality;
+					case 'Gore':
+						daValue = ClientPrefs.gore;
 					case 'Anti-Aliasing':
 						daValue = ClientPrefs.globalAntialiasing;
 					case 'Efeitos de Camera':
