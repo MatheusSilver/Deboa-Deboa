@@ -194,7 +194,7 @@ class MainMenuStateMobile extends MusicBeatState
 		//nossa, eu n tinha visto isso antes e achei que tinha quebrado algo k
 		if(GJClient.logged)
 			{
-				if(verificaDnvIdiota){GameJoltLoginState.syncProgress(); verificaDnvIdiota = false;}
+				if(verificaDnvIdiota){GameJoltLoginState.syncProgress(); GameJoltLoginState.syncProgressFreeplay(); verificaDnvIdiota = false;}
 				letext.text = GJClient.userName;
 				trace(GJClient.avatarURL);
 				letext.x=-345;

@@ -53,6 +53,7 @@ class FreeplayState extends MusicBeatState
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
+	
 
 	var bg:FlxSprite;
 	var perfilSprite:FlxSprite = null;
@@ -64,10 +65,12 @@ class FreeplayState extends MusicBeatState
     private var timeAccumulated:Float = 0.0;
 
 	public static var progressFreeplay:Int = 1;
+	public static var totalMusicas:Int = 0;
 
 	public static function addProgress()
 	{
-		if(curSelected <= WeekData.freeplayList.length)
+		trace("curSelected: "+Std.string(curSelected)+"\nprogressFreeplay: "+Std.string(progressFreeplay)+"\nweekLength: "+ Std.string(totalMusicas));
+		if(curSelected < totalMusicas)
 		{
 			if(curSelected <= progressFreeplay)
 			{
@@ -79,13 +82,13 @@ class FreeplayState extends MusicBeatState
 	
 	override function create()
 	{
-		if(FlxG.save.data.freeplaySave != null)
+		if(FlxG.save.data.freeplayProgress != null)
 		{
-			progressFreeplay = FlxG.save.data.freeplaySave;
+			progressFreeplay = FlxG.save.data.freeplayProgress;
 		}
 		else
 		{
-			FlxG.save.data.freeplaySave = progressFreeplay;
+			FlxG.save.data.freeplayProgress = progressFreeplay;
 		}
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -107,13 +110,14 @@ class FreeplayState extends MusicBeatState
 
 		
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
-
+		totalMusicas=0;
 		for (i in 0...WeekData.freeplayList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
 			var leNombres:Array<String> = [];
 			for (j in 0...leWeek.songs.length) {
+				totalMusicas++;
 				leSongs.push(leWeek.songs[j][0]);
 				leChars.push(leWeek.songs[j][1]);
 				leNombres.push(leWeek.songs[j][3]);

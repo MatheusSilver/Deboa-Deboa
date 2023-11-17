@@ -242,8 +242,31 @@ class GameJoltLoginState extends MusicBeatState
 
     public static function syncProgressFreeplay()
     {
-        FlxG.save.data.freeplaySave = FreeplayState.progressFreeplay;
-        // amanha faço a integracao
+        TitleState.instance.verificarConexao();
+        if(TitleState.ModoOffline)
+            FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
+            return;
+        var dataGJ:String = GJClient.getData("progressFreeplay");
+        var numGJ:Int = Std.parseInt(dataGJ);
+        var numLocal:Int = FreeplayState.progressFreeplay;
+        trace("Local Num: " + numLocal);
+        trace("Data GJ Num: " + numGJ);
+
+        if (numLocal > numGJ) {
+            GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
+            FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
+            trace("Salvando o progresso local na gj");
+        } else if (numGJ > numLocal) {
+            FreeplayState.progressFreeplay = numGJ;
+            FlxG.save.data.freeplayProgress = dataGJ;
+            trace("Salvando o progresso gj no local");
+        } else if (numGJ == numLocal) {
+            GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
+            FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
+            trace("Salvando o progresso local na gj (os dois sao iguais)");
+        }
+
+        trace("New Data GJ: " + GJClient.getData("progressFreeplay"));
     }
             
 }
