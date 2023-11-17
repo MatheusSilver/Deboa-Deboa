@@ -29,6 +29,8 @@ class MenuHistoria extends MusicBeatSubstate
 {
 	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
 
+	var vhsSom:FlxSound; //usar isso daqui provavelmente deve evitar alguma coisa... enfim, copiei o Silver
+
 	var subindo:Bool = true;
 	var canceltweens:Bool = false;
 	var musicas:Array<Dynamic> = [];
@@ -79,6 +81,10 @@ class MenuHistoria extends MusicBeatSubstate
 		{
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
+
+		vhsSom = new FlxSound().loadEmbedded(Paths.sound('vhs_entra'));
+		vhsSom.volume = 0.5;
+
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		for (j in 0...leWeek.songs.length)
 		{
@@ -328,7 +334,11 @@ class MenuHistoria extends MusicBeatSubstate
 	{
 		if (stopspamming == false)
 		{
-			GlobalSoundManager.play('confirmMenu');
+			if(nombres[curSelected] == 'Lerdeza') {
+				vhsSom.play(true);
+			} else {
+				GlobalSoundManager.play('confirmMenu');
+			}
 			stopspamming = true;
 		}
 
