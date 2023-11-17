@@ -62,10 +62,31 @@ class FreeplayState extends MusicBeatState
 	// Eu acho, mas acho que isso tá dando um pouco de problema no PC/Android
 	private var UPDATE_INTERVAL:Float = 1.0 / 60.0; 
     private var timeAccumulated:Float = 0.0;
+
+	public static var progressFreeplay:Int = 1;
+
+	public static function addProgress()
+	{
+		if(curSelected <= WeekData.freeplayList.length)
+		{
+			if(curSelected <= progressFreeplay)
+			{
+				progressFreeplay++;
+				GameJoltLoginState.syncProgressFreeplay();
+			}
+		}
+	}
 	
 	override function create()
 	{
-		
+		if(FlxG.save.data.freeplaySave != null)
+		{
+			progressFreeplay = FlxG.save.data.freeplaySave;
+		}
+		else
+		{
+			FlxG.save.data.freeplaySave = progressFreeplay;
+		}
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
@@ -128,7 +149,7 @@ class FreeplayState extends MusicBeatState
 		var borda:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/bordinha'));
 		borda.antialiasing = ClientPrefs.globalAntialiasing;
 		
-		for (i in 0...songs.length)
+		for (i in 0...progressFreeplay)
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i), songs[i].display.toLowerCase(), false, false, 0.05, 0.7, 'alfabetovio');
 			songText.isMenuTrem = true;
@@ -392,8 +413,8 @@ class FreeplayState extends MusicBeatState
 		curSelected += change;
 
 		if (curSelected < 0)
-			curSelected = songs.length - 1;
-		if (curSelected >= songs.length)
+			curSelected = progressFreeplay - 1;
+		if (curSelected >= progressFreeplay)
 			curSelected = 0;
 
 		#if !switch
