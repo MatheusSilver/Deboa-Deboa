@@ -2611,18 +2611,20 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function pularVideo()
+	public function pularVideo(?naoPularTempo:Bool = false)
 	{
 		#if desktop
 		if (playingVideoMP4)
 		{
 			video.onVLCComplete();
 			letext.alpha = 0;
-			FlxG.sound.music.pause();
 			vocals.pause();
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
 			camGame.alpha = 1;
+			if(naoPularTempo)
+				return;
+			FlxG.sound.music.pause();
 			Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
 			trace(MP4Handler.vlcBitmap.length);
 			trace(MP4Handler.vlcBitmap.time);
