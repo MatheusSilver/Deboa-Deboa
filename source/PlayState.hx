@@ -898,10 +898,10 @@ class PlayState extends MusicBeatState
 				furnaceTheEnd.scale.y = 2; // Já você é um outro caso.
 				furnaceTheEnd.visible = false;
 
-				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2', false), 4608, 2832, true, false);
+				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2', "week-prey", false), 4608, 2832, true, false);
 				stardustBgPixel.scrollFactor.set(0.4, 0.4);
 
-				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1', false), 4608, 2832, true, true);
+				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1', "week-prey",  false), 4608, 2832, true, true);
 
 				stardustBgPixel.visible = false;
 				stardustFloorPixel.visible = false;
@@ -4543,6 +4543,8 @@ class PlayState extends MusicBeatState
 			if (curSong.toLowerCase() == 'chaos' && cpuControlled)
 			{
 				startachieving("chaos_bot");
+			}else if (SONG.song.toLowerCase() == 'best-friends' && deathCounter >= 5){
+				startachieving("side_deaths");
 			}
 			var ret:Dynamic = callOnLuas('onGameOver', []);
 			if (ret != FunkinLua.Function_Stop)
@@ -5290,7 +5292,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(camHUD, {alpha: 1}, 1.2, {ease: FlxEase.cubeInOut});
 						cinematicBars(false);
 					case 511:
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2'));
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2', "week-prey", false));
 						FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
 
@@ -5301,7 +5303,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(sonicHUD, {alpha: 0}, 0.5, {ease: FlxEase.cubeInOut}); // sÓ pq fica estranho com a cinematics
 
 					case 1280:
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3'));
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3', "week-prey", false));
 						FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
 						triggerEventNote('Change Character', 'dad', 'Furnace-rgb'); // Ele já foi carregado mesmo então tá safe
@@ -5349,7 +5351,7 @@ class PlayState extends MusicBeatState
 					case 1780:
 						// Play sonic pulim
 						sonicPulo.play();
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1')); // AGORA SIM TU VAI PODER VER O OLHO DELE
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
 						FlxG.camera.flash(FlxColor.RED, 1);
 						cinematicBars(false); // I FORGOR
 						FlxTween.tween(camHUD, {alpha: 1}, 1.0);
@@ -5475,8 +5477,8 @@ class PlayState extends MusicBeatState
 					case 3400:
 						storyDifficultyText = 'Good ending?'; // detalhe que achei soda
 						endingTweens('good_ending');
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor4')); // AGORA SIM TU VAI PODER VER O OLHO DELE
-						stardustBgPixel.loadGraphic(Paths.image('cenarios/starved/stardustBg')); // AGORA SIM TU VAI PODER VER O OLHO DELE
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor4', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
+						stardustBgPixel.loadGraphic(Paths.image('cenarios/starved/stardustBg', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
 
 					case 3425:
 						hungryManJackTime = 2;
@@ -8640,7 +8642,7 @@ class PlayState extends MusicBeatState
 							unlock = true;
 						}
 					case 'besties':
-						if (SONG.song.toLowerCase() == 'too-fest' && !usedPractice && !cpuControlled)
+						if (SONG.song.toLowerCase() == 'best-friends' && !usedPractice && !cpuControlled)
 						{
 							unlock = true;
 						}

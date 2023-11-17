@@ -336,8 +336,8 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Tipo':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += add;
-						if(ClientPrefs.hitSoundType < 1) ClientPrefs.hitSoundType = 1;
-						else if(ClientPrefs.hitSoundType > 4) ClientPrefs.hitSoundType = 4; //A ordem importa k
+						if(ClientPrefs.hitSoundType <= 1) ClientPrefs.hitSoundType = 1;
+						else if(ClientPrefs.hitSoundType >= 4) ClientPrefs.hitSoundType = 4; //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
@@ -533,7 +533,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Volume':
 						daText = Std.string(ClientPrefs.osusom);
 					case 'Tipo':
-						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType+1);
+						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType);
 					case 'Teste o HitSound':
 						daText = '';
 				}

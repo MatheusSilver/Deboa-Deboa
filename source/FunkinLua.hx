@@ -721,6 +721,9 @@ class FunkinLua {
 			}
 			PlayState.instance.addCharacterToList(name, charType);
 		});
+		Lua_helper.add_callback(lua, "precacheImageEspecial", function(name:String, lib:String, useGPU:Bool) {
+			Paths.image(name, lib, useGPU);
+		});
 		Lua_helper.add_callback(lua, "precacheImage", function(name:String) {
 			PlayState.instance.precacheList.set(name, 'image');
 		});

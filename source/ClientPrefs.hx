@@ -32,7 +32,7 @@ class ClientPrefs
 	public static var hideHud:Null<Bool> = false;
 	public static var hitSounds:Null<Bool> = false;
 	public static var fullscreen:Null<Bool> = false;
-	public static var hitSoundType:Null<Int> = 0;
+	public static var hitSoundType:Null<Int> = 1;
 	public static var osusom:Null<Float> = 0.5;
 	public static var efeitosVolume:Null<Float> = 0.8;
 	public static var noteOffset:Null<Int> = 0;
@@ -80,7 +80,7 @@ class ClientPrefs
 	/** Quick Function to Fix Save Files for Flixel 5
 		@BeastlyGabi
 	**/
-	inline public static function getSavePath(folder:String = 'TeamSilver'):String
+	inline public static function getSavePath(folder:String = 'galaccine'):String
 	{
 		@:privateAccess
 		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')

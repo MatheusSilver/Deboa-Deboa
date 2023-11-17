@@ -287,13 +287,7 @@ class MainMenuStateMobile extends MusicBeatState
 		checkiftouch = false;
 
 		#if ACHIEVEMENTS_ALLOWED
-		Achievements.loadAchievements();
-			var achieveID:Int = Achievements.getAchievementIndex('modboa');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-				ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
-				giveAchievement('modboa');
-				ClientPrefs.save();
-		}
+			test_unlock('modboa');
 		#end
 
 
@@ -348,6 +342,24 @@ class MainMenuStateMobile extends MusicBeatState
 				canClick=true;
 			}
 		super.create();
+
+		new FlxTimer().start(300, function(twn:FlxTimer){
+			test_unlock('tarado_do_menu');
+		});
+
+		if (Lambda.count(ClientPrefs.achievementsMap) == 32) test_unlock("colecionador");
+	}
+
+	function test_unlock(achieve:String){
+		#if ACHIEVEMENTS_ALLOWED
+		var achieveID:Int = Achievements.getAchievementIndex(achieve);
+		if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+			ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+			giveAchievement(achieve);
+			ClientPrefs.save();
+		}
+		#end
+		return;
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
@@ -355,7 +367,7 @@ class MainMenuStateMobile extends MusicBeatState
 	function giveAchievement(achievementname) {
 		add(new AchievementObject(achievementname, camAchievement));
 		GlobalSoundManager.play('confirmMenu');
-		trace('Giving achievement "modboa"');
+		trace('Giving achievement '+ achievementname);
 	}
 	#end
 
