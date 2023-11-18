@@ -159,6 +159,9 @@ end
 
 
     function onTweenCompleted(tag)
+        if tag == "blackFucktween" then
+            triggerEvent('Adicionar Imagens diferenciado', '', '');
+        end
         if tag == 'tween_bf_arriba' then
             doTweenY('tween_bf_abaja', "boyfriend", getProperty("boyfriend.y")+50, 5, "cubeinout")
         elseif tag == "tween_bf_abaja" then

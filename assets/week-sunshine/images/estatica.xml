@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="estatica.png">
+  <SubTexture name="estatica idle0000" x="0" y="0" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0001" x="426" y="0" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0002" x="852" y="0" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0003" x="1278" y="0" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0004" x="0" y="240" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0005" x="426" y="240" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0006" x="640" y="240" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0007" x="1278" y="240" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0008" x="640" y="480" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0009" x="0" y="480" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0010" x="426" y="480" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0011" x="1278" y="480" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0012" x="0" y="720" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0013" x="426" y="720" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0014" x="1278" y="720" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+  <SubTexture name="estatica idle0015" x="1278" y="720" width="426" height="240" frameX="0" frameY="0" frameWidth="426" frameHeight="240" />
+
+</TextureAtlas>

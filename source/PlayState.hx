@@ -444,6 +444,9 @@ class PlayState extends MusicBeatState
 	var chao_scrap:FlxSprite;
 	var ceu_scrap:FlxSprite;
 
+	//Sunshine shader extra
+	var efeito_estatico:FlxSprite;
+
 	// - ring counter bullshit
 	var ringCounter:FlxSprite;
 	var counterNum:FlxText;
@@ -813,16 +816,16 @@ class PlayState extends MusicBeatState
 					ceu_scrap = new FlxSprite(-821.1, -395.65).loadGraphic(Paths.image('cenarios/ceu_scrap_brain'));
 					ceu_scrap.scrollFactor.set(0.7, 1);
 					ceu_scrap.antialiasing = ClientPrefs.globalAntialiasing;
-					ceu_scrap.setGraphicSize(Std.int(ceu_scrap.width*0.6));
+					ceu_scrap.setGraphicSize(Std.int(ceu_scrap.width*0.75));
 					ceu_scrap.visible = false;
 					add(ceu_scrap);
 
-					chao_scrap = new FlxSprite(-810, -286).loadGraphic(Paths.image('cenarios/chao_scrap_brain'));
+					chao_scrap = new FlxSprite(-810, -376).loadGraphic(Paths.image('cenarios/chao_scrap_brain'));
 					chao_scrap.antialiasing = ClientPrefs.globalAntialiasing;
 					chao_scrap.scrollFactor.set(1, 1);
 					chao_scrap.active = false;
 					chao_scrap.visible = false;
-					chao_scrap.setGraphicSize(Std.int(chao_scrap.width*0.6));
+					chao_scrap.setGraphicSize(Std.int(chao_scrap.width*0.83));
 					add(chao_scrap);
 				}
 
@@ -1944,6 +1947,18 @@ class PlayState extends MusicBeatState
 					var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cenarios/saturn/ready'));
 					var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cenarios/saturn/set'));
 					var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cenarios/saturn/go'));
+
+					efeito_estatico = new FlxSprite(0,0);
+					efeito_estatico.frames = Paths.getSparrowAtlas("estatica", "week-sunshine");
+					efeito_estatico.animation.addByPrefix('idle', 'estatica idle', 14, true);
+					efeito_estatico.color=FlxColor.WHITE;
+					efeito_estatico.alpha = 0.15;
+					efeito_estatico.animation.play("idle", true);
+					efeito_estatico.cameras = [camHUD];
+					efeito_estatico.setGraphicSize(Std.int(FlxG.width*1.7));
+					efeito_estatico.screenCenter(XY);
+					efeito_estatico.visible = false;
+					add(efeito_estatico);
 
 					ready.scale.x = 0.5; // i despise all coding.
 					set.scale.x = 0.5;
@@ -5245,8 +5260,8 @@ class PlayState extends MusicBeatState
 						sSKY.visible = false;
 						ceu_scrap.visible = true;
 						chao_scrap.visible = true;
-						FlxTween.tween(FlxG.camera, {zoom: 1.1}, 2, {ease: FlxEase.cubeOut});
-						defaultCamZoom = 1.1;
+						FlxTween.tween(FlxG.camera, {zoom: 0.85}, 2, {ease: FlxEase.cubeOut});
+						defaultCamZoom = 0.85;
 
 						p3staticbg.visible = false;
 
@@ -7572,11 +7587,15 @@ class PlayState extends MusicBeatState
 			camHUD.setFilters([vcr]);
 			if (curSong != "sunshine")
 				camLegenda.setFilters([vcr]);
+			else
+				efeito_estatico.visible=true;
 		}else{
 			camGame.filtersEnabled = false;
 			camHUD.filtersEnabled = false;
 			if (curSong != "sunshine")
 				camLegenda.filtersEnabled = false;
+			else
+				efeito_estatico.visible=false;
 		}
 	}
 
