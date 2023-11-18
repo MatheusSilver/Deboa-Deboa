@@ -57,7 +57,7 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var newVersion:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
-	public static var version:String = '0.9.8.1';
+	public static var version:String = '0.9.9';
 	public static var changelogString:String = 'V'+version+'\nFix Gamejolt';
 	public static var verificaDnvIdiota:Bool = false;
 
