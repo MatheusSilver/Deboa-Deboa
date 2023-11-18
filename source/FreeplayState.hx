@@ -70,7 +70,7 @@ class FreeplayState extends MusicBeatState
 	public static function addProgress()
 	{
 		trace("curSelected: "+Std.string(curSelected)+"\nprogressFreeplay: "+Std.string(progressFreeplay)+"\nweekLength: "+ Std.string(totalMusicas));
-		if(curSelected < totalMusicas-1)
+		if(progressFreeplay < totalMusicas)
 		{
 			if(curSelected+1 == progressFreeplay)
 			{

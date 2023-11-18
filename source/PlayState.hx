@@ -2576,7 +2576,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String)
+	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String, ?endingSong1:String)
 	{
 		var diretorio = "assets/videos/" + nomedovideo + ".mp";
 		// O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
@@ -2585,6 +2585,7 @@ class PlayState extends MusicBeatState
 			#if mobile
 			triggerEventNote('comecarvideo', nomedovideo, '0, 0, "cheio", 0, 2');
 			#else
+			endingSong = endingSong1=="true";
 			videoSpr = new FlxSprite(0, 0);
 			VideoStatePC.NextState = "nenhum";
 			videoSpr.visible = true;
@@ -2614,7 +2615,7 @@ class PlayState extends MusicBeatState
 			trace(MP4Handler.vlcBitmap.length);
 			video.playMP4(diretorio, null, videoSpr);
 			playingVideoMP4 = true;
-			switch (curSong)
+			switch (curSong.toLowerCase())
 			{
 				case "prey":
 					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -4680,7 +4681,7 @@ class PlayState extends MusicBeatState
 			case 'video player super legal demais':
 				videoPlayerLegal(value1, value2, value3, value4);
 			case 'video player':
-				videoPlayer(value1, value2, value3); //Preguiça de mexer aqui.
+				videoPlayer(value1, value2, value3, value4); //Preguiça de mexer aqui.
 			case 'Socorro':
 				lime.app.Application.current.window.title = value1;
 			case 'Toggle Ghost Trail':
@@ -7880,7 +7881,6 @@ class PlayState extends MusicBeatState
 					add(brunito);
 			}
 		}
-
 		if (curSong == 'faker')
 		{
 			switch (curStep)
