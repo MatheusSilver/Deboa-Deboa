@@ -424,7 +424,6 @@ class MenuHistoria extends MusicBeatSubstate
 			else if (nombres[curSelected].toLowerCase() == 'noite da rapaziada')
 			{
 				FlxTransitionableState.skipNextTransOut = true;
-				FlxTransitionableState.skipNextTransIn = true;
 				FlxG.sound.music.volume = 0;
 				naopodevoltar = true;
 				apertavel = false;
