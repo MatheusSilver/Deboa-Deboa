@@ -193,7 +193,7 @@ class GameJoltLoginState extends MusicBeatState
         public static function syncProgress()
             {
                 TitleState.instance.verificarConexao();
-                if(TitleState.ModoOffline)
+                if(TitleState.ModoOffline) {
                     FlxG.save.data.progress = MenuPreHistoria.curSave;
                     var sum1:Int = 0;
                     for (i in 0...MenuPreHistoria.curSave.length) {
@@ -203,44 +203,46 @@ class GameJoltLoginState extends MusicBeatState
                     }
                     MainMenuStateMobile.passouCY = sum1 > 1;
                     return;
-                var sum1:Int = 0;
-                var sum2:Int = 0;
-                var dataGJ:String = GJClient.getData("progress");
-                for (i in 0...MenuPreHistoria.curSave.length) {
+                } else {
+                    var sum1:Int = 0;
+                    var sum2:Int = 0;
+                    var dataGJ:String = GJClient.getData("progress");
+                    for (i in 0...MenuPreHistoria.curSave.length) {
 
-                        sum1 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
-                        
-                        if(dataGJ != null)
-                        {
-                                sum2 += Std.parseInt(dataGJ.split(",")[i]);
-                        }
-                        else
-                        {
-                                sum2 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
-                        }
+                            sum1 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
+                            
+                            if(dataGJ != null)
+                            {
+                                    sum2 += Std.parseInt(dataGJ.split(",")[i]);
+                            }
+                            else
+                            {
+                                    sum2 += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
+                            }
 
+                    }
+
+                    trace("Data GJ All: " + dataGJ);
+                    trace("Local Num: " + sum1);
+                    trace("Data GJ Num: " + sum2);
+
+                    if (sum1 > sum2) {
+                        updateData();
+                        FlxG.save.data.progress = MenuPreHistoria.curSave;
+                        trace("Salvando o progresso local na gj");
+                    } else if (sum2 > sum1) {
+                        MenuPreHistoria.curSave = dataGJ;
+                        FlxG.save.data.progress = dataGJ;
+                        trace("Salvando o progresso gj no local");
+                    } else if (sum2 == sum1) {
+                        updateData();
+                        FlxG.save.data.progress = MenuPreHistoria.curSave;
+                        trace("Salvando o progresso local na gj (os dois sao iguais)");
+                    }
+                    
+                    MainMenuStateMobile.passouCY = sum1 > 1;
+                    trace("New Data GJ: " + GJClient.getData("progress"));
                 }
-
-                trace("Data GJ All: " + dataGJ);
-                trace("Local Num: " + sum1);
-                trace("Data GJ Num: " + sum2);
-
-                if (sum1 > sum2) {
-                    updateData();
-                    FlxG.save.data.progress = MenuPreHistoria.curSave;
-                    trace("Salvando o progresso local na gj");
-                } else if (sum2 > sum1) {
-                    MenuPreHistoria.curSave = dataGJ;
-                    FlxG.save.data.progress = dataGJ;
-                    trace("Salvando o progresso gj no local");
-                } else if (sum2 == sum1) {
-                    updateData();
-                    FlxG.save.data.progress = MenuPreHistoria.curSave;
-                    trace("Salvando o progresso local na gj (os dois sao iguais)");
-                }
-                
-                MainMenuStateMobile.passouCY = sum1 > 1;
-                trace("New Data GJ: " + GJClient.getData("progress"));
             
             }
         public static function updateData()
@@ -251,30 +253,34 @@ class GameJoltLoginState extends MusicBeatState
     public static function syncProgressFreeplay()
     {
         TitleState.instance.verificarConexao();
-        if(TitleState.ModoOffline || !GJClient.logged)
+        if(TitleState.ModoOffline){
             FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
             return;
-        var dataGJ:String = GJClient.getData("progressFreeplay");
-        var numGJ:Int = Std.parseInt(dataGJ);
-        var numLocal:Int = FreeplayState.progressFreeplay;
-        trace("Local Num: " + numLocal);
-        trace("Data GJ Num: " + numGJ);
-
-        if (numLocal > numGJ) {
-            GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
-            FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
-            trace("Salvando o progresso local na gj");
-        } else if (numGJ > numLocal) {
-            FreeplayState.progressFreeplay = numGJ;
-            FlxG.save.data.freeplayProgress = dataGJ;
-            trace("Salvando o progresso gj no local");
-        } else if (numGJ == numLocal) {
-            GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
-            FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
-            trace("Salvando o progresso local na gj (os dois sao iguais)");
         }
-
-        trace("New Data GJ: " + GJClient.getData("progressFreeplay"));
+        else
+        {
+            var dataGJ:String = GJClient.getData("progressFreeplay");
+            var numGJ:Int = Std.parseInt(dataGJ);
+            var numLocal:Int = FreeplayState.progressFreeplay;
+            trace("Local Num: " + numLocal);
+            trace("Data GJ Num: " + numGJ);
+    
+            if (numLocal > numGJ) {
+                GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
+                FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
+                trace("Salvando o progresso local na gj");
+            } else if (numGJ > numLocal) {
+                FreeplayState.progressFreeplay = numGJ;
+                FlxG.save.data.freeplayProgress = dataGJ;
+                trace("Salvando o progresso gj no local");
+            } else if (numGJ == numLocal) {
+                GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
+                FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
+                trace("Salvando o progresso local na gj (os dois sao iguais)");
+            }
+    
+            trace("New Data GJ: " + GJClient.getData("progressFreeplay"));
+        }
     }
             
 }
