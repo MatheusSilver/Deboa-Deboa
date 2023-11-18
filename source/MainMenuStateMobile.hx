@@ -61,11 +61,14 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var changelogString:String = 'V'+version+'\nIsso é apenas um\nteste pra ver\nse isso funciona\nmesmo.\nSerá que deu\ncerto????\nass:dav';
 	public static var verificaDnvIdiota:Bool = false;
 
+	public static var passouCY:Bool = false;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		Conductor.changeBPM(112);
+		GameJoltLoginState.syncProgress();
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("No menu principal", null);
@@ -150,12 +153,20 @@ class MainMenuStateMobile extends MusicBeatState
 				}
 			else
 				{*/
-					botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
+					//botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
 				//}
 			
+			if(optionShit[i]=="freeplay" && !passouCY)
+			{
+				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i]+"-locked2", 'preload'));
+			}
+			else
+			{
+				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
+			}
 
 			botoes.setGraphicSize(Std.int(botoes.width * 0.6)); //Matemática avançada para o caso de algum dia vir a adicionar, ou remover botões daqui
-			botoes.alpha = /*!GJClient.logged && */optionShit[i]=="multiplayer-locked2" ? 1 : 0.75;
+			botoes.alpha = /*!GJClient.logged && */optionShit[i]=="multiplayer-locked2" || optionShit[i]=="freeplay"&&!passouCY ? 1 : 0.75;
 			botoes.ID = i;
 			botoes.screenCenter(Y);
 			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-97.5;
@@ -194,7 +205,7 @@ class MainMenuStateMobile extends MusicBeatState
 		//nossa, eu n tinha visto isso antes e achei que tinha quebrado algo k
 		if(GJClient.logged)
 			{
-				if(verificaDnvIdiota){GameJoltLoginState.syncProgress(); verificaDnvIdiota = false;}
+				if(verificaDnvIdiota){GameJoltLoginState.syncProgress(); GameJoltLoginState.syncProgressFreeplay(); verificaDnvIdiota = false;}
 				letext.text = GJClient.userName;
 				trace(GJClient.avatarURL);
 				letext.x=-345;
@@ -407,6 +418,8 @@ class MainMenuStateMobile extends MusicBeatState
 				case 'historia':
 					MusicBeatState.switchState(new EstadoDeLimpeza());
 				case 'freeplay':
+					if(!passouCY)
+						return;
 					MusicBeatState.switchState(new FreeplayState());
 				case 'conquistas':
 					MusicBeatState.switchState(new AchievementsMenuState());
@@ -437,18 +450,35 @@ class MainMenuStateMobile extends MusicBeatState
 			{
 				if(clicavel && !checkiftouch){
 					menuItems.forEach(function(spr:FlxSprite){
-						if(optionShit[spr.ID] != "multiplayer-locked2")
+						if(optionShit[spr.ID] != "multiplayer-locked2" /*&& (optionShit[spr.ID] != "freeplay" && !passouCY)*/ )
 							{
-								if(FlxG.mouse.overlaps(spr) && spr.alpha == 0.75){
-									menuItems.members[spr.ID].alpha=1;
-									GlobalSoundManager.play('scrollMenu');
-								}else if(!FlxG.mouse.overlaps(spr)){
-									spr.alpha=0.75;
+								if(optionShit[spr.ID] == "freeplay" && passouCY)
+								{
+									if(FlxG.mouse.overlaps(spr) && spr.alpha == 0.75){
+										menuItems.members[spr.ID].alpha=1;
+										GlobalSoundManager.play('scrollMenu');
+									}else if(!FlxG.mouse.overlaps(spr)){
+										spr.alpha=0.75;
+									}
+	
+									if(FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed){
+										trocaDeState(spr.ID);
+									}
+								}
+								else if(optionShit[spr.ID] != "freeplay")
+								{
+									if(FlxG.mouse.overlaps(spr) && spr.alpha == 0.75){
+										menuItems.members[spr.ID].alpha=1;
+										GlobalSoundManager.play('scrollMenu');
+									}else if(!FlxG.mouse.overlaps(spr)){
+										spr.alpha=0.75;
+									}
+	
+									if(FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed){
+										trocaDeState(spr.ID);
+									}
 								}
 
-								if(FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed){
-									trocaDeState(spr.ID);
-								}
 							}
 						/*else
 							{
