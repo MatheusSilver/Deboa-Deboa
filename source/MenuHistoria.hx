@@ -1,5 +1,7 @@
 package;
 
+import flixel.FlxCamera;
+import Achievements.AchievementObject;
 import LoadingState;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -33,6 +35,10 @@ class MenuHistoria extends MusicBeatSubstate
 	var canceltweens:Bool = false;
 	var musicas:Array<Dynamic> = [];
 	var nombres:Array<Dynamic> = [];
+
+
+	
+	public var camAchievement:FlxCamera;
 
 	public static var dapreselected:String = '';
 	public static var curSelected:Int = 0; // Publico pra corrigir um pequeno bugzinho de continuidade.
@@ -90,6 +96,11 @@ class MenuHistoria extends MusicBeatSubstate
 		if (curSelected >= WeekData.weeksList.length)
 			curSelected = 0;
 		persistentUpdate = persistentDraw = true;
+
+		
+		camAchievement = new FlxCamera();
+		camAchievement.bgColor.alpha = 0;
+		FlxG.cameras.add(camAchievement, false);
 
 		pastbgSprite = new FlxSprite(0, 0);
 		pastbgSprite.antialiasing = ClientPrefs.globalAntialiasing;
@@ -155,7 +166,29 @@ class MenuHistoria extends MusicBeatSubstate
 			flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
 		}
 		super.create();
+		if (FlxG.save.data.progress == "7,3,2,1,1,2,2,2,4") test_unlock("heroi");
 	}
+
+	function test_unlock(achieve:String){
+		#if ACHIEVEMENTS_ALLOWED
+		var achieveID:Int = Achievements.getAchievementIndex(achieve);
+		if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+			ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+			giveAchievement(achieve);
+			ClientPrefs.save();
+		}
+		#end
+		return;
+	}
+
+	#if ACHIEVEMENTS_ALLOWED
+	// Unlocks "Freaky on a Friday Night" achievement
+	function giveAchievement(achievementname) {
+		add(new AchievementObject(achievementname, camAchievement));
+		GlobalSoundManager.play('confirmMenu');
+		trace('Giving achievement '+ achievementname);
+	}
+	#end
 
 	function applySave()
 	{
@@ -345,8 +378,7 @@ class MenuHistoria extends MusicBeatSubstate
 		PlayState.isStoryMode = false;
 		PlayState.modohistoria = true;
 		if (nombres[curSelected].toLowerCase() != 'controle'
-			&& nombres[curSelected] != 'Cross Console Clash'
-			&& nombres[curSelected] != 'Noite da Rapaziada')
+			&& nombres[curSelected] != 'Cross Console Clash')
 		{
 			MenuPreHistoria.bigmenu.alpha = 0;
 			bgSprite.alpha = 0;
@@ -365,7 +397,7 @@ class MenuHistoria extends MusicBeatSubstate
 			});
 
 			// Nesse eu não vou mexer, tô com medo de ferrar alguma coisa.
-			if (toPlay)
+			if (toPlay && nombres[curSelected] != 'Noite da Rapaziada')
 			{
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
@@ -389,6 +421,18 @@ class MenuHistoria extends MusicBeatSubstate
 					}
 				});
 			}
+			else if (nombres[curSelected].toLowerCase() == 'noite da rapaziada')
+			{
+				FlxTransitionableState.skipNextTransOut = true;
+				FlxTransitionableState.skipNextTransIn = true;
+				FlxG.sound.music.volume = 0;
+				naopodevoltar = true;
+				apertavel = false;
+				new FlxTimer().start(0.3, function(tmr:FlxTimer)
+				{
+					MusicBeatState.switchState(new PastaNightSelect());
+				});
+			}
 			else
 			{
 				MusicBeatState.switchState(new editors.ChartingState());
@@ -401,16 +445,6 @@ class MenuHistoria extends MusicBeatSubstate
 			new FlxTimer().start(0.3, function(tmr:FlxTimer)
 			{
 				openSubState(new ControlSongSubstate());
-			});
-		}
-		else if (nombres[curSelected].toLowerCase() == 'noite da rapaziada')
-		{
-			FlxG.sound.music.volume = 0;
-			naopodevoltar = true;
-			apertavel = false;
-			new FlxTimer().start(0.3, function(tmr:FlxTimer)
-			{
-				MusicBeatState.switchState(new PastaNightSelect());
 			});
 		}
 		else if (nombres[curSelected].toLowerCase() == 'cross console clash')

@@ -69,12 +69,18 @@ class TitleState extends MusicBeatState
 
 	var mustUpdate:Bool = false;
 
+	public static var instance:TitleState;
+
 	public static var updateVersion:String = '';
 
 	public static var ModoOffline:Bool = false;
 
 	override public function create():Void
 	{
+		if(instance == null)
+		{
+			instance=this;
+		}
 		FlxTransitionableState.skipNextTransOut = true;
 		MainMenuStateMobile.newVersion = FlxG.save.data.gameVersion != MainMenuStateMobile.version && FlxG.save.data.gameVersion != null;
 		if (FlxG.save.data.progress != null)
@@ -96,12 +102,7 @@ class TitleState extends MusicBeatState
 		}
 		if (!initialized)
 		{
-			urlLoader = new URLLoader();
-			urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
-			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
-
-			var request = new URLRequest("https://www.google.com");
-			urlLoader.load(request);
+			verificarConexao();
 		}
 		// FlxG.switchState(new GameJoltLogin());
 		#if android
@@ -207,6 +208,16 @@ class TitleState extends MusicBeatState
 		#end
 	}
 
+	public function verificarConexao():Void
+		{
+			urlLoader = new URLLoader();
+			urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
+			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
+	
+			var request = new URLRequest("https://www.google.com");
+			urlLoader.load(request);
+		}
+
 	private function handleLoadComplete(event:Event):Void
 	{
 		trace("Conexão com a internet OK!");
@@ -228,6 +239,7 @@ class TitleState extends MusicBeatState
 	var opacidade:Float = 0;
 	var opacidadesuporte:Int = -1;
 	var candothething:Bool = false;
+
 
 	function startIntro()
 	{

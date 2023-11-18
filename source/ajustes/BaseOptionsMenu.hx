@@ -51,6 +51,7 @@ class BaseOptionsMenu extends MusicBeatState
 	static var options:Array<String> = [
 		'VISUAL',
 		'Baixa Qualidade',
+		'Gore',
 		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
 		//Vai que o Sirox e seu celular da NASA joguem esse mod, por via das duvidas, os shaders ficam desativados por padrão em mobile
 		'Anti-Aliasing',
@@ -221,6 +222,9 @@ class BaseOptionsMenu extends MusicBeatState
 
 					case 'Baixa Qualidade':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
+
+					case 'Gore':
+						ClientPrefs.gore = !ClientPrefs.gore;
 					
 					case 'Shaders':
 						ClientPrefs.shaders = !ClientPrefs.shaders;
@@ -336,8 +340,8 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Tipo':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += add;
-						if(ClientPrefs.hitSoundType < 1) ClientPrefs.hitSoundType = 1;
-						else if(ClientPrefs.hitSoundType > 4) ClientPrefs.hitSoundType = 4; //A ordem importa k
+						if(ClientPrefs.hitSoundType <= 1) ClientPrefs.hitSoundType = 1;
+						else if(ClientPrefs.hitSoundType >= 4) ClientPrefs.hitSoundType = 4; //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
@@ -481,6 +485,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.shaders;
 					case 'Baixa Qualidade':
 						daValue = ClientPrefs.lowQuality;
+					case 'Gore':
+						daValue = ClientPrefs.gore;
 					case 'Anti-Aliasing':
 						daValue = ClientPrefs.globalAntialiasing;
 					case 'Efeitos de Camera':
@@ -533,7 +539,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Volume':
 						daText = Std.string(ClientPrefs.osusom);
 					case 'Tipo':
-						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType+1);
+						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType);
 					case 'Teste o HitSound':
 						daText = '';
 				}

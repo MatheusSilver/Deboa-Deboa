@@ -53,6 +53,7 @@ class FreeplayState extends MusicBeatState
 	private var curPlaying:Bool = false;
 
 	private var iconArray:Array<HealthIcon> = [];
+	
 
 	var bg:FlxSprite;
 	var perfilSprite:FlxSprite = null;
@@ -62,10 +63,33 @@ class FreeplayState extends MusicBeatState
 	// Eu acho, mas acho que isso tá dando um pouco de problema no PC/Android
 	private var UPDATE_INTERVAL:Float = 1.0 / 60.0; 
     private var timeAccumulated:Float = 0.0;
+
+	public static var progressFreeplay:Int = 1;
+	public static var totalMusicas:Int = 9;
+
+	public static function addProgress()
+	{
+		trace("curSelected: "+Std.string(curSelected)+"\nprogressFreeplay: "+Std.string(progressFreeplay)+"\nweekLength: "+ Std.string(totalMusicas));
+		if(curSelected < totalMusicas-1)
+		{
+			if(curSelected+1 == progressFreeplay)
+			{
+				progressFreeplay++;
+				GameJoltLoginState.syncProgressFreeplay();
+			}
+		}
+	}
 	
 	override function create()
 	{
-		
+		if(FlxG.save.data.freeplayProgress != null)
+		{
+			progressFreeplay = FlxG.save.data.freeplayProgress;
+		}
+		else
+		{
+			FlxG.save.data.freeplayProgress = progressFreeplay;
+		}
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
@@ -86,7 +110,6 @@ class FreeplayState extends MusicBeatState
 
 		
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
-
 		for (i in 0...WeekData.freeplayList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 			var leSongs:Array<String> = [];
@@ -128,7 +151,7 @@ class FreeplayState extends MusicBeatState
 		var borda:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/bordinha'));
 		borda.antialiasing = ClientPrefs.globalAntialiasing;
 		
-		for (i in 0...songs.length)
+		for (i in 0...progressFreeplay)
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i), songs[i].display.toLowerCase(), false, false, 0.05, 0.7, 'alfabetovio');
 			songText.isMenuTrem = true;
@@ -392,8 +415,8 @@ class FreeplayState extends MusicBeatState
 		curSelected += change;
 
 		if (curSelected < 0)
-			curSelected = songs.length - 1;
-		if (curSelected >= songs.length)
+			curSelected = progressFreeplay - 1;
+		if (curSelected >= progressFreeplay)
 			curSelected = 0;
 
 		#if !switch

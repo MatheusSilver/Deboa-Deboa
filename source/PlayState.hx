@@ -898,10 +898,10 @@ class PlayState extends MusicBeatState
 				furnaceTheEnd.scale.y = 2; // Já você é um outro caso.
 				furnaceTheEnd.visible = false;
 
-				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2', false), 4608, 2832, true, false);
+				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2', "week-prey", false), 4608, 2832, true, false);
 				stardustBgPixel.scrollFactor.set(0.4, 0.4);
 
-				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1', false), 4608, 2832, true, true);
+				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1', "week-prey",  false), 4608, 2832, true, true);
 
 				stardustBgPixel.visible = false;
 				stardustFloorPixel.visible = false;
@@ -2611,18 +2611,20 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	public function pularVideo()
+	public function pularVideo(?naoPularTempo:Bool = false)
 	{
 		#if desktop
 		if (playingVideoMP4)
 		{
 			video.onVLCComplete();
 			letext.alpha = 0;
-			FlxG.sound.music.pause();
 			vocals.pause();
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
 			camGame.alpha = 1;
+			if(naoPularTempo)
+				return;
+			FlxG.sound.music.pause();
 			Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
 			trace(MP4Handler.vlcBitmap.length);
 			trace(MP4Handler.vlcBitmap.time);
@@ -4347,15 +4349,9 @@ class PlayState extends MusicBeatState
 					strumAlpha *= daNote.multAlpha;
 
 					if (strumScroll) // Downscroll
-					{
-						// daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed);
 						daNote.distance = (0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed * daNote.multSpeed);
-					}
 					else // Upscroll
-					{
-						// daNote.y = (strumY - 0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed);
 						daNote.distance = (-0.45 * (Conductor.songPosition - daNote.strumTime) * SONG.speed * daNote.multSpeed);
-					}
 
 					var angleDir = strumDirection * Math.PI / 180;
 					if (daNote.copyAngle)
@@ -4379,7 +4375,7 @@ class PlayState extends MusicBeatState
 							daNote.flipY = strumScroll;
 						}
 						// Jesus fuck this took me so much mother fucking time AAAAAAAAAA
-						if (strumScroll && daNote.isSustainNote)
+						if (ClientPrefs.downScroll && daNote.isSustainNote)
 						{
 							if (daNote.animation.curAnim.name.endsWith('end'))
 							{
@@ -4396,6 +4392,11 @@ class PlayState extends MusicBeatState
 							}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (SONG.speed - 1));
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (SONG.speed - 1);
+							if (!strumScroll){
+								daNote.y += 230;
+							}
+						}else if(strumScroll && daNote.isSustainNote){
+							daNote.y -= 180;
 						}
 					}
 
@@ -4543,6 +4544,8 @@ class PlayState extends MusicBeatState
 			if (curSong.toLowerCase() == 'chaos' && cpuControlled)
 			{
 				startachieving("chaos_bot");
+			}else if (SONG.song.toLowerCase() == 'best-friends' && deathCounter >= 5){
+				startachieving("side_deaths");
 			}
 			var ret:Dynamic = callOnLuas('onGameOver', []);
 			if (ret != FunkinLua.Function_Stop)
@@ -5283,14 +5286,17 @@ class PlayState extends MusicBeatState
 						cinematicBars(true);
 
 					case 1010101:
-						FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
+						if (ClientPrefs.gore)
+							FlxTween.tween(furnaceTheEnd, {y: 170, x: furnaceTheEnd.x +45}, 1.5, {ease: FlxEase.cubeInOut});
+						else
+							FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
 
 					case 246:
 						FlxTween.tween(dad, {x: 580 - 250 * 2}, 1, {ease: FlxEase.cubeInOut});
 						FlxTween.tween(camHUD, {alpha: 1}, 1.2, {ease: FlxEase.cubeInOut});
 						cinematicBars(false);
 					case 511:
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2'));
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2', "week-prey", false));
 						FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
 
@@ -5301,7 +5307,7 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(sonicHUD, {alpha: 0}, 0.5, {ease: FlxEase.cubeInOut}); // sÓ pq fica estranho com a cinematics
 
 					case 1280:
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3'));
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3', "week-prey", false));
 						FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
 						triggerEventNote('Change Character', 'dad', 'Furnace-rgb'); // Ele já foi carregado mesmo então tá safe
@@ -5349,7 +5355,7 @@ class PlayState extends MusicBeatState
 					case 1780:
 						// Play sonic pulim
 						sonicPulo.play();
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1')); // AGORA SIM TU VAI PODER VER O OLHO DELE
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
 						FlxG.camera.flash(FlxColor.RED, 1);
 						cinematicBars(false); // I FORGOR
 						FlxTween.tween(camHUD, {alpha: 1}, 1.0);
@@ -5475,8 +5481,8 @@ class PlayState extends MusicBeatState
 					case 3400:
 						storyDifficultyText = 'Good ending?'; // detalhe que achei soda
 						endingTweens('good_ending');
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor4')); // AGORA SIM TU VAI PODER VER O OLHO DELE
-						stardustBgPixel.loadGraphic(Paths.image('cenarios/starved/stardustBg')); // AGORA SIM TU VAI PODER VER O OLHO DELE
+						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor4', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
+						stardustBgPixel.loadGraphic(Paths.image('cenarios/starved/stardustBg', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
 
 					case 3425:
 						hungryManJackTime = 2;
@@ -6259,6 +6265,11 @@ class PlayState extends MusicBeatState
 						concluirMusicaProgresso();
 					}
 
+					if(!modohistoria #if !debug && !usedPractice #end)
+					{
+						FreeplayState.addProgress();
+					}
+
 					blackFuck.visible = true;
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3, {
 						ease: FlxEase.cubeInOut,
@@ -6273,6 +6284,10 @@ class PlayState extends MusicBeatState
 				{
 					// Sim, isso funciona no android/mobile
 					// Aparentemente eu e o Silver ficamos em dúvida se isso funfava ou não, mas como eu tenho certeza, tá aqui k
+					if(!modohistoria #if !debug && !usedPractice #end)
+						{
+							FreeplayState.addProgress();
+						}
 					ClientPrefs.pibby = true;
 					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
 					lime.system.System.exit(0);
@@ -7927,9 +7942,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (generatedMusic)
-		{
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
-		}
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
@@ -8640,7 +8653,7 @@ class PlayState extends MusicBeatState
 							unlock = true;
 						}
 					case 'besties':
-						if (SONG.song.toLowerCase() == 'too-fest' && !usedPractice && !cpuControlled)
+						if (SONG.song.toLowerCase() == 'best-friends' && !usedPractice && !cpuControlled)
 						{
 							unlock = true;
 						}
