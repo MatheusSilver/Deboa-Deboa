@@ -214,7 +214,7 @@ class TitleState extends MusicBeatState
 			urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
 			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
 	
-			var request = new URLRequest("https://www.google.com");
+			var request = new URLRequest("https://gamejolt.com");
 			urlLoader.load(request);
 		}
 

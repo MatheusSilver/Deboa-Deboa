@@ -547,7 +547,6 @@
 						"AnimacoesJogaveis/sidekickcutscene",
 						"",
 						"",
-						"",
 						""
 					]
 				],
@@ -1590,7 +1589,18 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						201098.901098901,
+						-1,
+						"video player",
+						"AnimacoesJogaveis/sidekickcutscene2",
+						"",
+						"",
+						"true",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
