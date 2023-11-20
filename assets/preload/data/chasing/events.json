@@ -19,8 +19,8 @@
 						"",
 						"",
 						"precache purposes",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						85.2272727272727,
@@ -29,8 +29,8 @@
 						"",
 						"",
 						"precache purposes",
-						null,
-						null
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -190,7 +190,7 @@
 						"AnimacoesJogaveis/ChasingVideo",
 						"1",
 						"false",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -299,9 +299,9 @@
 						"hudfade",
 						"0",
 						"1.8",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -320,9 +320,9 @@
 						"Change Character",
 						"dad",
 						"soultails",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					],
 					[
 						47550.7462686567,
@@ -330,9 +330,9 @@
 						"Change Character",
 						"gf",
 						"invisibru",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					],
 					[
 						47798.5074626866,
@@ -340,9 +340,9 @@
 						"Change Character",
 						"bf",
 						"sonicsexo",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -371,9 +371,9 @@
 						"playchasing",
 						"false",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -412,9 +412,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -433,9 +433,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -454,9 +454,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					],
 					[
 						57537.3134328358,
@@ -464,9 +464,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					],
 					[
 						58880.5970149254,
@@ -474,9 +474,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -495,9 +495,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -516,9 +516,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -537,9 +537,9 @@
 						"hudfade",
 						"1",
 						"2",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					],
 					[
 						62686.5671641791,
@@ -547,9 +547,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					],
 					[
 						63022.3880597015,
@@ -557,9 +557,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -578,9 +578,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"0.03",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -919,9 +919,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -940,9 +940,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -961,9 +961,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -982,9 +982,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1003,9 +1003,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1024,9 +1024,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1045,9 +1045,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1066,9 +1066,9 @@
 						"Add Camera Zoom",
 						"0.03",
 						"",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1257,9 +1257,9 @@
 						"hudfade",
 						"0",
 						"5",
-						null,
-						null,
-						null
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -1472,10 +1472,10 @@
 		"bpm": 134,
 		"arrowSkin": "arrows1-soniczoom",
 		"needsVoices": false,
-		"startinvisibru": null,
+		"startinvisibru": "",
 		"canfollowpermitido": true,
 		"song": "chasing",
-		"isRing": null,
-		"videonombre": null
+		"isRing": "",
+		"videonombre": ""
 	}
 }

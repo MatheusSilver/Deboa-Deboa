@@ -2141,12 +2141,11 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 174,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "too-fest",
-		"isRing": null,
-		"videonombre": null
+		"isRing": "",
+		"videonombre": ""
 	}
 }

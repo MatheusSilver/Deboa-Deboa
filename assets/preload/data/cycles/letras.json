@@ -1862,11 +1862,10 @@
 		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 156,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "cycles",
-		"isRing": null
+		"isRing": ""
 	}
 }

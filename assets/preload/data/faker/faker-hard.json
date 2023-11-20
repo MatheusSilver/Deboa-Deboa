@@ -2355,7 +2355,7 @@
 		"splashSkin": "noteSplashes",
 		"sections": 0,
 		"needsVoices": false,
-		"noteStyle": null,
+		"noteStyle": "",
 		"speed": 2.6,
 		"bpm": 105
 	}

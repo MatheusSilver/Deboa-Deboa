@@ -2068,11 +2068,10 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 180,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "clickbait",
-		"isRing": null
+		"isRing": ""
 	}
 }

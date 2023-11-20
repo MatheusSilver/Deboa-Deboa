@@ -7650,7 +7650,7 @@
 		"sections": 0,
 		"validScore": true,
 		"startinvisibru": true,
-		"noteStyle": null,
+		"noteStyle": "",
 		"speed": 3.1,
 		"bpm": 150
 	}

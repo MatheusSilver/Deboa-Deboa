@@ -7687,8 +7687,8 @@
 		"bpm": 176,
 		"arrowSkin": "NOTE_assetszoom",
 		"needsVoices": false,
-		"startinvisibru": null,
+		"startinvisibru": "",
 		"song": "prey",
-		"isRing": null
+		"isRing": ""
 	}
 }

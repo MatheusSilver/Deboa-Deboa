@@ -2845,11 +2845,10 @@
 		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 182,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "Sidekick",
-		"isRing": null
+		"isRing": ""
 	}
 }

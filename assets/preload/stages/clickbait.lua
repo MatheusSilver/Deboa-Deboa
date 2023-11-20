@@ -1,6 +1,7 @@
 function onCreate()
-	makeLuaSprite('blck', '', 0, 0);
-	makeGraphic('blck', 1280, 720, '000000');
+	makeLuaSprite('blck', 'empty', 0, 0);
+	makeGraphic('blck', 1, 1, '000000');
+	setGraphicSize('blck', screenWidth, screenHeight)
 	setProperty('blck.alpha', 0.5)
     setObjectCamera('blck', 'camHUD');
 	addLuaSprite('blck', true);

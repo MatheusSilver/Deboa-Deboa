@@ -6848,7 +6848,7 @@
 				"mustHitSection": true
 			}
 		],
-		"player3": null,
+		"player3": "",
 		"song": "phantasm",
 		"validScore": true,
 		"sections": 0,

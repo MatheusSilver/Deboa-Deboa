@@ -868,6 +868,20 @@ class PlayState extends MusicBeatState
 				tempogravador.antialiasing = false;
 				add(tempogravador);
 
+				if(ClientPrefs.shaders){
+					efeito_estatico = new FlxSprite(0,0);
+					efeito_estatico.frames = Paths.getSparrowAtlas("estatica", "week-sunshine");
+					efeito_estatico.animation.addByPrefix('idle', 'estatica idle', 14, true);
+					efeito_estatico.color=FlxColor.WHITE;
+					efeito_estatico.alpha = 0.15;
+					efeito_estatico.animation.play("idle", true);
+					efeito_estatico.cameras = [camHUD];
+					efeito_estatico.setGraphicSize(Std.int(FlxG.width*1.7));
+					efeito_estatico.screenCenter(XY);
+					efeito_estatico.visible = false;
+					add(efeito_estatico);
+				}
+
 				analog_shader();
 
 			case 'chasing':
@@ -4402,16 +4416,15 @@ class PlayState extends MusicBeatState
 					if (daNote.copyX)
 						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
 
+
 					if (daNote.copyY)
 					{
 						daNote.y = strumY + Math.sin(angleDir) * daNote.distance;
 
-						if (daNote.animation.curAnim.name.endsWith('end') && scrollModifierChecker != strumScroll)
-						{
-							daNote.flipY = strumScroll;
-						}
+						if (daNote.isSustainNote && scrollModifierChecker != strumScroll)
+							daNote.flipY = strumScroll; //Lore se liga nisso aqui depois kkkkkkkkkkkkkkkkkk
 						// Jesus fuck this took me so much mother fucking time AAAAAAAAAA
-						if (ClientPrefs.downScroll && daNote.isSustainNote)
+						if (strumScroll && daNote.isSustainNote)
 						{
 							if (daNote.animation.curAnim.name.endsWith('end'))
 							{
@@ -4428,11 +4441,6 @@ class PlayState extends MusicBeatState
 							}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (SONG.speed - 1));
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (SONG.speed - 1);
-							if (!strumScroll){
-								daNote.y += 230;
-							}
-						}else if(strumScroll && daNote.isSustainNote){
-							daNote.y -= 180;
 						}
 					}
 
@@ -5083,7 +5091,7 @@ class PlayState extends MusicBeatState
 					case 27:
 						doStaticSign(0);
 					case 180:
-					// doJumpscare();
+						doJumpscare();
 					case 921:
 						doSimpleJump();
 					case 763:
@@ -6965,12 +6973,12 @@ class PlayState extends MusicBeatState
 					animToPlay = 'singLEFTmiss';
 				case 1:
 					animToPlay = 'singDOWNmiss';
-				case 2:
-					animToPlay = 'none';
 				case 3:
 					animToPlay = 'singUPmiss';
 				case 4:
 					animToPlay = 'singRIGHTmiss';
+				default:
+					animToPlay = "none";
 			}
 		}
 		else
@@ -7116,6 +7124,8 @@ class PlayState extends MusicBeatState
 						animToPlay = 'singUP';
 					case 4:
 						animToPlay = 'singRIGHT';
+					default:
+						animToPlay = "none";
 				}
 			}
 			else
@@ -7301,7 +7311,7 @@ class PlayState extends MusicBeatState
 						}
 						else if (boyfriend.curCharacter.startsWith('sonic'))
 						{
-							ring.play();
+							ring.play(true);
 						}
 						cccVidaCounter++;
 					}
@@ -7322,7 +7332,7 @@ class PlayState extends MusicBeatState
 			if (isRing && note.noteData == 2)
 			{
 				cNum += 1;
-				ring.play();
+				ring.play(true);
 			}
 			if (canRegen)
 			{
@@ -7348,6 +7358,8 @@ class PlayState extends MusicBeatState
 							animToPlay = 'singUP';
 						case 4:
 							animToPlay = 'singRIGHT';
+						default:
+							animToPlay = "none";
 					}
 				}
 				else if ((boyfriend.animation.getByName('singLEFT') != null
@@ -7586,17 +7598,15 @@ class PlayState extends MusicBeatState
 
 			camGame.setFilters([vcr]);
 			camHUD.setFilters([vcr]);
+			efeito_estatico.visible=true;
 			if (curSong != "sunshine")
 				camLegenda.setFilters([vcr]);
-			else
-				efeito_estatico.visible=true;
 		}else{
 			camGame.filtersEnabled = false;
 			camHUD.filtersEnabled = false;
+			efeito_estatico.visible=false;
 			if (curSong != "sunshine")
 				camLegenda.filtersEnabled = false;
-			else
-				efeito_estatico.visible=false;
 		}
 	}
 

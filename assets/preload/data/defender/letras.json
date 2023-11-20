@@ -1644,11 +1644,10 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 150,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "defender",
-		"isRing": null
+		"isRing": ""
 	}
 }

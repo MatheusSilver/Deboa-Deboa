@@ -466,9 +466,8 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 190,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "personel",
-		"isRing": null
+		"isRing": ""
 	}
 }

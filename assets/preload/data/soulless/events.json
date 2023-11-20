@@ -18,7 +18,7 @@
 						"CharacterAlphaTween",
 						"dad",
 						"0.8,15",
-						null
+						""
 					],
 					[
 						0,
@@ -26,7 +26,7 @@
 						"Set Cam Zoom",
 						"1.74",
 						"0.0001",
-						null
+						""
 					],
 					[
 						0,
@@ -34,7 +34,7 @@
 						"Play Animation",
 						"laugh",
 						"dad",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -53,7 +53,7 @@
 						"Set Cam Zoom",
 						"1.78",
 						"0.0001",
-						null
+						""
 					],
 					[
 						5657.14285714286,
@@ -61,7 +61,7 @@
 						"hudfade",
 						"1",
 						"15",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -80,7 +80,7 @@
 						"Set Cam Zoom",
 						"1.82",
 						"0.0001",
-						null
+						""
 					],
 					[
 						12342.8571428571,
@@ -88,7 +88,7 @@
 						"Set Cam Zoom",
 						"1.78",
 						"0.0001",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -107,7 +107,7 @@
 						"Set Cam Zoom",
 						"1.74",
 						"0.0001",
-						null
+						""
 					],
 					[
 						15085.7142857143,
@@ -115,7 +115,7 @@
 						"Set Cam Zoom",
 						"1.7",
 						"0.0001",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -134,7 +134,7 @@
 						"Play Animation",
 						"smile",
 						"dad",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -153,7 +153,7 @@
 						"Set Cam Zoom",
 						"0.9",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -384,9 +384,8 @@
 		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 87.5,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "soulless",
-		"isRing": null
+		"isRing": ""
 	}
 }

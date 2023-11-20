@@ -21706,15 +21706,14 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "",
 		"validScore": false,
 		"bpm": 105,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "sunshine",
 		"isRing": false,
-		"videonombre": null
+		"videonombre": ""
 	}
 }

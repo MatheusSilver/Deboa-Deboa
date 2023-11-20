@@ -7056,7 +7056,7 @@
 		"player3": "invisibru",
 		"initialSpeed": 1.575,
 		"splashSkin": "blood",
-		"sliderVelocities": null,
+		"sliderVelocities": "",
 		"song": "control",
 		"canfollowpermitido": true,
 		"validScore": true,

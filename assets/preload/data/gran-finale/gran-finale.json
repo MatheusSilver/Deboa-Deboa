@@ -17432,10 +17432,10 @@
 				"mustHitSection": true
 			}
 		],
-		"gfVersion": "null",
+		"gfVersion": """",
 		"player3": "invisibru",
 		"initialSpeed": 1.44,
-		"sliderVelocities": null,
+		"sliderVelocities": "",
 		"song": "gran-finale",
 		"validScore": true,
 		"stage": "finale-r",

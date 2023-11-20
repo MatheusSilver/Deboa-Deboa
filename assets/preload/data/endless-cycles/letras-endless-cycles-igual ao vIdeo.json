@@ -39,8 +39,8 @@
 						"LX2",
 						"MJ24",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						7784.81012658228,
@@ -49,8 +49,8 @@
 						"LX3",
 						"MJ24",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						8544.30379746835,
@@ -59,8 +59,8 @@
 						"LX4",
 						"MJ24",
 						"",
-						null,
-						null
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -80,8 +80,8 @@
 						"LX25",
 						"MJ2",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						10822.7848101266,
@@ -90,8 +90,8 @@
 						"LX25",
 						"MJ3",
 						"",
-						null,
-						null
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -111,8 +111,8 @@
 						"LX5",
 						"MJ24",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						13860.7594936709,
@@ -121,8 +121,8 @@
 						"LX6",
 						"MJ24",
 						"",
-						null,
-						null
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -142,8 +142,8 @@
 						"LX25",
 						"MJ4",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						16898.7341772152,
@@ -152,8 +152,8 @@
 						"LX25",
 						"MJ5",
 						"",
-						null,
-						null
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -453,8 +453,8 @@
 						"LX15",
 						"MJ13",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						56392.4050632912,
@@ -463,8 +463,8 @@
 						"LX15",
 						"MJ14",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						57531.6455696203,
@@ -494,8 +494,8 @@
 						"LX16",
 						"MJ15",
 						"",
-						null,
-						null
+						"",
+						""
 					],
 					[
 						59430.3797468355,
@@ -977,12 +977,11 @@
 		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 79,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "endless-cycles",
-		"isRing": null,
-		"videonombre": null
+		"isRing": "",
+		"videonombre": ""
 	}
 }

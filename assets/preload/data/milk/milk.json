@@ -7920,7 +7920,7 @@
 		"validScore": true,
 		"sections": 45,
 		"needsVoices": false,
-		"noteStyle": null,
+		"noteStyle": "",
 		"speed": 2.7,
 		"bpm": 186
 	}

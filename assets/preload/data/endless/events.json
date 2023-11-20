@@ -620,12 +620,11 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "",
 		"validScore": false,
 		"bpm": 155,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "endless",
-		"isRing": null
+		"isRing": ""
 	}
 }

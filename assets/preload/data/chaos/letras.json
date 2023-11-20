@@ -4202,12 +4202,11 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 189,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
+		"startinvisibru": "",
 		"canfollowpermitido": true,
 		"song": "chaos",
 		"isRing": false,
-		"videonombre": null
+		"videonombre": ""
 	}
 }

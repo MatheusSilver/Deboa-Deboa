@@ -4071,12 +4071,11 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 160,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"startinvisibru": true,
-		"canfollowpermitido": null,
+		"canfollowpermitido": "",
 		"song": "phantasm",
-		"isRing": null,
-		"videonombre": null
+		"isRing": "",
+		"videonombre": ""
 	}
 }

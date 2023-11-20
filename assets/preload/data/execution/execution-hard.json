@@ -2590,6 +2590,6 @@
 		"needsVoices": false,
 		"speed": 3.2,
 		"bpm": 150,
-		"noteStyle": null
+		"noteStyle": ""
 	}
 }
