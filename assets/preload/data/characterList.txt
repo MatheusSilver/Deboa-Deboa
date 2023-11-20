@@ -43,7 +43,6 @@ flyingsonic
 Furnace-outline
 Furnace-rgb
 Furnace
-gf-darksidekick
 gf-exe
 gf-needlemouse
 gf-pixel-sonic

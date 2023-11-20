@@ -4122,11 +4122,10 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 155,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
+		"startinvisibru": "",
 		"canfollowpermitido": true,
 		"song": "endless",
-		"isRing": null
+		"isRing": ""
 	}
 }

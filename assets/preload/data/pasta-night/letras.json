@@ -2485,12 +2485,11 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 117,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
+		"startinvisibru": "",
 		"canfollowpermitido": true,
 		"song": "pasta-night",
-		"isRing": null,
-		"videonombre": null
+		"isRing": "",
+		"videonombre": ""
 	}
 }

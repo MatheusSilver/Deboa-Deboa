@@ -1671,11 +1671,10 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 117,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "pasta-night",
-		"isRing": null
+		"isRing": ""
 	}
 }

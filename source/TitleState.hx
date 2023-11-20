@@ -207,9 +207,15 @@ class TitleState extends MusicBeatState
 		// Updating Discord Rich Presence
 		#end
 	}
-
+	public static var canVerify:Bool = true;
 	public function verificarConexao():Void
 		{
+			if(!canVerify)
+				return;
+			canVerify=false;
+			new FlxTimer().start(30, function(tmr:FlxTimer){
+				canVerify=true;
+			});
 			urlLoader = new URLLoader();
 			urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
 			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);

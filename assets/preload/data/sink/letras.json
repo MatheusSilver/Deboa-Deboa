@@ -23025,12 +23025,11 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 140,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"startinvisibru": true,
-		"canfollowpermitido": null,
+		"canfollowpermitido": "",
 		"song": "Sink",
-		"isRing": null,
-		"videonombre": null
+		"isRing": "",
+		"videonombre": ""
 	}
 }

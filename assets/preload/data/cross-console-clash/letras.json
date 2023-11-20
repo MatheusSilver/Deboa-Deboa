@@ -3835,9 +3835,9 @@
 		"bpm": 162,
 		"arrowSkin": "arrows-mario",
 		"needsVoices": false,
-		"startinvisibru": null,
+		"startinvisibru": "",
 		"canfollowpermitido": true,
 		"song": "Cross-Console-Clash",
-		"isRing": null
+		"isRing": ""
 	}
 }

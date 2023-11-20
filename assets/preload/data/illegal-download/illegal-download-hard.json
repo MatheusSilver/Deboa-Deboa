@@ -5248,7 +5248,7 @@
 						-1,
 						"Adicionar Imagens",
 						"piracysonic46",
-						"null"
+						""
 					]
 				],
 				"typeOfSection": 0,
@@ -7026,7 +7026,7 @@
 						159750,
 						-1,
 						"Adicionar Imagens",
-						"null",
+						"",
 						""
 					]
 				],
@@ -7395,7 +7395,6 @@
 		"splashSkin": "noteSplashes",
 		"song": "illegal-download",
 		"needsVoices": false,
-		"arrowSkin": null,
 		"validScore": true,
 		"stage": "illegal1",
 		"bpm": 140,

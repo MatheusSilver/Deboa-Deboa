@@ -750,9 +750,8 @@
 		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 145,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "control",
-		"isRing": null
+		"isRing": ""
 	}
 }

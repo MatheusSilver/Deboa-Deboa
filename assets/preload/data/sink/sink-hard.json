@@ -28885,7 +28885,7 @@
 				"bpm": 109
 			},
 			{
-				"endTime": null,
+				"endTime": "",
 				"altAnim": false,
 				"mustHitSection": true,
 				"lengthInSteps": 16,

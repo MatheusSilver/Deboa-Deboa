@@ -189,9 +189,8 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 180,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "clickbait",
-		"isRing": null
+		"isRing": ""
 	}
 }

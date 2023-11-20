@@ -2,8 +2,10 @@ function onCreate()
 
     addLuaScript('custom_scripts/ytb_player')
 
-    makeLuaSprite('blckfade', '', 0, 0);
-	makeGraphic('blckfade', 1280, 720, '000000');
+    makeLuaSprite('blckfade', 'empty', 0, 0);
+	makeGraphic('blckfade', 1, 1, '000000');
+    setGraphicSize("blckfade", screenWidth, screenHeight)
+    screenCenter("blckfade", "xy")
 	setProperty('blckfade.alpha', 1.0)
     setObjectCamera('blckfade', 'other')
 	addLuaSprite('blckfade', false);

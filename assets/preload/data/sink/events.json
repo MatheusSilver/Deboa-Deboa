@@ -683,12 +683,11 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "",
 		"validScore": false,
 		"bpm": 140,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "Sink",
-		"isRing": null
+		"isRing": ""
 	}
 }

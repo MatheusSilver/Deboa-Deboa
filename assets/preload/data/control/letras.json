@@ -2705,11 +2705,10 @@
 		"splashSkin": "blood",
 		"validScore": false,
 		"bpm": 145,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"startinvisibru": true,
 		"canfollowpermitido": true,
 		"song": "control",
-		"isRing": null
+		"isRing": ""
 	}
 }

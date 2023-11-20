@@ -3,38 +3,36 @@ local modchart = true
 
 function onCreate()
     makeLuaSprite('sSKY', 'cenarios/exeStage/sky', -560, -355.8)
-    setScrollFactor('sSKY', 1, 1);
-	scaleObject('sSKY', 0.98, 0.93);
-    
-    makeLuaSprite('trees', 'cenarios/exeStage/backtrees', -260.55, -298.3)
-    setScrollFactor('trees', 1.1, 1);
-	scaleObject('trees', 1.2, 1.2);
-    
-    makeLuaSprite('bg2', 'cenarios/exeStage/trees', -562, -474.65)
-    setScrollFactor('bg2', 1.2, 1);
-	scaleObject('bg2', 1.2, 1.2);
-    
+    setScrollFactor('sSKY', 0.3, 0.3);
+	scaleObject('sSKY', 1, 1);
+
     makeLuaSprite('bg', 'cenarios/exeStage/ground', -514.95, -350.2)
-    setScrollFactor('bg', 1.3, 1);
-	scaleObject('bg', 1.18, 1.17);
+    setScrollFactor('bg', 0.7, 0.7);
+	scaleObject('bg', 1, 1);
 
 
-    makeAnimatedLuaSprite('treething', 'cenarios/exeStage/ExeAnimatedBG_Assets', -409.95, -340.2)
+    makeAnimatedLuaSprite('treething', 'cenarios/exeStage/ExeAnimatedBG_Assets', -570, -480)
     addAnimationByPrefix('treething', 'ExeBGAnim', 'ExeBGAnim', 24, true)
 	objectPlayAnimation('treething', 'ExeBGAnim', true)
     setScrollFactor('treething', 1, 1);
+    scaleObject('treething', 1.15, 1.15);
     
     makeLuaSprite('tails', 'cenarios/exeStage/TailsCorpse', 700, 500)
     setScrollFactor('tails', 1, 1);
+
+    makeLuaSprite('overlay', 'tentacles_black', 0, 0)
+    setProperty("overlay.alpha", 0.1)
+	setObjectCamera("overlay", "hud2")
+    setGraphicSize("overlay", screenWidth, screenHeight)
+    screenCenter("overlay", 'xy')
     
     addLuaSprite('sSKY', false)
-    addLuaSprite('trees', false)
-    addLuaSprite('bg2', false)
     addLuaSprite('bg', false)
     addLuaSprite('treething', false)
-    if gore == true then
-    addLuaSprite('tails', false)
+    if gore then
+        addLuaSprite('tails', false)
     end
+    addLuaSprite("overlay")
 end
 
 function onUpdate()

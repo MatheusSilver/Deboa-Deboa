@@ -19,7 +19,7 @@
 						"crazyt1",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -39,7 +39,7 @@
 						"crazyt2",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -90,7 +90,7 @@
 						"crazyt3",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -110,7 +110,7 @@
 						"crazyt4",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -130,7 +130,7 @@
 						"crazyt5",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -160,7 +160,7 @@
 						"crazyt6",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -180,7 +180,7 @@
 						"crazyt7",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -200,7 +200,7 @@
 						"bf",
 						"",
 						"",
-						null
+						""
 					],
 					[
 						13050,
@@ -209,7 +209,7 @@
 						"crazyt8",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -239,7 +239,7 @@
 						"crazyt9",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -259,7 +259,7 @@
 						"crazyt10",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -289,7 +289,7 @@
 						"crazyt11",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -309,7 +309,7 @@
 						"crazyt12",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -329,7 +329,7 @@
 						"crazyt13",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -349,7 +349,7 @@
 						"bf",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -369,7 +369,7 @@
 						"crazyt14",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -389,7 +389,7 @@
 						"crazyt15",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -409,7 +409,7 @@
 						"crazyt16",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -449,7 +449,7 @@
 						"crazyt17",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -479,7 +479,7 @@
 						"crazyt18",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -509,7 +509,7 @@
 						"crazyt19",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -539,7 +539,7 @@
 						"crazyt20",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -559,7 +559,7 @@
 						"crazyt21",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -589,7 +589,7 @@
 						"crazyt22",
 						"",
 						"",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -2181,11 +2181,10 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 200,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "best-friends",
-		"isRing": null
+		"isRing": ""
 	}
 }

@@ -2336,11 +2336,10 @@
 		"splashSkin": "noteSplashes",
 		"validScore": false,
 		"bpm": 190,
-		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": null,
+		"startinvisibru": "",
 		"canfollowpermitido": true,
 		"song": "personel",
-		"isRing": null
+		"isRing": ""
 	}
 }

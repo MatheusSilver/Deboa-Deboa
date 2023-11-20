@@ -184,7 +184,7 @@
 						"Adicionar Imagens",
 						"bf",
 						"psonic4",
-						null
+						""
 					]
 				],
 				"bpm": 0,
@@ -1470,12 +1470,11 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "",
 		"validScore": false,
 		"bpm": 194,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "green-hills",
-		"isRing": null
+		"isRing": ""
 	}
 }

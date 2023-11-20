@@ -3,11 +3,12 @@ startedPlaying = false;
 camMoving = false
 
 function onCreate()
+	precacheSound("SUPERBF")
 	-- background shit
 	makeLuaSprite('Wall', 'fleet/Wall', -3800, -1000);
 	setScrollFactor('Wall', 0.7, 0.7);
 	
-	makeLuaSprite('Floor', 'fleet/Floor', -3850, 250);
+	makeLuaSprite('Floor', 'fleet/Floor', -3850, 300); --Fix para o movimento de camera
 	scaleObject('Floor', 1.05, 1.05);
 
 	makeLuaSprite('FleetwayBGshit', 'fleet/FleetwayBGshit', -3857, -1595);
@@ -17,17 +18,18 @@ function onCreate()
 	makeAnimatedLuaSprite('Emerald Beam Charged', 'fleet/Emerald Beam Charged', -1470, -1800);
 	addAnimationByPrefix('Emerald Beam Charged', 'start', 'Emerald Beam Charged instance', 24, true);
 	
-	makeAnimatedLuaSprite('Emeralds', 'fleet/Emeralds', -880,-600);
+	makeAnimatedLuaSprite('Emeralds', 'fleet/Emeralds', -860,-600);
 	addAnimationByPrefix('Emeralds', 'start', 'TheEmeralds instance', 30, true);
 	
 	makeAnimatedLuaSprite('porkerbop', 'fleet/Porker Lewis', 1200, -900);
 	addAnimationByPrefix('porkerbop', 'first', 'Porker FG', 24, false);
 	setScrollFactor('porkerbop', 1.1, 1.1);
 
-	makeAnimatedLuaSprite('The Chamber', 'fleet/The Chamber', -1470, 200);
-	addAnimationByPrefix('The Chamber', 'fall', 'Chamber Sonic Fall', 24, false);
-	setScrollFactor('The Chamber', 1, 1);
-
+	--makeAnimatedLuaSprite('The Chamber', 'fleet/The Chamber', -1470, 200);
+	--addAnimationByPrefix('The Chamber', 'fall', 'Chamber Sonic Fall', 24, false);
+	--setScrollFactor('The Chamber', 1, 1);
+	makeLuaSprite('The Chamber', 'fleet/The_Chamber_simples', -1470, 540);
+	-- Se quiser voltar com a anim do sonico caindo é só comentar a linha de cima e descomentar as outras 3 em cima dela.
 	makeLuaSprite('pebles', 'fleet/pebles', -1980, 820);
 	scaleObject('pebles', 1.05, 1.05);
 
@@ -86,10 +88,14 @@ function onTimerCompleted(tag, loops, loopsLeft)
 	end
 end
 
+function onEvent(name, value1,value2)
+	if name == "Change Character" and value2 == "fleetway-bf" then
+		playSound("SUPERBF")
+	end
+end
+
 function onSoundFinished(tag)
 	if tag == 'voiceJeff' and not finishedGameover then
 		soundFadeIn(nil, 4, 0.2, 1);
 	end
-	
-	close(true);
 end

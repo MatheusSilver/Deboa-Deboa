@@ -1577,12 +1577,11 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "",
 		"validScore": false,
 		"bpm": 150,
-		"arrowSkin": null,
 		"needsVoices": false,
 		"song": "defender",
-		"isRing": null
+		"isRing": ""
 	}
 }

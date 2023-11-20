@@ -3679,9 +3679,9 @@
 		"bpm": 125,
 		"arrowSkin": "PIXELNOTE_assets_bf_zoom",
 		"needsVoices": false,
-		"startinvisibru": null,
-		"canfollowpermitido": null,
+		"startinvisibru": "",
+		"canfollowpermitido": "",
 		"song": "confronting-yourself",
-		"isRing": null
+		"isRing": ""
 	}
 }

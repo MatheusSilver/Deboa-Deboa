@@ -147,12 +147,12 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
+		"splashSkin": "",
 		"validScore": false,
 		"bpm": 162,
 		"arrowSkin": "arrows-mario",
 		"needsVoices": false,
 		"song": "Cross-Console-Clash",
-		"isRing": null
+		"isRing": ""
 	}
 }
