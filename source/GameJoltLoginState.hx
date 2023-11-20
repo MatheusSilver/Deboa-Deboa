@@ -189,7 +189,7 @@ class GameJoltLoginState extends MusicBeatState
         public static function syncProgress()
             {
                 TitleState.instance.verificarConexao();
-                if(TitleState.ModoOffline) {
+                if(TitleState.ModoOffline || !GJClient.logged) {
                     FlxG.save.data.progress = MenuPreHistoria.curSave;
                     var sum1:Int = 0;
                     for (i in 0...MenuPreHistoria.curSave.length) {
@@ -199,7 +199,7 @@ class GameJoltLoginState extends MusicBeatState
                     }
                     MainMenuStateMobile.passouCY = sum1 > 1;
                     return;
-                } else {
+                } else if(!TitleState.ModoOffline && GJClient.logged) {
                     var sum1:Int = 0;
                     var sum2:Int = 0;
                     var dataGJ:String = GJClient.getData("progress");
@@ -249,11 +249,11 @@ class GameJoltLoginState extends MusicBeatState
     public static function syncProgressFreeplay()
     {
         TitleState.instance.verificarConexao();
-        if(TitleState.ModoOffline){
+        if(TitleState.ModoOffline || !GJClient.logged){
             FlxG.save.data.freeplayProgress = FreeplayState.progressFreeplay;
             return;
         }
-        else
+        else if(!TitleState.ModoOffline && GJClient.logged)
         {
             var dataGJ:String = GJClient.getData("progressFreeplay");
             var numGJ:Int = Std.parseInt(dataGJ);
