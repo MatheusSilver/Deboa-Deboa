@@ -1,6 +1,6 @@
 package;
 
-#if DESKTOPDEBUG
+#if (desktop || debug)
 import sys.FileSystem;
 #end
 import openfl.system.System;
@@ -344,7 +344,8 @@ class Paths
 
 			localTrackedAssets.push(key);
 			return currentTrackedAssets.get(key);
-		}#if DESKTOPDEBUG // Isso não vai usar filesystem no debug do mobile tbm?
+		}#if (desktop || debug) // Nao kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkj
+		// po vei eu era mt burro
 		else if(FileSystem.exists(getPreloadPath('images/$key.png'))){
 			if (!currentTrackedAssets.exists(key))
 				{
