@@ -207,7 +207,7 @@ class TitleState extends MusicBeatState
 		// Updating Discord Rich Presence
 		#end
 	}
-	var canVerify:Bool = true;
+	public static var canVerify:Bool = true;
 	public function verificarConexao():Void
 		{
 			if(!canVerify)
