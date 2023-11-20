@@ -2031,18 +2031,6 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
 
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
-			+ nomehistorico
-			+ " ("
-			+ storyDifficultyText
-			+ ")",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-			+ iconP2.getCharacter()
-			+ ".png?raw=true");
-		#end
-
 		updateCamPos('all');
 
 		callOnLuas('onCreatePost', []);
@@ -3086,19 +3074,6 @@ class PlayState extends MusicBeatState
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter(), true, songLength);
 		#end
-
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
-			+ nomehistorico
-			+ " ("
-			+ storyDifficultyText
-			+ ") "
-			+ songLength,
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-			+ iconP2.getCharacter()
-			+ ".png?raw=true");
-		#end
 		setOnLuas('songLength', songLength);
 		callOnLuas('onSongStart', []);
 	}
@@ -3544,34 +3519,6 @@ class PlayState extends MusicBeatState
 				DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 			}
 			#end
-
-			#if android
-			if (startTimer.finished)
-			{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
-					+ nomehistorico
-					+ " ("
-					+ storyDifficultyText
-					+ ") "
-					+ songLength,
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-					+ iconP2.getCharacter()
-					+ ".png?raw=true");
-			}
-			else
-			{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
-					+ nomehistorico
-					+ " ("
-					+ storyDifficultyText
-					+ ")",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-					+ iconP2.getCharacter()
-					+ ".png?raw=true");
-			}
-			#end
 		}
 
 		super.closeSubState();
@@ -3599,37 +3546,6 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		#if android
-		if (health > 0 && !paused)
-		{
-			if (Conductor.songPosition > 0.0)
-			{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
-					+ nomehistorico
-					+ " ("
-					+ storyDifficultyText
-					+ ") "
-					+ songLength,
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-					+ iconP2.getCharacter()
-					+ ".png?raw=true");
-			}
-			else
-			{
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsText
-					+ nomehistorico
-					+ " ("
-					+ storyDifficultyText
-					+ ")",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-					+ iconP2.getCharacter()
-					+ ".png?raw=true");
-			}
-		}
-		#end
-
 		if (!isDead)
 		{
 			persistentUpdate = !paused;
@@ -3641,24 +3557,6 @@ class PlayState extends MusicBeatState
 
 	override public function onFocusLost():Void
 	{
-		#if rpc
-		if (health > 0 && !paused)
-		{
-			DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-		}
-		#end
-
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
-			+ nomehistorico
-			+ " ("
-			+ storyDifficultyText
-			+ ")",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-			+ iconP2.getCharacter()
-			+ ".png?raw=true");
-		#end
 
 		/*if (ClientPrefs.pausarauto && !isDead)
 			{
@@ -3704,35 +3602,11 @@ class PlayState extends MusicBeatState
 		#if rpc
 		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
-
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
-			+ nomehistorico
-			+ " ("
-			+ storyDifficultyText
-			+ ")",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-			+ iconP2.getCharacter()
-			+ ".png?raw=true");
-		#end
 		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		// }
 
 		#if rpc
 		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-		#end
-
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
-			+ nomehistorico
-			+ " ("
-			+ storyDifficultyText
-			+ ")",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-			+ iconP2.getCharacter()
-			+ ".png?raw=true");
 		#end
 	}
 
@@ -4145,9 +4019,6 @@ class PlayState extends MusicBeatState
 
 			#if rpc
 			DiscordClient.changePresence("Chart Editor", null, null, true);
-			#end
-			#if android
-			KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "chart editor");
 			#end
 		}
 
@@ -4620,19 +4491,6 @@ class PlayState extends MusicBeatState
 				#if rpc
 				// Game Over doesn't get his own variable because it's only used here
 				DiscordClient.changePresence("Game Over - " + detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-				#end
-
-				#if android
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Game Over - "
-					+ detailsText
-					+ nomehistorico
-					+ " ("
-					+ storyDifficultyText
-					+ ")",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-					"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-					+ iconP2.getCharacter()
-					+ ".png?raw=true");
 				#end
 				isDead = true;
 				return true;
@@ -8811,19 +8669,6 @@ class PlayState extends MusicBeatState
 			songLength
 			- Conductor.songPosition
 			- ClientPrefs.noteOffset);
-		#end
-
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", detailsPausedText
-			+ nomehistorico
-			+ " ("
-			+ storyDifficultyText
-			+ ") "
-			+ songLength,
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/iconOG.png?raw=true",
-			"https://github.com/MatheusSilver/Deboa-Deboa/blob/master/assets/shared/images/icons/"
-			+ iconP2.getCharacter()
-			+ ".png?raw=true");
 		#end
 	}
 

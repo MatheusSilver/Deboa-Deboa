@@ -79,10 +79,6 @@ class GaleriaState extends MusicBeatState
 			DiscordClient.changePresence("Vendo a galeria", null);
 			#end
 
-			#if android
-			KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo a galeria");
-			#end
-
 			bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria_back'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bg.updateHitbox();
@@ -156,10 +152,6 @@ class GaleriaState extends MusicBeatState
 			{
 				#if rpc
 				DiscordClient.changePresence("Vendo a galeria", null);
-				#end
-
-				#if android
-				KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo a galeria");
 				#end
 
 				stoploading = false;

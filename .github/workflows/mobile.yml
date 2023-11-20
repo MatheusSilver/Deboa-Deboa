@@ -1,24 +1,5 @@
-name: Android Build
-on:
- # actuate é necessário? provavelmente não
-          # porém, tengo dúvidas
-
-# nota de ódio do x02: PQ ESSES MALUCO AÍ, FICAM FAZENDO O FLIXEL TODO BUGADO???????????
-# Não tem gente pra testar não man???????????????
-# Flixel é literal uma das libs que mais tá dando problemas com FNF no android, plmdds
-# Não tem jeito man
-# Esses cara tem que adicionar um sirox, jigsaw da vida na equipe pra fixar isso
-# É só mesclar a 4.11.0 com a 5.2.2 que tá safe poh
-# tchau
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
+name: Android Build OG
+on: workflow_dispatch
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -63,40 +44,39 @@ jobs:
           haxelib setup ~/haxelib
           haxelib install hxcpp 4.2.1 > /dev/null --quiet
           haxelib install lime 7.9.0
-          haxelib git openfl https://github.com/MateuzinhoX02/openfl
-          haxelib git flixel https://github.com/MateuzinhoX02/flixell
-          haxelib install flixel-tools 1.5.1
+          haxelib install openfl 9.1.0
+          haxelib install flixel 4.11.0
+          haxelib install flixel-tools
           haxelib install flixel-ui
-          haxelib install flixel 5.2.2
-          haxelib install flixel-addons 3.0.2
-          haxelib install tjson
-          haxelib install hxjsonast
-          haxelib install actuate
-          haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit
+          haxelib install flixel-addons 2.11.0
           haxelib install hscript
+          haxelib git faxe https://github.com/ashea-code/faxe
+          haxelib install actuate
+          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git
+          haxelib git extension-webm https://github.com/Daninnocent/extension-webm.git
+          haxelib git extension-networking
           haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-          haxelib git extension-webm https://github.com/Daninnocent/extension-webm
-          haxelib install hxcpp-debug-server
+          haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview.git
           haxelib list
 
       - name: Configure Android
         run: |
+          haxelib run lime rebuild extension-webm android
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set flixel-tools 1.5.1
-          haxelib set flixel-addons 3.0.2
-          haxelib set flixel 5.2.2
+          haxelib set openfl 9.1.0
           haxelib set lime 7.9.0
+          haxelib set flixel 4.11.0
+          haxelib set flixel-addons 2.11.0
           haxelib set hxcpp 4.2.1
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Building
-        run: haxelib run lime build android -final -D NO_PRECOMPILED_HEADERS
+        run: haxelib run lime build android -final
 
       - name: Clear Previous Cache
         uses: actions/github-script@main
@@ -136,6 +116,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: deboa-deboa Android Build
+          name: Big Chungus android
           path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn

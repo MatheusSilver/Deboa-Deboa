@@ -35,10 +35,6 @@ class PastaNightSelect extends MusicBeatState
 		DiscordClient.changePresence("Escolhendo um personagem em", "Noite da Rapaziada", null);
 		#end
 
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Escolhendo um personagem em Noite da Rapaziada");
-		#end
-
 		FlxG.sound.playMusic(Paths.music('PastaNightSelect', 'preload'), 1, true);
 
 		selector = -1;
