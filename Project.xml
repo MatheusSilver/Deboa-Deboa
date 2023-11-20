@@ -232,7 +232,6 @@
 	<haxelib name="extension-webm"/>
 	<haxelib name="extension-networking"/>
 	<haxelib name="discord_rpc" if="desktop"/>
-	<haxelib name="extension-kizzyrpc" if="android" />
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
 

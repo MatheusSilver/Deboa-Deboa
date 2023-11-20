@@ -192,10 +192,6 @@ class MenuPreHistoria extends MusicBeatState
 		DiscordClient.changePresence("Pensando em jogar a Week ", WeekData.weeksList[curWeek], null);
 		#end
 
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Pensando em jogar a Week" + WeekData.weeksList[curWeek]);
-		#end
-
 		if (makeAnimUnlock && !inCut && apertavel && !movedBack && !selectedWeek)
 		{
 			inCut = true;

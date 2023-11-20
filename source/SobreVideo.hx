@@ -34,10 +34,6 @@ class SobreVideo extends MusicBeatState
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence("Vendo o sobre", null);
 			#end
-
-            #if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "Vendo o sobre");
-		#end
             videoMenu.setGraphicSize(948, 533);
             videoMenu.x=4;
             videoMenu.y=-59;

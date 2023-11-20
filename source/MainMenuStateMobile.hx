@@ -74,10 +74,6 @@ class MainMenuStateMobile extends MusicBeatState
 		DiscordClient.changePresence("No menu principal", null);
 		#end
 
-		#if android
-		KizzyBackend.trocardetalhes("FNF: Modboa.EXE", "No menu principal");
-		#end
-
 		if(FlxG.sound.music == null) {
 			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		}
