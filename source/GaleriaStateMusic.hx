@@ -1,5 +1,6 @@
 package;
 
+import Utils.BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -44,7 +45,7 @@ class GaleriaStateMusic extends MusicBeatState
 	var tocandoagorasuporte:FlxSprite;
 	var barraInferior:FlxSprite;
 	var thumbnail:FlxSprite;
-	var thumbnailAuxiliar:FlxSprite;
+	var thumbnailAuxiliar:GaleriaMusicObject;
 
 	var segureoPrimeiroY:Float;
 	var segureoUltimoY:Float;
@@ -57,6 +58,8 @@ class GaleriaStateMusic extends MusicBeatState
 	var sair:FlxSprite;
 	var timer:FlxText;
 
+	var loopar_mini:FlxSprite;
+	var random_play_mini:FlxSprite;
 	var songPercent:Float = 0;
 
 	var curSelected:Int = 0;
@@ -97,7 +100,8 @@ class GaleriaStateMusic extends MusicBeatState
 
 		curSelected = songPosInArray;
 
-		fundo = new FlxSprite(0,0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		fundo = new FlxSprite(0,0).makeGraphic(1, 1, FlxColor.BLACK);
+		fundo.setGraphicSize(FlxG.width,FlxG.height);
 		fundo.y = FlxG.height;
 		add(fundo);
 
@@ -144,9 +148,6 @@ class GaleriaStateMusic extends MusicBeatState
 			if (i == 0)
 				segureoPrimeiroY = scrollingStuff.y;
 
-
-
-
 			//Propósitos de economizar renderização
 			menuItems.add(scrollingStuff);
 		}
@@ -160,7 +161,7 @@ class GaleriaStateMusic extends MusicBeatState
 		for (i in 0...options.length) { //Em busca da engine automática k
 			
 			var optionText:FlxText = new FlxText(playListbotao.x, playListbotao.y + playListbotao.height + i*75 + 35, 200, options[i], 16);
-			optionText.setFormat(Paths.font("Arial.ttf"), 16, 0xFFFFFFFF, LEFT);
+			optionText.setFormat(Paths.font("Arial.ttf"), 16, 0xFFFFFF, LEFT);
 			optionText.alpha = 0;
 			optionText.antialiasing = ClientPrefs.globalAntialiasing;
 			optionText.updateHitbox();
@@ -192,39 +193,31 @@ class GaleriaStateMusic extends MusicBeatState
 
 		botaoesquerda = new FlxSprite().loadGraphic(Paths.imagechecker("galeriamusicas/youtubemusic/change song", 'preload'));
 		botaoesquerda.x = 15;
-		botaoesquerda.y = barraInferior.y + 30;
+		botaoesquerda.y = barraInferior.y + 25;
 		botaoesquerda.alpha = 0;
-		botaoesquerda.setGraphicSize(Std.int(botaoesquerda.width*0.5));
+		botaoesquerda.setGraphicSize(Std.int(botaoesquerda.width*0.4));
 		add(botaoesquerda);
 
 		botaoPauseContinue = new FlxSprite().loadGraphic(Paths.imagechecker("galeriamusicas/youtubemusic/pause", 'preload'));
 		botaoPauseContinue.x = botaoesquerda.x+botaoesquerda.width + 40;
-		botaoPauseContinue.y = barraInferior.y + 30;
+		botaoPauseContinue.y = barraInferior.y + 25;
 		botaoPauseContinue.alpha = 0;
-		botaoPauseContinue.setGraphicSize(Std.int(botaoPauseContinue.width*1.3));
+		botaoPauseContinue.setGraphicSize(Std.int(botaoPauseContinue.width*0.65));
 		add(botaoPauseContinue);
 
 		botaodireita = new FlxSprite().loadGraphic(Paths.imagechecker("galeriamusicas/youtubemusic/change song", 'preload'));
 		botaodireita.x = botaoPauseContinue.x+botaoPauseContinue.width + 40;
-		botaodireita.y = barraInferior.y + 30;
+		botaodireita.y = barraInferior.y + 25;
 		botaodireita.alpha = 0;
-		botaodireita.setGraphicSize(Std.int(botaodireita.width*0.5));
+		botaodireita.setGraphicSize(Std.int(botaodireita.width*0.4));
 		botaodireita.flipX = true;
 		add(botaodireita);
 
-		timer = new FlxText(botaodireita.x + botaodireita.width + 20, 15, 80, "0:00/0:00", 11);
-		timer.setFormat(Paths.font("Arial.ttf"), 14, 0xFF808080, RIGHT);
-		timer.y = FlxG.height;
+		timer = new FlxText(botaodireita.x + botaodireita.width + 15, 0, 80, "0:00/0:00", 10);
+		timer.setFormat(Paths.font("Roboto-Regular.ttf"), 12, 0xaaaaaa, LEFT);
+		timer.y = botaodireita.y + botaodireita.height/2 - timer.height/2;
 		add(timer);
-
-		thumbnailAuxiliar = new FlxSprite().loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'), false, 200);
-		thumbnailAuxiliar.setGraphicSize(Std.int(thumbnailAuxiliar.width * 1.25));
-		thumbnailAuxiliar.x = timer.x + 150;
-		thumbnailAuxiliar.y = FlxG.height - thumbnailAuxiliar.height;
-		thumbnailAuxiliar.alpha = 0;
-		add(thumbnailAuxiliar);
 		
-
 		thumbtocandoagora = new FlxSprite(playListbotao.x, tocandoagora.y+ tocandoagora.height + 5);
 		thumbtocandoagora.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
 		
@@ -249,12 +242,28 @@ class GaleriaStateMusic extends MusicBeatState
 		add(thumbtocandoagora);
 
 		sair = new FlxSprite().loadGraphic(Paths.imagechecker("galeriamusicas/youtubemusic/sair", 'preload'));
-		sair.x = FlxG.width - 50 - sair.width;
-		sair.setGraphicSize(Std.int(sair.width*1.3));
-		sair.y = barraInferior.y + 15;
+		sair.x = FlxG.width - 10 - sair.width;
+		sair.setGraphicSize(Std.int(sair.width*0.45));
+		sair.y = barraInferior.y + 25;
 		sair.alpha = 0;
 		sair.updateHitbox();
 		add(sair);
+
+		random_play_mini = new FlxSprite().loadGraphic(Paths.imagechecker("galeriamusicas/youtubemusic/aleatorio", 'preload'));
+		random_play_mini.x = sair.x - 70;
+		random_play_mini.setGraphicSize(Std.int(random_play_mini.width*0.45));
+		random_play_mini.y = sair.y;
+		random_play_mini.alpha = 0.3;
+		random_play_mini.updateHitbox();
+		add(random_play_mini);
+
+		loopar_mini = new FlxSprite().loadGraphic(Paths.imagechecker("galeriamusicas/youtubemusic/repetir", 'preload'));
+		loopar_mini.x = random_play_mini.x - 70;
+		loopar_mini.setGraphicSize(Std.int(random_play_mini.width*1));
+		loopar_mini.y = sair.y;
+		loopar_mini.alpha = 0.3;
+		loopar_mini.updateHitbox();
+		add(loopar_mini);
 
 		timeBar = new FlxBar(0, barraInferior.y-3, LEFT_TO_RIGHT, FlxG.width, 3, this,
 		'songPercent', 0, 1);
@@ -274,6 +283,10 @@ class GaleriaStateMusic extends MusicBeatState
 
 		super.create();
 
+		thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected]);
+		thumbnailAuxiliar.alpha = 0;
+		add(thumbnailAuxiliar);
+
 		reloadLyrics();
 		reloadValues();
 		entrada();
@@ -291,12 +304,11 @@ class GaleriaStateMusic extends MusicBeatState
 					onComplete: function(twn:FlxTween)
 					{
 						FlxTween.tween(sair, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
-						FlxTween.tween(timer, {y: barraInferior.y + 40}, 0.1, {ease: FlxEase.quartInOut});
+						FlxTween.tween(timer, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 						FlxTween.tween(timeBar, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 						FlxTween.tween(botaodireita, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
 						FlxTween.tween(botaoesquerda, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
-						FlxTween.tween(botaoPauseContinue, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
-						FlxTween.tween(thumbnailAuxiliar, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut,
+						FlxTween.tween(botaoPauseContinue, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut,
 							onComplete: function(twn:FlxTween)
 							{
 								FlxTween.tween(playListbotao, {alpha: 1}, 0.1, {ease: FlxEase.quartInOut});
@@ -357,12 +369,18 @@ class GaleriaStateMusic extends MusicBeatState
 		FlxTween.tween(thumbnail, {x: 175}, 0.1, {ease: FlxEase.quartInOut});
 
 		thumbtocandoagora.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
-		thumbnailAuxiliar.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
-
+		FlxTween.tween(thumbnailAuxiliar, {alpha: 0}, 0.1, {ease: FlxEase.linear, onComplete: function (twn:FlxTween){
+			remove(thumbnailAuxiliar);
+			thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected]);
+			thumbnailAuxiliar.alpha = 0;
+			add(thumbnailAuxiliar);
+			FlxTween.tween(thumbnailAuxiliar, {alpha: 1}, 0.3, {ease: FlxEase.linear});
+		}});
+		
 		if(isLetras)
 			textGroup.forEach(function(spr:FlxSprite)
 				{
-					FlxTween.tween(spr, {alpha: 0}, 0.1, {ease: FlxEase.quadInOut});
+					FlxTween.tween(spr, {alpha: 0}, 0.1, {ease: FlxEase.linear});
 				});
 		
 		reloadLyrics(isLetras);
@@ -399,8 +417,16 @@ class GaleriaStateMusic extends MusicBeatState
 						daValue = playsequencia;
 					case 'Reprodução em Looping':
 						daValue = loopar;
+						if (daValue)
+							loopar_mini.alpha = 1;
+						else
+							loopar_mini.alpha = 0.3;
 					case 'Reprodução aleatória':
 						daValue = playrandom;
+						if (daValue)
+							random_play_mini.alpha = 1;
+						else
+							random_play_mini.alpha = 0.3;
 				}
 				checkbox.daValue = daValue;
 			}
@@ -500,30 +526,38 @@ class GaleriaStateMusic extends MusicBeatState
 
 		checkboxArray.forEach(function(spr:FlxSprite){
 			if(FlxG.mouse.overlaps(spr))
-				{
-					if(FlxG.mouse.justPressed){
-						//trace(options[spr.ID]);
-							switch(options[spr.ID]) { //Conserteza daria pra fazer melhor que isso, mas sabe como é né? preguiça
-								case 'Reprodução Automática':
-									playsequencia = !playsequencia;
-									playrandom = false;
-									loopar = false;
-			
-								case 'Reprodução em Looping':
-									loopar = !loopar;
-									playsequencia = false;
-									playrandom = false;
-								
-								case 'Reprodução aleatória':
-									playrandom = !playrandom;
-									loopar = false;
-									playsequencia = false;
-							}
-							GlobalSoundManager.play('click');
-							reloadValues();
-						}
-
+			{
+				if(FlxG.mouse.justPressed){
+					switch(options[spr.ID]) { //Conserteza daria pra fazer melhor que isso, mas sabe como é né? preguiça
+						case 'Reprodução Automática':
+							playsequencia = !playsequencia;
+							playrandom = false;
+							loopar = false;
+	
+						case 'Reprodução em Looping':
+							loopar = !loopar;
+							playsequencia = false;
+							playrandom = false;
+						
+						case 'Reprodução aleatória':
+							playrandom = !playrandom;
+							loopar = false;
+							playsequencia = false;
 					}
+				}
+			}else if (BSLTouchUtils.apertasimples(random_play_mini)){
+				playrandom = !playrandom;
+				loopar = false;
+				playsequencia = false;
+				GlobalSoundManager.play('click');
+				reloadValues();
+			}else if(BSLTouchUtils.apertasimples(loopar_mini)){
+				loopar = !loopar;
+				playsequencia = false;
+				playrandom = false;
+				GlobalSoundManager.play('click');
+				reloadValues();
+			}
 		});
 
 		//Feito muito, mas MUITO TEMPO DEPOIS...
@@ -618,10 +652,11 @@ class GaleriaStateMusic extends MusicBeatState
 
 
 		for (i in 0...daLyric.length) {
-			var daText:FlxText = new FlxText(overlaySuporte.x,playListbotao.y + playListbotao.height , thumbtocandoagora.width, daLyric[i], 20);
-			daText.setFormat(Paths.font('YouTubeSansMedium'), 20, FlxColor.WHITE, LEFT);
+			var daText:FlxText = new FlxText(overlaySuporte.x,playListbotao.y + playListbotao.height , thumbtocandoagora.width, daLyric[i], 15);
+			daText.setFormat(Paths.font('Roboto-Bold.ttf'), 15, 0xffffff, CENTER);
 			daText.y += daText.height*i;
-			//daText.setBorderStyle(SHADOW, FlxColor.BLACK, 2, 1);
+			daText.antialiasing=true;
+			//daText.setBorderStyle(OUTLINE, 0xffffff, 3, 10);
 			daText.alpha = 0;
 			daText.ID = i;
 			textGroup.add(daText);
@@ -646,7 +681,7 @@ class GaleriaStateMusic extends MusicBeatState
 		});
 		textGroup.forEach(function(spr:FlxText)
 		{
-			FlxTween.tween(spr, {alpha: 1}, 0.3, {ease: FlxEase.quadInOut});
+			FlxTween.tween(spr, {alpha: 1}, 0.3, {ease: FlxEase.linear});
 		});
 	}
 
