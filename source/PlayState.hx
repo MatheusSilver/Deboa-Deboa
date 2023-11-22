@@ -2623,6 +2623,12 @@ class PlayState extends MusicBeatState
 					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					blackStuff.cameras = [camHUD];
 					add(blackStuff);
+				case "sidekick":
+					if(endingSong1!="true")
+						return;
+					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					blackStuff.cameras = [camHUD];
+					add(blackStuff);
 				case "gran-finale":
 					omagaaaa.destroy();
 					remove(omagaaaa);
