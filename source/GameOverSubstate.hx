@@ -24,6 +24,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var bg:FlxSprite;
 	var retryButton:FlxButton;
 	var retryTween:FlxTween;
+	var canClick:Bool = true;
 	public static var instance:GameOverSubstate;
 
 	public static function resetVariables() { //Padrão para deathScreen do BF.
@@ -65,9 +66,12 @@ class GameOverSubstate extends MusicBeatSubstate
 		retryButton.antialiasing = ClientPrefs.globalAntialiasing;
 		retryButton.alpha = 0.75;
 		retryButton.setGraphicSize(Std.int(retryButton.width*0.7));
-		retryButton.onOver.callback = function(){retryButton.alpha=1;};
-				retryButton.onOut.callback = function(){retryButton.alpha=0.75;};
+		retryButton.onOver.callback = function(){if(canClick)retryButton.alpha=1;};
+				retryButton.onOut.callback = function(){if(canClick)retryButton.alpha=0.75;};
 				retryButton.onDown.callback = function(){
+					if(!canClick)
+						return;
+					canClick = false;
 					new FlxTimer().start(0.35, function(tmr:FlxTimer)
 						{
 							endBullshit();
@@ -120,6 +124,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.ACCEPT)
 		{
+			canClick = false;
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
 				endBullshit();
@@ -185,6 +190,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (!isEnding)
 		{
 			eaepedrinho = false;
+			canClick = false;
 			isEnding = true;
 			if (retryTween != null){
 				retryTween.cancel();
@@ -193,6 +199,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.music(endSoundName));
+			if (ClientPrefs.flashing){
+				FlxG.camera.flash(FlxColor.WHITE, 1);
+			}
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
 				FlxTween.tween(blackScreen, {alpha: 1}, 1.5, {ease: FlxEase.linear, onComplete: function(twn:FlxTween)

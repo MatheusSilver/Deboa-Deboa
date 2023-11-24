@@ -331,7 +331,7 @@ class MenuHistoria extends MusicBeatSubstate
 	{
 		if (stopspamming == false)
 		{
-			if(nombres[curSelected] == 'Lerdeza') {
+			if(nombres[curSelected] == "Lerdeza"|| nombres[curSelected] == "Não Pode Fugir"|| nombres[curSelected] == "Ameaça Tripla") {
 				vhsSom.play(true);
 			} else {
 				GlobalSoundManager.play('confirmMenu');

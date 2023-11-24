@@ -403,9 +403,13 @@ class GaleriaStateMusic extends MusicBeatState
 				songPercent = 0;
 				timer.text = '0:00' + '/' + FlxStringUtil.formatTime(Math.floor(songLength/1000), false);
 
-				botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/play', 'preload'));
+				if(canRender)
+				{
+					botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/play', 'preload')); // tava crashando antes quando o jogador n tava mais nesse state e tava tentando carregar uma textura pra um objeto que tecnicamente não existia k
+				}
 			}
 		}
+
 
 	function reloadValues() {
 		for (i in 0...checkboxArray.length) {
