@@ -71,6 +71,12 @@ class GaleriaState extends MusicBeatState
 				}
 			}
 
+			if (FlxG.save.data.likesMap==null){
+				for (i in 0...titulos.length){
+					ClientPrefs.likesMap.set(titulos[i], "neutral");
+				}
+			}
+
 			//DaGaleria part
 
 			FlxG.mouse.visible = Main.mouse;

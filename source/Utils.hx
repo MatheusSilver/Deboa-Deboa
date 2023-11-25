@@ -159,11 +159,22 @@ class BSLTouchUtils
 		return false;
     }
 
+	public static function over(coisa:Dynamic):Bool
+    {
+	    #if desktop
+		return FlxG.mouse.overlaps(coisa);
+	    #elseif mobile
+		for (touch in FlxG.touches.list)
+			return touch.overlaps(coisa);
+	    #end
+
+		return false;
+    }
+
 	public static function pressionando(coisa:Dynamic):Bool
 	{
 		#if desktop
-		if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justPressed && !FlxG.mouse.justReleased)
-			return true;
+		return (FlxG.mouse.overlaps(coisa) && FlxG.mouse.pressed);
 		#elseif mobile
 		for (touch in FlxG.touches.list)
 			if (touch.overlaps(coisa) && touch.justPressed && !touch.justReleased)

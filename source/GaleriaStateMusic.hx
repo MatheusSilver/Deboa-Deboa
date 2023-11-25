@@ -283,7 +283,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		super.create();
 
-		thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected]);
+		thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected], ClientPrefs.likesMap.get(GaleriaState.titulos[curSelected]));
 		thumbnailAuxiliar.alpha = 0;
 		add(thumbnailAuxiliar);
 
@@ -371,7 +371,7 @@ class GaleriaStateMusic extends MusicBeatState
 		thumbtocandoagora.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
 		FlxTween.tween(thumbnailAuxiliar, {alpha: 0}, 0.1, {ease: FlxEase.linear, onComplete: function (twn:FlxTween){
 			remove(thumbnailAuxiliar);
-			thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected]);
+			thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected], ClientPrefs.likesMap.get(GaleriaState.titulos[curSelected]));
 			thumbnailAuxiliar.alpha = 0;
 			add(thumbnailAuxiliar);
 			FlxTween.tween(thumbnailAuxiliar, {alpha: 1}, 0.3, {ease: FlxEase.linear});
@@ -396,7 +396,7 @@ class GaleriaStateMusic extends MusicBeatState
 				//trace('tentando tocar random');
 				changeSong(FlxG.random.int(0, GaleriaState.leMusic.length-1));
 			}else if(!loopar){
-				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0.7);
+				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 				menutoca=true;
 				FlxG.sound.music.fadeIn(4, 0, 0.85);
 				pausado = true;
@@ -478,21 +478,24 @@ class GaleriaStateMusic extends MusicBeatState
 			}
 
 		if (controls.BACK || (FlxG.mouse.overlaps(sair) && FlxG.mouse.justPressed)) {
+			menutoca= true;
 			GlobalSoundManager.play('click');
 			GaleriaState.firsttimemusic = false;
 			GaleriaState.stoploading = false;
 			canRender = false;
-			FlxG.sound.music.fadeOut(1.5, 0, function(twn:FlxTween){
-				flixel.FlxG.sound.music.stop();
-				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0.7, true);
-			});
-			
-			
-			menutoca= true;
-			
-
-			MusicBeatState.switchState(new GaleriaState());
+			if (FlxG.sound.music != null)
+				FlxG.sound.music.fadeOut(0.5, 0, function(twn:FlxTween){
+					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0, true);
+					FlxG.sound.music.fadeIn(4, 0, 0.85);
+					MusicBeatState.switchState(new GaleriaState());
+				});
+			else{
+				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0, true);
+				FlxG.sound.music.fadeIn(4, 0, 0.85);
+				MusicBeatState.switchState(new GaleriaState());
+			}
 		}
+
 		if (FlxG.sound.music == null)
 			timer.text = '0:00/0:00';
 		else if (!pausado){
@@ -511,10 +514,11 @@ class GaleriaStateMusic extends MusicBeatState
 				DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
 			#end
 
-		if((FlxG.mouse.overlaps(menuItems)&&!isLetras) || FlxG.mouse.overlaps(checkboxArray) || 
-			FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||
-				FlxG.mouse.overlaps(botaoPauseContinue) || FlxG.mouse.overlaps(sair) || 
-				(FlxG.mouse.overlaps(playListbotao)&&isLetras) || (FlxG.mouse.overlaps(letrasbotao)&&!isLetras)){
+		if((FlxG.mouse.overlaps(menuItems)&&!isLetras) || FlxG.mouse.overlaps(checkboxArray) ||
+			BSLTouchUtils.over(GaleriaMusicObject.likeSprite) || BSLTouchUtils.over(GaleriaMusicObject.dislikeSprite) ||
+				FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||
+					FlxG.mouse.overlaps(botaoPauseContinue) || FlxG.mouse.overlaps(sair) || 
+						(FlxG.mouse.overlaps(playListbotao)&&isLetras) || (FlxG.mouse.overlaps(letrasbotao)&&!isLetras)){
 			if(mouseskin != "pointerselected"){
 				mouseskin = 'pointerselected';
 				FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+mouseskin), 1, 0, 0);

@@ -43,6 +43,7 @@ class ClientPrefs
 	public static var buttonsMode:Array<Dynamic> = [];
 	public static var buttons:Array<Dynamic> = [];
 	public static var achievementsMap:Map<String, Bool> = [];
+	public static var likesMap:Map<String, String> = [];
 
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
