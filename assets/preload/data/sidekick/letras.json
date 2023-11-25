@@ -2489,25 +2489,6 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						210906.593406593,
-						-1,
-						"hudfade",
-						"0",
-						"5",
-						""
-					]
-				],
-				"bpm": 0,
-				"changeBPM": false,
-				"mustHitSection": false
-			},
-			{
-				"gfSection": false,
-				"lengthInSteps": 16,
-				"altAnim": false,
-				"typeOfSection": 0,
-				"sectionNotes": [
-					[
 						210989.010989011,
 						-1,
 						"Spin",

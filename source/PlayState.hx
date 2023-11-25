@@ -2623,6 +2623,12 @@ class PlayState extends MusicBeatState
 					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 					blackStuff.cameras = [camHUD];
 					add(blackStuff);
+				case "sidekick":
+					if(endingSong1!="true")
+						return;
+					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					blackStuff.cameras = [camHUD];
+					add(blackStuff);
 				case "gran-finale":
 					omagaaaa.destroy();
 					remove(omagaaaa);
@@ -4186,7 +4192,7 @@ class PlayState extends MusicBeatState
 		}
 
 		// RESET = Quick Game Over Screen
-		if (controls.RESET && !inCutscene && !endingSong)
+		if (controls.RESET && !inCutscene && !endingSong && !playingVideoMP4)
 		{
 			resetforcado = true;
 			canRegen = true;
@@ -6804,7 +6810,7 @@ class PlayState extends MusicBeatState
 			{
 				health -= daNote.missHealth;
 			}
-			else if (isRing && cNum > 0 && daNote.noteData != 2)
+			else if (isRing && cNum > 0 && daNote.noteData != 2 && !daNote.isSustainNote)
 			{
 				cNum--;
 			}
@@ -7659,6 +7665,11 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		if(curSong.toLowerCase() == "soulless")
+		{
+			canPause = curStep > 114;
+		}
+
 		if (curSong == "triple-trouble")
 		{
 			isexe = curStep > 1040 && curStep < 1295 || curStep > 2320 && curStep < 2831 || curStep > 4112 && curStep < 5220;
@@ -7704,6 +7715,7 @@ class PlayState extends MusicBeatState
 			{
 				case 16:
 					var sayuri:FlxSprite = new FlxSprite();
+					canPause=false;
 					sayuri.loadGraphic(Paths.image('cards/sayuri-cartao'));
 					sayuri.cameras = [camLegenda];
 					sayuri.x = -421;
@@ -7715,10 +7727,12 @@ class PlayState extends MusicBeatState
 					new FlxTimer().start(4, function(tmr:FlxTimer)
 					{
 						remove(sayuri);
+						canPause=true;
 					});
 					add(sayuri);
 				case 1304: // for testing (1304)
 					var blutufie:FlxSprite = new FlxSprite();
+					canPause=false;
 					blutufie.loadGraphic(Paths.image('cards/bluetufie-cartao'));
 					blutufie.cameras = [camLegenda];
 					blutufie.x = 1280;
@@ -7730,10 +7744,12 @@ class PlayState extends MusicBeatState
 					new FlxTimer().start(4, function(tmr:FlxTimer)
 					{
 						remove(blutufie);
+						canPause=true;
 					});
 					add(blutufie);
 				case 2840: // for testing (2840)
 					var brunito:FlxSprite = new FlxSprite();
+					canPause=false;
 					brunito.loadGraphic(Paths.image('cards/brunito-cartao'));
 					brunito.cameras = [camLegenda];
 					brunito.x = -421;
@@ -7745,6 +7761,7 @@ class PlayState extends MusicBeatState
 					new FlxTimer().start(4, function(tmr:FlxTimer)
 					{
 						remove(brunito);
+						canPause=true;
 					});
 					add(brunito);
 			}

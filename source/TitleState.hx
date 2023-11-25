@@ -435,7 +435,9 @@ class TitleState extends MusicBeatState
 		{
 			if (pressedEnter)
 			{
+				if (ClientPrefs.flashing){
 				FlxG.camera.flash(FlxColor.WHITE, 1);
+				}
 				GlobalSoundManager.play('confirmMenu');
 
 				transitioning = true;
@@ -608,7 +610,9 @@ class TitleState extends MusicBeatState
 	{
 		if (!skippedIntro)
 		{
+			if (ClientPrefs.flashing){
 			FlxG.camera.flash(FlxColor.WHITE, 1);
+			}
 			remove(credGroup);
 			remove(gradientBar);
 			skippedIntro = true;
