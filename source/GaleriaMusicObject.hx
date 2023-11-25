@@ -1,10 +1,6 @@
 package;
 
 import Utils.BSLTouchUtils;
-import openfl.display3D.textures.RectangleTexture;
-import flixel.util.FlxSpriteUtil.LineStyle;
-import openfl.display.CapsStyle;
-import flixel.addons.display.shapes.FlxShapeCircle;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
