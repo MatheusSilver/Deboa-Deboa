@@ -124,7 +124,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		boom = new FlxSprite(0, 0); //ok
 		boom.frames = Paths.getSparrowAtlas('menus/sonicmenu1', 'preload');
-		boom.animation.addByPrefix('idle', "sonicmenu1 idle",30);
+		boom.animation.addByPrefix('idle', "sonicmenu1 idle",30); //30
 		boom.antialiasing = ClientPrefs.globalAntialiasing;
 		//boom.setGraphicSize(Std.int));
 		//boom.flipX = true;
@@ -437,6 +437,11 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		#if debug
 		if(FlxG.keys.justPressed.FOUR) giveAchievement('modboa');
+		#end
+
+	
+		#if debug
+		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
