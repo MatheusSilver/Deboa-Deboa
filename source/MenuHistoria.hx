@@ -331,11 +331,11 @@ class MenuHistoria extends MusicBeatSubstate
 	{
 		if (stopspamming == false)
 		{
-			if(nombres[curSelected] == "Lerdeza"|| nombres[curSelected] == "Não Pode Fugir"|| nombres[curSelected] == "Ameaça Tripla") {
-				vhsSom.play(true);
-			} else {
+			//if(nombres[curSelected] == "Lerdeza"|| nombres[curSelected] == "Não Pode Fugir"|| nombres[curSelected] == "Ameaça Tripla") {
+				vhsSom.play(true); // ficou legal assim eu acho
+			/*} else {
 				GlobalSoundManager.play('confirmMenu');
-			}
+			}*/
 			stopspamming = true;
 		}
 
