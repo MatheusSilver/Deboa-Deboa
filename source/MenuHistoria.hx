@@ -83,7 +83,7 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		vhsSom = new FlxSound().loadEmbedded(Paths.sound('vhs_entra'));
-		vhsSom.volume = 0.8;
+		vhsSom.volume = 1.25;
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		for (j in 0...leWeek.songs.length)
