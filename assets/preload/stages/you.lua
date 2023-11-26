@@ -1,7 +1,8 @@
 goIdle = true
+local flashed = true
 
 function onCreate()
-
+	flashed = false
 	makeAnimationList();
 
     makeAnimatedLuaSprite('tail', 'XNEW', 5100 - 800, 915 + 40); -- tails
@@ -25,6 +26,29 @@ function onCreate()
     setProperty('run.visible', true);
     addLuaSprite('tail', false);
     setProperty('tail.visible', true);
+
+	makeLuaTiledSprite('neve','neve',2560,1440,true,true) --1
+	--setObjectCamera("neve", "hud2")
+	setPropertyTiledLuaSprite("neve.x", 3800)
+	setPropertyTiledLuaSprite("neve.y", 750)
+	setPropertyTiledLuaSprite("neve.alpha", 0.5)
+	setPropertyTiledLuaSprite("neve.visible", false)
+	addLuaSprite("neve")
+
+	makeLuaSprite("gelo_overlay", "freeze_overlay", 0, 0)
+	setObjectCamera("gelo_overlay", 'hud')
+	screenCenter("gelo_overlay", "xy")
+	setGraphicSize("gelo_overlay", screenWidth, screenHeight)
+	setProperty("gelo_overlay.alpha", 0)
+	addLuaSprite("gelo_overlay")
+
+	makeLuaSprite('whiteflash', 'empty', 0, 0)
+	makeGraphic('whiteflash', 1, 1, 'FFFFFF')
+	setGraphicSize("whiteflash", screenWidth, screenHeight)
+	setObjectCamera("whiteflash", 'hud2')
+	setProperty('whiteflash.alpha', 0)
+	setProperty("whiteflash.visible", false)
+	addLuaSprite("whiteflash")
 
 	--setGameover('sonic', 'gameOverEndSonic', 'breakfast')
 
@@ -73,6 +97,38 @@ function opponentNoteHit(id, direction, noteType, isSustainNote)
 		animToPlay = noteDatas.tail;
 		
 		playAnimation(characterToPlay, animToPlay, true);
+	end
+end
+
+
+function onEvent(name, value1, value2)
+	if name == 'whiteflash' then --Isso só é usado aqui, então resolvi acoplar esse evento ao aparecimento da neve.
+		setProperty("whiteflash.visible", true)
+		setProperty('whiteflash.alpha', 1)
+		doTweenAlpha('whiteflashbye', 'whiteflash', 0, 1, 'linear')
+		setPropertyTiledLuaSprite("neve.visible", true)
+		doTweenAlpha("gelo_overlay_tween", "gelo_overlay", 0.2, 3, "linear")
+		doTweenX("neve_tweenX_direita", "neve", 3800+100, 3, "sineinout")
+		flashed = true
+	end
+end
+
+local speedchanger = 0
+function onUpdate()
+	speedchanger = speedchanger+1
+	if flashed then
+		setPropertyTiledLuaSprite('neve.scrollY', speedchanger*3)
+	end
+end
+
+function onTweenCompleted(tag)
+	if tag == 'whiteflashbye' then
+		removeLuaSprite("whiteflash")
+	end
+	if tag == "neve_tweenX_direita" then
+		doTweenX("neve_tweenX_esquerda", "neve", 3800 -100, 3, "sineinout")
+	elseif tag == "neve_tweenX_esquerda" then
+		doTweenX("neve_tweenX_direita", "neve", 3800 + 100, 3, "sineinout")
 	end
 end
 
