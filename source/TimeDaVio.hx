@@ -47,6 +47,7 @@ class TimeDaVio extends MusicBeatState
 		[	'x02',  'https://discord.gg/G3BmXXeshA',  'https://twitter.com/matex02_',  'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' ],
 		[	'hugo',  '',  'https://twitter.com/Hugo09723233',  '' ],
 		[	'cat',  '',  'https://twitter.com/Point15104219',  '' ],
+		[	'frost',  'https://discord.gg/PegJDERhFw',  'https://twitter.com/FROST_0101?t',  'https://youtube.com/@FROST_001' ],
 		/* daqui pra frente é elenco */
 		[   'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
 		[	'blue',   '',  'https://twitter.com/bluetufie',  'https://www.youtube.com/@bluezinkk' ],
@@ -226,7 +227,7 @@ class TimeDaVio extends MusicBeatState
 	function changeSelection(newCurselected:Int)
 	{
 
-		if (curSelectedBkp > 7)
+		if (curSelectedBkp > 8)
 		{
 			FlxTween.tween(bgCima, {y: -720}, 0.65, {ease: FlxEase.quartInOut});
 			FlxTween.tween(bgBaixo, {y: 720}, 0.8, {ease: FlxEase.quartInOut});
@@ -254,7 +255,7 @@ class TimeDaVio extends MusicBeatState
 
 		new FlxTimer().start(1.05, function(tmr:FlxTimer)
 		{
-			if (curSelected > 7)
+			if (curSelected > 8)
 			{
 				estante.x = 593;
 				perfil.x = -1280;
@@ -323,7 +324,7 @@ class TimeDaVio extends MusicBeatState
 	function updateButtons()
 	{
 		// tudo veio
-		if (curSelected == 14)
+		if (curSelected == 15)
 		{
 			twitter.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
 		}
@@ -331,7 +332,7 @@ class TimeDaVio extends MusicBeatState
 		{
 			twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
 		}
-		if (curSelected == 20)
+		if (curSelected == 21)
 		{
 			discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
 		}
