@@ -133,44 +133,8 @@ class MainMenuStateMobile extends MusicBeatState
 		boom.flipX=true;
 		boom.x = -751;
 		boom.alpha=1;
-		add(boom);
-
-		menuItems = new FlxTypedGroup<FlxSprite>();
-		add(menuItems);
-
-		for (i in 0...optionShit.length){
-			
-			var botoes:FlxSprite = new FlxSprite(FlxG.width, 8.5 + FlxG.height/(optionShit.length+2)*(i));
-
-			/*
-			if(!GJClient.logged && optionShit[i]=="multiplayer")
-				{
-					botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i] + "-locked2", 'preload'));
-				}
-			else
-				{*/
-					//botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
-				//}
-			
-			if(optionShit[i]=="freeplay" && !passouCY)
-			{
-				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i]+"-locked2", 'preload'));
-			}
-			else
-			{
-				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
-			}
-
-			botoes.setGraphicSize(Std.int(botoes.width * 0.6)); //Matemática avançada para o caso de algum dia vir a adicionar, ou remover botões daqui
-			botoes.alpha = /*!GJClient.logged && */optionShit[i]=="multiplayer-locked2" || optionShit[i]=="freeplay"&&!passouCY ? 1 : 0.75;
-			botoes.ID = i;
-			botoes.screenCenter(Y);
-			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-97.5;
-			menuItems.add(botoes);
-			botoes.antialiasing = ClientPrefs.globalAntialiasing;
-			botoes.updateHitbox();
-		}
-
+		add(boom);		
+		
 		gameJoltBG = new FlxSprite(0).loadGraphic(Paths.image('gamejoltUserBar', 'preload'));
 		gameJoltBG.setGraphicSize(Std.int(gameJoltBG.width*0.5));
 		gameJoltBG.updateHitbox();
@@ -282,6 +246,44 @@ class MainMenuStateMobile extends MusicBeatState
 			{
 				letext.text = "DESCONECTADO";
 			}
+
+		menuItems = new FlxTypedGroup<FlxSprite>();
+		add(menuItems);
+
+		for (i in 0...optionShit.length){
+			
+			var botoes:FlxSprite = new FlxSprite(FlxG.width, 8.5 + FlxG.height/(optionShit.length+2)*(i));
+
+			/*
+			if(!GJClient.logged && optionShit[i]=="multiplayer")
+				{
+					botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i] + "-locked2", 'preload'));
+				}
+			else
+				{*/
+					//botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
+				//}
+			
+			if(optionShit[i]=="freeplay" && !passouCY)
+			{
+				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i]+"-locked2", 'preload'));
+			}
+			else
+			{
+				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
+			}
+
+			botoes.setGraphicSize(Std.int(botoes.width * 0.6)); //Matemática avançada para o caso de algum dia vir a adicionar, ou remover botões daqui
+			botoes.alpha = /*!GJClient.logged && */optionShit[i]=="multiplayer-locked2" || optionShit[i]=="freeplay"&&!passouCY ? 1 : 0.75;
+			botoes.ID = i;
+			botoes.screenCenter(Y);
+			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-97.5;
+			menuItems.add(botoes);
+			botoes.antialiasing = ClientPrefs.globalAntialiasing;
+			botoes.updateHitbox();
+		}
+
+
 
 		for (i in 0...optionShit.length){
 				FlxTween.tween(menuItems.members[i], {x: FlxG.width - 2.22*menuItems.members[i].width}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
