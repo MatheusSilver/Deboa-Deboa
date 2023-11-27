@@ -81,16 +81,24 @@ class ModifiersMenuState extends MusicBeatState
         setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);*/
 
 
-        var x1:Int = 0;
-        var y1:Float = 267;
+        var x1:Float = 30;
+        var y1:Float = 334;
         for(i in 0...ModifiersManager.allModifiers.length)
         {
+            if(i==9){
+                y1=476;
+                x1 = 30;
+            }
             var properties:Modifier = ModifiersManager.getAllProperties(i);
             var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, y1, properties.description, properties.multiplier);
             add(modifierButton);
             buttons.push(modifierButton);
-            y1-=30;
-            x1+=164;
+
+            if(i!=9)
+            {
+                y1-=24;
+                x1+=135;
+            }
         }
         
         add(text);
@@ -167,7 +175,7 @@ class ModifierButton extends FlxSpriteGroup
     public var botao:FlxSprite;
     var outline:FlxSprite;
 
-    public function new(id:Int, name:String, enabled:Bool, x1:Int, y1:Float, desc:String, multiplier:Float)
+    public function new(id:Int, name:String, enabled:Bool, x1:Float, y1:Float, desc:String, multiplier:Float)
     {
         super(x1, y1);
 
@@ -186,8 +194,7 @@ class ModifierButton extends FlxSpriteGroup
         {
             botao.loadGraphic(Paths.image("modifiers/botoes/placeholder"));
         }
-        botao.setGraphicSize(Std.int(botao.width *1.25));
-        botao.x = botao.x + 12; // 72 - 80
+        botao.setGraphicSize(Std.int(botao.width *1.05));
         //botao.screenCenter(Y);
         botao.updateHitbox();
         add(botao);
@@ -198,8 +205,7 @@ class ModifierButton extends FlxSpriteGroup
         } else {
         outline.loadGraphic(Paths.image("modifiers/off"));
         }
-        outline.setGraphicSize(Std.int(outline.width *1.25));
-        outline.x = outline.x + 12;
+        outline.setGraphicSize(Std.int(outline.width *1.05));
         //outline.screenCenter(Y);
         outline.updateHitbox();
         add(outline);

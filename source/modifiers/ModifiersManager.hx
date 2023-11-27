@@ -31,7 +31,8 @@ class ModifiersManager
         [0, "Camera tremendo", "O HUD ficará tremendo durante a musica inteira.", [], 1.04], 
         [0, "Flip Notes", "O caminho das notas se torna o oposto do que o de costume.", [], 1.04],
         [0, "Paparazzi", "Flashes na tela com certa frequência", [], 1.02],
-        [1, "Somente duas setas", "Cima e baixo não existem mais, apenas esquerda e direita", [0], 0.95]
+        [1, "Somente duas setas", "Cima e baixo não existem mais, apenas esquerda e direita", [0], 0.95],
+        [1, "So pra dar 18", "aaaaaaaaaaaaa", [], 0]
     ];
 
     
