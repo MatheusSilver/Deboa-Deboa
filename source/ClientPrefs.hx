@@ -44,7 +44,7 @@ class ClientPrefs
 	public static var buttons:Array<Dynamic> = [];
 	public static var achievementsMap:Map<String, Bool> = [];
 	public static var likesMap:Map<String, String> = [];
-	public static var currentModifiers:Array<Int> = [];
+	public static var currentModifiers:Array<Int> = []; // valeu dav
 
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [

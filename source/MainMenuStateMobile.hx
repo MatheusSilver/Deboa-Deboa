@@ -439,10 +439,6 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		#if debug
 		if(FlxG.keys.justPressed.FOUR) giveAchievement('modboa');
-		#end
-
-	
-		#if debug
 		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
 		if(FlxG.keys.justPressed.NINE) MusicBeatState.switchState(new modifiers.ModifiersMenuState());
 		#end

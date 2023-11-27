@@ -30,6 +30,9 @@ class ModifiersMenuState extends MusicBeatState
 
     var bg:FlxSprite;
     var faixa:FlxSprite;
+    public var text:FlxText;
+    public var setal:FlxText; //esquerda
+    public var setar:FlxText; //direita
 
 	override function create()
 	{
@@ -43,12 +46,30 @@ class ModifiersMenuState extends MusicBeatState
         mouseDesc.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.GRAY, CENTER);
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/bg"));
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
         bg.screenCenter(XY);
         add(bg);
 
         faixa = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/faixa"));
+        faixa.antialiasing = ClientPrefs.globalAntialiasing;
         faixa.screenCenter(XY);
         add(faixa);
+
+        var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+		add(textBG);
+
+		text = new FlxText(textBG.x, textBG.y + 4, FlxG.width, "", 18);
+		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
+		text.scrollFactor.set();
+
+        setal = new FlxText(26, 0, "<", 18);
+        setal.screenCenter(Y);
+        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
+
+        setar = new FlxText(1242, 0, ">", 18);
+        setal.screenCenter(Y);
+        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
+
 
         var x1:Int = 0;
         for(i in 0...ModifiersManager.allModifiers.length)
@@ -57,11 +78,12 @@ class ModifiersMenuState extends MusicBeatState
             var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, properties.description);
             add(modifierButton);
             buttons.push(modifierButton);
-            x1+=128;
+            x1 = x1 + 164;
         }
-
-        add(mouseTxt);
-        add(mouseDesc);
+        
+        add(text);
+        add(setal);
+        add(setar);
 
 		super.create();
 	}
@@ -78,12 +100,8 @@ class ModifiersMenuState extends MusicBeatState
                     break;
                 }
             }
-        mouseTxt.text = currentButton != null ? currentButton.name : "";
-        mouseTxt.x=FlxG.mouse.x - 60;
-        mouseTxt.y = FlxG.mouse.y + 40;
-        mouseDesc.text = currentButton != null ? currentButton.desc : "";
-        mouseDesc.x=FlxG.mouse.x - 60;
-        mouseDesc.y = FlxG.mouse.y + 80;
+
+        text.text = currentButton.name.toUpperCase() + ": " + currentButton.desc; // só pa fica bunitu
         if(FlxG.mouse.justPressed && currentButton != null)
             {
                 currentButton.clique();
@@ -92,6 +110,22 @@ class ModifiersMenuState extends MusicBeatState
                     button.verifyStuff();
                 }
             }
+
+        #if android
+        if(Utils.BSLTouchUtils.apertasimples(setal)) {
+            //
+        }
+        if(Utils.BSLTouchUtils.apertasimples(setar)) {
+            //
+        }
+        #else
+        if(controls.UI_LEFT_P) {
+            //
+        }
+        if(controls.UI_RIGHT_P) {
+            //
+        }
+        #end
 		if (controls.BACK)
 		{
 			GlobalSoundManager.play('cancelMenu');
@@ -119,6 +153,7 @@ class ModifierButton extends FlxSpriteGroup
         this.enabled = enabled;
         this.desc=desc;
         botao = new FlxSprite(0,0);
+        botao.antialiasing = ClientPrefs.globalAntialiasing;
         if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + this.name)))
         {
             botao.loadGraphic(Paths.image("modifiers/botoes/" + this.name));
@@ -127,15 +162,20 @@ class ModifierButton extends FlxSpriteGroup
         {
             botao.loadGraphic(Paths.image("modifiers/botoes/placeholder"));
         }
+        botao.setGraphicSize(Std.int(botao.width *1.25));
+        botao.x = botao.x + 68; // 72 - 80
         botao.screenCenter(Y);
         botao.updateHitbox();
         add(botao);
         outline = new FlxSprite(0,0);
+        outline.antialiasing = ClientPrefs.globalAntialiasing;
         if(this.enabled){
         outline.loadGraphic(Paths.image("modifiers/on"));
         } else {
         outline.loadGraphic(Paths.image("modifiers/off"));
         }
+        outline.setGraphicSize(Std.int(outline.width *1.25));
+        outline.x = outline.x + 68;
         outline.screenCenter(Y);
         outline.updateHitbox();
         add(outline);
