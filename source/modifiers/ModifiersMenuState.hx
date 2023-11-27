@@ -75,7 +75,7 @@ class ModifiersMenuState extends MusicBeatState
         for(i in 0...ModifiersManager.allModifiers.length)
         {
             var properties:Modifier = ModifiersManager.getAllProperties(i);
-            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, properties.description);
+            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, properties.description, properties.multiplier);
             add(modifierButton);
             buttons.push(modifierButton);
             x1 = x1 + 164;
@@ -141,10 +141,11 @@ class ModifierButton extends FlxSpriteGroup
     public var name:String;
     public var enabled:Bool;
     public var desc:String;
+    public var multiplier:Float;
     var botao:FlxSprite;
     var outline:FlxSprite;
 
-    public function new(id:Int, name:String, enabled:Bool, x1:Int, desc:String)
+    public function new(id:Int, name:String, enabled:Bool, x1:Int, desc:String, multiplier:Float)
     {
         super(x1, 0);
 
@@ -152,6 +153,7 @@ class ModifierButton extends FlxSpriteGroup
         this.name = name;
         this.enabled = enabled;
         this.desc=desc;
+        this.multiplier = multiplier;
         botao = new FlxSprite(0,0);
         botao.antialiasing = ClientPrefs.globalAntialiasing;
         if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + this.name)))
