@@ -15,6 +15,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxCamera;
+import openfl.utils.Assets as OpenFlAssets;
 
 
 using StringTools;
@@ -23,10 +24,12 @@ class ModifiersMenuState extends MusicBeatState
 {
 
     public var buttons:Array<ModifierButton> = [];
-    public var textString:String = "";
-    public var textDescString:String = "";
+    var currentButton:ModifierButton;
     var mouseTxt:FlxText;
     var mouseDesc:FlxText;
+
+    var bg:FlxSprite;
+    var faixa:FlxSprite;
 
 	override function create()
 	{
@@ -34,16 +37,24 @@ class ModifiersMenuState extends MusicBeatState
 		DiscordClient.changePresence("No menu de modifiers", null);
 		#end
         
-        mouseTxt = new FlxText(0, 0, 200, textString, 8, true);
+        mouseTxt = new FlxText(0, 0, 200, "", 8, true);
         mouseTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
-        mouseDesc = new FlxText(0, 0, 200, textDescString, 8, true);
+        mouseDesc = new FlxText(0, 0, 200, "", 8, true);
         mouseDesc.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.GRAY, CENTER);
+
+        bg = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/bg"));
+        bg.screenCenter(XY);
+        add(bg);
+
+        faixa = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/faixa"));
+        faixa.screenCenter(XY);
+        add(faixa);
 
         var x1:Int = 0;
         for(i in 0...ModifiersManager.allModifiers.length)
         {
-            //var properties:Modifier = ModifiersManager.getAllProperties(i);
-            var modifierButton:ModifierButton = new ModifierButton(i, ModifiersManager.getNameById(i), ModifiersManager.isEnabled(i), x1, ModifiersManager.getDescById(i));
+            var properties:Modifier = ModifiersManager.getAllProperties(i);
+            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, properties.description);
             add(modifierButton);
             buttons.push(modifierButton);
             x1+=128;
@@ -58,23 +69,29 @@ class ModifiersMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-        textString = "";
-        textDescString = "";
+        currentButton = null;
         for (button in buttons)
             {
                 if (FlxG.mouse.overlaps(button))
                 {
-                    textString = button.name;
-                    textDescString = button.desc;
+                    currentButton = button;
                     break;
                 }
             }
-        mouseTxt.text = textString;
+        mouseTxt.text = currentButton != null ? currentButton.name : "";
         mouseTxt.x=FlxG.mouse.x - 60;
         mouseTxt.y = FlxG.mouse.y + 40;
-        mouseDesc.text = textDescString;
+        mouseDesc.text = currentButton != null ? currentButton.desc : "";
         mouseDesc.x=FlxG.mouse.x - 60;
         mouseDesc.y = FlxG.mouse.y + 80;
+        if(FlxG.mouse.justPressed && currentButton != null)
+            {
+                currentButton.clique();
+                for (button in buttons)
+                {
+                    button.verifyStuff();
+                }
+            }
 		if (controls.BACK)
 		{
 			GlobalSoundManager.play('cancelMenu');
@@ -84,12 +101,14 @@ class ModifiersMenuState extends MusicBeatState
 
 }
 
-class ModifierButton extends FlxSprite
+class ModifierButton extends FlxSpriteGroup
 {
     public var id:Int;
     public var name:String;
     public var enabled:Bool;
     public var desc:String;
+    var botao:FlxSprite;
+    var outline:FlxSprite;
 
     public function new(id:Int, name:String, enabled:Bool, x1:Int, desc:String)
     {
@@ -98,15 +117,57 @@ class ModifierButton extends FlxSprite
         this.id = id;
         this.name = name;
         this.enabled = enabled;
-        this.loadGraphic(Paths.image("modifiers/" + Std.string(ModifiersManager.getTypeById(id))));
-        this.screenCenter(Y);
         this.desc=desc;
-        trace(Std.string(ModifiersManager.getTypeById(id)));
+        botao = new FlxSprite(0,0);
+        if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + this.name)))
+        {
+            botao.loadGraphic(Paths.image("modifiers/botoes/" + this.name));
+        }
+        else
+        {
+            botao.loadGraphic(Paths.image("modifiers/botoes/placeholder"));
+        }
+        botao.screenCenter(Y);
+        botao.updateHitbox();
+        add(botao);
+        outline = new FlxSprite(0,0);
+        if(this.enabled){
+        outline.loadGraphic(Paths.image("modifiers/on"));
+        } else {
+        outline.loadGraphic(Paths.image("modifiers/off"));
+        }
+        outline.screenCenter(Y);
+        outline.updateHitbox();
+        add(outline);
     }
 
     override function update(elapsed:Float)
     {
         super.update(elapsed);
-        this.alpha = enabled ? 1 : 0.5;
+
+        
+    }
+
+    public function clique()
+    {
+        if(enabled)
+        {
+            ModifiersManager.removeModifier(id);
+        }
+        else
+        {
+            ModifiersManager.setModifier(id);
+        }
+        verifyStuff();
+    }
+
+    public function verifyStuff()
+    {
+        enabled = ModifiersManager.isEnabled(id);
+        if(enabled){
+            outline.loadGraphic(Paths.image("modifiers/on"));
+            } else {
+            outline.loadGraphic(Paths.image("modifiers/off"));
+            }
     }
 }

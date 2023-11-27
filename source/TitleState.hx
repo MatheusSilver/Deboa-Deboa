@@ -1,5 +1,6 @@
 package;
 
+import modifiers.ModifiersManager;
 import FunkinLua;
 import flash.display.Sprite;
 import flixel.FlxG;
@@ -182,6 +183,7 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new PreTitleState()); // Não atrapalha no PC, e Resolve o problema do mobile, todos ganham k
+			ModifiersManager.loadSave();
 		}
 		else
 		{

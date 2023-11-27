@@ -6,11 +6,11 @@ class ModifiersManager
 {
     public static var currentModifiers:Array<Int> = [];
 
-        //TIPO --- NOME --- DESC --- ?nao pode junto
+        //TIPO --- NOME --- DESC --- nao pode junto
     public static var allModifiers:Array<Dynamic> = [
-        [0, "modifier 1", "faz coisas"], 
+        [0, "modifier 1", "faz coisas", [1]], 
         [0, "modifier 2", "faz outras coisas", [0]],
-        [1, "modifier 3", "te ajuda em algo sla"]
+        [1, "modifier 3", "te ajuda em algo sla", []]
     ];
 
     // TIPO 0 = DESAFIOS
@@ -18,35 +18,27 @@ class ModifiersManager
 
     public static function setModifier(newModifierID:Int)
     {
-        if(newModifierID < 0)
-            trace('modifier invalido!');
-            return;
-        if(allModifiers[newModifierID].length == 4)
+        var intNaoPode:Array<Int> = allModifiers[newModifierID][3];
+        for (i in intNaoPode)
         {
-            for (i in 0...allModifiers[newModifierID][3])
+            if(currentModifiers.contains(i))
             {
-                if(currentModifiers.contains(i))
-                {
-                    currentModifiers.remove(i);
-                    trace('removido modifier: ${allModifiers[i][1]}');
-                }
+                currentModifiers.remove(i);
+                trace('removido modifier: ${allModifiers[i][1]}');
             }
         }
         currentModifiers.push(newModifierID);
-        FlxG.save.data.currentModifiers = currentModifiers;
+        ClientPrefs.currentModifiers = currentModifiers;
         trace('novo modifier adicionado: ${allModifiers[newModifierID][1]}');
     }
 
     public static function removeModifier(modifierID:Int)
     {
-        if(modifierID < 0)
-            trace('modifier invalido!');
-            return;
         if(currentModifiers.contains(modifierID))
         {
             currentModifiers.remove(modifierID);
             trace('removido modifier: ${allModifiers[modifierID][1]}');
-            FlxG.save.data.currentModifiers = currentModifiers;
+            ClientPrefs.currentModifiers = currentModifiers;
         }
     }
 
@@ -100,9 +92,6 @@ class ModifiersManager
 
     public static function getAllProperties(deQual:Int):Modifier
     {
-        if(deQual < 0)
-            trace('modifier invalido!');
-            return null;
         var propriedades:Modifier = new Modifier(allModifiers[deQual][0], allModifiers[deQual][1], allModifiers[deQual][2], allModifiers[deQual].length == 4 ? allModifiers[deQual][3] : null);
         return propriedades;
     }
@@ -112,13 +101,10 @@ class ModifiersManager
         return currentModifiers != null ? currentModifiers.contains(qual) : false;
     }
 
-    public static function loadModifier()
+    public static function loadSave()
     {
-        if(FlxG.save.data != null) {
-			if(FlxG.save.data.currentModifiers != null) {
-                currentModifiers = FlxG.save.data.currentModifiers;
-			}
-		}
+        currentModifiers = ClientPrefs.currentModifiers;
+        trace("carregando save dos modifiers");
     }
 
 }
