@@ -101,7 +101,7 @@ class ModifiersMenuState extends MusicBeatState
                 }
             }
 
-        text.text = currentButton.name.toUpperCase() + ": " + currentButton.desc; // só pa fica bunitu
+        text.text = currentButon != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
         if(FlxG.mouse.justPressed && currentButton != null)
             {
                 currentButton.clique();
