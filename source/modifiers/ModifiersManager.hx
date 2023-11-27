@@ -4,32 +4,50 @@ import flixel.FlxG;
 
 class ModifiersManager
 {
-    public static var currentDesafio:Int = null;
-    public static var currentAjudante:Int = null;
-        //TIPO --- NOME --- DESC
+    public static var currentModifiers:Array<Int>;
+
+        //TIPO --- NOME --- DESC --- ?nao pode junto
     public static var allModifiers:Array<Dynamic> = [
         [0, "modifier 1", "faz coisas"], 
-        [0, "modifier 2", "faz outras coisas"],
+        [0, "modifier 2", "faz outras coisas", [0]],
         [1, "modifier 3", "te ajuda em algo sla"]
     ];
+
     // TIPO 0 = DESAFIOS
     // TIPO 1 = AJUDANTES
 
-    public function setModifier(newModifierID:Int)
+    public static function setModifier(newModifierID:Int)
     {
         if(newModifierID < 0)
             trace('modifier invalido!');
             return;
-        switch (getTypeById(newModifierID))
+        if(allModifiers[newModifierID].length == 4)
         {
-            case 0:
-                currentDesafio = newModifierID;
-            case 1:
-                currentAjudante = newModifierID;
+            for (i in 0...allModifiers[newModifierID][3])
+            {
+                if(currentModifiers.contains(i))
+                {
+                    currentModifiers.remove(i);
+                    trace('removido modifier: ${allModifiers[i][1]}');
+                }
+            }
         }
-        FlxG.save.data.currentDesafio = currentDesafio;
-        FlxG.save.data.currentAjudante = currentAjudante;
+        currentModifiers.push(newModifierID);
+        FlxG.save.data.currentModifiers = currentModifiers;
         trace('novo modifier adicionado: ${allModifiers[newModifierID][1]}');
+    }
+
+    public static function removeModifier(modifierID:Int)
+    {
+        if(modifierID < 0)
+            trace('modifier invalido!');
+            return;
+        if(currentModifiers.contains(modifierID))
+        {
+            currentModifiers.remove(modifierID);
+            trace('removido modifier: ${allModifiers[modifierID][1]}');
+            FlxG.save.data.currentModifiers = currentModifiers;
+        }
     }
 
     public static function getIdByName(modifierName:String):Int
@@ -80,9 +98,8 @@ class ModifiersManager
     public static function loadModifier()
     {
         if(FlxG.save.data != null) {
-			if(FlxG.save.data.currentDesafio != null && FlxG.save.data.currentAjudante != null) {
-                currentDesafio = FlxG.save.data.currentDesafio;
-                currentAjudante = FlxG.save.data.currentAjudante;
+			if(FlxG.save.data.currentModifiers != null) {
+                currentModifiers = FlxG.save.data.currentModifiers;
 			}
 		}
     }
