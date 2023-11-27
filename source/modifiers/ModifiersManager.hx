@@ -91,7 +91,7 @@ class ModifiersManager
         if(deQual < 0)
             trace('modifier invalido!');
             return null;
-        var propriedades:Modifier = new Modifier(allModifiers[deQual][0], allModifiers[deQual][1], allModifiers[deQual][2]);
+        var propriedades:Modifier = new Modifier(allModifiers[deQual][0], allModifiers[deQual][1], allModifiers[deQual][2], allModifiers[deQual].length == 4 ? allModifiers[deQual][3] : null);
         return propriedades;
     }
 
