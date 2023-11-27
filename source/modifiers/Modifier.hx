@@ -2,12 +2,12 @@ package modifiers;
 
 class Modifier
 {
-    public var id:Int;
+    public var type:Int;
     public var name:String;
     public var description:String;
 
-    public function new(id:Int, name:String, description:String) {
-        this.id = id;
+    public function new(type:Int, name:String, description:String) {
+        this.type = type;
         this.name = name;
         this.description = description;
     }
