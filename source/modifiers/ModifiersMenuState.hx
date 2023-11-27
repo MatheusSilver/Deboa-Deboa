@@ -16,6 +16,8 @@ import flixel.util.FlxTimer;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxCamera;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.math.FlxMath;
+
 
 
 using StringTools;
@@ -31,8 +33,12 @@ class ModifiersMenuState extends MusicBeatState
     var bg:FlxSprite;
     var faixa:FlxSprite;
     public var text:FlxText;
-    public var setal:FlxText; //esquerda
-    public var setar:FlxText; //direita
+    public var textMultiplier:FlxText;
+    /*public var setal:FlxText; //esquerda
+    public var setar:FlxText; //direita*/
+
+    var pontosMulti:Float = 1.00;
+    var pontosMultiLerp:Float = 1.00;
 
 	override function create()
 	{
@@ -62,29 +68,37 @@ class ModifiersMenuState extends MusicBeatState
 		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 
-        setal = new FlxText(26, 0, "<", 18);
+        textMultiplier = new FlxText(textBG.x, textBG.y + 4, FlxG.width, "X1.00", 18);
+		textMultiplier.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
+		textMultiplier.scrollFactor.set();
+
+        /*setal = new FlxText(26, 0, "<", 18);
         setal.screenCenter(Y);
         setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
 
         setar = new FlxText(1242, 0, ">", 18);
         setal.screenCenter(Y);
-        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
+        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);*/
 
 
         var x1:Int = 0;
+        var y1:Float = 267;
         for(i in 0...ModifiersManager.allModifiers.length)
         {
             var properties:Modifier = ModifiersManager.getAllProperties(i);
-            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, properties.description, properties.multiplier);
+            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, y1, properties.description, properties.multiplier);
             add(modifierButton);
             buttons.push(modifierButton);
-            x1 = x1 + 164;
+            y1-=30;
+            x1+=164;
         }
         
         add(text);
-        add(setal);
-        add(setar);
-
+        add(textMultiplier);
+        /*add(setal);
+        add(setar);*/
+        calculateMultiplier();
+        pontosMultiLerp = pontosMulti;
 		super.create();
 	}
 
@@ -102,6 +116,8 @@ class ModifiersMenuState extends MusicBeatState
             }
 
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
+        pontosMultiLerp = Math.floor(FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 1)));
+        textMultiplier.text = "X"+Std.string(pontosMultiLerp);
         if(FlxG.mouse.justPressed && currentButton != null)
             {
                 currentButton.clique();
@@ -109,6 +125,7 @@ class ModifiersMenuState extends MusicBeatState
                 {
                     button.verifyStuff();
                 }
+                calculateMultiplier();
             }
 
         #if android
@@ -133,6 +150,11 @@ class ModifiersMenuState extends MusicBeatState
 		}
 	}
 
+    function calculateMultiplier()
+    {
+        pontosMulti = 1.00;
+    }
+
 }
 
 class ModifierButton extends FlxSpriteGroup
@@ -142,12 +164,12 @@ class ModifierButton extends FlxSpriteGroup
     public var enabled:Bool;
     public var desc:String;
     public var multiplier:Float;
-    var botao:FlxSprite;
+    public var botao:FlxSprite;
     var outline:FlxSprite;
 
-    public function new(id:Int, name:String, enabled:Bool, x1:Int, desc:String, multiplier:Float)
+    public function new(id:Int, name:String, enabled:Bool, x1:Int, y1:Float, desc:String, multiplier:Float)
     {
-        super(x1, 0);
+        super(x1, y1);
 
         this.id = id;
         this.name = name;
@@ -165,8 +187,8 @@ class ModifierButton extends FlxSpriteGroup
             botao.loadGraphic(Paths.image("modifiers/botoes/placeholder"));
         }
         botao.setGraphicSize(Std.int(botao.width *1.25));
-        botao.x = botao.x + 68; // 72 - 80
-        botao.screenCenter(Y);
+        botao.x = botao.x + 12; // 72 - 80
+        //botao.screenCenter(Y);
         botao.updateHitbox();
         add(botao);
         outline = new FlxSprite(0,0);
@@ -177,8 +199,8 @@ class ModifierButton extends FlxSpriteGroup
         outline.loadGraphic(Paths.image("modifiers/off"));
         }
         outline.setGraphicSize(Std.int(outline.width *1.25));
-        outline.x = outline.x + 68;
-        outline.screenCenter(Y);
+        outline.x = outline.x + 12;
+        //outline.screenCenter(Y);
         outline.updateHitbox();
         add(outline);
     }
