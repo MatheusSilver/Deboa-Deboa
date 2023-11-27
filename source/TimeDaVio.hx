@@ -44,7 +44,7 @@ class TimeDaVio extends MusicBeatState
 		[	'ash',  '',  'https://twitter.com/Ashuro_Privety',  '' ],
 		[	'silver',  '',  '',  'https://www.youtube.com/c/matheussilver' ],
 		[	'konan',  '',  'https://twitter.com/Konan_Hatake13',  'https://www.youtube.com/@konan_hatake13' ],
-		[	'x02',  'https://discord.gg/G3BmXXeshA',  'https://twitter.com/matex02_',  'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' ],
+		[	'x02',  '',  '',  'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' ],
 		[	'hugo',  '',  'https://twitter.com/Hugo09723233',  '' ],
 		[	'cat',  '',  'https://twitter.com/Point15104219',  '' ],
 		[	'frost',  'https://discord.gg/PegJDERhFw',  'https://twitter.com/FROST_0101?t',  'https://youtube.com/@FROST_001' ],
