@@ -444,6 +444,7 @@ class MainMenuStateMobile extends MusicBeatState
 	
 		#if debug
 		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
+		if(FlxG.keys.justPressed.NINE) MusicBeatState.switchState(new modifiers.ModifiersMenuState());
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
@@ -523,13 +524,13 @@ class MainMenuStateMobile extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 			
-			#if desktop
+			/*#if desktop
 			else if (FlxG.keys.justPressed.SEVEN)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
-			#end
+			#end*/
 			
 		}
 

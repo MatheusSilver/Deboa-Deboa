@@ -4,7 +4,7 @@ import flixel.FlxG;
 
 class ModifiersManager
 {
-    public static var currentModifiers:Array<Int>;
+    public static var currentModifiers:Array<Int> = [];
 
         //TIPO --- NOME --- DESC --- ?nao pode junto
     public static var allModifiers:Array<Dynamic> = [
@@ -73,6 +73,18 @@ class ModifiersManager
             }
         return "";
     }
+    
+    public static function getDescById(modifierID:Int):String
+    {
+        for (i in 0...allModifiers.length)
+            {
+                if(i==modifierID)
+                {
+                    return allModifiers[i][2];
+                }
+            }
+        return "";
+    }
 
     public static function getTypeById(modifierID:Int):Int
     {
@@ -93,6 +105,11 @@ class ModifiersManager
             return null;
         var propriedades:Modifier = new Modifier(allModifiers[deQual][0], allModifiers[deQual][1], allModifiers[deQual][2], allModifiers[deQual].length == 4 ? allModifiers[deQual][3] : null);
         return propriedades;
+    }
+
+    public static function isEnabled(qual:Int):Bool
+    {
+        return currentModifiers != null ? currentModifiers.contains(qual) : false;
     }
 
     public static function loadModifier()
