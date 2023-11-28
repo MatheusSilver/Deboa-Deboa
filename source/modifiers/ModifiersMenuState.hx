@@ -59,6 +59,7 @@ class ModifiersMenuState extends MusicBeatState
         faixa = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/faixa"));
         faixa.antialiasing = ClientPrefs.globalAntialiasing;
         faixa.screenCenter(XY);
+        faixa.y-=25;
         add(faixa);
 
         var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
@@ -82,11 +83,11 @@ class ModifiersMenuState extends MusicBeatState
 
 
         var x1:Float = 30;
-        var y1:Float = 334;
+        var y1:Float = 334-25;
         for(i in 0...ModifiersManager.allModifiers.length)
         {
             if(i==9){
-                y1=476;
+                y1=476-25;
                 x1 = 30;
             }
             var properties:Modifier = ModifiersManager.getAllProperties(i);
@@ -94,11 +95,8 @@ class ModifiersMenuState extends MusicBeatState
             add(modifierButton);
             buttons.push(modifierButton);
 
-            if(i!=9)
-            {
-                y1-=24;
-                x1+=135;
-            }
+            y1-=24;
+            x1+=135;
         }
         
         add(text);
