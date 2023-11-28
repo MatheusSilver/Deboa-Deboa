@@ -94,11 +94,8 @@ class ModifiersMenuState extends MusicBeatState
             add(modifierButton);
             buttons.push(modifierButton);
 
-            if(i!=9)
-            {
-                y1-=24;
-                x1+=135;
-            }
+            y1-=24;
+            x1+=135;
         }
         
         add(text);
