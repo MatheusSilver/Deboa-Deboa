@@ -121,6 +121,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 			trace(poop);
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.storyDifficulty = 2;
+			PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 
 			FlxG.sound.music.volume = 0;
 			escolheualgo = true;

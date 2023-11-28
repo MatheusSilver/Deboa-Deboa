@@ -1,5 +1,6 @@
 package;
 
+import modifiers.ModifiersManager;
 import Achievements;
 import DialogueBoxPsych;
 import FunkinLua;
@@ -231,6 +232,7 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+	public static var songMultiplier:Float = 1;
 
 	public static var nomehistorico:String;
 
@@ -555,7 +557,7 @@ class PlayState extends MusicBeatState
 
 		cccVidaCounter = 2; // meida...
 		luigienter = false;
-		canRegen = true;
+		canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
 		resetforcado = false;
 		canuseevents = true; // Apenas para ter certeza de que a música não vai vir bugada da Prey
 		majinstrums = false;
@@ -637,6 +639,11 @@ class PlayState extends MusicBeatState
 		art.alpha = 1;
 
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
+
+		if (ModifiersManager.isEnabledbyName("Notas Super Rápidas"))
+			SONG.speed = SONG.speed * 1.5;
+		else if (ModifiersManager.isEnabledbyName("Notas Super Lentas"))
+			SONG.speed = SONG.speed *0.5;
 
 		// Nenhum problema pra só uma string
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
@@ -1305,6 +1312,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.visible = !ClientPrefs.hideHud;
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
+		healthBarBG.visible = canRegen;
 		add(healthBarBG);
 		if (ClientPrefs.downScroll)
 			healthBarBG.y = 0.11 * FlxG.height;
@@ -1331,12 +1339,12 @@ class PlayState extends MusicBeatState
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
-		iconP1.visible = !ClientPrefs.hideHud;
+		iconP1.visible = !ClientPrefs.hideHud || canRegen;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
-		iconP2.visible = !ClientPrefs.hideHud;
+		iconP2.visible = !ClientPrefs.hideHud || canRegen;
 		add(iconP2);
 		reloadHealthBarColors();
 
@@ -3193,7 +3201,16 @@ class PlayState extends MusicBeatState
 
 					if (isRing)
 						lol = 5;
+
 					var daNoteData:Int = Std.int(songNotes[1] % lol);
+
+					if (ModifiersManager.isEnabledbyName("Notas Random"))
+						if (daNoteData < 4 && daNoteData >= 0)
+							daNoteData = FlxG.random.int(0,3);
+						else if (daNoteData >=4 && daNoteData < 8)
+							daNoteData = FlxG.random.int(4,7);
+						else
+							daNoteData = FlxG.random.int(8, 11);
 
 					var gottaHitNote:Bool = section.mustHitSection;
 
@@ -3942,6 +3959,11 @@ class PlayState extends MusicBeatState
 		// Fun fact: Sim foi realmente a primeira coisa que fiz no modboa no dia 29/10/2022
 		// Data de reflexão sobre o assunto 07/02/2023 dia que os achievements foram programados
 
+		if (songStarted && ModifiersManager.isEnabledbyName("Camera girando")){
+			camHUD.angle += 0.5;
+			camGame.angle += 0.5;
+		}
+
 		if (SONG.song.toLowerCase() == 'personel' && IsNoteSpinning)
 		{
 			for (str in playerStrums)
@@ -4001,7 +4023,7 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene && !playingVideoMP4)
 		{
-			canRegen = true;
+			canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
 			canuseevents = true;
 			persistentUpdate = false;
 			paused = true;
@@ -4195,7 +4217,7 @@ class PlayState extends MusicBeatState
 		if (controls.RESET && !inCutscene && !endingSong && !playingVideoMP4)
 		{
 			resetforcado = true;
-			canRegen = true;
+			canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
 			canuseevents = true;
 			health = 0;
 			// trace("RESET = True");
@@ -4289,6 +4311,9 @@ class PlayState extends MusicBeatState
 						daNote.alpha = strumAlpha;
 						daNote.visible = strumVisible;
 					}
+
+					if (daNote.visible && daNote.mustPress && ModifiersManager.isEnabledbyName("Notas invisíveis"))
+						daNote.visible = false;
 
 					if (daNote.copyX)
 						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
@@ -6038,7 +6063,7 @@ class PlayState extends MusicBeatState
 		mcontrols.visible = false;
 		#end
 		majinstrums = false;
-		canRegen = true;
+		canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
 		canuseevents = true;
 		timeBarBG.visible = false;
 		timeBar.visible = false;
@@ -6089,7 +6114,7 @@ class PlayState extends MusicBeatState
 			var percent:Float = ratingPercent;
 			if (Math.isNaN(percent))
 				percent = 0;
-			Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent);
+			Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent, songMultiplier);
 			#end
 
 			if (isStoryMode)
@@ -6430,7 +6455,7 @@ class PlayState extends MusicBeatState
 
 		if (!practiceMode && !cpuControlled)
 		{
-			songScore += score;
+			songScore += Math.round(score*songMultiplier); //Poderia ser mal e usar um Std.int, mas vai que o mano pode ganhar alguma coisa a mais com isso : D
 			songHits++;
 			RecalculateRating();
 			if (scoreTxtTween != null && judgementCounterTween != null)
@@ -6890,6 +6915,7 @@ class PlayState extends MusicBeatState
 			daNote.noteType,
 			daNote.isSustainNote
 		]);
+		if (ModifiersManager.isEnabledbyName("Instakill por erro")) health = 0;
 	}
 
 	
@@ -7628,6 +7654,11 @@ class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
+		if (ModifiersManager.isEnabledbyName("Regen de vida passivo"))
+			health += 0.00625;
+		if (ModifiersManager.isEnabledbyName("Camera tremendo"))
+			triggerEventNote("Screen Shake", ".25,.0125", ".25,.0125"); //Screen shake do mod do suicide mouse v2 do the-mayz suavizado
+
 		if (curSong.toLowerCase() == "sink" && ClientPrefs.shaders)
 		{
 			switch (curStep) // x02 deve estar orgulhoso
@@ -7822,6 +7853,13 @@ class PlayState extends MusicBeatState
 			// trace('BEAT HIT: ' + curBeat + ', LAST HIT: ' + lastBeatHit);
 			#end
 			return;
+		}
+
+		if (ModifiersManager.isEnabledbyName("Paparazzi") && curBeat%2 == 0){
+			if (FlxG.random.bool(75)){
+				camHUD2.flash(0xFFFFFFFF, FlxG.random.float(0.1, 0.3), null, true);
+				FlxG.sound.play(Paths.sound('paparazzi', 'preload'), 1);
+			}
 		}
 
 		if (cccVidaCounter == 0 && boyfriend.curCharacter.startsWith('sonic') && curSong.toLowerCase() == 'cross-console-clash')
@@ -8483,7 +8521,7 @@ class PlayState extends MusicBeatState
 		var ret:Dynamic = callOnLuas('onRecalculateRating', []);
 		if (ret != FunkinLua.Function_Stop)
 		{
-			ratingPercent = songScore / ((songHits + songMisses) * 300);
+			ratingPercent = songScore / ((songHits + songMisses) * 300 * songMultiplier);
 			if (!Math.isNaN(ratingPercent) && ratingPercent < 0)
 				ratingPercent = 0;
 

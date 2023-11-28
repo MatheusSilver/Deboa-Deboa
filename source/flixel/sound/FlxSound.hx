@@ -581,14 +581,26 @@ class FlxSound extends FlxBasic
 	 * Call after adjusting the volume to update the sound channel's settings.
 	 */
 	@:allow(flixel.sound.FlxSoundGroup)
+	#if (flixel >= "5.2.2")
+	public function updateTransform():Void
+		{
+			_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end
+				(group != null ? group.volume : 1) * _volume * _volumeAdjust;
+	
+			if (_channel != null)
+				_channel.soundTransform = _transform;
+		}
+	#else
 	function updateTransform():Void
-	{
-		_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end
-			(group != null ? group.volume : 1) * _volume * _volumeAdjust;
+		{
+			_transform.volume = #if FLX_SOUND_SYSTEM (FlxG.sound.muted ? 0 : 1) * FlxG.sound.volume * #end
+				(group != null ? group.volume : 1) * _volume * _volumeAdjust;
+	
+			if (_channel != null)
+				_channel.soundTransform = _transform;
+		}
+	#end
 
-		if (_channel != null)
-			_channel.soundTransform = _transform;
-	}
 
 	/**
 	 * An internal helper function used to attempt to start playing

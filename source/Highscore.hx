@@ -10,10 +10,12 @@ class Highscore
 	public static var weekScores:Map<String, Int> = new Map();
 	public static var songScores:Map<String, Int> = new Map();
 	public static var songRating:Map<String, Float> = new Map();
+	public static var songMultiplier:Map<String, Float> = new Map();
 	#else
 	public static var weekScores:Map<String, Int> = new Map();
 	public static var songScores:Map<String, Int> = new Map<String, Int>();
 	public static var songRating:Map<String, Float> = new Map<String, Float>();
+	public static var songMultiplier:Map<String, Float> = new Map<String, Float>();
 	#end
 
 
@@ -46,13 +48,14 @@ class Highscore
 			return newValue / tempMult;
 		}
 
-	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0, ?rating:Float = -1):Void
+	public static function saveScore(song:String, score:Int = 0, ?diff:Int = 0, ?rating:Float = -1, multiplier:Float):Void
 	{
 		var daSong:String = formatSong(song, diff);
 
 		if (songScores.exists(daSong)) {
 			if (songScores.get(daSong) < score) {
 				setScore(daSong, score);
+				setMultiplier(daSong, multiplier);
 				if(rating >= 0) setRating(daSong, rating);
 			}
 		}
@@ -85,6 +88,13 @@ class Highscore
 		FlxG.save.data.songScores = songScores;
 		FlxG.save.flush();
 	}
+	static function setMultiplier(song:String, multiplier:Float):Void
+		{
+			// Reminder that I don't need to format this song, it should come formatted!
+			songMultiplier.set(song, multiplier);
+			FlxG.save.data.songMultiplier = songMultiplier;
+			FlxG.save.flush();
+		}
 	static function setWeekScore(week:String, score:Int):Void
 	{
 		// Reminder that I don't need to format this song, it should come formatted!
@@ -114,6 +124,14 @@ class Highscore
 
 		return songScores.get(daSong);
 	}
+	public static function getMultiplier(song:String, diff:Int):Float
+		{
+			var daSong:String = formatSong(song, diff);
+			if (!songMultiplier.exists(daSong))
+				setMultiplier(daSong, 1);
+	
+			return songMultiplier.get(daSong);
+		}
 
 	public static function getRating(song:String, diff:Int):Float
 	{

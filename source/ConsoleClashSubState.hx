@@ -1,3 +1,4 @@
+import modifiers.ModifiersManager;
 import LoadingState.LoadingsState;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -152,6 +153,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 	
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 				PlayState.storyDifficulty = crossDifficulty;
+				PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 	
 				FlxG.camera.flash(FlxColor.BLUE, 1.0);
 				
@@ -177,6 +179,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 	
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 				PlayState.storyDifficulty = crossDifficulty;
+				PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 				FlxG.camera.flash(FlxColor.RED, 1.0);
 
 				openSubState(new LoadingsState());

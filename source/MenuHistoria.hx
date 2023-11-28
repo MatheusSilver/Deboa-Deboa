@@ -66,6 +66,9 @@ class MenuHistoria extends MusicBeatSubstate
 	public var numText:FlxText;
 	public var highscoreText:FlxText;
 
+	var intendedMultiplier:Float = 1;
+	var lerpMultiplier:Float = 1;
+	
 	var intendedScore:Int = 0;
 	var lerpScore:Int = 0;
 
@@ -228,8 +231,9 @@ class MenuHistoria extends MusicBeatSubstate
 			DiscordClient.changePresence("Escolhendo uma musica em: ", dapreselected, null);
 		}
 		#end
+		lerpMultiplier = Math.floor(FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2)));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		highscoreText.text = "RECORDE: \n"+Std.string(lerpScore);
+		highscoreText.text = "RECORDE: \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
 
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
@@ -382,6 +386,7 @@ class MenuHistoria extends MusicBeatSubstate
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 
 			PlayState.storyDifficulty = 2;
+			PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 			FlxTween.tween(numText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 			FlxTween.tween(highscoreText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 			FlxTween.tween(perfilSprite, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
@@ -546,6 +551,7 @@ class MenuHistoria extends MusicBeatSubstate
 			curSelected = 0;
 		var songLowerCase:String = Paths.formatToSongPath(musicas[curSelected]);
 		intendedScore = Highscore.getScore(songLowerCase, 2);
+		intendedMultiplier = Highscore.getMultiplier(songLowerCase, 2);
 		numText.text = Std.string(curSelected+1)+"/"+Std.string(musicas.length);
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);

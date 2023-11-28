@@ -44,9 +44,11 @@ class FreeplayState extends MusicBeatState
 	var disc:FlxSprite = new FlxSprite(0, 0);
 	
 	var scoreText:FlxText;
+	var lerpMultiplier:Float = 1;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
+	var intendedMultiplier:Float = 1;
 	var intendedRating:Float = 0;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
@@ -267,6 +269,7 @@ class FreeplayState extends MusicBeatState
 		}
 		#end
 
+		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
 
@@ -274,6 +277,8 @@ class FreeplayState extends MusicBeatState
 			lerpScore = intendedScore;
 		if (Math.abs(lerpRating - intendedRating) <= 0.01)
 			lerpRating = intendedRating;
+		if (Math.abs(lerpMultiplier - intendedMultiplier) <= 0.001)
+			lerpMultiplier = intendedMultiplier;
 
 		var ratingSplit:Array<String> = Std.string(Highscore.floorDecimal(lerpRating * 100, 2)).split('.');
 		if(ratingSplit.length < 2) {
@@ -284,7 +289,7 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'RECORDE: ' + lerpScore + ' (' + ratingSplit.join('.') + '%)';
+		scoreText.text = 'RECORDE: ('+Math.round(lerpMultiplier*100)/100+"X) " + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
@@ -360,6 +365,7 @@ class FreeplayState extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 				PlayState.isStoryMode = false;
 				PlayState.storyDifficulty = curDifficulty;
+				PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 	
 				justread = songs[curSelected].songName;
 
@@ -395,11 +401,13 @@ class FreeplayState extends MusicBeatState
 			curDifficulty = 0;
 
 		#if !switch
+		intendedMultiplier = Highscore.getMultiplier(songs[curSelected].songName, curDifficulty);
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
 		#end
 
 		PlayState.storyDifficulty = curDifficulty;
+		PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 	}
 
 	function changeSelection(change:Int = 0, firstTime:Bool = false)
@@ -418,6 +426,7 @@ class FreeplayState extends MusicBeatState
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
+		intendedMultiplier = Highscore.getMultiplier(songs[curSelected].songName, curDifficulty);
 		#end
 
 		var bullShit:Int = 0;

@@ -1,5 +1,7 @@
 package;
 
+import flixel.FlxG;
+import modifiers.ModifiersManager;
 import editors.ChartingState;
 import flixel.FlxSprite;
 
@@ -30,6 +32,7 @@ class Note extends FlxSprite
 	public var prevNote:Note;
 	public var blockHit:Bool = false; // only works for player
 	public var lowPriority:Bool = false;
+	public var instakillNote:Bool = false;
 
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
@@ -71,8 +74,8 @@ class Note extends FlxSprite
 	public var copyAngle:Bool = true;
 	public var copyAlpha:Bool = true;
 
-	public var hitHealth:Float = 0.023;
-	public var missHealth:Float = 0.0475;
+	public var hitHealth:Float = 0.023*2;
+	public var missHealth:Float = 0.06125*2;
 
 	public var texture(default, set):String = null;
 
@@ -111,6 +114,7 @@ class Note extends FlxSprite
 		colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
 
 		if(noteData > -1 && noteType != value) {
+			
 			switch(value) {
 				case 'player3':
 					mustPress = false; //Eu ia quebrar a cabeça com isso no playstate, mas essa solução é bem mais simples.
@@ -122,9 +126,9 @@ class Note extends FlxSprite
 					colorSwap.saturation = 0;
 					colorSwap.brightness = 0;
 					if(isSustainNote) {
-						missHealth = 0.1;
+						missHealth = 0.1*2;
 					} else {
-						missHealth = 0.3;
+						missHealth = 0.3*2;
 					}
 					hitCausesMiss = true;
 					lowPriority = true;
@@ -136,6 +140,13 @@ class Note extends FlxSprite
 					
 				case 'No Animation':
 					noAnimation = true;
+				default:
+					if (ModifiersManager.isEnabledbyName("Dano maior por erro"))
+						missHealth = 0.075*2;
+					else if(ModifiersManager.isEnabledbyName("Menos dano por erro"))
+						missHealth = 0.0475*2;
+					else if(ModifiersManager.isEnabledbyName("Cura maior por acerto"))
+						hitHealth =  0.036*2;
 			}
 			noteType = value;
 		}
