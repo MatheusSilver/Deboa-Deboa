@@ -122,8 +122,10 @@ class ModifiersMenuState extends MusicBeatState
             }
 
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
-        pontosMultiLerp = Math.floor(FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-        textMultiplier.text = "X"+Std.string(pontosMultiLerp);
+        pontosMultiLerp = Math.floor(FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 12, 0, 2)));
+        if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
+            pontosMultiLerp = pontosMulti;
+        textMultiplier.text = "X"+Math.round(pontosMultiLerp*100)/100;
         if(FlxG.mouse.justPressed && currentButton != null)
             {
                 currentButton.clique();
@@ -133,6 +135,8 @@ class ModifiersMenuState extends MusicBeatState
                 }
                 calculateMultiplier();
             }
+
+
 
         #if android
         if(Utils.BSLTouchUtils.apertasimples(setal)) {
@@ -158,7 +162,7 @@ class ModifiersMenuState extends MusicBeatState
 
     function calculateMultiplier()
     {
-        pontosMulti = 1.00;
+        pontosMulti = ModifiersManager.getFinalModifier();
     }
 
 }
