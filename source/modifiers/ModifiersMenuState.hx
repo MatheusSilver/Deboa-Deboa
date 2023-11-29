@@ -122,10 +122,10 @@ class ModifiersMenuState extends MusicBeatState
             }
 
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
-        pontosMultiLerp = Math.floor(FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 12, 0, 2)));
+        pontosMultiLerp = FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 2));
         if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
-            pontosMultiLerp = pontosMulti;
-        textMultiplier.text = "X"+Math.round(pontosMultiLerp*100)/100;
+			pontosMultiLerp = pontosMulti;
+        textMultiplier.text = "X"+Std.string(Math.round(pontosMultiLerp*100)/100);
         if(FlxG.mouse.justPressed && currentButton != null)
             {
                 currentButton.clique();
