@@ -20,10 +20,10 @@ class ModifiersManager
         [0, "Notas Super Lentas", "Diminui drásticamente a velocidade da nota entre o surgimento e o alvo.", [1], 1.16],
         [0, "Fade-in das notas", "As notas são invisíveis até se aproximarem do alvo", [11, 4], 1.08], 
         [0, "Fade-out das notas", "Notas desaparecem quando se aproximam do alvo", [11, 3], 1.08],
-        [0, "Dano maior por erro", "Erros removem mais vida que o de costume", [7, 8], 1.04],
-        [0, "Instakill por erro", "A música se encerra quando o combo é quebrado.", [7], 1.16],
-        [1, "Menos dano por erro", "Erros custam menos vida que o de costume", [5, 8], 0.88],
-        [1, "Imortalidade", "A música não irá terminar caso sua vida chegue a zero, ou caso erre algum evento.", [5, 7], 0.6],
+        [0, "Dano maior por erro", "Erros removem mais vida que o de costume", [7, 6, 8], 1.04],
+        [0, "Instakill por erro", "A música se encerra quando o combo é quebrado.", [5, 7, 8], 1.16],
+        [1, "Menos dano por erro", "Erros custam menos vida que o de costume", [5, 6, 8], 0.88],
+        [1, "Imortalidade", "A música não irá terminar caso sua vida chegue a zero, ou caso erre algum evento.", [5, 7, 6], 0.6],
         [1, "Regen de vida passivo", "Sua vida irá regenerar mesmo que sem acertar as notas.", [], 0.75], 
         [1, "Cura maior por acerto", "A barra de vida irá regenerar por acerto", [], 0.85],//ajudantes acaba aqui
         [0, "Notas invisíveis", "Suas notas ficam totalmente invisiveis.", [3, 4], 1.40], //micdup
@@ -32,7 +32,7 @@ class ModifiersManager
         [0, "Flip Notes", "O caminho das notas se torna o oposto do que o de costume.", [], 1.04],
         [0, "Paparazzi", "Flashes na tela com certa frequência", [], 1.02],
         [1, "Somente duas setas", "Cima e baixo não existem mais, apenas esquerda e direita", [0], 0.85],
-        [1, "Mono Botão", "Acerte todas as notas ao mesmo tempo apertando qualquer tecla", [0], 0.7]
+        [1, "Mono Botão", "Acerte todas as notas ao mesmo tempo apertando qualquer tecla", [], 0.7]
     ];
 
     
