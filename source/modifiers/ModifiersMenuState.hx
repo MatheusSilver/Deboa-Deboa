@@ -188,9 +188,9 @@ class ModifierButton extends FlxSpriteGroup
         this.multiplier = multiplier;
         botao = new FlxSprite(0,0);
         botao.antialiasing = ClientPrefs.globalAntialiasing;
-        if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + this.name)))
+        if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + ModifiersManager.removerAcentos(this.name))))
         {
-            botao.loadGraphic(Paths.image("modifiers/botoes/" + this.name));
+            botao.loadGraphic(Paths.image("modifiers/botoes/" + ModifiersManager.removerAcentos(this.name)));
         }
         else
         {
