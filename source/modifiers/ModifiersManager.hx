@@ -151,7 +151,7 @@ class ModifiersManager
             }
         }   
         trace(multiplier_sum);
-        return multiplier_sum;
+        return multiplier_sum > 0.1 ? multiplier_sum : 0.1;
     }
 
     public static function isEnabledbyName(name:String):Bool
