@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <TextureAtlas imagePath="Furnace.png">
-<SubTexture name="Furnace Idle0000" x="6017" y="925" width="811" height="924" frameX="-118" frameY="-156" frameWidth="1080" frameHeight="1080" />
+<SubTexture name="Furnace Idle0000" x="0" y="0" width="752" height="934" frameX="0" frameY="0" frameWidth="752" frameHeight="934" />
+<SubTexture name="Furnace Idle0001" x="0" y="1000" width="831" height="934" frameX="0" frameY="0" frameWidth="831" frameHeight="934" />
+<SubTexture name="Furnace Idle0002" x="0" y="2000" width="704" height="933" frameX="0" frameY="0" frameWidth="704" frameHeight="933" />
+
 <SubTexture name="Furnace Idle0001" x="4330" y="3743" width="811" height="925" frameX="-118" frameY="-155" frameWidth="1080" frameHeight="1080" />
 <SubTexture name="Furnace Idle0002" x="4278" y="4674" width="811" height="925" frameX="-118" frameY="-155" frameWidth="1080" frameHeight="1080" />
 <SubTexture name="Furnace Idle0003" x="5089" y="4674" width="848" height="925" frameX="-126" frameY="-155" frameWidth="1080" frameHeight="1080" />
