@@ -45,6 +45,7 @@ class ClientPrefs
 	public static var achievementsMap:Map<String, Bool> = [];
 	public static var likesMap:Map<String, String> = [];
 	public static var currentModifiers:Array<Int> = []; // valeu dav
+	public static var opacidadeLegendas:Float = 1;
 
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [

@@ -35,6 +35,7 @@ class BaseOptionsMenu extends MusicBeatState
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
 		'VISUAL',
+		'LEGENDAS ',
 		'SOM GLOBAL',
 		'GAMEPLAY',
 		'SONS EXTRAS'
@@ -42,6 +43,7 @@ class BaseOptionsMenu extends MusicBeatState
 	static var noCheckbox:Array<String> = [
 		'FPS',
 		'Delay da Nota',
+		'Opacidade',
 		'Volume ',
 		'Volume',
 		'Tipo',
@@ -73,8 +75,10 @@ class BaseOptionsMenu extends MusicBeatState
 		//'Ghost Tapping', //Isso é deveras é perigoso em algumas músicas
 		'Delay da Nota',
 		'Note Splashes',
-		'Legendas',
 		'Efeitos de Camera',
+		'LEGENDAS ',
+		'Legendas',
+		'Opacidade',
 		'SOM GLOBAL',
 		'Volume ',
 		'SONS EXTRAS',
@@ -346,6 +350,12 @@ class BaseOptionsMenu extends MusicBeatState
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
 						}
+					case 'Opacidade':
+						if (ClientPrefs.legendas){
+							ClientPrefs.opacidadeLegendas+=addo;
+							if(ClientPrefs.opacidadeLegendas>0.95){ClientPrefs.opacidadeLegendas = 1;}else if(ClientPrefs.opacidadeLegendas<0.15){ClientPrefs.opacidadeLegendas=0.1;}
+						}
+						
 				}
 				reloadValues();
 
@@ -542,6 +552,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType);
 					case 'Teste o HitSound':
 						daText = '';
+					case 'Opacidade':
+						daText = Std.string(ClientPrefs.opacidadeLegendas);
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;

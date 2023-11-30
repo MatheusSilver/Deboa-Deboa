@@ -4,6 +4,7 @@ function propriedadescomuns(var,name)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
     setLuaSpriteCamera(var, 'other');
+    setProperty(var..".alpha", opacidadeLegendas);
     setGraphicSize(var, screenWidth) -- k
     adjustPos(var, name)
     screenCenter(var, 'x')

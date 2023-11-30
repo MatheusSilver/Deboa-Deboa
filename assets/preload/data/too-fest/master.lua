@@ -12,7 +12,7 @@ function onCreate()
                 scaleObject('fundo', 1, 1);
                 setLuaSpriteCamera('fundo', 'camhud');
                 addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', 0);
+                setProperty('fundo.alpha', opacidadeLegendas);
                 playAnim("fundo", "Legenda RGB")
             else
                 makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, -350)
@@ -21,7 +21,7 @@ function onCreate()
                 setScrollFactor('fundo', 0, 0);
                 scaleObject('fundo', 1, 1);
                 addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', 0);
+                setProperty('fundo.alpha', opacidadeLegendas);
                 playAnim("fundo", "Legenda RGB")
             end
         else
@@ -33,7 +33,7 @@ function onCreate()
                 scaleObject('fundo', 1, 1);
                 setLuaSpriteCamera('fundo', 'camhud');
                 addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', 0);
+                setProperty('fundo.alpha', opacidadeLegendas);
                 playAnim("fundo", "Legenda RGB")
             else
                 makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, 0)
@@ -42,7 +42,7 @@ function onCreate()
                 setScrollFactor('fundo', 0, 0);
                 scaleObject('fundo', 1, 1);
                 addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', 0);
+                setProperty('fundo.alpha', opacidadeLegendas);
                 playAnim("fundo", "Legenda RGB")
             end
         end
@@ -66,6 +66,7 @@ function propriedadescomuns(var,name)
     setLuaSpriteCamera(var, 'hud2'); --legenda por baixo das setas.
     --setLuaSpriteCamera(var, 'legenda'); --Legenda por cima das setas
     --setGraphicSize(var, screenWidth) -- k
+    setProperty(var..".alpha", opacidadeLegendas);
     if name == "sanic11" then
         playSound("rapaiz")
     elseif name == "sanic36" then
