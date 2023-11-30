@@ -67,7 +67,7 @@ function onStepHit()
     end
 
     if curStep == 125 then
-        setProperty('fundo.alpha', 1);
+        setProperty('fundo.alpha', opacidadeLegendas);
     end
 
 end 

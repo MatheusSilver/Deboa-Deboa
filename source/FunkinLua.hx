@@ -158,6 +158,7 @@ class FunkinLua {
 		set('legendaPath', PlayState.legendPath);
 		// Some settings, no jokes
 		set('legendas', ClientPrefs.legendas);
+		set('opacidadeLegendas', ClientPrefs.opacidadeLegendas);
 		set('legendasporcima', ClientPrefs.legendasporcima);
 		set('gore', ClientPrefs.gore);
 		set('downscroll', ClientPrefs.downScroll);

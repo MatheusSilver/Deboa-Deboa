@@ -61,6 +61,7 @@ class Highscore
 		}
 		else {
 			setScore(daSong, score);
+			setMultiplier(daSong, multiplier);
 			if(rating >= 0) setRating(daSong, rating);
 		}
 	}
@@ -164,6 +165,10 @@ class Highscore
 		if (FlxG.save.data.songRating != null)
 		{
 			songRating = FlxG.save.data.songRating;
+		}
+		if (FlxG.save.data.songMultiplier != null)
+		{
+			songMultiplier = FlxG.save.data.songMultiplier;
 		}
 	}
 }
