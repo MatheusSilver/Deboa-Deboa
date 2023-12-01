@@ -1,6 +1,9 @@
 local speedChanger = 1
 local speedModifier = -60
 
+local std_x_furnace_end = 0
+local std_y_furnace_end = 0
+
 local floor_running = "piso_parte1"
 local bg_running = "bg_normal"
 
@@ -12,7 +15,7 @@ function onCreate()
     pushScriptData('vgs');
     pushScriptData('Adicionar Imagens diferenciado');
     --Configurando o final.
-    makeLuaSprite("theendbg", "cenarios/starved/Prey End", 0,0)
+    makeLuaSprite("theendbg", "cenarios/starved/Prey End", -400,-150)
     scaleObject("theendbg",1.3,1.3)
     setProperty("theendbg.visible", false)
     addLuaSprite("theendbg")
@@ -20,7 +23,7 @@ function onCreate()
     makeAnimatedLuaSprite("furnaceTheEnd", 'cenarios/starved/Furnace', 50, 2500)
     addAnimationByPrefix("furnaceTheEnd", "idle", "Furnace Idle", 24, true)
     scaleObject("furnaceTheEnd",2,2)
-    setProperty("furnaceTheEnd.visible", false)
+    setProperty("furnaceTheEnd.visible", true)
     addLuaSprite("furnaceTheEnd", true)
 
     --Configurando os bgs - corrida.
@@ -73,12 +76,11 @@ function onCreate()
     --done mas provavelmente vai ter que arrumar offsets depois.
 
     --Adicionais
-    makeAnimatedLuaSprite("stardustFurnace", "furnace_under", -500, -1450)
+    makeAnimatedLuaSprite("stardustFurnace", "characters/prey/Furnace_sheet", -1000, 900)
     addAnimationByPrefix("stardustFurnace", "idle", "Furnace idle", 24, true)
     scaleObject("stardustFurnace", 6, 6)
     setProperty("stardustFurnace.antialiasing", false)
-    setPropertyTiledLuaSprite("stardustFurnace.y", getProperty("stardustFurnace.y")-410)
-    setPropertyTiledLuaSprite("stardustFurnace.x", getProperty("stardustFurnace.x")-250)
+    setProperty("stardustFurnace.visible", false)
     addLuaSprite("stardustFurnace")
 
     makeAnimatedLuaSprite("warning", "slash_warning_sheet", 0, 0)
@@ -129,8 +131,9 @@ function onEvent(name, value1, value2)
                 desvioPrey=true
             end,
             [2432] = function()
+                setProperty("stardustFurnace.visible", true)
                 objectPlayAnimation('stardustFurnace', 'idle', true)
-                doTweenX("furnaceGOL", "stardustFurnace", 3000, 10, 'linear')
+                doTweenX("furnaceGOL", "stardustFurnace", 2600, 10, 'linear')
             end,
             [3364] = function()
                 setProperty("gotcha.x", getProperty("boyfriend.x")+1000, getProperty("boyfriend.y")+475)
@@ -148,10 +151,10 @@ function onEvent(name, value1, value2)
             end,
             [1010101] = function()
                 if (gore) then
-                    doTweenY("furnaceEndTweenY", 'furnaceTheEnd', 170, 1.5, "cubeinout")
+                    doTweenY("furnaceEndTweenY", 'furnaceTheEnd', -160, 1.5, "cubeinout")
                     doTweenX("furnaceEndTweenX", 'furnaceTheEnd', getProperty("furnaceTheEnd.x")+45, 1.5, "cubeinout")
                 else
-                    doTweenY("furnaceEndTweenY", 'furnaceTheEnd', 25, 1.5, "cubeinout")
+                    doTweenY("furnaceEndTweenY", 'furnaceTheEnd', -350, 1.5, "cubeinout")
                 end
             end,
             [4498] = function()
@@ -169,6 +172,18 @@ function onEvent(name, value1, value2)
 end
 
 function onTweenCompleted(tag)
+    if tag == "furnaceEndTweenY" then
+        std_x_furnace_end = getProperty("furnaceTheEnd.x")
+        std_y_furnace_end = getProperty("furnaceTheEnd.y")
+        doTweenX("furnace_tween_x", "furnaceTheEnd", std_x_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
+        doTweenY("furnace_tween_y", "furnaceTheEnd", std_y_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
+    end
+    if tag == "furnace_tween_x" then
+        doTweenX("furnace_tween_x", "furnaceTheEnd", std_x_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
+    end
+    if tag == "furnace_tween_y" then
+        doTweenY("furnace_tween_y", "furnaceTheEnd", std_y_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
+    end
     if tag == "furnaceGOL" then
         setProperty("stardustFurnace.visible", false)
         removeLuaSprite("stardustFurnace", true)
