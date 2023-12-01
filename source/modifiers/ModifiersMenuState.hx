@@ -138,7 +138,7 @@ class ModifiersMenuState extends MusicBeatState
 
 
 
-        #if android
+        /*#if android
         if(Utils.BSLTouchUtils.apertasimples(setal)) {
             //
         }
@@ -152,7 +152,7 @@ class ModifiersMenuState extends MusicBeatState
         if(controls.UI_RIGHT_P) {
             //
         }
-        #end
+        #end*/
 		if (controls.BACK)
 		{
 			GlobalSoundManager.play('cancelMenu');
