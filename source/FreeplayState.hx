@@ -18,6 +18,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.FlxState;
 
 using StringTools;
 #if rpc
@@ -51,6 +52,8 @@ class FreeplayState extends MusicBeatState
 	var intendedMultiplier:Float = 1;
 	var intendedRating:Float = 0;
 
+	public static var instance:FreeplayState;
+
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
@@ -69,6 +72,8 @@ class FreeplayState extends MusicBeatState
 	public static var progressFreeplay:Int = 1;
 	public static var totalMusicas:Int = 9;
 
+	public static var modifiersOpened:Bool = false;
+
 	public static function addProgress()
 	{
 		trace("curSelected: "+Std.string(curSelected)+"\nprogressFreeplay: "+Std.string(progressFreeplay)+"\nweekLength: "+ Std.string(totalMusicas));
@@ -84,6 +89,7 @@ class FreeplayState extends MusicBeatState
 	
 	override function create()
 	{
+		if(instance == null){instance=this;}
 		if(FlxG.save.data.freeplayProgress != null)
 		{
 			progressFreeplay = FlxG.save.data.freeplayProgress;
@@ -236,6 +242,13 @@ class FreeplayState extends MusicBeatState
 		songs.push(new SongMetadata(songName, weekNum, songCharacter, color, display));
 	}
 
+	public function closeModifiers(substate:MusicBeatSubstate)
+	{
+		substate.close();
+		apertavel = true;
+		modifiersOpened = false;
+	}
+
 	var instPlaying:Int = -1;
 	private static var vocals:FlxSound = null;
 	override function update(elapsed:Float)
@@ -314,10 +327,13 @@ class FreeplayState extends MusicBeatState
 			changeSelection(shiftMult);
 		}
 
-		if(ctrl #if mobile || mpad #end) {
-			modifiers.ModifiersMenuState.freeplay = true;
-			MusicBeatState.switchState(new modifiers.ModifiersMenuState());
+		if((ctrl #if mobile || mpad #end) && !modifiersOpened && apertavel) {
+			//modifiers.ModifiersMenuState.freeplay = true;
+			apertavel = false;
+			modifiersOpened = true;
+			openSubState(new modifiers.ModifiersMenuState(true));
 		}
+
 
 		if (controls.BACK && apertavel)
 		{

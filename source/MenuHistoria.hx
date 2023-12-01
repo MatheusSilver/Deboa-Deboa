@@ -36,6 +36,8 @@ class MenuHistoria extends MusicBeatSubstate
 	var musicas:Array<Dynamic> = [];
 	var nombres:Array<Dynamic> = [];
 
+	public static var modifiersOpened:Bool = false;
+
 
 	
 	public var camAchievement:FlxCamera;
@@ -72,8 +74,12 @@ class MenuHistoria extends MusicBeatSubstate
 	var intendedScore:Int = 0;
 	var lerpScore:Int = 0;
 
+	public static var instance:MenuHistoria;
+
+
 	override function create()
 	{
+		if(instance == null){instance=this;}
 		FlxTransitionableState.skipNextTransOut = true;
 		applySave();
 		if (FlxG.sound.music == null)
@@ -184,6 +190,13 @@ class MenuHistoria extends MusicBeatSubstate
 		return;
 	}
 
+	public function closeModifiers(substate:MusicBeatSubstate)
+		{
+			substate.close();
+			apertavel = true;
+			modifiersOpened = false;
+		}
+
 	#if ACHIEVEMENTS_ALLOWED
 	// Unlocks "Freaky on a Friday Night" achievement
 	function giveAchievement(achievementname) {
@@ -238,6 +251,12 @@ class MenuHistoria extends MusicBeatSubstate
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
 
+		if(FlxG.keys.justPressed.CONTROL && !modifiersOpened && apertavel) {
+			//modifiers.ModifiersMenuState.freeplay = true;
+			apertavel = false;
+			modifiersOpened = true;
+			openSubState(new modifiers.ModifiersMenuState(false));
+		}
 		if (!movedBack && !selectedWeek)
 		{
 			if (controls.UI_LEFT_P && apertavel && musicas.length > 1) // MALUCO EU SOU MUITO BURRO...
