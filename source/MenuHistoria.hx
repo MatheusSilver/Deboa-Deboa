@@ -158,7 +158,7 @@ class MenuHistoria extends MusicBeatSubstate
 		changeSong();
 
 		#if mobileC
-		addVirtualPad(LEFT_RIGHT, A_B);
+		addVirtualPad(LEFT_RIGHT, A_B_C);
 		#end
 
 		if (curSelected >= musicas.length)
@@ -251,7 +251,9 @@ class MenuHistoria extends MusicBeatSubstate
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
 
-		if(FlxG.keys.justPressed.CONTROL && !modifiersOpened && apertavel) {
+		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.buttonX.justPressed #end;
+
+		if(crossplataforma && !modifiersOpened && apertavel) {
 			//modifiers.ModifiersMenuState.freeplay = true;
 			apertavel = false;
 			modifiersOpened = true;
@@ -354,11 +356,7 @@ class MenuHistoria extends MusicBeatSubstate
 	{
 		if (stopspamming == false)
 		{
-			//if(nombres[curSelected] == "Lerdeza"|| nombres[curSelected] == "Não Pode Fugir"|| nombres[curSelected] == "Ameaça Tripla") {
-				vhsSom.play(true); // ficou legal assim eu acho
-			/*} else {
-				GlobalSoundManager.play('confirmMenu');
-			}*/
+			vhsSom.play(true);
 			stopspamming = true;
 		}
 

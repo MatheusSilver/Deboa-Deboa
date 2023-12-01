@@ -38,8 +38,6 @@ class ModifiersMenuState extends MusicBeatSubstate
     public var text:FlxText;
     public var textMultiplier:FlxText;
     var textBG:FlxSprite;
-    /*public var setal:FlxText; //esquerda
-    public var setar:FlxText; //direita*/
 
     var pontosMulti:Float = 1.00;
     var pontosMultiLerp:Float = 1.00;
@@ -92,15 +90,6 @@ class ModifiersMenuState extends MusicBeatSubstate
 		textMultiplier.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
 		textMultiplier.scrollFactor.set();
 
-        /*setal = new FlxText(26, 0, "<", 18);
-        setal.screenCenter(Y);
-        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
-
-        setar = new FlxText(1242, 0, ">", 18);
-        setal.screenCenter(Y);
-        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);*/
-
-
         var x1:Float = 30;
         var y1:Float = 334-25;
         for(i in 0...ModifiersManager.allModifiers.length)
@@ -120,8 +109,6 @@ class ModifiersMenuState extends MusicBeatSubstate
         
         add(text);
         add(textMultiplier);
-        /*add(setal);
-        add(setar);*/
         calculateMultiplier();
         pontosMultiLerp = pontosMulti;
         tweenCoisos();
@@ -211,23 +198,6 @@ class ModifiersMenuState extends MusicBeatSubstate
                 calculateMultiplier();
             }
 
-
-
-        /*#if android
-        if(Utils.BSLTouchUtils.apertasimples(setal)) {
-            //
-        }
-        if(Utils.BSLTouchUtils.apertasimples(setar)) {
-            //
-        }
-        #else
-        if(controls.UI_LEFT_P) {
-            //
-        }
-        if(controls.UI_RIGHT_P) {
-            //
-        }
-        #end*/
 		if (controls.BACK && canClick)
 		{
 			GlobalSoundManager.play('cancelMenu');

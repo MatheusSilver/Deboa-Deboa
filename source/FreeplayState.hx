@@ -307,12 +307,8 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		#if mobile
-		var vpad = ui.FlxVirtualPad.buttonX.justPressed;
-		var mpad = ui.FlxVirtualPad.buttonY.justPressed;
-		#end
-		var space = FlxG.keys.justPressed.SPACE #if mobile || vpad #end;
-		var ctrl = FlxG.keys.justPressed.CONTROL;
+		var space = #if desktop FlxG.keys.justPressed.SPACE #else ui.FlxVirtualPad.buttonX.justPressed #end;
+		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.buttonY.justPressed #end;
 		
 
 		var shiftMult:Int = 1;
@@ -327,7 +323,7 @@ class FreeplayState extends MusicBeatState
 			changeSelection(shiftMult);
 		}
 
-		if((ctrl #if mobile || mpad #end) && !modifiersOpened && apertavel) {
+		if(ctrl && !modifiersOpened && apertavel) {
 			//modifiers.ModifiersMenuState.freeplay = true;
 			apertavel = false;
 			modifiersOpened = true;
@@ -341,7 +337,7 @@ class FreeplayState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
-		if(space #if mobile || vpad #end && instPlaying != curSelected && apertavel)
+		if(space && instPlaying != curSelected && apertavel)
 		{
 			destroyFreeplayVocals();
 			Paths.currentModDirectory = songs[curSelected].folder;
