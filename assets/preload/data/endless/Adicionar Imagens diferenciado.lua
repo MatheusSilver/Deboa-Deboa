@@ -4,6 +4,7 @@ function propriedadescomuns(var)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
     setLuaSpriteCamera(var, 'camlegenda');
+    setProperty(var..".alpha", opacidadeLegendas);
     --setGraphicSize(var, screenWidth) -- k
     if var == "exe1" then
         adjustPos(var)

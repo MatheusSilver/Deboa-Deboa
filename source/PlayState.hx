@@ -92,7 +92,6 @@ class PlayState extends MusicBeatState
 	var ring:FlxSound; // Vio e seu "Vai!!!" servindo como ótimas influências : D
 	var hitsound:FlxSound;
 	var sonicPulo:FlxSound;
-	var sonicAviso:FlxSound;
 	var sonicDash:FlxSound;
 
 	public var intro1:FlxSound;
@@ -460,20 +459,12 @@ class PlayState extends MusicBeatState
 	var balling:FlxSprite = new FlxSprite(0, 0);
 	var p3staticbg:FlxSprite;
 
-	// starved shit
-	var warning:FlxSprite = new FlxSprite();
-	var stardustBgPixel:FlxTiledSprite;
-	var stardustFloorPixel:FlxTiledSprite;
-	var stardustFurnace:FlxSprite;
+	// starved -- Adicionais que não compensariam ir pro Lua
 	var endingIndicator:FlxSprite;
-	var theendbg:BGSprite;
-	var furnaceTheEnd:BGSprite;
-	var hungryManJackTime:Int = 0;
 
 	public var healthbarval:Float = 1; // I'm fucking stupid but ok it works
 
-	var desvioPrey:Bool = false; // Tá associado com o evento 2400 e serve pra permitir que o player aperte espaço em um momento bem específico
-	var desviou:Bool = false; // Serve como sensor para o resto da música pra saber se o player apertou na hora certa.
+	public var desviou:Bool = false; // Serve como sensor para o resto da música pra saber se o player apertou na hora certa.
 
 	public static var canuseevents:Bool = true;
 
@@ -935,64 +926,17 @@ class PlayState extends MusicBeatState
 			case 'starved-pixel':
 				defaultCamZoom = 0.6;
 
-				theendbg = new BGSprite('cenarios/starved/Prey End', 0, 0, 1, 1); // Tecnicamente ele está atrás de todo mundo
-				theendbg.scale.x = 1.3; // Não acho que vou precisar me preocupar com o visible dele
-				theendbg.scale.y = 1.3;
-				theendbg.visible = false;
-				add(theendbg);
-
-				furnaceTheEnd = new BGSprite('cenarios/starved/Furnace', 50, 2500, 1, 1, ['Furnace Idle']);
-				furnaceTheEnd.scale.x = 2;
-				furnaceTheEnd.scale.y = 2; // Já você é um outro caso.
-				furnaceTheEnd.visible = false;
-
-				stardustBgPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustBg2', "week-prey", false), 4608, 2832, true, false);
-				stardustBgPixel.scrollFactor.set(0.4, 0.4);
-
-				stardustFloorPixel = new FlxTiledSprite(Paths.image('cenarios/starved/stardustFloor1', "week-prey",  false), 4608, 2832, true, true);
-
-				stardustBgPixel.visible = false;
-				stardustFloorPixel.visible = false;
-
-				stardustFurnace = new FlxSprite(-500, 1450);
-				stardustFurnace.frames = Paths.getSparrowAtlas('characters/prey/Furnace_sheet', 'shared');
-				stardustFurnace.animation.addByPrefix('idle', 'Furnace idle', 24, true);
-				stardustFurnace.animation.play('idle');
-				stardustFurnace.scale.x = 6;
-				stardustFurnace.scale.y = 6;
-				stardustFurnace.antialiasing = false;
-
-				stardustBgPixel.screenCenter();
-				stardustFloorPixel.screenCenter();
-				stardustFloorPixel.y -= 410;
-				stardustFloorPixel.x -= 250;
-				stardustFurnace.x -= 250;
-				stardustFurnace.y -= 410;
-
-				stardustBgPixel.y -= 410;
-				stardustBgPixel.x -= 250; // Mais fácil
-
-				add(stardustBgPixel);
-				add(stardustFurnace);
-
-				warning.frames = Paths.getSparrowAtlas("slash_warning_sheet"); // Apenas placeholder
-				warning.animation.addByPrefix('warn', 'slash warning');
-				warning.setGraphicSize(Std.int(warning.width * 2.5));
-				warning.visible = false;
-				warning.screenCenter();
-				warning.cameras = [camHUD];
-				add(warning);
+				//A maior parte dos carregamentos agora é feita via lua
+				//O endingIndicator também daria pra converter pra lua
+				//Mas considerando que esse sistema já funcionava sem problemas, não acho que compensa fazer a conversão.
 
 				sonicDash = new FlxSound().loadEmbedded(Paths.sound('SonicDash', 'week-prey'));
 				sonicPulo = new FlxSound().loadEmbedded(Paths.sound('SonicJump', 'week-prey'));
 				sonicPulo.volume = 0.6;
 				sonicDash.volume = 0.6; // carregamento pra rodar uma única vez... Omega massa...
 				// Qual foi... O fleetway tem uma spritesheet inteira (Que ninguem vê) só pra atirar um laserzin
-
-				sonicAviso = new FlxSound().loadEmbedded(Paths.sound('AvisoSom', 'week-prey'));
-				sonicAviso.volume = 0.6;
-
-				endingIndicator = new FlxSprite(Paths.image('good_ending')); // Só pra garantir que ele fique na frente da tela preta na hora do super sonico
+			
+				endingIndicator = new FlxSprite(Paths.image('empty')); // Só pra garantir que ele fique na frente da tela preta na hora do super sonico
 				endingIndicator.alpha = 0;
 				endingIndicator.cameras = [camHUD2];
 				endingIndicator.updateHitbox();
@@ -1173,11 +1117,6 @@ class PlayState extends MusicBeatState
 				dad.scale.y = 1.1;
 				dad.scrollFactor.set(1.37, 1);
 				boyfriend.scrollFactor.set(1.37, 1);
-			case 'starved-pixel':
-				add(stardustFloorPixel);
-				add(furnaceTheEnd); // Perigoso... Pra dizer o mínimo
-
-				dad.x -= 1050; // Garantindo que o fornalha comece lá atrás
 			case 'needle':
 				add(needleFg);
 				dad2.alpha = 0;
@@ -2939,10 +2878,6 @@ class PlayState extends MusicBeatState
 					bottomBoppers.dance(true);
 					santa.dance(true);
 				}
-				if (curSong.toLowerCase() == 'prey')
-				{
-					furnaceTheEnd.dance(true);
-				}
 				if (curSong.toLowerCase() != 'sunshine')
 				{
 					switch (swagCounter)
@@ -3329,7 +3264,7 @@ class PlayState extends MusicBeatState
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
 			case 'Adicionar Imagens' | 'Adicionar Imagens diferenciado':
-				if (ClientPrefs.legendas || (event[3].startsWith("preycutscene") && curSong.toLowerCase() == "prey"))
+				if (ClientPrefs.legendas || (StringTools.contains(event[3].toLowerCase(), "preycutscene") && SONG.song.toLowerCase() == "prey"))
 				{
 					// trace('executando cache de lyrics');
 					if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[3])))
@@ -3755,33 +3690,6 @@ class PlayState extends MusicBeatState
 		if (isRing)
 		{
 			counterNum.text = Std.string(cNum);
-		}
-		if (curStage == 'starved-pixel')
-		{
-			var targetSpeed:Float = 15;
-
-			if (desvioPrey && controls.NOTE_SPACE_P)
-			{ // Ia criar uma função nova e etc pra fazer o desvio
-				// OBRIGADO SILVER E LORE POR TEREM POUPADO TRABALHO AMO VCS
-				desvioPrey = false;
-				desviou = true;
-				warning.visible = false;
-			}
-			switch (hungryManJackTime) // A velocidade do cenário e da chart é governada por essa parte aqui
-				// Caso queira, você pode adicionar mais variações de targetSpeed que essas mudanças serão aplicadas a todos os outros elementos.
-			{
-				case 1:
-					targetSpeed = 40; // Usada na parte da entrada do starved
-				case 2:
-					targetSpeed = 50; // Usada na hora do super sonico
-				default:
-					targetSpeed = 25; // Padrão usada no começo da música
-			}
-			starvedSpeed = FlxMath.lerp(starvedSpeed, targetSpeed, 0.3 * (elapsed / (1 / 60)));
-			if (targetSpeed - starvedSpeed < 0.2)
-				starvedSpeed = targetSpeed;
-			stardustBgPixel.scrollX -= (starvedSpeed * stardustBgPixel.scrollFactor.x) * (elapsed / (1 / 120));
-			stardustFloorPixel.scrollX -= starvedSpeed * (elapsed / (1 / 120));
 		}
 
 		switch (curStage)
@@ -5210,12 +5118,11 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'eventos-prey':
-				var supertimer:Float = Std.parseFloat(value1);
+				var supertimer:Int = Std.parseInt(value1);
 				switch (supertimer)
 				{
 					case 1:
 						boyfriend.alpha = 0;
-
 						camHUD.alpha = 0;
 						FlxTween.tween(boyfriend, {alpha: 1}, 6);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
@@ -5226,25 +5133,14 @@ class PlayState extends MusicBeatState
 						FlxG.camera.flash(FlxColor.BLACK, 4);
 						FlxG.camera.zoom = 2;
 						camZooming = false;
-						stardustBgPixel.visible = true;
-						stardustFloorPixel.visible = true;
 						cinematicBars(true);
-
-					case 1010101:
-						if (ClientPrefs.gore)
-							FlxTween.tween(furnaceTheEnd, {y: 170, x: furnaceTheEnd.x +45}, 1.5, {ease: FlxEase.cubeInOut});
-						else
-							FlxTween.tween(furnaceTheEnd, {y: 25}, 1.5, {ease: FlxEase.cubeInOut});
-
 					case 246:
 						FlxTween.tween(dad, {x: 580 - 250 * 2}, 1, {ease: FlxEase.cubeInOut});
 						FlxTween.tween(camHUD, {alpha: 1}, 1.2, {ease: FlxEase.cubeInOut});
 						cinematicBars(false);
 					case 511:
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor2', "week-prey", false));
 						FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
-
 					case 1024:
 						FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', ''); // must do Arrumar esse sprite.
@@ -5252,7 +5148,6 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(sonicHUD, {alpha: 0}, 0.5, {ease: FlxEase.cubeInOut}); // sÓ pq fica estranho com a cinematics
 
 					case 1280:
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor3', "week-prey", false));
 						FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
 						triggerEventNote('Change Character', 'dad', 'Furnace-rgb'); // Ele já foi carregado mesmo então tá safe
@@ -5278,7 +5173,6 @@ class PlayState extends MusicBeatState
 						SONG.speed = 3.3; // A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
 						boyfriend.animation.finishCallback = function(slash:String)
 						{
-							hungryManJackTime = 1;
 							if (dad.animation.curAnim.name == "first dialogue")
 							{
 								boyfriend.specialAnim = false;
@@ -5290,7 +5184,6 @@ class PlayState extends MusicBeatState
 						{
 							if (dad.animation.curAnim.name == "dialogue")
 							{
-								hungryManJackTime = 1;
 								cinematicBars(false);
 								dad.specialAnim = false;
 							}
@@ -5300,24 +5193,11 @@ class PlayState extends MusicBeatState
 					case 1780:
 						// Play sonic pulim
 						sonicPulo.play();
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor1', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
 						FlxG.camera.flash(FlxColor.RED, 1);
 						cinematicBars(false); // I FORGOR
 						FlxTween.tween(camHUD, {alpha: 1}, 1.0);
 					case 1781:
 						sonicDash.play();
-
-					case 2400: // Aqui é a preparação para o ataque do fornalha
-						sonicAviso.play();
-						warning.visible = true;
-						warning.animation.play("warn");
-
-						desvioPrey = true;
-
-					case 2410: // Só pra não falar que eu fui maldoso
-						desvioPrey = false;
-						warning.visible = false;
-						remove(warning);
 
 					case 2432:
 						if (desviou)
@@ -5331,14 +5211,7 @@ class PlayState extends MusicBeatState
 							// Não conheço nenhum gustavo freire de queiroz btw, mas caso esse seja teu nome então...
 							// Continuo não ligando pra isso Sr. Gustavo, agora pare de perder seu tempo lendo comentários no code dos outros
 						}
-						FlxTween.tween(stardustFurnace, {x: 3000}, 10, {
-							onComplete: function(yes:FlxTween)
-							{
-								stardustFurnace.visible = false;
-								if (desviou)
-									triggerEventNote('Change Character', 'bf', 'bf-Sonic-Peelout');
-							}
-						});
+
 					case 3328:
 						FlxTween.tween(camHUD, {alpha: 0}, 1, {ease: FlxEase.cubeInOut});
 						FlxTween.tween(dad, {x: -300}, 4, {ease: FlxEase.cubeInOut});
@@ -5390,24 +5263,6 @@ class PlayState extends MusicBeatState
 							vocals.time = Conductor.songPosition;
 							vocals.play();
 						}
-					case 3364:
-						var gotcha:FlxSprite = new FlxSprite(boyfriend.x + 1000, boyfriend.y + 475).loadGraphic(Paths.image('furnace_gotcha'));
-						gotcha.setGraphicSize(Std.int(gotcha.width * 5));
-						gotcha.antialiasing = false;
-						gotcha.flipX = false;
-						add(gotcha);
-						FlxTween.tween(gotcha, {x: boyfriend.x + 500}, 0.15, {
-							onComplete: function(yes:FlxTween)
-							{
-								FlxG.camera.flash(FlxColor.RED, 1);
-								remove(gotcha);
-							}
-						});
-
-
-					//case 4544:
-						//FlxG.camera.flash(FlxColor.YELLOW, 0.3); //Usado na Too Fest por motivos de preguiça
-						//triggerEventNote('Add Camera Zoom', '0.3', '0.3');
 
 					case 3420:
 						health = 1;
@@ -5426,11 +5281,7 @@ class PlayState extends MusicBeatState
 					case 3400:
 						storyDifficultyText = 'Good ending?'; // detalhe que achei soda
 						endingTweens('good_ending');
-						stardustFloorPixel.loadGraphic(Paths.image('cenarios/starved/stardustFloor4', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
-						stardustBgPixel.loadGraphic(Paths.image('cenarios/starved/stardustBg', "week-prey", false)); // AGORA SIM TU VAI PODER VER O OLHO DELE
-
 					case 3425:
-						hungryManJackTime = 2;
 						startachieving('prey_survive');
 						cinematicBars(false);
 						gf.x -= 1000;
@@ -5456,11 +5307,7 @@ class PlayState extends MusicBeatState
 						FlxG.camera.flash(FlxColor.RED, 5);
 						blackFuck.visible = true;
 						blackFuck.alpha = 1;
-						opponentStrums.forEach(function(tofade:FlxSprite)
-						{
-							tofade.alpha = 1;
-						});
-
+						opponentStrums.forEach(function(tofade:FlxSprite){tofade.alpha = 1;});
 
 					case 4498:
 						FlxTween.tween(sonicHUD, {alpha: 0}, 0.5, {ease: FlxEase.cubeInOut}); // sÓ pq fica estranho com a cinematics
@@ -5490,10 +5337,6 @@ class PlayState extends MusicBeatState
 						cinematicBars(false);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
 						triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
-						stardustBgPixel.visible = false;
-						stardustFloorPixel.visible = false;
-						theendbg.visible = true;
-						furnaceTheEnd.visible = true;
 						boyfriend.x = 998 - 208;
 						boyfriend.y = 302;
 						boyfriend.y -= 20;
@@ -5519,7 +5362,7 @@ class PlayState extends MusicBeatState
 					case 4782:
 						cpuControlled = false;
 						botplayTxt.text = 'BOTPLAY';
-				} // Me tornei aquilo que eu mais temia... Uma pessoa tão exagerada quanto a Nashira... NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+				} 
 
 			case 'Entrada Pixel':
 				var indicador:Float = Std.parseFloat(value1);
@@ -7999,9 +7842,6 @@ class PlayState extends MusicBeatState
 				if (heyTimer <= 0)
 					bottomBoppers.dance(true);
 				santa.dance(true);
-
-			case 'starved-pixel':
-				furnaceTheEnd.dance(true); // Tu não tá pensando que eu vou meter um furnance parado né?
 
 			case 'limo':
 				if (!ClientPrefs.lowQuality)

@@ -34,6 +34,7 @@ function propriedadescomuns(var, pos, name)
     scaleObject(var, 1, 1);
     setObjectCamera(var, 'hud2');
     setGraphicSize(var, screenWidth*0.9)
+    setProperty(var..".alpha", opacidadeLegendas);
     screenCenter(var, 'x')
     adjustPos(var, name)
     setObjectOrder(var, getObjectOrder("botplayTxt")-pos)

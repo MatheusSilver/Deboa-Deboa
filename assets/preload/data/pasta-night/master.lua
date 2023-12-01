@@ -381,6 +381,7 @@ function propriedadescomuns(var,name)
     setLuaSpriteCamera(var, 'hud'); --legenda por baixo das setas.
     --setLuaSpriteCamera(var, 'legenda'); --Legenda por cima das setas
     setGraphicSize(var, screenWidth) -- k
+    setProperty(var..".alpha", opacidadeLegendas);
     
     screenCenter(var, 'xy')
     adjustPos(var, name)

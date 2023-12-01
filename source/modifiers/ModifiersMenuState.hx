@@ -120,10 +120,18 @@ class ModifiersMenuState extends MusicBeatState
                     break;
                 }
             }
-
+        if(currentButton != null)
+        {
+            if(!text.text.startsWith(currentButton.name.toUpperCase()))
+            {
+                GlobalSoundManager.play('scrollMenu');
+            }
+        }
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
-        pontosMultiLerp = Math.floor(FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-        textMultiplier.text = "X"+Std.string(pontosMultiLerp);
+        pontosMultiLerp = FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 2));
+        if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
+			pontosMultiLerp = pontosMulti;
+        textMultiplier.text = "X"+Std.string(Math.round(pontosMultiLerp*100)/100);
         if(FlxG.mouse.justPressed && currentButton != null)
             {
                 currentButton.clique();
@@ -134,7 +142,9 @@ class ModifiersMenuState extends MusicBeatState
                 calculateMultiplier();
             }
 
-        #if android
+
+
+        /*#if android
         if(Utils.BSLTouchUtils.apertasimples(setal)) {
             //
         }
@@ -148,7 +158,7 @@ class ModifiersMenuState extends MusicBeatState
         if(controls.UI_RIGHT_P) {
             //
         }
-        #end
+        #end*/
 		if (controls.BACK)
 		{
 			GlobalSoundManager.play('cancelMenu');
@@ -158,7 +168,7 @@ class ModifiersMenuState extends MusicBeatState
 
     function calculateMultiplier()
     {
-        pontosMulti = 1.00;
+        pontosMulti = ModifiersManager.getFinalModifier();
     }
 
 }
@@ -184,9 +194,10 @@ class ModifierButton extends FlxSpriteGroup
         this.multiplier = multiplier;
         botao = new FlxSprite(0,0);
         botao.antialiasing = ClientPrefs.globalAntialiasing;
-        if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + this.name)))
+        var nomeSemAcento:String = ModifiersManager.removerAcentos(this.name);
+        if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + nomeSemAcento)))
         {
-            botao.loadGraphic(Paths.image("modifiers/botoes/" + this.name));
+            botao.loadGraphic(Paths.image("modifiers/botoes/" + nomeSemAcento));
         }
         else
         {
@@ -218,6 +229,7 @@ class ModifierButton extends FlxSpriteGroup
 
     public function clique()
     {
+		GlobalSoundManager.play('confirmMenu');
         if(enabled)
         {
             ModifiersManager.removeModifier(id);
@@ -236,6 +248,6 @@ class ModifierButton extends FlxSpriteGroup
             outline.loadGraphic(Paths.image("modifiers/on"));
             } else {
             outline.loadGraphic(Paths.image("modifiers/off"));
-            }
+        }
     }
 }
