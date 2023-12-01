@@ -100,7 +100,7 @@ function onCreate()
     setProperty('Widemouth.x',getProperty('Widemouth.x')-getProperty('Widemouth.width')/2)
     setProperty('Widemouth.y',getProperty('Widemouth.y')-getProperty('Widemouth.height')+8)
 
-    makeLuaSprite('Bar','cenarios/bar',consistentPosition[1],consistentPosition[2])
+    makeLuaSprite('Bar','cenarios/5',consistentPosition[1],consistentPosition[2])
     setScrollFactor('Bar',0.9, 0.9)
     scaleObject('Bar',consistentSize,consistentSize)
     addLuaSprite('Bar',false)

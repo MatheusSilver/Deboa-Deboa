@@ -110,7 +110,7 @@ class AjustesState extends MusicBeatState
 		boom = new FlxSprite(0, 0); //ok
 		boom.frames = Paths.getSparrowAtlas('optionsmenu/sunkyajustes', 'preload');
 		boom.animation.addByPrefix('idle', "sunkyajustes bump",30);
-		boom.antialiasing = true;
+		boom.antialiasing = ClientPrefs.globalAntialiasing;
 		boom.setGraphicSize(Std.int(boom.width*1.5));
 		boom.updateHitbox();
 		boom.y =-1035;

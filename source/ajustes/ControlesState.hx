@@ -20,7 +20,7 @@ import lime.system.Clipboard;
 
 class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás, mas ainda dá pro gasto
 {
-
+	#if android
 	var _pad:FlxVirtualPad;
 	var _hb:Hitbox;
 
@@ -57,7 +57,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 		bg.setGraphicSize(Std.int(bg.width * 1.1));
 		bg.updateHitbox();
 		bg.screenCenter();
-		bg.antialiasing = true;
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
 
 		// load curSelected
 		curSelected = Config.getcontrolmode();
@@ -79,14 +79,14 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 		leftArrow.frames = ui_tex;
 		leftArrow.animation.addByPrefix('idle', "arrow left");
 		leftArrow.animation.addByPrefix('press', "arrow push left");
-		leftArrow.antialiasing = false;
+		leftArrow.antialiasing = ClientPrefs.globalAntialiasing;
 		leftArrow.animation.play('idle');
 
 		rightArrow = new FlxSprite(inputvari.x + inputvari.width + 10, leftArrow.y);
 		rightArrow.frames = ui_tex;
 		rightArrow.animation.addByPrefix('idle', 'arrow right');
 		rightArrow.animation.addByPrefix('press', "arrow push right", 24, false);
-		rightArrow.antialiasing = false;
+		rightArrow.antialiasing = ClientPrefs.globalAntialiasing;
 		rightArrow.animation.play('idle');
 
 
@@ -404,4 +404,5 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 	{
 		super.destroy();
 	}
+	#end // Ok, eu tava ficando perturbado em abrir e o console ficar com mais de 20 erros
 }

@@ -720,8 +720,12 @@ class PlayState extends MusicBeatState
 			case 'too-slow':
 				{
 					var bg:FlxSprite;
+					if(!ClientPrefs.gore) {
+					bg = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/FLOOR1'));
+					} else {
 					bg = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/antigore'));
-					bg.antialiasing = true;
+					}
+					bg.antialiasing = ClientPrefs.globalAntialiasing;
 					bg.scrollFactor.set(1.3, 1);
 					bg.active = false;
 					add(bg);

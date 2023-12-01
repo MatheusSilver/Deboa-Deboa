@@ -120,7 +120,13 @@ class ModifiersMenuState extends MusicBeatState
                     break;
                 }
             }
-
+        if(currentButton != null)
+        {
+            if(!text.text.startsWith(currentButton.name.toUpperCase()))
+            {
+                GlobalSoundManager.play('scrollMenu');
+            }
+        }
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
         pontosMultiLerp = FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 2));
         if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
@@ -138,7 +144,7 @@ class ModifiersMenuState extends MusicBeatState
 
 
 
-        #if android
+        /*#if android
         if(Utils.BSLTouchUtils.apertasimples(setal)) {
             //
         }
@@ -152,7 +158,7 @@ class ModifiersMenuState extends MusicBeatState
         if(controls.UI_RIGHT_P) {
             //
         }
-        #end
+        #end*/
 		if (controls.BACK)
 		{
 			GlobalSoundManager.play('cancelMenu');
@@ -223,6 +229,7 @@ class ModifierButton extends FlxSpriteGroup
 
     public function clique()
     {
+		GlobalSoundManager.play('confirmMenu');
         if(enabled)
         {
             ModifiersManager.removeModifier(id);
@@ -241,6 +248,6 @@ class ModifierButton extends FlxSpriteGroup
             outline.loadGraphic(Paths.image("modifiers/on"));
             } else {
             outline.loadGraphic(Paths.image("modifiers/off"));
-            }
+        }
     }
 }
