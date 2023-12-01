@@ -35,7 +35,7 @@ class BaseOptionsMenu extends MusicBeatState
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
 		'VISUAL',
-		'SOM GLOBAL',
+		'AUDIO',
 		'GAMEPLAY',
 		'SONS EXTRAS'
 	];
@@ -75,7 +75,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'Note Splashes',
 		'Legendas',
 		'Efeitos de Camera',
-		'SOM GLOBAL',
+		'AUDIO',
 		'Volume ',
 		'SONS EXTRAS',
 		'Hitsounds',
@@ -341,7 +341,7 @@ class BaseOptionsMenu extends MusicBeatState
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += add;
 						if(ClientPrefs.hitSoundType <= 1) ClientPrefs.hitSoundType = 1;
-						else if(ClientPrefs.hitSoundType >= 4) ClientPrefs.hitSoundType = 4; //A ordem importa k
+						else if(ClientPrefs.hitSoundType >= 5) ClientPrefs.hitSoundType = 5; //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();

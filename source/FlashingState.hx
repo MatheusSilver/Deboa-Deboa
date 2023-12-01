@@ -14,29 +14,27 @@ class FlashingState extends MusicBeatState
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
+	var texto:String = "Aperte ENTER para prosseguir ou\nESC para desativar as configurações citadas";
 	override function create()
 	{
 		super.create();
+
+		#if mobile
+		texto = "Toque na tela para prosseguir ou\nBotão BACK para desativar as configurações citadas";
+		#end
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Ooopa!\n
-			Este mod contém luzes piscantes e gore!\n
+			"AVISO IMPORTANTE\n
+			Este mod contém luzes piscantes e gore.\n
 			Caso esteja gravando sua tela (youtubers/streamers):\n
 			Recomendamos gravar a tela e não diretamente o jogo.\n
 			Desmarque as opções de Luzes Piscantes e Gore\n
 			para não causar problemas aos seus viewers.\n" +
-			#if windows
-			"Aperte ESC para desativar essas configurações\n
-			ou aperte ENTER para ignorar essa mensagem.\n" +
-			#else
-			"Aperte VOLTAR do celular para desativar essas configurações\n
-			ou TOQUE NA TELA para ignorar essa mensagem.\n" +
-			#end
-			"Uma boa jogatina!", //Tenho certeza que foi o X02
-			25);			// k
+			"${texto}",
+			25);
 		warnText.setFormat("VCR OSD Mono", 25, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(XY);
 		add(warnText);
