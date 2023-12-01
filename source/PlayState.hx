@@ -1049,6 +1049,23 @@ class PlayState extends MusicBeatState
 			insert(members.indexOf(blammedLightsBlack) + 1, phillyCityLightsEvent);
 		blammedLightsBlack.alpha = 0.0;
 
+		
+		noteBG = new FlxSprite(0,0);
+		noteBG.cameras = [camHUD];
+		noteBG.makeGraphic(1,1000,FlxColor.BLACK);
+
+		add(noteBG);
+
+		if(!ClientPrefs.middleScroll) {
+
+		noteBG2 = new FlxSprite(0,0);
+		noteBG2.cameras = [camHUD];
+		noteBG2.makeGraphic(1,1000,FlxColor.BLACK);
+
+		add(noteBG2);
+		}
+
+
 		var gfVersion:String = SONG.player3;
 		if (gfVersion == null || gfVersion.length < 1)
 		{
@@ -2675,6 +2692,26 @@ class PlayState extends MusicBeatState
 		playingVideoMP4 = false;
 	}
 
+	function updateNoteBGPos()
+		{
+			if(startedCountdown)
+			{
+				noteBG.setGraphicSize(Std.int(Note.swagWidth * 4), FlxG.height * 2);
+				noteBG.updateHitbox();
+		
+				noteBG.x = playerStrums.members[0].x;
+	
+				if(!ClientPrefs.middleScroll) {
+	
+				noteBG2.setGraphicSize(Std.int(Note.swagWidth * 4), FlxG.height * 2);
+				noteBG2.updateHitbox();
+		
+				noteBG2.x = opponentStrums.members[0].x;
+	
+				}
+			}
+		}
+
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{
 		inCutscene = true;
@@ -3329,6 +3366,9 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0] - earlyTime1, Obj2[0] - earlyTime2);
 	}
 
+	var noteBG:FlxSprite;
+	var noteBG2:FlxSprite;
+
 	private function generateStaticArrows(player:Int):Void
 	{
 		var keyCount:Int = 4;
@@ -3371,6 +3411,14 @@ class PlayState extends MusicBeatState
 			babyArrow.postAddedToGroup();
 		}
 		// Fixes para players de middlescroll em musicas que as strums mudam e/ou tem três setas.
+		if(player == 1 && ClientPrefs.focus)
+			{
+				updateNoteBGPos();
+				noteBG.alpha = 0.7;
+				if(!ClientPrefs.middleScroll) {
+				noteBG2.alpha = 0.7;
+				}
+			}
 	}
 
 	override function openSubState(SubState:FlxSubState)
@@ -4324,6 +4372,8 @@ class PlayState extends MusicBeatState
 						daNote.destroy();
 					}
 				});
+				if(ClientPrefs.focus)
+					updateNoteBGPos();
 			}
 			else
 			{

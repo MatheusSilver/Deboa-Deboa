@@ -175,7 +175,7 @@ class FreeplayState extends MusicBeatState
 		
 		if(curSelected >= songs.length) curSelected = 0;
 
-		var leText:String = "Aperte " + #if desktop "Espaço" #else "C" #end + " para ouvir uma prévia da música";
+		var leText:String = "Aperte " + #if desktop "Espaço" #else "X" #end + " para ouvir uma prévia da música, " + #if desktop "CTRL" #else "Y" #end + " para abrir o menu de modifiers.";
 		//space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
 		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
@@ -211,7 +211,7 @@ class FreeplayState extends MusicBeatState
 
 		// Ordem importa
 		#if mobileC
-		addVirtualPad(FULL, A_B_C);
+		addVirtualPad(FULL, A_B_X_Y);
 		#end
 		
 		super.create();
@@ -295,9 +295,12 @@ class FreeplayState extends MusicBeatState
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
 		#if mobile
-		var vpad = ui.FlxVirtualPad.buttonC.justPressed;
+		var vpad = ui.FlxVirtualPad.buttonX.justPressed;
+		var mpad = ui.FlxVirtualPad.buttonY.justPressed;
 		#end
 		var space = FlxG.keys.justPressed.SPACE #if mobile || vpad #end;
+		var ctrl = FlxG.keys.justPressed.CONTROL;
+		
 
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
@@ -311,13 +314,18 @@ class FreeplayState extends MusicBeatState
 			changeSelection(shiftMult);
 		}
 
+		if(ctrl #if mobile || mpad #end) {
+			modifiers.ModifiersMenuState.freeplay = true;
+			MusicBeatState.switchState(new modifiers.ModifiersMenuState());
+		}
+
 		if (controls.BACK && apertavel)
 		{
 			GlobalSoundManager.play('cancelMenu');
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
-		if(space && instPlaying != curSelected && apertavel)
+		if(space #if mobile || vpad #end && instPlaying != curSelected && apertavel)
 		{
 			destroyFreeplayVocals();
 			Paths.currentModDirectory = songs[curSelected].folder;

@@ -34,6 +34,8 @@ class ModifiersMenuState extends MusicBeatState
     var faixa:FlxSprite;
     public var text:FlxText;
     public var textMultiplier:FlxText;
+    public static var historia:Bool = false;
+    public static var freeplay:Bool = false;
     /*public var setal:FlxText; //esquerda
     public var setar:FlxText; //direita*/
 
@@ -162,7 +164,13 @@ class ModifiersMenuState extends MusicBeatState
 		if (controls.BACK)
 		{
 			GlobalSoundManager.play('cancelMenu');
-			MusicBeatState.switchState(new MainMenuStateMobile());
+            if(!freeplay) {
+                freeplay = false;
+			    MusicBeatState.switchState(new FreeplayState());
+            } else if(historia) {
+                historia = false;
+                MusicBeatState.switchState(new MenuHistoria());
+            }
 		}
 	}
 
