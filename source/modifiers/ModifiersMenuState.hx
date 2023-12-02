@@ -74,6 +74,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         faixa.screenCenter(XY);
         faixa.y-=25;
         faixaY = faixa.y;
+        faixa.alpha = 0;
         faixa.y = 720;
         add(faixa);
 
@@ -127,7 +128,7 @@ class ModifiersMenuState extends MusicBeatSubstate
                 }
             }
         });
-        new FlxTimer().start(0.4, function(tmr:FlxTimer) {
+        new FlxTimer().start(0.5, function(tmr:FlxTimer) {
             canClick = true;
 		});
     }
