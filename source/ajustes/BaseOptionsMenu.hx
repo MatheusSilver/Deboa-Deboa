@@ -75,6 +75,7 @@ class BaseOptionsMenu extends MusicBeatState
 		//'Ghost Tapping', //Isso é deveras é perigoso em algumas músicas
 		'Delay da Nota',
 		'Note Splashes',
+		'Modo Focus',
 		'Efeitos de Camera',
 		'LEGENDAS ',
 		'Legendas',
@@ -250,6 +251,9 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'Note Splashes':
 						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
 
+					case 'Modo Focus':
+						ClientPrefs.focus = !ClientPrefs.focus;
+
 					case 'Luzes Piscantes':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
 
@@ -345,7 +349,7 @@ class BaseOptionsMenu extends MusicBeatState
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += add;
 						if(ClientPrefs.hitSoundType <= 1) ClientPrefs.hitSoundType = 1;
-						else if(ClientPrefs.hitSoundType >= 4) ClientPrefs.hitSoundType = 4; //A ordem importa k
+						else if(ClientPrefs.hitSoundType >= 13) ClientPrefs.hitSoundType = 13; //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
@@ -435,6 +439,8 @@ class BaseOptionsMenu extends MusicBeatState
 			#end
 			case 'Note Splashes':
 				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
+			case 'Modo Focus':
+				daText = "Basicamente cria um fundo preto nas notas.";
 			case 'Luzes Piscantes':
 				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
 			case 'Legendas':
@@ -503,6 +509,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.camZooms;
 					case 'Note Splashes':
 						daValue = ClientPrefs.noteSplashes;
+					case 'Modo Focus':
+						daValue = ClientPrefs.focus;
 					case 'Luzes Piscantes':
 						daValue = ClientPrefs.flashing;
 					case 'Legendas':

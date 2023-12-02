@@ -175,4 +175,9 @@ class ModifiersManager
         */
         return returnVar;
     }
+
+    public static function isUsingModifiers():Bool
+    {
+        return getFinalModifier() != 1 ? false : true;
+    }
 }

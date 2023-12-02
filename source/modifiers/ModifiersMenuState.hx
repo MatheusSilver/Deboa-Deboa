@@ -1,5 +1,6 @@
 package modifiers;
 
+import cpp.abi.Abi;
 import flixel.ui.FlxSpriteButton;
 import ui.FlxButton;
 import flixel.FlxSubState;
@@ -17,12 +18,14 @@ import flixel.group.FlxSpriteGroup;
 import flixel.FlxCamera;
 import openfl.utils.Assets as OpenFlAssets;
 import flixel.math.FlxMath;
-
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
 
 
 using StringTools;
 
-class ModifiersMenuState extends MusicBeatState
+class ModifiersMenuState extends MusicBeatSubstate
 {
 
     public var buttons:Array<ModifierButton> = [];
@@ -34,18 +37,25 @@ class ModifiersMenuState extends MusicBeatState
     var faixa:FlxSprite;
     public var text:FlxText;
     public var textMultiplier:FlxText;
-    /*public var setal:FlxText; //esquerda
-    public var setar:FlxText; //direita*/
+    var textBG:FlxSprite;
 
     var pontosMulti:Float = 1.00;
     var pontosMultiLerp:Float = 1.00;
 
-	override function create()
+    var faixaY:Float;
+
+    var canClick:Bool = false;
+
+    var isFreeplay:Bool = false;
+
+	public function new(isFreeplay:Bool)
 	{
-		#if rpc
-		DiscordClient.changePresence("No menu de modifiers", null);
+		super();
+        this.isFreeplay = isFreeplay;
+        #if !mobile
+		FlxG.mouse.visible = Main.mouse;
 		#end
-        
+
         mouseTxt = new FlxText(0, 0, 200, "", 8, true);
         mouseTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
         mouseDesc = new FlxText(0, 0, 200, "", 8, true);
@@ -53,16 +63,23 @@ class ModifiersMenuState extends MusicBeatState
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/bg"));
         bg.antialiasing = ClientPrefs.globalAntialiasing;
+        //bg = new FlxSprite(0,0).makeGraphic(1,1, FlxColor.BLACK);
+        //bg.setGraphicSize(FlxG.stage.width, FlxG.stage.height);
         bg.screenCenter(XY);
+        bg.alpha = 0;
         add(bg);
 
         faixa = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/faixa"));
         faixa.antialiasing = ClientPrefs.globalAntialiasing;
         faixa.screenCenter(XY);
         faixa.y-=25;
+        faixaY = faixa.y;
+        faixa.alpha = 0;
+        faixa.y = 720;
         add(faixa);
 
-        var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+        textBG = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
+        textBG.alpha=0;
 		add(textBG);
 
 		text = new FlxText(textBG.x, textBG.y + 4, FlxG.width, "", 18);
@@ -70,17 +87,9 @@ class ModifiersMenuState extends MusicBeatState
 		text.scrollFactor.set();
 
         textMultiplier = new FlxText(textBG.x, textBG.y + 4, FlxG.width, "X1.00", 18);
+        textMultiplier.alpha = 0;
 		textMultiplier.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
 		textMultiplier.scrollFactor.set();
-
-        /*setal = new FlxText(26, 0, "<", 18);
-        setal.screenCenter(Y);
-        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);
-
-        setar = new FlxText(1242, 0, ">", 18);
-        setal.screenCenter(Y);
-        setal.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, LEFT);*/
-
 
         var x1:Float = 30;
         var y1:Float = 334-25;
@@ -101,12 +110,60 @@ class ModifiersMenuState extends MusicBeatState
         
         add(text);
         add(textMultiplier);
-        /*add(setal);
-        add(setar);*/
         calculateMultiplier();
         pontosMultiLerp = pontosMulti;
-		super.create();
+        tweenCoisos();
 	}
+
+    function tweenCoisos()
+    {
+        FlxTween.tween(bg, {alpha: 1}, 0.2, {ease: FlxEase.expoInOut});
+        FlxTween.tween(textBG, {alpha: 1}, 0.3, {ease: FlxEase.expoInOut});
+        FlxTween.tween(textMultiplier, {alpha: 1}, 0.25, {ease: FlxEase.expoInOut});
+        FlxTween.tween(faixa, {y: faixaY, alpha:1}, 0.25, {ease: FlxEase.expoInOut,
+            onComplete: function(twn:FlxTween) {
+                for (button in buttons)
+                {
+                    button.tweenBotao();
+                }
+            }
+        });
+        new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+            canClick = true;
+		});
+    }
+
+    function tweenSair()
+    {
+		canClick = false;
+        for (button in buttons)
+            {
+                button.tweenBotaoSair();
+            }
+        FlxTween.tween(faixa, {y: 720, alpha:0}, 0.4, {ease: FlxEase.expoInOut});
+        FlxTween.tween(textMultiplier, {alpha: 0}, 0.25, {ease: FlxEase.expoInOut});
+        FlxTween.tween(text, {alpha: 0}, 0.25, {ease: FlxEase.expoInOut});
+        FlxTween.tween(textBG, {alpha: 0}, 0.3, {ease: FlxEase.expoInOut});
+        FlxTween.tween(bg, {alpha: 0}, 0.2, {ease: FlxEase.expoInOut});
+        new FlxTimer().start(0.45, function(tmr:FlxTimer) {
+            if(isFreeplay)
+            {
+                FreeplayState.instance.closeModifiers(this);
+            }
+            else
+            {
+                MenuHistoria.instance.closeModifiers(this);
+            }
+		});
+    }
+
+    override function close()
+    {
+        #if !mobile
+		FlxG.mouse.visible = false;
+		#end
+        super.close();
+    }
 
 	override function update(elapsed:Float)
 	{
@@ -114,13 +171,13 @@ class ModifiersMenuState extends MusicBeatState
         currentButton = null;
         for (button in buttons)
             {
-                if (FlxG.mouse.overlaps(button))
+                if (FlxG.mouse.overlaps(button) && canClick)
                 {
                     currentButton = button;
                     break;
                 }
             }
-        if(currentButton != null)
+        if(currentButton != null && canClick)
         {
             if(!text.text.startsWith(currentButton.name.toUpperCase()))
             {
@@ -132,7 +189,7 @@ class ModifiersMenuState extends MusicBeatState
         if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
 			pontosMultiLerp = pontosMulti;
         textMultiplier.text = "X"+Std.string(Math.round(pontosMultiLerp*100)/100);
-        if(FlxG.mouse.justPressed && currentButton != null)
+        if(FlxG.mouse.justPressed && currentButton != null && canClick)
             {
                 currentButton.clique();
                 for (button in buttons)
@@ -142,27 +199,10 @@ class ModifiersMenuState extends MusicBeatState
                 calculateMultiplier();
             }
 
-
-
-        /*#if android
-        if(Utils.BSLTouchUtils.apertasimples(setal)) {
-            //
-        }
-        if(Utils.BSLTouchUtils.apertasimples(setar)) {
-            //
-        }
-        #else
-        if(controls.UI_LEFT_P) {
-            //
-        }
-        if(controls.UI_RIGHT_P) {
-            //
-        }
-        #end*/
-		if (controls.BACK)
+		if (controls.BACK && canClick)
 		{
 			GlobalSoundManager.play('cancelMenu');
-			MusicBeatState.switchState(new MainMenuStateMobile());
+            tweenSair();
 		}
 	}
 
@@ -182,11 +222,15 @@ class ModifierButton extends FlxSpriteGroup
     public var multiplier:Float;
     public var botao:FlxSprite;
     var outline:FlxSprite;
+    var x1:Float;
+    var y1:Float;
 
     public function new(id:Int, name:String, enabled:Bool, x1:Float, y1:Float, desc:String, multiplier:Float)
     {
-        super(x1, y1);
-
+        super(0,0);
+        this.alpha = 0;
+        this.x1 = x1;
+        this.y1 = y1;
         this.id = id;
         this.name = name;
         this.enabled = enabled;
@@ -218,6 +262,17 @@ class ModifierButton extends FlxSpriteGroup
         //outline.screenCenter(Y);
         outline.updateHitbox();
         add(outline);
+    }
+
+
+    public function tweenBotao()
+    {
+        FlxTween.tween(this, {y: y1, x: x1, alpha: 1}, 0.3, {ease: FlxEase.expoInOut});
+    }
+
+    public function tweenBotaoSair()
+    {
+        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.2, {ease: FlxEase.expoInOut});
     }
 
     override function update(elapsed:Float)

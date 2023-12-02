@@ -18,6 +18,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.FlxState;
 
 using StringTools;
 #if rpc
@@ -51,6 +52,8 @@ class FreeplayState extends MusicBeatState
 	var intendedMultiplier:Float = 1;
 	var intendedRating:Float = 0;
 
+	public static var instance:FreeplayState;
+
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
@@ -69,6 +72,8 @@ class FreeplayState extends MusicBeatState
 	public static var progressFreeplay:Int = 1;
 	public static var totalMusicas:Int = 9;
 
+	public static var modifiersOpened:Bool = false;
+
 	public static function addProgress()
 	{
 		trace("curSelected: "+Std.string(curSelected)+"\nprogressFreeplay: "+Std.string(progressFreeplay)+"\nweekLength: "+ Std.string(totalMusicas));
@@ -84,6 +89,7 @@ class FreeplayState extends MusicBeatState
 	
 	override function create()
 	{
+		if(instance == null){instance=this;}
 		if(FlxG.save.data.freeplayProgress != null)
 		{
 			progressFreeplay = FlxG.save.data.freeplayProgress;
@@ -175,7 +181,7 @@ class FreeplayState extends MusicBeatState
 		
 		if(curSelected >= songs.length) curSelected = 0;
 
-		var leText:String = "Aperte " + #if desktop "Espaço" #else "C" #end + " para ouvir uma prévia da música";
+		var leText:String = "Aperte " + #if desktop "Espaço" #else "X" #end + " para ouvir uma prévia da música, " + #if desktop "CTRL" #else "Y" #end + " para abrir o menu de modifiers.";
 		//space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
 		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
@@ -211,7 +217,7 @@ class FreeplayState extends MusicBeatState
 
 		// Ordem importa
 		#if mobileC
-		addVirtualPad(FULL, A_B_C);
+		addVirtualPad(FULL, A_B_X_Y);
 		#end
 		
 		super.create();
@@ -234,6 +240,13 @@ class FreeplayState extends MusicBeatState
 	public function addSong(songName:String,weekNum:Int, songCharacter:String, color:Int, display:String)
 	{
 		songs.push(new SongMetadata(songName, weekNum, songCharacter, color, display));
+	}
+
+	public function closeModifiers(substate:MusicBeatSubstate)
+	{
+		substate.close();
+		apertavel = true;
+		modifiersOpened = false;
 	}
 
 	var instPlaying:Int = -1;
@@ -294,10 +307,9 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		#if mobile
-		var vpad = ui.FlxVirtualPad.buttonC.justPressed;
-		#end
-		var space = FlxG.keys.justPressed.SPACE #if mobile || vpad #end;
+		var space = #if desktop FlxG.keys.justPressed.SPACE #else ui.FlxVirtualPad.buttonX.justPressed #end;
+		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.buttonY.justPressed #end;
+		
 
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
@@ -310,6 +322,14 @@ class FreeplayState extends MusicBeatState
 		{
 			changeSelection(shiftMult);
 		}
+
+		if(ctrl && !modifiersOpened && apertavel) {
+			//modifiers.ModifiersMenuState.freeplay = true;
+			apertavel = false;
+			modifiersOpened = true;
+			openSubState(new modifiers.ModifiersMenuState(true));
+		}
+
 
 		if (controls.BACK && apertavel)
 		{

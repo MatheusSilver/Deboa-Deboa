@@ -46,7 +46,13 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var instance:MainMenuStateMobile;
 	//var gradientBar:FlxGradient;
 	
-	var optionShit:Array<String> = ['historia','freeplay', 'multiplayer-locked2', 'conquistas', 'creditos', 'opcao'];
+	var optionShit:Array<String> = 
+	['historia',
+	'freeplay', 
+	//'multiplayer-locked2', 
+	'conquistas', 
+	'creditos', 
+	'opcao'];
 	private var menuItems:FlxTypedGroup<FlxSprite>;
 	var machine:FlxSprite;
 	var camFollow:FlxObject;
@@ -440,7 +446,6 @@ class MainMenuStateMobile extends MusicBeatState
 		#if debug
 		if(FlxG.keys.justPressed.FOUR) giveAchievement('modboa');
 		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
-		if(FlxG.keys.justPressed.NINE) MusicBeatState.switchState(new modifiers.ModifiersMenuState());
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;

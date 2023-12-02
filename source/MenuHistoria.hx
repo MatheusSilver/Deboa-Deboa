@@ -36,6 +36,8 @@ class MenuHistoria extends MusicBeatSubstate
 	var musicas:Array<Dynamic> = [];
 	var nombres:Array<Dynamic> = [];
 
+	public static var modifiersOpened:Bool = false;
+
 
 	
 	public var camAchievement:FlxCamera;
@@ -72,8 +74,14 @@ class MenuHistoria extends MusicBeatSubstate
 	var intendedScore:Int = 0;
 	var lerpScore:Int = 0;
 
+	public static var instance:MenuHistoria;
+
+	var canOpenModifiers:Bool = false;
+
+
 	override function create()
 	{
+		if(instance == null){instance=this;}
 		FlxTransitionableState.skipNextTransOut = true;
 		applySave();
 		if (FlxG.sound.music == null)
@@ -152,7 +160,7 @@ class MenuHistoria extends MusicBeatSubstate
 		changeSong();
 
 		#if mobileC
-		addVirtualPad(LEFT_RIGHT, A_B);
+		addVirtualPad(LEFT_RIGHT, A_B_C);
 		#end
 
 		if (curSelected >= musicas.length)
@@ -170,6 +178,9 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 		super.create();
 		if (FlxG.save.data.progress == "7,3,2,1,1,2,2,2,4") test_unlock("heroi");
+		new FlxTimer().start(2, function(tmr:FlxTimer) {
+            canOpenModifiers = true;
+		});
 	}
 
 	function test_unlock(achieve:String){
@@ -183,6 +194,12 @@ class MenuHistoria extends MusicBeatSubstate
 		#end
 		return;
 	}
+
+	public function closeModifiers(substate:MusicBeatSubstate)
+		{
+			modifiersOpened = false;
+			substate.close();
+		}
 
 	#if ACHIEVEMENTS_ALLOWED
 	// Unlocks "Freaky on a Friday Night" achievement
@@ -231,14 +248,23 @@ class MenuHistoria extends MusicBeatSubstate
 			DiscordClient.changePresence("Escolhendo uma musica em: ", dapreselected, null);
 		}
 		#end
+
+		/*trace("APERTAVEL:"+apertavel);
+		trace("MODIFIERS OPENED:"+modifiersOpened);*/
 		lerpMultiplier = Math.floor(FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2)));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		highscoreText.text = "RECORDE: \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
 
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
+		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.buttonX.justPressed #end;
 
-		if (!movedBack && !selectedWeek)
+		if(crossplataforma && !modifiersOpened && !movedBack && !selectedWeek && canOpenModifiers) {
+			modifiersOpened = true;
+			openSubState(new modifiers.ModifiersMenuState(false));
+		}
+
+		if (!movedBack && !selectedWeek && !modifiersOpened)
 		{
 			if (controls.UI_LEFT_P && apertavel && musicas.length > 1) // MALUCO EU SOU MUITO BURRO...
 				// Consegui cometer o mesmo erro duas vezes seguidas...
@@ -255,6 +281,8 @@ class MenuHistoria extends MusicBeatSubstate
 
 			if (controls.BACK && !movedBack && !selectedWeek && apertavel && !naopodevoltar)
 			{
+				modifiersOpened = false;
+				apertavel = false;
 				FlxTween.tween(numText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(highscoreText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfilSprite, {alpha: 0}, 1.0, {ease: FlxEase.expoInOut});
@@ -315,6 +343,7 @@ class MenuHistoria extends MusicBeatSubstate
 				selectSong(false);
 			}
 			#end
+
 		}
 
 		super.update(elapsed);
@@ -335,11 +364,7 @@ class MenuHistoria extends MusicBeatSubstate
 	{
 		if (stopspamming == false)
 		{
-			//if(nombres[curSelected] == "Lerdeza"|| nombres[curSelected] == "Não Pode Fugir"|| nombres[curSelected] == "Ameaça Tripla") {
-				vhsSom.play(true); // ficou legal assim eu acho
-			/*} else {
-				GlobalSoundManager.play('confirmMenu');
-			}*/
+			vhsSom.play(true);
 			stopspamming = true;
 		}
 

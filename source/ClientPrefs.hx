@@ -46,6 +46,7 @@ class ClientPrefs
 	public static var likesMap:Map<String, String> = [];
 	public static var currentModifiers:Array<Int> = []; // valeu dav
 	public static var opacidadeLegendas:Float = 1;
+	public static var focus:Null<Bool> = false;
 
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
