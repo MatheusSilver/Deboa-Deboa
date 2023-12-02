@@ -1252,7 +1252,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.y = FlxG.height * 0.89;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
-		healthBarBG.visible = !ClientPrefs.hideHud;
+		healthBarBG.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("Imortalidade");
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
 		healthBarBG.visible = canRegen;
@@ -1275,19 +1275,19 @@ class PlayState extends MusicBeatState
 				'healthbarval', 0, 2);
 			healthBar.scrollFactor.set();
 			// healthBar
-			healthBar.visible = !ClientPrefs.hideHud;
+			healthBar.visible = !ClientPrefs.hideHud && !ModifiersManager.isEnabledbyName("Imortalidade");
 			add(healthBar);
 			healthBarBG.sprTracker = healthBar;
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
-		iconP1.visible = !ClientPrefs.hideHud || canRegen;
+		iconP1.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("Imortalidade");
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
-		iconP2.visible = !ClientPrefs.hideHud || canRegen;
+		iconP2.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("Imortalidade");
 		add(iconP2);
 		reloadHealthBarColors();
 
@@ -2965,7 +2965,7 @@ class PlayState extends MusicBeatState
 
 				notes.forEachAlive(function(note:Note)
 				{
-					if (note.mustPress) // Fix para o dueto da CY
+					if (note.mustPress && !ModifiersManager.isEnabledbyName("Fade-in das notas") && !ModifiersManager.isEnabledbyName("Fade-out das notas")) // Fix para o dueto da CY
 					{
 						note.copyAlpha = false;
 						note.alpha = note.multAlpha;
@@ -4220,7 +4220,13 @@ class PlayState extends MusicBeatState
 
 					if (daNote.copyAlpha)
 					{
-						daNote.alpha = strumAlpha;
+						if (ModifiersManager.isEnabledbyName("Fade-in das notas") && Math.abs(daNote.distance) >= 400){
+							daNote.alpha = (1-((Math.abs(daNote.distance))/700))*strumAlpha;
+						}else if(ModifiersManager.isEnabledbyName("Fade-out das notas") && Math.abs(daNote.distance) < 250){
+							daNote.alpha *= Math.abs(daNote.distance)/250*strumAlpha;
+						}else //O absolute value é usado pra não ter modificações entre o scroll normal e o downscroll (especialmente na pasta night)
+							daNote.alpha = strumAlpha;
+
 						daNote.visible = strumVisible;
 					}
 
@@ -7502,7 +7508,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (ModifiersManager.isEnabledbyName("Regen de vida passivo"))
-			health += 0.00625;
+			health += 0.003;
 		if (ModifiersManager.isEnabledbyName("Camera tremendo"))
 			triggerEventNote("Screen Shake", ".25,.0125", ".25,.0125"); //Screen shake do mod do suicide mouse v2 do the-mayz suavizado
 
