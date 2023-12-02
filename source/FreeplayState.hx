@@ -323,7 +323,7 @@ class FreeplayState extends MusicBeatState
 			changeSelection(shiftMult);
 		}
 
-		if(ctrl && !modifiersOpened && apertavel) {
+		if(ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY) {
 			//modifiers.ModifiersMenuState.freeplay = true;
 			apertavel = false;
 			modifiersOpened = true;
