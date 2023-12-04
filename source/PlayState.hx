@@ -83,6 +83,8 @@ class PlayState extends MusicBeatState
 
 	public var precacheList:Map<String, String> = new Map<String, String>();
 
+	public static var troqueiproato:String = "";
+
 	var isSwapped:Bool = false; // Para ser usado exclusivamente na CY provavelmente
 
 	var scrollModifierChecker:Bool; // Usado apenas para flipar a pontinha da nota caso a música mude de downscroll para upscroll no meio do caminho. - Vulgo Pasta Night
@@ -4543,6 +4545,8 @@ class PlayState extends MusicBeatState
 	{
 		switch (eventName)
 		{
+			case 'Particula CY':
+				particulasCy(); // exatamente, tu não precisa fazer NADA
 			case 'video player super legal demais':
 				videoPlayerLegal(value1, value2, value3, value4);
 			case 'video player':
@@ -8703,6 +8707,35 @@ class PlayState extends MusicBeatState
 		sprite.destroy();
 	}
 
+	public function particulasCy() { // exclusivamente para a Confronting Yourself. Ou não também, vai que...
+		for (i in 0...30){
+			var partic:FlxSprite = new FlxSprite(-1200+150*i, 1000).loadGraphic(Paths.image('particulas', 'week-confronting'));
+			partic.antialiasing = true;
+			partic.color = FlxColor.YELLOW;
+			partic.scrollFactor.set(0.92, 0.92);
+			partic.active = false;
+			add(partic);
+
+			// X02 TWEENS entraste en el chat
+			var random = 0.4 + Math.random();
+			var ypos:Float = partic.y - 2000;
+			var xpos:Float = partic.x;
+			partic.scale.set(random, random);
+			FlxTween.tween(partic, {y: ypos, alpha: 1},(Math.random()*5+3), {
+				ease: FlxEase.linear,
+				type: FlxTween.LOOPING,
+				loopDelay:0,
+				onUpdate: function(twn:FlxTween){
+						partic.x = xpos + Math.sin(8 * twn.scale + random) * 100;
+						if(endingSong) {
+							destruirsprites(partic); // Aqui é necessário o sprite ser destruído pois ele não será mais usado.
+							twn.cancel();
+						}
+					}
+				});
+			}
+		}
+
 	var curLight:Int = 0;
 	var curLightEvent:Int = 0;
 }
@@ -8751,3 +8784,138 @@ class PlayState extends MusicBeatState
 	.,::ldddxxxxxdxxxdxdlc;;xkxoodxl.      cXNxcdxocccccc;.     ........          'ldkkkkkx:. .cxkkkkkkk
 	ddxxxxxxxxddxxxxxdxdol;dNWW0l:llc'   .lXNklclldkOkkdlc.    'lddddddl;',,,,'.    'okkkko.  ;dkkkkkkkk
  */
+
+ /* BOA VIAGEM SILVER, MAS ANTES DE IR... FIQUE COM ESSA MINHA MENSAGEM DE CORAÇÃO
+ (ver mais) 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ NATSUKI BOMBADA SUPREMACY 💪
+ ⠀                                                                                                                                            
+                                                  --..----..    ------..                                                                    
+                                            ....----    mm@@::    ......MM  ----                                                            
+                                        ..@@@@            ..MM    --    --::    --                                                          
+                                        mm..                    ----....::::..                                                              
+                                      ----                        ::..    ++  --  ..++                                                      
+                                      ++      --    ..      --      --..  ..##  --..  @@                                                    
+                                    ..----..--..  --  ..    mm--..  ..::    ##mm::--..::--                                                  
+                                    mm..----++  ++  ++--  ++--mm++..  ++    ++::++      ##                                                  
+                                    ::..  ++--++::++..  ::::::++++..  --..  ..MM--::  --......                                              
+                                  ++::::--++::--..MM  ::::--..--++--::----  ..++::..  ++..    ++                                            
+                                --::::--------@@++::::--....  --++::::--..    ----    mm..      --                                          
+                              mm  mm::....    ##MM++MM..      ..  ----..::          ++++        ::                                          
+                            @@    ::::..    ----@@          --  ..--....------------::::        ::                                          
+                                        ------                    --....--  ::mm++    ..                                                    
+                                    ++::                --####++  ::..--::    ..++      ++                                                  
+                                  mm  ..MM##@@            ::MMmm::++::::--    ..++      MM                                                  
+                                --  ..  ..mm@@            --      --::....      ::        ::                                                
+                                    ..  ..                        --            ::                                                          
+                              ..      ++..                            ..      ..++                                                          
+                            MM        ....                        ..  --  ..  ..mmMM::                                                      
+                                      ..  ..                    --    ++  ++  ..mm++MMMMMM::                                                
+                                      --                            ++++  ::  --mmmmMMMMMMMMMMMM++..                                        
+                                      ..  ..--                ..  ..mm::..--..++MM::----------::::++mmmm++++--                              
+                                  --++++    ++++            --....++@@--mm  ++mm++----------------------::::++++++::                        
+                              --mmmmmmmm::  MM++mm++    ++..  ..++@@::  ......mm::--------------------------mmmm::--MM                      
+                            mmmm++::::::++@@MMMMmmMMMM::      ..--          ++MMmm----------------------++mm--------++MMmm                  
+                        ++mm++++::::::::++mm@@@@MM##  --      ::mm        ..MM::++--------------------mm--------------mmmmMM..              
+                      mm++::::::::::::::++mmMMmmMM--  ++  ::              @@MM..::------------------mm..--------------mmmmmmMM++            
+                    MM::::::::::::::::::::++--MMMM++::++                mmmmMM++::----------------mm------------------::mm++MMmm--          
+                    ++--::::::::::::++::::::++mm::MM::MMmm            ::++mm++mm--------::------mm----------------------mm::::mm++          
+                  MM----::--::::::::++::::::++mm++mm::++--..        --++++mm--mm::::::::++::------------------------::::::++--::++::        
+                ::MM::::::::::::++::++--::::::@@::::--mmMM..    ..--++::::::--::::::::::++::::++----------------------::--++::::++mm        
+                MMMMmm++----::::::++@@  ::::--++  ..##@@----      ++::------mm::::::::::::::::------------------------++::::::::++++        
+              --MMMMMM::----++mm++++::mm::----....@@####  @@    mm::--------MM--::::::::++++++------------------------++::::::::++++        
+              @@MMMMMM++--::::::::::--::mmmm--mm  ##@@--++MMMM++++------::..MM--::::::++++++::------------------------++::::::::::++++      
+              MMMMMMMMmm++mm::::::----::mm--MM..  ##@@++##mm::::......--++  ++--::++++++++::::------------------------++++::::::::++MM      
+              MMMMMMMM++mm++++::----::::::::##--##::##MM##MMmm++mmmmmmMM..--::----::++++++::::------------------------++++::::::::++MMMM    
+              MMMMMMMM::MM++::------++++::::@@##++  ####++mm----  mm--------------::++++++::::--------------------------++++::::::++MMMM..  
+            ..MMMMMM::::MM++::------::++::::MM@@@@++######++------mm::--------------::++++++::--------------------------::::::::::++mmMM@@  
+            MMMMMM::::::++::----------++::::@@##mm++##@@------++MMmm----------------::::++++::::--------------------------::::::::++++MMMM++
+            mmmm::::::++++::----------::::--##mmmm++@@MM----::MM++------------------::::++mm::::----------------------------::::::::++MMMMMM
+          ++mm++::::::MM++::------------::--++##::##MM++--::MM++----------------------::++++::------------------------------::::::::++mmmmmm
+          MMmm++::::::MM++::----------::::--##mm++##::::::mmmm------------------------::++::++----------::::::----------------::::::++++mmmm
+          mm++::::::::MM++::::--------::----MMmm@@mm::--::mm--------------------------::::++--------------::++::--------------::::::++++mmmm
+        MM++++::::::::MM++::::::----::::..--mmmmMM::++::@@::----------------------------::MM::------------::::++::----------::::::::::++mmmm
+        ++++::::::::::MM++++::::::::::::----##MM@@mm++++::------------------------------::--::------------::::++++++--::::::::::::::::++mmmm
+      mm++::::::::++::MM++++++++::::::::--::##@@@@MM::mm----------------------------::--mm::::--------------::::++++mm--::::::::::::::::mmmm
+      mm++::::::::::::MMmm++++++++::::::::++##@@MMMM--++::::----------------------::::--++::::------------------::++++mm::::::::::::::::mmMM
+      mmmm::::::::++::mmMMmmmm++++++++++mm@@##@@@@MMmm++++::::::::::----::::::::::::::::--::----------------------++++++::::::::++::::::mm--
+    ++mmmm++::::::::++::MM++mmmmmmmm++++mm######@@--mm++++++++::::::::::::::::::::::::++::::--------------------::::++++++::::::..::::++mm  
+    MMmmmm++++::++++::::MM@@mmMMMMMMmmmmmm@@##@@##MMmmmmmm++++++++::::::::::::::::::::mm::::----------------------::++++++::::mm..::::++mm  
+    mmmmmm++++++::++++::++@@##@@mmMMMMMMmmMM####MMMMMMmmmm++++++++++::::::::::::::::::++::::--------------------::::++++::::::MM--::++mmMM  
+    ++mmmm++++++::++::::++MM######MMMMMM@@@@####MMMMmmmmmm++++++++++++++++++++::::::::mm--::::------------------::::++++++::mm++::::++mm..  
+    ::mmmm++++++::++++::::MM######    ##@@MMMM####MMmmmmmmmm++++++++++++++++++++::++++##mm++::::----------------::::++++++++mm::::::++mm..  
+    ..mmmm++++++++++::::::mm@@##MM    --########@@MMmmmmmmmm++++++++++++++++++++::MM######::::::::------------::::::++++++mmmm::::::mmmm..  
+    ..mm++++++++++++++++++++MM##        ##MM##########MM++++++++++++++++++++mmMM@@@@@@####@@::::::::----------::::++++mmmmmm::::::::mmmm++  
+    --mm++++++++mmmm++::::::MM##        ..############@@@@@@MMMMmmMMMMMMMMMMMMMMMM@@@@@@####::++::::::------::::::++mmmmMM++::::::++mmmmMM  
+    --++++mm++++mmmmmm++::::MM@@          ########@@MMMMMMMMMMmmmmmmmmmmmmmmmmMMMM@@MMMM######::mm::::::::::::::::mmmmmmMM++::::::++mmmmMM  
+    ++++mmmmmm::++mmmmMM::::MM++          ##@@@@##MMmmmmmmmm@@mmmmmmmmmmmmmmmmmmmm@@MMMM######mmmmmm++++::::++MM##MMMM@@mm++::::::::mmmm--  
+    ++MMMMmm++::::::MMMM++++MM            --MM@@##MMmmmmmm++##mmmmmmmmMMMMMMMMMMMM##MMMM########::mmmmmmmmMM####MMMM@@MM++::::::::::++MM    
+    MMMMMMmm::::::::mmMMmmmm++              @@++##MM++++mm::##MMmmmmMMMMMMMMMMMMMM##MM@@##########::mmMM@@####@@MM##MMmm::::::::::::::mm..  
+    @@MMMMmm::::::::::MMMMMM                ..@@##@@++++++MM##@@mmmmmmMMMM@@@@@@@@##@@@@############@@mm@@##MMMM##@@MM++++::::::::::::mm--  
+    --@@mm::::::::::::MMMM..                  ####@@++::++++mm++mmmmmmMMMM@@@@@@@@##@@####################mmMM##@@MMMMMMmmmm++::::::::mm--  
+      MM++++::::::::++::++                    @@++##++::::::::mm::::++mmmmMMMM@@@@##@@####################@@@@########@@@@mm::::::::::mm..  
+      MM::++::::::::::::                      @@::##MM----::::MM::::::++++mmMM@@@@####################::..::::::::++++++::::::::::::++mm    
+    MM++::++++::::::::::++                    ::MM@@@@mm::::::MM::::::::::++mmMM@@##################..::::::--::::::::::++++::::::::mmmm    
+    mm::++++++::::::::++::                      ##@@##MMmmmmMMMMmm::::::::::::++@@@@##############::::::--++::::::::::++++++::::::++++MM    
+  MM++::++++++::::::++++::..                    ######mm::::--MMmm::::::::::::::::@@############@@++::--::::::::::::++++++++::::::++mm..    
+  MM::::++++mm::::::++++::..                    ##mm##mm------  MM::::::::::::::::::##@@########mm++::::::::::::::++++++mm++::++++MMMM      
+  mm::::++++mm::::++++++++                      @@++##::::::--..MM::::::::::::::::::mm@@@@######MMmm::::::::::::::++++MMMM++++++MMMM        
+  MM::mm++mmmm::::++mmmmmm                      --++##++::::::::mm::::::::::::::::@@++mm##@@####MM++----::::::::::mmmmMMMMMM++MMMM--        
+  ::::mmmmmmmm::::mmmmmmMM                        ####MM::::::::++++++::::::::::::::::@@MM@@####MM--::::::::::::::mmMMMMMMmmmmmmmm          
+    ++mmmmmmmm::::mmMMMM                          ####MMMM::::::++++++++::::::::::MM++--MM######++::::::::::::::::mmMMMMMMMMMM::            
+    mmmmmmmmmm::::::mmMM                        ..@@@@MM@@@@mm++++++++++++++++++++++::::##@@@@##--::::::::::::::::mmMMMMMMMM::              
+    mmmmmmmmmm::::::::                          mmMMMMMM@@@@@@mmmmmm++++++++++++++++++++MMMM@@mm::::----::::::::::MMMMMMMM..                
+    MMmmmmmmmm::::++::                          @@MM::mm++@@@@@@mmmmmm++++++++++++++++mmmm####MMMM++mm::--::::::::mmMMMM--                  
+    mmmmmmmmmm::mm  mm                          MMMMmm######mmmmMMmmmmmmmmmm++++++++mmmmMM####  --..      mm--::::MMMM##                    
+  ++mmmmmmmmMM  --MM                          ..@@mm##@@##MM##@@--MMmmmmmmmmmmmm++mmmmMM@@@@##--  ..++mm@@..++--::MM@@##..                  
+  MMMMMMmm..mm--..--                          MMMM####MM##MM@@####--mmmmmmmmmmmmmmmmmmMM@@@@##..        ++MM++--::MM######                  
+  ::++..++--::                                MM####@@MM##MMMM######++::mmmmmmmmMMMMMMMMMMMM##            ..MM++MMmm######..                
+      ++..--..                                ##@@##@@MM##MMMM@@MMMM##@@++MMMMMMMMMMMMMMMM@@##                ##--MM########                
+      ::......                              ..MM@@####MM##MMMM@@MMMM######++MMMMMMMMMM@@@@####                ##############                
+                    ..                      ##MM@@####MMMMMMMM@@MMMM####mm##++MMMM@@@@##@@####              ################..              
+        ++                      ..          ##@@@@####MMMMMMMM@@MMMM####mmMMMMmmmm@@@@mmMM####..          --################::              
+                                  --      ..##@@@@####@@MM##@@@@MMMM####MMMMMM####::++@@MM####--          @@##################              
+          ::                      --      ++##@@@@####@@MM##@@@@MMMM####@@MMMM##########MMMM##..            ##################              
+                              ..  --      ####@@@@######MM@@@@MMMMMM######MMMM############MM@@..              ################              
+            --                @@  ::      ####@@@@######@@MM##MMMMMM######MMMM############MM::                ################--            
+              --                ::::    ::####@@@@@@####@@MM##MMMMMM######MMMM##############::                @@########@@####--            
+                --            ....--    ########MM@@######@@@@MMMMMM######MMMM##############::                MM########@@####@@            
+                          --::++MM::    ########MM########@@@@@@@@MM######MMMM##############++                mm########MM######            
+                  ::      --::++::    ++########MM############@@@@@@######MMMM##############++                mm..######@@######            
+                        ::mm::        ##########MM############@@@@@@@@####@@@@##############@@                    MM####@@######--          
+                      ..              ##########@@############@@@@@@@@####@@@@@@####@@########..                  ################          
+                                    ::##########@@############@@@@@@@@####@@@@@@####@@##@@######              @@##########@@######          
+                                    ############@@############@@@@@@@@@@####@@@@####@@##@@######  ..--  @@################@@######@@        
+                                    ############@@@@##########@@@@@@@@@@####@@@@####@@##MM################################MM########..      
+                                  ..##############@@########@@@@@@@@@@@@####@@@@@@@@@@##MM########@@##################################      */
