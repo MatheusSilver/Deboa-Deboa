@@ -42,11 +42,6 @@
 --		setGameover('bf', 'fnf_loss_sfx', 'sonicCD') -- Para casos em que é só o BF, basta colocar essa linha de code.
 
 		setPropertyFromClass('GameOverSubstate', 'loopSoundName', 'sonicCD'); --put in mods/sounds/
-	end
 
-	function onBeatHit()
-		objectPlayAnimation('funboppers2ANIM', 'bumpypillar', true)
-		objectPlayAnimation('funpillarts1ANIM', 'bumpypillar', true)
-		objectPlayAnimation('funboppers1ANIM', 'bumpypillar', true)
-		objectPlayAnimation('funpillarts2ANIM', 'bumpypillar', true)
+		close()
 	end

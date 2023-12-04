@@ -59,11 +59,16 @@
             doTweenAlpha('oneAlpha', 'one', 0, 0.25, 'cubeOut');
         end
     
-        if curStep == 225 then
+        if curBeat == 225 then
             setCamMove = true
             triggerEvent('Camera Follow Pos', '', '')
             doTweenZoom('bruh', 'camGame', 0.9, 0.7, 'cubeInOut')
             setProperty('gofun.visible', true)
             doTweenAlpha('gofunAlpha', 'gofun', 0, 0.25, 'cubeOut');
         end
+
+        objectPlayAnimation('funboppers2ANIM', 'bumpypillar', true)
+        objectPlayAnimation('funpillarts1ANIM', 'bumpypillar', true)
+        objectPlayAnimation('funboppers1ANIM', 'bumpypillar', true)
+        objectPlayAnimation('funpillarts2ANIM', 'bumpypillar', true)
     end
