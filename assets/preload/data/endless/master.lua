@@ -7,10 +7,6 @@
         end
         precacheImage('simbolo_infinito');
         precacheImage('Majin_Notes');
-        precacheImage('one');
-        precacheImage('three');
-        precacheImage('two');
-        precacheImage('gofun');
         precacheImage('conquistas/medalhas/achievements (btt-luxuria)');
         precacheImage('conquistas/keydSTARS/star-luxuria');
 
@@ -41,9 +37,9 @@
         addLuaSprite('gofun', true);
     end
     
-    function onStepHit() -- Isso é definitivamente um script já feito
+    function onBeatHit() -- Isso é definitivamente um script já feito
      
-        if curStep == 888 then
+        if curBeat == 222 then
             setCamMove = false
             triggerEvent('Camera Follow Pos', '690', '820')
             doTweenZoom('bruh', 'camGame', 1.2, 0.7, 'cubeInOut')
@@ -51,23 +47,26 @@
             doTweenAlpha('threeAlpha', 'three', 0, 0.25, 'cubeOut');
         end
     
-        if curStep == 891 then
+        if curBeat == 223 then
             doTweenZoom('bruh', 'camGame', 1.5, 0.7, 'cubeInOut')
             setProperty('two.visible', true)
             doTweenAlpha('twoAlpha', 'two', 0, 0.25, 'cubeOut');
         end
     
-        if curStep == 896 then
+        if curBeat == 224 then
             doTweenZoom('bruh', 'camGame', 1.8, 0.7, 'cubeInOut')
             setProperty('one.visible', true)
             doTweenAlpha('oneAlpha', 'one', 0, 0.25, 'cubeOut');
         end
     
-        if curStep == 899 then
+        if curStep == 225 then
             setCamMove = true
             triggerEvent('Camera Follow Pos', '', '')
             doTweenZoom('bruh', 'camGame', 0.9, 0.7, 'cubeInOut')
             setProperty('gofun.visible', true)
             doTweenAlpha('gofunAlpha', 'gofun', 0, 0.25, 'cubeOut');
+        end
+        if curBeat == 226 then
+            close()
         end
     end
