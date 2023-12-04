@@ -3182,7 +3182,15 @@ class PlayState extends MusicBeatState
 
 					var daNoteData:Int = Std.int(songNotes[1] % lol);
 
-					if (ModifiersManager.isEnabledbyName("Notas Random"))
+					if (ModifiersManager.isEnabledbyName("Somente duas setas") && !isRing)
+						if (daNoteData < 4 && daNoteData >= 0)
+							daNoteData = FlxG.random.int(0,3,[1,2]);
+						else if (daNoteData >=4 && daNoteData < 8)
+							daNoteData = FlxG.random.int(4,7, [5,6]);
+						else
+							daNoteData = FlxG.random.int(8, 11, [9,10]);
+
+					if (ModifiersManager.isEnabledbyName("Notas Random") && !isRing)
 						if (daNoteData < 4 && daNoteData >= 0)
 							daNoteData = FlxG.random.int(0,3);
 						else if (daNoteData >=4 && daNoteData < 8)

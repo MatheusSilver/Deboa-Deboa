@@ -212,6 +212,15 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
+						19421.8181818182,
+						-1,
+						"Change Character",
+						"bf",
+						"bf-running-sonic",
+						"",
+						""
+					],
+					[
 						19431.8181818182,
 						-1,
 						"Play Animation",
@@ -231,15 +240,6 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
-					[
-						20454.5454545455,
-						-1,
-						"Change Character",
-						"bf",
-						"bf-running-sonic",
-						"",
-						""
-					],
 					[
 						20880.6818181818,
 						-1,
@@ -282,7 +282,7 @@
 						21903.4090909091,
 						-1,
 						"Set Cam Zoom",
-						"0.6",
+						"0.75",
 						"",
 						"",
 						""
@@ -1606,7 +1606,7 @@
 						""
 					],
 					[
-						154001.136363636,
+						151071.590909091,
 						-1,
 						"eventos-prey",
 						"1780",
@@ -1615,7 +1615,7 @@
 						""
 					],
 					[
-						154671.590909091,
+						151671.590909091,
 						-1,
 						"Change Character",
 						"bf\t\t",

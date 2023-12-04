@@ -211,7 +211,27 @@ class StrumNote extends FlxSprite
 
 	public function postAddedToGroup() {
 		playAnim('static');
-		x += Note.swagWidth * noteData;
+		var posMultplier:Int = noteData;
+		if (modifiers.ModifiersManager.isEnabledbyName("Flip Notes")){
+			if (PlayState.isRing){ //Preguiça de pensar em solução bunita
+				switch (noteData){
+					case 0: 		posMultplier = 4;
+					case 4:			posMultplier = 0;
+
+					case 1:			posMultplier = 3;
+					case 3: 		posMultplier = 1;
+				}
+			}else{
+				switch (noteData){
+					case 0: 		posMultplier = 3;
+					case 3:			posMultplier = 0;
+
+					case 2:			posMultplier = 1;
+					case 1: 		posMultplier = 2;
+				}
+			}
+		}
+		x += Note.swagWidth * posMultplier;
 		if (PlayState.nomehistorico.toLowerCase() != 'noite da rapaziada' || ClientPrefs.middleScroll){
 		x += 50;
 		x += ((FlxG.width / 2) * player);
@@ -234,6 +254,26 @@ class StrumNote extends FlxSprite
 					x += ((FlxG.width / 4) * -2) - (width * 2);
 				case 2:
 					x += ((FlxG.width / 4) * -3) - (width * 2);
+			}
+		}
+		if (modifiers.ModifiersManager.isEnabledbyName("Somente duas setas")){
+			var ajuste:Int = 85;
+			if (PlayState.isRing){
+				ajuste = 65;
+			}
+			switch (noteData)
+			{
+				case 0:
+					x += ajuste;
+				case 2:
+					visible = PlayState.isRing;
+				case 3:
+					if (!PlayState.isRing)
+						x -= ajuste;
+				case 4:
+					x -= ajuste;
+				default:
+					visible = false;
 			}
 		}
 		ID = noteData;

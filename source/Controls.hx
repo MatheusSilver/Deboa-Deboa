@@ -979,18 +979,18 @@ class Controls extends FlxActionSet
 	{
 		#if !switch
 		addGamepadLiteral(id, [
-			Control.ACCEPT => [A],
-			Control.BACK => [B],
-			Control.UI_UP => [DPAD_UP, LEFT_STICK_DIGITAL_UP],
-			Control.UI_DOWN => [DPAD_DOWN, LEFT_STICK_DIGITAL_DOWN],
-			Control.UI_LEFT => [DPAD_LEFT, LEFT_STICK_DIGITAL_LEFT],
-			Control.UI_RIGHT => [DPAD_RIGHT, LEFT_STICK_DIGITAL_RIGHT],
-			Control.NOTE_UP => [DPAD_UP, LEFT_STICK_DIGITAL_UP, Y],
-			Control.NOTE_DOWN => [DPAD_DOWN, LEFT_STICK_DIGITAL_DOWN, A],
-			Control.NOTE_LEFT => [DPAD_LEFT, LEFT_STICK_DIGITAL_LEFT, X],
-			Control.NOTE_RIGHT => [DPAD_RIGHT, LEFT_STICK_DIGITAL_RIGHT, B],
-			Control.PAUSE => [START],
-			Control.RESET => [GUIDE]
+			Control.ACCEPT 		=> 		[A],
+			Control.BACK 		=> 		[B],
+			Control.UI_UP 		=> 		[DPAD_UP, LEFT_STICK_DIGITAL_UP],
+			Control.UI_DOWN 	=> 		[DPAD_DOWN, LEFT_STICK_DIGITAL_DOWN],
+			Control.UI_LEFT 	=> 		[DPAD_LEFT, LEFT_STICK_DIGITAL_LEFT],
+			Control.UI_RIGHT 	=> 		[DPAD_RIGHT, LEFT_STICK_DIGITAL_RIGHT],
+			Control.NOTE_UP 	=> 		[DPAD_UP, Y],
+			Control.NOTE_DOWN 	=> 		[DPAD_DOWN, A],
+			Control.NOTE_LEFT 	=> 		[DPAD_LEFT, X],
+			Control.NOTE_RIGHT 	=> 		[DPAD_RIGHT, B],
+			Control.PAUSE 		=> 		[START],
+			Control.RESET 		=> 		[GUIDE] //Guide = Select
 		]);
 		#else
 		addGamepadLiteral(id, [

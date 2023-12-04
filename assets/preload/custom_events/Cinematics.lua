@@ -14,6 +14,7 @@ function onCreate()
 	makeLuaSprite('UpperBar', 'empty', 0, -120)
 	makeGraphic('UpperBar', 1280, 120, '000000')
 	setObjectCamera('UpperBar', 'other')
+	setProperty("UpperBar.visible", false)
 	addLuaSprite('UpperBar', false)
 
 
@@ -31,8 +32,10 @@ function onUpdate()
 
 	if StartStop == 1 then
 	
-	doTweenY('Cinematics1', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 600, Speed, 'Linear')
+	setProperty("UpperBar.visible", true)
+	setProperty("LowerBar.visible", true)
+	doTweenY('Cinematics1-in', 'UpperBar', 0, Speed, 'Linear')
+	doTweenY('Cinematics2-in', 'LowerBar', 600, Speed, 'Linear')
 	noteTweenY('NOTEMOVE1', 0, 130, Speed, 'Linear')	
 	noteTweenY('NOTEMOVE2', 1, 130, Speed, 'Linear')
 	noteTweenY('NOTEMOVE3', 2, 130, Speed, 'Linear')
@@ -57,8 +60,8 @@ function onUpdate()
 
 	if downscroll and StartStop == 1 then
 	
-	doTweenY('Cinematics1', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 600, Speed, 'Linear')
+	doTweenY('Cinematics1-in', 'UpperBar', 0, Speed, 'Linear')
+	doTweenY('Cinematics2-in', 'LowerBar', 600, Speed, 'Linear')
 	noteTweenY('NOTEMOVE1', 0, 480, Speed, 'Linear')	
 	noteTweenY('NOTEMOVE2', 1, 480, Speed, 'Linear')
 	noteTweenY('NOTEMOVE3', 2, 480, Speed, 'Linear')
@@ -83,8 +86,8 @@ function onUpdate()
 
 	if StartStop == 2 then
 	
-	doTweenY('Cinematics1', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 720, Speed, 'Linear')
+	doTweenY('Cinematics1-out', 'UpperBar', -120, Speed, 'Linear')
+	doTweenY('Cinematics2-out', 'LowerBar', 720, Speed, 'Linear')
 	noteTweenY('NOTEMOVE1', 0, 50, Speed, 'Linear')	
 	noteTweenY('NOTEMOVE2', 1, 50, Speed, 'Linear')
 	noteTweenY('NOTEMOVE3', 2, 50, Speed, 'Linear')
@@ -109,8 +112,8 @@ function onUpdate()
 
 	if downscroll and StartStop == 2 then
 	
-	doTweenY('Cinematics1', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2', 'LowerBar', 720, Speed, 'Linear')
+	doTweenY('Cinematics1-out', 'UpperBar', -120, Speed, 'Linear')
+	doTweenY('Cinematics2-out', 'LowerBar', 720, Speed, 'Linear')
 	noteTweenY('NOTEMOVE1', 0, 570, Speed, 'Linear')	
 	noteTweenY('NOTEMOVE2', 1, 570, Speed, 'Linear')
 	noteTweenY('NOTEMOVE3', 2, 570, Speed, 'Linear')
@@ -133,6 +136,13 @@ function onUpdate()
 	
 	end
 	
+end
+
+function onTweenCompleted(tag)
+	if tag == "Cinematics1-out" then
+		setProperty("UpperBar.visible", false)
+		setProperty("LowerBar.visible", false)
+	end
 end
 
 function onEvent(name,value1,value2)
