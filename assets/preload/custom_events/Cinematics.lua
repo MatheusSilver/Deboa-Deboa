@@ -60,6 +60,8 @@ function onUpdate()
 
 	if downscroll and StartStop == 1 then
 	
+	setProperty("UpperBar.visible", true)
+	setProperty("LowerBar.visible", true)
 	doTweenY('Cinematics1-in', 'UpperBar', 0, Speed, 'Linear')
 	doTweenY('Cinematics2-in', 'LowerBar', 600, Speed, 'Linear')
 	noteTweenY('NOTEMOVE1', 0, 480, Speed, 'Linear')	
