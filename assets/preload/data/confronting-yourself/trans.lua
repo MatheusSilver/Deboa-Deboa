@@ -212,6 +212,7 @@ function onEvent(evento, valor1, valor2)
 
         if valor1 == '10' then
             cameraFlash('legenda', '0xffff00', 3, true)
+            triggerEvent("Particula CY", 'nada', 'nada', 'nada', 'nada') -- obviamente me refiro a um peixe
         end
 
         if valor1 == 'animaisdegrandeporte' then
