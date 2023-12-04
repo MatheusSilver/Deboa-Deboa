@@ -94,8 +94,9 @@ function onEvent(name, value1,value2)
 	end
 end
 
-function onSoundFinished(tag)
+--[[function onSoundFinished(tag)
 	if tag == 'voiceJeff' and not finishedGameover then
 		soundFadeIn(nil, 4, 0.2, 1);
 	end
 end
+]] --Não entendi k

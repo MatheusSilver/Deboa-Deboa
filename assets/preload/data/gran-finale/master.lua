@@ -23,7 +23,7 @@ function onCreate()
 end
 
 function onSongStart()
-    triggerEvent('video player','AnimacoesJogaveis/finale', '1', 'false')
+    triggerEvent('video player','AnimacoesJogaveis/finale_intro', '1', 'false')
 end
 
 

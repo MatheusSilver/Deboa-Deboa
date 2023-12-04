@@ -940,22 +940,15 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {
-			var colorNum:Int = Std.parseInt(color);
-			if(!color.startsWith('0x')) colorNum = Std.parseInt('0xff' + color);
-
 			if(PlayState.instance.modchartSprites.exists(obj)) {
-				if (color == '000000')
-					PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, FlxColor.BLACK);
-				else
-					PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, colorNum);
-				//Sussy hack pro meu PC racista, feminista, taxista, violinista, cavalista, etc... etc... etc...
-				//Podem cancelar ele no tinder.
+				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, CoolUtil.colorFromString(color));
 				return;
 			}
 
 			var object:FlxSprite = Reflect.getProperty(PlayState.instance, obj);
 			if(object != null) {
-					object.makeGraphic(width, height, colorNum);
+				object.makeGraphic(width, height, CoolUtil.colorFromString(color));
+				return;
 			}
 		});
 		Lua_helper.add_callback(lua, "addAnimationByPrefix", function(obj:String, name:String, prefix:String, framerate:Int = 24, loop:Bool = true) {
@@ -1643,12 +1636,9 @@ class FunkinLua {
 		// DEPRECATED, DONT MESS WITH THESE SHITS, ITS JUST THERE FOR BACKWARD COMPATIBILITY
 		Lua_helper.add_callback(lua, "luaSpriteMakeGraphic", function(tag:String, width:Int, height:Int, color:String) {
 			//luaTrace("luaSpriteMakeGraphic is deprecated! Use makeGraphic instead", false, true);
-			if(PlayState.instance.modchartSprites.exists(tag)) {
-				var colorNum:Int = Std.parseInt(color);
-				if(!color.startsWith('0x')) colorNum = Std.parseInt('0xff' + color);
-
-				PlayState.instance.modchartSprites.get(tag).makeGraphic(width, height, colorNum);
-			}
+			if(PlayState.instance.modchartSprites.exists(tag))
+				PlayState.instance.modchartSprites.get(tag).makeGraphic(width, height, CoolUtil.colorFromString(color));
+			return;
 		});
 		Lua_helper.add_callback(lua, "luaSpriteAddAnimationByPrefix", function(tag:String, name:String, prefix:String, framerate:Int = 24, loop:Bool = true) {
 			//luaTrace("luaSpriteAddAnimationByPrefix is deprecated! Use addAnimationByPrefix instead", false, true);

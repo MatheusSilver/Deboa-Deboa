@@ -1285,8 +1285,10 @@ class PlayState extends MusicBeatState
 			omagaaaa = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK);
 			omagaaaa.screenCenter(XY);
 			add(omagaaaa);
-			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 - 49),
-				Std.int(healthBarBG.height - 8 - 26), this, 'healthbarval', 0, 2);
+			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 21, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 - 49),
+				Std.int(healthBarBG.height - 8 - 32), this, 'healthbarval', 0, 2);
+			healthBar.visible = !ClientPrefs.hideHud && !ModifiersManager.isEnabledbyName("Imortalidade");
+
 		}
 		else
 		{
