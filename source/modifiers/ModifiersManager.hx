@@ -29,7 +29,7 @@ class ModifiersManager
         [0, "Notas invisíveis", "Suas notas ficam totalmente invisiveis.", [3, 4], 1.40], //micdup
         [0, "Camera girando", "O HUD ficará girando o tempo todo em uma direção", [], 1.04],
         [0, "Camera tremendo", "O HUD ficará tremendo durante a musica inteira.", [], 1.04], 
-        [0, "Flip Notes", "O caminho das notas se torna o oposto do que o de costume.", [0], 1.04],
+        [0, "Flip Notes", "O caminho das notas se torna o oposto do que o de costume.", [0], 1.24],
         [0, "Paparazzi", "Flashes na tela com certa frequência", [], 1.02],
         [1, "Somente duas setas", "Cima e baixo não existem mais, apenas esquerda e direita", [0], 0.85],
         [1, "Mono Botão", "Acerte todas as notas ao mesmo tempo apertando qualquer tecla", [], 0.7]
