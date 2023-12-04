@@ -66,7 +66,4 @@
             setProperty('gofun.visible', true)
             doTweenAlpha('gofunAlpha', 'gofun', 0, 0.25, 'cubeOut');
         end
-        if curBeat == 226 then
-            close()
-        end
     end
