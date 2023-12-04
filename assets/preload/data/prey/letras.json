@@ -6519,7 +6519,7 @@
 						421022.727272725,
 						-1,
 						"Adicionar Imagens diferenciado",
-						"preycutscene21",
+						"",
 						"",
 						"",
 						"",
@@ -6535,18 +6535,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						422642.045454543,
-						-1,
-						"Adicionar Imagens diferenciado",
-						"preycutscene22",
-						"",
-						"",
-						"",
-						""
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false

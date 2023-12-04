@@ -525,13 +525,13 @@ class MainMenuStateMobile extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 			
-			/*#if desktop
+			#if (desktop && debug)
 			else if (FlxG.keys.justPressed.SEVEN)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());
 			}
-			#end*/
+			#end
 			
 		}
 

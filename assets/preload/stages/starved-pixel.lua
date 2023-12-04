@@ -136,13 +136,13 @@ function onEvent(name, value1, value2)
                 doTweenX("furnaceGOL", "stardustFurnace", 2600, 10, 'linear')
             end,
             [3364] = function()
-                setProperty("gotcha.x", getProperty("boyfriend.x")+1000, getProperty("boyfriend.y")+475)
-                doTweenX("gotchaTween", "gotcha", getProperty("boyfriend.x")+500, 0.1, "expoinout")
+                setProperty("gotcha.x", getProperty("boyfriend.x")+1000, getProperty("boyfriend.y"))
+                doTweenX("gotchaTween", "gotcha", getProperty("boyfriend.x")+100, 0.1, "expoinout")
             end,
             [3400] = function()
                 changeFloor(4)
-                setPropertyTiledLuaSprite("bg_normal.visible", false)
                 bg_running = "bg_good_ending"
+                removeLuaSprite("bg_normal.visible", false)
                 setPropertyTiledLuaSprite("bg_good_ending.visible", true)
 
             end,
@@ -166,7 +166,6 @@ function onEvent(name, value1, value2)
                 setProperty("furnaceTheEnd.visible", true)
                 objectPlayAnimation('"furnaceTheEnd', 'idle', true)
             end
-
         })
     end
 end
@@ -175,14 +174,14 @@ function onTweenCompleted(tag)
     if tag == "furnaceEndTweenY" then
         std_x_furnace_end = getProperty("furnaceTheEnd.x")
         std_y_furnace_end = getProperty("furnaceTheEnd.y")
-        doTweenX("furnace_tween_x", "furnaceTheEnd", std_x_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
-        doTweenY("furnace_tween_y", "furnaceTheEnd", std_y_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
+        doTweenX("furnace_tween_x", "furnaceTheEnd", std_x_furnace_end + math.random(-30, 30), math.random(1, 3), "smootherstepinout")
+        doTweenY("furnace_tween_y", "furnaceTheEnd", std_y_furnace_end + math.random(-30, 30), math.random(1, 3), "smootherstepinout")
     end
     if tag == "furnace_tween_x" then
-        doTweenX("furnace_tween_x", "furnaceTheEnd", std_x_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
+        doTweenX("furnace_tween_x", "furnaceTheEnd", std_x_furnace_end + math.random(-30, 30), math.random(1, 3), "smootherstepinout")
     end
     if tag == "furnace_tween_y" then
-        doTweenY("furnace_tween_y", "furnaceTheEnd", std_y_furnace_end + math.random(-100, 100), math.random(1, 3), "linear")
+        doTweenY("furnace_tween_y", "furnaceTheEnd", std_y_furnace_end + math.random(-30, 30), math.random(1, 3), "smootherstepinout")
     end
     if tag == "furnaceGOL" then
         setProperty("stardustFurnace.visible", false)
@@ -213,6 +212,8 @@ function changeFloor(new_floor)
             if i == new_floor then
                 setPropertyTiledLuaSprite("piso_parte"..tostring(i)..".visible", true)
                 floor_running="piso_parte"..tostring(i)
+            elseif new_floor == 4 then
+                removeLuaSprite("piso_parte"..tostring(i),true)
             else
                 setPropertyTiledLuaSprite("piso_parte"..tostring(i)..".visible", false)
             end
