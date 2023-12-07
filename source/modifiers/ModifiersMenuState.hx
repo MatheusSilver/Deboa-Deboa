@@ -94,7 +94,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         var x1:Float = 30;
         var y1:Float = 334-25;
         var delay:Float = 0;
-        var delayNegativo:Float = 0.81;
+        var delayNegativo:Float = 0.765;
         for(i in 0...ModifiersManager.allModifiers.length)
         {
             if(i==9){
@@ -278,7 +278,7 @@ class ModifierButton extends FlxSpriteGroup
 
     public function tweenBotaoSair()
     {
-        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.045, {ease: FlxEase.expoInOut, startDelay: delayNegativo});
+        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.035, {ease: FlxEase.expoInOut, startDelay: delayNegativo});
     }
 
     override function update(elapsed:Float)
