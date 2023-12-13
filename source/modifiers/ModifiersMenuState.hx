@@ -30,8 +30,6 @@ class ModifiersMenuState extends MusicBeatSubstate
 
     public var buttons:Array<ModifierButton> = [];
     var currentButton:ModifierButton;
-    var mouseTxt:FlxText;
-    var mouseDesc:FlxText;
 
     var bg:FlxSprite;
     var faixa:FlxSprite;
@@ -52,14 +50,8 @@ class ModifiersMenuState extends MusicBeatSubstate
 	{
 		super();
         this.isFreeplay = isFreeplay;
-        #if !mobile
-		FlxG.mouse.visible = Main.mouse;
-		#end
-
-        mouseTxt = new FlxText(0, 0, 200, "", 8, true);
-        mouseTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER);
-        mouseDesc = new FlxText(0, 0, 200, "", 8, true);
-        mouseDesc.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.GRAY, CENTER);
+        
+		FlxG.mouse.visible = Main.mouse; //Não precisa de if mobile já que no Main, tem a função que o code faria
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/bg"));
         bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -171,7 +163,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         currentButton = null;
         for (button in buttons)
             {
-                if (FlxG.mouse.overlaps(button) && canClick)
+                if (Utils.BSLTouchUtils.over(button) && canClick)
                 {
                     currentButton = button;
                     break;
@@ -189,7 +181,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
 			pontosMultiLerp = pontosMulti;
         textMultiplier.text = "X"+Std.string(Math.round(pontosMultiLerp*100)/100);
-        if(FlxG.mouse.justPressed && currentButton != null && canClick)
+        if(Utils.BSLTouchUtils.justTouched() && currentButton != null && canClick)
             {
                 currentButton.clique();
                 for (button in buttons)

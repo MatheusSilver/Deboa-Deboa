@@ -14,9 +14,8 @@ import openfl.display.BitmapData;
 
 using StringTools;
 
-// Lembrando que o FileSystem no HTML tem que usar js, então se isso for compatível lá também, tem que usar isso
-
 class Utils {
+	// Code por Idklool
 	public static function getContent(id:String):String
 		{
 		  #if mobile
@@ -68,9 +67,18 @@ class Utils {
 		  return BitmapData.fromFile(id);
 		  #end
 		}
+
+		public static function copiarclipboard(coisa:String) {
+			#if mobile
+			// Isso faz que o jogo copie as coisas no mobile
+			// Tipo copiar um texto
+			openfl.system.System.setClipboard(coisa.trim());
+			#end
+		}
 }
 
 class Asset2File {
+	// Code por luckydog (eu acho?)
 	public static var path:String = lime.system.System.applicationStorageDirectory;
 
 	public static function getPath(id:String, ?ext:String = "")
@@ -91,18 +99,11 @@ class Asset2File {
 		return #if sys Sys.getCwd() + #end id;
 		#end
 	}
-
-	public static function copiarclipboard(coisa:String) {
-		#if mobile
-		// Isso faz que o jogo copie as coisas no mobile
-		// Tipo copiar um texto
-		openfl.system.System.setClipboard(coisa.trim());
-		#end
-	}
 }
 
 class BSLTouchUtils
 {
+	// Code por Matheus Silver e Lorena provavelmente
 	public static var prevTouched:Int = -1;
 
 	public static function justTouched():Bool //Copiado do Hsys k
@@ -184,19 +185,46 @@ class BSLTouchUtils
 		return false;
 	}
 	
-		public static function solto(coisa:Dynamic):Bool
-		{
-			#if desktop
-			if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justReleased)
+	public static function solto(coisa:Dynamic):Bool
+	{
+		#if desktop
+		if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justReleased)
+			return true;
+		#elseif mobile
+		for (touch in FlxG.touches.list)
+			if (touch.overlaps(coisa) && touch.justReleased)
 				return true;
-			#elseif mobile
-			for (touch in FlxG.touches.list)
-				if (touch.overlaps(coisa) && touch.justReleased)
-					return true;
-			#end
+		#end
 	
-			return false;
-		}
+		return false;
+	}
+
+	#if desktop
+	public static function pegarpos(pos:String):Int
+	{
+		if (pos == 'x')
+			return FlxG.mouse.x;
+		
+		if (pos == 'y')
+			return FlxG.mouse.y;
+
+		return 0;
+	}
+	#elseif mobile
+
+	public static function pegarpos(touch:flixel.input.touch.FlxTouch, pos:String):Int
+	{
+		if (pos == 'x')
+			return touch.x;
+
+		if (pos == 'y')
+			return touch.y;
+
+		return 0;
+	}
+
+	#end
+		
 }
 
 /*

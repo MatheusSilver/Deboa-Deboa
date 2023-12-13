@@ -149,6 +149,10 @@ class GaleriaState extends MusicBeatState
 			musicButton.alpha = 0;
 			add(musicButton);
 
+			#if mobileC
+			addVirtualPad(UP_DOWN, NONE);
+			#end
+
 			super.create();
         }
 
@@ -172,21 +176,25 @@ class GaleriaState extends MusicBeatState
 				super.closeSubState();
 			}
 
-		var scrollSpeed:Int = 15;
+		var scrollSpeed:Int = 15; //15;
 		override function update(elapsed:Float)
 			{		
 				isMiddleClicking = FlxG.mouse.pressedMiddle;
 				scrollSpeed = isMiddleClicking ? 30 : 15; 
 				//A ordem aparentemente faz uma diferença ferrada na otimização disso.
 				if(!stoploading){
-				if(FlxG.mouse.overlaps(playsArray) || (FlxG.mouse.overlaps(galeriaButton)&&!isGaleria) || (FlxG.mouse.overlaps(musicButton)&&isGaleria)){
+				if(Utils.BSLTouchUtils.over(playsArray) || (Utils.BSLTouchUtils.over(galeriaButton)&&!isGaleria) || (Utils.BSLTouchUtils.over(musicButton)&&isGaleria)){
 					if(mouseskin != "pointerselected" && !isMiddleClicking){
 						mouseskin = 'pointerselected';
+						#if desktop
 						FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+mouseskin), 1, 0, 0);
+						#end
 					}
 				}else if (mouseskin!='pointer'){
 					mouseskin = 'pointer';
+					#if desktop
 					FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
+					#end
 				}
 
 				menuItems.forEach(function(spr:FlxSprite)
@@ -208,18 +216,18 @@ class GaleriaState extends MusicBeatState
 						spr.visible = false;
 					}
 
-					if(FlxG.mouse.justPressed && clicavel && !isMiddleClicking)
+					if(Utils.BSLTouchUtils.justTouched() && clicavel && !isMiddleClicking)
 					{
-						if(FlxG.mouse.overlaps(spr)){
+						if(Utils.BSLTouchUtils.over(spr)){
 							stoploading = true;
 							GlobalSoundManager.play('click');
 							GaleriaStateMusic.songPosInArray = spr.ID;
 							MusicBeatState.switchState(new GaleriaStateMusic());
 							FlxG.sound.music.fadeOut(1, 0);
-						}else if (FlxG.mouse.overlaps(galeriaButton) && !isGaleria){
+						}else if (Utils.BSLTouchUtils.over(galeriaButton) && !isGaleria){
 							galeriapressed();
 							GlobalSoundManager.play('click');
-						}else if (FlxG.mouse.overlaps(musicButton) && isGaleria){
+						}else if (Utils.BSLTouchUtils.over(musicButton) && isGaleria){
 							musicpressed();
 							GlobalSoundManager.play('click');
 						}
@@ -241,7 +249,9 @@ class GaleriaState extends MusicBeatState
 					}
 				if (controls.BACK) {
 					mouseskin = '';
+					#if desktop
 					FlxG.mouse.unload();
+					#end
 					GlobalSoundManager.play('cancelMenu');
 					MusicBeatState.switchState(new SobreState());
 				}

@@ -256,11 +256,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 		};
 
 		// alpha stuff lesgo
-		hostearBt.alpha = FlxG.mouse.overlaps(hostearBt) && canClick ? 1 : 0.75;
-		entrarBt.alpha = FlxG.mouse.overlaps(entrarBt) && canClick ? 1 : 0.75;
-		comecarBt.alpha = FlxG.mouse.overlaps(comecarBt) && canClick && canInitMatch ? 1 : 0.75;
-		configBt.alpha = FlxG.mouse.overlaps(configBt) && canClick ? 1 : 0.75;
-		voltarBt.alpha = FlxG.mouse.overlaps(voltarBt) && canClick && isOnOptions ? 1 : 0.75;
+		hostearBt.alpha = Utils.BSLTouchUtils.over(hostearBt) && canClick ? 1 : 0.75;
+		entrarBt.alpha = Utils.BSLTouchUtils.over(entrarBt) && canClick ? 1 : 0.75;
+		comecarBt.alpha = Utils.BSLTouchUtils.over(comecarBt) && canClick && canInitMatch ? 1 : 0.75;
+		configBt.alpha = Utils.BSLTouchUtils.over(configBt) && canClick ? 1 : 0.75;
+		voltarBt.alpha = Utils.BSLTouchUtils.over(voltarBt) && canClick && isOnOptions ? 1 : 0.75;
 
 		// submenu options stuff
 		blackTrans.visible = isOnOptions;

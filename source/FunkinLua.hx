@@ -807,14 +807,17 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "setRatingString", function(value:String) {
 			PlayState.instance.ratingString = value;
 		});
+
+		// Real não sei se essa função realmente funciona, mas só peguei do DDTO Android do Silver
 		Lua_helper.add_callback(lua, "getMouseX", function(camera:String) {
 			var cam:FlxCamera = cameraFromString(camera);
-			return FlxG.mouse.getScreenPosition(cam).x;
+			return Utils.BSLTouchUtils.pegarpos("x");
 		});
 		Lua_helper.add_callback(lua, "getMouseY", function(camera:String) {
 			var cam:FlxCamera = cameraFromString(camera);
-			return FlxG.mouse.getScreenPosition(cam).y;
+			return Utils.BSLTouchUtils.pegarpos("y");
 		});
+		
 		//Furtado da Psych 6.3 apenas para ser usado na Slaybells
 		Lua_helper.add_callback(lua, "addOffset", function(obj:String, anim:String, x:Float, y:Float) {
 			if(PlayState.instance.modchartSprites.exists(obj)) {

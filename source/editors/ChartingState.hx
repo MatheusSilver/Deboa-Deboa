@@ -1231,9 +1231,7 @@ class ChartingState extends MusicBeatState
 	{
 		curStep = recalculateSteps();
 
-		#if !mobile
 		FlxG.mouse.visible = Main.mouse; //Só pra eu não ficar puto depois de apertar F2 e o mouse simplesmente sumir da tela ;-;
-		#end
 
 		if(FlxG.sound.music.time < 0) {
 			FlxG.sound.music.pause();
@@ -1348,7 +1346,9 @@ class ChartingState extends MusicBeatState
 			if (FlxG.keys.justPressed.ENTER)
 			{
 				autosaveSong();
+				#if !mobile
 				FlxG.mouse.visible = false;
+				#end
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				if(vocals != null) vocals.stop();

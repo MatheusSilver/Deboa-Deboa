@@ -30,7 +30,9 @@ class SobreState extends MusicBeatState
 
 	override function create()
 	{
+		#if desktop
 		FlxG.mouse.load(Paths.image('sobremenu/galeria/cursor'), 1, 0, 0);
+		#end
 		FlxG.mouse.visible = Main.mouse;
 		#if rpc
 		// Updating Discord Rich Presence

@@ -559,7 +559,9 @@ class PlayState extends MusicBeatState
 		add(blackFuck);
 		blackFuck.alpha = 0;
 		blackFuck.visible = false;
+		#if !mobile
 		FlxG.mouse.visible = false;
+		#end
 
 		instance = this;
 

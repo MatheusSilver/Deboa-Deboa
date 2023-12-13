@@ -61,9 +61,7 @@ class AjustesState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];*/
-		#if !mobile
 		FlxG.mouse.visible = Main.mouse;
-		#end
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -375,7 +373,7 @@ class AjustesState extends MusicBeatState
 				MusicBeatState.switchState(new MainMenuStateMobile());
 			}
 
-			if (/*controls.ACCEPT ||*/ checkiftouch) //Tecnicamente, a pessoa não pode escolher entre opções então né?
+			if (checkiftouch) //Tecnicamente, a pessoa não pode escolher entre opções então né?
 			{
 				#if debug
 				FlxG.mouse.visible = false;
