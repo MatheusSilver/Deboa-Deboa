@@ -85,6 +85,8 @@ class ModifiersMenuState extends MusicBeatSubstate
 
         var x1:Float = 30;
         var y1:Float = 334-25;
+        var delay:Float = 0;
+        var delayNegativo:Float = 0.765;
         for(i in 0...ModifiersManager.allModifiers.length)
         {
             if(i==9){
@@ -92,13 +94,15 @@ class ModifiersMenuState extends MusicBeatSubstate
                 x1 = 30;
             }
             var properties:Modifier = ModifiersManager.getAllProperties(i);
-            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, y1, properties.description, properties.multiplier);
+            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, y1, properties.description, properties.multiplier, delay, delayNegativo);
             add(modifierButton);
             buttons.push(modifierButton);
-
+            delay+=0.045;
+            delayNegativo-=0.045;
             y1-=24;
             x1+=135;
         }
+        trace(delay);
         
         add(text);
         add(textMultiplier);
@@ -120,7 +124,7 @@ class ModifiersMenuState extends MusicBeatSubstate
                 }
             }
         });
-        new FlxTimer().start(0.5, function(tmr:FlxTimer) {
+        new FlxTimer().start(1.25, function(tmr:FlxTimer) {
             canClick = true;
 		});
     }
@@ -132,12 +136,12 @@ class ModifiersMenuState extends MusicBeatSubstate
             {
                 button.tweenBotaoSair();
             }
-        FlxTween.tween(faixa, {y: 720, alpha:0}, 0.4, {ease: FlxEase.expoInOut});
         FlxTween.tween(textMultiplier, {alpha: 0}, 0.25, {ease: FlxEase.expoInOut});
         FlxTween.tween(text, {alpha: 0}, 0.25, {ease: FlxEase.expoInOut});
         FlxTween.tween(textBG, {alpha: 0}, 0.3, {ease: FlxEase.expoInOut});
-        FlxTween.tween(bg, {alpha: 0}, 0.2, {ease: FlxEase.expoInOut});
-        new FlxTimer().start(0.45, function(tmr:FlxTimer) {
+        FlxTween.tween(faixa, {y: 720, alpha:0}, 1, {ease: FlxEase.expoInOut, startDelay: 0.4});
+        FlxTween.tween(bg, {alpha: 0}, 1.25, {ease: FlxEase.expoInOut});
+        new FlxTimer().start(1.5, function(tmr:FlxTimer) {
             if(isFreeplay)
             {
                 FreeplayState.instance.closeModifiers(this);
@@ -216,8 +220,10 @@ class ModifierButton extends FlxSpriteGroup
     var outline:FlxSprite;
     var x1:Float;
     var y1:Float;
+    var delayPositivo:Float;
+    var delayNegativo:Float;
 
-    public function new(id:Int, name:String, enabled:Bool, x1:Float, y1:Float, desc:String, multiplier:Float)
+    public function new(id:Int, name:String, enabled:Bool, x1:Float, y1:Float, desc:String, multiplier:Float, delay:Float, delayNegativo:Float)
     {
         super(0,0);
         this.alpha = 0;
@@ -228,6 +234,8 @@ class ModifierButton extends FlxSpriteGroup
         this.enabled = enabled;
         this.desc=desc;
         this.multiplier = multiplier;
+        this.delayPositivo = delay;
+        this.delayNegativo = delayNegativo;
         botao = new FlxSprite(0,0);
         botao.antialiasing = ClientPrefs.globalAntialiasing;
         var nomeSemAcento:String = ModifiersManager.removerAcentos(this.name);
@@ -240,7 +248,6 @@ class ModifierButton extends FlxSpriteGroup
             botao.loadGraphic(Paths.image("modifiers/botoes/placeholder"));
         }
         botao.setGraphicSize(Std.int(botao.width *1.05));
-        //botao.screenCenter(Y);
         botao.updateHitbox();
         add(botao);
         outline = new FlxSprite(0,0);
@@ -251,7 +258,6 @@ class ModifierButton extends FlxSpriteGroup
         outline.loadGraphic(Paths.image("modifiers/off"));
         }
         outline.setGraphicSize(Std.int(outline.width *1.05));
-        //outline.screenCenter(Y);
         outline.updateHitbox();
         add(outline);
     }
@@ -259,12 +265,12 @@ class ModifierButton extends FlxSpriteGroup
 
     public function tweenBotao()
     {
-        FlxTween.tween(this, {y: y1, x: x1, alpha: 1}, 0.3, {ease: FlxEase.expoInOut});
+        FlxTween.tween(this, {y: y1, x: x1, alpha: 1}, 0.3, {ease: FlxEase.expoInOut, startDelay: delayPositivo});
     }
 
     public function tweenBotaoSair()
     {
-        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.2, {ease: FlxEase.expoInOut});
+        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.035, {ease: FlxEase.expoInOut, startDelay: delayNegativo});
     }
 
     override function update(elapsed:Float)

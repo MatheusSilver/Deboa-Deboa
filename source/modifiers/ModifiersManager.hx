@@ -10,10 +10,6 @@ class ModifiersManager
         //TIPO --- NOME --- DESC --- nao pode junto --- multiplier
         // TIPO 0 = DESAFIOS
         // TIPO 1 = AJUDANTES
-
-        // TODO pro Dav: fazer um modo aqui que separe os botões em sessões que possam ser
-        // trocadas ou quando apertar esquerda ou direita ou também usar o bsltouch
-        // deve ser separada em: 7, 7, 4 botoes respectivamente que vão dar 18
     public static var allModifiers:Array<Dynamic> = [
         [0, "Notas Random", "As direções das notas mudam a cada tentativa", [14, 16], 1.08], 
         [0, "Notas Super Rápidas", "Aumenta drásticamente a velocidade da nota entre o surgimento e o alvo.", [2], 1.12],
@@ -151,7 +147,7 @@ class ModifiersManager
             }
         }   
         trace(multiplier_sum);
-        return multiplier_sum > 0.1 ? multiplier_sum : 0.1;
+        return multiplier_sum > 0.05 ? multiplier_sum : 0.05;
     }
 
     public static function isEnabledbyName(name:String):Bool
@@ -168,11 +164,6 @@ class ModifiersManager
         {
             returnVar = returnVar.split(accents[i]).join(equivalents[i]);
         }
-        /*
-        #if debug
-        trace(returnVar);
-        #end
-        */
         return returnVar;
     }
 

@@ -445,6 +445,8 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
 			case 'Legendas':
 				daText = "Se ativado, você irá ver as legendas nas músicas.";	
+			case 'Opacidade':
+				daText = "Altera a opacidade das legendas.";	
 			case 'Efeitos de Camera':
 				daText = "Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica";
 			case 'Esconder HUD':
