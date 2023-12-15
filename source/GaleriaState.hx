@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import Achievements;
@@ -151,8 +152,9 @@ class GaleriaState extends MusicBeatState
 
 			#if mobileC
 			addVirtualPad(UP_DOWN, NONE);
+			addbotoes(1185*0.8, 477, 1185*0.8, 577); //FINALMENTE EU CONSEGUI ACERTAR O BAGULHETE BAGULHOSO
 			#end
-
+	
 			super.create();
         }
 
@@ -257,9 +259,19 @@ class GaleriaState extends MusicBeatState
 				}
 				if(isGaleria)
 					{
+
+						#if mobile
+								scrollSpeed = scrollSpeed * Std.int(3.33); //k
+								#end
 						
-						if(FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
+						if(#if mobile _cimabt.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
 							{
+								
+								
+								
+		
+
+									
 								if(bg.y==0)
 									{
 										bg.y=0;
@@ -279,8 +291,9 @@ class GaleriaState extends MusicBeatState
 										galeriaButton.y = galeriaButton.y+15;
 										musicButton.y = musicButton.y+15;
 									}
+							
 							}
-						else if(FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
+						else if(#if mobile _baixobt.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
 							{
 
 								if(bg.y==-8842)
@@ -301,12 +314,18 @@ class GaleriaState extends MusicBeatState
 									galeriaButton.y = galeriaButton.y-15;
 									musicButton.y = musicButton.y-15;
 								}
+							
 							}
 					}
 					//Parte da Música
 				else
 					{
-						if(FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
+
+						#if mobile
+								scrollSpeed = scrollSpeed * Std.int(3.33); //k
+								#end
+
+						if(#if mobile _cimabt.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
 							{
 								//trace('estou subindo?'); //Sim
 								if(bgmusica.y==0)
@@ -334,7 +353,7 @@ class GaleriaState extends MusicBeatState
 										musicButton.y = musicButton.y+scrollSpeed;
 									}
 							
-							}else if(FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
+							}else if(#if mobile _baixobt.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
 								//trace('estou descendo?'); //Sim
 								if(bgmusica.y == -holdthatY + FlxG.height)
 									{
