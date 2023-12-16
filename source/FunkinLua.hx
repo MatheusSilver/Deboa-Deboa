@@ -1314,6 +1314,8 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});
+
+		// FlxGMouse e Touch completos aqui
 		Lua_helper.add_callback(lua, "justTouched", function() {
 			Utils.BSLTouchUtils.justTouched();
 		});
@@ -1332,6 +1334,10 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "solto", function(coisa:Dynamic) {
 			Utils.BSLTouchUtils.solto(coisa);
+		});
+
+		Lua_helper.add_callback(lua, "over", function(coisa:Dynamic) {
+			Utils.BSLTouchUtils.over(coisa);
 		});
 		
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
