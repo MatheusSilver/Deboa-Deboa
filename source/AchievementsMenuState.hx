@@ -156,7 +156,7 @@ class AchievementsMenuState extends MusicBeatState
 		Conductor.changeBPM(112);
 
 		#if mobileC
-		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPad(UP_DOWN, B);
 		#end
 
 		super.create();

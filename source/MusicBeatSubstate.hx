@@ -24,34 +24,35 @@ class MusicBeatSubstate extends FlxSubState
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
-		
+	
 	#if mobileC
+
 	// Obrigado Silver (code pego do DDTO+ Android)
-	var _cimabt:FlxButton;
-	var _baixobt:FlxButton;
+	var hitboxcima:FlxButton;
+	var hitboxbaixo:FlxButton;
 
 	// TO DO: FAZER ISSO SER EXCLUSIVO E FUNCIONAL NO MOBILE
 	// EXCLUSIVO = IMAGENS NA PASTA MOBILECONTROLS
 	// FUNCIONAL = FAZER FUNÇÃO DO SCROLL DO MOUSE
-	public function addbotoes(xc:Float = 1185*0.8, yc:Float = 5477, xb:Float = 1185*0.8, yb:Float = 577)
+	public function addhitboxtouch()
 	{
-		_cimabt = new FlxButton(xc, yc, function()
+		hitboxbaixo = new FlxButton(0, 540, function()
 		{
-			trace("botao cima apertado");
 		});
-		_cimabt.loadGraphic(Paths.image('assets/mobilecontrols/images/cimabt')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
-		_cimabt.updateHitbox();
-		add(_cimabt);
+		hitboxbaixo.loadGraphic(Paths.image('notainvisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
+		hitboxbaixo.setGraphicSize(1280, 180); // k
+		hitboxbaixo.updateHitbox();
+		add(hitboxbaixo);
 
-		_baixobt = new FlxButton(xb, yc, function()
-		{
-			trace("botao baixo apertado");
-		});
-		_baixobt.loadGraphic(Paths.image('assets/mobilecontrols/images/baixobt')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
-		_baixobt.updateHitbox();
-		add(_baixobt);
+		hitboxcima = new FlxButton(0, 0, function()
+			{
+			});
+			hitboxcima.loadGraphic(Paths.image('notainvisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
+			hitboxcima.setGraphicSize(1280, 180); // k
+			hitboxcima.updateHitbox();
+			add(hitboxcima);
 	}
-
+	
 	var _virtualpad:FlxVirtualPad;
 
 	var trackedinputsUI:Array<FlxActionInput> = [];

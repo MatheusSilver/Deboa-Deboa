@@ -150,9 +150,8 @@ class GaleriaState extends MusicBeatState
 			musicButton.alpha = 0;
 			add(musicButton);
 
-			#if mobileC
-			addVirtualPad(UP_DOWN, NONE);
-			addbotoes(1185*0.8, 477, 1185*0.8, 577); //FINALMENTE EU CONSEGUI ACERTAR O BAGULHETE BAGULHOSO
+			#if mobile
+			addhitboxtouch();
 			#end
 	
 			super.create();
@@ -220,7 +219,15 @@ class GaleriaState extends MusicBeatState
 
 					if(Utils.BSLTouchUtils.justTouched() && clicavel && !isMiddleClicking)
 					{
-						if(Utils.BSLTouchUtils.over(spr)){
+						#if mobile
+						if(Utils.BSLTouchUtils.over(hitboxbaixo) || Utils.BSLTouchUtils.over(hitboxcima)) {
+							// Isso faz com que provavelmente tu não dê um toque errado no negóço lá e entre em uma música
+							if(Utils.BSLTouchUtils.over(spr) || Utils.BSLTouchUtils.apertasimples(spr)) {
+								// Ok, ele clicou no negócio mas não era pra clicar
+								// Miss click
+								trace("missclick");
+							}
+						} else #end if(Utils.BSLTouchUtils.over(spr)){
 							stoploading = true;
 							GlobalSoundManager.play('click');
 							GaleriaStateMusic.songPosInArray = spr.ID;
@@ -260,18 +267,11 @@ class GaleriaState extends MusicBeatState
 				if(isGaleria)
 					{
 
-						#if mobile
 								scrollSpeed = scrollSpeed * Std.int(3.33); //k
-								#end
 						
-						if(#if mobile _cimabt.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
+						if(#if mobile hitboxcima.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
 							{
 								
-								
-								
-		
-
-									
 								if(bg.y==0)
 									{
 										bg.y=0;
@@ -293,7 +293,7 @@ class GaleriaState extends MusicBeatState
 									}
 							
 							}
-						else if(#if mobile _baixobt.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
+						else if(#if mobile hitboxbaixo.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
 							{
 
 								if(bg.y==-8842)
@@ -320,12 +320,9 @@ class GaleriaState extends MusicBeatState
 					//Parte da Música
 				else
 					{
-
-						#if mobile
 								scrollSpeed = scrollSpeed * Std.int(3.33); //k
-								#end
 
-						if(#if mobile _cimabt.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
+						if(#if mobile hitboxcima.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
 							{
 								//trace('estou subindo?'); //Sim
 								if(bgmusica.y==0)
@@ -353,7 +350,7 @@ class GaleriaState extends MusicBeatState
 										musicButton.y = musicButton.y+scrollSpeed;
 									}
 							
-							}else if(#if mobile _baixobt.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
+							}else if(#if mobile hitboxbaixo.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
 								//trace('estou descendo?'); //Sim
 								if(bgmusica.y == -holdthatY + FlxG.height)
 									{

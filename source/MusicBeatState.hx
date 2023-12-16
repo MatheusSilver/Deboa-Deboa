@@ -27,38 +27,39 @@ class MusicBeatState extends FlxUIState
 		return PlayerSettings.player1.controls;
 
 	#if mobileC
-	// Obrigado Silver (code pego do DDTO+ Android)
-	var _cimabt:FlxButton;
-	var _baixobt:FlxButton;
-
-	// TO DO: FAZER ISSO SER EXCLUSIVO E FUNCIONAL NO MOBILE
-	// EXCLUSIVO = IMAGENS NA PASTA MOBILECONTROLS
-	// FUNCIONAL = FAZER FUNÇÃO DO SCROLL DO MOUSE
-	public function addbotoes(xc:Float = 1185*0.8, yc:Float = 5477, xb:Float = 1185*0.8, yb:Float = 577)
-	{
-		_cimabt = new FlxButton(xc, yc, function()
-		{
-			//trace("botao cima apertado");
-		});
-		_cimabt.loadGraphic(Paths.image('assets/mobilecontrols/images/cimabt')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
-		_cimabt.updateHitbox();
-		add(_cimabt);
-
-		_baixobt = new FlxButton(xb, yc  + _cimabt.height, function()
-		{
-			//trace("botao baixo apertado");
-		});
-		_baixobt.loadGraphic(Paths.image('assets/mobilecontrols/images/baixobt')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
-		_baixobt.updateHitbox();
-		add(_baixobt);
-	}
-
 	var _virtualpad:FlxVirtualPad;
 
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];	
 
 	// adding virtualpad to state
+
+	// Obrigado Silver (code pego do DDTO+ Android)
+	var hitboxcima:FlxButton;
+	var hitboxbaixo:FlxButton;
+
+	// TO DO: FAZER ISSO SER EXCLUSIVO E FUNCIONAL NO MOBILE
+	// EXCLUSIVO = IMAGENS NA PASTA MOBILECONTROLS
+	// FUNCIONAL = FAZER FUNÇÃO DO SCROLL DO MOUSE
+	public function addhitboxtouch()
+	{
+		hitboxbaixo = new FlxButton(0, 540, function()
+		{
+		});
+		hitboxbaixo.loadGraphic(Paths.image('nota_invisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
+		hitboxbaixo.setGraphicSize(1280, 180); // k
+		hitboxbaixo.updateHitbox();
+		add(hitboxbaixo);
+
+		hitboxcima = new FlxButton(0, 0, function()
+			{
+			});
+			hitboxcima.loadGraphic(Paths.image('nota_invisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
+			hitboxcima.setGraphicSize(1280, 180); // k
+			hitboxcima.updateHitbox();
+			add(hitboxcima);
+	}
+	
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action);
 		_virtualpad.alpha = 0.75;
