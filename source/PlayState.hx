@@ -331,6 +331,7 @@ class PlayState extends MusicBeatState
 	public var camGame:FlxCamera;
 	public var camOther:FlxCamera;
 	public var camLegenda:FlxCamera;
+	public var camAchievement:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
@@ -583,6 +584,7 @@ class PlayState extends MusicBeatState
 		camCCC = new FlxCamera();
 		camHUD = new FlxCamera();
 		camLegenda = new FlxCamera();
+		camAchievement = new FlxCamera();
 		camOther = new FlxCamera();
 		camHUD2 = new FlxCamera();
 		camHUD2.bgColor.alpha = 0;
@@ -590,6 +592,7 @@ class PlayState extends MusicBeatState
 		camCCC.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		camLegenda.bgColor.alpha = 0;
+		camAchievement.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camCCC);
@@ -597,6 +600,7 @@ class PlayState extends MusicBeatState
 		FlxG.cameras.add(camLegenda);
 		FlxG.cameras.add(camOther);
 		FlxG.cameras.add(camHUD2);
+		FlxG.cameras.add(camAchievement);
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 
 		FlxCamera.defaultCameras = [camGame];
@@ -6181,7 +6185,7 @@ class PlayState extends MusicBeatState
 
 	function startAchievement(achieve:String)
 	{
-		achievementObj = new AchievementObject(achieve, camLegenda); // Só pra garantir que isso fique em cima de tudo e todos
+		achievementObj = new AchievementObject(achieve, camAchievement); // Só pra garantir que isso fique em cima de tudo e todos
 		achievementObj.onFinish = achievementEnd;
 		add(achievementObj);
 		trace('Giving achievement ' + achieve);
