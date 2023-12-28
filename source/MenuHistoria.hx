@@ -259,9 +259,12 @@ class MenuHistoria extends MusicBeatSubstate
 
 		/*trace("APERTAVEL:"+apertavel);
 		trace("MODIFIERS OPENED:"+modifiersOpened);*/
-		lerpMultiplier = Math.floor(FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2)));
+		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		highscoreText.text = "RECORDE: \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
+
+		if (Math.abs(lerpMultiplier - intendedMultiplier) <= 0.001)
+			lerpMultiplier = intendedMultiplier;
 
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
