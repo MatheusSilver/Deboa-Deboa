@@ -2536,7 +2536,7 @@ class PlayState extends MusicBeatState
 
 	public function videoPlayerLegal(nomedovideo:String, x:String, y:String, tamanho:String)
 	{
-		var oldPosition:Float = Conductor.songPosition;
+		var oldPosition:Float = Math.floor(Conductor.songPosition / 1000);
 		var diretorio = "assets/videos/" + nomedovideo + ".mp";
 		// O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
 		if (Assets.exists(diretorio))
