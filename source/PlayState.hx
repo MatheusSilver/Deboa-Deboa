@@ -629,6 +629,8 @@ class PlayState extends MusicBeatState
 		modboalogo.cameras = [camHUD2];
 		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
 		modboalogo.screenCenter(XY);
+		if(loadingImage == null)
+			loadingImage = "empty";
 		art.loadGraphic(Paths.image(loadingImage, 'preload'));
 		art.cameras = [camHUD2];
 		art.setGraphicSize(Std.int(FlxG.width * 1.0));

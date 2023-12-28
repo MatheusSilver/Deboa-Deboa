@@ -326,7 +326,7 @@ function onUpdate()
 		-- Caso o sonico esteja na esquerda e o opp esteja na direita, é a formula abaixo
 		-- setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2)
 		-- Caso contrário, bf na direita e opp na esquerda (que é o caso da CY), então...
-		setProperty('healthFollower.x', getProperty('healthBar.x') - 35 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+		setProperty('healthFollower.x', getProperty('healthBar.x') - 35 + getProperty('healthBar.width')*(-(2-getProperty('health'))/2))
 		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
 	end
 	speedChanger = speedChanger + 1
