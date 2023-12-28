@@ -2586,7 +2586,7 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.volume = 0;
 				vocals.volume = 0;
 			}
-			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, "Aperte espaço para pular", 32); // Achei cringe
+			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, ClientPrefs.idioma == 0 ? "Aperte espaço para pular" : "Press space to skip", 32); // Achei cringe
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
 			letext.alpha = 0;
@@ -3322,31 +3322,63 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.legendas || (StringTools.contains(event[3].toLowerCase(), "preycutscene") && SONG.song.toLowerCase() == "prey"))
 				{
 					// trace('executando cache de lyrics');
-					if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[3])))
+					if(ClientPrefs.idioma == 0)
 					{
-						// trace('precache value1 '+ legendPath+event[3]);
-						precacheList.set(legendPath + event[3], 'image');
+						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[3])))
+							{
+								// trace('precache value1 '+ legendPath+event[3]);
+								precacheList.set(legendPath + event[3], 'image');
+							}
+		
+							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[4])))
+							{
+								// trace('precache value2 '+ legendPath+event[4]);
+								precacheList.set(legendPath + event[4], 'image');
+							}
+		
+							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[5])))
+							{
+								// trace('precache value3 '+ legendPath+event[5]);
+								precacheList.set(legendPath + event[5], 'image');
+							}
+		
+							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[6])))
+							{
+								// trace('precache value3 '+ legendPath+event[6]);
+								precacheList.set(legendPath + event[6], 'image');
+		
+								// Oh yeah boyuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+							}
+					}
+					else
+					{
+						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[3]+"-eng")))
+							{
+								// trace('precache value1 '+ legendPath+event[3]);
+								precacheList.set(legendPath + event[3]+"-eng", 'image');
+							}
+		
+							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[4]+"-eng")))
+							{
+								// trace('precache value2 '+ legendPath+event[4]);
+								precacheList.set(legendPath + event[4]+"-eng", 'image');
+							}
+		
+							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[5]+"-eng")))
+							{
+								// trace('precache value3 '+ legendPath+event[5]);
+								precacheList.set(legendPath + event[5]+"-eng", 'image');
+							}
+		
+							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[6]+"-eng")))
+							{
+								// trace('precache value3 '+ legendPath+event[6]);
+								precacheList.set(legendPath + event[6]+"-eng", 'image');
+		
+								// Oh yeah boyuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+							}
 					}
 
-					if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[4])))
-					{
-						// trace('precache value2 '+ legendPath+event[4]);
-						precacheList.set(legendPath + event[4], 'image');
-					}
-
-					if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[5])))
-					{
-						// trace('precache value3 '+ legendPath+event[5]);
-						precacheList.set(legendPath + event[5], 'image');
-					}
-
-					if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[6])))
-					{
-						// trace('precache value3 '+ legendPath+event[6]);
-						precacheList.set(legendPath + event[6], 'image');
-
-						// Oh yeah boyuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
-					}
 				}
 		}
 

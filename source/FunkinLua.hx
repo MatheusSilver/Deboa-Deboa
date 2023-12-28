@@ -174,6 +174,7 @@ class FunkinLua {
 		set('hitSounds', ClientPrefs.hitSounds);
 		set('cutscene', PlayState.instance.inCutscene);
 		set('isRing', PlayState.isRing);
+		set('idioma', ClientPrefs.idioma == 0 ? "" : "-eng");
 
 		//stuff 4 noobz like you B)
 
