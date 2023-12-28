@@ -30,6 +30,7 @@ class MP4Handler
 	public static var vlcBitmap:VlcBitmap;
 	#end
 	public var queronaoviver:Bool = false;
+	var oldPosition:Float = 0;
 
 	public function new()
 	{
@@ -69,6 +70,7 @@ class MP4Handler
 
 		netStream.play(path);
 		#else
+		this.oldPosition = oldPosition;
 		finishCallback = callback;
 
 		vlcBitmap = new VlcBitmap();
@@ -108,7 +110,6 @@ class MP4Handler
 		if(vimdoplaystatemano)
 			{
 				queronaoviver=true;
-				vlcBitmap.seek(Conductor.songPosition-oldPosition);
 			}
 	}
 
@@ -135,6 +136,14 @@ class MP4Handler
 		#end
 		if (sprite != null)
 			sprite.loadGraphic(vlcBitmap.bitmapData);	
+			if(vimdoplaystatemano)
+				{
+					var tempoPraPular:Float = Math.floor(Conductor.songPosition / 1000)-oldPosition;
+					vlcBitmap.seek(tempoPraPular);
+					#if debug
+					trace(tempoPraPular);
+					#end
+				}
 	}
 
 	public function onVLCComplete()
@@ -219,7 +228,7 @@ class MP4Handler
 	}
 	#end
 
-	public function pausarvideo1(h:Bool)
+	public function pausarvideo1(h:Bool) // pq h????
 		{
 			if(h)
 				{
