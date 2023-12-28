@@ -78,6 +78,7 @@ end
 function opponentNoteHit(id, direction, noteType, isSustainNote)
 	if first and curBeat < 510 and dead == false and fadelooping then
 		setProperty('dad.alpha', 0.4)
+		setProperty('iconP2.alpha', 1)
 		doTweenAlpha('boo1', 'dad', 0, 0.6, 'linear')
 		first = false
 	end

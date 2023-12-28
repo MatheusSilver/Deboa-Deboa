@@ -1852,7 +1852,7 @@ class PlayState extends MusicBeatState
 					camHUD.alpha = 0;
 					startCountdown();
 
-				case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'execution' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
+				case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
 					if (curSong.toLowerCase() == 'triple-trouble')
 					{
 						camHUD.alpha = 0;
@@ -4964,7 +4964,7 @@ class PlayState extends MusicBeatState
 					case 27:
 						doStaticSign(0);
 					case 180:
-						doJumpscare();
+						//doJumpscare(); Esse é o jumpscare que a Vio pediu pra remover
 					case 921:
 						doSimpleJump();
 					case 763:
@@ -4978,7 +4978,7 @@ class PlayState extends MusicBeatState
 						dad.nonanimated = true;
 					case 1362:
 						FlxG.camera.shake(0.002, 0.6);
-						camHUD.camera.shake(0.002, 0.6);
+						camHUD.shake(0.002, 0.6);
 					case 1432:
 						cinematicBars(false);
 						FlxTween.tween(camHUD, {alpha: 1}, 0.3);
@@ -8723,7 +8723,7 @@ class PlayState extends MusicBeatState
 		for (i in 0...30){
 			var partic:FlxSprite = new FlxSprite(-1200+150*i, 1000).loadGraphic(Paths.image('particulas', 'week-confronting'));
 			partic.antialiasing = true;
-			partic.color = FlxColor.YELLOW;
+			partic.color = FlxColor.WHITE;
 			partic.scrollFactor.set(0.92, 0.92);
 			partic.active = false;
 			add(partic);

@@ -21,8 +21,6 @@ import openfl.utils.Assets;
 class LoadingsState extends MusicBeatSubstate
 {
 	var loadingidentifier:Array<String> = [
-	'cycles', 
-	'execution', 
 	'soulless', 
 	'sunshine', 
 	'defender', 
