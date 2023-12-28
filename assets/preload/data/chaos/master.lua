@@ -22,6 +22,16 @@ end
 	--end
 --end
 
+function propriedadescomuns(var)
+    setScrollFactor(var, 0, 0);
+    scaleObject(var, 1, 1);
+    setProperty(var..".alpha", opacidadeLegendas);
+    setLuaSpriteCamera(var, 'camlegenda');
+    --setGraphicSize(var, screenWidth) -- k
+    screenCenter(var, 'x')
+    addLuaSprite(var, true);
+end
+
 function onStepHit()
 	if curStep == 7 then
 		doTweenZoom('zoom', 'camGame', 0.67, 0.5, 'sineOut');
@@ -57,4 +67,17 @@ function onUpdate(elapsed)
     
         doTweenY(dadTweenY, 'dad', -500-40*math.sin((currentBeat*0.25)*math.pi),0.001)
 	end
+end
+
+function onEvent(name, value1, value2, value3, value4)
+    if name == 'Adicionar Imagens diferenciado' then
+        if value1 == '' or value1 == 'null' or value1 == nil then
+            removeLuaSprite('exe', true)
+        else
+        makeLuaSprite('exe', legendaPath..value1..idioma, 0, 0)
+        propriedadescomuns('exe')
+        addLuaSprite('exe', true);
+        --traceLog("value 1 invocou, "..value1.." em: "..getSongPosition())
+        end
+    end
 end
