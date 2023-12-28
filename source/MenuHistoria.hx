@@ -161,7 +161,7 @@ class MenuHistoria extends MusicBeatSubstate
 		add(textoSprite);
 		add(numText);
 		add(highscoreText);
-		add(text);
+		//add(text);
 		add(blackLock);
 		add(lockSprite);
 
