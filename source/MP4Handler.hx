@@ -41,7 +41,7 @@ class MP4Handler
 		}
 	}
 
-	public function playMP4(path:String, callback:FlxState, ?outputTo:FlxSprite = null, ?repeat:Bool = false, ?isWindow:Bool = false, ?isFullscreen:Bool = false):Void
+	public function playMP4(path:String, callback:FlxState, ?outputTo:FlxSprite = null, ?oldPosition:Float, ?repeat:Bool = false, ?isWindow:Bool = false, ?isFullscreen:Bool = false):Void
 	{
 		#if html5
 		FlxG.autoPause = false;
@@ -108,6 +108,7 @@ class MP4Handler
 		if(vimdoplaystatemano)
 			{
 				queronaoviver=true;
+				vlcBitmap.seek(Conductor.songPosition-oldPosition);
 			}
 	}
 

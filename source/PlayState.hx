@@ -2536,6 +2536,7 @@ class PlayState extends MusicBeatState
 
 	public function videoPlayerLegal(nomedovideo:String, x:String, y:String, tamanho:String)
 	{
+		var oldPosition:Float = Conductor.songPosition;
 		var diretorio = "assets/videos/" + nomedovideo + ".mp";
 		// O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
 		if (Assets.exists(diretorio))
@@ -2552,7 +2553,7 @@ class PlayState extends MusicBeatState
 			MP4Handler.iAmSobre = false;
 			video.canSkip = false;
 			add(videoSpr);
-			video.playMP4(diretorio, null, videoSpr);
+			video.playMP4(diretorio, null, videoSpr, oldPosition);
 			videoSpr.setGraphicSize(Std.int(videoSpr.width*Std.parseFloat(tamanho)));
 			playingVideoMP4 = true;
 		}
@@ -2560,6 +2561,7 @@ class PlayState extends MusicBeatState
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String, ?endingSong1:String)
 	{
+		var oldPosition:Float = Conductor.songPosition;
 		var diretorio = "assets/videos/" + nomedovideo + ".mp";
 		// O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
 		if (Assets.exists(diretorio))
@@ -2595,7 +2597,7 @@ class PlayState extends MusicBeatState
 			letext.cameras = [camLegenda];
 			add(letext);
 			trace(MP4Handler.vlcBitmap.length);
-			video.playMP4(diretorio, null, videoSpr);
+			video.playMP4(diretorio, null, videoSpr, oldPosition);
 			playingVideoMP4 = true;
 			switch (curSong.toLowerCase())
 			{
