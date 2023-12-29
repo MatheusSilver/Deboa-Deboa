@@ -4627,6 +4627,8 @@ class PlayState extends MusicBeatState
 				videoPlayerLegal(value1, value2, value3, value4);
 			case 'video player':
 				videoPlayer(value1, value2, value3, value4); //Preguiça de mexer aqui.
+			case 'stop video':
+				pularVideo(value1 == "true" ? true : false);
 			case 'Socorro':
 				lime.app.Application.current.window.title = value1;
 			case 'Toggle Ghost Trail':
