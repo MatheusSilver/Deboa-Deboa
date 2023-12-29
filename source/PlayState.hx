@@ -6045,6 +6045,10 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
+		if(playingVideoMP4)
+		{
+			pularVideo(true);
+		}
 
 		#if mobileC
 		mcontrols.visible = false;
