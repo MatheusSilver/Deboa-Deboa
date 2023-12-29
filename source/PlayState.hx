@@ -3658,6 +3658,8 @@ class PlayState extends MusicBeatState
 
 	function openPauseMenu()
 	{
+		if(!canPause)
+			return;
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;
