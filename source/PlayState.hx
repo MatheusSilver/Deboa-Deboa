@@ -6112,7 +6112,8 @@ class PlayState extends MusicBeatState
 				{
 
 					cancelFadeTween();
-					CustomFadeTransition.nextCamera = camHUD2;
+					CustomFadeTransition.nextCamera = camAchievement;
+
 					if (FlxTransitionableState.skipNextTransIn)
 					{
 						CustomFadeTransition.nextCamera = null;
@@ -6181,7 +6182,8 @@ class PlayState extends MusicBeatState
 				{
 					trace('WENT BACK TO FREEPLAY??');
 					cancelFadeTween();
-					CustomFadeTransition.nextCamera = camHUD2;
+					CustomFadeTransition.nextCamera = camAchievement;
+
 					if (FlxTransitionableState.skipNextTransIn)
 					{
 						CustomFadeTransition.nextCamera = null;
@@ -6196,6 +6198,7 @@ class PlayState extends MusicBeatState
 						FreeplayState.addProgress();
 					}
 
+					blackFuck.cameras = [camAchievement];
 					blackFuck.visible = true;
 					FlxTween.tween(blackFuck, {alpha: 1}, 0.3, {
 						ease: FlxEase.cubeInOut,

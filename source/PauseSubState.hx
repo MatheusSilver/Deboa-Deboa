@@ -305,7 +305,7 @@ class PauseSubState extends MusicBeatSubstate
 					podeJumpscare=false;
 					PlayState.instance.canRegen = true;
 					PlayState.canuseevents = true;
-					CustomFadeTransition.nextCamera = transCamera;
+					CustomFadeTransition.nextCamera = PlayState.instance.camAchievement;
 					if (PlayState.useVideo)
 					{
 						PlayState.useVideo = false;
