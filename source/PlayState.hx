@@ -739,9 +739,8 @@ class PlayState extends MusicBeatState
 					bg.scrollFactor.set(1.3, 1);
 					bg.active = false;
 					add(bg);
-					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					blackStuff.cameras = [camLegenda];
-					add(blackStuff);
+					addBlackStuff(camLegenda);
+
 
 					jumpscareSound = new FlxSound().loadEmbedded(Paths.sound('jumpscare'));
 					jumpscareAuxiliar = new FlxSound().loadEmbedded(Paths.sound('datOneSound'));
@@ -2616,15 +2615,11 @@ class PlayState extends MusicBeatState
 			switch (curSong.toLowerCase())
 			{
 				case "prey":
-					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					blackStuff.cameras = [camHUD];
-					add(blackStuff);
+					addBlackStuff(camHUD);
 				case "sidekick":
 					if(endingSong1!="true")
 						return;
-					blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-					blackStuff.cameras = [camHUD];
-					add(blackStuff);
+					addBlackStuff(camHUD);
 				case "gran-finale":
 					omagaaaa.destroy();
 					remove(omagaaaa);
@@ -2637,6 +2632,14 @@ class PlayState extends MusicBeatState
 			}
 			#end
 		}
+	}
+
+	public function addBlackStuff(cam:FlxCamera)
+	{
+		blackStuff = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackStuff.screenCenter(XY);
+		blackStuff.cameras = [cam];
+		add(blackStuff);
 	}
 
 	public function pausarVideo(pausar:Bool)
@@ -4618,6 +4621,7 @@ class PlayState extends MusicBeatState
 		// trace('Control result: ' + pressed);
 		return pressed;
 	}
+
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String, ?value3:String, ?value4:String /*,?path:String*/)
 	{

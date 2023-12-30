@@ -313,11 +313,7 @@ class PauseSubState extends MusicBeatSubstate
 						PlayState.instance.remove(PlayState.instance.videoSprite);
 						PlayState.removedVideo = true;
 					}
-					if(PlayState.instance.playingVideoMP4)
-					{
-						PlayState.instance.pularVideo(true);
-					}
-					restartSong();
+					restartSong(!PlayState.instance.playingVideoMP4);
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					FlxG.sound.music.volume = 0;
 				case 'Botplay':
@@ -336,6 +332,7 @@ class PauseSubState extends MusicBeatSubstate
 					}
 					if(PlayState.instance.playingVideoMP4)
 						{
+							PlayState.instance.addBlackStuff(PlayState.instance.camLegenda);
 							PlayState.instance.pularVideo(true);
 						}
 					PlayState.instance.canRegen = true;
@@ -475,6 +472,8 @@ class PauseSubState extends MusicBeatSubstate
 			}
 			else
 			{
+				PlayState.instance.addBlackStuff(PlayState.instance.camLegenda);
+				PlayState.instance.pularVideo(true);
 				MusicBeatState.resetState();
 			}
 		}
