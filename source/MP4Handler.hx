@@ -138,7 +138,7 @@ class MP4Handler
 			sprite.loadGraphic(vlcBitmap.bitmapData);	
 			if(vimdoplaystatemano)
 				{
-					var tempoPraPular:Float = Math.floor(Conductor.songPosition / 1000)-oldPosition;
+					var tempoPraPular:Float = (Conductor.songPosition / 1000)-oldPosition;
 					vlcBitmap.seek(tempoPraPular/60);
 					#if debug
 					trace(tempoPraPular);

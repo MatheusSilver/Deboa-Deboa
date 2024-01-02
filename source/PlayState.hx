@@ -2549,7 +2549,7 @@ class PlayState extends MusicBeatState
 
 	public function videoPlayerLegal(nomedovideo:String, x:String, y:String, tamanho:String)
 	{
-		var oldPosition:Float = Math.floor(Conductor.songPosition / 1000);
+		var oldPosition:Float = Conductor.songPosition / 1000;
 		var diretorio = "assets/videos/" + nomedovideo + ".mp";
 		// O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
 		if (Assets.exists(diretorio))
@@ -2661,12 +2661,12 @@ class PlayState extends MusicBeatState
 		{
 			video.onVLCComplete();
 			letext.alpha = 0;
-			vocals.pause();
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
 			camGame.alpha = 1;
 			if(naoPularTempo)
 				return;
+			vocals.pause();
 			FlxG.sound.music.pause();
 			Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
 			trace(MP4Handler.vlcBitmap.length);
@@ -5994,6 +5994,10 @@ class PlayState extends MusicBeatState
 		FlxTransitionableState.skipNextTransOut = true;
 		updateTime = false;
 		FlxG.sound.music.volume = 0;
+		if(playingVideoMP4)
+			{
+				pularVideo(true);
+			}
 		if (vocals != null)
 		{
 			vocals.volume = 0;
@@ -6049,10 +6053,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
-		if(playingVideoMP4)
-		{
-			pularVideo(true);
-		}
+
 
 		#if mobileC
 		mcontrols.visible = false;
