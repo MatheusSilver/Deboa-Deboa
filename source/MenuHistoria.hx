@@ -94,7 +94,7 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		vhsSom = new FlxSound().loadEmbedded(Paths.sound('vhs_entra'));
-		vhsSom.volume = 1.25;
+		vhsSom.volume = 2;
 
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		for (j in 0...leWeek.songs.length)
@@ -103,7 +103,9 @@ class MenuHistoria extends MusicBeatSubstate
 			nombres.push(leWeek.songs[j][3]);
 		}
 
+		#if !mobile
 		FlxG.mouse.visible = false;
+		#end
 		if (curSelected >= WeekData.weeksList.length)
 			curSelected = 0;
 		persistentUpdate = persistentDraw = true;
@@ -146,7 +148,12 @@ class MenuHistoria extends MusicBeatSubstate
 		highscoreText.text = "RECORDE: \n0";
 		highscoreText.updateHitbox();
 		highscoreText.alpha=0;
-		
+
+		var leText:String = "Aperte " + #if desktop "CTRL" #else "Y" #end + " para abrir o menu de modifiers.";
+		//space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
+		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
+		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
+		text.scrollFactor.set();
 
 		add(bgSprite);
 		add(pastbgSprite);
@@ -154,6 +161,7 @@ class MenuHistoria extends MusicBeatSubstate
 		add(textoSprite);
 		add(numText);
 		add(highscoreText);
+		//add(text);
 		add(blackLock);
 		add(lockSprite);
 
@@ -251,9 +259,12 @@ class MenuHistoria extends MusicBeatSubstate
 
 		/*trace("APERTAVEL:"+apertavel);
 		trace("MODIFIERS OPENED:"+modifiersOpened);*/
-		lerpMultiplier = Math.floor(FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2)));
+		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		highscoreText.text = "RECORDE: \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
+
+		if (Math.abs(lerpMultiplier - intendedMultiplier) <= 0.001)
+			lerpMultiplier = intendedMultiplier;
 
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;

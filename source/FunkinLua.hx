@@ -174,6 +174,7 @@ class FunkinLua {
 		set('hitSounds', ClientPrefs.hitSounds);
 		set('cutscene', PlayState.instance.inCutscene);
 		set('isRing', PlayState.isRing);
+		set('idioma', ClientPrefs.idioma == 0 ? "" : "-eng");
 
 		//stuff 4 noobz like you B)
 
@@ -807,14 +808,17 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "setRatingString", function(value:String) {
 			PlayState.instance.ratingString = value;
 		});
+
+		// Real não sei se essa função realmente funciona, mas só peguei do DDTO Android do Silver
 		Lua_helper.add_callback(lua, "getMouseX", function(camera:String) {
 			var cam:FlxCamera = cameraFromString(camera);
-			return FlxG.mouse.getScreenPosition(cam).x;
+			return Utils.BSLTouchUtils.pegarpos("x");
 		});
 		Lua_helper.add_callback(lua, "getMouseY", function(camera:String) {
 			var cam:FlxCamera = cameraFromString(camera);
-			return FlxG.mouse.getScreenPosition(cam).y;
+			return Utils.BSLTouchUtils.pegarpos("y");
 		});
+		
 		//Furtado da Psych 6.3 apenas para ser usado na Slaybells
 		Lua_helper.add_callback(lua, "addOffset", function(obj:String, anim:String, x:Float, y:Float) {
 			if(PlayState.instance.modchartSprites.exists(obj)) {
@@ -1311,6 +1315,8 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});
+
+		// FlxGMouse e Touch completos aqui
 		Lua_helper.add_callback(lua, "justTouched", function() {
 			Utils.BSLTouchUtils.justTouched();
 		});
@@ -1329,6 +1335,10 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "solto", function(coisa:Dynamic) {
 			Utils.BSLTouchUtils.solto(coisa);
+		});
+
+		Lua_helper.add_callback(lua, "over", function(coisa:Dynamic) {
+			Utils.BSLTouchUtils.over(coisa);
 		});
 		
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {

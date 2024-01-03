@@ -43,6 +43,7 @@ class BaseOptionsMenu extends MusicBeatState
 	static var noCheckbox:Array<String> = [
 		'FPS',
 		'Delay da Nota',
+		'Idioma',
 		'Opacidade',
 		'Volume ',
 		'Volume',
@@ -79,6 +80,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'Efeitos de Camera',
 		'LEGENDAS ',
 		'Legendas',
+		'Idioma',
 		'Opacidade',
 		'SOM GLOBAL',
 		'Volume ',
@@ -359,6 +361,8 @@ class BaseOptionsMenu extends MusicBeatState
 							ClientPrefs.opacidadeLegendas+=addo;
 							if(ClientPrefs.opacidadeLegendas>0.95){ClientPrefs.opacidadeLegendas = 1;}else if(ClientPrefs.opacidadeLegendas<0.15){ClientPrefs.opacidadeLegendas=0.1;}
 						}
+					case 'Idioma':
+						ClientPrefs.idioma = ClientPrefs.idioma == 0 ? 1 : 0; // MUDA DE 0 PRA 1 OU DE 1 PRA 0
 						
 				}
 				reloadValues();
@@ -396,6 +400,8 @@ class BaseOptionsMenu extends MusicBeatState
 
 		var daText:String = '';
 		switch(options[curSelected]) {
+			case 'Idioma':
+				daText = "Altera o idioma das legendas nas músicas.";
 			case 'Gore':
 				daText = "Desative isso para não visualizar\nos elementos com gore nas músicas.";
 			case 'FPS':
@@ -445,6 +451,8 @@ class BaseOptionsMenu extends MusicBeatState
 				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
 			case 'Legendas':
 				daText = "Se ativado, você irá ver as legendas nas músicas.";	
+			case 'Opacidade':
+				daText = "Altera a opacidade das legendas.";	
 			case 'Efeitos de Camera':
 				daText = "Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica";
 			case 'Esconder HUD':
@@ -560,6 +568,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType);
 					case 'Teste o HitSound':
 						daText = '';
+					case 'Idioma':
+						daText = ClientPrefs.idioma == 0 ? "Portugues" : "English";
 					case 'Opacidade':
 						daText = Std.string(ClientPrefs.opacidadeLegendas);
 				}

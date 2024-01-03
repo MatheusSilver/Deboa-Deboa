@@ -45,7 +45,9 @@ class SobreVideo extends MusicBeatState
                 FlxTween.tween(barra, {x: 0}, 73);
 
                 new FlxTimer().start(76, function(tmr:FlxTimer){
+                    #if desktop
                     FlxG.mouse.unload();
+                    #end
                     video.stopVideo();
                     GlobalSoundManager.play('cancelMenu');
                     MusicBeatState.switchState(new SobreState());
@@ -69,7 +71,9 @@ class SobreVideo extends MusicBeatState
             sampleTxt.screenCenter(XY);
             sampleTxt.alpha = 1;
             //add(sampleTxt);
+            #if desktop
             FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
+            #end
 			super.create();
 		}
 
@@ -85,7 +89,9 @@ class SobreVideo extends MusicBeatState
             video.canSkip = false;
 			super.update(elapsed);
             if (controls.BACK) {
+                #if desktop
                 FlxG.mouse.unload();
+                #end
                 video.stopVideo();
                 GlobalSoundManager.play('cancelMenu');
                 MusicBeatState.switchState(new SobreState());

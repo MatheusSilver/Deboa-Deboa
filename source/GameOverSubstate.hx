@@ -39,9 +39,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		instance = this;
 		PlayState.instance.callOnLuas('onGameOverStart', []);
 
-		#if desktop
 		FlxG.mouse.visible = Main.mouse;
-		#end
 
 		bg = new FlxSprite(0,0).loadGraphic(Paths.image('gameovers/'+bgType));
 		if(bgType != 'fleeplay')
@@ -159,7 +157,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('gameoverfalas/' + FlxG.random.int(1, 12, exclude)), 1, false, null, true, function() {
 					if(!isEnding)
 					{
-						FlxG.sound.music.fadeIn(0.2, 1, 4);
+						FlxG.sound.music.fadeIn(0.75, 1, 4);
 					}
 				});
 			}
@@ -189,6 +187,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		if (!isEnding)
 		{
+			retryButton.alpha = 1;
 			eaepedrinho = false;
 			canClick = false;
 			isEnding = true;

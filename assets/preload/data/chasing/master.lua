@@ -77,7 +77,7 @@ function onEvent(eventName, value1, value2)
         if value1=='true' then
             cameraFlash('hud2', '0xffffff', 0.5, true)
             setProperty('cutscene.visible', true)
-            playAnim('cutscene', 'video', true)
+            --playAnim('cutscene', 'video', true)
         elseif value1=='flash' then
             cameraFlash('hud2', '0x000000', 0.05, true)
         else

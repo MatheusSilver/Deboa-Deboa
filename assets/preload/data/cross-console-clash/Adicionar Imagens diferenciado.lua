@@ -48,12 +48,12 @@ function onEvent(name, value1, value2, value3, value4)
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
-            propriedadescomuns('exe1', 2, value2) 
+            propriedadescomuns('exe1', 2, value2..idioma) 
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
-            propriedadescomuns('exe', 1, value1)
+            propriedadescomuns('exe', 1, value1..idioma)
         end
     end
 end

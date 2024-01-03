@@ -22,11 +22,20 @@
 						""
 					],
 					[
-						84400.0043956044,
+						84395.6043956044,
 						-1,
 						"Change Character",
 						"dad",
 						"tails-darksidekick",
+						"",
+						""
+					],
+					[
+						84395.6043956044,
+						-1,
+						"stop video",
+						"true",
+						"",
 						"",
 						""
 					]
@@ -541,7 +550,7 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						64000,
+						63991,
 						-1,
 						"video player",
 						"AnimacoesJogaveis/sidekickcutscene",

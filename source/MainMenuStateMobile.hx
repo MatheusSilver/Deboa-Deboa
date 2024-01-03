@@ -23,6 +23,9 @@ import openfl.display.Loader;
 import openfl.events.ErrorEvent;
 import openfl.events.Event;
 import openfl.net.URLRequest;
+import flixel.input.gamepad.FlxGamepad;
+import flixel.input.gamepad.FlxGamepadInputID;
+import Utils.BSLTouchUtils;
 
 using StringTools;
 
@@ -63,8 +66,8 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var newVersion:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
-	public static var version:String = '0.9.10';
-	public static var changelogString:String = 'V'+version+'\nModifiers';
+	public static var version:String = '0.9.11';
+	public static var changelogString:String = 'V'+version+'\nCorrecoes.';
 	public static var verificaDnvIdiota:Bool = false;
 
 	public static var passouCY:Bool = false;
@@ -93,9 +96,7 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		#if !mobile
 		FlxG.mouse.visible = Main.mouse;
-		#end
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -459,27 +460,27 @@ class MainMenuStateMobile extends MusicBeatState
 							{
 								if(optionShit[spr.ID] == "freeplay" && passouCY)
 								{
-									if(FlxG.mouse.overlaps(spr) && spr.alpha == 0.75){
+									if(BSLTouchUtils.over(spr) && spr.alpha == 0.75){
 										menuItems.members[spr.ID].alpha=1;
 										GlobalSoundManager.play('scrollMenu');
-									}else if(!FlxG.mouse.overlaps(spr)){
+									}else if(!BSLTouchUtils.over(spr)){
 										spr.alpha=0.75;
 									}
 	
-									if(FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed){
+									if(BSLTouchUtils.over(spr) && BSLTouchUtils.justTouched()){
 										trocaDeState(spr.ID);
 									}
 								}
 								else if(optionShit[spr.ID] != "freeplay")
 								{
-									if(FlxG.mouse.overlaps(spr) && spr.alpha == 0.75){
+									if(Utils.BSLTouchUtils.over(spr) && spr.alpha == 0.75){
 										menuItems.members[spr.ID].alpha=1;
 										GlobalSoundManager.play('scrollMenu');
-									}else if(!FlxG.mouse.overlaps(spr)){
+									}else if(!Utils.BSLTouchUtils.over(spr)){
 										spr.alpha=0.75;
 									}
 	
-									if(FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed){
+									if(Utils.BSLTouchUtils.over(spr) && Utils.BSLTouchUtils.justTouched()){
 										trocaDeState(spr.ID);
 									}
 								}

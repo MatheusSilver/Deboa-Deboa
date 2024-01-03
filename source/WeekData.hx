@@ -41,7 +41,7 @@ class WeekData {
 
 	public static function createWeekFile():WeekFile {
 		var weekFile:WeekFile = {
-			songs: [["Bopeebo", "dad", [146, 113, 253], "Bopeebo"], ["Fresh", "dad", [146, 113, 253], "Fresh"], ["Dad Battle", "dad", [146, 113, 253], "Dad Battle"]], //Yeah, aparentemente o negocio tem que ser mais bonitin, MERDA!!!
+			songs: [["Bopeebo", "dad", [146, 113, 253], "Bopeebo"], ["Fresh", "dad", [146, 113, 253], "Fresh"], ["Dad Battle", "dad", [146, 113, 253], "Dad Battle"]], //Yeah, aparentemente o negocio tem que ser mais bonitin, MERDA!!! // Sdds BS engine
 			weekCharacters: ['dad', 'bf', 'gf'],
 			weekBackground: 'stage',
 			weekBefore: 'tutorial',

@@ -36,7 +36,9 @@ class CreditsMusics extends MusicBeatState
 	override function create()
 	{
 		FlxTransitionableState.skipNextTransOut = true;
+		#if !mobile
 		FlxG.mouse.visible = false;
+		#end
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Vendo os créditos", null);

@@ -62,12 +62,12 @@
 		740,
 		0
 	],
-	"healthicon": "face",
+	"healthicon": "sinkfantasma",
 	"flip_x": false,
 	"healthbar_colors": [
-		48,
-		138,
-		104
+		0,
+		0,
+		0
 	],
 	"camera_position": [
 		-680,

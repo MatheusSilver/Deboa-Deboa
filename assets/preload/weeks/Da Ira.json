@@ -24,16 +24,6 @@
 				0
 			],
 			"Ciclos"
-		],
-		[
-			"execution",
-			"lx",
-			[
-				255,
-				0,
-				0
-			],
-			"Execução"
 		]
 		],
 	"hideStoryMode": false,

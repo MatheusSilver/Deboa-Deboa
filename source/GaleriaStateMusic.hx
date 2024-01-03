@@ -446,7 +446,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if(FlxG.mouse.overlaps(scrollableArea))
+		if(Utils.BSLTouchUtils.over(scrollableArea))
 			{
 			if(FlxG.mouse.wheel>0) //Aparentemente isso aqui faz o bg subir.
 			{
@@ -481,7 +481,7 @@ class GaleriaStateMusic extends MusicBeatState
 			}
 			}
 
-		if (controls.BACK || (FlxG.mouse.overlaps(sair) && FlxG.mouse.justPressed)) {
+		if (controls.BACK || (Utils.BSLTouchUtils.over(sair) && Utils.BSLTouchUtils.justTouched())) {
 			menutoca= true;
 			GlobalSoundManager.play('click');
 			GaleriaState.firsttimemusic = false;
@@ -518,24 +518,28 @@ class GaleriaStateMusic extends MusicBeatState
 				DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
 			#end
 
-		if((FlxG.mouse.overlaps(menuItems)&&!isLetras) || FlxG.mouse.overlaps(checkboxArray) ||
+		if((BSLTouchUtils.over(menuItems)&&!isLetras) || BSLTouchUtils.over(checkboxArray) ||
 			BSLTouchUtils.over(GaleriaMusicObject.likeSprite) || BSLTouchUtils.over(GaleriaMusicObject.dislikeSprite) ||
-				FlxG.mouse.overlaps(botaodireita) || FlxG.mouse.overlaps(botaoesquerda) ||
-					FlxG.mouse.overlaps(botaoPauseContinue) || FlxG.mouse.overlaps(sair) || 
-						(FlxG.mouse.overlaps(playListbotao)&&isLetras) || (FlxG.mouse.overlaps(letrasbotao)&&!isLetras)){
+		BSLTouchUtils.over(botaodireita) || BSLTouchUtils.over(botaoesquerda) ||
+		BSLTouchUtils.over(botaoPauseContinue) || BSLTouchUtils.over(sair) || 
+						(BSLTouchUtils.over(playListbotao)&&isLetras) || (BSLTouchUtils.over(letrasbotao)&&!isLetras)){
 			if(mouseskin != "pointerselected"){
 				mouseskin = 'pointerselected';
+				#if desktop
 				FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+mouseskin), 1, 0, 0);
+				#end
 			}
 		}else if (mouseskin!='pointer'){
 			mouseskin = 'pointer';
+			#if desktop
 			FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+ mouseskin), 1, 0, 0);
+			#end
 		} //Central do mouse
 
 		checkboxArray.forEach(function(spr:FlxSprite){
-			if(FlxG.mouse.overlaps(spr))
+			if(BSLTouchUtils.over(spr))
 			{
-				if(FlxG.mouse.justPressed){
+				if(BSLTouchUtils.justTouched()){
 					switch(options[spr.ID]) { //Conserteza daria pra fazer melhor que isso, mas sabe como é né? preguiça
 						case 'Reprodução Automática':
 							playsequencia = !playsequencia;
@@ -575,17 +579,18 @@ class GaleriaStateMusic extends MusicBeatState
 			showLyrics();
 
 		//Só essa parte mesmo, o resto to com preguiça de converter pra TouchUtils.
+		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-		if(FlxG.mouse.justPressed){
-			if (FlxG.mouse.overlaps(botaodireita)){
+		if(BSLTouchUtils.justTouched()){
+			if (BSLTouchUtils.over(botaodireita)){
 				FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 				changeSong(curSelected+1);
 				GlobalSoundManager.play('click');
-			}else if (FlxG.mouse.overlaps(botaoesquerda)){
+			}else if (BSLTouchUtils.over(botaoesquerda)){
 				FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 				changeSong(curSelected-1);
 				GlobalSoundManager.play('click');
-			}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&pausado){
+			}else if (BSLTouchUtils.over(botaoPauseContinue)&&pausado){
 				pausado = false;
 				botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/pause', 'preload'));
 				GlobalSoundManager.play('click');
@@ -597,7 +602,7 @@ class GaleriaStateMusic extends MusicBeatState
 				} else{
 					FlxG.sound.music.resume();
 				}
-			}else if (FlxG.mouse.overlaps(botaoPauseContinue)&&!pausado){
+			}else if (BSLTouchUtils.over(botaoPauseContinue)&&!pausado){
 				FlxG.sound.music.pause();
 				botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/play', 'preload'));
 				pausado = true;
@@ -622,9 +627,9 @@ class GaleriaStateMusic extends MusicBeatState
 
 					}
 
-					if(FlxG.mouse.justPressed) 
+					if(BSLTouchUtils.justTouched()) 
 						{
-							if(FlxG.mouse.overlaps(spr) && spr.visible && !FlxG.mouse.overlaps(barraInferior)){
+							if(BSLTouchUtils.over(spr) && spr.visible && !BSLTouchUtils.over(barraInferior)){
 								GlobalSoundManager.play('click');
 								FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 								changeSong(spr.ID);

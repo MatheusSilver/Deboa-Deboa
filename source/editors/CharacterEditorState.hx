@@ -980,7 +980,9 @@ class CharacterEditorState extends MusicBeatState
 					MusicBeatState.switchState(new editors.MasterEditorMenu());
 					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 				}
+				#if !mobile
 				FlxG.mouse.visible = false;
+				#end
 				return;
 			}
 			

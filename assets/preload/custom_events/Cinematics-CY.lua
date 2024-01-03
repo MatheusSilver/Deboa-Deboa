@@ -12,7 +12,7 @@ function onCreate()
 	makeGraphic('UpperBar', 1280, k, '000000')
 	setObjectCamera('UpperBar', 'hud')
 	addLuaSprite('UpperBar', false)
-	setObjectOrder('UpperBar', getObjectOrder('timeTxt') - 2)
+	--setObjectOrder('UpperBar', getObjectOrder('timeTxt') - 2)
 
 
 	--THE BOTTOM BAR
@@ -20,7 +20,7 @@ function onCreate()
 	makeGraphic('LowerBar', 1280, k, '000000')
 	setObjectCamera('LowerBar', 'hud')
 	addLuaSprite('LowerBar', false)
-	setObjectOrder('LowerBar', getObjectOrder('timeTxt') - 1)
+	--setObjectOrder('LowerBar', getObjectOrder('timeTxt') - 1)
 
 	setProperty('UpperBar.visible', false)
 	setProperty('LowerBar.visible', false)

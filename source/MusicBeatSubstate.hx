@@ -1,5 +1,6 @@
 package;
 
+import flixel.ui.FlxButton;
 import Conductor.BPMChangeEvent;
 import flixel.FlxSubState;
 #if mobileC
@@ -23,8 +24,35 @@ class MusicBeatSubstate extends FlxSubState
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
-		
+	
 	#if mobileC
+
+	// Obrigado Silver (code pego do DDTO+ Android)
+	var hitboxcima:FlxButton;
+	var hitboxbaixo:FlxButton;
+
+	// TO DO: FAZER ISSO SER EXCLUSIVO E FUNCIONAL NO MOBILE
+	// EXCLUSIVO = IMAGENS NA PASTA MOBILECONTROLS
+	// FUNCIONAL = FAZER FUNÇÃO DO SCROLL DO MOUSE
+	public function addhitboxtouch()
+	{
+		hitboxbaixo = new FlxButton(0, 540, function()
+		{
+		});
+		hitboxbaixo.loadGraphic(Paths.image('notainvisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
+		hitboxbaixo.setGraphicSize(1280, 180); // k
+		hitboxbaixo.updateHitbox();
+		add(hitboxbaixo);
+
+		hitboxcima = new FlxButton(0, 0, function()
+			{
+			});
+			hitboxcima.loadGraphic(Paths.image('notainvisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
+			hitboxcima.setGraphicSize(1280, 180); // k
+			hitboxcima.updateHitbox();
+			add(hitboxcima);
+	}
+	
 	var _virtualpad:FlxVirtualPad;
 
 	var trackedinputsUI:Array<FlxActionInput> = [];

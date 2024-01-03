@@ -32,7 +32,6 @@ import openfl.filters.ShaderFilter;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
 import openfl.utils.Assets as OpenFlAssets;
-import sys.FileSystem;
 
 using StringTools;
 
@@ -160,7 +159,9 @@ class TitleState extends MusicBeatState
 			PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true)); */
 		Highscore.load();
 
+		#if !mobile
 		FlxG.mouse.visible = false;
+		#end
 		#if FREEPLAY
 		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
