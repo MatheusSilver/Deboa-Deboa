@@ -37,7 +37,9 @@ class Main extends Sprite
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
-		startFullscreen: ClientPrefs.fullscreen // if the game should start at fullscreen mode
+		// startFullscreen: ClientPrefs.fullscreen // if the game should start at fullscreen mode
+		startFullscreen: false // if the game should start at fullscreen mode
+		//Isso não funciona aqui.
 	};
 
 	public static var fpsVar:FPS;
@@ -160,5 +162,8 @@ class Main extends Sprite
 			});
 		}
 		#end
+
+		FlxG.fullscreen = ClientPrefs.fullscreen;
+		//Lá em cima as clientprefs ainda não haviam sido carregadas  
 	}
 }
