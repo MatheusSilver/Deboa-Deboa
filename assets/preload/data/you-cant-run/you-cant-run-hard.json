@@ -6601,7 +6601,7 @@
 		"stage": "P2Stage",
 		"validScore": true,
 		"needsVoices": false,
-		"noteStyle": "",
+		"noteStyle": "normal",
 		"bpm": 140,
 		"speed": 3.3
 	}
