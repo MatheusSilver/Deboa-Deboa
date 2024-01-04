@@ -1,0 +1,19 @@
+mod_desc_dummy	dummy igual a você :D
+mod_desc_rand_note	As direções das notas mudam a cada tentativa
+mod_desc_fast_note	Aumenta drásticamente a velocidade da nota entre o surgimento e o alvo.
+mod_desc_slow_note	Diminui drásticamente a velocidade da nota entre o surgimento e o alvo.
+mod_desc_fade_in_note	As notas são invisíveis até se aproximarem do alvo
+mod_desc_fade_out_note	Notas desaparecem quando se aproximam do alvo
+mod_desc_more_damage	Erros removem mais vida que o de costume
+mod_desc_instakill	A música se encerra quando o combo é quebrado.
+mod_desc_less_damage	Erros custam menos vida que o de costume
+mod_desc_no_death	A música não irá terminar caso sua vida chegue a zero, ou caso erre algum evento.
+mod_desc_passive_regen	Sua vida irá regenerar mesmo que sem acertar as notas.
+mod_desc_more_regen	A barra de vida irá regenerar por acerto
+mod_desc_invisible_notes	Suas notas ficam totalmente invisiveis.
+mod_desc_spin_camera	O HUD ficarão girando o tempo todo em uma direção
+mod_desc_shake_camera	O HUD ficarão tremendo durante a musica inteira.
+mod_desc_flip_note	O caminho das notas se torna o oposto do que o de costume.
+mod_desc_paparazzi	Flashes na tela com certa frequência
+mod_desc_only_two	Cima e baixo não existem mais, apenas esquerda e direita
+mod_desc_single_button	Acerte todas as notas ao mesmo tempo apertando qualquer tecla

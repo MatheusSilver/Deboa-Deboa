@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<!-- Usado em lugares diversos -->
+	<file id="data" value="data.tsv"/>
+
+	<!-- usado no menu principal -->
+	<file id="menu" value="mainMenu.tsv"/>
+
+    <!-- usado para as configuracoes -->
+	<file id="config" value="configMenu.tsv"/>
+
+	<!-- usado para os modifiers -->
+	<file id="modifier" value="modifierName.tsv"/>
+	<file id="modifier" value="modifierDesc.tsv"/>
+
+	<!-- Usado no menu de opcoes -->
+	<!-- <file id="option" value="optionCategory.tsv"/> n sei se vai precisar disso-->
+	<file id="option_name" value="optionName.tsv"/>
+	<file id="option_desc" value="optionDesc.tsv"/>
+
+    <!-- Usado para as conquistas -->
+	<file id="achievement" value="achievementName.tsv"/>
+	<file id="achievement" value="achievementDesc.tsv"/>
+	
+	<!--Add locale entries here.
+
+	https://www.techonthenet.com/js/language_tags.php
+
+	1) Add the locale entry
+	2) Add a corresponding folder with localization content matching the id
+	3) Add a corresponding flag image in the _flags folder matching the id
+	4) Add any labels you want to display the language text in the menu
+	-->
+
+	<locale id="pt-BR" is_default="true">
+		<contributors value="Time do ModBoa.exe (veja nos créditos)"/>
+		<label id="pt-BR" language="Português Brasileiro" region="Brasil"/>
+		<label id="en-US" language="Brazilian Portuguese" region="Brazil"/>
+	</locale>
+
+	<locale id="en-US">
+		<contributors value="ModBoa.exe Team (look in credits)"/>
+		<label id="pt-BR" language="Inglês (Estados Unidos)" region="Estados Unidos"/>
+		<label id="en-US" language="English (United States)" region="United States"/>
+	</locale>
+</data>

@@ -212,7 +212,7 @@ class StrumNote extends FlxSprite
 	public function postAddedToGroup() {
 		playAnim('static');
 		var posMultplier:Int = noteData;
-		if (modifiers.ModifiersManager.isEnabledbyName("Flip Notes")){
+		if (modifiers.ModifiersManager.isEnabledbyName("flip_note")){
 			if (PlayState.isRing){ //Preguiça de pensar em solução bunita
 				switch (noteData){
 					case 0: 		posMultplier = 4;
@@ -256,7 +256,7 @@ class StrumNote extends FlxSprite
 					x += ((FlxG.width / 4) * -3) - (width * 2);
 			}
 		}
-		if (modifiers.ModifiersManager.isEnabledbyName("Somente duas setas")){
+		if (modifiers.ModifiersManager.isEnabledbyName("only_two")){
 			var ajuste:Int = 85;
 			if (PlayState.isRing){
 				ajuste = 65;

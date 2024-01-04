@@ -77,37 +77,34 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 
 	public static function play(som:String):Void
 	{
-		if (0.7 > 0)
+		switch (som)
 		{
-			switch (som)
-			{
-				case 'confirmMenu':
-					if (!verifiqueSeExisteEentaoadicione(som))
-						init(confirm);
+			case 'confirmMenu':
+				if (!verifiqueSeExisteEentaoadicione(som))
+					init(confirm);
 
-					confirm.play(true);
-				case 'click':
-					if (!verifiqueSeExisteEentaoadicione(som))
-						init(click);
+				confirm.play(true);
+			case 'click':
+				if (!verifiqueSeExisteEentaoadicione(som))
+					init(click);
 
-					click.play(true);
-				/*case 'clickText':
-					if (!verifiqueSeExisteEentaoadicione(som))
-						init(clickText);
+				click.play(true);
+			/*case 'clickText':
+				if (!verifiqueSeExisteEentaoadicione(som))
+					init(clickText);
 
-					clickText.play(true);
-				*/
-				case 'scrollMenu':
-					if (!verifiqueSeExisteEentaoadicione(som))
-						init(scroll);
+				clickText.play(true);
+			*/
+			case 'scrollMenu':
+				if (!verifiqueSeExisteEentaoadicione(som))
+					init(scroll);
 
-					scroll.play(true);
-				case 'cancelMenu':
-					if (!verifiqueSeExisteEentaoadicione(som))
-						init(cancel);
+				scroll.play(true);
+			case 'cancelMenu':
+				if (!verifiqueSeExisteEentaoadicione(som))
+					init(cancel);
 
-					cancel.play(true);
-			}
+				cancel.play(true);
 		}
 	}
 

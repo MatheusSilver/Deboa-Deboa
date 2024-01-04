@@ -167,7 +167,12 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
-		if (ClientPrefs.pibby)
+		if (FlxG.save.data.lingua == null){
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new LanguageBootState());
+		}
+		else if (ClientPrefs.pibby)
 		{
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
@@ -229,9 +234,8 @@ class TitleState extends MusicBeatState
 
 	private function handleLoadComplete(event:Event):Void
 	{
-		trace("Conexão com a internet OK!");
-		GJClient.initialize();
-		ModoOffline = false;
+		trace("Falha ao conectar-se à internet!");
+		ModoOffline = true;
 	}
 
 	private function handleLoadError(event:IOErrorEvent):Void

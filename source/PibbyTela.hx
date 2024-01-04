@@ -30,8 +30,8 @@ class PibbyTela extends MusicBeatState
         #if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
 			var achieveID:Int = Achievements.getAchievementIndex('pibby');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) {
-				ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0])) {
+				ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][0], true);
 				giveAchievement();
 				ClientPrefs.save();
 			}

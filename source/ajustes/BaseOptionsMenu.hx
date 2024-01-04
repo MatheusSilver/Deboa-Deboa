@@ -34,61 +34,58 @@ class BaseOptionsMenu extends MusicBeatState
 
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
-		'VISUAL',
-		'LEGENDAS ',
-		'SOM GLOBAL',
-		'GAMEPLAY',
-		'SONS EXTRAS'
+		'visuals_cap',
+		'subt_cap',
+		'global_sounds_cap',
+		'gameplay_cap',
+		'hitsound_sounds_cap'
 	];
 	static var noCheckbox:Array<String> = [
-		'FPS',
-		'Delay da Nota',
-		'Idioma',
-		'Opacidade',
-		'Volume ',
-		'Volume',
-		'Tipo',
-		'Teste o HitSound'
+		'fps_max',
+		'note_delay',
+		'opacity',
+		'game_volume',
+		'hitsound_volume',
+		'hitsound_type',
+		'hitsound_test'
 	];
 
 	static var options:Array<String> = [
-		'VISUAL',
-		'Baixa Qualidade',
-		'Gore',
-		'Shaders', //Infelizmente, shaders não funcionam no android. (Na verdade funcionam sim, mas é muito dificil de portar. É um conhecimento escasso. Somente os porters mais antigos sabem como deixar eles funcionais.)
-		//Vai que o Sirox e seu celular da NASA joguem esse mod, por via das duvidas, os shaders ficam desativados por padrão em mobile
-		'Anti-Aliasing',
-		'FullScreen',
-		'Esconder HUD',
-		'Esconder tempo',
+		'visuals_cap',
+		'low_quality',
+		'gore',
+		'shaders',
+		'aliasing',
+		'fullscreen',
+		'hide_hud',
+		'hide_time',
 		#if desktop
-		'Auto pause',
+		'auto_pause',
 		#end
-		'Luzes Piscantes',
-		'FPS visível',
-		'Texturas na GPU',
+		'flashing',
+		'fps_visible',
+		'gpu',
 		#if !html5
-		'FPS', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
+		'fps_max', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
-		'GAMEPLAY',
-		'Downscroll',
-		'Middlescroll',
+		'gameplay_cap',
+		'downscroll',
+		'middlescroll',
 		//'Ghost Tapping', //Isso é deveras é perigoso em algumas músicas
-		'Delay da Nota',
-		'Note Splashes',
-		'Modo Focus',
-		'Efeitos de Camera',
-		'LEGENDAS ',
-		'Legendas',
-		'Idioma',
-		'Opacidade',
-		'SOM GLOBAL',
-		'Volume ',
-		'SONS EXTRAS',
-		'Hitsounds',
-		'Volume',
-		'Tipo',
-		'Teste o HitSound'
+		'note_delay',
+		'splash',
+		'focus',
+		'cam_effects',
+		'subt_cap',
+		'subtitles',
+		'opacity',
+		'global_sounds_cap',
+		'game_volume',
+		'hitsound_sounds_cap',
+		'hitsound',
+		'hitsound_volume',
+		'hitsound_type',
+		'hitsound_test'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -130,7 +127,7 @@ class BaseOptionsMenu extends MusicBeatState
 		for (i in 0...options.length)
 		{
 			var isCentered:Bool = unselectableCheck(i);
-			var optionText:Alphabet = new Alphabet(0, 70 * i, options[i], false, false, 0.05, 1, 'alfabetovio'); // esse true no final é pro texto ser branco
+			var optionText:Alphabet = new Alphabet(0, 70 * i, LangUtil.getString("opt_name_"+options[i], "option_name"), false, false, 0.05, 1, 'alfabetovio'); // esse true no final é pro texto ser branco
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
@@ -222,21 +219,21 @@ class BaseOptionsMenu extends MusicBeatState
 		if(usesCheckbox) {
 			if(controls.ACCEPT && nextAccept <= 0) {
 				switch(options[curSelected]) {
-					case 'FPS visível':
+					case 'fps_visible':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
 						if(Main.fpsVar != null)
 							Main.fpsVar.visible = ClientPrefs.showFPS;
 
-					case 'Baixa Qualidade':
+					case 'low_quality':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
 
-					case 'Gore':
+					case 'gore':
 						ClientPrefs.gore = !ClientPrefs.gore;
 					
-					case 'Shaders':
+					case 'shaders':
 						ClientPrefs.shaders = !ClientPrefs.shaders;
 
-					case 'Anti-Aliasing':
+					case 'aliasing':
 						ClientPrefs.globalAntialiasing = !ClientPrefs.globalAntialiasing;
 						showCharacter.antialiasing = ClientPrefs.globalAntialiasing;
 						for (item in grpOptions) {
@@ -250,54 +247,54 @@ class BaseOptionsMenu extends MusicBeatState
 						}
 						bg.antialiasing = ClientPrefs.globalAntialiasing;
 
-					case 'Note Splashes':
+					case 'splash':
 						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
 
-					case 'Modo Focus':
+					case 'focus':
 						ClientPrefs.focus = !ClientPrefs.focus;
 
-					case 'Luzes Piscantes':
+					case 'flashing':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
 
-					case 'Hitsounds':
+					case 'hitsound':
 						ClientPrefs.hitSounds = !ClientPrefs.hitSounds;
 
-					case 'FullScreen': //Isso é bem inutil no mobile btw, só faz deixar as marquinhas dos botões do lado
+					case 'fullscreen': //Isso é bem inutil no mobile btw, só faz deixar as marquinhas dos botões do lado
 						openfl.Lib.application.window.maximized = false;
 
 						ClientPrefs.fullscreen = !ClientPrefs.fullscreen;
 						FlxG.fullscreen = ClientPrefs.fullscreen;
 					
-					case 'Legendas':
+					case 'subtitles':
 						ClientPrefs.legendas = !ClientPrefs.legendas;	
 
 					case 'Swearing':
 						ClientPrefs.cursing = !ClientPrefs.cursing;
 
-					case 'Texturas na GPU':
+					case 'gpu':
 						ClientPrefs.loadingexperimental = !ClientPrefs.loadingexperimental;
 
 					#if desktop
-					case 'Auto pause':
+					case 'auto_pause':
 							ClientPrefs.pausarauto = !ClientPrefs.pausarauto ;
 #end
 
-					case 'Downscroll':
+					case 'downscroll':
 						ClientPrefs.downScroll = !ClientPrefs.downScroll;
 
-					case 'Middlescroll':
+					case 'middlescroll':
 						ClientPrefs.middleScroll = !ClientPrefs.middleScroll;
 
 					case 'Ghost Tapping':
 						ClientPrefs.ghostTapping = !ClientPrefs.ghostTapping;
 
-					case 'Efeitos de Camera':
+					case 'cam_effects':
 						ClientPrefs.camZooms = !ClientPrefs.camZooms;
 
-					case 'Esconder HUD':
+					case 'hide_hud':
 						ClientPrefs.hideHud = !ClientPrefs.hideHud;
 					
-					case 'Esconder tempo':
+					case 'hide_time':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 				}
 				GlobalSoundManager.play('scrollMenu');
@@ -309,7 +306,7 @@ class BaseOptionsMenu extends MusicBeatState
 				var addo:Float = controls.UI_LEFT ? -0.1 : 0.1;
 				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
 				switch(options[curSelected]) {
-					case 'FPS':
+					case 'fps_max':
 						ClientPrefs.framerate += add*10;
 						if(ClientPrefs.framerate < 60) ClientPrefs.framerate = 60;
 						else if(ClientPrefs.framerate > 240) ClientPrefs.framerate = 240;
@@ -321,7 +318,7 @@ class BaseOptionsMenu extends MusicBeatState
 							FlxG.drawFramerate = ClientPrefs.framerate;
 							FlxG.updateFramerate = ClientPrefs.framerate;
 						}
-					case 'Delay da Nota':
+					case 'note_delay':
 						var mult:Int = 1;
 						if(holdTime > 1.5) { //Double speed after 1.5 seconds holding
 							mult = 2;
@@ -329,7 +326,7 @@ class BaseOptionsMenu extends MusicBeatState
 						ClientPrefs.noteOffset += add * mult;
 						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
 						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
-					case 'Volume':
+					case 'hitsound_volume':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.osusom += addo;
 						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
@@ -338,7 +335,7 @@ class BaseOptionsMenu extends MusicBeatState
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
 					}
-					case 'Volume ':
+					case 'game_volume':
 						ClientPrefs.efeitosVolume += addo;
 						if(ClientPrefs.efeitosVolume < 0.05) ClientPrefs.efeitosVolume = 0;
 						else if(ClientPrefs.efeitosVolume > 0.95) ClientPrefs.efeitosVolume = 1.0; 
@@ -347,7 +344,7 @@ class BaseOptionsMenu extends MusicBeatState
 						//o próprio nome da variável já diz o pq eu escolhi um som random
 						teste.volume = ClientPrefs.efeitosVolume;
 						teste.play();
-					case 'Tipo':
+					case 'hitsound_type':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += add;
 						if(ClientPrefs.hitSoundType <= 1) ClientPrefs.hitSoundType = 1;
@@ -356,20 +353,18 @@ class BaseOptionsMenu extends MusicBeatState
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
 						}
-					case 'Opacidade':
+					case 'opacity':
 						if (ClientPrefs.legendas){
 							ClientPrefs.opacidadeLegendas+=addo;
 							if(ClientPrefs.opacidadeLegendas>0.95){ClientPrefs.opacidadeLegendas = 1;}else if(ClientPrefs.opacidadeLegendas<0.15){ClientPrefs.opacidadeLegendas=0.1;}
 						}
-					case 'Idioma':
-						ClientPrefs.idioma = ClientPrefs.idioma == 0 ? 1 : 0; // MUDA DE 0 PRA 1 OU DE 1 PRA 0
 						
 				}
 				reloadValues();
 
 				if(holdTime <= 0) GlobalSoundManager.play('scrollMenu');
 				holdTime += elapsed;
-			} else if (controls.ACCEPT && options[curSelected] == 'Teste o HitSound' && ClientPrefs.hitSounds){
+			} else if (controls.ACCEPT && options[curSelected] == 'hitsound_test' && ClientPrefs.hitSounds){
 				var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
 				hitsound.volume = ClientPrefs.osusom;
 				hitsound.play();
@@ -398,69 +393,7 @@ class BaseOptionsMenu extends MusicBeatState
 				curSelected = 0;
 		} while(unselectableCheck(curSelected));
 
-		var daText:String = '';
-		switch(options[curSelected]) {
-			case 'Idioma':
-				daText = "Altera o idioma das legendas nas músicas.";
-			case 'Gore':
-				daText = "Desative isso para não visualizar\nos elementos com gore nas músicas.";
-			case 'FPS':
-				daText = "Determina o entre áspas limite do seu FPS.";
-			case 'Delay da Nota':
-				daText = "Troca o quão cedo uma nota aparece.\n(feitos para fones com delay.)";
-			case 'Volume ':
-				daText = 'Altera o Volume dos efeitos sonoros do jogo inteiro.';
-			case 'FPS visível':
-				daText = "Se desmarcado, desativa os contadores do jogo,\ntais como o contador de FPS e de memória.";
-			case 'Shaders':
-				daText = "Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)";
-			case 'Baixa Qualidade':
-				daText = "Se marcado, retira elementos do cenário.\n(Desative isso caso a música que esteja jogando, trave demais.)";
-			case 'Anti-Aliasing':
-				daText = "Se desmarcado, desativa o anti-aliasing do jogo \n(Aumenta MUITO a performance)";
-			// ajuste pequeno	
-			case 'Texturas na GPU':
-				daText = "Se marcado, a engine passará a usar\n um sistema alternativo (GPU) para carregar os assets \n talvez mais rápido que o original dependendo da sua máquina.";	
-			case 'Downscroll':
-				daText = "Se marcado, as notas ficaram estilo Guitar Hero.\n(Irão pra baixo)";
-			case 'Hitsounds':
-				daText = "Um som é tocado quando você acerta uma nota.";
-			case 'FullScreen':
-				daText = "Bom... Deixa o game em tela cheia uai";
-			case 'Teste o HitSound':
-				daText = "Aperte Enter para testar o volume e o som do Hitsound escolhido. \n A opção de hitsound precisa estar ativa para funcionar.";
-			case 'Tipo':
-				daText = "Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis \n Os Hitsounds precisam estar ativos para mudar esta opção.";
-			case 'Volume':
-				daText = "Altere aqui o volume do som da Hitsound.\n(Esquerda para abaixar, direita para aumentar.) \n Os Hitsounds precisam estar ativos para mudar esta opção.";
-			case 'Middlescroll':
-				daText = "Se marcado, a nota do oponente irá sumir e a sua ficará no meio.";
-			case 'Ghost Tapping':
-				daText = "Se marcado, você não errará por apertar teclas aleatóriamente.\n(Não funciona caso errar uma nota da música.)";
-			case 'Swearing':
-				daText = "If unchecked, your mom won't be angry at you.";
-				#if desktop
-			case 'Auto pause':
-				daText = "Se desmarcado, não irá pausar automaticamente\nse você sair da janela do jogo enquanto\nestá em uma música.";
-			#end
-			case 'Note Splashes':
-				daText = "Se desmarcado, quando acertar uma nota Sick!, as notas irão soltar uma animaçãozinha.\n(Caso estiver travando, desative isso também.)";
-			case 'Modo Focus':
-				daText = "Basicamente cria um fundo preto nas notas.";
-			case 'Luzes Piscantes':
-				daText = "Desmarque caso for sensível com tela tremendo, luzes piscantes e etc...\n(Todos mods de agora tem isso.)";
-			case 'Legendas':
-				daText = "Se ativado, você irá ver as legendas nas músicas.";	
-			case 'Opacidade':
-				daText = "Altera a opacidade das legendas.";	
-			case 'Efeitos de Camera':
-				daText = "Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica";
-			case 'Esconder HUD':
-				daText = "Se marcado, tira muitas coisas da tela.";
-			case 'Esconder tempo':
-				daText = "Se marcado, a barrinha com o tempo da música, sumirá.";
-		}
-		descText.text = daText;
+		descText.text = LangUtil.getString("opt_desc_"+options[curSelected], "option_desc");
 
 		var bullShit:Int = 0;
 
@@ -493,7 +426,7 @@ class BaseOptionsMenu extends MusicBeatState
 			}
 		}
 
-		showCharacter.visible = (options[curSelected] == 'Anti-Aliasing');
+		showCharacter.visible = (options[curSelected] == 'aliasing');
 		GlobalSoundManager.play('scrollMenu');
 	}
 
@@ -503,49 +436,49 @@ class BaseOptionsMenu extends MusicBeatState
 			if(checkbox != null) {
 				var daValue:Bool = false;
 				switch(options[checkboxNumber[i]]) {
-					case 'FPS visível':
+					case 'fps_visible':
 						daValue = ClientPrefs.showFPS;
-					case 'Shaders':
+					case 'shaders':
 						daValue = ClientPrefs.shaders;
-					case 'Baixa Qualidade':
+					case 'low_quality':
 						daValue = ClientPrefs.lowQuality;
-					case 'Gore':
+					case 'gore':
 						daValue = ClientPrefs.gore;
-					case 'Anti-Aliasing':
+					case 'aliasing':
 						daValue = ClientPrefs.globalAntialiasing;
-					case 'Efeitos de Camera':
+					case 'cam_effects':
 						daValue = ClientPrefs.camZooms;
-					case 'Note Splashes':
+					case 'splash':
 						daValue = ClientPrefs.noteSplashes;
-					case 'Modo Focus':
+					case 'focus':
 						daValue = ClientPrefs.focus;
-					case 'Luzes Piscantes':
+					case 'flashing':
 						daValue = ClientPrefs.flashing;
-					case 'Legendas':
+					case 'subtitles':
 						daValue = ClientPrefs.legendas;
-					case 'Texturas na GPU':
+					case 'gpu':
 						daValue = ClientPrefs.loadingexperimental;
-					case 'Downscroll':
+					case 'downscroll':
 						daValue = ClientPrefs.downScroll;
-					case 'Middlescroll':
+					case 'middlescroll':
 						daValue = ClientPrefs.middleScroll;
 					case 'Ghost Tapping':
 						daValue = ClientPrefs.ghostTapping;
 					case 'Swearing':
 						daValue = ClientPrefs.cursing;
-					case 'Hitsounds':
+					case 'hitsound':
 						daValue = ClientPrefs.hitSounds;
-					case 'FullScreen':
+					case 'fullscreen':
 						daValue = ClientPrefs.fullscreen;
 						#if desktop
-					case 'Auto pause':
+					case 'auto_pause':
 						daValue = ClientPrefs.pausarauto;
 						#end
 					case 'Zooms da Camera':
 						daValue = ClientPrefs.camZooms;
-					case 'Esconder HUD':
+					case 'hide_hud':
 						daValue = ClientPrefs.hideHud;
-					case 'Esconder tempo':
+					case 'hide_time':
 						daValue = ClientPrefs.hideTime;
 				}
 				checkbox.daValue = daValue;
@@ -556,21 +489,19 @@ class BaseOptionsMenu extends MusicBeatState
 			if(text != null) {
 				var daText:String = '';
 				switch(options[textNumber[i]]) {
-					case 'FPS':
+					case 'fps_max':
 						daText = '' + ClientPrefs.framerate;
-					case 'Delay da Nota':
+					case 'note_delay':
 						daText = ClientPrefs.noteOffset + 'ms';
-					case 'Volume ':
+					case 'game_volume':
 						daText = Std.string(ClientPrefs.efeitosVolume);
-					case 'Volume':
+					case 'hitsound_volume':
 						daText = Std.string(ClientPrefs.osusom);
-					case 'Tipo':
+					case 'hitsound_type':
 						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType);
-					case 'Teste o HitSound':
+					case 'hitsound_test':
 						daText = '';
-					case 'Idioma':
-						daText = ClientPrefs.idioma == 0 ? "Portugues" : "English";
-					case 'Opacidade':
+					case 'opacity':
 						daText = Std.string(ClientPrefs.opacidadeLegendas);
 				}
 				var lastTracker:FlxSprite = text.sprTracker;

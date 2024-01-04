@@ -51,7 +51,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		for (i in 0...Achievements.achievementsStuff.length)
 		{
-			if (!Achievements.achievementsStuff[i][3] || ClientPrefs.achievementsMap.exists(Achievements.achievementsStuff[i][2]))
+			if (!Achievements.achievementsStuff[i][1] || ClientPrefs.achievementsMap.exists(Achievements.achievementsStuff[i][0]))
 			{
 				options.push(Achievements.achievementsStuff[i]);
 				achievementIndex.push(i);
@@ -60,7 +60,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		for (i in 0...options.length)
 		{
-			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][5];
+			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][3];
 			var optionText:Alphabet = new Alphabet(-150, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
 			optionText.x += 25;
@@ -144,7 +144,7 @@ class AchievementsMenuState extends MusicBeatState
 				});
 				for (i in 0...Achievements.achievementsStuff.length)
 				{
-					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][2], false);
+					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][0], false);
 					FirstTimeAqui = false;
 				}
 			});
@@ -222,8 +222,8 @@ class AchievementsMenuState extends MusicBeatState
 				achievementArray[i].alpha = 1;
 			}
 		}
-		descText.text = Achievements.achievementsStuff[achievementIndex[curSelected]][1];
-		titleText.text = Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achievementIndex[curSelected]][2]) ? Achievements.achievementsStuff[achievementIndex[curSelected]][0] : '?????';
+		descText.text = LangUtil.getString("ach_desc_"+Achievements.achievementsStuff[curSelected][0], "achievement");
+		titleText.text = Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achievementIndex[curSelected]][2]) ? LangUtil.getString("ach_name_"+Achievements.achievementsStuff[curSelected][0], "achievement") : '?????';
 	}
 
 	override function beatHit()

@@ -544,14 +544,14 @@ class PlayState extends MusicBeatState
 		precacheList.set('pausescrollmenu', 'sound');
 		precacheList.set('breakfast', 'music');
 
-		legendPath = 'letras/' + SONG.song.toLowerCase() + '/';
+		legendPath = 'letras/' + SONG.song.toLowerCase() + '/' + ClientPrefs.lingua+"/";
 		// to perdido
 
 		isRing = SONG.isRing; // Top 10 otimizações mais sodas do Mundo talvez do Brasil
 
 		cccVidaCounter = 2; // meida...
 		luigienter = false;
-		canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
+		canRegen = !ModifiersManager.isEnabledbyName("no_death");
 		resetforcado = false;
 		canuseevents = true; // Apenas para ter certeza de que a música não vai vir bugada da Prey
 		majinstrums = false;
@@ -641,9 +641,9 @@ class PlayState extends MusicBeatState
 
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
 
-		if (ModifiersManager.isEnabledbyName("Notas Super Rápidas"))
+		if (ModifiersManager.isEnabledbyName("fast_note"))
 			SONG.speed = SONG.speed * 1.5;
-		else if (ModifiersManager.isEnabledbyName("Notas Super Lentas"))
+		else if (ModifiersManager.isEnabledbyName("slow_note"))
 			SONG.speed = SONG.speed *0.5;
 
 		// Nenhum problema pra só uma string
@@ -1278,7 +1278,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.y = FlxG.height * 0.89;
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
-		healthBarBG.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("Imortalidade");
+		healthBarBG.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("no_death");
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
 		healthBarBG.visible = canRegen;
@@ -1294,7 +1294,7 @@ class PlayState extends MusicBeatState
 			add(omagaaaa);
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 21, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 - 49),
 				Std.int(healthBarBG.height - 8 - 32), this, 'healthbarval', 0, 2);
-			healthBar.visible = !ClientPrefs.hideHud && !ModifiersManager.isEnabledbyName("Imortalidade");
+			healthBar.visible = !ClientPrefs.hideHud && !ModifiersManager.isEnabledbyName("no_death");
 
 		}
 		else
@@ -1303,19 +1303,19 @@ class PlayState extends MusicBeatState
 				'healthbarval', 0, 2);
 			healthBar.scrollFactor.set();
 			// healthBar
-			healthBar.visible = !ClientPrefs.hideHud && !ModifiersManager.isEnabledbyName("Imortalidade");
+			healthBar.visible = !ClientPrefs.hideHud && !ModifiersManager.isEnabledbyName("no_death");
 			add(healthBar);
 			healthBarBG.sprTracker = healthBar;
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
-		iconP1.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("Imortalidade");
+		iconP1.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("no_death");
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
-		iconP2.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("Imortalidade");
+		iconP2.visible = !ClientPrefs.hideHud && canRegen && !ModifiersManager.isEnabledbyName("no_death");
 		add(iconP2);
 		reloadHealthBarColors();
 
@@ -2603,7 +2603,7 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.volume = 0;
 				vocals.volume = 0;
 			}
-			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, ClientPrefs.idioma == 0 ? "Aperte espaço para pular" : "Press space to skip", 32); // Achei cringe
+			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, LangUtil.getString("descVideo"), 32); // Achei cringe
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
 			letext.alpha = 0;
@@ -3033,7 +3033,7 @@ class PlayState extends MusicBeatState
 
 				notes.forEachAlive(function(note:Note)
 				{
-					if (note.mustPress && !ModifiersManager.isEnabledbyName("Fade-in das notas") && !ModifiersManager.isEnabledbyName("Fade-out das notas")) // Fix para o dueto da CY
+					if (note.mustPress && !ModifiersManager.isEnabledbyName("fade_in_note") && !ModifiersManager.isEnabledbyName("fade_out_note")) // Fix para o dueto da CY
 					{
 						note.copyAlpha = false;
 						note.alpha = note.multAlpha;
@@ -3211,7 +3211,7 @@ class PlayState extends MusicBeatState
 
 					var daNoteData:Int = Std.int(songNotes[1] % lol);
 
-					if (ModifiersManager.isEnabledbyName("Somente duas setas") && !isRing)
+					if (ModifiersManager.isEnabledbyName("only_two") && !isRing)
 						if (daNoteData < 4 && daNoteData >= 0)
 							daNoteData = FlxG.random.int(0,3,[1,2]);
 						else if (daNoteData >=4 && daNoteData < 8)
@@ -3219,7 +3219,7 @@ class PlayState extends MusicBeatState
 						else
 							daNoteData = FlxG.random.int(8, 11, [9,10]);
 
-					if (ModifiersManager.isEnabledbyName("Notas Random") && !isRing)
+					if (ModifiersManager.isEnabledbyName("rand_note") && !isRing)
 						if (daNoteData < 4 && daNoteData >= 0)
 							daNoteData = FlxG.random.int(0,3);
 						else if (daNoteData >=4 && daNoteData < 8)
@@ -3343,61 +3343,13 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.legendas || (StringTools.contains(event[3].toLowerCase(), "preycutscene") && SONG.song.toLowerCase() == "prey"))
 				{
 					// trace('executando cache de lyrics');
-					if(ClientPrefs.idioma == 0)
-					{
-						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[3])))
-							{
-								// trace('precache value1 '+ legendPath+event[3]);
-								precacheList.set(legendPath + event[3], 'image');
-							}
-		
-							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[4])))
-							{
-								// trace('precache value2 '+ legendPath+event[4]);
-								precacheList.set(legendPath + event[4], 'image');
-							}
-		
-							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[5])))
-							{
-								// trace('precache value3 '+ legendPath+event[5]);
-								precacheList.set(legendPath + event[5], 'image');
-							}
-		
-							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[6])))
-							{
-								// trace('precache value3 '+ legendPath+event[6]);
-								precacheList.set(legendPath + event[6], 'image');
-		
-								// Oh yeah boyuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
-							}
-					}
-					else
-					{
-						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[3]+"-eng")))
-							{
-								// trace('precache value1 '+ legendPath+event[3]);
-								precacheList.set(legendPath + event[3]+"-eng", 'image');
-							}
-		
-							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[4]+"-eng")))
-							{
-								// trace('precache value2 '+ legendPath+event[4]);
-								precacheList.set(legendPath + event[4]+"-eng", 'image');
-							}
-		
-							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[5]+"-eng")))
-							{
-								// trace('precache value3 '+ legendPath+event[5]);
-								precacheList.set(legendPath + event[5]+"-eng", 'image');
-							}
-		
-							if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[6]+"-eng")))
-							{
-								// trace('precache value3 '+ legendPath+event[6]);
-								precacheList.set(legendPath + event[6]+"-eng", 'image');
-		
-								// Oh yeah boyuyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
-							}
+					for (i in 0...7){ //Silvio isso tava mt feio...
+						trace(i);
+						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[I])))
+						{
+							// trace('precache value1 '+ legendPath+event[i]);
+							precacheList.set(legendPath + event[i], 'image');
+						}
 					}
 
 				}
@@ -3992,7 +3944,7 @@ class PlayState extends MusicBeatState
 		// Fun fact: Sim foi realmente a primeira coisa que fiz no modboa no dia 29/10/2022
 		// Data de reflexão sobre o assunto 07/02/2023 dia que os achievements foram programados
 
-		if (songStarted && ModifiersManager.isEnabledbyName("Camera girando")){
+		if (songStarted && ModifiersManager.isEnabledbyName("spin_camera")){
 			camHUD.angle += 0.5;
 			camGame.angle += 0.5;
 		}
@@ -4056,7 +4008,7 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene && !playingVideoMP4)
 		{
-			canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
+			canRegen = !ModifiersManager.isEnabledbyName("no_death");
 			canuseevents = true;
 			persistentUpdate = false;
 			paused = true;
@@ -4260,7 +4212,7 @@ class PlayState extends MusicBeatState
 		if (controls.RESET && !inCutscene && !endingSong && !playingVideoMP4)
 		{
 			resetforcado = true;
-			canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
+			canRegen = !ModifiersManager.isEnabledbyName("no_death");
 			canuseevents = true;
 			health = 0;
 			// trace("RESET = True");
@@ -4351,9 +4303,9 @@ class PlayState extends MusicBeatState
 
 					if (daNote.copyAlpha)
 					{
-						if (ModifiersManager.isEnabledbyName("Fade-in das notas") && Math.abs(daNote.distance) >= 400){
+						if (ModifiersManager.isEnabledbyName("fade_in_note") && Math.abs(daNote.distance) >= 400){
 							daNote.alpha = (1-((Math.abs(daNote.distance))/700))*strumAlpha;
-						}else if(ModifiersManager.isEnabledbyName("Fade-out das notas") && Math.abs(daNote.distance) < 250){
+						}else if(ModifiersManager.isEnabledbyName("fade_out_note") && Math.abs(daNote.distance) < 250){
 							daNote.alpha *= Math.abs(daNote.distance)/250*strumAlpha;
 						}else //O absolute value é usado pra não ter modificações entre o scroll normal e o downscroll (especialmente na pasta night)
 							daNote.alpha = strumAlpha;
@@ -4361,7 +4313,7 @@ class PlayState extends MusicBeatState
 						daNote.visible = strumVisible;
 					}
 
-					if (daNote.visible && daNote.mustPress && ModifiersManager.isEnabledbyName("Notas invisíveis"))
+					if (daNote.visible && daNote.mustPress && ModifiersManager.isEnabledbyName("invisible_notes"))
 						daNote.visible = false;
 
 					if (daNote.copyX)
@@ -6052,7 +6004,7 @@ class PlayState extends MusicBeatState
 		mcontrols.visible = false;
 		#end
 		majinstrums = false;
-		canRegen = !ModifiersManager.isEnabledbyName("Imortalidade");
+		canRegen = !ModifiersManager.isEnabledbyName("no_death");
 		canuseevents = true;
 		timeBarBG.visible = false;
 		timeBar.visible = false;
@@ -6182,7 +6134,7 @@ class PlayState extends MusicBeatState
 			{
 				var achieveID:Int = Achievements.getAchievementIndex('pibby');
 
-				if (curSong != 'green-hills' || Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2]))
+				if (curSong != 'green-hills' || Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0]))
 				{
 					trace('WENT BACK TO FREEPLAY??');
 					cancelFadeTween();
@@ -6213,7 +6165,7 @@ class PlayState extends MusicBeatState
 						}
 					});
 				}
-				else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2]))
+				else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0]))
 				{
 					// Sim, isso funciona no android/mobile
 					// Aparentemente eu e o Silver ficamos em dúvida se isso funfava ou não, mas como eu tenho certeza, tá aqui k
@@ -6907,7 +6859,7 @@ class PlayState extends MusicBeatState
 			daNote.noteType,
 			daNote.isSustainNote
 		]);
-		if (ModifiersManager.isEnabledbyName("Instakill por erro")) health = 0;
+		if (ModifiersManager.isEnabledbyName("instakill")) health = 0;
 	}
 
 	
@@ -7646,9 +7598,9 @@ class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
-		if (ModifiersManager.isEnabledbyName("Regen de vida passivo"))
+		if (ModifiersManager.isEnabledbyName("passive_regen"))
 			health += 0.003;
-		if (ModifiersManager.isEnabledbyName("Camera tremendo"))
+		if (ModifiersManager.isEnabledbyName("shake_camera"))
 			triggerEventNote("Screen Shake", ".25,.0125", ".25,.0125"); //Screen shake do mod do suicide mouse v2 do the-mayz suavizado
 
 		if (curSong.toLowerCase() == "sink" && ClientPrefs.shaders)
@@ -7847,7 +7799,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		if (ModifiersManager.isEnabledbyName("Paparazzi") && curBeat%2 == 0){
+		if (ModifiersManager.isEnabledbyName("paparazzi") && curBeat%2 == 0){
 			if (FlxG.random.bool(75)){
 				camHUD2.flash(0xFFFFFFFF, FlxG.random.float(0.1, 0.3), null, true);
 				FlxG.sound.play(Paths.sound('paparazzi', 'preload'), 1);

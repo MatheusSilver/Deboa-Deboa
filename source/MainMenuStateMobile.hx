@@ -369,8 +369,8 @@ class MainMenuStateMobile extends MusicBeatState
 	function test_unlock(achieve:String){
 		#if ACHIEVEMENTS_ALLOWED
 		var achieveID:Int = Achievements.getAchievementIndex(achieve);
-		if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
-			ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
+		if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+			ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][0], true);
 			giveAchievement(achieve);
 			ClientPrefs.save();
 		}

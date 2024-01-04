@@ -32,7 +32,7 @@ class AjustesState extends MusicBeatState
 	var isCoolBeat:Bool=true;
 	//var gradientBar:FlxGradient;
 	
-	var optionShit:Array<String> = ['configuracoes','controles', 'setatipos', 'gamejooj'];
+	var optionShit:Array<String> = ['configuracoes','controles', 'setatipos', 'idioma', 'gamejooj'];
 
 	var machine:FlxSprite;
 	var camFollow:FlxObject;

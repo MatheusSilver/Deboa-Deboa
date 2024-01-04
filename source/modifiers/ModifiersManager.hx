@@ -6,36 +6,36 @@ import flixel.FlxG;
 class ModifiersManager
 {
     public static var currentModifiers:Array<Int> = [];
-
-        //TIPO --- NOME --- DESC --- nao pode junto --- multiplier
+        //0    --- 1    --- 2              --- 3
+        //TIPO --- NOME --- nao pode junto --- multiplier
         // TIPO 0 = DESAFIOS
         // TIPO 1 = AJUDANTES
     public static var allModifiers:Array<Dynamic> = [
-        [0, "Notas Random", "As direções das notas mudam a cada tentativa", [14, 16], 1.08], 
-        [0, "Notas Super Rápidas", "Aumenta drásticamente a velocidade da nota entre o surgimento e o alvo.", [2], 1.12],
-        [0, "Notas Super Lentas", "Diminui drásticamente a velocidade da nota entre o surgimento e o alvo.", [1], 1.16],
-        [0, "Fade-in das notas", "As notas são invisíveis até se aproximarem do alvo", [11], 1.08], 
-        [0, "Fade-out das notas", "Notas desaparecem quando se aproximam do alvo", [11], 1.08],
-        [0, "Dano maior por erro", "Erros removem mais vida que o de costume", [7, 6, 8], 1.04],
-        [0, "Instakill por erro", "A música se encerra quando o combo é quebrado.", [5, 7, 8], 1.16],
-        [1, "Menos dano por erro", "Erros custam menos vida que o de costume", [5, 6, 8], 0.88],
-        [1, "Imortalidade", "A música não irá terminar caso sua vida chegue a zero, ou caso erre algum evento.", [5, 7, 6], 0.6],
-        [1, "Regen de vida passivo", "Sua vida irá regenerar mesmo que sem acertar as notas.", [], 0.75], 
-        [1, "Cura maior por acerto", "A barra de vida irá regenerar por acerto", [], 0.85],//ajudantes acaba aqui
-        [0, "Notas invisíveis", "Suas notas ficam totalmente invisiveis.", [3, 4], 1.40], //micdup
-        [0, "Camera girando", "O HUD ficará girando o tempo todo em uma direção", [], 1.04],
-        [0, "Camera tremendo", "O HUD ficará tremendo durante a musica inteira.", [], 1.04], 
-        [0, "Flip Notes", "O caminho das notas se torna o oposto do que o de costume.", [0], 1.24],
-        [0, "Paparazzi", "Flashes na tela com certa frequência", [], 1.02],
-        [1, "Somente duas setas", "Cima e baixo não existem mais, apenas esquerda e direita", [0], 0.85],
-        [1, "Mono Botão", "Acerte todas as notas ao mesmo tempo apertando qualquer tecla", [], 0.7]
-    ];
+        [0, "rand_note", [14, 16], 1.08], 
+        [0, "fast_note", [2], 1.12],
+        [0, "slow_note", [1], 1.16],
+        [0, "fade_in_note", [11], 1.08], 
+        [0, "fade_out_note", [11], 1.08],
+        [0, "more_damage", [7, 6, 8], 1.04],
+        [0, "instakill", [5, 7, 8], 1.16],
+        [1, "less_damage", [5, 6, 8], 0.88],
+        [1, "no_death", [5, 7, 6], 0.6],
+        [1, "passive_regen", [], 0.75], 
+        [1, "more_regen", [], 0.85],
+        [0, "invisible_notes", [3, 4], 1.40],
+        [0, "spin_camera", [], 1.04],
+        [0, "shake_camera", [], 1.04], 
+        [0, "flip_note", [0], 1.24],
+        [0, "paparazzi", [], 1.02],
+        [1, "only_two",  [0], 0.85],
+        [1, "single_button", [], 0.7]
+];
 
     
 
     public static function setModifier(newModifierID:Int)
     {
-        var intNaoPode:Array<Int> = allModifiers[newModifierID][3];
+        var intNaoPode:Array<Int> = allModifiers[newModifierID][2];
         for (i in intNaoPode)
         {
             if(currentModifiers.contains(i))
@@ -89,7 +89,7 @@ class ModifiersManager
             {
                 if(i==modifierID)
                 {
-                    return allModifiers[i][2];
+                    return LangUtil.getString("mod_desc_"+allModifiers[i][1], "modifier");
                 }
             }
         return "";
@@ -113,7 +113,7 @@ class ModifiersManager
             {
                 if(i==modifierID)
                 {
-                    return allModifiers[i][4];
+                    return allModifiers[i][2];
                 }
             }
         return 0;
@@ -121,7 +121,7 @@ class ModifiersManager
 
     public static function getAllProperties(deQual:Int):Modifier
     {
-        var propriedades:Modifier = new Modifier(allModifiers[deQual][0], allModifiers[deQual][1], allModifiers[deQual][2], allModifiers[deQual].length == 4 ? allModifiers[deQual][3] : null, allModifiers[deQual][4]);
+        var propriedades:Modifier = new Modifier(allModifiers[deQual][0], allModifiers[deQual][1], allModifiers[deQual][2], allModifiers[deQual][3]);
         return propriedades;
     }
 
@@ -169,6 +169,6 @@ class ModifiersManager
 
     public static function isUsingModifiers():Bool
     {
-        return getFinalModifier() != 1 ? false : true;
+        return getFinalModifier() != 1;
     }
 }

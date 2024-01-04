@@ -141,11 +141,11 @@ class Note extends FlxSprite
 				case 'No Animation':
 					noAnimation = true;
 				default:
-					if (ModifiersManager.isEnabledbyName("Dano maior por erro"))
+					if (ModifiersManager.isEnabledbyName("more_damage"))
 						missHealth = 0.075*2;
-					else if(ModifiersManager.isEnabledbyName("Menos dano por erro"))
+					else if(ModifiersManager.isEnabledbyName("less_damage"))
 						missHealth = 0.0475*2;
-					else if(ModifiersManager.isEnabledbyName("Cura maior por acerto"))
+					else if(ModifiersManager.isEnabledbyName("more_regen"))
 						hitHealth =  0.036*2;
 			}
 			noteType = value;

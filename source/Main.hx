@@ -43,6 +43,7 @@ class Main extends Sprite
 	};
 
 	public static var fpsVar:FPS;
+	public static var tongue:FireTongueEx;
 	public static var mouse:Bool = #if mobile false; #else true; #end 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -147,6 +148,9 @@ class Main extends Sprite
 		if(fpsVar != null) {
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
+
+		tongue = new FireTongueEx();
+		tongue.initialize({locale: ClientPrefs.lingua});
 
 
 		#if html5

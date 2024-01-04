@@ -47,8 +47,7 @@ class ClientPrefs
 	public static var currentModifiers:Array<Int> = []; // valeu dav
 	public static var opacidadeLegendas:Float = 1;
 	public static var focus:Null<Bool> = false;
-	public static var idioma:Int = 0; // 0 = ptbr 
-									  // 1 = eng
+	public static var lingua:Null<String> = "pt-BR";
 
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
