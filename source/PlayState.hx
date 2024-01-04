@@ -5785,25 +5785,18 @@ class PlayState extends MusicBeatState
 				infinitesimbol.angle = 0; // I FORGOR :skull:
 				infinitesimbol.screenCenter(X);
 				infinitesimbol.centerOrigin(); // apenas para garantir que o eixo de spin fique no centro do simbolo infinito
-				FlxTween.num(timeBar.max, 20, 2.0, {ease: FlxEase.cubeOut}, function(v:Float)
+				timeBar.createFilledBar(0xFF7700FF, 0xFFFFFFFF);
+				FlxTween.num(songPercent, 0, 2.5, {ease: FlxEase.sineInOut}, function(v:Float)
 				{
-					remove(timeBar);
-					timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
-						'songPercent', 0, v);
-					timeBar.numDivisions = 400;
-					timeBar.scrollFactor.set();
-					timeBar.createFilledBar(0xFF7700FF, 0xFFFFFFFF);
-					timeBar.cameras = [camHUD];
-					add(timeBar);
+					songPercent = v;
 				});
-				FlxTween.num(secondsTotal, 6039, 2.0, {ease: FlxEase.linear}, function(v2:Float)
+				FlxTween.num(secondsTotal, 6039, 2.5, {ease: FlxEase.linear}, function(v2:Float)
 				{
 					timeTxt.text = FlxStringUtil.formatTime(v2, false);
 				});
-				new FlxTimer().start(2.03, function(tmr:FlxTimer)
+				new FlxTimer().start(2.53, function(tmr:FlxTimer)
 				{
 					timeTxt.visible = false;
-					songPercent = 0;
 					add(infinitesimbol);
 				});
 
