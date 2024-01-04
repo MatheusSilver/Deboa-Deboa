@@ -1,5 +1,6 @@
 function onCreate()
 	makeLuaSprite('sky','cenarios/crimge/sky', -850,-400)
+	setGraphicSize("sky", getProperty("sky.width"), getProperty("sky.height")*120)
 	addLuaSprite('sky', false)
 
 	makeLuaSprite('mountain','cenarios/crimge/mountain', -900, 50)
@@ -11,14 +12,6 @@ function onCreate()
 	makeAnimatedLuaSprite('killer2', 'cenarios/crimge/tree2', 700,-550)
 	addAnimationByPrefix('killer2', 'boopp', 'trebacckk', 24, false)
 	addLuaSprite('killer2', false)
-
-	makeAnimatedLuaSprite('killer', 'cenarios/crimge/tree2', 1100,-550)
-	addAnimationByPrefix('killer', 'boop', 'trebacckk', 24, false)
-	addLuaSprite('killer', false)
-
-	makeAnimatedLuaSprite('trees','cenarios/crimge/trees1', 500, -650)
-	addAnimationByPrefix('trees','trees', 'trees', 24, false)
-	addLuaSprite('trees', false)
 
 	makeAnimatedLuaSprite('kill', 'cenarios/crimge/kill', 1000,-600)
 	addAnimationByPrefix('kill', 'bop', 'kill', 24, false)
@@ -39,15 +32,5 @@ function onCreate()
 	setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'gameOverEndSonic'); --put in mods/sounds/
 	setPropertyFromClass('GameOverSubstate', 'loopSoundName', 'breakfast'); --put in mods/sounds/
 
-	precacheImage('overlay');
-end
-
-function onBeatHit()
-	if curBeat % 1 == 0 then
-		objectPlayAnimation('kill', 'bop');
-		objectPlayAnimation('trees', 'trees');
-		objectPlayAnimation('killer', 'boop');
-		objectPlayAnimation('killer2', 'boopp');
-    end
-
+	close()
 end

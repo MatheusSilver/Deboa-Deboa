@@ -141,39 +141,6 @@
 			"fps": 24,
 			"name": "missright",
 			"indices": []
-		},
-		{
-			"offsets": [
-				190,
-				120
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "firstDeath",
-			"indices": [],
-			"name": "death"
-		},
-		{
-			"offsets": [
-				100,
-				-436
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "deathConfirm",
-			"indices": [],
-			"name": "revival"
-		},
-		{
-			"loop": true,
-			"offsets": [
-				75,
-				-436
-			],
-			"anim": "deathLoop",
-			"fps": 24,
-			"name": "loop",
-			"indices": []
 		}
 	],
 	"no_antialiasing": false,
