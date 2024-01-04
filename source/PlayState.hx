@@ -2699,11 +2699,14 @@ class PlayState extends MusicBeatState
 				daNote.destroy();
 			}
 
+			Conductor.songPosition=Conductor.songPosition>songLength?songLength-0.35:Conductor.songPosition;
+
 			FlxG.sound.music.time = Conductor.songPosition;
 			FlxG.sound.music.play();
 
 			vocals.time = Conductor.songPosition;
 			vocals.play();
+
 		}
 		#end
 	}

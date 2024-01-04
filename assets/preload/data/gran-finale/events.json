@@ -2082,7 +2082,6 @@
 						"appearStatic",
 						"",
 						"",
-						"",
 						""
 					]
 				],
@@ -2743,7 +2742,6 @@
 						"1",
 						"1",
 						"",
-						"",
 						""
 					]
 				],
@@ -2784,7 +2782,6 @@
 						"GranFinale-ato2",
 						"",
 						"",
-						"",
 						""
 					]
 				],
@@ -2804,7 +2801,6 @@
 						"Cinematics-CY",
 						"2 ",
 						"1",
-						"",
 						"",
 						""
 					]
@@ -2936,7 +2932,6 @@
 						"GranFinale-ato3",
 						"",
 						"",
-						"",
 						""
 					],
 					[
@@ -2944,7 +2939,6 @@
 						-1,
 						"trocar ato",
 						"GranFinale-ato3bf",
-						"",
 						"",
 						"",
 						""
@@ -2987,7 +2981,6 @@
 						"videoend",
 						"",
 						"",
-						"",
 						""
 					]
 				],
@@ -3008,7 +3001,6 @@
 						"cleanstage",
 						"",
 						"",
-						"",
 						""
 					]
 				],
@@ -3051,7 +3043,18 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						317000,
+						-1,
+						"stop video",
+						"true",
+						"",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -4787,14 +4790,15 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": "",
+		"splashSkin": null,
 		"validScore": false,
 		"bpm": 195,
+		"arrowSkin": null,
 		"needsVoices": false,
-		"startinvisibru": "",
+		"startinvisibru": null,
 		"canfollowpermitido": true,
 		"song": "gran-finale",
-		"isRing": "",
-		"videonombre": ""
+		"isRing": null,
+		"videonombre": null
 	}
 }
