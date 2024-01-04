@@ -3346,13 +3346,10 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.legendas || (StringTools.contains(event[3].toLowerCase(), "preycutscene") && SONG.song.toLowerCase() == "prey"))
 				{
 					// trace('executando cache de lyrics');
-					for (i in 0...7){ //Silvio isso tava mt feio...
-						trace(i);
-						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[I])))
-						{
-							// trace('precache value1 '+ legendPath+event[i]);
+					for (i in 3...7){ //Silvio isso tava mt feio...
+									  //MAS TAVA CERTO DOIDA!!! - Ass: Silvio
+						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[i])))
 							precacheList.set(legendPath + event[i], 'image');
-						}
 					}
 
 				}

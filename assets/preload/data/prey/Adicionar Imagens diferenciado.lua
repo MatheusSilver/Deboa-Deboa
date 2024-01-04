@@ -31,26 +31,26 @@ function onEvent(name, value1, value2, value3, value4)
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
-            makeLuaSprite('exe1', legendaPath..value2..idioma, 0, pos)
-            propriedadescomuns('exe1', value2..idioma)
+            makeLuaSprite('exe1', legendaPath..value2, 0, pos)
+            propriedadescomuns('exe1', value2)
         end
         if value3 == '' or value3 == 'null' or value3 == nil then
             removeLuaSprite('exe2', true);
         else
-            makeLuaSprite('exe2', legendaPath..value3..idioma, 0, pos)
-            propriedadescomuns('exe2', value3..idioma)
+            makeLuaSprite('exe2', legendaPath..value3, 0, pos)
+            propriedadescomuns('exe2', value3)
         end
         if value4 == '' or value4 == 'null' or value4 == nil then
             removeLuaSprite('exe3', true);
         else
-            makeLuaSprite('exe3', legendaPath..value4..idioma, 0, pos)
-            propriedadescomuns('exe3', value4..idioma)
+            makeLuaSprite('exe3', legendaPath..value4, 0, pos)
+            propriedadescomuns('exe3', value4)
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
-        makeLuaSprite('exe', legendaPath..value1..idioma, 0, pos)
-        propriedadescomuns('exe', value1..idioma)
+        makeLuaSprite('exe', legendaPath..value1, 0, pos)
+        propriedadescomuns('exe', value1)
         end
     elseif name == 'Adicionar Imagens diferenciado' and legendas == false then
         if value1== "furnace1" or value1== "starved1" or value1 == "ssonic1" then

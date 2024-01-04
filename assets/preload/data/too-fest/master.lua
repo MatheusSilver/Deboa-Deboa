@@ -206,14 +206,14 @@ function onEvent(name, value1, value2)
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
-            makeLuaSprite('exe1', legendaPath..value2..idioma, 0, pos)
-            propriedadescomuns('exe1', value2..idioma)
+            makeLuaSprite('exe1', legendaPath..value2, 0, pos)
+            propriedadescomuns('exe1', value2)
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
-            makeLuaSprite('exe', legendaPath..value1..idioma, 0, pos)
-            propriedadescomuns('exe', value1..idioma)
+            makeLuaSprite('exe', legendaPath..value1, 0, pos)
+            propriedadescomuns('exe', value1)
         end
         if value1=="sanic1" then
             setProperty("exe.alpha", 0)

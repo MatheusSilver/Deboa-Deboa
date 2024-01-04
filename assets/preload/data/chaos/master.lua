@@ -74,7 +74,7 @@ function onEvent(name, value1, value2, value3, value4)
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
-        makeLuaSprite('exe', legendaPath..value1..idioma, 0, 0)
+        makeLuaSprite('exe', legendaPath..value1, 0, 0)
         propriedadescomuns('exe')
         addLuaSprite('exe', true);
         --traceLog("value 1 invocou, "..value1.." em: "..getSongPosition())

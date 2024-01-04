@@ -113,7 +113,7 @@ class ModifiersManager
             {
                 if(i==modifierID)
                 {
-                    return allModifiers[i][2];
+                    return allModifiers[i][3];
                 }
             }
         return 0;
