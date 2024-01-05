@@ -50,12 +50,12 @@ class MainMenuStateMobile extends MusicBeatState
 	//var gradientBar:FlxGradient;
 	
 	var optionShit:Array<String> = 
-	['historia',
+	['story',
 	'freeplay', 
-	//'multiplayer-locked2', 
-	'conquistas', 
-	'creditos', 
-	'opcao'];
+	//'multiplayer', 
+	'achievements', 
+	'credits', 
+	'options'];
 	private var menuItems:FlxTypedGroup<FlxSprite>;
 	var machine:FlxSprite;
 	var camFollow:FlxObject;
@@ -258,42 +258,29 @@ class MainMenuStateMobile extends MusicBeatState
 		add(menuItems);
 
 		for (i in 0...optionShit.length){
-			
-			var botoes:FlxSprite = new FlxSprite(FlxG.width, 8.5 + FlxG.height/(optionShit.length+2)*(i));
+			var botao:MenuButton = new MenuButton("MainMenu", "menu_"+optionShit[i], 'menu', "sonic-3", false);
+			botao.setLock(optionShit[i]=="multiplayer" || optionShit[i]=="freeplay"&&!passouCY);
+			if (botao.isLocked)
+				botao.alpha = 0.75;
+			botao.ID = i;
+			botao.forEach(function(spr:FlxSprite){
+				spr.setGraphicSize(Std.int(spr.width*0.6));
+				spr.updateHitbox();
+			});
+			botao.screenCenter(Y);
+			botao.y -= FlxG.height/optionShit.length*(optionShit.length-i)-70;
+			botao.x = FlxG.width;
 
-			/*
-			if(!GJClient.logged && optionShit[i]=="multiplayer")
-				{
-					botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i] + "-locked2", 'preload'));
-				}
-			else
-				{*/
-					//botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
-				//}
+			botao.button_text.x += 85;
+			botao.button_text.y -= 30;
+			menuItems.add(botao);
 			
-			if(optionShit[i]=="freeplay" && !passouCY)
-			{
-				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i]+"-locked2", 'preload'));
-			}
-			else
-			{
-				botoes.loadGraphic(Paths.image('mainmenu/set' + optionShit[i], 'preload'));
-			}
-
-			botoes.setGraphicSize(Std.int(botoes.width * 0.6)); //Matemática avançada para o caso de algum dia vir a adicionar, ou remover botões daqui
-			botoes.alpha = /*!GJClient.logged && */optionShit[i]=="multiplayer-locked2" || optionShit[i]=="freeplay"&&!passouCY ? 1 : 0.75;
-			botoes.ID = i;
-			botoes.screenCenter(Y);
-			botoes.y -= FlxG.height/optionShit.length*(optionShit.length-i)-97.5;
-			menuItems.add(botoes);
-			botoes.antialiasing = ClientPrefs.globalAntialiasing;
-			botoes.updateHitbox();
 		}
 
 
 
 		for (i in 0...optionShit.length){
-				FlxTween.tween(menuItems.members[i], {x: FlxG.width - 2.22*menuItems.members[i].width}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
+				FlxTween.tween(menuItems.members[i], {x: FlxG.width - 1.9*menuItems.members[i].width}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
 		}
 
 		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
@@ -420,17 +407,17 @@ class MainMenuStateMobile extends MusicBeatState
 		new FlxTimer().start(1.7, function(tmr:FlxTimer) {
 			switch (daChoice)
 			{
-				case 'historia':
+				case 'story':
 					MusicBeatState.switchState(new EstadoDeLimpeza());
 				case 'freeplay':
 					if(!passouCY)
 						return;
 					MusicBeatState.switchState(new FreeplayState());
-				case 'conquistas':
+				case 'achievements':
 					MusicBeatState.switchState(new AchievementsMenuState());
-				case 'creditos':
+				case 'credits':
 					MusicBeatState.switchState(new SobreState());
-				case 'opcao':
+				case 'options':
 					MusicBeatState.switchState(new ajustes.AjustesState());
 				case 'multiplayer':
 					/*if(GJClient.logged)

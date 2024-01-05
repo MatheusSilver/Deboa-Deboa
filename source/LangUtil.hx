@@ -16,6 +16,8 @@ class LangUtil
             
             case "sonic-1":
                 font = "sonic-1-hud-font.ttf";
+			case "sonic-3":
+				font = "sonic-3-and-knuckles-credits.ttf";
 			default:
 				font = 'letravio.ttf';
 		}
