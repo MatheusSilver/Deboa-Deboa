@@ -280,7 +280,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 
 		for (i in 0...optionShit.length){
-				FlxTween.tween(menuItems.members[i], {x: FlxG.width - 1.9*menuItems.members[i].width}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
+				FlxTween.tween(menuItems.members[i], {x: FlxG.width - 1.8*menuItems.members[i].width}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
 		}
 
 		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
@@ -384,7 +384,7 @@ class MainMenuStateMobile extends MusicBeatState
 			{
 				if(spr.ID == selecionado){
 					spr.alpha = 1;
-					FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width - 2.33*spr.width}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
+					FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width - 1.9*spr.width}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
 						onComplete: function(proximo:FlxTween)
 						{
 							FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width+10}, 1.0, {ease: FlxEase.expoInOut, startDelay: 0.3});
