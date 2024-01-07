@@ -63,12 +63,12 @@ class CreditsMods extends MusicBeatState
 				bg.y = 720;
 				add(bg);
 
-				dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
+				dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp], "locales", true, true));
 				dummycredit.antialiasing = ClientPrefs.globalAntialiasing;
 				dummycredit.alpha = 0;
 				dummycredit.y = 0;
 				add(dummycredit);
-				newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
+				newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected], "locales", true, true));
 				newcredit.antialiasing = ClientPrefs.globalAntialiasing;
 				// newcredit.setGraphicSize(Std.int(0.8));
 				newcredit.alpha = 1;
@@ -170,7 +170,7 @@ class CreditsMods extends MusicBeatState
 	{
 		if(!cima)
 		{
-			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp], "locales", true, true));
 			dummycredit.alpha = 1;
 			dummycredit.y = 0;
 			FlxTween.tween(dummycredit, {y: 724}, 0.5, {ease: FlxEase.quartInOut});
@@ -182,11 +182,11 @@ class CreditsMods extends MusicBeatState
 				canChange = true;
 			});
 			newcredit.y = -724;
-			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
+			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected], "locales", true, true));
 		}
 		else
 		{
-			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp]));
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp], "locales", true, true));
 			dummycredit.alpha = 1;
 			dummycredit.y = 0;
 			FlxTween.tween(dummycredit, {y: -724}, 0.5, {ease: FlxEase.quartInOut});
@@ -198,7 +198,7 @@ class CreditsMods extends MusicBeatState
 				canChange = true;
 			});
 			newcredit.y = 724;
-			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected]));
+			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected], "locales", true, true));
 		}
 	}
 }

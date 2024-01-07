@@ -181,7 +181,7 @@ class FreeplayState extends MusicBeatState
 		
 		if(curSelected >= songs.length) curSelected = 0;
 
-		var leText:String = "Aperte " + #if desktop "Espaço" #else "X" #end + " para ouvir uma prévia da música, " + #if desktop "CTRL" #else "Y" #end + " para abrir o menu de modifiers.";
+		var leText:String = LangUtil.getStringArray("label_play_sample", "data", [#if desktop "Espaço" #else "X" #end, #if desktop "CTRL" #else "Y" #end]);
 		//space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
 		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
@@ -302,7 +302,7 @@ class FreeplayState extends MusicBeatState
 			ratingSplit[1] += '0';
 		}
 
-		scoreText.text = 'RECORDE: ('+Math.round(lerpMultiplier*100)/100+"X) " + lerpScore + ' (' + ratingSplit.join('.') + '%)';
+		scoreText.text = LangUtil.getString("label_high_score", "data")+' ('+Math.round(lerpMultiplier*100)/100+"X) " + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;

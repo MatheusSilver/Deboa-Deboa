@@ -6,6 +6,21 @@
 	<!-- usado no menu principal -->
 	<file id="menu" value="mainMenu.tsv"/>
 
+	<!-- usada na galeria -->
+	<file id="gallery" value="galleryMenu.tsv"/>
+
+	<!-- usado no menu de opcoes geral -->
+	<file id="optionsMenu" value="optionsMenu.tsv"/>
+
+	<!-- usado no menu de creditos -->
+	<file id="credits" value="creditsMenu.tsv"/>
+	
+	<!-- usado no PlayState -->
+	<file id="playstate" value="playstate.tsv"/>
+
+	<!-- usado no menu de controles_pc -->
+	<file id="key" value="keysMenu.tsv"/>
+
     <!-- usado para as configuracoes -->
 	<file id="config" value="configMenu.tsv"/>
 

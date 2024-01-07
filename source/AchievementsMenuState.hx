@@ -15,13 +15,12 @@ using StringTools;
 
 class AchievementsMenuState extends MusicBeatState
 {
-	var options:Array<String> = [];
+	public var options:Map<Int, String>;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 
 	private static var curSelected:Int = 0;
 
 	private var achievementArray:Array<AttachedAchievement> = [];
-	private var achievementIndex:Array<Int> = [];
 	private var descText:FlxText;
 	private var titleText:FlxText;
 	var descBox:FlxSprite;
@@ -32,12 +31,15 @@ class AchievementsMenuState extends MusicBeatState
 
 	var isCoolBeat:Bool = true;
 	var sincronizando:Bool = false;
+	private var achieve_list_len:Int;
 
 	override function create()
 	{
 		#if rpc
 		DiscordClient.changePresence("No menu de conquistas", null);
 		#end
+		achieve_list_len = 0;
+		options = [];
 
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
 		menuBG.setGraphicSize(FlxG.width, FlxG.height);
@@ -53,14 +55,14 @@ class AchievementsMenuState extends MusicBeatState
 		{
 			if (!Achievements.achievementsStuff[i][1] || ClientPrefs.achievementsMap.exists(Achievements.achievementsStuff[i][0]))
 			{
-				options.push(Achievements.achievementsStuff[i]);
-				achievementIndex.push(i);
+				achieve_list_len++;
+				options.set(i, Achievements.achievementsStuff[i][0]);
 			}
 		}
 
-		for (i in 0...options.length)
+		for (i in 0...achieve_list_len)
 		{
-			var achieveAlbum:String = Achievements.achievementsStuff[achievementIndex[i]][3];
+			var achieveAlbum:String = Achievements.achievementsStuff[i][3];
 			var optionText:Alphabet = new Alphabet(-150, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
 			optionText.x += 25;
@@ -121,7 +123,7 @@ class AchievementsMenuState extends MusicBeatState
 		{
 			var announceText:FlxText;
 			sincronizando = true;
-			announceText = new FlxText(0, 0, 0, "SINCRONIZANDO CONQUISTAS", 24);
+			announceText = new FlxText(0, 0, 0, LangUtil.getString("ach_desc_sync", "achievement"), 24);
 			announceText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			announceText.screenCenter(XY);
 			var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -187,8 +189,8 @@ class AchievementsMenuState extends MusicBeatState
 		apertavel = false;
 		curSelected += change;
 		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
+			curSelected = achieve_list_len - 1;
+		if (curSelected >= achieve_list_len)
 			curSelected = 0;
 
 		var bullShit:Int = 0;
@@ -223,7 +225,7 @@ class AchievementsMenuState extends MusicBeatState
 			}
 		}
 		descText.text = LangUtil.getString("ach_desc_"+Achievements.achievementsStuff[curSelected][0], "achievement");
-		titleText.text = Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achievementIndex[curSelected]][2]) ? LangUtil.getString("ach_name_"+Achievements.achievementsStuff[curSelected][0], "achievement") : '?????';
+		titleText.text = Achievements.isAchievementUnlocked(options.get(curSelected)) ? LangUtil.getString("ach_name_"+options.get(curSelected), "achievement") : '?????';
 	}
 
 	override function beatHit()

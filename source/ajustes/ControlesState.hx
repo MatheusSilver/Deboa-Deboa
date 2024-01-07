@@ -38,7 +38,11 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
 							//'hitbox',
-	var controlitems:Array<String> = ['Controle Destro', 'Controle Canhoto','Teclado','Customizado', 'Hitbox'];
+	var controlitems:Array<String> = [LangUtil.getString("mobile_cont_right", "key"), 
+									  LangUtil.getString("mobile_cont_left", "key"),
+									  LangUtil.getString("mobile_cont_keyboard", "key"),
+									  LangUtil.getString("mobile_cont_custom", "key"),
+									  LangUtil.getString("mobile_cont_hitbox", "key")];
 
 	var curSelected:Int = 0;
 
@@ -91,10 +95,10 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 
 		//text
-		up_text = new FlxText(200, 200, 0,"Coordenada X do botao Cima:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y, 24);
-		down_text = new FlxText(200, 250, 0,"Coordenada X do botao Baixo:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y, 24);
-		left_text = new FlxText(200, 300, 0,"Coordenada X do botao Esquerda" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y, 24);
-		right_text = new FlxText(200, 350, 0,"Coordenada X do botao Direita:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y, 24);
+		up_text = new FlxText(200, 200, 0,LangUtil.getString("mobile_coordinate_up", "key"), + _pad.buttonUp.x +" y:" + _pad.buttonUp.y, 24);
+		down_text = new FlxText(200, 250, 0,LangUtil.getString("mobile_coordinate_down", "key") + _pad.buttonDown.x +" y:" + _pad.buttonDown.y, 24);
+		left_text = new FlxText(200, 300, 0,LangUtil.getString("mobile_coordinate_left", "key") + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y, 24);
+		right_text = new FlxText(200, 350, 0,LangUtil.getString("mobile_coordinate_right", "key") + _pad.buttonRight.x +" y:" + _pad.buttonRight.y, 24);
 
 		//hitboxes
 
@@ -103,22 +107,22 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 		// buttons
 
-		exitbutton = new FlxUIButton(FlxG.width - 650,25,"Sair");
+		exitbutton = new FlxUIButton(FlxG.width - 650,25,LangUtil.getString("mobile_coordinate_solo_quit", "key"));
 		exitbutton.resize(125,50);
 		exitbutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
 
-		var savebutton = new FlxUIButton((exitbutton.x + exitbutton.width + 25),25,"Sair e Salvar",() -> {
+		var savebutton = new FlxUIButton((exitbutton.x + exitbutton.width + 25),25,LangUtil.getString("mobile_coordinate_quit_save", "key"),() -> {
 			save();
 			MusicBeatState.switchState(new ajustes.AjustesState());
 		});
 		savebutton.resize(250,50);
 		savebutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
 
-		exportbutton = new FlxUIButton(FlxG.width - 150, 25, "Exportar", () -> { savetoclipboard(_pad); } );
+		exportbutton = new FlxUIButton(FlxG.width - 150, 25, LangUtil.getString("mobile_coordinate_export", "key"), () -> { savetoclipboard(_pad); } );
 		exportbutton.resize(125,50);
 		exportbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
 
-		importbutton = new FlxUIButton(exportbutton.x, 100, "Importar", () -> { loadfromclipboard(_pad); });
+		importbutton = new FlxUIButton(exportbutton.x, 100, LangUtil.getString("mobile_coordinate_import", "key"), () -> { loadfromclipboard(_pad); });
 		importbutton.resize(125,50);
 		importbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
 
@@ -312,10 +316,10 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 	}
 
 	function setbuttontexts() {
-		up_text.text = "Coordenada X do botao Cima:" + _pad.buttonUp.x +" y:" + _pad.buttonUp.y;
-		down_text.text = "Coordenada X do botao Baixo:" + _pad.buttonDown.x +" y:" + _pad.buttonDown.y;
-		left_text.text = "Coordenada X do botao Esquerda:" + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y;
-		right_text.text = "Coordenada X do botao Direita:" + _pad.buttonRight.x +" y:" + _pad.buttonRight.y;
+		up_text.text = LangUtil.getString("mobile_coordinate_up", "key") + _pad.buttonUp.x +" y:" + _pad.buttonUp.y;
+		down_text.text = LangUtil.getString("mobile_coordinate_down", "key") + _pad.buttonDown.x +" y:" + _pad.buttonDown.y;
+		left_text.text = LangUtil.getString("mobile_coordinate_left", "key") + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y;
+		right_text.text = LangUtil.getString("mobile_coordinate_right", "key") + _pad.buttonRight.x +" y:" + _pad.buttonRight.y;
 	}
 
 

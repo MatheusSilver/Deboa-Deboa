@@ -100,12 +100,14 @@ class GaleriaState extends MusicBeatState
 			
 			add(bg);
 			add(bgmusica);
-			galeriaButton = new FlxButton(FlxG.width, 100, '');
-			galeriaButton.loadGraphic(Paths.image('sobremenu/galeria/button', 'preload'));
+			galeriaButton = new FlxButton(FlxG.width, 100, LangUtil.getString("gall_gallery_button", "gallery"));
+			galeriaButton.makeGraphic(158,50, FlxColor.TRANSPARENT);
+			galeriaButton.label.setFormat(LangUtil.getFont("roboto"), 24, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+			galeriaButton.labelAlphas=[galeriaButton.alpha,galeriaButton.alpha+0.15,1];		
 			galeriaButton.updateHitbox();
 			galeriaButton.x = 491;
 			galeriaButton.y = 376;
-			galeriaButton.alpha = 0;
+			galeriaButton.alpha = 1;
 			add(galeriaButton);
 			
 			menuItems = new FlxTypedGroup<FlxSprite>();
@@ -142,12 +144,14 @@ class GaleriaState extends MusicBeatState
 			
 			}
 
-			musicButton = new FlxButton(FlxG.width, 100, '');
-			musicButton.loadGraphic(Paths.image('sobremenu/galeria/button', 'preload'));
+			musicButton = new FlxButton(FlxG.width, 100, LangUtil.getString("gall_music_button", "gallery"));
+			musicButton.makeGraphic(158,50, FlxColor.TRANSPARENT);
+			musicButton.label.setFormat(LangUtil.getFont("roboto"), 22, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+			musicButton.labelAlphas=[musicButton.alpha,musicButton.alpha+0.15,1];	
 			musicButton.updateHitbox();
 			musicButton.x = 640;
 			musicButton.y = 376;
-			musicButton.alpha = 0;
+			musicButton.alpha = 0.7;
 			add(musicButton);
 
 			#if mobile
@@ -264,74 +268,56 @@ class GaleriaState extends MusicBeatState
 					GlobalSoundManager.play('cancelMenu');
 					MusicBeatState.switchState(new SobreState());
 				}
+				scrollSpeed = scrollSpeed * 3;
 				if(isGaleria)
 					{
-
-								scrollSpeed = scrollSpeed * Std.int(3.33); //k
-						
 						if(#if mobile hitboxcima.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
 							{
 								
 								if(bg.y==0)
-									{
-										bg.y=0;
-									}
+								{
+									bg.y=0;
+									galeriaButton.y = 376;
+									musicButton.y = 376;
+								}
 								else if(bg.y<0)
-									{
-										bg.y=bg.y+scrollSpeed;
-									}
-
-								if(galeriaButton.y==376) //Isso é importante
-									{
-										galeriaButton.y = 376;
-										musicButton.y = 376;
-									}
-								else
-									{
-										galeriaButton.y = galeriaButton.y+15;
-										musicButton.y = musicButton.y+15;
-									}
-							
+								{
+									bg.y+=scrollSpeed;
+									galeriaButton.y +=scrollSpeed;
+									musicButton.y += scrollSpeed;
+								}				
 							}
 						else if(#if mobile hitboxbaixo.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
+						{
+							if(bg.y==-8842)
 							{
-
-								if(bg.y==-8842)
-									{
-										bg.y=-8842;
-									}
-								else if(bg.y>-8842)
-									{
-										bg.y=bg.y-scrollSpeed;
-									}
-								if(galeriaButton.y==-376)
-								{
-									galeriaButton.y = -376;
-									musicButton.y = -376;
-								}
-								else
-								{
-									galeriaButton.y = galeriaButton.y-15;
-									musicButton.y = musicButton.y-15;
-								}
-							
+								bg.y=-8842;
+								galeriaButton.y =musicButton.y= -8466;
 							}
+							else if(bg.y>-8842)
+							{
+								bg.y-=scrollSpeed;
+								galeriaButton.y -= scrollSpeed;
+								musicButton.y -= scrollSpeed;
+							}
+						}
 					}
 					//Parte da Música
 				else
 					{
-								scrollSpeed = scrollSpeed * Std.int(3.33); //k
-
 						if(#if mobile hitboxcima.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
 							{
-								//trace('estou subindo?'); //Sim
 								if(bgmusica.y==0)
-									{
-										bgmusica.y=0;
-									}
+								{
+									bgmusica.y=0;
+									galeriaButton.y = 376;
+									musicButton.y = 376;
+								}
 								else if(bgmusica.y<0)
 								{
-									bgmusica.y=bgmusica.y+scrollSpeed;
+									bgmusica.y+=scrollSpeed;
+									galeriaButton.y +=scrollSpeed;
+									musicButton.y +=scrollSpeed;
 									alturamodificadaparacalculosmuitopikas = alturamodificadaparacalculosmuitopikas+scrollSpeed;
 									playsArray.forEach(function(spr:FlxSprite)
 										{spr.y = spr.y+scrollSpeed;});
@@ -339,44 +325,25 @@ class GaleriaState extends MusicBeatState
 										menuItems.forEach(function(spr:FlxSprite)
 										{spr.y = spr.y+scrollSpeed;});
 								}
-								if(galeriaButton.y==376) //Isso é importante
-									{
-										galeriaButton.y = 376;
-										musicButton.y = 376;
-									}
-								else
-									{
-										galeriaButton.y = galeriaButton.y+scrollSpeed;
-										musicButton.y = musicButton.y+scrollSpeed;
-									}
 							
 							}else if(#if mobile hitboxbaixo.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
-								//trace('estou descendo?'); //Sim
 								if(bgmusica.y == -holdthatY + FlxG.height)
-									{
-										bgmusica.y= -holdthatY + FlxG.height;
-									}
+								{
+									bgmusica.y= -holdthatY + FlxG.height;
+									galeriaButton.y =musicButton.y= -holdthatY + FlxG.height+376;
+								}
 								else if(bgmusica.y >-holdthatY + FlxG.height)
-									{
-										bgmusica.y=bgmusica.y-scrollSpeed;
-										alturamodificadaparacalculosmuitopikas=alturamodificadaparacalculosmuitopikas-scrollSpeed;
-										playsArray.forEach(function(spr:FlxSprite)
-											{spr.y = spr.y-scrollSpeed;});
-							
-											menuItems.forEach(function(spr:FlxSprite)
-											{spr.y = spr.y-scrollSpeed;});
-									}
-
-									if(galeriaButton.y==-376)
-										{
-											galeriaButton.y = -376;
-											musicButton.y = -376;
-										}
-									else
-										{
-											galeriaButton.y = galeriaButton.y-scrollSpeed;
-											musicButton.y = musicButton.y-scrollSpeed;
-										}
+								{
+									bgmusica.y-=scrollSpeed;
+									galeriaButton.y -=scrollSpeed;
+									musicButton.y -=scrollSpeed;
+									alturamodificadaparacalculosmuitopikas=alturamodificadaparacalculosmuitopikas-scrollSpeed;
+									playsArray.forEach(function(spr:FlxSprite)
+										{spr.y = spr.y-scrollSpeed;});
+						
+										menuItems.forEach(function(spr:FlxSprite)
+										{spr.y = spr.y-scrollSpeed;});
+								}
 							}
 						
 					}
@@ -385,6 +352,8 @@ class GaleriaState extends MusicBeatState
 
 			function musicpressed(){
 				isGaleria=false;
+				musicButton.alpha = 1;
+				galeriaButton.alpha = 0.6;
 				bg.y=0;
 				bg.alpha=0;
 				bgmusica.alpha=1;
@@ -420,6 +389,8 @@ class GaleriaState extends MusicBeatState
 			{
 				bgmusica.y=0;
 				bgmusica.alpha=0;
+				galeriaButton.alpha = 1;
+				musicButton.alpha = 0.7;
 				bg.alpha=1;
 				bg.y=0;
 				musicButton.y = 376;

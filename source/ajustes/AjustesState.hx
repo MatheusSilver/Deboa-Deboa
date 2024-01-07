@@ -1,5 +1,7 @@
 package ajustes;
 
+import flixel.math.FlxPoint;
+import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -119,8 +121,10 @@ class AjustesState extends MusicBeatState
 
         add(trees);
 
-		configuracoesbotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, '');
-		configuracoesbotao.loadGraphic(Paths.image('optionsmenu/configuracoes', 'preload'));
+		configuracoesbotao = new FlxButton(FlxG.width, 15 - 250 + 198 - 50, LangUtil.getString("opt_settings", "optionsMenu"));
+		configuracoesbotao.loadGraphic(Paths.image('buttons_base/SettingsMenu', 'preload'));
+		configuracoesbotao.label.setFormat(LangUtil.getFont('sonic-3'), 28, FlxColor.WHITE, LEFT);
+		configuracoesbotao.labelOffsets = [FlxPoint.get(84,36), FlxPoint.get(84,36), FlxPoint.get(0,1)];
 		configuracoesbotao.setGraphicSize(Std.int(configuracoesbotao.width * 0.6));
 		configuracoesbotao.updateHitbox();
 
@@ -129,9 +133,11 @@ class AjustesState extends MusicBeatState
 		configuracoesbotao.y = 150;
         add(configuracoesbotao);
 
-		controlesbotao = new FlxButton(FlxG.width, 15 + configuracoesbotao.y + configuracoesbotao.height - 367, '');
-		controlesbotao.loadGraphic(Paths.image('optionsmenu/controls', 'preload'));
+		controlesbotao = new FlxButton(FlxG.width, 15 + configuracoesbotao.y + configuracoesbotao.height - 367, LangUtil.getString("opt_controls", "optionsMenu"));
+		controlesbotao.loadGraphic(Paths.image('buttons_base/SettingsMenu', 'preload'));
 		controlesbotao.setGraphicSize(Std.int(controlesbotao.width * 0.6));
+		controlesbotao.label.setFormat(LangUtil.getFont('sonic-3'), 28, FlxColor.WHITE, LEFT);
+		controlesbotao.labelOffsets = [FlxPoint.get(84,36), FlxPoint.get(84,36), FlxPoint.get(84,36)];
 
 		controlesbotao.updateHitbox();
         controlesbotao.alpha = 0.75;
@@ -142,8 +148,10 @@ class AjustesState extends MusicBeatState
         add(controlesbotao);
 
 
-		setasbotao = new FlxButton(FlxG.width, 15 + controlesbotao.y + controlesbotao.height, '');
-		setasbotao.loadGraphic(Paths.image('optionsmenu/setas', 'preload'));
+		setasbotao = new FlxButton(FlxG.width, 15 + controlesbotao.y + controlesbotao.height, LangUtil.getString("opt_arrows", "optionsMenu"));
+		setasbotao.loadGraphic(Paths.image('buttons_base/SettingsMenu', 'preload'));
+		setasbotao.label.setFormat(LangUtil.getFont('sonic-3'), 28, FlxColor.WHITE, LEFT);
+		setasbotao.labelOffsets = [FlxPoint.get(84,36), FlxPoint.get(84,36), FlxPoint.get(84,36)];
 		setasbotao.alpha = 0.75;
 		setasbotao.setGraphicSize(Std.int(setasbotao.width * 0.6));
 
@@ -153,7 +161,7 @@ class AjustesState extends MusicBeatState
 		setasbotao.y = 15 + controlesbotao.y + controlesbotao.height;
 		add(setasbotao);
 
-		gamejoltbotao = new FlxButton(FlxG.width, 15 + setasbotao.y + setasbotao.height, '');
+		gamejoltbotao = new FlxButton(FlxG.width, 15 + setasbotao.y + setasbotao.height, ''); //Não precisa eu acho...
 		if(!GJClient.logged && !TitleState.ModoOffline)
 			{
 				gamejoltbotao.loadGraphic(Paths.image('optionsmenu/gamejooj', 'preload'));

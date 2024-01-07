@@ -26,6 +26,7 @@ import openfl.net.URLRequest;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepadInputID;
 import Utils.BSLTouchUtils;
+import CustomButtons.MenuButton;
 
 using StringTools;
 
@@ -158,7 +159,7 @@ class MainMenuStateMobile extends MusicBeatState
 		gameJoltIcon.antialiasing = ClientPrefs.globalAntialiasing;
 		gameJoltIcon.screenCenter(XY);
 
-		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, "DESCONECTADO", 32);
+		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, LangUtil.getString("menu_disconnected", "menu"), 32);
 		letext.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		letext.scrollFactor.set();
 		letext.x=-355;

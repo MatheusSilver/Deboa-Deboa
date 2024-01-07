@@ -1,6 +1,7 @@
 package;
 
 import modifiers.ModifiersManager;
+import LangUtil;
 import Achievements;
 import DialogueBoxPsych;
 import FunkinLua;
@@ -151,16 +152,16 @@ class PlayState extends MusicBeatState
 	var secondsTotal:Int;
 
 	public static var ratingStuff:Array<Dynamic> = [
-		['Horrível!', 0.2], // From 0% to 19%
-		['Merda', 0.4], // From 20% to 39%
-		['Ruim', 0.5], // From 40% to 49%
-		['Bruh', 0.6], // From 50% to 59%
-		['Meh', 0.69], // From 60% to 68%\
-		['Bom', 0.7], // 69%
-		['Ótimo', 0.8], // From 70% to 79%
-		['Excelente', 0.9], // From 80% to 89%
-		['Foda!', 1], // From 90% to 99%
-		['Perfeito!!', 1] // The value on this one isn't used actually, since Perfect is always "1"
+		["suck", 0.2], // From 0% to 19%
+		["shit", 0.4], // From 20% to 39%
+		["bad", 0.5], // From 40% to 49%
+		["bruh", 0.6], // From 50% to 59%
+		["meh", 0.69], // From 60% to 68%\
+		["nice", 0.7], // 69%
+		["good", 0.8], // From 70% to 79%
+		["great", 0.9], // From 80% to 89%
+		["sick", 1], // From 90% to 99%
+		["perfect", 1] // The value on this one isn't used actually, since Perfect is always "1"
 	];
 
 	var floaty:Float = 0;
@@ -373,7 +374,7 @@ class PlayState extends MusicBeatState
 
 	var textoajustefino:String = '';
 
-	var meses:Array<String> = [
+	private final meses:Array<String> = [
 		'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 	];
 
@@ -1338,7 +1339,7 @@ class PlayState extends MusicBeatState
 			add(judgementCounter);
 		}
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32); //Não acho que botplay mude dependendo da lingua
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -1354,7 +1355,7 @@ class PlayState extends MusicBeatState
 
 		if (isRing)
 		{
-			ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('cenarios/Counter'));
+			ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('tp_ring_counter', "locales", true, true));
 			add(ringCounter);
 			ringCounter.cameras = [camHUD];
 
@@ -1871,7 +1872,7 @@ class PlayState extends MusicBeatState
 					startCircle.loadGraphic(Paths.image('StartScreen/Circle-' + daSong));
 					startCircle.x += 900;
 					add(startCircle);
-					startText.loadGraphic(Paths.image('StartScreen/Text-' + daSong));
+					startText.loadGraphic(Paths.image('StartScreen/Text-' + daSong, "locales", true, true));
 					startText.x -= 1200;
 					add(startText);
 
@@ -2431,9 +2432,12 @@ class PlayState extends MusicBeatState
 
 	public static var isPlayStateVideo:Bool = false;
 
-	public function backgroundVideo(source:String, xPos:Float = 0, yPos:Float = 0, tamanho:String = 'cheio', chromakey:Float = 0, layering:Float = 0)
-	{
-		if (!OpenFlAssets.exists("assets/videos/" + source + '.webm'))
+	public function backgroundVideo(source:String, xPos:Float = 0, yPos:Float = 0, tamanho:String = 'cheio', chromakey:Float = 0, layering:Float = 0, ?locale:Bool = false)
+	{	var video_dir:String = "assets/videos/" + source + '.webm';
+		if (locale)
+			var video_dir:String = 'assets/locales/${ClientPrefs.lingua}/videos+${source}.webm';
+		
+		if (!OpenFlAssets.exists(video_dir))
 		{
 			if (GlobalVideo.get() != null)
 			{
@@ -2482,14 +2486,14 @@ class PlayState extends MusicBeatState
 
 			GlobalVideo.setWebm(webmHandler);
 
-			if (!FileSystem.exists("assets/videos/" + source + '.webm'))
+			if (!FileSystem.exists(video_dir))
 			{
-				var file = openfl.Assets.getBytes("assets/videos/" + source + '.webm');
+				var file = openfl.Assets.getBytes(video_dir);
 
-				File.saveBytes("assets/videos/" + source + '.webm', file);
+				File.saveBytes(video_dir, file);
 			}
 
-			GlobalVideo.get().source("assets/videos/" + source + '.webm');
+			GlobalVideo.get().source(video_dir);
 			GlobalVideo.get().clearPause();
 			if (GlobalVideo.isWebm)
 			{
@@ -3972,15 +3976,15 @@ class PlayState extends MusicBeatState
 
 		if (ratingString == '?')
 		{
-			scoreTxt.text = 'Pontos: ' + songScore + ' | Erros: ' + songMisses + ' | Precisão: ' + ratingString;
+			scoreTxt.text = LangUtil.getString("play_counter_score", "playstate") + ' ' + songScore + ' | '+ LangUtil.getString("play_counter_misses", "playstate") + ' ' + songMisses + ' | '+ LangUtil.getString("play_counter_accuracy", "playstate") + ' ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0' + '\n' + ''; // Isso me incomoda muito nos prints que voces mandam...
 		}
 		else
 		{
-			judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nErros: ${songMisses}'
+			judgementCounter.text = LangUtil.getString("play_counter_sicks", "playstate") + ' ' + '${sicks}\n'+LangUtil.getString("play_counter_goods", "playstate") + ' ${goods}\n'+LangUtil.getString("play_counter_bads", "playstate") + '${bads}\n'+LangUtil.getString("play_counter_shits", "playstate") + ' ${shits}\n'+LangUtil.getString("play_counter_misses", "playstate") + ' ${songMisses}'
 				+ '\n'
 				+ ''; // Aparentemente eu exagerei kek
-			scoreTxt.text = 'Pontos: ' + songScore + ' | Erros: ' + songMisses + ' | Precisão: ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
+			scoreTxt.text = LangUtil.getString("play_counter_score", "playstate") + ' ' + songScore + ' | '+LangUtil.getString("play_counter_misses", "playstate") + songMisses + ' | '+LangUtil.getString("play_counter_accuracy", "playstate") + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
 		}
 
 		if (cpuControlled)
@@ -5724,7 +5728,7 @@ class PlayState extends MusicBeatState
 			case 'comecarvideo': // TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
 				var posAvancado:Array<String> = value2.split(',');
 				backgroundVideo(value1, Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2],
-					Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]));
+					Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]), value3=="true");
 
 			case 'tempo infinito':
 				majinstrums = true;
@@ -6174,7 +6178,7 @@ class PlayState extends MusicBeatState
 							FreeplayState.addProgress();
 						}
 					ClientPrefs.pibby = true;
-					lime.app.Application.current.window.alert("Projeto ModBoa parou de funcionar permanentemente!", "Glitch Fatal!");
+					lime.app.Application.current.window.alert(LangUtil.getString("play_pibby,error,desc", "playstate"), LangUtil.getString("play_pibby,error,title", "playstate"));
 					lime.system.System.exit(0);
 					ClientPrefs.save(); //Isso aqui deveria estar em cima...
 				}
@@ -8473,7 +8477,7 @@ class PlayState extends MusicBeatState
 			else if (ratingPercent >= 1)
 			{
 				ratingPercent = 1;
-				ratingString = ratingStuff[ratingStuff.length - 1][0]; // Uses last string
+				ratingString = LangUtil.getString("play_rating_"+ratingStuff[ratingStuff.length - 1][0], "playstate"); // Uses last string
 			}
 			else
 			{
@@ -8481,7 +8485,7 @@ class PlayState extends MusicBeatState
 				{
 					if (ratingPercent < ratingStuff[i][1])
 					{
-						ratingString = ratingStuff[i][0];
+						ratingString = LangUtil.getString("play_rating_"+ratingStuff[i][0], "playstate");
 						break;
 					}
 				}

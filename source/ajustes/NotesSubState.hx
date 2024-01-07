@@ -93,7 +93,15 @@ class NotesSubState extends MusicBeatState
 			newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
 			shaderArray.push(newShader);
 		}
-		hsvText = new Alphabet(0, 0, "Hue    Saturacao  Brilho", false, false, 0, 0.65);
+		var hueText:String = LangUtil.getString("opt_hue", "optionsMenu");
+		var saturationText:String = LangUtil.getString("opt_saturation", "optionsMenu");
+		var brightnessText:String = LangUtil.getString("opt_brightness", "optionsMenu"); //CLAReza kek
+		var whitespacelen:Int = Math.floor((24-hueText.length + saturationText.length + brightnessText.length)/6);
+		var whitespace:String = ''; //Eu realmente não gosto deste code...
+		for (i in 0...whitespacelen) {
+			whitespace += " ";
+		}
+		hsvText = new Alphabet(0, 0, hueText + whitespace + saturationText + whitespace + brightnessText, false, false, 0, 0.65);
 		add(hsvText);
 		#if mobileC
 		addVirtualPad(FULL, A_B);

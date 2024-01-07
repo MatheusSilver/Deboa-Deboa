@@ -145,7 +145,7 @@ class MenuHistoria extends MusicBeatSubstate
 		highscoreText = new FlxText(FlxG.width -1250, FlxG.height -690, 600);
 		highscoreText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		highscoreText.borderSize = 2;
-		highscoreText.text = "RECORDE: \n0";
+		highscoreText.text = LangUtil.getString("label_high_score", "data")+ " \n0";
 		highscoreText.updateHitbox();
 		highscoreText.alpha=0;
 
@@ -261,7 +261,7 @@ class MenuHistoria extends MusicBeatSubstate
 		trace("MODIFIERS OPENED:"+modifiersOpened);*/
 		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		highscoreText.text = "RECORDE: \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
+		highscoreText.text = LangUtil.getString("label_high_score", "data")+" \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
 
 		if (Math.abs(lerpMultiplier - intendedMultiplier) <= 0.001)
 			lerpMultiplier = intendedMultiplier;
@@ -417,7 +417,7 @@ class MenuHistoria extends MusicBeatSubstate
 		if (nombres[curSelected].toLowerCase() != 'controle'
 			&& nombres[curSelected] != 'Cross Console Clash')
 		{
-			MenuPreHistoria.bigmenu.alpha = 0;
+			MenuPreHistoria.old_bg.alpha = 0;
 			bgSprite.alpha = 0;
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 
@@ -553,18 +553,11 @@ class MenuHistoria extends MusicBeatSubstate
 					ease: FlxEase.expoInOut,
 					onComplete: function(twn:FlxTween)
 					{
-						if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-							'preload')))
+						if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",'locales', true)))
 						{ // anti crashing moment
-							textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-								'preload'));
+							textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",'locales',true,true));
 							textoSprite.updateHitbox();
 							textoSprite.screenCenter(X);
-						}
-						else
-						{
-							FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase()
-								+ " (txt)");
 						}
 						tweenpracima();
 					}
@@ -661,16 +654,11 @@ class MenuHistoria extends MusicBeatSubstate
 				onComplete: function(twn:FlxTween)
 				{
 					if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-						'preload')))
+						'locales',true)))
 					{ // anti crashing moment
 						textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-							'preload'));
+							'locales',true,true));
 						textoSprite.updateHitbox();
-					}
-					else
-					{
-						FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase()
-							+ " (txt)");
 					}
 					textoSprite.x = FlxG.width + textoSprite.width;
 					FlxTween.tween(textoSprite, {x: ((FlxG.width - textoSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});
@@ -701,16 +689,11 @@ class MenuHistoria extends MusicBeatSubstate
 				onComplete: function(twn:FlxTween)
 				{
 					if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-						'preload')))
+						'locales', true)))
 					{ // anti crashing moment
 						textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-							'preload'));
+							'locales', true,true));
 						textoSprite.updateHitbox();
-					}
-					else
-					{
-						FlxG.log.warn('Não foi possível achar ' + "scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase()
-							+ " (txt)");
 					}
 					textoSprite.x = 0 - textoSprite.width;
 					FlxTween.tween(textoSprite, {x: ((FlxG.width - textoSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});

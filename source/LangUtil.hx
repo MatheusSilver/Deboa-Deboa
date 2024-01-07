@@ -18,6 +18,10 @@ class LangUtil
                 font = "sonic-1-hud-font.ttf";
 			case "sonic-3":
 				font = "sonic-3-and-knuckles-credits.ttf";
+			case "smb":
+				font = "smb1.ttf";
+			case "roboto":
+					font = "Roboto.ttf";
 			default:
 				font = 'letravio.ttf';
 		}
@@ -46,4 +50,15 @@ class LangUtil
 
 		return str;
 	}
+
+	//Foi um caso tão especifico que nem me importei em modificar a decima que já era usada varias vezes.
+	public static function getStringArray(flag:String, context:String = 'data', replace:Array<String>):String
+		{
+			var str:String = Main.tongue.get(flag, context);
+	
+			for (i in 0...replace.length)
+				str = Replace.flags(str, ["<X"+i+">"], [Std.string(replace[i])]);
+	
+			return str;
+		}
 }

@@ -14,34 +14,34 @@ class Achievements {
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
 		['modboa',			true, 		181570, 		'geral', 		1], //ok1
 		['tarado_do_menu',	true,		195317, 		'geral', 		1],
-		['fe_clear',			false,		195318, 	'orgulho', 		2],
+		['fe_clear',		false,		195318, 		'orgulho', 		2],
 		['hypno_clear',		false,		195319, 		'alt', 			1],
-		['mx_clear',			false,		195320, 	'alt', 			2],
-		['lx_clear',			false,		195321, 	'alt', 			3],		
+		['mx_clear',		false,		195320, 		'alt', 			2],
+		['lx_clear',		false,		195321, 		'alt', 			3],		
 		['natal',			false, 		185532, 		'geral', 		1], //ok1
 		['toofest_fc',		true, 		181571, 		'meme maker', 	3], //ok1
 		['bye_bye_fc',		false, 		185533, 		'ira', 			3], //ok1
 		['control_fc',		false, 		185534, 		'preguica', 	2], //ok1
 		['madrugada',		true, 		185535, 		'ganancia', 	3], //ok
 		['chaos_bot',		true, 		181572, 		'discordia', 	3],
-		['colecionador',		false, 		181719, 	'geral', 		4],
-		['sunky_fatos',		false, 		186689, 		'meme maker', 		1],
+		['colecionador',	false, 		181719, 		'geral', 		4],
+		['sunky_fatos',		false, 		186689, 		'meme maker', 	1],
 		['rings',			false, 		181720, 		'orgulho', 		3], //ok
 		['heroi',			false, 		181721, 		'geral', 		2],
-		['prey_bot',			true, 		181722, 	'alt', 		2], //ok
-		['fake_full_combo',			true, 		185666, 'meme maker', 		1], //ok
-		['prey_survive',		true, 		181723, 	'alt', 		2], //ok
+		['prey_bot',		true, 		181722, 		'alt', 			2], //ok
+		['fake_full_combo',	true, 		185666,			'meme maker', 	1], //ok
+		['prey_survive',	true, 		181723, 		'alt', 			2], //ok
 		['perfect',			false, 		181724, 		'geral', 		2], //ok
-		['sidekick',			false, 		181725, 	'orgulho', 		1], //ok
+		['sidekick',		false, 		181725, 		'orgulho', 		1], //ok
 		['tails_free',		true, 		181726, 		'orgulho', 		1], //ok
 		['knuckles_free',	true, 		181727, 		'orgulho', 		2], //ok
 		['eggman_free',		true, 		181728, 		'orgulho', 		3], //ok
 		['side_deaths',		true, 		181729, 		'orgulho', 		1],
 		['besties',			false, 		181730, 		'alt', 			2], //ok
 		['toastie',			false, 		181731, 		'geral', 		1], //ok
-	    ['cy_clear',			false, 		181732, 	'orgulho',		2],
+	    ['cy_clear',		false, 		181732, 		'orgulho',		2],
 		['personel_clear',	true, 		181733, 		'meme maker', 	1], //ok
-		['fisk',				true, 		181734, 	'luxuria', 		1], //ok
+		['fisk',			true, 		181734, 		'luxuria', 		1], //ok
 		['pibby',			true, 		181736, 		'alt', 			2], //ok
 		['galeria',			true, 		185895, 		'geral', 		1], 
 		['pause_jumpscare',	true, 		186989, 		'orgulho', 		1]//ok
@@ -132,7 +132,7 @@ class AttachedAchievement extends FlxSprite {
 	}
 
 	public function reloadAchievementImage() {
-		loadGraphic(Paths.imagechecker('conquistas/medalhas/achievements (btt-' + tag + ")"));
+		loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-' + tag + ")"));
 		scale.set(1.3, 1.3);
 		updateHitbox();
 	}

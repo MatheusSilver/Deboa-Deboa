@@ -35,12 +35,12 @@ class GaleriaMusicObject extends FlxSpriteGroup
         add(thumb);
         
         music_name = new FlxText(thumb.x + thumb.width + 20, thumb.y + 7, 200, nome_da_musica, 14);
-		music_name.setFormat(Paths.font("Roboto-Black.ttf"), 16, 0xffffff, LEFT);
+		music_name.setFormat(Paths.font("Roboto.ttf"), 16, 0xffffff, LEFT);
         music_name.antialiasing=ClientPrefs.globalAntialiasing;
 		add(music_name);
 
         letra_brasileira = new FlxText(music_name.x, music_name.y + music_name.height + 3, 200, "Com letra brasileira", 14);
-		letra_brasileira.setFormat(Paths.font("Roboto-Regular.ttf"), 16, 0xc6c6c6, LEFT);
+		letra_brasileira.setFormat(Paths.font("Roboto.ttf"), 16, 0xc6c6c6, LEFT);
         letra_brasileira.antialiasing=ClientPrefs.globalAntialiasing;
 		add(letra_brasileira);
 

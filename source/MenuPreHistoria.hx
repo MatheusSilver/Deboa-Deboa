@@ -19,7 +19,10 @@ class MenuPreHistoria extends MusicBeatState
 	var apertavel:Bool = false;
 
 	public static var returnedfromsubstate:Bool = false;
-	public static var bigmenu:FlxSprite;
+	public static var old_bg:FlxSprite=new FlxSprite();
+	private var old_perfil:FlxSprite=new FlxSprite();
+	private var old_linha_up:FlxSprite=new FlxSprite();
+	private var old_linha_down:FlxSprite=new FlxSprite();
 	public static var maintainVisible:Bool = false;
 
 	// Eu acho que tenho um probleminha...
@@ -40,7 +43,7 @@ class MenuPreHistoria extends MusicBeatState
 
 	public static var instance:MenuPreHistoria;
 
-	var blackbarup:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 53, FlxColor.BLACK);
+	var blackbarup:FlxSprite = new FlxSprite();
 	var blackbardown:FlxSprite = new FlxSprite(0, FlxG.height - 53).makeGraphic(FlxG.width, 53, FlxColor.BLACK);
 
 	override function create()
@@ -66,10 +69,12 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = 0;
 
 		bgSprite = new FlxSprite(-1000, 0);
+		bgSprite.alpha = 1;
 		bgSprite.antialiasing = ClientPrefs.globalAntialiasing;
-		bigmenu = new FlxSprite(-1000, 0);
-		bigmenu.antialiasing = ClientPrefs.globalAntialiasing;
-		bigmenu.visible = false;
+
+		old_bg = new FlxSprite(-1000, 0);
+		old_bg.antialiasing = ClientPrefs.globalAntialiasing;
+		
 		perfilSprite = new FlxSprite(-1000, 0);
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
@@ -83,11 +88,18 @@ class MenuPreHistoria extends MusicBeatState
 		blackLock = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackLock.alpha = 0;
 
-		add(bigmenu);
+		add(old_bg);
+		add(old_linha_down);
+		add(old_linha_up);
+		add(old_perfil);
+		old_bg.visible = old_linha_down.visible=old_linha_up.visible=old_perfil.visible =false;
+		
 		add(bgSprite);
 		add(blackbarup);
 		add(blackbardown);
 		add(perfilSprite);
+		bgSprite.visible = blackbarup.visible=blackbardown.visible=perfilSprite.visible =false;
+		
 		add(blackLock);
 		add(lockSprite);
 
@@ -119,7 +131,8 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = weekAnimNum;
 		}
 
-		changeWeek();
+		//changeWeek(); //Por algum motivo que sei lá qual, a função closesubstate era chamada também
+		//Logo, não precisa disso aqui.
 		super.create();
 	}
 
@@ -278,12 +291,14 @@ class MenuPreHistoria extends MusicBeatState
 		// Teoricamente, isso deve fazer com que o menu se desfaça uma última vez e dê lugar ao menu de historia...
 
 		// ALO TEGER, MANDA UM SALVE!!!
+		old_linha_down.visible=old_linha_up.visible=old_perfil.visible =false;
+		bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= true;
 		updateBG();
-		bigmenu.setGraphicSize(FlxG.width, FlxG.height);
-		bigmenu.screenCenter(XY);
+		old_bg.setGraphicSize(FlxG.width, FlxG.height);
+		old_bg.screenCenter(XY);
 		FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, 1, {ease: FlxEase.expoInOut});
 		FlxTween.tween(blackbardown, {y: FlxG.height}, 1, {ease: FlxEase.expoInOut});
-		FlxTween.tween(bgSprite, {x: 0 - bgSprite.width}, 1, {ease: FlxEase.expoInOut});
+		FlxTween.tween(bgSprite, {alpha: 0}, 1, {ease: FlxEase.expoInOut});
 		FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, 1, {ease: FlxEase.expoInOut});
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
@@ -308,28 +323,25 @@ class MenuPreHistoria extends MusicBeatState
 		var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 		WeekData.setDirectoryFromWeek(leWeek);
 
-		bgSprite.visible = change != 0 || maintainVisible;
-		perfilSprite.visible = change != 0 || maintainVisible;
-		blackbarup.visible = change != 0 || maintainVisible;
-		blackbardown.visible = change != 0 || maintainVisible; 
+		bgSprite.visible = perfilSprite.visible= blackbarup.visible=blackbardown.visible=change != 0 || maintainVisible;
 		var assetName:String = leWeek.weekBackground;
 		if (OpenFlAssets.exists(Paths.imagechecker("Story_Mode/BG_" + assetName, 'preload')))
 		{ // anti crashing moment
-			bgSprite.loadGraphic(Paths.image("Story_Mode/BG_" + assetName, 'preload'));
+			bgSprite.loadGraphic(Paths.image("Story_Mode/BG_" + assetName, "preload"));
 		}
 		else
 		{
-			FlxG.log.warn('Não foi possível achar ' + "assets/images/Story_Mode/BG_" + assetName);
+			FlxG.log.warn('Não foi possível achar ' + Paths.imagechecker("Story_Mode/BG_" + assetName, "locales", true));
 			bgSprite.loadGraphic('assets/images/menuDesat.png');
 		}
-		if (OpenFlAssets.exists(Paths.imagechecker("Story_Mode/PERFIL" + assetName, 'preload')))
+		if (OpenFlAssets.exists(Paths.imagechecker("Story_Mode/PERFIL" + assetName, "locales", true)))
 		{ // anti crashing moment
-			perfilSprite.loadGraphic(Paths.image("Story_Mode/PERFIL" + assetName, 'preload'));
+			perfilSprite.loadGraphic(Paths.image("Story_Mode/PERFIL" + assetName, "locales", true, true));
 			// PQP EU SOU MUITO BURRO... Ass:Silvio
 		}
 		else
 		{
-			FlxG.log.warn('Não foi possível achar ' + "Story_Mode/PERFIL" + assetName);
+			FlxG.log.warn('Não foi possível achar ' + Paths.imagechecker("Story_Mode/PERFIL" + assetName, "locales", true));
 		}
 
 		bgSprite.setGraphicSize(FlxG.width);
@@ -344,14 +356,14 @@ class MenuPreHistoria extends MusicBeatState
 		{
 			blackbardown.makeGraphic(FlxG.width, 53, FlxColor.BLACK);
 		}
-		if (OpenFlAssets.exists(Paths.imagechecker("Story_Mode/LinhaUP_" + assetName)))
+		if (OpenFlAssets.exists(Paths.imagechecker("Story_Mode/LinhaUP_" + assetName, "locales", true)))
 		{ // anti crashing moment
-			blackbarup.loadGraphic(Paths.image("Story_Mode/LinhaUP_" + assetName));
+			blackbarup.loadGraphic(Paths.image("Story_Mode/LinhaUP_" + assetName, "locales", true, true));
 		}
 		else
 		{
 			blackbarup.makeGraphic(FlxG.width, 53, FlxColor.BLACK);
-			FlxG.log.warn('Não foi possível achar ' + Paths.image("Story_Mode/LinhaUP_" + assetName));
+			FlxG.log.warn('Não foi possível achar ' + Paths.imagechecker("Story_Mode/LinhaUP_" + assetName, "locales", true));
 		}
 
 		perfilSprite.x = FlxG.width;
@@ -359,8 +371,8 @@ class MenuPreHistoria extends MusicBeatState
 		bgSprite.x = 0 - bgSprite.width;
 		blackbarup.y = 0 - blackbarup.height;
 		blackbardown.y = FlxG.height;
-
 		var curtimer:Float = 0.5; // Por pura preguiça de trocar isso o tempo todo...
+		bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= true;
 		FlxTween.tween(blackbarup, {y: 0}, curtimer, {ease: FlxEase.expoInOut});
 		FlxTween.tween(blackbardown, {y: FlxG.height - 53}, curtimer, {ease: FlxEase.expoInOut});
 		FlxTween.tween(bgSprite, {x: 0}, curtimer, {ease: FlxEase.expoInOut});
@@ -368,12 +380,18 @@ class MenuPreHistoria extends MusicBeatState
 			ease: FlxEase.expoInOut,
 			onComplete: function(twn:FlxTween)
 			{
+				
+				old_bg.loadGraphicFromSprite(bgSprite);
+				old_linha_down.loadGraphicFromSprite(blackbardown);
+				old_linha_up.loadGraphicFromSprite(blackbarup);
+				old_perfil.loadGraphicFromSprite(perfilSprite);
+				old_perfil.setPosition(perfilSprite.x,perfilSprite.y);
+				old_bg.setPosition(bgSprite.x,bgSprite.y);
+				old_linha_down.setPosition(blackbardown.x,blackbardown.y);
+				old_linha_up.setPosition(blackbarup.x,blackbarup.y);
 				apertavel = true; // Só pra garantir que a animação de entrada NÃO ocorra ao mesmo tempo que a de saida.
-				bigmenu.loadGraphic(Paths.image("Story_Mode/BIGMENU_" + assetName, 'preload'));
-				bigmenu.setGraphicSize(FlxG.width);
-				bigmenu.screenCenter(XY);
-				bigmenu.visible = true;
-				bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible=true;
+				old_bg.visible = old_linha_down.visible=old_linha_up.visible=old_perfil.visible = true;
+				bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= false;
 			}
 		});
 		// EU DEFINITIVAMENTE NÃO QUERO FALAR SOBRE ESTE CODE... Ass: Sílvio
@@ -400,27 +418,9 @@ class MenuPreHistoria extends MusicBeatState
 
 	public function updateBG()
 	{
+		bgSprite.alpha = 1;
 		var weekescolhida:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 		var assetName:String = weekescolhida.weekBackground;
-		if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-"
-			+ assetName
-			+ "/scroll-"
-			+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)", 'preload')))
-		{
-			bigmenu.loadGraphic(Paths.image("scrolling/scroll-"
-				+ assetName
-				+ "/scroll-"
-				+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)", 'preload'));
-		}
-		else
-		{
-			FlxG.log.warn('Não foi possível achar '
-				+ Paths.image("scrolling/scroll-"
-					+ assetName
-					+ "/scroll-"
-					+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)",
-					'preload'));
-			bigmenu.loadGraphic('assets/images/menuDesat.png');
-		}
+		old_bg.loadGraphic(Paths.image("scrolling/scroll-"+ assetName+ "/scroll-"+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)", 'preload'));
 	}
 }

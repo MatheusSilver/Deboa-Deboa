@@ -1,5 +1,8 @@
 package;
 
+import flixel.text.FlxText;
+import Utils.BSLTouchUtils;
+import CustomButtons.CreditButton;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -17,16 +20,14 @@ class SobreState extends MusicBeatState
 	// var letext:FlxText;
 	var bg:FlxSprite;
 	var faixa:FlxSprite;
-	var gtext:FlxSprite;
-	var ctext:FlxSprite;
-	var exe:FlxButton;
-	var saster:FlxButton;
-	var sunny:FlxButton;
-	var vio:FlxButton;
-	var dav:FlxButton;
+	var gtext:FlxText;
+	var ctext:FlxText;
 	var arrow:FlxButton;
 
-	static var curSection:Int = 0;
+	static var menu_isLeft:Bool = true;
+	private var buttonMapping:Map<String, CreditButton> = [];
+	private final menusArray:Array<String> = ["exe", "saster", "sunny", "vio", "dav"];
+	//A ideia já tava tão avançada nesse ponto, então fui para a base da gambiarra.
 
 	override function create()
 	{
@@ -41,129 +42,100 @@ class SobreState extends MusicBeatState
 		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.updateHitbox();
-		// bg.setGraphicSize(Std.int(0.5));
 		bg.alpha = 1;
 		add(bg);
 
 		faixa = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (faixa)'));
 		faixa.antialiasing = ClientPrefs.globalAntialiasing;
 		faixa.updateHitbox();
-		// faixa.setGraphicSize(Std.int(0.5));
 		faixa.alpha = 1;
 		add(faixa);
 
-		gtext = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (txt-galeriavideo)'));
+		gtext = new FlxText(0, 0, faixa.width, LangUtil.getString("menu_video_gallery", "credits").toUpperCase(), 48);
 		gtext.antialiasing = ClientPrefs.globalAntialiasing;
+		gtext.setFormat(LangUtil.getFont("smb"), 36, CoolUtil.colorFromString("#f9c9a5"), CENTER);
 		gtext.updateHitbox();
-		gtext.x = 107;
+		gtext.x = 43;
 		gtext.y = 40;
-		// gtext.setGraphicSize(Std.int(0.5));
 		gtext.alpha = 1;
 		add(gtext);
 
-		ctext = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (txt-creditos)'));
+		ctext = new FlxText(0, 0, faixa.width, LangUtil.getString("menu_credit_menu", "credits").toUpperCase(), 48);
 		ctext.antialiasing = ClientPrefs.globalAntialiasing;
+		ctext.setFormat(LangUtil.getFont("smb"), 36, CoolUtil.colorFromString("#f9c9a5"), CENTER);
 		ctext.updateHitbox();
-		ctext.x = 666; // btw, isso n foi intencional
-		ctext.y = 36;
-		// ctext.setGraphicSize(Std.int(0.5));
+		ctext.x = 636; // btw, isso n foi intencional
+		ctext.y = 36;  // DAV??????????????? :fearful: - Era 666 :skull:
 		ctext.alpha = 1;
 		add(ctext);
 
-		exe = new FlxButton(FlxG.width, 100, '');
-		exe.loadGraphic(Paths.image('sobremenu/bts/btexe', 'preload'));
-		// exe.setGraphicSize(Std.int(0.5));
-
-		exe.updateHitbox();
-		exe.x = 655;
-		exe.y = 280;
+		var exe:CreditButton = new CreditButton(faixa.width, "exe", "left", "mods_ports", "#847eff");
+		buttonMapping.set("exe", exe);
+		exe.x = 640;
+		exe.y = 320;
 		exe.alpha = 0.75;
+		exe.ID = 0;
+		exe.updateHitbox();
+		exe.offset.set();
 		add(exe);
 
-		saster = new FlxButton(FlxG.width, 100, '');
-		saster.loadGraphic(Paths.image('sobremenu/bts/btsaster', 'preload'));
-		// saster.setGraphicSize(Std.int(0.5));
+		var saster:CreditButton = new CreditButton(faixa.width,"saster", "right", "songs_arts", "#ffa9ff");
+		buttonMapping.set("saster", saster);
 
-		saster.updateHitbox();
 		saster.x = 640;
-		saster.y = 470;
+		saster.y = 490;
 		saster.alpha = 0.75;
+		saster.ID = 1;
+		saster.updateHitbox();
+		saster.offset.set();
 		add(saster);
 
-		sunny = new FlxButton(FlxG.width, 100, '');
-		sunny.loadGraphic(Paths.image('sobremenu/bts/btsunny', 'preload'));
-		// sunny.setGraphicSize(Std.int(0.5));
-
-		sunny.updateHitbox();
+		var sunny:CreditButton = new CreditButton(faixa.width,"sunny", "right", "gallery", "#ffcbeb");
+		buttonMapping.set("sunny", sunny);
 		sunny.x = 47;
-		sunny.y = 93;
+		sunny.y = 150;
 		sunny.alpha = 0.75;
+		sunny.ID = 2;
+		sunny.updateHitbox();
+		sunny.offset.set();
 		add(sunny);
 
-		vio = new FlxButton(FlxG.width, 100, '');
-		vio.loadGraphic(Paths.image('sobremenu/bts/btvio', 'preload'));
-		// vio.setGraphicSize(Std.int(0.5));
-
-		vio.updateHitbox();
+		var vio:CreditButton = new CreditButton(faixa.width,"vio", "right", "team_staff", "#d95500");
+		buttonMapping.set("vio", vio);
 		vio.x = 640;
-		vio.y = 66;
+		vio.y = 150;
 		vio.alpha = 0.75;
+		vio.ID = 3;
+		vio.updateHitbox();
+		vio.offset.set();
 		add(vio);
 
-		dav = new FlxButton(FlxG.width, 100, '');
-		dav.loadGraphic(Paths.image('sobremenu/bts/btdav', 'preload'));
-		// dav.setGraphicSize(Std.int(0.5));
-
-		dav.updateHitbox();
-		dav.x = 51;
-		dav.y = 282;
+		var dav:CreditButton = new CreditButton(faixa.width,"dav", "left", "our_project", "#6640fc");
+		buttonMapping.set("dav", dav);
+		dav.x = 47;
+		dav.y = 320;
 		dav.alpha = 0.75;
+		dav.ID = 4;
+		dav.updateHitbox();
+		dav.offset.set();
 		add(dav);
 
 		arrow = new FlxButton(FlxG.width, 100, '');
 		arrow.loadGraphic(Paths.image('sobremenu/arrow', 'preload'));
-		// exe.setGraphicSize(Std.int(0.5));
 
 		arrow.updateHitbox();
 		arrow.x = 280;
 		arrow.y = 272;
 		arrow.alpha = 0.75;
 		add(arrow);
-		/*letext = new FlxText(50, FlxG.height - 600, FlxG.width - 95, "SOBRE", 32);
-			letext.setFormat(Paths.font("vcr.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			letext.scrollFactor.set();
-			letext.alpha = 1;
-			add(letext); */
-		/*videobotao = new FlxButton(FlxG.width, 100, '');
-					videobotao.loadGraphic(Paths.image('mainmenu/btvideo', 'preload'));
-					videobotao.setGraphicSize(Std.int(videobotao.width * 0.75));
-
-					videobotao.updateHitbox();
-					videobotao.x = 385;
-					videobotao.y = 250;
-					videobotao.alpha = 0.75;
-					add(videobotao);
-
-					credbotao = new FlxButton(FlxG.width, 100, '');
-					credbotao.loadGraphic(Paths.image('mainmenu/btcr', 'preload'));
-					credbotao.setGraphicSize(Std.int(credbotao.width * 0.75));
-
-					credbotao.updateHitbox();
-					credbotao.x = 385;
-					credbotao.y = 415;
-					credbotao.alpha = 0.75;
-					add(credbotao); */
 
 		updateuwu();
-		/*#if mobileC
-			addVirtualPad(LEFT_RIGHT, A_B);
-			#end */
 		super.create();
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (curSection == 0)
+		if (!menu_isLeft)
 		{
 			arrow.flipX = false;
 			arrow.x = 280;
@@ -183,26 +155,6 @@ class SobreState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
-		/*if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
-			GlobalSoundManager.play('scrollMenu');
-			if(curSection==0)
-				{
-					curSection=1;
-					arrow.flipX=false;
-					arrow.x = 280;
-					arrow.y=272;
-					arrow.updateHitbox();
-				}
-			else
-				{
-					curSection=0;
-					arrow.flipX=true;
-					arrow.x = 836;
-					arrow.y=272;
-					arrow.updateHitbox();
-				}
-				updateuwu();
-		}*/
 		super.update(elapsed);
 		if (FlxG.sound.music.volume == 0)
 		{
@@ -211,24 +163,14 @@ class SobreState extends MusicBeatState
 		// agr que eu vi que eu fui burro mas to com preguiça de consertar tudo que eu fiz de errado :)
 		// o importante é que funciona
 
-		// section 0
-		vio.onOver.callback = vioHover;
-		vio.onOut.callback = vioOut;
-		vio.onDown.callback = vioClick;
-		exe.onOver.callback = exeHover;
-		exe.onOut.callback = exeOut;
-		exe.onDown.callback = exeClick;
-		saster.onOver.callback = sasterHover;
-		saster.onOut.callback = sasterOut;
-		saster.onDown.callback = sasterClick;
-
-		// section 1
-		sunny.onOver.callback = sunnyHover;
-		sunny.onOut.callback = sunnyOut;
-		sunny.onDown.callback = sunnyClick;
-		dav.onOver.callback = davHover;
-		dav.onOut.callback = davOut;
-		dav.onDown.callback = davClick;
+		for (key in buttonMapping.iterator()){
+			if (BSLTouchUtils.over(key.bg) && !key.isOver && key.visible)
+				hover(key);
+			else if (BSLTouchUtils.apertasimples(key.bg) && key.isOver && key.visible)
+				click(key);
+			else if (key.isOver && !BSLTouchUtils.over(key.bg) && key.visible)
+				out(key);
+		}
 
 		// arrow
 		arrow.onOver.callback = function()
@@ -237,193 +179,63 @@ class SobreState extends MusicBeatState
 			arrow.alpha = 1;
 		};
 
-		arrow.onOut.callback = function()
-		{
-			arrow.alpha = 0.75;
-		};
+		arrow.onOut.callback = function(){arrow.alpha = 0.75;};
 
 		arrow.onDown.callback = function()
 		{
 			GlobalSoundManager.play('confirmMenu');
 			arrow.alpha = 1;
-			if (curSection == 0)
-			{
-				curSection = 1;
-			}
-			else
-			{
-				curSection = 0;
-			}
+			menu_isLeft = !menu_isLeft;
 			updateuwu();
 		};
 	}
 
-	function vioHover():Void
+	function hover(object:CreditButton):Void
 	{
-		if (curSection == 0)
-		{
-			GlobalSoundManager.play('scrollMenu');
-			vio.alpha = 1;
-		}
+		object.isOver = true;
+		GlobalSoundManager.play("scrollMenu");
+		object.alpha = 1;
 	}
 
-	function vioOut():Void
+	function out(object:CreditButton):Void
 	{
-		if (curSection == 0)
-		{
-			vio.alpha = 0.75;
-		}
+		object.isOver = false;
+		object.alpha = 0.75;
 	}
 
-	function vioClick():Void
+	function click(object:CreditButton)
 	{
-		if (curSection == 0)
-		{
-			GlobalSoundManager.play('confirmMenu');
-			vio.alpha = 1;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new TimeDaVio());
+		GlobalSoundManager.play('confirmMenu');
+		object.alpha = 1;
+		FlxTransitionableState.skipNextTransOut = true;
+		switch (menusArray[object.ID]){
+			case "vio":
+				MusicBeatState.switchState(new TimeDaVio());
+			case "exe":
+				MusicBeatState.switchState(new CreditsMods());
+			case "saster":
+				MusicBeatState.switchState(new CreditsMusics());
+			case "dav":
+				#if desktop
+				MusicBeatState.switchState(new SobreVideo());
+				#elseif mobile
+				FlxG.switchState(new VideoState('assets/videos/EngineBase/aviso', (new SobreState())));
+				#end
+			case "sunny":
+				MusicBeatState.switchState(new GaleriaState());
 		}
-	}
-
-	function exeHover():Void
-	{
-		if (curSection == 0)
-		{
-			GlobalSoundManager.play('scrollMenu');
-			exe.alpha = 1;
-		}
-	}
-
-	function exeOut():Void
-	{
-		if (curSection == 0)
-		{
-			exe.alpha = 0.75;
-		}
-	}
-
-	function exeClick():Void
-	{
-		if (curSection == 0)
-		{
-			GlobalSoundManager.play('confirmMenu');
-			exe.alpha = 1;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new CreditsMods());
-		}
-	}
-
-	function sasterHover():Void
-	{
-		if (curSection == 0)
-		{
-			GlobalSoundManager.play('scrollMenu');
-			saster.alpha = 1;
-		}
-	}
-
-	function sasterOut():Void
-	{
-		if (curSection == 0)
-		{
-			saster.alpha = 0.75;
-		}
-	}
-
-	function sasterClick():Void
-	{
-		if (curSection == 0)
-		{
-			GlobalSoundManager.play('confirmMenu');
-			saster.alpha = 1;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new CreditsMusics());
-		}
-	}
-
-	function sunnyHover():Void
-	{
-		if (curSection == 1)
-		{
-			GlobalSoundManager.play('scrollMenu');
-			sunny.alpha = 1;
-		}
-	}
-
-	function sunnyOut():Void
-	{
-		if (curSection == 1)
-		{
-			sunny.alpha = 0.75;
-		}
-	}
-
-	function sunnyClick():Void
-	{
-		if (curSection == 1)
-		{
-			GlobalSoundManager.play('confirmMenu');
-			sunny.alpha = 1;
-			MusicBeatState.switchState(new GaleriaState());
-		}
-	}
-
-	function davHover():Void
-	{
-		if (curSection == 1)
-		{
-			GlobalSoundManager.play('scrollMenu');
-			dav.alpha = 1;
-		}
-	}
-
-	function davOut():Void
-	{
-		if (curSection == 1)
-		{
-			dav.alpha = 0.75;
-		}
-	}
-
-	function davClick():Void
-	{
-		if (curSection == 1)
-		{
-			GlobalSoundManager.play('confirmMenu');
-			dav.alpha = 1;
-			#if desktop
-			MusicBeatState.switchState(new SobreVideo());
-			#elseif mobile
-			// Ia trocar pro substate mas acho que tanto faz
-			FlxG.switchState(new VideoState('assets/videos/EngineBase/aviso', (new SobreState())));
-			#end
-		}
+		
 	}
 
 	function updateuwu():Void
 	{
-		if (curSection == 0)
-		{
-			faixa.x = 636;
-			gtext.alpha = 0;
-			dav.alpha = 0;
-			saster.alpha = 0.75;
-			ctext.alpha = 1;
-			vio.alpha = 0.75;
-			exe.alpha = 0.75;
-			sunny.alpha = 0;
-		}
-		else
-		{
-			faixa.x = 43;
-			gtext.alpha = 1;
-			dav.alpha = 0.75;
-			saster.alpha = 0;
-			ctext.alpha = 0;
-			vio.alpha = 0;
-			exe.alpha = 0;
-			sunny.alpha = 0.75;
-		}
+		faixa.x = menu_isLeft ? 43 : 636;
+		gtext.visible = menu_isLeft;
+		buttonMapping.get("dav").visible = menu_isLeft;
+		buttonMapping.get("sunny").visible = menu_isLeft;
+		buttonMapping.get("saster").visible = !menu_isLeft;
+		buttonMapping.get("vio").visible = !menu_isLeft;
+		buttonMapping.get("exe").visible = !menu_isLeft;
+		ctext.visible = !menu_isLeft;
 	}
 }

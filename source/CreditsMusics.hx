@@ -58,19 +58,19 @@ class CreditsMusics extends MusicBeatState
 		bg.y = 720;
 		add(bg);
 
-		dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
+		dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')', "locales", true, true));
 		dummycredit.antialiasing = ClientPrefs.globalAntialiasing;
 		dummycredit.visible = false;
 		dummycredit.y = 25;
-		dummycredit1 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp + 1] + ')'));
+		dummycredit1 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp + 1] + ')', "locales", true, true));
 		dummycredit1.antialiasing = ClientPrefs.globalAntialiasing;
 		dummycredit1.visible = false;
 		dummycredit1.y = 25;
-		dummycredit2 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1] + ')'));
+		dummycredit2 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1] + ')', "locales", true, true));
 		dummycredit2.antialiasing = ClientPrefs.globalAntialiasing;
 		dummycredit2.visible = false;
 		dummycredit2.y = 25;
-		newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
+		newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')', "locales", true, true));
 		newcredit.antialiasing = ClientPrefs.globalAntialiasing;
 		// newcredit.setGraphicSize(Std.int(0.8));
 		newcredit.visible = true;
@@ -79,7 +79,7 @@ class CreditsMusics extends MusicBeatState
 		newcredit.y = 724;
 		add(newcredit);
 
-		newcredit1 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
+		newcredit1 = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')', "locales", true, true));
 		newcredit1.antialiasing = ClientPrefs.globalAntialiasing;
 		// newcredit.setGraphicSize(Std.int(0.8));
 		newcredit1.visible = true;
@@ -129,13 +129,13 @@ class CreditsMusics extends MusicBeatState
 
 	private function load_dummies(isRight:Bool){
 		if (isRight){
-			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp - 1 == -1 ? creditStuff.length - 1 : curSelectedBkp - 1] + ')'));
-			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
-			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp - 1 == -1 ? creditStuff.length - 1 : curSelectedBkp - 1] + ')', "locales", true, true));
+			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')', "locales", true, true));
+			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')', "locales", true, true));
 		}else{
-			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
-			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1 == creditStuff.length ? 0 : curSelected + 1] + ')'));
-			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
+			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')', "locales", true, true));
+			dummycredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected + 1 == creditStuff.length ? 0 : curSelected + 1] + ')', "locales", true, true));
+			dummycredit2.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')', "locales", true, true));
 		}
 
 	}
@@ -195,8 +195,8 @@ class CreditsMusics extends MusicBeatState
 		}
 
 
-		newcredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')'));
-		newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')'));
+		newcredit.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelectedBkp] + ')', "locales", true, true));
+		newcredit1.loadGraphic(Paths.image('sobremenu/creditos/musicseartes/artemusica (' + creditStuff[curSelected] + ')', "locales", true, true));
 
 	}
 }

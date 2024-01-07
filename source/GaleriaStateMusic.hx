@@ -84,9 +84,9 @@ class GaleriaStateMusic extends MusicBeatState
 	private var optionTextsArray:FlxTypedGroup<FlxText>;
 
 	static var options:Array<String> = [
-		'Reprodução Automática',
-		'Reprodução em Looping',
-		'Reprodução aleatória'
+		'rep_auto',
+		'rep_loop',
+		'rep_rand'
 	];
 
 	private var checkboxNumber:Array<Int> = [];
@@ -119,7 +119,7 @@ class GaleriaStateMusic extends MusicBeatState
 		add(overlaySuporte);
 
 		letrasbotao = new FlxSprite();
-		letrasbotao.loadGraphic(Paths.image('galeriamusicas/youtubemusic/letras_botao', 'preload'));
+		letrasbotao.loadGraphic(Paths.image('galeriamusicas/youtubemusic/letras_botao', "locales", true, true));
 		letrasbotao.x = FlxG.width - 50 - letrasbotao.width;
 		letrasbotao.y = 0;
 		letrasbotao.alpha = 0;
@@ -130,7 +130,7 @@ class GaleriaStateMusic extends MusicBeatState
 		playListbotao.y = letrasbotao.y;
 		playListbotao.alpha = 0;
 
-		tocandoagora = new FlxText(playListbotao.x, FlxG.height*0.45 - 30, 100, 'Tocando Agora:', 13);
+		tocandoagora = new FlxText(playListbotao.x, FlxG.height*0.45 - 30, 100, LangUtil.getString("gall_play_now", "gallery"), 13);
 		tocandoagora.setFormat(Paths.font("Arial.ttf"), 13, 0xFF808080, LEFT);
 		tocandoagora.alpha = 0;
 		add(tocandoagora);
@@ -160,7 +160,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		for (i in 0...options.length) { //Em busca da engine automática k
 			
-			var optionText:FlxText = new FlxText(playListbotao.x, playListbotao.y + playListbotao.height + i*75 + 35, 200, options[i], 16);
+			var optionText:FlxText = new FlxText(playListbotao.x, playListbotao.y + playListbotao.height + i*75 + 35, 200, LangUtil.getString("gall_"+options[i], "gallery"), 16);
 			optionText.setFormat(Paths.font("Arial.ttf"), 16, 0xFFFFFF, LEFT);
 			optionText.alpha = 0;
 			optionText.antialiasing = ClientPrefs.globalAntialiasing;
@@ -214,7 +214,7 @@ class GaleriaStateMusic extends MusicBeatState
 		add(botaodireita);
 
 		timer = new FlxText(botaodireita.x + botaodireita.width + 15, 0, 80, "0:00/0:00", 10);
-		timer.setFormat(Paths.font("Roboto-Regular.ttf"), 12, 0xaaaaaa, LEFT);
+		timer.setFormat(Paths.font("Roboto.ttf"), 12, 0xaaaaaa, LEFT);
 		timer.y = botaodireita.y + botaodireita.height/2 - timer.height/2;
 		add(timer);
 		
@@ -417,15 +417,15 @@ class GaleriaStateMusic extends MusicBeatState
 			if(checkbox != null) {
 				var daValue:Bool = false;
 				switch(options[checkboxNumber[i]]) {
-					case 'Reprodução Automática':
+					case 'rep_auto':
 						daValue = playsequencia;
-					case 'Reprodução em Looping':
+					case 'rep_loop':
 						daValue = loopar;
 						if (daValue)
 							loopar_mini.alpha = 1;
 						else
 							loopar_mini.alpha = 0.3;
-					case 'Reprodução aleatória':
+					case 'rep_rand':
 						daValue = playrandom;
 						if (daValue)
 							random_play_mini.alpha = 1;
@@ -541,17 +541,17 @@ class GaleriaStateMusic extends MusicBeatState
 			{
 				if(BSLTouchUtils.justTouched()){
 					switch(options[spr.ID]) { //Conserteza daria pra fazer melhor que isso, mas sabe como é né? preguiça
-						case 'Reprodução Automática':
+						case 'rep_auto':
 							playsequencia = !playsequencia;
 							playrandom = false;
 							loopar = false;
 	
-						case 'Reprodução em Looping':
+						case 'rep_loop':
 							loopar = !loopar;
 							playsequencia = false;
 							playrandom = false;
 						
-						case 'Reprodução aleatória':
+						case 'rep_rand':
 							playrandom = !playrandom;
 							loopar = false;
 							playsequencia = false;
@@ -658,15 +658,15 @@ class GaleriaStateMusic extends MusicBeatState
 		textGroup.clear();
 
 		//Limpa primeiro, depois recarrega a letra
-		if (openfl.utils.Assets.exists(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase())))
-			daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase()));
+		if (openfl.utils.Assets.exists(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true)))
+			daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true));
 		else
 			daLyric = ['Não', 'Existem', 'Letras', 'Nyehehehehehehehhe'];
 
 
 		for (i in 0...daLyric.length) {
 			var daText:FlxText = new FlxText(overlaySuporte.x,playListbotao.y + playListbotao.height , thumbtocandoagora.width, daLyric[i], 15);
-			daText.setFormat(Paths.font('Roboto-Bold.ttf'), 15, 0xffffff, CENTER);
+			daText.setFormat(Paths.font('Roboto.ttf'), 15, 0xffffff, CENTER);
 			daText.y += daText.height*i;
 			daText.antialiasing=true;
 			//daText.setBorderStyle(OUTLINE, 0xffffff, 3, 10);

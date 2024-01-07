@@ -115,14 +115,14 @@ class TimeDaVio extends MusicBeatState
 		youtube.alpha = 0.75;
 		add(youtube);
 
-		icon = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon'));
+		icon = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon', "locales", true, true));
 		icon.antialiasing = ClientPrefs.globalAntialiasing;
 		icon.updateHitbox();
 		
 		icon.alpha = 1;
 		icon.x = -665;
 		add(icon);
-		desc = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc'));
+		desc = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc', "locales", true, true));
 		desc.antialiasing = ClientPrefs.globalAntialiasing;
 		desc.updateHitbox();
 		
@@ -271,8 +271,8 @@ class TimeDaVio extends MusicBeatState
 				bgCima.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/back1'));
 				perfil.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/perfil'));
 				estante.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/estante'));
-				icon.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/icon'));
-				desc.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/desc'));
+				icon.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/icon', "locales", true , true));
+				desc.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/desc', "locales", true , true));
 
 				FlxTween.tween(bgCima, {y: 0}, 1, {ease: FlxEase.quartInOut});
 				FlxTween.tween(bgBaixo, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
@@ -300,8 +300,8 @@ class TimeDaVio extends MusicBeatState
 				bgCima.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back1'));
 				perfil.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/perfil'));
 				estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/estante'));
-				icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon'));
-				desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc'));
+				icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon', "locales", true, true));
+				desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc', "locales", true, true));
 				FlxTween.tween(bgCima, {y: 0}, 1, {ease: FlxEase.quartInOut});
 				FlxTween.tween(bgBaixo, {y: 0}, 1.15, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});

@@ -202,9 +202,12 @@ class Paths
 		return getPath(file, type, library);
 	}
 
-	inline static public function txt(key:String, ?library:String)
+	inline static public function txt(key:String, ?library:String, ?locales:Bool = false)
 	{
-		return getPath('data/$key.txt', TEXT, library);
+		if (locales)
+			return getPath(ClientPrefs.lingua+'/data/$key.txt', TEXT, library);
+		else
+			return getPath('data/$key.txt', TEXT, library);
 	}
 
 	inline static public function xml(key:String, ?library:String)
@@ -217,9 +220,9 @@ class Paths
 		return getPath('data/$key.json', TEXT, library);
 	}
 
-	inline static public function lyric(key:String, ?library:String)
+	inline static public function lyric(key:String, ?library:String, ?locales:Bool= false)
 	{
-		return getPath('data/$key/lyrics.txt', TEXT, library);
+		return txt('$key/lyrics', library, locales);
 	}
 
 	static public function video(key:String)
@@ -261,16 +264,19 @@ class Paths
 		#end
 	}
 
-	inline static public function imagechecker(key:String, ?library:String):Dynamic
+	inline static public function imagechecker(key:String, ?library:String, locales:Bool = false):Dynamic
 		{
-			return getPath('images/$key.png', IMAGE, library);
+			if (locales)
+				return getPath(ClientPrefs.lingua+'/images/$key.png', IMAGE, library);
+			else
+				return getPath('images/$key.png', IMAGE, library);
 		}
 
-	inline static public function image(key:String, ?library:String, canGPU:Bool = true):FlxGraphic { //canGPU serve pra evitar um erro MUITO CRÍTICO em FlxTiledSprite
+	inline static public function image(key:String, ?library:String, canGPU:Bool = true, locale:Bool = false):FlxGraphic { //canGPU serve pra evitar um erro MUITO CRÍTICO em FlxTiledSprite
 		var gpu:Bool = false;
 		if (canGPU)
 			gpu = ClientPrefs.loadingexperimental;
-		var returnAsset:FlxGraphic = returnGraphic(key, library, gpu);
+		var returnAsset:FlxGraphic = returnGraphic(key, library, gpu, locale);
 		return returnAsset;
 	}
 	
@@ -311,10 +317,10 @@ class Paths
 	inline static public function formatToSongPath(path:String) {
 		return path.toLowerCase().replace(' ', '-');
 	}
-	public static function returnGraphic(key:String, ?library:String, gpu:Bool) {
+	public static function returnGraphic(key:String, ?library:String, gpu:Bool, locale:Bool = false) {
 		var path:String = '';
 
-		path = getPath('images/$key.png', IMAGE, library);
+		path = getPath((locale ? ClientPrefs.lingua+"/" : "")+'images/$key.png', IMAGE, library);
 
 		if (OpenFlAssets.exists(path, IMAGE))
 		{

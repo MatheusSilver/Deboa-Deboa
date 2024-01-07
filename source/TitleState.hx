@@ -336,7 +336,7 @@ class TitleState extends MusicBeatState
 		add(logoBl);
 		candothething = true;
 
-		titleText = new FlxSprite(-80, 600).loadGraphic(Paths.image('titleEnter'));
+		titleText = new FlxSprite(-80, 600).loadGraphic(Paths.image('titleEnter',"locales",true,true));
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		titleText.setGraphicSize(Std.int(titleText.width * 1.1));
 		// titleText.y=550;
@@ -379,7 +379,7 @@ class TitleState extends MusicBeatState
 
 	function getIntroTextShit():Array<Array<String>>
 	{
-		var fullText:String = Assets.getText(Paths.txt('introText'));
+		var fullText:String = Assets.getText(Paths.txt('introText', "locales", true));
 
 		var firstArray:Array<String> = fullText.split('\n');
 		var swagGoodArray:Array<Array<String>> = [];
