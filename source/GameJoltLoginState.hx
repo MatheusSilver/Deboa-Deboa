@@ -40,7 +40,7 @@ class GameJoltLoginState extends MusicBeatState
             #end
 
 			#if rpc
-			DiscordClient.changePresence("Logando", null);
+			DiscordClient.changePresence(LangUtil.getString("rpc_gamejolt", "rpc"), null);
 			#end
 
 			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('optionsmenu/login_back'));		

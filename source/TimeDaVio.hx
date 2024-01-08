@@ -168,7 +168,7 @@ class TimeDaVio extends MusicBeatState
 	{
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Vendo os créditos do(a) " + creditInfo[curSelected][0], null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_vio_team","rpc")+" " + CoolUtil.capitalize(creditInfo[curSelected][0]), null);
 		#end
 		if (controls.BACK)
 		{

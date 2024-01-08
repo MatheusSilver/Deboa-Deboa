@@ -80,7 +80,7 @@ function onEvent(evento, valor1, valor2)
             fastChar('Invisibru AM', 'Sonic Exe AM')
         end
         if valor1 == '500' then
-            mudarRPCdetalhes('Ato 8 - Intervalo')
+            mudarRPCdetalhes('cy_ato_8_half')
         end
         if valor1 == '20' then
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)

@@ -109,7 +109,7 @@ class FreeplayState extends MusicBeatState
 		//WeekData.reloadWeekFiles(false);
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("No Freeplay", null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_freeplay", "rpc"), null);
 		#end
 
 		

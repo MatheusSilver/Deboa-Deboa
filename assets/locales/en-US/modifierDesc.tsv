@@ -1,4 +1,4 @@
-mod_desc_dummy	dummy igual a você :D
+flag	context
 mod_desc_rand_note	As direções das notas mudam a cada tentativa
 mod_desc_fast_note	Aumenta drásticamente a velocidade da nota entre o surgimento e o alvo.
 mod_desc_slow_note	Diminui drásticamente a velocidade da nota entre o surgimento e o alvo.

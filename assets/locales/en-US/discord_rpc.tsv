@@ -1,0 +1,55 @@
+flag	context
+rpc_main_menu	No menu principal
+rpc_achievement_menu	No menu de conquistas
+rpc_credit_menu	Vendo os créditos
+rpc_freeplay	No Freeplay
+rpc_modifiers	Escolhendo Modifiers
+rpc_galeria	Vendo a galeria
+rpc_title	Na tela de título
+rpc_gamejolt	Logando
+rpc_ytb_music_listening	Ouvindo:
+rpc_ytb_music_paused	Pausado
+rpc_story_mode_normal	Escolhendo uma música em: 
+rpc_story_mode_ccc	Escolhendo um lado em
+rpc_pre_story	Pensando em jogar a Week
+rpc_pasta_night	Escolhendo um personagem em:
+rpc_about	Vendo o sobre
+rpc_vio_team	Vendo os créditos do(a):
+rpc_settings	Nas configurações
+rpc_playstate_paused	Pausado
+rpc_playstate_gameover	Game Over
+rpc_week_label_historias alternativas	Histórias Alternativas
+rpc_week_label_meme maker	Meme Maker
+rpc_week_label_do orgulho	Do Orgulho
+rpc_week_label_da luxuria	Da Luxúria
+rpc_week_label_da inveja	Da Inveja
+rpc_week_label_da discordia	Da Discórdia
+rpc_week_label_musicas bonus	Músicas Bônus
+rpc_week_label_da ira	Da Ira
+rpc_week_label_da ganancia	Da Ganância
+rpc_week_label_da preguica	Da Preguiça
+rpc_week_label_da fome	Da Fome
+rpc_diff_text_easy	Fácil
+rpc_diff_text_normal	Normal
+rpc_diff_text_hard	Difícil
+rpc_diff_text_sonic	Sega
+rpc_diff_text_mario	Nintendo
+rpc_diff_text_mx	MX
+rpc_diff_text_lord-x	Lord X
+rpc_diff_text_hypno	Hypno
+rpc_playing_as	Jogando como:
+rpc_diff_neutral	Neutro
+rpc_diff_good_ending	F1NaL B0M?
+rpc_diff_true_ending	Final Verdadeiro
+rpc_diff_bad_ending	Final Ruim
+rpc_custom_cy_ato_1	Prólogo
+rpc_custom_cy_ato_2	Ato 2
+rpc_custom_cy_ato_3	Ato 3
+rpc_custom_cy_ato_4	Ato 4
+rpc_custom_cy_ato_5	Ato 5
+rpc_custom_cy_ato_6	Ato 6
+rpc_custom_cy_ato_7	Ato 7
+rpc_custom_cy_ato_8	Ato 8
+rpc_custom_cy_ato_8_half	Ato 8 - Intervalo
+rpc_custom_cy_ato_9	Ato 9
+rpc_custom_cy_ato_10	Epílogo

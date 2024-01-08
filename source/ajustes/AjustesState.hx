@@ -50,7 +50,7 @@ class AjustesState extends MusicBeatState
 		//Conductor.changeBPM(112);
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Nas configurações.", null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_settings", "rpc"), null);
 		#end
 		
 		if(FlxG.sound.music.volume==0) {

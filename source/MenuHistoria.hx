@@ -253,7 +253,8 @@ class MenuHistoria extends MusicBeatSubstate
 		#if rpc
 		if (!selectedWeek)
 		{
-			DiscordClient.changePresence("Escolhendo uma musica em: ", dapreselected, null);
+			DiscordClient.changePresence(LangUtil.getString("rpc_story_mode_normal","rpc")+" ", 
+			LangUtil.getString("rpc_week_label_"+dapreselected.toLowerCase(),"rpc"), null);
 		}
 		#end
 
@@ -487,7 +488,7 @@ class MenuHistoria extends MusicBeatSubstate
 		else if (nombres[curSelected].toLowerCase() == 'cross console clash')
 		{
 			#if rpc
-			DiscordClient.changePresence("Escolhendo um lado em", "Cross Console Clash", null);
+			DiscordClient.changePresence(LangUtil.getString("rpc_story_mode_ccc","rpc"), "Cross Console Clash", null);
 			#end
 			naopodevoltar = true;
 			apertavel = false;

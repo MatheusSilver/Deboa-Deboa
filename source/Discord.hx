@@ -47,7 +47,7 @@ class DiscordClient
 	static function onReady()
 	{
 		DiscordRpc.presence({
-			details: "Na tela de título",
+			details: LangUtil.getString("rpc_title", "rpc"),
 			state: null,
 			largeImageKey: 'icon',
 			largeImageText: "ModBoa"

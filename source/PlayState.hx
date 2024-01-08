@@ -80,6 +80,7 @@ import ui.Mobilecontrols;
 class PlayState extends MusicBeatState
 {
 	public static var movecameraallowed:Bool = true;
+	public var cambump_allowed:Bool = true;
 	public static var isPlayState:Bool = false;
 
 	public var precacheList:Map<String, String> = new Map<String, String>();
@@ -528,6 +529,7 @@ class PlayState extends MusicBeatState
 		Achievements.loadAchievements();
 
 		// Precache geral
+		cambump_allowed = true;
 
 		precacheList.set('pause/pause (perfil)', 'image');
 		precacheList.set('pause/pause (sonicexe)', 'image');
@@ -631,7 +633,7 @@ class PlayState extends MusicBeatState
 		art.antialiasing = ClientPrefs.globalAntialiasing;
 		art.alpha = 1;
 
-		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
+		storyDifficultyText = LangUtil.getString("rpc_diff_text_"+CoolUtil.difficultyStuff[storyDifficulty][0].toLowerCase(), "rpc");
 
 		if (ModifiersManager.isEnabledbyName("fast_note"))
 			SONG.speed = SONG.speed * 1.5;
@@ -642,18 +644,18 @@ class PlayState extends MusicBeatState
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (SONG.song.toLowerCase() == "confronting-yourself")
 		{
-			detailsText = 'Prólogo';
+			detailsText = LangUtil.getString("rpc_custom_cy_ato_1", "rpc");
 		}
 		else if (modohistoria)
 		{ // Esqueci o else :skull:
-			detailsText = MenuHistoria.dapreselected;
+			detailsText = LangUtil.getString("rpc_week_label_"+MenuHistoria.dapreselected.toLowerCase(),"rpc");
 		}
 		else
 		{
-			detailsText = FreeplayState.weekNombre;
+			detailsText = LangUtil.getString("rpc_week_label_"+FreeplayState.weekNombre.toLowerCase(),"rpc");
 		}
 
-		detailsPausedText = "Pausado - " + detailsText;
+		detailsPausedText = LangUtil.getString("rpc_playstate_paused", "rpc")+" - "+ detailsText;
 
 		topBar = new FlxSprite(0, -170).makeGraphic(1280, 170, FlxColor.BLACK);
 		bottomBar = new FlxSprite(0, 720).makeGraphic(1280, 170, FlxColor.BLACK);
@@ -1802,6 +1804,7 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 
 				case 'cross-console-clash':
+					cambump_allowed = false;
 					camHUD.alpha = 0;
 					sonicHUDCCC = new SonicHUDCCC();
 					add(sonicHUDCCC);
@@ -4519,7 +4522,7 @@ class PlayState extends MusicBeatState
 
 				#if rpc
 				// Game Over doesn't get his own variable because it's only used here
-				DiscordClient.changePresence("Game Over - " + detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
+				DiscordClient.changePresence(LangUtil.getString("rpc_playstate_gameover","rpc")+" - " + detailsText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 				#end
 				isDead = true;
 				return true;
@@ -5218,7 +5221,8 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(boyfriend, {alpha: 1}, 6);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
 						triggerEventNote('Change Character', 'dad', 'Furnace'); // Ele já foi carregado mesmo então tá safe
-						storyDifficultyText = 'Neutro';
+						storyDifficultyText = LangUtil.getString("rpc_diff_neutral", "rpc");
+						reload_presence();
 						dad.x -= 1000;
 					case 128:
 						FlxG.camera.flash(FlxColor.BLACK, 4);
@@ -5370,7 +5374,8 @@ class PlayState extends MusicBeatState
 						triggerEventNote('Add Camera Zoom', '0.3', '0.3');
 
 					case 3400:
-						storyDifficultyText = 'Good ending?'; // detalhe que achei soda
+						storyDifficultyText = LangUtil.getString("rpc_diff_good_ending", "rpc"); // detalhe que achei soda
+						reload_presence();
 						endingTweens('good_ending');
 					case 3425:
 						startachieving('prey_survive');
@@ -5417,14 +5422,15 @@ class PlayState extends MusicBeatState
 						camHUD.alpha = 1; // Só pra garantir
 						if (desviou)
 						{
-							storyDifficultyText = 'True Ending'; // detalhe que achei soda
+							storyDifficultyText = LangUtil.getString("rpc_diff_true_ending", "rpc"); // detalhe que achei soda
 							endingTweens('true_ending');
 						}
 						else
 						{
-							storyDifficultyText = 'Bad ending'; // detalhe que achei soda
+							storyDifficultyText = LangUtil.getString("rpc_diff_bad_ending", "rpc"); // detalhe que achei soda
 							endingTweens('bad_ending');
 						}
+						reload_presence();
 						cinematicBars(false);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
 						triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
@@ -6917,9 +6923,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		if (Paths.formatToSongPath(SONG.song) != 'tutorial'
-			&& curSong.toLowerCase() != "cross-console-clash"
-			&& detailsText.toLowerCase() != "ato 6")
+		if (cambump_allowed)
 			camZooming = true;
 
 		if (note.noteType == 'Hey!' && dad.animOffsets.exists('hey'))
@@ -8650,8 +8654,8 @@ class PlayState extends MusicBeatState
 	public function updateRPC(texto:String)
 	{ // Unificando tudo aqui (usado exclusivamente na CY provavelmente... Mas pode expandir pra Prey também)
 
-		detailsText = texto;
-		detailsPausedText = "Pausado - " + texto;
+		detailsText = LangUtil.getString('rpc_custom_${texto}', "rpc");
+		detailsPausedText = LangUtil.getString("rpc_playstate_paused", "rpc")+" - "+ LangUtil.getString('rpc_custom_${texto}', "rpc");
 		#if rpc
 		DiscordClient.changePresence(detailsText, nomehistorico
 			+ " ("
@@ -8737,6 +8741,19 @@ class PlayState extends MusicBeatState
 		remove(sprite);
 		sprite.kill();
 		sprite.destroy();
+	}
+
+	public function reload_presence():Void
+	{
+		#if rpc
+		DiscordClient.changePresence(detailsText, nomehistorico
+			+ " ("
+			+ storyDifficultyText
+			+ ")", iconP2.getCharacter(), true,
+			songLength
+			- Conductor.songPosition
+			- ClientPrefs.noteOffset);
+		#end
 	}
 
 	public function particulasCy() { // exclusivamente para a Confronting Yourself. Ou não também, vai que...

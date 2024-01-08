@@ -71,7 +71,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('montanhaqueanda1', 'montanhas', 400-100, 33, 'linear')
 		doTweenX('awaqueanda1', 'awa', 400-250, 33, 'linear')
 		doTweenX('eitacachorreira', 'cachorreira', 400-250, 33, 'linear')
-		mudarRPCdetalhes('Ato 2')
+		mudarRPCdetalhes('cy_ato_2')
 	elseif curPhase == 3 then
 		--cancelTween('florqueanda1')
 		--cancelTween('montanhaqueanda1')
@@ -86,7 +86,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			cameraSetTarget('bf');
 			setProperty(phase3cheetosvilao[i]..'.visible', true)
 		end
-		mudarRPCdetalhes('Ato 3')
+		mudarRPCdetalhes('cy_ato_3')
 		entra2D() -- Isso certamente não deveria estar naquele for ali em cima :skull:
 	elseif curPhase == 4 then
 		for i = 1,#phase3cheetosvilao do
@@ -112,7 +112,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase4cheetos do
 			setProperty(phase4cheetos[i]..'.visible', true)
 		end
-		mudarRPCdetalhes('Ato 4')
+		mudarRPCdetalhes('cy_ato_4')
 		--triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		sai2D()
 		doTweenX('florqueanda2EXE', 'florrandom2EXE', 2000, 1.0, 'linear')
@@ -140,7 +140,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase5cheetos[i]..'.visible', true)
 		end
 		entra2D()
-		mudarRPCdetalhes('Ato 5')
+		mudarRPCdetalhes('cy_ato_5')
 		--O code abaixo faz o movimento original da concept da Vio.
 		--Como não tenho uma ideia muito boa de como fazer aquilo ser um pouco mais suave.
 		--Vou deixar só o code base aqui mesmo.
@@ -161,10 +161,12 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase6cheetos do
 			setProperty(phase6cheetos[i]..'.visible',true)
 		end		
-		mudarRPCdetalhes('Ato 6')
+		mudarRPCdetalhes('cy_ato_6')
 		sai2D()
+		setProperty("cambump_allowed", false)
 		setProperty('bfIsLeft', false)
 	elseif curPhase == 10 then
+		setProperty("cambump_allowed", true)
 		setProperty('gfGroup.visible', true)
 		--setCharacterX('dad', dadXPosOriginal)
 		--Adicionado aqui sem testar, mas espero que conserte o ato 7 9 e 10
@@ -174,7 +176,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase7cheetos do
 			setProperty(phase7cheetos[i]..'.visible',true)
 		end
-		mudarRPCdetalhes('Ato 7')
+		mudarRPCdetalhes('cy_ato_7')
 	elseif curPhase == 11 then
 		for i = 1,#phase7cheetos do
 			removeLuaSprite(phase7cheetos[i])
@@ -182,7 +184,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		setProperty('gfGroup.visible', false)
 		setProperty('phase8.visible',true)
 		triggerEvent("Cinematics-CY", '2', '0.5', 'nada', 'nada')
-		mudarRPCdetalhes('Ato 8')
+		mudarRPCdetalhes('cy_ato_8')
 		ato8Change = true
 		entra2D()
 	elseif curPhase == 12 then
@@ -193,7 +195,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		end
 		doTweenX('espacoqueandadeboa', 'phase9-2', -3000, 80, 'linear')
 		doTweenX('deatheggqueanda', 'phase9-3', -2000, 70, 'linear')
-		mudarRPCdetalhes('Ato 9')
+		mudarRPCdetalhes('cy_ato_9')
 	elseif curPhase == 13 then	
 		triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
 		--cancelTween('deatheggqueanda')
@@ -203,7 +205,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase10cheetos do
 			setProperty(phase10cheetos[i]..'.visible',true)
 		end
-		mudarRPCdetalhes('Epílogo')
+		mudarRPCdetalhes('cy_ato_10')
 		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-20, 1, 'smoothstepin')
 		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-20, 1, 'smoothstepin')
 

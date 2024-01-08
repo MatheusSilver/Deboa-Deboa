@@ -37,7 +37,7 @@ class SobreState extends MusicBeatState
 		FlxG.mouse.visible = Main.mouse;
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Vendo o sobre", null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);
 		#end
 		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;

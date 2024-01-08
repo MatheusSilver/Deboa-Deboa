@@ -60,7 +60,6 @@ function onVideoEnd()
     if curBeat < 64 then
         camFollow = false
         cameraMove = true
-        mudarRPCdetalhes('Prologo')
         removeLuaSprite('introBG')
         stage_manager('all', false)
         --cameraFlash('legenda', '0xff0000', 1, true)

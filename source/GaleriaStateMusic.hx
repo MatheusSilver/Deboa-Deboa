@@ -523,9 +523,9 @@ class GaleriaStateMusic extends MusicBeatState
 
 			#if rpc
 			if(!pausado)
-				DiscordClient.changePresence("Ouvindo:", GaleriaState.titulos[curSelected], true, songLength - curTime);
+				DiscordClient.changePresence(LangUtil.getString("rpc_ytb_music_listening", "rpc"), GaleriaState.titulos[curSelected], true, songLength - curTime);
 			else
-				DiscordClient.changePresence("Pausado", GaleriaState.titulos[curSelected], true, songLength - curTime);
+				DiscordClient.changePresence(LangUtil.getString("rpc_ytb_music_paused", "rpc"), GaleriaState.titulos[curSelected], true, songLength - curTime);
 			#end
 
 		if((BSLTouchUtils.over(menuItems)&&!isLetras) || BSLTouchUtils.over(checkboxArray) ||

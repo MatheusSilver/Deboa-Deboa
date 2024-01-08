@@ -32,7 +32,7 @@ class SobreVideo extends MusicBeatState
             FlxG.mouse.visible = Main.mouse;
 			#if rpc
 			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Vendo o sobre", null);
+			DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);
 			#end
             videoMenu.setGraphicSize(948, 533);
             videoMenu.x=4;

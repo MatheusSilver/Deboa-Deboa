@@ -5,6 +5,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	-- A parte massa da coisa mesmo está lá no Master.lua
 
 	setCamMove(true); 
+	setProperty("cambump_allowed", true)
 	-- Só pra corrigir um bug caso o player resete o jooj em partes específicas
 
 	--textos

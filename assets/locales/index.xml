@@ -4,6 +4,9 @@
 	<file id="data" value="data.tsv"/>
 
 	<!-- usado no menu principal -->
+	<file id="rpc" value="discord_rpc.tsv"/>
+
+	<!-- usado no menu principal -->
 	<file id="menu" value="mainMenu.tsv"/>
 
 	<!-- usada na galeria -->
@@ -20,9 +23,6 @@
 
 	<!-- usado no menu de controles_pc -->
 	<file id="key" value="keysMenu.tsv"/>
-
-    <!-- usado para as configuracoes -->
-	<file id="titles" value="menuTitles.tsv"/>
 
 	<!-- usado para os modifiers -->
 	<file id="modifier" value="modifierName.tsv"/>

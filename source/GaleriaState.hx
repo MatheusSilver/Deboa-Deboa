@@ -83,7 +83,7 @@ class GaleriaState extends MusicBeatState
 			FlxG.mouse.visible = Main.mouse;
 			#if rpc
 			// Updating Discord Rich Presence
-			DiscordClient.changePresence("Vendo a galeria", null);
+			DiscordClient.changePresence(LangUtil.getString("rpc_galeria", "rpc"), null);
 			#end
 
 			bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/galeria/galeria_back'));
@@ -166,7 +166,7 @@ class GaleriaState extends MusicBeatState
 		override function closeSubState()
 			{
 				#if rpc
-				DiscordClient.changePresence("Vendo a galeria", null);
+				DiscordClient.changePresence(LangUtil.getString("rpc_galeria", "rpc"), null);
 				#end
 
 				stoploading = false;

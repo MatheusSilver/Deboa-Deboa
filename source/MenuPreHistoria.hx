@@ -202,7 +202,7 @@ class MenuPreHistoria extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		#if rpc
-		DiscordClient.changePresence("Pensando em jogar a Week ", WeekData.weeksList[curWeek], null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_pre_story","rpc")+" ", LangUtil.getString("rpc_week_label_"+WeekData.weeksList[curWeek].toLowerCase(),"rpc"), null);
 		#end
 
 		if (makeAnimUnlock && !inCut && apertavel && !movedBack && !selectedWeek)

@@ -43,7 +43,7 @@ class CreditsMods extends MusicBeatState
 		canChange = false;
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Vendo os créditos", null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_credit_menu", "rpc"), null);
 		#end
 		
 		/*bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));

@@ -84,7 +84,6 @@ class PauseSubState extends MusicBeatSubstate
 
 	public function new(x:Float, y:Float)
 	{
-		super();
 		if(ClientPrefs.shaders) {
 		blurShader = new BlurFilter();
 		}
@@ -106,7 +105,6 @@ class PauseSubState extends MusicBeatSubstate
 
 		preto = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		preto.alpha=0;
-		add(preto);
 		originalZoom = PlayState.instance.camGame.zoom;
 		originalZoomHUD = PlayState.instance.camHUD.zoom;
 		originalZoomLegenda = PlayState.instance.camLegenda.zoom;
@@ -136,25 +134,28 @@ class PauseSubState extends MusicBeatSubstate
 		exe.alpha = 1;
 		exe.x = FlxG.width;
 
-		var k:Int = 38;
-
 		menuItems_icons = new FlxTypedGroup<PauseButton>();
-		add(menuItems_icons);
-
+		
 		for (i in 0...menuItems_names.length){
 			var new_button:PauseButton = new PauseButton("label_pause_"+menuItems_names[i], "smb");
 			new_button.x =-693+38*i;
-			new_button.y= FlxG.height/6*(i+1) - k;
+			new_button.y= FlxG.height/6*(i+1) - 38; 
+			if (menuItems_names[i] == "practice" || menuItems_names[i] == "botplay")
+				new_button.changeState(menuItems_names[i] == "practice" ? PlayState.practiceMode : PlayState.cpuControlled);
 			new_button.alpha = 0.5;
 			new_button.button_text.x += 160+20*(i);
 			new_button.ID = i;
 			menuItems_icons.add(new_button);
 		}
 
+		super(); //Antes, prepara-se os coiso
+				 //Depois, são as interações.
+		add(preto);
 		add(bg);
 		add(linhabaixo);
 		add(perfil);
 		add(exe);
+		add(menuItems_icons);
 		FlxTween.tween(PlayState.instance.camGame, {zoom: originalZoom+0.05}, 0.35, {ease: FlxEase.quartInOut});
 		FlxTween.tween(PlayState.instance.camHUD, {zoom: originalZoomHUD+0.05}, 0.35, {ease: FlxEase.quartInOut});
 		FlxTween.tween(PlayState.instance.camLegenda, {zoom: originalZoomLegenda+0.05}, 0.35, {ease: FlxEase.quartInOut});
@@ -166,8 +167,6 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		
 		
-				menuItems_icons.members[1].changeState(PlayState.practiceMode);
-				menuItems_icons.members[3].changeState(PlayState.cpuControlled);
 		FlxTween.tween(preto, {alpha: 0.75}, 0.3, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {y: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(linhabaixo, {y: FlxG.height-linhabaixo.height}, 0.4, {ease: FlxEase.quartInOut});

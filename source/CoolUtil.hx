@@ -21,6 +21,10 @@ class CoolUtil
 		['Hypno', '-hypno'] //7
 	];
 
+	inline public static function capitalize(text:String){
+		return text.charAt(0).toUpperCase() + text.substr(1);
+	}
+
 	
 	inline public static function colorFromString(color:String):FlxColor //Já estava ficando deveras pito com isso...
 	{

@@ -63,7 +63,7 @@ class PauseButton extends MenuButton
 
     public function changeState(activated:Bool):Void{
             this.button_text.color = activated ? FlxColor.RED : FlxColor.GRAY;
-            this.button_text.alpha = activated ? 1 : 0.25;
+            this.button_text.alpha = activated ? 1 : 0.7;
     }
 }
 

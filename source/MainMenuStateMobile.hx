@@ -81,7 +81,7 @@ class MainMenuStateMobile extends MusicBeatState
 		GameJoltLoginState.syncProgress();
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("No menu principal", null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
 		#end
 
 		if(FlxG.sound.music == null) {

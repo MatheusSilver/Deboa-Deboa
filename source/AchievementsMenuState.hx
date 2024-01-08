@@ -36,7 +36,7 @@ class AchievementsMenuState extends MusicBeatState
 	override function create()
 	{
 		#if rpc
-		DiscordClient.changePresence("No menu de conquistas", null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_achievement_menu", "rpc"), null);
 		#end
 		achieve_list_len = 0;
 		options = [];

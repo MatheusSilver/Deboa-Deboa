@@ -25,7 +25,7 @@ class AlreadyLogged extends MusicBeatState
 		FlxG.mouse.visible = Main.mouse;
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("Vendo os creditos", null);
+		DiscordClient.changePresence(LangUtil.getString("rpc_credit_menu", "rpc"), null);
 		#end
 
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
