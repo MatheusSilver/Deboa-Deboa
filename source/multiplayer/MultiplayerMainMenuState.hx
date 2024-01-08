@@ -667,7 +667,7 @@ class LobbyPlayer extends FlxSpriteGroup
 		add(bf);
 
 		// TEXTINHO TEXTOSO
-		textinhoBF = new FlxText(90, 127, 0, "", 50, true);
+		textinhoBF = new FlxText(90, bf.y-60, 0, "", 50, true);
 		textinhoBF.alignment = CENTER;
 		add(textinhoBF);
 	}
