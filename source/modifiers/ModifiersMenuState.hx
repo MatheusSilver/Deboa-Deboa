@@ -52,6 +52,10 @@ class ModifiersMenuState extends MusicBeatSubstate
         this.isFreeplay = isFreeplay;
         
 		FlxG.mouse.visible = Main.mouse; //Não precisa de if mobile já que no Main, tem a função que o code faria
+		#if rpc
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence(LangUtil.getString("rpc_modifiers", "rpc"), null);
+		#end
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/bg"));
         bg.antialiasing = ClientPrefs.globalAntialiasing;
