@@ -20,6 +20,7 @@ import networking.sessions.server.Server;
 import networking.utils.NetworkEvent;
 import networking.utils.NetworkMode;
 import openfl.events.KeyboardEvent;
+import flixel.group.FlxSpriteGroup;
 
 using StringTools;
 
@@ -61,6 +62,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var canInitMatch:Bool = false;
 	var selectedMusic:String = "confronting-yourself";
 
+	/*
 	// INPUT
 	var keysPlayer1:Array<Bool> = [false, false, false, false];
 	var keysPlayer2:Array<Bool> = [false, false, false, false];
@@ -71,9 +73,16 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var nomes:Array<String> = ["Player 1", "Player 2"];
 	var textinhoBF1:FlxText;
 	var textinhoBF2:FlxText;
+	*/
+
+	// PLAYERS
+	var players:Array<LobbyPlayer> = [new LobbyPlayer(174,190), new LobbyPlayer(681,190)];
+	public static var instance:MultiplayerMainMenuState;
 
 	override function create()
 	{
+		instance = this;
+
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		multiplayerTxt.y = -1500;
@@ -125,6 +134,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 		FlxTween.tween(hostearBt, {y: 348}, 1.25, {ease: FlxEase.expoInOut});
 
+		var num:Int = 0;
+		for (player in players)
+		{
+			player.nome = num == 1 ? "Player 2" : GJClient.userName;
+			add(player);
+			num++;
+		}
+
+		/*
 		textinhoBF1 = new FlxText(0, 0, 0, "", 50, true);
 		textinhoBF1.alignment = CENTER;
 		add(textinhoBF1);
@@ -142,6 +160,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		add(player1BF);
 		add(player2BF);
 		// add(textinhoDebug);
+		*/
 
 		comecarBt = new FlxButton(FlxG.width, 100, '');
 		comecarBt.loadGraphic(Paths.image('multiplayer/iniciarBt', 'preload'));
@@ -190,8 +209,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 		GlobalSoundManager.play("scrollMenu");
 	}
 
+	public function getIsOnServer():Bool
+	{
+		return isOnServer;
+	}
+
 	override function update(elapsed:Float)
 	{
+		/*
 		// bfs texts
 		textinhoBF2.alignment = CENTER;
 		textinhoBF1.text = nomes[0];
@@ -206,6 +231,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		textinhoBF2.visible = player2BF.visible;
 		textinhoBF2.alpha = player2BF.alpha;
 		player2BF.alpha = nomes[1] != "Player 2" ? 1 : 0.5;
+		*/
 
 		// LEMBRAR DE ARRUMAR ISSO AQ DPS
 		if (controls.BACK && !ipBar.hasFocus && !isOnOptions && canClick)
@@ -274,13 +300,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if (isOnServer)
 		{
 			inputShit();
-			player1BF.visible = true;
-			player2BF.visible = true;
-		}
-		else
-		{
-			player1BF.visible = false;
-			player2BF.visible = false;
 		}
 
 		super.update(elapsed);
@@ -305,9 +324,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		server.addEventListener(NetworkEvent.CONNECTED, function(e:NetworkEvent)
 		{
 			server.send({message: 'Você entrou no servidor!', verb: 'test'});
-			if (nomes[0] != "Player 1")
+			if(players[0].nome != "Player 1")
 			{
-				server.send({message: "0\n" + nomes[0], verb: 'name'});
+				server.send({message: "0\n" + players[0].nome, verb: 'name'});
 			}
 		});
 
@@ -318,7 +337,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		server.addEventListener(NetworkEvent.DISCONNECTED, function(e:NetworkEvent)
 		{
-			nomes[1] = "Player 2";
+			players[1].nome = "Player 2";
 		});
 
 		server.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e:NetworkEvent)
@@ -331,13 +350,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 			if (e.data.verb == "name")
 			{
 				var quemEqual:Array<String> = e.data.message.split("\n");
-				nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
+				players[Std.parseInt(quemEqual[0])].nome = quemEqual[1];
 			}
 			if (e.data.verb == 'version')
 			{
 				if (e.data.message != MainMenuStateMobile.version)
 				{
-					server.send({message: "versao inconpativel", verb: 'all-leave'});
+					server.send({message: "versao incompativel", verb: 'all-leave'});
 				}
 			}
 		});
@@ -350,6 +369,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			entrarBt.visible = false;
 			hostearBt.visible = false;
 			ipBar.visible = false;
+			players[0].nome = GJClient.userName;
 			trace("to hosteando");
 		});
 
@@ -387,15 +407,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 			if (e.data.verb == 'name')
 			{
 				var quemEqual:Array<String> = e.data.message.split("\n");
-				nomes[Std.parseInt(quemEqual[0])] = quemEqual[1];
+				players[Std.parseInt(quemEqual[0])].nome = quemEqual[1];
 			}
 
 			if (e.data.verb == 'all-leave' && !isHost)
 			{
 				client.disconnectClient();
-				if (e.data.message == "versao inconpativel")
+				if (e.data.message == "versao incompativel")
 				{
-					avisarAlgo("Versões inconpatíveis");
+					avisarAlgo("Versões incompatíveis");
 				}
 			}
 			trace(e.data.message);
@@ -407,7 +427,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			myID = isHost ? 0 : 1;
 			client.send({message: myID + "\n" + GJClient.userName, verb: 'name'});
 
-			nomes[myID] = GJClient.userName;
+			players[myID].nome = GJClient.userName;
 			isOnServer = true;
 			entrarBt.visible = false;
 			hostearBt.visible = false;
@@ -461,103 +481,55 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
 	{
+		var zeroInt:Int = Std.parseInt(zero);
 		if (two == "Segurei")
 		{
-			if (zero == "0")
+			switch (one)
 			{
-				switch (one)
-				{
-					case "cima":
-						keysPlayer1[0] = true;
-					case "baixo":
-						keysPlayer1[1] = true;
-					case "direita":
-						keysPlayer1[2] = true;
-					case "esquerda":
-						keysPlayer1[3] = true;
-				}
-
-				if (isServer)
-				{
-					server.send({message: zero + " " + one + " Segurei", verb: 'input'});
-				}
-
-				bfAnims(one, player1BF);
+				case "cima":
+					players[zeroInt].keys[0] = true;
+				case "baixo":
+					players[zeroInt].keys[1] = true;
+				case "direita":
+					players[zeroInt].keys[2] = true;
+				case "esquerda":
+					players[zeroInt].keys[3] = true;
 			}
-			else
+
+			if (isServer)
 			{
-				switch (one)
-				{
-					case "cima":
-						keysPlayer2[0] = true;
-					case "baixo":
-						keysPlayer2[1] = true;
-					case "direita":
-						keysPlayer2[2] = true;
-					case "esquerda":
-						keysPlayer2[3] = true;
-				}
-				if (isServer)
-				{
-					server.send({message: zero + " " + one + " Segurei", verb: 'input'});
-				}
-
-				bfAnims(one, player2BF);
+				server.send({message: zero + " " + one + " Segurei", verb: 'input'});
 			}
+
+				players[zeroInt].bfAnims(one);
 		}
 		else
 		{
-			if (zero == "0")
+			switch (one)
 			{
-				switch (one)
-				{
-					case "cima":
-						keysPlayer1[0] = false;
-					case "baixo":
-						keysPlayer1[1] = false;
-					case "direita":
-						keysPlayer1[2] = false;
-					case "esquerda":
-						keysPlayer1[3] = false;
-				}
-				if (isServer)
-				{
-					server.send({message: zero + " " + one + " Soltei", verb: 'input'});
-				}
-				if (keysPlayer1[0] == false && keysPlayer1[1] == false && keysPlayer1[2] == false && keysPlayer1[3] == false)
-				{
-					bfAnims(one, player1BF, true);
-				}
+				case "cima":
+					players[zeroInt].keys[0] = false;
+				case "baixo":
+					players[zeroInt].keys[1] = false;
+				case "direita":
+					players[zeroInt].keys[2] = false;
+				case "esquerda":
+					players[zeroInt].keys[3] = false;
 			}
-			else
+			if (isServer)
 			{
-				switch (one)
-				{
-					case "cima":
-						keysPlayer2[0] = false;
-					case "baixo":
-						keysPlayer2[1] = false;
-					case "direita":
-						keysPlayer2[2] = false;
-					case "esquerda":
-						keysPlayer2[3] = false;
-				}
-				if (isServer)
-				{
-					server.send({message: zero + " " + one + " Soltei", verb: 'input'});
-				}
-
-				if (keysPlayer2[0] == false && keysPlayer2[1] == false && keysPlayer2[2] == false && keysPlayer2[3] == false)
-				{
-					bfAnims(one, player2BF, true);
-				}
+				server.send({message: zero + " " + one + " Soltei", verb: 'input'});
+			}
+			if (players[zeroInt].keys[0] == false && players[zeroInt].keys[1] == false && players[zeroInt].keys[2] == false && players[zeroInt].keys[3] == false)
+			{
+				players[zeroInt].bfAnims(one, true);
 			}
 		}
 	}
 
 	function inputShit()
 	{
-		textinhoDebug.text = keysPlayer1.toString() + "\n" + keysPlayer2.toString();
+		textinhoDebug.text = players[0].keys.toString() + "\n" + players[1].keys.toString();
 		if (controls.NOTE_UP_P)
 		{
 			segureiObotao("cima");
@@ -593,6 +565,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 	}
 
+	/*
 	function bfAnims(direction:String, qualBF:Boyfriend, ?soltou:Bool = false)
 	{
 		if (!soltou)
@@ -615,6 +588,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			qualBF.playAnim('idle', false);
 		}
 	}
+	*/
 
 	function avisarAlgo(avisarIssoAqui:String)
 	{
@@ -665,13 +639,69 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
-		if (keysPlayer1 == [false, false, false, false])
+		for (player in players)
 		{
-			player1BF.playAnim('idle', true);
-		}
-		if (keysPlayer2 == [false, false, false, false])
-		{
-			player2BF.playAnim('idle', true);
+			if(player.keys == [false, false, false, false])
+			{
+				player.bf.playAnim('idle', true);
+			}
 		}
 	}
+}
+
+class LobbyPlayer extends FlxSpriteGroup
+{
+	public var nome:String = "Player 1";
+	public var keys:Array<Bool> = [false, false, false, false];
+	public var bf:Boyfriend;
+	public var isConnected:Bool = false;
+	var textinhoBF:FlxText;
+
+	public function new(x:Float, y:Float)
+	{
+		super(x,y);
+
+		// BOYFRIEND LES GOOO
+		bf = new Boyfriend(0, 0);
+		bf.playAnim('idle', false, false, 10);
+		add(bf);
+
+		// TEXTINHO TEXTOSO
+		textinhoBF = new FlxText(90, 127, 0, "", 50, true);
+		textinhoBF.alignment = CENTER;
+		add(textinhoBF);
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+		isConnected = nome != "Player 2";
+		textinhoBF.text = isConnected ? nome : "";
+		bf.alpha = isConnected ? 1 : 0.5;
+		bf.visible = MultiplayerMainMenuState.instance.getIsOnServer();
+		textinhoBF.visible = MultiplayerMainMenuState.instance.getIsOnServer();
+	}
+
+	public function bfAnims(direction:String, ?soltou:Bool = false)
+		{
+			if (!soltou)
+			{
+				switch (direction)
+				{
+					case "esquerda":
+						bf.playAnim('singLEFT', true);
+					case "baixo":
+						bf.playAnim('singDOWN', true);
+					case "cima":
+						bf.playAnim('singUP', true);
+					case "direita":
+						bf.playAnim('singRIGHT', true);
+				}
+			}
+	
+			if (soltou)
+			{
+				bf.playAnim('idle', false);
+			}
+		}
 }

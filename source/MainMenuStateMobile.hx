@@ -53,7 +53,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var optionShit:Array<String> = 
 	['story',
 	'freeplay', 
-	//'multiplayer', 
+	'multiplayer', 
 	'achievements', 
 	'credits', 
 	'options'];
@@ -252,7 +252,7 @@ class MainMenuStateMobile extends MusicBeatState
 			}
 			else
 			{
-				letext.text = "DESCONECTADO";
+				letext.text = LangUtil.getString("menu_disconnected");
 			}
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -260,7 +260,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		for (i in 0...optionShit.length){
 			var botao:MenuButton = new MenuButton("MainMenu", "menu_"+optionShit[i], 'menu', "sonic-3", false);
-			botao.setLock(optionShit[i]=="multiplayer" || optionShit[i]=="freeplay"&&!passouCY);
+			botao.setLock(optionShit[i]=="multiplayer" && (!GJClient.logged||!passouCY) || optionShit[i]=="freeplay"&&!passouCY);
 			if (botao.isLocked)
 				botao.alpha = 0.75;
 			botao.ID = i;
@@ -421,10 +421,10 @@ class MainMenuStateMobile extends MusicBeatState
 				case 'options':
 					MusicBeatState.switchState(new ajustes.AjustesState());
 				case 'multiplayer':
-					/*if(GJClient.logged)
+					if(GJClient.logged)
 						{
 							MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState());
-						}*/
+						}
 
 			}			
 		});
@@ -444,9 +444,7 @@ class MainMenuStateMobile extends MusicBeatState
 			{
 				if(clicavel && !checkiftouch){
 					menuItems.forEach(function(spr:FlxSprite){
-						if(optionShit[spr.ID] != "multiplayer-locked2" /*&& (optionShit[spr.ID] != "freeplay" && !passouCY)*/ )
-							{
-								if(optionShit[spr.ID] == "freeplay" && passouCY)
+								if((optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
 								{
 									if(BSLTouchUtils.over(spr) && spr.alpha == 0.75){
 										menuItems.members[spr.ID].alpha=1;
@@ -459,7 +457,7 @@ class MainMenuStateMobile extends MusicBeatState
 										trocaDeState(spr.ID);
 									}
 								}
-								else if(optionShit[spr.ID] != "freeplay")
+								else if(optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer")
 								{
 									if(Utils.BSLTouchUtils.over(spr) && spr.alpha == 0.75){
 										menuItems.members[spr.ID].alpha=1;
@@ -472,8 +470,6 @@ class MainMenuStateMobile extends MusicBeatState
 										trocaDeState(spr.ID);
 									}
 								}
-
-							}
 						/*else
 							{
 								if(GJClient.logged)
