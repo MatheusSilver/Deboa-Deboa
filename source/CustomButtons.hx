@@ -37,24 +37,26 @@ class MenuButton extends FlxSpriteGroup
     }
 
     private function changeLock():Void{
-        if (lock_icon!=null){
+        if (lock_icon==null){
             lock_icon = new FlxSprite(0,0,Paths.image("buttons_base/lock", "preload"));
             lock_icon.visible = true;
-            lock_icon.x = (button_bg.width-lock_icon.width)/2;
-            lock_icon.y = (button_bg.height-lock_icon.height)/2;
+            lock_icon.x = (button_bg.width-lock_icon.width)/2-150;
+            lock_icon.y = (button_bg.height-lock_icon.height)/2-5;
             lock_icon.antialiasing=false;
             add(lock_icon);
-        }else
-            lock_icon.visible = this.isLocked;
+        }
 
+		lock_icon.visible = this.isLocked;
+		button_bg.alpha = this.isLocked ? 0.7 : 1;
     }
 }
 
 class PauseButton extends MenuButton
 {
     private var activated:Bool;
+    private final bg:String = "PauseMenu";
 
-    public function new(bg:String, textRef:String, textFile:String, font:String, activated:Bool)
+    public function new(textRef:String, textFile:String, font:String, activated:Bool)
     {
         super(bg, textRef, textFile, font);
         this.activated = activated;
@@ -116,4 +118,22 @@ class CreditButton extends FlxSpriteGroup
         }
         add(icon);
     }
+}
+
+//Isso não é bem um botão, mas servirá o mesmo propósito
+class Top_Icon extends FlxSpriteGroup
+{
+	public var label:FlxText;
+	public function new(textRef:String, font:String, height:Int, color:FlxColor)
+	{
+		super();
+		var bar:FlxSprite = new FlxSprite(0,0).makeGraphic(1,1, FlxColor.BLACK);
+		bar.solid = false;
+		bar.setGraphicSize(flixel.FlxG.width, height);
+		add(bar);
+		
+		label = new FlxText(bar.x + 10, 5, bar.width, LangUtil.getString(textRef, "titles"), 32);
+		label.setFormat(LangUtil.getFont("smb"), 32, color, LEFT);
+		add(label);
+	}	
 }
