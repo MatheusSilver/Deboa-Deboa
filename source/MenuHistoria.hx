@@ -35,6 +35,7 @@ class MenuHistoria extends MusicBeatSubstate
 	var canceltweens:Bool = false;
 	var musicas:Array<Dynamic> = [];
 	var nombres:Array<Dynamic> = [];
+	var update_rpc:Bool = true;
 
 	public static var modifiersOpened:Bool = false;
 
@@ -84,6 +85,7 @@ class MenuHistoria extends MusicBeatSubstate
 		if(instance == null){instance=this;}
 		FlxTransitionableState.skipNextTransOut = true;
 		applySave();
+		update_rpc = true;
 		if (FlxG.sound.music == null)
 		{
 			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
@@ -207,6 +209,7 @@ class MenuHistoria extends MusicBeatSubstate
 		{
 			modifiersOpened = false;
 			substate.close();
+			update_rpc = true;
 		}
 
 	#if ACHIEVEMENTS_ALLOWED
@@ -251,7 +254,7 @@ class MenuHistoria extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 		#if rpc
-		if (!selectedWeek)
+		if (!selectedWeek && update_rpc)
 		{
 			DiscordClient.changePresence(LangUtil.getString("rpc_story_mode_normal","rpc")+" ", 
 			LangUtil.getString("rpc_week_label_"+dapreselected.toLowerCase(),"rpc"), null);
@@ -273,6 +276,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 		if(crossplataforma && !modifiersOpened && !movedBack && !selectedWeek && canOpenModifiers && MainMenuStateMobile.passouCY) {
 			modifiersOpened = true;
+			update_rpc = false;
 			openSubState(new modifiers.ModifiersMenuState(false));
 		}
 

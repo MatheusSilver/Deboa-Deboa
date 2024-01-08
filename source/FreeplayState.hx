@@ -247,6 +247,10 @@ class FreeplayState extends MusicBeatState
 		substate.close();
 		apertavel = true;
 		modifiersOpened = false;
+		#if rpc
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence(LangUtil.getString("rpc_freeplay", "rpc"), null);
+		#end
 	}
 
 	var instPlaying:Int = -1;
