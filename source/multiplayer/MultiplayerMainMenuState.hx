@@ -413,6 +413,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			if (e.data.verb == 'all-leave' && !isHost)
 			{
 				client.disconnectClient();
+				players[1].nome = "Player 2";
 				if (e.data.message == "versao incompativel")
 				{
 					avisarAlgo("Versões incompatíveis");
@@ -667,7 +668,7 @@ class LobbyPlayer extends FlxSpriteGroup
 		add(bf);
 
 		// TEXTINHO TEXTOSO
-		textinhoBF = new FlxText(90, bf.y-60, 0, "", 50, true);
+		textinhoBF = new FlxText(0, 0, 0, "", 50, true);
 		textinhoBF.alignment = CENTER;
 		add(textinhoBF);
 	}
