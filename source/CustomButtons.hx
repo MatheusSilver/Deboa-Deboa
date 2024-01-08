@@ -53,31 +53,17 @@ class MenuButton extends FlxSpriteGroup
 
 class PauseButton extends MenuButton
 {
-    private var activated:Bool=true;
     private final bg:String = "PauseMenu";
     private final textFile:String = "data";
-    public var changeable:Bool=true;
 
-    public function new(textRef:String, font:String, activated:Bool)
+    public function new(textRef:String, font:String)
     {
         super(bg, textRef, textFile, font);
-        this.button_text.alignment = LEFT;
-        this.activated = activated;
-        this.changeState();
     }
 
-    public function setActive(activated:Bool):Void{
-        this.activated = activated;
-        this.changeState();
-    }
-
-    private function changeState():Void{
-        if (changeable)
-            this.button_text.color = FlxColor.WHITE;
-        else{
+    public function changeState(activated:Bool):Void{
             this.button_text.color = activated ? FlxColor.RED : FlxColor.GRAY;
             this.button_text.alpha = activated ? 1 : 0.25;
-        }
     }
 }
 

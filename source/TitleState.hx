@@ -584,15 +584,15 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1: // Checar aqui depois
-					createCoolText(['Time da Vio'], 45);
+					createCoolText([LangUtil.getString("intro_text_vio_team", "data")], 45);
 				case 3:
-					addMoreText('Apresenta', 45);
+					addMoreText(LangUtil.getString("intro_text_presents", "data"), 45);
 				case 4:
 					deleteCoolText();
 				case 5:
-					createCoolText(['ok ok'], -60);
+					createCoolText([LangUtil.getString("intro_text_ok_ok", "data")], -60);
 				case 7:
-					addMoreText('Só a galáxia é o limite!', -60);
+					addMoreText(LangUtil.getString("intro_text_galaxy", "data"), -60);
 				case 8:
 					deleteCoolText();
 				case 9:

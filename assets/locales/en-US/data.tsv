@@ -9,7 +9,11 @@ label_pause_restart	Reiniciar
 label_pause_botplay	Botplay
 label_pause_return	Voltar
 control_text_expla_yes	Um GIF irá aparecer em certas partes igual ao mod original<X>mas pode não ser compátivel com certos computadores.
-control_text_expla_no	Você terá a mesma experiência do mod original \nmas os GIFs não serão mais um problema, isso tambem irá melhorar a performance.
+control_text_expla_no	Você terá a mesma experiência do mod original <X>mas os GIFs não serão mais um problema, isso tambem irá melhorar a performance.
 control_text_activate_gif	Deseja ativar os GIF's?
 common_text_yes	Sim
 common_text_no	Nope
+intro_text_vio_team	Time da Vio
+intro_text_presents	Apresenta
+intro_text_ok_ok	ok ok
+intro_text_galaxy	Só a galáxia é o limite!

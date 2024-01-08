@@ -142,15 +142,11 @@ class PauseSubState extends MusicBeatSubstate
 		add(menuItems_icons);
 
 		for (i in 0...menuItems_names.length){
-			var new_button:PauseButton = new PauseButton("label_pause_"+menuItems_names[i], "smb", false);
+			var new_button:PauseButton = new PauseButton("label_pause_"+menuItems_names[i], "smb");
 			new_button.x =-693+38*i;
 			new_button.y= FlxG.height/6*(i+1) - k;
-			new_button.button_text.x += 160+20*(i);
 			new_button.alpha = 0.5;
-			if (menuItems_names[i] == "practice" || menuItems_names[i] == "botplay"){
-				new_button.changeable = false;
-				new_button.setActive(menuItems_names[i] == "practice" ? PlayState.practiceMode : PlayState.cpuControlled);
-			}
+			new_button.button_text.x += 160+20*(i);
 			new_button.ID = i;
 			menuItems_icons.add(new_button);
 		}
@@ -164,11 +160,14 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(PlayState.instance.camLegenda, {zoom: originalZoomLegenda+0.05}, 0.35, {ease: FlxEase.quartInOut});
 		FlxTween.tween(PlayState.instance.camOther, {zoom: originalZoomOther+0.05}, 0.35, {ease: FlxEase.quartInOut});
 		//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2+0.05}, 0.35, {ease: FlxEase.quartInOut});
-
+		
 		for (i in 0...menuItems_icons.length){
 			FlxTween.tween(menuItems_icons.members[i], {x: -128 - 20*i}, 0.2+i/10, {ease:FlxEase.quartInOut});
 		}
-
+		
+		
+				menuItems_icons.members[1].changeState(PlayState.practiceMode);
+				menuItems_icons.members[3].changeState(PlayState.cpuControlled);
 		FlxTween.tween(preto, {alpha: 0.75}, 0.3, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {y: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(linhabaixo, {y: FlxG.height-linhabaixo.height}, 0.4, {ease: FlxEase.quartInOut});
@@ -257,7 +256,7 @@ class PauseSubState extends MusicBeatSubstate
 				case "practice":
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
-					menuItems_icons.members[1].setActive(PlayState.practiceMode);
+					menuItems_icons.members[1].changeState(PlayState.practiceMode);
 				case "restart":
 					podeJumpscare=false;
 					PlayState.instance.canRegen = true;
@@ -276,7 +275,7 @@ class PauseSubState extends MusicBeatSubstate
 				case "botplay":
 					PlayState.cpuControlled = !PlayState.cpuControlled;
 					PlayState.usedPractice = true;
-					menuItems_icons.members[3].setActive(PlayState.cpuControlled);
+					menuItems_icons.members[3].changeState(PlayState.cpuControlled);
 				
 				case "return":
 					podeJumpscare=false;
