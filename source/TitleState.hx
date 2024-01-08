@@ -100,10 +100,6 @@ class TitleState extends MusicBeatState
 				GameJoltLoginState.syncProgress();
 			}
 		}
-		if (!initialized)
-		{
-			verificarConexao();
-		}
 		// FlxG.switchState(new GameJoltLogin());
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
@@ -190,6 +186,7 @@ class TitleState extends MusicBeatState
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new PreTitleState()); // Não atrapalha no PC, e Resolve o problema do mobile, todos ganham k
 			ModifiersManager.loadSave();
+			verificarConexao();
 		}
 		else
 		{
@@ -234,9 +231,9 @@ class TitleState extends MusicBeatState
 
 	private function handleLoadComplete(event:Event):Void
 	{
-		// trace("Conexão com a internet OK!");
-		// GJClient.initialize();
-		ModoOffline = true;
+		trace("Conexão com a internet OK!");
+		GJClient.initialize();
+		ModoOffline = false;
 	}
 
 	private function handleLoadError(event:IOErrorEvent):Void
