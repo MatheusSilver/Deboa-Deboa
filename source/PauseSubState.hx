@@ -1,5 +1,8 @@
 package;
 
+import flixel.group.FlxSpriteGroup;
+import CustomButtons.PauseButton;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxObject;
 import lime.math.Vector2;
 import flixel.util.FlxTimer;
@@ -29,19 +32,12 @@ class PauseSubState extends MusicBeatSubstate
 
 	var countDownSprites:Array<FlxSprite> = [];
 
-	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Voltar para a musica', 'Modo praticar', 'Reiniciar musica', 'Botplay', 'Voltar para o menu'];
-	var difficultyChoices = [];
+	var menuItems_names:Array<String> = ["continue", "practice", "restart", "botplay", "return"];
+	private var menuItems_icons:FlxTypedGroup<PauseButton>;
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
 	var scrollingSound:FlxSound;
-
-	var continuar:FlxSprite;
-	var restart:FlxSprite;
-	var praticar:FlxSprite;
-	var bot:FlxSprite;
-	var voltar:FlxSprite;
 
 	var preto:FlxSprite;
 	var bg:FlxSprite;
@@ -108,14 +104,6 @@ class PauseSubState extends MusicBeatSubstate
 		scrollingSound = new FlxSound().loadEmbedded(Paths.sound('pausescrollmenu'));
 		scrollingSound.volume = 0.4;
 
-		menuItems = menuItemsOG;
-
-		for (i in 0...CoolUtil.difficultyStuff.length) {
-			var diff:String = '' + CoolUtil.difficultyStuff[i][0];
-			difficultyChoices.push(diff);
-		}
-		difficultyChoices.push('BACK');
-
 		preto = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		preto.alpha=0;
 		add(preto);
@@ -131,7 +119,7 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
-		bg = new FlxSprite(0,0).loadGraphic(Paths.image('pause/pause (linhas)'));
+		bg = new FlxSprite(0,0).loadGraphic(Paths.image('top_icons/pause', "locales", true, true));
 		bg.setGraphicSize(FlxG.width);
 		bg.y = -bg.height;
 
@@ -150,36 +138,22 @@ class PauseSubState extends MusicBeatSubstate
 
 		var k:Int = 38;
 
+		menuItems_icons = new FlxTypedGroup<PauseButton>();
+		add(menuItems_icons);
 
-		continuar = new FlxSprite().loadGraphic(Paths.image('pause/pause (continuar)'));
-		continuar.alpha = 0.5;
-		continuar.x=-693;
-		continuar.y=FlxG.height/6- k;
-		add(continuar);
-
-		restart = new FlxSprite().loadGraphic(Paths.image('pause/pause (restart)'));
-		restart.alpha = 0.5;
-		restart.x=-620;
-		restart.y=FlxG.height/6*3- k;
-		add(restart);
-
-		bot = new FlxSprite().loadGraphic(Paths.image('pause/botplay'+PlayState.cpuControlled));
-		bot.alpha = 0.5;
-		bot.x=-587;
-		bot.y=FlxG.height/6*4- k;
-		add(bot);
-
-		praticar = new FlxSprite().loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
-		praticar.alpha = 0.5;
-		praticar.x=-655;
-		praticar.y=FlxG.height/6*2- k;
-		add(praticar);
-		
-		voltar = new FlxSprite().loadGraphic(Paths.image('pause/pause (voltar)'));
-		voltar.alpha = 0.5;
-		voltar.x=-557;
-		voltar.y=FlxG.height/6*5 - k;
-		add(voltar);
+		for (i in 0...menuItems_names.length){
+			var new_button:PauseButton = new PauseButton("label_pause_"+menuItems_names[i], "smb", false);
+			new_button.x =-693+38*i;
+			new_button.y= FlxG.height/6*(i+1) - k;
+			new_button.button_text.x += 160+20*(i);
+			new_button.alpha = 0.5;
+			if (menuItems_names[i] == "practice" || menuItems_names[i] == "botplay"){
+				new_button.changeable = false;
+				new_button.setActive(menuItems_names[i] == "practice" ? PlayState.practiceMode : PlayState.cpuControlled);
+			}
+			new_button.ID = i;
+			menuItems_icons.add(new_button);
+		}
 
 		add(bg);
 		add(linhabaixo);
@@ -191,18 +165,15 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(PlayState.instance.camOther, {zoom: originalZoomOther+0.05}, 0.35, {ease: FlxEase.quartInOut});
 		//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2+0.05}, 0.35, {ease: FlxEase.quartInOut});
 
-		FlxTween.tween(continuar, {x: -128}, 0.3, {ease: FlxEase.quartInOut});
-		FlxTween.tween(praticar, {x: -128}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(restart, {x: -128}, 0.5, {ease: FlxEase.quartInOut});
-		FlxTween.tween(bot, {x: -128}, 0.6, {ease: FlxEase.quartInOut});
-		FlxTween.tween(voltar, {x: -128}, 0.7, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween){aberto=true;}});
-
+		for (i in 0...menuItems_icons.length){
+			FlxTween.tween(menuItems_icons.members[i], {x: -128 - 20*i}, 0.2+i/10, {ease:FlxEase.quartInOut});
+		}
 
 		FlxTween.tween(preto, {alpha: 0.75}, 0.3, {ease: FlxEase.quartInOut});
 		FlxTween.tween(bg, {y: 0}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(linhabaixo, {y: FlxG.height-linhabaixo.height}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(perfil, {x: FlxG.width-perfil.width}, 0.4, {ease: FlxEase.quartInOut});
-		FlxTween.tween(exe, {x: FlxG.width-exe.width}, 0.6, {ease: FlxEase.quartInOut});
+		FlxTween.tween(exe, {x: FlxG.width-exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween){aberto=true;}});
 
 		changeSelection();
 
@@ -273,35 +244,21 @@ class PauseSubState extends MusicBeatSubstate
 
 		if (accepted && !inJumpscare && !saindoPause)
 		{
-			var daSelected:String = menuItems[curSelected];
-			for (i in 0...difficultyChoices.length-1) {
-				if(difficultyChoices[i] == daSelected) {
-					var name:String = PlayState.SONG.song.toLowerCase();
-					var poop = Highscore.formatSong(name, curSelected);
-					PlayState.SONG = Song.loadFromJson(poop, name);
-					PlayState.storyDifficulty = curSelected;
-					CustomFadeTransition.nextCamera = transCamera;
-					MusicBeatState.resetState();
-					FlxG.sound.music.volume = 0;
-					PlayState.changedDifficulty = true;
-					PlayState.cpuControlled = false;
-					return;
-				}
-			} 
+			var daSelected:String = menuItems_names[curSelected];
 			switch (daSelected)
 			{
-				case "Voltar para a musica":
+				case "continue":
 					if(!isDoingtheThing && aberto)
 						{
 							podeJumpscare=false;
 							isDoingtheThing=true;
 							saindodopause();
 						}
-				case 'Modo praticar':
+				case "practice":
 					PlayState.practiceMode = !PlayState.practiceMode;
 					PlayState.usedPractice = true;
-					praticar.loadGraphic(Paths.image('pause/praticar'+PlayState.practiceMode));
-				case "Reiniciar musica":
+					menuItems_icons.members[1].setActive(PlayState.practiceMode);
+				case "restart":
 					podeJumpscare=false;
 					PlayState.instance.canRegen = true;
 					PlayState.canuseevents = true;
@@ -316,12 +273,12 @@ class PauseSubState extends MusicBeatSubstate
 					restartSong(!PlayState.instance.playingVideoMP4);
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					FlxG.sound.music.volume = 0;
-				case 'Botplay':
+				case "botplay":
 					PlayState.cpuControlled = !PlayState.cpuControlled;
 					PlayState.usedPractice = true;
-					bot.loadGraphic(Paths.image('pause/botplay'+PlayState.cpuControlled));
+					menuItems_icons.members[3].setActive(PlayState.cpuControlled);
 				
-				case "Voltar para o menu":
+				case "return":
 					podeJumpscare=false;
 					if (PlayState.useVideo)
 					{
@@ -352,11 +309,9 @@ class PauseSubState extends MusicBeatSubstate
 	}
 	function saindodopause(){
 				saindoPause = true;
-				FlxTween.tween(continuar, {x: 0-continuar.width}, 0.1, {ease: FlxEase.quartInOut});
-				FlxTween.tween(praticar, {x: 0-praticar.width}, 0.2, {ease: FlxEase.quartInOut});
-				FlxTween.tween(restart, {x: 0-restart.width}, 0.3, {ease: FlxEase.quartInOut});
-				FlxTween.tween(bot, {x: 0-bot.width}, 0.4, {ease: FlxEase.quartInOut});
-				FlxTween.tween(voltar, {x: 0-voltar.width}, 0.5, {ease: FlxEase.quartInOut});
+				for (i in 0...menuItems_icons.length){
+					FlxTween.tween(menuItems_icons.members[i], {x: 0-menuItems_icons.members[i].width}, 0.1+i/10, {ease:FlxEase.quartInOut});
+				}
 				FlxTween.tween(bg, {y: -bg.height}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(linhabaixo, {y: FlxG.height}, 0.4, {ease: FlxEase.quartInOut});
 				FlxTween.tween(perfil, {x: FlxG.width+perfil.width}, 0.4, {ease: FlxEase.quartInOut});
@@ -482,7 +437,7 @@ class PauseSubState extends MusicBeatSubstate
 		{
 			if(podeJumpscare && PlayState.instance.paused)
 				{
-					trace('haha troxa');
+					trace('haha troxa'); //Nosfa dav, mas tu tá brabor?
 					inJumpscare=true;
 					FlxG.sound.volume = 1;
 					jumpscare = new FlxSprite(0,0);
@@ -542,27 +497,18 @@ class PauseSubState extends MusicBeatSubstate
 		scrollingSound.play(true);
 
 		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
-		if (curSelected >= menuItems.length)
+			curSelected = menuItems_names.length - 1;
+		if (curSelected >= menuItems_names.length)
 			curSelected = 0;
 
 		//Eu queria fazer isso ser automático mas né? Não acho que esse code vá ser reutilizado depois, pelo menos não essa parte.
-		continuar.alpha=0.5;
-		praticar.alpha=0.5;
-		restart.alpha=0.5;
-		bot.alpha=0.5;
-		voltar.alpha=0.5;
-		switch(curSelected){
-			case 0:
-				continuar.alpha=1;
-			case 1:
-				praticar.alpha=1;
-			case 2:
-				restart.alpha=1;
-			case 3:
-				bot.alpha=1;
-			case 4:
-				voltar.alpha=1;
-		}
+		//Sílvio do futuro vindo dizer que a busca pelo sistema automático foi concluida :sunglasses:
+		menuItems_icons.forEach(function(object:FlxSpriteGroup)
+		{
+			if (object.ID == curSelected)
+				object.alpha = 1;
+			else
+				object.alpha = 0.5;
+		});
 	}
 }

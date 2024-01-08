@@ -53,12 +53,15 @@ class MenuButton extends FlxSpriteGroup
 
 class PauseButton extends MenuButton
 {
-    private var activated:Bool;
+    private var activated:Bool=true;
     private final bg:String = "PauseMenu";
+    private final textFile:String = "data";
+    public var changeable:Bool=true;
 
-    public function new(textRef:String, textFile:String, font:String, activated:Bool)
+    public function new(textRef:String, font:String, activated:Bool)
     {
         super(bg, textRef, textFile, font);
+        this.button_text.alignment = LEFT;
         this.activated = activated;
         this.changeState();
     }
@@ -69,15 +72,11 @@ class PauseButton extends MenuButton
     }
 
     private function changeState():Void{
-        if (activated)
-        {
-            this.button_text.color = FlxColor.RED;
-            this.button_text.alpha = 1;
-        }
-        else
-        {
-            this.button_text.color = FlxColor.BLACK;
-            this.button_text.alpha = 0.3;
+        if (changeable)
+            this.button_text.color = FlxColor.WHITE;
+        else{
+            this.button_text.color = activated ? FlxColor.RED : FlxColor.GRAY;
+            this.button_text.alpha = activated ? 1 : 0.25;
         }
     }
 }
@@ -118,22 +117,4 @@ class CreditButton extends FlxSpriteGroup
         }
         add(icon);
     }
-}
-
-//Isso não é bem um botão, mas servirá o mesmo propósito
-class Top_Icon extends FlxSpriteGroup
-{
-	public var label:FlxText;
-	public function new(textRef:String, font:String, height:Int, color:FlxColor)
-	{
-		super();
-		var bar:FlxSprite = new FlxSprite(0,0).makeGraphic(1,1, FlxColor.BLACK);
-		bar.solid = false;
-		bar.setGraphicSize(flixel.FlxG.width, height);
-		add(bar);
-		
-		label = new FlxText(bar.x + 10, 5, bar.width, LangUtil.getString(textRef, "titles"), 32);
-		label.setFormat(LangUtil.getFont("smb"), 32, color, LEFT);
-		add(label);
-	}	
 }

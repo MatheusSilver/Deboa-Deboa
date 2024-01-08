@@ -234,9 +234,9 @@ class TitleState extends MusicBeatState
 
 	private function handleLoadComplete(event:Event):Void
 	{
-		trace("Conexão com a internet OK!");
-		GJClient.initialize();
-		ModoOffline = false;
+		// trace("Conexão com a internet OK!");
+		// GJClient.initialize();
+		ModoOffline = true;
 	}
 
 	private function handleLoadError(event:IOErrorEvent):Void

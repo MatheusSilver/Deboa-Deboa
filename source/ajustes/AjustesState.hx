@@ -179,7 +179,7 @@ class AjustesState extends MusicBeatState
 		gamejoltbotao.y = 15 + setasbotao.y + setasbotao.height;
         add(gamejoltbotao);
 
-        line = new FlxSprite(0).loadGraphic(Paths.image('optionsmenu/ajuste_linhas', 'preload'));
+        line = new FlxSprite(0).loadGraphic(Paths.image('top_icons/ajustes', 'locales', true, true));
 		line.scrollFactor.x = 0;
 		line.scrollFactor.y = 0;
 		line.setGraphicSize(FlxG.width, FlxG.height);

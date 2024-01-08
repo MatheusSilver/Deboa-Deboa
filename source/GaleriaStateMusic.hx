@@ -1,5 +1,7 @@
 package;
 
+import flixel.math.FlxPoint;
+import ui.FlxButton;
 import Utils.BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -77,8 +79,8 @@ class GaleriaStateMusic extends MusicBeatState
 
 	var tocandoagora:FlxText; //Isso só tá aqui mesmo por causa dos tweens
 
-	var letrasbotao:FlxSprite;
-	var playListbotao:FlxSprite;
+	var letrasbotao:FlxButton;
+	var playListbotao:FlxButton;
 
 	private var checkboxArray:FlxTypedGroup<CheckboxThingie>;
 	private var optionTextsArray:FlxTypedGroup<FlxText>;
@@ -118,14 +120,22 @@ class GaleriaStateMusic extends MusicBeatState
 		overlaySuporte.x = FlxG.width - overlaySuporte.width;
 		add(overlaySuporte);
 
-		letrasbotao = new FlxSprite();
-		letrasbotao.loadGraphic(Paths.image('galeriamusicas/youtubemusic/letras_botao', "locales", true, true));
+		letrasbotao = new FlxButton(0,0,LangUtil.getString("gall_lyrics_button", "gallery"));
+		letrasbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
 		letrasbotao.x = FlxG.width - 50 - letrasbotao.width;
+		letrasbotao.label.setFormat(LangUtil.getFont("roboto"), 16, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		letrasbotao.labelAlphas=[letrasbotao.alpha,letrasbotao.alpha+0.15,1];	
+		letrasbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,20)];
+		letrasbotao.label.bold=true;
 		letrasbotao.y = 0;
 		letrasbotao.alpha = 0;
 
-		playListbotao = new FlxSprite();
-		playListbotao.loadGraphic(Paths.image('galeriamusicas/youtubemusic/playlist_botao', 'preload'));
+		playListbotao = new FlxButton(0,0,LangUtil.getString("gall_playlist_button", "gallery"));
+		playListbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
+		playListbotao.label.setFormat(LangUtil.getFont("roboto"), 16, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		playListbotao.labelAlphas=[playListbotao.alpha,playListbotao.alpha+0.15,1];	
+		playListbotao.label.bold=true;
+		playListbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,21)];
 		playListbotao.x = letrasbotao.x - playListbotao.width;
 		playListbotao.y = letrasbotao.y;
 		playListbotao.alpha = 0;
@@ -573,9 +583,9 @@ class GaleriaStateMusic extends MusicBeatState
 		});
 
 		//Feito muito, mas MUITO TEMPO DEPOIS...
-		if(Utils.BSLTouchUtils.apertasimples(playListbotao)&&isLetras&&canChange)
+		if(playListbotao.justPressed&&isLetras&&canChange)
 			showPlaylist();
-		else if(Utils.BSLTouchUtils.apertasimples(letrasbotao)&&!isLetras&&canChange)
+		else if(letrasbotao.justPressed &&!isLetras&&canChange)
 			showLyrics();
 
 		//Só essa parte mesmo, o resto to com preguiça de converter pra TouchUtils.

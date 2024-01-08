@@ -55,7 +55,7 @@ class PastaNightSelect extends MusicBeatState
 		var blackBG = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(blackBG);
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pasta/PastaSelect_BG', 'preload'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('PastaSelect_BG', 'locales', true, true));
 		bg.setGraphicSize(Std.int(bg.width * 3));
 		bg.setPosition(selectCam.width / 2 - bg.width / 2, selectCam.height / 2 - bg.height / 2);
 		add(bg);

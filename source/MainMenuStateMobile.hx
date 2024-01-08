@@ -252,7 +252,7 @@ class MainMenuStateMobile extends MusicBeatState
 			}
 			else
 			{
-				letext.text = LangUtil.getString("menu_disconnected");
+				letext.text = LangUtil.getString("menu_disconnected", "menu");
 			}
 
 		menuItems = new FlxTypedGroup<FlxSprite>();

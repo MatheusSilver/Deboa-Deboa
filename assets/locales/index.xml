@@ -22,7 +22,7 @@
 	<file id="key" value="keysMenu.tsv"/>
 
     <!-- usado para as configuracoes -->
-	<file id="config" value="configMenu.tsv"/>
+	<file id="titles" value="menuTitles.tsv"/>
 
 	<!-- usado para os modifiers -->
 	<file id="modifier" value="modifierName.tsv"/>

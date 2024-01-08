@@ -50,7 +50,7 @@ class LoadingsState extends MusicBeatSubstate
 		modboalogo.antialiasing = ClientPrefs.globalAntialiasing;
 
 
-		loadingbar.loadGraphic(Paths.image('loading/carregando',  'preload'));
+		loadingbar.loadGraphic(Paths.image('loading',  'locales', true, true));
 		loadingbar.updateHitbox();
 		loadingbar.antialiasing = ClientPrefs.globalAntialiasing;
 		loadingbar.y = 15;

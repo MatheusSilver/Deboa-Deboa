@@ -152,7 +152,7 @@ class FreeplayState extends MusicBeatState
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
-		var borda:FlxSprite = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/bordinha'));
+		var borda:FlxSprite = new FlxSprite().loadGraphic(Paths.image('top_icons/freeplay', "locales", true, true));
 		borda.antialiasing = ClientPrefs.globalAntialiasing;
 		
 		for (i in 0...progressFreeplay)

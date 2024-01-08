@@ -529,17 +529,8 @@ class PlayState extends MusicBeatState
 
 		// Precache geral
 
-		precacheList.set('confirmMenu', 'sound'); // Provavelmente deve consertar o lag ao desbloquear conquistas.
-		precacheList.set('pause/botplaytrue', 'image');
-		precacheList.set('pause/botplayfalse', 'image');
-		precacheList.set('pause/praticartrue', 'image');
-		precacheList.set('pause/praticarfalse', 'image');
-		precacheList.set('pause/pause (linhas)', 'image');
-		precacheList.set('pause/pause (sonicexe)', 'image');
-		precacheList.set('pause/pause (continuar)', 'image');
-		precacheList.set('pause/pause (restart)', 'image');
 		precacheList.set('pause/pause (perfil)', 'image');
-		precacheList.set('pause/pause (voltar)', 'image');
+		precacheList.set('pause/pause (sonicexe)', 'image');
 		precacheList.set('unpause', 'sound');
 		precacheList.set('PauseEnter', 'sound');
 		precacheList.set('pausescrollmenu', 'sound');
@@ -618,7 +609,7 @@ class PlayState extends MusicBeatState
 		Conductor.changeBPM(SONG.bpm);
 
 		modboalogo.loadGraphic(Paths.image('loading/loading-logo', 'preload'));
-		loadingbar.loadGraphic(Paths.image('loading/carregando', 'preload'));
+		loadingbar.loadGraphic(Paths.image('loading', 'locales', true, true));
 		canPause = false;
 		loadingbar.updateHitbox();
 		loadingbar.x = FlxG.width - loadingbar.width;
