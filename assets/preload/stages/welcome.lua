@@ -238,9 +238,9 @@ function onEvent(name, value1, value2)
 	end
 end
 
-function onBeatHit(curBeat)
+function onStepHit(curBeat)
 	if sequence and getProperty('health') > 0.4 then
-		setProperty('health', getProperty('health') - 0.03*2)
+		setProperty('health', getProperty('health') - 0.015)
 	end
 end
 
