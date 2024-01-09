@@ -30,7 +30,7 @@ function onCreate()
 	scaleObject('bg', 0.7, 0.9)
 	addLuaSprite('bg', 'bg/welcome', 0, 0)
 
-	addCharacterToList('lordX', 'dad')
+	addCharacterToList('phantom-X', 'dad')
 
     setPropertyFromClass('GameOverSubstate', 'bgType', 'sonic'); --Character json file for the death animation
     setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'gameOverEndSonic'); --put in mods/sounds/
@@ -249,7 +249,7 @@ end
 
 function onTweenCompleted(tag)
 	if tag == 'xRevealB' then
-		triggerEvent('Change Character', 1, 'lordX')
+		triggerEvent('Change Character', 1, 'phantom-X')
 	end
 end
 
