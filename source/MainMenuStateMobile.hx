@@ -274,7 +274,7 @@ class MainMenuStateMobile extends MusicBeatState
 			botao.x = FlxG.width;
 
 			botao.button_text.x += 85;
-			botao.button_text.y -= 30;
+			botao.button_text.y -= 28;
 			menuItems.add(botao);
 			
 		}
@@ -386,7 +386,7 @@ class MainMenuStateMobile extends MusicBeatState
 			{
 				if(spr.ID == selecionado){
 					spr.alpha = 1;
-					FlxTween.tween(menuItems.members[spr.ID], {x: spr.x-20}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
+					FlxTween.tween(menuItems.members[spr.ID], {x: spr.x-35}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
 						onComplete: function(proximo:FlxTween)
 						{
 							FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width+10}, 1.0, {ease: FlxEase.expoInOut, startDelay: 0.3});
