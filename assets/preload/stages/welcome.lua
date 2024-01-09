@@ -11,7 +11,6 @@ local ofs = 50
 local del = 0
 local del2 = 0
 
-local stepList = {1220, 1268, 1360, 1508, 2010, 2070, 2134}
 local sequenceNumber = 0
 local numbersL = {}
 local void = {'V', 'O', 'I', 'D'}
@@ -177,11 +176,9 @@ function onUpdate(elapsed)
 	end
 end
 
-function onStartCountdown()
-	setProperty('gf.alpha', 0)
-	setProperty('boyfriend.alpha', 0)
-
-	return Function_Continue
+function onCreatePost()
+	setProperty('gf.visible', false)
+	setProperty('boyfriend.visible', false)
 end
 
 
@@ -200,7 +197,7 @@ function onVoidEvent()
 			setObjectCamera('cross'..i..sequenceNumber, 'camHud')
 
 			--Makes the Letters
-			makeAnimatedLuaSprite(i..'letter'..void[i]..sequenceNumber, 'bg/fonts', x[i+3] + 5, y[i+3] + 5)
+			makeAnimatedLuaSprite(i..'letter'..void[i]..sequenceNumber, 'fonts', x[i+3] + 5, y[i+3] + 5)
 			addAnimationByPrefix(i..'letter'..void[i]..sequenceNumber, 'idle', void[i], 1, true)
 			setObjectCamera(i..'letter'..void[i]..sequenceNumber, 'camHud')
 			objectPlayAnimation(i..'letter'..void[i]..sequenceNumber, 'idle', true)
@@ -219,47 +216,37 @@ function onVoidEvent()
 	end
 end
 
-
-function onStepHit()
-	if curStep == 10 then
-		modchart = false
-	end
-	if curStep == 992 then
-		doTweenAlpha('xRevealA', 'dad', 0, 1, 'linear')
-		doTweenAlpha('xRevealB', 'bg', 0, 1.2, 'linear')
-		doTweenAlpha('xRevealC', 'camHUD', 0, 1, 'circInOut')
-	end
-	if curStep == 1098 then
-		setProperty('dad.alpha', 1)
-		--setProperty('cam.zoom', getProperty('cam.zoom') + 0.08)
-		setProperty('dad.x', getProperty('dad.x') - 470)
-		setProperty('dad.y', getProperty('dad.y') - 130)
-		characterPlayAnim('dad', 'entrance')
-		doTweenAlpha('xRevealD', 'camHUD', 1, 0.1, 'linear')
-	end
-	for i = 1,7 do
-		if curStep == stepList[i] then
+function onEvent(name, value1, value2)
+	if name == "phantom_event" then
+		if value1 == "10" then
+			modchart = false
+		elseif value1 == "992" then
+			doTweenAlpha('xRevealA', 'dad', 0, 1, 'linear')
+			doTweenAlpha('xRevealB', 'bg', 0, 1.2, 'linear')
+			doTweenAlpha('xRevealC', 'camHUD', 0, 1, 'circInOut')
+		elseif value1 == "1098" then
+			setProperty('dad.alpha', 1)
+			setProperty('dad.visible', true)
+			--setProperty('cam.zoom', getProperty('cam.zoom') + 0.08)
+			setProperty('dad.x', getProperty('dad.x') - 470)
+			setProperty('dad.y', getProperty('dad.y') - 130)
+			characterPlayAnim('dad', 'entrance', true)
+			doTweenAlpha('xRevealD', 'camHUD', 1, 0.1, 'linear')
+		elseif value1 == "1220" or value1 == "1268" or value1 == "1360" or value1 == "1508" or value1 == "2010" or value1 == "2070" or value1 == "2134" then
 			onVoidEvent()
 		end
 	end
+end
+
+function onBeatHit(curBeat)
 	if sequence and getProperty('health') > 0.4 then
 		setProperty('health', getProperty('health') - 0.03*2)
 	end
 end
 
 function onTweenCompleted(tag)
-	if tag == 'xRevealB' then
+	if tag == "xRevealA" then
 		triggerEvent('Change Character', 1, 'phantom-X')
-	end
-end
-
-function onGameOver()
-	modchart = false
-	return Function_Continue;
-end
-
-function onGameOverConfirm(retry)
-	if retry then
-		exitSong()
+		setProperty("dad.visible", false)
 	end
 end
