@@ -18,7 +18,7 @@ function onCreatePost()
 
 	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/icon-bf', 150)
-	addAnimation('bfIcon', 'icon/'..getProperty('bf.healthIcon'), {0, 1}, 0, true)
+	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setObjectCamera('bfIcon', 'camHUD')
 	setProperty('bfIcon.visible', false)
 	setProperty('bfIcon.flipX', false)

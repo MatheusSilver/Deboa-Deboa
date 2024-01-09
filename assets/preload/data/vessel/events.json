@@ -1,0 +1,29 @@
+{
+	"song": {
+		"speed": 2.9,
+		"stage": "welcome",
+		"player1": "tails",
+		"player2": "sonicLord",
+		"player3": null,
+		"events": [
+			[
+				18300,
+				[
+					[
+						"Play Animation",
+						"welcome",
+						"sonicLord"
+					]
+				]
+			]
+		],
+		"notes": [],
+		"splashSkin": null,
+		"validScore": false,
+		"gfVersion": "gf",
+		"bpm": 100,
+		"arrowSkin": null,
+		"needsVoices": true,
+		"song": "Vessel"
+	}
+}

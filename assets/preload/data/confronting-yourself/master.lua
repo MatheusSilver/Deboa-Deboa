@@ -295,7 +295,7 @@ function onCreatePost()
 
 	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/icon-sonicAH', 150)
-	addAnimation('bfIcon', 'icon/'..getProperty('bf.healthIcon'), {0, 1}, 0, true)
+	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setProperty('bfIcon.visible', false)
 	setObjectCamera('bfIcon', 'camHUD')
 	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)

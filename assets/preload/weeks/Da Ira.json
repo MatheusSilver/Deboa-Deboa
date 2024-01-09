@@ -24,6 +24,16 @@
 				0
 			],
 			"Ciclos"
+		],
+		[
+			"vessel",
+			"phantom_x",
+			[
+				255,
+				0,
+				0
+			],
+			"Receptaculo"
 		]
 		],
 	"hideStoryMode": false,

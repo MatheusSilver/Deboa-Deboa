@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				149,
+				-1
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "SONIC X LEFT",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-34,
+				8
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "SONIC X RIGHT",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				1,
+				46
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "SONIC X UP",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				78,
+				39
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "SONIC X DOWN",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "SONIC X IDLE",
+			"indices": []
+		},
+		{
+			"offsets": [
+				8,
+				47
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "welcome",
+			"indices": [],
+			"name": "SONIC X WELCOME"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/phantom_attack/SONIC LORD",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "phantom_faker",
+	"flip_x": false,
+	"healthbar_colors": [
+		48,
+		26,
+		124
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}
