@@ -39,6 +39,7 @@ class MenuButton extends FlxSpriteGroup
     private function changeLock():Void{
         if (lock_icon==null){
             lock_icon = new FlxSprite(0,0,Paths.image("buttons_base/lock", "preload"));
+            lock_icon.alpha = 1;
             lock_icon.visible = true;
             lock_icon.x = (button_bg.width-lock_icon.width)/2-150;
             lock_icon.y = (button_bg.height-lock_icon.height)/2-5;
@@ -47,7 +48,7 @@ class MenuButton extends FlxSpriteGroup
         }
 
 		lock_icon.visible = this.isLocked;
-		button_bg.alpha = this.isLocked ? 0.7 : 1;
+		button_text.alpha = this.isLocked ? 0.5 : 1;
     }
 }
 

@@ -3598,7 +3598,7 @@ class PlayState extends MusicBeatState
 			if (paused)
 				return; */
 
-		if (ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused && (!ControlSongSubstate.gifPermitido || curSong.toLowerCase() != 'control') )
+		if (ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused && !ControlSongSubstate.gifPermitido )
 		{
 			new flixel.util.FlxTimer().start(0.05, function(tmr:flixel.util.FlxTimer)
 			{

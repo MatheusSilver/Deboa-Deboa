@@ -62,19 +62,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var canInitMatch:Bool = false;
 	var selectedMusic:String = "confronting-yourself";
 
-	/*
-	// INPUT
-	var keysPlayer1:Array<Bool> = [false, false, false, false];
-	var keysPlayer2:Array<Bool> = [false, false, false, false];
-
-	// BFS
-	var player1BF:Boyfriend;
-	var player2BF:Boyfriend;
-	var nomes:Array<String> = ["Player 1", "Player 2"];
-	var textinhoBF1:FlxText;
-	var textinhoBF2:FlxText;
-	*/
-
 	// PLAYERS
 	var players:Array<LobbyPlayer> = [new LobbyPlayer(174,190), new LobbyPlayer(681,190)];
 	public static var instance:MultiplayerMainMenuState;
@@ -142,26 +129,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 			num++;
 		}
 
-		/*
-		textinhoBF1 = new FlxText(0, 0, 0, "", 50, true);
-		textinhoBF1.alignment = CENTER;
-		add(textinhoBF1);
-		textinhoBF2 = new FlxText(0, 0, 0, "", 50, true);
-		textinhoBF2.alignment = CENTER;
-		add(textinhoBF2);
-		player1BF = new Boyfriend(174, 190);
-		player1BF.visible = false;
-
-		// player1BF.flipX=true; fica estranho assimk
-		player2BF = new Boyfriend(681, 190);
-		player2BF.visible = false;
-		player1BF.playAnim('idle', true, false, 10);
-		player2BF.playAnim('idle', true, false, 10);
-		add(player1BF);
-		add(player2BF);
-		// add(textinhoDebug);
-		*/
-
 		comecarBt = new FlxButton(FlxG.width, 100, '');
 		comecarBt.loadGraphic(Paths.image('multiplayer/iniciarBt', 'preload'));
 		comecarBt.setGraphicSize(Std.int(comecarBt.width * 0.6));
@@ -216,23 +183,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		/*
-		// bfs texts
-		textinhoBF2.alignment = CENTER;
-		textinhoBF1.text = nomes[0];
-		textinhoBF1.x = player1BF.x + 90;
-		textinhoBF1.y = player1BF.y - 60;
-		textinhoBF1.visible = player1BF.visible;
-		textinhoBF1.alpha = player1BF.alpha;
-		textinhoBF2.alignment = CENTER;
-		textinhoBF2.text = nomes[1];
-		textinhoBF2.x = player2BF.x + 90;
-		textinhoBF2.y = player2BF.y - 60;
-		textinhoBF2.visible = player2BF.visible;
-		textinhoBF2.alpha = player2BF.alpha;
-		player2BF.alpha = nomes[1] != "Player 2" ? 1 : 0.5;
-		*/
-
 		// LEMBRAR DE ARRUMAR ISSO AQ DPS
 		if (controls.BACK && !ipBar.hasFocus && !isOnOptions && canClick)
 		{
@@ -566,31 +516,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 	}
 
-	/*
-	function bfAnims(direction:String, qualBF:Boyfriend, ?soltou:Bool = false)
-	{
-		if (!soltou)
-		{
-			switch (direction)
-			{
-				case "esquerda":
-					qualBF.playAnim('singLEFT', true);
-				case "baixo":
-					qualBF.playAnim('singDOWN', true);
-				case "cima":
-					qualBF.playAnim('singUP', true);
-				case "direita":
-					qualBF.playAnim('singRIGHT', true);
-			}
-		}
-
-		if (soltou)
-		{
-			qualBF.playAnim('idle', false);
-		}
-	}
-	*/
-
 	function avisarAlgo(avisarIssoAqui:String)
 	{
 		GlobalSoundManager.play("negado");
@@ -668,9 +593,10 @@ class LobbyPlayer extends FlxSpriteGroup
 		add(bf);
 
 		// TEXTINHO TEXTOSO
-		textinhoBF = new FlxText(0, 0, 0, "", 50, true);
+		textinhoBF = new FlxText(90, 0, 0, "", 50, true);
 		textinhoBF.alignment = CENTER;
 		add(textinhoBF);
+		textinhoBF.y = bf.y-60;
 	}
 
 	override function update(elapsed:Float)
