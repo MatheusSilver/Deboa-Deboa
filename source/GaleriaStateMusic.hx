@@ -31,6 +31,8 @@ class GaleriaStateMusic extends MusicBeatState
 
 	// daLyric Stuff
 
+	private var loading_list:Queue;
+
 	var daLyric:Array<String>;
 	var textGroup:FlxTypedGroup<FlxText>;
 
@@ -293,6 +295,8 @@ class GaleriaStateMusic extends MusicBeatState
 
 		super.create();
 
+		loading_list = new Queue();
+
 		thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected], ClientPrefs.likesMap.get(GaleriaState.titulos[curSelected]));
 		thumbnailAuxiliar.alpha = 0;
 		add(thumbnailAuxiliar);
@@ -363,6 +367,11 @@ class GaleriaStateMusic extends MusicBeatState
 			direction = 0;
 
 		FlxG.sound.music.stop();
+
+		if (loading_list.len > 4){
+			loading_list.remove_keys(loading_list.get_by_index(1));	//A ordem importa.
+			loading_list.remove_keys(loading_list.get_by_index(0));
+		}
 		
 		//HAHAHAHAHAHH ADEUS YOUTUBE MUSIC, AGORA O ELON MOSKA COMPRARÁ VOCÊ E TRANSFORMARÁ EM
 		//High Space Musical X NYEHEHEHHEHEHGEHEHYEHEHEHEHEHEHEHEHEH
@@ -370,14 +379,15 @@ class GaleriaStateMusic extends MusicBeatState
 		//NAAAO HIGH SPACE MUSICAL X NAAAAO CORRAM TODOS
 
 		curSelected = direction;
-		FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[direction].toLowerCase()), 0);
+		FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[curSelected].toLowerCase()), 0);
 		menutoca=false;
 		FlxG.sound.music.fadeIn(4, 0, 0.85);
 		songLength = FlxG.sound.music.length + 1000; //Um segundo cheio sendo adicionado aqui pois achei que o player de musicas do haxe tivesse o mesmo erro que o player do meu PC que add um sec a mais sempre
 		FlxG.sound.music.onComplete = playlistChecker;
-		thumbnail.loadGraphic(Paths.image("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)", 'preload'));
-		FlxTween.tween(thumbnail, {x: 175}, 0.1, {ease: FlxEase.quartInOut});
-
+		FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut, onComplete: function (twn:FlxTween){
+			thumbnail.loadGraphic(Paths.image("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)", 'preload'));
+			FlxTween.tween(thumbnail, {x: 175}, 0.1, {ease: FlxEase.quartInOut});	
+		}});
 		thumbtocandoagora.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
 		FlxTween.tween(thumbnailAuxiliar, {alpha: 0}, 0.1, {ease: FlxEase.linear, onComplete: function (twn:FlxTween){
 			remove(thumbnailAuxiliar);
@@ -392,7 +402,10 @@ class GaleriaStateMusic extends MusicBeatState
 				{
 					FlxTween.tween(spr, {alpha: 0}, 0.1, {ease: FlxEase.linear});
 				});
-		
+
+		loading_list.queue("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)");
+		loading_list.queue(GaleriaState.leMusic[curSelected].toLowerCase());
+
 		reloadLyrics(isLetras);
 	}
 
@@ -591,13 +604,16 @@ class GaleriaStateMusic extends MusicBeatState
 		//Só essa parte mesmo, o resto to com preguiça de converter pra TouchUtils.
 		//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
+		if (controls.UI_LEFT_P)
+			changeSong(curSelected-1);
+		else if (controls.UI_RIGHT_P)
+			changeSong(curSelected+1);
+
 		if(BSLTouchUtils.justTouched()){
 			if (BSLTouchUtils.over(botaodireita)){
-				FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 				changeSong(curSelected+1);
 				GlobalSoundManager.play('click');
 			}else if (BSLTouchUtils.over(botaoesquerda)){
-				FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 				changeSong(curSelected-1);
 				GlobalSoundManager.play('click');
 			}else if (BSLTouchUtils.over(botaoPauseContinue)&&pausado){
@@ -641,7 +657,6 @@ class GaleriaStateMusic extends MusicBeatState
 						{
 							if(BSLTouchUtils.over(spr) && spr.visible && !BSLTouchUtils.over(barraInferior)){
 								GlobalSoundManager.play('click');
-								FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut});
 								changeSong(spr.ID);
 							}
 						}
@@ -768,4 +783,40 @@ class GaleriaStateMusic extends MusicBeatState
 			FlxTween.tween(spr, {alpha: 1}, 0.3, {ease: FlxEase.quadInOut});
 		});
 	}
+}
+
+class Queue
+{
+	private var list:Array<String>;
+	public var len:Int = 0;
+
+	public function new (){
+		list = [];
+		len = 0;
+	}
+    
+	public function queue(key:String):Void
+	{
+		if (!this.list.contains(key)){
+			this.list.push(key); //Em teoria, o push é rapido
+			this.len++;
+		}
+	}
+
+	public function get_by_index(index:Int = 0){
+		return this.list[index];
+	}
+
+	public function dequeue(key:String):Void
+	{
+		this.list.remove(key); //Mas a remoção é lenta.
+		this.len--;
+	}
+
+	public function remove_keys(key:String):Void
+	{
+		Paths.clear_memory_by_key(key, true);
+		this.dequeue(key);
+	}	
+
 }

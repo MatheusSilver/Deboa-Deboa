@@ -47,6 +47,37 @@ class Paths
 			dumpExclusions.push(key);
 	}
 
+	public static function clear_memory_by_key(key:String, remove_local_mem:Bool = false){
+		if (currentTrackedAssets.exists(key)){
+			var obj = currentTrackedAssets.get(key);
+			@:privateAccess
+			if (obj != null)
+			{
+				if (currentTrackedTextures.exists(key))
+				{
+					var texture = currentTrackedTextures.get(key);
+					texture.dispose();
+					texture = null;
+					currentTrackedTextures.remove(key);
+				}
+				OpenFlAssets.cache.removeBitmapData(key);
+				OpenFlAssets.cache.clearBitmapData(key);
+				OpenFlAssets.cache.clear(key);
+				FlxG.bitmap._cache.remove(key);
+				obj.destroy();
+				FlxDestroyUtil.dispose(obj.bitmap);
+				currentTrackedAssets.remove(key);
+			}
+		}else if (currentTrackedSounds.exists(key)){
+			OpenFlAssets.cache.removeSound(key);
+			OpenFlAssets.cache.clearSounds(key);
+			currentTrackedSounds.remove(key);
+		}
+
+		if (remove_local_mem)
+			localTrackedAssets.remove(key);
+	}
+
 	/// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory()
 	{
@@ -57,28 +88,8 @@ class Paths
 				// if it is not currently contained within the used local assets
 				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key))
 				{
-					// get rid of it
-					var obj = currentTrackedAssets.get(key);
-					@:privateAccess
-					if (obj != null)
-					{
-						var isTexture:Bool = currentTrackedTextures.exists(key);
-						if (isTexture)
-						{
-							var texture = currentTrackedTextures.get(key);
-							texture.dispose();
-							texture = null;
-							currentTrackedTextures.remove(key);
-						}
-						OpenFlAssets.cache.removeBitmapData(key);
-						OpenFlAssets.cache.clearBitmapData(key);
-						OpenFlAssets.cache.clear(key);
-						FlxG.bitmap._cache.remove(key);
-						obj.destroy();
-						FlxDestroyUtil.dispose(obj.bitmap);
-						currentTrackedAssets.remove(key);
-						counter++;
-					}
+					clear_memory_by_key(key, false);
+					counter++;
 				}
 			}
 			
@@ -117,9 +128,7 @@ class Paths
 				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
 				{
 					// trace('test: ' + dumpExclusions, key);
-					OpenFlAssets.cache.removeSound(key);
-					OpenFlAssets.cache.clearSounds(key);
-					currentTrackedSounds.remove(key);
+					clear_memory_by_key(key, true);
 					counterSound++;
 					// Debug.logTrace('Cleared and removed $counterSound cached sounds.');
 				}
@@ -231,16 +240,16 @@ class Paths
 	}
 
 	static public function sound(key:String, ?library:String) {
-		return returnSound('sounds', key, library);
+		return returnSound(key, 'sounds', key, library);
 	}
 	
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String)
 	{
-		return returnSound(key + FlxG.random.int(min, max), library);
+		return returnSound(key, key + FlxG.random.int(min, max), library);
 	}
 
 	inline static public function music(key:String, ?library:String) {
-		return returnSound('music', key, library);
+		return returnSound(key, 'music', key, library);
 	}
 
 	inline static public function voices(song:String):Any
@@ -249,7 +258,7 @@ class Paths
 		return 'songs:assets/songs/${formatToSongPath(song)}/Voices.$SOUND_EXT';
 		#else
 		var songKey:String = '${formatToSongPath(song)}/Voices';
-		var voices = returnSound('songs', songKey);
+		var voices = returnSound(song, 'songs', songKey);
 		return voices;
 		#end	}
 
@@ -259,7 +268,7 @@ class Paths
 		return 'songs:assets/songs/${formatToSongPath(song)}/Inst.$SOUND_EXT';
 		#else
 		var songKey:String = '${formatToSongPath(song)}/Inst';
-		var inst = returnSound('songs', songKey);
+		var inst = returnSound(song, 'songs', songKey);
 		return inst;
 		#end
 	}
@@ -374,10 +383,11 @@ class Paths
 		return null; //Apenas para garantir que o jooj tentará carregar do jeito normal primeiro (ou então ajuidar a descobrir qual o pilantra.)
 	}
 
-	public static function returnSound(path:String, key:String, ?library:String) {
+	public static function returnSound(key:String, path:String, file:String, ?library:String) {
 		// I hate this so god damn much
+		//Eu também passei a odiar meu caro colega nordestino :fist::pensive:
 
-		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		var gottenPath:String = getPath('$path/$file.$SOUND_EXT', SOUND, library);
 		var folder:String = '';
 
 		if (path == 'songs')
@@ -386,13 +396,13 @@ class Paths
 		// trace(gottenPath);
 		if (OpenFlAssets.exists(folder + gottenPath, SOUND))
 		{
-			if (!currentTrackedSounds.exists(gottenPath))
-				currentTrackedSounds.set(gottenPath, OpenFlAssets.getSound(folder + gottenPath));
+			if (!currentTrackedSounds.exists(key))
+				currentTrackedSounds.set(key, OpenFlAssets.getSound(folder + gottenPath));
 		}
 		else
 			FlxG.log.error('Could not find sound at ${folder + gottenPath}');
 
-		localTrackedAssets.push(gottenPath);
-		return currentTrackedSounds.get(gottenPath);
+		localTrackedAssets.push(key);
+		return currentTrackedSounds.get(key);
 	}
 }
