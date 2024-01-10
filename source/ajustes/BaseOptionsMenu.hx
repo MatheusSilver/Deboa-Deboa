@@ -393,7 +393,7 @@ class BaseOptionsMenu extends MusicBeatState
 				curSelected = 0;
 		} while(unselectableCheck(curSelected));
 
-		descText.text = LangUtil.getString("opt_desc_"+options[curSelected], "option_desc");
+		descText.text = LangUtil.getString("opt_desc_"+options[curSelected], "option_desc", "\n");
 
 		var bullShit:Int = 0;
 

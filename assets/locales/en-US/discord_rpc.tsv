@@ -1,55 +1,55 @@
 flag	context
-rpc_main_menu	No menu principal
-rpc_achievement_menu	No menu de conquistas
-rpc_credit_menu	Vendo os créditos
-rpc_freeplay	No Freeplay
-rpc_modifiers	Escolhendo Modifiers
-rpc_galeria	Vendo a galeria
-rpc_title	Na tela de título
-rpc_gamejolt	Logando
-rpc_ytb_music_listening	Ouvindo:
-rpc_ytb_music_paused	Pausado
-rpc_story_mode_normal	Escolhendo uma música em: 
-rpc_story_mode_ccc	Escolhendo um lado em
-rpc_pre_story	Pensando em jogar a Week
-rpc_pasta_night	Escolhendo um personagem em:
-rpc_about	Vendo o sobre
-rpc_vio_team	Vendo os créditos do(a):
-rpc_settings	Nas configurações
-rpc_playstate_paused	Pausado
+rpc_main_menu	In the Main Menu
+rpc_achievement_menu	In Achievements Menu
+rpc_credit_menu	Seeing the Credits
+rpc_freeplay	In Freeplay Menu
+rpc_modifiers	Choosing Modifiers
+rpc_galeria	Seeing the Gallery
+rpc_title	In the title screen
+rpc_gamejolt	Logging
+rpc_ytb_music_listening	Listening:
+rpc_ytb_music_paused	Paused
+rpc_story_mode_normal	Choosing a song in: 
+rpc_story_mode_ccc	Choosing a side in:
+rpc_pre_story	Thinking of playing the Week
+rpc_pasta_night	Choosing a character in:
+rpc_about	Seeing the about
+rpc_vio_team	Seeing the Credits of:
+rpc_settings	In Settings
+rpc_playstate_paused	Paused
 rpc_playstate_gameover	Game Over
-rpc_week_label_historias alternativas	Histórias Alternativas
+rpc_week_label_historias alternativas	Alternative Stories
 rpc_week_label_meme maker	Meme Maker
-rpc_week_label_do orgulho	Do Orgulho
-rpc_week_label_da luxuria	Da Luxúria
-rpc_week_label_da inveja	Da Inveja
-rpc_week_label_da discordia	Da Discórdia
-rpc_week_label_musicas bonus	Músicas Bônus
-rpc_week_label_da ira	Da Ira
-rpc_week_label_da ganancia	Da Ganância
-rpc_week_label_da preguica	Da Preguiça
-rpc_week_label_da fome	Da Fome
-rpc_diff_text_easy	Fácil
+rpc_week_label_do orgulho	Of Pride
+rpc_week_label_da luxuria	Of Lust
+rpc_week_label_da inveja	Of Envy
+rpc_week_label_da discordia	Of Discord
+rpc_week_label_musicas bonus	Bonus Songs
+rpc_week_label_da ira	Of Wrath
+rpc_week_label_da ganancia	Of Greed
+rpc_week_label_da preguica	Of Sloth
+rpc_week_label_da fome	Of Gluttony
+rpc_diff_text_easy	Easy
 rpc_diff_text_normal	Normal
-rpc_diff_text_hard	Difícil
+rpc_diff_text_hard	Hard
 rpc_diff_text_sonic	Sega
 rpc_diff_text_mario	Nintendo
 rpc_diff_text_mx	MX
 rpc_diff_text_lord-x	Lord X
 rpc_diff_text_hypno	Hypno
-rpc_playing_as	Jogando como:
-rpc_diff_neutral	Neutro
-rpc_diff_good_ending	F1NaL B0M?
-rpc_diff_true_ending	Final Verdadeiro
-rpc_diff_bad_ending	Final Ruim
-rpc_custom_cy_ato_1	Prólogo
-rpc_custom_cy_ato_2	Ato 2
-rpc_custom_cy_ato_3	Ato 3
-rpc_custom_cy_ato_4	Ato 4
-rpc_custom_cy_ato_5	Ato 5
-rpc_custom_cy_ato_6	Ato 6
-rpc_custom_cy_ato_7	Ato 7
-rpc_custom_cy_ato_8	Ato 8
-rpc_custom_cy_ato_8_half	Ato 8 - Intervalo
-rpc_custom_cy_ato_9	Ato 9
-rpc_custom_cy_ato_10	Epílogo
+rpc_playing_as	Playing as:
+rpc_diff_neutral	Neutral
+rpc_diff_good_ending	G0oD EnD1nG?
+rpc_diff_true_ending	True Ending
+rpc_diff_bad_ending	Bad Ending
+rpc_custom_cy_ato_1	Prologue
+rpc_custom_cy_ato_2	Act 2
+rpc_custom_cy_ato_3	Act 3
+rpc_custom_cy_ato_4	Act 4
+rpc_custom_cy_ato_5	Act 5
+rpc_custom_cy_ato_6	Act 6
+rpc_custom_cy_ato_7	Act 7
+rpc_custom_cy_ato_8	Act 8
+rpc_custom_cy_ato_8_half	Act 8 - Halftime
+rpc_custom_cy_ato_9	Act 9
+rpc_custom_cy_ato_10	Epilogue

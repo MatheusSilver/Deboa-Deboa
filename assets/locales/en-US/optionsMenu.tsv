@@ -1,8 +1,8 @@
 flag	context
-opt_settings	Configuracoes
-opt_controls	Controles
-opt_arrows	Tipo de Setas
-opt_language	Idioma
+opt_settings	Settings
+opt_controls	Controls
+opt_arrows	Note Colors
+opt_language	Language
 opt_hue	Hue
 opt_saturation	Saturacao
 opt_brightness	Brilho

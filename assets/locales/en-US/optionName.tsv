@@ -1,31 +1,31 @@
 flag	context
 opt_name_gore	Gore
 opt_name_fps_max	FPS
-opt_name_note_delay	Delay de Nota
-opt_name_game_volume	Volume dos Efeitos
-opt_name_fps_visible	FPS Visível
+opt_name_note_delay	Note Delay
+opt_name_game_volume	SFX Volume
+opt_name_fps_visible	Visible FPS
 opt_name_shaders	Shaders
-opt_name_low_quality	Baixa Qualidade
-opt_name_aliasing	Anti Aliasing
-opt_name_gpu	Texturas na GPU
+opt_name_low_quality	Low Quality
+opt_name_aliasing	AntiAliasing
+opt_name_gpu	GPU Textures
 opt_name_downscroll	Downscroll
 opt_name_hitsound	Hitsound
-opt_name_fullscreen	Tela Cheia
-opt_name_hitsound_test	Testar Hitsound
-opt_name_hitsound_type	Tipo de Hitsound
-opt_name_hitsound_volume	Volume do Hitsound
+opt_name_fullscreen	FullScreen
+opt_name_hitsound_test	Hitsound Test
+opt_name_hitsound_type	Hitsound type
+opt_name_hitsound_volume	Hitsound volume
 opt_name_middlescroll	Middlescroll
-opt_name_auto_pause	Pause Automático
-opt_name_splash	Splash de Notaa
-opt_name_focus	Modo Foco
-opt_name_flashing	Luzes Piscantes
-opt_name_subtitles	Legendas
-opt_name_opacity	Opacidade
-opt_name_cam_effects	Efeitos de câmera
-opt_name_hide_hud	Esconder HUD
-opt_name_hide_time	Esconder Barra de Tempo
+opt_name_auto_pause	Auto Pause
+opt_name_splash	Note Splashes
+opt_name_focus	Focus Mode
+opt_name_flashing	Flashing Lights
+opt_name_subtitles	Subtitles
+opt_name_opacity	Opacity
+opt_name_cam_effects	Camera Effects
+opt_name_hide_hud	Hide HUD
+opt_name_hide_time	Hide Time Bar
 opt_name_visuals_cap	VISUAL
 opt_name_gameplay_cap	GAMEPLAY
-opt_name_subt_cap	LEGENDAS
-opt_name_global_sounds_cap	SOM GLOBAL
-opt_name_hitsound_sounds_cap	SONS EXTRAS
+opt_name_subt_cap	SUBTITLES
+opt_name_global_sounds_cap	GLOBAL SOUND
+opt_name_hitsound_sounds_cap	EXTRA SOUNDS

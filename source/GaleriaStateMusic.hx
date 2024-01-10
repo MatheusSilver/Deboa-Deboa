@@ -391,6 +391,7 @@ class GaleriaStateMusic extends MusicBeatState
 		thumbtocandoagora.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
 		FlxTween.tween(thumbnailAuxiliar, {alpha: 0}, 0.1, {ease: FlxEase.linear, onComplete: function (twn:FlxTween){
 			remove(thumbnailAuxiliar);
+			thumbnailAuxiliar.destroy();
 			thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected], ClientPrefs.likesMap.get(GaleriaState.titulos[curSelected]));
 			thumbnailAuxiliar.alpha = 0;
 			add(thumbnailAuxiliar);
@@ -398,10 +399,7 @@ class GaleriaStateMusic extends MusicBeatState
 		}});
 		
 		if(isLetras)
-			textGroup.forEach(function(spr:FlxSprite)
-				{
-					FlxTween.tween(spr, {alpha: 0}, 0.1, {ease: FlxEase.linear});
-				});
+			textGroup.forEach(function(spr:FlxSprite){FlxTween.tween(spr, {alpha: 0}, 0.1, {ease: FlxEase.linear});});
 
 		loading_list.queue("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)");
 		loading_list.queue(GaleriaState.leMusic[curSelected].toLowerCase());

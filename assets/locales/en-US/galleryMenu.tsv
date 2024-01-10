@@ -1,9 +1,9 @@
 flag	context
-gall_rep_auto	Reprodução Automática
-gall_rep_loop	Reprodução em Looping
-gall_rep_rand	Reprodução aleatória
-gall_play_now	Tocando agora:
-gall_gallery_button	Galeria
-gall_music_button	Músicas
-gall_lyrics_button	Letra
+gall_rep_auto	Auto Play
+gall_rep_loop	Looping Playback
+gall_rep_rand	Random Playback
+gall_play_now	Playing now:
+gall_gallery_button	Gallery
+gall_music_button	Songs
+gall_lyrics_button	Lyrics
 gall_playlist_button	Playlist

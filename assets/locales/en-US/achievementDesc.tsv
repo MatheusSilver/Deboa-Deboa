@@ -1,35 +1,35 @@
 flag	context
-ach_desc_sync	Sincronizando Conquistas
-ach_desc_modboa	Abra o jogo pela primeira vez.
-ach_desc_tarado_do_menu	Olhe atentamente o menu por um bom tempo...
-ach_desc_fe_clear	Vença a Gran Finale
-ach_desc_hypno_clear	Vença a Pasta-Night jogando como Hypno
-ach_desc_mx_clear	Vença a Pasta-Night jogando como MX
-ach_desc_lx_clear	Vença a Pasta-Night jogando como Lord-X
-ach_desc_natal	Vença slaybells.
-ach_desc_toofest_fc	Irmão... Tu tá bem man? FC na too fest? medo...
-ach_desc_bye_bye_fc	Vença a Cycles sem errar
-ach_desc_control_fc	Vença Control com os gifs Ativados
-ach_desc_madrugada	Jogue round-a-bout num horário específico
-ach_desc_chaos_bot	Morra com o botplay ligado em Caos
-ach_desc_colecionador	Consiga todos os troféus
-ach_desc_sunky_fatos	Ouça o sunky cuspir fatos em milk
-ach_desc_rings	Pegue todos os aneis em Ameaça Tripla
-ach_desc_heroi	Vença todos os pecados
-ach_desc_prey_bot	Morra com o botplay ligado em caça
-ach_desc_fake_full_combo	Full Combo, PARABENS!!! Pena que foi na soulless logo tudo foi anulado :)
-ach_desc_prey_survive	Sobreviva ao ataque do Furnace em prey
-ach_desc_perfect	Complete uma música sem errar
-ach_desc_sidekick	Vença a sidekick
-ach_desc_tails_free	Liberte Tails em Ameaça Tripla
-ach_desc_knuckles_free	Liberte Knuckles em Ameaça Tripla
-ach_desc_eggman_free	Liberte Eggman em Ameaça Tripla
-ach_desc_side_deaths	Morra 5x seguidas em Sidekick
-ach_desc_besties	Vença a Melhores Amigos sem errar
-ach_desc_toastie	Você tentou rodar isso em uma torradeira?
-ach_desc_cy_clear	Vença a confronting yourself
-ach_desc_personel_clear	Vença o ColdSteel
-ach_desc_fisk	Sobreviva até o meio da Endless
-ach_desc_pibby	Vença o Pibby Sonic numa batalha de rap
-ach_desc_galeria	Veja toda a galeria
-ach_desc_pause_jumpscare	Deixe seu jogo pausado por muito tempo em triple trouble
+ach_desc_sync	Syncing achievements
+ach_desc_modboa	Start the game for the first time.
+ach_desc_tarado_do_menu	Look closely at the menu for a long time...
+ach_desc_fe_clear	Beat Gran Finale
+ach_desc_hypno_clear	Beat Pasta Night as Hypno
+ach_desc_mx_clear	Beat Pasta Night as MX
+ach_desc_lx_clear	Beat Pasta Night as Lord X
+ach_desc_natal	Beat Slaybells.
+ach_desc_toofest_fc	Bro... Are you ok? FC at too fest? :fearful:
+ach_desc_bye_bye_fc	Beat Ciclos with no misses
+ach_desc_control_fc	Beat Controle with gifs
+ach_desc_madrugada	Beat Voltas e Reviravoltas at a specific time
+ach_desc_chaos_bot	Lose Caos with botplay activated
+ach_desc_colecionador	Obtain all the trophies
+ach_desc_sunky_fatos	Listen to sunky spit facts in milk
+ach_desc_rings	Get all the rings in Ameaça Tripla
+ach_desc_heroi	Beat all the sins (not from Final Fantasy)
+ach_desc_prey_bot	Lose Caça with botplay activated
+ach_desc_fake_full_combo	Full Combo, CONGRATULATIONS!!! Too bad it was in Soulless so everything was nullified :)
+ach_desc_prey_survive	Survive Furnace attack in Caça
+ach_desc_perfect	Beat any song with no misses
+ach_desc_sidekick	Beat Sidekick
+ach_desc_tails_free	 Free Tails in Ameaça Tripla
+ach_desc_knuckles_free	Free Knuckles in Ameaça Tripla
+ach_desc_eggman_free	Free Eggman in Ameaça Tripla
+ach_desc_side_deaths	Lose 5 times in a row in Sidekick
+ach_desc_besties	Beat Melhores Amigos with no misses
+ach_desc_toastie	Have you tried to run the game on a toaster?
+ach_desc_cy_clear	Beat Contra Si Mesmo
+ach_desc_personel_clear	Beat ColdSteel
+ach_desc_fisk	Study Japanese with Majin in Infinito
+ach_desc_pibby	Beat Pibby Sonic
+ach_desc_galeria	See the entire gallery
+ach_desc_pause_jumpscare	Listen closely the pause menu music in Ameaça Tripla

@@ -1,5 +1,6 @@
 package;
 
+import flixel.graphics.FlxGraphic;
 import flixel.FlxCamera;
 import Achievements.AchievementObject;
 import LoadingState;
@@ -558,12 +559,9 @@ class MenuHistoria extends MusicBeatSubstate
 					ease: FlxEase.expoInOut,
 					onComplete: function(twn:FlxTween)
 					{
-						if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",'locales', true)))
-						{ // anti crashing moment
-							textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + pasta + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",'locales',true,true));
-							textoSprite.updateHitbox();
-							textoSprite.screenCenter(X);
-						}
+						textoSprite.loadGraphic(check_locale(pasta,  musicas[curSelected]));
+						textoSprite.updateHitbox();
+						textoSprite.screenCenter(X);
 						tweenpracima();
 					}
 				});
@@ -658,13 +656,8 @@ class MenuHistoria extends MusicBeatSubstate
 				ease: FlxEase.expoIn,
 				onComplete: function(twn:FlxTween)
 				{
-					if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-						'locales',true)))
-					{ // anti crashing moment
-						textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-							'locales',true,true));
-						textoSprite.updateHitbox();
-					}
+					textoSprite.loadGraphic(check_locale(assetName,  musicas[curSelected]));
+					textoSprite.updateHitbox();
 					textoSprite.x = FlxG.width + textoSprite.width;
 					FlxTween.tween(textoSprite, {x: ((FlxG.width - textoSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});
 				}
@@ -693,13 +686,8 @@ class MenuHistoria extends MusicBeatSubstate
 				ease: FlxEase.expoIn,
 				onComplete: function(twn:FlxTween)
 				{
-					if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-						'locales', true)))
-					{ // anti crashing moment
-						textoSprite.loadGraphic(Paths.image("scrolling/scroll-" + assetName + "/scroll-" + musicas[curSelected].toLowerCase() + " (txt)",
-							'locales', true,true));
-						textoSprite.updateHitbox();
-					}
+					textoSprite.loadGraphic(check_locale(assetName,  musicas[curSelected]));
+					textoSprite.updateHitbox();
 					textoSprite.x = 0 - textoSprite.width;
 					FlxTween.tween(textoSprite, {x: ((FlxG.width - textoSprite.width) / 2)}, curtimer, {ease: FlxEase.expoInOut});
 				}
@@ -734,5 +722,14 @@ class MenuHistoria extends MusicBeatSubstate
 				entrada();
 			}
 		});
+	}
+
+	private function check_locale(assetName:String, key:String):FlxGraphic
+	{
+		if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + assetName + "/scroll-" + key.toLowerCase() + " (txt)",'locales',true)))
+		{ // anti crashing moment
+			return Paths.image("scrolling/scroll-" + assetName + "/scroll-" + key.toLowerCase() + " (txt)",'locales',true,true);
+		}else
+			return Paths.image("scrolling/scroll-" + assetName + "/scroll-" + key.toLowerCase() + " (txt)");
 	}
 }

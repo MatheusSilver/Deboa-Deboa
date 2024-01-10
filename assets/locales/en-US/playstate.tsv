@@ -1,20 +1,20 @@
 flag	context
-play_rating_suck	Horrível
-play_rating_shit	Merda
-play_rating_bad	Ruim
+play_rating_suck	You Suck!
+play_rating_shit	Shit
+play_rating_bad	Bad
 play_rating_bruh	Bruh
 play_rating_meh	Meh
-play_rating_nice	Bom
-play_rating_good	Ótimo
-play_rating_great	Excelente
-play_rating_sick	Foda!
-play_rating_perfect	Perfeito!!
-play_counter_score	Pontos:
-play_counter_misses	Erros:
-play_counter_accuracy	Precisão:
+play_rating_nice	Nice
+play_rating_good	Good
+play_rating_great	Great
+play_rating_sick	Sick!
+play_rating_perfect	Perfect!!
+play_counter_score	Score:
+play_counter_misses	Misses:
+play_counter_accuracy	Accuracy:
 play_counter_sicks	Sicks:
 play_counter_goods	Goods:
 play_counter_shits	Shits:
 play_counter_sicks	Bads:
-play_pibby_error_desc	Projeto ModBoa parou de funcionar permanentemente!
-play_pibby_error_title	Glitch Fatal!
+play_pibby_error_desc	ModBoa project permanently stopped working!
+play_pibby_error_title	Fatality

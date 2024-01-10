@@ -1,19 +1,19 @@
 flag	context
-mod_desc_rand_note	As direções das notas mudam a cada tentativa
-mod_desc_fast_note	Aumenta drásticamente a velocidade da nota entre o surgimento e o alvo.
-mod_desc_slow_note	Diminui drásticamente a velocidade da nota entre o surgimento e o alvo.
-mod_desc_fade_in_note	As notas são invisíveis até se aproximarem do alvo
-mod_desc_fade_out_note	Notas desaparecem quando se aproximam do alvo
-mod_desc_more_damage	Erros removem mais vida que o de costume
-mod_desc_instakill	A música se encerra quando o combo é quebrado.
-mod_desc_less_damage	Erros custam menos vida que o de costume
-mod_desc_no_death	A música não irá terminar caso sua vida chegue a zero, ou caso erre algum evento.
-mod_desc_passive_regen	Sua vida irá regenerar mesmo que sem acertar as notas.
-mod_desc_more_regen	A barra de vida irá regenerar por acerto
-mod_desc_invisible_notes	Suas notas ficam totalmente invisiveis.
-mod_desc_spin_camera	O HUD ficarão girando o tempo todo em uma direção
-mod_desc_shake_camera	O HUD ficarão tremendo durante a musica inteira.
-mod_desc_flip_note	O caminho das notas se torna o oposto do que o de costume.
-mod_desc_paparazzi	Flashes na tela com certa frequência
-mod_desc_only_two	Cima e baixo não existem mais, apenas esquerda e direita
-mod_desc_single_button	Acerte todas as notas ao mesmo tempo apertando qualquer tecla
+mod_desc_rand_note	The directions of the notes change with each attempt
+mod_desc_fast_note	Drastically increases the speed of the note between emergence and the target.
+mod_desc_slow_note	Drastically decreases the speed of the note between emergence and the target.
+mod_desc_fade_in_note	The notes are invisible until they get close to the target.
+mod_desc_fade_out_note	Notes disappear as they approach the target.
+mod_desc_more_damage	Misses deal more damage than usual.
+mod_desc_instakill	The song ends when the combo is broken.
+mod_desc_less_damage	Misses deal less damage than usual.
+mod_desc_no_death	The song won't stop if your health reaches zero, or if you miss an event.
+mod_desc_passive_regen	Your health will slowly regenerate even if you don't hit the right notes.
+mod_desc_more_regen	Hits will restore more health than usual.
+mod_desc_invisible_notes	Your notes are completely invisible.
+mod_desc_spin_camera	The HUD will rotate in one direction all the time.
+mod_desc_shake_camera	The HUD will be shaking during the entire song.
+mod_desc_flip_note	The path of the notes becomes the opposite of the usual one.
+mod_desc_paparazzi	Call some cameramen to the scene to take pictures of you.
+mod_desc_only_two	Up and down will no longer exist, only left and right.
+mod_desc_single_button	Hit all the notes at the same time by pressing any key.

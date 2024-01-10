@@ -1,26 +1,26 @@
 flag	context
-opt_desc_gore	Desative isso para não visualizar\nos elementos com gore nas músicas.
+opt_desc_gore	Desative isso para não visualizar<X>os elementos com gore nas músicas.
 opt_desc_fps_max	Determina o máximo de FPS alcançavel.
-opt_desc_note_delay	Troca o quão cedo uma nota aparece.\n(feitos para fones bluetooth.)
+opt_desc_note_delay	Troca o quão cedo uma nota aparece.<X>(feitos para fones bluetooth.)
 opt_desc_game_volume	Altera o Volume dos efeitos sonoros do jogo inteiro.
-opt_desc_fps_visible	Se desmarcado, desativa os contadores do jogo,\ntais como o contador de FPS e de memória.
-opt_desc_shaders	Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)
-opt_desc_low_quality	Se marcado, retira elementos do cenário.\n(Deixa o jogo mais leve)
-opt_desc_aliasing	Se marcado, os sprites ficam com um serrilhado suave \n(Deixa o jogo mais pesado.)
-opt_desc_gpu	Se marcado, parte dos sprites serão carregados na GPU\nNão recomendado para dispositivos de entrada.
+opt_desc_fps_visible	Se desmarcado, desativa os contadores do jogo,<X>tais como o contador de FPS e de memória.
+opt_desc_shaders	Permite o uso de efeitos especiais de tela no jogo.<X>(Desmarcar aumenta a performance.)
+opt_desc_low_quality	Se marcado, retira elementos do cenário.<X>(Deixa o jogo mais leve)
+opt_desc_aliasing	Se marcado, os sprites ficam com um serrilhado suave <X>(Deixa o jogo mais pesado.)
+opt_desc_gpu	Se marcado, parte dos sprites serão carregados na GPU<X>Não recomendado para dispositivos de entrada.
 opt_desc_downscroll	Se marcado, as notas irão se mover de cima pra baixo.
 opt_desc_hitsound	Um som é tocado quando você acerta uma nota.
 opt_desc_fullscreen	Deixa o jogo em modo de tela cheia.
-opt_desc_hitsound_test	Aperte Enter para testar o volume e o som do Hitsound escolhido. \n A opção de hitsound precisa estar ativa para funcionar.
-opt_desc_hitsound_type	Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis \n Os Hitsounds precisam estar ativos para mudar esta opção.
-opt_desc_hitsound_volume	Altere o volume do som da Hitsound. \n Os Hitsounds precisam estar ativos para mudar esta opção.
+opt_desc_hitsound_test	Aperte Enter para testar o volume e o som do Hitsound escolhido. <X> A opção de hitsound precisa estar ativa para funcionar.
+opt_desc_hitsound_type	Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis <X> Os Hitsounds precisam estar ativos para mudar esta opção.
+opt_desc_hitsound_volume	Altere o volume do som da Hitsound. <X> Os Hitsounds precisam estar ativos para mudar esta opção.
 opt_desc_middlescroll	Se marcado, a nota do oponente irá sumir e a sua ficará no meio.
-opt_desc_auto_pause	Se desmarcado, não irá pausar automaticamente\nse você sair da janela do jogo enquanto\nestá em uma música.
+opt_desc_auto_pause	Se desmarcado, não irá pausar automaticamente<X>se você sair da janela do jogo enquanto<X>está em uma música.
 opt_desc_splash	Uma animação especial irá tocar quando acertar uma nota Sick!
 opt_desc_focus	Cria um fundo preto atrás das notas.
-opt_desc_flashing	Desativa as luzes piscantes se desmarcado.\nEspecialmente para pessoas fotossensíveis.
+opt_desc_flashing	Desativa as luzes piscantes se desmarcado.<X>Especialmente para pessoas fotossensíveis.
 opt_desc_subtitles	Ativa as legendas nas músicas.
 opt_desc_opacity	Altera a opacidade das legendas.
-opt_desc_cam_effects	Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica.
+opt_desc_cam_effects	Se marcado, a camera irá acompanhar as notas da música <X> também irá permitir outros efeitos de zoom acompanhados da batida da musica.
 opt_desc_hide_hud	Deixa o hud da música invisível.
 opt_desc_hide_time	Esconde o marcador de tempo da música.

@@ -1,19 +1,19 @@
 flag	context
-descVideo	Aperte espaço para pular
-langMenu	Seleção de Idioma
-label_high_score	RECORDE: 
-label_play_sample	Aperte <X0> para ouvir uma prévia da música, <X1> para abrir o menu de modifiers.
-label_pause_continue	Continuar
-label_pause_practice	Praticar
-label_pause_restart	Reiniciar
+descVideo	Press SPACE to skip
+langMenu	Language Selection:
+label_high_score	HIGH SCORE: 
+label_play_sample	Press <X0> to listen to the Song, <X1> to open the Modifiers Menu.
+label_pause_continue	Resume
+label_pause_practice	Practice
+label_pause_restart	Restart
 label_pause_botplay	Botplay
-label_pause_return	Voltar
-control_text_expla_yes	Um GIF irá aparecer em certas partes igual ao mod original<X>mas pode não ser compátivel com certos computadores.
-control_text_expla_no	Você terá a mesma experiência do mod original <X>mas os GIFs não serão mais um problema, isso tambem irá melhorar a performance.
-control_text_activate_gif	Deseja ativar os GIF's?
-common_text_yes	Sim
-common_text_no	Nope
-intro_text_vio_team	Time da Vio
-intro_text_presents	Apresenta
+label_pause_return	Exit
+control_text_expla_yes	A GIF will appear in certain parts just like the original mod<X>but it may not be compatible with certain devices.
+control_text_expla_no	You'll have the same experience as with the original mod <X>however GIFs will no longer be a problem, this will also improve performance.
+control_text_activate_gif	Would you like to activate the GIFs?
+common_text_yes	Yes
+common_text_no	No
+intro_text_vio_team	Vio Team
+intro_text_presents	Presents
 intro_text_ok_ok	ok ok
-intro_text_galaxy	Só a galáxia é o limite!
+intro_text_galaxy	Only the galaxy is the limit!

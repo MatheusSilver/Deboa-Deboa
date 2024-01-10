@@ -1,30 +1,30 @@
 flag	context
-key_note	NOTAS
+key_note	NOTES
 key_ui	UI
-key_down	Baixo
-key_up	Cima
-key_left	Esquerda
-key_right	Direita
-key_dodge	Desvio
-key_reset	Resetar
-key_accept	Aceitar
-key_return	Voltar
-key_pause	Pausar
+key_down	Down
+key_up	Up
+key_left	Left
+key_right	Right
+key_dodge	Dodge
+key_reset	Reset
+key_accept	Accept
+key_return	Back
+key_pause	Pause
 key_volume	VOLUME
-key_mute	Mutar
-key_volup	Aumentar
-key_voldown	Abaixar
-mobile_cont_right	Controle Destro
-mobile_cont_left	Controle Canhoto
-mobile_cont_keyboard	Controle Teclado
-mobile_cont_custom	Customizado
+key_mute	Mute
+key_volup	Up
+key_voldown	Down
+mobile_cont_right	Right Control
+mobile_cont_left	Left Control
+mobile_cont_keyboard	Keyboard
+mobile_cont_custom	Custom
 mobile_cont_hitbox	Hitbox
-mobile_solo_quit	Sair
-mobile_quit_save	Sair e Salvar
-mobile_export	Exportar
-mobile_import	Importar
-mobile_coordinate_up	Coordenada X do botão cima:
-mobile_coordinate_down	Coordenada X do botão baixo:
-mobile_coordinate_left	Coordenada X do botão esquerda:
-mobile_coordinate_right	Coordenada X do botão direita:
+mobile_solo_quit	Exit
+mobile_quit_save	Exit and Save
+mobile_export	Export
+mobile_import	Import
+mobile_coordinate_up	X coordinate of the top button:
+mobile_coordinate_down	X coordinate of the bottom button:
+mobile_coordinate_left	X coordinate of the left button:
+mobile_coordinate_right	X coordinate of the right button:
 

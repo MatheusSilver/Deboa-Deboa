@@ -1,8 +1,8 @@
 flag	context
-menu_story	Historia
+menu_story	Story Mode
 menu_freeplay	Freeplay
-menu_achievements	Conquistas
-menu_credits	Creditos
-menu_options	Opcoes
+menu_achievements	Achievements
+menu_credits	Credits
+menu_options	Settings
 menu_multiplayer	Multiplayer
-menu_disconnected	DESCONECTADO
+menu_disconnected	DISCONNECTED

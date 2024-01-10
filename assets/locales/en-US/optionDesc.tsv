@@ -1,26 +1,26 @@
 flag	context
-opt_desc_gore	Desative isso para não visualizar\nos elementos com gore nas músicas.
-opt_desc_fps_max	Determina o máximo de FPS alcançavel.
-opt_desc_note_delay	Troca o quão cedo uma nota aparece.\n(feitos para fones bluetooth.)
-opt_desc_game_volume	Altera o Volume dos efeitos sonoros do jogo inteiro.
-opt_desc_fps_visible	Se desmarcado, desativa os contadores do jogo,\ntais como o contador de FPS e de memória.
-opt_desc_shaders	Permite o uso de efeitos especiais de tela no jogo.\n(Desmarcar aumenta a performance.)
-opt_desc_low_quality	Se marcado, retira elementos do cenário.\n(Deixa o jogo mais leve)
-opt_desc_aliasing	Se marcado, os sprites ficam com um serrilhado suave \n(Deixa o jogo mais pesado.)
-opt_desc_gpu	Se marcado, parte dos sprites serão carregados na GPU\nNão recomendado para dispositivos de entrada.
-opt_desc_downscroll	Se marcado, as notas irão se mover de cima pra baixo.
-opt_desc_hitsound	Um som é tocado quando você acerta uma nota.
-opt_desc_fullscreen	Deixa o jogo em modo de tela cheia.
-opt_desc_hitsound_test	Aperte Enter para testar o volume e o som do Hitsound escolhido. \n A opção de hitsound precisa estar ativa para funcionar.
-opt_desc_hitsound_type	Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis \n Os Hitsounds precisam estar ativos para mudar esta opção.
-opt_desc_hitsound_volume	Altere o volume do som da Hitsound. \n Os Hitsounds precisam estar ativos para mudar esta opção.
-opt_desc_middlescroll	Se marcado, a nota do oponente irá sumir e a sua ficará no meio.
-opt_desc_auto_pause	Se desmarcado, não irá pausar automaticamente\nse você sair da janela do jogo enquanto\nestá em uma música.
-opt_desc_splash	Uma animação especial irá tocar quando acertar uma nota Sick!
-opt_desc_focus	Cria um fundo preto atrás das notas.
-opt_desc_flashing	Desativa as luzes piscantes se desmarcado.\nEspecialmente para pessoas fotossensíveis.
-opt_desc_subtitles	Ativa as legendas nas músicas.
-opt_desc_opacity	Altera a opacidade das legendas.
-opt_desc_cam_effects	Se marcado, a camera irá acompanhar as notas da música \n também irá permitir outros efeitos de zoom acompanhados da batida da musica.
-opt_desc_hide_hud	Deixa o hud da música invisível.
-opt_desc_hide_time	Esconde o marcador de tempo da música.
+opt_desc_gore	Turn this off if you don't want to see<X>the gore elements in the song.
+opt_desc_fps_max	Determines the maximum FPS achievable.
+opt_desc_note_delay	Change how soon a note appears.<X>(made specifically for bluetooth headsets.)
+opt_desc_game_volume	Changes the volume of the sound effects for the entire game.
+opt_desc_fps_visible	If unchecked, this disables the<X>FPS and Memory counters.
+opt_desc_shaders	Allows the use of special screen effects in the game.<X>(Unchecking increases performance.)
+opt_desc_low_quality	If checked, it removes elements from the scene.<X>(Checking increases performance.)
+opt_desc_aliasing	If checked, the sprites are smoothly serrated.<X>(Unchecking increases performance.)
+opt_desc_gpu	If checked, part of the sprites will be loaded into the GPU<X>Not recommended for entry-level devices.
+opt_desc_downscroll	If checked, the notes will move from top to bottom.
+opt_desc_hitsound	A sound is played when you hit a note.
+opt_desc_fullscreen	Set the game to full screen mode.
+opt_desc_hitsound_test	Press Enter to test the volume and sound of your chosen Hitsound.<X>(The hitsound option must be active for it to work.)
+opt_desc_hitsound_type	Choose your favorite osu sound when you hit a note from the 4 available<X>(The hitsound option must be active for it to work.)
+opt_desc_hitsound_volume	Change the volume of the Hitsound sound.<X>(The hitsound option must be active for it to work.)
+opt_desc_middlescroll	If marked, the opponent's score will disappear and yours will remain in the middle.
+opt_desc_auto_pause	If unchecked, the game will not pause automatically<X>if you leave the game window while in a song.
+opt_desc_splash	A special animation will play when you hit a Sick note!
+opt_desc_focus	Creates a black background behind the notes.
+opt_desc_flashing	Disables flashing lights if unchecked.
+opt_desc_subtitles	Enable subtitles on songs.
+opt_desc_opacity	Changes the opacity of subtitles.
+opt_desc_cam_effects	If checked, the camera will follow the notes of the song<X>will also allow for other zoom effects accompanied by the beat of the music.
+opt_desc_hide_hud	Set the game hud invisible.
+opt_desc_hide_time	Hide the song time marker.
