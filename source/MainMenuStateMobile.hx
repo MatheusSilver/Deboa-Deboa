@@ -261,19 +261,20 @@ class MainMenuStateMobile extends MusicBeatState
 		for (i in 0...optionShit.length){
 			var botao:MenuButton = new MenuButton("MainMenu", "menu_"+optionShit[i], 'menu', "sonic-3", false);
 			botao.setLock(optionShit[i]=="multiplayer" && (!GJClient.logged||!passouCY) || optionShit[i]=="freeplay"&&!passouCY);
-			if (botao.isLocked)
-				botao.alpha = 0.75;
+			/*if (botao.isLocked)
+				botao.alpha = 0.75;*/
+			botao.alpha = 0.75;
 			botao.ID = i;
 			botao.forEach(function(spr:FlxSprite){
 				spr.setGraphicSize(Std.int(spr.width*0.6));
 				spr.updateHitbox();
 			});
 			botao.screenCenter(Y);
-			botao.y -= FlxG.height/optionShit.length*(optionShit.length-i)-70;
+			botao.y -= FlxG.height/optionShit.length*(optionShit.length-i)-62;
 			botao.x = FlxG.width;
 
 			botao.button_text.x += 85;
-			botao.button_text.y -= 30;
+			botao.button_text.y -= 28;
 			menuItems.add(botao);
 			
 		}
@@ -281,7 +282,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 
 		for (i in 0...optionShit.length){
-				FlxTween.tween(menuItems.members[i], {x: FlxG.width - 1.8*menuItems.members[i].width}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
+				FlxTween.tween(menuItems.members[i], {x: FlxG.width - (2.15+(-i/13))*(menuItems.members[i].width/1.42)}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
 		}
 
 		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
@@ -385,7 +386,7 @@ class MainMenuStateMobile extends MusicBeatState
 			{
 				if(spr.ID == selecionado){
 					spr.alpha = 1;
-					FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width - 1.9*spr.width}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
+					FlxTween.tween(menuItems.members[spr.ID], {x: spr.x-35}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
 						onComplete: function(proximo:FlxTween)
 						{
 							FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width+10}, 1.0, {ease: FlxEase.expoInOut, startDelay: 0.3});
@@ -425,6 +426,10 @@ class MainMenuStateMobile extends MusicBeatState
 						{
 							MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState());
 						}
+					else
+					{
+						MusicBeatState.switchState(new MainMenuStateMobile());
+					}
 
 			}			
 		});
