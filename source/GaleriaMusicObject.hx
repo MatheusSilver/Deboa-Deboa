@@ -12,6 +12,8 @@ class GaleriaMusicObject extends FlxSpriteGroup
 {
 
     private static var likeStatus:String="neutral";
+    private static var thumb:FlxSprite;
+    private static var music_name:FlxText;
     public static var likeSprite:FlxSprite;
     public static var dislikeSprite:FlxSprite;
     private static var nome_da_musica:String;
@@ -22,8 +24,6 @@ class GaleriaMusicObject extends FlxSpriteGroup
         nome_da_musica=show_name;
         super();
 
-        var thumb:FlxSprite;
-        var music_name:FlxText;
         var letra_brasileira:FlxText; //Se não fosse a corzinha diferente isso aqui nem existiria
 
         thumb = new FlxSprite(100,100).loadGraphic(Paths.image("scrolling/artes/scroll-" + file_name + " (scroll)", 'preload'));
@@ -60,6 +60,19 @@ class GaleriaMusicObject extends FlxSpriteGroup
 
         if (likeStatus!="neutral")
             reloadLikeStatus();
+
+    }
+
+    public function reload_object(file_name:String, show_name:String, currentStatus:String="neutral"){
+        likeStatus=currentStatus;
+        nome_da_musica=show_name;
+
+        music_name.text = nome_da_musica;
+        thumb.loadGraphic(Paths.image("scrolling/artes/scroll-" + file_name + " (scroll)", 'preload'));
+
+        if (likeStatus!="neutral")
+            reloadLikeStatus();
+
 
     }
 

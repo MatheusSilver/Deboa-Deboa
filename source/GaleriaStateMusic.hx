@@ -390,11 +390,8 @@ class GaleriaStateMusic extends MusicBeatState
 		}});
 		thumbtocandoagora.loadGraphic(Paths.image('galeriamusicas/youtubemusic/scrollingshitos/' + GaleriaState.leMusic[curSelected].toLowerCase(), 'preload'));
 		FlxTween.tween(thumbnailAuxiliar, {alpha: 0}, 0.1, {ease: FlxEase.linear, onComplete: function (twn:FlxTween){
-			remove(thumbnailAuxiliar);
-			thumbnailAuxiliar.destroy();
-			thumbnailAuxiliar = new GaleriaMusicObject(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected], ClientPrefs.likesMap.get(GaleriaState.titulos[curSelected]));
+			thumbnailAuxiliar.reload_object(GaleriaState.leMusic[curSelected].toLowerCase(), GaleriaState.titulos[curSelected], ClientPrefs.likesMap.get(GaleriaState.titulos[curSelected]));
 			thumbnailAuxiliar.alpha = 0;
-			add(thumbnailAuxiliar);
 			FlxTween.tween(thumbnailAuxiliar, {alpha: 1}, 0.3, {ease: FlxEase.linear});
 		}});
 		

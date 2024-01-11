@@ -31,7 +31,7 @@ class KeysSubstate extends MusicBeatState {
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
 
-	private static var defaultKey:String = 'Resetar';
+	private var defaultKey:String = LangUtil.getString("key_reset", "key");
 	private var bindLength:Int = 0;
 
 	var optionShit:Array<Dynamic> = [

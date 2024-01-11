@@ -40,34 +40,63 @@ class LanguageBootState extends MusicBeatState
 		localeList = CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
 
 		for (i in 0...localeList.length)
-			textMenuItems.push(Main.tongue.getIndexString(LanguageBilingual, localeList[i], ClientPrefs.lingua));
+			textMenuItems.push(Main.tongue.getIndexString(Language, localeList[i], ClientPrefs.lingua));
 
 		grpOptionsTexts = new FlxTypedGroup<FlxText>();
 		add(grpOptionsTexts);
 
 		for (i in 0...textMenuItems.length)
 		{
-			var optionText:FlxText = new FlxText(0, 300 + (i * 43), 0, textMenuItems[i]);
-			trace(textMenuItems[i]);
-			optionText.setFormat(LangUtil.getFont('letravio'), 27, FlxColor.RED, LEFT);
+			var optionText:FlxText = new FlxText(0, 300 + (i * 43), FlxG.width, textMenuItems[i]);
+			optionText.setFormat(LangUtil.getFont('letravio'), 27, FlxColor.WHITE, CENTER);
 			optionText.screenCenter(X);
 			optionText.borderStyle = OUTLINE;
-			optionText.borderColor = FlxColor.BLACK;
+			optionText.borderColor = FlxColor.TRANSPARENT;			
 			optionText.antialiasing = ClientPrefs.globalAntialiasing;
 			optionText.ID = i;
 			grpOptionsTexts.add(optionText);
 		}
 
-		titleText = new FlxText(0, 150, 0, LangUtil.getString('langMenu'));
-		titleText.setFormat(LangUtil.getFont('letravio'), 48, 0xFFD71616, CENTER);
-		titleText.antialiasing = ClientPrefs.globalAntialiasing;
+		titleText = new FlxText(0, 150, FlxG.width, LangUtil.getString('langMenu'));
 		titleText.screenCenter(X);
+		titleText.setFormat(LangUtil.getFont('letravio'), 48, FlxColor.WHITE, CENTER);
+		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(titleText);
 
 		super.create();
+
+		changeSelection();
 	}
 
 	var selectedSomethin:Bool = false;
+
+	function changeSelection(direction:Int = 0):Void
+	{
+		if (direction < 0)
+			direction = textMenuItems.length - 1;
+			
+
+		if (direction >= textMenuItems.length)
+			direction = 0;
+
+		curSelected = direction;
+
+		Main.tongue.initialize({locale: localeList[curSelected]});
+
+		titleText.text = LangUtil.getString('langMenu');
+
+		textMenuItems=[];
+
+		for (i in 0...localeList.length)
+			textMenuItems.push(Main.tongue.getIndexString(Language, localeList[i], localeList[curSelected]));
+
+		grpOptionsTexts.forEach(function(txt:FlxText)
+			{
+				txt.text=textMenuItems[txt.ID];
+				if (txt.ID == curSelected) txt.setBorderStyle(OUTLINE, FlxColor.RED);
+				else txt.setBorderStyle(OUTLINE, FlxColor.TRANSPARENT);
+			});
+	}
 
 	override function update(elapsed:Float)
 	{
@@ -75,36 +104,13 @@ class LanguageBootState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P)
-			{
+			if (controls.UI_UP_P){
 				FlxG.sound.play(Paths.sound('scrollMenu'));
-				curSelected -= 1;
-			}
-
-			if (controls.UI_DOWN_P)
-			{
+				changeSelection(curSelected-1);
+			}else if (controls.UI_DOWN_P){
 				FlxG.sound.play(Paths.sound('scrollMenu'));
-				curSelected += 1;
+				changeSelection(curSelected+1);
 			}
-
-			if (curSelected < 0)
-				curSelected = textMenuItems.length - 1;
-
-			if (curSelected >= textMenuItems.length)
-				curSelected = 0;
-
-			titleText.text = LangUtil.getString('langMenu');
-			for (i in 0...localeList.length)
-				textMenuItems.push(Main.tongue.getIndexString(LanguageBilingual, localeList[i], localeList[curSelected]));
-
-			grpOptionsTexts.forEach(function(txt:FlxText)
-			{
-				if (txt.ID == curSelected)
-					txt.setBorderStyle(OUTLINE, 0xFFFFA7F3);
-				else
-					txt.setBorderStyle(OUTLINE, 0xFFEB489C);
-			});
-
 			if (controls.ACCEPT)
 			{
 				selectedSomethin = true;
