@@ -98,7 +98,7 @@ class ModifiersMenuState extends MusicBeatSubstate
                 x1 = 30;
             }
             var properties:Modifier = ModifiersManager.getAllProperties(i);
-            var modifierButton:ModifierButton = new ModifierButton(i, properties.name, ModifiersManager.isEnabled(i), x1, y1, properties.description, properties.multiplier, delay, delayNegativo);
+            var modifierButton:ModifierButton = new ModifierButton(i, properties.id, properties.name, ModifiersManager.isEnabled(i), x1, y1, properties.description, properties.multiplier, delay, delayNegativo);
             add(modifierButton);
             buttons.push(modifierButton);
             delay+=0.045;
@@ -216,6 +216,7 @@ class ModifiersMenuState extends MusicBeatSubstate
 class ModifierButton extends FlxSpriteGroup
 {
     public var id:Int;
+    public var nameID:String;
     public var name:String;
     public var enabled:Bool;
     public var desc:String;
@@ -227,7 +228,7 @@ class ModifierButton extends FlxSpriteGroup
     var delayPositivo:Float;
     var delayNegativo:Float;
 
-    public function new(id:Int, name:String, enabled:Bool, x1:Float, y1:Float, desc:String, multiplier:Float, delay:Float, delayNegativo:Float)
+    public function new(id:Int, nameID:String, name:String, enabled:Bool, x1:Float, y1:Float, desc:String, multiplier:Float, delay:Float, delayNegativo:Float)
     {
         super(0,0);
         this.alpha = 0;
@@ -235,6 +236,7 @@ class ModifierButton extends FlxSpriteGroup
         this.y1 = y1;
         this.id = id;
         this.name = name;
+        this.nameID = nameID;
         this.enabled = enabled;
         this.desc=desc;
         this.multiplier = multiplier;
@@ -242,13 +244,9 @@ class ModifierButton extends FlxSpriteGroup
         this.delayNegativo = delayNegativo;
         botao = new FlxSprite(0,0);
         botao.antialiasing = ClientPrefs.globalAntialiasing;
-        var nomeSemAcento:String = ModifiersManager.removerAcentos(this.name);
-        if (OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + nomeSemAcento)))
-        {
-            botao.loadGraphic(Paths.image("modifiers/botoes/" + nomeSemAcento));
-        }
-        else
-        {
+        if(OpenFlAssets.exists(Paths.imagechecker("modifiers/botoes/" + nameID))){
+            botao.loadGraphic(Paths.image("modifiers/botoes/"+nameID));
+        }else{
             botao.loadGraphic(Paths.image("modifiers/botoes/placeholder"));
         }
         botao.setGraphicSize(Std.int(botao.width *1.05));
