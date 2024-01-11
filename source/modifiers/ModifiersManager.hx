@@ -155,18 +155,6 @@ class ModifiersManager
         return isEnabled(getIdByName(name)); //Facilitar minha vida implementando cada uma dessas coisas.
     }
 
-    public static function removerAcentos(nome:String):String
-    {
-        var equivalents:Array<String> = ["a", "e", "i", "o", "u", "a", "e", "i", "o", "u", "a", "o", "a", "e", "i", "o", "u", "a", "e", "i", "o", "u"];
-        var accents:Array<String> = ["á", "é", "í", "ó", "ú", "â", "ê", "î", "ô", "û", "ã", "õ", "à", "è", "ì", "ò", "ù", "ä", "ë", "ï", "ö", "ü"];
-        var returnVar:String = nome;
-        for (i in 0...accents.length)
-        {
-            returnVar = returnVar.split(accents[i]).join(equivalents[i]);
-        }
-        return returnVar;
-    }
-
     public static function isUsingModifiers():Bool
     {
         return getFinalModifier() != 1;
