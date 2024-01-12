@@ -166,7 +166,7 @@ class TitleState extends MusicBeatState
 		if (FlxG.save.data.lingua == null){
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new LanguageBootState());
+			MusicBeatState.switchState(new LanguageState());
 		}
 		else if (ClientPrefs.pibby)
 		{
