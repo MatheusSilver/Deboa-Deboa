@@ -155,9 +155,7 @@ class TitleState extends MusicBeatState
 			PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true)); */
 		Highscore.load();
 
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 		#if FREEPLAY
 		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING

@@ -39,7 +39,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		instance = this;
 		PlayState.instance.callOnLuas('onGameOverStart', []);
 
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 
 		bg = new FlxSprite(0,0).loadGraphic(Paths.image('gameovers/'+bgType));
 		if(bgType != 'fleeplay')

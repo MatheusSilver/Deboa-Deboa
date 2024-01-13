@@ -29,7 +29,7 @@ class SobreVideo extends MusicBeatState
 	override function create()
 		{
             video.canSkip = false;
-            FlxG.mouse.visible = Main.mouse;
+            Main.mouseVisibility(true);
 			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);

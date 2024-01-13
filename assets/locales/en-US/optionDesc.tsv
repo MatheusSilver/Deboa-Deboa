@@ -12,7 +12,7 @@ opt_desc_downscroll	If checked, the notes will move from top to bottom.
 opt_desc_hitsound	A sound is played when you hit a note.
 opt_desc_fullscreen	Set the game to full screen mode.
 opt_desc_hitsound_test	Press Enter to test the volume and sound of your chosen Hitsound.<X>(The hitsound option must be active for it to work.)
-opt_desc_hitsound_type	Choose your favorite osu sound when you hit a note from the 4 available<X>(The hitsound option must be active for it to work.)
+opt_desc_hitsound_type	Choose your favorite osu sound when you hit a note from the 13 available<X>(The hitsound option must be active for it to work.)
 opt_desc_hitsound_volume	Change the volume of the Hitsound sound.<X>(The hitsound option must be active for it to work.)
 opt_desc_middlescroll	If marked, the opponent's score will disappear and yours will remain in the middle.
 opt_desc_auto_pause	If unchecked, the game will not pause automatically<X>if you leave the game window while in a song.

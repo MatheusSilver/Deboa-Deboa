@@ -61,9 +61,7 @@ class MenuPreHistoria extends MusicBeatState
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 
 		PlayState.modohistoria = false;
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 		WeekData.reloadWeekFiles(true);
 		if (curWeek >= WeekData.weeksList.length)
 			curWeek = 0;

@@ -12,7 +12,7 @@ opt_desc_downscroll	Se marcado, as notas irão se mover de cima pra baixo.
 opt_desc_hitsound	Um som é tocado quando você acerta uma nota.
 opt_desc_fullscreen	Deixa o jogo em modo de tela cheia.
 opt_desc_hitsound_test	Aperte Enter para testar o volume e o som do Hitsound escolhido. <X> A opção de hitsound precisa estar ativa para funcionar.
-opt_desc_hitsound_type	Escolha o seu som de osu favorito quando acertar uma nota entre os 4 disponíveis <X> Os Hitsounds precisam estar ativos para mudar esta opção.
+opt_desc_hitsound_type	Escolha o seu som de osu favorito quando acertar uma nota entre os 13 disponíveis <X> Os Hitsounds precisam estar ativos para mudar esta opção.
 opt_desc_hitsound_volume	Altere o volume do som da Hitsound. <X> Os Hitsounds precisam estar ativos para mudar esta opção.
 opt_desc_middlescroll	Se marcado, a nota do oponente irá sumir e a sua ficará no meio.
 opt_desc_auto_pause	Se desmarcado, não irá pausar automaticamente<X>se você sair da janela do jogo enquanto<X>está em uma música.

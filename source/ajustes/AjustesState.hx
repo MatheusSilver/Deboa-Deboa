@@ -56,7 +56,7 @@ class AjustesState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];*/
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
@@ -187,7 +187,7 @@ class AjustesState extends MusicBeatState
 						else if (object.alpha == 1)
 							out(object);
 					}
-				FlxG.mouse.visible = Main.mouse;
+				Main.mouseVisibility(true);
 			}
 
 		if (FlxG.sound.music.volume < 0.7)
@@ -199,16 +199,12 @@ class AjustesState extends MusicBeatState
 			GlobalSoundManager.play('cancelMenu');
 			ClientPrefs.save();
 			MusicBeatState.switchState(new MainMenuStateMobile());
+		}#if (debug && desktop) else if (FlxG.keys.justPressed.SEVEN)
+		{
+			selectedSomethin = true;
+			MusicBeatState.switchState(new editors.MasterEditorMenu());
 		}
-			#if desktop
-			#if debug
-			else if (FlxG.keys.justPressed.SEVEN)
-			{
-				selectedSomethin = true;
-				MusicBeatState.switchState(new editors.MasterEditorMenu());
-			}
-			#end
-			#end
+		#end
 			super.update(elapsed);	
 		}
 
@@ -234,9 +230,7 @@ class AjustesState extends MusicBeatState
 
 		function select(curSelected){
 			GlobalSoundManager.play('confirmMenu');
-			#if desktop
-				FlxG.mouse.visible = false;
-			#end 
+			Main.mouseVisibility(false);
 			selectedSomethin = true;
 			sumidao(curSelected);
 		}
@@ -245,13 +239,7 @@ class AjustesState extends MusicBeatState
 			switch (state)
 			{
 				case 'settings': MusicBeatState.switchState(new ajustes.BaseOptionsMenu()); //graficos, gameplay e etc.
-				case 'controls':
-					// fiz isso pois tem gente que joga de teclado no mobile.
-					#if desktop
-					MusicBeatState.switchState(new ajustes.KeysSubstate());
-					#elseif mobile
-					MusicBeatState.switchState(new ajustes.ControlesState());
-					#end
+				case 'controls': MusicBeatState.switchState(new #if desktop ajustes.KeysSubstate() #elseif mobile ajustes.ControlesState() #end);
 				case 'arrows': MusicBeatState.switchState(new ajustes.NotesSubState());
 				case 'gamejooj': MusicBeatState.switchState(new GameJoltLoginState());
 				case "language": MusicBeatState.switchState(new LanguageState());

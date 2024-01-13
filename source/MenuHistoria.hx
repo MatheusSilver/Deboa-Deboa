@@ -106,9 +106,7 @@ class MenuHistoria extends MusicBeatSubstate
 			nombres.push(leWeek.songs[j][3]);
 		}
 
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 		if (curSelected >= WeekData.weeksList.length)
 			curSelected = 0;
 		persistentUpdate = persistentDraw = true;
@@ -273,7 +271,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
-		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.buttonX.justPressed #end;
+		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.instance.buttonX.justPressed #end;
 
 		if(crossplataforma && !modifiersOpened && !movedBack && !selectedWeek && canOpenModifiers && MainMenuStateMobile.passouCY) {
 			modifiersOpened = true;

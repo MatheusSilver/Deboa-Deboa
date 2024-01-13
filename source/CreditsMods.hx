@@ -37,9 +37,7 @@ class CreditsMods extends MusicBeatState
 	override function create()
 	{
 		FlxTransitionableState.skipNextTransOut = true;
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 		canChange = false;
 		#if rpc
 		// Updating Discord Rich Presence

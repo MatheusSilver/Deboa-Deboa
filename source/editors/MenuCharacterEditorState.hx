@@ -72,7 +72,7 @@ class MenuCharacterEditorState extends MusicBeatState
 		add(tipText);
 
 		addEditorBox();
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 		updateCharTypeBox();
 
 		super.create();
@@ -273,9 +273,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if(FlxG.keys.justPressed.ESCAPE) {
-				#if !mobile
-				FlxG.mouse.visible = false;
-				#end
+				Main.mouseVisibility(false);
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 			}

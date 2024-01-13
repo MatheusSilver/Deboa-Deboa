@@ -155,7 +155,7 @@ class VideoEventState extends MusicBeatState
 	override function create()
 	{
 		FlxG.sound.music.stop(); // aaaaaaa
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 
 		instance = this;
 

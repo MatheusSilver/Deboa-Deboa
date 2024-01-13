@@ -51,8 +51,8 @@ class ModifiersMenuState extends MusicBeatSubstate
 		super();
         this.isFreeplay = isFreeplay;
         
-		FlxG.mouse.visible = Main.mouse; //Não precisa de if mobile já que no Main, tem a função que o code faria
-		#if rpc
+        Main.mouseVisibility(true);
+        #if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_modifiers", "rpc"), null);
 		#end
@@ -159,9 +159,7 @@ class ModifiersMenuState extends MusicBeatSubstate
 
     override function close()
     {
-        #if !mobile
-		FlxG.mouse.visible = false;
-		#end
+        Main.mouseVisibility(false);
         super.close();
     }
 

@@ -212,7 +212,7 @@ class BSLTouchUtils
 	}
 	#elseif mobile
 
-	public static function pegarpos(touch:flixel.input.touch.FlxTouch, pos:String):Int
+	public static function pegarpos(?touch:flixel.input.touch.FlxTouch, pos:String):Int
 	{
 		if (pos == 'x')
 			return touch.x;
