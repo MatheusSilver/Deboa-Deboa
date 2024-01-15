@@ -60,7 +60,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var isHost:Bool = false;
 	var myID:Int = 0;
 	var canInitMatch:Bool = false;
-	var selectedMusic:String = "confronting-yourself/confronting-yourself-hard";
+	var selectedMusic:String = "sink/sink-hard";
 	var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [0];
 
@@ -647,14 +647,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 
 		
-		if(daNoteReceived.length>0 && !imRemoving)
+		/*if(daNoteReceived.length>0 && !imRemoving)
 		{
 			imRemoving = true;
 			new FlxTimer().start(0.25, function(tmr:FlxTimer) {
 				daNoteReceived.remove(daNoteReceived[0]);
 				imRemoving = false;
 			});
-		}
+		}*/
 
 		/*if(isPlayingMatch)
 		{
