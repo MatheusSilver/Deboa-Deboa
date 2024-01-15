@@ -54,16 +54,18 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var okBt:FlxButton;
 
 	// SERVER
-	var client:Dynamic = null;
+	public var client:Dynamic = null;
 	var server:Dynamic = null;
 	var isOnServer:Bool = false;
 	var isHost:Bool = false;
 	var myID:Int = 0;
 	var canInitMatch:Bool = false;
-	var selectedMusic:String = "confronting-yourself";
+	var selectedMusic:String = "confronting-yourself/confronting-yourself-hard";
+	var isPlayingMatch:Bool = false;
+	public var daNoteReceived:Array<Int> = [0];
 
 	// PLAYERS
-	var players:Array<LobbyPlayer> = [new LobbyPlayer(174,190), new LobbyPlayer(681,190)];
+	public var players:Array<LobbyPlayer> = [new LobbyPlayer(174,190), new LobbyPlayer(681,190)];
 	public static var instance:MultiplayerMainMenuState;
 
 	override function create()
@@ -184,7 +186,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		// LEMBRAR DE ARRUMAR ISSO AQ DPS
-		if (controls.BACK && !ipBar.hasFocus && !isOnOptions && canClick)
+		if (controls.BACK && !ipBar.hasFocus && !isOnOptions && canClick && !isPlayingMatch)
 		{
 			GlobalSoundManager.play("cancelMenu");
 			if (isOnServer)
@@ -205,7 +207,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		// pra fazer o barulhinho
 		entrarBt.onOver.callback = onOverBtns;
 		configBt.onOver.callback = onOverBtns;
-		comecarBt.onOver.callback = canInitMatch ? onOverBtns : null;
+		comecarBt.onOver.callback = canInitMatch && !isPlayingMatch ? onOverBtns : null;
 		hostearBt.onOver.callback = onOverBtns;
 		voltarBt.onOver.callback = onOverBtns;
 
@@ -230,6 +232,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 			GlobalSoundManager.play('confirmMenu');
 			isOnOptions = false;
 		};
+		comecarBt.onDown.callback = function()
+		{
+			if(canInitMatch && !isPlayingMatch)
+			{
+				server.send({message: selectedMusic, verb: "init-match"});
+			}
+		}
 
 		// alpha stuff lesgo
 		hostearBt.alpha = Utils.BSLTouchUtils.over(hostearBt) && canClick ? 1 : 0.75;
@@ -251,7 +260,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			inputShit();
 		}
-
+		canInitMatch = isOnServer && !isPlayingMatch && isHost && players[1].nome != "Player 2";
 		super.update(elapsed);
 	}
 
@@ -309,6 +318,48 @@ class MultiplayerMainMenuState extends MusicBeatState
 					server.send({message: "versao incompativel", verb: 'all-leave'});
 				}
 			}
+			if (e.data.verb == "init-match")
+			{
+				selectedMusic = e.data.message;
+				initMatch();
+			}
+
+			if(e.data.verb == 'input-game')
+				{
+					var allMessage:Array<String> = e.data.message.split("\n");
+					if(Std.parseInt(allMessage[0]) != myID)
+					{
+						daNoteReceived.push(Std.parseInt(allMessage[1]));
+					}
+					else
+					{
+						server.send({message: e.data.message, verb: 'input-game'});
+					}
+				}
+
+			if(e.data.verb == 'carreguei')
+				{
+					if(myID != Std.parseInt(e.data.message))
+					{
+						MultiplayerPlayState.instance.podeComecar++;
+					}
+					else
+					{
+						server.send({message: e.data.message, verb: 'carreguei'});
+					}
+				}
+
+			if(e.data.verb == 'hits-e-misses')
+			{
+				var allMessage:Array<String> = e.data.message.split("\n");
+				if(Std.parseInt(allMessage[0]) != myID)
+				{
+					MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
+					MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
+				}
+			}
+
+
 		});
 
 		server.addEventListener(NetworkEvent.INIT_SUCCESS, function(e:NetworkEvent)
@@ -327,6 +378,50 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			avisarAlgo("Erro no servidor");
 		});
+	}
+
+	public function initMatch()
+	{
+		if(isPlayingMatch)
+			return;
+		isPlayingMatch = true;
+		openSubState(new multiplayer.MultiplayerPlayState(0, selectedMusic, isHost));
+	}
+
+	public function enviarInputGame(note:Int)
+	{
+		if(isHost)
+		{
+			server.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
+		}
+		else
+		{
+			client.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
+		}
+		//trace("Enviei Input "+Std.string(note));
+	}
+
+	public function enviarToPronto()
+	{
+		client.send({message: Std.string(myID), verb: 'carreguei'});
+	}
+
+	public function enviarMissesEHits(hits:Int, misses:Int)
+	{
+		if(isHost)
+		{
+			server.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
+		}
+		else
+		{
+			client.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
+		}
+	}
+
+	public function endMatch()
+	{
+		if(!isPlayingMatch)
+			return;
 	}
 
 	public function entrar()
@@ -354,6 +449,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 				mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2]);
 			}
 
+			if(e.data.verb == 'input-game')
+			{
+				var allMessage:Array<String> = e.data.message.split("\n");
+				if(Std.parseInt(allMessage[0]) != myID)
+				{
+					daNoteReceived.push(Std.parseInt(allMessage[1]));
+				}
+			}
+
 			if (e.data.verb == 'name')
 			{
 				var quemEqual:Array<String> = e.data.message.split("\n");
@@ -369,7 +473,29 @@ class MultiplayerMainMenuState extends MusicBeatState
 					avisarAlgo("Versões incompatíveis");
 				}
 			}
-			trace(e.data.message);
+			if (e.data.verb == "init-match")
+			{
+				selectedMusic = e.data.message;
+				initMatch();
+			}
+
+			if(e.data.verb == 'carreguei')
+				{
+					if(myID != Std.parseInt(e.data.message))
+					{
+						MultiplayerPlayState.instance.podeComecar++;
+					}
+				}
+
+				if(e.data.verb == 'hits-e-misses')
+					{
+						var allMessage:Array<String> = e.data.message.split("\n");
+						if(Std.parseInt(allMessage[0]) != myID)
+						{
+							MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
+							MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
+						}
+					}
 		});
 
 		client.addEventListener(NetworkEvent.INIT_SUCCESS, function(e:NetworkEvent)
@@ -438,13 +564,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 			switch (one)
 			{
 				case "cima":
-					players[zeroInt].keys[0] = true;
+					players[zeroInt].keys[2] = true;
 				case "baixo":
 					players[zeroInt].keys[1] = true;
 				case "direita":
-					players[zeroInt].keys[2] = true;
-				case "esquerda":
 					players[zeroInt].keys[3] = true;
+				case "esquerda":
+					players[zeroInt].keys[0] = true;
 			}
 
 			if (isServer)
@@ -452,20 +578,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 				server.send({message: zero + " " + one + " Segurei", verb: 'input'});
 			}
 
-				players[zeroInt].bfAnims(one);
+			players[zeroInt].bfAnims(one);
 		}
 		else
 		{
 			switch (one)
 			{
 				case "cima":
-					players[zeroInt].keys[0] = false;
+					players[zeroInt].keys[2] = false;
 				case "baixo":
 					players[zeroInt].keys[1] = false;
 				case "direita":
-					players[zeroInt].keys[2] = false;
-				case "esquerda":
 					players[zeroInt].keys[3] = false;
+				case "esquerda":
+					players[zeroInt].keys[0] = false;
 			}
 			if (isServer)
 			{
@@ -478,42 +604,62 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 	}
 
-	function inputShit()
+	var imRemoving:Bool = false;
+
+	public function inputShit()
 	{
-		textinhoDebug.text = players[0].keys.toString() + "\n" + players[1].keys.toString();
-		if (controls.NOTE_UP_P)
+		//trace("Player 1: "+players[0].keys.toString() + "\nPlayer 2: " + players[1].keys.toString());
+		if(!isPlayingMatch)
 		{
-			segureiObotao("cima");
-		}
-		if (controls.NOTE_DOWN_P)
-		{
-			segureiObotao("baixo");
-		}
-		if (controls.NOTE_RIGHT_P)
-		{
-			segureiObotao("direita");
-		}
-		if (controls.NOTE_LEFT_P)
-		{
-			segureiObotao("esquerda");
+			if (controls.NOTE_UP_P)
+				{
+					segureiObotao("cima");
+				}
+				if (controls.NOTE_DOWN_P)
+				{
+					segureiObotao("baixo");
+				}
+				if (controls.NOTE_RIGHT_P)
+				{
+					segureiObotao("direita");
+				}
+				if (controls.NOTE_LEFT_P)
+				{
+					segureiObotao("esquerda");
+				}
+		
+				if (controls.NOTE_UP_R)
+				{
+					solteiObotao("cima");
+				}
+				if (controls.NOTE_DOWN_R)
+				{
+					solteiObotao("baixo");
+				}
+				if (controls.NOTE_RIGHT_R)
+				{
+					solteiObotao("direita");
+				}
+				if (controls.NOTE_LEFT_R)
+				{
+					solteiObotao("esquerda");
+				}
 		}
 
-		if (controls.NOTE_UP_R)
+		
+		if(daNoteReceived.length>0 && !imRemoving)
 		{
-			solteiObotao("cima");
+			imRemoving = true;
+			new FlxTimer().start(0.25, function(tmr:FlxTimer) {
+				daNoteReceived.remove(daNoteReceived[0]);
+				imRemoving = false;
+			});
 		}
-		if (controls.NOTE_DOWN_R)
+
+		/*if(isPlayingMatch)
 		{
-			solteiObotao("baixo");
-		}
-		if (controls.NOTE_RIGHT_R)
-		{
-			solteiObotao("direita");
-		}
-		if (controls.NOTE_LEFT_R)
-		{
-			solteiObotao("esquerda");
-		}
+			trace(Std.string(daNoteReceived));
+		}*/
 	}
 
 	function avisarAlgo(avisarIssoAqui:String)
