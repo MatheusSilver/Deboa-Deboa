@@ -343,13 +343,23 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		vocals.play();
 	}
 
+	override function close()
+		{
+			Main.mouseVisibility(true);
+			MultiplayerMainMenuState.instance.endMatch();
+			super.close();
+		}
+
 	function sortByShit(Obj1:Note, Obj2:Note):Int
 	{
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
 
 	private function endSong() {
-
+		FlxG.sound.music.stop();
+		vocals.stop();
+		vocals.destroy();
+		close();
         trace("cabou !");
 	}
 
@@ -437,7 +447,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (roundedSpeed - 1));
 							daNote.y += 27.5 * ((_song.bpm / 100) - 1) * (roundedSpeed - 1);
 
-							if(daNote.mustPress || !daNote.ignoreNote)
+							if(daNote.mustPress || daNote.hitByOpponent)
 							{
 								if(daNote.y - daNote.offset.y * daNote.scale.y + daNote.height >= center
 									&& (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
@@ -453,7 +463,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 					} else {
 						daNote.y = (strumY - 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
 
-						if(daNote.mustPress || !daNote.ignoreNote)
+						if(daNote.mustPress || daNote.hitByOpponent)
 						{
 							if (daNote.isSustainNote
 								&& daNote.y + daNote.offset.y * daNote.scale.y <= center
@@ -490,6 +500,48 @@ class MultiplayerPlayState extends MusicBeatSubstate
 									notes.remove(daNote, true);
 									daNote.destroy();
 								}
+							else
+							{
+								if (ClientPrefs.downScroll) {
+									daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
+									if (daNote.animation.curAnim.name.endsWith('end')) {
+										daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * roundedSpeed + (46 * (roundedSpeed - 1));
+										daNote.y -= 46 * (1 - (fakeCrochet / 600)) * roundedSpeed;
+										if(PlayState.isPixelStage) {
+											daNote.y += 8;
+										} else {
+											daNote.y -= 19;
+										}
+									} 
+									daNote.y += (Note.swagWidth / 2) - (60.5 * (roundedSpeed - 1));
+									daNote.y += 27.5 * ((_song.bpm / 100) - 1) * (roundedSpeed - 1);
+
+									if(daNote.y - daNote.offset.y * daNote.scale.y + daNote.height >= center
+										&& (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
+									{
+										var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight);
+										swagRect.height = (center - daNote.y) / daNote.scale.y;
+										swagRect.y = daNote.frameHeight - swagRect.height;
+
+										daNote.clipRect = swagRect;
+									}
+								}
+								else
+								{
+									daNote.y = (strumY - 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
+										
+									if (daNote.isSustainNote
+										&& daNote.y + daNote.offset.y * daNote.scale.y <= center
+										&& (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
+									{
+										var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
+										swagRect.y = (center - daNote.y) / daNote.scale.y;
+										swagRect.height -= swagRect.y;
+		
+										daNote.clipRect = swagRect;
+									}
+								}
+							}
 						}
 					else
 					{

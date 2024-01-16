@@ -60,7 +60,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var isHost:Bool = false;
 	var myID:Int = 0;
 	var canInitMatch:Bool = false;
-	var selectedMusic:String = "confronting-yourself/confronting-yourself-hard";
+	var selectedMusic:String = /*"confronting-yourself/confronting-yourself-hard"*/"soulless/soulless-hard";
 	var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [0];
 
@@ -438,6 +438,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if(!isPlayingMatch)
 			return;
+		isPlayingMatch = false;
+		daNoteReceived = [];
+		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 	}
 
 	public function entrar()
@@ -666,8 +669,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(daNoteReceived.length>0 && !imRemoving)
 		{
 			imRemoving = true;
-			new FlxTimer().start(0.25, function(tmr:FlxTimer) {
-				daNoteReceived.remove(daNoteReceived[0]);
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				if(daNoteReceived.length>0)
+				{
+					daNoteReceived.remove(daNoteReceived[0]);
+				}
 				imRemoving = false;
 			});
 		}
