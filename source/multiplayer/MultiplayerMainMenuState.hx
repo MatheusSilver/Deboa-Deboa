@@ -60,7 +60,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var isHost:Bool = false;
 	var myID:Int = 0;
 	var canInitMatch:Bool = false;
-	var selectedMusic:String = "sink/sink-hard";
+	var selectedMusic:String = /*"confronting-yourself/confronting-yourself-hard"*/"soulless/soulless-hard";
 	var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [0];
 
@@ -422,6 +422,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if(!isPlayingMatch)
 			return;
+		isPlayingMatch = false;
+		daNoteReceived = [];
+		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 	}
 
 	public function entrar()

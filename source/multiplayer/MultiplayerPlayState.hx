@@ -343,13 +343,23 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		vocals.play();
 	}
 
+	override function close()
+		{
+			Main.mouseVisibility(true);
+			MultiplayerMainMenuState.instance.endMatch();
+			super.close();
+		}
+
 	function sortByShit(Obj1:Note, Obj2:Note):Int
 	{
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
 
 	private function endSong() {
-
+		FlxG.sound.music.stop();
+		vocals.stop();
+		vocals.destroy();
+		close();
         trace("cabou !");
 	}
 
