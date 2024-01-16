@@ -348,6 +348,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 						server.send({message: e.data.message, verb: 'carreguei'});
 					}
 				}
+			if (e.data.verb == "results"){
+				var data:Array<String> = CoolUtil.listFromString(e.data.message);
+				for (hit in data[1].split(",")){
+					ResultsSubstate.opp_data.push(Std.parseInt(hit));
+				}
+				ResultsSubstate.opp_high_combo = Std.parseInt(data[1]);
+				ResultsSubstate.opp_score = Std.parseInt(data[2]);
+			}
 
 			if(e.data.verb == 'hits-e-misses')
 			{
@@ -358,8 +366,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 					MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
 				}
 			}
-
-
 		});
 
 		server.addEventListener(NetworkEvent.INIT_SUCCESS, function(e:NetworkEvent)
@@ -417,6 +423,16 @@ class MultiplayerMainMenuState extends MusicBeatState
 			client.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
 		}
 	}
+
+	public function send_results(hits:Array<Int>, combo:Int, score:Int)
+	{
+		var hits_message:String = '';
+		for (hit in hits){hits_message += Std.string(hit) + ", ";}
+		hits_message = hits_message.substring(0, hits_message.length - 2); //Serve para remover o último ", "
+		user().send({message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score), verb: 'results'});
+	}
+
+	private function user():Dynamic{ return isHost ? server : client; }
 
 	public function endMatch()
 	{
