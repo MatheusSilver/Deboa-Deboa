@@ -650,14 +650,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 
 		
-		/*if(daNoteReceived.length>0 && !imRemoving)
+		if(daNoteReceived.length>0 && !imRemoving)
 		{
 			imRemoving = true;
-			new FlxTimer().start(0.25, function(tmr:FlxTimer) {
-				daNoteReceived.remove(daNoteReceived[0]);
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				if(daNoteReceived.length>0)
+				{
+					daNoteReceived.remove(daNoteReceived[0]);
+				}
 				imRemoving = false;
 			});
-		}*/
+		}
 
 		/*if(isPlayingMatch)
 		{
