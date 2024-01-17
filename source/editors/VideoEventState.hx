@@ -108,20 +108,13 @@ class VideoEventState extends MusicBeatState
 	var _file:FileReference;
 
 	// DADOS
-	
-	// A partir daqui dados de todos os video players
-	var nomedovideo:String = "AnimacoesJogaveis/fest.webm"; //anti crashing moment -yep
-	var x:String = "0"; //yep
-	var y:String = "0";//yep
-	var zoom:String = "1"; //yep
-	// A partir daqui video player do dav
-	var audiovolume:String = "1"; //yep
-	var muteplayaudio:String = "false"; //yep
-	var endingsong1:String = "false"; //nop
-	// A partir daqui webm video player do Silver
-	var chromakey:Float = 0; // Isso aqui só serve pros dados da exportação.
-	var layering:Float = 0; //yep
-	// cabô
+	var nomedovideo:String = "AnimacoesJogaveis/fest.mp";
+	var x:String = "0";
+	var y:String = "0";
+	var zoom:String = "1";
+	var audiovolume:String = "1";
+	var muteplayaudio:String = "false";
+	var endingsong1:String = "false";
 
 	// MP4
 	public static var videoSpr:FlxSprite;
@@ -208,9 +201,7 @@ class VideoEventState extends MusicBeatState
 				videoSpr.y = Std.parseFloat(ypos.text);
 				y = ypos.text;
 				videoSpr.setGraphicSize(Std.int(videoSpr.width * Std.parseFloat(zoombt.text)));
-				zoom = zoombt.text; 
-				layering = Std.parseFloat(layer.text); // parsefloat aqui
-				//endingsong1 = bool dentro do button
+				zoom = zoombt.text;
 				caminho = "assets/videos/" + nome.text;
 
 				if(Assets.exists(caminho)) {
@@ -288,7 +279,6 @@ class VideoEventState extends MusicBeatState
 				y = ypos.text;
 				videoSpr.setGraphicSize(Std.int(videoSpr.width * Std.parseFloat(zoombt.text)));
 				zoom = zoombt.text; 
-				layering = Std.parseFloat(layer.text); // parsefloat aqui
 			caminho = "assets/videos/" + nomedovideo;
 			trace("fui clicado");
 			trace(nomedovideo);
@@ -332,24 +322,8 @@ class VideoEventState extends MusicBeatState
 				_file.addEventListener(Event.CANCEL, onSaveCancel);
 				_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 				_file.save(result.trim(), "output.lua");
-				
-			case "modo de exportacao (trocar com Q-R)\n< VIDEO PLAYER WEBM (silver) >\nesconder hud: H":
-				result = {
-					'"comecarvideo",\n
-					"${output},\n
-					"${x}", "${y}", "${zoom}", "${chromakey}", "${layering}",\n
-					"",\n
-					"",\n
-					""';
-				}
-
-				_file = new FileReference();
-				_file.addEventListener(Event.COMPLETE, onSaveComplete);
-				_file.addEventListener(Event.CANCEL, onSaveCancel);
-				_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-				_file.save(result.trim(), "output.json");
-			}
 		}
+	}
 		});
 		export.cameras = [camBotoes];
 		export.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
@@ -436,8 +410,8 @@ class VideoEventState extends MusicBeatState
 		}
 
 	override function update(elapsed:Float) {
-		if(curselected < 1) curselected = 3;
-		if(curselected > 3) curselected = 1;
+		if(curselected < 1) curselected = 2;
+		if(curselected > 2) curselected = 1;
 		if(FlxG.keys.justPressed.Q) {
 			curselected--;
 		}
@@ -463,8 +437,6 @@ class VideoEventState extends MusicBeatState
 			savemode.text = "modo de exportacao (trocar com Q-R)\n< VIDEO PLAYER MP4 (dav) >\nesconder hud: H";
 			case 2:
 			savemode.text = "modo de exportacao (trocar com Q-R)\n< VIDEO PLAYER MP4 (silver) >\nesconder hud: H";
-			case 3:
-			savemode.text = "modo de exportacao (trocar com Q-R)\n< VIDEO PLAYER WEBM (silver) >\nesconder hud: H";
 		}
 		super.update(elapsed);
 	}

@@ -924,25 +924,6 @@ class FunkinLua {
 
 		});
 
-		Lua_helper.add_callback(lua,"playVideo", function() {
-			if (!GlobalVideo.get().playing)
-				GlobalVideo.get().play();
-		});
-
-		Lua_helper.add_callback(lua,"pauseVideo", function() {
-			if (!GlobalVideo.get().paused)
-				GlobalVideo.get().pause();
-		});
-
-		Lua_helper.add_callback(lua,"resumeVideo", function() {
-			if (GlobalVideo.get().paused)
-				GlobalVideo.get().pause(); //Talvez eu deveria arrumar isso...
-		});
-		
-		Lua_helper.add_callback(lua,"restartVideo", function() {
-			GlobalVideo.get().restart();
-		});
-
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {
 			if(PlayState.instance.modchartSprites.exists(obj)) {
 				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, CoolUtil.colorFromString(color));
@@ -1292,7 +1273,7 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "startVideo", function(videoFile:String) {
 			#if VIDEOS_ALLOWED
-			if(OpenFlAssets.exists("assets/videos/" + videoFile + ".webm")) 
+			if(OpenFlAssets.exists("assets/videos/" + videoFile + ".mp")) 
 			{
 				PlayState.instance.startVideo(videoFile);
 			} 

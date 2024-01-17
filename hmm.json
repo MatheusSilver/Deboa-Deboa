@@ -73,13 +73,6 @@
         "url": "https://github.com/Aidan63/linc_discord-rpc"
       },
       {
-        "name": "extension-webm",
-        "type": "git",
-        "dir": null,
-        "ref": "master",
-        "url": "https://github.com/Kade-github/extension-webm"
-      },
-      {
         "name": "linc_luajit",
         "type": "git",
         "dir": null,
