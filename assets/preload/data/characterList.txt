@@ -32,7 +32,6 @@ exefront
 faker
 Fleetway Christmas
 Fleetway Christmas2
-fleetway_death_bf
 fleetway-1
 fleetway-2
 fleetway-3

@@ -19,14 +19,6 @@ Agora a parte específica para compilações de android:
 
 `haxelib install actuate`
 
-`haxelib git extension-webm https://github.com/Daninnocent/extension-webm`
-
-Caso esteja fazendo a build para PC, execute o seguinte comando:
-`lime rebuild extension-webm windows`
-
-agora, caso seja para Android (o que provavelmente é):
-`lime rebuild extension-webm android`
-
 e ainda deverá instalar essa ultima extensão:
 `haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview`
 

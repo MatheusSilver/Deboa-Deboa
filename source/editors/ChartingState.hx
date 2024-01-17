@@ -77,7 +77,6 @@ class ChartingState extends MusicBeatState
 		['CharacterAlphaTween', "Value 1 = bf/gf/dad, \n value 2 = 'opacidade','duracao do tween"], 
 		['notestween', "Value 1 = notas do bf ou dad, \n value 2 = 'opacidade','duracao do tween"],
 		['eventos-tooslow', 'A essa altura do campeonato tu já deve ter entendido como isso funciona...'],
-		['comecarvideo', 'Value1 = nome do video \n value2 = "xPos", "yPos", "tamanho do video", "usa chroma key?"\n se chroma key = 1, então o chroma key será aplicado, se = qualquer outro numero, ele não será usado\n use apenas números no value2. Value3 = Caso o valor estiver igual a um, o vídeo ficará\n por baixo do bg, caso estiver igual a 0,\no vídeo ficará por cima do BG.'],
 		['estatica brow', 'faz estaticazinha ahahahha'],
 		['eventos-personel', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],
 		['eventos-needle', 'usada na prey, é literalmente só tu seguir\n o que está lá no hard code'],

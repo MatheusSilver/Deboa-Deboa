@@ -61,7 +61,6 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import sys.FileSystem;
 import sys.io.File;
-import webm.WebmPlayer;
 
 using StringTools;
 
@@ -349,8 +348,6 @@ class PlayState extends MusicBeatState
 	var phillyCityLightsEvent:FlxTypedGroup<BGSprite>;
 	var phillyCityLightsEventTween:FlxTween;
 	var trainSound:FlxSound;
-
-	public static var webmHandler:WebmHandler;
 
 	var limoKillingState:Int = 0;
 	var limo:BGSprite;
@@ -936,7 +933,8 @@ class PlayState extends MusicBeatState
 				sonicPulo.volume = 0.6;
 				sonicDash.volume = 0.6; // carregamento pra rodar uma única vez... Omega massa...
 				// Qual foi... O fleetway tem uma spritesheet inteira (Que ninguem vê) só pra atirar um laserzin
-			
+				// Hmmmmmmmmmmmmmm... Só salvando a minha ideia aqui. Ideia = Tirar o evento de changeCharacter pro Fleetway gigante e só abaixar a câmera de forma que não dê pra ver ele k
+
 				endingIndicator = new FlxSprite(Paths.image('empty')); // Só pra garantir que ele fique na frente da tela preta na hora do super sonico
 				endingIndicator.alpha = 0;
 				endingIndicator.cameras = [camHUD2];
@@ -2149,7 +2147,6 @@ class PlayState extends MusicBeatState
 
 	public var vidSound:FlxSound;
 	public var videoFrames:Int = 0;
-	public var videoSprite:FlxSprite;
 
 	public function addTextToDebug(text:String, color:FlxColor)
 	{
@@ -2423,119 +2420,6 @@ class PlayState extends MusicBeatState
 	}
 
 	public static var isPlayStateVideo:Bool = false;
-
-	public function backgroundVideo(source:String, xPos:Float = 0, yPos:Float = 0, tamanho:String = 'cheio', chromakey:Float = 0, layering:Float = 0, ?locale:Bool = false)
-	{	var video_dir:String = "assets/videos/" + source + '.webm';
-		if (locale)
-			var video_dir:String = 'assets/locales/${ClientPrefs.lingua}/videos+${source}.webm';
-		
-		if (!OpenFlAssets.exists(video_dir))
-		{
-			if (GlobalVideo.get() != null)
-			{
-				GlobalVideo.get().stop();
-
-				FlxG.stage.window.onFocusOut.remove(focusOut);
-				FlxG.stage.window.onFocusIn.remove(focusIn);
-				remove(videoSprite);
-				videoSprite.visible = false;
-				useVideo = false;
-			}
-			else
-			{
-				FlxG.log.add('O nome do vídeo está errado!!!');
-			}
-		}
-		else
-		{
-			if (SONG.song.toLowerCase() == 'illegal-download' && !ClientPrefs.lowQuality)
-				camLegenda.visible = false;
-			else
-				return;
-
-			useVideo = true;
-			isPlayStateVideo = true;
-
-			FlxG.stage.window.onFocusOut.add(focusOut);
-			FlxG.stage.window.onFocusIn.add(focusIn);
-
-			// !!!;;; assets/videos/daWeirdVid/dontDelete.webm
-
-			if (!FileSystem.exists("assets/videos/daWeirdVid/dontDelete.webm"))
-			{
-				var file = openfl.Assets.getBytes("assets/videos/daWeirdVid/dontDelete.webm");
-
-				File.saveBytes("assets/videos/daWeirdVid/dontDelete.webm", file);
-			}
-
-			var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
-			// WebmPlayer.SKIP_STEP_LIMIT = 90;
-			var str1:String = "WEBM SHIT";
-			webmHandler = new WebmHandler();
-			webmHandler.source(ourSource);
-			webmHandler.makePlayer();
-			webmHandler.webm.name = str1;
-
-			GlobalVideo.setWebm(webmHandler);
-
-			if (!FileSystem.exists(video_dir))
-			{
-				var file = openfl.Assets.getBytes(video_dir);
-
-				File.saveBytes(video_dir, file);
-			}
-
-			GlobalVideo.get().source(video_dir);
-			GlobalVideo.get().clearPause();
-			if (GlobalVideo.isWebm)
-			{
-				GlobalVideo.get().updatePlayer();
-			}
-			GlobalVideo.get().show();
-
-			if (GlobalVideo.isWebm)
-			{
-				GlobalVideo.get().restart();
-			}
-			else
-			{
-				GlobalVideo.get().play();
-			}
-
-			var data = webmHandler.webm.bitmapData;
-
-			videoSprite = new FlxSprite(xPos, yPos).loadGraphic(data);
-
-			if (tamanho == "cheio")
-				videoSprite.setGraphicSize(FlxG.width, FlxG.height);
-			else
-				videoSprite.setGraphicSize(Std.int(videoSprite.width * Std.parseFloat(tamanho)));
-
-			trace('poggers');
-
-			if (layering == 1)
-			{ // Layering = 1 significa que o video ficará abaixo dos bonecos mas acima do cenário
-				videoSprite.cameras = [camGame];
-				remove(gf);
-				remove(boyfriend);
-				remove(dad);
-				add(videoSprite);
-				add(gf);
-				add(boyfriend);
-				add(dad);
-			}
-			else
-			{ // Significa que o vídeo ficará acima de literalmente tudo.
-				videoSprite.cameras = [camHUD2];
-				add(videoSprite);
-			}
-
-			if (!songStarted)
-				webmHandler.pause();
-			else
-				webmHandler.resume();
-		}
-	}
 
 	public var videoSpr:FlxSprite;
 	#if desktop
@@ -3068,9 +2952,6 @@ class PlayState extends MusicBeatState
 		startingSong = false;
 		songStarted = true;
 
-		if (useVideo)
-			GlobalVideo.get().resume();
-
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
@@ -3526,10 +3407,6 @@ class PlayState extends MusicBeatState
 			}
 			paused = false;
 			pausarVideo(false);
-			if(useVideo)
-				{
-					webmHandler.resume();
-				}
 			callOnLuas('onResume', []);
 
 			#if rpc
@@ -3615,10 +3492,6 @@ class PlayState extends MusicBeatState
 		persistentDraw = true;
 		paused = true;
 		pausarVideo(true);
-		if(useVideo)
-		{
-			webmHandler.pause();
-		}
 
 		// no more gitaroo man easter egg :D
 		if (FlxG.sound.music != null)
@@ -4012,19 +3885,6 @@ class PlayState extends MusicBeatState
 			CustomFadeTransition.nextCamera = camHUD2;
 			MusicBeatState.switchState(new ChartingState());
 			limparCache = true;
-
-			if (useVideo)
-			{
-				useVideo = false;
-				GlobalVideo.get().stop();
-				videoSprite.visible = false;
-				//	remove(videoSprite);
-				#if sys
-				FlxG.stage.window.onFocusOut.remove(focusOut);
-				FlxG.stage.window.onFocusIn.remove(focusIn);
-				#end
-				removedVideo = true;
-			}
 
 			#if rpc
 			DiscordClient.changePresence("Chart Editor", null, null, true);
@@ -5720,11 +5580,6 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(camLegenda, {alpha: opacidade}, timer, {ease: FlxEase.cubeInOut});
 					}
 
-			case 'comecarvideo': // TO DO: sistema de preload de videos... Vai que algum maluco queira lançar o filme do jureg aqui...
-				var posAvancado:Array<String> = value2.split(',');
-				backgroundVideo(value1, Std.parseFloat(posAvancado[0] + 0.1), Std.parseFloat(posAvancado[1] + 0.1), posAvancado[2],
-					Std.parseFloat(posAvancado[3]), Std.parseFloat(posAvancado[4]), value3=="true");
-
 			case 'tempo infinito':
 				majinstrums = true;
 				triggerEventNote('noteskinchangeBF', 'Majin_Notes', '');
@@ -6014,16 +5869,6 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		updateTime = false;
 
-		if (useVideo)
-		{
-			useVideo = false;
-			GlobalVideo.get().stop();
-			FlxG.stage.window.onFocusOut.remove(focusOut);
-			FlxG.stage.window.onFocusIn.remove(focusIn);
-			videoSprite.visible = false;
-			remove(videoSprite);
-		}
-
 		deathCounter = 0;
 		seenCutscene = false;
 
@@ -6183,21 +6028,6 @@ class PlayState extends MusicBeatState
 			}
 			transitioning = true;
 		}
-	}
-
-	public function endWebm()
-	{
-		if (SONG.song.toLowerCase() == 'illegal-download')
-			camLegenda.visible = true;
-		trace('ended');
-		videoSprite.alpha = 0;
-		GlobalVideo.get().stop();
-		GlobalVideo.get().hide();
-		destruirsprites(videoSprite);
-		callOnLuas('onVideoEnd', []);
-		FlxG.stage.window.onFocusOut.remove(focusOut);
-		FlxG.stage.window.onFocusIn.remove(focusIn);
-		removedVideo = true;
 	}
 
 	#if ACHIEVEMENTS_ALLOWED

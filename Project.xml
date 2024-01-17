@@ -243,7 +243,6 @@
 	<haxelib name="linc_luajit"/>
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="actuate" />
-	<haxelib name="extension-webm"/>
 	<haxelib name="extension-networking"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 	<!-- Enables a terminal log prompt on debug builds -->

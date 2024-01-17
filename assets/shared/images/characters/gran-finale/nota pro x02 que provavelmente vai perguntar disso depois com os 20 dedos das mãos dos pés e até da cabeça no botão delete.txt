@@ -1,0 +1,5 @@
+﻿to colocando em preload pra não ter que me preocupar com o fato de os pés serem sprites separados : D
+
+Nota 2 - Decidi colocar tudo da aqui por motivos de preguiça : D
+
+Nota 3 - Bara bara bara bere bere bere bara bara bara bere bere bere bera
