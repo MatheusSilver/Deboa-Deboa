@@ -155,9 +155,7 @@ class TitleState extends MusicBeatState
 			PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true)); */
 		Highscore.load();
 
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 		#if FREEPLAY
 		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
@@ -166,7 +164,7 @@ class TitleState extends MusicBeatState
 		if (FlxG.save.data.lingua == null){
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new LanguageBootState());
+			MusicBeatState.switchState(new LanguageState());
 		}
 		else if (ClientPrefs.pibby)
 		{

@@ -9,9 +9,10 @@ play_rating_good	Ótimo
 play_rating_great	Excelente
 play_rating_sick	Foda!
 play_rating_perfect	Perfeito!!
-play_counter_score	Pontos:
-play_counter_misses	Erros:
-play_counter_accuracy	Precisão:
+play_counter_combo	Combo
+play_counter_score	Pontos
+play_counter_misses	Erros
+play_counter_accuracy	Precisão
 play_counter_sicks	Sicks:
 play_counter_goods	Goods:
 play_counter_shits	Shits:

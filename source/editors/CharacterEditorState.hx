@@ -192,7 +192,7 @@ class CharacterEditorState extends MusicBeatState
 		addAnimationsUI();
 		UI_characterbox.selected_tab_id = 'Character';
 
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 		reloadCharacterOptions();
 
 		super.create();
@@ -980,9 +980,7 @@ class CharacterEditorState extends MusicBeatState
 					MusicBeatState.switchState(new editors.MasterEditorMenu());
 					FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 				}
-				#if !mobile
-				FlxG.mouse.visible = false;
-				#end
+				Main.mouseVisibility(false);
 				return;
 			}
 			

@@ -36,9 +36,7 @@ class CreditsMusics extends MusicBeatState
 	override function create()
 	{
 		FlxTransitionableState.skipNextTransOut = true;
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_credit_menu", "rpc"), null);

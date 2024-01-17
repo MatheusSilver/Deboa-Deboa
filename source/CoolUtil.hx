@@ -21,6 +21,19 @@ class CoolUtil
 		['Hypno', '-hypno'] //7
 	];
 
+	inline public static function formatScore(zeros_vezes:Int, num_vezes:Int):String {
+        var zeros:String = repeat("0", zeros_vezes-(Std.int(Math.log(num_vezes)/Math.log(10))+1)); //Maldito haxe que não tem função log10 já imbutida :skull:
+        var num:String = Std.string(num_vezes);
+
+        return zeros + num;
+    }
+
+    inline public static function repeat(str:String, times:Int):String {
+        var result:String = "";
+        for (i in 0...times) result += str;
+        return result;
+    }
+
 	inline public static function capitalize(text:String){
 		return text.charAt(0).toUpperCase() + text.substr(1);
 	}

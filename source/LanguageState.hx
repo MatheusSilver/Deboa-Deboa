@@ -15,7 +15,7 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-class LanguageBootState extends MusicBeatState
+class LanguageState extends MusicBeatState
 {
 	var backdrop:FlxBackdrop;
 	var titleText:FlxText;
@@ -31,7 +31,7 @@ class LanguageBootState extends MusicBeatState
 	{
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ph'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ph2'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
@@ -139,15 +139,14 @@ class LanguageBootState extends MusicBeatState
 						{
 							FlxFlicker.flicker(txt, 1, 0.06, false, false, function(flick:FlxFlicker)
 							{
-								GlobalSoundManager.play("confirmMenu");
-								MusicBeatState.switchState(new TitleState());
+								MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
 							});
 						}
 						else
 						{
 							new FlxTimer().start(1, function(tmr:FlxTimer)
 							{
-								MusicBeatState.switchState(new TitleState());
+								MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
 							});
 						}
 					}

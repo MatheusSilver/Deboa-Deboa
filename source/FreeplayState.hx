@@ -144,9 +144,7 @@ class FreeplayState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.setGraphicSize(FlxG.width, FlxG.height);
 		add(bg);
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 		//Todos os lugares que tem esse trem do mouse devem ter uma restrição #ifmobile.
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -311,8 +309,8 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
-		var space = #if desktop FlxG.keys.justPressed.SPACE #else ui.FlxVirtualPad.buttonX.justPressed #end;
-		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.buttonY.justPressed #end;
+		var space = #if desktop FlxG.keys.justPressed.SPACE #else ui.FlxVirtualPad.instance.buttonX.justPressed #end;
+		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #else ui.FlxVirtualPad.instance.buttonY.justPressed #end;
 		
 
 		var shiftMult:Int = 1;

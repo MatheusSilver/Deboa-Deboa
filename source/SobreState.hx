@@ -34,7 +34,7 @@ class SobreState extends MusicBeatState
 		#if desktop
 		FlxG.mouse.load(Paths.image('sobremenu/galeria/cursor'), 1, 0, 0);
 		#end
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);
@@ -135,6 +135,10 @@ class SobreState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		#if (debug && desktop)
+		if(FlxG.keys.justPressed.ONE)
+			openSubState(new multiplayer.ResultsSubstate([1,2,3,4], 1,2,100));
+		#end
 		if (!menu_isLeft)
 		{
 			arrow.flipX = false;

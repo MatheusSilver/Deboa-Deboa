@@ -150,7 +150,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 		reloadText();
 
 		addEditorBox();
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 		updateCharTypeBox();
 		
 		super.create();

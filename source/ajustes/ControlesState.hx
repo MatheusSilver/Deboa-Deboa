@@ -95,7 +95,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 
 		//text
-		up_text = new FlxText(200, 200, 0,LangUtil.getString("mobile_coordinate_up", "key"), + _pad.buttonUp.x +" y:" + _pad.buttonUp.y, 24);
+		up_text = new FlxText(200, 200, 0,LangUtil.getString("mobile_coordinate_up", "key") + _pad.buttonUp.x +" y:" + _pad.buttonUp.y, 24);
 		down_text = new FlxText(200, 250, 0,LangUtil.getString("mobile_coordinate_down", "key") + _pad.buttonDown.x +" y:" + _pad.buttonDown.y, 24);
 		left_text = new FlxText(200, 300, 0,LangUtil.getString("mobile_coordinate_left", "key") + _pad.buttonLeft.x +" y:" + _pad.buttonLeft.y, 24);
 		right_text = new FlxText(200, 350, 0,LangUtil.getString("mobile_coordinate_right", "key") + _pad.buttonRight.x +" y:" + _pad.buttonRight.y, 24);

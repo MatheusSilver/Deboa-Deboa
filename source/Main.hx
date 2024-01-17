@@ -44,7 +44,6 @@ class Main extends Sprite
 
 	public static var fpsVar:FPS;
 	public static var tongue:FireTongueEx;
-	public static var mouse:Bool = #if mobile false; #else true; #end 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
 	public function new()
@@ -59,6 +58,15 @@ class Main extends Sprite
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
+	}
+
+	public static function mouseVisibility(visible:Bool):Void
+	{
+		#if desktop
+		FlxG.mouse.visible = visible;
+		#else
+		return;
+		#end
 	}
 
 	private function init(?E:Event):Void

@@ -97,7 +97,7 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -398,7 +398,7 @@ class MainMenuStateMobile extends MusicBeatState
 		}
 
 	function trocaDeState(state:Int){
-		//FlxG.mouse.visible = false;
+		//Main.mouseVisibility(false);
 		selectedSomethin = true;
 		clicavel = false;
 		checkiftouch = true;
@@ -443,7 +443,7 @@ class MainMenuStateMobile extends MusicBeatState
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		FlxG.mouse.visible = Main.mouse;
+		Main.mouseVisibility(true);
 
 		if(canClick)
 			{

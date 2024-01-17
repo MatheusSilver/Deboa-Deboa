@@ -554,9 +554,7 @@ class PlayState extends MusicBeatState
 		add(blackFuck);
 		blackFuck.alpha = 0;
 		blackFuck.visible = false;
-		#if !mobile
-		FlxG.mouse.visible = false;
-		#end
+		Main.mouseVisibility(false);
 
 		instance = this;
 
@@ -3971,7 +3969,7 @@ class PlayState extends MusicBeatState
 
 		if (ratingString == '?')
 		{
-			scoreTxt.text = LangUtil.getString("play_counter_score", "playstate") + ' ' + songScore + ' | '+ LangUtil.getString("play_counter_misses", "playstate") + ' ' + songMisses + ' | '+ LangUtil.getString("play_counter_accuracy", "playstate") + ' ' + ratingString;
+			scoreTxt.text = LangUtil.getString("play_counter_score", "playstate") + ': ' + songScore + ' | '+ LangUtil.getString("play_counter_misses", "playstate") + ': ' + songMisses + ' | '+ LangUtil.getString("play_counter_accuracy", "playstate") + ': ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\nErros: 0' + '\n' + ''; // Isso me incomoda muito nos prints que voces mandam...
 		}
 		else
@@ -3979,7 +3977,7 @@ class PlayState extends MusicBeatState
 			judgementCounter.text = LangUtil.getString("play_counter_sicks", "playstate") + ' ' + '${sicks}\n'+LangUtil.getString("play_counter_goods", "playstate") + ' ${goods}\n'+LangUtil.getString("play_counter_bads", "playstate") + '${bads}\n'+LangUtil.getString("play_counter_shits", "playstate") + ' ${shits}\n'+LangUtil.getString("play_counter_misses", "playstate") + ' ${songMisses}'
 				+ '\n'
 				+ ''; // Aparentemente eu exagerei kek
-			scoreTxt.text = LangUtil.getString("play_counter_score", "playstate") + ' ' + songScore + ' | '+LangUtil.getString("play_counter_misses", "playstate") + songMisses + ' | '+LangUtil.getString("play_counter_accuracy", "playstate") + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
+			scoreTxt.text = LangUtil.getString("play_counter_score", "playstate") + ': ' + songScore + ' | '+LangUtil.getString("play_counter_misses", "playstate")+ ': ' + songMisses + ' | '+LangUtil.getString("play_counter_accuracy", "playstate")+ ': ' + ratingString + ' (' + Math.floor(ratingPercent * 100) + '%)';
 		}
 
 		if (cpuControlled)
