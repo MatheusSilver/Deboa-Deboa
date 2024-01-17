@@ -936,7 +936,8 @@ class PlayState extends MusicBeatState
 				sonicPulo.volume = 0.6;
 				sonicDash.volume = 0.6; // carregamento pra rodar uma única vez... Omega massa...
 				// Qual foi... O fleetway tem uma spritesheet inteira (Que ninguem vê) só pra atirar um laserzin
-			
+				// Hmmmmmmmmmmmmmm... Só salvando a minha ideia aqui. Ideia = Tirar o evento de changeCharacter pro Fleetway gigante e só abaixar a câmera de forma que não dê pra ver ele k
+
 				endingIndicator = new FlxSprite(Paths.image('empty')); // Só pra garantir que ele fique na frente da tela preta na hora do super sonico
 				endingIndicator.alpha = 0;
 				endingIndicator.cameras = [camHUD2];
