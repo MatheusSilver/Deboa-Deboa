@@ -398,6 +398,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		var hits_message:String = '';
 		for (hit in hits){hits_message += Std.string(hit) + ", ";}
+		hits_message = hits_message.substring(0, hits_message.length - 2); //Serve para remover o último ", "
 		usuario.send({message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score), verb: 'results'});
 	}
 
