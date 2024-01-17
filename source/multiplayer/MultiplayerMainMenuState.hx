@@ -53,9 +53,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var avisoTexto:FlxText;
 	var okBt:FlxButton;
 
-	// SERVER
-	public var client:Dynamic = null;
-	var server:Dynamic = null;
+	// SERVER - acessos
+	public var client:Session = null;
+    public var server:Session = null;
+
+    // Acesso ao tipo de player.
+    public var usuario:Session = null;
+
+
 	var isOnServer:Bool = false;
 	var isHost:Bool = false;
 	var myID:Int = 0;
@@ -94,19 +99,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		textinhoDebug = new FlxText(0, 0, 0, "", 25, true);
 		textinhoDebug.screenCenter(XY);
 
-		hostearBt = new FlxButton(FlxG.width, 100, '');
-		hostearBt.loadGraphic(Paths.image('multiplayer/hospedarBt', 'preload'));
-		hostearBt.setGraphicSize(Std.int(hostearBt.width * 0.6));
-		hostearBt.updateHitbox();
-		hostearBt.screenCenter(X);
-		hostearBt.y = 1500;
+		hostearBt = createButton('multiplayer/hospedarBt', 0.6, 0, 1500);
 		add(hostearBt);
-		entrarBt = new FlxButton(FlxG.width, 100, '');
-		entrarBt.loadGraphic(Paths.image('multiplayer/entrarBt', 'preload'));
-		entrarBt.setGraphicSize(Std.int(entrarBt.width * 0.6));
-		entrarBt.updateHitbox();
-		entrarBt.screenCenter(X);
-		entrarBt.y = 1500;
+		entrarBt = createButton('multiplayer/entrarBt', 0.6, 0, 1500);
 		add(entrarBt);
 
 		add(multiplayerTxt);
@@ -131,22 +126,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			num++;
 		}
 
-		comecarBt = new FlxButton(FlxG.width, 100, '');
-		comecarBt.loadGraphic(Paths.image('multiplayer/iniciarBt', 'preload'));
-		comecarBt.setGraphicSize(Std.int(comecarBt.width * 0.6));
-		comecarBt.updateHitbox();
-		comecarBt.x = 276;
-		comecarBt.y = 563;
-		comecarBt.visible = false;
+		comecarBt = createButton('multiplayer/iniciarBt', 0.6, 276, 563, false, false);
 		add(comecarBt);
 
-		configBt = new FlxButton(FlxG.width, 100, '');
-		configBt.loadGraphic(Paths.image('multiplayer/configBt', 'preload'));
-		configBt.setGraphicSize(Std.int(configBt.width * 0.6));
-		configBt.updateHitbox();
-		configBt.x = 857;
-		configBt.y = 563;
-		configBt.visible = false;
+		configBt = createButton('multiplayer/configBt', 0.6, 857, 563, false, false );
 		add(configBt);
 
 		blackTrans = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -197,6 +180,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					server.send({message: 'fechei o server mano :c ', verb: 'all-leave'});
 					Network.destroySession(server);
 				}
+				usuario = null;
 			}
 			else
 			{
@@ -277,8 +261,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 			port: 8080,
 			max_connections: 2
 		});
-
 		server.start();
+		definirUsuario();
 
 		server.addEventListener(NetworkEvent.CONNECTED, function(e:NetworkEvent)
 		{
@@ -396,14 +380,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarInputGame(note:Int)
 	{
-		if(isHost)
-		{
-			server.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
-		}
-		else
-		{
-			client.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
-		}
+		usuario.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
 		//trace("Enviei Input "+Std.string(note));
 	}
 
@@ -414,25 +391,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarMissesEHits(hits:Int, misses:Int)
 	{
-		if(isHost)
-		{
-			server.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
-		}
-		else
-		{
-			client.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
-		}
+		usuario.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
 	}
 
 	public function send_results(hits:Array<Int>, combo:Int, score:Int)
 	{
 		var hits_message:String = '';
 		for (hit in hits){hits_message += Std.string(hit) + ", ";}
-		hits_message = hits_message.substring(0, hits_message.length - 2); //Serve para remover o último ", "
-		user().send({message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score), verb: 'results'});
+		usuario.send({message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score), verb: 'results'});
 	}
 
-	private function user():Dynamic{ return isHost ? server : client; }
+	private function definirUsuario():Void {usuario = isHost ? server : client;}
 
 	public function endMatch()
 	{
@@ -459,6 +428,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 
 		client.start();
+		definirUsuario();
 
 		client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e:NetworkEvent)
 		{
@@ -741,6 +711,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 		}
 	}
+							  //Não é mignon (malz...)
+	function createButton(file:String, scale:Float, x:Float, y:Float, visible:Bool = true, centralize:Bool = true):FlxButton {
+        var button = new FlxButton(x, y, '');
+        button.loadGraphic(Paths.image(file, 'preload'));
+        button.setGraphicSize(Std.int(button.width * scale));
+        button.updateHitbox();
+		if (centralize)
+        	button.screenCenter(X);
+        button.visible = visible;
+        return button;
+    }
 }
 
 class LobbyPlayer extends FlxSpriteGroup
