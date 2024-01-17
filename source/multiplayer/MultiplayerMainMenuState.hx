@@ -213,7 +213,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			isOnOptions = true;
 			configBt.visible = false;
 			comecarBt.visible = false;
-			openSubState(new OptionsSubstate(this));
+			openSubState(new OptionsSubstate());
 		}
 		comecarBt.onDown.callback = function()
 		{
@@ -778,7 +778,6 @@ class LobbyPlayer extends FlxSpriteGroup
 
 class OptionsSubstate extends MusicBeatSubstate
 {
-	var parent:FlxState;
 	var scrollBar:FlxScrollableArea;
 	var optionsObjects:FlxSpriteGroup;
 	// 0 = Bool, 1 = String, 2 = Int, 3 = Selection
@@ -798,10 +797,9 @@ class OptionsSubstate extends MusicBeatSubstate
 		["Teste aaa", 0]
 	];
 
-	public function new(parent:FlxState)
+	public function new()
 	{
 		super();
-		this.parent = parent;
 	}
 
 	override function create()
