@@ -2,6 +2,7 @@ package multiplayer;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.addons.display.FlxStarField.FlxStarField2D;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.input.keyboard.FlxKey;
@@ -21,6 +22,8 @@ import networking.utils.NetworkEvent;
 import networking.utils.NetworkMode;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
+import ibwwg.FlxScrollableArea;
+import flixel.math.FlxRect;
 
 using StringTools;
 
@@ -45,7 +48,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var voltarBt:FlxButton;
 	var opcoesBg:FlxSprite;
 	var blackTrans:FlxSprite;
-	var isOnOptions:Bool = false;
+	public var isOnOptions:Bool = false;
 
 	// SUBMENU AVISOS
 	var blackTransBG:FlxSprite;
@@ -208,14 +211,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 				return;
 			GlobalSoundManager.play('confirmMenu');
 			isOnOptions = true;
+			configBt.visible = false;
+			comecarBt.visible = false;
+			openSubState(new OptionsSubstate(this));
 		}
-		voltarBt.onDown.callback = function()
-		{
-			if (!isOnOptions)
-				return;
-			GlobalSoundManager.play('confirmMenu');
-			isOnOptions = false;
-		};
 		comecarBt.onDown.callback = function()
 		{
 			if(canInitMatch && !isPlayingMatch)
@@ -229,12 +228,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		entrarBt.alpha = Utils.BSLTouchUtils.over(entrarBt) && canClick ? 1 : 0.75;
 		comecarBt.alpha = Utils.BSLTouchUtils.over(comecarBt) && canClick && canInitMatch ? 1 : 0.75;
 		configBt.alpha = Utils.BSLTouchUtils.over(configBt) && canClick ? 1 : 0.75;
-		voltarBt.alpha = Utils.BSLTouchUtils.over(voltarBt) && canClick && isOnOptions ? 1 : 0.75;
-
-		// submenu options stuff
-		blackTrans.visible = isOnOptions;
-		opcoesBg.visible = isOnOptions;
-		voltarBt.visible = isOnOptions;
 
 		// server shit
 		multiplayerTxt.visible = !isOnServer;
@@ -780,5 +773,82 @@ class LobbyPlayer extends FlxSpriteGroup
 			{
 				bf.playAnim('idle', false);
 			}
+		}
+}
+
+class OptionsSubstate extends MusicBeatSubstate
+{
+	var parent:FlxState;
+	var scrollBar:FlxScrollableArea;
+	var optionsObjects:FlxSpriteGroup;
+	// 0 = Bool, 1 = String, 2 = Int, 3 = Selection
+	var options:Array<Dynamic> = [
+		["Trocar Lados", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0],
+		["Teste aaa", 0]
+	];
+
+	public function new(parent:FlxState)
+	{
+		super();
+		this.parent = parent;
+	}
+
+	override function create()
+	{
+		var num:Int = 0;
+		optionsObjects = cast add(new FlxSpriteGroup());
+		for (option in options) {
+			var button:OptionObject = new OptionObject(((100*num)+num*5), option[0], option[1]);
+			optionsObjects.add(button);
+			num++;
+		}
+
+		optionsObjects.setPosition(-1280, 0);
+
+		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), /*new FlxRect(-1280, 0, 1200, 100)*/optionsObjects.getHitbox(), ResizeMode.NONE, -1, FlxColor.LIME, this);
+		FlxG.cameras.add(scrollBar);
+	}
+	
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+		if (controls.BACK)
+		{
+			close();
+		}
+	}
+
+	override function close()
+	{
+		FlxG.cameras.remove(scrollBar);
+		MultiplayerMainMenuState.instance.isOnOptions = false;
+		super.close();
+	}
+}
+
+class OptionObject extends FlxSpriteGroup
+{
+	var button:FlxButton;
+	var text:FlxText;
+	var fundo:FlxSprite;
+
+	public function new(y:Int, label:String, type:Int)
+		{
+			super(0, y);
+			fundo = new FlxSprite(0,0).makeGraphic(1260, 100, FlxColor.GRAY);
+			add(fundo);
+			text = new FlxText(5,30,0,label, 24);
+			add(text);
 		}
 }
