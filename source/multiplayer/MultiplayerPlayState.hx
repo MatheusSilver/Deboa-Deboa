@@ -151,7 +151,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			vocals = new FlxSound();
 
 		generateSong(_song.song);
-		/*#if LUA_ALLOWED
+		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
 			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
 			if(Assets.exists(luaToLoad)) {
@@ -162,7 +162,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				});
 			}
 		}
-		#end*/
+		#end
 		noteTypeMap.clear();
 		noteTypeMap = null;
 

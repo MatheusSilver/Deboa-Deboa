@@ -94,7 +94,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		["Não Pode Fugir", "you-cant-run/you-cant-run-hard"],
 		["Ameaça Tripla", "triple-trouble/triple-trouble-hard"],
 		["Parceiro", "sidekick/sidekick-hard"],
-		["Gran Finale", "gran-finale/gran-finale"]
+		["Gran Finale", "gran-finale/gran-finale"],
+		["Profundezas", "sink/sink-hard"],
+		["Infinito", "endless/endless-hard"],
+		["Ciclos Infinitos", "endless-cycles/endless-cycles-hard"]
 	];
 	public var MusicaAtual:Int = 0;
 
