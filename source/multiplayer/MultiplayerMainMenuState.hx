@@ -31,6 +31,7 @@ using StringTools;
 import Discord.DiscordClient;
 #end
 
+
 class MultiplayerMainMenuState extends MusicBeatState
 {
 	// COISAS UI
@@ -75,6 +76,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 	// PLAYERS
 	public var players:Array<LobbyPlayer> = [new LobbyPlayer(174,190), new LobbyPlayer(681,190)];
 	public static var instance:MultiplayerMainMenuState;
+
+	// VARIAVEIS OPÇÕES
+	public var modos:Array<Dynamic> = [
+		["PONTOS", "Ganha quem tiver a maior pontuação."],
+		["HITS", "Ganha quem tiver mais hits."],
+		["ERROS", "Ganha quem tiver menos erros."]
+	];
+	public var ModoDeJogo:Int = 0;
+	public var TrocarLados:Bool = false;
+
+
 
 	override function create()
 	{
@@ -780,21 +792,13 @@ class OptionsSubstate extends MusicBeatSubstate
 {
 	var scrollBar:FlxScrollableArea;
 	var optionsObjects:FlxSpriteGroup;
-	// 0 = Bool, 1 = String, 2 = Int, 3 = Selection
+	// 0 = Bool, 1 = Selection
+	//name, type, desc
 	var options:Array<Dynamic> = [
-		["Trocar Lados", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0],
-		["Teste aaa", 0]
+		["Modo de Jogo", 1, "Muda o modo de jogo atual", 0],
+		/*["Musica Atual", 1, "Muda a musica atual"],*/ // amanha faço isso aq e mais uns outros
+		["Trocar Lados", 0, "Troca o lado dos jogadores", [MultiplayerMainMenuState.instance.TrocarLados, 2]]
+
 	];
 
 	public function new()
@@ -804,10 +808,13 @@ class OptionsSubstate extends MusicBeatSubstate
 
 	override function create()
 	{
-		var num:Int = 0;
+		var num:Int = 1;
 		optionsObjects = cast add(new FlxSpriteGroup());
+		var textoOptions:FlxText = new FlxText(550, 50, 0, "OPÇÕES", 30);
+		optionsObjects.add(textoOptions);
+
 		for (option in options) {
-			var button:OptionObject = new OptionObject(((100*num)+num*5), option[0], option[1]);
+			var button:OptionObject = new OptionObject(((100*num)+num*5), option[0], option[1], option[2], option[3]);
 			optionsObjects.add(button);
 			num++;
 		}
@@ -837,16 +844,148 @@ class OptionsSubstate extends MusicBeatSubstate
 
 class OptionObject extends FlxSpriteGroup
 {
-	var button:FlxButton;
-	var text:FlxText;
+	// principais
+	var nameTxt:FlxText;
+	var descTxt:FlxText;
 	var fundo:FlxSprite;
+	var type:Int;
+	var id:Int;
 
-	public function new(y:Int, label:String, type:Int)
+	//bool
+	var button:FlxButton;
+	var ativado:Bool;
+
+	//selection
+	var selection:SelectionObject;
+
+	public function new(y:Int, name:String, type:Int, desc:String, variable:Dynamic)
 		{
-			super(0, y);
-			fundo = new FlxSprite(0,0).makeGraphic(1260, 100, FlxColor.GRAY);
+			super(150, y);
+			this.type = type;
+			fundo = new FlxSprite(0,0).makeGraphic(1280-300, 100, FlxColor.GRAY);
 			add(fundo);
-			text = new FlxText(5,30,0,label, 24);
-			add(text);
+			nameTxt = new FlxText(5, 20, 0, name, 30);
+			add(nameTxt);
+			descTxt = new FlxText(5, 50, 0, desc, 20);
+			add(descTxt);
+
+			switch(type)
+			{
+				case 0: // se for só um bool
+					id = variable[1];
+					ativado = variable[0];
+					button = new FlxButton(1165.5-300+20, 18.5, "", clickButton);
+					button.loadGraphic(Paths.image(ativado?'multiplayer/submenus/checkbox_checked':'multiplayer/submenus/checkbox', 'preload'));
+					button.updateHitbox();
+					add(button);
+				case 1: // se for selecionável
+					selection = new SelectionObject(500, 18.5, variable);
+					add(selection);
+			}
 		}
+	
+	function clickButton()
+	{
+		ativado = !ativado;
+		button.loadGraphic(Paths.image(ativado?'multiplayer/submenus/checkbox_checked':'multiplayer/submenus/checkbox', 'preload'));
+		save();
+	}
+
+	function save()
+	{
+		switch(id)
+		{
+			case 2:
+				MultiplayerMainMenuState.instance.TrocarLados = ativado;
+		}
+	}
+}
+
+class SelectionObject extends FlxSpriteGroup
+{
+	var atual:FlxText;
+	var desc:FlxText;
+	var setaDireita:FlxButton;
+	var setaEsquerda:FlxButton;
+
+	var value:Int;
+	var list:Array<Dynamic>;
+	var id:Int;
+
+	public function new(x:Float, y:Float, variable:Dynamic)
+	{
+		super(x, y);
+		id = variable;
+
+		switch(id)
+		{
+			case 0:
+				value = MultiplayerMainMenuState.instance.ModoDeJogo;
+				list = MultiplayerMainMenuState.instance.modos;
+		}
+
+		atual = new FlxText(97.5, 7, 300, list[value][0], 25);
+		atual.autoSize = true;
+		atual.alignment = CENTER;
+		add(atual);
+		desc = new FlxText(97.5, 30, 300, list[value][1], 12);
+		desc.autoSize = true;
+		desc.alignment = CENTER;
+		add(desc);
+		setaEsquerda = new FlxButton(45, 0, "", clickEsquerda);
+		setaEsquerda.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
+		setaEsquerda.updateHitbox();
+		add(setaEsquerda);
+		setaDireita = new FlxButton(385, 0, "", clickDireita);
+		setaDireita.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
+		setaDireita.flipX=true;
+		setaDireita.updateHitbox();
+		add(setaDireita);
+	}
+
+	function clickEsquerda()
+	{
+		if(value-1 >= 0)
+			{
+				value--;
+			}
+			else
+			{
+				value = list.length-1;
+			}
+		save();
+
+	}
+
+	function clickDireita()
+		{
+			if(value+1 < list.length)
+				{
+					value++;
+				}
+				else
+				{
+					value = 0;
+				}
+			save();
+	
+		}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		atual.text = list[value][0];
+		desc.text = list[value][1];
+
+	}
+
+	function save()
+	{
+		switch(id)
+		{
+			case 0:
+				MultiplayerMainMenuState.instance.ModoDeJogo = value;
+		}
+	}
 }
