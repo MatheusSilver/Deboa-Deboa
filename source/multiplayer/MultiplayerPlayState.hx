@@ -71,11 +71,14 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var waitingForOthers:FlxText;
 
 
-	public function new(startPos:Float, whichSong:String, isHost:Bool) {
+	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int) {
 		instance = this;
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
-        isPlayer1 = isHost;
+        if(!trocarLados)
+			{isPlayer1 = isHost;}
+		else
+			{isPlayer1 = !isHost;};
         _song = Song.loadFromJson(whichSong);
 		_song.arrowSkin = "NOTE_assets";
 		_song.splashSkin = "noteSplashes";

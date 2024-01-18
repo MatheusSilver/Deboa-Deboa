@@ -69,7 +69,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var isHost:Bool = false;
 	var myID:Int = 0;
 	var canInitMatch:Bool = false;
-	var selectedMusic:String = /*"confronting-yourself/confronting-yourself-hard"*/"soulless/soulless-hard";
+	//var selectedMusic:String = "soulless/soulless-hard";
 	var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [0];
 
@@ -84,7 +84,19 @@ class MultiplayerMainMenuState extends MusicBeatState
 		["ERROS", "Ganha quem tiver menos erros."]
 	];
 	public var ModoDeJogo:Int = 0;
+
 	public var TrocarLados:Bool = false;
+
+	public var musicas:Array<Dynamic> = [
+		["Contra Si Mesmo", "confronting-yourself/confronting-yourself-hard"],
+		["Rastro", "chasing/chasing-hard"],
+		["Lerdeza", "too-slow/too-slow-hard"],
+		["Não Pode Fugir", "you-cant-run/you-cant-run-hard"],
+		["Ameaça Tripla", "triple-trouble/triple-trouble-hard"],
+		["Parceiro", "sidekick/sidekick-hard"],
+		["Gran Finale", "gran-finale/gran-finale"]
+	];
+	public var MusicaAtual:Int = 0;
 
 
 
@@ -231,7 +243,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			if(canInitMatch && !isPlayingMatch)
 			{
-				server.send({message: selectedMusic, verb: "init-match"});
+				server.send({message: Std.string(MusicaAtual) + "\n" +Std.string(TrocarLados)+ "\n"+ Std.string(ModoDeJogo), verb: "init-match"});
 			}
 		}
 
@@ -309,7 +321,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 			if (e.data.verb == "init-match")
 			{
-				selectedMusic = e.data.message;
+				var opcoes:Array<String> = e.data.message.split("\n");
+				MusicaAtual = Std.parseInt(opcoes[0]);
+				TrocarLados = opcoes[1]=="true"?true:false;
+				ModoDeJogo = Std.parseInt(opcoes[2]);
 				initMatch();
 			}
 
@@ -380,7 +395,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(isPlayingMatch)
 			return;
 		isPlayingMatch = true;
-		openSubState(new multiplayer.MultiplayerPlayState(0, selectedMusic, isHost));
+		openSubState(new multiplayer.MultiplayerPlayState(0, musicas[MusicaAtual][1], isHost, TrocarLados, ModoDeJogo));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -470,7 +485,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 			if (e.data.verb == "init-match")
 			{
-				selectedMusic = e.data.message;
+				var opcoes:Array<String> = e.data.message.split("\n");
+				MusicaAtual = Std.parseInt(opcoes[0]);
+				TrocarLados = opcoes[1]=="true"?true:false;
+				ModoDeJogo = Std.parseInt(opcoes[2]);
 				initMatch();
 			}
 
@@ -795,9 +813,9 @@ class OptionsSubstate extends MusicBeatSubstate
 	// 0 = Bool, 1 = Selection
 	//name, type, desc
 	var options:Array<Dynamic> = [
-		["Modo de Jogo", 1, "Muda o modo de jogo atual", 0],
-		/*["Musica Atual", 1, "Muda a musica atual"],*/ // amanha faço isso aq e mais uns outros
-		["Trocar Lados", 0, "Troca o lado dos jogadores", [MultiplayerMainMenuState.instance.TrocarLados, 2]]
+		["Modo de Jogo", 1, "Muda o modo de jogo atual", [MultiplayerMainMenuState.instance.ModoDeJogo, "mododejogo", true]],
+		["Musica Atual", 1, "Muda a musica atual", [MultiplayerMainMenuState.instance.MusicaAtual, "musicaatual"]], 
+		["Trocar Lados", 0, "Troca o lado dos jogadores", [MultiplayerMainMenuState.instance.TrocarLados, "trocarlados"]]
 
 	];
 
@@ -821,7 +839,7 @@ class OptionsSubstate extends MusicBeatSubstate
 
 		optionsObjects.setPosition(-1280, 0);
 
-		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), /*new FlxRect(-1280, 0, 1200, 100)*/optionsObjects.getHitbox(), ResizeMode.NONE, -1, FlxColor.LIME, this);
+		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), optionsObjects.getHitbox(), ResizeMode.NONE, -1, FlxColor.LIME, this);
 		FlxG.cameras.add(scrollBar);
 	}
 	
@@ -849,7 +867,7 @@ class OptionObject extends FlxSpriteGroup
 	var descTxt:FlxText;
 	var fundo:FlxSprite;
 	var type:Int;
-	var id:Int;
+	var id:String;
 
 	//bool
 	var button:FlxButton;
@@ -895,7 +913,7 @@ class OptionObject extends FlxSpriteGroup
 	{
 		switch(id)
 		{
-			case 2:
+			case "trocarlados":
 				MultiplayerMainMenuState.instance.TrocarLados = ativado;
 		}
 	}
@@ -910,28 +928,38 @@ class SelectionObject extends FlxSpriteGroup
 
 	var value:Int;
 	var list:Array<Dynamic>;
-	var id:Int;
+	var id:String;
 
 	public function new(x:Float, y:Float, variable:Dynamic)
 	{
 		super(x, y);
-		id = variable;
+		id = variable[1];
 
 		switch(id)
 		{
-			case 0:
+			case "mododejogo":
 				value = MultiplayerMainMenuState.instance.ModoDeJogo;
 				list = MultiplayerMainMenuState.instance.modos;
+			case "musicaatual":
+				value = MultiplayerMainMenuState.instance.MusicaAtual;
+				list = MultiplayerMainMenuState.instance.musicas;
 		}
 
-		atual = new FlxText(97.5, 7, 300, list[value][0], 25);
+		atual = new FlxText(97.5, 18, 300, list[value][0], 25);
 		atual.autoSize = true;
 		atual.alignment = CENTER;
 		add(atual);
-		desc = new FlxText(97.5, 30, 300, list[value][1], 12);
-		desc.autoSize = true;
-		desc.alignment = CENTER;
-		add(desc);
+
+		//se tem desc
+		if(variable[2] == true)
+		{
+			atual.y = 10;
+			desc = new FlxText(97.5, 30, 300, list[value][1], 12);
+			desc.autoSize = true;
+			desc.alignment = CENTER;
+			add(desc);
+		}
+
 		setaEsquerda = new FlxButton(45, 0, "", clickEsquerda);
 		setaEsquerda.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
 		setaEsquerda.updateHitbox();
@@ -976,7 +1004,10 @@ class SelectionObject extends FlxSpriteGroup
 		super.update(elapsed);
 
 		atual.text = list[value][0];
-		desc.text = list[value][1];
+		if(desc!=null)
+		{
+			desc.text = list[value][1];
+		}
 
 	}
 
@@ -984,8 +1015,10 @@ class SelectionObject extends FlxSpriteGroup
 	{
 		switch(id)
 		{
-			case 0:
+			case "mododejogo":
 				MultiplayerMainMenuState.instance.ModoDeJogo = value;
+			case "musicaatual":
+				MultiplayerMainMenuState.instance.MusicaAtual = value;
 		}
 	}
 }
