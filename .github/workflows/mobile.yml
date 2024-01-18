@@ -1,5 +1,19 @@
-name: Android Build OG
-on: workflow_dispatch
+# Obrigado Idklool
+
+name: Android Build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ optim-extra-2 ] # com isso ele nunca vai compilar sozinho quando for a master.
+  pull_request:
+    branches: [ optim-extra-2 ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   Build:
     runs-on: ubuntu-latest
@@ -43,19 +57,10 @@ jobs:
         run: |
           haxelib setup ~/haxelib
           haxelib install hxcpp 4.2.1 > /dev/null --quiet
-          haxelib install lime 7.9.0
-          haxelib install openfl 9.1.0
-          haxelib install flixel 4.11.0
-          haxelib install flixel-tools
-          haxelib install flixel-ui
-          haxelib install flixel-addons 2.11.0
-          haxelib install hscript
-          haxelib git faxe https://github.com/ashea-code/faxe
-          haxelib install actuate
-          haxelib git linc_luajit https://github.com/Sirox228/linc_luajit.git
-          haxelib git extension-networking
-          haxelib git hscript-ex https://github.com/ianharrigan/hscript-ex
-          haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview.git
+          haxelib install hmm --quiet
+          haxelib run hmm install
+          haxelib git extension-webview https://www.github.com/TeamX02/extension-webview.git
+          haxelib git linc_luajit https://www.github.com/Sirox228/linc_luajit.git
           haxelib list
 
       - name: Configure Android
@@ -65,10 +70,6 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set openfl 9.1.0
-          haxelib set lime 7.9.0
-          haxelib set flixel 4.11.0
-          haxelib set flixel-addons 2.11.0
           haxelib set hxcpp 4.2.1
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
@@ -114,6 +115,6 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: Big Chungus android
+          name: ModBoa Android
           path: export/release/android/bin/app/build/outputs/apk/debug
           if-no-files-found: warn
