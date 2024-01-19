@@ -17,9 +17,6 @@ import Discord.DiscordClient;
 
 class CreditsMods extends MusicBeatState
 {
-	// var videoMenu:FlxSprite = new FlxSprite(0,0);
-	// var video:MP4Handler = new MP4Handler();
-	// var letext:FlxText;
 	var bg:FlxSprite;
 	var faixa:FlxSprite;
 	var exe:FlxSprite;

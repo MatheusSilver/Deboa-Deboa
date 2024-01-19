@@ -12,8 +12,7 @@ class PreTitleState extends MusicBeatState
 
 	override function create()
 	{
-		FlxTransitionableState.skipNextTransIn = true;
-		FlxTransitionableState.skipNextTransOut = true;
+		FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 		jarodou = true;
 		var random1:Int = FlxG.random.int(1, 175); // Tava muito difícil de ver
 		if (FlxG.save.data.firstTime != null || !ClientPrefs.firstTime || FlxG.save.data.flashing != null) // Algum desses caras tem que funfar
@@ -21,6 +20,7 @@ class PreTitleState extends MusicBeatState
 			#if desktop
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
+				VideoStatePC.specialSetting = TITLE;
 				if (openfl.utils.Assets.exists(Paths.video('VideosRandoms/haha' + random1 + '.mp')))
 				{
 					VideoStatePC.videoPath = Paths.video('VideosRandoms/haha' + random1 + '.mp');

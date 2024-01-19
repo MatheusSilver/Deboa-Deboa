@@ -15,9 +15,6 @@ using StringTools;
 
 class SobreState extends MusicBeatState
 {
-	// var videoMenu:FlxSprite = new FlxSprite(0,0);
-	// var video:MP4Handler = new MP4Handler();
-	// var letext:FlxText;
 	var bg:FlxSprite;
 	var faixa:FlxSprite;
 	var gtext:FlxText;

@@ -439,7 +439,7 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		#if debug
 		if(FlxG.keys.justPressed.FOUR) giveAchievement('modboa');
-		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
+		//if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;

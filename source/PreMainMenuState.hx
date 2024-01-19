@@ -16,10 +16,6 @@ import Discord.DiscordClient;
 
 class PreMainMenuState extends MusicBeatState
 {
-	#if desktop
-	var videoMenu:FlxSprite = new FlxSprite(0, 0);
-	var video:MP4Handler = new MP4Handler();
-	#end
 	var letext:FlxText;
 	var simbotao:FlxButton;
 	var naobotao:FlxButton;
@@ -98,8 +94,9 @@ class PreMainMenuState extends MusicBeatState
 	{
 		GlobalSoundManager.play('confirmMenu');
 		#if desktop
+		VideoStatePC.specialSetting = NORMAL;
 		VideoStatePC.videoPath = Paths.video("aviso.mp");
-		VideoStatePC.NextState = "mainmenu";
+		VideoStatePC.NextState = new MainMenuStateMobile();
 		MusicBeatState.switchState(new VideoStatePC());
 		#elseif mobile
 		LoadingState.loadAndSwitchState(new VideoState('assets/videos/aviso.mp', new MainMenuStateMobile()));

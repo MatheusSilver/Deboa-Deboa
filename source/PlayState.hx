@@ -2048,8 +2048,6 @@ class PlayState extends MusicBeatState
 					Paths.sound(key);
 				case 'music':
 					Paths.music(key);
-				case 'video':
-					Paths.video(key);
 			}
 		}
 		if (veioNormal)
@@ -2421,10 +2419,7 @@ class PlayState extends MusicBeatState
 
 	public static var isPlayStateVideo:Bool = false;
 
-	public var videoSpr:FlxSprite;
-	#if desktop
-	public var video:MP4Handler;
-	#end
+	public var videoSpr:MP4Sprite;
 	public var letext:FlxText;
 
 	public function videoPlayerLegal(nomedovideo:String, x:String, y:String, tamanho:String)
@@ -2438,15 +2433,11 @@ class PlayState extends MusicBeatState
 			letext.alpha = 0;
 			add(letext); //ESSE TROÇO CRASHA SEM ESSE MARDITO TEXTO AAAAAAAAAAAAAAA
 
-			videoSpr = new FlxSprite(Std.parseInt(x), Std.parseInt(y));
-			VideoStatePC.NextState = "nenhum";
+			videoSpr = new MP4Sprite(Std.parseInt(x), Std.parseInt(y), PLAYSTATE);
 			videoSpr.visible = true;
-			video = new MP4Handler();
-			video.vimdoplaystatemano = true;
-			MP4Handler.iAmSobre = false;
-			video.canSkip = false;
+			videoSpr.canSkip = false;
 			add(videoSpr);
-			video.playMP4(diretorio, null, videoSpr, oldPosition);
+			videoSpr.playMP4(diretorio, null, oldPosition);
 			videoSpr.setGraphicSize(Std.int(videoSpr.width*Std.parseFloat(tamanho)));
 			playingVideoMP4 = true;
 		}
@@ -2463,13 +2454,9 @@ class PlayState extends MusicBeatState
 			triggerEventNote('comecarvideo', nomedovideo, '0, 0, "cheio", 0, 2');
 			#else
 			endingSong = endingSong1=="true";
-			videoSpr = new FlxSprite(0, 0);
-			VideoStatePC.NextState = "nenhum";
+			videoSpr = new MP4Sprite(0, 0, PLAYSTATE);
 			videoSpr.visible = true;
-			video = new MP4Handler();
-			video.vimdoplaystatemano = true;
-			MP4Handler.iAmSobre = false;
-			video.canSkip = true;
+			videoSpr.canSkip = true;
 			// if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
 			// videoSpr.setGraphicSize(FlxG.width, FlxG.height);
 			videoSpr.cameras = [camLegenda];
@@ -2489,8 +2476,8 @@ class PlayState extends MusicBeatState
 			letext.alpha = 0;
 			letext.cameras = [camLegenda];
 			add(letext);
-			trace(MP4Handler.vlcBitmap.length);
-			video.playMP4(diretorio, null, videoSpr, oldPosition);
+			trace(videoSpr.bitmap.length);
+			videoSpr.playMP4(diretorio, null, oldPosition);
 			playingVideoMP4 = true;
 			switch (curSong.toLowerCase())
 			{
@@ -2527,8 +2514,8 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (playingVideoMP4)
 		{
-			video.queronaoviver = true;
-			video.pausarvideo1(pausar);
+			videoSpr.queronaoviver = true;
+			videoSpr.pausarvideo1(pausar);
 			letext.alpha = 0;
 		}
 		#end
@@ -2539,7 +2526,8 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (playingVideoMP4)
 		{
-			video.onVLCComplete();
+			videoSpr.stop();
+			videoSpr.onVLCComplete();
 			letext.alpha = 0;
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
@@ -2548,9 +2536,8 @@ class PlayState extends MusicBeatState
 				return;
 			vocals.pause();
 			FlxG.sound.music.pause();
-			Conductor.songPosition += MP4Handler.vlcBitmap.length - MP4Handler.vlcBitmap.time;
-			trace(MP4Handler.vlcBitmap.length);
-			trace(MP4Handler.vlcBitmap.time);
+			//Conductor.songPosition += haxe.Int64.toInt(haxe.Int64.sub(videoSpr.bitmap.length, videoSpr.bitmap.time));
+			//O único problema é esse coiso ai :skull:
 			notes.forEachAlive(function(daNote:Note)
 			{
 				if (daNote.strumTime + 800 < Conductor.songPosition)
@@ -2603,6 +2590,7 @@ class PlayState extends MusicBeatState
 		camGame.alpha = 1;
 		remove(letext);
 		remove(videoSpr);
+		videoSpr.destroy();
 		playingVideoMP4 = false;
 	}
 
@@ -3586,9 +3574,7 @@ class PlayState extends MusicBeatState
 			}
 			if (alphaon && letext.alpha == 1 && FlxG.keys.justReleased.SPACE)
 			{
-				#if desktop
 				pularVideo();
-				#end
 			}
 		}
 		timeAccumulated += elapsed;
