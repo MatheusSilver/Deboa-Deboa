@@ -261,13 +261,6 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.canRegen = true;
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = PlayState.instance.camAchievement;
-					if (PlayState.useVideo)
-					{
-						PlayState.useVideo = false;
-						GlobalVideo.get().stop();
-						PlayState.instance.remove(PlayState.instance.videoSprite);
-						PlayState.removedVideo = true;
-					}
 					restartSong(!PlayState.instance.playingVideoMP4);
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					FlxG.sound.music.volume = 0;
@@ -278,13 +271,6 @@ class PauseSubState extends MusicBeatSubstate
 				
 				case "return":
 					podeJumpscare=false;
-					if (PlayState.useVideo)
-					{
-						PlayState.useVideo = false;
-						GlobalVideo.get().stop();
-						PlayState.instance.remove(PlayState.instance.videoSprite);
-						PlayState.removedVideo = true;
-					}
 					if(PlayState.instance.playingVideoMP4)
 						{
 							PlayState.instance.addBlackStuff(PlayState.instance.camLegenda);

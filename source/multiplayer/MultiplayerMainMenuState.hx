@@ -2,6 +2,7 @@ package multiplayer;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.addons.display.FlxStarField.FlxStarField2D;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.input.keyboard.FlxKey;
@@ -21,12 +22,15 @@ import networking.utils.NetworkEvent;
 import networking.utils.NetworkMode;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
+import ibwwg.FlxScrollableArea;
+import flixel.math.FlxRect;
 
 using StringTools;
 
 #if rpc
 import Discord.DiscordClient;
 #end
+
 
 class MultiplayerMainMenuState extends MusicBeatState
 {
@@ -45,7 +49,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var voltarBt:FlxButton;
 	var opcoesBg:FlxSprite;
 	var blackTrans:FlxSprite;
-	var isOnOptions:Bool = false;
+	public var isOnOptions:Bool = false;
 
 	// SUBMENU AVISOS
 	var blackTransBG:FlxSprite;
@@ -65,7 +69,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var isHost:Bool = false;
 	var myID:Int = 0;
 	var canInitMatch:Bool = false;
-	var selectedMusic:String = /*"confronting-yourself/confronting-yourself-hard"*/"soulless/soulless-hard";
+	//var selectedMusic:String = "soulless/soulless-hard";
 	var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [0];
 
@@ -73,10 +77,53 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var players:Array<LobbyPlayer> = [new LobbyPlayer(174,190), new LobbyPlayer(681,190)];
 	public static var instance:MultiplayerMainMenuState;
 
+	// VARIAVEIS OPÇÕES
+	public var modos:Array<Dynamic> = [
+		["PONTOS", "Ganha quem tiver a maior pontuação."],
+		["HITS", "Ganha quem tiver mais hits."],
+		["ERROS", "Ganha quem tiver menos erros."]
+	];
+	public var ModoDeJogo:Int = 0;
+
+	public var TrocarLados:Bool = false;
+
+	public var musicas:Array<Dynamic> = [
+		/*["Contra Si Mesmo", "confronting-yourself/confronting-yourself-hard"],
+		["Rastro", "chasing/chasing-hard"],
+		["Lerdeza", "too-slow/too-slow-hard"],
+		["Não Pode Fugir", "you-cant-run/you-cant-run-hard"],
+		["Ameaça Tripla", "triple-trouble/triple-trouble-hard"],
+		["Parceiro", "sidekick/sidekick-hard"],
+		["Gran Finale", "gran-finale/gran-finale"],
+		["Profundezas", "sink/sink-hard"],
+		["Infinito", "endless/endless-hard"],
+		["Ciclos Infinitos", "endless-cycles/endless-cycles-hard"]*/
+	];
+	public var MusicaAtual:Int = 0;
+
+	function getAllSongs():Array<Dynamic>
+	{
+		WeekData.reloadWeekFiles(true);
+		var nomesEPaths:Array<Dynamic> = [];
+		for (i in 0...WeekData.weeksList.length) {
+			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+			for (i in 0...leWeek.songs.length) {
+				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])]);
+			}
+		}
+		for (i in 0...WeekData.freeplayList.length) {
+			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+			for (i in 0...leWeek.songs.length) {
+				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])]);
+			}
+		}
+		return nomesEPaths;
+	}
+
 	override function create()
 	{
 		instance = this;
-
+		musicas = getAllSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		multiplayerTxt.y = -1500;
@@ -208,19 +255,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 				return;
 			GlobalSoundManager.play('confirmMenu');
 			isOnOptions = true;
+			configBt.visible = false;
+			comecarBt.visible = false;
+			openSubState(new OptionsSubstate());
 		}
-		voltarBt.onDown.callback = function()
-		{
-			if (!isOnOptions)
-				return;
-			GlobalSoundManager.play('confirmMenu');
-			isOnOptions = false;
-		};
 		comecarBt.onDown.callback = function()
 		{
 			if(canInitMatch && !isPlayingMatch)
 			{
-				server.send({message: selectedMusic, verb: "init-match"});
+				server.send({message: Std.string(MusicaAtual) + "\n" +Std.string(TrocarLados)+ "\n"+ Std.string(ModoDeJogo), verb: "init-match"});
 			}
 		}
 
@@ -229,12 +272,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		entrarBt.alpha = Utils.BSLTouchUtils.over(entrarBt) && canClick ? 1 : 0.75;
 		comecarBt.alpha = Utils.BSLTouchUtils.over(comecarBt) && canClick && canInitMatch ? 1 : 0.75;
 		configBt.alpha = Utils.BSLTouchUtils.over(configBt) && canClick ? 1 : 0.75;
-		voltarBt.alpha = Utils.BSLTouchUtils.over(voltarBt) && canClick && isOnOptions ? 1 : 0.75;
-
-		// submenu options stuff
-		blackTrans.visible = isOnOptions;
-		opcoesBg.visible = isOnOptions;
-		voltarBt.visible = isOnOptions;
 
 		// server shit
 		multiplayerTxt.visible = !isOnServer;
@@ -304,7 +341,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 			if (e.data.verb == "init-match")
 			{
-				selectedMusic = e.data.message;
+				var opcoes:Array<String> = e.data.message.split("\n");
+				MusicaAtual = Std.parseInt(opcoes[0]);
+				TrocarLados = opcoes[1]=="true"?true:false;
+				ModoDeJogo = Std.parseInt(opcoes[2]);
 				initMatch();
 			}
 
@@ -375,7 +415,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(isPlayingMatch)
 			return;
 		isPlayingMatch = true;
-		openSubState(new multiplayer.MultiplayerPlayState(0, selectedMusic, isHost));
+		openSubState(new multiplayer.MultiplayerPlayState(0, musicas[MusicaAtual][1], isHost, TrocarLados, ModoDeJogo));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -465,7 +505,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 			if (e.data.verb == "init-match")
 			{
-				selectedMusic = e.data.message;
+				var opcoes:Array<String> = e.data.message.split("\n");
+				MusicaAtual = Std.parseInt(opcoes[0]);
+				TrocarLados = opcoes[1]=="true"?true:false;
+				ModoDeJogo = Std.parseInt(opcoes[2]);
 				initMatch();
 			}
 
@@ -781,4 +824,221 @@ class LobbyPlayer extends FlxSpriteGroup
 				bf.playAnim('idle', false);
 			}
 		}
+}
+
+class OptionsSubstate extends MusicBeatSubstate
+{
+	var scrollBar:FlxScrollableArea;
+	var optionsObjects:FlxSpriteGroup;
+	// 0 = Bool, 1 = Selection
+	//name, type, desc
+	var options:Array<Dynamic> = [
+		["Modo de Jogo", 1, "Muda o modo de jogo atual", [MultiplayerMainMenuState.instance.ModoDeJogo, "mododejogo", true]],
+		["Musica Atual", 1, "Muda a musica atual", [MultiplayerMainMenuState.instance.MusicaAtual, "musicaatual"]], 
+		["Trocar Lados", 0, "Troca o lado dos jogadores", [MultiplayerMainMenuState.instance.TrocarLados, "trocarlados"]]
+
+	];
+
+	public function new()
+	{
+		super();
+	}
+
+	override function create()
+	{
+		var num:Int = 1;
+		optionsObjects = cast add(new FlxSpriteGroup());
+		var textoOptions:FlxText = new FlxText(550, 50, 0, "OPÇÕES", 30);
+		optionsObjects.add(textoOptions);
+
+		for (option in options) {
+			var button:OptionObject = new OptionObject(((100*num)+num*5), option[0], option[1], option[2], option[3]);
+			optionsObjects.add(button);
+			num++;
+		}
+
+		optionsObjects.setPosition(-1280, 0);
+
+		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), optionsObjects.getHitbox(), ResizeMode.NONE, -1, FlxColor.LIME, this);
+		FlxG.cameras.add(scrollBar);
+	}
+	
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+		if (controls.BACK)
+		{
+			close();
+		}
+	}
+
+	override function close()
+	{
+		FlxG.cameras.remove(scrollBar);
+		MultiplayerMainMenuState.instance.isOnOptions = false;
+		super.close();
+	}
+}
+
+class OptionObject extends FlxSpriteGroup
+{
+	// principais
+	var nameTxt:FlxText;
+	var descTxt:FlxText;
+	var fundo:FlxSprite;
+	var type:Int;
+	var id:String;
+
+	//bool
+	var button:FlxButton;
+	var ativado:Bool;
+
+	//selection
+	var selection:SelectionObject;
+
+	public function new(y:Int, name:String, type:Int, desc:String, variable:Dynamic)
+		{
+			super(150, y);
+			this.type = type;
+			fundo = new FlxSprite(0,0).makeGraphic(1280-300, 100, FlxColor.GRAY);
+			add(fundo);
+			nameTxt = new FlxText(5, 20, 0, name, 30);
+			add(nameTxt);
+			descTxt = new FlxText(5, 50, 0, desc, 20);
+			add(descTxt);
+
+			switch(type)
+			{
+				case 0: // se for só um bool
+					id = variable[1];
+					ativado = variable[0];
+					button = new FlxButton(1165.5-300+20, 18.5, "", clickButton);
+					button.loadGraphic(Paths.image(ativado?'multiplayer/submenus/checkbox_checked':'multiplayer/submenus/checkbox', 'preload'));
+					button.updateHitbox();
+					add(button);
+				case 1: // se for selecionável
+					selection = new SelectionObject(500, 18.5, variable);
+					add(selection);
+			}
+		}
+	
+	function clickButton()
+	{
+		ativado = !ativado;
+		button.loadGraphic(Paths.image(ativado?'multiplayer/submenus/checkbox_checked':'multiplayer/submenus/checkbox', 'preload'));
+		save();
+	}
+
+	function save()
+	{
+		switch(id)
+		{
+			case "trocarlados":
+				MultiplayerMainMenuState.instance.TrocarLados = ativado;
+		}
+	}
+}
+
+class SelectionObject extends FlxSpriteGroup
+{
+	var atual:FlxText;
+	var desc:FlxText;
+	var setaDireita:FlxButton;
+	var setaEsquerda:FlxButton;
+
+	var value:Int;
+	var list:Array<Dynamic>;
+	var id:String;
+
+	public function new(x:Float, y:Float, variable:Dynamic)
+	{
+		super(x, y);
+		id = variable[1];
+
+		switch(id)
+		{
+			case "mododejogo":
+				value = MultiplayerMainMenuState.instance.ModoDeJogo;
+				list = MultiplayerMainMenuState.instance.modos;
+			case "musicaatual":
+				value = MultiplayerMainMenuState.instance.MusicaAtual;
+				list = MultiplayerMainMenuState.instance.musicas;
+		}
+
+		atual = new FlxText(97.5, 18, 300, list[value][0], 25);
+		atual.autoSize = true;
+		atual.alignment = CENTER;
+		add(atual);
+
+		//se tem desc
+		if(variable[2] == true)
+		{
+			atual.y = 10;
+			desc = new FlxText(97.5, 30, 300, list[value][1], 12);
+			desc.autoSize = true;
+			desc.alignment = CENTER;
+			add(desc);
+		}
+
+		setaEsquerda = new FlxButton(45, 0, "", clickEsquerda);
+		setaEsquerda.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
+		setaEsquerda.updateHitbox();
+		add(setaEsquerda);
+		setaDireita = new FlxButton(385, 0, "", clickDireita);
+		setaDireita.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
+		setaDireita.flipX=true;
+		setaDireita.updateHitbox();
+		add(setaDireita);
+	}
+
+	function clickEsquerda()
+	{
+		if(value-1 >= 0)
+			{
+				value--;
+			}
+			else
+			{
+				value = list.length-1;
+			}
+		save();
+
+	}
+
+	function clickDireita()
+		{
+			if(value+1 < list.length)
+				{
+					value++;
+				}
+				else
+				{
+					value = 0;
+				}
+			save();
+	
+		}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		atual.text = list[value][0];
+		if(desc!=null)
+		{
+			desc.text = list[value][1];
+		}
+
+	}
+
+	function save()
+	{
+		switch(id)
+		{
+			case "mododejogo":
+				MultiplayerMainMenuState.instance.ModoDeJogo = value;
+			case "musicaatual":
+				MultiplayerMainMenuState.instance.MusicaAtual = value;
+		}
+	}
 }
