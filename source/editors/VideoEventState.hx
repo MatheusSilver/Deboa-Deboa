@@ -88,7 +88,7 @@ import flixel.FlxG;
 import flixel.FlxCamera;
 import flixel.FlxSprite;
 import flixel.FlxObject;
-import MP4Handler;
+import MP4Sprite;
 import flixel.util.FlxColor;
 import openfl.net.FileReference;
 import openfl.events.Event;
@@ -117,8 +117,7 @@ class VideoEventState extends MusicBeatState
 	var endingsong1:String = "false";
 
 	// MP4
-	public static var videoSpr:FlxSprite;
-	public static var video:MP4Handler;
+	public static var video:MP4Sprite;
 	var letext:FlxText;
 	public static var mp4playing:Bool = false;
 	public static var mp4paused:Bool = false;
@@ -172,18 +171,14 @@ class VideoEventState extends MusicBeatState
 		letext.alpha = 0;
 		add(letext); //ESSE TROÇO CRASHA SEM ESSE MARDITO TEXTO AAAAAAAAAAAAAAA
 		
-		videoSpr = new FlxSprite(0, 0);
-		videoSpr.visible = true;
-		videoSpr.cameras = [camVideo];
-		VideoStatePC.NextState = "nenhum";
-		
-		video = new MP4Handler();
-		video.vimdoplaystatemano = true; // Não sei pra que isso serve, mas vou seguir os passos do mano davzera games
+			
+		video = new MP4Sprite(0,0,EDITOR);
 		video.canSkip = false;
 
-		MP4Handler.iAmSobre = false;
+		video.visible = true;
+		video.cameras = [camVideo];
 
-		videoSpr.setGraphicSize(Std.int(videoSpr.width * Std.parseFloat(zoom)));
+		video.scale.x = video.scale.y = Std.parseFloat(zoom);
 
 		// Botões
 		play = new FlxUIButton(1145 * 0.75, 100, "Testar video", function() {
@@ -196,11 +191,11 @@ class VideoEventState extends MusicBeatState
 				nomedovideo = nome.text;
 				audiovolume = audiovol.text;
 				//grazadeus a partir daqui é easy peazy lemon squizy
-				videoSpr.x = Std.parseFloat(xpos.text);
+				video.x = Std.parseFloat(xpos.text);
 				x = xpos.text;
-				videoSpr.y = Std.parseFloat(ypos.text);
+				video.y = Std.parseFloat(ypos.text);
 				y = ypos.text;
-				videoSpr.setGraphicSize(Std.int(videoSpr.width * Std.parseFloat(zoombt.text)));
+				video.scale.x = video.scale.y = Std.parseFloat(zoombt.text);
 				zoom = zoombt.text;
 				caminho = "assets/videos/" + nome.text;
 
@@ -211,10 +206,10 @@ class VideoEventState extends MusicBeatState
 							video.pausarvideo1(true);
 							mp4playing = false;
 							mp4paused = true;
-							remove(videoSpr);
+							remove(video);
 						}
-						add(videoSpr);
-						video.playMP4(caminho, null, videoSpr, true); // loop = bool para repetição do vídeo
+						add(video);
+						video.playMP4(caminho); // loop = bool para repetição do vídeo
 						mp4playing = true;
 				} else {
 
@@ -273,11 +268,11 @@ class VideoEventState extends MusicBeatState
 				nomedovideo = nome.text;
 				audiovolume = audiovol.text;
 				//grazadeus a partir daqui é easy peazy lemon squizy
-				videoSpr.x = Std.parseFloat(xpos.text);
+				video.x = Std.parseFloat(xpos.text);
 				x = xpos.text;
-				videoSpr.y = Std.parseFloat(ypos.text);
+				video.y = Std.parseFloat(ypos.text);
 				y = ypos.text;
-				videoSpr.setGraphicSize(Std.int(videoSpr.width * Std.parseFloat(zoombt.text)));
+				video.scale.x = video.scale.y = Std.parseFloat(zoombt.text);
 				zoom = zoombt.text; 
 			caminho = "assets/videos/" + nomedovideo;
 			trace("fui clicado");
@@ -427,7 +422,7 @@ class VideoEventState extends MusicBeatState
 		}
 		if(FlxG.keys.justPressed.ESCAPE) {
 			FlxG.sound.music.play();
-			video.stopVideo();
+			video.stop();
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 		

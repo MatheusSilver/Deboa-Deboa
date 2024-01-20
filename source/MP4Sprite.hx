@@ -18,6 +18,7 @@ enum GameState {
     PLAYSTATE;
     ABOUT;
 	NORMAL;
+	EDITOR;
 }
 
 class MP4Sprite extends FlxVideoSprite
@@ -58,43 +59,40 @@ class MP4Sprite extends FlxVideoSprite
 		#if debug
 		trace("video loaded!");
 		#end
-		if(curState == GameState.PLAYSTATE)
-		{
-			var tempoPraPular:Float = (Conductor.songPosition / 1000)-oldPosition;
-			#if debug
-			trace(tempoPraPular);
-			#end
-		}
 	}
 
 	public function onVLCComplete()
 	{
-		if(curState != GameState.ABOUT) {
-			canSkip=false;
+		if (curState == EDITOR)
+			this.play(); //Fazer função de replay (maybe...)
+		else{
+			if(curState != GameState.ABOUT) {
+				canSkip=false;
 
-			#if debug
-			trace("exibi o video");
-			#end
-	
-			if (curState != null && curState != GameState.TITLE)
-			{
-				if(curState != GameState.PLAYSTATE)
+				#if debug
+				trace("exibi o video");
+				#end
+
+				if (curState != null && curState != GameState.TITLE)
+				{
+					if(curState != GameState.PLAYSTATE)
+						{
+							FlxG.camera.fade(FlxColor.BLACK, 0, false);
+							LoadingState.loadAndSwitchState(nextState);
+						}
+					else
+						{
+							trace('beep bop skidep');
+							PlayState.instance.deletarSpriteNAAAAO();
+						}
+				}
+				else if(nextState != null && curState == GameState.TITLE && curState != GameState.PLAYSTATE)
 					{
 						FlxG.camera.fade(FlxColor.BLACK, 0, false);
-						LoadingState.loadAndSwitchState(nextState);
+						MusicBeatState.switchState(nextState);
 					}
-				else
-					{
-						trace('beep bop skidep');
-						PlayState.instance.deletarSpriteNAAAAO();
-					}
+				this.destroy();
 			}
-			else if(nextState != null && curState == GameState.TITLE && curState != GameState.PLAYSTATE)
-				{
-					FlxG.camera.fade(FlxColor.BLACK, 0, false);
-					MusicBeatState.switchState(nextState);
-				}
-			this.destroy();
 		}
 		
 

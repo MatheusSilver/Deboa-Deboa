@@ -2526,8 +2526,6 @@ class PlayState extends MusicBeatState
 		#if desktop
 		if (playingVideoMP4)
 		{
-			videoSpr.stop();
-			videoSpr.onVLCComplete();
 			letext.alpha = 0;
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
@@ -2536,7 +2534,7 @@ class PlayState extends MusicBeatState
 				return;
 			vocals.pause();
 			FlxG.sound.music.pause();
-			//Conductor.songPosition += haxe.Int64.toInt(haxe.Int64.sub(videoSpr.bitmap.length, videoSpr.bitmap.time));
+			Conductor.songPosition += videoSpr.bitmap.length - videoSpr.bitmap.time;
 			//O único problema é esse coiso ai :skull:
 			notes.forEachAlive(function(daNote:Note)
 			{
@@ -2567,6 +2565,8 @@ class PlayState extends MusicBeatState
 			}
 
 			Conductor.songPosition=Conductor.songPosition>songLength?songLength-0.35:Conductor.songPosition;
+			videoSpr.stop();
+			videoSpr.onVLCComplete();
 
 			FlxG.sound.music.time = Conductor.songPosition;
 			FlxG.sound.music.play();
