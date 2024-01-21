@@ -223,15 +223,7 @@ class GaleriaState extends MusicBeatState
 
 					if(Utils.BSLTouchUtils.justTouched() && clicavel && !isMiddleClicking)
 					{
-						#if mobile
-						if(Utils.BSLTouchUtils.over(hitboxbaixo) || Utils.BSLTouchUtils.over(hitboxcima)) {
-							// Isso faz com que provavelmente tu não dê um toque errado no negóço lá e entre em uma música
-							if(Utils.BSLTouchUtils.over(spr) || Utils.BSLTouchUtils.apertasimples(spr)) {
-								// Ok, ele clicou no negócio mas não era pra clicar
-								// Miss click
-								trace("missclick");
-							}
-						} else #end if(Utils.BSLTouchUtils.over(spr)){
+						if(Utils.BSLTouchUtils.over(spr)){
 							stoploading = true;
 							GlobalSoundManager.play('click');
 							GaleriaStateMusic.songPosInArray = spr.ID;
@@ -271,7 +263,7 @@ class GaleriaState extends MusicBeatState
 				scrollSpeed = scrollSpeed * 3;
 				if(isGaleria)
 					{
-						if(#if mobile hitboxcima.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
+						if(FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
 							{
 								
 								if(bg.y==0)
@@ -305,7 +297,7 @@ class GaleriaState extends MusicBeatState
 					//Parte da Música
 				else
 					{
-						if(#if mobile hitboxcima.justReleased || #end FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
+						if(FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
 							{
 								if(bgmusica.y==0)
 								{
