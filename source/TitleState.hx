@@ -77,7 +77,6 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		FlxG.mouse.getScreenPosition();
 		if(instance == null)
 		{
 			instance=this;
