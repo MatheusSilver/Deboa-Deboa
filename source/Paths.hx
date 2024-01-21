@@ -37,6 +37,7 @@ class Paths
 	public static var currentTrackedTextures:Map<String, Texture> = [];
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
+	public static var currentTrackedSounds_cacheID:Map<String, String> = [];
 
 	public static final extensions:Map<String, String> = ["image" => "png", "audio" => "ogg", "video" => "mp"];
 
@@ -68,10 +69,13 @@ class Paths
 				FlxDestroyUtil.dispose(obj.bitmap);
 				currentTrackedAssets.remove(key);
 			}
-		}else if (currentTrackedSounds.exists(key)){
-			OpenFlAssets.cache.removeSound(key);
-			OpenFlAssets.cache.clearSounds(key);
-			currentTrackedSounds.remove(key);
+		}else if (currentTrackedSounds_cacheID.exists(key)){
+			var sound_id:String = currentTrackedSounds_cacheID.get(key);
+			OpenFlAssets.cache.removeSound(sound_id);
+			OpenFlAssets.cache.clearSounds(sound_id);
+			currentTrackedSounds.remove(sound_id);
+			key = sound_id;
+			trace(key);
 		}
 
 		if (remove_local_mem)
@@ -123,7 +127,7 @@ class Paths
 			#if PRELOAD_ALL
 			// clear all sounds that are cached
 			var counterSound:Int = 0;
-			for (key in currentTrackedSounds.keys())
+			for (key in currentTrackedSounds_cacheID.keys())
 			{
 				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
 				{
@@ -397,16 +401,20 @@ class Paths
 		if (path == 'songs')
 			folder = 'songs:';
 
+		var address:String = folder+gottenPath;
+
 		// trace(gottenPath);
-		if (OpenFlAssets.exists(folder + gottenPath, SOUND))
+		if (OpenFlAssets.exists(address, SOUND))
 		{
-			if (!currentTrackedSounds.exists(key))
-				currentTrackedSounds.set(key, OpenFlAssets.getSound(folder + gottenPath));
+			if (!currentTrackedSounds_cacheID.exists(key)){
+				currentTrackedSounds_cacheID.set(key, address);
+				currentTrackedSounds.set(address, OpenFlAssets.getSound(address));
+			}
 		}
 		else
-			FlxG.log.error('Could not find sound at ${folder + gottenPath}');
+			FlxG.log.error('Could not find sound at ${address}');
 
-		localTrackedAssets.push(key);
-		return currentTrackedSounds.get(key);
+		localTrackedAssets.push(address);
+		return currentTrackedSounds.get(address);
 	}
 }
