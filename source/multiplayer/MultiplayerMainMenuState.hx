@@ -97,14 +97,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for (i in 0...WeekData.weeksList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			for (i in 0...leWeek.songs.length) {
-				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])]);
+				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])]);
 			}
 		}
 		WeekData.reloadWeekFiles(true);
 		for (i in 0...WeekData.freeplayList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			for (i in 0...leWeek.songs.length) {
-				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])]);
+				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])]);
 			}
 		}
 		return nomesEPaths;
@@ -670,17 +670,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 
 		
-		/*if(daNoteReceived.length>0 && !imRemoving)
+		if(daNoteReceived.length>0 && !imRemoving)
 		{
 			imRemoving = true;
-			new FlxTimer().start(1, function(tmr:FlxTimer) {
+			new FlxTimer().start(2.5, function(tmr:FlxTimer) {
 				if(daNoteReceived.length>0)
 				{
 					daNoteReceived.remove(daNoteReceived[0]);
 				}
 				imRemoving = false;
 			});
-		}*/
+		}
 
 		/*if(isPlayingMatch)
 		{
