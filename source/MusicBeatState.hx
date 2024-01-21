@@ -33,32 +33,6 @@ class MusicBeatState extends FlxUIState
 	var trackedinputsNOTES:Array<FlxActionInput> = [];	
 
 	// adding virtualpad to state
-
-	// Obrigado Silver (code pego do DDTO+ Android)
-	var hitboxcima:FlxButton;
-	var hitboxbaixo:FlxButton;
-
-	// TO DO: FAZER ISSO SER EXCLUSIVO E FUNCIONAL NO MOBILE
-	// EXCLUSIVO = IMAGENS NA PASTA MOBILECONTROLS
-	// FUNCIONAL = FAZER FUNÇÃO DO SCROLL DO MOUSE
-	public function addhitboxtouch()
-	{
-		hitboxbaixo = new FlxButton(0, 540, function()
-		{
-		});
-		hitboxbaixo.loadGraphic(Paths.image('nota_invisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
-		hitboxbaixo.setGraphicSize(1280, 180); // k
-		hitboxbaixo.updateHitbox();
-		add(hitboxbaixo);
-
-		hitboxcima = new FlxButton(0, 0, function()
-			{
-			});
-			hitboxcima.loadGraphic(Paths.image('nota_invisivel')); //  Não sei se isso deve ser carregado na GPU, mas acredito que não
-			hitboxcima.setGraphicSize(1280, 180); // k
-			hitboxcima.updateHitbox();
-			add(hitboxcima);
-	}
 	
 	public function addVirtualPad(?DPad:FlxDPadMode, ?Action:FlxActionMode) {
 		_virtualpad = new FlxVirtualPad(DPad, Action);
