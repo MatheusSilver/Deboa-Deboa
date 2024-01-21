@@ -19,9 +19,6 @@ import Discord.DiscordClient;
 
 class TimeDaVio extends MusicBeatState
 {
-	//	var videoMenu:FlxSprite = new FlxSprite(0,0);
-	//	var video:MP4Handler = new MP4Handler();
-	// var letext:FlxText;
 	var bgBaixo:FlxSprite;
 	var bgCima:FlxSprite;
 	var icon:FlxSprite;

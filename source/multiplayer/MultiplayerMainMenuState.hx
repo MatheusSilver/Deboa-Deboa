@@ -87,26 +87,33 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public var TrocarLados:Bool = false;
 
-	public var musicas:Array<Dynamic> = [
-		["Contra Si Mesmo", "confronting-yourself/confronting-yourself-hard"],
-		["Rastro", "chasing/chasing-hard"],
-		["Lerdeza", "too-slow/too-slow-hard"],
-		["Não Pode Fugir", "you-cant-run/you-cant-run-hard"],
-		["Ameaça Tripla", "triple-trouble/triple-trouble-hard"],
-		["Parceiro", "sidekick/sidekick-hard"],
-		["Gran Finale", "gran-finale/gran-finale"],
-		["Profundezas", "sink/sink-hard"],
-		["Infinito", "endless/endless-hard"],
-		["Ciclos Infinitos", "endless-cycles/endless-cycles-hard"]
-	];
+	public var musicas:Array<Dynamic> = [];
 	public var MusicaAtual:Int = 0;
 
-
+	function getAllSongs():Array<Dynamic>
+	{
+		WeekData.reloadWeekFiles(true);
+		var nomesEPaths:Array<Dynamic> = [];
+		for (i in 0...WeekData.weeksList.length) {
+			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+			for (i in 0...leWeek.songs.length) {
+				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])]);
+			}
+		}
+		WeekData.reloadWeekFiles(true);
+		for (i in 0...WeekData.freeplayList.length) {
+			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
+			for (i in 0...leWeek.songs.length) {
+				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])]);
+			}
+		}
+		return nomesEPaths;
+	}
 
 	override function create()
 	{
 		instance = this;
-
+		musicas = getAllSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		multiplayerTxt.y = -1500;
@@ -663,7 +670,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 
 		
-		if(daNoteReceived.length>0 && !imRemoving)
+		/*if(daNoteReceived.length>0 && !imRemoving)
 		{
 			imRemoving = true;
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
@@ -673,7 +680,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 				imRemoving = false;
 			});
-		}
+		}*/
 
 		/*if(isPlayingMatch)
 		{

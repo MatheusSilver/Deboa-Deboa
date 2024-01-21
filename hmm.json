@@ -73,6 +73,13 @@
         "version": null,
         "ref": "main",
         "url": "https://github.com/codingthat/FlxScrollableArea"
+      },
+      {
+        "name": "hxvlc",
+        "type": "git",
+        "version": null,
+        "ref": "main",
+        "url": "https://github.com/MatheusSilver/hxvlc.git"
       }
     ]
   }

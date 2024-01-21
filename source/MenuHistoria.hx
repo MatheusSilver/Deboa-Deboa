@@ -446,7 +446,8 @@ class MenuHistoria extends MusicBeatSubstate
 					if (PlayState.SONG.videonombre != null && PlayState.SONG.videonombre.length > 5)
 					{
 						#if desktop
-						VideoStatePC.NextState = 'playstate';
+						VideoStatePC.NextState = new PlayState();
+						VideoStatePC.specialSetting = NORMAL;
 						PlayState.limparCache = true;
 						VideoStatePC.videoPath = Paths.video(PlayState.SONG.videonombre + ".mp");
 						MusicBeatState.switchState(new VideoStatePC());

@@ -52,7 +52,7 @@ class TitleState extends MusicBeatState
 	static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
-	var gradientBar:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, 1, 0xFFFF0000);
+	var gradientBar:FlxSprite = new FlxSprite(0, 0);
 	var credGroup:FlxGroup;
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
@@ -348,6 +348,7 @@ class TitleState extends MusicBeatState
 		blackScreen.setGraphicSize(FlxG.width);
 		credGroup.add(blackScreen);
 
+		gradientBar.makeGraphic(FlxG.width, 1, 0xFFFF0000);
 		gradientBar = FlxGradient.createGradientFlxSprite(Math.round(FlxG.width), 512, [0x00060A4D, 0xAAFF0000], 2, true);
 		gradientBar.y = FlxG.height - gradientBar.height;
 		gradientBar.scale.y = 0;

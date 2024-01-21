@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
@@ -11,18 +12,18 @@ using StringTools;
 
 class VideoStatePC extends MusicBeatState
 {
-	var videoMenu:FlxSprite = new FlxSprite(0, 0);
-	var video:MP4Handler = new MP4Handler();
+	var video:MP4Sprite;
 	var letext:FlxText;
 
 	public static var videoPath:String = Paths.video("EngineBase/intromic.mp");
-	public static var NextState:String = "title";
+	public static var NextState:FlxState = new TitleState();
+	public static var specialSetting:MP4Sprite.GameState;
 
 	override function create()
 	{
+		video = new MP4Sprite(0,0, specialSetting);
 		video.canSkip = false;
-		videoMenu.makeGraphic(1, 1, FlxColor.BLACK);
-		if (NextState != "title" && NextState != "playstate")
+		if (specialSetting != TITLE && specialSetting != PLAYSTATE)
 		{
 			FlxG.sound.music.fadeIn(0.35, 0.7, 0);
 		}
@@ -31,27 +32,14 @@ class VideoStatePC extends MusicBeatState
 		// Sei que o if else if é bastante usado na unity e etc, desculpa dav!!!!
 
 		// Até que tá mais bonitinho agora
-		switch (NextState)
-		{
-			case "mainmenu":
-				video.playMP4(videoPath, new MainMenuStateMobile(), videoMenu);
-			case "sobremenu":
-				video.playMP4(videoPath, new SobreState(), videoMenu);
-			case "title":
-				video.playMP4(videoPath, new TitleState(), videoMenu);
-				FlxTransitionableState.skipNextTransOut = true;
-			case "playstate":
-				video.playMP4(videoPath, new PlayState(), videoMenu);
-			default:
-				video.playMP4(videoPath, new MainMenuStateMobile(), videoMenu);
-		}
+		video.playMP4(videoPath, NextState);
 
 		letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, LangUtil.getString("descVideo"), 32); // Achei cringe
 		letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		letext.scrollFactor.set();
 		letext.alpha = 0;
 
-		add(videoMenu);
+		add(video);
 		add(letext);
 
 		super.create();

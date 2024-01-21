@@ -186,6 +186,10 @@ class Paths
 			levelPath = getLibraryPathForce(file, "shared");
 			if (OpenFlAssets.exists(levelPath, type))
 				return levelPath;
+
+			levelPath = getLibraryPathForce('${ClientPrefs.lingua}/${file}', "locales");
+			if (OpenFlAssets.exists(levelPath, type))
+				return levelPath;
 		}
 
 		return getPreloadPath(file);

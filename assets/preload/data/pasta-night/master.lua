@@ -36,7 +36,7 @@ function onCreate()
     HypnoScale=1
     ScaleMX=1
     
-    makeAnimatedLuaSprite('HypnoArms', 'characters/PASTA_HYPNO', 0,0)
+    makeAnimatedLuaSprite('HypnoArms', 'hypno_braco', 0,0)
     addAnimationByPrefix('HypnoArms','Idle','FrontIdle',24,true)
     addAnimationByPrefix('HypnoArms','0','FrontLeft',24,false)
     addAnimationByPrefix('HypnoArms','1','FrontDown',24,false)

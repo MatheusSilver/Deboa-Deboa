@@ -14,12 +14,11 @@ import Discord.DiscordClient;
 
 class SobreVideo extends MusicBeatState
 {
-	var videoMenu:FlxSprite = new FlxSprite(0,0);
     var bg:FlxSprite = new FlxSprite(0,0);
     var botoes:FlxSprite = new FlxSprite(0,0);
     var barra:FlxSprite = new FlxSprite(0,0);
     var barrabranca:FlxSprite  = new FlxSprite(0,0);
-	var video:MP4Handler = new MP4Handler();
+	var video:MP4Sprite;
 	var sampleTxt:FlxText;
     var ha:Float=0;
     var ha2:Float=177;
@@ -28,18 +27,18 @@ class SobreVideo extends MusicBeatState
 
 	override function create()
 		{
+            video = new MP4Sprite(-10, -5, ABOUT);
             video.canSkip = false;
             Main.mouseVisibility(true);
 			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);
 			#end
-            videoMenu.setGraphicSize(948, 533);
-            videoMenu.x=4;
-            videoMenu.y=-59;
             FlxG.sound.music.fadeIn(0.35, 0.7, 0);
             new FlxTimer().start(0.8, function(tmr:FlxTimer){
-                video.playMP4(videoPath, new SobreState(), videoMenu);
+                video.playMP4(videoPath, new SobreState());
+                video.scale.x = video.scale.y = 0.73;
+                video.y -= 70;
                 barra.alpha=1;
                 FlxTween.num(0.0, 1.0, 73, function(num){ ha = num; });
                 FlxTween.tween(barra, {x: 0}, 73);
@@ -48,7 +47,7 @@ class SobreVideo extends MusicBeatState
                     #if desktop
                     FlxG.mouse.unload();
                     #end
-                    video.stopVideo();
+                    video.stop();
                     GlobalSoundManager.play('cancelMenu');
                     MusicBeatState.switchState(new SobreState());
                 });
@@ -61,7 +60,7 @@ class SobreVideo extends MusicBeatState
             barra.alpha=1;
             barra.scale.set(0, 1);
             add(bg);
-            add(videoMenu);
+            add(video);
             add(barrabranca);
             add(barra);
             add(botoes);
@@ -81,10 +80,6 @@ class SobreVideo extends MusicBeatState
 		{
             barra.scale.set(ha, 1);
             barra.y=0;
-            MP4Handler.iAmSobre = true;
-                videoMenu.setGraphicSize(948, 533);
-                videoMenu.x=-3;
-                videoMenu.y=-72;
             //sampleTxt.text=Std.string(videoMenu.x)+"\n"+Std.string(videoMenu.y);
             video.canSkip = false;
 			super.update(elapsed);
@@ -92,7 +87,7 @@ class SobreVideo extends MusicBeatState
                 #if desktop
                 FlxG.mouse.unload();
                 #end
-                video.stopVideo();
+                video.stop();
                 GlobalSoundManager.play('cancelMenu');
                 MusicBeatState.switchState(new SobreState());
             }
