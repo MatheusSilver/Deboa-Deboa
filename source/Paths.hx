@@ -71,6 +71,7 @@ class Paths
 			}
 		}else if (currentTrackedSounds_cacheID.exists(key)){
 			var sound_id:String = currentTrackedSounds_cacheID.get(key);
+			currentTrackedSounds_cacheID.remove(key);
 			OpenFlAssets.cache.removeSound(sound_id);
 			OpenFlAssets.cache.clearSounds(sound_id);
 			currentTrackedSounds.remove(sound_id);
@@ -92,7 +93,7 @@ class Paths
 				// if it is not currently contained within the used local assets
 				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key))
 				{
-					clear_memory_by_key(key, false);
+					clear_memory_by_key(key);
 					counter++;
 				}
 			}
@@ -106,23 +107,9 @@ class Paths
 
 	public static function clearStoredMemory(?cleanUnused:Bool = false)
 	{
-			// clear anything not in the tracked assets list
-			var counterAssets:Int = 0;
-
 			@:privateAccess
 			for (key in FlxG.bitmap._cache.keys())
-			{
-				var obj = FlxG.bitmap._cache.get(key);
-				if (obj != null && !currentTrackedAssets.exists(key))
-				{
-					OpenFlAssets.cache.removeBitmapData(key);
-					OpenFlAssets.cache.clearBitmapData(key);
-					OpenFlAssets.cache.clear(key);
-					FlxG.bitmap._cache.remove(key);
-					obj.destroy();
-					counterAssets++;
-				}
-			}
+				clear_memory_by_key(key);
 
 			#if PRELOAD_ALL
 			// clear all sounds that are cached
@@ -132,7 +119,7 @@ class Paths
 				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
 				{
 					// trace('test: ' + dumpExclusions, key);
-					clear_memory_by_key(key, true);
+					clear_memory_by_key(key);
 					counterSound++;
 					// Debug.logTrace('Cleared and removed $counterSound cached sounds.');
 				}
