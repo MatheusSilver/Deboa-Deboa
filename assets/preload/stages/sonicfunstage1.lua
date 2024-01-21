@@ -16,7 +16,7 @@
 		setScrollFactor('funbush2', 0.3, 0.3);
 		
 		makeAnimatedLuaSprite('funpillarts1ANIM', 'cenarios/MajinStage/Majin Boppers Front', -169, -167)
-		addAnimationByPrefix('funpillarts1ANIM', 'bumpypillar', 'MajinBop1 instance 1', 24, true)
+		addAnimationByPrefix('funpillarts1ANIM', 'bumpypillar', 'MajinBop1 instance ', 24, true)
 		setScrollFactor('funpillarts1ANIM', 0.6, 0.6);
 		
 		makeLuaSprite('funfloor', 'cenarios/MajinStage/floor BG', -340, 790)
