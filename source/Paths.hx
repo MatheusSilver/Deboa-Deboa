@@ -76,7 +76,6 @@ class Paths
 			OpenFlAssets.cache.clearSounds(sound_id);
 			currentTrackedSounds.remove(sound_id);
 			key = sound_id;
-			trace(key);
 		}
 
 		if (remove_local_mem)

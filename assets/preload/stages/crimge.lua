@@ -19,6 +19,7 @@ function onCreate()
 
 	makeAnimatedLuaSprite('knux', 'cenarios/crimge/knux', -700, -500);
 	addAnimationByPrefix('knux', 'first', 'knuckles', 24, true);
+	setGraphicSize("knux", getProperty("knux.width")*2)
 	objectPlayAnimation('knux', 'first');
 	addLuaSprite('knux', false);
 
