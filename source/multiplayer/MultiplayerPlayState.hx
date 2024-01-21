@@ -308,6 +308,10 @@ class MultiplayerPlayState extends MusicBeatSubstate
 								{
 									sustainNote.x += FlxG.width / 2; // general offset
 								}
+								else
+								{
+									sustainNote.x += FlxG.width / 1.5;
+								}
 							}
 						}
 
@@ -315,7 +319,9 @@ class MultiplayerPlayState extends MusicBeatSubstate
 						{
 							swagNote.x += FlxG.width / 2; // general offset
 						}
-						else {}
+						else {
+							swagNote.x += FlxG.width / 1.5;
+						}
 						
 						if(!noteTypeMap.exists(swagNote.noteType)) {
 							noteTypeMap.set(swagNote.noteType, true);

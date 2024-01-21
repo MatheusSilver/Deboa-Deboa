@@ -31,10 +31,11 @@ class MP4Sprite extends FlxVideoSprite
 	public var oldPosition:Float = 0;
 	private var curState:GameState;
 	
-	public function new(x:Int=0, y:Int=0, curState:GameState)
+	public function new(x:Int=0, y:Int=0, curState:GameState, ?oldPosition:Float = 0)
 	{
 		super(x,y);
 		this.curState = curState;
+		this.oldPosition = oldPosition;
 		FlxG.autoPause = false;
 
 		this.bitmap.onOpening.add(onVLCVideoReady);
@@ -56,6 +57,17 @@ class MP4Sprite extends FlxVideoSprite
 
 	function onVLCVideoReady()
 	{
+		if(curState == GameState.PLAYSTATE)
+			{
+				var tempoPraPular:Float = (Conductor.songPosition / 1000)-oldPosition;
+				if(tempoPraPular/60>=0.002)
+				{
+					this.seek(tempoPraPular/60);
+				}
+				#if debug
+				trace(tempoPraPular/60);
+				#end
+			}
 		#if debug
 		trace("video loaded!");
 		#end
@@ -111,7 +123,7 @@ class MP4Sprite extends FlxVideoSprite
 		if(curState != TITLE) canSkip=false;
 	}
 
-	public function pausarvideo1(h:Bool) // pq h????
+	public function pausarvideo1(h:Bool) // pq h???? 
 	{
 		if(h)
 		{

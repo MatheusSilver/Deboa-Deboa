@@ -2454,7 +2454,7 @@ class PlayState extends MusicBeatState
 			triggerEventNote('comecarvideo', nomedovideo, '0, 0, "cheio", 0, 2');
 			#else
 			endingSong = endingSong1=="true";
-			videoSpr = new MP4Sprite(0, 0, PLAYSTATE);
+			videoSpr = new MP4Sprite(0, 0, PLAYSTATE, oldPosition);
 			videoSpr.visible = true;
 			videoSpr.canSkip = true;
 			// if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
@@ -2531,6 +2531,8 @@ class PlayState extends MusicBeatState
 			camCCC.alpha = 1;
 			camGame.alpha = 1;
 			if(naoPularTempo)
+				videoSpr.stop();
+				videoSpr.onVLCComplete();
 				return;
 			vocals.pause();
 			FlxG.sound.music.pause();
