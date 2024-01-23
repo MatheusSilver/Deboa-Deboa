@@ -36,9 +36,12 @@
                 setCamMove(false)
                 
             elseif value1=="588" then
-
+                setGraphicSize("blackFuck", screenWidth, screenHeight)
                 setProperty("blackFuck.visible", true)
                 setProperty("blackFuck.alpha", 1)
+                makeLuaVideoSprite("sunshine_video", 700, 500)
+                addLuaSprite("sunshine_video")
+                playVideoSprite("sunshine_video", "AnimacoesJogaveis/sunshine-rema")
                 triggerEvent('Camera Follow Pos', '1150', '750');
 
             elseif value1== "590" then
@@ -49,8 +52,6 @@
                 
                 triggerEvent('Change Character', 'dad', 'tailsdoll_dream');
                 triggerEvent('Change Character', 'bf', 'bf_dream');
-                triggerEvent('video player super legal demais', 'AnimacoesJogaveis/sunshine-rema', '700', '500', '1.5');
-                setObjectOrder("videoSpr", getObjectOrder("stage"))
                 setProperty('defaultCamZoom', 2.2);
                 setProperty('stage.visible', false);
                 setProperty('healthBar.visible', false);
@@ -87,6 +88,7 @@
             elseif value1 == "860" then
                 sunshine_shaders(false)
                 setCamMove(true)
+                removeLuaSprite("sunshine_video", true) -- Esse padrão é semi obrigatório.
                 cancelTween("tween_dad_abaja")
                 cancelTween("tween_dad_arriba")
                 cancelTween("tween_bf_abaja")
@@ -99,9 +101,6 @@
                 triggerEvent('Change Character', 'bf', 'bf');
     
                 setProperty('defaultCamZoom', 0.86);
-                setProperty("videoSpr.visible", false)
-                --IMPORTANTE: TEM QUE EDITAR O VÍDEO PRA DEIXAR ELE NO TAMANHO CERTO
-                --Esse videoSpr.visible não deveria existir...
                 
                 setProperty('stage.alpha', 1);
                 setProperty('stage.visible', true);

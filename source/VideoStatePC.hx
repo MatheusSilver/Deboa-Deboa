@@ -15,7 +15,7 @@ class VideoStatePC extends MusicBeatState
 	var video:MP4Sprite;
 	var letext:FlxText;
 
-	public static var videoPath:String = Paths.video("EngineBase/intromic.mp");
+	public static var videoPath:String = Paths.video("EngineBase/intromic");
 	public static var NextState:FlxState = new TitleState();
 	public static var specialSetting:MP4Sprite.GameState;
 

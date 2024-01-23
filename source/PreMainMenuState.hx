@@ -95,7 +95,7 @@ class PreMainMenuState extends MusicBeatState
 		GlobalSoundManager.play('confirmMenu');
 		#if desktop
 		VideoStatePC.specialSetting = NORMAL;
-		VideoStatePC.videoPath = Paths.video("aviso.mp");
+		VideoStatePC.videoPath = Paths.video("aviso");
 		VideoStatePC.NextState = new MainMenuStateMobile();
 		MusicBeatState.switchState(new VideoStatePC());
 		#elseif mobile

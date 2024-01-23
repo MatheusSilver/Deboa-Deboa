@@ -19,6 +19,7 @@ enum GameState {
     ABOUT;
 	NORMAL;
 	EDITOR;
+	LUA;
 }
 
 class MP4Sprite extends FlxVideoSprite
@@ -31,11 +32,11 @@ class MP4Sprite extends FlxVideoSprite
 	public var oldPosition:Float = 0;
 	private var curState:GameState;
 	
-	public function new(x:Int=0, y:Int=0, curState:GameState, ?oldPosition:Float = 0)
+	public function new(x:Int=0, y:Int=0, curState:GameState)
 	{
 		super(x,y);
+		this.moves = false;
 		this.curState = curState;
-		this.oldPosition = oldPosition;
 		FlxG.autoPause = false;
 
 		this.bitmap.onOpening.add(onVLCVideoReady);
@@ -77,6 +78,8 @@ class MP4Sprite extends FlxVideoSprite
 	{
 		if (curState == EDITOR)
 			this.play(); //Fazer função de replay (maybe...)
+		else if (curState == GameState.LUA)
+			PlayState.instance.callOnLuas('onLuaVideoEnd', []);
 		else{
 			if(curState != GameState.ABOUT) {
 				canSkip=false;
@@ -99,11 +102,11 @@ class MP4Sprite extends FlxVideoSprite
 						}
 				}
 				else if(nextState != null && curState == GameState.TITLE && curState != GameState.PLAYSTATE)
-					{
-						FlxG.camera.fade(FlxColor.BLACK, 0, false);
-						MusicBeatState.switchState(nextState);
-					}
-				this.destroy();
+				{
+					FlxG.camera.fade(FlxColor.BLACK, 0, false);
+					MusicBeatState.switchState(nextState);
+				}else
+					this.destroy();
 			}
 		}
 		

@@ -859,6 +859,15 @@ class FunkinLua {
 			}
 		});
 
+		Lua_helper.add_callback(lua, "makeLuaVideoSprite", function(tag:String, x:Int=0, y:Int=0) {
+			var leVideo:ModchartVideoSprite = new ModchartVideoSprite(x, y, LUA);
+			PlayState.instance.modchartVideoSprites.set(tag, leVideo);
+		});
+		Lua_helper.add_callback(lua, "playVideoSprite", function(tag:String, video:String, size:Float = 1) {
+			PlayState.instance.modchartVideoSprites.get(tag).playMP4(Paths.video(video), Conductor.songPosition / 1000);
+			PlayState.instance.modchartVideoSprites.get(tag).scale.x = PlayState.instance.modchartVideoSprites.get(tag).scale.y = size;
+		});
+
 		Lua_helper.add_callback(lua, "makeLuaSprite", function(tag:String, image:String, x:Float, y:Float) {
 			if(image != 'nil' && image != '' || !tag.startsWith('exe')){ //Pelo menos alguma coisa está funcionando
 				//Basicamente é só manter o 'exe' como váriavel das lyrics que tudo dará certo
@@ -1099,6 +1108,22 @@ class FunkinLua {
 					}
 					shit.wasAdded = true;
 				}
+			}else if(PlayState.instance.modchartVideoSprites.exists(tag)) {
+				var shit:ModchartVideoSprite = PlayState.instance.modchartVideoSprites.get(tag);
+				if(!shit.wasAdded) {
+					if(front) {
+						PlayState.instance.add(shit);
+					} else {
+						var position:Int = PlayState.instance.members.indexOf(PlayState.instance.gfGroup);
+						if(PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup) < position) {
+							position = PlayState.instance.members.indexOf(PlayState.instance.boyfriendGroup);
+						} else if(PlayState.instance.members.indexOf(PlayState.instance.dadGroup) < position) {
+							position = PlayState.instance.members.indexOf(PlayState.instance.dadGroup);
+						}
+						PlayState.instance.insert(position, shit);
+					}
+					shit.wasAdded = true;
+				}
 			}
 		});
 		Lua_helper.add_callback(lua, "setGraphicSize", function(obj:String, x:Int, y:Int = 0) {
@@ -1148,11 +1173,11 @@ class FunkinLua {
 			//luaTrace('Couldnt find object: ' + obj);
 		});
 		Lua_helper.add_callback(lua, "removeLuaSprite", function(tag:String, destroy:Bool = true) {
-			if(!PlayState.instance.modchartSprites.exists(tag) && !PlayState.instance.modchartTiledSprites.exists(tag)) {
+			if(!PlayState.instance.modchartSprites.exists(tag) && !PlayState.instance.modchartTiledSprites.exists(tag) && !PlayState.instance.modchartVideoSprites.exists(tag)) {
 				return;
 			}
 			
-			if(!PlayState.instance.modchartTiledSprites.exists(tag)){
+			if(PlayState.instance.modchartSprites.exists(tag)){
 				var pee:ModchartSprite = PlayState.instance.modchartSprites.get(tag);
 				if(destroy) {
 					pee.kill();
@@ -1167,7 +1192,22 @@ class FunkinLua {
 					pee.destroy();
 					PlayState.instance.modchartSprites.remove(tag);
 				}
-			}else{
+			}else if(PlayState.instance.modchartVideoSprites.exists(tag)){
+				var pee:ModchartVideoSprite = PlayState.instance.modchartVideoSprites.get(tag);
+				if(destroy) {
+					pee.kill();
+				}
+	
+				if(pee.wasAdded) {
+					PlayState.instance.remove(pee, true);
+					pee.wasAdded = false;
+				}
+	
+				if(destroy) {
+					pee.destroy();
+					PlayState.instance.modchartVideoSprites.remove(tag);
+				}
+			}else if (PlayState.instance.modchartTiledSprites.exists(tag)){
 				var pee:ModchartTiledSprite = PlayState.instance.modchartTiledSprites.get(tag);
 				if(destroy) {
 					pee.kill();
@@ -1270,27 +1310,6 @@ class FunkinLua {
 					PlayState.instance.startCountdown();
 				}
 			}
-		});
-		Lua_helper.add_callback(lua, "startVideo", function(videoFile:String) {
-			#if VIDEOS_ALLOWED
-			if(OpenFlAssets.exists("assets/videos/" + videoFile + ".mp")) 
-			{
-				PlayState.instance.startVideo(videoFile);
-			} 
-			else 
-			{
-				//luaTrace('Video file not found: ' + videoFile);
-			}
-			#else
-			if(PlayState.instance.endingSong) 
-			{
-				PlayState.instance.endSong();
-			} 
-			else 
-			{
-				PlayState.instance.startCountdown();
-			}
-			#end
 		});
 		
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
@@ -2505,6 +2524,11 @@ class ModchartTiledSprite extends FlxTiledSprite
 {
 	public var wasAdded:Bool = false;
 	//public var isInFront:Bool = false;
+}
+
+class ModchartVideoSprite extends MP4Sprite
+{
+	public var wasAdded:Bool = false;
 }
 
 class DebugLuaText extends FlxText

@@ -292,7 +292,11 @@ class MainMenuStateMobile extends MusicBeatState
 		checkiftouch = false;
 
 		#if ACHIEVEMENTS_ALLOWED
-			test_unlock('modboa');
+			test_unlock('modboa'); 
+			//Ok, isso pode parecer estranho, mas a questão é
+			//O mano sempre precisará mexer nas opções pra desbloquear toastie
+			//Mas a questão é que pra isso, o mano vai ter que passar aqui primeiro. (eu acho...)
+			test_unlock("toastie");
 		#end
 
 

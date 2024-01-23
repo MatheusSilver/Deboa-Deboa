@@ -30,6 +30,7 @@ class VideoState extends MusicBeatState
 		nextState = toTrans;
 
 		// FlxG.autoPause = false;
+		source = source.replace('.${Paths.VIDEO_EXT}', '');
 
 		WebView.onClose = onClose;
 		WebView.onURLChanging = onURLChanging;

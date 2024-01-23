@@ -30,16 +30,14 @@ using StringTools;
 
 class Paths
 {
-	inline public static var SOUND_EXT = #if web "mp3" #else "ogg" #end;
-	inline public static var VIDEO_EXT = "mp";
+	inline public static final SOUND_EXT = #if web "mp3" #else "ogg" #end;
+	inline public static final VIDEO_EXT = "mp";
 
 	public static var localTrackedAssets:Array<String> = [];
 	public static var currentTrackedTextures:Map<String, Texture> = [];
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 	public static var currentTrackedSounds_cacheID:Map<String, String> = [];
-
-	public static final extensions:Map<String, String> = ["image" => "png", "audio" => "ogg", "video" => "mp"];
 
 	public static var dumpExclusions:Array<String> = [];
 
@@ -230,7 +228,7 @@ class Paths
 
 	static public function video(key:String)
 	{
-		return 'assets/videos/$key';
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String) {

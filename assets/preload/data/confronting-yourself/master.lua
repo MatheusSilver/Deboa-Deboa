@@ -128,7 +128,6 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		--cancelTween('florqueanda1EXE')
 		triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
 		doTweenY('nocumecheira', 'nocume', getProperty('nocume.y')-100, 5, 'smoothstepin')
-		--triggerEvent("video player super legal demais", "mikudeusa")
 		--setObjectOrder("videoSpr", getObjectOrder("nocume"))
 		--setProperty("videoSpr.x", getProperty("nocume.x"))
 		--setProperty("videoSpr.y", getProperty("nocume.y"))
