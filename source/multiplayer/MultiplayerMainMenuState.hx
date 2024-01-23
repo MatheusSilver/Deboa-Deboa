@@ -308,6 +308,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		server.addEventListener(NetworkEvent.DISCONNECTED, function(e:NetworkEvent)
 		{
 			players[1].nome = "Player 2";
+			if(isPlayingMatch)
+			{
+				MultiplayerPlayState.instance.endSong();
+			}
 		});
 
 		server.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e:NetworkEvent)
@@ -362,6 +366,18 @@ class MultiplayerMainMenuState extends MusicBeatState
 						server.send({message: e.data.message, verb: 'carreguei'});
 					}
 				}
+
+				if(e.data.verb == 'force-stop')
+					{
+						if(myID != Std.parseInt(e.data.message))
+						{
+							MultiplayerPlayState.instance.podeTerminar++;
+						}
+						else
+						{
+							server.send({message: e.data.message, verb: 'force-stop'});
+						}
+					}
 			if (e.data.verb == "results"){
 				var data:Array<String> = CoolUtil.listFromString(e.data.message);
 				for (hit in data[1].split(",")){
@@ -419,6 +435,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 		client.send({message: Std.string(myID), verb: 'carreguei'});
 	}
 
+	public function enviarQueroTerminar()
+	{
+		client.send({message: Std.string(myID), verb: 'force-stop'});
+	}
+
 	public function enviarMissesEHits(hits:Int, misses:Int)
 	{
 		usuario.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
@@ -439,6 +460,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(!isPlayingMatch)
 			return;
 		isPlayingMatch = false;
+		for(bf in players)
+		{
+			bf.keys = [false, false, false, false];
+		}
 		daNoteReceived = [];
 		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 	}
@@ -510,6 +535,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 					}
 				}
 
+				if(e.data.verb == 'force-stop')
+					{
+						if(myID != Std.parseInt(e.data.message))
+						{
+							MultiplayerPlayState.instance.podeTerminar++;
+						}
+					}
+
 				if(e.data.verb == 'hits-e-misses')
 					{
 						var allMessage:Array<String> = e.data.message.split("\n");
@@ -539,11 +572,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 		client.addEventListener(NetworkEvent.DISCONNECTED, function(e:NetworkEvent)
 		{
 			client.send({message: myID + "\n" + "Player " + myID + 1, verb: 'name'});
+			if(isPlayingMatch)
+				{
+					MultiplayerPlayState.instance.endSong();
+				}
+
 			isOnServer = false;
 			entrarBt.visible = true;
 			hostearBt.visible = true;
 			ipBar.visible = true;
 			textinhoDebug.text = "";
+			
 			avisarAlgo("Conexão perdida");
 		});
 
@@ -823,9 +862,9 @@ class OptionsSubstate extends MusicBeatSubstate
 	// 0 = Bool, 1 = Selection
 	//name, type, desc
 	var options:Array<Dynamic> = [
-		["Modo de Jogo", 1, "Muda o modo de jogo atual", [MultiplayerMainMenuState.instance.ModoDeJogo, "mododejogo", true]],
-		["Musica Atual", 1, "Muda a musica atual", [MultiplayerMainMenuState.instance.MusicaAtual, "musicaatual"]], 
-		["Trocar Lados", 0, "Troca o lado dos jogadores", [MultiplayerMainMenuState.instance.TrocarLados, "trocarlados"]]
+		["Modo de Jogo", 1, "Muda o modo de jogo atual", ["ModoDeJogo", "modos", true]],
+		["Musica Atual", 1, "Muda a musica atual", ["MusicaAtual", "musicas", false]], 
+		["Trocar Lados", 0, "Troca o lado dos jogadores", ["TrocarLados"]]
 
 	];
 
@@ -838,7 +877,8 @@ class OptionsSubstate extends MusicBeatSubstate
 	{
 		var num:Int = 1;
 		optionsObjects = cast add(new FlxSpriteGroup());
-		var textoOptions:FlxText = new FlxText(550, 50, 0, "OPÇÕES", 30);
+		var textoOptions:FlxText = new FlxText(0, 50, 0, "OPÇÕES", 30);
+		textoOptions.screenCenter(X);
 		optionsObjects.add(textoOptions);
 
 		for (option in options) {
@@ -877,11 +917,11 @@ class OptionObject extends FlxSpriteGroup
 	var descTxt:FlxText;
 	var fundo:FlxSprite;
 	var type:Int;
-	var id:String;
 
 	//bool
 	var button:FlxButton;
 	var ativado:Bool;
+	var reference:String;
 
 	//selection
 	var selection:SelectionObject;
@@ -896,12 +936,11 @@ class OptionObject extends FlxSpriteGroup
 			add(nameTxt);
 			descTxt = new FlxText(5, 50, 0, desc, 20);
 			add(descTxt);
-
 			switch(type)
 			{
 				case 0: // se for só um bool
-					id = variable[1];
-					ativado = variable[0];
+					reference = variable[0];
+					ativado = Reflect.getProperty(MultiplayerMainMenuState.instance, reference);
 					button = new FlxButton(1165.5-300+20, 18.5, "", clickButton);
 					button.loadGraphic(Paths.image(ativado?'multiplayer/submenus/checkbox_checked':'multiplayer/submenus/checkbox', 'preload'));
 					button.updateHitbox();
@@ -921,11 +960,7 @@ class OptionObject extends FlxSpriteGroup
 
 	function save()
 	{
-		switch(id)
-		{
-			case "trocarlados":
-				MultiplayerMainMenuState.instance.TrocarLados = ativado;
-		}
+		Reflect.setProperty(MultiplayerMainMenuState.instance, reference, ativado);
 	}
 }
 
@@ -938,22 +973,15 @@ class SelectionObject extends FlxSpriteGroup
 
 	var value:Int;
 	var list:Array<Dynamic>;
-	var id:String;
+	var reference:String;
 
 	public function new(x:Float, y:Float, variable:Dynamic)
 	{
 		super(x, y);
-		id = variable[1];
+		reference = variable[0];
+		value = Reflect.getProperty(MultiplayerMainMenuState.instance, reference);
+		list = Reflect.getProperty(MultiplayerMainMenuState.instance, variable[1]);
 
-		switch(id)
-		{
-			case "mododejogo":
-				value = MultiplayerMainMenuState.instance.ModoDeJogo;
-				list = MultiplayerMainMenuState.instance.modos;
-			case "musicaatual":
-				value = MultiplayerMainMenuState.instance.MusicaAtual;
-				list = MultiplayerMainMenuState.instance.musicas;
-		}
 
 		atual = new FlxText(97.5, 18, 300, list[value][0], 25);
 		atual.autoSize = true;
@@ -1023,12 +1051,6 @@ class SelectionObject extends FlxSpriteGroup
 
 	function save()
 	{
-		switch(id)
-		{
-			case "mododejogo":
-				MultiplayerMainMenuState.instance.ModoDeJogo = value;
-			case "musicaatual":
-				MultiplayerMainMenuState.instance.MusicaAtual = value;
-		}
+		Reflect.setProperty(MultiplayerMainMenuState.instance, reference, value);
 	}
 }

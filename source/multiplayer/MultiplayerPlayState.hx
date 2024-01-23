@@ -6,6 +6,7 @@ import Section.SwagSection;
 import Song.SwagSong;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.ui.FlxBar;
 import flixel.addons.display.FlxStarField.FlxStarField2D;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.input.keyboard.FlxKey;
@@ -64,6 +65,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
     var isPlayer1:Bool = true;
 
 	public var podeComecar:Int = 0;
+
+	public var podeTerminar:Int = 0;
+	var queriaTerminar:Bool = false;
+	var terminarBar:FlxBar;
+	var terminarTxt:FlxText;
+	var terminarFloat:Float=0;
 
 	public static var instance:MultiplayerPlayState;
 
@@ -187,10 +194,22 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		blackStuff.screenCenter(XY);
 		blackStuff.alpha = 0.5;
 		add(blackStuff);
-		waitingForOthers = new FlxText(0, 0, FlxG.width, "CARREGANDO", 20);
+		waitingForOthers = new FlxText(0, 0, FlxG.width, "CARREGANDO", 30);
 		waitingForOthers.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		waitingForOthers.screenCenter(XY);
 		add(waitingForOthers);
+
+		terminarBar = new FlxBar(20, 20, LEFT_TO_RIGHT, 374, 20, this, "terminarFloat", 0, 100, true);
+		terminarBar.numDivisions = 100;
+		terminarBar.createFilledBar(0xFF000000, 0xFFFFFFFF, true);
+		terminarBar.visible=false;
+		add(terminarBar);
+		terminarBar.updateFilledBar();
+		terminarBar.updateBar();
+		terminarTxt = new FlxText(20, 40, FlxG.width, "Segure ESC para terminar a partida (1/2)", 15);
+		terminarTxt.visible = false;
+		add(terminarTxt);
+
 		super.create();
 	}
 
@@ -213,7 +232,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		FlxG.sound.play(Paths.sound('introGo'), 0.6);
 	}
 
-	//var songScore:Int = 0;
+	var songScore:Int = 0;
 	var songHits:Int = 0;
 	var songMisses:Int = 0;
 	var ghostMisses:Int = 0;
@@ -334,8 +353,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 		unspawnNotes.sort(sortByShit);
 		generatedMusic = true;
-		podeComecar++;
-		MultiplayerMainMenuState.instance.enviarToPronto();
+
+		new FlxTimer().start(2, function(tmr:FlxTimer) {
+			podeComecar++;
+			MultiplayerMainMenuState.instance.enviarToPronto();
+		});
+
 	}
 
 
@@ -355,6 +378,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	override function close()
 		{
 			Main.mouseVisibility(true);
+			//results aqui, fazer que os dois tenham que confirmar pra continuar aí eles voltam pro menu
 			MultiplayerMainMenuState.instance.endMatch();
 			super.close();
 		}
@@ -364,7 +388,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
 
-	private function endSong() {
+	public function endSong() {
 		FlxG.sound.music.stop();
 		vocals.stop();
 		vocals.destroy();
@@ -382,6 +406,35 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 		} else {
 			Conductor.songPosition += elapsed * 1000;
+			if(podeTerminar > 1)
+			{
+				endSong();
+			}
+			if(podeTerminar > 0)
+			{
+				terminarTxt.visible = true;
+			}
+			if(FlxG.keys.pressed.ESCAPE && !queriaTerminar)
+			{
+				if(terminarFloat==100)
+				{
+					podeTerminar++;
+					MultiplayerMainMenuState.instance.enviarQueroTerminar();
+					queriaTerminar = true;
+				}
+				else
+				{
+					terminarFloat+=1;
+				}
+			}
+			else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
+			{
+				terminarFloat-=1;
+			}
+			//terminarBar.value = terminarFloat;
+			//terminarBar.updateFilledBar();
+			terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
+			terminarTxt.y = terminarBar.visible ? 40 : 20;
 		}
 
 		var roundedSpeed:Float = FlxMath.roundDecimal(_song.speed, 2);
@@ -754,7 +807,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			if (!note.isSustainNote)
 			{
 				spawnNoteSplashOnNote(note);
-				//popUpScore(note);
+				popUpScore(note);
 				combo += 1;
 				songHits++;
 				if(combo > 9999) combo = 9999;
@@ -784,7 +837,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	{
 		combo = 0;
 
-		//songScore -= 10;
+		songScore -= 10;
 		if(ghostMiss) ghostMisses++;
 		songMisses++;
 
@@ -808,31 +861,31 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		//
 
 		var rating:FlxSprite = new FlxSprite();
-		//var score:Int = 350;
+		var score:Int = 350;
 
 		var daRating:String = "sick";
 
 		if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'shit';
-			//score = 50;
+			score = 50;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.5)
 		{
 			daRating = 'bad';
-			//score = 100;
+			score = 100;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.25)
 		{
 			daRating = 'good';
-			//score = 200;
+			score = 200;
 		}
 
 		if(daRating == 'sick' && !note.noteSplashDisabled)
 		{
 			spawnNoteSplashOnNote(note);
 		}
-		//songScore += score;
+		songScore += score;
 
 			if (combo > 60)
 				daRating = 'sick';
@@ -938,7 +991,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			*/
 
 		coolText.text = Std.string(seperatedScore);
-		// comboGroup.add(coolText);
+		comboGroup.add(coolText);
 
 		FlxTween.tween(rating, {alpha: 0}, 0.2, {
 			startDelay: Conductor.crochet * 0.001
@@ -964,7 +1017,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			var skin:String = "NOTE_assets";
 			// FlxG.log.add(i);
             var babyArrow:StrumNote;
-			babyArrow = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL :  player == 1 ? PlayState.STRUM_X : PlayState.STRUM_X, strumLine.y, i, player);
+			babyArrow = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
 
 			babyArrow.alpha = 0;
 			FlxTween.tween(babyArrow, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
