@@ -493,10 +493,6 @@ class PlayState extends MusicBeatState
 		majinstrums = false;
 
 		blackFuck = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
-		blackFuck.setGraphicSize(FlxG.width,FlxG.height);
-		add(blackFuck);
-		blackFuck.alpha = 0;
-		blackFuck.visible = false;
 
 		instance = this;
 
@@ -1131,8 +1127,6 @@ class PlayState extends MusicBeatState
 		{
 			trace('dav burro');
 			trace("parece mentira");
-			blackFuck.alpha = 1;
-			blackFuck.visible = true;
 			healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 21, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8 - 49),
 				Std.int(healthBarBG.height - 8 - 32), this, 'healthbarval', 0, 2);
 			healthBar.visible = !ClientPrefs.hideHud && !ModifiersManager.isEnabledbyName("no_death");
@@ -1250,6 +1244,12 @@ class PlayState extends MusicBeatState
 		startText.cameras = [camHUD2];
 		if (sonicHUD != null)
 			sonicHUD.cameras = [camHUD];
+
+		blackFuck.setGraphicSize(FlxG.width,FlxG.height);
+		add(blackFuck);
+		blackFuck.screenCenter(XY);
+		blackFuck.alpha = 0;
+		blackFuck.visible = false;
 
 		#if mobileC
 		mcontrols = new Mobilecontrols();
@@ -1951,9 +1951,6 @@ class PlayState extends MusicBeatState
 					if(endingSong1!="true")
 						return;
 					addBlackStuff(camHUD);
-				case "gran-finale":
-					blackFuck.visible = false;
-					blackFuck.alpha=0;
 				case "too-slow":
 					blackStuff.destroy();
 					remove(blackStuff);
@@ -4995,18 +4992,6 @@ class PlayState extends MusicBeatState
 					trace('LOADING NEXT SONG');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
 
-					var winterHorrorlandNext = (Paths.formatToSongPath(SONG.song) == "eggnog");
-					if (winterHorrorlandNext)
-					{
-						var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
-							-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-						blackShit.scrollFactor.set();
-						add(blackShit);
-						camHUD.visible = false;
-
-						FlxG.sound.play(Paths.sound('Lights_Shut_off'));
-					}
-
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
 
@@ -5016,19 +5001,8 @@ class PlayState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0] + difficulty, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
 
-					if (winterHorrorlandNext)
-					{
-						new FlxTimer().start(1.5, function(tmr:FlxTimer)
-						{
-							cancelFadeTween();
-							LoadingState.loadAndSwitchState(new PlayState());
-						});
-					}
-					else
-					{
-						cancelFadeTween();
-						LoadingState.loadAndSwitchState(new PlayState());
-					}
+					cancelFadeTween();
+					LoadingState.loadAndSwitchState(new PlayState());
 				}
 			}
 			else

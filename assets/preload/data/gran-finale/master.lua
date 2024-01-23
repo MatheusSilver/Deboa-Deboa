@@ -66,6 +66,8 @@ function onVideoEnd()
         setProperty('camHUD.visible', true)
         setProperty('camGame.visible', true)
         setProperty('defaultCamZoom', 0.85)
+        setObjectOrder('circuloinicio',getObjectOrder('blackFuck') + 1)
+        setObjectOrder('textoinicio',getObjectOrder('blackFuck') + 2)
         actIntro();
     end
 end
