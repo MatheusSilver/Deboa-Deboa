@@ -275,6 +275,9 @@ class MainMenuStateMobile extends MusicBeatState
 
 			botao.button_text.x += 85;
 			botao.button_text.y -= 28;
+
+			if(botao.lock_icon!=null){botao.lock_icon.x-=160;}
+			
 			menuItems.add(botao);
 			
 		}

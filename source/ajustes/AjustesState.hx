@@ -57,7 +57,6 @@ class AjustesState extends MusicBeatState
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];*/
 		Main.mouseVisibility(true);
-		//FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -211,8 +210,9 @@ class AjustesState extends MusicBeatState
 		function hover(object:FlxButton):Void
 		{
 			if (optionShit[object.ID]!="gamejooj" || (!GJClient.logged && !TitleState.ModoOffline)){
-				GlobalSoundManager.play("scrollMenu");
-				object.alpha = 1;
+				if (object.alpha != 1) // pra ele n ficar repetindo o som
+					GlobalSoundManager.play("scrollMenu");
+					object.alpha = 1;
 			}
 		}
 		
@@ -250,6 +250,6 @@ class AjustesState extends MusicBeatState
 		{
 			super.beatHit();
 			if(isCoolBeat){boom.animation.play('idle', true);}
-				isCoolBeat = !isCoolBeat;
+			isCoolBeat = !isCoolBeat;
 		}
 }

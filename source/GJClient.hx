@@ -611,7 +611,7 @@ class GJClient
         if (hasLoginInfo() && !logged)
         {
             authUser(function () {login(function (userData:User) {if (onSuccess != null && !logged) onSuccess(userData);},onFail);}, onFail);
-            if (logged) printMsg('Initialized successfully!'); var userData = getUserData();    avatarURL = userData.avatar_url;
+            if (logged){ printMsg('Initialized successfully!'); var userData = getUserData();    avatarURL = userData.avatar_url;}
         }
         else {printMsg('Initializing failed!'); if(shitt){GameJoltLoginState.Desesconder();}}
     }
