@@ -7,6 +7,7 @@ import flixel.text.FlxText;
 
 class ResultsSubstate extends MusicBeatSubstate
 {
+    public static var opp_name:String = "";
     public static var opp_data:Array<Int> = [];
     public static var opp_accuracy:Int;
     public static var opp_high_combo:Int;
@@ -15,7 +16,7 @@ class ResultsSubstate extends MusicBeatSubstate
     var opp_box:ResultsObject;
     var player_box:ResultsObject;
 
-    public function new(player_results:Array<Int>, player_accuracy:Float, player_high_combo:Int, player_score:Int)
+    public function new(player_results:Array<Int>, player_accuracy:Float, player_high_combo:Int, player_score:Int, player_name:String)
     {
         var black_overlay:FlxSprite = new FlxSprite(0,0).makeGraphic(1,1, FlxColor.BLACK);
         black_overlay.setGraphicSize(FlxG.width, FlxG.height);
@@ -26,7 +27,7 @@ class ResultsSubstate extends MusicBeatSubstate
         upper_black.antialiasing = ClientPrefs.globalAntialiasing;
 
         
-        var song_name:FlxText = new FlxText(0,0,0,CoolUtil.capitalize("Specialist"), 32);
+        var song_name:FlxText = new FlxText(0,0,0,CoolUtil.capitalize(PlayState.SONG.song), 32);
         song_name.setFormat(LangUtil.getFont("smb"), 24, FlxColor.WHITE, LEFT);
 
         var diff_text:FlxText = new FlxText(0,song_name.y+song_name.height + 5, 0, "hard", 32);
@@ -40,12 +41,10 @@ class ResultsSubstate extends MusicBeatSubstate
         player_box.y = opp_box.y;
         player_box.x = 0;
 
-        var opp_name:FlxText = new FlxText(opp_box.x, opp_box.y-40, opp_box.width, "X02 dos teclados", 24); //A maioria das coisas aqui vão precisar dos dados
-                                                                                                    //da gamejooj, só que como isso depende do playstate do multiplayer, to só colocando uns placeholders.
+        var opp_name:FlxText = new FlxText(opp_box.x, opp_box.y-40, opp_box.width, opp_name, 24);
         opp_name.setFormat(LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         
-        var player_name:FlxText = new FlxText(player_box.x, player_box.y-40, player_box.width, "davizin do acordeão", 24); //A maioria das coisas aqui vão precisar dos dados
-        //da gamejooj, só que como isso depende do playstate do multiplayer, to só colocando uns placeholders.
+        var player_name:FlxText = new FlxText(player_box.x, player_box.y-40, player_box.width, player_name, 24);
         player_name.setFormat(LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
 
