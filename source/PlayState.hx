@@ -1945,9 +1945,9 @@ class PlayState extends MusicBeatState
 					if(endingSong1!="true")
 						return;
 					addBlackStuff(camHUD);
-				case "too-slow":
-					blackStuff.destroy();
+				case "too slow":
 					remove(blackStuff);
+					blackStuff.destroy();
 			}
 		}
 	}
@@ -1983,10 +1983,10 @@ class PlayState extends MusicBeatState
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
 			camGame.alpha = 1;
-			if(naoPularTempo)
-				videoSpr.stop();
+			if(naoPularTempo){
 				videoSpr.onVLCComplete();
 				return;
+			}
 			vocals.pause();
 			FlxG.sound.music.pause();
 			Conductor.songPosition += Std.int(videoSpr.bitmap.length - videoSpr.bitmap.time);
@@ -2020,7 +2020,6 @@ class PlayState extends MusicBeatState
 			}
 
 			Conductor.songPosition=Conductor.songPosition>songLength?songLength-0.35:Conductor.songPosition;
-			videoSpr.stop();
 			videoSpr.onVLCComplete();
 
 			FlxG.sound.music.time = Conductor.songPosition;
