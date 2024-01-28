@@ -18,8 +18,6 @@ import openfl.display.Sprite;
 import openfl.display.StageScaleMode;
 import openfl.events.Event;
 #if rpc
-///import GameJolt;
-///import GameJolt.GameJoltAPI;
 import Discord.DiscordClient;
 #end
 

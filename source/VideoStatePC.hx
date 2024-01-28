@@ -1,12 +1,12 @@
 package;
 
-import flixel.FlxState;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import flixel.addons.transition.FlxTransitionableState;
 
 using StringTools;
 

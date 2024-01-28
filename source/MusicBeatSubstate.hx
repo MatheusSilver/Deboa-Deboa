@@ -1,6 +1,5 @@
 package;
 
-import flixel.ui.FlxButton;
 import Conductor.BPMChangeEvent;
 import flixel.FlxSubState;
 #if mobileC

@@ -53,7 +53,8 @@
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 
-	<define name="GAMEJOLT_ALLOWED" if="desktop" />
+	<define name="GAMEJOLT_ALLOWED" if="desktop || mobile" />
+	<define name="MULTIPLAYER_ALLOWED" if="desktop"/>
 
 	<!-- Isso vai ser tãaaaaaaaaaaaaaaaaaaaaao chato de fazer... -->
 	<!-- Vocês agora me devem um pudim, Ass. Silvio -->
@@ -214,8 +215,7 @@
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/>
-	<!--organização de code, basicamente-->
-	<!-- <template path='mods' /> -->
+	<assets path="assets/mobilecontrols/" if="mobileC"/>
 
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
 

@@ -1,12 +1,11 @@
 package;
 
-import flixel.ui.FlxButton;
 import Conductor.BPMChangeEvent;
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxUIState;
-import flixel.FlxCamera;
 #if mobileC
 import flixel.input.actions.FlxActionInput;
 import ui.FlxVirtualPad;

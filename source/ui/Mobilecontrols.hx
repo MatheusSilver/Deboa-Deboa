@@ -1,12 +1,10 @@
 package ui;
 
-import flixel.FlxG;
+#if mobileC
+import Config;
 import flixel.group.FlxSpriteGroup;
-
 import ui.FlxVirtualPad;
 import ui.Hitbox;
-
-import Config;
 
 class Mobilecontrols extends FlxSpriteGroup
 {
@@ -16,7 +14,7 @@ class Mobilecontrols extends FlxSpriteGroup
 	public var _hitbox2:Hitbox2;
 	public var _virtualPad:FlxVirtualPad;
 
-	public function new() 
+	public function new()
 	{
 		super();
 
@@ -39,7 +37,7 @@ class Mobilecontrols extends FlxSpriteGroup
 		}
 	}
 
-	function initVirtualPad(vpadMode:Int) 
+	function initVirtualPad(vpadMode:Int)
 	{
 		switch (vpadMode)
 		{
@@ -51,31 +49,32 @@ class Mobilecontrols extends FlxSpriteGroup
 			default: // 0
 				_virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
 		}
-		
+
 		_virtualPad.alpha = 0.75;
-		add(_virtualPad);	
+		add(_virtualPad);
 	}
 
-
-	public static function getModeFromNumber(modeNum:Int):ControlsGroup {
+	public static function getModeFromNumber(modeNum:Int):ControlsGroup
+	{
 		return switch (modeNum)
 		{
 			case 0: VIRTUALPAD_RIGHT;
 			case 1: VIRTUALPAD_LEFT;
 			case 2: KEYBOARD;
 			case 3: VIRTUALPAD_CUSTOM;
-			case 4:	HITBOX;
+			case 4: HITBOX;
 
 			default: VIRTUALPAD_RIGHT;
-
 		}
 	}
 }
 
-enum ControlsGroup {
+enum ControlsGroup
+{
 	VIRTUALPAD_RIGHT;
 	VIRTUALPAD_LEFT;
 	KEYBOARD;
 	VIRTUALPAD_CUSTOM;
 	HITBOX;
 }
+#end

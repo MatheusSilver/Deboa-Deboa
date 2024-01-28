@@ -1,14 +1,15 @@
 package ajustes;
 
+#if mobileC
 import Config;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.ui.FlxUIButton;
 import flixel.math.FlxPoint;
 import flixel.text.FlxText;
-import ui.FlxButton;
 import flixel.util.FlxColor;
 import haxe.Json;
+import ui.FlxButton;
 import ui.FlxVirtualPad;
 import ui.Hitbox;
 
@@ -20,7 +21,6 @@ import lime.system.Clipboard;
 
 class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás, mas ainda dá pro gasto
 {
-	#if android
 	var _pad:FlxVirtualPad;
 	var _hb:Hitbox;
 
@@ -408,5 +408,5 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 	{
 		super.destroy();
 	}
-	#end // Ok, eu tava ficando perturbado em abrir e o console ficar com mais de 20 erros
 }
+#end

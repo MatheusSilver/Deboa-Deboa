@@ -9,10 +9,12 @@ import flixel.input.actions.FlxActionManager;
 import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
+#if mobileC
 import ui.FlxButton;
 import ui.FlxVirtualPad;
 import ui.Hitbox;
 import ui.Hitbox2; //OOOOOOOOOOOOMAGAWD HITBOX2?????? DOS MESMOS CRIADORES DE ZAPORUNGA SHARAPOVA 2????? OMAGAAAAAAAAAAAAAAAAAAAWD
+#end
 
 #if (haxe >= "4.0.0")
 enum abstract Action(String) to String from String
@@ -413,6 +415,7 @@ class Controls extends FlxActionSet
 	}
 	#end
 
+	#if mobileC
 	public var trackedinputsUI:Array<FlxActionInput> = [];
 	public var trackedinputsNOTES:Array<FlxActionInput> = [];	
 
@@ -424,7 +427,6 @@ class Controls extends FlxActionSet
 		action.add(input);
 	}
 	
-	#if mobileC
 	public function setHitBoxNOTES(hitbox:Hitbox) //Ok... aqui vai dar um mini trampo
 	{
 		inline forEachBound(Control.NOTE_UP, (action, state) -> addbuttonuNOTES(action, hitbox.buttonUp, state));
