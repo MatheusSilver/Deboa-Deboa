@@ -183,7 +183,7 @@ class FlxScrollbar extends FlxSpriteGroup
 			}
 			updateViewScroll();
 		}
-		if (FlxG.mouse.justReleased)
+		if (Utils.BSLTouchUtils.justSolto())
 			_dragStartedAt = null;
 		super.update(elapsed);
 	}

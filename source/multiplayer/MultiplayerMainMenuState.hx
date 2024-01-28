@@ -24,6 +24,7 @@ import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
 import ibwwg.FlxScrollableArea;
 import flixel.math.FlxRect;
+import openfl.utils.Assets as OpenFlAssets;
 
 using StringTools;
 
@@ -90,21 +91,23 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var musicas:Array<Dynamic> = [];
 	public var MusicaAtual:Int = 0;
 
-	function getAllSongs():Array<Dynamic>
+	function getAllSongs():Array<Dynamic> // TODO: Mudar isso daqui pra fazer ele pegar as charts direto da source
 	{
 		WeekData.reloadWeekFiles(true);
 		var nomesEPaths:Array<Dynamic> = [];
 		for (i in 0...WeekData.weeksList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			for (i in 0...leWeek.songs.length) {
-				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])]);
-			}
-		}
-		WeekData.reloadWeekFiles(true);
-		for (i in 0...WeekData.freeplayList.length) {
-			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
-			for (i in 0...leWeek.songs.length) {
-				nomesEPaths.push([leWeek.songs[i][3], Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])]);
+				var path:String = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-hard";
+				if(!OpenFlAssets.exists(Paths.json(path)))
+				{
+					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0]);
+				}
+				if(!OpenFlAssets.exists(Paths.json(path)))
+				{
+					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-easy";
+				}
+				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
 		return nomesEPaths;
@@ -379,12 +382,16 @@ class MultiplayerMainMenuState extends MusicBeatState
 						}
 					}
 			if (e.data.verb == "results"){
-				var data:Array<String> = CoolUtil.listFromString(e.data.message);
-				for (hit in data[1].split(",")){
-					ResultsSubstate.opp_data.push(Std.parseInt(hit));
+				if(e.data.myID != myID)
+				{
+					var data:Array<String> = CoolUtil.listFromString(e.data.message);
+					for (hit in data[1].split(",")){
+						ResultsSubstate.opp_data.push(Std.parseInt(hit));
+					}
+					ResultsSubstate.opp_high_combo = Std.parseInt(data[1]);
+					ResultsSubstate.opp_score = Std.parseInt(data[2]);
+					ResultsSubstate.opp_name = data[3];
 				}
-				ResultsSubstate.opp_high_combo = Std.parseInt(data[1]);
-				ResultsSubstate.opp_score = Std.parseInt(data[2]);
 			}
 
 			if(e.data.verb == 'hits-e-misses')
@@ -394,6 +401,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				{
 					MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
 					MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
+					MultiplayerPlayState.instance.opponentScore = Std.parseInt(allMessage[3]);
 				}
 			}
 		});
@@ -440,17 +448,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 		client.send({message: Std.string(myID), verb: 'force-stop'});
 	}
 
-	public function enviarMissesEHits(hits:Int, misses:Int)
+	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
 	{
-		usuario.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses), verb: 'hits-e-misses'});
+		usuario.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score), verb: 'hits-e-misses'});
 	}
 
-	public function send_results(hits:Array<Int>, combo:Int, score:Int)
+	public function send_results(hits:Array<Int>, combo:Int, score:Int, playerName:String)
 	{
 		var hits_message:String = '';
 		for (hit in hits){hits_message += Std.string(hit) + ", ";}
 		hits_message = hits_message.substring(0, hits_message.length - 2); //Serve para remover o último ", "
-		usuario.send({message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score), verb: 'results'});
+		usuario.send({myID: myID, message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score) + "\n" + playerName, verb: 'results'});
 	}
 
 	private function definirUsuario():Void {usuario = isHost ? server : client;}
@@ -459,6 +467,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if(!isPlayingMatch)
 			return;
+		//openSubstate(new ResultsSubstate([sicks, goods, bads, shits], 1, combo, songScore, GJClient.username));
 		isPlayingMatch = false;
 		for(bf in players)
 		{
@@ -550,6 +559,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 						{
 							MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
 							MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
+							MultiplayerPlayState.instance.opponentScore = Std.parseInt(allMessage[3]);
+						}
+					}
+
+					if (e.data.verb == "results"){
+						if(e.data.myID != myID)
+						{
+							var data:Array<String> = CoolUtil.listFromString(e.data.message);
+							for (hit in data[1].split(",")){
+								ResultsSubstate.opp_data.push(Std.parseInt(hit));
+							}
+							ResultsSubstate.opp_high_combo = Std.parseInt(data[1]);
+							ResultsSubstate.opp_score = Std.parseInt(data[2]);
+							ResultsSubstate.opp_name = data[3];
 						}
 					}
 		});

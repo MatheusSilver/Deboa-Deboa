@@ -305,6 +305,7 @@ class MenuHistoria extends MusicBeatSubstate
 					ease: FlxEase.expoInOut,
 					onComplete: function(twn:FlxTween)
 					{
+						MenuPreHistoria.instance.changeWeek();
 						MenuPreHistoria.instance.updateBG();
 						close();
 					}

@@ -26,7 +26,6 @@ class MP4Sprite extends FlxVideoSprite
 {
 	public var nextState:FlxState;
 	public var canSkip:Bool = false;
-	public var videoVolume:Float = 1;
 	public var paused:Bool = false;
 	public var queronaoviver:Bool = false;
 	public var oldPosition:Float = 0;
@@ -124,6 +123,7 @@ class MP4Sprite extends FlxVideoSprite
 			this.onVLCComplete();
 
 		if(curState != TITLE) canSkip=false;
+        super.update(elapsed);//LINHA MAGICA OMAGAAAAAAAAWD
 	}
 
 	public function pausarvideo1(h:Bool) // pq h???? 

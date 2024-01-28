@@ -140,6 +140,24 @@ class BSLTouchUtils
 			#end
 		}
 
+		public static function justSolto():Bool
+			{
+				#if (flixel && android)
+				var justReleased:Bool = false;
+		
+				for (touch in FlxG.touches.list)
+				{
+					if (touch.justReleased)
+						justReleased = true;
+				}
+		
+				return justReleased;
+				#else
+				return FlxG.mouse.justReleased;
+				#end
+			}
+	
+
 	public static function aperta(coisas:Dynamic, coisasID:Int):String //Esse code foi feito só pq em outro projeto, eu usei um padrãozinho deste várias vezes e fiquei com preguiça de fazer isso de novo
     {
         var leToqueOrdem:String = '';

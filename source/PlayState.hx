@@ -259,7 +259,8 @@ class PlayState extends MusicBeatState
 
 	var tailscircle:String = '';
 	var floaty2:Float = 0;
-
+	
+	public var strumBGS:FlxTypedGroup<StrumBG>;
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
 	public var opponentStrums:FlxTypedGroup<StrumNote>; // Usado exclusivamente na Pasta Night e talvez na Slaybells
 	public var thirdplayerStrums:FlxTypedGroup<StrumNote>;
@@ -869,6 +870,12 @@ class PlayState extends MusicBeatState
 		if (isPixelStage)
 			introSoundsSuffix = '-pixel';
 
+		if (ClientPrefs.focus){
+			strumBGS = new FlxTypedGroup<StrumBG>(3);
+			strumBGS.cameras = [camHUD];
+			add(strumBGS);
+		}
+
 		if (ClientPrefs.noteSplashes)
 		{
 			if (SONG.splashSkin == null)
@@ -914,19 +921,6 @@ class PlayState extends MusicBeatState
 		insert(position - 1, blammedLightsBlack);
 
 		blammedLightsBlack.alpha = 0.0;
-
-		noteBG = new FlxSprite(0,0);
-		noteBG.cameras = [camHUD];
-		noteBG.makeGraphic(1,1000,FlxColor.BLACK);
-
-		add(noteBG);
-
-		if(!ClientPrefs.middleScroll) {
-			noteBG2 = new FlxSprite(0,0);
-			noteBG2.cameras = [camHUD];
-			noteBG2.makeGraphic(1,1000,FlxColor.BLACK);
-			add(noteBG2);
-		}
 
 
 		var gfVersion:String = SONG.player3;
@@ -1951,9 +1945,9 @@ class PlayState extends MusicBeatState
 					if(endingSong1!="true")
 						return;
 					addBlackStuff(camHUD);
-				case "too-slow":
-					blackStuff.destroy();
+				case "too slow":
 					remove(blackStuff);
+					blackStuff.destroy();
 			}
 		}
 	}
@@ -1989,13 +1983,13 @@ class PlayState extends MusicBeatState
 			camHUD.alpha = 1;
 			camCCC.alpha = 1;
 			camGame.alpha = 1;
-			if(naoPularTempo)
-				videoSpr.stop();
+			if(naoPularTempo){
 				videoSpr.onVLCComplete();
 				return;
+			}
 			vocals.pause();
 			FlxG.sound.music.pause();
-			Conductor.songPosition += videoSpr.bitmap.length - videoSpr.bitmap.time;
+			Conductor.songPosition += Std.int(videoSpr.bitmap.length - videoSpr.bitmap.time);
 			//O único problema é esse coiso ai :skull:
 			notes.forEachAlive(function(daNote:Note)
 			{
@@ -2026,7 +2020,6 @@ class PlayState extends MusicBeatState
 			}
 
 			Conductor.songPosition=Conductor.songPosition>songLength?songLength-0.35:Conductor.songPosition;
-			videoSpr.stop();
 			videoSpr.onVLCComplete();
 
 			FlxG.sound.music.time = Conductor.songPosition;
@@ -2054,26 +2047,6 @@ class PlayState extends MusicBeatState
 		videoSpr.destroy();
 		playingVideoMP4 = false;
 	}
-
-	function updateNoteBGPos()
-		{
-			if(startedCountdown)
-			{
-				noteBG.setGraphicSize(Std.int(Note.swagWidth * 4), FlxG.height * 2);
-				noteBG.updateHitbox();
-		
-				noteBG.x = playerStrums.members[0].x;
-	
-				if(!ClientPrefs.middleScroll) {
-	
-				noteBG2.setGraphicSize(Std.int(Note.swagWidth * 4), FlxG.height * 2);
-				noteBG2.updateHitbox();
-		
-				noteBG2.x = opponentStrums.members[0].x;
-	
-				}
-			}
-		}
 
 	var startTimer:FlxTimer;
 	var finishTimer:FlxTimer = null;
@@ -2108,6 +2081,8 @@ class PlayState extends MusicBeatState
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
 				setOnLuas('defaultPlayerStrumY' + i, playerStrums.members[i].y);
 			}
+			if (ClientPrefs.focus)
+				strumBGS.add(new StrumBG(playerStrums));
 			for (i in 0...opponentStrums.length)
 			{
 				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
@@ -2115,6 +2090,8 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.middleScroll)
 					opponentStrums.members[i].visible = false;
 			}
+			if (ClientPrefs.focus)
+				strumBGS.add(new StrumBG(opponentStrums));
 			for (i in 0...thirdplayerStrums.length)
 			{
 				setOnLuas('defaultthirplayerStrumX' + i, thirdplayerStrums.members[i].x);
@@ -2122,6 +2099,8 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.middleScroll)
 					thirdplayerStrums.members[i].visible = false; // Ainda pensando sobre isso...
 			}
+			if (ClientPrefs.focus && nomehistorico.toLowerCase() == 'noite da rapaziada')
+				strumBGS.add(new StrumBG(thirdplayerStrums));
 
 			if (curSong == 'prey')
 			{ // Prestar Atenção a isso
@@ -2620,9 +2599,6 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0] - earlyTime1, Obj2[0] - earlyTime2);
 	}
 
-	var noteBG:FlxSprite;
-	var noteBG2:FlxSprite;
-
 	private function generateStaticArrows(player:Int):Void
 	{
 		var keyCount:Int = 4;
@@ -2664,15 +2640,6 @@ class PlayState extends MusicBeatState
 			strumLineNotes.add(babyArrow);
 			babyArrow.postAddedToGroup();
 		}
-		// Fixes para players de middlescroll em musicas que as strums mudam e/ou tem três setas.
-		if(player == 1 && ClientPrefs.focus)
-			{
-				updateNoteBGPos();
-				noteBG.alpha = 0.7;
-				if(!ClientPrefs.middleScroll) {
-				noteBG2.alpha = 0.7;
-				}
-			}
 	}
 
 	override function openSubState(SubState:FlxSubState)
@@ -3416,8 +3383,6 @@ class PlayState extends MusicBeatState
 						daNote.destroy();
 					}
 				});
-				if(ClientPrefs.focus)
-					updateNoteBGPos();
 			}
 			else
 			{

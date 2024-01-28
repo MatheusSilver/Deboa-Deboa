@@ -26,6 +26,7 @@ import lime.ui.WindowAttributes;
 import flash.filters.BlurFilter;
 import lime.ui.Window;
 import flixel.tweens.misc.NumTween;
+//import openfl.filters.ColorMatrixFilter;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -59,6 +60,7 @@ class PauseSubState extends MusicBeatSubstate
 	var isDoingtheThing:Bool = false;
 	var aberto:Bool=false;
 	var blurShader:BlurFilter;
+	//var grayScale:ColorMatrixFilter;
 	var dummySprite:FlxSprite;
 	var shaderativo:Bool;
 	var jumpecare:FlxObject = new FlxObject();
@@ -86,6 +88,7 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		if(ClientPrefs.shaders) {
 		blurShader = new BlurFilter();
+		//grayScale = new ColorMatrixFilter();
 		}
 		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
@@ -198,12 +201,19 @@ class PauseSubState extends MusicBeatSubstate
 			{
 				if(!PlayState.instance.shaders_running)
 				{
-					PlayState.instance.camGame.setFilters([blurShader]);
-					PlayState.instance.camHUD.setFilters([blurShader]);
-					PlayState.instance.camLegenda.setFilters([blurShader]);
-					PlayState.instance.camOther.setFilters([blurShader]);
+					PlayState.instance.camGame.setFilters([blurShader/*, grayScale*/]);
+					PlayState.instance.camHUD.setFilters([blurShader/*, grayScale*/]);
+				PlayState.instance.camLegenda.setFilters([blurShader/*, grayScale*/]);
+					PlayState.instance.camOther.setFilters([blurShader/*, grayScale*/]);
 				}
 				FlxTween.tween(blurShader, {blurX: 3, blurY: 3}, 1.25, {ease: FlxEase.quartInOut});
+				/*var newMatrix:Array<Float> = [
+					0.5, 0.5, 0.5, 0, 0,
+					0.5, 0.5, 0.5, 0, 0,
+					0.5, 0.5, 0.5, 0, 0,
+					  0,   0,   0, 1, 0,
+				];
+				FlxTween.tween(grayScale, {matrix: newMatrix}, 1.25, {ease: FlxEase.quartInOut});*/
 			}
 	}
 
@@ -312,6 +322,13 @@ class PauseSubState extends MusicBeatSubstate
 				});
 				if(ClientPrefs.shaders) {
 				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
+				/*var newMatrix:Array<Float> = [
+					1, 0, 0, 0, 0,
+					0, 1, 0, 0, 0,
+					0, 0, 1, 0, 0,
+					  0,   0,   0, 1, 0,
+				];
+				FlxTween.tween(grayScale, {matrix: newMatrix}, 1.25, {ease: FlxEase.quartInOut});*/
 				}
 				jumpecare.destroy();
 	}

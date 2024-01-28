@@ -67,8 +67,8 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var newVersion:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
-	public static var version:String = '0.9.11';
-	public static var changelogString:String = 'V'+version+'\nCorrecoes.';
+	public static var version:String = '0.9.12';
+	public static var changelogString:String = 'V'+version+'\nSistema de tradução;\nBotoes via texto;\nGameplay Multiplayer;Remake do player de Video;Correcoes.';
 	public static var verificaDnvIdiota:Bool = false;
 
 	public static var passouCY:Bool = false;
@@ -275,6 +275,9 @@ class MainMenuStateMobile extends MusicBeatState
 
 			botao.button_text.x += 85;
 			botao.button_text.y -= 28;
+
+			if(botao.lock_icon!=null){botao.lock_icon.x-=160;}
+			
 			menuItems.add(botao);
 			
 		}
@@ -296,7 +299,7 @@ class MainMenuStateMobile extends MusicBeatState
 			//Ok, isso pode parecer estranho, mas a questão é
 			//O mano sempre precisará mexer nas opções pra desbloquear toastie
 			//Mas a questão é que pra isso, o mano vai ter que passar aqui primeiro. (eu acho...)
-			test_unlock("toastie");
+			if (ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) test_unlock("toastie");
 		#end
 
 
