@@ -129,8 +129,10 @@ class MenuPreHistoria extends MusicBeatState
 			curWeek = weekAnimNum;
 		}
 
-		//changeWeek(); //Por algum motivo que sei lá qual, a função closesubstate era chamada também
+		changeWeek(); //Por algum motivo que sei lá qual, a função closesubstate era chamada também
 		//Logo, não precisa disso aqui.
+
+		//Precisa disso pra voltar do playstate.
 		super.create();
 	}
 
@@ -188,7 +190,7 @@ class MenuPreHistoria extends MusicBeatState
 
 	override function closeSubState()
 	{
-		changeWeek();
+		// changeWeek(); Mas não precisa disso aqui.
 		movedBack = false;
 		selectedWeek = false;
 		stopspamming = false; // Super legal :,) Legal demais..................
