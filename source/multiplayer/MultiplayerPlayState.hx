@@ -77,9 +77,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var blackStuff:FlxSprite;
 	var waitingForOthers:FlxText;
 
+	var currentMode:Int = 0;
+
 
 	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int) {
 		instance = this;
+		currentMode == modo;
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
         if(!trocarLados)
@@ -100,6 +103,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	public var opponentHits:Int = 0;
 	public var opponentMisses:Int = 0;
+	public var opponentScore:Int = 0;
 	
 	var timerToStart:Float = 0;
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
@@ -173,19 +177,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		noteTypeMap.clear();
 		noteTypeMap = null;
 
-		scoreTxt = new FlxText(0, FlxG.height - 50, FlxG.width, "Hits: 0 | Misses: 0", 20);
+		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 25, FlxG.width, "", 50);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
-
-		/*opponentScoreTxt = new FlxText(0, FlxG.height - 50, FlxG.width, "Hits: 0 | Misses: 0", 20);
-		opponentScoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, isPlayer1?RIGHT:LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		opponentScoreTxt.scrollFactor.set();
-		opponentScoreTxt.borderSize = 1.25;
-		opponentScoreTxt.visible = !ClientPrefs.hideHud;
-		add(opponentScoreTxt);*/
 
 		Main.mouseVisibility(false);
 
@@ -392,6 +389,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		FlxG.sound.music.stop();
 		vocals.stop();
 		vocals.destroy();
+		//MultiplayerMainMenuState.instance.send_results([sicks, goods, bads, shits], combo, songScore, GJClient.username);
 		close();
         trace("cabou !");
 	}
@@ -647,8 +645,16 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		}
 
 		keyShit();
-		scoreTxt.text = 'Your Hits: ' + songHits + ' | Your Misses: ' + songMisses + '\n' + 'Opponent Hits: ' + opponentHits + ' | Opponent Misses: ' + opponentMisses;
-		MultiplayerMainMenuState.instance.enviarMissesEHits(songHits, songMisses);
+		switch(currentMode) // TODO: colocar strings do langutil aqui
+		{
+			case 0:
+				scoreTxt.text = 'Your Score: ' + songScore +  ' | ' + 'Opponent Score: ' + opponentScore;
+			case 1:
+				scoreTxt.text = 'Your Hits: ' + songHits + ' | ' + 'Opponent Hits: ' + opponentHits;
+			case 2:
+				scoreTxt.text = 'Your Misses: ' + songMisses + ' | ' + 'Opponent Misses: ' + songMisses;
+		}
+		MultiplayerMainMenuState.instance.enviarMissesEHits(songHits, songMisses, songScore);
 		super.update(elapsed);
 	}
 
@@ -830,6 +836,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				notes.remove(note, true);
 				note.destroy();
 			}
+
 		}
 	}
 
@@ -841,12 +848,15 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		if(ghostMiss) ghostMisses++;
 		songMisses++;
 
-		//FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-		vocals.volume = 0;
 	}
 
 	var COMBO_X:Float = 400;
 	var COMBO_Y:Float = 340;
+
+	var sicks:Int = 0;
+	var shits:Int = 0;
+	var bads:Int = 0;
+	var goods:Int = 0;
 	private function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + 8); 
@@ -855,12 +865,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 		var placement:String = Std.string(combo);
 
-		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
-		coolText.x = COMBO_X;
-		coolText.y = COMBO_Y;
-		//
-
-		var rating:FlxSprite = new FlxSprite();
 		var score:Int = 350;
 
 		var daRating:String = "sick";
@@ -868,17 +872,26 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'shit';
+			shits++;
 			score = 50;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.5)
 		{
 			daRating = 'bad';
+			bads++;
 			score = 100;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.25)
 		{
 			daRating = 'good';
+			goods++;
 			score = 200;
+		}
+		else
+		{
+			daRating = 'sick';
+			sicks++;
+			score = 350;
 		}
 
 		if(daRating == 'sick' && !note.noteSplashDisabled)
@@ -893,121 +906,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				daRating = 'good'
 			else if (combo > 4)
 				daRating = 'bad';
-			
-
-		var pixelShitPart1:String = "";
-		var pixelShitPart2:String = '';
-
-		if (PlayState.isPixelStage)
-		{
-			pixelShitPart1 = 'pixelUI/';
-			pixelShitPart2 = '-pixel';
-		}
-
-		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating + pixelShitPart2));
-		rating.screenCenter();
-		rating.x = coolText.x - 40;
-		rating.y -= 60;
-		rating.acceleration.y = 550;
-		rating.velocity.y -= FlxG.random.int(140, 175);
-		rating.velocity.x -= FlxG.random.int(0, 10);
-		rating.visible = !ClientPrefs.hideHud;
-
-		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
-		comboSpr.screenCenter();
-		comboSpr.x = coolText.x;
-		comboSpr.acceleration.y = 600;
-		comboSpr.velocity.y -= 150;
-		comboSpr.visible = !ClientPrefs.hideHud;
-
-		comboSpr.velocity.x += FlxG.random.int(1, 10);
-		comboGroup.add(rating);
-
-		if (!PlayState.isPixelStage)
-		{
-			rating.setGraphicSize(Std.int(rating.width * 0.7));
-			rating.antialiasing = ClientPrefs.globalAntialiasing;
-			comboSpr.setGraphicSize(Std.int(comboSpr.width * 0.7));
-			comboSpr.antialiasing = ClientPrefs.globalAntialiasing;
-		}
-		else
-		{
-			rating.setGraphicSize(Std.int(rating.width * PlayState.daPixelZoom * 0.7));
-			comboSpr.setGraphicSize(Std.int(comboSpr.width * PlayState.daPixelZoom * 0.7));
-		}
-
-		comboSpr.updateHitbox();
-		rating.updateHitbox();
-
-		var seperatedScore:Array<Int> = [];
-
-		if(combo >= 1000) {
-			seperatedScore.push(Math.floor(combo / 1000) % 10);
-		}
-		seperatedScore.push(Math.floor(combo / 100) % 10);
-		seperatedScore.push(Math.floor(combo / 10) % 10);
-		seperatedScore.push(combo % 10);
-
-		var daLoop:Int = 0;
-		for (i in seperatedScore)
-		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
-			numScore.screenCenter();
-			numScore.x = coolText.x + (43 * daLoop) - 90;
-			numScore.y += 80;
-
-			if (!PlayState.isPixelStage)
-			{
-				numScore.antialiasing = ClientPrefs.globalAntialiasing;
-				numScore.setGraphicSize(Std.int(numScore.width * 0.5));
-			}
-			else
-			{
-				numScore.setGraphicSize(Std.int(numScore.width * PlayState.daPixelZoom));
-			}
-			numScore.updateHitbox();
-
-			numScore.acceleration.y = FlxG.random.int(200, 300);
-			numScore.velocity.y -= FlxG.random.int(140, 160);
-			numScore.velocity.x = FlxG.random.float(-5, 5);
-			numScore.visible = !ClientPrefs.hideHud;
-
-			if (combo >= 10 || combo == 0)
-				comboGroup.add(numScore);
-
-			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
-				onComplete: function(tween:FlxTween)
-				{
-					numScore.destroy();
-				},
-				startDelay: Conductor.crochet * 0.002
-			});
-
-			daLoop++;
-		}
-		/* 
-			trace(combo);
-			trace(seperatedScore);
-			*/
-
-		coolText.text = Std.string(seperatedScore);
-		comboGroup.add(coolText);
-
-		FlxTween.tween(rating, {alpha: 0}, 0.2, {
-			startDelay: Conductor.crochet * 0.001
-		});
-
-		FlxTween.tween(comboSpr, {alpha: 0}, 0.2, {
-			onComplete: function(tween:FlxTween)
-			{
-				coolText.destroy();
-				comboSpr.destroy();
-
-				rating.destroy();
-			},
-			startDelay: Conductor.crochet * 0.001
-		});
 	}
+
 
 	private function generateStaticArrows(player:Int):Void
 	{

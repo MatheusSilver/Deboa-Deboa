@@ -132,10 +132,10 @@ class SobreState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		#if (debug && desktop)
+		/*#if (debug && desktop)
 		if(FlxG.keys.justPressed.ONE)
 			openSubState(new multiplayer.ResultsSubstate([1,2,3,4], 1,2,100));
-		#end
+		#end*/
 		if (!menu_isLeft)
 		{
 			arrow.flipX = false;
