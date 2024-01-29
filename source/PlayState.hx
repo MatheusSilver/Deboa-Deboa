@@ -7009,11 +7009,18 @@ class PlayState extends MusicBeatState
 	{
 		if (topBar == null || bottomBar == null){ //carga preguiçosa seria melhor maybe...
 			topBar = new FlxSprite(0, -170).makeGraphic(1, 1, FlxColor.BLACK);
-			topBar.setGraphicSize(FlxG.width, 170);
 			bottomBar = new FlxSprite(0, 720).makeGraphic(1, 1, FlxColor.BLACK);
-			bottomBar.setGraphicSize(FlxG.width, 170);
+
 			topBar.cameras = [camOther];
 			bottomBar.cameras = [camOther];
+
+			topBar.setGraphicSize(FlxG.width, 170);
+			topBar.updateHitbox();
+			bottomBar.setGraphicSize(FlxG.width, 170);
+			bottomBar.updateHitbox();
+			
+			topBar.setPosition(0, -170);
+			bottomBar.setPosition(0, -170);
 		}
 		if (appear)
 		{
