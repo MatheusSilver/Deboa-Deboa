@@ -1,13 +1,12 @@
 package ui;
 
 import flixel.FlxG;
-import flixel.graphics.FlxGraphic;
 import flixel.FlxSprite;
+import flixel.graphics.FlxGraphic;
 import flixel.group.FlxSpriteGroup;
-import ui.FlxButton;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import ui.FlxButton;
 
 class Hitbox extends FlxSpriteGroup
 {
@@ -21,7 +20,7 @@ class Hitbox extends FlxSpriteGroup
 	public var buttonDown:FlxButton;
 	public var buttonUp:FlxButton;
 	public var buttonRight:FlxButton;
-	
+
 	public function new(?widghtScreen:Float)
 	{
 		super();
@@ -31,8 +30,7 @@ class Hitbox extends FlxSpriteGroup
 
 		sizex = widghtScreen != null ? widghtScreen / 4 : 320;
 
-		
-		//add graphic
+		// add graphic
 		hitbox = new FlxSpriteGroup();
 		hitbox.scrollFactor.set();
 
@@ -42,12 +40,11 @@ class Hitbox extends FlxSpriteGroup
 
 		if (sizex != 320)
 		{
-		hitbox_hint.setGraphicSize(FlxG.width);
-		hitbox_hint.updateHitbox();
+			hitbox_hint.setGraphicSize(FlxG.width);
+			hitbox_hint.updateHitbox();
 		}
-			
-		add(hitbox_hint);
 
+		add(hitbox_hint);
 
 		hitbox.add(add(buttonLeft = createhitbox(0, "left")));
 
@@ -58,52 +55,65 @@ class Hitbox extends FlxSpriteGroup
 		hitbox.add(add(buttonRight = createhitbox(sizex * 3, "right")));
 	}
 
-	public function createhitbox(X:Float, framestring:String) {
+	public function createhitbox(X:Float, framestring:String)
+	{
 		var button = new FlxButton(X, 0);
 		var frames = Paths.getSparrowAtlas('hitbox', 'mobilecontrols');
-		
+
 		var graphic:FlxGraphic = FlxGraphic.fromFrame(frames.getByName(framestring));
 
 		button.loadGraphic(graphic);
 
 		/*button.width = sizex;
-		button.height = FlxG.height;*/
+			button.height = FlxG.height; */
 		button.setGraphicSize(Std.int(sizex), FlxG.height);
 		button.updateHitbox();
 
 		button.alpha = 0;
 
 		var tween:FlxTween = null;
-		//Silenciando aquele aviso chato da compilação.
+		// Silenciando aquele aviso chato da compilação.
 
-		button.onDown.callback = function (){
+		button.onDown.callback = function()
+		{
 			if (tween != null)
 				tween.cancel();
-			tween = FlxTween.num(button.alpha, 0.75, .075, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
+			tween = FlxTween.num(button.alpha, 0.75, .075, {ease: FlxEase.circInOut}, function(a:Float)
+			{
+				button.alpha = a;
+			});
 		};
 
-		button.onUp.callback = function (){
+		button.onUp.callback = function()
+		{
 			if (tween != null)
 				tween.cancel();
-			tween = FlxTween.num(button.alpha, 0, .15, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
+			tween = FlxTween.num(button.alpha, 0, .15, {ease: FlxEase.circInOut}, function(a:Float)
+			{
+				button.alpha = a;
+			});
 		}
-		
-		button.onOut.callback = function (){
+
+		button.onOut.callback = function()
+		{
 			if (tween != null)
 				tween.cancel();
-			tween = FlxTween.num(button.alpha, 0, .15, {ease: FlxEase.circInOut}, function (a:Float) { button.alpha = a; });
+			tween = FlxTween.num(button.alpha, 0, .15, {ease: FlxEase.circInOut}, function(a:Float)
+			{
+				button.alpha = a;
+			});
 		}
 
 		return button;
 	}
 
 	override public function destroy():Void
-		{
-			super.destroy();
-	
-			buttonLeft = null;
-			buttonDown = null;
-			buttonUp = null;
-			buttonRight = null;
-		}
+	{
+		super.destroy();
+
+		buttonLeft = null;
+		buttonDown = null;
+		buttonUp = null;
+		buttonRight = null;
+	}
 }

@@ -5014,9 +5014,9 @@ class PlayState extends MusicBeatState
 							FreeplayState.addProgress();
 						}
 					ClientPrefs.pibby = true;
+					ClientPrefs.save(); //Isso aqui deveria estar em cima...
 					lime.app.Application.current.window.alert(LangUtil.getString("play_pibby,error,desc", "playstate"), LangUtil.getString("play_pibby,error,title", "playstate"));
 					lime.system.System.exit(0);
-					ClientPrefs.save(); //Isso aqui deveria estar em cima...
 				}
 				usedPractice = false;
 				changedDifficulty = false;

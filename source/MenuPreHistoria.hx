@@ -179,13 +179,13 @@ class MenuPreHistoria extends MusicBeatState
 		curSave = saveArray.join(",");
 		trace(saveArray);
 		if (GJClient.logged)
-		{
-			GameJoltLoginState.syncProgress();
-		}
-		else
-		{
-			FlxG.save.data.progress = MenuPreHistoria.curSave;
-		}
+			{
+				GameJoltLoginState.syncProgress();
+			}
+			else
+			{
+				FlxG.save.data.progress = MenuPreHistoria.curSave;
+			}
 	}
 
 	override function closeSubState()

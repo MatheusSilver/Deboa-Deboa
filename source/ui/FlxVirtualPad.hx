@@ -1,5 +1,6 @@
 package ui;
 
+#if mobileC
 import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
@@ -7,7 +8,6 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxTileFrames;
 import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxPoint;
-import flixel.system.FlxAssets;
 import flixel.util.FlxDestroyUtil;
 import openfl.utils.ByteArray;
 import ui.FlxButton;
@@ -178,3 +178,4 @@ enum FlxActionMode
 	A_B_X_Y;
 	D;
 }
+#end

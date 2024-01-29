@@ -1,18 +1,15 @@
 package;
 
-import flixel.FlxSprite;
-import flixel.FlxBasic;
 import flixel.FlxG;
 import haxe.crypto.Md5;
 import openfl.utils.Assets;
+
+using StringTools;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
-import lime.system.System;
-import openfl.display.BitmapData;
 
-using StringTools;
 
 class Utils {
 	// Code por Idklool

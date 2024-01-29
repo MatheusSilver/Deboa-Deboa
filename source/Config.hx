@@ -1,9 +1,8 @@
 package;
 
-import ui.FlxVirtualPad;
-import flixel.FlxG;
-import flixel.util.FlxSave;
+#if mobileC
 import flixel.math.FlxPoint;
+import ui.FlxVirtualPad;
 
 class Config
 {
@@ -70,3 +69,4 @@ class Config
 		return _pad;
 	}
 }
+#end

@@ -1,3 +1,5 @@
+package;
+
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -54,11 +56,13 @@ class Achievements {
 			{
 				GlobalSoundManager.play('confirmMenu');
 			}
+
+		#if GAMEJOLT_ALLOWED
 		var id:Int = Achievements.getAchievementIndex(name);
 		TitleState.instance.verificarConexao();
 		if(GJClient.logged && !TitleState.ModoOffline)
 			GJClient.trophieAdd(achievementsStuff[id][2]);
-		
+		#end
 		ClientPrefs.save();
 	}
 
@@ -75,6 +79,7 @@ class Achievements {
 
 	public static function syncAchievementsGJ()
 		{
+			#if GAMEJOLT_ALLOWED
 			TitleState.instance.verificarConexao();
 			if(GJClient.logged && !TitleState.ModoOffline){
 			var GJList:Null<Array<Trophie>> = GJClient.getTrophiesList();
@@ -84,6 +89,7 @@ class Achievements {
 						unlockAchievement(getAchievementID(GJList[i].id), false);
 					}
 			}}
+			#end
 		}
 
 	public static function getAchievementIndex(name:String) {
