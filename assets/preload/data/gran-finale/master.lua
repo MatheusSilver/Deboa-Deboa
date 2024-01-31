@@ -285,7 +285,7 @@ function onEvent(name, value1, value2)
             zoomModifier=false
         end
         if value1== 'videoend' then
-            triggerEvent('video player','AnimacoesJogaveis/GranFinale_end', '1', 'false', 'true')
+            triggerEvent('video player','AnimacoesJogaveis/GranFinale_end', '1', 'true')
         end
         if value1== 'cleanstage' then
             setProperty('camHUD.visible', false)
