@@ -472,6 +472,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for(bf in players)
 		{
 			bf.keys = [false, false, false, false];
+			bf.resetPos();
 		}
 		daNoteReceived = [];
 		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
@@ -876,6 +877,11 @@ class LobbyPlayer extends FlxSpriteGroup
 				bf.playAnim('idle', false);
 			}
 		}
+
+	public function resetPos()
+	{
+		bf.playAnim('idle', true);
+	}
 }
 
 class OptionsSubstate extends MusicBeatSubstate
