@@ -240,6 +240,8 @@
 	<haxelib name="linc_luajit"/>
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="extension-networking"/>
+	<haxelib name="colyseus"/>
+	<haxelib name="colyseus-websocket"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
