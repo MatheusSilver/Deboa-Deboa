@@ -293,6 +293,10 @@
 	<haxedef name="rpc" unless="debug || mobile"/>
 	<!--só trocar se quiser rpc-->
 
+	<!--Debug Logs do hxVlc-->
+	<haxedef name="HXVLC_VERBOSE" value="2" if="debug" />
+	<haxedef name="HXVLC_LOGGING" if="debug" />
+		
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
