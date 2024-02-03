@@ -12,19 +12,18 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import networking.Network;
-import networking.sessions.Session;
-import networking.sessions.client.Client;
-import networking.sessions.items.ClientObject;
-import networking.sessions.items.ServerObject;
-import networking.sessions.server.Server;
-import networking.utils.NetworkEvent;
-import networking.utils.NetworkMode;
+import io.colyseus.Client;
+import io.colyseus.Room;
+import io.colyseus.events.EventHandler;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
 import ibwwg.FlxScrollableArea;
 import flixel.math.FlxRect;
 import openfl.utils.Assets as OpenFlAssets;
+import multiplayer.schemas.*;
+import multiplayer.entities.*;
+import io.colyseus.serializer.schema.Schema;
+import io.colyseus.serializer.schema.types.*;
 
 using StringTools;
 
@@ -59,12 +58,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var okBt:FlxButton;
 
 	// SERVER - acessos
-	public var client:Session = null;
-    public var server:Session = null;
-
-    // Acesso ao tipo de player.
-    public var usuario:Session = null;
-
+    var client:Client;
+	var curRoom:Room<LobbyState>;
 
 	var isOnServer:Bool = false;
 	var isHost:Bool = false;
@@ -75,7 +70,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var daNoteReceived:Array<Int> = [0];
 
 	// PLAYERS
-	public var players:Array<LobbyPlayer> = [new LobbyPlayer(174,190), new LobbyPlayer(681,190)];
+	public var players:Array<LobbyPlayerObject> = new Array<LobbyPlayerObject>();
 	public static var instance:MultiplayerMainMenuState;
 
 	// VARIAVEIS OPÇÕES
@@ -116,18 +111,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function create()
 	{
 		instance = this;
+		client = new Client('ws://localhost:2567');
+		players = [];
 		musicas = getAllSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		multiplayerTxt.y = -1500;
 		multiplayerTxt.screenCenter(X);
 
-		ipBar = new FlxUIInputText(0, 0, 575, "127.0.0.1", 50, FlxColor.BLACK, FlxColor.WHITE, true);
+		ipBar = new FlxUIInputText(0, 0, 575, "Room ID", 50, FlxColor.BLACK, FlxColor.WHITE, true); // TODO: Uma lista com todos as rooms disponíveis e rooms com senha
 		ipBar.screenCenter(X);
 		ipBar.y = 1500;
 		ipBar.alignment = CENTER;
 
-		bGround = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
+		bGround = new FlxSprite(0, 0).loadGraphic(Paths.image('ph')); // paulo henrique
 		bGround.setGraphicSize(Std.int(bGround.width));
 		bGround.antialiasing = ClientPrefs.globalAntialiasing;
 		bGround.updateHitbox();
@@ -158,13 +155,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 		FlxTween.tween(hostearBt, {y: 348}, 1.25, {ease: FlxEase.expoInOut});
 
-		var num:Int = 0;
-		for (player in players)
+		//var num:Int = 0;
+		/*for (player in players)
 		{
 			player.nome = num == 1 ? "Player 2" : GJClient.userName;
 			add(player);
 			num++;
-		}
+		}*/
 
 		comecarBt = createButton('multiplayer/iniciarBt', 0.6, 276, 563, false, false);
 		add(comecarBt);
@@ -212,9 +209,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if (controls.BACK && !ipBar.hasFocus && !isOnOptions && canClick && !isPlayingMatch)
 		{
 			GlobalSoundManager.play("cancelMenu");
-			if (isOnServer)
+			/*if (isOnServer)
 			{
-				Network.destroySession(client);
+				client.disconnect();
 				if (isHost)
 				{
 					server.send({message: 'fechei o server mano :c ', verb: 'all-leave'});
@@ -225,7 +222,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			else
 			{
 				MusicBeatState.switchState(new MainMenuStateMobile());
-			}
+			}*/
 		}
 
 		// pra fazer o barulhinho
@@ -256,7 +253,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			if(canInitMatch && !isPlayingMatch)
 			{
-				server.send({message: Std.string(MusicaAtual) + "\n" +Std.string(TrocarLados)+ "\n"+ Std.string(ModoDeJogo), verb: "init-match"});
+				//server.send({message: Std.string(MusicaAtual) + "\n" +Std.string(TrocarLados)+ "\n"+ Std.string(ModoDeJogo), verb: "init-match"});
 			}
 		}
 
@@ -274,7 +271,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			inputShit();
 		}
-		canInitMatch = isOnServer && !isPlayingMatch && isHost && players[1].nome != "Player 2";
+		//canInitMatch = isOnServer && !isPlayingMatch && isHost;
 		super.update(elapsed);
 	}
 
@@ -286,15 +283,33 @@ class MultiplayerMainMenuState extends MusicBeatState
 		ipBar.hasFocus = false;
 		canClick = false;
 		GlobalSoundManager.play('confirmMenu');
-		server = Network.registerSession(NetworkMode.SERVER, {
-			ip: '0.0.0.0',
-			port: 8080,
-			max_connections: 2
-		});
-		server.start();
-		definirUsuario();
 
-		server.addEventListener(NetworkEvent.CONNECTED, function(e:NetworkEvent)
+		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
+		roomOptions.set("salaNome", ipBar.text);
+		roomOptions.set("mode", "Score");
+		roomOptions.set("changeSides", false);
+		roomOptions.set("myName", GJClient.userName);
+		roomOptions.set("myChar", "bf");
+
+		client.create("gameRoom", roomOptions, LobbyState, function(err, room) {
+			if (err != null) {
+				trace("CREATE ERROR: " + err);
+				MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState()); // reinicia o state
+				return;
+			}
+
+
+			curRoom = room;
+			isHost = true;
+			isOnServer = true;
+
+			room.onMessage("lobbyPlayers", function(message) {
+				updateLobbyPlayersObject(message); //TODO: fazer isso n dar null reference aaa quero dormir
+			});
+		});
+
+
+		/*server.addEventListener(NetworkEvent.CONNECTED, function(e:NetworkEvent)
 		{
 			server.send({message: 'Você entrou no servidor!', verb: 'test'});
 			if(players[0].nome != "Player 1")
@@ -421,7 +436,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		server.addEventListener(NetworkEvent.INIT_FAILURE, function(e:NetworkEvent)
 		{
 			avisarAlgo("Erro no servidor");
-		});
+		});*/
 	}
 
 	public function initMatch()
@@ -434,23 +449,23 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarInputGame(note:Int)
 	{
-		usuario.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
+		//usuario.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
 		//trace("Enviei Input "+Std.string(note));
 	}
 
 	public function enviarToPronto()
 	{
-		client.send({message: Std.string(myID), verb: 'carreguei'});
+		//client.send({message: Std.string(myID), verb: 'carreguei'});
 	}
 
 	public function enviarQueroTerminar()
 	{
-		client.send({message: Std.string(myID), verb: 'force-stop'});
+		//client.send({message: Std.string(myID), verb: 'force-stop'});
 	}
 
 	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
 	{
-		usuario.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score), verb: 'hits-e-misses'});
+		//usuario.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score), verb: 'hits-e-misses'});
 	}
 
 	public function send_results(hits:Array<Int>, combo:Int, score:Int, playerName:String)
@@ -458,10 +473,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		var hits_message:String = '';
 		for (hit in hits){hits_message += Std.string(hit) + ", ";}
 		hits_message = hits_message.substring(0, hits_message.length - 2); //Serve para remover o último ", "
-		usuario.send({myID: myID, message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score) + "\n" + playerName, verb: 'results'});
+		//usuario.send({myID: myID, message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score) + "\n" + playerName, verb: 'results'});
 	}
 
-	private function definirUsuario():Void {usuario = isHost ? server : client;}
+	//private function definirUsuario():Void {usuario = isHost ? server : client;}
 
 	public function endMatch()
 	{
@@ -486,7 +501,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		ipBar.hasFocus = false;
 		canClick = false;
 		GlobalSoundManager.play('confirmMenu');
-		var server_ip = isHost ? "127.0.0.1" : ipBar.text;
+		/*var server_ip = isHost ? "127.0.0.1" : ipBar.text;
 
 		client = Network.registerSession(NetworkMode.CLIENT, {
 			ip: server_ip,
@@ -627,22 +642,22 @@ class MultiplayerMainMenuState extends MusicBeatState
 		client.addEventListener(NetworkEvent.SERVER_FULL, function(e:NetworkEvent)
 		{
 			avisarAlgo("O servidor está cheio");
-		});
+		});*/
 	}
 
 	function segureiObotao(qual:String)
 	{
 		// quem clicou | oq clicou
-		client.send({message: myID + " " + qual + " Segurei", verb: 'input'});
+		//client.send({message: myID + " " + qual + " Segurei", verb: 'input'});
 	}
 
 	function solteiObotao(qual:String)
 	{
 		// quem clicou | oq clicou
-		client.send({message: myID + " " + qual + " Soltei", verb: 'input'});
+		//client.send({message: myID + " " + qual + " Soltei", verb: 'input'});
 	}
 
-	function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
+	/*function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
 	{
 		var zeroInt:Int = Std.parseInt(zero);
 		if (two == "Segurei")
@@ -661,7 +676,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 			if (isServer)
 			{
-				server.send({message: zero + " " + one + " Segurei", verb: 'input'});
+				//server.send({message: zero + " " + one + " Segurei", verb: 'input'});
 			}
 
 			players[zeroInt].bfAnims(one);
@@ -681,14 +696,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 			if (isServer)
 			{
-				server.send({message: zero + " " + one + " Soltei", verb: 'input'});
+				//server.send({message: zero + " " + one + " Soltei", verb: 'input'});
 			}
 			if (players[zeroInt].keys[0] == false && players[zeroInt].keys[1] == false && players[zeroInt].keys[2] == false && players[zeroInt].keys[3] == false)
 			{
 				players[zeroInt].bfAnims(one, true);
 			}
 		}
-	}
+	}*/
 
 	var imRemoving:Bool = false;
 
@@ -819,11 +834,67 @@ class MultiplayerMainMenuState extends MusicBeatState
         button.visible = visible;
         return button;
     }
+
+	function updateLobbyPlayersObject(newLobbyPlayer:Dynamic)
+	{
+		if(curRoom != null)
+		{
+			trace(newLobbyPlayer);
+			if(newLobbyPlayer != null)
+			{
+				var lobbyPlayersSchema:MapSchema<LobbyPlayer> = newLobbyPlayer;
+				for (player in lobbyPlayersSchema)
+				{
+					var lobbyPlayer:LobbyPlayerObject;
+					lobbyPlayer = new LobbyPlayerObject(174,190);
+					lobbyPlayer.nome = player.username;
+					lobbyPlayer.charID = player.char;
+					var modificar:Bool = false;
+
+					if(players != [])
+					{
+						for(playera in players)
+							{
+								if(playera.nome == lobbyPlayer.nome)
+								{
+									modificar = true;
+									break;
+								}
+							}
+					}
+
+					if(!modificar)
+					{
+						if(players.length == 1)
+							{
+								lobbyPlayer.x = 681;
+							}
+						add(lobbyPlayer);
+						players.push(lobbyPlayer);
+
+
+					}
+					else
+					{
+						for(i in 0...players.length)
+						{
+							if(players[i].nome == lobbyPlayer.nome)
+							{
+								players[i] = lobbyPlayer;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-class LobbyPlayer extends FlxSpriteGroup
+class LobbyPlayerObject extends FlxSpriteGroup
 {
 	public var nome:String = "Player 1";
+	public var charID:String = "bf";
 	public var keys:Array<Bool> = [false, false, false, false];
 	public var bf:Boyfriend;
 	public var isConnected:Bool = false;

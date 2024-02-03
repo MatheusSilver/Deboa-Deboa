@@ -431,7 +431,7 @@ class MainMenuStateMobile extends MusicBeatState
 				case 'multiplayer':
 					if(GJClient.logged)
 						{
-							MusicBeatState.switchState(new multiplayer.MenuState());
+							MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState());
 						}
 					else
 					{
