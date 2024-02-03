@@ -1,15 +1,8 @@
 # Obrigado Idklool
 
-name: Android Build
-
+name: Android
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ optim-extra-2 ] # com isso ele nunca vai compilar sozinho quando for a master.
-  pull_request:
-    branches: [ optim-extra-2 ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
