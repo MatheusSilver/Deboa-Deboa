@@ -58,11 +58,6 @@ class Main extends Sprite
 		}
 	}
 
-	@:dox(hide)
-	public static var audioDisconnected:Bool = false;
-
-	public static var changeID:Int = 0;
-
 	public static function mouseVisibility(visible:Bool):Void
 	{
 		#if desktop
