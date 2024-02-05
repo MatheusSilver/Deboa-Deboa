@@ -48,7 +48,9 @@ class ClientPrefs
 	public static var opacidadeLegendas:Float = 1;
 	public static var focus:Null<Bool> = false;
 	public static var lingua:Null<String> = "pt-BR";
-
+	public static var shaderMatrix:Array<Float> = [];
+	public static var curFilter:Null<Int> = 0; // isso é feio mas funciona :D
+	
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [
 		// Key Bind, Name for ControlsSubState

@@ -1,5 +1,7 @@
 package;
 
+import openfl.filters.ColorMatrixFilter;
+import openfl.filters.BitmapFilter;
 #if mobile
 import haxe.CallStack.StackItem;
 import haxe.CallStack;
@@ -178,7 +180,10 @@ class Main extends Sprite
 		}
 		#end
 
-		FlxG.fullscreen = ClientPrefs.fullscreen;
-		//Lá em cima as clientprefs ainda não haviam sido carregadas  
+		var shaderarray:Array<BitmapFilter> = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
+		FlxG.game.setFilters(shaderarray); // Resumindo: Se tu quer enxergar as cores certinhas, tu vai ter lag no jogo k
+
+		FlxG.fullscreen = ClientPrefs.fullscreen; //Lá em cima as clientprefs ainda não haviam sido carregadas  
+		FlxG.fixedTimestep = true;
 	}
 }

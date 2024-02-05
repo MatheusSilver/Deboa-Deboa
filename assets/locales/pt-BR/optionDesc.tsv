@@ -1,4 +1,5 @@
-flag	context
+﻿flag	context
+opt_desc_colorblindness_filter	Troque entre filtros,<X>o ideal para seu caso de daltonismo.
 opt_desc_gore	Desative isso para não visualizar<X>os elementos com gore nas músicas.
 opt_desc_fps_max	Determina o máximo de FPS alcançavel.
 opt_desc_note_delay	Troca o quão cedo uma nota aparece.<X>(feitos para fones bluetooth.)

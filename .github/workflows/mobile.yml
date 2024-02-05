@@ -54,6 +54,7 @@ jobs:
           haxelib run hmm install
           haxelib git extension-webview https://www.github.com/TeamX02/extension-webview.git
           haxelib git linc_luajit https://www.github.com/Sirox228/linc_luajit.git
+          haxelib install colyseus 0.14.10
           haxelib list
 
       - name: Configure Android
@@ -64,6 +65,7 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
           haxelib set hxcpp 4.2.1
+          haxelib set colyseus 0.14.10
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 

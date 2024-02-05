@@ -1101,8 +1101,6 @@ class PlayState extends MusicBeatState
 		FlxG.camera.focusOn(camFollow);
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
-
-		FlxG.fixedTimestep = false;
 		moveCameraSection(0);
 
 		healthBarBG = new AttachedSprite('healthBar');

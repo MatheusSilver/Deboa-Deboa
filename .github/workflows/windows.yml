@@ -25,6 +25,8 @@ jobs:
           haxelib install hxcpp 4.2.1 > /dev/null --quiet
           haxelib set hxcpp 4.2.1
           haxelib git linc_luajit https://github.com/superpowers04/linc_luajit.git
+          haxelib install colyseus 0.14.10
+          haxelib set colyseus 0.14.10
           haxelib list
       - name: Compile
         run: haxelib run lime build Project.xml windows -final

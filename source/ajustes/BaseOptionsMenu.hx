@@ -1,42 +1,32 @@
 package ajustes;
 
-import Controls;
-import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.graphics.FlxGraphic;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.keyboard.FlxKey;
-import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import openfl.filters.BitmapFilter;
+import openfl.filters.ColorMatrixFilter;
+
+using StringTools;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else
 import flixel.system.FlxSound;
 #end
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxSave;
-import flixel.util.FlxTimer;
-import haxe.Json;
-import lime.utils.Assets;
 
-using StringTools;
 #if rpc
 import Discord.DiscordClient;
 #end
 
 class BaseOptionsMenu extends MusicBeatState
 {
-
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
 		'visuals_cap',
 		'subt_cap',
 		'global_sounds_cap',
+		'acessibilidade_cap',
 		'gameplay_cap',
 		'hitsound_sounds_cap'
 	];
@@ -47,13 +37,13 @@ class BaseOptionsMenu extends MusicBeatState
 		'game_volume',
 		'hitsound_volume',
 		'hitsound_type',
-		'hitsound_test'
+		'hitsound_test',
+		'colorblindness_filter',
 	];
 
 	static var options:Array<String> = [
 		'visuals_cap',
 		'low_quality',
-		'gore',
 		'shaders',
 		'aliasing',
 		'fullscreen',
@@ -62,7 +52,6 @@ class BaseOptionsMenu extends MusicBeatState
 		#if desktop
 		'auto_pause',
 		#end
-		'flashing',
 		'fps_visible',
 		'gpu',
 		#if !html5
@@ -79,6 +68,10 @@ class BaseOptionsMenu extends MusicBeatState
 		'subt_cap',
 		'subtitles',
 		'opacity',
+		'acessibilidade_cap',
+		'flashing',
+		'gore',
+		'colorblindness_filter',
 		'global_sounds_cap',
 		'game_volume',
 		'hitsound_sounds_cap',
@@ -232,7 +225,6 @@ class BaseOptionsMenu extends MusicBeatState
 					
 					case 'shaders':
 						ClientPrefs.shaders = !ClientPrefs.shaders;
-
 					case 'aliasing':
 						ClientPrefs.globalAntialiasing = !ClientPrefs.globalAntialiasing;
 						showCharacter.antialiasing = ClientPrefs.globalAntialiasing;
@@ -358,8 +350,12 @@ class BaseOptionsMenu extends MusicBeatState
 							ClientPrefs.opacidadeLegendas+=addo;
 							if(ClientPrefs.opacidadeLegendas>0.95){ClientPrefs.opacidadeLegendas = 1;}else if(ClientPrefs.opacidadeLegendas<0.15){ClientPrefs.opacidadeLegendas=0.1;}
 						}
-						
-				}
+					case 'colorblindness_filter':
+						ClientPrefs.curFilter += add;
+						if (ClientPrefs.curFilter >= 3) ClientPrefs.curFilter = 3;
+						if (ClientPrefs.curFilter <= 0) ClientPrefs.curFilter = 0;
+						changeFilter(ClientPrefs.curFilter); // k
+ 				}
 				reloadValues();
 
 				if(holdTime <= 0) GlobalSoundManager.play('scrollMenu');
@@ -503,12 +499,23 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = '';
 					case 'opacity':
 						daText = Std.string(ClientPrefs.opacidadeLegendas);
+					case 'colorblindness_filter':
+						daText = getFilterType(ClientPrefs.curFilter);
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;
 				text.changeText(daText);
 				text.sprTracker = lastTracker;
 			}
+		}
+	}
+
+	public function getFilterType(filter:Int):String {
+		switch(filter) {
+			case 1: return "Deuteranopia";
+			case 2: return "Tritanopia";
+			case 3: return "Protanopia";
+			default: return "Normal";
 		}
 	}
 
@@ -519,5 +526,41 @@ class BaseOptionsMenu extends MusicBeatState
 			}
 		}
 		return options[num] == null || options[num].length < 1;
+	}
+
+	function changeFilter(filter:Int) {
+		var elfiltro:Array<BitmapFilter>;
+		switch(filter) {
+			case 1:
+				ClientPrefs.shaderMatrix = [
+				0.43, 0.72, -.15, 0, 0,
+				0.34, 0.57, 0.09, 0, 0,
+				-.02, 0.03,    1, 0, 0,
+				   0,    0,    0, 1, 0, ];
+				elfiltro = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
+				FlxG.game.setFilters(elfiltro);
+			case 2:
+				ClientPrefs.shaderMatrix = [
+					0.97, 0.11, -.08, 0, 0,
+					0.02, 0.82, 0.16, 0, 0,
+					0.06, 0.88, 0.18, 0, 0,
+					   0,    0,    0, 1, 0,
+				];
+				elfiltro = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
+				FlxG.game.setFilters(elfiltro);
+			case 3:
+				ClientPrefs.shaderMatrix = [
+					0.20, 0.99, -.19, 0, 0,
+					0.16, 0.79, 0.04, 0, 0,
+					0.01, -.01,    1, 0, 0,
+					   0,    0,    0, 1, 0,
+				];
+				elfiltro = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
+				FlxG.game.setFilters(elfiltro);
+			default:
+				// Só pra apagar tudo da array e tirar o filtro da tela (isso tava bugado)
+				elfiltro = [];
+				FlxG.game.setFilters([]);
+		}	
 	}
 }

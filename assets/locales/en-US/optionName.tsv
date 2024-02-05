@@ -1,4 +1,5 @@
 flag	context
+opt_name_colorblindness_filter	Daltonism
 opt_name_gore	Gore
 opt_name_fps_max	FPS
 opt_name_note_delay	Note Delay
@@ -29,3 +30,4 @@ opt_name_gameplay_cap	GAMEPLAY
 opt_name_subt_cap	SUBTITLES
 opt_name_global_sounds_cap	GLOBAL SOUND
 opt_name_hitsound_sounds_cap	EXTRA SOUNDS
+opt_name_acessibilidade_cap	ACCESSBILITY
