@@ -162,8 +162,6 @@ class PlayState extends MusicBeatState
 		["perfect", 1] // The value on this one isn't used actually, since Perfect is always "1"
 	];
 
-	var floaty:Float = 0;
-
 	#if (haxe >= "4.0.0")
 	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
 	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, ModchartSprite>();
@@ -218,10 +216,6 @@ class PlayState extends MusicBeatState
 
 	public var noteKillOffset:Float = 320;
 
-	// - flying shit
-	var flyTarg:Character;
-	var flyState:String = '';
-
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
 	public var gfGroup:FlxSpriteGroup;
@@ -256,9 +250,6 @@ class PlayState extends MusicBeatState
 
 	private static var prevCamFollow:FlxPoint;
 	private static var prevCamFollowPos:FlxObject;
-
-	var tailscircle:String = '';
-	var floaty2:Float = 0;
 	
 	public var strumBGS:FlxTypedGroup<StrumBG>;
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
@@ -952,8 +943,6 @@ class PlayState extends MusicBeatState
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
 
-		flyTarg = dad;
-
 		scrollModifierChecker = ClientPrefs.downScroll;
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
@@ -984,6 +973,7 @@ class PlayState extends MusicBeatState
 			case 'needle':
 				add(needleFg);
 				dad2.alpha = 0;
+				dad2.visible = false;
 
 				dad.x -= 120;
 				dad.y += 265;
@@ -993,9 +983,6 @@ class PlayState extends MusicBeatState
 				gf.y += 350;
 				dad2.x -= 150;
 				dad2.y += 25;
-
-				flyTarg = dad2; // fucking smart genious and intellegent
-				flyState = 'sHover';
 
 				boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.9));
 		}
@@ -2900,29 +2887,15 @@ class PlayState extends MusicBeatState
 		}
 		timeAccumulated += elapsed;
 		if (SONG.song.toLowerCase() == "confronting-yourself")
-		{
 			callOnLuas('onUpdate', [elapsed]);
-		}
-		while (shouldUpdate())
-		{
-			floaty2 += 0.01;
-			floaty += 0.03;
-			if (SONG.song.toLowerCase() != "confronting-yourself")
+		else
+			while (shouldUpdate())
 			{
-				callOnLuas('onUpdate', [elapsed]);
+				if (SONG.song.toLowerCase() != "confronting-yourself")
+					callOnLuas('onUpdate', [elapsed]);
+
+				timeAccumulated -= UPDATE_INTERVAL;
 			}
-			switch (flyState)
-			{
-				case 'hover' | 'hovering':
-					flyTarg.y += Math.sin(floaty) * 1.5;
-				case 'fly' | 'flying':
-					flyTarg.y += Math.sin(floaty) * 1.5;
-					flyTarg.x += Math.cos(floaty) * 1.5;
-				case 'sHover' | 'sHovering':
-					flyTarg.y += Math.sin(floaty2) * 0.5;
-			}
-			timeAccumulated -= UPDATE_INTERVAL;
-		}
 
 		/*if (FlxG.keys.justPressed.NINE)
 			{
@@ -3066,16 +3039,6 @@ class PlayState extends MusicBeatState
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
-
-		if (dad.curCharacter == "tailsdoll-cartoon")
-			// Do you really wanna see sonic.exe fly? Me neither.
-			// isso me dá ideias kek
-		{
-			if (tailscircle == 'hovering' || tailscircle == 'circling')
-				dad.y += Math.sin(floaty) * 1.3;
-			if (tailscircle == 'circling')
-				dad.x += Math.cos(floaty) * 1.3; // math B)
-		}
 
 		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 		iconP1.scale.set(mult, mult);
@@ -3552,15 +3515,6 @@ class PlayState extends MusicBeatState
 				pularVideo(value1 == "true" ? true : false);
 			case 'Socorro':
 				lime.app.Application.current.window.title = value1;
-			case 'Character Fly':
-				flyState = '';
-				FlxTween.tween(dad, {x: DAD_X, y: DAD_Y}, 0.2, {
-					onComplete: function(lol:FlxTween)
-					{
-						dad.setPosition(DAD_X, DAD_Y);
-						flyState = value1;
-					}
-				});
 			case 'strum swap2': //	OMAGA 2???????? DOS MESMOS CRIADORES DO WHATSAPP 2??? OOOOOOOOOOOMAGAAAAAWD (Silvio momentos antes de coringar colocando eventos na Triple-Trouble)
 				isSwapped = false;
 				if (value2 != 'true')
@@ -3988,6 +3942,7 @@ class PlayState extends MusicBeatState
 						var char:Character = gf;
 						char.idleSuffix = 'scared';
 						char.recalculateDanceIdle();
+						dad2.visible = true;
 						FlxTween.tween(dad2, {alpha: 0.7}, 0.5, {ease: FlxEase.quadInOut});
 					// funnyLargeTween();
 
@@ -4007,7 +3962,9 @@ class PlayState extends MusicBeatState
 						var char:Character = gf; // isso provavelmente deve ser menos bugado
 						char.idleSuffix = ''; // e menos bagunçado que a solução anterior...
 						char.recalculateDanceIdle(); // EU ESPERO...
-						FlxTween.tween(dad2, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut});
+						FlxTween.tween(dad2, {alpha: 0}, 0.5, {ease: FlxEase.quadInOut, onComplete:function(twn:FlxTween){
+							dad2.visible = false;
+						}});
 				}
 			case 'eventos-tripletrouble': // Que o inferno comece...
 				var supertimer:Float = Std.parseFloat(value1);
