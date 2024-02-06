@@ -191,7 +191,9 @@ function onTweenCompleted(tag)
         end
     end
     if tag == "gotchaTween" then
+        if flashing then
         cameraFlash("hud2", "0xFFFF0000", 2 , true)
+        end
         removeLuaSprite("gotcha") 
     end
 end

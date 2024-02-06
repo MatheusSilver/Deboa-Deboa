@@ -9,7 +9,9 @@ local flashback_used = false;
 function onEvent(name, value1, value2)
 	if name == "flashback" then
         flashback_used = true
+        if flashing then
         cameraFlash('legenda', '0xffffff', 0.5, true)
+        end
         setProperty('drowningArt'..value1..'.visible', true) --MALDITO .VISIBLE AAAAAAAAAAAAAAAAAAAAAAA
         doTweenAlpha('drowningArt'..value1, 'drowningArt'..value1, 0, 1.5, 'linear')
     end

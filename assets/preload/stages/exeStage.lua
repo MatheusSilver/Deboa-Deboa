@@ -17,9 +17,11 @@ function onCreate()
     setScrollFactor('treething', 1, 1);
     scaleObject('treething', 1.15, 1.15);
     
+    if gore then
     makeLuaSprite('tails', 'cenarios/exeStage/TailsCorpse', 700, 500)
     setScrollFactor('tails', 1, 1);
-
+    end
+    
     makeLuaSprite('overlay', 'tentacles_black', 0, 0)
     setProperty("overlay.alpha", 0.1)
 	setObjectCamera("overlay", "hud2")

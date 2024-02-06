@@ -23,7 +23,9 @@ function onEvent(name, value1, value2)
             cancelTween('tt')
             setProperty('camHUD.angle', 0)
 			setProperty('camGame.angle', 0)
+            if flashing then
             cameraFlash('legenda', '0xffff00', 1, true)
+            end
             fastChar('sbf1', 'xenomad')
             removeLuaSprite('circusBG', true)
             -- Basicamente queria deixar esse mano que usa o Tiled Sprite bem isolado do resto.

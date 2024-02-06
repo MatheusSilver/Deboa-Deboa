@@ -155,7 +155,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 				PlayState.storyDifficulty = crossDifficulty;
 				PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 	
-				FlxG.camera.flash(FlxColor.BLUE, 1.0);
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLUE, 1.0);
 				
 				openSubState(new LoadingsState());
 				new FlxTimer().start(3.5, function(tmr:FlxTimer) {
@@ -180,7 +180,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 				PlayState.storyDifficulty = crossDifficulty;
 				PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
-				FlxG.camera.flash(FlxColor.RED, 1.0);
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 1.0);
 
 				openSubState(new LoadingsState());
 				new FlxTimer().start(3.5, function(tmr:FlxTimer) {

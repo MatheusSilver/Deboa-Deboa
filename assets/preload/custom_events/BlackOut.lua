@@ -1,5 +1,6 @@
 function onEvent(name, value1, value2)
 	if name == 'BlackOut' then
+		if flashing then
 		if value1 == 'true' then
 		makeLuaSprite('BlackFlash', 'BlackFlash', -700, -120);
 		scaleObject('BlackFlash', 18, 22);
@@ -10,3 +11,4 @@ function onEvent(name, value1, value2)
 			end
 		end
 	end
+end

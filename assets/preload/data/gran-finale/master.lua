@@ -92,14 +92,18 @@ function onEvent(name, value1, value2)
             switchDrain(true)
             setProperty('defaultCamZoom', 0.5)
             setProperty('global_shader.visible', true)
+            if flashing then
             cameraFlash('legenda', '0xffffff', 0.5, true)
+            end
             zoomModifier = true
             zoomDAD = 0.37
             zoomBF = 0.5
         end
         if value1 == 'face-to-face' then
             setProperty('global_shader.visible', true)
+            if flashing then
             cameraFlash('legenda', '0xffffff', 0.5, true)
+            end
             stage_manager('main', false)
             stage_manager('face-to-face', true)
             fastChar('bf_ftf', 'xeno-ftf')
@@ -112,7 +116,9 @@ function onEvent(name, value1, value2)
             runTimer('callEnd-ftf', 1.7)
         end
         if value1 == 'face-to-face-end' then
+            if flashing then
             cameraFlash('legenda', '0xffffff', 0.5, true)
+            end
             fastChar('bfrun', 'xenofinal')
             stage_manager('main', true)
             stage_manager('face-to-face', false)
@@ -125,7 +131,9 @@ function onEvent(name, value1, value2)
         if value1 == 'sudden_black_off' then
             setProperty('blackFuck.alpha', 0)
             --characterPlayAnim('bf', 'trans', true)
+            if flashing then
             cameraFlash('legenda', '0xffffff', 0.6, true)
+            end
             prevInfo = getPropertySpecial('boyfriend.x')
             setProperty('boyfriend.x', prevInfo - 100)
             doTweenX('boyfriendtween', 'boyfriend', prevInfo, 0.5, 'smoothstepinout')
@@ -136,12 +144,16 @@ function onEvent(name, value1, value2)
         end
         if value1 == 'iamgod_fade' then
             doTweenAlpha('iamgodfade', 'iamgod', 0, 1.5, 'linear')
+            if flashing then
             cameraFlash('camHUD', '0xff0000', 1.5, true)
+            end
         end
         if value1 == 'maoboba' then
             camFollow = false
             fastChar('bfrunHand', 'invisibru')
+            if flashing then
             cameraFlash('legenda', '0xff0000', 0.5, true)
+            end
             stage_manager('main', true)
             setProperty('Band.visible', false)
             stage_manager('maoboba', true) -- Isso também deverá iniciar el movimento junto.
@@ -156,7 +168,9 @@ function onEvent(name, value1, value2)
             playAnim('herewego', 'justXeno', true)
         end
         if value1=='yuwont_end' then
+            if flashing then
             cameraFlash('camhud', '0xff0000', 0.5, true)
+            end
             setProperty('camGame.visible', true)
             setProperty('camHUD.visible', true)
             removeLuaSprite('herewego')
@@ -232,7 +246,9 @@ function onEvent(name, value1, value2)
             camFollow = false
             fastChar('beef', 'xenoholding')
             removeLuaSprite('redTrans', true)
+            if flashing then
             cameraFlash('legenda', '0xff0000', 0.5, true)
+            end
             pushScriptData('gigasonic_moment') -- É apenas um controlador, então não tem problema puxar ele tardiamente.
             zoomModifier = true
             zoomBF = 0.5
@@ -253,7 +269,9 @@ function onEvent(name, value1, value2)
             zoomDAD = 0.37
         end
         if value1 == 'removebfmic' then
+            if flashing then
             cameraFlash('legenda', '0xffffff', 0.5, true)
+            end
             setProperty('camHUD.visible', true)
             setProperty('camGame.visible', true)
             removeLuaSprite('bfgetsmic')
@@ -261,11 +279,15 @@ function onEvent(name, value1, value2)
         if value1 == 'appearStatic' then
             objectPlayAnimation('static','dance',true)
 	        setProperty('static.visible', true)
+            if flashing then
             cameraFlash('legenda', '0xff0000', 0.5, true)
+            end
         end
         if value1 == 'GranFinale' then
             zoomModifier = true
+            if flashing then
             cameraFlash('legenda', '0xff0000', 1, true)
+            end
             setProperty('static.visible', false)
             stage_manager('main', true)
             setProperty('Background.visible', false)
@@ -274,7 +296,9 @@ function onEvent(name, value1, value2)
         end
         if value1 == 'GranFinale-ato2' then
             stage_manager('all', false)
+            if flashing then
             cameraFlash('legenda', '0xff0000', 1, true)
+            end
             setProperty('static.visible', true)
         end
         if value1 =='GranFinale-ato3' then -- cara a cara
@@ -313,7 +337,9 @@ function onTimerCompleted(tag)
         triggerEvent('trocar ato','face-to-face-end', '')
     end
     if tag == 'callEnd_maoboba' then
+        if flashing then
         cameraFlash('legenda', '0xffffff', 1, true)
+        end
         fastChar('bfrunbobo', 'invisibru')
         triggerEvent('trocar ato','lateralRun', '')
         switchDrain(false)

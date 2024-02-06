@@ -643,10 +643,12 @@ class PlayState extends MusicBeatState
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 				add(whiteFuck);
 			case 'P2Stage':
+				if(!ClientPrefs.lowQuality) {
 				p2Sky = new BGSprite('cenarios/Glitch', -200, -200, 0.6, 0.6);
 				p2Sky.scale.x = 0.8;
 				p2Sky.scale.y = 0.8;
 				add(p2Sky);
+				}
 
 				p2Ground = new BGSprite('cenarios/ground', -425, -100, 1, 1);
 				p2Ground.scale.x = 1;
@@ -665,7 +667,8 @@ class PlayState extends MusicBeatState
 				ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
 
 			case 'P3Stage': // i fixed the bgs and shit!!! - razencro part 1 - bg's finalizados sílvio parte 2
-				{
+					if(!ClientPrefs.lowQuality)
+					{
 					sSKY = new FlxSprite(-621.1, -395.65).loadGraphic(Paths.image('cenarios/Glitch'));
 					sSKY.scrollFactor.set(0.9, 1);
 					sSKY.antialiasing = ClientPrefs.globalAntialiasing;
@@ -673,18 +676,13 @@ class PlayState extends MusicBeatState
 					sSKY.scale.x = 1.2;
 					sSKY.scale.y = 1.2;
 					add(sSKY);
+					}
 
 					ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
 
+					if (!ClientPrefs.lowQuality){
 					p3staticbg = new FlxSprite(0, 0);
-					if (!ClientPrefs.lowQuality)
-					{
-						p3staticbg.frames = Paths.getSparrowAtlas('effects/estatica', 'shared');
-					}
-					else
-					{
-						p3staticbg.frames = Paths.getSparrowAtlas('effects/estaticalq', 'shared');
-					}
+					p3staticbg.frames = Paths.getSparrowAtlas('effects/estatica', 'shared');
 					p3staticbg.animation.addByPrefix('P3Static', 'TitleMenuSSBG instance 1', 24, true);
 					p3staticbg.animation.play('P3Static');
 					p3staticbg.screenCenter();
@@ -692,6 +690,7 @@ class PlayState extends MusicBeatState
 					p3staticbg.scale.y = 4.5;
 					p3staticbg.visible = false;
 					add(p3staticbg);
+					}
 
 					bg_triple = new FlxSprite(-630.4, -266).loadGraphic(Paths.image('cenarios/ground'));
 					bg_triple.antialiasing = ClientPrefs.globalAntialiasing;
@@ -715,8 +714,6 @@ class PlayState extends MusicBeatState
 					chao_scrap.visible = false;
 					chao_scrap.setGraphicSize(Std.int(chao_scrap.width*0.83));
 					add(chao_scrap);
-				}
-
 			case 'needle':
 				defaultCamZoom = 0.6;
 
@@ -732,17 +729,21 @@ class PlayState extends MusicBeatState
 				needleRuins.setGraphicSize(Std.int(needleRuins.width * 1.4));
 				add(needleRuins);
 
+				if(!ClientPrefs.lowQuality) {
 				needleBuildings = new BGSprite('cenarios/needlemouse/buildings', -1000, -100, 1, 0.9);
 				// needleBuildings.setGraphicSize(Std.int(needleBuildings.width * 0.85));
 				add(needleBuildings);
+				}
 
 				conkCreet = new BGSprite('cenarios/needlemouse/CONK_CREET', -775, -310, 1, 0.9);
 				conkCreet.setGraphicSize(Std.int(conkCreet.width * 1.4));
 				add(conkCreet);
 
+				if(!ClientPrefs.lowQuality) {
 				needleFg = new FlxSprite(-690, -80).loadGraphic(Paths.image("cenarios/needlemouse/fg"));
 				needleFg.setGraphicSize(Std.int(needleFg.width * 1.1));
 				needleFg.scrollFactor.set(1, 0.9);
+				}
 
 				tempogravador = new FlxText(50, 0, 0, "", 48);
 				tempogravador.text = '';
@@ -913,7 +914,6 @@ class PlayState extends MusicBeatState
 
 		blammedLightsBlack.alpha = 0.0;
 
-
 		var gfVersion:String = SONG.player3;
 		if (gfVersion == null || gfVersion.length < 1)
 		{
@@ -971,7 +971,7 @@ class PlayState extends MusicBeatState
 				dad.scrollFactor.set(1.37, 1);
 				boyfriend.scrollFactor.set(1.37, 1);
 			case 'needle':
-				add(needleFg);
+				if(!ClientPrefs.lowQuality) add(needleFg);
 				dad2.alpha = 0;
 				dad2.visible = false;
 
@@ -1644,7 +1644,6 @@ class PlayState extends MusicBeatState
 		precacheList.set(pixelShitPart1 + "good" + pixelShitPart2, 'image');
 		precacheList.set(pixelShitPart1 + "bad" + pixelShitPart2, 'image');
 		precacheList.set(pixelShitPart1 + "shit" + pixelShitPart2, 'image');
-		// precacheList.set(pixelShitPart1 + "combo" + pixelShitPart2, 'image');
 		for (i in 0...10)
 		{
 			precacheList.set(pixelShitPart1 + 'num' + i + pixelShitPart2, 'image');
@@ -3446,7 +3445,7 @@ class PlayState extends MusicBeatState
 					timer.active = true;
 				}
 
-				FlxG.camera.flash(FlxColor.RED, 3);
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 3);
 				openSubState(new GameOverSubstate());
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
@@ -3831,9 +3830,9 @@ class PlayState extends MusicBeatState
 					case 921:
 						doSimpleJump();
 					case 763:
-						FlxG.camera.flash(FlxColor.RED, 0.5, true);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.5, true);
 					case 765:
-						FlxG.camera.flash(FlxColor.RED, 4);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 4);
 					case 1305:
 						cinematicBars(true);
 						FlxTween.tween(camHUD, {alpha: 0}, 0.3);
@@ -4069,7 +4068,7 @@ class PlayState extends MusicBeatState
 						reload_presence();
 						dad.x -= 1000;
 					case 128:
-						FlxG.camera.flash(FlxColor.BLACK, 4);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 4);
 						FlxG.camera.zoom = 2;
 						camZooming = false;
 						cinematicBars(true);
@@ -4078,16 +4077,16 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(camHUD, {alpha: 1}, 1.2, {ease: FlxEase.cubeInOut});
 						cinematicBars(false);
 					case 511:
-						FlxG.camera.flash(FlxColor.WHITE, 3);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
 					case 1024:
-						FlxG.camera.flash(FlxColor.WHITE, 3);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', ''); // must do Arrumar esse sprite.
 						triggerEventNote('Change Character', 'dad', 'Furnace'); // Ele já foi carregado mesmo então tá safe
 						FlxTween.tween(sonicHUD, {alpha: 0}, 0.5, {ease: FlxEase.cubeInOut}); // sÓ pq fica estranho com a cinematics
 
 					case 1280:
-						FlxG.camera.flash(FlxColor.WHITE, 3);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 3);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACE_assetszoom', ''); // must do Arrumar esse sprite.
 						triggerEventNote('Change Character', 'dad', 'Furnace-rgb'); // Ele já foi carregado mesmo então tá safe
 						FlxTween.tween(sonicHUD, {alpha: 1}, 0.5, {ease: FlxEase.cubeInOut});
@@ -4132,7 +4131,7 @@ class PlayState extends MusicBeatState
 					case 1780:
 						// Play sonic pulim
 						sonicPulo.play();
-						FlxG.camera.flash(FlxColor.RED, 1);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 1);
 						cinematicBars(false); // I FORGOR
 						FlxTween.tween(camHUD, {alpha: 1}, 1.0);
 					case 1781:
@@ -4206,7 +4205,7 @@ class PlayState extends MusicBeatState
 					case 3420:
 						health = 1;
 						triggerEventNote('noteskinchangeBF', 'NOTE-supa_assetszoom', ''); // must do Arrumar esse sprite.
-						FlxG.camera.flash(FlxColor.YELLOW, 2);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.YELLOW, 2);
 
 						opponentStrums.forEach(function(tofade:FlxSprite)
 						{
@@ -4214,7 +4213,7 @@ class PlayState extends MusicBeatState
 						});
 
 					case 100000000:
-						FlxG.camera.flash(FlxColor.RED, 0.5);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 0.5);
 						triggerEventNote('Add Camera Zoom', '0.3', '0.3');
 
 					case 3400:
@@ -4244,7 +4243,7 @@ class PlayState extends MusicBeatState
 					// The end
 
 					case 4480:
-						FlxG.camera.flash(FlxColor.RED, 5);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 5);
 						blackFuck.visible = true;
 						blackFuck.alpha = 1;
 						opponentStrums.forEach(function(tofade:FlxSprite){tofade.alpha = 1;});
@@ -4288,7 +4287,7 @@ class PlayState extends MusicBeatState
 						dad.y -= 210;
 
 					case 4505:
-						FlxG.camera.flash(FlxColor.WHITE, 1);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 						blackFuck.alpha = 0;
 						blackFuck.visible = false;
 
@@ -7080,7 +7079,7 @@ class PlayState extends MusicBeatState
 	{
 		if (texto == 'blahblah')
 		{
-			FlxG.camera.flash(FlxColor.BLACK, 5.5);
+			if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 5.5);
 			FlxG.camera.zoom = 2;
 			camZooming = false;
 			triggerEventNote('Cinematics', '1', '0.5'); // Ele já foi carregado mesmo então tá safe
