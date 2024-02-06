@@ -559,6 +559,7 @@ class BaseOptionsMenu extends MusicBeatState
 				FlxG.game.setFilters(elfiltro);
 			default:
 				// Só pra apagar tudo da array e tirar o filtro da tela (isso tava bugado)
+				ClientPrefs.shaderMatrix = []; // k
 				elfiltro = [];
 				FlxG.game.setFilters([]);
 		}	
