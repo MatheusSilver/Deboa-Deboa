@@ -54,7 +54,7 @@
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
 
 	<define name="GAMEJOLT_ALLOWED" if="desktop || mobile" />
-	<define name="MULTIPLAYER_ALLOWED" if="desktop"/>
+	<define name="MULTIPLAYER_ALLOWED" if="desktop || mobile"/>
 
 	<!-- Isso vai ser tãaaaaaaaaaaaaaaaaaaaaao chato de fazer... -->
 	<!-- Vocês agora me devem um pudim, Ass. Silvio -->
@@ -294,8 +294,11 @@
 	<!--só trocar se quiser rpc-->
 
 	<!--Debug Logs do hxVlc-->
+	<!--
 	<haxedef name="HXVLC_VERBOSE" value="2" if="debug" />
 	<haxedef name="HXVLC_LOGGING" if="debug" />
+	-->
+
 		
 	<!-- _________________________________ Custom _______________________________ -->
 

@@ -152,7 +152,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('gameoverfalas/' + FlxG.random.int(1, 12, exclude)), 1, false, null, true, function() {
 					if(!isEnding)
 					{
-						FlxG.sound.music.fadeIn(0.75, 1, 4);
+						FlxG.sound.music.fadeIn(2.25, 1, 4);
 					}
 				});
 			}

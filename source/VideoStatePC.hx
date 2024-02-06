@@ -23,10 +23,12 @@ class VideoStatePC extends MusicBeatState
 	{
 		video = new MP4Sprite(0,0, specialSetting);
 		video.canSkip = false;
-		if (specialSetting != TITLE && specialSetting != PLAYSTATE)
+		video.setParent(this);
+		
+		/*if (specialSetting != TITLE && specialSetting != PLAYSTATE)
 		{
 			FlxG.sound.music.fadeIn(0.35, 0.7, 0);
-		}
+		}*/
 
 		// Nashira, és tu??????????
 		// Sei que o if else if é bastante usado na unity e etc, desculpa dav!!!!

@@ -430,7 +430,7 @@ class PauseSubState extends MusicBeatSubstate
 			{
 				PlayState.instance.addBlackStuff(PlayState.instance.camLegenda);
 				PlayState.instance.pularVideo(true);
-				MusicBeatState.resetState();
+				FlxG.resetState();
 			}
 		}
 

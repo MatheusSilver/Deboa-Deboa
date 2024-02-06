@@ -30,6 +30,7 @@ class MP4Sprite extends FlxVideoSprite
 	public var queronaoviver:Bool = false;
 	public var oldPosition:Float = 0;
 	private var curState:GameState;
+	var parentState:FlxState;
 	
 	public function new(x:Int=0, y:Int=0, curState:GameState)
 	{
@@ -43,12 +44,18 @@ class MP4Sprite extends FlxVideoSprite
 		this.bitmap.onEncounteredError.add(onVLCError);
 	}
 
+	public function setParent(parent:FlxState)
+	{
+		parentState = parent;
+	}
+
 	public function playMP4(file:String, ?repeat:UInt=0, ?oldPosition:Float, ?nextState:FlxState):Void
 	{
+		this.oldPosition = oldPosition;
 		this.load(checkFile(file), repeat);
 		this.play();
-		this.oldPosition = oldPosition;
 		this.nextState = nextState;
+		this.bitmap.mute = false;
 		canSkip=false;
 		queronaoviver = curState == PLAYSTATE;
 	}
@@ -57,10 +64,13 @@ class MP4Sprite extends FlxVideoSprite
 
 	function onVLCVideoReady()
 	{
+		#if debug
+		trace("video loaded!");
+		#end
 		if(curState == GameState.PLAYSTATE)
 			{
 				var tempoPraPular:Float = (Conductor.songPosition / 1000)-oldPosition;
-				if(tempoPraPular/60>=0.002)
+				if(tempoPraPular/60>=0.0002)
 				{
 					this.seek(tempoPraPular/60);
 				}
@@ -68,9 +78,6 @@ class MP4Sprite extends FlxVideoSprite
 				trace(tempoPraPular/60);
 				#end
 			}
-		#if debug
-		trace("video loaded!");
-		#end
 	}
 
 	public function onVLCComplete()
@@ -89,7 +96,15 @@ class MP4Sprite extends FlxVideoSprite
 
 				if (curState != null && curState != GameState.TITLE)
 				{
-					if(curState != GameState.PLAYSTATE)
+					if(curState == GameState.NORMAL) // acho que da pra otimizar esses ifs aqui mas n to com mto tempo pra gastar nisso
+					{
+						if(parentState!=null)
+						{
+							parentState.openSubState(new LoadingState.LoadingsState());
+						}
+						LoadingState.loadAndSwitchState(new PlayState());
+					}
+					else if(curState != GameState.PLAYSTATE && curState != GameState.NORMAL)
 						{
 							FlxG.camera.fade(FlxColor.BLACK, 0, false);
 							LoadingState.loadAndSwitchState(nextState);
@@ -119,15 +134,18 @@ class MP4Sprite extends FlxVideoSprite
 
 	override public function update(elapsed:Float)
 	{
-		if (FlxG.keys.justReleased.SPACE && canSkip==true && curState != GameState.ABOUT && curState != GameState.PLAYSTATE && !queronaoviver && this.bitmap.isPlaying)
+		if (FlxG.keys.justReleased.SPACE && canSkip==true && curState != GameState.ABOUT && curState != GameState.PLAYSTATE && !queronaoviver && this.bitmap.isPlaying) {
+			this.bitmap.mute = true;
 			this.onVLCComplete();
+		}
+
 
 		if(curState != TITLE) canSkip=false;
         super.update(elapsed);//LINHA MAGICA OMAGAAAAAAAAWD
 	}
 
-	public function pausarvideo1(h:Bool) // pq h???? 
-	{
+	public function pausarvideo1(h:Bool) // pq h????  
+	{									// h de hugo
 		if(h)
 		{
 			trace('tentei pausar');

@@ -133,7 +133,7 @@ class LoadingState extends MusicBeatState
 		this.stopMusic = stopMusic;
 		this.actualdirectory = actualdirectory;
 	}
-	
+
 	override function create()
 	{
 

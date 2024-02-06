@@ -1890,7 +1890,7 @@ class PlayState extends MusicBeatState
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String, ?endingSong1:String)
 	{
-		var oldPosition:Float = Math.floor(Conductor.songPosition / 1000);
+		var oldPosition:Float = Conductor.songPosition / 1000;
 		var diretorio = "assets/videos/" + nomedovideo + ".mp";
 		// O vídeo não precisa de extensão. Automáticamente, minhas strings foram refutadas.
 		if (Assets.exists(diretorio))
@@ -1948,19 +1948,17 @@ class PlayState extends MusicBeatState
 	{
 		for (video in modchartVideoSprites.iterator())
 			video.pausarvideo1(pausar);
-		#if desktop
+
 		if (playingVideoMP4)
 		{
 			videoSpr.queronaoviver = true;
 			videoSpr.pausarvideo1(pausar);
 			letext.alpha = 0;
 		}
-		#end
 	}
 
 	public function pularVideo(?naoPularTempo:Bool = false)
 	{
-		#if desktop
 		if (playingVideoMP4)
 		{
 			letext.alpha = 0;
@@ -2013,7 +2011,6 @@ class PlayState extends MusicBeatState
 			vocals.play();
 
 		}
-		#end
 	}
 
 	public function deletarSpriteNAAAAO():Void
