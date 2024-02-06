@@ -42,6 +42,7 @@ function onCreate()
 	setProperty("gelo_overlay.alpha", 0)
 	addLuaSprite("gelo_overlay")
 
+	if flashing then
 	makeLuaSprite('whiteflash', 'empty', 0, 0)
 	makeGraphic('whiteflash', 1, 1, 'FFFFFF')
 	setGraphicSize("whiteflash", screenWidth, screenHeight)
@@ -49,6 +50,7 @@ function onCreate()
 	setProperty('whiteflash.alpha', 0)
 	setProperty("whiteflash.visible", false)
 	addLuaSprite("whiteflash")
+	end
 
 	--setGameover('sonic', 'gameOverEndSonic', 'breakfast')
 
@@ -102,6 +104,7 @@ end
 
 
 function onEvent(name, value1, value2)
+	if flashing then
 	if name == 'whiteflash' then --Isso só é usado aqui, então resolvi acoplar esse evento ao aparecimento da neve.
 		setProperty("whiteflash.visible", true)
 		setProperty('whiteflash.alpha', 1)
@@ -112,19 +115,24 @@ function onEvent(name, value1, value2)
 		flashed = true
 	end
 end
+end
 
 local speedchanger = 0
 function onUpdate()
 	speedchanger = speedchanger+1
+	if flashing then
 	if flashed then
 		setPropertyTiledLuaSprite('neve.scrollY', speedchanger*3)
 	end
 end
+end
 
 function onTweenCompleted(tag)
+	if flashing then
 	if tag == 'whiteflashbye' then
 		removeLuaSprite("whiteflash")
 	end
+end
 	if tag == "neve_tweenX_direita" then
 		doTweenX("neve_tweenX_esquerda", "neve", 3800 -100, 3, "sineinout")
 	elseif tag == "neve_tweenX_esquerda" then

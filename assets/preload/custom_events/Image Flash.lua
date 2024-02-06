@@ -13,14 +13,15 @@ function onEvent(name, value1, value2)
 local tabledos=mysplit(value2,",");
 local table=mysplit(value1,",");
     if name == "Image Flash" then
+    if flashing then
 	makeLuaSprite('image', tabledos[1], table[1], table[2]);
 	scaleObject('image', table[3], table[3]);
 	addLuaSprite('image', true);
 	doTweenColor('hello', 'image', 'FFFFFFFF', 0.5, 'quartIn');
 	setObjectCamera('image', tabledos[2]);
 	if tabledos[2] == "hud" then
-	    setObjectOrder('image', 1);
-	end
+	    setObjectOrder('image', 1); end
+    end
 	runTimer('wait', tabledos[3]);
     end
 end

@@ -53,9 +53,7 @@ function onCreatePost()
 	setProperty('vgpreto.alpha', 0.6)
 	addLuaSprite('vgpreto', true);
 
-	if lowQuality then
-		makeAnimatedLuaSprite('waves', 'cenarios/depths/wavesLowQuality', 0, 0)
-	else
+	if not lowQuality then
 		makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
 	end
 	addAnimationByPrefix('waves', 'idle', 'idle', 13, true)
@@ -67,6 +65,7 @@ function onCreatePost()
 	setBlendMode('waves', 'subtract') -- Pfv não me mate X02
 									  --Assinado: Não foi o Dav
 									  --Fonte: Confia (não foi o Sílvio)
+									  --lesgal
 	end
 	objectPlayAnimation('waves','idle',true)
 

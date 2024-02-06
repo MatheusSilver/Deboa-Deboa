@@ -50,7 +50,9 @@ function onEvent(name, value1, value2)
 end
 
 function transAto2()
+    if flashing then
     cameraFlash('legenda', '0xff0000', 2, true)
+    end
     removeLuaSprite('sonicIntro1', true)
     --close()
 end

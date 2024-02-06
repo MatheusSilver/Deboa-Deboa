@@ -34,7 +34,9 @@ end
 function onEvent(name, value1, value2)
 	if name == "trocar ato" then
         if value1 == 'circus_start' then
+            if flashing then
             cameraFlash('legenda', '0x0000ff', 1, true)
+            end
             fastChar('bfstring', 'invisibru')
             setProperty('camHUD.angle',0)
 			setProperty('camGame.angle',0)

@@ -193,9 +193,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.music(endSoundName));
-			if (ClientPrefs.flashing){
-				FlxG.camera.flash(FlxColor.WHITE, 1);
-			}
+			if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 1);
 			new FlxTimer().start(0.7, function(tmr:FlxTimer)
 			{
 				FlxTween.tween(blackScreen, {alpha: 1}, 1.5, {ease: FlxEase.linear, onComplete: function(twn:FlxTween)

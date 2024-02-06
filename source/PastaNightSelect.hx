@@ -138,7 +138,7 @@ class PastaNightSelect extends MusicBeatState
 				PlayState.storyDifficulty = crossDifficulty;
 				PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 
-				FlxG.camera.flash(FlxColor.RED, 1.0);
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 1.0);
 				selectCam = new FlxCamera(0, 0, 1280, 720);
 				FlxG.cameras.reset(selectCam);
 				openSubState(new LoadingsState());

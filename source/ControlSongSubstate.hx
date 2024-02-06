@@ -127,7 +127,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 			escolheualgo = true;
 			if(confirmInt == 0) {
 					gifPermitido = true;
-					FlxG.camera.flash(FlxColor.BLACK, 1.0);
+					if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 1.0);
 					openSubState(new LoadingsState());
 					new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 						LoadingState.loadAndSwitchState(new PlayState());
@@ -137,7 +137,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 					}
 					else if(confirmInt == 1) {
 						gifPermitido = false;
-						FlxG.camera.flash(FlxColor.BLACK, 1.0);
+						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 1.0);
 						openSubState(new LoadingsState());
 						new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 							LoadingState.loadAndSwitchState(new PlayState());

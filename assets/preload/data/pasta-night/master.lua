@@ -187,6 +187,7 @@ function onCreate()
     scaleObject('Jeff',consistentSize* 0.78,consistentSize* 0.78)
     addLuaSprite('Jeff',false)
 
+    if gore then
     makeAnimatedLuaSprite('Mousetable','cenarios/Mousetable',consistentPosition[1] + 825 * consistentSize, consistentPosition[2] + 630 * consistentSize)
     addAnimationByPrefix('Mousetable','bop','Mousetable',24,false)
     setScrollFactor('Mousetable',0.9, 0.9)
@@ -194,6 +195,7 @@ function onCreate()
     addLuaSprite('Mousetable',false)
     setProperty('Mousetable.x',getProperty('Mousetable.x')-getProperty('Mousetable.width')/2+90)
     setProperty('Mousetable.y',getProperty('Mousetable.y')-getProperty('Mousetable.height')+40)
+    end
 
     makeAnimatedLuaSprite('JeffArm','cenarios/JeffArm',500-90+90, 445-40+40)
     addAnimationByPrefix('JeffArm','bop','Only the arm shit instance ',24,false)
@@ -308,7 +310,9 @@ end
 function onBeatHit()
 	if curBeat % 2 == 0 then
         playAnim('Widemouth','bop')
-        playAnim('Mousetable','bop')
+        if gore then 
+            playAnim('Mousetable','bop')
+        end
         playAnim('Jack','bop')
         playAnim('Jeff','bop')
         playAnim('JeffArm','bop')

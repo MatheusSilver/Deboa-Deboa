@@ -86,7 +86,9 @@ function onEvent(evento, valor1, valor2)
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
         end
         if valor1 == '2' then
+            if flashing then
             cameraFlash('legenda', '0xffffff', 1, true)
+            end
         end
         if valor1 == '3' then
             --for i = 0, getProperty('opponentStrums.length')-1 do
@@ -101,7 +103,9 @@ function onEvent(evento, valor1, valor2)
         end
         if valor1 == '4' then
             fastChar('Sonicphase3heroi', 'invisibruphase3vilao')
+            if flashing then
             cameraFlash('legenda', '0xffffff', 1, true)
+            end
         end
         if valor1 == '4-5' then
             transVermelha()
@@ -109,7 +113,9 @@ function onEvent(evento, valor1, valor2)
             triggerEvent("trocar stage", '5', 'nada', 'nada', 'nada')
         end
         if valor1 == '4-10' then
+            if flashing then
             cameraFlash('legenda', '0xffffff', 1, true)
+            end
             fastChar('Sonicphase3heroi', 'invisibruphase3vilao')
             --fastChar('Sonicphase3heroi', 'Sonicphase3vilao')
             triggerEvent("trocar stage", '4', 'nada', 'nada', 'nada')
@@ -119,7 +125,9 @@ function onEvent(evento, valor1, valor2)
             --    setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
             --end
             dueto(false)
+            if flashing then
             cameraFlash('legenda', '0xff0000', 3, true)
+            end
             triggerEvent("Set Cam Zoom", '0.8', 'nada', 'nada', 'nada')
             setProperty('iconP2.alpha', 1)
             fastChar('Sonic Pixel Running ato4', 'Sonic Exe Pixel Flying ato4')
@@ -136,12 +144,16 @@ function onEvent(evento, valor1, valor2)
             --triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
             setCamMove(false);
             setProperty('iconP2.alpha', 0)
+            if flashing then
             cameraFlash('legenda', '0xff0000', 3, true)
+            end
             triggerEvent('Camera Follow Pos',camPosBFX+125,camPosBFY)
             fastChar('Invisibru AM', 'Sonic Exe AM')
         end
         if valor1 == '5-6' then
+            if flashing then
             cameraFlash('legenda', '0xffffff', 3, true)
+            end
             fastChar('Sonic AM', 'Invisibru Exe AM')
         end
         if valor1 == '5-7' then
@@ -186,7 +198,9 @@ function onEvent(evento, valor1, valor2)
         end
 
         if valor1 == '8' then
+            if flashing then
             cameraFlash('legenda', '0xffffff', 1, true)
+            end
             if not middlescroll then
                 for i = 0, getProperty('opponentStrums.length')-1 do -- Não há muita mudança aqui
                     setPropertyFromGroup('opponentStrums', i, 'visible', false); -- Experimental, mas acho que deve funfar
@@ -206,12 +220,16 @@ function onEvent(evento, valor1, valor2)
             setProperty('dad.alpha', 1)
             setProperty('boyfriend.alpha', 1)
             setProperty('iconP2.alpha', 1)
+            if flashing then
             cameraFlash('legenda', '0xffff00', 4, true)
+            end
             changeHealthBar(false)
         end
 
         if valor1 == '10' then
+            if flashing then
             cameraFlash('legenda', '0xffff00', 3, true)
+            end
             triggerEvent("Particula CY", 'nada', 'nada', 'nada', 'nada') -- obviamente me refiro a um peixe
         end
 
@@ -250,7 +268,9 @@ function onTweenCompleted(tag)
         setCamMove(true);
     end
     if tag == 'tweenLogoModBoaEXEFinal' then
+        if flashing then
         cameraFlash('legenda', '0xffffff', 2, true)
+        end
         removeLuaSprite('modBoaLogoExe')
         --removeLuaSprite('modBoaLogo')
 		removeLuaText('introText1')

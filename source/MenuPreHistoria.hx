@@ -214,10 +214,7 @@ class MenuPreHistoria extends MusicBeatState
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
 				FlxG.sound.play(Paths.sound('unlocked'), 1);
-				if (ClientPrefs.flashing)
-				{
-					FlxG.camera.flash(FlxColor.WHITE, 0.5);
-				}
+				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 0.5);
 				FlxG.camera.shake(0.04, 0.43);
 				blackLock.alpha = 0;
 				lockSprite.alpha = 0;

@@ -8,7 +8,7 @@
 		precacheImage('conquistas/medalhas/achievements (btt-meme maker)');
         precacheImage('conquistas/keydSTARS/star-meme maker');
 	
-		if lowQuality == true then
+		if lowQuality then
 			makeLuaSprite('luanzito', 'luaznito', 0, 0);
 			setObjectCamera('luanzito', 'other');
 			setProperty('luanzito.visible', false)
@@ -49,7 +49,7 @@
 		end
 	
 		if curStep == 53 then
-			if lowQuality == true then
+			if lowQuality then
 				setProperty('luanzito.visible', true)
 			else
 				setProperty('inicio.visible', true)
@@ -58,7 +58,7 @@
 		end
 	
 		if curStep == 96 then
-			if lowQuality == true then
+			if lowQuality then
 				removeLuaSprite('luanzito', false);
 			else
 				removeLuaSprite('inicio', false);

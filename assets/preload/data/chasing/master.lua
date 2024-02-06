@@ -75,13 +75,19 @@ end
 function onEvent(eventName, value1, value2)
     if eventName=='playchasing' then
         if value1=='true' then
+            if flashing then
             cameraFlash('hud2', '0xffffff', 0.5, true)
+            end
             setProperty('cutscene.visible', true)
             --playAnim('cutscene', 'video', true)
         elseif value1=='flash' then
+            if flashing then
             cameraFlash('hud2', '0x000000', 0.05, true)
+            end
         else
+            if flashing then
             cameraFlash('hud2', '0xff0000', 5, true)
+            end
             setProperty('bgSkychasing.visible', true)
             triggerEvent('noteskinchangeOPPT', 'NOTE_assets', '');
             triggerEvent('noteskinchangeBF', 'NOTE_assets', 'blood');
