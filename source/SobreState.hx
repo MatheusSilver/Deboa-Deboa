@@ -31,7 +31,7 @@ class SobreState extends MusicBeatState
 		#if desktop
 		FlxG.mouse.load(Paths.image('sobremenu/galeria/cursor'), 1, 0, 0);
 		#end
-		Main.mouseVisibility(true);
+		Main.mouse_allowed = true;
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);

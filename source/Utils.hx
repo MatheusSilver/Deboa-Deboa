@@ -160,17 +160,17 @@ class BSLTouchUtils
     {
         var leToqueOrdem:String = '';
 	    #if desktop
-		if (FlxG.mouse.overlaps(coisas) && FlxG.mouse.justPressed && prevTouched == coisasID){
+		if (over(coisas) && FlxG.mouse.justPressed && prevTouched == coisasID){
             leToqueOrdem = 'segundo';
-		}else if (FlxG.mouse.overlaps(coisas) && FlxG.mouse.justPressed){
+		}else if (over(coisas) && FlxG.mouse.justPressed){
 			prevTouched = coisasID;
 			leToqueOrdem = 'primeiro';
         }
 	    #elseif mobile
 		for (touch in FlxG.touches.list){
-			if (touch.overlaps(coisas) && touch.justPressed && prevTouched == coisasID)
+			if (over(coisas) && touch.justPressed && prevTouched == coisasID)
             	leToqueOrdem = 'segundo';
-			else if (touch.overlaps(coisas) && touch.justPressed){
+			else if (over(coisas) && touch.justPressed){
 				prevTouched = coisasID;
 				leToqueOrdem = 'primeiro';
         	}    
@@ -182,11 +182,11 @@ class BSLTouchUtils
 	public static function apertasimples(coisa:Dynamic):Bool
     {
 	    #if desktop
-		if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justPressed)
+		if (over(coisa) && FlxG.mouse.justPressed)
 			return true;
 	    #elseif mobile
 		for (touch in FlxG.touches.list)
-			if (touch.overlaps(coisa) && touch.justPressed)
+			if (over(coisa) && touch.justPressed)
 				return true;
 	    #end
 
@@ -195,7 +195,9 @@ class BSLTouchUtils
 
 	public static function over(coisa:Dynamic):Bool
     {
-	    #if desktop
+		#if desktop
+		if (!Main.getMouseVisibility())
+			return false; //Provavelmente a única coisa que faz o BSLTouchUtils se pagar no ModBoa.
 		return FlxG.mouse.overlaps(coisa);
 	    #elseif mobile
 		for (touch in FlxG.touches.list)
@@ -208,10 +210,10 @@ class BSLTouchUtils
 	public static function pressionando(coisa:Dynamic):Bool
 	{
 		#if desktop
-		return (FlxG.mouse.overlaps(coisa) && FlxG.mouse.pressed);
+		return (over(coisa) && FlxG.mouse.pressed);
 		#elseif mobile
 		for (touch in FlxG.touches.list)
-			if (touch.overlaps(coisa) && touch.justPressed && !touch.justReleased)
+			if (over(coisa) && touch.justPressed && !touch.justReleased)
 				return true;
 		#end
 
@@ -221,11 +223,11 @@ class BSLTouchUtils
 	public static function solto(coisa:Dynamic):Bool
 	{
 		#if desktop
-		if (FlxG.mouse.overlaps(coisa) && FlxG.mouse.justReleased)
+		if (over(coisa) && FlxG.mouse.justReleased)
 			return true;
 		#elseif mobile
 		for (touch in FlxG.touches.list)
-			if (touch.overlaps(coisa) && touch.justReleased)
+			if (over(coisa) && touch.justReleased)
 				return true;
 		#end
 	

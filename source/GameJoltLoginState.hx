@@ -33,7 +33,7 @@ class GameJoltLoginState extends MusicBeatState
 
             esconderTexto = false;
 
-			Main.mouseVisibility(true);
+			Main.mouse_allowed = true;
             
             #if mobile
             FlxG.stage.window.textInputEnabled = true;

@@ -19,7 +19,7 @@ class AlreadyLogged extends MusicBeatState
 
 	override function create()
 	{
-		Main.mouseVisibility(true);
+		Main.mouse_allowed = true;
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_credit_menu", "rpc"), null);

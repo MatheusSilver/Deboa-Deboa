@@ -144,7 +144,7 @@ class FreeplayState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.setGraphicSize(FlxG.width, FlxG.height);
 		add(bg);
-		Main.mouseVisibility(false);
+		Main.mouse_allowed = false;
 		//Todos os lugares que tem esse trem do mouse devem ter uma restrição #ifmobile.
 
 		grpSongs = new FlxTypedGroup<Alphabet>();

@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import Conductor.BPMChangeEvent;
 import flixel.FlxSubState;
 #if mobileC
@@ -50,6 +51,14 @@ class MusicBeatSubstate extends FlxSubState
 
 	override function update(elapsed:Float)
 	{
+
+		if (Main.getMouseVisibility() && FlxG.keys.pressed.ANY){
+			Main.mouseVisibility(false);
+		}#if !mobile else if (Main.mouse_allowed && FlxG.mouse.justMoved){
+			Main.mouseVisibility(true);
+		}
+		#end
+		
 		//everyStep();
 		var oldStep:Int = curStep;
 

@@ -184,7 +184,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		Main.mouseVisibility(false);
+		Main.mouse_allowed = false;
 
 		//sayGo();
 		blackStuff = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -373,12 +373,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	}
 
 	override function close()
-		{
-			Main.mouseVisibility(true);
-			//results aqui, fazer que os dois tenham que confirmar pra continuar aí eles voltam pro menu
-			MultiplayerMainMenuState.instance.endMatch();
-			super.close();
-		}
+	{
+		Main.mouse_allowed = true;
+		//results aqui, fazer que os dois tenham que confirmar pra continuar aí eles voltam pro menu
+		MultiplayerMainMenuState.instance.endMatch();
+		super.close();
+	}
 
 	function sortByShit(Obj1:Note, Obj2:Note):Int
 	{

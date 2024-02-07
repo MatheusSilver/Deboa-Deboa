@@ -20,7 +20,7 @@ class Testing extends MusicBeatState
 
 	override public function create():Void
 	{
-		Main.mouseVisibility(false);
+		Main.mouse_allowed = false;
 		FlxG.cameras.bgColor = 0xffaaaaaa;
 
 		levelS = new FlxSprite(0, 0);

@@ -60,12 +60,23 @@ class Main extends Sprite
 		}
 	}
 
+	public static var mouse_allowed:Bool = false;
+
 	public static function mouseVisibility(visible:Bool):Void
 	{
 		#if desktop
 		FlxG.mouse.visible = visible;
 		#else
 		return;
+		#end
+	}
+
+	public static function getMouseVisibility():Bool
+	{
+		#if desktop
+		return FlxG.mouse.visible;
+		#else
+		return false;
 		#end
 	}
 

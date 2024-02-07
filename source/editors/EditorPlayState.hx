@@ -138,7 +138,7 @@ class EditorPlayState extends MusicBeatState
 		tipText.borderSize = 2;
 		tipText.scrollFactor.set();
 		add(tipText);
-		Main.mouseVisibility(false);
+		Main.mouse_allowed = false;
 
 		//sayGo();
 		super.create();

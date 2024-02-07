@@ -51,7 +51,7 @@ class ModifiersMenuState extends MusicBeatSubstate
 		super();
         this.isFreeplay = isFreeplay;
         
-        Main.mouseVisibility(true);
+        Main.mouse_allowed = true;
         #if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_modifiers", "rpc"), null);
@@ -159,7 +159,7 @@ class ModifiersMenuState extends MusicBeatSubstate
 
     override function close()
     {
-        Main.mouseVisibility(false);
+        Main.mouse_allowed = false;
         super.close();
     }
 

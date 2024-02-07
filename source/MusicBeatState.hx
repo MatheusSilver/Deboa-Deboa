@@ -73,6 +73,13 @@ class MusicBeatState extends FlxUIState
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
+		if (Main.getMouseVisibility() && FlxG.keys.pressed.ANY){
+			Main.mouseVisibility(false);
+		}#if !mobile else if (Main.mouse_allowed && FlxG.mouse.justMoved){
+			Main.mouseVisibility(true);
+		}
+		#end
+
 		super.update(elapsed);
 	}
 

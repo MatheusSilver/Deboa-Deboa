@@ -29,7 +29,7 @@ class SobreVideo extends MusicBeatState
 		{
             video = new MP4Sprite(-10, -5, ABOUT);
             video.canSkip = false;
-            Main.mouseVisibility(true);
+            Main.mouse_allowed = true;
 			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);

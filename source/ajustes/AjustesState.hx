@@ -56,7 +56,7 @@ class AjustesState extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement);
 		FlxCamera.defaultCameras = [camGame];*/
-		Main.mouseVisibility(true);
+		Main.mouse_allowed = true;
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -186,7 +186,7 @@ class AjustesState extends MusicBeatState
 						else if (object.alpha == 1)
 							out(object);
 					}
-				Main.mouseVisibility(true);
+				Main.mouse_allowed = true;
 			}
 
 		if (FlxG.sound.music.volume < 0.7)
@@ -230,7 +230,7 @@ class AjustesState extends MusicBeatState
 
 		function select(curSelected){
 			GlobalSoundManager.play('confirmMenu');
-			Main.mouseVisibility(false);
+			Main.mouse_allowed = false;
 			selectedSomethin = true;
 			sumidao(curSelected);
 		}

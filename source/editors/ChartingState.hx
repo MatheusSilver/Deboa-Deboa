@@ -1228,7 +1228,7 @@ class ChartingState extends MusicBeatState
 	{
 		curStep = recalculateSteps();
 
-		Main.mouseVisibility(true);
+		Main.mouse_allowed = true;
 
 		if(FlxG.sound.music.time < 0) {
 			FlxG.sound.music.pause();
@@ -1343,7 +1343,7 @@ class ChartingState extends MusicBeatState
 			if (FlxG.keys.justPressed.ENTER)
 			{
 				autosaveSong();
-				Main.mouseVisibility(false);
+				Main.mouse_allowed = false;
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				if(vocals != null) vocals.stop();

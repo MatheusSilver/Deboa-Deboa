@@ -106,7 +106,7 @@ class MenuHistoria extends MusicBeatSubstate
 			nombres.push(leWeek.songs[j][3]);
 		}
 
-		Main.mouseVisibility(false);
+		Main.mouse_allowed = false;
 		if (curSelected >= WeekData.weeksList.length)
 			curSelected = 0;
 		persistentUpdate = persistentDraw = true;

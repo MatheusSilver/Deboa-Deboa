@@ -42,6 +42,8 @@ class MainMenuStateMobile extends MusicBeatState
 	public var camAchievement:FlxCamera;
 	var clicavel:Bool = false;
 
+
+	private var curSelected:Int = 0;
 	var boom:FlxSprite;
 	var gameJoltBG:FlxSprite;
 
@@ -97,7 +99,7 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
-		Main.mouseVisibility(true);
+		Main.mouse_allowed = true;
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
@@ -117,8 +119,6 @@ class MainMenuStateMobile extends MusicBeatState
 		add(camFollowPos);
 
 		FlxG.camera.follow(camFollowPos, null, 1);
-
-
 
 		machine = new FlxSprite(0).loadGraphic(Paths.image('menus/faixa', 'preload'));
 		machine.scrollFactor.x = 0;
@@ -167,10 +167,6 @@ class MainMenuStateMobile extends MusicBeatState
 		letext.alpha = 1;
 		add(letext);
 
-		//Isso por algum motivo estava crashando pra mim, então resolvi tirar temporariamente
-		//Lembre-se de tirar aquele "!" depois
-
-		//nossa, eu n tinha visto isso antes e achei que tinha quebrado algo k
 		if(GJClient.logged)
 			{
 				if(verificaDnvIdiota){GameJoltLoginState.syncProgress(); GameJoltLoginState.syncProgressFreeplay(); verificaDnvIdiota = false;}
@@ -247,8 +243,6 @@ class MainMenuStateMobile extends MusicBeatState
 					add(bordinha);
 				});
 				loader.load(new URLRequest(GJClient.avatarURL.replace(".webp", ".png")));
-				
-				
 			}
 			else
 			{
@@ -285,7 +279,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 
 		for (i in 0...optionShit.length){
-				FlxTween.tween(menuItems.members[i], {x: FlxG.width - (2.15+(-i/13))*(menuItems.members[i].width/1.42)}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
+			FlxTween.tween(menuItems.members[i], {x: FlxG.width - (2.15+(-i/13))*(menuItems.members[i].width/1.42)}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
 		}
 
 		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
@@ -405,7 +399,7 @@ class MainMenuStateMobile extends MusicBeatState
 		}
 
 	function trocaDeState(state:Int){
-		//Main.mouseVisibility(false);
+		//Main.mouse_allowed = false;
 		selectedSomethin = true;
 		clicavel = false;
 		checkiftouch = true;
@@ -442,6 +436,33 @@ class MainMenuStateMobile extends MusicBeatState
 		});
 	}
 
+	private function handle_input():Void{
+		if (controls.UI_DOWN_P)
+		{
+			if (curSelected + 1 > menuItems.length - 1)
+				curSelected = 0;
+			else{
+				curSelected +=1;
+				if (optionShit[curSelected] == "freeplay" && !passouCY)
+					curSelected +=1;
+				if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
+					curSelected +=1;
+			}
+		}
+		if (controls.UI_UP_P)
+		{
+			if (curSelected - 1 < 0)
+				curSelected = menuItems.length - 1;
+			else{
+				curSelected -= 1;
+				if (optionShit[curSelected] == "freeplay" && !passouCY)
+					curSelected -=1;
+				if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
+					curSelected -=1;
+			}
+		}
+	}
+
 	override function update(elapsed:Float)
 	{
 		#if debug
@@ -450,64 +471,47 @@ class MainMenuStateMobile extends MusicBeatState
 		#end
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
-		Main.mouseVisibility(true);
 
 		if(canClick)
 			{
+				handle_input();
 				if(clicavel && !checkiftouch){
 					menuItems.forEach(function(spr:FlxSprite){
-								if((optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
-								{
-									if(BSLTouchUtils.over(spr) && spr.alpha == 0.75){
-										menuItems.members[spr.ID].alpha=1;
-										GlobalSoundManager.play('scrollMenu');
-									}else if(!BSLTouchUtils.over(spr)){
-										spr.alpha=0.75;
-									}
-	
-									if(BSLTouchUtils.over(spr) && BSLTouchUtils.justTouched()){
-										trocaDeState(spr.ID);
-									}
-								}
-								else if(optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer")
-								{
-									if(Utils.BSLTouchUtils.over(spr) && spr.alpha == 0.75){
-										menuItems.members[spr.ID].alpha=1;
-										GlobalSoundManager.play('scrollMenu');
-									}else if(!Utils.BSLTouchUtils.over(spr)){
-										spr.alpha=0.75;
-									}
-	
-									if(Utils.BSLTouchUtils.over(spr) && Utils.BSLTouchUtils.justTouched()){
-										trocaDeState(spr.ID);
-									}
-								}
-						/*else
-							{
-								if(GJClient.logged)
-									{
-										if(FlxG.mouse.overlaps(spr) && spr.alpha == 0.75){
-											menuItems.members[spr.ID].alpha=1;
-											GlobalSoundManager.play('scrollMenu');
-										}else if(!FlxG.mouse.overlaps(spr)){
-											spr.alpha=0.75;
-										}
-		
-										if(FlxG.mouse.overlaps(spr) && FlxG.mouse.justPressed){
-											trocaDeState(spr.ID);
-										}
-									}
+						if((optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
+						{
+							if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
+								curSelected = spr.ID;
+								menuItems.members[spr.ID].alpha=1;
+								GlobalSoundManager.play('scrollMenu');
+							}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
+								spr.alpha=0.75;
 							}
-							*/
+
+							if(Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(spr) : (spr.ID == curSelected && controls.ACCEPT)){
+								trocaDeState(spr.ID);
+							}
+						}
+						else if(optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer")
+						{
+							if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
+								menuItems.members[spr.ID].alpha=1;
+								curSelected = spr.ID;
+								GlobalSoundManager.play('scrollMenu');
+							}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
+								spr.alpha=0.75;
+							}
+
+							if(Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(spr) : (spr.ID == curSelected && controls.ACCEPT)){
+								trocaDeState(spr.ID);
+							}
+						}
 
 					});
 				}
 			}
 
 		if (FlxG.sound.music.volume < 0.7)
-		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
 		
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));

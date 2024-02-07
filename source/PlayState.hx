@@ -460,7 +460,7 @@ class PlayState extends MusicBeatState
 			Paths.clearStoredMemory();
 
 		Achievements.loadAchievements();
-		Main.mouseVisibility(false);
+		Main.mouse_allowed = false;
 
 		// Precache geral
 		cambump_allowed = true;

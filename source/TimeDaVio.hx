@@ -62,7 +62,7 @@ class TimeDaVio extends MusicBeatState
 	];
 	override function create()
 	{
-		Main.mouseVisibility(true);
+		Main.mouse_allowed = true;
 		bgBaixo = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
 		bgBaixo.antialiasing = ClientPrefs.globalAntialiasing;
 		bgBaixo.alpha = 1;

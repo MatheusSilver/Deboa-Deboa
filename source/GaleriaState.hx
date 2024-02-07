@@ -80,7 +80,7 @@ class GaleriaState extends MusicBeatState
 
 			//DaGaleria part
 
-			Main.mouseVisibility(true);
+			Main.mouse_allowed = true;
 			#if rpc
 			// Updating Discord Rich Presence
 			DiscordClient.changePresence(LangUtil.getString("rpc_galeria", "rpc"), null);
