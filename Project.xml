@@ -27,6 +27,7 @@
 	<!--Mobile/Switch-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 	<define name="mobileC" if="mobile" />
+	<assets path="assets/mobilecontrols" if="mobileC"/>
 
 	<!-- _____________________________ Path Settings ____________________________ -->
 
@@ -215,7 +216,14 @@
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/>
-	<assets path="assets/mobilecontrols/" if="mobileC"/>
+
+	<!-- videos setup -->
+	<assets path="assets/videos/Mobile" if="mobile" />
+	<assets path='assets/videos/AnimacoesJogaveis' />
+	<assets path='assets/videos/EngineBase' exclude="*.html" if="desktop"/>
+	<assets path='assets/videos/Intro' exclude="*.html" if="desktop"/>
+	<assets path='assets/videos/VideosRandoms' exclude="*.html" if="desktop"/>
+	<assets path='assets/videos/mikudeusa.mp' />
 
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
 
@@ -293,11 +301,9 @@
 	<haxedef name="rpc" unless="debug || mobile"/>
 	<!--só trocar se quiser rpc-->
 
-	<!--Debug Logs do hxVlc-->
-	<!--
+	<!--Debug Logs do hxVlc
 	<haxedef name="HXVLC_VERBOSE" value="2" if="debug" />
-	<haxedef name="HXVLC_LOGGING" if="debug" />
-	-->
+	<haxedef name="HXVLC_LOGGING" if="debug" />-->
 
 		
 	<!-- _________________________________ Custom _______________________________ -->

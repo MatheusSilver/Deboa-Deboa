@@ -3,7 +3,7 @@
 <body style="background-color: black;">
   <video id="my-player" class="video-js vjs-default-skin vjs-big-play-centered" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%;" ><source type="video/mp4"></video>
   
-  <script src="file:///android_asset/assets/videos/video.min.js"></script>
+  <script src="file:///android_asset/assets/videos/Mobile/video.min.js"></script>
   
   <script type="text/javascript">
     var player = videojs('my-player', {
@@ -11,10 +11,10 @@
       autoplay: true,
       loop: false,
       preload: 'auto',
-      poster: 'file:///android_asset/assets/videos/none.gif'
+      poster: 'file:///android_asset/assets/videos/Mobile/none.gif'
     });
   player.on('ended', function() { document.location.href='http://exitme'; });//this.dispose(); 
 </script>
 </body>
 
-<script type="text/javascript">player.src({type: 'video/mp4', src: 'file:///android_asset/assets/videos/VideosRandom/haha3.mp'});</script>
+<script type="text/javascript">player.src({type: 'video/mp4', src: 'file:///android_asset/assets/videos/VideosRandom/haha10.mp'});</script>
