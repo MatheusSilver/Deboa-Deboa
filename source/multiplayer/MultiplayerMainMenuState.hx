@@ -70,7 +70,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var daNoteReceived:Array<Int> = [0];
 
 	// PLAYERS
-	public var players:Array<LobbyPlayerObject> = new Array<LobbyPlayerObject>();
+	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190), new LobbyPlayerObject(681,190)];
 	public static var instance:MultiplayerMainMenuState;
 
 	// VARIAVEIS OPÇÕES
@@ -111,7 +111,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function create()
 	{
 		instance = this;
-		client = new Client('ws://localhost:2567');
+		client = new Client('ws://769f331c-95ab-490d-b4ec-65ee457548aa-00-3gg196bpc4uk3.worf.replit.dev:2567');
 		players = [];
 		musicas = getAllSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
@@ -155,13 +155,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 		FlxTween.tween(hostearBt, {y: 348}, 1.25, {ease: FlxEase.expoInOut});
 
-		//var num:Int = 0;
-		/*for (player in players)
+		var num:Int = 0;
+		for (player in players)
 		{
-			player.nome = num == 1 ? "Player 2" : GJClient.userName;
+			player.nome = num == 0 ? GJClient.userName : "Player 2";
 			add(player);
 			num++;
-		}*/
+		}
 
 		comecarBt = createButton('multiplayer/iniciarBt', 0.6, 276, 563, false, false);
 		add(comecarBt);
@@ -252,14 +252,26 @@ class MultiplayerMainMenuState extends MusicBeatState
 		comecarBt.onDown.callback = function()
 		{
 			if(canInitMatch && !isPlayingMatch)
-			{
+			{	
+				var mensagem:String = Std.string(MusicaAtual)+"\n"+Std.string(TrocarLados)+"\n"+Std.string(ModoDeJogo);
+				curRoom.send("init-game", mensagem);
 				//server.send({message: Std.string(MusicaAtual) + "\n" +Std.string(TrocarLados)+ "\n"+ Std.string(ModoDeJogo), verb: "init-match"});
 			}
 		}
 
 		// alpha stuff lesgo
-		hostearBt.alpha = Utils.BSLTouchUtils.over(hostearBt) && canClick ? 1 : 0.75;
-		entrarBt.alpha = Utils.BSLTouchUtils.over(entrarBt) && canClick ? 1 : 0.75;
+		if(!isOnServer)
+		{
+			hostearBt.alpha = Utils.BSLTouchUtils.over(hostearBt) && canClick ? 1 : 0.75;
+			entrarBt.alpha = Utils.BSLTouchUtils.over(entrarBt) && canClick ? 1 : 0.75;
+		}
+		else if(isOnServer && hostearBt.visible)
+		{
+			hostearBt.visible=false;
+			entrarBt.visible=false;
+			ipBar.visible = false;
+		}
+
 		comecarBt.alpha = Utils.BSLTouchUtils.over(comecarBt) && canClick && canInitMatch ? 1 : 0.75;
 		configBt.alpha = Utils.BSLTouchUtils.over(configBt) && canClick ? 1 : 0.75;
 
@@ -271,7 +283,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			inputShit();
 		}
-		//canInitMatch = isOnServer && !isPlayingMatch && isHost;
+		canInitMatch = isOnServer && !isPlayingMatch && isHost /*&& players[1].nome != ""*/;
 		super.update(elapsed);
 	}
 
@@ -290,6 +302,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		roomOptions.set("changeSides", false);
 		roomOptions.set("myName", GJClient.userName);
 		roomOptions.set("myChar", "bf");
+		roomOptions.set("isHost", "0");
 
 		client.create("gameRoom", roomOptions, LobbyState, function(err, room) {
 			if (err != null) {
@@ -302,10 +315,74 @@ class MultiplayerMainMenuState extends MusicBeatState
 			curRoom = room;
 			isHost = true;
 			isOnServer = true;
+			/*entrarBt.visible = false;
+			hostearBt.visible = false;
+			ipBar.visible = false;*/
+	
 
-			room.onMessage("lobbyPlayers", function(message) {
-				updateLobbyPlayersObject(message); //TODO: fazer isso n dar null reference aaa quero dormir
+
+			/*players[0].nome = GJClient.userName;
+			players[0].charID = "bf";
+			players[0].sessionId = curRoom.sessionId;*/
+
+			
+			/*room.onMessage("lobbyPlayers", function(message) {
+				var allMessage:Array<String> = Std.string(message).split("\n");
+				switch(allMessage[0])
+				{
+					case "entrou":
+						players[Std.parseInt(allMessage[4])].nome = Std.string(allMessage[1]);
+						players[Std.parseInt(allMessage[4])].charID = Std.string(allMessage[2]);
+						players[Std.parseInt(allMessage[4])].sessionId = Std.string(allMessage[3]);
+					case "saiu":
+						players[Std.parseInt(allMessage[4])].nome = "";
+				}
+			});*/
+			
+
+			room.onMessage("init-game", function(message) {
+				if(isPlayingMatch)
+					return;
+				var allMessage:Array<String> = Std.string(message).split("\n");
+				MusicaAtual = Std.parseInt(allMessage[0]);
+				TrocarLados = allMessage[1] != "false" ? true : false;
+				ModoDeJogo = Std.parseInt(allMessage[2]);
+				initMatch();
 			});
+
+			room.onMessage("toPronto", function(message) {
+				if(!isPlayingMatch)
+					return;
+				MultiplayerPlayState.instance.podeComecar++;
+			});
+
+			room.onMessage("input-game", function(message) {
+				if(!isPlayingMatch)
+					return;
+				daNoteReceived.push(Std.parseInt(message));
+			});
+
+			room.onMessage("enviarMisses", function(message) {
+				if(!isPlayingMatch)
+					return;
+				var allMessage:Array<String> = message.split("\n");
+				MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
+				MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
+				MultiplayerPlayState.instance.opponentScore = Std.parseInt(allMessage[3]);
+			});
+
+			room.onMessage("queroSair", function(message) {
+				if(!isPlayingMatch)
+					return;
+				MultiplayerPlayState.instance.podeTerminar++;
+			});
+
+
+
+			/*room.onMessage("lobbyInput", function(message) {
+				mudaAeMano(Std.string(getIndexBySession(message.sessionId)), message.qual, message.tipo, !isHost);
+			});*/
+
 		});
 
 
@@ -449,23 +526,23 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarInputGame(note:Int)
 	{
-		//usuario.send({message: Std.string(myID) + "\n" + Std.string(note), verb: 'input-game'});
+		curRoom.send("input-game", Std.string(note));
 		//trace("Enviei Input "+Std.string(note));
 	}
 
 	public function enviarToPronto()
 	{
-		//client.send({message: Std.string(myID), verb: 'carreguei'});
+		curRoom.send("toPronto", 1);
 	}
 
 	public function enviarQueroTerminar()
 	{
-		//client.send({message: Std.string(myID), verb: 'force-stop'});
+		curRoom.send("queroSair", 1);
 	}
 
 	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
 	{
-		//usuario.send({message: Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score), verb: 'hits-e-misses'});
+		curRoom.send("enviarMisses", Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score));
 	}
 
 	public function send_results(hits:Array<Int>, combo:Int, score:Int, playerName:String)
@@ -501,6 +578,89 @@ class MultiplayerMainMenuState extends MusicBeatState
 		ipBar.hasFocus = false;
 		canClick = false;
 		GlobalSoundManager.play('confirmMenu');
+
+		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
+		roomOptions.set("myName", GJClient.userName);
+		roomOptions.set("myChar", "bf");
+		roomOptions.set("isHost", "1");
+
+		client.join("gameRoom", roomOptions, LobbyState, function(err, room) {
+			if (err != null) {
+				trace("JOIN ERROR: " + err);
+				MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState()); // reinicia o state
+				return;
+			}
+
+
+			curRoom = room;
+			isHost = false;
+			isOnServer = true;
+			entrarBt.visible = false;
+			hostearBt.visible = false;
+			ipBar.visible = false;
+	
+
+				
+			/*players[1].nome = GJClient.userName;
+			players[1].charID = "bf";
+			players[1].sessionId = curRoom.sessionId;*/
+
+			/*room.onMessage("lobbyPlayers", function(message) {
+				var allMessage:Array<String> = Std.string(message).split("\n");
+				switch(allMessage[0])
+				{
+					case "entrou":
+						players[Std.parseInt(allMessage[4])].nome = Std.string(allMessage[1]);
+						players[Std.parseInt(allMessage[4])].charID = Std.string(allMessage[2]);
+						players[Std.parseInt(allMessage[4])].sessionId = Std.string(allMessage[3]);
+					case "saiu":
+						players[Std.parseInt(allMessage[4])].nome = "";
+				}
+			});*/
+
+			room.onMessage("init-game", function(message) {
+				if(isPlayingMatch)
+					return;
+				var allMessage:Array<String> = Std.string(message).split("\n");
+				MusicaAtual = Std.parseInt(allMessage[0]);
+				TrocarLados = allMessage[1] != "false" ? true : false;
+				ModoDeJogo = Std.parseInt(allMessage[2]);
+				initMatch();
+			});			
+
+			room.onMessage("toPronto", function(message) {
+				if(!isPlayingMatch)
+					return;
+				MultiplayerPlayState.instance.podeComecar++;
+			});
+
+			room.onMessage("input-game", function(message) {
+				if(!isPlayingMatch)
+					return;
+				daNoteReceived.push(Std.parseInt(message));
+			});
+
+			room.onMessage("enviarMisses", function(message) {
+				if(!isPlayingMatch)
+					return;
+				var allMessage:Array<String> = message.split("\n");
+				MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
+				MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
+				MultiplayerPlayState.instance.opponentScore = Std.parseInt(allMessage[3]);
+			});
+
+			room.onMessage("queroSair", function(message) {
+				if(!isPlayingMatch)
+					return;
+				MultiplayerPlayState.instance.podeTerminar++;
+			});
+
+
+			/*room.onMessage("lobbyInput", function(message) {
+				mudaAeMano(Std.string(getIndexBySession(message.sessionId)), message.qual, message.tipo, !isHost);
+			});*/
+
+		});
 		/*var server_ip = isHost ? "127.0.0.1" : ipBar.text;
 
 		client = Network.registerSession(NetworkMode.CLIENT, {
@@ -645,19 +805,29 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});*/
 	}
 
+	function getIndexBySession(sessionId:String):Int
+	{
+		for (i in 0...players.length)
+		{
+			if(players[i].sessionId == sessionId)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	function segureiObotao(qual:String)
 	{
-		// quem clicou | oq clicou
-		//client.send({message: myID + " " + qual + " Segurei", verb: 'input'});
+		curRoom.send("lobbyInput", {tipo: "Segurei", qual: qual});
 	}
 
 	function solteiObotao(qual:String)
 	{
-		// quem clicou | oq clicou
-		//client.send({message: myID + " " + qual + " Soltei", verb: 'input'});
+		curRoom.send("lobbyInput", {tipo: "Soltei", qual: qual});
 	}
 
-	/*function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
+	function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
 	{
 		var zeroInt:Int = Std.parseInt(zero);
 		if (two == "Segurei")
@@ -703,7 +873,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				players[zeroInt].bfAnims(one, true);
 			}
 		}
-	}*/
+	}
 
 	var imRemoving:Bool = false;
 
@@ -835,64 +1005,11 @@ class MultiplayerMainMenuState extends MusicBeatState
         return button;
     }
 
-	function updateLobbyPlayersObject(newLobbyPlayer:Dynamic)
-	{
-		if(curRoom != null)
-		{
-			trace(newLobbyPlayer);
-			if(newLobbyPlayer != null)
-			{
-				var lobbyPlayersSchema:MapSchema<LobbyPlayer> = newLobbyPlayer;
-				for (player in lobbyPlayersSchema)
-				{
-					var lobbyPlayer:LobbyPlayerObject;
-					lobbyPlayer = new LobbyPlayerObject(174,190);
-					lobbyPlayer.nome = player.username;
-					lobbyPlayer.charID = player.char;
-					var modificar:Bool = false;
-
-					if(players != [])
-					{
-						for(playera in players)
-							{
-								if(playera.nome == lobbyPlayer.nome)
-								{
-									modificar = true;
-									break;
-								}
-							}
-					}
-
-					if(!modificar)
-					{
-						if(players.length == 1)
-							{
-								lobbyPlayer.x = 681;
-							}
-						add(lobbyPlayer);
-						players.push(lobbyPlayer);
-
-
-					}
-					else
-					{
-						for(i in 0...players.length)
-						{
-							if(players[i].nome == lobbyPlayer.nome)
-							{
-								players[i] = lobbyPlayer;
-								break;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 }
 
 class LobbyPlayerObject extends FlxSpriteGroup
 {
+	public var sessionId:String = "";
 	public var nome:String = "Player 1";
 	public var charID:String = "bf";
 	public var keys:Array<Bool> = [false, false, false, false];
@@ -919,7 +1036,7 @@ class LobbyPlayerObject extends FlxSpriteGroup
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		isConnected = nome != "Player 2";
+		isConnected = nome != "";
 		textinhoBF.text = isConnected ? nome : "";
 		bf.alpha = isConnected ? 1 : 0.5;
 		bf.visible = MultiplayerMainMenuState.instance.getIsOnServer();

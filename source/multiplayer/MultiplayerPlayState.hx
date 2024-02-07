@@ -427,7 +427,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 			else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
 			{
-				terminarFloat-=1;
+				terminarFloat-=4;
 			}
 			//terminarBar.value = terminarFloat;
 			//terminarBar.updateFilledBar();
