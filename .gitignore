@@ -1,8 +1,8 @@
 export/
 .vscode/
 APIStuff.hx
-source/GJKeys.hx
 art/build_x32-officialrelease.bat
 art/build_x64-officialrelease.bat
 art/test_x64-debug-officialrelease.bat
 .haxelib
+source/GJKeys.hx
