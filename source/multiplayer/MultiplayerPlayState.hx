@@ -16,6 +16,8 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import networking.Network;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
@@ -86,9 +88,9 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
         if(!trocarLados)
-			{isPlayer1 = isHost;}
+			{isPlayer1 = !isHost;}
 		else
-			{isPlayer1 = !isHost;};
+			{isPlayer1 = isHost;};
         _song = Song.loadFromJson(whichSong);
 		_song.arrowSkin = "NOTE_assets";
 		_song.splashSkin = "noteSplashes";
@@ -352,7 +354,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		generatedMusic = true;
 
 		new FlxTimer().start(2, function(tmr:FlxTimer) {
-			podeComecar++;
 			MultiplayerMainMenuState.instance.enviarToPronto();
 		});
 
@@ -386,9 +387,13 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	}
 
 	public function endSong() {
-		FlxG.sound.music.stop();
-		vocals.stop();
-		vocals.destroy();
+		if(FlxG.sound.music!= null)
+		{
+			FlxG.sound.music.stop();		
+			vocals.stop();
+			vocals.destroy();
+		}
+
 		//MultiplayerMainMenuState.instance.send_results([sicks, goods, bads, shits], combo, songScore, GJClient.username);
 		close();
         trace("cabou !");
@@ -416,21 +421,18 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			{
 				if(terminarFloat==100)
 				{
-					podeTerminar++;
 					MultiplayerMainMenuState.instance.enviarQueroTerminar();
 					queriaTerminar = true;
 				}
 				else
 				{
-					terminarFloat+=1;
+					terminarFloat+=5;
 				}
 			}
 			else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
 			{
-				terminarFloat-=1;
+				terminarFloat-=5;
 			}
-			//terminarBar.value = terminarFloat;
-			//terminarBar.updateFilledBar();
 			terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
 			terminarTxt.y = terminarBar.visible ? 40 : 20;
 		}

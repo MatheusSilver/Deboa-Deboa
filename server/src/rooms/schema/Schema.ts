@@ -4,12 +4,13 @@ import { MyRoom } from "../MyRoom";
 export class LobbyPlayer extends Schema { // player do lobby
   @type("string") username = "Player";
   @type("string") char = "bf"; // unused for now
+  @type("string") isHost = "0";
 }
 
 export class LobbyState extends Schema {
   @type({ map: LobbyPlayer }) lobbyPlayers = new MapSchema<LobbyPlayer>();
 
-  createPlayer (id: string, username: string, char: string) {
+  createPlayer (id: string, username: string, char: string, isHost:String) {
     let player = new LobbyPlayer();
     player.username = username;
     player.char = char;

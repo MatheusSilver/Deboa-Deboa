@@ -16,4 +16,7 @@ class LobbyPlayer extends Schema {
 	@:type("string")
 	public var char: String = "";
 
+	@:type("string")
+	public var isHost: String = "";
+
 }
