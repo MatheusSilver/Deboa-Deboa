@@ -580,7 +580,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 			});
 
 			room.onMessage("leave", function(message) {
-				room.leave();
 				switch(message.cause)
 					{
 						case 9000:
@@ -588,6 +587,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 						default:
 							avisarAlgo("Reason: "+Std.string(message.cause));
 					}
+				room.leave();
 			});
 
 			room.onLeave+=function() {
