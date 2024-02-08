@@ -111,8 +111,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function create()
 	{
 		instance = this;
-		client = new Client('ws://769f331c-95ab-490d-b4ec-65ee457548aa-00-3gg196bpc4uk3.worf.replit.dev:2567');
-		players = [];
+		client = new Client('ws://87b7-35-243-164-186.ngrok-free.app:2567');
 		musicas = getAllSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -158,7 +157,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		var num:Int = 0;
 		for (player in players)
 		{
-			player.nome = num == 0 ? GJClient.userName : "Player 2";
+			player.nome = num == 0 ? GJClient.userName : "";
 			add(player);
 			num++;
 		}
@@ -283,7 +282,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			inputShit();
 		}
-		canInitMatch = isOnServer && !isPlayingMatch && isHost /*&& players[1].nome != ""*/;
+		canInitMatch = isOnServer && !isPlayingMatch && isHost && players[1].nome != "";
 		super.update(elapsed);
 	}
 
@@ -321,12 +320,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 	
 
 
-			/*players[0].nome = GJClient.userName;
+			players[0].nome = GJClient.userName;
 			players[0].charID = "bf";
-			players[0].sessionId = curRoom.sessionId;*/
+			players[0].sessionId = curRoom.sessionId;
 
 			
-			/*room.onMessage("lobbyPlayers", function(message) {
+			room.onMessage("lobbyPlayers", function(message) {
 				var allMessage:Array<String> = Std.string(message).split("\n");
 				switch(allMessage[0])
 				{
@@ -337,7 +336,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					case "saiu":
 						players[Std.parseInt(allMessage[4])].nome = "";
 				}
-			});*/
+			});
 			
 
 			room.onMessage("init-game", function(message) {
@@ -377,11 +376,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 				MultiplayerPlayState.instance.podeTerminar++;
 			});
 
-
-
-			/*room.onMessage("lobbyInput", function(message) {
+			room.onMessage("lobbyInput", function(message) {
 				mudaAeMano(Std.string(getIndexBySession(message.sessionId)), message.qual, message.tipo, !isHost);
-			});*/
+			});
 
 		});
 
@@ -601,11 +598,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 	
 
 				
-			/*players[1].nome = GJClient.userName;
+			players[1].nome = GJClient.userName;
 			players[1].charID = "bf";
-			players[1].sessionId = curRoom.sessionId;*/
+			players[1].sessionId = curRoom.sessionId;
 
-			/*room.onMessage("lobbyPlayers", function(message) {
+			room.onMessage("lobbyPlayers", function(message) {
 				var allMessage:Array<String> = Std.string(message).split("\n");
 				switch(allMessage[0])
 				{
@@ -616,7 +613,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					case "saiu":
 						players[Std.parseInt(allMessage[4])].nome = "";
 				}
-			});*/
+			});
 
 			room.onMessage("init-game", function(message) {
 				if(isPlayingMatch)
@@ -656,9 +653,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 			});
 
 
-			/*room.onMessage("lobbyInput", function(message) {
+			room.onMessage("lobbyInput", function(message) {
 				mudaAeMano(Std.string(getIndexBySession(message.sessionId)), message.qual, message.tipo, !isHost);
-			});*/
+			});
 
 		});
 		/*var server_ip = isHost ? "127.0.0.1" : ipBar.text;
