@@ -429,22 +429,30 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarInputGame(note:Int)
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("input-game", Std.string(note));
 		//trace("Enviei Input "+Std.string(note));
 	}
 
 	public function enviarToPronto()
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("toPronto", 1);
 	}
 
 	public function enviarQueroTerminar()
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("queroSair", 1);
 	}
 
 	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("enviarMisses", Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score));
 	}
 
