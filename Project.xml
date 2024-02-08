@@ -223,7 +223,7 @@
 	<assets path='assets/videos/EngineBase' exclude="*.html" if="desktop"/>
 	<assets path='assets/videos/Intro' exclude="*.html" if="desktop"/>
 	<assets path='assets/videos/VideosRandoms' exclude="*.html" if="desktop"/>
-	<assets path='assets/videos/mikudeusa.mp' />
+	<assets path='assets/videos/mikudeusa.mp' /> <!-- NUNCA REMOVA A MIKU!!!!!!!🙀🙀🙀🙀🙀🙀🙀 -->
 
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
 
