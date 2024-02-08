@@ -70,7 +70,7 @@ export class MyRoom extends Room {
     });
 
     this.onMessage("lobbyInput", (client, message) => {
-      this.sendToOther(client, "lobbyInput", message);
+      this.broadcast("lobbyInput", message);
     });
 
     this.onMessage("input-game", (client, message) => {
@@ -119,33 +119,29 @@ export class MyRoom extends Room {
   }
 
   onLeave(client: Client, consented: boolean) {
-    switch (this.state) {
-      case LobbyState:
-        var allMessage =
-          "saiu" +
-          "\n" +
-          this.state.lobbyPlayers.get(client.sessionId).username +
-          "\n" +
-          this.state.lobbyPlayers.get(client.sessionId).char +
-          "\n" +
-          client.sessionId;
-        this.broadcast("lobbyPlayers", allMessage);
-        this.state.deletePlayer(client.sessionId);
-        break;
-      case GameState:
-        var allMessage =
-          "saiu" +
-          "\n" +
-          this.state.lobbyPlayers.get(client.sessionId).username +
-          "\n" +
-          this.state.lobbyPlayers.get(client.sessionId).char +
-          "\n" +
-          client.sessionId;
-        this.broadcast("lobbyPlayers", allMessage);
-        this.state.deletePlayer(client.sessionId);
-        //this.broadcast("stop-match", true);
-        break;
+    if(this.state.lobbyPlayers.get(client.sessionId).isHost == "1")
+    {
+      var allMessage =
+      "saiu" +
+      "\n" +
+      this.state.lobbyPlayers.get(client.sessionId).username +
+      "\n" +
+      this.state.lobbyPlayers.get(client.sessionId).char +
+      "\n" +
+      client.sessionId+
+      "\n" +
+      this.state.lobbyPlayers.get(client.sessionId).isHost;
+      
+      this.broadcast("lobbyPlayers", allMessage);
+      this.state.deletePlayer(client.sessionId);
+      this.broadcast("stop-match", true);
     }
+    else
+    {
+      this.broadcast("leave", {cause: 9000});
+      this.disconnect();
+    }
+
   }
 
   onDispose() {

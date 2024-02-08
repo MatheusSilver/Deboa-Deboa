@@ -1,5 +1,6 @@
 package multiplayer;
 
+import haxe.Constraints.Function;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -208,20 +209,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if (controls.BACK && !ipBar.hasFocus && !isOnOptions && canClick && !isPlayingMatch)
 		{
 			GlobalSoundManager.play("cancelMenu");
-			/*if (isOnServer)
+			if (isOnServer)
 			{
-				client.disconnect();
-				if (isHost)
+				if(curRoom != null)
 				{
-					server.send({message: 'fechei o server mano :c ', verb: 'all-leave'});
-					Network.destroySession(server);
+					curRoom.leave();
 				}
-				usuario = null;
 			}
 			else
 			{
 				MusicBeatState.switchState(new MainMenuStateMobile());
-			}*/
+			}
 		}
 
 		// pra fazer o barulhinho
@@ -336,6 +334,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 						players[Std.parseInt(allMessage[4])].sessionId = Std.string(allMessage[3]);
 					case "saiu":
 						players[Std.parseInt(allMessage[4])].nome = "";
+						players[Std.parseInt(allMessage[4])].charID = "bf";
+						players[Std.parseInt(allMessage[4])].sessionId = "";
 				}
 			});
 			
@@ -377,141 +377,46 @@ class MultiplayerMainMenuState extends MusicBeatState
 				MultiplayerPlayState.instance.podeTerminar++;
 			});
 
-			room.onMessage("lobbyInput", function(message) {
-				mudaAeMano(Std.string(getIndexBySession(message.sessionId)), message.qual, message.tipo, !isHost);
+			room.onMessage("stop-match", function(message) {
+				if(!isPlayingMatch)
+					return;
+				MultiplayerPlayState.instance.podeTerminar++;
+				MultiplayerPlayState.instance.podeTerminar++;
 			});
 
-		});
+			room.onMessage("lobbyInput", function(message) {
+				mudaAeMano(Std.string(getIndexBySession(message.clientID)), message.qual, message.tipo, message.isHost);
+			});
 
-
-		/*server.addEventListener(NetworkEvent.CONNECTED, function(e:NetworkEvent)
-		{
-			server.send({message: 'Você entrou no servidor!', verb: 'test'});
-			if(players[0].nome != "Player 1")
-			{
-				server.send({message: "0\n" + players[0].nome, verb: 'name'});
-			}
-		});
-
-		server.addEventListener(NetworkEvent.CLOSED, function(e:NetworkEvent)
-		{
-			server.send({message: 'fechei o server mano :c ', verb: 'all-leave'});
-		});
-
-		server.addEventListener(NetworkEvent.DISCONNECTED, function(e:NetworkEvent)
-		{
-			players[1].nome = "Player 2";
-			if(isPlayingMatch)
-			{
-				MultiplayerPlayState.instance.endSong();
-			}
-		});
-
-		server.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e:NetworkEvent)
-		{
-			if (e.data.verb == 'input')
-			{
-				var qualEquem:Array<String> = e.data.message.split(" ");
-				mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2], true);
-			}
-			if (e.data.verb == "name")
-			{
-				var quemEqual:Array<String> = e.data.message.split("\n");
-				players[Std.parseInt(quemEqual[0])].nome = quemEqual[1];
-			}
-			if (e.data.verb == 'version')
-			{
-				if (e.data.message != MainMenuStateMobile.version)
-				{
-					server.send({message: "versao incompativel", verb: 'all-leave'});
-				}
-			}
-			if (e.data.verb == "init-match")
-			{
-				var opcoes:Array<String> = e.data.message.split("\n");
-				MusicaAtual = Std.parseInt(opcoes[0]);
-				TrocarLados = opcoes[1]=="true"?true:false;
-				ModoDeJogo = Std.parseInt(opcoes[2]);
-				initMatch();
-			}
-
-			if(e.data.verb == 'input-game')
-				{
-					var allMessage:Array<String> = e.data.message.split("\n");
-					if(Std.parseInt(allMessage[0]) != myID)
+			room.onMessage("leave", function(message) {
+				room.leave();
+				switch(message.cause)
 					{
-						daNoteReceived.push(Std.parseInt(allMessage[1]));
+						case 9000:
+							avisarAlgo("O host se desconectou.");
+						default:
+							avisarAlgo("Reason: "+Std.string(message.cause));
 					}
-					else
-					{
-						server.send({message: e.data.message, verb: 'input-game'});
-					}
-				}
+			});
 
-			if(e.data.verb == 'carreguei')
-				{
-					if(myID != Std.parseInt(e.data.message))
-					{
-						MultiplayerPlayState.instance.podeComecar++;
-					}
-					else
-					{
-						server.send({message: e.data.message, verb: 'carreguei'});
-					}
-				}
+			room.onLeave+=function() {
+				isOnServer = false;
+				isHost = false;
+				entrarBt.visible = true;
+				hostearBt.visible = true;
+				ipBar.visible = true;
 
-				if(e.data.verb == 'force-stop')
-					{
-						if(myID != Std.parseInt(e.data.message))
-						{
-							MultiplayerPlayState.instance.podeTerminar++;
-						}
-						else
-						{
-							server.send({message: e.data.message, verb: 'force-stop'});
-						}
-					}
-			if (e.data.verb == "results"){
-				if(e.data.myID != myID)
+				var num:Int = 0;
+				for (player in players)
 				{
-					var data:Array<String> = CoolUtil.listFromString(e.data.message);
-					for (hit in data[1].split(",")){
-						ResultsSubstate.opp_data.push(Std.parseInt(hit));
-					}
-					ResultsSubstate.opp_high_combo = Std.parseInt(data[1]);
-					ResultsSubstate.opp_score = Std.parseInt(data[2]);
-					ResultsSubstate.opp_name = data[3];
+					player.nome = num == 0 ? GJClient.userName : "";
+					add(player);
+					num++;
 				}
-			}
+			};
 
-			if(e.data.verb == 'hits-e-misses')
-			{
-				var allMessage:Array<String> = e.data.message.split("\n");
-				if(Std.parseInt(allMessage[0]) != myID)
-				{
-					MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
-					MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
-					MultiplayerPlayState.instance.opponentScore = Std.parseInt(allMessage[3]);
-				}
-			}
+
 		});
-
-		server.addEventListener(NetworkEvent.INIT_SUCCESS, function(e:NetworkEvent)
-		{
-			canClick = true;
-			isHost = true;
-			entrar();
-			entrarBt.visible = false;
-			hostearBt.visible = false;
-			ipBar.visible = false;
-			players[0].nome = GJClient.userName;
-			trace("to hosteando");
-		});
-
-		server.addEventListener(NetworkEvent.INIT_FAILURE, function(e:NetworkEvent)
-		{
-			avisarAlgo("Erro no servidor");
-		});*/
 	}
 
 	public function initMatch()
@@ -612,6 +517,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 						players[Std.parseInt(allMessage[4])].sessionId = Std.string(allMessage[3]);
 					case "saiu":
 						players[Std.parseInt(allMessage[4])].nome = "";
+						players[Std.parseInt(allMessage[4])].charID = "bf";
+						players[Std.parseInt(allMessage[4])].sessionId = "";
 				}
 			});
 
@@ -653,153 +560,45 @@ class MultiplayerMainMenuState extends MusicBeatState
 			});
 
 
-			room.onMessage("lobbyInput", function(message) {
-				mudaAeMano(Std.string(getIndexBySession(message.sessionId)), message.qual, message.tipo, !isHost);
+			room.onMessage("stop-match", function(message) {
+				if(!isPlayingMatch)
+					return;
+				MultiplayerPlayState.instance.podeTerminar++;
+				MultiplayerPlayState.instance.podeTerminar++;
 			});
 
-		});
-		/*var server_ip = isHost ? "127.0.0.1" : ipBar.text;
+			room.onMessage("lobbyInput", function(message) {
+				mudaAeMano(Std.string(getIndexBySession(message.clientID)), message.qual, message.tipo, message.isHost);
+			});
 
-		client = Network.registerSession(NetworkMode.CLIENT, {
-			ip: server_ip,
-			port: 8080
-		});
-
-		client.start();
-		definirUsuario();
-
-		client.addEventListener(NetworkEvent.MESSAGE_RECEIVED, function(e:NetworkEvent)
-		{
-			if (e.data.verb == 'input' && myID == 1)
-			{
-				var qualEquem:Array<String> = e.data.message.split(" ");
-				mudaAeMano(qualEquem[0], qualEquem[1], qualEquem[2]);
-			}
-
-			if(e.data.verb == 'input-game')
-			{
-				var allMessage:Array<String> = e.data.message.split("\n");
-				if(Std.parseInt(allMessage[0]) != myID)
-				{
-					daNoteReceived.push(Std.parseInt(allMessage[1]));
-				}
-			}
-
-			if (e.data.verb == 'name')
-			{
-				var quemEqual:Array<String> = e.data.message.split("\n");
-				players[Std.parseInt(quemEqual[0])].nome = quemEqual[1];
-			}
-
-			if (e.data.verb == 'all-leave' && !isHost)
-			{
-				client.disconnectClient();
-				players[1].nome = "Player 2";
-				if (e.data.message == "versao incompativel")
-				{
-					avisarAlgo("Versões incompatíveis");
-				}
-			}
-			if (e.data.verb == "init-match")
-			{
-				var opcoes:Array<String> = e.data.message.split("\n");
-				MusicaAtual = Std.parseInt(opcoes[0]);
-				TrocarLados = opcoes[1]=="true"?true:false;
-				ModoDeJogo = Std.parseInt(opcoes[2]);
-				initMatch();
-			}
-
-			if(e.data.verb == 'carreguei')
-				{
-					if(myID != Std.parseInt(e.data.message))
+			room.onMessage("leave", function(message) {
+				room.leave();
+				switch(message.cause)
 					{
-						MultiplayerPlayState.instance.podeComecar++;
+						case 9000:
+							avisarAlgo("O host se desconectou.");
+						default:
+							avisarAlgo("Reason: "+Std.string(message.cause));
 					}
-				}
+			});
 
-				if(e.data.verb == 'force-stop')
-					{
-						if(myID != Std.parseInt(e.data.message))
-						{
-							MultiplayerPlayState.instance.podeTerminar++;
-						}
-					}
-
-				if(e.data.verb == 'hits-e-misses')
-					{
-						var allMessage:Array<String> = e.data.message.split("\n");
-						if(Std.parseInt(allMessage[0]) != myID)
-						{
-							MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
-							MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
-							MultiplayerPlayState.instance.opponentScore = Std.parseInt(allMessage[3]);
-						}
-					}
-
-					if (e.data.verb == "results"){
-						if(e.data.myID != myID)
-						{
-							var data:Array<String> = CoolUtil.listFromString(e.data.message);
-							for (hit in data[1].split(",")){
-								ResultsSubstate.opp_data.push(Std.parseInt(hit));
-							}
-							ResultsSubstate.opp_high_combo = Std.parseInt(data[1]);
-							ResultsSubstate.opp_score = Std.parseInt(data[2]);
-							ResultsSubstate.opp_name = data[3];
-						}
-					}
-		});
-
-		client.addEventListener(NetworkEvent.INIT_SUCCESS, function(e:NetworkEvent)
-		{
-			canClick = true;
-			myID = isHost ? 0 : 1;
-			client.send({message: myID + "\n" + GJClient.userName, verb: 'name'});
-
-			players[myID].nome = GJClient.userName;
-			isOnServer = true;
-			entrarBt.visible = false;
-			hostearBt.visible = false;
-			ipBar.visible = false;
-			trace("to entrando");
-			client.send({message: MainMenuStateMobile.version, verb: 'version'});
-		});
-
-		client.addEventListener(NetworkEvent.DISCONNECTED, function(e:NetworkEvent)
-		{
-			client.send({message: myID + "\n" + "Player " + myID + 1, verb: 'name'});
-			if(isPlayingMatch)
+			room.onLeave+=function() {
+				isOnServer = false;
+				isHost = false;
+				entrarBt.visible = true;
+				hostearBt.visible = true;
+				ipBar.visible = true;
+				var num:Int = 0;
+				for (player in players)
 				{
-					MultiplayerPlayState.instance.endSong();
+					player.nome = num == 0 ? GJClient.userName : "";
+					add(player);
+					num++;
 				}
-
-			isOnServer = false;
-			entrarBt.visible = true;
-			hostearBt.visible = true;
-			ipBar.visible = true;
-			textinhoDebug.text = "";
+			};
 			
-			avisarAlgo("Conexão perdida");
-		});
 
-		client.addEventListener(NetworkEvent.CLOSED, function(e:NetworkEvent)
-		{
-			client.send({message: myID + "\n" + "Player " + myID + 1, verb: 'name'});
-			isOnServer = false;
-			entrarBt.visible = true;
-			hostearBt.visible = true;
-			ipBar.visible = true;
-			textinhoDebug.text = "";
 		});
-
-		client.addEventListener(NetworkEvent.INIT_FAILURE, function(e:NetworkEvent)
-		{
-			avisarAlgo("Servidor não encontrado");
-		});
-		client.addEventListener(NetworkEvent.SERVER_FULL, function(e:NetworkEvent)
-		{
-			avisarAlgo("O servidor está cheio");
-		});*/
 	}
 
 	function getIndexBySession(sessionId:String):Int
@@ -816,12 +615,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	function segureiObotao(qual:String)
 	{
-		curRoom.send("lobbyInput", {tipo: "Segurei", qual: qual});
+		curRoom.send("lobbyInput", {clientID: curRoom.sessionId, tipo: "Segurei", qual: qual, isHost: isHost});
 	}
 
 	function solteiObotao(qual:String)
 	{
-		curRoom.send("lobbyInput", {tipo: "Soltei", qual: qual});
+		curRoom.send("lobbyInput", {clientID: curRoom.sessionId, tipo: "Soltei", qual: qual, isHost: isHost});
 	}
 
 	function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
