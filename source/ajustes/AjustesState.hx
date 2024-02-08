@@ -26,6 +26,7 @@ class AjustesState extends MusicBeatState
 	var boom:FlxSprite;
 	var gameJoltBG:FlxSprite;
 	private var option_buttons:FlxTypedGroup<FlxButton>;
+	private var curSelected:Int = 0;
 
 	var letext:FlxText;
 	var isCoolBeat:Bool=true;
@@ -170,6 +171,29 @@ class AjustesState extends MusicBeatState
 		});
 	}
 
+	private function handle_input():Void{
+		if (controls.UI_DOWN_P)
+		{
+			if (curSelected + 1 > optionShit.length - 1)
+				curSelected = 0;
+			else{
+				curSelected +=1;
+				if (optionShit[curSelected] == "gamejooj" && (GJClient.logged || TitleState.ModoOffline))
+					curSelected = 0;
+			}
+		}
+		else if (controls.UI_UP_P)
+		{
+			if (curSelected - 1 < 0)
+				curSelected = optionShit.length - 1;
+				if (optionShit[curSelected] == "gamejooj" && (GJClient.logged || TitleState.ModoOffline))
+					curSelected -=1;
+			else{
+				curSelected -= 1;
+			}
+		}
+	}
+
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music != null)
@@ -177,16 +201,17 @@ class AjustesState extends MusicBeatState
 		if(pode)
 			//Silvio ser bulo de mais pra entender isso.
 			{
-				if (!selectedSomethin)
-					for (object in option_buttons){
-						if (BSLTouchUtils.apertasimples(object))
+				if (!selectedSomethin){
+					handle_input();
+					option_buttons.forEach(function(object:FlxButton){
+						if (Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(object) : controls.ACCEPT)
 							click(object);
-						else if (BSLTouchUtils.over(object))
+						else if (Main.getMouseVisibility() ? BSLTouchUtils.over(object) : curSelected == object.ID)
 							hover(object);
 						else if (object.alpha == 1)
 							out(object);
-					}
-				Main.mouse_allowed = true;
+					});
+				}
 			}
 
 		if (FlxG.sound.music.volume < 0.7)
@@ -210,9 +235,11 @@ class AjustesState extends MusicBeatState
 		function hover(object:FlxButton):Void
 		{
 			if (optionShit[object.ID]!="gamejooj" || (!GJClient.logged && !TitleState.ModoOffline)){
-				if (object.alpha != 1) // pra ele n ficar repetindo o som
+				if (object.alpha != 1){ // pra ele n ficar repetindo o som
 					GlobalSoundManager.play("scrollMenu");
 					object.alpha = 1;
+					curSelected = object.ID;
+				}
 			}
 		}
 		
@@ -224,7 +251,7 @@ class AjustesState extends MusicBeatState
 		function click(object:FlxButton):Void{
 			if (optionShit[object.ID]!="gamejooj" || (!GJClient.logged && !TitleState.ModoOffline)){
 				object.alpha=1;
-				select(object.ID);
+				select(curSelected);
 			}
 		}
 

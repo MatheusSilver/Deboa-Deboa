@@ -2804,12 +2804,6 @@ class PlayState extends MusicBeatState
 		#if rpc
 		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
 		#end
-		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-		// }
-
-		#if rpc
-		DiscordClient.changePresence(detailsPausedText, nomehistorico + " (" + storyDifficultyText + ")", iconP2.getCharacter());
-		#end
 	}
 
 	function resyncVocals():Void

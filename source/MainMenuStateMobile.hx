@@ -449,7 +449,7 @@ class MainMenuStateMobile extends MusicBeatState
 					curSelected +=1;
 			}
 		}
-		if (controls.UI_UP_P)
+		else if (controls.UI_UP_P)
 		{
 			if (curSelected - 1 < 0)
 				curSelected = menuItems.length - 1;

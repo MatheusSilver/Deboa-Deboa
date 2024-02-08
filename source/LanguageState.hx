@@ -2,6 +2,7 @@ package;
 
 //Tudo isso foi baseado no DDTO com algumas mudanças sutís.
 
+import Utils.BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxBackdrop;
@@ -65,6 +66,9 @@ class LanguageState extends MusicBeatState
 
 		super.create();
 
+		Main.mouse_allowed = true;
+		BSLTouchUtils.prevTouched = -1;
+
 		changeSelection();
 	}
 
@@ -105,53 +109,64 @@ class LanguageState extends MusicBeatState
 		if (!selectedSomethin)
 		{
 			if (controls.UI_UP_P){
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				GlobalSoundManager.play("scrollMenu");
 				changeSelection(curSelected-1);
 			}else if (controls.UI_DOWN_P){
-				FlxG.sound.play(Paths.sound('scrollMenu'));
+				GlobalSoundManager.play("scrollMenu");
 				changeSelection(curSelected+1);
+			}else if (Main.getMouseVisibility()){
+				grpOptionsTexts.forEach(function(txt:FlxText)
+					{
+						if (BSLTouchUtils.aperta(txt, txt.ID) == "primeiro"){ //Honestamente essa sempre foi minha função favorita (até porque foi a primeira), pena que não dá pra usar ela muito.
+							GlobalSoundManager.play("scrollMenu");
+							changeSelection(txt.ID);
+						}else if (BSLTouchUtils.aperta(txt, txt.ID) == "segundo")
+							accept();
+					});
 			}
 			if (controls.ACCEPT)
+				accept();
+		}
+	}
+
+	private function accept():Void{
+		selectedSomethin = true;
+		FlxG.sound.play(Paths.sound('confirmMenu'));
+
+		grpOptionsTexts.forEach(function(txt:FlxText)
+		{
+			if (curSelected != txt.ID)
 			{
-				selectedSomethin = true;
-				FlxG.sound.play(Paths.sound('confirmMenu'));
-
-				grpOptionsTexts.forEach(function(txt:FlxText)
-				{
-					if (curSelected != txt.ID)
+				FlxTween.tween(txt, {alpha: 0}, 1.3, {
+					ease: FlxEase.quadOut,
+					onComplete: function(twn:FlxTween)
 					{
-						FlxTween.tween(txt, {alpha: 0}, 1.3, {
-							ease: FlxEase.quadOut,
-							onComplete: function(twn:FlxTween)
-							{
-								txt.kill();
-							}
-						});
-					}
-					else
-					{
-						ClientPrefs.lingua = localeList[curSelected];
-						trace('Game language set to ${ClientPrefs.lingua}');
-						Main.tongue.initialize({locale: ClientPrefs.lingua});
-						ClientPrefs.save();
-
-						if (ClientPrefs.flashing)
-						{
-							FlxFlicker.flicker(txt, 1, 0.06, false, false, function(flick:FlxFlicker)
-							{
-								MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
-							});
-						}
-						else
-						{
-							new FlxTimer().start(1, function(tmr:FlxTimer)
-							{
-								MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
-							});
-						}
+						txt.kill();
 					}
 				});
 			}
-		}
+			else
+			{
+				ClientPrefs.lingua = localeList[curSelected];
+				trace('Game language set to ${ClientPrefs.lingua}');
+				Main.tongue.initialize({locale: ClientPrefs.lingua});
+				ClientPrefs.save();
+
+				if (ClientPrefs.flashing)
+				{
+					FlxFlicker.flicker(txt, 1, 0.06, false, false, function(flick:FlxFlicker)
+					{
+						MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
+					});
+				}
+				else
+				{
+					new FlxTimer().start(1, function(tmr:FlxTimer)
+					{
+						MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
+					});
+				}
+			}
+		});
 	}
 }

@@ -23,7 +23,8 @@ class SobreState extends MusicBeatState
 
 	static var menu_isLeft:Bool = true;
 	private var buttonMapping:Map<String, CreditButton> = [];
-	private final menusArray:Array<String> = ["exe", "saster", "sunny", "vio", "dav"];
+	private final menusArray:Array<String> = ["sunny", "dav", "vio", "exe", "saster" ];
+	private var curSelected:Int = 0;
 	//A ideia já tava tão avançada nesse ponto, então fui para a base da gambiarra.
 
 	override function create()
@@ -71,7 +72,7 @@ class SobreState extends MusicBeatState
 		exe.x = 640;
 		exe.y = 320;
 		exe.alpha = 0.75;
-		exe.ID = 0;
+		exe.ID = 3;
 		exe.updateHitbox();
 		exe.offset.set();
 		add(exe);
@@ -82,7 +83,7 @@ class SobreState extends MusicBeatState
 		saster.x = 640;
 		saster.y = 490;
 		saster.alpha = 0.75;
-		saster.ID = 1;
+		saster.ID = 4;
 		saster.updateHitbox();
 		saster.offset.set();
 		add(saster);
@@ -92,7 +93,7 @@ class SobreState extends MusicBeatState
 		sunny.x = 47;
 		sunny.y = 150;
 		sunny.alpha = 0.75;
-		sunny.ID = 2;
+		sunny.ID = 0;
 		sunny.updateHitbox();
 		sunny.offset.set();
 		add(sunny);
@@ -102,7 +103,7 @@ class SobreState extends MusicBeatState
 		vio.x = 640;
 		vio.y = 150;
 		vio.alpha = 0.75;
-		vio.ID = 3;
+		vio.ID = 2;
 		vio.updateHitbox();
 		vio.offset.set();
 		add(vio);
@@ -112,7 +113,7 @@ class SobreState extends MusicBeatState
 		dav.x = 47;
 		dav.y = 320;
 		dav.alpha = 0.75;
-		dav.ID = 4;
+		dav.ID = 1;
 		dav.updateHitbox();
 		dav.offset.set();
 		add(dav);
@@ -126,16 +127,33 @@ class SobreState extends MusicBeatState
 		arrow.alpha = 0.75;
 		add(arrow);
 
-		updateuwu();
+		updateuwu(true);
 		super.create();
+	}
+
+	private function handle_input():Void{
+		if (controls.UI_DOWN_P)
+		{
+			if (curSelected + 1 > (menu_isLeft ? 1 : menusArray.length - 1))
+				curSelected = (menu_isLeft ? 0 : 2);
+			else
+				curSelected +=1;
+			
+		}
+		else if (controls.UI_UP_P)
+		{
+			if (curSelected - 1 < (menu_isLeft ? 0 : 2))
+				curSelected = (menu_isLeft ? 1 : menusArray.length - 1);
+			else
+				curSelected -= 1;
+		}else if ((menu_isLeft ? controls.UI_RIGHT_P : controls.UI_LEFT_P)){
+			updateuwu(!menu_isLeft);
+			GlobalSoundManager.play('confirmMenu');
+		}
 	}
 
 	override function update(elapsed:Float)
 	{
-		/*#if (debug && desktop)
-		if(FlxG.keys.justPressed.ONE)
-			openSubState(new multiplayer.ResultsSubstate([1,2,3,4], 1,2,100));
-		#end*/
 		if (!menu_isLeft)
 		{
 			arrow.flipX = false;
@@ -164,12 +182,13 @@ class SobreState extends MusicBeatState
 		// agr que eu vi que eu fui burro mas to com preguiça de consertar tudo que eu fiz de errado :)
 		// o importante é que funciona
 
+		handle_input();
 		for (key in buttonMapping.iterator()){
-			if (BSLTouchUtils.over(key.bg) && !key.isOver && key.visible)
+			if ((Main.getMouseVisibility() ? BSLTouchUtils.over(key.bg) : curSelected == key.ID) && !key.isOver && key.visible)
 				hover(key);
-			else if (BSLTouchUtils.apertasimples(key.bg) && key.isOver && key.visible)
+			else if ((Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(key.bg) : controls.ACCEPT) && key.isOver && key.visible)
 				click(key);
-			else if (key.isOver && !BSLTouchUtils.over(key.bg) && key.visible)
+			else if (key.isOver && !(Main.getMouseVisibility() ? BSLTouchUtils.over(key.bg) : curSelected == key.ID) && key.visible)
 				out(key);
 		}
 
@@ -184,10 +203,9 @@ class SobreState extends MusicBeatState
 
 		arrow.onDown.callback = function()
 		{
-			GlobalSoundManager.play('confirmMenu');
 			arrow.alpha = 1;
-			menu_isLeft = !menu_isLeft;
-			updateuwu();
+			GlobalSoundManager.play('confirmMenu');
+			updateuwu(!menu_isLeft);
 		};
 	}
 
@@ -196,6 +214,7 @@ class SobreState extends MusicBeatState
 		object.isOver = true;
 		GlobalSoundManager.play("scrollMenu");
 		object.alpha = 1;
+		curSelected = object.ID;
 	}
 
 	function out(object:CreditButton):Void
@@ -228,8 +247,10 @@ class SobreState extends MusicBeatState
 		
 	}
 
-	function updateuwu():Void
+	function updateuwu(side:Bool):Void
 	{
+		menu_isLeft=side;
+		curSelected = menu_isLeft ? 0 : 2;
 		faixa.x = menu_isLeft ? 43 : 636;
 		gtext.visible = menu_isLeft;
 		buttonMapping.get("dav").visible = menu_isLeft;

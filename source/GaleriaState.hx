@@ -155,7 +155,7 @@ class GaleriaState extends MusicBeatState
 			add(musicButton);
 
 			#if mobile
-			addhitboxtouch();
+			//addhitboxtouch();
 			#end
 	
 			super.create();
@@ -279,7 +279,9 @@ class GaleriaState extends MusicBeatState
 									musicButton.y += scrollSpeed;
 								}				
 							}
-						else if(#if mobile hitboxbaixo.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
+						else if(
+							//#if mobile hitboxbaixo.justReleased || #end 
+							FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
 						{
 							if(bg.y==-8842)
 							{
@@ -318,7 +320,9 @@ class GaleriaState extends MusicBeatState
 										{spr.y = spr.y+scrollSpeed;});
 								}
 							
-							}else if(#if mobile hitboxbaixo.justReleased || #end FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
+							}else if(
+								//#if mobile hitboxbaixo.justReleased || #end 
+								FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
 								if(bgmusica.y == -holdthatY + FlxG.height)
 								{
 									bgmusica.y= -holdthatY + FlxG.height;
