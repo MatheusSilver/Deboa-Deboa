@@ -16,6 +16,8 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import networking.Network;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
@@ -352,7 +354,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		generatedMusic = true;
 
 		new FlxTimer().start(2, function(tmr:FlxTimer) {
-			podeComecar++;
 			MultiplayerMainMenuState.instance.enviarToPronto();
 		});
 
@@ -386,7 +387,10 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	}
 
 	public function endSong() {
-		FlxG.sound.music.stop();
+		if(FlxG.sound.music!= null)
+		{
+			FlxG.sound.music.stop();
+		}
 		vocals.stop();
 		vocals.destroy();
 		//MultiplayerMainMenuState.instance.send_results([sicks, goods, bads, shits], combo, songScore, GJClient.username);
@@ -416,18 +420,24 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			{
 				if(terminarFloat==100)
 				{
-					podeTerminar++;
 					MultiplayerMainMenuState.instance.enviarQueroTerminar();
 					queriaTerminar = true;
 				}
 				else
 				{
-					terminarFloat+=1;
+					if(terminarFloat == 0)
+					{
+						FlxTween.num(terminarFloat, 100, 2, {ease: FlxEase.linear});
+					}
 				}
 			}
 			else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
 			{
-				terminarFloat-=4;
+				if(terminarFloat > 0)
+				{
+					FlxTween.cancelTweensOf(terminarFloat);
+					terminarFloat = 0;
+				}
 			}
 			//terminarBar.value = terminarFloat;
 			//terminarBar.updateFilledBar();

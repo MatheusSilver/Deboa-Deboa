@@ -111,7 +111,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function create()
 	{
 		instance = this;
-		client = new Client('ws://87b7-35-243-164-186.ngrok-free.app:2567');
+		client = new Client('ws://serveo.net:2567');
 		musicas = getAllSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, "MULTIPLAYER", 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -314,6 +314,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			curRoom = room;
 			isHost = true;
 			isOnServer = true;
+			canClick = true;
 			/*entrarBt.visible = false;
 			hostearBt.visible = false;
 			ipBar.visible = false;*/
@@ -595,7 +596,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 			entrarBt.visible = false;
 			hostearBt.visible = false;
 			ipBar.visible = false;
-	
 
 				
 			players[1].nome = GJClient.userName;
