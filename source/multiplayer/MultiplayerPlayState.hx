@@ -179,7 +179,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		noteTypeMap = null;
 
 		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 25, FlxG.width, "", 50);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -205,6 +205,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		terminarBar.updateFilledBar();
 		terminarBar.updateBar();
 		terminarTxt = new FlxText(20, 40, FlxG.width, "Segure ESC para terminar a partida (1/2)", 15);
+		terminarTxt.color = FlxColor.BLACK;
 		terminarTxt.visible = false;
 		add(terminarTxt);
 
