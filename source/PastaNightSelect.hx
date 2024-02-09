@@ -1,5 +1,6 @@
 package;
 
+import Utils.BSLTouchUtils;
 import LoadingState.LoadingsState;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -23,12 +24,12 @@ class PastaNightSelect extends MusicBeatState
 	var characters:Array<String> = ['MX', 'LordX', 'Hypno'];
 	var characterSprites:Array<Array<FlxSprite>> = [];
 	var selectorArrow:FlxSprite;
-	var displacementList:Array<Int> = [-4, 2, 0];
 	var crt:ShaderFilter;
 	var paracomessapohameno:Bool = false;
 
 	override public function create()
 	{
+		Main.mouse_allowed=true;
 		super.create();
 
 		#if rpc
@@ -76,9 +77,13 @@ class PastaNightSelect extends MusicBeatState
 					charSprite.visible = false;
 				charSprite.setGraphicSize(Std.int(charSprite.width * 3));
 				charSprite.setPosition(bg.x + bg.width / 2 - charSprite.width / 2, bg.y + bg.height / 2 - charSprite.height / 2);
-				charSprite.x += (i - 1) * (3 * 45) + 3;
+				charSprite.updateHitbox();
+				charSprite.x += ((i - 1) * (150))-70;
 				charSprite.x = Std.int(charSprite.x);
-				charSprite.y = (176 * 3) - charSprite.height + (displacementList[i] * 3);
+				charSprite.y = 400;
+				if (j==0){
+					charSprite.ID = i;
+				}
 				add(charSprite);
 				characterSprites[i].push(charSprite);
 			}
@@ -93,9 +98,7 @@ class PastaNightSelect extends MusicBeatState
 	}
 
 	public static var selector:Int = -1;
-
-	public var oldSelector:Int = 0;
-	public var totalElapsed:Float = 0;
+	private var totalElapsed:Float = 0;
 
 	override public function update(elapsed:Float)
 	{
@@ -112,50 +115,59 @@ class PastaNightSelect extends MusicBeatState
 			updateSelection(selector + 1);
 
 		if (controls.ACCEPT)
-		{
-			var crossDifficulty:Int = selector + 5;
-			FreeplayState.infoextended = 'Noite da Rapaziada';
-			persistentUpdate = false;
-			PlayState.isStoryMode = false;
-			canSelect = false;
-			characterSprites[selector][0].visible = false;
-			characterSprites[selector][2].visible = false;
-			characterSprites[selector][1].visible = true;
-			new FlxTimer().start(0.5, function(tmr:FlxTimer)
-			{
-				characterSprites[selector][1].visible = false;
-				characterSprites[selector][0].visible = true;
-
-				var songLowercase:String = Paths.formatToSongPath('pasta-night');
-				var poop:String = Highscore.formatSong(songLowercase, crossDifficulty);
-				if (!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop)))
-				{
-					poop = songLowercase;
-					trace('Couldnt find file');
-				}
-				trace(poop);
-				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-				PlayState.storyDifficulty = crossDifficulty;
-				PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
-
-				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 1.0);
-				selectCam = new FlxCamera(0, 0, 1280, 720);
-				FlxG.cameras.reset(selectCam);
-				openSubState(new LoadingsState());
-				new FlxTimer().start(1.5, function(tmr:FlxTimer)
-				{
-					LoadingState.loadAndSwitchState(new PlayState());
-					FlxG.sound.music.stop();
-					FlxG.sound.music = null;
-				});
-
-				FlxG.sound.music.volume = 0;
-
-				FreeplayState.destroyFreeplayVocals();
-			});
+			confirm();
+		
+		for (i in 0...characters.length){
+			if (BSLTouchUtils.apertasimples(characterSprites[i][2]) && selector != characterSprites[i][0].ID)
+				updateSelection(characterSprites[i][0].ID);
+			else if (BSLTouchUtils.apertasimples(characterSprites[i][2]))
+				confirm();
 		}
 
 		super.update(elapsed);
+	}
+
+	private function confirm(){
+		var crossDifficulty:Int = selector + 5;
+		FreeplayState.infoextended = 'Noite da Rapaziada';
+		persistentUpdate = false;
+		PlayState.isStoryMode = false;
+		canSelect = false;
+		characterSprites[selector][0].visible = false;
+		characterSprites[selector][2].visible = false;
+		characterSprites[selector][1].visible = true;
+		new FlxTimer().start(0.5, function(tmr:FlxTimer)
+		{
+			characterSprites[selector][1].visible = false;
+			characterSprites[selector][0].visible = true;
+
+			var songLowercase:String = Paths.formatToSongPath('pasta-night');
+			var poop:String = Highscore.formatSong(songLowercase, crossDifficulty);
+			if (!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop)))
+			{
+				poop = songLowercase;
+				trace('Couldnt find file');
+			}
+			trace(poop);
+			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+			PlayState.storyDifficulty = crossDifficulty;
+			PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
+
+			if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 1.0);
+			selectCam = new FlxCamera(0, 0, 1280, 720);
+			FlxG.cameras.reset(selectCam);
+			openSubState(new LoadingsState());
+			new FlxTimer().start(1.5, function(tmr:FlxTimer)
+			{
+				LoadingState.loadAndSwitchState(new PlayState());
+				FlxG.sound.music.stop();
+				FlxG.sound.music = null;
+			});
+
+			FlxG.sound.music.volume = 0;
+
+			FreeplayState.destroyFreeplayVocals();
+		});
 	}
 
 	var canSelect:Bool = true;

@@ -1,3 +1,4 @@
+import Utils.BSLTouchUtils;
 import LoadingState.LoadingsState;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -11,142 +12,164 @@ using StringTools;
 
 class ControlSongSubstate extends MusicBeatSubstate
 {
-		var bg:FlxSprite;
-		var alphabetArray:Array<Alphabet> = [];
-		var explanationtext:FlxText;
-		var confirmInt:Int;
-		var onYes:Bool = false;
-		var yesText:Alphabet;
-		var noText:Alphabet;
-		public static var gifPermitido:Bool;
-		var escolheualgo:Bool = false;
+	var bg:FlxSprite;
+	var alphabetArray:Array<Alphabet> = [];
+	var explanationtext:FlxText;
+	var confirmInt:Int;
+	var onYes:Bool = false;
+	var yesText:Alphabet;
+	var noText:Alphabet;
+	public static var gifPermitido:Bool;
+	var escolheualgo:Bool = false;
 
 
-		public function tweenpracima():Void
-			{
-				FlxTween.tween(explanationtext, {y: yesText.height + yesText.y + 100}, 3, {ease: FlxEase.quadInOut,
-				onComplete: function(twn:FlxTween) {
-					tweenprabaixo();
-				}});
-			}
-	
-			public function tweenprabaixo():Void
-			{
-				FlxTween.tween(explanationtext, {y: FlxG.height - explanationtext.height - 5}, 3, {ease: FlxEase.quadInOut,
-				onComplete: function(twn:FlxTween) {
-					tweenpracima();
-				}});
-			}
-	
-			public function updateOptions():Void 
-			{
-				var scales:Array<Float> = [0.75, 1];
-				var alphas:Array<Float> = [0.6, 1.25];
-				confirmInt = onYes ? 0 : 1;
-				if (confirmInt == 0) {
-					explanationtext.text = LangUtil.getString("control_text_expla_yes", "data", "\n");
-				} else if (confirmInt == 1){
-					explanationtext.text = LangUtil.getString("control_text_expla_no", "data", "\n");
-				}
-	
-				noText.alpha = alphas[confirmInt];
-				noText.scale.set(scales[confirmInt], scales[confirmInt]);
-				yesText.alpha = alphas[1 - confirmInt];
-				yesText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
-			}
+	public function tweenpracima():Void
+	{
+		FlxTween.tween(explanationtext, {y: yesText.height + yesText.y + 100}, 3, {ease: FlxEase.quadInOut,
+		onComplete: function(twn:FlxTween) {
+			tweenprabaixo();
+		}});
+	}
 
-		public function new()
-		{
-			super();
-
-			bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-			bg.alpha = 0;
-			bg.scrollFactor.set();
-			add(bg);
-
-			var text:Alphabet = new Alphabet(0, 180, LangUtil.getString("control_text_activate_gif", "data"), true);
-			text.screenCenter(X);
-			alphabetArray.push(text);
-			text.alpha = 0;
-			add(text);
-
-			yesText = new Alphabet(0, text.y + 150, LangUtil.getString("common_text_yes", "data"), true);
-			yesText.screenCenter(X);
-			yesText.x -= 200;
-			add(yesText);
-			noText = new Alphabet(0, text.y + 150, LangUtil.getString("common_text_no", "data"), true);
-			noText.screenCenter(X);
-			noText.x += 200;
-			add(noText);
-			explanationtext = new FlxText(0, FlxG.height - 5, FlxG.width, '', 24);
-			explanationtext.setFormat(Paths.font("letravio.ttf"), 32, FlxColor.WHITE, CENTER);
-			explanationtext.screenCenter(X);
-			explanationtext.scrollFactor.set();
-			
-			add(explanationtext);
-
-			updateOptions();
+	public function tweenprabaixo():Void
+	{
+		FlxTween.tween(explanationtext, {y: FlxG.height - explanationtext.height - 5}, 3, {ease: FlxEase.quadInOut,
+		onComplete: function(twn:FlxTween) {
 			tweenpracima();
+		}});
+	}
 
-			#if mobileC
-			addVirtualPad(LEFT_RIGHT, A_B);
-			#end
-
+	public function updateOptions():Void 
+	{
+		var scales:Array<Float> = [0.75, 1];
+		var alphas:Array<Float> = [0.6, 1.25];
+		confirmInt = onYes ? 0 : 1;
+		if (confirmInt == 0) {
+			explanationtext.text = LangUtil.getString("control_text_expla_yes", "data", "\n");
+		} else if (confirmInt == 1){
+			explanationtext.text = LangUtil.getString("control_text_expla_no", "data", "\n");
 		}
 
+		noText.alpha = alphas[confirmInt];
+		noText.scale.set(scales[confirmInt], scales[confirmInt]);
+		yesText.alpha = alphas[1 - confirmInt];
+		yesText.scale.set(scales[1 - confirmInt], scales[1 - confirmInt]);
+	}
 
-		override function update(elapsed:Float)
-		{
-			bg.alpha += elapsed * 1.5;
-			if(bg.alpha > 0.6) {bg.alpha = 0.6;}
+	public function new()
+	{
+		super();
 
-		for (i in 0...alphabetArray.length) {
-			var spr = alphabetArray[i];
-			spr.alpha += elapsed * 2.5;
-		}
-		if (!escolheualgo){
-		if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
-			GlobalSoundManager.play('scrollMenu');
-			onYes = !onYes;
+		Main.mouse_allowed=true;
+
+		bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		bg.alpha = 0;
+		bg.scrollFactor.set();
+		add(bg);
+
+		var text:Alphabet = new Alphabet(0, 180, LangUtil.getString("control_text_activate_gif", "data"), true);
+		text.screenCenter(X);
+		alphabetArray.push(text);
+		text.alpha = 0;
+		add(text);
+
+		yesText = new Alphabet(0, text.y + 150, LangUtil.getString("common_text_yes", "data"), true);
+		yesText.screenCenter(X);
+		yesText.x -= 200;
+		add(yesText);
+		noText = new Alphabet(0, text.y + 150, LangUtil.getString("common_text_no", "data"), true);
+		noText.screenCenter(X);
+		noText.x += 200;
+		add(noText);
+		explanationtext = new FlxText(0, FlxG.height - 5, FlxG.width, '', 24);
+		explanationtext.setFormat(Paths.font("letravio.ttf"), 32, FlxColor.WHITE, CENTER);
+		explanationtext.screenCenter(X);
+		explanationtext.scrollFactor.set();
+		
+		add(explanationtext);
+
+		updateOptions();
+		tweenpracima();
+
+		#if mobileC
+		addVirtualPad(LEFT_RIGHT, A_B);
+		#end
+
+	}
+
+	private function handle_input(){
+	
+		if (!Main.getMouseVisibility()){
+			if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+				GlobalSoundManager.play('scrollMenu');
+				onYes = !onYes;
+				updateOptions();
+			}
+			if(controls.ACCEPT) {
+				confirm();
+			}
+		}else{
+			if (BSLTouchUtils.apertasimples(yesText)&&!onYes)
+				onYes=true;
+			else if (BSLTouchUtils.apertasimples(noText)&&onYes)
+				onYes=false;
+			else if (Utils.BSLTouchUtils.apertasimples(yesText) || Utils.BSLTouchUtils.apertasimples(noText)){
+				trace("by click");
+				confirm();
+				return;
+			}
 			updateOptions();
 		}
-		if(controls.ACCEPT) {
+	}
 
-			var songLowercase:String = Paths.formatToSongPath('control');
-			var poop:String = Highscore.formatSong(songLowercase, 2);
-			if(!openfl.utils.Assets.exists(Paths.json(songLowercase + '/' + poop))) {
-				poop = songLowercase;
-				trace('Couldnt find file');
-			}
-			trace(poop);
-			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-			PlayState.storyDifficulty = 2;
-			PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
-
-			FlxG.sound.music.volume = 0;
-			escolheualgo = true;
-			if(confirmInt == 0) {
-					gifPermitido = true;
-					if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 1.0);
-					openSubState(new LoadingsState());
-					new FlxTimer().start(1.5, function(tmr:FlxTimer) {
-						LoadingState.loadAndSwitchState(new PlayState());
-					});
-					GlobalSoundManager.play('confirmMenu');
-
-					}
-					else if(confirmInt == 1) {
-						gifPermitido = false;
-						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 1.0);
-						openSubState(new LoadingsState());
-						new FlxTimer().start(1.5, function(tmr:FlxTimer) {
-							LoadingState.loadAndSwitchState(new PlayState());
-						});
-						GlobalSoundManager.play('confirmMenu');
-					}
-				}
-			super.update(elapsed);
+	private function confirm(){
+		var songLowercase:String = Paths.formatToSongPath('control');
+		var poop:String = Highscore.formatSong(songLowercase, 2);
+		if(!openfl.utils.Assets.exists(Paths.json(songLowercase + '/' + poop))) {
+			poop = songLowercase;
+			trace('Couldnt find file');
 		}
+		trace(poop);
+		PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+		PlayState.storyDifficulty = 2;
+		PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 
+		FlxG.sound.music.volume = 0;
+		escolheualgo = true;
+		if(confirmInt == 0) {
+			gifPermitido = true;
+			if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 1.0);
+			openSubState(new LoadingsState());
+			new FlxTimer().start(1.5, function(tmr:FlxTimer) {
+				LoadingState.loadAndSwitchState(new PlayState());
+			});
+			GlobalSoundManager.play('confirmMenu');
+
+		}else if(confirmInt == 1) {
+			gifPermitido = false;
+			if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.BLACK, 1.0);
+			openSubState(new LoadingsState());
+			new FlxTimer().start(1.5, function(tmr:FlxTimer) {
+				LoadingState.loadAndSwitchState(new PlayState());
+			});
+			GlobalSoundManager.play('confirmMenu');
+		}
+	}
+
+
+	override function update(elapsed:Float)
+	{
+		if (bg.alpha < 0.6) bg.alpha += elapsed * 1.5;
+		else bg.alpha = 0.6;
+
+		if (alphabetArray[alphabetArray.length-1].alpha<0.95)
+			for (i in 0...alphabetArray.length) {
+				var spr = alphabetArray[i];
+				spr.alpha += elapsed * 2.5;
+			}
+		if (!escolheualgo)
+			handle_input();
+
+	super.update(elapsed);
 	}
 }

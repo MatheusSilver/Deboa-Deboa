@@ -24,6 +24,7 @@ class VideoStatePC extends MusicBeatState
 		video = new MP4Sprite(0,0, specialSetting);
 		video.canSkip = false;
 		video.setParent(this);
+		Main.mouse_allowed=false;
 		
 		/*if (specialSetting != TITLE && specialSetting != PLAYSTATE)
 		{
