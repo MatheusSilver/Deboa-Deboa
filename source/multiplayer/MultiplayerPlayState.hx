@@ -179,7 +179,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		noteTypeMap = null;
 
 		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 25, FlxG.width, "", 50);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -197,14 +197,14 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		waitingForOthers.screenCenter(XY);
 		add(waitingForOthers);
 
-		terminarBar = new FlxBar(20, 20, LEFT_TO_RIGHT, 374, 20, this, "terminarFloat", 0, 100, true);
+		terminarBar = new FlxBar(20, ClientPrefs.downScroll  ? 20 : FlxG.height - 20, LEFT_TO_RIGHT, 374, 20, this, "terminarFloat", 0, 100, true);
 		terminarBar.numDivisions = 100;
 		terminarBar.createFilledBar(0xFF000000, 0xFFFFFFFF, true);
 		terminarBar.visible=false;
 		add(terminarBar);
 		terminarBar.updateFilledBar();
 		terminarBar.updateBar();
-		terminarTxt = new FlxText(20, 40, FlxG.width, "Segure ESC para terminar a partida (1/2)", 15);
+		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 40, FlxG.width, "Segure ESC para terminar a partida (1/2)", 20);
 		terminarTxt.color = FlxColor.BLACK;
 		terminarTxt.visible = false;
 		add(terminarTxt);
@@ -426,15 +426,15 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				}
 				else
 				{
-					terminarFloat+=5;
+					terminarFloat+=3;
 				}
 			}
 			else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
 			{
-				terminarFloat-=5;
+				terminarFloat-=3;
 			}
 			terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
-			terminarTxt.y = terminarBar.visible ? 40 : 20;
+			terminarTxt.y = ClientPrefs.downScroll  ? terminarBar.visible ? 40 : 20 : terminarBar.visible ? FlxG.height - 40 : FlxG.height - 20 ;
 		}
 
 		var roundedSpeed:Float = FlxMath.roundDecimal(_song.speed, 2);
