@@ -524,32 +524,38 @@ class MultiplayerMainMenuState extends MusicBeatState
 				avisarAlgo(Std.string(err));
 			  	return;
 			}
-			if(rooms.contains(room))
+			var contem:Bool = false;
+			for (roomAvailable in rooms)
 			{
-				client.joinById(room.roomId, roomOptions, LobbyState, function(err, room) {
-					if (err != null) {
-						trace("JOIN ERROR: " + err);
-						avisarAlgo(Std.string(err));
+				if(roomAvailable.roomId == room.roomId)
+				{
+					client.joinById(room.roomId, roomOptions, LobbyState, function(err, room) {
+						if (err != null) {
+							trace("JOIN ERROR: " + err);
+							avisarAlgo(Std.string(err));
+							canClick = true;
+							return;
+						}
+			
+			
+						curRoom = room;
+						isHost = false;
+						isOnServer = true;
+			
+						changeMenu(LOBBY);
+						players[1].nome = GJClient.userName;
+						players[1].charID = "bf";
+						players[1].sessionId = curRoom.sessionId;
+			
+						eventHandlers();
+			
 						canClick = true;
-						return;
-					}
-		
-		
-					curRoom = room;
-					isHost = false;
-					isOnServer = true;
-		
-					changeMenu(LOBBY);
-					players[1].nome = GJClient.userName;
-					players[1].charID = "bf";
-					players[1].sessionId = curRoom.sessionId;
-		
-					eventHandlers();
-		
-					canClick = true;
-				});
+					});
+					contem = true;
+					break;
+				}
 			}
-			else
+			if(!contem)
 			{
 				canClick = true;
 				avisarAlgo("Sala indisponível");
