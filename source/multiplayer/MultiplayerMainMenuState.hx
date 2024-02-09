@@ -322,7 +322,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		curRoom.onMessage("input-game", function(message) {
 			if(!isPlayingMatch)
 				return;
-			daNoteReceived.push(Std.parseInt(message));
+			daNoteReceived.push(message.note);
 		});
 
 		curRoom.onMessage("enviarMisses", function(message) {
