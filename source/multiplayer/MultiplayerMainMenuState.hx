@@ -429,22 +429,30 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarInputGame(note:Int)
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("input-game", Std.string(note));
 		//trace("Enviei Input "+Std.string(note));
 	}
 
 	public function enviarToPronto()
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("toPronto", 1);
 	}
 
 	public function enviarQueroTerminar()
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("queroSair", 1);
 	}
 
 	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
 	{
+		if(!isPlayingMatch)
+			return;
 		curRoom.send("enviarMisses", Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score));
 	}
 
@@ -572,7 +580,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 			});
 
 			room.onMessage("leave", function(message) {
-				room.leave();
 				switch(message.cause)
 					{
 						case 9000:
@@ -580,6 +587,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 						default:
 							avisarAlgo("Reason: "+Std.string(message.cause));
 					}
+				room.leave();
 			});
 
 			room.onLeave+=function() {

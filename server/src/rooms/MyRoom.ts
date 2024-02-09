@@ -105,17 +105,32 @@ export class MyRoom extends Room {
       options.myChar,
       options.isHost,
     );
-    var allMessage =
+    if(options.isHost == "1")
+    {
+      var allMessage1 =
       "entrou" +
       "\n" +
-      this.state.lobbyPlayers.get(client.sessionId).username +
+      this.state.lobbyPlayers.get(this.clients[0].sessionId).username +
       "\n" +
-      this.state.lobbyPlayers.get(client.sessionId).char +
+      this.state.lobbyPlayers.get(this.clients[0].sessionId).char +
       "\n" +
-      client.sessionId +
+      this.clients[0].sessionId +
       "\n" +
-      options.isHost;
+      this.state.lobbyPlayers.get(this.clients[0].sessionId).isHost;
+      client.send("lobbyPlayers", allMessage1);
+    }
+    var allMessage =
+    "entrou" +
+    "\n" +
+    this.state.lobbyPlayers.get(client.sessionId).username +
+    "\n" +
+    this.state.lobbyPlayers.get(client.sessionId).char +
+    "\n" +
+    client.sessionId +
+    "\n" +
+    options.isHost;
     this.broadcast("lobbyPlayers", allMessage);
+
   }
 
   onLeave(client: Client, consented: boolean) {
