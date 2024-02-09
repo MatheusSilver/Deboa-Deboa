@@ -29,38 +29,6 @@ export class MyRoom extends Room {
     this.mode = options.mode;
     this.changeSides = options.changeSides;
 
-    /*this.onMessage("ready", (client, message) => {
-      if(this.state == LobbyState && this.clients.length == 2)
-      {
-        client.readyState = 1;
-        if(this.clients.every((client) => client.readyState == 1)) {
-          this.setState(new ChooseState());
-          console.log("Initing Game in room " + this.roomId + " with mode " + this.mode);
-        }
-      }
-    });
-
-    this.onMessage("unReady", (client, message) => {
-      if(this.state == LobbyState)
-      {
-        if(!this.clients.every((client) => client.readyState == 1)) {
-          client.readyState = 0;
-        }
-      }
-    });
-
-    this.onMessage("chooseSong", (client, message) => {
-      if(this.state == ChooseState)
-      {
-        this.state.songsChosen.push(message);
-        if(this.state.songsChosen.length == 2)
-        {
-          this.setState(new GameState());
-          this.broadcast("startGame", {mode: this.mode, changeSides: this.changeSides, song: this.state.songsChosen[randomInt(0, 1)]});
-        }
-      }
-    });*/
-
     this.onMessage("init-game", (client, message) => {
       this.broadcast("init-game", message);
     });
@@ -105,58 +73,35 @@ export class MyRoom extends Room {
       options.myChar,
       options.isHost,
     );
-    if(options.isHost == "1")
-    {
-      var allMessage1 =
-      "entrou" +
-      "\n" +
-      this.state.lobbyPlayers.get(this.clients[0].sessionId).username +
-      "\n" +
-      this.state.lobbyPlayers.get(this.clients[0].sessionId).char +
-      "\n" +
-      this.clients[0].sessionId +
-      "\n" +
-      this.state.lobbyPlayers.get(this.clients[0].sessionId).isHost;
-      client.send("lobbyPlayers", allMessage1);
+    if (options.isHost == "1") {
+      client.send("lobbyPlayers", {"type": "entrou","username":this.state.lobbyPlayers.get(this.clients[0].sessionId).username, 
+      "char": this.state.lobbyPlayers.get(this.clients[0].sessionId).char, "sessionId": this.clients[0].sessionId, "playerIndex": this.state.lobbyPlayers.get(this.clients[0].sessionId).isHost});
     }
-    var allMessage =
-    "entrou" +
-    "\n" +
-    this.state.lobbyPlayers.get(client.sessionId).username +
-    "\n" +
-    this.state.lobbyPlayers.get(client.sessionId).char +
-    "\n" +
-    client.sessionId +
-    "\n" +
-    options.isHost;
-    this.broadcast("lobbyPlayers", allMessage);
-
+    this.broadcast("lobbyPlayers", {"type": "entrou","username":this.state.lobbyPlayers.get(client.sessionId).username, 
+    "char": this.state.lobbyPlayers.get(client.sessionId).char, "sessionId": client.sessionId, "playerIndex": this.state.lobbyPlayers.get(client.sessionId).isHost});
   }
 
   onLeave(client: Client, consented: boolean) {
-    if(this.state.lobbyPlayers.get(client.sessionId).isHost == "1")
-    {
+    if (this.state.lobbyPlayers.get(client.sessionId).isHost == "1") {
       var allMessage =
-      "saiu" +
-      "\n" +
-      this.state.lobbyPlayers.get(client.sessionId).username +
-      "\n" +
-      this.state.lobbyPlayers.get(client.sessionId).char +
-      "\n" +
-      client.sessionId+
-      "\n" +
-      this.state.lobbyPlayers.get(client.sessionId).isHost;
-      
-      this.broadcast("lobbyPlayers", allMessage);
-      this.state.deletePlayer(client.sessionId);
+        "saiu" +
+        "\n" +
+        this.state.lobbyPlayers.get(client.sessionId).username +
+        "\n" +
+        this.state.lobbyPlayers.get(client.sessionId).char +
+        "\n" +
+        client.sessionId +
+        "\n" +
+        this.state.lobbyPlayers.get(client.sessionId).isHost;
+
+      this.broadcast("lobbyPlayers", {"type": "saiu","username":this.state.lobbyPlayers.get(client.sessionId).username, 
+    "char": this.state.lobbyPlayers.get(client.sessionId).char, "sessionId": client.sessionId, "playerIndex": this.state.lobbyPlayers.get(client.sessionId).isHost});
       this.broadcast("stop-match", true);
-    }
-    else
-    {
-      this.broadcast("leave", {cause: 9000});
+    } else if (this.state.lobbyPlayers.get(client.sessionId).isHost == "0") {
+      this.broadcast("leave", { cause: 9000 });
       this.disconnect();
     }
-
+    this.state.deletePlayer(client.sessionId);
   }
 
   onDispose() {

@@ -238,9 +238,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		comecarBt = createButton('multiplayer/iniciarBt', 0.6, 276, 563, false, false, function(){
 			if(canInitMatch && !isPlayingMatch)
 				{	
-					var mensagem:String = Std.string(MusicaAtual)+"\n"+Std.string(TrocarLados)+"\n"+Std.string(ModoDeJogo);
-					curRoom.send("init-game", mensagem);
-					//server.send({message: Std.string(MusicaAtual) + "\n" +Std.string(TrocarLados)+ "\n"+ Std.string(ModoDeJogo), verb: "init-match"});
+					curRoom.send("init-game", {musicaAtual: MusicaAtual, trocarLados: TrocarLados, modoDeJogo: ModoDeJogo});
 				}
 		});
 		add(comecarBt);
@@ -292,17 +290,16 @@ class MultiplayerMainMenuState extends MusicBeatState
 	function eventHandlers()
 	{
 		curRoom.onMessage("lobbyPlayers", function(message) {
-			var allMessage:Array<String> = Std.string(message).split("\n");
-			switch(allMessage[0])
+			switch(message.type)
 			{
 				case "entrou":
-					players[Std.parseInt(allMessage[4])].nome = Std.string(allMessage[1]);
-					players[Std.parseInt(allMessage[4])].charID = Std.string(allMessage[2]);
-					players[Std.parseInt(allMessage[4])].sessionId = Std.string(allMessage[3]);
+					players[message.playerIndex].nome = message.username;
+					players[message.playerIndex].charID = message.char;
+					players[message.playerIndex].sessionId = message.sessionId;
 				case "saiu":
-					players[Std.parseInt(allMessage[4])].nome = "";
-					players[Std.parseInt(allMessage[4])].charID = "bf";
-					players[Std.parseInt(allMessage[4])].sessionId = "";
+					players[message.playerIndex].nome = "";
+					players[message.playerIndex].charID = "bf";
+					players[message.playerIndex].sessionId = "";
 			}
 		});
 		
@@ -310,10 +307,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		curRoom.onMessage("init-game", function(message) {
 			if(isPlayingMatch)
 				return;
-			var allMessage:Array<String> = Std.string(message).split("\n");
-			MusicaAtual = Std.parseInt(allMessage[0]);
-			TrocarLados = allMessage[1] != "false" ? true : false;
-			ModoDeJogo = Std.parseInt(allMessage[2]);
+			MusicaAtual = message.musicaAtual;
+			TrocarLados = message.trocarLados;
+			ModoDeJogo = message.modoDeJogo;
 			initMatch();
 		});
 
@@ -332,10 +328,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		curRoom.onMessage("enviarMisses", function(message) {
 			if(!isPlayingMatch)
 				return;
-			var allMessage:Array<String> = message.split("\n");
-			MultiplayerPlayState.instance.opponentHits = Std.parseInt(allMessage[1]);
-			MultiplayerPlayState.instance.opponentMisses = Std.parseInt(allMessage[2]);
-			MultiplayerPlayState.instance.opponentScore = Std.parseInt(allMessage[3]);
+			MultiplayerPlayState.instance.opponentHits = message.hits;
+			MultiplayerPlayState.instance.opponentMisses = message.misses;
+			MultiplayerPlayState.instance.opponentScore = message.score;
 		});
 
 		curRoom.onMessage("queroSair", function(message) {
@@ -432,7 +427,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if(!isPlayingMatch)
 			return;
-		curRoom.send("input-game", Std.string(note));
+		curRoom.send("input-game", {note: note});
 		//trace("Enviei Input "+Std.string(note));
 	}
 
@@ -454,7 +449,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if(!isPlayingMatch)
 			return;
-		curRoom.send("enviarMisses", Std.string(myID) + "\n" + Std.string(hits) + "\n" + Std.string(misses)+ "\n" + Std.string(score));
+		curRoom.send("enviarMisses", {hits: hits, misses: misses, score: score});
 	}
 
 	public function send_results(hits:Array<Int>, combo:Int, score:Int, playerName:String)
@@ -605,11 +600,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 					players[zeroInt].keys[0] = true;
 			}
 
-			if (isServer)
-			{
-				//server.send({message: zero + " " + one + " Segurei", verb: 'input'});
-			}
-
 			players[zeroInt].bfAnims(one);
 		}
 		else
@@ -624,10 +614,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 					players[zeroInt].keys[3] = false;
 				case "esquerda":
 					players[zeroInt].keys[0] = false;
-			}
-			if (isServer)
-			{
-				//server.send({message: zero + " " + one + " Soltei", verb: 'input'});
 			}
 			if (players[zeroInt].keys[0] == false && players[zeroInt].keys[1] == false && players[zeroInt].keys[2] == false && players[zeroInt].keys[3] == false)
 			{
