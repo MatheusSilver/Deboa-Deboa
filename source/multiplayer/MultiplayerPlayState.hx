@@ -204,7 +204,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		add(terminarBar);
 		terminarBar.updateFilledBar();
 		terminarBar.updateBar();
-		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 40, FlxG.width, "Segure ESC para terminar a partida (1/2)", 20);
+		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 40, FlxG.width, "Terminar a partida (1/2)", 17);
 		terminarTxt.color = FlxColor.BLACK;
 		terminarTxt.visible = false;
 		add(terminarTxt);
@@ -419,7 +419,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 			if(FlxG.keys.pressed.ESCAPE && !queriaTerminar)
 			{
-				if(terminarFloat==100)
+				if(terminarFloat>=100)
 				{
 					MultiplayerMainMenuState.instance.enviarQueroTerminar();
 					queriaTerminar = true;

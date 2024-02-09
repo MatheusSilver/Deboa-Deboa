@@ -350,6 +350,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 
 		curRoom.onMessage("leave", function(message) {
+			if(isPlayingMatch)
+			{
+				MultiplayerPlayState.instance.podeTerminar+=2;
+			}
 			curRoom.leave();
 			switch(message.cause)
 				{
@@ -361,7 +365,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 
 		curRoom.onLeave+=function() {
+			curRoom = null;
 			isOnServer = false;
+			isPlayingMatch = false;
+			isOnOptions = false;
 			isHost = false;
 
 			changeMenu(MAIN);
@@ -383,7 +390,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		ipBar.hasFocus = false;
 		canClick = false;
-		//GlobalSoundManager.play('confirmMenu');
 
 		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
 		roomOptions.set("salaNome", GJClient.userName+"'s Room");
@@ -417,7 +423,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function initMatch()
 	{
-		if(isPlayingMatch)
+		if(isPlayingMatch || curRoom == null)
 			return;
 		isPlayingMatch = true;
 		openSubState(new multiplayer.MultiplayerPlayState(0, musicas[MusicaAtual][1], isHost, TrocarLados, ModoDeJogo));
@@ -425,7 +431,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarInputGame(note:Int)
 	{
-		if(!isPlayingMatch)
+		if(!isPlayingMatch || curRoom == null)
 			return;
 		curRoom.send("input-game", {note: note});
 		//trace("Enviei Input "+Std.string(note));
@@ -433,21 +439,21 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function enviarToPronto()
 	{
-		if(!isPlayingMatch)
+		if(!isPlayingMatch || curRoom == null)
 			return;
 		curRoom.send("toPronto", 1);
 	}
 
 	public function enviarQueroTerminar()
 	{
-		if(!isPlayingMatch)
+		if(!isPlayingMatch || curRoom == null)
 			return;
 		curRoom.send("queroSair", 1);
 	}
 
 	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
 	{
-		if(!isPlayingMatch)
+		if(!isPlayingMatch || curRoom == null)
 			return;
 		curRoom.send("enviarMisses", {hits: hits, misses: misses, score: score});
 	}
@@ -459,8 +465,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		hits_message = hits_message.substring(0, hits_message.length - 2); //Serve para remover o último ", "
 		//usuario.send({myID: myID, message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score) + "\n" + playerName, verb: 'results'});
 	}
-
-	//private function definirUsuario():Void {usuario = isHost ? server : client;}
 
 	public function endMatch()
 	{
@@ -506,7 +510,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 			roomList.remover();
 		}
 		canClick = false;
-		//GlobalSoundManager.play('confirmMenu');
 
 		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
 		roomOptions.set("myName", GJClient.userName);
@@ -668,7 +671,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(daNoteReceived.length>0 && !imRemoving)
 		{
 			imRemoving = true;
-			new FlxTimer().start(2.5, function(tmr:FlxTimer) {
+			new FlxTimer().start(1.75, function(tmr:FlxTimer) {
 				if(daNoteReceived.length>0)
 				{
 					daNoteReceived.remove(daNoteReceived[0]);
