@@ -543,8 +543,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 				if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 				{
-					if (_song.needsVoices)
-						vocals.volume = 1;
 
 					var time:Float = 0.15;
 					if(daNote.isSustainNote && !daNote.animation.curAnim.name.endsWith('end')) {
@@ -632,7 +630,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 							if(!daNote.ignoreNote && daNote.mustPress) {
 								songMisses++;
-								vocals.volume = 0;
 							}
 						}
 
@@ -801,7 +798,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 					}
 
 					note.wasGoodHit = true;
-					vocals.volume = 0;
 
 					if (!note.isSustainNote)
 					{
@@ -820,7 +816,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				songHits++;
 				if(combo > 9999) combo = 9999;
 			}
-
+			
 			playerStrums.forEach(function(spr:StrumNote)
 			{
 				if (Math.abs(note.noteData) == spr.ID)
@@ -830,7 +826,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			});
 
 			note.wasGoodHit = true;
-			vocals.volume = 1;
 
 			if (!note.isSustainNote)
 			{
@@ -862,8 +857,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	private function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + 8); 
-
-		vocals.volume = 1;
 
 		var placement:String = Std.string(combo);
 
