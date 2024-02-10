@@ -28,9 +28,13 @@ export default config({
      * Use @colyseus/playground
      * (It is not recommended to expose this route in a production environment)
      */
-    if (process.env.NODE_ENV !== "production") {
-      app.use("/", playground);
-    }
+    app.listen(80, () => {
+      console.log("Pinged!");
+    });
+
+    //if (process.env.NODE_ENV !== "production") {
+    //app.use("/", playground);
+    //}
 
     /**
      * Use @colyseus/monitor
