@@ -172,7 +172,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		noteTypeMap.clear();
 		noteTypeMap = null;
 
-		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 25, FlxG.width, "", 50);
+		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 50, FlxG.width, "", 50);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
@@ -191,14 +191,14 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		waitingForOthers.screenCenter(XY);
 		add(waitingForOthers);
 
-		terminarBar = new FlxBar(20, ClientPrefs.downScroll  ? 20 : FlxG.height - 20, LEFT_TO_RIGHT, 374, 20, this, "terminarFloat", 0, 100, true);
+		terminarBar = new FlxBar(20, ClientPrefs.downScroll  ? 20 : FlxG.height - 40, LEFT_TO_RIGHT, 374, 20, this, "terminarFloat", 0, 100, true);
 		terminarBar.numDivisions = 100;
 		terminarBar.createFilledBar(0xFF000000, 0xFFFFFFFF, true);
 		terminarBar.visible=false;
 		add(terminarBar);
 		terminarBar.updateFilledBar();
 		terminarBar.updateBar();
-		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 40, FlxG.width, LangUtil.getString("game_stop_text", "multiplayer"), 17);
+		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 80, FlxG.width, LangUtil.getString("game_stop_text", "multiplayer"), 17);
 		terminarTxt.color = FlxColor.BLACK;
 		terminarTxt.visible = false;
 		add(terminarTxt);
@@ -502,7 +502,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				terminarFloat-=3;
 			}
 			terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
-			terminarTxt.y = ClientPrefs.downScroll  ? terminarBar.visible ? 40 : 20 : terminarBar.visible ? FlxG.height - 40 : FlxG.height - 20 ;
+			terminarTxt.y = ClientPrefs.downScroll  ? terminarBar.visible ? 40 : 20 : terminarBar.visible ? FlxG.height - 80 : FlxG.height - 40 ;
 		}
 
 		var roundedSpeed:Float = FlxMath.roundDecimal(_song.speed, 2);

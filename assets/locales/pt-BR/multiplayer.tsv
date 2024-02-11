@@ -32,6 +32,6 @@ game_your_hits	Seus acertos:
 game_opp_hits	Acertos do oponente:
 lobby_ready_label	Prontos:
 results_tie_text	Empate!
-results_lose_text	Você perdeu!
-results_win_text	Você venceu!
+results_lose_text	Voce perdeu!
+results_win_text	Voce venceu!
 main_back_bt	Voltar
