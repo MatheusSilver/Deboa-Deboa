@@ -69,8 +69,8 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var newVersion:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
-	public static var version:String = '0.9.12';
-	public static var changelogString:String = 'V'+version+'\nSistema de tradução;\nBotoes via texto;\nGameplay Multiplayer;Remake do player de Video;Correcoes.';
+	public static var version:String = '0.10.0';
+	public static var changelogString:String = 'V'+version+'\nRemake Multiplayer;\nMenus Via Touch/Teclado;\nFixes VideoPlayer.';
 	public static var verificaDnvIdiota:Bool = false;
 
 	public static var passouCY:Bool = false;
@@ -86,7 +86,7 @@ class MainMenuStateMobile extends MusicBeatState
 		DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
 		#end
 
-		if(FlxG.sound.music == null) {
+		if(FlxG.sound.music == null || !FlxG.sound.music.active) {
 			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		}
 		if(FlxG.sound.music.volume==0) {
@@ -310,10 +310,10 @@ class MainMenuStateMobile extends MusicBeatState
 				preto.updateHitbox();
 				preto.cameras = [camAchievement];
 				add(preto);
-				var novoBG:FlxSprite = new FlxSprite(421, 87, Paths.image('mainmenu/updatescreen', 'preload'));
+				var novoBG:FlxSprite = new FlxSprite(421, 87, Paths.image('mainmenu/updatescreen', 'locales', true, true));
 				novoBG.cameras = [camAchievement];
 				add(novoBG);
-				var textinho:FlxText = new FlxText(0, 0, 0, changelogString, 12);
+				var textinho:FlxText = new FlxText(0, 0, 400, changelogString, 12);
 				textinho.scrollFactor.set();
 				textinho.setFormat("sonic-1-hud-font.ttf", 36, FlxColor.GRAY, LEFT);
 				textinho.x = 446;

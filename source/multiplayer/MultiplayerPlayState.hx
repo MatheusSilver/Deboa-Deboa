@@ -84,7 +84,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int) {
 		instance = this;
-		currentMode == modo;
+		currentMode = modo;
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
         if(!trocarLados)
@@ -116,7 +116,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 		
-		strumLine = new FlxSprite(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
+		strumLine = new FlxSprite(PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 		
@@ -143,12 +143,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 					spr.x += 645;
 				});
 			}
-		
-		if(ClientPrefs.middleScroll) {
-			opponentStrums.forEachAlive(function (note:StrumNote) {
-				note.visible = false;
-			});
-		}
 		
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 		add(grpNoteSplashes);
@@ -192,8 +186,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		blackStuff.screenCenter(XY);
 		blackStuff.alpha = 0.5;
 		add(blackStuff);
-		waitingForOthers = new FlxText(0, 0, FlxG.width, "CARREGANDO", 30);
-		waitingForOthers.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		waitingForOthers = new FlxText(0, 0, FlxG.width, LangUtil.getString("game_loading_txt", "multiplayer"), 30);
+		waitingForOthers.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		waitingForOthers.screenCenter(XY);
 		add(waitingForOthers);
 
@@ -204,7 +198,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		add(terminarBar);
 		terminarBar.updateFilledBar();
 		terminarBar.updateBar();
-		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 40, FlxG.width, "Terminar a partida (1/2)", 17);
+		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 40, FlxG.width, LangUtil.getString("game_stop_text", "multiplayer"), 17);
 		terminarTxt.color = FlxColor.BLACK;
 		terminarTxt.visible = false;
 		add(terminarTxt);
@@ -386,7 +380,9 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
 	}
 
+	var endingSong:Bool = false;
 	public function endSong() {
+		endingSong = true;
 		if(FlxG.sound.music!= null)
 		{
 			FlxG.sound.music.stop();		
@@ -394,13 +390,85 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			vocals.destroy();
 		}
 
-		//MultiplayerMainMenuState.instance.send_results([sicks, goods, bads, shits], combo, songScore, GJClient.username);
-		close();
+		//MultiplayerMainMenuState.instance.send_results([sicks, goods, bads, shits], combo, songScore, GJClient.userName);
+		if(podeTerminar > 1)
+		{
+			close();
+		}
+		else
+		{
+			mostrarResults();
+		}
         trace("cabou !");
 	}
 
+	function mostrarResults()
+	{
+		if(FlxG.sound.music != null)
+		{
+			FlxG.sound.music.volume = 0;	
+		}
+
+		// vou fazer ele mostrar uns results improvisados e dps eu adiciono aquele resultstate do silvo
+		var blackGround:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		blackGround.screenCenter(XY);
+		blackGround.alpha = 0.5;
+		add(blackGround);
+		var textoAviso:FlxText;
+		textoAviso = new FlxText(0, 0, FlxG.width, "", 60);
+		textoAviso.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		textoAviso.screenCenter(XY);
+
+		switch(euGanhei())
+		{
+			case 0:
+				textoAviso.text = LangUtil.getString("results_tie_text", "multiplayer");
+			case 1:
+				textoAviso.text = LangUtil.getString("results_win_text", "multiplayer");
+			case 2:
+				textoAviso.text = LangUtil.getString("results_lose_text", "multiplayer");
+		}
+
+		add(textoAviso);
+		new FlxTimer().start(5, function(tmr:FlxTimer) {
+			close();
+		});
+	}
+
+	function euGanhei():Int
+	{
+		// 0 = empate, 1 = ganhou, -1 = perdeu
+		var sera:Int = 0;
+		switch(currentMode)
+		{
+			case 0:
+				sera = songScore > opponentScore ? 1 : songScore == opponentScore ? -1 : 2;
+			case 1:
+				sera = songHits > opponentHits ? 1 : songHits == opponentHits ? -1 : 2;
+			case 2:
+				sera = songMisses < opponentMisses ? 1 : songMisses == opponentMisses ? -1 : 2;
+		}
+		return sera;
+	}
+
+	/*var imRemoving:Bool = false;
+	function removeNote()
+	{
+		if(MultiplayerMainMenuState.instance.daNoteReceived.length>0 && !imRemoving)
+			{
+				imRemoving = true;
+				new FlxTimer().start(0.75, function(tmr:FlxTimer) {
+					if(MultiplayerMainMenuState.instance.daNoteReceived.length>0)
+					{
+						MultiplayerMainMenuState.instance.daNoteReceived.remove(MultiplayerMainMenuState.instance.daNoteReceived[0]);
+					}
+					imRemoving = false;
+				});
+			}
+	}*/
+
 	override function update(elapsed:Float) {
-		MultiplayerMainMenuState.instance.inputShit();
+		//removeNote();
 		if (startingSong) {
 			/*timerToStart -= elapsed * 1000;
 			Conductor.songPosition = startPos - timerToStart;*/
@@ -409,7 +477,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 		} else {
 			Conductor.songPosition += elapsed * 1000;
-			if(podeTerminar > 1)
+			if(podeTerminar > 1 && !endingSong)
 			{
 				endSong();
 			}
@@ -644,14 +712,14 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		}
 
 		keyShit();
-		switch(currentMode) // TODO: colocar strings do langutil aqui
+		switch(currentMode)
 		{
 			case 0:
-				scoreTxt.text = 'Your Score: ' + songScore +  ' | ' + 'Opponent Score: ' + opponentScore;
+				scoreTxt.text = LangUtil.getString("game_your_score", "multiplayer") +' '+songScore +  '\n' + LangUtil.getString("game_opp_score", "multiplayer") +' '+opponentScore;
 			case 1:
-				scoreTxt.text = 'Your Hits: ' + songHits + ' | ' + 'Opponent Hits: ' + opponentHits;
+				scoreTxt.text = LangUtil.getString("game_your_hits", "multiplayer") +' '+songHits + '\n' + LangUtil.getString("game_opp_hits", "multiplayer") +' '+opponentHits;
 			case 2:
-				scoreTxt.text = 'Your Misses: ' + songMisses + ' | ' + 'Opponent Misses: ' + songMisses;
+				scoreTxt.text = LangUtil.getString("game_your_misses", "multiplayer") +' '+songMisses + '\n' + LangUtil.getString("game_opp_misses", "multiplayer") +' '+songMisses;
 		}
 		MultiplayerMainMenuState.instance.enviarMissesEHits(songHits, songMisses, songScore);
 		super.update(elapsed);
