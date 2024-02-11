@@ -44,6 +44,8 @@ enum MenuEnum {
 
 class MultiplayerMainMenuState extends MusicBeatState
 {
+	private var servidor:String = "ws://serveo.net:2567";
+
 	// COISAS UI
 	var hostearBt:FlxButton;
 	var entrarBt:FlxButton;
@@ -224,7 +226,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		instance = this;
 		FlxG.autoPause = false;
 		modifiers.ModifiersManager.currentModifiers = [];
-		client = new Client('ws://serveo.net:2567');
+		client = new Client(servidor);
 		musicas = getAllSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, LangUtil.getString("main_label", "multiplayer"), 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -294,7 +296,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	function checkServers()
 	{
 		trace('checking for update');
-		var http = new haxe.Http("http://serveo.net:2567/");
+		var http = new haxe.Http(servidor.replace("ws", "http")+"/");
 		var voltarMenu:Bool = false;
 		http.onData = function(data:String)
 		{
@@ -606,10 +608,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 			roomArray = rooms;
 			changeMenu(ROOMLIST);
+			roomList = new RoomList(0, 0, roomArray);
+			openSubState(roomList);
 			canClick = true;
 		  });
-		roomList = new RoomList(0, 0, roomArray);
-		openSubState(roomList);
 	}
 
 	public function entrar(room:RoomAvailable)
@@ -876,7 +878,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			button.alpha=0.75;
 		}
 		button.onDown.callback = function() {
-			if(!button.visible && callback != null && canClick)
+			if(!button.visible || callback == null || !canClick)
 				return;
 			GlobalSoundManager.play("confirmMenu");
 			if(arg != null)
