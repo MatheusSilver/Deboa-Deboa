@@ -1,5 +1,6 @@
 package;
 
+import Utils.BSLSwipeUtils;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -40,7 +41,8 @@ class AchievementsMenuState extends MusicBeatState
 		#end
 		achieve_list_len = 0;
 		options = [];
-
+		Main.mouse_allowed=true;
+		BSLSwipeUtils.resetScrolls();
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('conquistas/menu/achievements_back'));
 		menuBG.setGraphicSize(FlxG.width, FlxG.height);
 		menuBG.updateHitbox();
@@ -161,6 +163,8 @@ class AchievementsMenuState extends MusicBeatState
 		addVirtualPad(UP_DOWN, B);
 		#end
 
+		BSLSwipeUtils.max_y = Std.int(FlxG.width/(achieve_list_len*4));
+
 		super.create();
 	}
 
@@ -168,6 +172,7 @@ class AchievementsMenuState extends MusicBeatState
 	{
 		super.update(elapsed);
 
+		Utils.BSLSwipeUtils.swipeVertical();
 		if (controls.UI_UP_P && apertavel)
 		{
 			changeSelection(-1);
@@ -177,6 +182,14 @@ class AchievementsMenuState extends MusicBeatState
 			changeSelection(1);
 		}
 
+		if (Math.abs(change_swipe) < Math.abs(BSLSwipeUtils.scrollY) && apertavel)
+			change_swipe = BSLSwipeUtils.scrollY;
+		else if(Math.abs(change_swipe) > 0 && apertavel)
+		{
+			changeSelection();
+		}else if (change_swipe == 0)
+			BSLSwipeUtils.resetScrolls();
+
 		if (controls.BACK && !sincronizando)
 		{
 			GlobalSoundManager.play('cancelMenu');
@@ -184,9 +197,15 @@ class AchievementsMenuState extends MusicBeatState
 		}
 	}
 
+	private var change_swipe:Int = 0;
+
 	function changeSelection(change:Int = 0)
 	{
 		apertavel = false;
+		if (change_swipe != 0){
+			change = Std.int(Math.abs(change_swipe)/change_swipe);
+			change_swipe -= Std.int(Math.abs(change_swipe)/change_swipe);
+		}
 		curSelected += change;
 		if (curSelected < 0)
 			curSelected = achieve_list_len - 1;
