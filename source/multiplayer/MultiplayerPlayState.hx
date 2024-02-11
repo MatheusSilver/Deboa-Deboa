@@ -172,7 +172,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		noteTypeMap.clear();
 		noteTypeMap = null;
 
-		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 50, FlxG.width, "", 50);
+		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 65, FlxG.width, "", 50);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
@@ -442,11 +442,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		switch(currentMode)
 		{
 			case 0:
-				sera = songScore > opponentScore ? 1 : songScore == opponentScore ? -1 : 2;
+				sera = songScore > opponentScore ? 1 : songScore == opponentScore ? -1 : -1;
 			case 1:
-				sera = songHits > opponentHits ? 1 : songHits == opponentHits ? -1 : 2;
+				sera = songHits > opponentHits ? 1 : songHits == opponentHits ? 0 : -1;
 			case 2:
-				sera = songMisses < opponentMisses ? 1 : songMisses == opponentMisses ? -1 : 2;
+				sera = songMisses < opponentMisses ? 1 : songMisses == opponentMisses ? 0 : -1;
 		}
 		return sera;
 	}
