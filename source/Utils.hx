@@ -262,6 +262,99 @@ class BSLTouchUtils
 		
 }
 
+class BSLSwipeUtils 
+{
+    public static var scrollSpeed:Int= 0;
+    public static final scrollAcceleration:Int = 1;
+    public static final maxScrollSpeed:Float = 10.0;
+
+    public static var scrollX:Int = 0; 
+    public static var scrollY:Int = 0;
+
+    public static var prevTouchX:Int = 0;
+    public static var prevTouchY:Int = 0;
+
+	public static var max_y:Int=1;
+	public static var max_x:Int=1;
+
+	private static var touchY:Int;
+	private static var touchX:Int;
+
+	public static function swipeVertical():Void
+	{
+		if (BSLTouchUtils.justTouched())
+		{
+			prevTouchX = Std.int(BSLTouchUtils.pegarpos("x")/max_x);
+		}
+		else if (BSLTouchUtils.touched())
+		{
+			touchX = Std.int(BSLTouchUtils.pegarpos("x")/max_x);
+			var deltaX:Int = (touchX - prevTouchX);
+	
+			scrollX = deltaX;
+			
+			prevTouchX=touchX;
+		} 	
+		else if (Math.abs(scrollX)>0)
+		{
+			if (scrollX > 0)
+				scrollSpeed -= scrollAcceleration;
+			else if (scrollX < 0)
+				scrollSpeed += scrollAcceleration;
+	
+			scrollSpeed = Std.int(CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
+		}
+	
+		#if desktop
+		if (FlxG.mouse.wheel != 0){
+			scrollX += FlxG.mouse.wheel;
+		}
+			//Talvez isso possa vir a ser útil :thinking:
+		#end
+		scrollX += scrollSpeed;
+		scrollX = CoolUtil.mathClamp(scrollY, -max_x, max_x);
+		if (Math.abs(scrollX) <= Math.abs(scrollSpeed)) resetScrolls();
+	}
+	
+	public static function swipeVertical():Void
+	{
+		if (BSLTouchUtils.justTouched())
+		{
+			prevTouchY = Std.int(BSLTouchUtils.pegarpos("y")/max_y);
+		}
+		else if (BSLTouchUtils.touched())
+		{
+			touchY = Std.int(BSLTouchUtils.pegarpos("y")/max_y);
+			var deltaY:Int = (touchY - prevTouchY);
+	
+			scrollY = deltaY;
+			
+			prevTouchY=touchY;
+		} 	
+		else if (Math.abs(scrollY)>0)
+		{
+			if (scrollY > 0)
+				scrollSpeed -= scrollAcceleration;
+			else if (scrollY < 0)
+				scrollSpeed += scrollAcceleration;
+	
+			scrollSpeed = Std.int(CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
+		}
+	
+		#if desktop
+		if (FlxG.mouse.wheel != 0){
+			scrollY += FlxG.mouse.wheel;
+		}
+			//Talvez isso possa vir a ser útil :thinking:
+		#end
+		scrollY += scrollSpeed;
+		scrollY = CoolUtil.mathClamp(scrollY, -max_y, max_y);
+		if (Math.abs(scrollY) <= Math.abs(scrollSpeed)) resetScrolls();
+	}
+
+	inline public static function resetScrolls():Void {scrollX = scrollY = scrollSpeed = 0;}
+}
+
 /*
 Caso quiser uma visualização com cores, e com mais qualidade, entre em:
 https://mateuzinhox02.github.io/viniccius13-ascii/
@@ -297,4 +390,3 @@ Zoom no 50%!
 //@@&&&%%#(#%@@@@@@@@&&%((###(%@@@@@&#((###%#####((((((((#&@@@@@%(##((###&&@@@@@@@
 //@@@@&%%*#%&&&@@@@@@&&&%#((###@@@@@@@@@@@@&#((((##&@@@@@@@@@@@@(#%(((###@@@@@@#(/
 //@@@@....#%%&&&@@@@@@&%%%%#(##@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&(%%%#%%#%@@@@/////
-

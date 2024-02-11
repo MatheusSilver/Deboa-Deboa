@@ -34,6 +34,12 @@ class CoolUtil
         return result;
     }
 
+	//@author x01010111
+	public static function mathClamp(n:Float, min:Float, max:Float):Int
+	{
+		return Std.int(Math.min(Math.max(n, min), max));
+	}
+
 	inline public static function capitalize(text:String){
 		return text.charAt(0).toUpperCase() + text.substr(1);
 	}

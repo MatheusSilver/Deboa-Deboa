@@ -1,5 +1,6 @@
 package;
 
+import Utils.BSLSwipeUtils;
 import LoadingState.LoadingsState;
 import WeekData;
 import flixel.FlxG;
@@ -106,6 +107,9 @@ class FreeplayState extends MusicBeatState
 
 		apertavel = false;
 
+		BSLSwipeUtils.resetScrolls();
+		Main.mouse_allowed = true;
+
 		//WeekData.reloadWeekFiles(false);
 		#if rpc
 		// Updating Discord Rich Presence
@@ -144,15 +148,18 @@ class FreeplayState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.setGraphicSize(FlxG.width, FlxG.height);
 		add(bg);
-		Main.mouse_allowed = false;
-		//Todos os lugares que tem esse trem do mouse devem ter uma restrição #ifmobile.
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
 
 		var borda:FlxSprite = new FlxSprite().loadGraphic(Paths.image('top_icons/freeplay', "locales", true, true));
 		borda.antialiasing = ClientPrefs.globalAntialiasing;
+		#if debug
+		progressFreeplay = songs.length;
+		#end
 		
+		BSLSwipeUtils.max_y = Std.int(FlxG.width/(progressFreeplay*4));
+
 		for (i in 0...progressFreeplay)
 		{
 			var songText:Alphabet = new Alphabet(0, (70 * i), songs[i].display.toLowerCase(), false, false, 0.05, 0.7, 'alfabetovio');
@@ -256,6 +263,7 @@ class FreeplayState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 
+		Utils.BSLSwipeUtils.swipeVertical();
 		super.update(elapsed);
 		perfilSprite.angle = disc.angle;
 		outroperfilSprite.angle = disc.angle;
@@ -324,6 +332,14 @@ class FreeplayState extends MusicBeatState
 		{
 			changeSelection(shiftMult);
 		}
+
+		if (Math.abs(change_swipe) < Math.abs(BSLSwipeUtils.scrollY) && apertavel)
+			change_swipe = BSLSwipeUtils.scrollY;
+		else if(Math.abs(change_swipe) > 0 && apertavel)
+		{
+			changeSelection();
+		}else if (change_swipe == 0)
+			BSLSwipeUtils.resetScrolls();
 
 		if(ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY) {
 			//modifiers.ModifiersMenuState.freeplay = true;
@@ -432,12 +448,17 @@ class FreeplayState extends MusicBeatState
 		PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 	}
 
+	private var change_swipe:Int = 0;
+
 	function changeSelection(change:Int = 0, firstTime:Bool = false)
 	{
 		GlobalSoundManager.play('scrollMenu');
 
 		apertavel = false;
-
+		if (change_swipe != 0){
+			change = Std.int(Math.abs(change_swipe)/change_swipe);
+			change_swipe -= Std.int(Math.abs(change_swipe)/change_swipe);
+		}
 		curSelected += change;
 
 		if (curSelected < 0)
