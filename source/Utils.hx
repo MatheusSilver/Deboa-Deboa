@@ -280,7 +280,7 @@ class BSLSwipeUtils
 	private static var touchY:Int;
 	private static var touchX:Int;
 
-	public static function swipeVertical():Void
+	public static function swipeHorizontal():Void
 	{
 		if (BSLTouchUtils.justTouched())
 		{
