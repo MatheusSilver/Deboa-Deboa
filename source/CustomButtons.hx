@@ -1,3 +1,4 @@
+import ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;

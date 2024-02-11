@@ -1,0 +1,37 @@
+﻿flag	context
+txt_connecting	Conectando...
+alert_connection_error	Erro de conexão
+alert_host_disconnected	O host se desconectou
+alert_old_version	Versão desatualizada!
+alert_default	Razão:
+alert_room_unavailable	Sala indisponível
+selection_score_name	PONTOS
+selection_score_desc	Ganha quem tiver a maior pontuação.
+selection_hits_name	ACERTOS
+selection_hits_desc	Ganha quem acertar mais notas.
+selection_misses_name	ERROS
+selection_misses_desc	Ganha quem tiver o menor número de erros.
+opt_changesides_name	Trocar Lados
+opt_changesides_desc	Troca o lado dos jogadores
+opt_gamemode_name	Modo de Jogo
+opt_gamemode_desc	Muda o modo de jogo atual
+opt_cursong_name	Música Atual
+opt_cursong_desc	Muda a música atual
+opt_label	OPÇÕES
+main_label	MULTIPLAYER
+main_host_bt	Hospedar
+main_join_bt	Entrar
+lobby_ready_bt	Pronto
+game_loading_txt	CARREGANDO
+game_stop_text	Terminar a partida (1/2)
+game_your_misses	Seus erros:
+game_opp_misses	Erros do oponente:
+game_your_score	Sua pontuação:
+game_opp_score	Pontuação do oponente:
+game_your_hits	Seus acertos:
+game_opp_hits	Acertos do oponente:
+lobby_ready_label	Prontos:
+results_tie_text	Empate!
+results_lose_text	Voce perdeu!
+results_win_text	Voce venceu!
+main_back_bt	Voltar

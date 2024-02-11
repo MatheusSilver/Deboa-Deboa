@@ -37,6 +37,8 @@
 	<file id="achievement" value="achievementName.tsv"/>
 	<file id="achievement" value="achievementDesc.tsv"/>
 	
+   	<!-- Usado no multiplayer -->
+	<file id="multiplayer" value="multiplayer.tsv"/>
 	<!--Add locale entries here.
 
 	https://www.techonthenet.com/js/language_tags.php

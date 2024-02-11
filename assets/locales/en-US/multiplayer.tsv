@@ -1,0 +1,37 @@
+﻿flag	context
+txt_connecting	Connecting...
+alert_connection_error	Connection error
+alert_host_disconnected	Host disconnected
+alert_old_version	Outdated version!
+alert_default	Reason:
+alert_room_unavailable	Room unavailable
+selection_score_name	SCORE
+selection_score_desc	Who has the bigger score wins.
+selection_hits_name	HITS
+selection_hits_desc	Who has more hits wins.
+selection_misses_name	MISSES
+selection_misses_desc	Who has the least misses wins.
+opt_changesides_name	Change sides
+opt_changesides_desc	Changes the players sides
+opt_gamemode_name	Game Mode
+opt_gamemode_desc	Changes the current game mode
+opt_cursong_name	Song
+opt_cursong_desc	Changes the song that will be played
+opt_label	OPTIONS
+main_label	MULTIPLAYER
+main_host_bt	Host
+main_join_bt	Join
+lobby_ready_bt	Ready
+game_loading_txt	LOADING
+game_stop_text	Finish the game (1/2)
+game_your_misses	Your misses:
+game_opp_misses	Opponent misses:
+game_your_score	Your score:
+game_opp_score	Opponent score:
+game_your_hits	Your hits:
+game_opp_hits	Opponent hits:
+lobby_ready_label	Ready:
+results_tie_text	Tie!
+results_lose_text	You've lost!
+results_win_text	You've won!
+main_back_bt	Back
