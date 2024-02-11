@@ -343,7 +343,7 @@ class BSLSwipeUtils
 	
 		#if desktop
 		if (FlxG.mouse.wheel != 0){
-			scrollY += FlxG.mouse.wheel;
+			scrollY -= FlxG.mouse.wheel;
 		}
 			//Talvez isso possa vir a ser útil :thinking:
 		#end
