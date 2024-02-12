@@ -483,7 +483,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				textoAviso.text = LangUtil.getString("results_tie_text", "multiplayer");
 			case 1:
 				textoAviso.text = LangUtil.getString("results_win_text", "multiplayer");
-			case 2:
+			case -1:
 				textoAviso.text = LangUtil.getString("results_lose_text", "multiplayer");
 		}
 
@@ -537,48 +537,49 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	override function update(elapsed:Float) {
 		//removeNote();
-		if (startingSong) {
-			/*timerToStart -= elapsed * 1000;
-			Conductor.songPosition = startPos - timerToStart;*/
-			if(podeComecar > 1 && !saidGo) {
-				//startSong();
-				sayGo();
-			}
-		} else {
-			Conductor.songPosition += elapsed * 1000;
-			if(podeTerminar > 1 && !endingSong)
-			{
-				endSong();
-			}
-			if(podeTerminar > 0)
-			{
-				terminarTxt.visible = true;
-			}
-			timeAccumulated += elapsed;
-
-			// se algm souber de um jeito melhor que esse muda aq pf
-			while (shouldUpdate()){
-				if(FlxG.keys.pressed.ESCAPE && !queriaTerminar)
-					{
-						if(terminarFloat>=100)
+		// se algm souber de um jeito melhor que esse muda aq pf
+		timeAccumulated += elapsed;
+		while (shouldUpdate()){
+			if (startingSong) {
+				/*timerToStart -= elapsed * 1000;
+				Conductor.songPosition = startPos - timerToStart;*/
+				if(podeComecar > 1 && !saidGo) {
+					//startSong();
+					sayGo();
+				}
+			} else {
+				Conductor.songPosition += elapsed * 1000;
+				if(podeTerminar > 1 && !endingSong)
+				{
+					endSong();
+				}
+				if(podeTerminar > 0)
+				{
+					terminarTxt.visible = true;
+				}
+				
+					if(FlxG.keys.pressed.ESCAPE && !queriaTerminar)
 						{
-							MultiplayerMainMenuState.instance.enviarQueroTerminar();
-							queriaTerminar = true;
+							if(terminarFloat>=100)
+							{
+								MultiplayerMainMenuState.instance.enviarQueroTerminar();
+								queriaTerminar = true;
+							}
+							else
+							{
+								terminarFloat+=3;
+							}
 						}
-						else
+						else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
 						{
-							terminarFloat+=3;
+							terminarFloat-=3;
 						}
-					}
-					else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
-					{
-						terminarFloat-=3;
-					}
-				timeAccumulated -= UPDATE_INTERVAL;
-			}
 
-			terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
-			terminarTxt.y = ClientPrefs.downScroll  ? terminarBar.visible ? 40 : 20 : terminarBar.visible ? FlxG.height - 80 : FlxG.height - 40 ;
+
+				terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
+				terminarTxt.y = ClientPrefs.downScroll  ? terminarBar.visible ? 40 : 20 : terminarBar.visible ? FlxG.height - 80 : FlxG.height - 40 ;
+			}
+			timeAccumulated -= UPDATE_INTERVAL;
 		}
 
 		var roundedSpeed:Float = FlxMath.roundDecimal(_song.speed, 2);
