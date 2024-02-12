@@ -78,7 +78,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var canInitMatch:Bool = false;
 	//var selectedMusic:String = "soulless/soulless-hard";
 	var isPlayingMatch:Bool = false;
-	public var daNoteReceived:Array<Int> = [0];
+	public var daNoteReceived:Array<Int> = [];
 
 	// PLAYERS
 	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190), new LobbyPlayerObject(681,190)];
