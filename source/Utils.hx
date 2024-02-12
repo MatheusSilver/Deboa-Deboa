@@ -233,7 +233,7 @@ class BSLTouchUtils
 
 	/**
 	 * Retorna verdadeiro ou falso caso você tenha apertado um objeto
-	 * @param Texto, sprite ou qualquer coisa que será apertada
+	 * @param coisa Texto, sprite ou qualquer coisa que será apertada
 	 */
 	public static function apertasimples(coisa:Dynamic):Bool
 	{
@@ -251,7 +251,7 @@ class BSLTouchUtils
 
 	/**
 	 * Retorna verdadeiro ou falso caso o touch (Mobile) ou cursor (Desktop) sobreponha um objeto
-	 * @param ..a coisa uai
+	 * @param coisa ..a coisa uai
 	 */
 	public static function over(coisa:Dynamic):Bool
 	{
@@ -269,7 +269,7 @@ class BSLTouchUtils
 
 	/**
 	 * Retorna verdadeiro ou falso caso você esteja com Segurando o toque na tela (Mobile) ou Segurando o botão do Mouse (Desktop) em um objeto.
-	 * @param ............. Tu já sabe né?
+	 * @param coisa ............. Tu já sabe né?
 	 */
 	public static function pressionando(coisa:Dynamic):Bool
 	{
@@ -286,7 +286,7 @@ class BSLTouchUtils
 
 	/**
 	 * Retorna verdadeiro ou falso caso tenha parado de Tocar na tela (Mobile) ou Soltado o botão do Mouse (Desktop) em um objeto.
-	 * @param ............. Tu já sabe né?
+	 * @param coisa ............. Tu já sabe né?
 	 */
 	public static function solto(coisa:Dynamic):Bool
 	{
@@ -305,7 +305,7 @@ class BSLTouchUtils
 	#if desktop
 	/**
 	 * Retorna uma int da posição atual do seu mouse
-	 * @param A posição que tu quer (X ou Y) - deve ser escrita como "x" ou "y".
+	 * @param pos A posição que tu quer (X ou Y) - deve ser escrita como "x" ou "y".
 	 */
 	public static function pegarpos(pos:String):Int
 	{
@@ -320,7 +320,7 @@ class BSLTouchUtils
 	#elseif mobile
 	/**
 	 * Retorna uma int da posição atual do seu toque
-	 * @param A posição que tu quer (X ou Y) - deve ser escrita como "x" ou "y".
+	 * @param pos A posição que tu quer (X ou Y) - deve ser escrita como "x" ou "y".
 	 */
 	public static function pegarpos(?touch:flixel.input.touch.FlxTouch, pos:String):Int
 	{
