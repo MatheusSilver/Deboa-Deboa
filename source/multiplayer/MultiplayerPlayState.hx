@@ -796,7 +796,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			case 1:
 				scoreTxt.text = LangUtil.getString("game_your_hits", "multiplayer") +' '+songHits + '\n' + LangUtil.getString("game_opp_hits", "multiplayer") +' '+opponentHits;
 			case 2:
-				scoreTxt.text = LangUtil.getString("game_your_misses", "multiplayer") +' '+songMisses + '\n' + LangUtil.getString("game_opp_misses", "multiplayer") +' '+songMisses;
+				scoreTxt.text = LangUtil.getString("game_your_misses", "multiplayer") +' '+songMisses + '\n' + LangUtil.getString("game_opp_misses", "multiplayer") +' '+opponentMisses;
 		}
 		MultiplayerMainMenuState.instance.enviarMissesEHits(songHits, songMisses, songScore);
 		super.update(elapsed);
