@@ -832,8 +832,10 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				}
 			});
 		}
-
-		keyShit();
+		if(!startingSong)
+		{
+			keyShit();
+		}
 		switch(currentMode)
 		{
 			case 0:
