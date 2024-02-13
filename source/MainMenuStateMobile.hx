@@ -65,7 +65,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var logoBl:FlxSprite;
 	var checkiftouch:Bool = false;
-	var canClick:Bool = false;
+	public static var canClick:Bool = false;
 	public static var newVersion:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
@@ -151,7 +151,7 @@ class MainMenuStateMobile extends MusicBeatState
 		add(gamejoltUser);
 
 		var userName:FlxText = new FlxText(bg.x - 150, bg.y - 380, 0, LangUtil.getString("menu_disconnected", "menu"), 30);
-        userName.setFormat(Paths.font("letravio.ttf"), 30, 0xffffff, CENTER);
+        userName.setFormat(LangUtil.getFont("vio"), 30, 0xffffff, CENTER);
 		if(GJClient.logged) {
 			userName.text = GJClient.userName;
 		} else {
@@ -417,6 +417,10 @@ class MainMenuStateMobile extends MusicBeatState
 						}
 
 					});
+
+						if(BSLTouchUtils.apertasimples(gamejoltUser)) {
+							openSubState(new GameJoltFriendsMenu()); // Um code bem besta e burro pra ser bem sincero... Não sei como fazer isso com Gamepad tbm.... Nem com teclado........ Desculpa Sílvio.......................
+						}
 				}
 			}
 

@@ -1,4 +1,5 @@
 flag	context
+rpc_friends	Seeing GameJolt friends
 rpc_main_menu	In the Main Menu
 rpc_achievement_menu	In Achievements Menu
 rpc_credit_menu	Seeing the Credits
