@@ -68,7 +68,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var okBt:FlxButton;
 
 	// SERVER
-    var client:Client;
+    public var client:Client;
 	var curRoom:Room<LobbyState>;
 	var quisSair:Bool = false;
 
@@ -535,6 +535,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(isPlayingMatch || curRoom == null)
 			return;
 		isPlayingMatch = true;
+		if(isHost)
+		{
+			if(OptionsSubstate.instance!=null)
+				{
+					OptionsSubstate.instance.close();
+				}
+		}
 		openSubState(new multiplayer.MultiplayerPlayState(0, musicas[MusicaAtual][1], isHost, TrocarLados, ModoDeJogo));
 	}
 
@@ -599,19 +606,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(!canClick)
 			return;
 		canClick = false;
-		var roomArray:Array<RoomAvailable> = [];
+		var roomArray:Array<RoomAvailable> = getAvailableRooms();
+		changeMenu(ROOMLIST);
+		roomList = new RoomList(roomArray);
+		openSubState(roomList);
+		canClick = true;
+	}
+
+	public function getAvailableRooms():Array<RoomAvailable>
+	{
+		var salas:Array<RoomAvailable> = [];
 		client.getAvailableRooms("gameRoom", function(err, rooms) {
-			if (err != null) {
-			  	trace(err);
-				avisarAlgo(Std.string(err));
-			  	return;
-			}
-			roomArray = rooms;
-			changeMenu(ROOMLIST);
-			roomList = new RoomList(0, 0, roomArray);
-			openSubState(roomList);
-			canClick = true;
+			salas = rooms;
 		  });
+		return salas;
 	}
 
 	public function entrar(room:RoomAvailable)
@@ -740,7 +748,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function inputShit()
 	{
-		//trace("Player 1: "+players[0].keys.toString() + "\nPlayer 2: " + players[1].keys.toString());
 		if(!isPlayingMatch)
 		{
 			if (controls.NOTE_UP_P)
@@ -777,15 +784,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 					solteiObotao("esquerda");
 				}
 		}
-
-
-		/*if(isPlayingMatch)
-		{
-			trace(Std.string(daNoteReceived));
-		}*/
 	}
 
-	function avisarAlgo(avisarIssoAqui:String, ?nextState:FlxState = null)
+	public function avisarAlgo(avisarIssoAqui:String, ?nextState:FlxState = null)
 	{
 		GlobalSoundManager.play("negado");
 		canClick = false;
@@ -968,25 +969,44 @@ class RoomList extends MusicBeatSubstate
 	var roomList:FlxSpriteGroup;
 	var viewPortRect:FlxRect;
 	var backButton:FlxButton;
+	var refreshButton:FlxButton;
 	
-	public function new(x:Int, y:Int, rooms:Array<RoomAvailable>)
+	public function new(rooms:Array<RoomAvailable>)
 	{
 		super();
 		refresh(rooms);
 		MultiplayerMainMenuState.instance.curMenu = ROOMLIST;
 	}
 
+	function arrumarOffsets(button:FlxButton)
+	{
+		button.label.offset.x = -75;
+		button.label.offset.y = -25.5;
+		button.label.size = 35;
+	}
+
 	public function refresh(rooms:Array<RoomAvailable>)
 	{
 		if(backButton == null)
 		{
-			backButton = MultiplayerMainMenuState.instance.createButton('', 0.6, 0, 535, true, true, function(){
+			backButton = MultiplayerMainMenuState.instance.createButton('', 0.45, 0, 535+82.5, true, true, function(){
 				if(!MultiplayerMainMenuState.instance.canClick || MultiplayerMainMenuState.instance.curMenu != ROOMLIST)
 					return;
 				MultiplayerMainMenuState.instance.voltarMenu();
 			}, null, LangUtil.getString("main_back_bt", "multiplayer"));
-			backButton.screenCenter(X);
+			arrumarOffsets(backButton);
 			add(backButton);
+		}
+		if(refreshButton == null)
+		{
+			refreshButton = MultiplayerMainMenuState.instance.createButton('', 0.5, 0, 535-30, true, true, function(){
+				if(!MultiplayerMainMenuState.instance.canClick || MultiplayerMainMenuState.instance.curMenu != ROOMLIST)
+					return;
+				remover();
+				MultiplayerMainMenuState.instance.mostrarSalas();
+			}, null, LangUtil.getString("main_refresh_bt", "multiplayer"));
+			arrumarOffsets(refreshButton);
+			add(refreshButton);
 		}
 
 
@@ -1000,7 +1020,7 @@ class RoomList extends MusicBeatSubstate
 		}
 
 		roomList.setPosition(-2560);
-		viewPortRect = new FlxRect( 340, 30, 600, 500 );
+		viewPortRect = new FlxRect( 340, 5, 600, 500 );
 
 		scrollBar = new FlxScrollableArea(viewPortRect, roomList.getHitbox(), ResizeMode.FIT_WIDTH, -1, FlxColor.LIME, this);
 		adicionar();
@@ -1087,7 +1107,6 @@ class OptionsSubstate extends MusicBeatSubstate
 		[LangUtil.getString("opt_gamemode_name", "multiplayer"), 1, LangUtil.getString("opt_gamemode_desc", "multiplayer"), ["ModoDeJogo", "modos", true]],
 		[LangUtil.getString("opt_cursong_name", "multiplayer"), 1, LangUtil.getString("opt_cursong_desc", "multiplayer"), ["MusicaAtual", "musicas", false]], 
 		[LangUtil.getString("opt_changesides_name", "multiplayer"), 0, LangUtil.getString("opt_changesides_desc", "multiplayer"), ["TrocarLados"]]
-
 	];
 
 	public function new()
