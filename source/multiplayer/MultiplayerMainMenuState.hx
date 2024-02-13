@@ -100,7 +100,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var roomList:RoomList;
 	public var curMenu:MenuEnum = CONNECTING;
 
-	function getAllSongs():Array<Dynamic> // TODO: Mudar isso daqui pra fazer ele pegar as charts direto da source
+	function getAllSongs():Array<Dynamic>
 	{
 		WeekData.reloadWeekFiles(true);
 		var nomesEPaths:Array<Dynamic> = [];
