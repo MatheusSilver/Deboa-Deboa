@@ -312,7 +312,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 						{
 							countDownSprites.remove(go);
 							remove(go);
-							startSong();
+							MultiplayerMainMenuState.instance.enviarToPronto();
 							go.destroy();
 						}
 					});
@@ -585,8 +585,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				/*timerToStart -= elapsed * 1000;
 				Conductor.songPosition = startPos - timerToStart;*/
 				if(podeComecar > 1 && !saidGo) {
-					//startSong();
+					podeComecar = 0;
 					sayGo();
+				}
+				else if(podeComecar > 1 && saidGo)
+				{
+					startSong();
 				}
 			} else {
 				Conductor.songPosition += elapsed * 1000;
