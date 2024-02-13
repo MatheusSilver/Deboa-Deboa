@@ -100,15 +100,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var roomList:RoomList;
 	public var curMenu:MenuEnum = CONNECTING;
 
-	function getAllSongs():Array<Dynamic> // TODO: Mudar isso daqui pra fazer ele pegar as charts direto da source
+	function getAllSongs():Array<Dynamic>
 	{
 		WeekData.reloadWeekFiles(true);
 		var nomesEPaths:Array<Dynamic> = [];
 		for (i in 0...WeekData.weeksList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			for (i in 0...leWeek.songs.length) {
-				var path:String = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-hard";
-				if(!OpenFlAssets.exists(Paths.json(path)))
+				var path:String = /*Paths.formatToSongPath(leWeek.songs[i][0])+"/"+*/Paths.formatToSongPath(leWeek.songs[i][0])/*+"-hard"*/;
+				/*if(!OpenFlAssets.exists(Paths.json(path)))
 				{
 					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0]);
 				}
@@ -119,7 +119,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				if(!OpenFlAssets.exists(Paths.json(path)))
 				{
 					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-sega";
-				}
+				}*/
 				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
@@ -127,8 +127,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for (i in 0...WeekData.freeplayList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 			for (i in 0...leWeek.songs.length) {
-				var path:String = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-hard";
-				if(!OpenFlAssets.exists(Paths.json(path)))
+				var path:String = /*Paths.formatToSongPath(leWeek.songs[i][0])+"/"+*/Paths.formatToSongPath(leWeek.songs[i][0])/*+"-hard"*/;
+				/*if(!OpenFlAssets.exists(Paths.json(path)))
 				{
 					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0]);
 				}
@@ -139,7 +139,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				if(!OpenFlAssets.exists(Paths.json(path)))
 				{
 					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-sega";
-				}
+				}*/
 				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
@@ -303,9 +303,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 			var updateVersion:String = data.split('\n')[0].trim();
 			var curVersion:String = MainMenuStateMobile.version.trim();
 			trace('version online: ' + updateVersion + ', your version: ' + curVersion);
-			if (updateVersion != curVersion)
+			var updateInt:Int = Std.parseInt(updateVersion.split(".")[0]+updateVersion.split(".")[1]+updateVersion.split(".")[2]);
+			var curInt:Int = Std.parseInt(curVersion.split(".")[0]+curVersion.split(".")[1]+curVersion.split(".")[2]);
+			if (updateInt > curInt)
 			{
-				trace('versions arent matching!');
+				trace('versao muito antiga');
 				avisarAlgo(LangUtil.getString("alert_old_version", "multiplayer"), new MainMenuStateMobile());
 				connectingText.visible = false;
 				voltarMenu = true;
@@ -427,6 +429,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 			if(!isPlayingMatch)
 				return;
 			MultiplayerPlayState.instance.podeTerminar++;
+			if(Std.parseInt(message) > 1)
+			{
+				MultiplayerPlayState.instance.podeTerminar+=2;
+				MultiplayerPlayState.instance.endSong();
+			}
 		});
 
 		curRoom.onMessage("stop-match", function(message) {
@@ -542,7 +549,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 					OptionsSubstate.instance.close();
 				}
 		}
-		openSubState(new multiplayer.MultiplayerPlayState(0, musicas[MusicaAtual][1], isHost, TrocarLados, ModoDeJogo));
+		var url:String = servidor.replace("ws", "http")+"/charts/"+musicas[MusicaAtual][1]+".json";
+		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -565,6 +573,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(!isPlayingMatch || curRoom == null)
 			return;
 		curRoom.send("queroSair", 1);
+	}
+
+	public function enviarPrecisoTerminar()
+	{
+		if(!isPlayingMatch || curRoom == null)
+			return;
+		curRoom.send("queroSair", 2);
 	}
 
 	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
@@ -641,6 +656,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			if (err != null) {
 			  	trace(err);
 				avisarAlgo(Std.string(err));
+				changeMenu(MAIN);
 			  	return;
 			}
 			var contem:Bool = false;
