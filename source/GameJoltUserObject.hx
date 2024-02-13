@@ -12,6 +12,8 @@ import Utils.BSLTouchUtils;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.net.URLRequest; // chamoy
+import flixel.util.FlxColor;
+import flixel.util.FlxSpriteUtil;
 
 using StringTools;
 
@@ -42,7 +44,7 @@ class GameJoltUserObject extends FlxSpriteGroup
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
                 if(GJClient.avatarURL.contains("no-avatar"))
                 {
-					FlxG.log.add("Não achei a PFP da Gamejolt");
+					FlxG.log.add("Você não possui uma PFP, usando o placeholder");
 					userIcon.loadGraphic(Paths.image("menus/gamejolt/userIcon")); // Placeholder
                     userIcon.setGraphicSize(152, 152);
                     userIcon.updateHitbox();
@@ -52,15 +54,21 @@ class GameJoltUserObject extends FlxSpriteGroup
 					FlxG.log.add("Achei a PFP da Gamejolt");
 					var bmp:Bitmap = cast(loader.content, Bitmap);
 					var bmd:BitmapData = bmp.bitmapData;
-                    userIcon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
+					userIcon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
 					userIcon.setGraphicSize(152, 152);
 					userIcon.updateHitbox();
+					var tempMask:FlxSprite = new FlxSprite(2, 40);
+					tempMask.makeGraphic(152, 152, FlxColor.TRANSPARENT, true);
+					FlxSpriteUtil.drawCircle(tempMask, -1, -1, 50, FlxColor.WHITE);
+					FlxSpriteUtil.alphaMaskFlxSprite(userIcon, tempMask, userIcon);
 				}
 			});
 			loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, function(event:Event):Void
 			{
 				FlxG.log.add("Não achei a PFP da Gamejolt");
 				userIcon = new FlxSprite().loadGraphic(Paths.image("menus/gamejolt/userIcon"));
+				userIcon.setGraphicSize(152, 152);
+				userIcon.updateHitbox();
 			});
 			loader.load(new URLRequest(GJClient.avatarURL.replace(".webp", ".png")));
 		}
@@ -83,6 +91,8 @@ class GameJoltUserObject extends FlxSpriteGroup
 		{ // Vai que o cara aperta errado né...
 			// Aqui é a parte onde tu vai pros amigos da Gamejolt, só que o state não tá pronto
 		}
+
+		super.update(elapsed);
 	}
 }
 /*Todo state meu tem que ter uma música ou algo gigante no fim né?
@@ -150,3 +160,5 @@ class GameJoltUserObject extends FlxSpriteGroup
 	Está doendo à esquerda, esquerda, esquerda
 	Querido meu amor
 	Me ensina o feitio da felicidade */
+
+// linda canção x02
