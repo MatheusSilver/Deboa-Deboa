@@ -321,7 +321,16 @@ class PauseSubState extends MusicBeatSubstate
 					}
 				});
 				if(ClientPrefs.shaders) {
-				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut});
+				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
+				{
+					if(!PlayState.instance.shaders_running)
+					{
+						PlayState.instance.camGame.setFilters([]);
+						PlayState.instance.camHUD.setFilters([]);
+						PlayState.instance.camLegenda.setFilters([]);
+						PlayState.instance.camOther.setFilters([]);
+					}
+				}});
 				/*var newMatrix:Array<Float> = [
 					1, 0, 0, 0, 0,
 					0, 1, 0, 0, 0,

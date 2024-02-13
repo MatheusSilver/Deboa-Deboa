@@ -4,6 +4,7 @@ package multiplayer;
 import FunkinLua;
 import Section.SwagSection;
 import Song.SwagSong;
+import flixel.FlxGame;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.ui.FlxBar;
@@ -311,8 +312,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 						{
 							countDownSprites.remove(go);
 							remove(go);
-							go.destroy();
 							startSong();
+							go.destroy();
 						}
 					});
 					FlxG.sound.play(Paths.sound('introGo'), 0.6);
@@ -576,8 +577,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	override function update(elapsed:Float) {
 		//removeNote();
-		FlxG.autoPause = false;
-
+		
 		// se algm souber de um jeito melhor que esse muda aq pf
 		timeAccumulated += elapsed;
 		while (shouldUpdate()){
@@ -1167,5 +1167,15 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		vocals.stop();
 		vocals.destroy();
 		super.destroy();
+	}
+
+	override public function onFocusLost():Void
+	{
+		super.onFocusLost();
+	}
+	
+	override public function onFocus():Void
+	{
+		super.onFocus();
 	}
 }
