@@ -7,23 +7,7 @@
 
 		precacheImage('conquistas/medalhas/achievements (btt-meme maker)');
         precacheImage('conquistas/keydSTARS/star-meme maker');
-	
-		if lowQuality then
-			makeLuaSprite('luanzito', 'luaznito', 0, 0);
-			setObjectCamera('luanzito', 'other');
-			setProperty('luanzito.visible', false)
-			precacheImage('luaznito');
-		else
-			precacheImage('luanzitoanim');
-			makeAnimatedLuaSprite('inicio', 'luanzitoanim', 0, 0);
-			addAnimationByPrefix('inicio', 'luanzitoanim play', 'luanzitoanim play', 30, false)
-			setObjectCamera('inicio', 'other');
-			setScrollFactor('inicio', 1, 1);
-			setProperty('inicio.antialiasing', true)
-			setProperty('inicio.visible', false)
-			addLuaSprite('inicio', false);
-		end
-		
+
 	end
 	
 	function onTimerCompleted(tag)	
@@ -40,28 +24,11 @@
 			runTimer('FatherReturn', 0.7)
 		end
 	
-		if curStep == 69 then
-			--doTweenZoom('bruh', 'camGame', 2.2, 4, 'linear')
-		end
-	
-		if curStep == 96 then
-			--doTweenZoom('bruh', 'camGame', 0.9, 0.001, 'linear')
-		end
-	
 		if curStep == 53 then
-			if lowQuality then
-				setProperty('luanzito.visible', true)
-			else
-				setProperty('inicio.visible', true)
-				objectPlayAnimation('inicio', 'luanzitoanim play', false)
-			end
+			triggerEvent('video player','AnimacoesJogaveis/luanzito', '0', 'false', 'false')
 		end
 	
 		if curStep == 96 then
-			if lowQuality then
-				removeLuaSprite('luanzito', false);
-			else
-				removeLuaSprite('inicio', false);
-			end
+			triggerEvent('stop video', "true")
 		end
 	end

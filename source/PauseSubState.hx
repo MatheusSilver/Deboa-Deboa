@@ -203,7 +203,7 @@ class PauseSubState extends MusicBeatSubstate
 				{
 					PlayState.instance.camGame.setFilters([blurShader/*, grayScale*/]);
 					PlayState.instance.camHUD.setFilters([blurShader/*, grayScale*/]);
-				PlayState.instance.camLegenda.setFilters([blurShader/*, grayScale*/]);
+					PlayState.instance.camLegenda.setFilters([blurShader/*, grayScale*/]);
 					PlayState.instance.camOther.setFilters([blurShader/*, grayScale*/]);
 				}
 				FlxTween.tween(blurShader, {blurX: 3, blurY: 3}, 1.25, {ease: FlxEase.quartInOut});

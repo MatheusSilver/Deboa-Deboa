@@ -80,7 +80,7 @@ class Achievements {
 	public static function syncAchievementsGJ()
 		{
 			#if GAMEJOLT_ALLOWED
-			TitleState.instance.verificarConexao();
+			TitleState.instance.verificarConexao(true);
 			if(GJClient.logged && !TitleState.ModoOffline){
 			var GJList:Null<Array<Trophie>> = GJClient.getTrophiesList();
 			for (i in 0...GJList.length) {

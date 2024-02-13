@@ -145,7 +145,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         FlxTween.tween(textBG, {alpha: 0}, 0.3, {ease: FlxEase.expoInOut});
         FlxTween.tween(faixa, {y: 720, alpha:0}, 1, {ease: FlxEase.expoInOut, startDelay: 0.4});
         FlxTween.tween(bg, {alpha: 0}, 1.25, {ease: FlxEase.expoInOut});
-        new FlxTimer().start(1.5, function(tmr:FlxTimer) {
+        new FlxTimer().start(1.35, function(tmr:FlxTimer) {
             if(isFreeplay)
             {
                 FreeplayState.instance.closeModifiers(this);
@@ -270,7 +270,7 @@ class ModifierButton extends FlxSpriteGroup
 
     public function tweenBotaoSair()
     {
-        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.035, {ease: FlxEase.expoInOut, startDelay: delayNegativo});
+        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.15, {ease: FlxEase.expoInOut, startDelay: delayNegativo});
     }
 
     override function update(elapsed:Float)

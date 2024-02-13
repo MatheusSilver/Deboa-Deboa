@@ -115,6 +115,10 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		add(bg);
+
+		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
+		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
+		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
 		
 		strumLine = new FlxSprite(PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
@@ -206,23 +210,79 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		super.create();
 	}
 
+	var ready:FlxSprite;
+	var set:FlxSprite;
+	var go:FlxSprite;
+	var countDownSprites:Array<FlxSprite> = [];
+	var saidGo:Bool = false;
 	function sayGo() {
-		var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image('go'));
-		go.scrollFactor.set();
+		saidGo = true;
+		waitingForOthers.destroy();
+		blackStuff.destroy();
 
-		go.updateHitbox();
+		var loops:Int = 0;
+		new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer){
+			loops++;
+			switch (Std.int(loops))
+			{ 
+				case 1:
+					FlxG.sound.play(Paths.sound('intro3'), 0.6);
+				case 2:
+					ready.scrollFactor.set();
+					ready.updateHitbox();
 
-		go.screenCenter();
-		go.antialiasing = ClientPrefs.globalAntialiasing;
-		add(go);
-		FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Conductor.crochet / 1000, {
-			ease: FlxEase.cubeInOut,
-			onComplete: function(twn:FlxTween)
-			{
-				go.destroy();
+					ready.screenCenter();
+					ready.antialiasing = ClientPrefs.globalAntialiasing;
+					add(ready);
+					countDownSprites.push(ready);
+					FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, 0.4, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween)
+						{
+							countDownSprites.remove(ready);
+							remove(ready);
+							ready.destroy();
+						}
+					});
+					FlxG.sound.play(Paths.sound('intro2'), 0.6);
+				case 3:
+					set.scrollFactor.set();
+					set.screenCenter();
+					set.antialiasing = ClientPrefs.globalAntialiasing;
+					add(set);
+					countDownSprites.push(set);
+					FlxTween.tween(set, {y: set.y += 100, alpha: 0}, 0.9, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween)
+						{
+							countDownSprites.remove(set);
+							remove(set);
+							set.destroy();
+						}
+					});
+					FlxG.sound.play(Paths.sound('intro1'), 0.6);
+				case 4:
+					go.scrollFactor.set();
+
+					go.updateHitbox();
+
+					go.screenCenter();
+					go.antialiasing = ClientPrefs.globalAntialiasing;
+					add(go);
+					countDownSprites.push(go);
+					FlxTween.tween(go, {y: go.y += 100, alpha: 0}, 0.4, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween)
+						{
+							countDownSprites.remove(go);
+							remove(go);
+							go.destroy();
+							startSong();
+						}
+					});
+					FlxG.sound.play(Paths.sound('introGo'), 0.6);
 			}
-		});
-		FlxG.sound.play(Paths.sound('introGo'), 0.6);
+		}, 4);
 	}
 
 	var songScore:Int = 0;
@@ -356,8 +416,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	function startSong():Void
 	{
-		waitingForOthers.destroy();
-		blackStuff.destroy();
 		startingSong = false;
 		FlxG.sound.music.time = startPos;
 		FlxG.sound.music.play();
@@ -425,7 +483,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				textoAviso.text = LangUtil.getString("results_tie_text", "multiplayer");
 			case 1:
 				textoAviso.text = LangUtil.getString("results_win_text", "multiplayer");
-			case 2:
+			case -1:
 				textoAviso.text = LangUtil.getString("results_lose_text", "multiplayer");
 		}
 
@@ -467,42 +525,61 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 	}*/
 
+	private var UPDATE_INTERVAL:Float = 1.0 / 60.0;
+    private var timeAccumulated:Float = 0.0;
+
+
+	private function shouldUpdate():Bool
+		{
+			return timeAccumulated >= UPDATE_INTERVAL;
+		}
+
+
 	override function update(elapsed:Float) {
 		//removeNote();
-		if (startingSong) {
-			/*timerToStart -= elapsed * 1000;
-			Conductor.songPosition = startPos - timerToStart;*/
-			if(podeComecar > 1) {
-				startSong();
-			}
-		} else {
-			Conductor.songPosition += elapsed * 1000;
-			if(podeTerminar > 1 && !endingSong)
-			{
-				endSong();
-			}
-			if(podeTerminar > 0)
-			{
-				terminarTxt.visible = true;
-			}
-			if(FlxG.keys.pressed.ESCAPE && !queriaTerminar)
-			{
-				if(terminarFloat>=100)
-				{
-					MultiplayerMainMenuState.instance.enviarQueroTerminar();
-					queriaTerminar = true;
+		// se algm souber de um jeito melhor que esse muda aq pf
+		timeAccumulated += elapsed;
+		while (shouldUpdate()){
+			if (startingSong) {
+				/*timerToStart -= elapsed * 1000;
+				Conductor.songPosition = startPos - timerToStart;*/
+				if(podeComecar > 1 && !saidGo) {
+					//startSong();
+					sayGo();
 				}
-				else
+			} else {
+				Conductor.songPosition += elapsed * 1000;
+				if(podeTerminar > 1 && !endingSong)
 				{
-					terminarFloat+=3;
+					endSong();
 				}
+				if(podeTerminar > 0)
+				{
+					terminarTxt.visible = true;
+				}
+				
+					if(FlxG.keys.pressed.ESCAPE && !queriaTerminar)
+						{
+							if(terminarFloat>=100)
+							{
+								MultiplayerMainMenuState.instance.enviarQueroTerminar();
+								queriaTerminar = true;
+							}
+							else
+							{
+								terminarFloat+=3;
+							}
+						}
+						else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
+						{
+							terminarFloat-=3;
+						}
+
+
+				terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
+				terminarTxt.y = ClientPrefs.downScroll  ? terminarBar.visible ? 40 : 20 : terminarBar.visible ? FlxG.height - 80 : FlxG.height - 40 ;
 			}
-			else if(!FlxG.keys.pressed.ESCAPE && !queriaTerminar && terminarFloat != 0.0)
-			{
-				terminarFloat-=3;
-			}
-			terminarBar.visible = terminarFloat>0.0 && !queriaTerminar;
-			terminarTxt.y = ClientPrefs.downScroll  ? terminarBar.visible ? 40 : 20 : terminarBar.visible ? FlxG.height - 80 : FlxG.height - 40 ;
+			timeAccumulated -= UPDATE_INTERVAL;
 		}
 
 		var roundedSpeed:Float = FlxMath.roundDecimal(_song.speed, 2);
@@ -619,7 +696,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 					
 					if(MultiplayerMainMenuState.instance.daNoteReceived.contains(daNote.noteData))
 						{
-							MultiplayerMainMenuState.instance.daNoteReceived.remove(daNote.noteData);
 							StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
 							daNote.hitByOpponent = true;
 							if (!daNote.isSustainNote)
@@ -670,6 +746,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 									}
 								}
 							}
+							MultiplayerMainMenuState.instance.daNoteReceived.remove(daNote.noteData);
 						}
 					else
 					{
@@ -719,7 +796,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			case 1:
 				scoreTxt.text = LangUtil.getString("game_your_hits", "multiplayer") +' '+songHits + '\n' + LangUtil.getString("game_opp_hits", "multiplayer") +' '+opponentHits;
 			case 2:
-				scoreTxt.text = LangUtil.getString("game_your_misses", "multiplayer") +' '+songMisses + '\n' + LangUtil.getString("game_opp_misses", "multiplayer") +' '+songMisses;
+				scoreTxt.text = LangUtil.getString("game_your_misses", "multiplayer") +' '+songMisses + '\n' + LangUtil.getString("game_opp_misses", "multiplayer") +' '+opponentMisses;
 		}
 		MultiplayerMainMenuState.instance.enviarMissesEHits(songHits, songMisses, songScore);
 		super.update(elapsed);
@@ -909,7 +986,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	{
 		combo = 0;
 
-		songScore -= 10;
+		songScore -= 100;
 		if(ghostMiss) ghostMisses++;
 		songMisses++;
 

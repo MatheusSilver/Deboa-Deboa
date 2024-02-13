@@ -184,9 +184,9 @@ class TitleState extends MusicBeatState
 		#end
 	}
 	public static var canVerify:Bool = true;
-	public function verificarConexao():Void
+	public function verificarConexao(?force:Bool = false):Void
 		{
-			if(!canVerify)
+			if(!canVerify && !force)
 				return;
 			canVerify=false;
 			new FlxTimer().start(30, function(tmr:FlxTimer){

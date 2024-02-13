@@ -2269,7 +2269,7 @@ class PlayState extends MusicBeatState
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
-		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false); // A Vessel carrega as vozes mas não o instrumental, ela fica tocando a música do menu (Pelo menos na minha build)
 		FlxG.sound.music.onComplete = finishSong;
 		vocals.play();
 
