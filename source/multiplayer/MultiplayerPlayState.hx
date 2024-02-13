@@ -39,6 +39,10 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.util.FlxSort;
 import lime.utils.Assets;
+import openfl.net.URLRequest;
+import openfl.events.Event;
+import openfl.events.ErrorEvent;
+import openfl.display.Loader;
 
 using StringTools;
 
@@ -91,14 +95,33 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			{isPlayer1 = !isHost;}
 		else
 			{isPlayer1 = isHost;};
-        _song = Song.loadFromJson(whichSong);
-		_song.arrowSkin = "NOTE_assets";
-		_song.splashSkin = "noteSplashes";
-		PlayState.SONG = _song;
-		startOffset = Conductor.crochet;
-		timerToStart = startOffset;
+
+		var http = new haxe.Http(whichSong);
+		var songJson:String;
+		http.onData = function(data:String)
+		{
+			songJson = data;
+		}
+
+		http.onError = function(error)
+		{
+			songJson = null;
+		}
+
+		http.request();
+
+		if(songJson != null)
+		{
+			_song = Song.parseJSONshit(songJson);
+			_song.arrowSkin = "NOTE_assets";
+			_song.splashSkin = "noteSplashes";
+			PlayState.SONG = _song;
+			startOffset = Conductor.crochet;
+			timerToStart = startOffset;
+		}
 		super();
 	}
+
 
 	var scoreTxt:FlxText;
 	//var opponentScoreTxt:FlxText;
@@ -111,11 +134,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 
 	override function create()
-	{
-		// Taquei isso aqui só pra ter certeza que o problema não é por causa dos caches...
-		Paths.clearUnusedMemory();
-		Paths.clearStoredMemory();
-		
+	{	
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		add(bg);
@@ -159,12 +178,19 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
 		
-		if (_song.needsVoices)
-			vocals = new FlxSound().loadEmbedded(Paths.voices(_song.song));
+		if(_song!=null)
+		{
+			if (_song.needsVoices)
+				vocals = new FlxSound().loadEmbedded(Paths.voices(_song.song));
+			else
+				vocals = new FlxSound();
+			generateSong(_song.song);
+		}
 		else
-			vocals = new FlxSound();
-
-		generateSong(_song.song);
+		{
+			MultiplayerMainMenuState.instance.enviarPrecisoTerminar();
+		}
+		
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
 			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
