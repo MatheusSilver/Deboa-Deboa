@@ -10113,11 +10113,13 @@
 		],
 		"player2": "phantom-Lord",
 		"player3": "invisibru",
-		"song": "Vessel",
+		"song": "vessel",
 		"stage": "welcome",
-		"needsVoices": true,
+		"splashSkin": "blood",
 		"validScore": true,
 		"bpm": 100,
+		"needsVoices": false,
+		"isRing": false,
 		"speed": 2.9
 	}
 }

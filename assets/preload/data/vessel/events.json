@@ -1608,15 +1608,14 @@
 				"mustHitSection": false
 			}
 		],
-		"splashSkin": null,
-		"validScore": false,
-		"bpm": 100,
-		"arrowSkin": null,
-		"needsVoices": true,
-		"startinvisibru": null,
 		"canfollowpermitido": true,
-		"song": "Vessel",
-		"isRing": null,
-		"videonombre": null
+		"song": "vessel",
+		"splashSkin": "blood",
+		"validScore": true,
+		"bpm": 100,
+		"needsVoices": false,
+		"startinvisibru": "",
+		"isRing": false,
+		"videonombre": ""
 	}
 }
