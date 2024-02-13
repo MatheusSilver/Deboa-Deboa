@@ -107,19 +107,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for (i in 0...WeekData.weeksList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			for (i in 0...leWeek.songs.length) {
-				var path:String = /*Paths.formatToSongPath(leWeek.songs[i][0])+"/"+*/Paths.formatToSongPath(leWeek.songs[i][0])/*+"-hard"*/;
-				/*if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0]);
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-easy";
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-sega";
-				}*/
+				var path:String = Paths.formatToSongPath(leWeek.songs[i][0]);
 				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
@@ -127,19 +115,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for (i in 0...WeekData.freeplayList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 			for (i in 0...leWeek.songs.length) {
-				var path:String = /*Paths.formatToSongPath(leWeek.songs[i][0])+"/"+*/Paths.formatToSongPath(leWeek.songs[i][0])/*+"-hard"*/;
-				/*if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0]);
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-easy";
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-sega";
-				}*/
+				var path:String = Paths.formatToSongPath(leWeek.songs[i][0]);
 				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
@@ -378,10 +354,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 					players[message.playerIndex].nome = message.username;
 					players[message.playerIndex].charID = message.char;
 					players[message.playerIndex].sessionId = message.sessionId;
+					players[message.playerIndex].noteSkin = message.noteSkin;
 				case "saiu":
 					players[message.playerIndex].nome = "";
 					players[message.playerIndex].charID = "bf";
 					players[message.playerIndex].sessionId = "";
+					players[message.playerIndex].noteSkin = "NOTE_assets";
 			}
 		});
 
@@ -506,6 +484,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 			return;
 
 		canClick = false;
+		changeMenu(CONNECTING);
+		
 
 		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
 		roomOptions.set("salaNome", GJClient.userName);
@@ -514,11 +494,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		roomOptions.set("myName", GJClient.userName);
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "0");
+		roomOptions.set("noteSkin", "NOTE_assets");
 
 		client.create("gameRoom", roomOptions, LobbyState, function(err, room) {
 			if (err != null) {
 				trace("CREATE ERROR: " + err);
 				avisarAlgo(Std.string(err));
+				changeMenu(MAIN);
 				return;
 			}
 			curRoom = room;
@@ -550,7 +532,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 		}
 		var url:String = servidor.replace("ws", "http")+"/charts/"+musicas[MusicaAtual][1]+".json";
-		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo));
+		var mySkin:String = players[getIndexBySession(curRoom.sessionId)].noteSkin;
+		var oppSkin:String = players[getOtherIndexBySession(curRoom.sessionId)].noteSkin;
+		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, mySkin, oppSkin));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -646,11 +630,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 			roomList.remover();
 		}
 		canClick = false;
+		changeMenu(CONNECTING);
 
 		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
 		roomOptions.set("myName", GJClient.userName);
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "1");
+		roomOptions.set("noteSkin", "NOTE_assets");
 
 		client.getAvailableRooms("gameRoom", function(err, rooms) {
 			if (err != null) {
@@ -669,6 +655,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 							trace("JOIN ERROR: " + err);
 							avisarAlgo(Std.string(err));
 							canClick = true;
+							changeMenu(MAIN);
 							return;
 						}
 			
@@ -706,6 +693,18 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for (i in 0...players.length)
 		{
 			if(players[i].sessionId == sessionId)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	function getOtherIndexBySession(sessionId:String):Int
+	{
+		for (i in 0...players.length)
+		{
+			if(players[i].sessionId != sessionId)
 			{
 				return i;
 			}
@@ -917,6 +916,7 @@ class LobbyPlayerObject extends FlxSpriteGroup
 	public var sessionId:String = "";
 	public var nome:String = "Player 1";
 	public var charID:String = "bf";
+	public var noteSkin:String = "NOTE_assets";
 	public var keys:Array<Bool> = [false, false, false, false];
 	public var bf:Boyfriend;
 	public var isConnected:Bool = false;

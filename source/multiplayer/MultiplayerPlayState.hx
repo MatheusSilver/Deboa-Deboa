@@ -85,10 +85,15 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	var currentMode:Int = 0;
 
+	var mySkin:String;
+	var oppSkin:String;
 
-	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int) {
+
+	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myNoteSkin:String, oppNoteSkin:String) {
 		instance = this;
 		currentMode = modo;
+		mySkin = myNoteSkin;
+		oppSkin = oppNoteSkin;
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
         if(!trocarLados)
@@ -156,8 +161,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		add(strumLineNotes);
 
 
-		generateStaticArrows(0);
-		generateStaticArrows(1);
+		generateStaticArrows(0, oppSkin);
+		generateStaticArrows(1, mySkin);
 
 		if(!isPlayer1)
 			{
@@ -190,7 +195,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		{
 			MultiplayerMainMenuState.instance.enviarPrecisoTerminar();
 		}
-		
+
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
 			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
@@ -409,10 +414,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 								if (sustainNote.mustPress)
 								{
 									sustainNote.x += FlxG.width / 2; // general offset
+									sustainNote.texture = "multiplayer/notes/"+mySkin;
 								}
 								else
 								{
 									sustainNote.x += FlxG.width / 1.5;
+									sustainNote.texture = "multiplayer/notes/"+oppSkin;
 								}
 							}
 						}
@@ -420,9 +427,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 						if (swagNote.mustPress)
 						{
 							swagNote.x += FlxG.width / 2; // general offset
+							swagNote.texture = "multiplayer/notes/"+mySkin;
 						}
 						else {
 							swagNote.x += FlxG.width / 1.5;
+							swagNote.texture = "multiplayer/notes/"+oppSkin;
 						}
 						
 						if(!noteTypeMap.exists(swagNote.noteType)) {
@@ -567,6 +576,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	override function update(elapsed:Float) {
 		//removeNote();
+		FlxG.autoPause = false;
+
 		// se algm souber de um jeito melhor que esse muda aq pf
 		timeAccumulated += elapsed;
 		while (shouldUpdate()){
@@ -1079,15 +1090,13 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	}
 
 
-	private function generateStaticArrows(player:Int):Void
+	private function generateStaticArrows(player:Int, skin:String):Void
 	{
 		for (i in 0...4)
 		{
-
-			var skin:String = "NOTE_assets";
 			// FlxG.log.add(i);
             var babyArrow:StrumNote;
-			babyArrow = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
+			babyArrow = new StrumNote(PlayState.STRUM_X, strumLine.y, i, player);
 
 			babyArrow.alpha = 0;
 			FlxTween.tween(babyArrow, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
@@ -1102,6 +1111,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 
 			strumLineNotes.add(babyArrow);
+			babyArrow.texture = "multiplayer/notes/"+skin;
 			babyArrow.postAddedToGroup();
 		}
 	}
