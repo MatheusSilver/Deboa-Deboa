@@ -75,6 +75,8 @@ class MainMenuStateMobile extends MusicBeatState
 
 	public static var passouCY:Bool = false;
 
+	var gamejoltUser:GameJoltUserObject;
+
 	override function create()
 	{
 		Paths.clearStoredMemory();
@@ -141,113 +143,21 @@ class MainMenuStateMobile extends MusicBeatState
 		boom.flipX=true;
 		boom.x = -751;
 		boom.alpha=1;
-		add(boom);		
+		add(boom);
 		
-		gameJoltBG = new FlxSprite(0).loadGraphic(Paths.image('gamejoltUserBar', 'preload'));
-		gameJoltBG.setGraphicSize(Std.int(gameJoltBG.width*0.5));
-		gameJoltBG.updateHitbox();
-		gameJoltBG.x=-630;
-		gameJoltBG.y=-350;
-		gameJoltBG.visible = true;
-		gameJoltBG.antialiasing = ClientPrefs.globalAntialiasing;
-		add(gameJoltBG);
+		gamejoltUser = new GameJoltUserObject();
+		gamejoltUser.x = bg.x - 150;
+		gamejoltUser.y = bg.y - 380;
+		add(gamejoltUser);
 
-		gameJoltIcon= new FlxSprite(0);
-		gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*0.5));
-		gameJoltIcon.updateHitbox();
-		gameJoltIcon.visible = false;
-		gameJoltIcon.antialiasing = ClientPrefs.globalAntialiasing;
-		gameJoltIcon.screenCenter(XY);
-
-		letext = new FlxText(50, FlxG.height - 200, FlxG.width - 200, LangUtil.getString("menu_disconnected", "menu"), 32);
-		letext.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		letext.scrollFactor.set();
-		letext.x=-355;
-		letext.y=27;
-		letext.alpha = 1;
-		add(letext);
-
-		if(GJClient.logged)
-			{
-				if(verificaDnvIdiota){GameJoltLoginState.syncProgress(); GameJoltLoginState.syncProgressFreeplay(); verificaDnvIdiota = false;}
-				letext.text = GJClient.userName;
-				trace(GJClient.avatarURL);
-				letext.x=-345;
-				letext.alpha = 1;
-				var loader:Loader = new Loader();
-				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
-					if(GJClient.avatarURL.contains("no-avatar"))
-						{
-							trace("nao peguei a foto");
-							gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
-							gameJoltIcon.loadGraphic(Paths.image('placeholderUserIcon', 'preload'));
-							gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
-							var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
-		
-							var bordinha = new FlxSprite(0,0);
-							bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
-							tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
-							FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
-							FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
-							gameJoltIcon.x = gameJoltBG.x+10;
-							gameJoltIcon.y = gameJoltBG.y+2;
-							bordinha.x = gameJoltIcon.x-6.5;
-							bordinha.y = gameJoltIcon.y-4.5;
-							gameJoltIcon.visible = true;
-							add(gameJoltIcon);
-							add(bordinha);
-						}
-					else
-						{
-							var bmp:Bitmap = cast(loader.content, Bitmap);
-							trace("peguei a foto");
-							var bmd:BitmapData = bmp.bitmapData;
-							var graphicAsset:FlxGraphic = FlxGraphic.fromBitmapData(bmd, false);
-							gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
-							gameJoltIcon.loadGraphic(graphicAsset);
-							gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
-							var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
-		
-							var bordinha = new FlxSprite(0,0);
-							bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
-							tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
-							FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
-							FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
-							gameJoltIcon.x = gameJoltBG.x+10;
-							gameJoltIcon.y = gameJoltBG.y+2;
-							bordinha.x = gameJoltIcon.x-6.5;
-							bordinha.y = gameJoltIcon.y-4.5;
-							gameJoltIcon.visible = true;
-							add(gameJoltIcon);
-							add(bordinha);
-						}
-				});
-				loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, function(event:Event):Void {
-					trace("nao peguei a foto");
-					gameJoltBG.loadGraphic(Paths.image('gamejoltUserBar2', 'preload'));
-					gameJoltIcon.loadGraphic(Paths.image('placeholderUserIcon', 'preload'));
-					gameJoltIcon.setGraphicSize(Std.int(gameJoltIcon.width*1.1));
-					var tempMask = new FlxSprite(gameJoltIcon.width, gameJoltIcon.height);
-
-					var bordinha = new FlxSprite(0,0);
-					bordinha.loadGraphic(Paths.image('Bordinha', 'preload'));
-					tempMask.makeGraphic(100, 100, FlxColor.TRANSPARENT,true);
-					FlxSpriteUtil.drawRoundRect(tempMask, 0, 0, gameJoltIcon.width, gameJoltIcon.height, 10, 10, FlxColor.WHITE);
-					FlxSpriteUtil.alphaMaskFlxSprite(gameJoltIcon, tempMask, gameJoltIcon);
-					gameJoltIcon.x = gameJoltBG.x+10;
-					gameJoltIcon.y = gameJoltBG.y+2;
-					bordinha.x = gameJoltIcon.x-6.5;
-					bordinha.y = gameJoltIcon.y-4.5;
-					gameJoltIcon.visible = true;
-					add(gameJoltIcon);
-					add(bordinha);
-				});
-				loader.load(new URLRequest(GJClient.avatarURL.replace(".webp", ".png")));
-			}
-			else
-			{
-				letext.text = LangUtil.getString("menu_disconnected", "menu");
-			}
+		var userName:FlxText = new FlxText(bg.x - 150, bg.y - 380, 0, LangUtil.getString("menu_disconnected", "menu"), 30);
+        userName.setFormat(Paths.font("letravio.ttf"), 30, 0xffffff, CENTER);
+		if(GJClient.logged) {
+			userName.text = GJClient.userName;
+		} else {
+			userName.text = LangUtil.getString("menu_disconnected", "menu");
+		}
+		add(userName);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);

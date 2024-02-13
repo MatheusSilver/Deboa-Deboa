@@ -112,6 +112,10 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	override function create()
 	{
+		// Taquei isso aqui só pra ter certeza que o problema não é por causa dos caches...
+		Paths.clearUnusedMemory();
+		Paths.clearStoredMemory();
+		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		add(bg);
