@@ -1,5 +1,6 @@
 package;
 
+import Utils.BSLTouchUtils;
 import Utils.BSLSwipeUtils;
 import LoadingState.LoadingsState;
 import WeekData;
@@ -102,6 +103,7 @@ class FreeplayState extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		firstTime = true;
 		WeekData.reloadWeekFiles(true); //note for future silver 
 		//Este code, SEMPRE, deve ser colocado quando não se utiliza 'dapreselected', ele é quem carrega as weeks.
 
@@ -158,7 +160,7 @@ class FreeplayState extends MusicBeatState
 		progressFreeplay = songs.length;
 		#end
 		
-		BSLSwipeUtils.max_y = Std.int(FlxG.width/(progressFreeplay*4));
+		BSLSwipeUtils.max_y = Std.int(FlxG.width/(progressFreeplay));
 
 		for (i in 0...progressFreeplay)
 		{
@@ -262,8 +264,6 @@ class FreeplayState extends MusicBeatState
 	private static var vocals:FlxSound = null;
 	override function update(elapsed:Float)
 	{
-
-		Utils.BSLSwipeUtils.swipeVertical();
 		super.update(elapsed);
 		perfilSprite.angle = disc.angle;
 		outroperfilSprite.angle = disc.angle;
@@ -324,23 +324,31 @@ class FreeplayState extends MusicBeatState
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
-		if (upP && apertavel)
-		{
-			changeSelection(-shiftMult);
+		if (!Main.getMouseVisibility() && apertavel){
+			if (upP)
+			{
+				GlobalSoundManager.play('scrollMenu');
+				changeSelection(-shiftMult);
+			}
+			if (downP)
+			{
+				GlobalSoundManager.play('scrollMenu');
+				changeSelection(shiftMult);
+			}
+		}else if (apertavel){		
+			BSLSwipeUtils.swipeVertical();
+			for (songText in grpSongs.members)
+			{
+				if (BSLTouchUtils.solto(songText) && songText.targetY == 0 && !BSLSwipeUtils.is_swipping)
+					accepted = true;
+				else if (BSLTouchUtils.solto(songText) && !BSLSwipeUtils.is_swipping)
+					changeSelection(Std.int(songText.targetY));
+			}
+			if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0)
+				change_swipe = BSLSwipeUtils.scrollY;
+			else if(change_swipe != 0)
+				changeSelection(true);
 		}
-		if (downP && apertavel)
-		{
-			changeSelection(shiftMult);
-		}
-
-		if (Math.abs(change_swipe) < Math.abs(BSLSwipeUtils.scrollY) && apertavel)
-			change_swipe = BSLSwipeUtils.scrollY;
-		else if(Math.abs(change_swipe) > 0 && apertavel)
-		{
-			changeSelection();
-		}else if (change_swipe == 0)
-			BSLSwipeUtils.resetScrolls();
-
 		if(ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY) {
 			//modifiers.ModifiersMenuState.freeplay = true;
 			apertavel = false;
@@ -449,16 +457,16 @@ class FreeplayState extends MusicBeatState
 	}
 
 	private var change_swipe:Int = 0;
+	private var firstTime:Bool = true;
 
-	function changeSelection(change:Int = 0, firstTime:Bool = false)
+	function changeSelection(change:Int = 0, ?swipping:Bool = false)
 	{
-		GlobalSoundManager.play('scrollMenu');
-
-		apertavel = false;
 		if (change_swipe != 0){
 			change = Std.int(Math.abs(change_swipe)/change_swipe);
-			change_swipe -= Std.int(Math.abs(change_swipe)/change_swipe);
+			change_swipe -= change;
 		}
+		if (!swipping || change_swipe == 0)	
+			apertavel = false;
 		curSelected += change;
 
 		if (curSelected < 0)
@@ -496,40 +504,42 @@ class FreeplayState extends MusicBeatState
 		Paths.currentModDirectory = songs[curSelected].folder;
 			var curtimer:Float = 0.3;
 			
-			FlxTween.tween(outroperfilSprite, {alpha: 0}, curtimer, {ease: FlxEase.expoInOut,
-				onComplete: function(twn:FlxTween) {
-					if(OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
-						outroperfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload')); 
-						outroperfilSprite.updateHitbox();
-						outroperfilSprite.screenCenter(Y);
-						outroperfilSprite.alpha = 1;
-						outroperfilSprite.scale.x = 1.05;
-						outroperfilSprite.scale.y = 1.05;
-					} else {
-						FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
+			if (!apertavel){
+				FlxTween.tween(outroperfilSprite, {alpha: 0}, curtimer, {ease: FlxEase.expoInOut,
+					onComplete: function(twn:FlxTween) {
+						if(OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
+							outroperfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload')); 
+							outroperfilSprite.updateHitbox();
+							outroperfilSprite.screenCenter(Y);
+							outroperfilSprite.alpha = 1;
+							outroperfilSprite.scale.x = 1.05;
+							outroperfilSprite.scale.y = 1.05;
+						} else {
+							FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
+						}
 					}
-				}
-			});
-			if(OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
-				perfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload')); 
-				perfilSprite.updateHitbox();
-				perfilSprite.screenCenter(Y);
-				perfilSprite.alpha = 0;
-				perfilSprite.scale.x = 1.05;
-				perfilSprite.scale.y = 1.05;
-			} else {
-				FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
-			}
-			FlxTween.tween(perfilSprite, {alpha: 1}, curtimer, {ease: FlxEase.expoInOut,
-				onComplete: function(twn:FlxTween) {
+				});
+				if(OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload'))) { //anti crashing moment 
+					perfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase(), 'preload')); 
+					perfilSprite.updateHitbox();
+					perfilSprite.screenCenter(Y);
 					perfilSprite.alpha = 0;
-					apertavel = true;
-					if (firstTime){
-						cd_spin();
-						firstTime=false;
-					}
+					perfilSprite.scale.x = 1.05;
+					perfilSprite.scale.y = 1.05;
+				} else {
+					FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-"+ songs[curSelected].songName.toLowerCase());
 				}
-			});
+				FlxTween.tween(perfilSprite, {alpha: 1}, curtimer, {ease: FlxEase.expoInOut,
+					onComplete: function(twn:FlxTween) {
+						perfilSprite.alpha = 0;
+						apertavel = true;
+						if (firstTime){
+							cd_spin();
+							firstTime=false;
+						}
+					}
+				});
+			}
 	}
 
 	public static function destroyFreeplayVocals() {

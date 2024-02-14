@@ -356,6 +356,8 @@ class BSLSwipeUtils
 	private static var touchY:Int;
 	private static var touchX:Int;
 
+	public static var is_swipping:Bool = false;
+
 	/**
 	 * Função de Swipe (Mobile) e Scroll do Mouse (Desktop)
 	 */
@@ -396,6 +398,8 @@ class BSLSwipeUtils
 		scrollX = CoolUtil.mathClamp(scrollY, -max_x, max_x);
 		if (Math.abs(scrollX) <= Math.abs(scrollSpeed))
 			resetScrolls();
+		else
+			is_swipping = true;
 	}
 
 	/**
@@ -437,11 +441,14 @@ class BSLSwipeUtils
 		scrollY = CoolUtil.mathClamp(scrollY, -max_y, max_y);
 		if (Math.abs(scrollY) <= Math.abs(scrollSpeed))
 			resetScrolls();
+		else
+			is_swipping = true;
 	}
 
 	inline public static function resetScrolls():Void
 	{
 		scrollX = scrollY = scrollSpeed = 0;
+		is_swipping=false;
 	}
 }
 

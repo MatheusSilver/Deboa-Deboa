@@ -1,5 +1,7 @@
 package ajustes;
 
+import Utils.BSLTouchUtils;
+import Utils.BSLSwipeUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -169,6 +171,7 @@ class BaseOptionsMenu extends MusicBeatState
 				break;
 			}
 		}
+		BSLSwipeUtils.max_y = Std.int(FlxG.width/6);//indo do topo até o fim da tela, o mano só passa em no máximo 6 opções.
 		changeSelection();
 		#if mobileC
 		addVirtualPad(FULL, A_B);
@@ -186,6 +189,8 @@ class BaseOptionsMenu extends MusicBeatState
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 
+		var accepted = controls.ACCEPT;
+
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -193,6 +198,20 @@ class BaseOptionsMenu extends MusicBeatState
 		if (controls.UI_DOWN_P)
 		{
 			changeSelection(1);
+		}
+		if (Main.getMouseVisibility()){		
+			BSLSwipeUtils.swipeVertical();
+			for (option in grpOptions.members)
+			{
+				if (BSLTouchUtils.solto(option) && option.targetY == 0 && !BSLSwipeUtils.is_swipping)
+					accepted = true;
+				else if (BSLTouchUtils.solto(option) && !BSLSwipeUtils.is_swipping)
+					changeSelection(Std.int(option.targetY));
+			}
+			if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0)
+				change_swipe = BSLSwipeUtils.scrollY;
+			else if(change_swipe != 0)
+				changeSelection();
 		}
 
 		if (controls.BACK) {			
@@ -210,7 +229,7 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 
 		if(usesCheckbox) {
-			if(controls.ACCEPT && nextAccept <= 0) {
+			if(accepted && nextAccept <= 0) {
 				switch(options[curSelected]) {
 					case 'fps_visible':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
@@ -378,9 +397,16 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 		super.update(elapsed);
 	}
+
+	private var change_swipe:Int = 0;
 	
 	function changeSelection(change:Int = 0)
 	{
+		if (change_swipe != 0){
+			change = Std.int(Math.abs(change_swipe)/change_swipe);
+			change_swipe -= change;
+		}
+
 		do {
 			curSelected += change;
 			if (curSelected < 0)

@@ -163,10 +163,12 @@ class AchievementsMenuState extends MusicBeatState
 		addVirtualPad(UP_DOWN, B);
 		#end
 
-		BSLSwipeUtils.max_y = Std.int(FlxG.width/(achieve_list_len*4));
+		BSLSwipeUtils.max_y = Std.int(FlxG.width/(achieve_list_len)*2);//Isso serve pra permitir que o player possa ir no máximo até a metade da lista ao passar o dedo do topo até o fim de sua tela.
 
 		super.create();
 	}
+
+	var reload:Bool = false;
 
 	override function update(elapsed:Float)
 	{
@@ -182,14 +184,17 @@ class AchievementsMenuState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (Math.abs(change_swipe) < Math.abs(BSLSwipeUtils.scrollY) && apertavel)
+		if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0 && apertavel)
 			change_swipe = BSLSwipeUtils.scrollY;
 		else if(Math.abs(change_swipe) > 0 && apertavel)
 		{
-			changeSelection();
-		}else if (change_swipe == 0)
+			reload = true;
+			changeSelection(true);
+		}else if (change_swipe == 0 && reload && !BSLSwipeUtils.is_swipping){
 			BSLSwipeUtils.resetScrolls();
-
+			reload = false; //Serve apenas pra isso não ficar spammando.
+			changeSelection();
+		}
 		if (controls.BACK && !sincronizando)
 		{
 			GlobalSoundManager.play('cancelMenu');
@@ -199,13 +204,17 @@ class AchievementsMenuState extends MusicBeatState
 
 	private var change_swipe:Int = 0;
 
-	function changeSelection(change:Int = 0)
+	function changeSelection(?change:Int = 0, ?swipping:Bool = false)
 	{
-		apertavel = false;
+		
+		if (!swipping || change_swipe == 0)	
+			apertavel = false;
 		if (change_swipe != 0){
 			change = Std.int(Math.abs(change_swipe)/change_swipe);
-			change_swipe -= Std.int(Math.abs(change_swipe)/change_swipe);
+			change_swipe -= change;
 		}
+
+
 		curSelected += change;
 		if (curSelected < 0)
 			curSelected = achieve_list_len - 1;
@@ -219,7 +228,7 @@ class AchievementsMenuState extends MusicBeatState
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			if (item.targetY == 0)
+			if (item.targetY == 0 && !apertavel)
 			{
 				flixel.tweens.FlxTween.tween(item, {x: -50}, 0.5, {
 					ease: flixel.tweens.FlxEase.expoInOut,
@@ -229,7 +238,7 @@ class AchievementsMenuState extends MusicBeatState
 					}
 				});
 			}
-			else if (item.targetY != 0 && item.x == -50)
+			else if (item.x == -50)
 			{
 				flixel.tweens.FlxTween.tween(item, {x: -150}, 1.0, {ease: flixel.tweens.FlxEase.expoInOut});
 			}
