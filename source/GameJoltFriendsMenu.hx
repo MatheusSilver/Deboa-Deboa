@@ -43,6 +43,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
             #end
             MainMenuStateMobile.canClick = true;
+            MainMenuStateMobile.instance.voltarUser();
             close();
         });
         voltar_button.visible = true;

@@ -61,6 +61,7 @@ class MainMenuStateMobile extends MusicBeatState
 	'options'];
 	private var menuItems:FlxTypedGroup<FlxSprite>;
 	var machine:FlxSprite;
+	var bg:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var logoBl:FlxSprite;
@@ -82,6 +83,7 @@ class MainMenuStateMobile extends MusicBeatState
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		Conductor.changeBPM(112);
+		instance = this;
 		GameJoltLoginState.syncProgress();
 		#if rpc
 		// Updating Discord Rich Presence
@@ -107,7 +109,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
+		bg = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
 		bg.scrollFactor.set(0, 0);
 		bg.updateHitbox();
 		bg.screenCenter(X);
@@ -410,6 +412,7 @@ class MainMenuStateMobile extends MusicBeatState
 					});
 
 						if(BSLTouchUtils.apertasimples(gamejoltUser)) {
+							FlxTween.tween(gamejoltUser, {x: -1200}, 0.5, {ease: FlxEase.expoInOut});
 							openSubState(new GameJoltFriendsMenu()); // Um code bem besta e burro pra ser bem sincero... Não sei como fazer isso com Gamepad tbm.... Nem com teclado........ Desculpa Sílvio.......................
 						}
 				}
@@ -443,6 +446,11 @@ class MainMenuStateMobile extends MusicBeatState
 
 		super.update(elapsed);
 
+	}
+
+	public function voltarUser()
+	{
+		FlxTween.tween(gamejoltUser, {x: bg.x-150}, 0.5, {ease: FlxEase.expoInOut});
 	}
 
 	override function beatHit()
