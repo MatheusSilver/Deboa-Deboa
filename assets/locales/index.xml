@@ -39,6 +39,7 @@
 	
    	<!-- Usado no multiplayer -->
 	<file id="multiplayer" value="multiplayer.tsv"/>
+	<file id="multiplayer" value="multiplayerSkins.tsv"/>
 	<!--Add locale entries here.
 
 	https://www.techonthenet.com/js/language_tags.php

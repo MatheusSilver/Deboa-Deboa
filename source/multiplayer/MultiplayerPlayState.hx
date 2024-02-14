@@ -4,6 +4,7 @@ package multiplayer;
 import FunkinLua;
 import Section.SwagSection;
 import Song.SwagSong;
+import flixel.FlxGame;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.ui.FlxBar;
@@ -39,6 +40,10 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.util.FlxSort;
 import lime.utils.Assets;
+import openfl.net.URLRequest;
+import openfl.events.Event;
+import openfl.events.ErrorEvent;
+import openfl.display.Loader;
 
 using StringTools;
 
@@ -81,24 +86,48 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	var currentMode:Int = 0;
 
+	var mySkin:String;
+	var oppSkin:String;
 
-	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int) {
+
+	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myNoteSkin:String, oppNoteSkin:String) {
 		instance = this;
 		currentMode = modo;
+		mySkin = myNoteSkin;
+		oppSkin = oppNoteSkin;
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
         if(!trocarLados)
 			{isPlayer1 = !isHost;}
 		else
 			{isPlayer1 = isHost;};
-        _song = Song.loadFromJson(whichSong);
-		_song.arrowSkin = "NOTE_assets";
-		_song.splashSkin = "noteSplashes";
-		PlayState.SONG = _song;
-		startOffset = Conductor.crochet;
-		timerToStart = startOffset;
+
+		var http = new haxe.Http(whichSong);
+		var songJson:String;
+		http.onData = function(data:String)
+		{
+			songJson = data;
+		}
+
+		http.onError = function(error)
+		{
+			songJson = null;
+		}
+
+		http.request();
+
+		if(songJson != null)
+		{
+			_song = Song.parseJSONshit(songJson);
+			_song.arrowSkin = "NOTE_assets";
+			_song.splashSkin = "noteSplashes";
+			PlayState.SONG = _song;
+			startOffset = Conductor.crochet;
+			timerToStart = startOffset;
+		}
 		super();
 	}
+
 
 	var scoreTxt:FlxText;
 	//var opponentScoreTxt:FlxText;
@@ -111,7 +140,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 
 	override function create()
-	{
+	{	
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		add(bg);
@@ -133,8 +162,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		add(strumLineNotes);
 
 
-		generateStaticArrows(0);
-		generateStaticArrows(1);
+		generateStaticArrows(0, oppSkin);
+		generateStaticArrows(1, mySkin);
 
 		if(!isPlayer1)
 			{
@@ -155,12 +184,19 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
 		
-		if (_song.needsVoices)
-			vocals = new FlxSound().loadEmbedded(Paths.voices(_song.song));
+		if(_song!=null)
+		{
+			if (_song.needsVoices)
+				vocals = new FlxSound().loadEmbedded(Paths.voices(_song.song));
+			else
+				vocals = new FlxSound();
+			generateSong(_song.song);
+		}
 		else
-			vocals = new FlxSound();
+		{
+			MultiplayerMainMenuState.instance.enviarPrecisoTerminar();
+		}
 
-		generateSong(_song.song);
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
 			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
@@ -276,8 +312,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 						{
 							countDownSprites.remove(go);
 							remove(go);
+							MultiplayerMainMenuState.instance.enviarToPronto();
 							go.destroy();
-							startSong();
 						}
 					});
 					FlxG.sound.play(Paths.sound('introGo'), 0.6);
@@ -379,10 +415,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 								if (sustainNote.mustPress)
 								{
 									sustainNote.x += FlxG.width / 2; // general offset
+									sustainNote.texture = "multiplayer/notes/"+mySkin;
 								}
 								else
 								{
 									sustainNote.x += FlxG.width / 1.5;
+									sustainNote.texture = "multiplayer/notes/"+oppSkin;
 								}
 							}
 						}
@@ -390,9 +428,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 						if (swagNote.mustPress)
 						{
 							swagNote.x += FlxG.width / 2; // general offset
+							swagNote.texture = "multiplayer/notes/"+mySkin;
 						}
 						else {
 							swagNote.x += FlxG.width / 1.5;
+							swagNote.texture = "multiplayer/notes/"+oppSkin;
 						}
 						
 						if(!noteTypeMap.exists(swagNote.noteType)) {
@@ -537,6 +577,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	override function update(elapsed:Float) {
 		//removeNote();
+		
 		// se algm souber de um jeito melhor que esse muda aq pf
 		timeAccumulated += elapsed;
 		while (shouldUpdate()){
@@ -544,8 +585,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				/*timerToStart -= elapsed * 1000;
 				Conductor.songPosition = startPos - timerToStart;*/
 				if(podeComecar > 1 && !saidGo) {
-					//startSong();
+					podeComecar = 0;
 					sayGo();
+				}
+				else if(podeComecar > 1 && saidGo)
+				{
+					startSong();
 				}
 			} else {
 				Conductor.songPosition += elapsed * 1000;
@@ -787,8 +832,10 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				}
 			});
 		}
-
-		keyShit();
+		if(!startingSong)
+		{
+			keyShit();
+		}
 		switch(currentMode)
 		{
 			case 0:
@@ -1049,15 +1096,13 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	}
 
 
-	private function generateStaticArrows(player:Int):Void
+	private function generateStaticArrows(player:Int, skin:String):Void
 	{
 		for (i in 0...4)
 		{
-
-			var skin:String = "NOTE_assets";
 			// FlxG.log.add(i);
             var babyArrow:StrumNote;
-			babyArrow = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
+			babyArrow = new StrumNote(PlayState.STRUM_X, strumLine.y, i, player);
 
 			babyArrow.alpha = 0;
 			FlxTween.tween(babyArrow, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
@@ -1072,6 +1117,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 
 			strumLineNotes.add(babyArrow);
+			babyArrow.texture = "multiplayer/notes/"+skin;
 			babyArrow.postAddedToGroup();
 		}
 	}
@@ -1104,18 +1150,17 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	}
 
 	function spawnNoteSplash(x:Float, y:Float, data:Int, ?note:Note = null) {
-		var skin:String = 'noteSplashes';
-		if(_song.splashSkin != null && _song.splashSkin.length > 0) skin = _song.splashSkin;
-		
+		var skin:String = "multiplayer/"+mySkin+"_splashes";
+
 		var hue:Float = ClientPrefs.arrowHSV[data % 4][0] / 360;
 		var sat:Float = ClientPrefs.arrowHSV[data % 4][1] / 100;
 		var brt:Float = ClientPrefs.arrowHSV[data % 4][2] / 100;
-		if(note != null) {
+		/*if(note != null) {
 			skin = note.noteSplashTexture;
 			hue = note.noteSplashHue;
 			sat = note.noteSplashSat;
 			brt = note.noteSplashBrt;
-		}
+		}*/
 
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 		splash.setupNoteSplash(x, y, data, skin, hue, sat, brt);
@@ -1127,5 +1172,15 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		vocals.stop();
 		vocals.destroy();
 		super.destroy();
+	}
+
+	override public function onFocusLost():Void
+	{
+		super.onFocusLost();
+	}
+	
+	override public function onFocus():Void
+	{
+		super.onFocus();
 	}
 }

@@ -10115,11 +10115,9 @@
 		"player3": "invisibru",
 		"song": "vessel",
 		"stage": "welcome",
-		"splashSkin": "blood",
+		"needsVoices": false,
 		"validScore": true,
 		"bpm": 100,
-		"needsVoices": false,
-		"isRing": false,
 		"speed": 2.9
 	}
 }

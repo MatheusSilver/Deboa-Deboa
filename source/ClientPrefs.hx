@@ -50,6 +50,7 @@ class ClientPrefs
 	public static var lingua:Null<String> = "pt-BR";
 	public static var shaderMatrix:Array<Float> = [];
 	public static var curFilter:Null<Int> = 0; // isso é feio mas funciona :D
+	public static var curMultiplayerNoteSkin = 0;
 	
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [

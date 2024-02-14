@@ -19,4 +19,7 @@ class LobbyPlayer extends Schema {
 	@:type("string")
 	public var isHost: String = "";
 
+	@:type("string")
+	public var noteSkin: String = "";
+
 }

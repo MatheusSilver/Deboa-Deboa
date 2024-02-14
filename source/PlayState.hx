@@ -7216,42 +7216,8 @@ class PlayState extends MusicBeatState
 		 ..,;;:odddddddolcccc;lOXNk.   .''. ;oxO0l.....;c:;;;,.     .,;;;.        .oxkkkkkkx:. .okkkkkkk
 	.,::ldddxxxxxdxxxdxdlc;;xkxoodxl.      cXNxcdxocccccc;.     ........          'ldkkkkkx:. .cxkkkkkkk
 	ddxxxxxxxxddxxxxxdxdol;dNWW0l:llc'   .lXNklclldkOkkdlc.    'lddddddl;',,,,'.    'okkkko.  ;dkkkkkkkk
- */
 
- /* BOA VIAGEM SILVER, MAS ANTES DE IR... FIQUE COM ESSA MINHA MENSAGEM DE CORAÇÃO
- (ver mais) 
- 
- 
- 
- 
-
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+BOA VIAGEM SILVER, MAS ANTES DE IR... FIQUE COM ESSA MINHA MENSAGEM DE CORAÇÃO
  NATSUKI BOMBADA SUPREMACY 💪
  ⠀                                                                                                                                            
                                                   --..----..    ------..                                                                    

@@ -40,6 +40,7 @@ enum MenuEnum {
     ROOMLIST;
     CREATE;
 	LOBBY;
+	SKINS;
 }
 
 class MultiplayerMainMenuState extends MusicBeatState
@@ -49,6 +50,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 	// COISAS UI
 	var hostearBt:FlxButton;
 	var entrarBt:FlxButton;
+	var skinsBt:FlxButton;
+	var skinsTxt:FlxText;
+	var voltarSkinsBt:FlxButton;
 	var comecarBt:FlxButton;
 	var configBt:FlxButton;
 	var bGround:FlxSprite;
@@ -84,6 +88,16 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190), new LobbyPlayerObject(681,190)];
 	public static var instance:MultiplayerMainMenuState;
 
+	// SKINS
+	public var skins:Array<Dynamic> = [
+		[LangUtil.getString("skin_classic", "multiplayer"), "NOTE_assets"],
+		[LangUtil.getString("skin_orange", "multiplayer"), "orange_notes"],
+		[LangUtil.getString("skin_emerald", "multiplayer"), "purple_green_notes"],
+		[LangUtil.getString("skin_blacknwhite", "multiplayer"), "black_n_white_notes"]
+	];
+	public var skinAtual:Int = 0;
+	public var skinSelector:SkinSelector;
+
 	// VARIAVEIS OPÇÕES
 	public var modos:Array<Dynamic> = [
 		[LangUtil.getString("selection_score_name", "multiplayer"), LangUtil.getString("selection_score_desc", "multiplayer")],
@@ -100,26 +114,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var roomList:RoomList;
 	public var curMenu:MenuEnum = CONNECTING;
 
-	function getAllSongs():Array<Dynamic> // TODO: Mudar isso daqui pra fazer ele pegar as charts direto da source
+	function getAllSongs():Array<Dynamic>
 	{
 		WeekData.reloadWeekFiles(true);
 		var nomesEPaths:Array<Dynamic> = [];
 		for (i in 0...WeekData.weeksList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			for (i in 0...leWeek.songs.length) {
-				var path:String = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-hard";
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0]);
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-easy";
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-sega";
-				}
+				var path:String = Paths.formatToSongPath(leWeek.songs[i][0]);
 				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
@@ -127,19 +129,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for (i in 0...WeekData.freeplayList.length) {
 			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 			for (i in 0...leWeek.songs.length) {
-				var path:String = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-hard";
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0]);
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-easy";
-				}
-				if(!OpenFlAssets.exists(Paths.json(path)))
-				{
-					path = Paths.formatToSongPath(leWeek.songs[i][0])+"/"+Paths.formatToSongPath(leWeek.songs[i][0])+"-sega";
-				}
+				var path:String = Paths.formatToSongPath(leWeek.songs[i][0]);
 				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
@@ -152,6 +142,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 		entrarBt.visible = false;
 		hostearBt.visible = false;
 		multiplayerTxt.visible=false;
+
+		skinsBt.visible = false;
+		voltarSkinsBt.visible = false;
+		skinSelector.visible = false;
+		skinsTxt.visible = false;
 		
 		comecarBt.visible = false;
 		configBt.visible = false;
@@ -190,11 +185,16 @@ class MultiplayerMainMenuState extends MusicBeatState
 					add(roomList);
 				}
 			case MAIN:
+				skinsBt.visible = true;
 				entrarBt.visible = true;
 				hostearBt.visible = true;
 				multiplayerTxt.visible=true;
 			case CONNECTING:
 				connectingText.visible = true;
+			case SKINS:
+				skinsTxt.visible = true;
+				voltarSkinsBt.visible = true;
+				skinSelector.visible = true;
 			default:
 				trace("esse menu ainda não foi adicionado");
 		}
@@ -216,6 +216,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 				case MAIN:
 					modifiers.ModifiersManager.loadSave();
 					MusicBeatState.switchState(new MainMenuStateMobile());
+				case SKINS:
+					changeMenu(MAIN);
 				default:
 					trace("n tem menu anterior");
 			}
@@ -224,6 +226,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function create()
 	{
 		instance = this;
+		skinAtual = ClientPrefs.curMultiplayerNoteSkin;
 		FlxG.autoPause = false;
 		modifiers.ModifiersManager.currentModifiers = [];
 		client = new Client(servidor);
@@ -289,6 +292,39 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		add(readyTxt);
 
+		skinSelector = new SkinSelector();
+		skinSelector.screenCenter(XY);
+		add(skinSelector);
+
+		voltarSkinsBt = createButton('multiplayer/voltarSkinsBt', 0.6, 0, 563, false, true,  function(){
+			if (curMenu != SKINS || !canClick)
+				return;
+			canClick = false;
+			new FlxTimer().start(0.1, function (tmr:FlxTimer) {
+				voltarMenu();
+				canClick = true;
+			});
+		}, null, LangUtil.getString("main_back_bt", "multiplayer"));
+
+		skinsBt = createButton('multiplayer/iniciarBt', 0.6, 0, 1500, false, true, function(){
+			if (curMenu != MAIN || !canClick)
+				return;
+			canClick = false;
+			new FlxTimer().start(0.1, function (tmr:FlxTimer) {
+				changeMenu(SKINS);
+				canClick = true;
+			});
+		}, null, LangUtil.getString("main_skins_bt", "multiplayer"));
+		add(skinsBt);
+
+		add(voltarSkinsBt);
+
+		skinsTxt = new FlxText(0, 0, FlxG.width - 95, LangUtil.getString("skins_label", "multiplayer"), 100);
+		skinsTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		skinsTxt.y = 51;
+		skinsTxt.screenCenter(X);
+		add(skinsTxt);
+
 		changeMenu(CONNECTING);
 		checkServers();
 	}
@@ -303,9 +339,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 			var updateVersion:String = data.split('\n')[0].trim();
 			var curVersion:String = MainMenuStateMobile.version.trim();
 			trace('version online: ' + updateVersion + ', your version: ' + curVersion);
-			if (updateVersion != curVersion)
+			var updateInt:Int = Std.parseInt(updateVersion.split(".")[0]+updateVersion.split(".")[1]+updateVersion.split(".")[2]);
+			var curInt:Int = Std.parseInt(curVersion.split(".")[0]+curVersion.split(".")[1]+curVersion.split(".")[2]);
+			if (updateInt > curInt)
 			{
-				trace('versions arent matching!');
+				trace('versao muito antiga');
 				avisarAlgo(LangUtil.getString("alert_old_version", "multiplayer"), new MainMenuStateMobile());
 				connectingText.visible = false;
 				voltarMenu = true;
@@ -325,14 +363,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			changeMenu(MAIN);
 			FlxTween.tween(multiplayerTxt, {y: 51}, 0.75, {ease: FlxEase.expoInOut});
-			FlxTween.tween(entrarBt, {y: 394}, 1.45, {
-				ease: FlxEase.expoInOut,
-				onComplete: function(tween:FlxTween)
-				{
-					canClick = true;
-				}
-			});
+			FlxTween.tween(entrarBt, {y: 394}, 1.45, {ease: FlxEase.expoInOut});
 			FlxTween.tween(hostearBt, {y: 253}, 1.25, {ease: FlxEase.expoInOut});
+			FlxTween.tween(skinsBt, {y: 535}, 1.65, {ease: FlxEase.expoInOut, onComplete: function(tween:FlxTween)
+			{
+				canClick = true;
+			}});
 		}
 	}
 
@@ -376,10 +412,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 					players[message.playerIndex].nome = message.username;
 					players[message.playerIndex].charID = message.char;
 					players[message.playerIndex].sessionId = message.sessionId;
+					players[message.playerIndex].noteSkin = message.noteSkin;
 				case "saiu":
 					players[message.playerIndex].nome = "";
 					players[message.playerIndex].charID = "bf";
 					players[message.playerIndex].sessionId = "";
+					players[message.playerIndex].noteSkin = "NOTE_assets";
 			}
 		});
 
@@ -427,6 +465,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 			if(!isPlayingMatch)
 				return;
 			MultiplayerPlayState.instance.podeTerminar++;
+			if(Std.parseInt(message) > 1)
+			{
+				MultiplayerPlayState.instance.podeTerminar+=2;
+				MultiplayerPlayState.instance.endSong();
+			}
 		});
 
 		curRoom.onMessage("stop-match", function(message) {
@@ -499,6 +542,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 			return;
 
 		canClick = false;
+		changeMenu(CONNECTING);
+		
 
 		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
 		roomOptions.set("salaNome", GJClient.userName);
@@ -507,11 +552,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		roomOptions.set("myName", GJClient.userName);
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "0");
+		roomOptions.set("noteSkin", skins[skinAtual][1]);
 
 		client.create("gameRoom", roomOptions, LobbyState, function(err, room) {
 			if (err != null) {
 				trace("CREATE ERROR: " + err);
 				avisarAlgo(Std.string(err));
+				changeMenu(MAIN);
 				return;
 			}
 			curRoom = room;
@@ -542,7 +589,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 					OptionsSubstate.instance.close();
 				}
 		}
-		openSubState(new multiplayer.MultiplayerPlayState(0, musicas[MusicaAtual][1], isHost, TrocarLados, ModoDeJogo));
+		var url:String = servidor.replace("ws", "http")+"/charts/"+musicas[MusicaAtual][1]+".json";
+		var mySkin:String = players[getIndexBySession(curRoom.sessionId)].noteSkin;
+		var oppSkin:String = players[getOtherIndexBySession(curRoom.sessionId)].noteSkin;
+		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, mySkin, oppSkin));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -565,6 +615,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(!isPlayingMatch || curRoom == null)
 			return;
 		curRoom.send("queroSair", 1);
+	}
+
+	public function enviarPrecisoTerminar()
+	{
+		if(!isPlayingMatch || curRoom == null)
+			return;
+		curRoom.send("queroSair", 2);
 	}
 
 	public function enviarMissesEHits(hits:Int, misses:Int, score:Int)
@@ -631,16 +688,19 @@ class MultiplayerMainMenuState extends MusicBeatState
 			roomList.remover();
 		}
 		canClick = false;
+		changeMenu(CONNECTING);
 
 		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
 		roomOptions.set("myName", GJClient.userName);
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "1");
+		roomOptions.set("noteSkin", skins[skinAtual][1]);
 
 		client.getAvailableRooms("gameRoom", function(err, rooms) {
 			if (err != null) {
 			  	trace(err);
 				avisarAlgo(Std.string(err));
+				changeMenu(MAIN);
 			  	return;
 			}
 			var contem:Bool = false;
@@ -653,6 +713,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 							trace("JOIN ERROR: " + err);
 							avisarAlgo(Std.string(err));
 							canClick = true;
+							changeMenu(MAIN);
 							return;
 						}
 			
@@ -690,6 +751,18 @@ class MultiplayerMainMenuState extends MusicBeatState
 		for (i in 0...players.length)
 		{
 			if(players[i].sessionId == sessionId)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	function getOtherIndexBySession(sessionId:String):Int
+	{
+		for (i in 0...players.length)
+		{
+			if(players[i].sessionId != sessionId)
 			{
 				return i;
 			}
@@ -901,6 +974,7 @@ class LobbyPlayerObject extends FlxSpriteGroup
 	public var sessionId:String = "";
 	public var nome:String = "Player 1";
 	public var charID:String = "bf";
+	public var noteSkin:String = "NOTE_assets";
 	public var keys:Array<Bool> = [false, false, false, false];
 	public var bf:Boyfriend;
 	public var isConnected:Bool = false;
@@ -960,6 +1034,84 @@ class LobbyPlayerObject extends FlxSpriteGroup
 	{
 		bf.playAnim('idle', true);
 	}
+}
+
+class SkinSelector extends FlxSpriteGroup
+{
+	var skinAtual:Int = 0;
+	var skinList:Array<Dynamic>;
+
+	var fundo:FlxSprite;
+	var atual:FlxText;
+	var setaDireita:FlxButton;
+	var setaEsquerda:FlxButton;
+
+	public function new()
+	{
+		super();
+		skinAtual = Reflect.getProperty(MultiplayerMainMenuState.instance, "skinAtual");
+		skinList = Reflect.getProperty(MultiplayerMainMenuState.instance, "skins");
+
+		fundo = new FlxSprite(0,0).makeGraphic(980, 100, FlxColor.GRAY);
+		add(fundo);
+		
+		atual = new FlxText(95, 28, 800, skinList[skinAtual][0], 30);
+		atual.wordWrap = false;
+		atual.alignment = CENTER;
+		add(atual);
+
+		setaEsquerda = new FlxButton(20, 18.5, "", clickEsquerda);
+		setaEsquerda.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
+		setaEsquerda.updateHitbox();
+		add(setaEsquerda);
+
+		setaDireita = new FlxButton(895, 18.5, "", clickDireita);
+		setaDireita.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
+		setaDireita.flipX=true;
+		setaDireita.updateHitbox();
+		add(setaDireita);
+	}
+
+	function clickEsquerda()
+		{
+			if(!this.visible)
+				return;
+			if(skinAtual-1 >= 0)
+				{
+					skinAtual--;
+				}
+				else
+				{
+					skinAtual = skinList.length-1;
+				}
+			save();
+	
+		}
+	
+		function clickDireita()
+			{
+				if(!this.visible)
+					return;
+				if(skinAtual+1 < skinList.length)
+					{
+						skinAtual++;
+					}
+					else
+					{
+						skinAtual = 0;
+					}
+				save();
+		
+			}
+
+	public function save()
+	{
+		atual.text = skinList[skinAtual][0];
+		Reflect.setProperty(MultiplayerMainMenuState.instance, "skinAtual", skinAtual);
+		ClientPrefs.curMultiplayerNoteSkin = skinAtual;
+		ClientPrefs.save();
+	}
+
 }
 
 class RoomList extends MusicBeatSubstate
