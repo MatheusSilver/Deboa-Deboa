@@ -819,7 +819,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 							});
 
 							if(!daNote.ignoreNote && daNote.mustPress) {
-								songMisses++;
+								noteMiss(daNote.noteData, false);
 							}
 						}
 
@@ -913,7 +913,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			});
 
 			if (controlHoldArray.contains(true) || controlArray.contains(true)) {
-				var canMiss:Bool = !ClientPrefs.ghostTapping;
 				if (controlArray.contains(true)) {
 					for (i in 0...controlArray.length) {
 						// heavily based on my own code LOL if it aint broke dont fix it
@@ -928,7 +927,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 							&& !daNote.wasGoodHit && daNote.noteData == i) {
 								sortedNotesList.push(daNote);
 								notesDatas.push(daNote.noteData);
-								canMiss = true;
 							}
 						});
 						sortedNotesList.sort((a, b) -> Std.int(a.strumTime - b.strumTime));
@@ -953,8 +951,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 							}
 						}
-						else if (canMiss && controlArray[i]) 
-							noteMiss(i, true);
 					}
 				}
 			}
