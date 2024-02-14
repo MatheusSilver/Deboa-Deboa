@@ -411,7 +411,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 					});
 
-						if(BSLTouchUtils.apertasimples(gamejoltUser)) {
+						if(BSLTouchUtils.apertasimples(gamejoltUser) && GJClient.logged) {
 							FlxTween.tween(gamejoltUser, {x: -1200}, 0.5, {ease: FlxEase.expoInOut});
 							openSubState(new GameJoltFriendsMenu()); // Um code bem besta e burro pra ser bem sincero... Não sei como fazer isso com Gamepad tbm.... Nem com teclado........ Desculpa Sílvio.......................
 						}

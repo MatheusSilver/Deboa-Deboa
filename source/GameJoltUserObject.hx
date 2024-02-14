@@ -96,16 +96,6 @@ class GameJoltUserObject extends FlxSpriteGroup
 		add(userIcon);
 		add(userOutline);
 	}
-
-	override function update(elapsed)
-	{
-		if (BSLTouchUtils.apertasimples(userIcon) || BSLTouchUtils.apertasimples(userOutline))
-		{ // Vai que o cara aperta errado né...
-			// Aqui é a parte onde tu vai pros amigos da Gamejolt, só que o state não tá pronto
-		}
-
-		super.update(elapsed);
-	}
 }
 /*Todo state meu tem que ter uma música ou algo gigante no fim né?
 
