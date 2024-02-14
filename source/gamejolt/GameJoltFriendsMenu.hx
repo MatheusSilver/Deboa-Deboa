@@ -101,9 +101,13 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 
     function tweenEntrar()
     {
-        MainMenuStateMobile.instance.camGame.setFilters([blur]);
-        MainMenuStateMobile.instance.camAchievement.setFilters([blur]);
-        FlxTween.tween(blur, {blurX: 3, blurY: 3}, 0.5, {ease: FlxEase.quartInOut});
+        if(ClientPrefs.shaders)
+        {
+            MainMenuStateMobile.instance.camGame.setFilters([blur]);
+            MainMenuStateMobile.instance.camAchievement.setFilters([blur]);
+            FlxTween.tween(blur, {blurX: 3, blurY: 3}, 0.5, {ease: FlxEase.quartInOut});
+        }
+
         FlxTween.tween(label, {y: 65}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(voltar_button, {y: 63}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(bg, {y: 0}, 0.5, {ease: FlxEase.expoInOut});
@@ -116,7 +120,10 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
     function tweenSair()
     {
         MainMenuStateMobile.instance.voltarUser();
-        FlxTween.tween(blur, {blurX: 0, blurY: 0}, 0.5, {ease: FlxEase.quartInOut});
+        if(ClientPrefs.shaders)
+            {
+                FlxTween.tween(blur, {blurX: 0, blurY: 0}, 0.5, {ease: FlxEase.quartInOut});
+            }
         FlxTween.tween(label, {y: 65+1280}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(voltar_button, {y: 63+1280}, 0.5, {ease: FlxEase.expoInOut});
         for(amigo in amigos)
@@ -128,8 +135,11 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
             #end
             MainMenuStateMobile.canClick = true;
-            MainMenuStateMobile.instance.camGame.setFilters([]);
-            MainMenuStateMobile.instance.camAchievement.setFilters([]);
+            if(ClientPrefs.shaders)
+                {
+                    MainMenuStateMobile.instance.camGame.setFilters([]);
+                    MainMenuStateMobile.instance.camAchievement.setFilters([]);
+                }
             close();
         }});
     }
