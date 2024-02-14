@@ -1,4 +1,4 @@
-package;
+package gamejolt;
 
 import flixel.FlxG;
 import haxe.Http;

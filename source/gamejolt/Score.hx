@@ -1,4 +1,4 @@
-package;
+package gamejolt;
 
 /**
  * The way the scores are fetched from your game API.

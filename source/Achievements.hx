@@ -8,6 +8,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
+import gamejolt.*;
 
 using StringTools;
 

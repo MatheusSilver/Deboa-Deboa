@@ -1,4 +1,4 @@
-package;
+package gamejolt;
 
 /**
  * The way the user data is fetched from the GameJolt API.

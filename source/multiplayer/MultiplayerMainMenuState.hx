@@ -26,6 +26,7 @@ import multiplayer.schemas.*;
 import multiplayer.entities.*;
 import io.colyseus.serializer.schema.Schema;
 import io.colyseus.serializer.schema.types.*;
+import gamejolt.*;
 
 using StringTools;
 

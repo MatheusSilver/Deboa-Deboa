@@ -16,6 +16,7 @@ import flixel.system.FlxSound;
 #end
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import gamejolt.*;
 
 using StringTools;
 

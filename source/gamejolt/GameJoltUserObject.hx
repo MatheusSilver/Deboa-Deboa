@@ -1,4 +1,4 @@
-package;
+package gamejolt;
 
 import flixel.graphics.FlxGraphic;
 import openfl.events.Event;

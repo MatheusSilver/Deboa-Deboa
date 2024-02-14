@@ -32,6 +32,7 @@ import openfl.filters.ShaderFilter;
 import openfl.net.URLLoader;
 import openfl.net.URLRequest;
 import openfl.utils.Assets as OpenFlAssets;
+import gamejolt.*;
 
 using StringTools;
 

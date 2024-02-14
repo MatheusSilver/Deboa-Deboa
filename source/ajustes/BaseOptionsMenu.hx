@@ -9,6 +9,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ColorMatrixFilter;
+import gamejolt.*;
 
 using StringTools;
 #if (flixel >= "5.3.0")

@@ -21,6 +21,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.utils.Assets as OpenFlAssets;
 import flixel.FlxState;
+import gamejolt.*;
 
 using StringTools;
 #if rpc

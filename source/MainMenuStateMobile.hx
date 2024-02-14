@@ -27,6 +27,7 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepadInputID;
 import Utils.BSLTouchUtils;
 import CustomButtons.MenuButton;
+import gamejolt.*;
 
 using StringTools;
 

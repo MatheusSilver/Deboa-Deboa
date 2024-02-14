@@ -1,4 +1,4 @@
-package;
+package gamejolt;
 
 // Aparentemente as coordenadas ficam bugadas em substates...
 // Talvez eu precise usar camera, mas não tenho certeza

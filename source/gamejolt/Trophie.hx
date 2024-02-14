@@ -1,4 +1,4 @@
-package;
+package gamejolt;
 
 /**
  * The way the trophies are fetched from your game API.
