@@ -663,11 +663,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(!canClick)
 			return;
 		canClick = false;
-		var roomArray:Array<RoomAvailable> = getAvailableRooms();
-		changeMenu(ROOMLIST);
-		roomList = new RoomList(roomArray);
-		openSubState(roomList);
-		canClick = true;
+		new FlxTimer().start(0.1, function (tmr:FlxTimer) {
+			var roomArray:Array<RoomAvailable> = getAvailableRooms();
+			changeMenu(ROOMLIST);
+			roomList = new RoomList(roomArray);
+			openSubState(roomList);
+			canClick = true;
+		});
 	}
 
 	public function getAvailableRooms():Array<RoomAvailable>
@@ -1144,7 +1146,11 @@ class RoomList extends MusicBeatSubstate
 			backButton = MultiplayerMainMenuState.instance.createButton('', 0.45, 0, 535+82.5, true, true, function(){
 				if(!MultiplayerMainMenuState.instance.canClick || MultiplayerMainMenuState.instance.curMenu != ROOMLIST)
 					return;
-				MultiplayerMainMenuState.instance.voltarMenu();
+				MultiplayerMainMenuState.instance.canClick = false;
+				new FlxTimer().start(0.1, function (tmr:FlxTimer) {
+					MultiplayerMainMenuState.instance.voltarMenu();
+					MultiplayerMainMenuState.instance.canClick = true;
+				});
 			}, null, LangUtil.getString("main_back_bt", "multiplayer"));
 			arrumarOffsets(backButton);
 			add(backButton);
