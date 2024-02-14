@@ -19,7 +19,7 @@ import io.colyseus.Room;
 import io.colyseus.events.EventHandler;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
-import ibwwg.FlxScrollableArea;
+import Utils.FlxScrollableArea;
 import flixel.math.FlxRect;
 import openfl.utils.Assets as OpenFlAssets;
 import multiplayer.schemas.*;
@@ -1181,7 +1181,7 @@ class RoomList extends MusicBeatSubstate
 		roomList.setPosition(-2560);
 		viewPortRect = new FlxRect( 340, 5, 600, 500 );
 
-		scrollBar = new FlxScrollableArea(viewPortRect, roomList.getHitbox(), ResizeMode.FIT_WIDTH, -1, FlxColor.LIME, this);
+		scrollBar = new FlxScrollableArea(viewPortRect, roomList.getHitbox(), Utils.ResizeMode.FIT_WIDTH, -1, FlxColor.LIME, this);
 		adicionar();
 	}
 
@@ -1294,7 +1294,7 @@ class OptionsSubstate extends MusicBeatSubstate
 
 		optionsObjects.setPosition(-1280, 0);
 
-		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), optionsObjects.getHitbox(), ResizeMode.NONE, -1, FlxColor.LIME, this);
+		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), optionsObjects.getHitbox(), Utils.ResizeMode.NONE, -1, FlxColor.LIME, this);
 		FlxG.cameras.add(scrollBar);
 	}
 	
