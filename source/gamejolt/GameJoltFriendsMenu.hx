@@ -89,7 +89,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         var x1:Float = 1; // bora x1?
         for(user in GJClient.getFriendsList())
         {
-            var friendo:FriendObject = new FriendObject(98*x1, 1280, user);
+            var friendo:FriendObject = new FriendObject(98*x1, 1464, user);
             friendo.cameras = [camElementos];
             amigos.push(friendo);
             add(friendo);
@@ -121,7 +121,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         FlxTween.tween(voltar_button, {y: 63+1280}, 0.5, {ease: FlxEase.expoInOut});
         for(amigo in amigos)
             {
-                FlxTween.tween(amigo, {y: 1280}, 0.5, {ease: FlxEase.expoInOut});
+                FlxTween.tween(amigo, {y: 1464}, 0.5, {ease: FlxEase.expoInOut});
             }
         FlxTween.tween(bg, {y: 1280}, 0.5, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
             #if rpc
