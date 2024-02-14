@@ -48,9 +48,6 @@ class GameJoltUserObject extends FlxSpriteGroup
                 if(GJClient.avatarURL.contains("no-avatar"))
                 {
 					FlxG.log.add("Você não possui uma PFP, usando o placeholder");
-					userIcon.loadGraphic(Paths.image("menus/gamejolt/userIcon")); // Placeholder
-                    userIcon.setGraphicSize(152, 152);
-                    userIcon.updateHitbox();
 				}
 				else
 				{
@@ -73,15 +70,19 @@ class GameJoltUserObject extends FlxSpriteGroup
 			loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, function(event:Event):Void
 			{
 				FlxG.log.add("Não achei a PFP da Gamejolt");
-				userIcon = new FlxSprite().loadGraphic(Paths.image("menus/gamejolt/userIcon"));
-				userIcon.setGraphicSize(152, 152);
-				userIcon.updateHitbox();
 			});
 			loader.load(new URLRequest(GJClient.avatarURL.replace("/60/",'/${Std.int(userOutline.height)}/').replace(".webp", ".png")));
 		}
 		else
 		{
             FlxG.log.add("Você não está conectado na Gamejolt.");
+		}
+
+		if(userIcon.graphic==null)
+		{
+			userIcon.loadGraphic(Paths.image("menus/gamejolt/userIcon"));
+			userIcon.setGraphicSize(Std.int(userOutline.width), Std.int(userOutline.height));
+			userIcon.updateHitbox();
 		}
 
 		userName = new FlxText(userOutline.x+userOutline.width + 5, userBG.y, userBG.width - userIcon.width, GJClient.logged ? GJClient.userName:LangUtil.getString("menu_disconnected", "menu"));
