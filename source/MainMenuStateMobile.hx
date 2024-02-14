@@ -150,15 +150,6 @@ class MainMenuStateMobile extends MusicBeatState
 		gamejoltUser.y = bg.y - 380;
 		add(gamejoltUser);
 
-		var userName:FlxText = new FlxText(bg.x - 150, bg.y - 380, 0, LangUtil.getString("menu_disconnected", "menu"), 30);
-        userName.setFormat(LangUtil.getFont("vio"), 30, 0xffffff, CENTER);
-		if(GJClient.logged) {
-			userName.text = GJClient.userName;
-		} else {
-			userName.text = LangUtil.getString("menu_disconnected", "menu");
-		}
-		add(userName);
-
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 

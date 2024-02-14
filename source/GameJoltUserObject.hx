@@ -22,14 +22,17 @@ class GameJoltUserObject extends FlxSpriteGroup
 	var userBG:FlxSprite;
 	var userIcon:FlxSprite;
 	var userOutline:FlxSprite;
-
+	var userName:FlxText;
+	private final icon_pos:Array<Int> = [2,60];
 	public function new()
 	{
 		super();
 
 		userBG = new FlxSprite(0, 75).loadGraphic(Paths.image("menus/gamejolt/userBG"));
-		userOutline = new FlxSprite(2, 40).loadGraphic(Paths.image("menus/gamejolt/userOutline"));
-        userIcon = new FlxSprite(2, 40);
+		userOutline = new FlxSprite(icon_pos[0], icon_pos[1]).loadGraphic(Paths.image("menus/gamejolt/userOutline"));
+        userOutline.setGraphicSize(Std.int(userOutline.width*0.75));
+		userOutline.updateHitbox();
+		userIcon = new FlxSprite(icon_pos[0], icon_pos[1]);
         
         if (GJClient.logged)
 		{
@@ -55,12 +58,17 @@ class GameJoltUserObject extends FlxSpriteGroup
 					var bmp:Bitmap = cast(loader.content, Bitmap);
 					var bmd:BitmapData = bmp.bitmapData;
 					userIcon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
-					userIcon.setGraphicSize(152, 152);
+					userIcon.setGraphicSize(Std.int(userOutline.width), Std.int(userOutline.height));
 					userIcon.updateHitbox();
-					var tempMask:FlxSprite = new FlxSprite(2, 40);
-					tempMask.makeGraphic(152, 152, FlxColor.TRANSPARENT, true);
-					FlxSpriteUtil.drawCircle(tempMask, -1, -1, 50, FlxColor.WHITE);
-					FlxSpriteUtil.alphaMaskFlxSprite(userIcon, tempMask, userIcon);
+					var tempMask:FlxSprite = new FlxSprite(icon_pos[0], icon_pos[1]);
+					//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
+					tempMask.makeGraphic(Std.int(userOutline.width), Std.int(userOutline.height), FlxColor.TRANSPARENT);
+					var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/3.8,(tempMask.height)/3.8,Math.min(tempMask.width, tempMask.height)/4,FlxColor.RED);
+					//As constantes de altura e largura eram 5 passaram pra 3.8 após resize de 0,75%, o Math.min era 5.25 passou pra 4 após resize.
+					// add(tempCircle);
+					FlxSpriteUtil.alphaMaskFlxSprite(userIcon, tempCircle, userIcon);
+					tempMask.destroy();
+					tempCircle.destroy();
 				}
 			});
 			loader.contentLoaderInfo.addEventListener(ErrorEvent.ERROR, function(event:Event):Void
@@ -77,10 +85,13 @@ class GameJoltUserObject extends FlxSpriteGroup
             FlxG.log.add("Você não está conectado na Gamejolt.");
 		}
 
-		userBG.antialiasing = ClientPrefs.globalAntialiasing;
-		userIcon.antialiasing = ClientPrefs.globalAntialiasing;
-		userOutline.antialiasing = ClientPrefs.globalAntialiasing;
+		userName = new FlxText(userOutline.x+userOutline.width + 5, userBG.y, userBG.width - userIcon.width, GJClient.logged ? GJClient.userName:LangUtil.getString("menu_disconnected", "menu"));
+		userName.setFormat(LangUtil.getFont("vio"), 36, 0xffffff, LEFT, OUTLINE, FlxColor.BLACK);
+		userName.y += userName.height/3;
+		//  ClientPrefs.globalAntialiasing;
+		userBG.antialiasing = userIcon.antialiasing = userOutline.antialiasing = true;
 		add(userBG);
+		add(userName);
 		add(userIcon);
 		add(userOutline);
 	}
