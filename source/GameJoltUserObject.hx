@@ -23,15 +23,15 @@ class GameJoltUserObject extends FlxSpriteGroup
 	var userIcon:FlxSprite;
 	var userOutline:FlxSprite;
 	var userName:FlxText;
-	private final icon_pos:Array<Int> = [2,60];
+	private final OUTLINE_SIZE:Int = 3;
+	private final icon_pos:Array<Int> = [2,40];
 	public function new()
 	{
 		super();
 
 		userBG = new FlxSprite(0, 75).loadGraphic(Paths.image("menus/gamejolt/userBG"));
 		userOutline = new FlxSprite(icon_pos[0], icon_pos[1]).loadGraphic(Paths.image("menus/gamejolt/userOutline"));
-        userOutline.setGraphicSize(Std.int(userOutline.width*0.75));
-		userOutline.updateHitbox();
+        userOutline.updateHitbox();
 		userIcon = new FlxSprite(icon_pos[0], icon_pos[1]);
         
         if (GJClient.logged)
@@ -63,8 +63,7 @@ class GameJoltUserObject extends FlxSpriteGroup
 					var tempMask:FlxSprite = new FlxSprite(icon_pos[0], icon_pos[1]);
 					//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
 					tempMask.makeGraphic(Std.int(userOutline.width), Std.int(userOutline.height), FlxColor.TRANSPARENT);
-					var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/3.8,(tempMask.height)/3.8,Math.min(tempMask.width, tempMask.height)/4,FlxColor.RED);
-					//As constantes de altura e largura eram 5 passaram pra 3.8 após resize de 0,75%, o Math.min era 5.25 passou pra 4 após resize.
+					var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width+OUTLINE_SIZE)/2,(tempMask.height+OUTLINE_SIZE)/2,Math.min(tempMask.width, tempMask.height)/2-OUTLINE_SIZE,FlxColor.RED);
 					// add(tempCircle);
 					FlxSpriteUtil.alphaMaskFlxSprite(userIcon, tempCircle, userIcon);
 					tempMask.destroy();
@@ -78,7 +77,7 @@ class GameJoltUserObject extends FlxSpriteGroup
 				userIcon.setGraphicSize(152, 152);
 				userIcon.updateHitbox();
 			});
-			loader.load(new URLRequest(GJClient.avatarURL.replace(".webp", ".png")));
+			loader.load(new URLRequest(GJClient.avatarURL.replace("/60/",'/${Std.int(userOutline.height)}/').replace(".webp", ".png")));
 		}
 		else
 		{
@@ -88,8 +87,9 @@ class GameJoltUserObject extends FlxSpriteGroup
 		userName = new FlxText(userOutline.x+userOutline.width + 5, userBG.y, userBG.width - userIcon.width, GJClient.logged ? GJClient.userName:LangUtil.getString("menu_disconnected", "menu"));
 		userName.setFormat(LangUtil.getFont("vio"), 36, 0xffffff, LEFT, OUTLINE, FlxColor.BLACK);
 		userName.y += userName.height/3;
-		//  ClientPrefs.globalAntialiasing;
-		userBG.antialiasing = userIcon.antialiasing = userOutline.antialiasing = true;
+		userBG.antialiasing = ClientPrefs.globalAntialiasing;
+		userIcon.antialiasing = ClientPrefs.globalAntialiasing;
+		userOutline.antialiasing = ClientPrefs.globalAntialiasing;
 		add(userBG);
 		add(userName);
 		add(userIcon);
