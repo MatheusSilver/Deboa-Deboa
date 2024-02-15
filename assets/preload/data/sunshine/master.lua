@@ -38,6 +38,7 @@
             elseif value1=="588" then
                 setGraphicSize("blackFuck", screenWidth, screenHeight)
                 setProperty("blackFuck.visible", true)
+                screenCenter("blackFuck", "XY")
                 setProperty("blackFuck.alpha", 1)
                 makeLuaVideoSprite("sunshine_video", 700, 500)
                 addLuaSprite("sunshine_video")
