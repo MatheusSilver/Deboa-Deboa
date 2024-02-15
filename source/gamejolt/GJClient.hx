@@ -194,7 +194,7 @@ class GJClient
             if (onFail != null) onFail();
         }
 
-        return null;
+        return [];
     }
 
     /**

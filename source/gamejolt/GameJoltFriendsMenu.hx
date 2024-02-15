@@ -252,8 +252,10 @@ class FriendObject extends FlxSpriteGroup
 
         name = new FlxText(0, 0, 360, user.username, 30);
         name.setFormat(Paths.font("letravio.ttf"), 70, FlxColor.WHITE, CENTER);
+        name.size = Std.int(Math.max(40, Math.min(70, Math.ceil(700 / user.username.length))));
         name.x+=5;
         name.y+=5;
+		name.alignment=CENTER;
         add(name);
 
         icon = new FlxSprite(80+30, 132).loadGraphic(Paths.image("menus/gamejolt/userIcon"));
@@ -268,7 +270,7 @@ class FriendObject extends FlxSpriteGroup
         desc.x+=5;
         desc.y+=340;
 
-        if(user.last_logged_in.toLowerCase()=="online now")
+        if(user.last_logged_in_timestamp<=120)
         {
             desc.text = LangUtil.getString("menu_friends_online", "menu");
             desc.color = FlxColor.GREEN;
