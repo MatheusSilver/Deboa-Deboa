@@ -126,7 +126,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 	override function update(elapsed:Float)
     {
         voltar_button.label.alpha = 1;
-        if(canSumir)
+        if(canSumir && amigos.length > 0)
         {
             swipes();
         }
