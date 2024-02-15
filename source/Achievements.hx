@@ -50,7 +50,7 @@ class Achievements {
 		['pause_jumpscare',	true, 		186989, 		'orgulho', 		1]//ok
 	];
 	public static var henchmenDeath:Int = 0;
-	public static function unlockAchievement(name:String, ?makeSound:Bool=true):Void {
+	public static function unlockAchievement(name:String, ?makeSound:Bool=true, ?gamejolt:Bool=true):Void {
 		FlxG.log.add('Completed achievement "' + name +'"');
 		ClientPrefs.achievementsMap.set(name, true);
 		if(makeSound)
@@ -58,18 +58,21 @@ class Achievements {
 				GlobalSoundManager.play('confirmMenu');
 			}
 
-		#if GAMEJOLT_ALLOWED
-		var id:Int = Achievements.getAchievementIndex(name);
-		TitleState.instance.verificarConexao();
-		if(GJClient.logged && !TitleState.ModoOffline)
-			GJClient.trophieAdd(achievementsStuff[id][2]);
-		#end
+		if(gamejolt){
+			#if GAMEJOLT_ALLOWED
+			var id:Int = Achievements.getAchievementIndex(name);
+			TitleState.instance.verificarConexao();
+			if(GJClient.logged && !TitleState.ModoOffline)
+				GJClient.trophieAdd(achievementsStuff[id][2]);
+			#end
+		}
+
 		ClientPrefs.save();
 	}
 
 	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
 		var id:Int = Achievements.getAchievementIndex(name);
-		TitleState.instance.verificarConexao();
+		TitleState.instance.verificarConexao(true);
 		if(ClientPrefs.achievementsMap.exists(name) && ClientPrefs.achievementsMap.get(name)) {
 			if(GJClient.logged && !naochecar && !TitleState.ModoOffline)
 				GJClient.trophieAdd(achievementsStuff[id][2]);
@@ -83,13 +86,12 @@ class Achievements {
 			#if GAMEJOLT_ALLOWED
 			TitleState.instance.verificarConexao(true);
 			if(GJClient.logged && !TitleState.ModoOffline){
-			var GJList:Null<Array<Trophie>> = GJClient.getTrophiesList();
-			for (i in 0...GJList.length) {
-				if(GJList[i].achieved)
-					{
-						unlockAchievement(getAchievementID(GJList[i].id), false);
-					}
-			}}
+				var GJList:Array<Trophie> = GJClient.getTrophiesList();
+				for(trophie in GJList)
+				{
+					if(trophie.achieved){unlockAchievement(getAchievementID(trophie.id), false, false);}
+				}
+			}
 			#end
 		}
 
