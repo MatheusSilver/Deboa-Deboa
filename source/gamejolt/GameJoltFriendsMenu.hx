@@ -2,6 +2,8 @@ package gamejolt;
 
 // Aparentemente as coordenadas ficam bugadas em substates...
 // Talvez eu precise usar camera, mas não tenho certeza
+import flixel.math.FlxMath;
+import Utils.BSLSwipeUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.ui.FlxButton;
@@ -22,6 +24,7 @@ import flixel.util.FlxSpriteUtil;
 import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
 import Utils.FlxScrollableArea;
+import flixel.util.FlxTimer;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -37,6 +40,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
     var label:FlxText;
     public var camElementos:FlxCamera;
     var sumidao:Bool = false;
+    var canSumir:Bool = false;
     var blur:BlurFilter;
     public var amigos:Array<FriendObject> = [];
     var amigosList:FlxSpriteGroup;
@@ -70,7 +74,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 		add(bg);
 
         voltar_button = new FlxButton(973, 63+1280, function() {
-            if(sumidao)
+            if(sumidao || !canSumir)
                 return;
             sumidao = true;
             tweenSair();
@@ -92,13 +96,13 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         label.y = 65+1280;
         add(label);
 
-        fakeBG = new FlxSprite(0, 1280).loadGraphic(Paths.image("menus/gamejolt/amigos/BG"));
+        fakeBG = new FlxSprite(-74, -162).loadGraphic(Paths.image("menus/gamejolt/amigos/BG"));
 		fakeBG.antialiasing = ClientPrefs.globalAntialiasing;
-        fakeBG.y += 1280;
         fakeBG.cameras = [camElementos];
-		add(fakeBG);
+        fakeBG.scrollFactor.set(0, 0);
 
         amigosList = cast add(new FlxSpriteGroup());
+		amigosList.add(fakeBG);
 
         var amiguineos:Array<User> = GJClient.getFriendsList(); // pra evitar ele a ficar dando fetch toda hora
         var x1:Float = 1; // bora x1?
@@ -106,7 +110,8 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         {
             var friendo:FriendObject = new FriendObject(5*x1, 20/*184+1280*/, user);
             friendo.cameras = [camElementos];
-            //amigos.push(friendo);
+            friendo.alpha = 0;
+            amigos.push(friendo);
             //add(friendo);
             amigosList.add(friendo);
             x1+=75;
@@ -114,17 +119,56 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 
 		amigosList.setPosition(0, 2560);
 		var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 508 );
-		scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 5, FlxColor.TRANSPARENT, this);
-        FlxG.cameras.add(scrollBar);
-        scrollBar.bgColor.alpha = 0;
+		scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
         tweenEntrar();
 	}
 
 	override function update(elapsed:Float)
     {
         voltar_button.label.alpha = 1;
+        if(canSumir)
+        {
+            swipes();
+        }
         super.update(elapsed);
         voltar_button.label.alpha = 1;
+    }
+
+    function swipes()
+    {
+        var canSwipeRight:Bool = true;
+        var canSwipeLeft:Bool = true;
+        var ultimoAmigo:Int = amigos.length-1;
+        canSwipeRight = amigos[ultimoAmigo].x > 730;
+        canSwipeLeft = amigos[0].x < 30;
+        if(canSwipeLeft)
+        {
+            if(FlxG.mouse.wheel>0)
+            {
+                for(amigo in amigos)
+                {
+                    //trace("left");
+                    amigo.x+=60;
+                }
+            }
+        }
+        if(canSwipeRight)
+            {
+                if(FlxG.mouse.wheel<0)
+                {
+                    for(amigo in amigos)
+                    {
+                        //trace("right");
+                        amigo.x-=60;
+                    }
+                }
+            }
+
+        /*if(FlxG.keys.justPressed.M)
+        {
+            trace("Ultimo Amigo X: "+amigos[ultimoAmigo].x);
+            trace("Primeiro Amigo X: "+amigos[0].x);
+        }*/
     }
 
 
@@ -139,7 +183,16 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 
         FlxTween.tween(label, {y: 65}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(voltar_button, {y: 63}, 0.5, {ease: FlxEase.expoInOut});
-        FlxTween.tween(bg, {y: 0}, 0.5, {ease: FlxEase.expoInOut});
+        FlxTween.tween(bg, {y: 0}, 0.5, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
+            FlxG.cameras.add(scrollBar);
+            for(amigo in amigos)
+            {
+                FlxTween.tween(amigo, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+            }
+            new FlxTimer().start(0.5, function(e:FlxTimer) {
+                canSumir = true;
+            });
+        }});
         /*for(amigo in amigos)
         {
             FlxTween.tween(amigo, {y: 184}, 0.5, {ease: FlxEase.expoInOut});
@@ -148,30 +201,36 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 
     function tweenSair()
     {
-        MainMenuStateMobile.instance.voltarUser();
-        if(ClientPrefs.shaders)
+        canSumir = false;
+        for(amigo in amigos)
             {
-                FlxTween.tween(blur, {blurX: 0, blurY: 0}, 0.5, {ease: FlxEase.quartInOut});
+                //FlxTween.tween(amigo, {y: 1464}, 0.5, {ease: FlxEase.expoInOut});
+                FlxTween.tween(amigo, {alpha: 0}, 0.5, {ease: FlxEase.expoInOut});
             }
-        FlxTween.tween(label, {y: 65+1280}, 0.5, {ease: FlxEase.expoInOut});
-        FlxTween.tween(voltar_button, {y: 63+1280}, 0.5, {ease: FlxEase.expoInOut});
-        /*for(amigo in amigos)
-            {
-                FlxTween.tween(amigo, {y: 1464}, 0.5, {ease: FlxEase.expoInOut});
-            }*/
-        FlxTween.tween(bg, {y: 1280}, 0.5, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
-            #if rpc
-            DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
-            #end
+
+        new FlxTimer().start(0.5, function(e:FlxTimer) {
             FlxG.cameras.remove(scrollBar, true);
-            MainMenuStateMobile.canClick = true;
+            MainMenuStateMobile.instance.voltarUser();
             if(ClientPrefs.shaders)
                 {
-                    MainMenuStateMobile.instance.camGame.setFilters([]);
-                    MainMenuStateMobile.instance.camAchievement.setFilters([]);
+                    FlxTween.tween(blur, {blurX: 0, blurY: 0}, 0.5, {ease: FlxEase.quartInOut});
                 }
-            close();
-        }});
+            FlxTween.tween(label, {y: 65+1280}, 0.5, {ease: FlxEase.expoInOut});
+            FlxTween.tween(voltar_button, {y: 63+1280}, 0.5, {ease: FlxEase.expoInOut});
+            FlxTween.tween(bg, {y: 1280}, 0.5, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
+                #if rpc
+                DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
+                #end
+                MainMenuStateMobile.canClick = true;
+                if(ClientPrefs.shaders)
+                    {
+                        MainMenuStateMobile.instance.camGame.setFilters([]);
+                        MainMenuStateMobile.instance.camAchievement.setFilters([]);
+                    }
+                close();
+            }});
+        });
+
     }
 }
 
@@ -234,7 +293,6 @@ class FriendObject extends FlxSpriteGroup
 		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
             if(!user.avatar_url.contains("no-avatar"))
             {
-				FlxG.log.add("Achei a PFP da Gamejolt");
 				var bmp:Bitmap = cast(loader.content, Bitmap);
 				var bmd:BitmapData = bmp.bitmapData;
 				icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
