@@ -8,3 +8,5 @@ menu_multiplayer	Multiplayer
 menu_disconnected	DESCONECTADO
 menu_friends	AMIGOS
 menu_back	FECHAR
+menu_friends_online	ONLINE
+menu_friends_offline	OFFLINE

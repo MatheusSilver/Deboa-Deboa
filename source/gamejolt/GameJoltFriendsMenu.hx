@@ -14,11 +14,14 @@ import flixel.group.FlxSpriteGroup;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.net.URLRequest; // chamoy
-import flixel.util.FlxSpriteUtil;
 import openfl.events.Event;
 import openfl.events.ErrorEvent;
 import openfl.display.Loader;
 import flixel.graphics.FlxGraphic;
+import flixel.util.FlxSpriteUtil;
+import flixel.group.FlxGroup;
+import flixel.math.FlxRect;
+import Utils.FlxScrollableArea;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -29,12 +32,15 @@ using StringTools;
 class GameJoltFriendsMenu extends MusicBeatSubstate
 {
 	var bg:FlxSprite;
+	var fakeBG:FlxSprite;
     var voltar_button:FlxButton;
     var label:FlxText;
     public var camElementos:FlxCamera;
     var sumidao:Bool = false;
     var blur:BlurFilter;
     public var amigos:Array<FriendObject> = [];
+    var amigosList:FlxSpriteGroup;
+    var scrollBar:FlxScrollableArea;
 
 	public function new()
 	{
@@ -72,7 +78,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         voltar_button.alpha = 0;
         voltar_button.visible = true;
         voltar_button.label = new FlxText(0, 3, 229, LangUtil.getString("menu_back", "menu"), 50);
-        voltar_button.label.setFormat(Paths.font("letravio.ttf"), 50, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        voltar_button.label.setFormat(Paths.font("letravio.ttf"), 50, FlxColor.WHITE, CENTER);
         voltar_button.cameras = [camElementos];
         voltar_button.setGraphicSize(229, 103);
         voltar_button.updateHitbox();
@@ -86,18 +92,41 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         label.y = 65+1280;
         add(label);
 
+        fakeBG = new FlxSprite(0, 1280).loadGraphic(Paths.image("menus/gamejolt/amigos/BG"));
+		fakeBG.antialiasing = ClientPrefs.globalAntialiasing;
+        fakeBG.y += 1280;
+        fakeBG.cameras = [camElementos];
+		add(fakeBG);
+
+        amigosList = cast add(new FlxSpriteGroup());
+
+        var amiguineos:Array<User> = GJClient.getFriendsList(); // pra evitar ele a ficar dando fetch toda hora
         var x1:Float = 1; // bora x1?
-        for(user in GJClient.getFriendsList())
+        for(user in amiguineos)
         {
-            var friendo:FriendObject = new FriendObject(98*x1, 1464, user);
+            var friendo:FriendObject = new FriendObject(5*x1, 20/*184+1280*/, user);
             friendo.cameras = [camElementos];
-            amigos.push(friendo);
-            add(friendo);
-            x1+=3.85;
+            //amigos.push(friendo);
+            //add(friendo);
+            amigosList.add(friendo);
+            x1+=75;
         }
 
+		amigosList.setPosition(0, 2560);
+		var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 508 );
+		scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 5, FlxColor.TRANSPARENT, this);
+        FlxG.cameras.add(scrollBar);
+        scrollBar.bgColor.alpha = 0;
         tweenEntrar();
 	}
+
+	override function update(elapsed:Float)
+    {
+        voltar_button.label.alpha = 1;
+        super.update(elapsed);
+        voltar_button.label.alpha = 1;
+    }
+
 
     function tweenEntrar()
     {
@@ -111,10 +140,10 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         FlxTween.tween(label, {y: 65}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(voltar_button, {y: 63}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(bg, {y: 0}, 0.5, {ease: FlxEase.expoInOut});
-        for(amigo in amigos)
+        /*for(amigo in amigos)
         {
             FlxTween.tween(amigo, {y: 184}, 0.5, {ease: FlxEase.expoInOut});
-        }
+        }*/
     }
 
     function tweenSair()
@@ -126,14 +155,15 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             }
         FlxTween.tween(label, {y: 65+1280}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(voltar_button, {y: 63+1280}, 0.5, {ease: FlxEase.expoInOut});
-        for(amigo in amigos)
+        /*for(amigo in amigos)
             {
                 FlxTween.tween(amigo, {y: 1464}, 0.5, {ease: FlxEase.expoInOut});
-            }
+            }*/
         FlxTween.tween(bg, {y: 1280}, 0.5, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
             #if rpc
             DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
             #end
+            FlxG.cameras.remove(scrollBar, true);
             MainMenuStateMobile.canClick = true;
             if(ClientPrefs.shaders)
                 {
@@ -143,13 +173,6 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             close();
         }});
     }
-
-	override function update(elapsed:Float)
-	{
-        voltar_button.label.alpha = 1;
-		super.update(elapsed);
-        voltar_button.label.alpha = 1;
-	}
 }
 
 class FriendObject extends FlxSpriteGroup
@@ -157,7 +180,6 @@ class FriendObject extends FlxSpriteGroup
     var user:User;
     var bg:FlxSprite;
     public var icon:FlxSprite;
-    var outline:FlxSprite;
     public var name:FlxText;
     public var desc:FlxText;
 
@@ -166,6 +188,7 @@ class FriendObject extends FlxSpriteGroup
         super(x,y);
         this.user = user;
         bg = new FlxSprite(0, 0).loadGraphic(Paths.image("menus/gamejolt/amigos/perfil"));
+        bg.updateHitbox();
         add(bg);
 
         name = new FlxText(0, 0, 360, user.username, 30);
@@ -180,27 +203,28 @@ class FriendObject extends FlxSpriteGroup
         icon.y = 132;
         icon.x = 110;
         add(icon);
+        
+        desc = new FlxText(0, 0, 360, "", 30);
+        desc.setFormat(Paths.font("letravio.ttf"), 40, FlxColor.WHITE, CENTER);
+        desc.x+=5;
+        desc.y+=340;
 
-        if(user.developer_description != "") // algumas pessoas n tem desc
-            {
-                desc = new FlxText(0, 0, 360, user.developer_description, 30);
-                desc.setFormat(Paths.font("letravio.ttf"), 40, FlxColor.WHITE, CENTER);
-                desc.x+=5;
-                desc.y+=330;
-                add(desc);
-            }
+        if(user.last_logged_in.toLowerCase()=="online now")
+        {
+            desc.text = LangUtil.getString("menu_friends_online", "menu");
+            desc.color = FlxColor.GREEN;
+        }
         else
         {
-            icon.y+=45;
-            name.y+=45;
+            desc.text = LangUtil.getString("menu_friends_offline", "menu");
+            desc.color = FlxColor.RED;
         }
 
-        outline = new FlxSprite(0, 0).loadGraphic(Paths.image("menus/gamejolt/userOutline"));
-        outline.antialiasing = ClientPrefs.globalAntialiasing;
-        outline.setGraphicSize(152, 152);
-        outline.y = icon.y;
-        outline.x = icon.x;
-        add(outline);
+        add(desc);
+
+        icon.y+=30;
+        name.y+=45;
+
         pegarIcon();
     }
 
@@ -226,7 +250,7 @@ class FriendObject extends FlxSpriteGroup
 				tempCircle.destroy();
 			}
 		});
-		loader.load(new URLRequest(user.avatar_url.replace("/60/",'/${Std.int(outline.height)}/').replace(".webp", ".png")));
+		loader.load(new URLRequest(user.avatar_url.replace("/60/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
     }
 }
 

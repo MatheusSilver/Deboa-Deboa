@@ -194,6 +194,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		}
 		else
 		{
+			FlxG.log.error("Algo deu errado, tentando terminar a partida.");
 			MultiplayerMainMenuState.instance.enviarPrecisoTerminar();
 		}
 

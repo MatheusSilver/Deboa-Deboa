@@ -1178,7 +1178,7 @@ class RoomList extends MusicBeatSubstate
 			num++;
 		}
 
-		roomList.setPosition(-2560);
+		roomList.setPosition(2560);
 		viewPortRect = new FlxRect( 340, 5, 600, 500 );
 
 		scrollBar = new FlxScrollableArea(viewPortRect, roomList.getHitbox(), Utils.ResizeMode.FIT_WIDTH, -1, FlxColor.LIME, this);
