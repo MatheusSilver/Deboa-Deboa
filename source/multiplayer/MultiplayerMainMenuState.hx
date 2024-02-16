@@ -91,10 +91,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	// SKINS
 	public var skins:Array<Dynamic> = [
-		[LangUtil.getString("skin_classic", "multiplayer"), "NOTE_assets"],
+		[LangUtil.getString("skin_default", "multiplayer"), "default_notes"],
 		[LangUtil.getString("skin_orange", "multiplayer"), "orange_notes"],
 		[LangUtil.getString("skin_emerald", "multiplayer"), "purple_green_notes"],
-		[LangUtil.getString("skin_blacknwhite", "multiplayer"), "black_n_white_notes"]
+		[LangUtil.getString("skin_blacknwhite", "multiplayer"), "black_n_white_notes"],
+		[LangUtil.getString("skin_classic", "multiplayer"), "NOTE_assets"]
 	];
 	public var skinAtual:Int = 0;
 	public var skinSelector:SkinSelector;
