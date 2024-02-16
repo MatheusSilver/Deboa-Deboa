@@ -352,7 +352,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 		goDuet = duetSongs.contains(songData.song.toLowerCase());
 
-		if(!isPlayer1)
+		if(!isPlayer1 || goDuet)
 			{
 				var count:Int = 4;
 				for (s in 0...noteData.length)
@@ -393,7 +393,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		for (songNotes in section.sectionNotes)
 		{
 			if(songNotes[1] > -1 && (!isRing || (songNotes[1] != 2 && songNotes[1] != 7))) { //Real notes - excluindo-se as notas de anel.
-					if(songNotes[3] == "" || songNotes[3] == null)
+					if(songNotes[3] == "" || songNotes[3] == null || songNotes[3] == "dualSing" || songNotes[3] == "GF Sing")
 					{
 						if(isRing && songNotes[1]>=2) songNotes[1] -= songNotes[1] >= 7 ? 2 : 1; 
 						//2 pra remover a nota de anel tanto do opp quanto do bf, 1 pra remover só do bf.
