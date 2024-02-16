@@ -327,6 +327,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var songMisses:Int = 0;
 	var ghostMisses:Int = 0;
 	var startingSong:Bool = true;
+	var duetSongs:Array<String> = ["phantasm"];
 	private function generateSong(dataPath:String):Void
 	{
 		FlxG.sound.playMusic(Paths.inst(_song.song), 0, false);
@@ -345,6 +346,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 		// NEW SHIT
 		noteData = songData.notes;
+
+		if(duetSongs.contains(songData.song.toLowerCase()))
+		{
+			// TODO: fazer ele duplicar as notas do player pro outro lado
+		}
 
 		if(!isPlayer1)
 			{

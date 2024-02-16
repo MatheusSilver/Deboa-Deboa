@@ -72,7 +72,7 @@ class Achievements {
 
 	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
 		var id:Int = Achievements.getAchievementIndex(name);
-		TitleState.instance.verificarConexao(true);
+		TitleState.instance.verificarConexao();
 		if(ClientPrefs.achievementsMap.exists(name) && ClientPrefs.achievementsMap.get(name)) {
 			if(GJClient.logged && !naochecar && !TitleState.ModoOffline)
 				GJClient.trophieAdd(achievementsStuff[id][2]);
