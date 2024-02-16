@@ -198,7 +198,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			MultiplayerMainMenuState.instance.enviarPrecisoTerminar();
 		}
 
-		#if LUA_ALLOWED
+		/*#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys()) {
 			var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
 			if(Assets.exists(luaToLoad)) {
@@ -209,7 +209,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				});
 			}
 		}
-		#end
+		#end*/
 		noteTypeMap.clear();
 		noteTypeMap = null;
 
@@ -346,22 +346,22 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		// NEW SHIT
 		noteData = songData.notes;
 
-        if(!isPlayer1)
-        {
-			var count:Int = 4;
-            for (s in 0...noteData.length)
-            {
-                for (i in 0...noteData[s].sectionNotes.length)
-                    {
-                        var note:Array<Dynamic> = noteData[s].sectionNotes[i];
-                            if(note[1]>-1){
-                            note[1] = (note[1] + count) % (count*2);
-                            noteData[s].sectionNotes[i] = note;
-                        }
-                    }
-            }
-
-        }
+		if(!isPlayer1)
+			{
+				var count:Int = 4;
+				for (s in 0...noteData.length)
+				{
+					for (i in 0...noteData[s].sectionNotes.length)
+						{
+							var note:Array<Dynamic> = noteData[s].sectionNotes[i];
+								if(note[1]>-1){
+								note[1] = (note[1] + count) % (count*2);
+								noteData[s].sectionNotes[i] = note;
+							}
+						}
+				}
+	
+			}
 
 		var playerCounter:Int = 0;
 
@@ -372,72 +372,75 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			for (songNotes in section.sectionNotes)
 			{
 				if(songNotes[1] > -1) { //Real notes
-					var daStrumTime:Float = songNotes[0];
-					if(daStrumTime >= startPos) {
-						var daNoteData:Int = Std.int(songNotes[1] % 4);
-
-						var gottaHitNote:Bool = section.mustHitSection;
-
-						if (songNotes[1] > 3)
+						if(songNotes[3] == "" || songNotes[3] == null)
 						{
-							gottaHitNote = !section.mustHitSection;
-						}
-
-						var oldNote:Note;
-						if (unspawnNotes.length > 0)
-							oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
-						else
-							oldNote = null;
-
-						var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
-						swagNote.mustPress = gottaHitNote;
-						swagNote.sustainLength = songNotes[2];
-						swagNote.noteType = songNotes[3];
-						if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = editors.ChartingState.noteTypeList[songNotes[3]]; //Backward compatibility + compatibility with Week 7 charts
-						swagNote.scrollFactor.set();
-
-						var susLength:Float = swagNote.sustainLength;
-
-						susLength = susLength / Conductor.stepCrochet;
-						unspawnNotes.push(swagNote);
-
-						var floorSus:Int = Math.floor(susLength);
-						if(floorSus > 0) {
-							for (susNote in 0...floorSus+1)
-							{
-								oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
-
-								var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(_song.speed, 2)), daNoteData, oldNote, true);
-								sustainNote.mustPress = gottaHitNote;
-								sustainNote.noteType = swagNote.noteType;
-								sustainNote.scrollFactor.set();
-								unspawnNotes.push(sustainNote);
-
-								if (sustainNote.mustPress)
+							var daStrumTime:Float = songNotes[0];
+							if(daStrumTime >= startPos) {
+								var daNoteData:Int = Std.int(songNotes[1] % 4);
+		
+								var gottaHitNote:Bool = section.mustHitSection;
+		
+								if (songNotes[1] > 3)
 								{
-									sustainNote.x += FlxG.width / 2; // general offset
-									sustainNote.texture = "multiplayer/notes/"+mySkin;
+									gottaHitNote = !section.mustHitSection;
 								}
+		
+								var oldNote:Note;
+								if (unspawnNotes.length > 0)
+									oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 								else
-								{
-									sustainNote.x += FlxG.width / 1.5;
-									sustainNote.texture = "multiplayer/notes/"+oppSkin;
+									oldNote = null;
+		
+								var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+								swagNote.mustPress = gottaHitNote;
+								swagNote.sustainLength = songNotes[2];
+								swagNote.noteType = songNotes[3];
+								if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = editors.ChartingState.noteTypeList[songNotes[3]]; //Backward compatibility + compatibility with Week 7 charts
+								swagNote.scrollFactor.set();
+		
+								var susLength:Float = swagNote.sustainLength;
+		
+								susLength = susLength / Conductor.stepCrochet;
+								unspawnNotes.push(swagNote);
+		
+								var floorSus:Int = Math.floor(susLength);
+								if(floorSus > 0) {
+									for (susNote in 0...floorSus+1)
+									{
+										oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
+		
+										var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(_song.speed, 2)), daNoteData, oldNote, true);
+										sustainNote.mustPress = gottaHitNote;
+										sustainNote.noteType = swagNote.noteType;
+										sustainNote.scrollFactor.set();
+										unspawnNotes.push(sustainNote);
+		
+										if (sustainNote.mustPress)
+										{
+											sustainNote.x += FlxG.width / 2; // general offset
+											sustainNote.texture = "multiplayer/notes/"+mySkin;
+										}
+										else
+										{
+											sustainNote.x += FlxG.width / 1.5;
+											sustainNote.texture = "multiplayer/notes/"+oppSkin;
+										}
+									}
 								}
-							}
-						}
-
-						if (swagNote.mustPress)
-						{
-							swagNote.x += FlxG.width / 2; // general offset
-							swagNote.texture = "multiplayer/notes/"+mySkin;
-						}
-						else {
-							swagNote.x += FlxG.width / 1.5;
-							swagNote.texture = "multiplayer/notes/"+oppSkin;
-						}
-						
-						if(!noteTypeMap.exists(swagNote.noteType)) {
-							noteTypeMap.set(swagNote.noteType, true);
+		
+								if (swagNote.mustPress)
+								{
+									swagNote.x += FlxG.width / 2; // general offset
+									swagNote.texture = "multiplayer/notes/"+mySkin;
+								}
+								else {
+									swagNote.x += FlxG.width / 1.5;
+									swagNote.texture = "multiplayer/notes/"+oppSkin;
+								}
+								
+								if(!noteTypeMap.exists(swagNote.noteType)) {
+									noteTypeMap.set(swagNote.noteType, true);
+								}
 						}
 					}
 				}
@@ -976,26 +979,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		if (!note.wasGoodHit)
 		{
 			MultiplayerMainMenuState.instance.enviarInputGame(note.noteData);
-			switch(note.noteType) {
-				case 'Hurt Note': //Hurt note
-					noteMiss(note.noteData);
-					--songMisses;
-					if(!note.isSustainNote) {
-						if(!note.noteSplashDisabled) {
-							spawnNoteSplashOnNote(note);
-						}
-					}
-
-					note.wasGoodHit = true;
-
-					if (!note.isSustainNote)
-					{
-						note.kill();
-						notes.remove(note, true);
-						note.destroy();
-					}
-					return;
-			}
 
 			if (!note.isSustainNote)
 			{
