@@ -1,5 +1,6 @@
 package;
 
+import Utils.BSLSwipeUtils;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -30,9 +31,8 @@ class GaleriaState extends MusicBeatState
 	public var camAchievement:FlxCamera;
 
 	var mouseskin:String = '';
-	var isMiddleClicking:Bool = false;
 
-	var alturamodificadaparacalculosmuitopikas:Float=0;
+	var altura_de_retorno:Float=0;
 	var clicavel:Bool = true;
 
 	var holdthatY:Float = 0;
@@ -50,6 +50,8 @@ class GaleriaState extends MusicBeatState
 
 			WeekData.reloadWeekFiles(true); //Obrigado silvio do passado por essa anotação em FreeplayState.hx
 			//DaMusic part
+			BSLSwipeUtils.max_y=1;
+			BSLSwipeUtils.mouseScrollMultiplier=25;
 
 			camAchievement = new FlxCamera();
 			camAchievement.bgColor.alpha = 0;
@@ -170,6 +172,9 @@ class GaleriaState extends MusicBeatState
 				#end
 
 				stoploading = false;
+				BSLSwipeUtils.max_y=1;
+				BSLSwipeUtils.mouseScrollMultiplier=25;
+				//Estes valores precisem ser calibrados
 
 				persistentDraw = true;
 				persistentUpdate = true;
@@ -181,15 +186,14 @@ class GaleriaState extends MusicBeatState
 				super.closeSubState();
 			}
 
-		var scrollSpeed:Int = 15; //15;
 		override function update(elapsed:Float)
 			{		
-				isMiddleClicking = FlxG.mouse.pressedMiddle;
-				scrollSpeed = isMiddleClicking ? 30 : 15; 
+				BSLSwipeUtils.swipeVertical();
+				 
 				//A ordem aparentemente faz uma diferença ferrada na otimização disso.
 				if(!stoploading){
 				if(Utils.BSLTouchUtils.over(playsArray) || (Utils.BSLTouchUtils.over(galeriaButton)&&!isGaleria) || (Utils.BSLTouchUtils.over(musicButton)&&isGaleria)){
-					if(mouseskin != "pointerselected" && !isMiddleClicking){
+					if(mouseskin != "pointerselected"){
 						mouseskin = 'pointerselected';
 						#if desktop
 						FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/'+mouseskin), 1, 0, 0);
@@ -221,7 +225,7 @@ class GaleriaState extends MusicBeatState
 						spr.visible = false;
 					}
 
-					if(Utils.BSLTouchUtils.justTouched() && clicavel && !isMiddleClicking)
+					if(Utils.BSLTouchUtils.justTouched() && clicavel)
 					{
 						if(Utils.BSLTouchUtils.over(spr)){
 							stoploading = true;
@@ -241,7 +245,7 @@ class GaleriaState extends MusicBeatState
 				});
 				}
 
-				if(bg.y<-8830)
+				if(bg.y<=-bg.height)
 					{
 						Achievements.loadAchievements();
 						var achieveID:Int = Achievements.getAchievementIndex('galeria');
@@ -260,88 +264,33 @@ class GaleriaState extends MusicBeatState
 					GlobalSoundManager.play('cancelMenu');
 					MusicBeatState.switchState(new SobreState());
 				}
-				scrollSpeed = scrollSpeed * 3;
 				if(isGaleria)
 					{
-						if(FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360)
-							{
-								
-								if(bg.y==0)
-								{
-									bg.y=0;
-									galeriaButton.y = 376;
-									musicButton.y = 376;
-								}
-								else if(bg.y<0)
-								{
-									bg.y+=scrollSpeed;
-									galeriaButton.y +=scrollSpeed;
-									musicButton.y += scrollSpeed;
-								}				
-							}
-						else if(
-							//#if mobile hitboxbaixo.justReleased || #end 
-							FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y>360)
-						{
-							if(bg.y==-8842)
-							{
-								bg.y=-8842;
-								galeriaButton.y =musicButton.y= -8466;
-							}
-							else if(bg.y>-8842)
-							{
-								bg.y-=scrollSpeed;
-								galeriaButton.y -= scrollSpeed;
-								musicButton.y -= scrollSpeed;
-							}
+						bg.y += BSLSwipeUtils.scrollY;
+						if(bg.y>=0){
+							bg.y=0;
+							BSLSwipeUtils.resetScrolls();
+						}else if(bg.y<=-bg.height+FlxG.height){
+							bg.y=-bg.height+FlxG.height;
+							BSLSwipeUtils.resetScrolls();
 						}
+						musicButton.y = galeriaButton.y = bg.y + 376;
 					}
 					//Parte da Música
 				else
 					{
-						if(FlxG.mouse.wheel>0 || isMiddleClicking && FlxG.mouse.y<360) //Aparentemente isso aqui faz o bg subir.
-							{
-								if(bgmusica.y==0)
-								{
-									bgmusica.y=0;
-									galeriaButton.y = 376;
-									musicButton.y = 376;
-								}
-								else if(bgmusica.y<0)
-								{
-									bgmusica.y+=scrollSpeed;
-									galeriaButton.y +=scrollSpeed;
-									musicButton.y +=scrollSpeed;
-									alturamodificadaparacalculosmuitopikas = alturamodificadaparacalculosmuitopikas+scrollSpeed;
-									playsArray.forEach(function(spr:FlxSprite)
-										{spr.y = spr.y+scrollSpeed;});
-						
-										menuItems.forEach(function(spr:FlxSprite)
-										{spr.y = spr.y+scrollSpeed;});
-								}
-							
-							}else if(
-								//#if mobile hitboxbaixo.justReleased || #end 
-								FlxG.mouse.wheel<0 || isMiddleClicking && FlxG.mouse.y<360){
-								if(bgmusica.y == -holdthatY + FlxG.height)
-								{
-									bgmusica.y= -holdthatY + FlxG.height;
-									galeriaButton.y =musicButton.y= -holdthatY + FlxG.height+376;
-								}
-								else if(bgmusica.y >-holdthatY + FlxG.height)
-								{
-									bgmusica.y-=scrollSpeed;
-									galeriaButton.y -=scrollSpeed;
-									musicButton.y -=scrollSpeed;
-									alturamodificadaparacalculosmuitopikas=alturamodificadaparacalculosmuitopikas-scrollSpeed;
-									playsArray.forEach(function(spr:FlxSprite)
-										{spr.y = spr.y-scrollSpeed;});
-						
-										menuItems.forEach(function(spr:FlxSprite)
-										{spr.y = spr.y-scrollSpeed;});
-								}
-							}
-						
+						bgmusica.y += BSLSwipeUtils.scrollY;
+						if(bgmusica.y>=0){
+							bgmusica.y=0;
+							BSLSwipeUtils.resetScrolls();
+						}else if(bgmusica.y<=-holdthatY + FlxG.height){
+							bgmusica.y=-holdthatY + FlxG.height;
+							BSLSwipeUtils.resetScrolls();
+						}
+						altura_de_retorno = bgmusica.y;
+						menuItems.forEach(function(spr:FlxSprite){spr.y = 450 + 475*Math.floor(spr.ID/4)+bgmusica.y;});
+						playsArray.forEach(function(spr:FlxSprite){spr.y = menuItems.members[spr.ID].y + menuItems.members[spr.ID].height + 20;});
+						musicButton.y = galeriaButton.y = bgmusica.y + 376;						
 					}
 				super.update(elapsed);
 			}
@@ -356,7 +305,7 @@ class GaleriaState extends MusicBeatState
 				musicButton.y = 376;
 				galeriaButton.y = 376;
 				clicavel = false;
-				alturamodificadaparacalculosmuitopikas = 0;
+				altura_de_retorno = 0;
 				
 				playsArray.forEach(function(spr:FlxSprite)
 					{
@@ -401,7 +350,7 @@ class GaleriaState extends MusicBeatState
 						ease: FlxEase.quadOut,
 					onComplete: function(twn:FlxTween)
 					{
-						spr.y -= alturamodificadaparacalculosmuitopikas;
+						spr.y -= altura_de_retorno;
 						clicavel = true;
 					}
 				});
@@ -413,7 +362,7 @@ class GaleriaState extends MusicBeatState
 						ease: FlxEase.quadOut,
 						onComplete: function(twn:FlxTween)
 						{
-							spr.y -= alturamodificadaparacalculosmuitopikas;
+							spr.y -= altura_de_retorno;
 						}
 					});
 				});

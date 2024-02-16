@@ -162,6 +162,7 @@ class FreeplayState extends MusicBeatState
 		#end
 		
 		BSLSwipeUtils.max_y = Std.int(FlxG.width/(progressFreeplay));
+		BSLSwipeUtils.mouseScrollMultiplier=1;
 
 		for (i in 0...progressFreeplay)
 		{
@@ -346,7 +347,7 @@ class FreeplayState extends MusicBeatState
 					changeSelection(Std.int(songText.targetY));
 			}
 			if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0)
-				change_swipe = BSLSwipeUtils.scrollY;
+				change_swipe = -BSLSwipeUtils.scrollY;
 			else if(change_swipe != 0)
 				changeSelection(true);
 		}

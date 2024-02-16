@@ -324,6 +324,19 @@ class BSLTouchUtils
 		return false;
 	}
 
+	//Adaptação para um code bem antigo do ytb music
+	public static function justsolto():Bool
+	{
+		#if desktop
+			return FlxG.mouse.justReleased;
+		#elseif mobile
+		for (touch in FlxG.touches.list)
+			return touch.justReleased;
+		#end
+
+		return false;
+	}
+
 	#if desktop
 	/**
 	 * Retorna uma int da posição atual do seu mouse
@@ -363,9 +376,10 @@ class BSLTouchUtils
  */
 class BSLSwipeUtils
 {
-	public static var scrollSpeed:Int = 0;
-	public static final scrollAcceleration:Int = 1;
+	public static var scrollSpeed:Float = 0;
+	public static final scrollAcceleration:Float = 1;
 	public static final maxScrollSpeed:Float = 10.0;
+	public static var mouseScrollMultiplier:Int = 1;
 
 	public static var scrollX:Int = 0;
 	public static var scrollY:Int = 0;
@@ -403,9 +417,9 @@ class BSLSwipeUtils
 		else if (Math.abs(scrollX) > 0)
 		{
 			if (scrollX > 0)
-				scrollSpeed -= scrollAcceleration;
+				scrollSpeed -= scrollAcceleration/4;
 			else if (scrollX < 0)
-				scrollSpeed += scrollAcceleration;
+				scrollSpeed += scrollAcceleration/4;
 
 			scrollSpeed = Std.int(CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
 		}
@@ -413,11 +427,11 @@ class BSLSwipeUtils
 		#if desktop
 		if (FlxG.mouse.wheel != 0)
 		{
-			scrollX += FlxG.mouse.wheel;
+			scrollX += FlxG.mouse.wheel*mouseScrollMultiplier;
 		}
 		// Talvez isso possa vir a ser útil :thinking:
 		#end
-		scrollX += scrollSpeed;
+		scrollX += Std.int(scrollSpeed);
 		scrollX = CoolUtil.mathClamp(scrollY, -max_x, max_x);
 		if (Math.abs(scrollX) <= Math.abs(scrollSpeed))
 			resetScrolls();
@@ -456,12 +470,12 @@ class BSLSwipeUtils
 		#if desktop
 		if (FlxG.mouse.wheel != 0)
 		{
-			scrollY -= FlxG.mouse.wheel;
+			scrollY += FlxG.mouse.wheel*mouseScrollMultiplier;
 		}
 		// Talvez isso possa vir a ser útil :thinking:
 		#end
-		scrollY += scrollSpeed;
-		scrollY = CoolUtil.mathClamp(scrollY, -max_y, max_y);
+		scrollY += Std.int(scrollSpeed);
+		scrollY = CoolUtil.mathClamp(scrollY, -FlxG.height/max_y, FlxG.height/max_y);
 		if (Math.abs(scrollY) <= Math.abs(scrollSpeed))
 			resetScrolls();
 		else
@@ -470,7 +484,8 @@ class BSLSwipeUtils
 
 	inline public static function resetScrolls():Void
 	{
-		scrollX = scrollY = scrollSpeed = 0;
+		scrollX = scrollY = 0;
+		scrollSpeed = 0;
 		is_swipping = false;
 	}
 }
