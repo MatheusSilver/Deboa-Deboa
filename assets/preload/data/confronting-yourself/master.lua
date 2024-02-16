@@ -284,7 +284,7 @@ function onCreatePost()
 
 	--Icons code
 	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('healthBar.y') -80)
-	loadGraphic('oppIcon', 'icons/icon-sonicexeAH', 150)
+	loadGraphic('oppIcon', 'icons/cy/sonicexeAH', 150)
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setProperty('oppIcon.visible', false)
 	setObjectCamera('oppIcon', 'camHUD')
@@ -293,7 +293,7 @@ function onCreatePost()
 	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
 
 	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
-	loadGraphic('bfIcon', 'icons/icon-sonicAH', 150)
+	loadGraphic('bfIcon', 'icons/cy/sonicAH', 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setProperty('bfIcon.visible', false)
 	setObjectCamera('bfIcon', 'camHUD')
@@ -372,7 +372,7 @@ function entra2D()
 	changeHealthBar(true)
 	triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
 	if ato8Change then
-		loadGraphic('oppIcon', 'icons/icon-xenopixel', 150)
+		loadGraphic('oppIcon', 'icons/ycr/xeno-ycr_pixel', 150)
 		loadGraphic('bfIcon', 'icons/sonic icons', 150)
 	end
 end

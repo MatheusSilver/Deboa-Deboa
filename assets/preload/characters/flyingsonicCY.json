@@ -73,7 +73,7 @@
 		275,
 		375
 	],
-	"healthicon": "supersonicpixel",
+	"healthicon": "cy/supersonicpixel",
 	"flip_x": true,
 	"healthbar_colors": [
 		255,

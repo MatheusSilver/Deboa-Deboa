@@ -126,7 +126,7 @@
 		0,
 		0
 	],
-	"healthicon": "furnace-starved",
+	"healthicon": "prey/furnace-starved",
 	"flip_x": false,
 	"healthbar_colors": [
 		78,

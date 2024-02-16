@@ -62,7 +62,7 @@
 		320,
 		430
 	],
-	"healthicon": "sonicP2Pixel",
+	"healthicon": "ycr/xeno-ycr_pixel",
 	"flip_x": false,
 	"healthbar_colors": [
 		37,

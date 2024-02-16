@@ -62,7 +62,7 @@
 		-150,
 		-60
 	],
-	"healthicon": "needlemouse",
+	"healthicon": "needlemouse/needlemouse",
 	"flip_x": false,
 	"healthbar_colors": [
 		76,

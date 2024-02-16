@@ -145,7 +145,7 @@
 		230,
 		140
 	],
-	"healthicon": "taildoll",
+	"healthicon": "tailsdoll/tailsdoll",
 	"flip_x": false,
 	"healthbar_colors": [
 		243,

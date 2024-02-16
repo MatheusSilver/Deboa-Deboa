@@ -95,7 +95,7 @@
 		0,
 		0
 	],
-	"healthicon": "sonic-ccc",
+	"healthicon": "ccc/sonic-ccc",
 	"flip_x": false,
 	"healthbar_colors": [
 		36,

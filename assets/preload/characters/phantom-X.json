@@ -73,7 +73,7 @@
 		255,
 		75
 	],
-	"healthicon": "phantom_x",
+	"healthicon": "vessel/phantom_x",
 	"flip_x": false,
 	"healthbar_colors": [
 		35,

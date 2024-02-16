@@ -73,7 +73,7 @@
 		0,
 		0
 	],
-	"healthicon": "xenopixel",
+	"healthicon": "cy/xenopixel",
 	"flip_x": false,
 	"healthbar_colors": [
 		24,

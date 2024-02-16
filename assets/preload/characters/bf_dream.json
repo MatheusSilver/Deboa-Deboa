@@ -216,7 +216,7 @@
 		-150,
 		465
 	],
-	"healthicon": "SSBF",
+	"healthicon": "fome/SSBF",
 	"flip_x": true,
 	"healthbar_colors": [
 		49,

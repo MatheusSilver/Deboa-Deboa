@@ -126,7 +126,7 @@
 		0,
 		0
 	],
-	"healthicon": "furnace",
+	"healthicon": "prey/furnace",
 	"flip_x": false,
 	"healthbar_colors": [
 		78,

@@ -62,7 +62,7 @@
 		-570,
 		70
 	],
-	"healthicon": "superx",
+	"healthicon": "slaybells/fleet-slaybells",
 	"flip_x": false,
 	"healthbar_colors": [
 		242,

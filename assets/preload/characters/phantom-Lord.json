@@ -73,7 +73,7 @@
 		0,
 		0
 	],
-	"healthicon": "phantom_faker",
+	"healthicon": "vessel/phantom_faker",
 	"flip_x": false,
 	"healthbar_colors": [
 		48,

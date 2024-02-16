@@ -181,7 +181,7 @@
 		0,
 		0
 	],
-	"healthicon": "correnegada",
+	"healthicon": "prey/sonic-normal",
 	"flip_x": true,
 	"healthbar_colors": [
 		108,

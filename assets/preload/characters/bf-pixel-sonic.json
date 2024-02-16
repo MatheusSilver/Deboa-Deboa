@@ -106,7 +106,7 @@
 		0,
 		350
 	],
-	"healthicon": "genebf",
+	"healthicon": "ycr/bf-ycr_pixel",
 	"flip_x": true,
 	"healthbar_colors": [
 		49,

@@ -73,7 +73,7 @@
 		0,
 		0
 	],
-	"healthicon": "sonic-super",
+	"healthicon": "prey/super-sonic",
 	"flip_x": true,
 	"healthbar_colors": [
 		235,

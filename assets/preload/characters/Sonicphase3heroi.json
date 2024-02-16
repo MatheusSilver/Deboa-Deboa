@@ -62,7 +62,7 @@
 		-225,
 		-130
 	],
-	"healthicon": "sonicAH",
+	"healthicon": "cy/sonicAH",
 	"flip_x": true,
 	"healthbar_colors": [
 		52,

@@ -73,7 +73,7 @@
 		100,
 		650
 	],
-	"healthicon": "xeno",
+	"healthicon": "xeno/xeno",
 	"flip_x": false,
 	"healthbar_colors": [
 		0,

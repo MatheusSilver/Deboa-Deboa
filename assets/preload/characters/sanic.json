@@ -62,7 +62,7 @@
 		0,
 		410
 	],
-	"healthicon": "sanic",
+	"healthicon": "vinizito/sanic",
 	"flip_x": false,
 	"healthbar_colors": [
 		0,

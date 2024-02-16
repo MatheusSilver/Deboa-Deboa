@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"control",
-			"cyclops",
+			"control/cyclops",
 			[
 				255,
 				0,

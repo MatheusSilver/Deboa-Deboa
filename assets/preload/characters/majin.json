@@ -149,7 +149,7 @@
 		-220,
 		-90
 	],
-	"healthicon": "majin",
+	"healthicon": "majin/majin",
 	"flip_x": true,
 	"healthbar_colors": [
 		35,

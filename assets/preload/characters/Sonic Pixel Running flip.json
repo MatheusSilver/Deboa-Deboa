@@ -106,7 +106,7 @@
 		400,
 		50
 	],
-	"healthicon": "sonicpixel",
+	"healthicon": "prey/sonicpixel",
 	"flip_x": true,
 	"healthbar_colors": [
 		109,

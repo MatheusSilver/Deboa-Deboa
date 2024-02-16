@@ -62,7 +62,7 @@
 		-60,
 		-175
 	],
-	"healthicon": "beast",
+	"healthicon": "xeno/xeno",
 	"flip_x": false,
 	"healthbar_colors": [
 		55,

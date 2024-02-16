@@ -73,7 +73,7 @@
 		-150,
 		30
 	],
-	"healthicon": "eggmanpapinha",
+	"healthicon": "prey/papinha-starved",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,

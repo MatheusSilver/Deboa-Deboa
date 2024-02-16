@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"slaybells",
-			"exemajin",
+			"slaybells/lordx-slaybells",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"pasta-night",
-			"tailsexe",
+			"triple-trouble/tails",
 			[
 				255,
 				0,
@@ -37,7 +37,7 @@
 		],
 		[
 			"cross-console-clash",
-			"",
+			"ccc/sonic-ccc",
 			[
 				255,
 				0,
@@ -47,7 +47,7 @@
 		],
 		[
 			"prey",
-			"furnace",
+			"prey/furnace",
 			[
 				255,
 				0,

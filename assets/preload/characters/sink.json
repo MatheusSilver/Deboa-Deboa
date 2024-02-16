@@ -154,7 +154,7 @@
 		0,
 		0
 	],
-	"healthicon": "sink",
+	"healthicon": "sink/sink",
 	"flip_x": true,
 	"healthbar_colors": [
 		48,

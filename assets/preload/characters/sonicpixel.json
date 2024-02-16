@@ -62,7 +62,7 @@
 		0,
 		530
 	],
-	"healthicon": "sonicsg",
+	"healthicon": "prey/normal-sonic",
 	"flip_x": false,
 	"healthbar_colors": [
 		129,

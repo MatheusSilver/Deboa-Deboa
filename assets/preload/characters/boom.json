@@ -62,7 +62,7 @@
 		-170,
 		-120
 	],
-	"healthicon": "boom",
+	"healthicon": "pibby/sonic_corrompido_omaga",
 	"flip_x": false,
 	"healthbar_colors": [
 		0,

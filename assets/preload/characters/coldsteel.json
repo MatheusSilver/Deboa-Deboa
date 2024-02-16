@@ -62,7 +62,7 @@
 		-150,
 		-60
 	],
-	"healthicon": "coldsteel",
+	"healthicon": "personel/coldsteel",
 	"flip_x": false,
 	"healthbar_colors": [
 		160,

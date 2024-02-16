@@ -62,7 +62,7 @@
 		0,
 		-75
 	],
-	"healthicon": "supersonicCY",
+	"healthicon": "cy/supersonicCY",
 	"flip_x": true,
 	"healthbar_colors": [
 		255,

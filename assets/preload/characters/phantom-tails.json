@@ -95,7 +95,7 @@
 		-130,
 		-40
 	],
-	"healthicon": "tails_phantom",
+	"healthicon": "vessel/tails_phantom",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,

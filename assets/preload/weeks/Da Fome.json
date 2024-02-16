@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"sunshine",
-			"TDoll",
+			"tailsdoll/tailsdoll",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"soulless",
-			"TDoll",
+			"tailsdoll/tails_soulless",
 			[
 				255,
 				0,

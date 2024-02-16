@@ -137,7 +137,7 @@
 		0,
 		0
 	],
-	"healthicon": "starved-pixel",
+	"healthicon": "prey/starved-pixel",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,

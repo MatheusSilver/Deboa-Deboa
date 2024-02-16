@@ -95,7 +95,7 @@
 		-450,
 		-100
 	],
-	"healthicon": "cyclops",
+	"healthicon": "control/cyclops",
 	"flip_x": false,
 	"healthbar_colors": [
 		55,

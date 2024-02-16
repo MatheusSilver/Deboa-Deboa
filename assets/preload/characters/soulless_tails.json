@@ -201,7 +201,7 @@
 		-50,
 		-50
 	],
-	"healthicon": "TDoll",
+	"healthicon": "tailsdoll/tails_soulless",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,

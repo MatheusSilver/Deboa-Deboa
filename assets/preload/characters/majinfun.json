@@ -62,7 +62,7 @@
 		0,
 		-30
 	],
-	"healthicon": "majin-sonic",
+	"healthicon": "majin/majin",
 	"flip_x": false,
 	"healthbar_colors": [
 		0,

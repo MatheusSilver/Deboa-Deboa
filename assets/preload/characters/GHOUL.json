@@ -62,7 +62,7 @@
 		740,
 		0
 	],
-	"healthicon": "sinkfantasma",
+	"healthicon": "sink/sinkfantasma",
 	"flip_x": false,
 	"healthbar_colors": [
 		0,

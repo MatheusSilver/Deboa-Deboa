@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"faker",
-			"faker",
+			"faker-blacksun/faker",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"black-sun",
-			"CHADexe",
+			"faker-blacksun/blacksun",
 			[
 				255,
 				0,

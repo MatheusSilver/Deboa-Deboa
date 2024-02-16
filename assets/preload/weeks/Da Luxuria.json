@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"sink",
-			"sink",
+			"sink/sink",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"endless",
-			"majin-sonic",
+			"majin/majin",
 			[
 				255,
 				0,
@@ -37,7 +37,7 @@
 		],
 		[
 			"endless-cycles",
-			"lord",
+			"lordx/normal-lordx",
 			[
 				255,
 				0,

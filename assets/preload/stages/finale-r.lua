@@ -8,7 +8,7 @@
 function onCreatePost()
 	--Icons code
 	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('healthBar.y') -80)
-	loadGraphic('oppIcon', 'icons/icon-xeno', 150)
+	loadGraphic('oppIcon', 'icons/xeno/xeno', 150)
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setObjectCamera('oppIcon', 'camHUD')
 	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
@@ -17,7 +17,7 @@ function onCreatePost()
 	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
 
 	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
-	loadGraphic('bfIcon', 'icons/icon-bf', 150)
+	loadGraphic('bfIcon', 'icons/fnf/bf', 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setObjectCamera('bfIcon', 'camHUD')
 	setProperty('bfIcon.visible', false)

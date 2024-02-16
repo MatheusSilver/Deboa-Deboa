@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"phantasm",
-			"fleetwayiconsPHANTASM",
+			"phantasm/fleetway",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"chaos",
-			"fleetwayiconsPHANTASM",
+			"fleetway/fleet",
 			[
 				255,
 				0,

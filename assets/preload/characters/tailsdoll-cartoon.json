@@ -62,7 +62,7 @@
 		-40,
 		160
 	],
-	"healthicon": "TDoll",
+	"healthicon": "tailsdoll/tailsdoll",
 	"flip_x": false,
 	"healthbar_colors": [
 		238,

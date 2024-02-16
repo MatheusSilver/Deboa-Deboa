@@ -73,7 +73,7 @@
 		50,
 		-70
 	],
-	"healthicon": "beast",
+	"healthicon": "yrc/xeno-ycr",
 	"flip_x": false,
 	"healthbar_colors": [
 		42,

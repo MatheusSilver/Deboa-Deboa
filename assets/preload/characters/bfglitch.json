@@ -172,7 +172,7 @@
 		0,
 		240
 	],
-	"healthicon": "bfglitch",
+	"healthicon": "pibby/bfglitch",
 	"flip_x": true,
 	"healthbar_colors": [
 		60,

@@ -84,7 +84,7 @@
 		0,
 		0
 	],
-	"healthicon": "mario-ccc",
+	"healthicon": "ccc/mario-ccc",
 	"flip_x": true,
 	"healthbar_colors": [
 		181,

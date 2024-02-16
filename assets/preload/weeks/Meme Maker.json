@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"milk",
-			"sunky",
+			"milk/sunky",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"too-fest",
-			"sanic",
+			"vinizito/sanic",
 			[
 				255,
 				0,
@@ -37,7 +37,7 @@
 		],
 		[
 			"personel",
-			"coldsteel",
+			"personel/coldsteel",
 			[
 				255,
 				0,
@@ -47,7 +47,7 @@
 		],
 		[
 			"clickbait",
-			"sonicdosexo",
+			"clickbait/sonicdosexo",
 			[
 				255,
 				0,

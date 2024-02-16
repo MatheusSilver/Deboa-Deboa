@@ -17,7 +17,7 @@
 	"songs": [
 		[
 			"possesed",
-			"amy",
+			"possesed/amy",
 			[
 				255,
 				0,
@@ -27,7 +27,7 @@
 		],
 		[
 			"green-hills",
-			"boom",
+			"pibby/sonic_corrompido_omaga",
 			[
 				255,
 				0,
@@ -37,7 +37,7 @@
 		],
 		[
 			"illegal-download",
-			"piracy",
+			"piracy/piracy",
 			[
 				255,
 				0,
@@ -47,7 +47,7 @@
 		],
 		[
 			"defender",
-			"TAILSICO",
+			"piracy/TAILSICO",
 			[
 				255,
 				0,
@@ -57,7 +57,7 @@
 		],
 		[
 			"best-friends",
-			"tailsBF",
+			"best-friends/tailsBF",
 			[
 				255,
 				0,

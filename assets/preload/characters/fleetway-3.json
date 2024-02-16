@@ -29,7 +29,7 @@
 		-160,
 		-420
 	],
-	"healthicon": "fleetway",
+	"healthicon": "fleetway/fleet",
 	"flip_x": false,
 	"healthbar_colors": [
 		255,

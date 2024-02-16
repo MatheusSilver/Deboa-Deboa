@@ -62,7 +62,7 @@
 		0,
 		350
 	],
-	"healthicon": "bf-possuido",
+	"healthicon": "possesed/bf",
 	"flip_x": true,
 	"healthbar_colors": [
 		59,

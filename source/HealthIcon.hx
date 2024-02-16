@@ -39,11 +39,11 @@ class HealthIcon extends FlxSprite
 		if(this.char != char) {
 			var name:String = 'icons/' + char;
 			if(OpenFlAssets.exists(Paths.imagechecker("icons/icon-" + char, "shared"))) 
-				name = 'icons/icon-' + char; //Older versions of psych engine's support
-			else if(OpenFlAssets.exists(Paths.imagechecker("icons/" + char, "shared")))
+				name = 'icons/icon-' + char; // Psych antiga (Só pra caso alguém esqueca e coloque um icon no padrão antigo na raiz da pasta)
+			else if(OpenFlAssets.exists(Paths.imagechecker("icons/" + char, "shared"))) // Padrão de icons do ModBoa (icons/pasta/icon)
 				name = 'icons/' + char;
-			else 
-				name = 'icons/icon-bf';
+			else
+				name = 'icons/fnf/bf';
 			
 			var file:Dynamic = Paths.image(name, 'shared');
 

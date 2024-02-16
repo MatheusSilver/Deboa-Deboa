@@ -220,7 +220,7 @@
 		30,
 		-140
 	],
-	"healthicon": "lord",
+	"healthicon": "lordx/normal-lordx",
 	"flip_x": false,
 	"healthbar_colors": [
 		55,

@@ -62,7 +62,7 @@
 		-950,
 		-500
 	],
-	"healthicon": "sonicexeCY",
+	"healthicon": "cy/sonicexeCY",
 	"flip_x": false,
 	"healthbar_colors": [
 		45,
