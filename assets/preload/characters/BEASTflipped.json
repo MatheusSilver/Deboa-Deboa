@@ -73,7 +73,7 @@
 		870,
 		-70
 	],
-	"healthicon": "yrc/xeno-ycr",
+	"healthicon": "ycr/xeno-ycr",
 	"flip_x": true,
 	"healthbar_colors": [
 		42,
