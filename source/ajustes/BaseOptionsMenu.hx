@@ -173,6 +173,7 @@ class BaseOptionsMenu extends MusicBeatState
 			}
 		}
 		BSLSwipeUtils.max_y = Std.int(FlxG.width/6);//indo do topo até o fim da tela, o mano só passa em no máximo 6 opções.
+		BSLSwipeUtils.mouseScrollMultiplier=1;
 		changeSelection();
 		#if mobileC
 		addVirtualPad(FULL, A_B);
@@ -210,7 +211,7 @@ class BaseOptionsMenu extends MusicBeatState
 					changeSelection(Std.int(option.targetY));
 			}
 			if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0)
-				change_swipe = BSLSwipeUtils.scrollY;
+				change_swipe = -BSLSwipeUtils.scrollY;
 			else if(change_swipe != 0)
 				changeSelection();
 		}

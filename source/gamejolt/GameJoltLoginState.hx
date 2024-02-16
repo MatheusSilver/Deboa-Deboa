@@ -1,5 +1,7 @@
 package gamejolt;
 
+import openfl.desktop.ClipboardFormats;
+import openfl.desktop.Clipboard;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.ui.FlxUIInputText;
@@ -130,9 +132,31 @@ class GameJoltLoginState extends MusicBeatState
 			loginbotao.onOut.callback = loginOut;
 			loginbotao.onDown.callback = loginClick;
             
+            if(!podeSair)
+            {
+                pasteCoisas();
+            }
             podeSair = !tokenBar.hasFocus && !userBar.hasFocus; 
             loginbotao.updateHitbox();
 		}
+
+        function pasteCoisas()
+        {
+            var clipboard:String = Clipboard.generalClipboard.getData(ClipboardFormats.TEXT_FORMAT);
+            if(FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.V && clipboard != null)
+            {
+                if(userBar.hasFocus)
+                {
+                    userBar.text=userBar.text.toLowerCase().replace("v", "")+clipboard;
+                    userBar.caretIndex+=clipboard.length-1;
+                }
+                else if(tokenBar.hasFocus)
+                {
+                    tokenBar.text=tokenBar.text.toLowerCase().replace("v", "")+clipboard;
+                    tokenBar.caretIndex+=clipboard.length-1;
+                }
+            }
+        }
 
         function loginHover():Void
             {

@@ -194,7 +194,7 @@ class GJClient
             if (onFail != null) onFail();
         }
 
-        return null;
+        return [];
     }
 
     /**
@@ -220,7 +220,7 @@ class GJClient
         var urlData = urlResult(urlConstruct('trophies', null, daParam),
         function () {printMsg('Trophies list fetched successfully!'); if (onSuccess != null) onSuccess();},
         function () {printMsg('Trophies list fetching failed!'); if (onFail != null) onFail();});
-        var daFormat:Null<Array<Trophie>> = urlData != null && logged ? urlData.trophies : null;
+        var daFormat:Null<Array<Trophie>> = urlData != null && logged ? urlData.trophies : [];
         return daFormat;
     }
 

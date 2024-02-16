@@ -1,5 +1,6 @@
 package;
 
+import Utils.BSLSwipeUtils;
 import flixel.math.FlxPoint;
 import ui.FlxButton;
 import Utils.BSLTouchUtils;
@@ -293,6 +294,9 @@ class GaleriaStateMusic extends MusicBeatState
 		add(playListbotao);
 		add(letrasbotao);
 
+		BSLSwipeUtils.mouseScrollMultiplier=10;
+		//Estes valores precisem ser calibrados
+
 		super.create();
 
 		loading_list = new Queue();
@@ -464,40 +468,18 @@ class GaleriaStateMusic extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		BSLSwipeUtils.swipeVertical();
 		if(Utils.BSLTouchUtils.over(scrollableArea))
+		{
+			if (!isLetras)
 			{
-			if(FlxG.mouse.wheel>0) //Aparentemente isso aqui faz o bg subir.
-			{
-					//trace('estou subindo?'); //Sim
-				if (!isLetras)
-				{
-					if(menuItems.members[0].y <= segureoPrimeiroY)
-					{
-							menuItems.forEach(function(spr:FlxSprite)
-							{spr.y = spr.y+25;});
-					}
-				}else
-					if(textGroup.members[0].y <= playListbotao.height+playListbotao.y - 25)
-						{
-							textGroup.forEach(function(spr:FlxText)
-								{spr.y = spr.y+25;});
-						}
-			}else if(FlxG.mouse.wheel<0){
-				if (!isLetras){
-					if(menuItems.members[GaleriaState.leMusic.length-1].y >= FlxG.height - barraInferior.y +15*35)
-						{
-								menuItems.forEach(function(spr:FlxSprite)
-								{spr.y = spr.y-25;});
-						}
-				}else{
-					if(textGroup.members[textGroup.length-1].y >= FlxG.height - barraInferior.height - 30)
-						{
-							textGroup.forEach(function(spr:FlxText)
-								{spr.y = spr.y-25;});
-						}
-				}
-			}
-			}
+				if(menuItems.members[0].y + BSLSwipeUtils.scrollY <= segureoPrimeiroY && menuItems.members[GaleriaState.leMusic.length-1].y + BSLSwipeUtils.scrollY>= FlxG.height - barraInferior.y + 525)
+					menuItems.forEach(function(spr:FlxSprite){spr.y += BSLSwipeUtils.scrollY;});
+			}else
+				if(textGroup.members[0].y + BSLSwipeUtils.scrollY <= playListbotao.height+playListbotao.y - 25 && textGroup.members[textGroup.length-1].y + BSLSwipeUtils.scrollY >= FlxG.height - barraInferior.height - 30)
+					textGroup.forEach(function(spr:FlxText){spr.y += BSLSwipeUtils.scrollY;});
+					
+		}
 
 		if (controls.BACK || (Utils.BSLTouchUtils.over(sair) && Utils.BSLTouchUtils.justTouched())) {
 			menutoca= true;
@@ -648,7 +630,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 					}
 
-					if(BSLTouchUtils.justTouched()) 
+					if(BSLTouchUtils.justsolto() && !BSLSwipeUtils.is_swipping) 
 						{
 							if(BSLTouchUtils.over(spr) && spr.visible && !BSLTouchUtils.over(barraInferior)){
 								GlobalSoundManager.play('click');
