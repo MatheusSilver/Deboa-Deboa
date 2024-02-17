@@ -814,9 +814,15 @@ class FunkinLua {
 			var cam:FlxCamera = cameraFromString(camera);
 			return Utils.BSLTouchUtils.pegarpos("x");
 		});
+
 		Lua_helper.add_callback(lua, "getMouseY", function(camera:String) {
 			var cam:FlxCamera = cameraFromString(camera);
 			return Utils.BSLTouchUtils.pegarpos("y");
+		});
+
+		Lua_helper.add_callback(lua, "tecladoMobile", function(coiso:String) {
+			#if debug if(coiso != "abrir" || "fechar") { FlxG.log.error("ERRO: A acao deve ser 'abrir' ou 'fechar' "); } #end
+			return Utils.BSLTouchUtils.teclado(coiso);
 		});
 		
 		//Furtado da Psych 6.3 apenas para ser usado na Slaybells

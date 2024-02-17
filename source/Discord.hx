@@ -17,11 +17,11 @@ class DiscordClient
 	{
 		trace("Discord Client starting...");
 		DiscordRpc.start({
-			#if debug
+			#if rpc
+			clientID: "915352684826079232",
+			#else
 			clientID: "863222024192262205", //Assim poderei testar a parte do discord em paz
 			//hopefully...
-			#else
-			clientID: "915352684826079232",
 			#end
 			onReady: onReady,
 			onError: onError,
@@ -50,7 +50,11 @@ class DiscordClient
 			details: LangUtil.getString("rpc_title", "rpc"),
 			state: null,
 			largeImageKey: 'icon',
+			#if rpc
 			largeImageText: "ModBoa"
+			#else
+			largeImageText: "Psych Engine"
+			#end
 		});
 	}
 
@@ -87,7 +91,7 @@ class DiscordClient
 			details: details,
 			state: state,
 			largeImageKey: 'icon',
-			#if debug
+			#if rpc
 			largeImageText: "ModBoa.EXE",
 			#else
 			largeImageText: "Psych Engine",

@@ -369,6 +369,18 @@ class BSLTouchUtils
 		return 0;
 	}
 	#end
+
+	public static function teclado(acao:String) { // Converter para lua
+		#if mobile
+		if(acao == "abrir") {
+            FlxG.stage.window.textInputEnabled = true;
+		} else if(acao == "fechar") {
+			FlxG.stage.window.textInputEnabled = false;
+		}
+		#else
+		trace("Abrir/fechar teclado e uma funcao exclusiva do mobile.");
+		#end
+	}
 }
 
 /**
