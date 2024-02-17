@@ -136,6 +136,17 @@ class GameJoltLoginState extends MusicBeatState
             {
                 pasteCoisas();
             }
+            else
+            {
+                if(!userBar.hasFocus && userBar.text=="")
+                {
+                    userBar.text="USERNAME";
+                }
+                if(!tokenBar.hasFocus && tokenBar.text=="")
+                {
+                    tokenBar.text="TOKEN";
+                }
+            }
             podeSair = !tokenBar.hasFocus && !userBar.hasFocus; 
             loginbotao.updateHitbox();
 		}
@@ -143,7 +154,7 @@ class GameJoltLoginState extends MusicBeatState
         function pasteCoisas()
         {
             var clipboard:String = Clipboard.generalClipboard.getData(ClipboardFormats.TEXT_FORMAT);
-            if(FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.V && clipboard != null)
+            if(FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.V && (clipboard != null && clipboard != "" && clipboard.toLowerCase() != "null"))
             {
                 if(userBar.hasFocus)
                 {
