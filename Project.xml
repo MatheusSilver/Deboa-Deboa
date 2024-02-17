@@ -264,6 +264,7 @@
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
+	<haxedef name="NO_PRECOMPILED_HEADERS" if="android" />
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
 
