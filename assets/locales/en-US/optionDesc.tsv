@@ -1,5 +1,5 @@
 flag	context
-opt_desc_colorblindness_filter	Switch between filters,<X>the ideal one for your case of color blindness
+opt_desc_colorblindness_filter	Switch between filters,<X>the ideal one for your case of color blindness.<X>(Can cause performance problems)
 opt_desc_gore	Turn this off if you don't want to see<X>the gore elements in the song.
 opt_desc_fps_max	Determines the maximum FPS achievable.
 opt_desc_note_delay	Change how soon a note appears.<X>(made specifically for bluetooth headsets.)

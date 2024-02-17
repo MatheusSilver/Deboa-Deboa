@@ -240,7 +240,7 @@ class TitleState extends MusicBeatState
 		// GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
 		// GJClient.initialize();
 
-		Conductor.changeBPM(112);
+		Conductor.changeBPM(114);
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -572,11 +572,10 @@ class TitleState extends MusicBeatState
 				case 12:
 					deleteCoolText();
 				case 13:
-				case 14:
 					addMoreText('FNF');
-				case 15:
+				case 14:
 					addMoreText('ModBoa');
-				case 16:
+				case 15:
 					skipIntro();
 			}
 		}

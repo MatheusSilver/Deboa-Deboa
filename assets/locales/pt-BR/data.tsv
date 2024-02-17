@@ -1,4 +1,4 @@
-flag	context
+﻿flag	context
 descVideo	Aperte ESPAÇO para pular
 langMenu	Seleção de Idioma
 label_high_score	RECORDE: 
@@ -13,6 +13,7 @@ control_text_expla_no	Você terá a mesma experiência do mod original <X>mas os
 control_text_activate_gif	Deseja ativar os GIF's?
 common_text_yes	Sim
 common_text_no	Nope
+common_text_filter	Sem filtro
 intro_text_vio_team	Time da Vio
 intro_text_presents	Apresenta
 intro_text_ok_ok	ok ok

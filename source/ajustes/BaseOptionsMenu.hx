@@ -543,7 +543,7 @@ class BaseOptionsMenu extends MusicBeatState
 			case 1: return "Deuteranopia";
 			case 2: return "Tritanopia";
 			case 3: return "Protanopia";
-			default: return "Normal";
+			default: return LangUtil.getString("common_text_filter", "data");
 		}
 	}
 

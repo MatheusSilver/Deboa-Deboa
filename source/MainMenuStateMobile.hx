@@ -328,14 +328,10 @@ class MainMenuStateMobile extends MusicBeatState
 					MusicBeatState.switchState(new ajustes.AjustesState());
 				case 'multiplayer':
 					if(GJClient.logged)
-						{
-							MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState());
-						}
-					else
 					{
-						MusicBeatState.switchState(new MainMenuStateMobile());
-					}
-
+						MusicBeatState.switchState(new multiplayer.MultiplayerMainMenuState());
+					} // A minha ideia pra essa parte era fazer um gerador de Popups em substate pra dizer que tu precisa estar conectado na GJ pra usar isso...
+					// apenas uma ideia :thumbsup:
 			}			
 		});
 	}

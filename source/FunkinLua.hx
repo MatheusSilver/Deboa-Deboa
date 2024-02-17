@@ -821,7 +821,6 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "tecladoMobile", function(coiso:String) {
-			#if debug if(coiso != "abrir" || "fechar") { FlxG.log.error("ERRO: A acao deve ser 'abrir' ou 'fechar' "); } #end
 			return Utils.BSLTouchUtils.teclado(coiso);
 		});
 		
