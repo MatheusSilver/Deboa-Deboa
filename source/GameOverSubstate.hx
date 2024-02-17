@@ -107,6 +107,8 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
+
+	var eusougalinha:Bool = false;
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
@@ -129,7 +131,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			});
 		}
 
-		if (controls.BACK)
+		if (controls.BACK && eusougalinha)
 		{
 			FlxG.sound.music.stop();
 
@@ -148,7 +150,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				
 				var exclude:Array<Int> = [];
 				//if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
-
+				eusougalinha = true;
 				FlxG.sound.play(Paths.sound('gameoverfalas/' + FlxG.random.int(1, 12, exclude)), 1, false, null, true, function() {
 					if(!isEnding)
 					{
