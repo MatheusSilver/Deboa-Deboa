@@ -1778,6 +1778,10 @@ class FunkinLua {
 			}
 			return Reflect.setProperty(PlayState.instance, variable, value);
 		});
+
+		Lua_helper.add_callback(lua, "fileExists", function(file:String) {
+			return OpenFlAssets.exists(file);
+		});
 		
 		Lua_helper.add_callback(lua, "getPropertyTiledLuaSprite", function(variable:String) {
 			var killMe:Array<String> = variable.split('.');
