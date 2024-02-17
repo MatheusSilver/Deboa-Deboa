@@ -183,11 +183,11 @@ class GameJoltLoginState extends MusicBeatState
                     {
                         if(userBar.text != "USERNAME" && tokenBar.text != "TOKEN")
                             {
+                                msgBar.text=LangUtil.getString("gj_login_connecting", "optionsMenu");
                                 GJClient.logout();
                                 GJClient.shitt=true;
                                 GJClient.setUserInfo(userBar.text, tokenBar.text);
                                 GJClient.login();
-                                //msgBar.text="Conectando...";
                                 new FlxTimer().start(2, function(tmr:FlxTimer){
                                     esconderTexto=true;
                                 });
@@ -210,7 +210,7 @@ class GameJoltLoginState extends MusicBeatState
                 new FlxTimer().start(2, function(tmr:FlxTimer){
                     esconderTexto=true;
                 });
-                msgBar.text="O Login falhou!";
+                msgBar.text=LangUtil.getString("gj_login_failed", "optionsMenu");
             }
         public static function IrParaMenu():Void
             {

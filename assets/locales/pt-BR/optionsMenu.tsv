@@ -7,3 +7,5 @@ opt_gamejooj	Gamejolt
 opt_hue	Hue
 opt_saturation	Saturacao
 opt_brightness	Brilho
+gj_login_failed	O Login Falhou!
+gj_login_connecting	Conectando...
