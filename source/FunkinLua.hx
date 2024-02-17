@@ -821,7 +821,7 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "tecladoMobile", function(coiso:String) {
-			return Utils.BSLTouchUtils.teclado(coiso);
+			Utils.BSLTouchUtils.teclado(coiso);
 		});
 		
 		//Furtado da Psych 6.3 apenas para ser usado na Slaybells
