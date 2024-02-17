@@ -162,7 +162,7 @@
 		0,
 		0
 	],
-	"healthicon": "sonic",
+	"healthicon": "phantasm/sonic",
 	"flip_x": true,
 	"healthbar_colors": [
 		40,
