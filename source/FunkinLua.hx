@@ -821,7 +821,7 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "tecladoMobile", function(coiso:String) {
-			return Utils.BSLTouchUtils.teclado(coiso);
+			Utils.BSLTouchUtils.teclado(coiso);
 		});
 		
 		//Furtado da Psych 6.3 apenas para ser usado na Slaybells
@@ -1777,6 +1777,10 @@ class FunkinLua {
 				return Reflect.setProperty(coverMeInPiss, killMe[killMe.length-1], value);
 			}
 			return Reflect.setProperty(PlayState.instance, variable, value);
+		});
+
+		Lua_helper.add_callback(lua, "fileExists", function(file:String) {
+			return OpenFlAssets.exists(file);
 		});
 		
 		Lua_helper.add_callback(lua, "getPropertyTiledLuaSprite", function(variable:String) {

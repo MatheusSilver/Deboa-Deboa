@@ -426,6 +426,9 @@ class PlayState extends MusicBeatState
 
 	var isexe:Bool = true;
 	var cNum:Int = 0;
+	
+	public static var vimdopause:Bool = false;
+	public static var newSongSpeed:Float;
 
 	/* 
 		Anotações do MateusX02:
@@ -557,10 +560,19 @@ class PlayState extends MusicBeatState
 
 		storyDifficultyText = LangUtil.getString("rpc_diff_text_"+CoolUtil.difficultyStuff[storyDifficulty][0].toLowerCase(), "rpc");
 
-		if (ModifiersManager.isEnabledbyName("fast_note"))
-			SONG.speed = SONG.speed * 1.5;
-		else if (ModifiersManager.isEnabledbyName("slow_note"))
-			SONG.speed = SONG.speed *0.5;
+		if(!vimdopause)
+		{
+			if (ModifiersManager.isEnabledbyName("fast_note"))
+				SONG.speed = SONG.speed * 1.5;
+			else if (ModifiersManager.isEnabledbyName("slow_note"))
+				SONG.speed = SONG.speed *0.5;
+			newSongSpeed = SONG.speed; // pra dps do pause ele conseguir pegar o mesmo valor
+		}
+		else
+		{
+			SONG.speed = newSongSpeed;
+		}
+		vimdopause = false;
 
 		// Nenhum problema pra só uma string
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode

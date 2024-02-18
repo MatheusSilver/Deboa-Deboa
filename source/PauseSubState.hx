@@ -269,6 +269,7 @@ class PauseSubState extends MusicBeatSubstate
 				case "restart":
 					podeJumpscare=false;
 					PlayState.instance.canRegen = true;
+					PlayState.vimdopause = true;
 					PlayState.canuseevents = true;
 					CustomFadeTransition.nextCamera = PlayState.instance.camAchievement;
 					restartSong(!PlayState.instance.playingVideoMP4);
