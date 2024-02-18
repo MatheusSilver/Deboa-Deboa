@@ -71,7 +71,6 @@ class ChartingState extends MusicBeatState
 	[
         ['Adicionar Imagens', "Coloca Uma Imagem.\nValue 1: Path pra primeira imagem\nValue 2: Path pra segunda imagem"],
 		['video player', "obviamente ele faz café"],
-		['Som de Censura', 'Value 1: deve ser play ou pause.'],
 		['Spin', 'Bom... Spiiiiiiiiiiiiiiiiiiiiiin das setas'],
 		['CamZoomTween', "Value 1 = quantidade de zoom \n value 2 = duração do tween"],
 		['TelaPreta', "Value 1 = true adiciona uma tela preta \n qualquer outra coisa tira ela."],
@@ -412,11 +411,6 @@ class ChartingState extends MusicBeatState
 			{
 				saveLyrics();
 			});
-
-			var savepalavroes:FlxButton = new FlxButton(110, saveButton.y + 60, 'Save Palavroes', function ()
-				{
-					savepalavroess();
-				});
 	
 		var loadAutosaveBtn:FlxButton = new FlxButton(reloadSongJson.x, reloadSongJson.y + 30, 'Load Autosave', function()
 			{
@@ -462,25 +456,6 @@ class ChartingState extends MusicBeatState
 			}
 			changeSection(curSection);
 		});
-
-		var reloadPalavroes:FlxButton = new FlxButton(loadAutosaveBtn.x, loadAutosaveBtn.y + 60, 'Load palavroes', function()
-			{
-				var songName:String = Paths.formatToSongPath(_song.song);
-	
-				if (Utils.exists(Paths.json(songName + '/palavroes')))
-				{
-					var palavroes:SwagSong = Song.loadFromJson('palavroes', songName);
-					for (sec in 0...palavroes.notes.length) {
-						for (noteId in 0...palavroes.notes[sec].sectionNotes.length) {
-							var note:Array<Dynamic> = palavroes.notes[sec].sectionNotes[noteId];
-							if(note != null && note[1] < 0) {
-								_song.notes[sec].sectionNotes.push([note[0], note[1], note[2], note[3], note[4], note[5], note[6], note[7]]);
-							}
-						}
-					}
-				}
-				changeSection(curSection);
-			});
 
 		var saveEvents:FlxButton = new FlxButton(110, reloadSongJson.y, 'Save Events', function ()
 		{
@@ -641,8 +616,6 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(saveLyrics);
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
-		tab_group_song.add(savepalavroes);
-		tab_group_song.add(reloadPalavroes);
 		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(loadEventJson);
 		tab_group_song.add(loadLyricJson);
@@ -2325,74 +2298,6 @@ class ChartingState extends MusicBeatState
 			_file.save(data.trim(), "events.json");
 		}
 	}
-
-	private function savepalavroess() //Eu sei... Essa função é identica a que está em cima, mas... tenta usar ela no botão ali pra ver o que acontece k
-		{
-			var events:Array<SwagSection> = [];
-			for (sec in 0..._song.notes.length) {
-				if(_song.notes[sec] == null) continue;
-	
-				var arrayNotes:Array<Dynamic> = [];
-				for (i in 0..._song.notes[sec].sectionNotes.length) {
-					var note:Array<Dynamic> = _song.notes[sec].sectionNotes[i];
-					if(note != null && note[1] < 0 && (note[2] == "Som de Censura")) {
-						arrayNotes.push(note);
-					}
-				}
-	
-				var sex:SwagSection = {
-					sectionNotes: arrayNotes,
-					lengthInSteps: 16,
-					typeOfSection: 0,
-					mustHitSection: false,
-					gfSection: false,
-					bpm: 0,
-					changeBPM: false,
-					altAnim: false
-				};
-				events.push(sex);
-			}
-	
-			var eventsSong:SwagSong = {
-				song: _song.song,
-				notes: events,
-				bpm: _song.bpm,
-				needsVoices: _song.needsVoices,
-				videonombre: _song.videonombre,
-				startinvisibru: _song.startinvisibru,
-				isRing: _song.isRing,
-				speed: _song.speed,
-				arrowSkin: _song.arrowSkin,
-				splashSkin: _song.splashSkin,
-				canfollowpermitido: _song.canfollowpermitido,
-	
-				player1: _song.player1,
-				player2: _song.player2,
-				player3: _song.player3,
-				stage: _song.stage,
-				validScore: false
-			};
-			var json = {
-				"song": eventsSong
-			}
-	
-			var data:String = Json.stringify(json, "\t");
-	
-			#if mobile
-			// Isso faz que o jogo copie as coisas no mobile
-			// Tipo copiar um texto
-			Utils.copiarclipboard(data);
-			#end
-	
-			if ((data != null) && (data.length > 0))
-			{
-				_file = new FileReference();
-				_file.addEventListener(Event.COMPLETE, onSaveComplete);
-				_file.addEventListener(Event.CANCEL, onSaveCancel);
-				_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-				_file.save(data.trim(), "palavroes.json");
-			}
-		}
 
 	private function saveLyrics() //Eu sei... Essa função é identica a que está em cima, mas... tenta usar ela no botão ali pra ver o que acontece k
 	{
