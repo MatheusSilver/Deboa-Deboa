@@ -94,6 +94,9 @@ class PlayState extends MusicBeatState
 	var hitsound:FlxSound;
 	var sonicPulo:FlxSound;
 	var sonicDash:FlxSound;
+	var censura:FlxSound; // Eu pensei se eu deveria colocar isso aqui, e decidi que sim.
+	// Primeiro: você pode ativar e desativar, pois é uma opção
+	// Segundo: Tem pessoas que não gostam de ouvir palavrão né (ModBoa o mod mais inclusivo de 2014)
 
 	public var intro1:FlxSound;
 	public var intro2:FlxSound;
@@ -894,6 +897,11 @@ class PlayState extends MusicBeatState
 			hitsound.volume = ClientPrefs.osusom; // I FORGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR
 		}
 
+		if (!ClientPrefs.palavroes) {
+			censura = new FlxSound().loadEmbedded(Paths.sound('censura', 'shared'));
+			censura.volume = 1.5;
+		}
+
 		pauseSound = new FlxSound().loadEmbedded(Paths.sound('PauseEnter'));
 		pauseSound.volume = 0.6;
 		// Shitty layering but whatev it works LOL
@@ -911,7 +919,6 @@ class PlayState extends MusicBeatState
 		add(luaDebugGroup);
 		#end
 
-		
 		var luaFile:String = 'stages/' + curStage + '.lua';
 		luaFile = Paths.getPreloadPath(luaFile);
 		var doPush:Bool = OpenFlAssets.exists(luaFile);
@@ -2377,6 +2384,32 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+		var filepalavroes:String = Paths.json(songName + '/palavroes');
+		if (Utils.exists(filepalavroes))
+		{
+			var eventsDatapalavroes:Array<SwagSection>;
+			eventsDatapalavroes = Song.loadFromJson('palavroes', songName).notes;
+			for (section in eventsDatapalavroes)
+			{
+				for (songNotes in section.sectionNotes)
+				{
+					if (songNotes[1] < 0)
+					{
+						eventNotes.push([
+							songNotes[0],
+							songNotes[1],
+							songNotes[2],
+							songNotes[3],
+							songNotes[4],
+							songNotes[5],
+							songNotes[6]
+						]);
+						eventPushed(songNotes);
+					}
+				}
+			}
+		}
+
 		var fileletras:String = Paths.json(songName + '/letras');
 		if (Utils.exists(fileletras))
 		{
@@ -3509,6 +3542,20 @@ class PlayState extends MusicBeatState
 	{
 		switch (eventName)
 		{
+			case 'Som de Censura':
+				if(!ClientPrefs.palavroes) {
+					switch(value1) {
+						case "play":
+							censura.play();
+							FlxG.sound.music.volume = 0;
+						case "pause":
+							censura.pause();
+							FlxG.sound.music.volume = 1; // PIIIIIIIII tá cheio de cocaina 
+					}
+				} else {
+					trace("Palavrões estão ativados, logo TUDO FOI ANULADO");
+					// Pra parte das legendas seria 1000x mais fácil elas serem em texto...
+				}
 			case 'Particula CY':
 				particulasCy(); // exatamente, tu não precisa fazer NADA
 			case 'video player':
