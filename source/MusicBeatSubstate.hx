@@ -54,10 +54,9 @@ class MusicBeatSubstate extends FlxSubState
 
 		if (Main.getMouseVisibility() && FlxG.keys.pressed.ANY){
 			Main.mouseVisibility(false);
-		}#if !mobile else if (Main.mouse_allowed && FlxG.mouse.justMoved){
+		}else if (Main.mouse_allowed && #if !mobile FlxG.mouse.justMoved #else Utils.BSLTouchUtils.justTouched() #end){
 			Main.mouseVisibility(true);
 		}
-		#end
 		
 		//everyStep();
 		var oldStep:Int = curStep;

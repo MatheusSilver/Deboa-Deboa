@@ -355,9 +355,9 @@ class MainMenuStateMobile extends MusicBeatState
 				curSelected = menuItems.length - 1;
 			else{
 				curSelected -= 1;
-				if (optionShit[curSelected] == "freeplay" && !passouCY)
-					curSelected -=1;
 				if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
+					curSelected -=1;
+				if (optionShit[curSelected] == "freeplay" && !passouCY)
 					curSelected -=1;
 			}
 		}

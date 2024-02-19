@@ -358,15 +358,17 @@ class BSLTouchUtils
 	 * Retorna uma int da posição atual do seu toque
 	 * @param pos A posição que tu quer (X ou Y) - deve ser escrita como "x" ou "y".
 	 */
-	public static function pegarpos(?touch:flixel.input.touch.FlxTouch, pos:String):Int
+	public static function pegarpos(pos:String):Int
 	{
-		if (pos == 'x')
-			return touch.x;
-
-		if (pos == 'y')
-			return touch.y;
-
-		return 0;
+		for (touch in FlxG.touches.list){
+			if (pos == 'x')
+				return touch.x;
+	
+			if (pos == 'y')
+				return touch.y;
+	
+			return 0;
+		}
 	}
 	#end
 

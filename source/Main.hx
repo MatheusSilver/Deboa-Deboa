@@ -62,14 +62,14 @@ class Main extends Sprite
 
 	public static var mouse_allowed:Bool = false;
 	#if mobile
-	private static var using_touch:Bool = true;
+	private static var touch_allowed:Bool = true;
 	#end
 	public static function mouseVisibility(visible:Bool):Void
 	{
 		#if desktop
 		FlxG.mouse.visible = visible;
 		#else
-		using_touch = visible;
+		touch_allowed = visible;
 		#end
 	}
 
@@ -78,7 +78,7 @@ class Main extends Sprite
 		#if desktop
 		return FlxG.mouse.visible;
 		#else
-		return using_touch;
+		return touch_allowed;
 		#end
 	}
 
