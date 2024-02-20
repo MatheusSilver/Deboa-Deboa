@@ -367,8 +367,8 @@ class BSLTouchUtils
 			if (pos == 'y')
 				return touch.y;
 	
-			return 0;
 		}
+		return 0;
 	}
 	#end
 

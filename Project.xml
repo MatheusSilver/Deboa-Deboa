@@ -220,9 +220,15 @@
 	<!-- videos setup -->
 	<assets path="assets/videos/Mobile" if="mobile" />
 	<assets path='assets/videos/AnimacoesJogaveis' />
+	
 	<assets path='assets/videos/EngineBase' exclude="*.html" if="desktop"/>
 	<assets path='assets/videos/Intro' exclude="*.html" if="desktop"/>
 	<assets path='assets/videos/VideosRandoms' exclude="*.html" if="desktop"/>
+
+	<assets path='assets/videos/EngineBase' if="mobile"/>
+	<assets path='assets/videos/Intro' if="mobile"/>
+	<assets path='assets/videos/VideosRandoms' if="mobile"/>
+
 	<assets path='assets/videos/mikudeusa.mp' /> <!-- NUNCA REMOVA A MIKU!!!!!!!🙀🙀🙀🙀🙀🙀🙀 -->
 
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
