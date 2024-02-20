@@ -53,7 +53,6 @@ import openfl.Lib;
 import openfl.display.BitmapData;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
-import openfl.events.KeyboardEvent;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ShaderFilter;
 import openfl.system.System;
@@ -1554,9 +1553,6 @@ class PlayState extends MusicBeatState
 		updateCamPos('all');
 
 		callOnLuas('onCreatePost', []);
-
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 
 		if (isRing)
 		{
@@ -5278,13 +5274,9 @@ class PlayState extends MusicBeatState
 		return ret;
 	}
 
-	private function onKeyPress(event:KeyboardEvent):Void
+	private function onKeyPress(key_pressed:Int):Void
 	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-		// trace('Pressed: ' + eventKey);
-
-		if (!cpuControlled && startedCountdown && !paused && key > -1 && (FlxG.keys.checkStatus(eventKey, JUST_PRESSED)))
+		if (!cpuControlled && startedCountdown && !paused && key_pressed > -1)
 		{
 			if (!boyfriend.stunned && generatedMusic && !endingSong)
 			{
@@ -5304,7 +5296,7 @@ class PlayState extends MusicBeatState
 				{
 					if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit && !daNote.isSustainNote && !daNote.blockHit)
 					{
-						if (daNote.noteData == key)
+						if (daNote.noteData == key_pressed)
 						{
 							sortedNotesList.push(daNote);
 							// notesDatas.push(daNote.noteData);
@@ -5338,19 +5330,19 @@ class PlayState extends MusicBeatState
 						}
 					}
 				}
-				keysPressed[key] = true;
+				keysPressed[key_pressed] = true;
 
 				// more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
 				Conductor.songPosition = lastTime;
 			}
 
-			var spr:StrumNote = playerStrums.members[key];
+			var spr:StrumNote = playerStrums.members[key_pressed];
 			if (spr != null && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
 				spr.resetAnim = 0;
 			}
-			callOnLuas('onKeyPress', [key]);
+			callOnLuas('onKeyPress', [key_pressed]);
 		}
 		// trace('pressed: ' + controlArray);
 	}
@@ -5365,45 +5357,41 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, a.strumTime, b.strumTime);
 	}
 
-	private function getKeyFromEvent(key:FlxKey):Int
+	private function onKeyRelease(key_pressed:Int):Void
 	{
-		if (key != NONE)
+		if (!cpuControlled && startedCountdown && !paused && key_pressed > -1)
 		{
-			for (i in 0...keysArray.length)
-			{
-				for (j in 0...keysArray[i].length)
-				{
-					if (key == keysArray[i][j])
-					{
-						return i;
-					}
-				}
-			}
-		}
-		return -1;
-	}
-
-	private function onKeyRelease(event:KeyboardEvent):Void
-	{
-		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(eventKey);
-		if (!cpuControlled && startedCountdown && !paused && key > -1)
-		{
-			var spr:StrumNote = playerStrums.members[key];
+			var spr:StrumNote = playerStrums.members[key_pressed];
 			if (spr != null)
 			{
 				spr.playAnim('static');
 				spr.resetAnim = 0;
 			}
-			callOnLuas('onKeyRelease', [key]);
+			callOnLuas('onKeyRelease', [key_pressed]);
 		}
-		// trace('released: ' + controlArray);
 	}
 
 	private function keyShit():Void
 	{
 		// HOLDING
-		var parsedHoldArray:Array<Bool> = parseKeys();
+		var up = controls.NOTE_UP;
+		var right = controls.NOTE_RIGHT;
+		var down = controls.NOTE_DOWN;
+		var left = controls.NOTE_LEFT;
+		
+		var upP = controls.NOTE_UP_P;
+		var rightP = controls.NOTE_RIGHT_P;
+		var downP = controls.NOTE_DOWN_P;
+		var leftP = controls.NOTE_LEFT_P;
+
+		var upR = controls.NOTE_UP_R;
+		var rightR = controls.NOTE_RIGHT_R;
+		var downR = controls.NOTE_DOWN_R;
+		var leftR = controls.NOTE_LEFT_R;
+
+		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
+		var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
+		var controlHoldArray:Array<Bool> = [left, down, up, right];
 
 		// FlxG.watch.addQuick('asdfa', upP);
 		if (startedCountdown && !boyfriend.stunned && generatedMusic && songStarted) // Temporário pra pasta night
@@ -5412,13 +5400,19 @@ class PlayState extends MusicBeatState
 			notes.forEachAlive(function(daNote:Note)
 			{
 				// hold note functions
-				if (daNote.isSustainNote && parsedHoldArray[daNote.noteData] && daNote.canBeHit && daNote.mustPress && !daNote.tooLate
+				if (daNote.isSustainNote && controlHoldArray[daNote.noteData] && daNote.canBeHit && daNote.mustPress && !daNote.tooLate
 					&& !daNote.wasGoodHit && !daNote.blockHit)
 				{
 					goodNoteHit(daNote);
 				}
 			});
-			if (parsedHoldArray.contains(true) && !endingSong)
+			for (i in 0...playerStrums.length){
+				if (controlArray[i] && !endingSong)
+					onKeyPress(i);
+				else if (controlReleaseArray[i] && !endingSong)
+					onKeyRelease(i);
+			}
+			if (controlHoldArray.contains(true) && !endingSong)
 			{
 				// nada
 			}
@@ -6114,9 +6108,6 @@ class PlayState extends MusicBeatState
 			luaArray[i].stop();
 		}
 		luaArray = [];
-
-		FlxG.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyPress);
-		FlxG.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 
 		/*FlxG.sound.music.pitch = 1;*/
 
