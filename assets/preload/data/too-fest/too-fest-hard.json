@@ -6971,7 +6971,7 @@
 		"validScore": true,
 		"splashSkin": "noteSplashes",
 		"needsVoices": false,
-		"speed": 5,
+		"speed": 3.3,
 		"bpm": 174,
 		"noteStyle": ""
 	}

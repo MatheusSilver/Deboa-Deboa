@@ -4,47 +4,25 @@ function onCreate()
         precacheSound("rapaiz")
         precacheSound("atumalaca")
         if downscroll == true then --Até poderia arrumar isso... Mas preguiça né?
-            if legendasporcima == true then
-                makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, -350)
-                addAnimationByPrefix('fundo', 'Legenda RGB', 'Legenda RGB', 24, true);
-                addAnimationByPrefix('fundo', 'Legenda Venom', 'Legenda Venom', 24, true);
-                setScrollFactor('fundo', 0, 0);
-                scaleObject('fundo', 1, 1);
-                setLuaSpriteCamera('fundo', 'camhud');
-                addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', opacidadeLegendas);
-                playAnim("fundo", "Legenda RGB")
-            else
-                makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, -350)
-                addAnimationByPrefix('fundo', 'Legenda RGB', 'Legenda RGB', 24, true);
-                addAnimationByPrefix('fundo', 'Legenda Venom', 'Legenda Venom', 24, true);
-                setScrollFactor('fundo', 0, 0);
-                scaleObject('fundo', 1, 1);
-                addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', opacidadeLegendas);
-                playAnim("fundo", "Legenda RGB")
-            end
+            makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, -350)
+            addAnimationByPrefix('fundo', 'Legenda RGB', 'Legenda RGB', 24, true);
+            addAnimationByPrefix('fundo', 'Legenda Venom', 'Legenda Venom', 24, true);
+            setScrollFactor('fundo', 0, 0);
+            scaleObject('fundo', 1, 1);
+            setLuaSpriteCamera('fundo', 'legenda');
+            addLuaSprite('fundo', false);
+            setProperty('fundo.alpha', opacidadeLegendas);
+            playAnim("fundo", "Legenda RGB")
         else
-            if legendasporcima == true then
-                makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, 0)
-                addAnimationByPrefix('fundo', 'Legenda RGB', 'Legenda RGB', 24, true);
-                addAnimationByPrefix('fundo', 'Legenda Venom', 'Legenda Venom', 24, true);
-                setScrollFactor('fundo', 0, 0);
-                scaleObject('fundo', 1, 1);
-                setLuaSpriteCamera('fundo', 'camhud');
-                addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', opacidadeLegendas);
-                playAnim("fundo", "Legenda RGB")
-            else
-                makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, 0)
-                addAnimationByPrefix('fundo', 'Legenda RGB', 'Legenda RGB', 24, true);
-                addAnimationByPrefix('fundo', 'Legenda Venom', 'Legenda Venom', 24, true);
-                setScrollFactor('fundo', 0, 0);
-                scaleObject('fundo', 1, 1);
-                addLuaSprite('fundo', true);
-                setProperty('fundo.alpha', opacidadeLegendas);
-                playAnim("fundo", "Legenda RGB")
-            end
+            makeAnimatedLuaSprite('fundo', 'letras/too-fest/Legenda', 0, 0)
+            addAnimationByPrefix('fundo', 'Legenda RGB', 'Legenda RGB', 24, true);
+            addAnimationByPrefix('fundo', 'Legenda Venom', 'Legenda Venom', 24, true);
+            setScrollFactor('fundo', 0, 0);
+            scaleObject('fundo', 1, 1);
+            setLuaSpriteCamera('fundo', 'legenda');
+            addLuaSprite('fundo', false);
+            setProperty('fundo.alpha', opacidadeLegendas);
+            playAnim("fundo", "Legenda RGB")
         end
     end
 end
@@ -63,8 +41,7 @@ end
 function propriedadescomuns(var,name)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
-    setLuaSpriteCamera(var, 'hud2'); --legenda por baixo das setas.
-    --setLuaSpriteCamera(var, 'legenda'); --Legenda por cima das setas
+    setLuaSpriteCamera(var, 'legenda'); --legenda por cima das setas.
     --setGraphicSize(var, screenWidth) -- k
     setProperty(var..".alpha", opacidadeLegendas);
     if name == "sanic11" then
@@ -102,7 +79,6 @@ function onVideoEnd()
     if not bot_antes then
         botPlay = false
     end
-    setProperty('camHUD2.visible', true)
 end
 
 function deslocamento(inicio, Speed)

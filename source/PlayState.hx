@@ -2030,7 +2030,6 @@ class PlayState extends MusicBeatState
 
 	public function deletarSpriteNAAAAO():Void
 	{
-		callOnLuas('onVideoEnd', []);
 		FlxG.sound.music.volume = 1;
 		vocals.volume = 1;
 		videoSpr.visible = false;
@@ -2042,6 +2041,7 @@ class PlayState extends MusicBeatState
 		remove(videoSpr);
 		videoSpr.destroy();
 		playingVideoMP4 = false;
+		callOnLuas('onVideoEnd', []);
 	}
 
 	var startTimer:FlxTimer;
