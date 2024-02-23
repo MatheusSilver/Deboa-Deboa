@@ -62,6 +62,7 @@ class GJClient
      */
     public static var userName:String;
     public static var avatarURL:String;
+    public static var myID:String;
     public static function setUserInfo(user:Null<String>, token:Null<String>)
     {
 
@@ -403,15 +404,28 @@ class GJClient
         }
     }
 
-    public static function setData(txtContent:String, dataKey:String, ?onSuccess:DataStore -> Void, ?onFail:() -> Void) // GJClient.setData("valor", "key"); exemplo de aplicar algum valor
+    public static function setData(txtContent:String, dataKey:String, ?onSuccess:DataStore -> Void, ?onFail:() -> Void, ?isPublic:Bool = false) // GJClient.setData("valor", "key"); exemplo de aplicar algum valor
         {
-            var daParams:Array<Array<String>> = [
-                ['game_id', Std.string(GJKeys.id)],
-                ['key', dataKey],
-                ['data', txtContent],
-                ['username', GJClient.userName],
-                ['user_token', getToken()]
-            ];
+
+            var daParams:Array<Array<String>> = [];
+            if(isPublic)
+            {
+                daParams = [
+                    ['game_id', Std.string(GJKeys.id)],
+                    ['key', dataKey],
+                    ['data', txtContent],
+                ];
+            }
+            else
+            {
+                daParams = [
+                    ['game_id', Std.string(GJKeys.id)],
+                    ['key', dataKey],
+                    ['data', txtContent],
+                    ['username', GJClient.userName],
+                    ['user_token', getToken()]
+                ];
+            }
     
             if (logged)
             {
@@ -428,7 +442,6 @@ class GJClient
                             username: GJClient.userName,
                             user_token: getToken()
                         };
-    
                         printMsg('Data setted successfully!');
                         if (onSuccess != null) onSuccess(daData);
                     }
@@ -442,14 +455,26 @@ class GJClient
             }
         }
     
-        public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void):String // GJClient.getData("key"); exemplo de puxar algum valor
+        public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void, ?isPublic:Bool = false):String // GJClient.getData("key"); exemplo de puxar algum valor
             {
-                var daParams:Array<Array<String>> = [
-                    ['game_id', Std.string(GJKeys.id)],
-                    ['key', dataKey],
-                    ['username', GJClient.userName],
-                    ['user_token', getToken()]
-                ];
+                var daParams:Array<Array<String>> = [];
+                if(isPublic)
+                {
+                    daParams = [
+                        ['game_id', Std.string(GJKeys.id)],
+                        ['key', dataKey]
+                    ];
+                }
+                else
+                {
+                    daParams = [
+                        ['game_id', Std.string(GJKeys.id)],
+                        ['key', dataKey],
+                        ['username', GJClient.userName],
+                        ['user_token', getToken()]
+                    ];
+                }
+
                 var urlData = urlResult(urlConstruct('data-store', null, daParams),
                 function () {printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
                 function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();});
@@ -531,7 +556,10 @@ class GJClient
         {
             var userData = getUserData();
             avatarURL = userData.avatar_url;
-            if (!logged) {printMsg('Logged Successfully! Welcome back ${getUser()}!');}
+            myID = Std.string(userData.id);
+            if (!logged) {printMsg('Logged Successfully! Welcome back ${getUser()}!');
+                updateStatus(true);
+            }
             if (onSuccess != null && !logged && userData != null) onSuccess(userData);
             logged = true;
         },
@@ -560,6 +588,7 @@ class GJClient
         {
             if (logged) printMsg('Logged out successfully!');
             if (onSuccess != null && logged) onSuccess();
+            updateStatus(false);
             logged = false;
         },
         function ()
@@ -677,6 +706,16 @@ class GJClient
         }
 
         return success ? result : null;
+    }
+
+    public static function updateStatus(online:Bool = true)
+    {
+        setData(Std.string(online), myID+"/status", null, null, true);
+    }
+
+    public static function getStatus(id:String):String
+    {
+        return getData(id+"/status", null, null, true);
     }
 
 

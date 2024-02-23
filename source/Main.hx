@@ -89,6 +89,12 @@ class Main extends Sprite
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
 
+		stage.application.onExit.add (function(exitCode){
+			if(!gamejolt.GJClient.logged)
+				return;
+			gamejolt.GJClient.updateStatus(false);
+		});
+
 		setupGame();
 	}
 

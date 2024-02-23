@@ -270,7 +270,7 @@ class FriendObject extends FlxSpriteGroup
         desc.x+=5;
         desc.y+=340;
 
-        if(user.last_logged_in_timestamp<=120)
+        if(GJClient.getStatus(Std.string(user.id)) == "true")
         {
             desc.text = LangUtil.getString("menu_friends_online", "menu");
             desc.color = FlxColor.GREEN;
