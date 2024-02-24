@@ -710,12 +710,13 @@ class GJClient
 
     public static function updateStatus(online:Bool = true)
     {
-        setData(Std.string(online), myID+"/status", null, null, true);
+        setData(Std.string(online), myID+"-status", null, null, true);
+        trace("novo status: "+Std.string(online));
     }
 
     public static function getStatus(id:String):String
     {
-        return getData(id+"/status", null, null, true);
+        return getData(id+"-status", null, null, true);
     }
 
 
