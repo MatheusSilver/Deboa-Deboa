@@ -421,7 +421,7 @@ class GJClient
     
             if (logged)
             {
-                var urlData = urlResult(urlConstruct('data-store', 'set', daParams),
+                var urlData = urlResult(urlConstruct('data-store', 'set', daParams, !isPublic, !isPublic),
                 function ()
                 {
                     if (logged)
@@ -463,7 +463,7 @@ class GJClient
                     ['user_token', getToken()]
                 ];
 
-                var urlData = urlResult(urlConstruct('data-store', null, daParams),
+                var urlData = urlResult(urlConstruct('data-store', null, daParams, !isPublic, !isPublic),
                 function () {printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
                 function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();});
                 var daData:Null<DataStore> = urlData != null && logged ? urlData : null;
@@ -656,7 +656,7 @@ class GJClient
             var daEncode:String = mainURL + GJKeys.key; // Private thingie (Fuck you hackers lmao)
     
             mainURL += '&signature=${useMd5 ? Md5.encode(daEncode) : Sha1.encode(daEncode)}';
-    
+            //trace(mainURL); :skull:
             return new Http(mainURL);
         }
 

@@ -139,8 +139,8 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         var canSwipeRight:Bool = true;
         var canSwipeLeft:Bool = true;
         var ultimoAmigo:Int = amigos.length-1;
-        canSwipeRight = amigos[ultimoAmigo].x > 730;
-        canSwipeLeft = amigos[0].x < 30;
+        canSwipeRight = amigos[ultimoAmigo].x > 783;
+        canSwipeLeft = amigos[0].x < 0;
         if(canSwipeLeft)
         {
             if(FlxG.mouse.wheel>0)
