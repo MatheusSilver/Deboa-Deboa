@@ -19,19 +19,11 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import networking.Network;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else
 import flixel.system.FlxSound;
 #end
-import networking.sessions.Session;
-import networking.sessions.client.Client;
-import networking.sessions.items.ClientObject;
-import networking.sessions.items.ServerObject;
-import networking.sessions.server.Server;
-import networking.utils.NetworkEvent;
-import networking.utils.NetworkMode;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
 import flixel.group.FlxGroup.FlxTypedGroup;
