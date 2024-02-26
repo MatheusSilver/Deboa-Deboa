@@ -105,14 +105,14 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 		amigosList.add(fakeBG);
 
         var amiguineos:Array<User> = GJClient.getFriendsList(); // pra evitar ele a ficar dando fetch toda hora
+        // ninguém nunca me respondeu, estou triste :cry:
         var x1:Float = 1; // bora x1?
         for(user in amiguineos)
         {
-            var friendo:FriendObject = new FriendObject(5*x1, 20/*184+1280*/, user);
+            var friendo:FriendObject = new FriendObject((5*x1)+15, 20, user);
             friendo.cameras = [camElementos];
             friendo.alpha = 0;
             amigos.push(friendo);
-            //add(friendo);
             amigosList.add(friendo);
             x1+=75;
         }
@@ -134,6 +134,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         voltar_button.label.alpha = 1;
     }
 
+    // TODO: adicionar o swipes do utils (eu n faço a menor ideia de como mexer naquilo ent pfv alguém helpa aqui)
     function swipes()
     {
         var canSwipeRight:Bool = true;
@@ -169,6 +170,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             trace("Ultimo Amigo X: "+amigos[ultimoAmigo].x);
             trace("Primeiro Amigo X: "+amigos[0].x);
         }*/
+        // parando pra pensar, pq eu n usei o watch aqui? :thinking:
     }
 
 
