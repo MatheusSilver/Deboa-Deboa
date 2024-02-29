@@ -74,10 +74,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 		add(bg);
 
         voltar_button = new FlxButton(973, 63+1280, function() {
-            if(sumidao || !canSumir)
-                return;
-            sumidao = true;
-            tweenSair();
+            sair();
         });
         voltar_button.alpha = 0;
         voltar_button.visible = true;
@@ -123,9 +120,21 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         tweenEntrar();
 	}
 
+    function sair()
+    {
+        if(sumidao || !canSumir)
+            return;
+        sumidao = true;
+        tweenSair();
+    }
+
 	override function update(elapsed:Float)
     {
         voltar_button.label.alpha = 1;
+        if(controls.BACK)
+        {
+            sair();
+        }
         if(canSumir && amigos.length > 0)
         {
             swipes();
@@ -144,7 +153,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         canSwipeLeft = amigos[0].x < 0;
         if(canSwipeLeft)
         {
-            if(FlxG.mouse.wheel>0)
+            if(FlxG.mouse.wheel>0 || controls.UI_LEFT)
             {
                 for(amigo in amigos)
                 {
@@ -155,7 +164,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         }
         if(canSwipeRight)
             {
-                if(FlxG.mouse.wheel<0)
+                if(FlxG.mouse.wheel<0 || controls.UI_RIGHT)
                 {
                     for(amigo in amigos)
                     {
