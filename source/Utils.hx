@@ -709,7 +709,8 @@ class FlxScrollbar extends FlxSpriteGroup
 			}
 			if (whichWayToScroll != 0)
 				updateViewScroll();
-		}
+		} 
+		#if !mobile
 		else if (FlxG.mouse.wheel != 0)
 		{
 			if (_orientation == HORIZONTAL)
@@ -722,6 +723,7 @@ class FlxScrollbar extends FlxSpriteGroup
 			}
 			updateViewScroll();
 		}
+		#end
 		if (Utils.BSLTouchUtils.justSolto())
 			_dragStartedAt = null;
 		super.update(elapsed);

@@ -153,7 +153,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         canSwipeLeft = amigos[0].x < 0;
         if(canSwipeLeft)
         {
-            if(FlxG.mouse.wheel>0 || controls.UI_LEFT)
+            if(#if !mobile FlxG.mouse.wheel>0 || #end controls.UI_LEFT)
             {
                 for(amigo in amigos)
                 {
@@ -164,7 +164,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         }
         if(canSwipeRight)
             {
-                if(FlxG.mouse.wheel<0 || controls.UI_RIGHT)
+                if(#if !mobile FlxG.mouse.wheel<0 || #end controls.UI_RIGHT)
                 {
                     for(amigo in amigos)
                     {
