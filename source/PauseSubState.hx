@@ -53,9 +53,9 @@ class PauseSubState extends MusicBeatSubstate
 
 	public static var jafizJumpscare:Bool = false;
 
-	var ready:FlxSprite;
-	var set:FlxSprite;
-	var go:FlxSprite; //bruh + meme = breme
+	var ready:FlxSprite = new FlxSprite();
+	var set:FlxSprite = new FlxSprite();
+	var go:FlxSprite = new FlxSprite(); //bruh + meme = breme
 
 	var isDoingtheThing:Bool = false;
 	var aberto:Bool=false;
@@ -90,9 +90,24 @@ class PauseSubState extends MusicBeatSubstate
 		blurShader = new BlurFilter();
 		//grayScale = new ColorMatrixFilter();
 		}
-		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
-		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
-		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
+		if(PlayState.SONG.song.toLowerCase() != "sunshine") {
+			ready.loadGraphic(Paths.image('ready', 'shared'));
+			set.loadGraphic(Paths.image('set', 'shared'));
+			go.loadGraphic(Paths.image('go', 'shared'));
+		} else {
+			ready.loadGraphic(Paths.image('cenarios/saturn/ready', 'week-sunshine'));
+			set.loadGraphic(Paths.image('cenarios/saturn/set', 'week-sunshine'));
+			go.loadGraphic(Paths.image('cenarios/saturn/go', 'week-sunshine'));
+			ready.scale.x = 0.5; // i despise all coding.
+			set.scale.x = 0.5;
+			go.scale.x = 0.7;						
+			ready.scale.y = 0.5;
+			set.scale.y = 0.5;
+			go.scale.y = 0.7;
+			ready.screenCenter();
+			set.screenCenter();
+			go.screenCenter();
+		}
 
 		if(FlxG.save.data.didJumpscare==null)
 			{

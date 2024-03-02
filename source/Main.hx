@@ -25,25 +25,24 @@ import Discord.DiscordClient;
 
 class Main extends Sprite
 {
-
 	#if desktop
-	//public static var gjToastManager:GJToastManager;
+	// public static var gjToastManager:GJToastManager;
 	#end
-
 	var game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
-		initialState: TitleState, 
+		initialState: TitleState,
 		zoom: -1.0, // game state bounds
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
 		// startFullscreen: ClientPrefs.fullscreen // if the game should start at fullscreen mode
 		startFullscreen: false // if the game should start at fullscreen mode
-		//Isso não funciona aqui.
+		// Isso não funciona aqui.
 	};
 
 	public static var fpsVar:FPS;
 	public static var tongue:FireTongueEx;
+
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
 	public function new()
@@ -64,6 +63,7 @@ class Main extends Sprite
 	#if mobile
 	private static var touch_allowed:Bool = true;
 	#end
+
 	public static function mouseVisibility(visible:Bool):Void
 	{
 		#if desktop
@@ -89,8 +89,9 @@ class Main extends Sprite
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
 
-		stage.application.onExit.add (function(exitCode){
-			if(!gamejolt.GJClient.logged)
+		stage.application.onExit.add(function(exitCode)
+		{
+			if (!gamejolt.GJClient.logged)
 				return;
 			gamejolt.GJClient.updateStatus(false);
 		});
@@ -106,10 +107,10 @@ class Main extends Sprite
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
 
-		dateNow = StringTools.replace(dateNow, " ", "_");
-		dateNow = StringTools.replace(dateNow, ":", "'");
+		dateNow = dateNow.replace(" ", "_");
+		dateNow = dateNow.replace(":", "'");
 
-		path = "crash/" + "FE_" + dateNow + ".txt";
+		path = "crash/" + "PsychEngine_" + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
@@ -122,28 +123,14 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/Yoshubs/Forever-Engine";
+		errMsg += "\nErro: "
+			+ e.error
+			+ "\nSó sabo que nada sebo.";
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		var crashDialoguePath:String = "FE-CrashDialog";
-
-		#if windows
-		crashDialoguePath += ".exe";
-		#end
-
-		if (Assets.exists(crashDialoguePath))
-		{
-			Sys.println("Found crash dialog: " + crashDialoguePath);
-			new Process(crashDialoguePath, [path]);
-		}
-		else
-		{
-			Sys.println("No crash dialog found! Making a simple alert instead...");
-			Application.current.window.alert(errMsg, "Error!");
-		}
-
+		Application.current.window.alert(errMsg, "Erro!");
 		Sys.exit(1);
 	}
 	#end
@@ -163,42 +150,45 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-	
-		ClientPrefs.loadDefaultKeys();
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
 
+		ClientPrefs.loadDefaultKeys();
+		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate,
+			game.skipSplash, game.startFullscreen));
 
 		fpsVar = new FPS(5, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
+		if (fpsVar != null)
+		{
 			fpsVar.visible = ClientPrefs.showFPS;
 		}
 
 		tongue = new FireTongueEx();
 		tongue.initialize({locale: ClientPrefs.lingua});
 
-
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
-		
+
 		#if rpc
-		if (!DiscordClient.isInitialized) {
+		if (!DiscordClient.isInitialized)
+		{
 			DiscordClient.initialize();
-			Application.current.window.onClose.add(function() {
-			DiscordClient.shutdown();
+			Application.current.window.onClose.add(function()
+			{
+				DiscordClient.shutdown();
 			});
 		}
 		#end
 
 		var shaderarray:Array<BitmapFilter> = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
-		if(ClientPrefs.shaderMatrix.length != 0) {
+		if (ClientPrefs.shaderMatrix.length != 0)
+		{
 			FlxG.game.setFilters(shaderarray); // Resumindo: Se tu quer enxergar as cores certinhas, tu vai ter lag no jogo k
 		}
-		FlxG.fullscreen = ClientPrefs.fullscreen; //Lá em cima as clientprefs ainda não haviam sido carregadas  
+		FlxG.fullscreen = ClientPrefs.fullscreen; // Lá em cima as clientprefs ainda não haviam sido carregadas
 		FlxG.fixedTimestep = true;
 	}
 }
