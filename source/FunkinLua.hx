@@ -670,15 +670,15 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "keyJustPressed", function(name:String) {
 			var key:Bool = false;
 			switch(name) {
-				case 'left': key = PlayState.instance.getControl('NOTE_LEFT_P');
-				case 'down': key = PlayState.instance.getControl('NOTE_DOWN_P');
-				case 'up': key = PlayState.instance.getControl('NOTE_UP_P');
-				case 'right': key = PlayState.instance.getControl('NOTE_RIGHT_P');
-				case 'accept': key = PlayState.instance.getControl('ACCEPT');
-				case 'back': key = PlayState.instance.getControl('BACK');
-				case 'pause': key = PlayState.instance.getControl('PAUSE');
-				case 'reset': key = PlayState.instance.getControl('RESET');
-				case 'space': key = PlayState.instance.getControl('NOTE_SPACE_P'); //Apenas para que a Chaos e Final Escape possam usar o botão custom
+				case 'left': key = PlayState.instance.controls.NOTE_LEFT_P;
+				case 'down': key = PlayState.instance.controls.NOTE_DOWN_P;
+				case 'up': key = PlayState.instance.controls.NOTE_UP_P;
+				case 'right': key = PlayState.instance.controls.NOTE_RIGHT_P;
+				case 'accept': key = PlayState.instance.controls.ACCEPT;
+				case 'back': key = PlayState.instance.controls.BACK;
+				case 'pause': key = PlayState.instance.controls.PAUSE;
+				case 'reset': key = PlayState.instance.controls.RESET;
+				case 'space': key = PlayState.instance.controls.NOTE_SPACE_P; //Apenas para que a Chaos e Final Escape possam usar o botão custom
 				case '0': key = FlxG.keys.justPressed.ZERO; // esses números eram do vs calculadora k
 				case '1': key = FlxG.keys.justPressed.ONE;
 				case '2': key = FlxG.keys.justPressed.TWO;

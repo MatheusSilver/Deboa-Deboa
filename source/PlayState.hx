@@ -110,8 +110,6 @@ class PlayState extends MusicBeatState
 
 	var stageData:StageFile;
 
-	private var controlArray:Array<String>;
-	private var keysArray:Array<Dynamic>;
 
 	public static var limparCache:Bool = true;
 
@@ -1553,28 +1551,6 @@ class PlayState extends MusicBeatState
 		updateCamPos('all');
 
 		callOnLuas('onCreatePost', []);
-
-		if (isRing)
-		{
-			controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_SPACE', 'NOTE_UP', 'NOTE_RIGHT'];
-			keysArray = [
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_space')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
-			];
-		}
-		else
-		{
-			controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT'];
-			keysArray = [
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
-			];
-		}
 
 		super.create();
 
@@ -5264,16 +5240,6 @@ class PlayState extends MusicBeatState
 		});*/
 	}
 
-	private function parseKeys(?suffix:String = ''):Array<Bool>
-	{
-		var ret:Array<Bool> = [];
-		for (i in 0...controlArray.length)
-		{
-			ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
-		}
-		return ret;
-	}
-
 	private function onKeyPress(key_pressed:Int):Void
 	{
 		if (!cpuControlled && startedCountdown && !paused && key_pressed > -1)
@@ -5373,27 +5339,26 @@ class PlayState extends MusicBeatState
 
 	private function keyShit():Void
 	{
-		// HOLDING
-		var up = controls.NOTE_UP;
-		var right = controls.NOTE_RIGHT;
-		var down = controls.NOTE_DOWN;
-		var left = controls.NOTE_LEFT;
-		
-		var upP = controls.NOTE_UP_P;
-		var rightP = controls.NOTE_RIGHT_P;
-		var downP = controls.NOTE_DOWN_P;
-		var leftP = controls.NOTE_LEFT_P;
+		var controlsArray:Array<Array<Bool>> = [
+			[controls.NOTE_LEFT, controls.NOTE_LEFT_P, controls.NOTE_LEFT_R],
+			[controls.NOTE_DOWN, controls.NOTE_DOWN_P, controls.NOTE_DOWN_R],
+			[controls.NOTE_UP, controls.NOTE_UP_P, controls.NOTE_UP_R],
+			[controls.NOTE_RIGHT, controls.NOTE_RIGHT_P, controls.NOTE_RIGHT_R]
+		];
+		if (isRing)
+			controlsArray.insert(2,[controls.NOTE_SPACE, controls.NOTE_SPACE_P, controls.NOTE_SPACE_R]);
 
-		var upR = controls.NOTE_UP_R;
-		var rightR = controls.NOTE_RIGHT_R;
-		var downR = controls.NOTE_DOWN_R;
-		var leftR = controls.NOTE_LEFT_R;
-
-		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
-		var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
-		var controlHoldArray:Array<Bool> = [left, down, up, right];
-
-		// FlxG.watch.addQuick('asdfa', upP);
+		var controlArray:Array<Bool> = [];
+		var controlReleaseArray:Array<Bool> = [];
+		var controlHoldArray:Array<Bool> = [];
+		var holdTimerThreshold:Float = Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * boyfriend.singDuration;
+	
+		for (controls in controlsArray) {
+			controlArray.push(controls[1]);
+			controlReleaseArray.push(controls[2]);
+			controlHoldArray.push(controls[0]);
+		}
+	
 		if (startedCountdown && !boyfriend.stunned && generatedMusic && songStarted) // Temporário pra pasta night
 		{
 			// rewritten inputs???
@@ -5406,26 +5371,26 @@ class PlayState extends MusicBeatState
 					goodNoteHit(daNote);
 				}
 			});
-			for (i in 0...playerStrums.length){
+	
+			for (i in 0...controlsArray.length){
 				if (controlArray[i] && !endingSong)
 					onKeyPress(i);
 				else if (controlReleaseArray[i] && !endingSong)
 					onKeyRelease(i);
 			}
-			if (controlHoldArray.contains(true) && !endingSong)
-			{
-				// nada
-			}
-			else if (boyfriend.animation.curAnim != null
-				&& boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * boyfriend.singDuration
-					&& boyfriend.animation.curAnim.name.startsWith('sing')
-					&& !boyfriend.animation.curAnim.name.endsWith('miss'))
+	
+			if (!controlHoldArray.contains(true) && boyfriend.animation.curAnim != null
+				&& boyfriend.holdTimer > holdTimerThreshold
+				&& boyfriend.animation.curAnim.name.startsWith('sing')
+				&& !boyfriend.animation.curAnim.name.endsWith('miss')
+				&& !endingSong)
 			{
 				boyfriend.dance();
 				// boyfriend.animation.curAnim.finish();
 			}
 		}
 	}
+		
 
 	function ghostMiss(statement:Bool = false, direction:Int = 0, ?ghostMiss:Bool = false)
 	{
