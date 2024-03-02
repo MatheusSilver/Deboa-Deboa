@@ -84,9 +84,9 @@ class Utils
 	 */
 	public static function readDirectory(library:String):Array<String>
 	{
+		#if mobile
 		var something:Array<String> = [];
 		var bruh = Assets.list();
-		#if mobile
 		for (folder in bruh.filter(text -> text.contains('$library')))
 		{
 			if (!folder.startsWith('.'))
@@ -126,8 +126,6 @@ class Utils
  */
 class Asset2File
 {
-	public static var path:String = lime.system.System.applicationStorageDirectory;
-
 	/**
 	 * Retorna o Path completo de um arquivo (Desde o caminho de onde ele foi aberto).
 	 * @param id Arquivo que será lido pela função
@@ -139,12 +137,12 @@ class Asset2File
 
 		var md5 = Md5.encode(Md5.make(file).toString());
 
-		if (FileSystem.exists(path + md5 + ext))
-			return path + md5 + ext;
+		if (FileSystem.exists(Main.path + md5 + ext))
+			return Main.path + md5 + ext;
 
-		File.saveBytes(path + md5 + ext, file);
+		File.saveBytes(Main.path + md5 + ext, file);
 
-		return path + md5 + ext;
+		return Main.path + md5 + ext;
 		#else
 		return #if sys Sys.getCwd() + #end id;
 		#end
