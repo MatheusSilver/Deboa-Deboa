@@ -147,8 +147,6 @@ class PlayState extends MusicBeatState
 	public var superZoomShit:Bool = false;
 	public var supersuperZoomShit:Bool = false;
 
-	var tempogravador:FlxText;
-
 	public var secondsTotal:Int;
 
 	public static var ratingStuff:Array<Dynamic> = [
@@ -196,8 +194,6 @@ class PlayState extends MusicBeatState
 	public var dadMap:Map<String, Character> = new Map<String, Character>();
 	public var gfMap:Map<String, Character> = new Map<String, Character>();
 	#end
-
-	var monitor:FlxSprite;
 
 	public var BF_X:Float = 770;
 	public var BF_Y:Float = 100;
@@ -327,8 +323,6 @@ class PlayState extends MusicBeatState
 
 	public static var isRing:Bool = false;
 
-	private final meses:Array<String> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -398,10 +392,6 @@ class PlayState extends MusicBeatState
 	var sSKY:FlxSprite;
 	var chao_scrap:FlxSprite;
 	var ceu_scrap:FlxSprite;
-
-	//Sunshine shader extra
-	var efeito_estatico:FlxSprite;
-
 	// - ring counter bullshit
 	var ringCounter:FlxSprite;
 	var counterNum:FlxText;
@@ -431,11 +421,6 @@ class PlayState extends MusicBeatState
 	
 	public static var vimdopause:Bool = false;
 	public static var newSongSpeed:Float;
-
-	/* 
-		Anotações do MateusX02:
-		 	Preparar a source do ModBoa pra uma possível cross build entre android, iOS, Windows e Linux.
-	 */
 
 	public static final sonicHUDStyles:Map<String, String> = [
 		"round-a-bout" => 'sonic3',
@@ -759,61 +744,18 @@ class PlayState extends MusicBeatState
 				needleFg.scrollFactor.set(1, 0.9);
 				}
 
-				tempogravador = new FlxText(50, 0, 0, "", 48);
-				tempogravador.text = '';
-				tempogravador.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				tempogravador.updateHitbox();
-				tempogravador.cameras = [camHUD];
-				tempogravador.screenCenter(XY);
-				tempogravador.x += 125;
-				tempogravador.y += 125;
-				tempogravador.visible = ClientPrefs.shaders;
-				tempogravador.antialiasing = false;
-				add(tempogravador);
-
-				if(ClientPrefs.shaders){
-					efeito_estatico = new FlxSprite(0,0);
-					efeito_estatico.frames = Paths.getSparrowAtlas("estatica", "week-sunshine");
-					efeito_estatico.animation.addByPrefix('idle', 'estatica idle', 14, true);
-					efeito_estatico.color=FlxColor.WHITE;
-					efeito_estatico.alpha = 0.15;
-					efeito_estatico.animation.play("idle", true);
-					efeito_estatico.cameras = [camHUD];
-					efeito_estatico.setGraphicSize(Std.int(FlxG.width*1.7));
-					efeito_estatico.screenCenter(XY);
-					efeito_estatico.visible = false;
-					add(efeito_estatico);
-				}
-
-				analog_shader();
-
+				hudobj("round-a-bout");
 			case 'chasing':
-				var contadordevida:FlxSprite;
 				var greenhill:FlxSprite;
-
-				monitor = new FlxSprite(-108, -100, Paths.image('cenarios/chasing/monitor'));
-				monitor.antialiasing = ClientPrefs.globalAntialiasing;
-				monitor.scale.y = 0.85;
-				monitor.scrollFactor.set(1, 1);
-				monitor.updateHitbox();
-
-				contadordevida = new FlxSprite(56, 805, Paths.image('cenarios/chasing/HedgehogLives'));
-				contadordevida.antialiasing = ClientPrefs.globalAntialiasing;
-				contadordevida.scale.y = 0.9;
-				contadordevida.scale.x = 0.9;
-				contadordevida.scrollFactor.set(1, 1);
-				contadordevida.updateHitbox();
-
 				greenhill = new FlxSprite(4, -100, Paths.image('cenarios/chasing/GreenHill'));
 				greenhill.antialiasing = ClientPrefs.globalAntialiasing;
 				greenhill.scale.x = 1;
 				greenhill.scale.y = 0.99;
 				greenhill.scrollFactor.set(1, 1);
 				greenhill.updateHitbox();
-
 				add(greenhill);
-				add(contadordevida);
-				add(monitor);
+				
+				hudobj("chasing");
 
 				bgSkychasing = new FlxSprite(-50, -75, Paths.image('cenarios/chasing/BGSky'));
 				bgSkychasing.antialiasing = ClientPrefs.globalAntialiasing;
@@ -1185,24 +1127,24 @@ class PlayState extends MusicBeatState
 		}
 
 		if (isRing)
-		{
-			ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('tp_ring_counter', "locales", true, true));
-			add(ringCounter);
-			ringCounter.cameras = [camHUD];
-
-			var strumArray = [0, 1, 3, 4];
-
-			counterNum = new FlxText(1207, 606, 0, '0', 10, false);
-			counterNum.setFormat('EurostileTBla', 60, FlxColor.fromRGB(255, 204, 51), FlxTextBorderStyle.OUTLINE, FlxColor.fromRGB(204, 102, 0));
-			counterNum.setBorderStyle(OUTLINE, FlxColor.fromRGB(204, 102, 0), 3, 1);
-			add(counterNum);
-			counterNum.cameras = [camHUD];
-
-			if (ClientPrefs.downScroll)
 			{
-				ringCounter.y = 50;
-				counterNum.y = 56;
-			}
+				ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('tp_ring_counter', "locales", true, true));
+				add(ringCounter);
+				ringCounter.cameras = [camHUD];
+	
+				var strumArray = [0, 1, 3, 4];
+	
+				counterNum = new FlxText(1207, 606, 0, '0', 10, false);
+				counterNum.setFormat('EurostileTBla', 60, FlxColor.fromRGB(255, 204, 51), FlxTextBorderStyle.OUTLINE, FlxColor.fromRGB(204, 102, 0));
+				counterNum.setBorderStyle(OUTLINE, FlxColor.fromRGB(204, 102, 0), 3, 1);
+				add(counterNum);
+				counterNum.cameras = [camHUD];
+	
+				if (ClientPrefs.downScroll)
+				{
+					ringCounter.y = 50;
+					counterNum.y = 56;
+				}
 		}
 
 		if (sonicHUDStyles.exists(SONG.song.toLowerCase()))
@@ -1481,17 +1423,7 @@ class PlayState extends MusicBeatState
 					var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cenarios/saturn/set'));
 					var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image('cenarios/saturn/go'));
 
-					efeito_estatico = new FlxSprite(0,0);
-					efeito_estatico.frames = Paths.getSparrowAtlas("estatica", "week-sunshine");
-					efeito_estatico.animation.addByPrefix('idle', 'estatica idle', 14, true);
-					efeito_estatico.color=FlxColor.WHITE;
-					efeito_estatico.alpha = 0.15;
-					efeito_estatico.animation.play("idle", true);
-					efeito_estatico.cameras = [camHUD];
-					efeito_estatico.setGraphicSize(Std.int(FlxG.width*1.7));
-					efeito_estatico.screenCenter(XY);
-					efeito_estatico.visible = false;
-					add(efeito_estatico);
+					hudobj("sunshine");
 
 					ready.scale.x = 0.5; // i despise all coding.
 					set.scale.x = 0.5;
@@ -1555,26 +1487,26 @@ class PlayState extends MusicBeatState
 		callOnLuas('onCreatePost', []);
 
 		if (isRing)
-		{
-			controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_SPACE', 'NOTE_UP', 'NOTE_RIGHT'];
-			keysArray = [
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_space')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
-			];
-		}
-		else
-		{
-			controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT'];
-			keysArray = [
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
-				ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
-			];
-		}
+			{
+				controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_SPACE', 'NOTE_UP', 'NOTE_RIGHT'];
+				keysArray = [
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_space')),
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
+				];
+			}
+			else
+			{
+				controlArray = ['NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT'];
+				keysArray = [
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_left')),
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_down')),
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_up')),
+					ClientPrefs.copyKey(ClientPrefs.keyBinds.get('note_right'))
+				];
+			}
 
 		super.create();
 
@@ -2939,11 +2871,10 @@ class PlayState extends MusicBeatState
 			targetHP = 2 - health;
 
 		healthbarval = targetHP;
-
 		if (isRing)
-		{
-			counterNum.text = Std.string(cNum);
-		}
+			{
+				counterNum.text = Std.string(cNum);
+			}
 
 		if (!inCutscene)
 		{
@@ -2964,26 +2895,9 @@ class PlayState extends MusicBeatState
 		}
 
 		super.update(elapsed);
-
-		if (nomehistorico.toLowerCase() == 'voltas-e-revoltas')
+		if (Date.now().getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada') && songStarted)
 		{
-			var leDate = Date.now();
-
-			tempogravador.text = (leDate.getHours() <= 12 ? leDate.getHours() : leDate.getHours() - 12)
-				+ ":"
-				+ (leDate.getMinutes() < 10 ? "0" + Std.string(leDate.getMinutes()) : Std.string(leDate.getMinutes()))
-				+ ':'
-				+ (leDate.getSeconds() < 10 ? "0" + Std.string(leDate.getSeconds()) : Std.string(leDate.getSeconds()))
-				+ '\n'
-				+ (leDate.getHours() <= 12 ? "AM" : "PM")
-				+ "\n"
-				+ Std.string(leDate.getDate())
-				+ " "
-				+ meses[leDate.getMonth() ] + "\n";
-			if (leDate.getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada') && songStarted)
-			{
-				startachieving('madrugada');
-			}
+			startachieving('madrugada');
 		}
 		// Maluco... Quando eu olho pra isso aqui de novo fico tipo:
 		// Essa foi realmente uma das primeiras coisas que fiz no modboa? k
@@ -5496,13 +5410,13 @@ class PlayState extends MusicBeatState
 		if (canRegen)
 		{
 			if (isRing && cNum <= 0 && daNote.noteData != 2)
-			{
-				health -= daNote.missHealth;
-			}
-			else if (isRing && cNum > 0 && daNote.noteData != 2 && !daNote.isSustainNote)
-			{
-				cNum--;
-			}
+				{
+					health -= daNote.missHealth;
+				}
+				else if (isRing && cNum > 0 && daNote.noteData != 2 && !daNote.isSustainNote)
+				{
+					cNum--;
+				}
 			else if (!isRing)
 			{
 				health -= daNote.missHealth;
@@ -6085,13 +5999,13 @@ class PlayState extends MusicBeatState
 
 			camGame.setFilters([vcr]);
 			camHUD.setFilters([vcr]);
-			efeito_estatico.visible=true;
+			ExtraHUDObject.efeito_estatico.visible=true;
 			if (curSong != "sunshine")
 				camLegenda.setFilters([vcr]);
 		}else{
 			camGame.filtersEnabled = false;
 			camHUD.filtersEnabled = false;
-			efeito_estatico.visible=false;
+			ExtraHUDObject.efeito_estatico.visible=false;
 			if (curSong != "sunshine")
 				camLegenda.filtersEnabled = false;
 		}
@@ -7219,6 +7133,11 @@ class PlayState extends MusicBeatState
 				});
 			}
 		}
+
+	public function hudobj(song_name:String) {
+		var HUD:ExtraHUDObject = new ExtraHUDObject(song_name);
+		add(HUD);
+	}
 
 	var curLightEvent:Int = 0;
 }
