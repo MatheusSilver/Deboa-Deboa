@@ -74,10 +74,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 		add(bg);
 
         voltar_button = new FlxButton(973, 63+1280, function() {
-            if(sumidao || !canSumir)
-                return;
-            sumidao = true;
-            tweenSair();
+            sair();
         });
         voltar_button.alpha = 0;
         voltar_button.visible = true;
@@ -105,14 +102,14 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 		amigosList.add(fakeBG);
 
         var amiguineos:Array<User> = GJClient.getFriendsList(); // pra evitar ele a ficar dando fetch toda hora
+        // ninguém nunca me respondeu, estou triste :cry:
         var x1:Float = 1; // bora x1?
         for(user in amiguineos)
         {
-            var friendo:FriendObject = new FriendObject(5*x1, 20/*184+1280*/, user);
+            var friendo:FriendObject = new FriendObject((5*x1)+15, 20, user);
             friendo.cameras = [camElementos];
             friendo.alpha = 0;
             amigos.push(friendo);
-            //add(friendo);
             amigosList.add(friendo);
             x1+=75;
         }
@@ -123,9 +120,21 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         tweenEntrar();
 	}
 
+    function sair()
+    {
+        if(sumidao || !canSumir)
+            return;
+        sumidao = true;
+        tweenSair();
+    }
+
 	override function update(elapsed:Float)
     {
         voltar_button.label.alpha = 1;
+        if(controls.BACK)
+        {
+            sair();
+        }
         if(canSumir && amigos.length > 0)
         {
             swipes();
@@ -134,16 +143,17 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         voltar_button.label.alpha = 1;
     }
 
+    // TODO: adicionar o swipes do utils (eu n faço a menor ideia de como mexer naquilo ent pfv alguém helpa aqui)
     function swipes()
     {
         var canSwipeRight:Bool = true;
         var canSwipeLeft:Bool = true;
         var ultimoAmigo:Int = amigos.length-1;
-        canSwipeRight = amigos[ultimoAmigo].x > 730;
-        canSwipeLeft = amigos[0].x < 30;
+        canSwipeRight = amigos[ultimoAmigo].x > 783;
+        canSwipeLeft = amigos[0].x < 0;
         if(canSwipeLeft)
         {
-            if(FlxG.mouse.wheel>0)
+            if(#if !mobile FlxG.mouse.wheel>0 || #end controls.UI_LEFT)
             {
                 for(amigo in amigos)
                 {
@@ -154,7 +164,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         }
         if(canSwipeRight)
             {
-                if(FlxG.mouse.wheel<0)
+                if(#if !mobile FlxG.mouse.wheel<0 || #end controls.UI_RIGHT)
                 {
                     for(amigo in amigos)
                     {
@@ -169,6 +179,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             trace("Ultimo Amigo X: "+amigos[ultimoAmigo].x);
             trace("Primeiro Amigo X: "+amigos[0].x);
         }*/
+        // parando pra pensar, pq eu n usei o watch aqui? :thinking:
     }
 
 

@@ -336,31 +336,46 @@ class MainMenuStateMobile extends MusicBeatState
 		});
 	}
 
+	var selectingFriends:Bool = false;
 	private function handle_input():Void{
-		if (controls.UI_DOWN_P)
+		if(!selectingFriends)
 		{
-			if (curSelected + 1 > menuItems.length - 1)
-				curSelected = 0;
-			else{
-				curSelected +=1;
-				if (optionShit[curSelected] == "freeplay" && !passouCY)
-					curSelected +=1;
-				if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
-					curSelected +=1;
+			if (controls.UI_DOWN_P)
+				{
+					if (curSelected + 1 > menuItems.length - 1)
+						curSelected = 0;
+					else{
+						curSelected +=1;
+						if (optionShit[curSelected] == "freeplay" && !passouCY)
+							curSelected +=1;
+						if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
+							curSelected +=1;
+					}
+				}
+				else if (controls.UI_UP_P)
+				{
+					if (curSelected - 1 < 0)
+						curSelected = menuItems.length - 1;
+					else{
+						curSelected -= 1;
+						if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
+							curSelected -=1;
+						if (optionShit[curSelected] == "freeplay" && !passouCY)
+							curSelected -=1;
+					}
+				}
+
+			selectingFriends = controls.UI_LEFT_P && GJClient.logged;
+
+		}
+		else
+		{
+			if(controls.UI_RIGHT_P)
+			{
+				selectingFriends = false;
 			}
 		}
-		else if (controls.UI_UP_P)
-		{
-			if (curSelected - 1 < 0)
-				curSelected = menuItems.length - 1;
-			else{
-				curSelected -= 1;
-				if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
-					curSelected -=1;
-				if (optionShit[curSelected] == "freeplay" && !passouCY)
-					curSelected -=1;
-			}
-		}
+
 	}
 
 	override function update(elapsed:Float)
@@ -377,41 +392,48 @@ class MainMenuStateMobile extends MusicBeatState
 				handle_input();
 				if(clicavel && !checkiftouch){
 					menuItems.forEach(function(spr:FlxSprite){
-						if((optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
+						if(!selectingFriends || Main.getMouseVisibility())
 						{
-							if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
-								curSelected = spr.ID;
-								menuItems.members[spr.ID].alpha=1;
-								GlobalSoundManager.play('scrollMenu');
-							}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
-								spr.alpha=0.75;
-							}
-
-							if(Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(spr) : (spr.ID == curSelected && controls.ACCEPT)){
-								trocaDeState(spr.ID);
-							}
+							if((optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
+								{
+									if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
+										curSelected = spr.ID;
+										menuItems.members[spr.ID].alpha=1;
+										GlobalSoundManager.play('scrollMenu');
+									}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
+										spr.alpha=0.75;
+									}
+		
+									if(Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(spr) : (spr.ID == curSelected && controls.ACCEPT)){
+										trocaDeState(spr.ID);
+									}
+								}
+								else if(optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer")
+								{
+									if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
+										menuItems.members[spr.ID].alpha=1;
+										curSelected = spr.ID;
+										GlobalSoundManager.play('scrollMenu');
+									}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
+										spr.alpha=0.75;
+									}
+		
+									if(Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(spr) : (spr.ID == curSelected && controls.ACCEPT)){
+										trocaDeState(spr.ID);
+									}
+								}
 						}
-						else if(optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer")
+						else if(selectingFriends && !Main.getMouseVisibility())
 						{
-							if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
-								menuItems.members[spr.ID].alpha=1;
-								curSelected = spr.ID;
-								GlobalSoundManager.play('scrollMenu');
-							}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
-								spr.alpha=0.75;
-							}
-
-							if(Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(spr) : (spr.ID == curSelected && controls.ACCEPT)){
-								trocaDeState(spr.ID);
-							}
+							spr.alpha=(optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY) || (optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer") ? 0.75 : 1;
 						}
-
 					});
 
-						if(BSLTouchUtils.apertasimples(gamejoltUser) && GJClient.logged) {
-							FlxTween.tween(gamejoltUser, {x: -1200}, 0.5, {ease: FlxEase.expoInOut});
-							openSubState(new GameJoltFriendsMenu()); // Um code bem besta e burro pra ser bem sincero... Não sei como fazer isso com Gamepad tbm.... Nem com teclado........ Desculpa Sílvio.......................
-						}
+					gamejoltUser.alpha = GJClient.logged ? Main.getMouseVisibility() ? 1 : selectingFriends ? 1 : 0.75 : 1;
+					if((Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(gamejoltUser) : (selectingFriends && controls.ACCEPT)) && GJClient.logged){
+						FlxTween.tween(gamejoltUser, {x: -1200}, 0.5, {ease: FlxEase.expoInOut});
+						openSubState(new GameJoltFriendsMenu());
+					}
 				}
 			}
 

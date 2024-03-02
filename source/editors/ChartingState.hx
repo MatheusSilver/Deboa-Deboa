@@ -1293,6 +1293,7 @@ class ChartingState extends MusicBeatState
 		FlxG.watch.addQuick('daBeat', curBeat);
 		FlxG.watch.addQuick('daStep', curStep);
 
+		#if !mobile
 		if (FlxG.mouse.justPressed)
 		{
 			if (FlxG.mouse.overlaps(curRenderedNotes))
@@ -1337,6 +1338,7 @@ class ChartingState extends MusicBeatState
 			else
 				dummyArrow.y = Math.floor(FlxG.mouse.y / GRID_SIZE) * GRID_SIZE;
 		}
+		#end
 
 		var blockInput:Bool = false;
 		for (inputText in blockPressWhileTypingOn) {
@@ -1443,6 +1445,7 @@ class ChartingState extends MusicBeatState
 					resetSection();
 			}
 
+			#if !mobile 
 			if (FlxG.mouse.wheel != 0)
 			{
 				FlxG.sound.music.pause();
@@ -1452,7 +1455,7 @@ class ChartingState extends MusicBeatState
 					vocals.time = FlxG.sound.music.time;
 				}
 			}
-
+			#end
 			if (FlxG.keys.pressed.W || FlxG.keys.pressed.S)
 			{
 				FlxG.sound.music.pause();
@@ -2118,6 +2121,7 @@ class ChartingState extends MusicBeatState
 
 	private function addNote():Void
 	{
+		#if !mobile 
 		var noteStrum = getStrumTime(dummyArrow.y, false) + sectionStartTime();
 		var noteData = Math.floor((FlxG.mouse.x - GRID_SIZE) / GRID_SIZE);
 		var noteSus = 0;
@@ -2147,6 +2151,7 @@ class ChartingState extends MusicBeatState
 
 		updateGrid();
 		updateNoteUI();
+		#end
 	}
 
 	function getStrumTime(yPos:Float, doZoomCalc:Bool = true):Float

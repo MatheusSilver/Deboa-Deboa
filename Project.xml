@@ -253,7 +253,6 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="linc_luajit"/>
 	<haxelib name="faxe" if='switch'/>
-	<haxelib name="extension-networking"/>
 	<haxelib name="colyseus"/>
 	<haxelib name="colyseus-websocket"/>
 	<haxelib name="discord_rpc" if="desktop"/>

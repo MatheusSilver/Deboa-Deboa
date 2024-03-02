@@ -407,34 +407,30 @@ class GJClient
     public static function setData(txtContent:String, dataKey:String, ?onSuccess:DataStore -> Void, ?onFail:() -> Void, ?isPublic:Bool = false) // GJClient.setData("valor", "key"); exemplo de aplicar algum valor
         {
 
-            var daParams:Array<Array<String>> = [];
-            if(isPublic)
-            {
-                daParams = [
-                    ['game_id', Std.string(GJKeys.id)],
-                    ['key', dataKey],
-                    ['data', txtContent],
-                ];
-            }
-            else
-            {
-                daParams = [
-                    ['game_id', Std.string(GJKeys.id)],
-                    ['key', dataKey],
-                    ['data', txtContent],
-                    ['username', GJClient.userName],
-                    ['user_token', getToken()]
-                ];
-            }
+            var daParams:Array<Array<String>> = isPublic ? [
+                ['game_id', Std.string(GJKeys.id)],
+                ['key', dataKey],
+                ['data', txtContent],
+            ] : [
+                ['game_id', Std.string(GJKeys.id)],
+                ['key', dataKey],
+                ['data', txtContent],
+                ['username', GJClient.userName],
+                ['user_token', getToken()]
+            ];
     
             if (logged)
             {
-                var urlData = urlResult(urlConstruct('data-store', 'set', daParams),
+                var urlData = urlResult(urlConstruct('data-store', 'set', daParams, !isPublic, !isPublic),
                 function ()
                 {
                     if (logged)
                     {
-                        var daData:DataStore =
+                        var daData:DataStore = isPublic ?{
+                            game_id: Std.string(GJKeys.id),
+                            key: dataKey,
+                            data: txtContent
+                        } :
                         {
                             game_id: Std.string(GJKeys.id),
                             key: dataKey,
@@ -457,25 +453,17 @@ class GJClient
     
         public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void, ?isPublic:Bool = false):String // GJClient.getData("key"); exemplo de puxar algum valor
             {
-                var daParams:Array<Array<String>> = [];
-                if(isPublic)
-                {
-                    daParams = [
-                        ['game_id', Std.string(GJKeys.id)],
-                        ['key', dataKey]
-                    ];
-                }
-                else
-                {
-                    daParams = [
-                        ['game_id', Std.string(GJKeys.id)],
-                        ['key', dataKey],
-                        ['username', GJClient.userName],
-                        ['user_token', getToken()]
-                    ];
-                }
+                var daParams:Array<Array<String>> = isPublic ? [
+                    ['game_id', Std.string(GJKeys.id)],
+                    ['key', dataKey]
+                ]: [
+                    ['game_id', Std.string(GJKeys.id)],
+                    ['key', dataKey],
+                    ['username', GJClient.userName],
+                    ['user_token', getToken()]
+                ];
 
-                var urlData = urlResult(urlConstruct('data-store', null, daParams),
+                var urlData = urlResult(urlConstruct('data-store', null, daParams, !isPublic, !isPublic),
                 function () {printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
                 function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();});
                 var daData:Null<DataStore> = urlData != null && logged ? urlData : null;
@@ -557,11 +545,10 @@ class GJClient
             var userData = getUserData();
             avatarURL = userData.avatar_url;
             myID = Std.string(userData.id);
-            if (!logged) {printMsg('Logged Successfully! Welcome back ${getUser()}!');
-                updateStatus(true);
-            }
+            if (!logged) {printMsg('Logged Successfully! Welcome back ${getUser()}!');}
             if (onSuccess != null && !logged && userData != null) onSuccess(userData);
             logged = true;
+            updateStatus(true);
         },
         function ()
         {
@@ -669,7 +656,7 @@ class GJClient
             var daEncode:String = mainURL + GJKeys.key; // Private thingie (Fuck you hackers lmao)
     
             mainURL += '&signature=${useMd5 ? Md5.encode(daEncode) : Sha1.encode(daEncode)}';
-    
+            //trace(mainURL); :skull:
             return new Http(mainURL);
         }
 
@@ -711,7 +698,7 @@ class GJClient
     public static function updateStatus(online:Bool = true)
     {
         setData(Std.string(online), myID+"-status", null, null, true);
-        trace("novo status: "+Std.string(online));
+        trace("novo status: "+getStatus(myID));
     }
 
     public static function getStatus(id:String):String
