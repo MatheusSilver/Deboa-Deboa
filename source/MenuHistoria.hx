@@ -169,7 +169,7 @@ class MenuHistoria extends MusicBeatSubstate
 		changeSong();
 
 		#if mobileC
-		addVirtualPad(LEFT_RIGHT, A_B_C);
+		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
 
 		if (curSelected >= musicas.length)

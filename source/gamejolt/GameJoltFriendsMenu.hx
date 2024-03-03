@@ -2,6 +2,7 @@ package gamejolt;
 
 // Aparentemente as coordenadas ficam bugadas em substates...
 // Talvez eu precise usar camera, mas não tenho certeza
+import Utils.BSLTouchUtils;
 import flixel.math.FlxMath;
 import Utils.BSLSwipeUtils;
 import flixel.FlxG;
@@ -42,23 +43,36 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
     var sumidao:Bool = false;
     var canSumir:Bool = false;
     var blur:BlurFilter;
+    var invisible_button:FlxButton;
     public var amigos:Array<FriendObject> = [];
     var amigosList:FlxSpriteGroup;
     var scrollBar:FlxScrollableArea;
 
 	public function new()
-	{
-		super();
-        if(ClientPrefs.shaders)
         {
-            blur = new BlurFilter();
-            blur.blurX = 0;
-            blur.blurY = 0;
-        }
-        
-        MainMenuStateMobile.canClick = false;
+            super();
+            invisible_button = new FlxButton();
+            invisible_button.setGraphicSize(Std.int(FlxG.width*0.89),Std.int(FlxG.height*0.8));
+            invisible_button.y = FlxG.height*0.15;
+            invisible_button.x = FlxG.width*0.05;
+            invisible_button.updateHitbox();
+            invisible_button.alpha = 0.001;
+            add(invisible_button);
+            if(ClientPrefs.shaders)
+                {
+                    blur = new BlurFilter();
+                    blur.blurX = 0;
+                    blur.blurY = 0;
+                }
 
-        camElementos = new FlxCamera();
+                BSLSwipeUtils.resetScrolls();
+                Main.mouse_allowed = true;
+                BSLSwipeUtils.max_y = 2;
+                BSLSwipeUtils.mouseScrollMultiplier=15;
+                
+                MainMenuStateMobile.canClick = false;
+                
+                camElementos = new FlxCamera();
 		camElementos.bgColor.alpha = 0;
         FlxG.cameras.add(camElementos, false);
 
@@ -70,9 +84,11 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.screenCenter(XY);
         bg.y = 1280;
+        bg.updateHitbox();
         bg.cameras = [camElementos];
 		add(bg);
 
+        
         voltar_button = new FlxButton(973, 63+1280, function() {
             sair();
         });
@@ -85,67 +101,79 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         voltar_button.updateHitbox();
         voltar_button.label.offset.y-=7;
         add(voltar_button);
-
+        
         label = new FlxText(0, 0, 600, LangUtil.getString("menu_friends", "menu"), 70);
         label.setFormat(Paths.font("letravio.ttf"), 70, FlxColor.WHITE, LEFT);
         label.cameras = [camElementos];
         label.x = 145;
         label.y = 65+1280;
         add(label);
-
+        
         fakeBG = new FlxSprite(-74, -162).loadGraphic(Paths.image("menus/gamejolt/amigos/BG"));
 		fakeBG.antialiasing = ClientPrefs.globalAntialiasing;
         fakeBG.cameras = [camElementos];
         fakeBG.scrollFactor.set(0, 0);
-
+        
         amigosList = cast add(new FlxSpriteGroup());
 		amigosList.add(fakeBG);
-
+        
         var amiguineos:Array<User> = GJClient.getFriendsList(); // pra evitar ele a ficar dando fetch toda hora
         // ninguém nunca me respondeu, estou triste :cry:
         var x1:Float = 1; // bora x1?
         for(user in amiguineos)
-        {
-            var friendo:FriendObject = new FriendObject((5*x1)+15, 20, user);
-            friendo.cameras = [camElementos];
-            friendo.alpha = 0;
-            amigos.push(friendo);
-            amigosList.add(friendo);
-            x1+=75;
-        }
-
-		amigosList.setPosition(0, 2560);
-		var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 508 );
-		scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
+            {
+                var friendo:FriendObject = new FriendObject((5*x1)+15, 20, user);
+                friendo.cameras = [camElementos];
+                friendo.alpha = 0;
+                amigos.push(friendo);
+                amigosList.add(friendo);
+                x1+=75;
+            }
+            
+        amigosList.setPosition(0, 2560);
+        var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 508 );
+        scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
         tweenEntrar();
-	}
-
-    function sair()
-    {
-        if(sumidao || !canSumir)
-            return;
-        sumidao = true;
-        tweenSair();
-    }
-
-	override function update(elapsed:Float)
-    {
-        voltar_button.label.alpha = 1;
-        if(controls.BACK)
-        {
-            sair();
+        }
+        
+        function sair()
+            {
+                if(sumidao || !canSumir)
+                    return;
+                sumidao = true;
+                tweenSair();
+            }
+            
+            override function update(elapsed:Float)
+                {
+                    voltar_button.label.alpha = 1;
+                    if(controls.BACK)
+                        {
+                            sair();
         }
         if(canSumir && amigos.length > 0)
         {
-            swipes();
+            if (!Main.getMouseVisibility()){
+                botao(); //nome genérico malz    
+            }else if (BSLTouchUtils.over(invisible_button))
+                swipes();
         }
         super.update(elapsed);
         voltar_button.label.alpha = 1;
     }
 
     // TODO: adicionar o swipes do utils (eu n faço a menor ideia de como mexer naquilo ent pfv alguém helpa aqui)
-    function swipes()
-    {
+    function swipes(){
+        BSLSwipeUtils.swipeHorizontal();
+        if (BSLSwipeUtils.scrollY!= 0 && amigos[0].x < 0 && amigos[amigos.length-1].x>amigos[0].width*Math.PI){
+            for (amigo in amigos){
+                amigo.x += BSLSwipeUtils.scrollY;
+            }
+        }
+    }
+    
+    function botao()
+    { //Preguiça de mexer nisso, até porque a parte dos controles já estava bonitinha
         var canSwipeRight:Bool = true;
         var canSwipeLeft:Bool = true;
         var ultimoAmigo:Int = amigos.length-1;
@@ -153,7 +181,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         canSwipeLeft = amigos[0].x < 0;
         if(canSwipeLeft)
         {
-            if(#if !mobile FlxG.mouse.wheel>0 || #end controls.UI_LEFT)
+            if(controls.UI_LEFT)
             {
                 for(amigo in amigos)
                 {
@@ -164,7 +192,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         }
         if(canSwipeRight)
             {
-                if(#if !mobile FlxG.mouse.wheel<0 || #end controls.UI_RIGHT)
+                if(controls.UI_RIGHT)
                 {
                     for(amigo in amigos)
                     {

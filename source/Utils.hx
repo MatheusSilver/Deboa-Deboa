@@ -415,23 +415,23 @@ class BSLSwipeUtils
 	{
 		if (BSLTouchUtils.justTouched())
 		{
-			prevTouchX = Std.int(BSLTouchUtils.pegarpos("x") / max_x);
+			prevTouchY = Std.int(BSLTouchUtils.pegarpos("x") / max_x);
 		}
 		else if (BSLTouchUtils.touched())
 		{
-			touchX = Std.int(BSLTouchUtils.pegarpos("x") / max_x);
-			var deltaX:Int = (touchX - prevTouchX);
+			touchY = Std.int(BSLTouchUtils.pegarpos("x") / max_x);
+			var deltaY:Int = (touchY - prevTouchY);
 
-			scrollX = deltaX;
+			scrollY = deltaY;
 
-			prevTouchX = touchX;
+			prevTouchY = touchY;
 		}
-		else if (Math.abs(scrollX) > 0)
+		else if (Math.abs(scrollY) > 0)
 		{
-			if (scrollX > 0)
-				scrollSpeed -= scrollAcceleration/4;
-			else if (scrollX < 0)
-				scrollSpeed += scrollAcceleration/4;
+			if (scrollY > 0)
+				scrollSpeed -= scrollAcceleration;
+			else if (scrollY < 0)
+				scrollSpeed += scrollAcceleration;
 
 			scrollSpeed = Std.int(CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
 		}
@@ -439,13 +439,13 @@ class BSLSwipeUtils
 		#if desktop
 		if (FlxG.mouse.wheel != 0)
 		{
-			scrollX += FlxG.mouse.wheel*mouseScrollMultiplier;
+			scrollY += FlxG.mouse.wheel*mouseScrollMultiplier;
 		}
 		// Talvez isso possa vir a ser útil :thinking:
 		#end
-		scrollX += Std.int(scrollSpeed);
-		scrollX = CoolUtil.mathClamp(scrollY, -max_x, max_x);
-		if (Math.abs(scrollX) <= Math.abs(scrollSpeed))
+		scrollY += Std.int(scrollSpeed);
+		scrollY = CoolUtil.mathClamp(scrollY, -FlxG.width/max_x, FlxG.width/max_x);
+		if (Math.abs(scrollY) <= Math.abs(scrollSpeed))
 			resetScrolls();
 		else
 			is_swipping = true;
