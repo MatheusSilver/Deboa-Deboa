@@ -1779,8 +1779,8 @@ class FunkinLua {
 			return Reflect.setProperty(PlayState.instance, variable, value);
 		});
 
-		Lua_helper.add_callback(lua, "fileExists", function(file:String) {
-			return OpenFlAssets.exists(file);
+		Lua_helper.add_callback(lua, "legendaChecker", function(file:String) {
+			return OpenFlAssets.exists(Paths.imagechecker('letras/${file}_censura')); // caso tu esteja dentro da música, o jogo deveria procurar tudo direto na library dela.
 		});
 		
 		Lua_helper.add_callback(lua, "getPropertyTiledLuaSprite", function(variable:String) {

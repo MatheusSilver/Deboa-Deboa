@@ -3,9 +3,9 @@ local pos = 0;
 function propriedadescomuns(var)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
-    setProperty(var..".alpha", opacidadeLegendas);
+    setProperty(var .. ".alpha", opacidadeLegendas);
     setLuaSpriteCamera(var, 'camlegenda');
-    --setGraphicSize(var, screenWidth) -- k
+    -- setGraphicSize(var, screenWidth) -- k
     screenCenter(var, 'x')
     addLuaSprite(var, true);
 end
@@ -23,28 +23,44 @@ function onEvent(name, value1, value2, value3, value4)
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
-            makeLuaSprite('exe1', legendaPath..value2, 0, pos)
+            if legendaChecker == true then
+                makeLuaSprite('exe1', legendaPath .. value2 + '_censura', 0, pos)
+            else
+                makeLuaSprite('exe1', legendaPath .. value2, 0, pos)
+            end
             propriedadescomuns('exe1')
-            --traceLog("value 2 invocou, "..value2.." em: "..getSongPosition())
+            -- traceLog("value 2 invocou, "..value2.." em: "..getSongPosition())
         end
         if value3 == '' or value3 == 'null' or value3 == nil then
             removeLuaSprite('exe2', true);
         else
-            makeLuaSprite('exe2', legendaPath..value3, 0, pos)
+            if legendaChecker == true then
+                makeLuaSprite('exe2', legendaPath .. value3 + '_censura', 0, pos)
+            else
+                makeLuaSprite('exe2', legendaPath .. value3, 0, pos)
+            end
             propriedadescomuns('exe2')
         end
         if value4 == '' or value4 == 'null' or value4 == nil then
             removeLuaSprite('exe3', true);
         else
-            makeLuaSprite('exe3', legendaPath..value4, 0, pos)
+            if legendaChecker == true then
+                makeLuaSprite('exe3', legendaPath .. value4 + '_censura', 0, pos)
+            else
+                makeLuaSprite('exe3', legendaPath .. value4, 0, pos)
+            end
             propriedadescomuns('exe3')
         end
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
-        makeLuaSprite('exe', legendaPath..value1, 0, pos)
-        propriedadescomuns('exe')
-        --traceLog("value 1 invocou, "..value1.." em: "..getSongPosition())
+            if legendaChecker == true then
+                makeLuaSprite('exe', legendaPath .. value1 + '_censura', 0, pos)
+            else
+                makeLuaSprite('exe', legendaPath .. value1, 0, pos)
+            end
+            propriedadescomuns('exe')
+            -- traceLog("value 1 invocou, "..value1.." em: "..getSongPosition())
         end
     end
 end
