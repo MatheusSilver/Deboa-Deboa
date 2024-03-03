@@ -21,6 +21,10 @@ class ExtraHUDObject extends FlxSpriteGroup
 	var contadordevida:FlxSprite;
 	var monitor:FlxSprite;
 
+	// Triple Trouble
+	var ringCounter:FlxSprite;
+	var counterNum:FlxText;
+
 	public function new(songName:String) // Isso tem que ser aqui, por motivos de que: alguns huds são iniciados em locais diferentes no playstate
 	{
 		super();
@@ -87,6 +91,16 @@ class ExtraHUDObject extends FlxSpriteGroup
 				contadordevida.updateHitbox();
 				add(contadordevida);
 				add(monitor);
+			case "triple-trouble":
+				ringCounter = new FlxSprite(1133, ClientPrefs.downScroll ? 50 : 610).loadGraphic(Paths.image('tp_ring_counter', "locales", true, true));
+				add(ringCounter);
+				ringCounter.cameras = [PlayState.instance.camHUD];
+	
+				counterNum = new FlxText(1207, ClientPrefs.downScroll ? 56 : 606, 0, '0', 10, false);
+				counterNum.setFormat('EurostileTBla', 60, FlxColor.fromRGB(255, 204, 51), FlxTextBorderStyle.OUTLINE, FlxColor.fromRGB(204, 102, 0));
+				counterNum.setBorderStyle(OUTLINE, FlxColor.fromRGB(204, 102, 0), 3, 1);
+				add(counterNum);
+				counterNum.cameras = [PlayState.instance.camHUD];
 		}
 	}
 
@@ -109,6 +123,8 @@ class ExtraHUDObject extends FlxSpriteGroup
 					+ " "
 					+ meses[leDate.getMonth()]
 					+ "\n";
+			case "triple-trouble":
+				counterNum.text = Std.string(PlayState.cNum);
 		}
 
 		super.update(elapsed);

@@ -390,9 +390,6 @@ class PlayState extends MusicBeatState
 	var sSKY:FlxSprite;
 	var chao_scrap:FlxSprite;
 	var ceu_scrap:FlxSprite;
-	// - ring counter bullshit
-	var ringCounter:FlxSprite;
-	var counterNum:FlxText;
 
 	public var bfIsLeft:Bool = false;
 	public var isGrad = false;
@@ -415,7 +412,7 @@ class PlayState extends MusicBeatState
 	public static var loadingImage:String;
 
 	var isexe:Bool = true;
-	var cNum:Int = 0;
+	public static var cNum:Int = 0;
 	
 	public static var vimdopause:Bool = false;
 	public static var newSongSpeed:Float;
@@ -1124,26 +1121,7 @@ class PlayState extends MusicBeatState
 			botplayTxt.y = timeBarBG.y - 78;
 		}
 
-		if (isRing)
-			{
-				ringCounter = new FlxSprite(1133, 610).loadGraphic(Paths.image('tp_ring_counter', "locales", true, true));
-				add(ringCounter);
-				ringCounter.cameras = [camHUD];
-	
-				var strumArray = [0, 1, 3, 4];
-	
-				counterNum = new FlxText(1207, 606, 0, '0', 10, false);
-				counterNum.setFormat('EurostileTBla', 60, FlxColor.fromRGB(255, 204, 51), FlxTextBorderStyle.OUTLINE, FlxColor.fromRGB(204, 102, 0));
-				counterNum.setBorderStyle(OUTLINE, FlxColor.fromRGB(204, 102, 0), 3, 1);
-				add(counterNum);
-				counterNum.cameras = [camHUD];
-	
-				if (ClientPrefs.downScroll)
-				{
-					ringCounter.y = 50;
-					counterNum.y = 56;
-				}
-		}
+		if (isRing){hudobj("triple-trouble");}
 
 		if (sonicHUDStyles.exists(SONG.song.toLowerCase()))
 		{
@@ -2847,10 +2825,6 @@ class PlayState extends MusicBeatState
 			targetHP = 2 - health;
 
 		healthbarval = targetHP;
-		if (isRing)
-			{
-				counterNum.text = Std.string(cNum);
-			}
 
 		if (!inCutscene)
 		{
