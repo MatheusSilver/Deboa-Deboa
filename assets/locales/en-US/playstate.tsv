@@ -10,9 +10,9 @@ play_rating_great	Great
 play_rating_sick	Sick!
 play_rating_perfect	Perfect!!
 play_counter_combo	Combo
-play_counter_score	Score:
-play_counter_misses	Misses:
-play_counter_accuracy	Accuracy:
+play_counter_score	Score
+play_counter_misses	Misses
+play_counter_accuracy	Accuracy
 play_counter_sicks	Sicks:
 play_counter_goods	Goods:
 play_counter_shits	Shits:
