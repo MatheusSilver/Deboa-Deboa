@@ -122,7 +122,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         var x1:Float = 1; // bora x1?
         for(user in amiguineos)
             {
-                var friendo:FriendObject = new FriendObject((5*x1)+15, 20, user);
+                var friendo:FriendObject = new FriendObject((5*x1)+10, 20, user);
                 friendo.cameras = [camElementos];
                 friendo.alpha = 0;
                 amigos.push(friendo);
@@ -144,72 +144,78 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                 tweenSair();
             }
             
-            override function update(elapsed:Float)
-                {
-                    voltar_button.label.alpha = 1;
-                    if(controls.BACK)
-                        {
-                            sair();
+    override function update(elapsed:Float)
+    {
+        voltar_button.label.alpha = 1;
+        if(controls.BACK)
+        {
+            sair();
         }
         if(canSumir && amigos.length > 0)
         {
-            if (!Main.getMouseVisibility()){
-                botao(); //nome genérico malz    
-            }else if (BSLTouchUtils.over(invisible_button))
-                swipes();
+            swipes();
         }
         super.update(elapsed);
         voltar_button.label.alpha = 1;
     }
 
-    // TODO: adicionar o swipes do utils (eu n faço a menor ideia de como mexer naquilo ent pfv alguém helpa aqui)
     function swipes(){
-        BSLSwipeUtils.swipeHorizontal();
-        if (BSLSwipeUtils.scrollY!= 0 && amigos[0].x < 0 && amigos[amigos.length-1].x>amigos[0].width*Math.PI){
-            for (amigo in amigos){
-                amigo.x += BSLSwipeUtils.scrollY;
-            }
-        }
-    }
-    
-    function botao()
-    { //Preguiça de mexer nisso, até porque a parte dos controles já estava bonitinha
+        var numeroSuperManeiro:Float = 745;
         var canSwipeRight:Bool = true;
         var canSwipeLeft:Bool = true;
         var ultimoAmigo:Int = amigos.length-1;
-        canSwipeRight = amigos[ultimoAmigo].x > 783;
-        canSwipeLeft = amigos[0].x < 0;
-        if(canSwipeLeft)
-        {
-            if(controls.UI_LEFT)
+        canSwipeRight = amigos[ultimoAmigo].x > numeroSuperManeiro;
+        canSwipeLeft = amigos[0].x <= 15;
+
+        if (!Main.getMouseVisibility()){
+            if(canSwipeLeft && controls.UI_LEFT)
             {
-                for(amigo in amigos)
-                {
-                    //trace("left");
-                    amigo.x+=60;
+                for (amigo in amigos){
+                    amigo.x += 20;
+                }
+            }
+            else if(canSwipeRight && controls.UI_RIGHT)
+            {
+                for (amigo in amigos){
+                    amigo.x -= 20;
                 }
             }
         }
-        if(canSwipeRight)
+        else
+        {
+            BSLSwipeUtils.swipeHorizontal();
+
+            if(canSwipeLeft && BSLSwipeUtils.scrollY > 0 || canSwipeRight && BSLSwipeUtils.scrollY < 0)
             {
-                if(controls.UI_RIGHT)
-                {
-                    for(amigo in amigos)
-                    {
-                        //trace("right");
-                        amigo.x-=60;
-                    }
+                for (amigo in amigos){
+                    amigo.x += BSLSwipeUtils.scrollY;
                 }
             }
 
-        /*if(FlxG.keys.justPressed.M)
-        {
-            trace("Ultimo Amigo X: "+amigos[ultimoAmigo].x);
-            trace("Primeiro Amigo X: "+amigos[0].x);
-        }*/
-        // parando pra pensar, pq eu n usei o watch aqui? :thinking:
-    }
+        }
 
+        if(amigos[0].x > 15)
+        {
+            for(amigo in amigos)
+            {
+                amigo.x -= 2;
+            }
+        }
+        else if(amigos[ultimoAmigo].x < numeroSuperManeiro)
+        {
+            for(amigo in amigos)
+                {
+                    amigo.x += 2;
+                }
+        }
+
+        if(FlxG.keys.justPressed.M)
+        {
+            trace(amigos[ultimoAmigo].x);
+        }
+        
+
+    }
 
     function tweenEntrar()
     {

@@ -48,9 +48,9 @@ class AjustesState extends MusicBeatState
 		DiscordClient.changePresence(LangUtil.getString("rpc_settings", "rpc"), null);
 		#end
 		
-		if (FlxG.sound.music != null){
+		if (FlxG.sound.music == null){
 			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0, true);
-			FlxG.sound.music.fadeIn(4, 0, 0.85);
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 		else if(FlxG.sound.music != null && FlxG.sound.music.volume==0) {
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
