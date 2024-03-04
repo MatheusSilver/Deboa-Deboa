@@ -209,12 +209,6 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                 }
         }
 
-        if(FlxG.keys.justPressed.M)
-        {
-            trace(amigos[ultimoAmigo].x);
-        }
-        
-
     }
 
     function tweenEntrar()
