@@ -67,7 +67,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 
                 BSLSwipeUtils.resetScrolls();
                 Main.mouse_allowed = true;
-                BSLSwipeUtils.max_y = 2;
+                BSLSwipeUtils.max_x = 2;
                 BSLSwipeUtils.mouseScrollMultiplier=15;
                 
                 MainMenuStateMobile.canClick = false;
@@ -185,10 +185,10 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         {
             BSLSwipeUtils.swipeHorizontal();
 
-            if(canSwipeLeft && BSLSwipeUtils.scrollY > 0 || canSwipeRight && BSLSwipeUtils.scrollY < 0)
+            if(canSwipeLeft && BSLSwipeUtils.scrollX > 0 || canSwipeRight && BSLSwipeUtils.scrollX < 0)
             {
                 for (amigo in amigos){
-                    amigo.x += BSLSwipeUtils.scrollY;
+                    amigo.x += BSLSwipeUtils.scrollX;
                 }
             }
 
