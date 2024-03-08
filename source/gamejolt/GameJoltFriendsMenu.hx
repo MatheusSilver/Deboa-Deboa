@@ -68,7 +68,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                 BSLSwipeUtils.resetScrolls();
                 Main.mouse_allowed = true;
                 BSLSwipeUtils.max_x = 2;
-                BSLSwipeUtils.mouseScrollMultiplier=15;
+                BSLSwipeUtils.mouseScrollMultiplier=20;
                 
                 MainMenuStateMobile.canClick = false;
                 

@@ -420,7 +420,7 @@ class BSLSwipeUtils
 		else if (BSLTouchUtils.touched())
 		{
 			touchX = Std.int(BSLTouchUtils.pegarpos("x") / max_x);
-			var deltaX:Int = (touchX - prevTouchY);
+			var deltaX:Int = (touchX - prevTouchX); // k
 
 			scrollX = deltaX;
 

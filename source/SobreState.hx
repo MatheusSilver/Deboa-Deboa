@@ -127,7 +127,7 @@ class SobreState extends MusicBeatState
 		arrow.alpha = 0.75;
 		add(arrow);
 
-		updateuwu(true);
+		updateuwu(menu_isLeft);
 		super.create();
 	}
 
@@ -154,20 +154,6 @@ class SobreState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (!menu_isLeft)
-		{
-			arrow.flipX = false;
-			arrow.x = 280;
-			arrow.y = 272;
-			arrow.updateHitbox();
-		}
-		else
-		{
-			arrow.flipX = true;
-			arrow.x = 836;
-			arrow.y = 272;
-			arrow.updateHitbox();
-		}
 		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			GlobalSoundManager.play('cancelMenu');
@@ -259,5 +245,8 @@ class SobreState extends MusicBeatState
 		buttonMapping.get("vio").visible = !menu_isLeft;
 		buttonMapping.get("exe").visible = !menu_isLeft;
 		ctext.visible = !menu_isLeft;
+		arrow.flipX = menu_isLeft;
+		arrow.x = !menu_isLeft ? 280 : 836;
+		arrow.updateHitbox();
 	}
 }
