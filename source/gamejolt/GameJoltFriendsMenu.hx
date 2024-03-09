@@ -109,6 +109,20 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         label.y = 65+1280;
         add(label);
         
+        tweenEntrar();
+        }
+        
+        function sair()
+            {
+                if(sumidao || !canSumir)
+                    return;
+                sumidao = true;
+                tweenSair();
+            }
+
+    var loadingTxt:FlxText;
+    function aparecerAmigos()
+    {
         fakeBG = new FlxSprite(-74, -162).loadGraphic(Paths.image("menus/gamejolt/amigos/BG"));
 		fakeBG.antialiasing = ClientPrefs.globalAntialiasing;
         fakeBG.cameras = [camElementos];
@@ -129,20 +143,23 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                 amigosList.add(friendo);
                 x1+=75;
             }
-            
+        
         amigosList.setPosition(0, 2560);
         var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 508 );
         scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
-        tweenEntrar();
-        }
-        
-        function sair()
-            {
-                if(sumidao || !canSumir)
-                    return;
-                sumidao = true;
-                tweenSair();
-            }
+        FlxG.cameras.add(scrollBar);
+        new FlxTimer().start(0.25, function(e:FlxTimer) {
+            for(amigo in amigos)
+                {
+                    FlxTween.tween(amigo, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+                }
+        });
+
+        new FlxTimer().start(0.5, function(e:FlxTimer) {
+            canSumir = true;
+        });
+        remove(loadingTxt);
+    }
             
     override function update(elapsed:Float)
     {
@@ -223,13 +240,13 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         FlxTween.tween(label, {y: 65}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(voltar_button, {y: 63}, 0.5, {ease: FlxEase.expoInOut});
         FlxTween.tween(bg, {y: 0}, 0.5, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
-            FlxG.cameras.add(scrollBar);
-            for(amigo in amigos)
-            {
-                FlxTween.tween(amigo, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
-            }
-            new FlxTimer().start(0.5, function(e:FlxTimer) {
-                canSumir = true;
+            loadingTxt = new FlxText(0, 0, 600, "...", 70);
+            loadingTxt.setFormat(Paths.font("letravio.ttf"), 90, FlxColor.WHITE, LEFT);
+            loadingTxt.cameras = [camElementos];
+            loadingTxt.screenCenter(XY);
+            add(loadingTxt);
+            new FlxTimer().start(0.15, function(e:FlxTimer) {
+                aparecerAmigos();
             });
         }});
         /*for(amigo in amigos)
