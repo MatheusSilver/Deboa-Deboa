@@ -190,7 +190,7 @@ class Main extends Sprite
 		}
 		FlxG.fullscreen = ClientPrefs.fullscreen; // Lá em cima as clientprefs ainda não haviam sido carregadas
 		
-		FlxG.fixedTimestep = true; // Agora eu fiquei na dúvida entre deixar isso falso, ou deixar isso como verdadeiro.
+		FlxG.fixedTimestep = false; // Agora eu fiquei na dúvida entre deixar isso falso, ou deixar isso como verdadeiro.
 		// Eu mandei lá no Discord, uma gravação onde o FPS Cap é 240 e ele fica SUPER lagado. Só consegui resolver isso deixando o timestep como falso.
 	}
 }
