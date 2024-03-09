@@ -198,14 +198,14 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         {
             for(amigo in amigos)
             {
-                amigo.x -= 2;
+                amigo.x -= Math.ffloor(5);
             }
         }
         else if(amigos[ultimoAmigo].x < numeroSuperManeiro)
         {
             for(amigo in amigos)
                 {
-                    amigo.x += 2;
+                    amigo.x += Math.ffloor(5);
                 }
         }
 
