@@ -2,6 +2,7 @@
 
 package;
 
+import flixel.group.FlxSpriteGroup;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -21,10 +22,8 @@ class CreditsMods extends MusicBeatState
 	var faixa:FlxSprite;
 	var exe:FlxSprite;
 	var curSelected:Int = 0;
-	var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
-	var newcredit:FlxSprite;
-	var dummycredit:FlxSprite;
+	var creditList:FlxSpriteGroup;
 
 	var creditStuff:Array<String> = [
 		'belowthedepths', 'chaosnightmare', 'endlesscycles', 'executionrecycled', 'finalescape', 'finalratio', 'funkmixmario', 'hypnoslullaby', 'piracysonic',
@@ -49,7 +48,6 @@ class CreditsMods extends MusicBeatState
 			add(bg); */
 		new FlxTimer().start(0.15, function(tmr:FlxTimer)
 			{
-
 				bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (back)'));
 				bg.antialiasing = ClientPrefs.globalAntialiasing;
 				bg.updateHitbox();
@@ -58,18 +56,14 @@ class CreditsMods extends MusicBeatState
 				bg.y = 720;
 				add(bg);
 
-				dummycredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp], "locales", true, true));
-				dummycredit.antialiasing = ClientPrefs.globalAntialiasing;
-				dummycredit.alpha = 0;
-				dummycredit.y = 0;
-				add(dummycredit);
-				newcredit = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected], "locales", true, true));
-				newcredit.antialiasing = ClientPrefs.globalAntialiasing;
-				// newcredit.setGraphicSize(Std.int(0.8));
-				newcredit.alpha = 1;
-				// newcredit.x=525;
-				newcredit.y = -724;
-				add(newcredit);
+				creditList = new FlxSpriteGroup(-25,FlxG.height*4,creditStuff.length);
+
+				for (i in 0...creditStuff.length){
+					var creditSprite:SpriteSwapper;
+					creditSprite = new SpriteSwapper(i, Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[i], "locales", true, true), 1, 200, Y, 1.7);
+					creditList.add(creditSprite);
+				}
+				add(creditList);
 
 				faixa = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/modseports/modseports (faixa)'));
 				faixa.antialiasing = ClientPrefs.globalAntialiasing;
@@ -90,7 +84,7 @@ class CreditsMods extends MusicBeatState
 				FlxTween.tween(faixa, {x: 376}, 1, {ease: FlxEase.quartInOut});
 				FlxTween.tween(exe, {x: 326}, 1.25, {ease: FlxEase.quartInOut});
 				FlxTween.tween(bg, {y: 0}, 0.8, {ease: FlxEase.quartInOut});
-				FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1.35});
+				FlxTween.tween(creditList, {y: -FlxG.height*0.275}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1.35});
 
 				new FlxTimer().start(1.8, function(tmr:FlxTimer)
 				{
@@ -119,13 +113,11 @@ class CreditsMods extends MusicBeatState
 			{
 				if (curSelected + 1 > creditStuff.length - 1)
 				{
-					curSelectedBkp = curSelected;
 					curSelected = 0;
 					changeSelection(curSelected);
 				}
 				else
 				{
-					curSelectedBkp = curSelected;
 					curSelected = curSelected + 1;
 					changeSelection(curSelected);
 				}
@@ -140,13 +132,11 @@ class CreditsMods extends MusicBeatState
 			{
 				if (curSelected - 1 < 0)
 				{
-					curSelectedBkp = curSelected;
 					curSelected = creditStuff.length - 1;
 					changeSelection(curSelected, true);
 				}
 				else
 				{
-					curSelectedBkp = curSelected;
 					curSelected = curSelected - 1;
 					changeSelection(curSelected, true);
 				}
@@ -163,37 +153,6 @@ class CreditsMods extends MusicBeatState
 
 	function changeSelection(newCurselected:Int, ?cima:Bool = false)
 	{
-		if(!cima)
-		{
-			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp], "locales", true, true));
-			dummycredit.alpha = 1;
-			dummycredit.y = 0;
-			FlxTween.tween(dummycredit, {y: 724}, 0.5, {ease: FlxEase.quartInOut});
-	
-			FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
-	
-			new FlxTimer().start(1.1, function(tmr:FlxTimer)
-			{
-				canChange = true;
-			});
-			newcredit.y = -724;
-			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected], "locales", true, true));
-		}
-		else
-		{
-			dummycredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelectedBkp], "locales", true, true));
-			dummycredit.alpha = 1;
-			dummycredit.y = 0;
-			FlxTween.tween(dummycredit, {y: -724}, 0.5, {ease: FlxEase.quartInOut});
-	
-			FlxTween.tween(newcredit, {y: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 0.6});
-	
-			new FlxTimer().start(1.1, function(tmr:FlxTimer)
-			{
-				canChange = true;
-			});
-			newcredit.y = 724;
-			newcredit.loadGraphic(Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[curSelected], "locales", true, true));
-		}
+		//vazio :skull: mas tem o backup no discord caso precise reaproveitar alguma ideia
 	}
 }
