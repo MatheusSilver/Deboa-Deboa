@@ -151,7 +151,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         {
             sair();
         }
-        if(canSumir && amigos.length > 0)
+        if(canSumir && amigos.length > 2)
         {
             swipes();
         }
