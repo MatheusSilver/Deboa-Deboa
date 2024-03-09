@@ -244,6 +244,8 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             loadingTxt.setFormat(Paths.font("letravio.ttf"), 90, FlxColor.WHITE, LEFT);
             loadingTxt.cameras = [camElementos];
             loadingTxt.screenCenter(XY);
+            loadingTxt.x+=263;
+            loadingTxt.y+=7;
             add(loadingTxt);
             new FlxTimer().start(0.15, function(e:FlxTimer) {
                 aparecerAmigos();
