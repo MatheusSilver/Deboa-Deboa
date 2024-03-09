@@ -3,7 +3,7 @@ package;
 import modifiers.ModifiersManager;
 import LangUtil;
 import Achievements;
-import DialogueBoxPsych;
+//import DialogueBoxPsych;
 import FunkinLua;
 import Section.SwagSection;
 import Shaders;
@@ -313,8 +313,8 @@ class PlayState extends MusicBeatState
 	public var camAchievement:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
-	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
-	var dialogueJson:DialogueFile = null;
+	/*var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
+	var dialogueJson:DialogueFile = null;*/
 
 	var blammedLightsBlack:FlxSprite;
 	var blammedLightsBlackTween:FlxTween;
@@ -942,7 +942,7 @@ class PlayState extends MusicBeatState
 				boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.9));
 		}
 
-		var file:String = Paths.json(songName + '/dialogue'); // Checks for json/Psych Engine dialogue
+		/*var file:String = Paths.json(songName + '/dialogue'); // Checks for json/Psych Engine dialogue
 		if (OpenFlAssets.exists(file))
 		{
 			dialogueJson = DialogueBoxPsych.parseDialogue(file);
@@ -959,7 +959,7 @@ class PlayState extends MusicBeatState
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 		doof.nextDialogueThing = startNextDialogue;
-		doof.skipDialogueThing = skipDialogue;
+		doof.skipDialogueThing = skipDialogue;*/
 
 		Conductor.songPosition = -5000;
 
@@ -1154,7 +1154,7 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
-		doof.cameras = [camHUD];
+		//doof.cameras = [camHUD];
 		startCircle.cameras = [camHUD2];
 		startText.cameras = [camHUD2];
 		if (sonicHUD != null)
@@ -1743,7 +1743,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	var dialogueCount:Int = 0;
+	/*var dialogueCount:Int = 0;
 
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
@@ -1775,7 +1775,7 @@ class PlayState extends MusicBeatState
 			else
 				startCountdown();
 		}
-	}
+	}*/
 
 	public function focusOut()
 	{
@@ -2145,7 +2145,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function startNextDialogue()
+	/*function startNextDialogue()
 	{
 		dialogueCount++;
 		callOnLuas('onNextDialogue', [dialogueCount]);
@@ -2154,7 +2154,7 @@ class PlayState extends MusicBeatState
 	function skipDialogue()
 	{
 		callOnLuas('onSkipDialogue', [dialogueCount]);
-	}
+	}*/
 
 	var previousFrameTime:Int = 0;
 	var lastReportedPlayheadPosition:Int = 0;
