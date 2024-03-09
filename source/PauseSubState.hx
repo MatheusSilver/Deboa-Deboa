@@ -90,24 +90,12 @@ class PauseSubState extends MusicBeatSubstate
 		blurShader = new BlurFilter();
 		//grayScale = new ColorMatrixFilter();
 		}
-		if(PlayState.SONG.song.toLowerCase() != "sunshine") {
-			ready.loadGraphic(Paths.image('ready', 'shared'));
-			set.loadGraphic(Paths.image('set', 'shared'));
-			go.loadGraphic(Paths.image('go', 'shared'));
-		} else {
-			ready.loadGraphic(Paths.image('cenarios/saturn/ready', 'week-sunshine'));
-			set.loadGraphic(Paths.image('cenarios/saturn/set', 'week-sunshine'));
-			go.loadGraphic(Paths.image('cenarios/saturn/go', 'week-sunshine'));
-			ready.scale.x = 0.5; // i despise all coding.
-			set.scale.x = 0.5;
-			go.scale.x = 0.7;						
-			ready.scale.y = 0.5;
-			set.scale.y = 0.5;
-			go.scale.y = 0.7;
-			ready.screenCenter();
-			set.screenCenter();
-			go.screenCenter();
-		}
+		
+		var basePath:String = PlayState.SONG.song.toLowerCase() != "sunshine" ? '' : 'cenarios/saturn/';
+
+		loadGraphics(ready, basePath + 'ready');
+		loadGraphics(set, basePath + 'set');
+		loadGraphics(go, basePath + 'go');
 
 		if(FlxG.save.data.didJumpscare==null)
 			{
@@ -484,6 +472,14 @@ class PauseSubState extends MusicBeatSubstate
 					aaa = true;
 					add(jumpscare);
 				}
+		}
+
+		function loadGraphics(sprite:FlxSprite, path:String):Void {
+			sprite.loadGraphic(Paths.image(path, 'week-sunshine'));
+			if (PlayState.SONG.song.toLowerCase() == "sunshine") {
+				sprite.scale.set(0.5, 0.5);
+				sprite.screenCenter();
+			}
 		}
 
 		function shakeWindow():Void

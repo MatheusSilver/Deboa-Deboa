@@ -3403,7 +3403,15 @@ class PlayState extends MusicBeatState
 		switch (eventName)
 		{
 			case 'Som de Censura':
-				if(!ClientPrefs.palavroes) censurafunction(value1);
+				if(!ClientPrefs.palavroes) {
+					if(value1=="play") { 
+						censura.play(); 
+						FlxG.sound.music.volume=0;
+					} else if(value1=="pause") {
+						censura.pause();
+						FlxG.sound.music.volume=1;
+					}
+				}
 			case 'Particula CY':
 				particulacy();
 			case 'video player':
@@ -7061,18 +7069,6 @@ class PlayState extends MusicBeatState
 					}
 				}
 			});
-		}
-	}
-
-	function censurafunction(acao:String) {
-		if(!ClientPrefs.palavroes) {
-			if(acao=="play") { 
-				censura.play(); 
-				FlxG.sound.music.volume=0;
-			} else if(acao=="pause") {
-				censura.pause();
-				FlxG.sound.music.volume=1;
-			}
 		}
 	}
 
