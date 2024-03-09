@@ -7015,8 +7015,10 @@ class PlayState extends MusicBeatState
 	{
 		sprite.visible = false;
 		remove(sprite);
-		sprite.kill();
-		sprite.destroy();
+		sprite.kill(); // Algo interessante aqui: O kill faz o jogo parar de atualizar e desenhar o objeto, PORÉM, tu pode reviver esse sprite com revive().
+		// O que eu pensei foi: é mais custoso usar visible = false, ou usar kill() e revive()?
+		// Outra coisa: Seria bem pesado na CY (por exemplo), ficar usando o sistema de "vou guardar aqui pra usar depois"
+		sprite.destroy(); // No caso, o destroy() serve pra apagar o objeto da memória
 	}
 
 	public function reload_presence():Void
