@@ -1,6 +1,6 @@
 import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.transition.FlxTransitionableState;
-import DialogueBoxPsych;
+//import DialogueBoxPsych;
 import Shaders;
 import Type.ValueType;
 import flixel.FlxBasic;
