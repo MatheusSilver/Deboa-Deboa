@@ -406,6 +406,7 @@ class BSLSwipeUtils
 	private static var touchX:Int;
 
 	public static var is_swipping:Bool = false;
+	public static var reset_manual = false;
 
 	/**
 	 * Função de Swipe (Mobile) e Scroll do Mouse (Desktop)
@@ -498,7 +499,9 @@ class BSLSwipeUtils
 	{
 		scrollX = scrollY = 0;
 		scrollSpeed = 0;
-		is_swipping = false;
+		if (!reset_manual)
+			is_swipping = false;
+
 	}
 }
 

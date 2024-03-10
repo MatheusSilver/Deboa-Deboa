@@ -166,6 +166,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		BSLSwipeUtils.max_y = Std.int(FlxG.width/(achieve_list_len)*2);//Isso serve pra permitir que o player possa ir no máximo até a metade da lista ao passar o dedo do topo até o fim de sua tela.
 		BSLSwipeUtils.mouseScrollMultiplier=1;
+		BSLSwipeUtils.reset_manual=false;
 		super.create();
 	}
 

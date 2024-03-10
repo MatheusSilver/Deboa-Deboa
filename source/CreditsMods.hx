@@ -2,6 +2,9 @@
 
 package;
 
+import Utils.BSLTouchUtils;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import Utils.BSLSwipeUtils;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -21,9 +24,9 @@ class CreditsMods extends MusicBeatState
 	var bg:FlxSprite;
 	var faixa:FlxSprite;
 	var exe:FlxSprite;
-	var curSelected:Int = 0;
 	var canChange:Bool = false;
-	var creditList:FlxSpriteGroup;
+	var creditList:FlxTypedSpriteGroup<SpriteSwapper>;
+	
 
 	var creditStuff:Array<String> = [
 		'belowthedepths', 'chaosnightmare', 'endlesscycles', 'executionrecycled', 'finalescape', 'finalratio', 'funkmixmario', 'hypnoslullaby', 'piracysonic',
@@ -56,11 +59,12 @@ class CreditsMods extends MusicBeatState
 				bg.y = 720;
 				add(bg);
 
-				creditList = new FlxSpriteGroup(-25,FlxG.height*4,creditStuff.length);
+				creditList = new FlxTypedSpriteGroup<SpriteSwapper>(-25,FlxG.height*4,creditStuff.length);
 
 				for (i in 0...creditStuff.length){
 					var creditSprite:SpriteSwapper;
-					creditSprite = new SpriteSwapper(i, Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[i], "locales", true, true), 1, 200, Y, 1.7);
+					creditSprite = new SpriteSwapper(i, Paths.image('sobremenu/creditos/modseports/cards/card-' + creditStuff[i], "locales", true, true), 1, 200, Y, 1.7,creditStuff.length);
+					creditSprite.specialOffset = -FlxG.height*0.275;
 					creditList.add(creditSprite);
 				}
 				add(creditList);
@@ -96,52 +100,46 @@ class CreditsMods extends MusicBeatState
 				#end
 			});
 
+		BSLSwipeUtils.max_y = 2;
+		BSLSwipeUtils.mouseScrollMultiplier=0; //Isso desativa o mouse do BSLSwipeUtils
+		BSLSwipeUtils.reset_manual=true;
+		Main.mouse_allowed = true;
+
 		super.create();
 	}
 
 	override function update(elapsed:Float)
 	{
+		BSLSwipeUtils.swipeVertical();
 		if (controls.BACK && canChange)
 		{
 			GlobalSoundManager.play('cancelMenu');
 			MusicBeatState.switchState(new SobreState());
 		}
-
-		if (controls.UI_RIGHT_P || controls.UI_UP_P)
-		{ // ok
-			if (canChange)
-			{
-				if (curSelected + 1 > creditStuff.length - 1)
-				{
-					curSelected = 0;
-					changeSelection(curSelected);
-				}
-				else
-				{
-					curSelected = curSelected + 1;
-					changeSelection(curSelected);
-				}
-				canChange = false;
-				GlobalSoundManager.play('scrollMenu');
+		if (Main.getMouseVisibility()){
+			#if desktop
+			if(FlxG.mouse.wheel != 0 && creditList.members[0].tweenController==null)
+				changeSelection(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
+			#end
+			if (BSLSwipeUtils.scrollY!=0){
+				creditList.forEach(function(spr:SpriteSwapper)
+				{				
+					spr.checkTween();	
+					spr.y+=BSLSwipeUtils.scrollY;
+				});	
+			}else if(BSLSwipeUtils.is_swipping && !BSLTouchUtils.pressionando(bg)){
+				creditList.forEach(function(spr:SpriteSwapper)
+				{					
+					spr.updateTarget();
+				});	
+				BSLSwipeUtils.is_swipping = false;
 			}
-		}
-
-		if (controls.UI_LEFT_P || controls.UI_DOWN_P)
-		{ // ok
-			if (canChange)
-			{
-				if (curSelected - 1 < 0)
-				{
-					curSelected = creditStuff.length - 1;
-					changeSelection(curSelected, true);
-				}
-				else
-				{
-					curSelected = curSelected - 1;
-					changeSelection(curSelected, true);
-				}
-				canChange = false;
-				GlobalSoundManager.play('scrollMenu');
+		}else{
+			if (creditList.members[0].tweenController==null){
+				if (controls.UI_UP_P)
+					changeSelection(1);
+				else if (controls.UI_DOWN_P)
+					changeSelection(-1);
 			}
 		}
 		super.update(elapsed);
@@ -150,9 +148,12 @@ class CreditsMods extends MusicBeatState
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 	}
-
-	function changeSelection(newCurselected:Int, ?cima:Bool = false)
+	function changeSelection(change:Int=0)
 	{
-		//vazio :skull: mas tem o backup no discord caso precise reaproveitar alguma ideia
+		creditList.forEach(function(spr:SpriteSwapper) {
+			spr.setTarget(spr.getTarget()+change);
+			spr.updateTarget(true);
+		});
+		GlobalSoundManager.play("scrollMenu");
 	}
 }

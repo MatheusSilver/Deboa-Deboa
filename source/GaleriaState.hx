@@ -51,6 +51,7 @@ class GaleriaState extends MusicBeatState
 			WeekData.reloadWeekFiles(true); //Obrigado silvio do passado por essa anotação em FreeplayState.hx
 			//DaMusic part
 			BSLSwipeUtils.max_y=1;
+			BSLSwipeUtils.reset_manual=false;
 			BSLSwipeUtils.mouseScrollMultiplier=25;
 
 			camAchievement = new FlxCamera();
@@ -173,6 +174,7 @@ class GaleriaState extends MusicBeatState
 
 				stoploading = false;
 				BSLSwipeUtils.max_y=1;
+				BSLSwipeUtils.reset_manual=false;
 				BSLSwipeUtils.mouseScrollMultiplier=25;
 				//Estes valores precisem ser calibrados
 

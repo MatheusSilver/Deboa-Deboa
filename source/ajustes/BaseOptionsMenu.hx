@@ -175,6 +175,7 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 		BSLSwipeUtils.max_y = Std.int(FlxG.width/6);//indo do topo até o fim da tela, o mano só passa em no máximo 6 opções.
 		BSLSwipeUtils.mouseScrollMultiplier=1;
+		BSLSwipeUtils.reset_manual=false;
 		changeSelection();
 		#if mobileC
 		addVirtualPad(FULL, A_B);

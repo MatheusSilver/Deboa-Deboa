@@ -163,6 +163,7 @@ class FreeplayState extends MusicBeatState
 		
 		BSLSwipeUtils.max_y = Std.int(FlxG.width/(progressFreeplay));
 		BSLSwipeUtils.mouseScrollMultiplier=1;
+		BSLSwipeUtils.reset_manual=false;
 
 		for (i in 0...progressFreeplay)
 		{
