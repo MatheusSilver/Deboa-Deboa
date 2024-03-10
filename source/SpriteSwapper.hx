@@ -50,15 +50,15 @@ class SpriteSwapper extends FlxSprite{
 
         if (activeAxis == X){
             if (!manual)
-                this.target = Math.round((this.x+FlxG.width/2)*num_objects/FlxG.width);
+                this.setTarget(Math.round((2*this.x+this.width)/((FlxG.width/num_objects)+2*this.spaceBetween)));
 
-            tweenController = FlxTween.tween(this, {x:(FlxG.width/num_objects*target-this.width)/2+target*this.spaceBetween}, tweenTimer, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween){
+            tweenController = FlxTween.tween(this, {x:(FlxG.width/num_objects*target-this.width)/2+target*this.spaceBetween+specialOffset}, tweenTimer, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween){
                 tweenController = null;
             }});
         }else if (activeAxis == Y){
             if (!manual)
                 this.setTarget(Math.round((2*this.y+this.height)/((FlxG.height/num_objects)+2*this.spaceBetween)));
-            tweenController = FlxTween.tween(this, {y: (FlxG.height/num_objects*target-this.height)/2+target*this.spaceBetween+specialOffset}, tweenTimer, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween){
+            tweenController = FlxTween.tween(this, {y:(FlxG.height/num_objects*target-this.height)/2+target*this.spaceBetween+specialOffset}, tweenTimer, {ease: FlxEase.quadInOut, onComplete: function(twn:FlxTween){
                 tweenController = null;
             }});
         }
