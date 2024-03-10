@@ -3,7 +3,7 @@ package;
 import modifiers.ModifiersManager;
 import LangUtil;
 import Achievements;
-import DialogueBoxPsych;
+//import DialogueBoxPsych;
 import FunkinLua;
 import Section.SwagSection;
 import Shaders;
@@ -313,8 +313,8 @@ class PlayState extends MusicBeatState
 	public var camAchievement:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
-	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
-	var dialogueJson:DialogueFile = null;
+	/*var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
+	var dialogueJson:DialogueFile = null;*/
 
 	var blammedLightsBlack:FlxSprite;
 	var blammedLightsBlackTween:FlxTween;
@@ -942,7 +942,7 @@ class PlayState extends MusicBeatState
 				boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.9));
 		}
 
-		var file:String = Paths.json(songName + '/dialogue'); // Checks for json/Psych Engine dialogue
+		/*var file:String = Paths.json(songName + '/dialogue'); // Checks for json/Psych Engine dialogue
 		if (OpenFlAssets.exists(file))
 		{
 			dialogueJson = DialogueBoxPsych.parseDialogue(file);
@@ -959,7 +959,7 @@ class PlayState extends MusicBeatState
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 		doof.nextDialogueThing = startNextDialogue;
-		doof.skipDialogueThing = skipDialogue;
+		doof.skipDialogueThing = skipDialogue;*/
 
 		Conductor.songPosition = -5000;
 
@@ -1154,7 +1154,7 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
-		doof.cameras = [camHUD];
+		//doof.cameras = [camHUD];
 		startCircle.cameras = [camHUD2];
 		startText.cameras = [camHUD2];
 		if (sonicHUD != null)
@@ -1743,7 +1743,7 @@ class PlayState extends MusicBeatState
 		char.y += char.positionArray[1];
 	}
 
-	var dialogueCount:Int = 0;
+	/*var dialogueCount:Int = 0;
 
 	// You don't have to add a song, just saying. You can just do "startDialogue(dialogueJson);" and it should work
 	public function startDialogue(dialogueFile:DialogueFile, ?song:String = null):Void
@@ -1775,7 +1775,7 @@ class PlayState extends MusicBeatState
 			else
 				startCountdown();
 		}
-	}
+	}*/
 
 	public function focusOut()
 	{
@@ -2145,7 +2145,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function startNextDialogue()
+	/*function startNextDialogue()
 	{
 		dialogueCount++;
 		callOnLuas('onNextDialogue', [dialogueCount]);
@@ -2154,7 +2154,7 @@ class PlayState extends MusicBeatState
 	function skipDialogue()
 	{
 		callOnLuas('onSkipDialogue', [dialogueCount]);
-	}
+	}*/
 
 	var previousFrameTime:Int = 0;
 	var lastReportedPlayheadPosition:Int = 0;
@@ -3404,20 +3404,16 @@ class PlayState extends MusicBeatState
 		{
 			case 'Som de Censura':
 				if(!ClientPrefs.palavroes) {
-					switch(value1) {
-						case "play":
-							censura.play();
-							FlxG.sound.music.volume = 0;
-						case "pause":
-							censura.pause();
-							FlxG.sound.music.volume = 1; // PIIIIIIIII tá cheio de cocaina 
+					if(value1=="play") { 
+						censura.play(); 
+						FlxG.sound.music.volume=0;
+					} else if(value1=="pause") {
+						censura.pause();
+						FlxG.sound.music.volume=1;
 					}
-				} else {
-					trace("Palavrões estão ativados, logo TUDO FOI ANULADO");
-					// Pra parte das legendas seria 1000x mais fácil elas serem em texto...
 				}
 			case 'Particula CY':
-				particulasCy(); // exatamente, tu não precisa fazer NADA
+				particulacy();
 			case 'video player':
 				videoPlayer(value1, value2, value3, value4); //Preguiça de mexer aqui.
 			case 'stop video':
@@ -7027,8 +7023,10 @@ class PlayState extends MusicBeatState
 	{
 		sprite.visible = false;
 		remove(sprite);
-		sprite.kill();
-		sprite.destroy();
+		sprite.kill(); // Algo interessante aqui: O kill faz o jogo parar de atualizar e desenhar o objeto, PORÉM, tu pode reviver esse sprite com revive().
+		// O que eu pensei foi: é mais custoso usar visible = false, ou usar kill() e revive()?
+		// Outra coisa: Seria bem pesado na CY (por exemplo), ficar usando o sistema de "vou guardar aqui pra usar depois"
+		sprite.destroy(); // No caso, o destroy() serve pra apagar o objeto da memória
 	}
 
 	public function reload_presence():Void
@@ -7043,39 +7041,35 @@ class PlayState extends MusicBeatState
 			- ClientPrefs.noteOffset);
 		#end
 	}
+		
+	public function hudobj(song_name:String) {
+		var HUD:ExtraHUDObject = new ExtraHUDObject(song_name);
+		add(HUD);
+	}
 
-	public function particulasCy() { // exclusivamente para a Confronting Yourself. Ou não também, vai que...
-		for (i in 0...30){
-			var partic:FlxSprite = new FlxSprite(-1200+150*i, 1000).loadGraphic(Paths.image('particulas', 'week-confronting'));
-			partic.antialiasing = true;
+	function particulacy() {
+		for (i in 0...30) {
+			var partic:FlxSprite = new FlxSprite(-1200 + 150 * i, 1000).loadGraphic(Paths.image('particulas', 'week-confronting'));
+			partic.antialiasing = ClientPrefs.globalAntialiasing;
 			partic.color = FlxColor.WHITE;
 			partic.scrollFactor.set(0.92, 0.92);
 			partic.active = false;
 			add(partic);
-
-			// X02 TWEENS entraste en el chat
-			var random = 0.4 + Math.random();
-			var ypos:Float = partic.y - 2000;
-			var xpos:Float = partic.x;
-			partic.scale.set(random, random);
-			FlxTween.tween(partic, {y: ypos, alpha: 1},(Math.random()*5+3), {
+		
+			partic.scale.set(0.4 + Math.random(), 0.4 + Math.random());
+			FlxTween.tween(partic, { y: partic.y - 2000, alpha: 1 }, (Math.random() * 5 + 3), {
 				ease: FlxEase.linear,
 				type: FlxTween.LOOPING,
-				loopDelay:0,
-				onUpdate: function(twn:FlxTween){
-						partic.x = xpos + Math.sin(8 * twn.scale + random) * 100;
-						if(endingSong) {
-							destruirsprites(partic); // Aqui é necessário o sprite ser destruído pois ele não será mais usado.
-							twn.cancel();
-						}
+				loopDelay: 0,
+				onUpdate: function (twn:FlxTween) {
+					partic.x = partic.x + Math.sin(8 * twn.scale + 0.4 + Math.random()) * 100;
+					if (endingSong) {
+						destruirsprites(partic); // Aqui é necessário o sprite ser destruído pois ele não será mais usado.
+						twn.cancel();
 					}
-				});
-			}
+				}
+			});
 		}
-
-	public function hudobj(song_name:String) {
-		var HUD:ExtraHUDObject = new ExtraHUDObject(song_name);
-		add(HUD);
 	}
 
 	var curLightEvent:Int = 0;

@@ -1,6 +1,6 @@
 import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.transition.FlxTransitionableState;
-import DialogueBoxPsych;
+//import DialogueBoxPsych;
 import Shaders;
 import Type.ValueType;
 import flixel.FlxBasic;
@@ -1295,6 +1295,10 @@ class FunkinLua {
 			}
 			//luaTrace("screenCenter: Object " + obj + " doesn't exist!", false, false, FlxColor.RED);
 		});
+
+		/* Explicação dessa função estar como comentário:
+			No MODBOA, os diálogos não são usados. Agora caso alguém queira usar essa engine pra modding,
+			é só tirar isso aqui.
 		Lua_helper.add_callback(lua, "startDialogue", function(dialogueFile:String, music:String = null) {
 			var path:String = Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			//luaTrace('Trying to load dialogue: ' + path);
@@ -1315,7 +1319,7 @@ class FunkinLua {
 					PlayState.instance.startCountdown();
 				}
 			}
-		});
+		}); */
 		
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);

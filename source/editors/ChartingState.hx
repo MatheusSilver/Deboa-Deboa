@@ -71,7 +71,7 @@ class ChartingState extends MusicBeatState
 	[
         ['Adicionar Imagens', "Coloca Uma Imagem.\nValue 1: Path pra primeira imagem\nValue 2: Path pra segunda imagem"],
 		['video player', "obviamente ele faz café"],
-		['Som de Censura', 'Value 1: deve ser play ou pause.'],
+		['Som de Censura', 'Value 1 = play/pause.'],
 		['Spin', 'Bom... Spiiiiiiiiiiiiiiiiiiiiiin das setas'],
 		['CamZoomTween', "Value 1 = quantidade de zoom \n value 2 = duração do tween"],
 		['TelaPreta', "Value 1 = true adiciona uma tela preta \n qualquer outra coisa tira ela."],
