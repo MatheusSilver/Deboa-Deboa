@@ -43,6 +43,7 @@ class TimeDaVio extends MusicBeatState
 		[	'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
 		[	'dav',  '',  'https://twitter.com/Davizinhn',  'https://www.youtube.com/@Davizinhn' ],
 		[	'ash',  '',  'https://twitter.com/Ashuro_Privety',  '' ],
+		[	'silver',  '',  '',  'https://www.youtube.com/c/matheussilver' ],
 		[	'konan',  '',  'https://twitter.com/Konan_Hatake13',  'https://www.youtube.com/@konan_hatake13' ],
 		[	'x02',  '',  '',  'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' ],
 		[	'hugo',  '',  'https://twitter.com/Hugo09723233',  '' ],
