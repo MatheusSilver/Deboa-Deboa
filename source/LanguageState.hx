@@ -109,16 +109,16 @@ class LanguageState extends MusicBeatState
 		if (!selectedSomethin)
 		{
 			if (controls.UI_UP_P){
-				GlobalSoundManager.play("scrollMenu");
+				GlobalSoundManager.play(scrollMenu);
 				changeSelection(curSelected-1);
 			}else if (controls.UI_DOWN_P){
-				GlobalSoundManager.play("scrollMenu");
+				GlobalSoundManager.play(scrollMenu);
 				changeSelection(curSelected+1);
 			}else if (Main.getMouseVisibility()){
 				grpOptionsTexts.forEach(function(txt:FlxText)
 					{
 						if (BSLTouchUtils.aperta(txt, txt.ID) == "primeiro"){ //Honestamente essa sempre foi minha função favorita (até porque foi a primeira), pena que não dá pra usar ela muito.
-							GlobalSoundManager.play("scrollMenu");
+							GlobalSoundManager.play(scrollMenu);
 							changeSelection(txt.ID);
 						}else if (BSLTouchUtils.aperta(txt, txt.ID) == "segundo")
 							accept();

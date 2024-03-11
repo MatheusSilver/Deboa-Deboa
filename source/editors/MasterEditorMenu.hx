@@ -111,7 +111,7 @@ class MasterEditorMenu extends MusicBeatState
 
 	function changeSelection(change:Int = 0)
 	{
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 
 		curSelected += change;
 

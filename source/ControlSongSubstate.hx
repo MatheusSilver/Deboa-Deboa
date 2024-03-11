@@ -101,7 +101,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 	
 		if (!Main.getMouseVisibility()){
 			if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 				onYes = !onYes;
 				updateOptions();
 			}
@@ -143,7 +143,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 			new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 				LoadingState.loadAndSwitchState(new PlayState());
 			});
-			GlobalSoundManager.play('confirmMenu');
+			GlobalSoundManager.play(confirmMenu);
 
 		}else if(confirmInt == 1) {
 			gifPermitido = false;
@@ -152,7 +152,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 			new FlxTimer().start(1.5, function(tmr:FlxTimer) {
 				LoadingState.loadAndSwitchState(new PlayState());
 			});
-			GlobalSoundManager.play('confirmMenu');
+			GlobalSoundManager.play(confirmMenu);
 		}
 	}
 

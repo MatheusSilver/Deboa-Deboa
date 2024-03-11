@@ -13,6 +13,7 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 	public static var confirm:FlxSound;
 	public static var cancel:FlxSound;
 	public static var scroll:FlxSound;
+	public static var negado:FlxSound;
 	//public static var clickText:FlxSound;
 	public static var click:FlxSound;
 
@@ -27,6 +28,15 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 			confirm.persist = true;
 			confirm.volume = ClientPrefs.efeitosVolume;
 			FlxG.sound.list.add(confirm);
+		}
+
+		if (som == negado){
+			negado = null;
+			negado = new FlxSound().loadEmbedded(Paths.sound('negado','preload'));
+			//confirm.volume = ClientPrefs.efeitosVolume;
+			negado.persist = true;
+			negado.volume = ClientPrefs.efeitosVolume;
+			FlxG.sound.list.add(negado);
 		}
 		
 		if (som == cancel)
@@ -71,16 +81,21 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 
 	}
 
-	public static function play(som:String):Void
+	public static function play(som:Sounds):Void
 	{
 		switch (som)
 		{
-			case 'confirmMenu':
+			case confirmMenu:
 				if (!verifiqueSeExisteEentaoadicione(som))
 					init(confirm);
 
 				confirm.play(true);
-			case 'click':
+			case negado:
+				if (!verifiqueSeExisteEentaoadicione(som))
+					init(negado);
+
+				negado.play(true);
+			case click:
 				if (!verifiqueSeExisteEentaoadicione(som))
 					init(click);
 
@@ -91,12 +106,12 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 
 				clickText.play(true);
 			*/
-			case 'scrollMenu':
+			case scrollMenu:
 				if (!verifiqueSeExisteEentaoadicione(som))
 					init(scroll);
 
 				scroll.play(true);
-			case 'cancelMenu':
+			case cancelMenu:
 				if (!verifiqueSeExisteEentaoadicione(som))
 					init(cancel);
 
@@ -112,4 +127,12 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 		}else
 			return true;
 	}
+}
+
+enum abstract Sounds(String) to String from String {
+	var confirmMenu = "confirmMenu";
+	var cancelMenu = "cancelMenu";
+	var scrollMenu = "scrollMenu";
+	var click = "click";
+	var negado = "negado";
 }

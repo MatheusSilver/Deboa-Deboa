@@ -199,7 +199,7 @@ class AchievementsMenuState extends MusicBeatState
 		}
 		if (controls.BACK && !sincronizando)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 	}

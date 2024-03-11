@@ -221,7 +221,7 @@ class BaseOptionsMenu extends MusicBeatState
 		if (controls.BACK) {			
 			ClientPrefs.save();
 			MusicBeatState.switchState(new ajustes.AjustesState());
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 		}
 
 		var usesCheckbox = true;
@@ -315,7 +315,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'hide_time':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 				}
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 				reloadValues();
 			}
 		} else {
@@ -384,7 +384,7 @@ class BaseOptionsMenu extends MusicBeatState
  				}
 				reloadValues();
 
-				if(holdTime <= 0) GlobalSoundManager.play('scrollMenu');
+				if(holdTime <= 0) GlobalSoundManager.play(scrollMenu);
 				holdTime += elapsed;
 			} else if (controls.ACCEPT && options[curSelected] == 'hitsound_test' && ClientPrefs.hitSounds){
 				var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
@@ -456,7 +456,7 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 
 		showCharacter.visible = (options[curSelected] == 'aliasing');
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	function reloadValues() {

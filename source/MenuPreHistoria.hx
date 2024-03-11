@@ -229,16 +229,26 @@ class MenuPreHistoria extends MusicBeatState
 		}
 		if (!movedBack && !selectedWeek && !makeAnimUnlock)
 		{
+			if (Main.getMouseVisibility()){
+				//Deixar só pro mobile depois
+				#if desktop
+				if(FlxG.mouse.wheel != 0 && apertavel){
+					changeWeek(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
+					GlobalSoundManager.play(scrollMenu);
+				}
+				#end
+			}
+
 			if (controls.UI_LEFT_P && apertavel) // silver bulinho kekekek, não saber a diferença entre || e && ;-;
 			{
 				changeWeek(-1);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 
 			if (controls.UI_RIGHT_P && apertavel)
 			{
 				changeWeek(1);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 
 			if (controls.ACCEPT && apertavel #if !debug && lockedWeeks[curWeek] != true #end)
@@ -256,7 +266,7 @@ class MenuPreHistoria extends MusicBeatState
 
 		if (controls.BACK && !movedBack && !selectedWeek && !inCut && !makeAnimUnlock)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			movedBack = true;
 			maintainVisible = false;
 			MusicBeatState.switchState(new MainMenuStateMobile());
@@ -278,7 +288,7 @@ class MenuPreHistoria extends MusicBeatState
 		MenuHistoria.preHistoriaSelected = curWeek;
 		if (stopspamming == false)
 		{
-			GlobalSoundManager.play('confirmMenu');
+			GlobalSoundManager.play(confirmMenu);
 			stopspamming = true;
 		}
 

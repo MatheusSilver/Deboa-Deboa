@@ -148,7 +148,7 @@ class SobreState extends MusicBeatState
 				curSelected -= 1;
 		}else if ((menu_isLeft ? controls.UI_RIGHT_P : controls.UI_LEFT_P)){
 			updateuwu(!menu_isLeft);
-			GlobalSoundManager.play('confirmMenu');
+			GlobalSoundManager.play(confirmMenu);
 		}
 	}
 
@@ -156,7 +156,7 @@ class SobreState extends MusicBeatState
 	{
 		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
@@ -181,7 +181,7 @@ class SobreState extends MusicBeatState
 		// arrow
 		arrow.onOver.callback = function()
 		{
-			GlobalSoundManager.play('scrollMenu');
+			GlobalSoundManager.play(scrollMenu);
 			arrow.alpha = 1;
 		};
 
@@ -190,7 +190,7 @@ class SobreState extends MusicBeatState
 		arrow.onDown.callback = function()
 		{
 			arrow.alpha = 1;
-			GlobalSoundManager.play('confirmMenu');
+			GlobalSoundManager.play(confirmMenu);
 			updateuwu(!menu_isLeft);
 		};
 	}
@@ -198,7 +198,7 @@ class SobreState extends MusicBeatState
 	function hover(object:CreditButton):Void
 	{
 		object.isOver = true;
-		GlobalSoundManager.play("scrollMenu");
+		GlobalSoundManager.play(scrollMenu);
 		object.alpha = 1;
 		curSelected = object.ID;
 	}
@@ -211,7 +211,7 @@ class SobreState extends MusicBeatState
 
 	function click(object:CreditButton)
 	{
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		object.alpha = 1;
 		FlxTransitionableState.skipNextTransOut = true;
 		switch (menusArray[object.ID]){

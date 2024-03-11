@@ -378,7 +378,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if (!canClick)
 			return;
-		GlobalSoundManager.play("scrollMenu");
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	public function getIsOnServer():Bool
@@ -390,7 +390,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if (controls.BACK && !isOnOptions && canClick && !isPlayingMatch)
 		{
-			GlobalSoundManager.play("cancelMenu");
+			GlobalSoundManager.play(cancelMenu);
 			voltarMenu();
 		}
 
@@ -895,7 +895,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			remove(avisoBg);
 			remove(okBt);
 			remove(avisoTexto);
-			GlobalSoundManager.play("confirmMenu");
+			GlobalSoundManager.play(confirmMenu);
 			if(nextState != null)
 			{
 				MusicBeatState.switchState(nextState);
@@ -908,7 +908,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		okBt.onOver.callback = function()
 		{
 			okBt.alpha = 1;
-			GlobalSoundManager.play("scrollMenu");
+			GlobalSoundManager.play(scrollMenu);
 		}
 		okBt.onOut.callback = function()
 		{
@@ -947,7 +947,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		button.onOver.callback = function() {
 			if(!button.visible || !canClick)
 				return;
-			GlobalSoundManager.play("scrollMenu");
+			GlobalSoundManager.play(scrollMenu);
 			button.alpha=1;
 		}
 		button.onOut.callback = function() {
@@ -958,7 +958,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		button.onDown.callback = function() {
 			if(!button.visible || callback == null || !canClick)
 				return;
-			GlobalSoundManager.play("confirmMenu");
+			GlobalSoundManager.play(confirmMenu);
 			if(arg != null)
 			{
 				callback(arg);
@@ -1191,7 +1191,7 @@ class RoomList extends MusicBeatSubstate
 		super.update(elapsed);
 		if (controls.BACK)
 			{
-				GlobalSoundManager.play("cancelMenu");
+				GlobalSoundManager.play(cancelMenu);
 				MultiplayerMainMenuState.instance.voltarMenu();
 			}
 	}
@@ -1244,8 +1244,8 @@ class RoomObject extends FlxSpriteGroup
 
 	function createJoinButton()
 	{
-		joinButton = new FlxButton(0, 0, "", function(){MultiplayerMainMenuState.instance.entrar(room);GlobalSoundManager.play("confirmMenu");});
-		joinButton.onOver.callback = function(){this.alpha = 1;GlobalSoundManager.play("scrollMenu");} ;
+		joinButton = new FlxButton(0, 0, "", function(){MultiplayerMainMenuState.instance.entrar(room);GlobalSoundManager.play(confirmMenu);});
+		joinButton.onOver.callback = function(){this.alpha = 1;GlobalSoundManager.play(scrollMenu);} ;
 		joinButton.onOut.callback = function(){this.alpha = 1;};
         joinButton.setGraphicSize(Std.int(this.width), Std.int(this.height));
         joinButton.updateHitbox();

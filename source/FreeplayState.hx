@@ -330,12 +330,12 @@ class FreeplayState extends MusicBeatState
 		if (!Main.getMouseVisibility() && apertavel){
 			if (upP)
 			{
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 				changeSelection(-shiftMult);
 			}
 			if (downP)
 			{
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 				changeSelection(shiftMult);
 			}
 		}else if (apertavel){		
@@ -362,7 +362,7 @@ class FreeplayState extends MusicBeatState
 
 		if (controls.BACK && apertavel)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 

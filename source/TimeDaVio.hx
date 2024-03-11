@@ -43,7 +43,8 @@ class TimeDaVio extends MusicBeatState
 		[	'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
 		[	'dav',  '',  'https://twitter.com/Davizinhn',  'https://www.youtube.com/@Davizinhn' ],
 		[	'ash',  '',  'https://twitter.com/Ashuro_Privety',  '' ],
-		[	'silver',  '',  '',  'https://www.youtube.com/c/matheussilver' ],
+		//[	'silver',  '',  '',  'https://www.youtube.com/c/matheussilver' ],
+		//Deixa sem mermo, coiso meu e da Lore por enquanto.
 		[	'konan',  '',  'https://twitter.com/Konan_Hatake13',  'https://www.youtube.com/@konan_hatake13' ],
 		[	'x02',  '',  '',  'https://www.youtube.com/channel/UCPh9ueTFJh50NRlF2CLsbbA' ],
 		[	'hugo',  '',  'https://twitter.com/Hugo09723233',  '' ],
@@ -186,7 +187,7 @@ class TimeDaVio extends MusicBeatState
 		#end
 		if (controls.BACK)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new SobreState());
 		}
 
@@ -371,7 +372,7 @@ class TimeDaVio extends MusicBeatState
 	{
 		if (!buttonAvailable(object))
 			return;
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		buttonsMap.get(object).alpha = 1;
 		FlxTransitionableState.skipNextTransOut = true;
 		switch (object){

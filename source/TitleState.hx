@@ -397,7 +397,7 @@ class TitleState extends MusicBeatState
 				if (ClientPrefs.flashing){
 				FlxG.camera.flash(FlxColor.WHITE, 1);
 				}
-				GlobalSoundManager.play('confirmMenu');
+				GlobalSoundManager.play(confirmMenu);
 
 				transitioning = true;
 				// FlxG.sound.music.stop();

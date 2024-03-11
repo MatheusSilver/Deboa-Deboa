@@ -82,7 +82,7 @@ class PreMainMenuState extends MusicBeatState
 	function simHover():Void
 	{
 		simbotao.alpha = 1;
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	function simOut():Void
@@ -92,7 +92,7 @@ class PreMainMenuState extends MusicBeatState
 
 	function simClick():Void
 	{
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		#if desktop
 		VideoStatePC.specialSetting = NORMAL;
 		VideoStatePC.videoPath = Paths.video("aviso");
@@ -106,7 +106,7 @@ class PreMainMenuState extends MusicBeatState
 	function naoHover():Void
 	{
 		naobotao.alpha = 1;
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	function naoOut():Void
@@ -116,7 +116,7 @@ class PreMainMenuState extends MusicBeatState
 
 	function naoClick():Void
 	{
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		MusicBeatState.switchState(new MainMenuStateMobile());
 	}
 }

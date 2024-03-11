@@ -229,7 +229,7 @@ class MainMenuStateMobile extends MusicBeatState
 				novoButton.cameras = [camAchievement];
 				novoButton.loadGraphic(Paths.image('mainmenu/btok', 'preload'));
 				novoButton.alpha = 0.75;
-				novoButton.onOver.callback = function(){novoButton.alpha=1; GlobalSoundManager.play('scrollMenu');};
+				novoButton.onOver.callback = function(){novoButton.alpha=1; GlobalSoundManager.play(scrollMenu);};
 				novoButton.onOut.callback = function(){novoButton.alpha=0.75;};
 				novoButton.onDown.callback = function(){
 					FlxG.save.data.gameVersion = version;
@@ -238,7 +238,7 @@ class MainMenuStateMobile extends MusicBeatState
 					novoBG.visible=false;
 					preto.visible=false;
 					textinho.visible=false;
-					GlobalSoundManager.play('confirmMenu');
+					GlobalSoundManager.play(confirmMenu);
 					newVersion = false;
 					canClick = true;
 				};
@@ -276,7 +276,7 @@ class MainMenuStateMobile extends MusicBeatState
 	// Unlocks "Freaky on a Friday Night" achievement
 	function giveAchievement(achievementname) {
 		add(new AchievementObject(achievementname, camAchievement));
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		trace('Giving achievement '+ achievementname);
 	}
 	#end
@@ -308,7 +308,7 @@ class MainMenuStateMobile extends MusicBeatState
 		clicavel = false;
 		checkiftouch = true;
 		sumidao(state);
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		var daChoice:String = optionShit[state];
 		sumidao(state);
 		new FlxTimer().start(1.7, function(tmr:FlxTimer) {
@@ -368,7 +368,7 @@ class MainMenuStateMobile extends MusicBeatState
 			if(controls.UI_LEFT_P && GJClient.logged)
 			{
 				selectingFriends = true;
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 
 		}
@@ -405,7 +405,7 @@ class MainMenuStateMobile extends MusicBeatState
 									if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
 										curSelected = spr.ID;
 										menuItems.members[spr.ID].alpha=1;
-										GlobalSoundManager.play('scrollMenu');
+										GlobalSoundManager.play(scrollMenu);
 									}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
 										spr.alpha=0.75;
 									}
@@ -419,7 +419,7 @@ class MainMenuStateMobile extends MusicBeatState
 									if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
 										menuItems.members[spr.ID].alpha=1;
 										curSelected = spr.ID;
-										GlobalSoundManager.play('scrollMenu');
+										GlobalSoundManager.play(scrollMenu);
 									}else if(!(Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) ){
 										spr.alpha=0.75;
 									}
@@ -455,7 +455,7 @@ class MainMenuStateMobile extends MusicBeatState
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
 				selectedSomethin = true;
-				GlobalSoundManager.play('cancelMenu');
+				GlobalSoundManager.play(cancelMenu);
 				MusicBeatState.switchState(new TitleState());
 			}
 			

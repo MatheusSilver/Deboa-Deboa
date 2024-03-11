@@ -101,7 +101,7 @@ class ResultsObject extends FlxSpriteGroup
         
                     FlxTween.tween(results_sprite.members[i].scale, { x: 0.45, y: 0.45 }, 0.2, { startDelay: i * delay, onComplete: function(twn:FlxTween){
                         FlxTween.tween(results_sprite.members[i].scale, { x:0.35, y:0.35}, 0.2);
-                        GlobalSoundManager.play("confirm");
+                        GlobalSoundManager.play(confirmMenu);
                     }});
         
                     FlxTween.tween(results_text.members[i], { alpha:1 }, 0.5, { startDelay: i * delay });

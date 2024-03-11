@@ -55,7 +55,7 @@ class Achievements {
 		ClientPrefs.achievementsMap.set(name, true);
 		if(makeSound)
 			{
-				GlobalSoundManager.play('confirmMenu');
+				GlobalSoundManager.play(confirmMenu);
 			}
 
 		if(gamejolt){

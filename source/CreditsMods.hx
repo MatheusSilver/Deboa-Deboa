@@ -113,7 +113,7 @@ class CreditsMods extends MusicBeatState
 		BSLSwipeUtils.swipeVertical();
 		if (controls.BACK && canChange)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new SobreState());
 		}
 		if (Main.getMouseVisibility()){
@@ -153,6 +153,6 @@ class CreditsMods extends MusicBeatState
 			spr.setTarget(spr.getTarget()+change);
 			spr.updateTarget(true);
 		});
-		GlobalSoundManager.play("scrollMenu");
+		GlobalSoundManager.play(scrollMenu);
 	}
 }

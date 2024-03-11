@@ -1,5 +1,7 @@
 package;
 
+import gamejolt.GJClient;
+import gamejolt.GameJoltLoginState;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -75,7 +77,7 @@ class AlreadyLogged extends MusicBeatState
 	function simHover():Void
 	{
 		simbotao.alpha = 1;
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	function simOut():Void
@@ -85,7 +87,7 @@ class AlreadyLogged extends MusicBeatState
 
 	function simClick():Void
 	{
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		GJClient.logout();
 		MusicBeatState.switchState(new GameJoltLoginState());
 	}
@@ -93,7 +95,7 @@ class AlreadyLogged extends MusicBeatState
 	function naoHover():Void
 	{
 		naobotao.alpha = 1;
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	function naoOut():Void
@@ -103,7 +105,7 @@ class AlreadyLogged extends MusicBeatState
 
 	function naoClick():Void
 	{
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		FlxG.switchState(new ajustes.AjustesState());
 	}
 }

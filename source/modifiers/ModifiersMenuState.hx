@@ -179,7 +179,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         {
             if(!text.text.startsWith(currentButton.name.toUpperCase()))
             {
-                GlobalSoundManager.play('scrollMenu');
+                GlobalSoundManager.play(scrollMenu);
             }
         }
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
@@ -199,7 +199,7 @@ class ModifiersMenuState extends MusicBeatSubstate
 
 		if (controls.BACK && canClick)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
             tweenSair();
 		}
 	}
@@ -282,7 +282,7 @@ class ModifierButton extends FlxSpriteGroup
 
     public function clique()
     {
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
         if(enabled)
         {
             ModifiersManager.removeModifier(id);

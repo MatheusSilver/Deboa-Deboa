@@ -138,7 +138,7 @@ class KeysSubstate extends MusicBeatState {
 				}); */
 				MusicBeatState.switchState(new ajustes.AjustesState());
 				ClientPrefs.salvarControles();
-				GlobalSoundManager.play('cancelMenu');
+				GlobalSoundManager.play(cancelMenu);
 			}
 
 			if(controls.ACCEPT || FlxG.keys.justPressed.ENTER && nextAccept <= 0) {
@@ -146,7 +146,7 @@ class KeysSubstate extends MusicBeatState {
 					ClientPrefs.keyBinds = ClientPrefs.defaultKeys.copy();
 					reloadKeys();
 					changeSelection();
-					GlobalSoundManager.play('confirmMenu');
+					GlobalSoundManager.play(confirmMenu);
 				} else if(!unselectableCheck(curSelected)) {
 					bindingTime = 0;
 					rebindingKey = true;
@@ -155,7 +155,7 @@ class KeysSubstate extends MusicBeatState {
 					} else {
 						grpInputs[getInputTextNum()].alpha = 0;
 					}
-					GlobalSoundManager.play('scrollMenu');
+					GlobalSoundManager.play(scrollMenu);
 				}
 			}
 		} else {
@@ -171,7 +171,7 @@ class KeysSubstate extends MusicBeatState {
 				ClientPrefs.keyBinds.set(optionShit[curSelected][1], keysArray);
 
 				reloadKeys();
-				GlobalSoundManager.play('confirmMenu');
+				GlobalSoundManager.play(confirmMenu);
 				rebindingKey = false;
 			}
 
@@ -182,7 +182,7 @@ class KeysSubstate extends MusicBeatState {
 				} else {
 					grpInputs[curSelected].alpha = 1;
 				}
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 				rebindingKey = false;
 				bindingTime = 0;
 			}
@@ -248,7 +248,7 @@ class KeysSubstate extends MusicBeatState {
 				}
 			}
 		}
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	function changeAlt() {
@@ -271,7 +271,7 @@ class KeysSubstate extends MusicBeatState {
 				break;
 			}
 		}
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	private function unselectableCheck(num:Int, ?checkDefaultKey:Bool = false):Bool {

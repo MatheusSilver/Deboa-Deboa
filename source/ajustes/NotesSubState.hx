@@ -122,17 +122,17 @@ class NotesSubState extends MusicBeatState
 				if (controls.UI_LEFT_P)
 				{
 					updateValue(-1);
-					GlobalSoundManager.play('scrollMenu');
+					GlobalSoundManager.play(scrollMenu);
 				}
 				else if (controls.UI_RIGHT_P)
 				{
 					updateValue(1);
-					GlobalSoundManager.play('scrollMenu');
+					GlobalSoundManager.play(scrollMenu);
 				}
 				else if (controls.RESET)
 				{
 					resetValue(curSelected, typeSelected);
-					GlobalSoundManager.play('scrollMenu');
+					GlobalSoundManager.play(scrollMenu);
 				}
 				if (controls.UI_LEFT_R || controls.UI_RIGHT_R)
 				{
@@ -161,7 +161,7 @@ class NotesSubState extends MusicBeatState
 				}
 				if (controls.UI_LEFT_R || controls.UI_RIGHT_R)
 				{
-					GlobalSoundManager.play('scrollMenu');
+					GlobalSoundManager.play(scrollMenu);
 					holdTime = 0;
 				}
 			}
@@ -171,22 +171,22 @@ class NotesSubState extends MusicBeatState
 			if (controls.UI_UP_P)
 			{
 				changeSelection(-1);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 			if (controls.UI_DOWN_P)
 			{
 				changeSelection(1);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 			if (controls.UI_LEFT_P)
 			{
 				changeType(-1);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 			if (controls.UI_RIGHT_P)
 			{
 				changeType(1);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 			if (controls.RESET)
 			{
@@ -194,11 +194,11 @@ class NotesSubState extends MusicBeatState
 				{
 					resetValue(curSelected, i);
 				}
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 			if (controls.ACCEPT && nextAccept <= 0)
 			{
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 				changingNote = true;
 				holdTime = 0;
 				for (i in 0...grpNumbers.length)
@@ -281,7 +281,7 @@ class NotesSubState extends MusicBeatState
 				changeSelection();
 			}
 			changingNote = false;
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 		}
 
 		if (nextAccept > 0)
@@ -323,7 +323,7 @@ class NotesSubState extends MusicBeatState
 				hsvText.setPosition(item.x + hsvTextOffsets[0], item.y - hsvTextOffsets[1]);
 			}
 		}
-		GlobalSoundManager.play('scrollMenu');
+		GlobalSoundManager.play(scrollMenu);
 	}
 
 	function changeType(change:Int = 0)

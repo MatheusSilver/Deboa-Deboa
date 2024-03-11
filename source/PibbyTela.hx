@@ -44,7 +44,7 @@ class PibbyTela extends MusicBeatState
 	function giveAchievement()
 	{
 		add(new AchievementObject('pibby', camAchievement));
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		trace('Giving achievement "pibby"');
 		new FlxTimer().start(0.5, function(tmr:FlxTimer)
 		{ 

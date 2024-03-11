@@ -254,7 +254,7 @@ class GaleriaState extends MusicBeatState
 						if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
 							ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][0], true);
 							add(new AchievementObject('galeria', camAchievement));
-							GlobalSoundManager.play('confirmMenu');
+							GlobalSoundManager.play(confirmMenu);
 							ClientPrefs.save();
 						}
 					}
@@ -263,7 +263,7 @@ class GaleriaState extends MusicBeatState
 					#if desktop
 					FlxG.mouse.unload();
 					#end
-					GlobalSoundManager.play('cancelMenu');
+					GlobalSoundManager.play(cancelMenu);
 					MusicBeatState.switchState(new SobreState());
 				}
 				if(isGaleria)

@@ -106,7 +106,7 @@ class MenuHistoria extends MusicBeatSubstate
 			nombres.push(leWeek.songs[j][3]);
 		}
 
-		Main.mouse_allowed = false;
+		Main.mouse_allowed = true;
 		if (curSelected >= WeekData.weeksList.length)
 			curSelected = 0;
 		persistentUpdate = persistentDraw = true;
@@ -215,7 +215,7 @@ class MenuHistoria extends MusicBeatSubstate
 	// Unlocks "Freaky on a Friday Night" achievement
 	function giveAchievement(achievementname) {
 		add(new AchievementObject(achievementname, camAchievement));
-		GlobalSoundManager.play('confirmMenu');
+		GlobalSoundManager.play(confirmMenu);
 		trace('Giving achievement '+ achievementname);
 	}
 	#end
@@ -281,17 +281,26 @@ class MenuHistoria extends MusicBeatSubstate
 
 		if (!movedBack && !selectedWeek && !modifiersOpened)
 		{
+			if (Main.getMouseVisibility()){
+				//Deixar só pro mobile depois
+				#if desktop
+				if(FlxG.mouse.wheel != 0 && apertavel){
+					changeSong(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1), CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1)==-1);
+					GlobalSoundManager.play(scrollMenu);
+				}
+				#end
+			}
 			if (controls.UI_LEFT_P && apertavel && musicas.length > 1) // MALUCO EU SOU MUITO BURRO...
 				// Consegui cometer o mesmo erro duas vezes seguidas...
 			{
 				changeSong(-1, true);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 
 			if (controls.UI_RIGHT_P && apertavel && musicas.length > 1)
 			{
 				changeSong(1, false);
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 			}
 
 			if (controls.BACK && !movedBack && !selectedWeek && apertavel && !naopodevoltar)

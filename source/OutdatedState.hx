@@ -36,7 +36,7 @@ class OutdatedState extends MusicBeatState
 			if (controls.ACCEPT || controls.BACK) {
 				leftState = true;
 				CoolUtil.browserLoad("https://github.com/ShadowMario/FNF-PsychEngine/releases");
-				GlobalSoundManager.play('cancelMenu');
+				GlobalSoundManager.play(cancelMenu);
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
 						MusicBeatState.switchState(new MainMenuStateMobile());

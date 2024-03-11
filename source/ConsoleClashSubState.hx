@@ -137,7 +137,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		}
 		if(!Main.getMouseVisibility()){
 			if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
-				GlobalSoundManager.play('scrollMenu');
+				GlobalSoundManager.play(scrollMenu);
 				onSonic = !onSonic;
 				updateOptions();
 			}

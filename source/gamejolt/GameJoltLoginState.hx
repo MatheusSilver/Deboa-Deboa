@@ -118,7 +118,7 @@ class GameJoltLoginState extends MusicBeatState
             }
 
             if (controls.BACK && podeSair) {
-                GlobalSoundManager.play('cancelMenu');
+                GlobalSoundManager.play(cancelMenu);
                 MusicBeatState.switchState(new ajustes.AjustesState());
             }
 
@@ -172,7 +172,7 @@ class GameJoltLoginState extends MusicBeatState
         function loginHover():Void
             {
                 loginbotao.alpha=1;
-                GlobalSoundManager.play('scrollMenu');
+                GlobalSoundManager.play(scrollMenu);
             }
             function loginOut():Void
                 {
@@ -193,7 +193,7 @@ class GameJoltLoginState extends MusicBeatState
                                 });
                                 EsconderTudo();
                             }
-                        GlobalSoundManager.play('confirmMenu');
+                        GlobalSoundManager.play(confirmMenu);
                     }
         public static function EsconderTudo():Void
             {

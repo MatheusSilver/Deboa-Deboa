@@ -225,7 +225,7 @@ class AjustesState extends MusicBeatState
 		if (!selectedSomethin && controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			selectedSomethin = true;
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			ClientPrefs.save();
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}#if (debug && desktop) else if (FlxG.keys.justPressed.SEVEN)
@@ -241,7 +241,7 @@ class AjustesState extends MusicBeatState
 		{
 			if (optionShit[object.ID]!="gamejooj" || (!GJClient.logged && !TitleState.ModoOffline)){
 				if (object.alpha != 1){ // pra ele n ficar repetindo o som
-					GlobalSoundManager.play("scrollMenu");
+					GlobalSoundManager.play(scrollMenu);
 					object.alpha = 1;
 					curSelected = object.ID;
 				}
@@ -261,7 +261,7 @@ class AjustesState extends MusicBeatState
 		}
 
 		function select(curSelected){
-			GlobalSoundManager.play('confirmMenu');
+			GlobalSoundManager.play(confirmMenu);
 			Main.mouse_allowed = false;
 			selectedSomethin = true;
 			sumidao(curSelected);

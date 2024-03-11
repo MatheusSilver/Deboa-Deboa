@@ -89,7 +89,7 @@ class CreditsMusics extends MusicBeatState
 			});	
 		if (controls.BACK)
 		{
-			GlobalSoundManager.play('cancelMenu');
+			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new SobreState());
 		}
 		if (Main.getMouseVisibility()){
@@ -132,6 +132,6 @@ class CreditsMusics extends MusicBeatState
 			spr.setTarget(spr.getTarget()+change);
 			spr.updateTarget(true);
 		});
-		GlobalSoundManager.play("scrollMenu");
+		GlobalSoundManager.play(scrollMenu);
 	}
 }
