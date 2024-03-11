@@ -1,5 +1,7 @@
 package;
 
+import Utils.BSLSwipeUtils;
+import Utils.BSLTouchUtils;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import flixel.FlxG;
@@ -32,6 +34,8 @@ class TimeDaVio extends MusicBeatState
 	var curSelected:Int = 0;
 	var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
+
+	private var buttonsMap:Map<String, FlxButton>;
 	
 	
 	// nome,  discord,  twitter,  youtube
@@ -61,6 +65,9 @@ class TimeDaVio extends MusicBeatState
 	];
 	override function create()
 	{
+		BSLSwipeUtils.max_x = Std.int(FlxG.width/2); //O cara vai ter que mandar o jutsu por pelo menos metade da tela.
+		BSLSwipeUtils.mouseScrollMultiplier=1;
+		BSLSwipeUtils.reset_manual=true;
 		Main.mouse_allowed = true;
 		bgBaixo = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
 		bgBaixo.antialiasing = ClientPrefs.globalAntialiasing;
@@ -87,6 +94,12 @@ class TimeDaVio extends MusicBeatState
 		estante.x = -593;
 		add(estante);
 
+		#if (haxe >= "4.0.0")
+		buttonsMap = new Map();
+		#else
+		buttonsMap = new Map<String, FlxButton>();
+		#end
+
 		discord = new FlxButton(FlxG.width, 100, '');
 		discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-discord', 'preload'));
 		discord.updateHitbox();
@@ -94,6 +107,7 @@ class TimeDaVio extends MusicBeatState
 		discord.y = 203;
 		discord.alpha = 0.75;
 		add(discord);
+		buttonsMap.set("discord", discord);
 
 		twitter = new FlxButton(FlxG.width, 100, '');
 		twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
@@ -102,6 +116,7 @@ class TimeDaVio extends MusicBeatState
 		twitter.y = 203;
 		twitter.alpha = 0.75;
 		add(twitter);
+		buttonsMap.set("twitter", twitter);
 
 		youtube = new FlxButton(FlxG.width, 100, '');
 		youtube.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-youtube', 'preload'));
@@ -110,6 +125,7 @@ class TimeDaVio extends MusicBeatState
 		youtube.y = 203;
 		youtube.alpha = 0.75;
 		add(youtube);
+		buttonsMap.set("youtube", youtube);
 
 		icon = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon', "locales", true, true));
 		icon.antialiasing = ClientPrefs.globalAntialiasing;
@@ -162,6 +178,7 @@ class TimeDaVio extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		BSLSwipeUtils.swipeHorizontal();
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_vio_team","rpc")+" " + CoolUtil.capitalize(creditInfo[curSelected][0]), null);
@@ -172,10 +189,10 @@ class TimeDaVio extends MusicBeatState
 			MusicBeatState.switchState(new SobreState());
 		}
 
-		if (controls.UI_RIGHT_P)
-		{ // ok
-			if (canChange)
-			{
+		if (canChange)
+		{
+			if (controls.UI_RIGHT_P || BSLSwipeUtils.scrollX > 0)
+			{ // ok
 				if (curSelected + 1 > creditInfo.length - 1)
 				{
 					curSelectedBkp = curSelected;
@@ -190,12 +207,7 @@ class TimeDaVio extends MusicBeatState
 				}
 				canChange = false;
 				GlobalSoundManager.play('scrollMenu');
-			}
-		}
-
-		if (controls.UI_LEFT_P)
-		{ // ok
-			if (canChange)
+			}else if (controls.UI_LEFT_P || BSLSwipeUtils.scrollX < 0)
 			{
 				if (curSelected - 1 < 0)
 				{
@@ -212,6 +224,14 @@ class TimeDaVio extends MusicBeatState
 				canChange = false;
 				GlobalSoundManager.play('scrollMenu');
 			}
+			for (key in buttonsMap.keys()){
+				if (BSLTouchUtils.over(buttonsMap.get(key)) && buttonsMap.get(key).alpha != 1)
+					hover(key);
+				else if (BSLTouchUtils.solto(buttonsMap.get(key)))
+					release(key);
+				else if (!BSLTouchUtils.over(buttonsMap.get(key))&& buttonsMap.get(key).alpha == 1)
+					out(key);
+			}
 		}
 		super.update(elapsed);
 		if (FlxG.sound.music.volume == 0)
@@ -222,6 +242,8 @@ class TimeDaVio extends MusicBeatState
 
 	function changeSelection(newCurselected:Int)
 	{
+
+		if (BSLSwipeUtils.is_swipping) BSLSwipeUtils.resetScrolls();
 
 		if (curSelectedBkp > 8)
 		{
@@ -317,6 +339,50 @@ class TimeDaVio extends MusicBeatState
 		});
 	}
 
+	private function buttonAvailable(key:String):Bool{
+		switch (key){
+			case "twitter":
+				return creditInfo[curSelected][2] != '';
+			case "youtube":
+				return creditInfo[curSelected][3]  != '';
+			case "discord":
+				return creditInfo[curSelected][1] != '';
+			default:
+				return false;
+		}
+	}
+
+	function hover(object:String):Void
+	{
+		if(buttonAvailable(object)){
+			GlobalSoundManager.play("scrollMenu");
+			buttonsMap.get(object).alpha = 1;
+		}
+	}
+
+	function out(object:String):Void
+	{
+		if(buttonAvailable(object))
+			buttonsMap.get(object).alpha = 0.75;
+	}
+
+	function release(object:String)
+	{
+		if (!buttonAvailable(object))
+			return;
+		GlobalSoundManager.play('confirmMenu');
+		buttonsMap.get(object).alpha = 1;
+		FlxTransitionableState.skipNextTransOut = true;
+		switch (object){
+			case "twitter":
+				CoolUtil.browserLoad(creditInfo[curSelected][2]);
+			case "youtube":
+				CoolUtil.browserLoad(creditInfo[curSelected][3] );
+			case "discord":
+				CoolUtil.browserLoad(creditInfo[curSelected][1]);
+		}
+	}
+
 	function updateButtons()
 	{
 		// tudo veio
@@ -340,98 +406,5 @@ class TimeDaVio extends MusicBeatState
 		twitter.alpha = 0.75;
 		youtube.alpha = 0.75;
 		discord.alpha = 0.75;
-		twitter.onOver.callback = function()
-		{
-			if (creditInfo[curSelected][2] != '')
-			{
-				GlobalSoundManager.play('scrollMenu');
-				twitter.alpha = 1;
-			}
-		};
-
-		twitter.onOut.callback = function()
-		{
-			if (creditInfo[curSelected][2] != '')
-			{
-				twitter.alpha = 0.75;
-			}
-		};
-
-		twitter.onDown.callback = function()
-		{
-			if (creditInfo[curSelected][2] != '')
-			{
-				GlobalSoundManager.play('confirmMenu');
-				twitter.alpha = 1;
-			}
-			if (creditInfo[curSelected][2] != '')
-			{
-				CoolUtil.browserLoad(creditInfo[curSelected][2]);
-			}
-		};
-
-		youtube.onOver.callback = function()
-		{
-			if (creditInfo[curSelected][3] != '')
-			{
-				GlobalSoundManager.play('scrollMenu');
-				youtube.alpha = 1;
-			}
-		};
-
-		youtube.onOut.callback = function()
-		{
-			if (creditInfo[curSelected][3]  != '')
-			{
-				youtube.alpha = 0.75;
-			}
-		};
-
-		youtube.onDown.callback = function()
-		{
-			if (creditInfo[curSelected][3]  != '')
-			{
-				GlobalSoundManager.play('confirmMenu');
-				youtube.alpha = 1;
-			}
-			if (creditInfo[curSelected][3]  != '')
-			{
-				CoolUtil.browserLoad(creditInfo[curSelected][3] );
-			}
-			else
-			{
-				// CoolUtil.browserLoad(youtubeLink[0]);
-			}
-		};
-
-		discord.onOver.callback = function()
-		{
-			if (creditInfo[curSelected][1] != '')
-			{
-				GlobalSoundManager.play('scrollMenu');
-				discord.alpha = 1;
-			}
-		};
-
-		discord.onOut.callback = function()
-		{
-			if (creditInfo[curSelected][1] != '')
-			{
-				discord.alpha = 0.75;
-			}
-		};
-
-		discord.onDown.callback = function()
-		{
-			if (creditInfo[curSelected][1] != '')
-			{
-				GlobalSoundManager.play('confirmMenu');
-				discord.alpha = 1;
-			}
-			if (creditInfo[curSelected][1] != '')
-			{
-				CoolUtil.browserLoad(creditInfo[curSelected][1]);
-			}
-		};
 	}
 }
