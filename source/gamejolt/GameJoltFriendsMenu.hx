@@ -158,7 +158,12 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         new FlxTimer().start(0.5, function(e:FlxTimer) {
             canSumir = true;
         });
-        remove(loadingTxt);
+
+        // na real eu nem sei se isso é necessário ja que ele é coberto pela outra camera
+        FlxTween.tween(loadingTxt, {alpha: 0}, 0.15, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween)
+        {
+            remove(loadingTxt);
+        }});
     }
             
     override function update(elapsed:Float)
@@ -246,10 +251,16 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             loadingTxt.screenCenter(XY);
             loadingTxt.x+=263;
             loadingTxt.y+=7;
+            loadingTxt.alpha = 0;
             add(loadingTxt);
-            new FlxTimer().start(0.15, function(e:FlxTimer) {
-                aparecerAmigos();
-            });
+
+            FlxTween.tween(loadingTxt, {alpha: 1}, 0.15, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween)
+            {
+                new FlxTimer().start(0.1, function(e:FlxTimer) {
+                    aparecerAmigos();
+                });
+            }});
+
         }});
         /*for(amigo in amigos)
         {
@@ -329,7 +340,7 @@ class FriendObject extends FlxSpriteGroup
         desc.y+=340;
 
         var isOnline:String = GJClient.getStatus(Std.string(user.id));
-        trace(isOnline); // sus
+        //trace(isOnline); // sus
         if(isOnline == "true")
         {
             desc.text = LangUtil.getString("menu_friends_online", "menu");

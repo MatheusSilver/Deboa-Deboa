@@ -31,8 +31,8 @@ class TimeDaVio extends MusicBeatState
 	var youtube:FlxButton;
 	var twitter:FlxButton;
 	var mic:FlxSprite;
-	var curSelected:Int = 0;
-	var curSelectedBkp:Int = 0;
+	static var curSelected:Int = 0;
+	static var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
 
 	private var buttonsMap:Map<String, FlxButton>;
@@ -386,21 +386,17 @@ class TimeDaVio extends MusicBeatState
 	function updateButtons()
 	{
 		// tudo veio
-		if (curSelected == 15)
+		switch(creditInfo[curSelected][0])
 		{
-			twitter.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
-		}
-		else
-		{
-			twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
-		}
-		if (curSelected == 21)
-		{
-			discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
-		}
-		else
-		{
-			discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-discord', 'preload'));
+			case "mayoral":
+				twitter.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
+			case "sayuri":
+				discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
+			case "sah":
+				discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
+			default:
+				twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
+				discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-discord', 'preload'));
 		}
 
 		twitter.alpha = 0.75;

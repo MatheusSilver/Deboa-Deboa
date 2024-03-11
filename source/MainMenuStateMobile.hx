@@ -365,7 +365,11 @@ class MainMenuStateMobile extends MusicBeatState
 					}
 				}
 
-			selectingFriends = controls.UI_LEFT_P && GJClient.logged;
+			if(controls.UI_LEFT_P && GJClient.logged)
+			{
+				selectingFriends = true;
+				GlobalSoundManager.play('scrollMenu');
+			}
 
 		}
 		else
