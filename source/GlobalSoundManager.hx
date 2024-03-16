@@ -10,122 +10,27 @@ import flixel.system.FlxSound;
 class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 { //Aparentemente isso ajuda no cache subindo até o infinito e além.
 	//Mas o mais importante mesmo é que permite customizar o barulho dos efeitos sonoros.
-	public static var confirm:FlxSound;
-	public static var cancel:FlxSound;
-	public static var scroll:FlxSound;
-	public static var negado:FlxSound;
-	//public static var clickText:FlxSound;
-	public static var click:FlxSound;
 
-	public static var listaDeSons:Array<String> = []; //Por algum motivo a lista de FlxSound não funfa aqui... Devéras sus
-
-	public static function init(?som:FlxSound):Void
+	public static var listaDeSons:Map<String, FlxSound> = [];
+	public static function play(?som:Sounds):Void
 	{
-		if (som == confirm){
-			confirm = null;
-			confirm = new FlxSound().loadEmbedded(Paths.sound('confirmMenu'));
-			//confirm.volume = ClientPrefs.efeitosVolume;
-			confirm.persist = true;
-			confirm.volume = ClientPrefs.efeitosVolume;
-			FlxG.sound.list.add(confirm);
-		}
-
-		if (som == negado){
-			negado = null;
-			negado = new FlxSound().loadEmbedded(Paths.sound('negado','preload'));
-			//confirm.volume = ClientPrefs.efeitosVolume;
-			negado.persist = true;
-			negado.volume = ClientPrefs.efeitosVolume;
-			FlxG.sound.list.add(negado);
-		}
-		
-		if (som == cancel)
-		{
-			cancel = null;
-			cancel = new FlxSound().loadEmbedded(Paths.sound('cancelMenu'));
-			//cancel.volume = ClientPrefs.efeitosVolume;
-			cancel.persist = true;
-			cancel.volume = ClientPrefs.efeitosVolume;
-			FlxG.sound.list.add(cancel);
-		}
-
-		if (som == click)
-		{
-			click = null;
-			click = new FlxSound().loadEmbedded(Paths.sound('click'));
-			//click.volume = ClientPrefs.efeitosVolume;
-			click.persist = true;
-			click.volume = ClientPrefs.efeitosVolume;
-			FlxG.sound.list.add(click);
-		}
-
-
-		if (som == scroll)
-		{
-			scroll = null;
-			scroll = new FlxSound().loadEmbedded(Paths.sound('scrollMenu'));
-			//scroll.volume = ClientPrefs.efeitosVolume;
-			scroll.persist = true;
-			scroll.volume = ClientPrefs.efeitosVolume;
-			FlxG.sound.list.add(scroll);
-		}
-
-		/*if (som == clickText) //Usado nos dialogos, só não apaguei por preguiça
-		{
-			clickText = null;
-			clickText = new FlxSound().loadEmbedded(Paths.sound('clickText'));
-			clickText.volume = ClientPrefs.efeitosVolume;
-			clickText.persist = false;
-			FlxG.sound.list.add(clickText);
-		}*/
-
-	}
-
-	public static function play(som:Sounds):Void
-	{
-		switch (som)
-		{
-			case confirmMenu:
-				if (!verifiqueSeExisteEentaoadicione(som))
-					init(confirm);
-
-				confirm.play(true);
-			case negado:
-				if (!verifiqueSeExisteEentaoadicione(som))
-					init(negado);
-
-				negado.play(true);
-			case click:
-				if (!verifiqueSeExisteEentaoadicione(som))
-					init(click);
-
-				click.play(true);
-			/*case 'clickText':
-				if (!verifiqueSeExisteEentaoadicione(som))
-					init(clickText);
-
-				clickText.play(true);
-			*/
-			case scrollMenu:
-				if (!verifiqueSeExisteEentaoadicione(som))
-					init(scroll);
-
-				scroll.play(true);
-			case cancelMenu:
-				if (!verifiqueSeExisteEentaoadicione(som))
-					init(cancel);
-
-				cancel.play(true);
+		if (listaDeSons.exists(som))
+			listaDeSons.get(som).play();
+		else{
+			var temp = new FlxSound().loadEmbedded(Paths.sound(som, "preload"));
+			temp.volume = ClientPrefs.efeitosVolume;
+			temp.persist = true;
+			FlxG.sound.list.add(temp);
+			listaDeSons.set(som, temp);
+			temp.play();
 		}
 	}
-
-	public static function verifiqueSeExisteEentaoadicione(nome:String):Bool
-	{
-		if (!listaDeSons.contains(nome)){
-			listaDeSons.push(nome);
-			return false;
-		}else
-			return true;
+	public static function destroyAll(){
+		for (sound in listaDeSons) {
+			sound.destroy();
+			FlxG.sound.list.remove(sound);
+		}
+		listaDeSons = [];
 	}
 }
 
