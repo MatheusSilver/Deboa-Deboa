@@ -219,7 +219,7 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 
 		if (controls.BACK) {	
-			GlobalSoundManager.destroyAll(); //Feito unica e exclusivamente pra salvar os novos volumes.
+			GlobalSoundManager.changeVolumes(); //Feito unica e exclusivamente pra salvar os novos volumes.
 			ClientPrefs.save();
 			MusicBeatState.switchState(new ajustes.AjustesState());
 			GlobalSoundManager.play(cancelMenu);

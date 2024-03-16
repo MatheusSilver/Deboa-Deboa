@@ -1,6 +1,4 @@
 package;
-
-import flixel.FlxG;
 #if (flixel >= "5.3.0")
 import flixel.sound.FlxSound;
 #else
@@ -20,24 +18,18 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 			var temp = new FlxSound().loadEmbedded(Paths.sound(som, "preload"));
 			temp.volume = ClientPrefs.efeitosVolume;
 			temp.persist = true;
-			FlxG.sound.list.add(temp);
+			flixel.FlxG.sound.list.add(temp).play();
 			listaDeSons.set(som, temp);
-			temp.play();
 		}
 	}
-	public static function destroyAll(){
-		for (sound in listaDeSons) {
-			sound.destroy();
-			FlxG.sound.list.remove(sound);
-		}
-		listaDeSons = [];
-	}
+	//As vezes eu odeio uma mineira...
+	public inline static function changeVolumes(){for (sound in listaDeSons) {sound.volume = ClientPrefs.efeitosVolume;}}
 }
 
 enum abstract Sounds(String) to String from String {
-	var confirmMenu = "confirmMenu";
-	var cancelMenu = "cancelMenu";
-	var scrollMenu = "scrollMenu";
-	var click = "click";
-	var negado = "negado";
+	final confirmMenu = "confirmMenu";
+	final cancelMenu = "cancelMenu";
+	final scrollMenu = "scrollMenu";
+	final click = "click";
+	final negado = "negado";
 }
