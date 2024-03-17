@@ -116,10 +116,6 @@ class TitleState extends MusicBeatState
 		PlayerSettings.init();
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
-
-		// DEBUG BULLSHIT
-
-		swagShader = new ColorSwap();
 		super.create();
 
 		FlxG.save.bind('modboa', CoolUtil.getSavePath());
@@ -218,7 +214,6 @@ class TitleState extends MusicBeatState
 	var logoBl1:FlxSprite;
 	// var menuGif:FlxSprite;
 	var titleText:FlxSprite;
-	var swagShader:ColorSwap = null;
 	var opacidade:Float = 0;
 	var opacidadesuporte:Int = -1;
 	var candothething:Bool = false;
@@ -265,8 +260,6 @@ class TitleState extends MusicBeatState
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
 
-		swagShader = new ColorSwap();
-
 		var logoBl2:FlxSprite;
 		logoBl2 = new FlxSprite(0, 0);
 		logoBl2.frames = Paths.getSparrowAtlas('effects/estatica');
@@ -294,8 +287,6 @@ class TitleState extends MusicBeatState
 		logoBl1.animation.addByPrefix('bump', 'MODBOA inicio', 24);
 		// logoBl1.animation.play('bump');
 		logoBl1.updateHitbox();
-		logoBl1.shader = swagShader.shader;
-		logoBl.shader = swagShader.shader;
 
 		add(logoBl2);
 		add(supbg);
@@ -470,16 +461,6 @@ class TitleState extends MusicBeatState
 		}
 
 		opacidade += 0.01 * opacidadesuporte;
-
-		if (swagShader != null)
-		{
-			#if debug
-			if (controls.UI_LEFT)
-				swagShader.hue -= elapsed * 0.1;
-			if (controls.UI_RIGHT)
-				swagShader.hue += elapsed * 0.1;
-			#end
-		}
 
 		super.update(elapsed);
 	}
