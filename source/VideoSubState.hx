@@ -21,7 +21,7 @@ class VideoSubState extends MusicBeatSubstate
 	{
 		super();
 
-		text = new FlxText(0, 0, 0, "Toque para continuar \n caso o jogo não continue", 48);
+		text = new FlxText(0, 0, 0, LangUtil.getString("webview_touch", "data"), 48);
 		text.screenCenter();
 		text.alpha = 0;
 		add(text);

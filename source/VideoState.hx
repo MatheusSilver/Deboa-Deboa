@@ -23,7 +23,7 @@ class VideoState extends MusicBeatState
 	{
 		super();
 
-		text = new FlxText(0, 0, 0, "Toque para continuar", 48);
+		text = new FlxText(0, 0, 0, LangUtil.getString("webview_touch", "data"), 48);
 		text.screenCenter();
 		text.alpha = 0;
 		add(text);
