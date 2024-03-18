@@ -49,7 +49,6 @@ class Achievements {
 		['galeria',			true, 		185895, 		'geral', 		1], 
 		['pause_jumpscare',	true, 		186989, 		'orgulho', 		1]//ok
 	];
-	public static var henchmenDeath:Int = 0;
 	public static function unlockAchievement(name:String, ?makeSound:Bool=true, ?gamejolt:Bool=true):Void {
 		FlxG.log.add('Completed achievement "' + name +'"');
 		ClientPrefs.achievementsMap.set(name, true);
@@ -117,9 +116,6 @@ class Achievements {
 		if(FlxG.save.data != null) {
 			if(FlxG.save.data.achievementsMap != null) {
 				ClientPrefs.achievementsMap = FlxG.save.data.achievementsMap;
-			}
-			if(henchmenDeath == 0 && FlxG.save.data.henchmenDeath != null) {
-				henchmenDeath = FlxG.save.data.henchmenDeath;
 			}
 		}
 	}
