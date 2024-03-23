@@ -1,7 +1,5 @@
 package;
 
-import gamejolt.GJClient;
-import gamejolt.GameJoltLoginState;
 #if rpc
 import Discord.DiscordClient;
 #end
