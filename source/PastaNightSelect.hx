@@ -165,8 +165,6 @@ class PastaNightSelect extends MusicBeatState
 			});
 
 			FlxG.sound.music.volume = 0;
-
-			FreeplayState.destroyFreeplayVocals();
 		});
 	}
 

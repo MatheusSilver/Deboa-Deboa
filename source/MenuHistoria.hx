@@ -327,7 +327,6 @@ class MenuHistoria extends MusicBeatSubstate
 				if (instPlaying != curSelected)
 				{
 					#if PRELOAD_ALL
-					FreeplayState.destroyFreeplayVocals();
 					FlxG.sound.music.volume = 0;
 					Paths.currentModDirectory = musicas[curSelected].folder;
 					var poop:String = Highscore.formatSong(musicas[curSelected].toLowerCase(), 2);
@@ -518,8 +517,6 @@ class MenuHistoria extends MusicBeatSubstate
 				openSubState(new ConsoleClashSubState(musicas[curSelected]));
 			});
 		}
-
-		FreeplayState.destroyFreeplayVocals();
 	}
 
 	function tweenpracima()

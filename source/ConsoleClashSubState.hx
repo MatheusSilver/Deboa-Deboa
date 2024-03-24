@@ -184,7 +184,6 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		});
 
 		FlxG.sound.music.volume = 0;
-		FreeplayState.destroyFreeplayVocals();
 	}
 
 	function updateOptions() {
