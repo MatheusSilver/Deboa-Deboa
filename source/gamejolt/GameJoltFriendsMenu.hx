@@ -310,6 +310,8 @@ class FriendObject extends FlxSpriteGroup
     public var icon:FlxSprite;
     public var name:FlxText;
     public var desc:FlxText;
+    var desafiarBt:FlxButton;
+    var amOnline:Bool = false;
 
     public function new(x:Float, y:Float, user:User)
     {
@@ -340,8 +342,9 @@ class FriendObject extends FlxSpriteGroup
         desc.y+=340;
 
         var isOnline:String = GJClient.getStatus(Std.string(user.id));
+        amOnline = isOnline == "true";
         //trace(isOnline); // sus
-        if(isOnline == "true")
+        if(amOnline)
         {
             desc.text = LangUtil.getString("menu_friends_online", "menu");
             desc.color = FlxColor.GREEN;
@@ -357,7 +360,21 @@ class FriendObject extends FlxSpriteGroup
         icon.y+=30;
         name.y+=45;
 
+        if(amOnline)
+        {
+            desafiarBt = new FlxButton(0, 0, "Desafiar", desafiar);
+            desafiarBt.setGraphicSize(100, 100);
+            desafiarBt.updateHitbox();
+            add(desafiarBt);
+        }
+
+
         pegarIcon();
+    }
+
+    function desafiar()
+    {
+        GJClient.desafiarAmigo(Std.string(user.id));
     }
 
     function pegarIcon()

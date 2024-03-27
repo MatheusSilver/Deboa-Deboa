@@ -469,8 +469,18 @@ class MainMenuStateMobile extends MusicBeatState
 			
 		}
 
+		if(FlxG.keys.justPressed.P)
+		{
+			GJClient.getDesafios(temDesafios);
+		}
+
 		super.update(elapsed);
 
+	}
+
+	function temDesafios()
+	{
+		trace(GJClient.invites);
 	}
 
 	public function voltarUser()
