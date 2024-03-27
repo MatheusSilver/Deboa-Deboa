@@ -241,19 +241,19 @@
 	<assets path="assets/fonts"/>
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" />
+	<haxelib name="flixel" version="4.11.0"/>
 	<haxedev set='webgl' />
 
 	<!--In case you want to use the addons package-->
-	<haxelib name="flixel-addons" />
-	<haxelib name="extension-webview" if="android"/>
+	<haxelib name="flixel-addons" version="2.11.0"/>
+	<haxelib name="extension-webview" if="android"/> <!--https://github.com/TeamX02/extension-webview-->
 
 	<!--In case you want to use the ui package-->
-	<haxelib name="hxvlc" if="desktop || android" />
+	<haxelib name="hxvlc" if="desktop || android" /> <!--https://github.com/MatheusSilver/hxvlc-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="linc_luajit"/>
+	<haxelib name="linc_luajit"/> <!--https://github.com/Sirox228/linc_luajit-->
 	<haxelib name="faxe" if='switch'/>
-	<haxelib name="colyseus"/>
+	<haxelib name="colyseus"/> <!--0.14.10-->
 	<haxelib name="colyseus-websocket"/>
 	<haxelib name="discord_rpc" if="desktop"/>
 	<!-- Enables a terminal log prompt on debug builds -->
