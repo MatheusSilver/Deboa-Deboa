@@ -23,11 +23,14 @@ import openfl.events.Event;
 import Discord.DiscordClient;
 #end
 
+using StringTools;
+
 class Main extends Sprite
 {
-	#if desktop
-	// public static var gjToastManager:GJToastManager;
+	#if mobile
+	public static var path = lime.system.System.applicationStorageDirectory;
 	#end
+
 	var game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
