@@ -706,6 +706,42 @@ class GJClient
         return getData(id+"-status", null, null, true);
     }
 
+    public static function desafiarAmigo(idDele:String)
+    {
+        var desafios:String = getData(idDele+"-invites", null, null, true);
+        var jaTem:Bool = false;
+
+        for(desafio in desafios.split(","))
+        {
+            if(desafio == myID)
+            {
+                jaTem = true;
+                break;
+            }
+        }
+
+        if(jaTem) return;
+        desafios = desafios!=null || desafios!="" ? desafios+","+myID : myID;
+        trace("Invites para o "+idDele+": "+desafios);
+        setData(desafios, idDele+"-invites", null, null, true);
+    }
+
+    public static var invites:Array<String>;
+    public static function getDesafios(temDesafios:() -> Void)
+    {
+        var desafios:Array<String> = getData(myID+"-invites", null, null, true).split(",");
+        invites = desafios;
+        if(desafios!=null)
+        {
+            temDesafios();
+        }
+    }
+
+    public static function aceitarOuRecusarDesafio(id:String, aceitar:() -> Void, recusar:() -> Void)
+    {
+        trace("nao implementado ainda");
+    }
+
 
     static function getUser():Null<String> {return FlxG.save.data.user;}
     static function getToken():Null<String> {return FlxG.save.data.token;}
