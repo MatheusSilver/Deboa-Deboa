@@ -1,10 +1,13 @@
 package gamejolt;
 
+import gamejolt.InviteBackEnd.InviteObject;
 import flixel.FlxG;
 import haxe.Http;
 import haxe.Json;
 import haxe.crypto.Md5;
 import haxe.crypto.Sha1;
+import com.akifox.asynchttp.*;
+import flixel.util.FlxTimer;
 
 /**
  * A completely original GameJolt Client made by GamerPablito, using Haxe Crypto Encripting and Http tools
@@ -122,13 +125,13 @@ class GJClient
      * @param onFail Put a function with actions here, they'll be processed if an error has ocurred during the process.
      * @return The Data fetched form the user (or `null` if that info doesn't exist)
      */
-    public static function getUserData(?id:Int, ?onSuccess:() -> Void, ?onFail:() -> Void):Null<User>
+    public static function getUserData(?id:Int, ?onSuccess:() -> Void, ?onFail:() -> Void, ?async:Bool, ?inviteObject:InviteObject):Null<User>
     {
         var daUser:Null<String> = null;
         var daFormat:Null<User> = null;
 
         var daParam:Null<Array<Array<String>>> = id != null ? [['user_id', Std.string(id)]] : null;
-        var urlData = urlResult(urlConstruct('users', null, daParam, id == null, false), onSuccess);
+        var urlData = urlResult(urlConstruct('users', null, daParam, id == null, false), onSuccess, onFail, async, null, false, inviteObject);
 
         if (urlData != null)
         {
@@ -404,7 +407,7 @@ class GJClient
         }
     }
 
-    public static function setData(txtContent:String, dataKey:String, ?onSuccess:DataStore -> Void, ?onFail:() -> Void, ?isPublic:Bool = false) // GJClient.setData("valor", "key"); exemplo de aplicar algum valor
+    public static function setData(txtContent:String, dataKey:String, ?onSuccess:DataStore -> Void, ?onFail:() -> Void, ?isPublic:Bool = false, ?async:Bool = false) // GJClient.setData("valor", "key"); exemplo de aplicar algum valor
         {
 
             var daParams:Array<Array<String>> = isPublic ? [
@@ -446,12 +449,12 @@ class GJClient
                 {
                     printMsg('Data setting failed!');
                     if (onFail != null) onFail();
-                });
+                }, async, null, true, null, false);
                 if (urlData != null) urlData; else return;   
             }
         }
     
-        public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void, ?isPublic:Bool = false):String // GJClient.getData("key"); exemplo de puxar algum valor
+        public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void, ?isPublic:Bool = false, ?async:Bool = false, ?customCallback:() -> Void, ?invites:Bool):String // GJClient.getData("key"); exemplo de puxar algum valor
             {
                 var daParams:Array<Array<String>> = isPublic ? [
                     ['game_id', Std.string(GJKeys.id)],
@@ -465,7 +468,7 @@ class GJClient
 
                 var urlData = urlResult(urlConstruct('data-store', null, daParams, !isPublic, !isPublic),
                 function () {printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
-                function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();});
+                function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();}, async, customCallback, invites);
                 var daData:Null<DataStore> = urlData != null && logged ? urlData : null;
                 var valuetoReturn:String;
                 if(daData != null)
@@ -666,33 +669,68 @@ class GJClient
         return null;
     }
 
-    static function urlResult(daUrl:Null<Http>, ?onSuccess:() -> Void, ?onFail:() -> Void):Null<Dynamic>
+    static function urlResult(daUrl:Null<Http>, ?onSuccess:() -> Void, ?onFail:() -> Void, ?async:Bool = false, ?customCallback:() -> Void, ?invites:Bool = false, ?inviteObject:InviteObject, ?hasCallback:Bool = true):Null<Dynamic>
     {
         var result:Dynamic = '';
         var success:Bool = false;
 
-        if (daUrl != null)
+        if(!async)
         {
-            daUrl.onData = function (data:String)
-            {
-                result = Json.parse(data).response;
-                success = result.success == 'true';
-                if (success) {if (onSuccess != null) onSuccess();}
-                else
+            if (daUrl != null)
                 {
-                    printMsg(Std.string(result.message));
-                    if (onFail != null) onFail();
+                    daUrl.onData = function (data:String)
+                    {
+                        result = Json.parse(data).response;
+                        success = result.success == 'true';
+                        if (success) {if (onSuccess != null) onSuccess();}
+                        else
+                        {
+                            printMsg(Std.string(result.message));
+                            if (onFail != null) onFail();
+                        }
+                    };
+                    daUrl.onError = function (error:String)
+                    {
+                        printMsg(error);
+                        if (onFail != null) onFail();
+                    };
+                    daUrl.request(false);
                 }
-            };
-            daUrl.onError = function (error:String)
-            {
-                printMsg(error);
-                if (onFail != null) onFail();
-            };
-            daUrl.request(false);
+            return success ? result : null;
         }
-
-        return success ? result : null;
+        else
+        {
+            AsyncHttp.logEnabled = false;
+            var request = new HttpRequest({
+                url: daUrl.url,
+                async: true,
+                callback: function(response:HttpResponse){
+                    if(hasCallback)
+                    {
+                        if(invites)
+                            {
+                                callbackGetDesafios(response, customCallback);
+                            }
+                            else
+                            {
+                                var daFormat:Null<User> = null;
+                                if (response.toJson().response.users[0] != null)
+                                {
+                                    if (response.toJson().response.users[0] != null)
+                                    {
+                                        daFormat = cast response.toJson().response.users[0];
+                                    }
+                                }
+                                inviteObject.setInfo(daFormat);
+                            }
+                    }
+                }
+            });
+            
+            request.send();
+            return null;
+        }
+        return result;
     }
 
     public static function updateStatus(online:Bool = true)
@@ -709,8 +747,10 @@ class GJClient
     public static function desafiarAmigo(idDele:String)
     {
         var desafios:String = getData(idDele+"-invites", null, null, true);
+        var meusDesafios:String = getData(myID+"-invites", null, null, true);
         var jaTem:Bool = false;
 
+        #if !debug
         for(desafio in desafios.split(","))
         {
             if(desafio == myID)
@@ -720,18 +760,33 @@ class GJClient
             }
         }
 
+        for(meuDesafio in meusDesafios.split(","))
+        {
+            if(meuDesafio == idDele)
+            {
+                jaTem = true;
+                break;
+            }
+        }
+        #end
+
         if(jaTem) return;
-        desafios = desafios!=null || desafios!="" ? desafios+","+myID : myID;
-        trace("Invites para o "+idDele+": "+desafios);
+        desafios = desafios!=null && desafios!="" ? desafios+","+myID : myID;
+        trace('Invites para o ${idDele}: ${desafios}');
         setData(desafios, idDele+"-invites", null, null, true);
     }
 
-    public static var invites:Array<String>;
+    public static var invites:Array<String> = [];
+    public static var canChangeInvites:Bool = true;
     public static function getDesafios(temDesafios:() -> Void)
     {
-        var desafios:Array<String> = getData(myID+"-invites", null, null, true).split(",");
-        invites = desafios;
-        if(desafios!=null)
+        getData(myID+"-invites", null, null, true, true, temDesafios, true);
+    }
+
+    private static function callbackGetDesafios(response:HttpResponse, temDesafios:() -> Void):Void
+    {
+        invites = Std.string(response.toJson().response.data).split(",");
+        if(invites != [] && invites != null)
         {
             temDesafios();
         }
@@ -740,6 +795,22 @@ class GJClient
     public static function aceitarOuRecusarDesafio(id:String, aceitar:() -> Void, recusar:() -> Void)
     {
         trace("nao implementado ainda");
+    }
+
+    public static function getUserAsync(id:Int, obj:InviteObject)
+    {
+        getUserData(id, null, null, true, obj);
+    }
+
+    public static function removeInvite(invite:String)
+    {
+        invites.remove(invite);
+        var newDesafios:String = "";
+        for(invite in invites)
+        {
+            newDesafios += invite+",";
+        }
+        setData(newDesafios, myID+"-invites", null, null, true, true);
     }
 
 

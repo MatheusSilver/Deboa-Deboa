@@ -26,8 +26,8 @@ class GameJoltUserObject extends FlxSpriteGroup
 	{
 		super();
 
-		userBG = new FlxSprite(0, 75).loadGraphic(Paths.image("menus/gamejolt/userBG"));
-		userOutline = new FlxSprite(icon_pos[0], icon_pos[1]).loadGraphic(Paths.image("menus/gamejolt/userOutline"));
+		userBG = new FlxSprite(0, 75).loadGraphic(Paths.image("menus/gamejolt/userBG", "preload", false));
+		userOutline = new FlxSprite(icon_pos[0], icon_pos[1]).loadGraphic(Paths.image("menus/gamejolt/userOutline", "preload", false));
         userOutline.updateHitbox();
 		userIcon = new FlxSprite(icon_pos[0], icon_pos[1]);
         

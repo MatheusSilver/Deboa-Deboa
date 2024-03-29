@@ -78,6 +78,7 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var passouCY:Bool = false;
 
 	var gamejoltUser:GameJoltUserObject;
+	public var inviteBackEnd:InviteBackEnd;
 
 	override function create()
 	{
@@ -86,6 +87,9 @@ class MainMenuStateMobile extends MusicBeatState
 		Conductor.changeBPM(112);
 		instance = this;
 		GameJoltLoginState.syncProgress();
+		if(GJClient.logged) {
+			inviteBackEnd = new InviteBackEnd(this);
+		}
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
@@ -469,19 +473,17 @@ class MainMenuStateMobile extends MusicBeatState
 			
 		}
 
+		#if debug
 		if(FlxG.keys.justPressed.P)
 		{
-			GJClient.getDesafios(temDesafios);
+			GJClient.desafiarAmigo(GJClient.myID);
 		}
+		#end
 
 		super.update(elapsed);
 
 	}
 
-	function temDesafios()
-	{
-		trace(GJClient.invites);
-	}
 
 	public function voltarUser()
 	{
