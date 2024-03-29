@@ -11,6 +11,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxTimer;
 import flixel.FlxState;
 import flixel.tweens.FlxTween;
+import haxe.Constraints.Function;
 import flixel.tweens.FlxEase;
 
 class InviteBackEnd
@@ -69,8 +70,10 @@ class InviteObject extends FlxSpriteGroup
     var texto:FlxText;
     var bg:FlxSprite;
     var acceptBt:FlxButton;
+    var declineBt:FlxButton;
     public var index:Int;
     var canAccept:Bool = false;
+    var canDecline:Bool = false;
 
     public function new(x, y, id:Int, index:Int)
     {
@@ -82,26 +85,45 @@ class InviteObject extends FlxSpriteGroup
         add(bg);
         texto = new FlxText(10,20,464,"",30);
         texto.setFormat(Paths.font("letravio.ttf"), 30, FlxColor.WHITE, LEFT);
-        texto.size = Std.int(Math.max(30, Math.min(10, Math.ceil(350 / texto.text.length))));
+        texto.size = Std.int(Math.max(26, Math.min(10, Math.ceil(300 / texto.text.length))));
         add(texto);
 
-        acceptBt = new FlxButton(0,0,"",accept);
-        acceptBt.loadGraphic(Paths.image("menus/gamejolt/acceptBt", "preload", false));
-        acceptBt.onOver.callback=function(){
+        acceptBt = makeButton(function(){
             if(!canAccept) return;
             acceptBt.alpha = 1;
             GlobalSoundManager.play(scrollMenu);
-        }
-        acceptBt.onOut.callback=function(){
+        }, function(){
             if(!canAccept) return;
             acceptBt.alpha = 0.75;
-        }
-        acceptBt.alpha = 0.75;
+        }, accept, "menus/gamejolt/acceptBt");
         acceptBt.x = 390;
         acceptBt.y = 7;
         add(acceptBt);
 
+        declineBt = makeButton(function(){
+            if(!canDecline) return;
+            declineBt.alpha = 1;
+            GlobalSoundManager.play(scrollMenu);
+        }, function(){
+            if(!canDecline) return;
+            declineBt.alpha = 0.75;
+        }, decline, "menus/gamejolt/declineBt");
+        declineBt.x = 317;
+        declineBt.y = 7;
+        add(declineBt);
+
+
         GJClient.getUserAsync(id, this);
+    }
+
+    function makeButton(onOver:()->Void, onOut:()->Void, onDown:()->Void, graphic:String):FlxButton
+    {
+        var bt:FlxButton = new FlxButton(0,0,"",onDown);
+        bt.loadGraphic(Paths.image(graphic, 'preload', false));
+        bt.onOver.callback=onOver;
+        bt.onOut.callback=onOut;
+        bt.alpha = 0.75;
+        return bt;
     }
 
     public function setInfo(usuario:User)
@@ -128,9 +150,11 @@ class InviteObject extends FlxSpriteGroup
 		GlobalSoundManager.play(confirmMenu);
         FlxTween.tween(this, {x: 0}, 1.25, {ease: FlxEase.expoInOut, onComplete: function(twn:FlxTween){
             canAccept = true;
+            canDecline = true;
         }});
-        new FlxTimer().start(10, function(twn:FlxTimer){
+        new FlxTimer().start(120, function(twn:FlxTimer){
             canAccept = false;
+            canDecline = false;
             acceptBt.alpha = 0.75;
             FlxTween.tween(this, {alpha: 0}, 1.25, {ease: FlxEase.linear, onComplete: function(twn:FlxTween){
                 decline();
@@ -140,12 +164,16 @@ class InviteObject extends FlxSpriteGroup
 
     public function decline()
     {
+        if(!canDecline) return;
+        canDecline = false;
+        canAccept = false;
         MainMenuStateMobile.instance.inviteBackEnd.decline(this);
     }
 
     public function accept() {
         if(!canAccept) return;
         canAccept = false;
+        canDecline = false;
         GlobalSoundManager.play(confirmMenu);
     }
 }
