@@ -77,7 +77,8 @@ class InviteBackEnd
             invite.canDecline = false;
             if(invite == which)
             {
-                FlxTween.tween(invite, {alpha: 0}, 0.8, {ease: FlxEase.expoInOut});
+                FlxTween.tween(invite, {alpha: 0}, 0.4, {ease: FlxEase.expoInOut, startDelay: 0.6});
+                
             }
             else
             {
@@ -106,7 +107,7 @@ class InviteObject extends FlxSpriteGroup
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("menus/gamejolt/userBG", 'preload', false));
         bg.x=-36;
         add(bg);
-        texto = new FlxText(10,20,464,"",30);
+        texto = new FlxText(10,25,464,"",30);
         texto.setFormat(Paths.font("letravio.ttf"), 30, FlxColor.WHITE, LEFT);
         texto.size = Std.int(Math.max(26, Math.min(10, Math.ceil(300 / texto.text.length))));
         add(texto);
