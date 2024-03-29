@@ -152,7 +152,7 @@ class InviteObject extends FlxSpriteGroup
     public function setInfo(usuario:User)
     {
         user = usuario;
-        texto.text = '${user.username} está te convidando!';
+        texto.text = '${user.username} ${LangUtil.getString("menu_friends_invite_request", "menu")}';
         aparecer();
     }
 
