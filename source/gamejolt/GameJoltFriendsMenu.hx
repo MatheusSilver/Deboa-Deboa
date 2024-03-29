@@ -48,7 +48,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
     var invisible_button:FlxButton;
     public var amigos:Array<FriendObject> = [];
     var amigosList:FlxSpriteGroup;
-    var scrollBar:FlxScrollableArea;
+    public var scrollBar:FlxScrollableArea;
     public var canDesafiar:Bool = false;
 
     public static var instance:GameJoltFriendsMenu;
@@ -123,6 +123,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                 if(sumidao || !canSumir)
                     return;
                 sumidao = true;
+                canDesafiar = false;
                 tweenSair();
             }
 
@@ -163,14 +164,10 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 
         new FlxTimer().start(0.5, function(e:FlxTimer) {
             canSumir = true;
+            canDesafiar = true;
         });
 
-        // na real eu nem sei se isso é necessário ja que ele é coberto pela outra camera
-        FlxTween.tween(loadingTxt, {alpha: 0}, 0.15, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween)
-        {
-            remove(loadingTxt);
-            canDesafiar = true;
-        }});
+        remove(loadingTxt);
     }
             
     override function update(elapsed:Float)
@@ -373,10 +370,20 @@ class FriendObject extends FlxSpriteGroup
 
         if(amOnline)
         {
-            desafiarBt = new FlxButton(0, 0, "Desafiar", desafiar);
-            desafiarBt.setGraphicSize(100, 100);
+            desafiarBt = new FlxButton(0, 0, LangUtil.getString("menu_friends_invite", "menu"), desafiar);
+            desafiarBt.loadGraphic(Paths.image("menus/gamejolt/amigos/inviteBt", 'preload', false));
             desafiarBt.updateHitbox();
+            desafiarBt.x = 10;
+            desafiarBt.y = 400;
+            desafiarBt.label.setFormat(Paths.font("letravio.ttf"), 40, FlxColor.WHITE, CENTER);
+            desafiarBt.label.offset.x = -1;
+            desafiarBt.label.offset.y = 5;
+
             add(desafiarBt);
+
+            icon.y-=30;
+            name.y-=30;
+            desc.y-=30;
         }
 
 
@@ -388,19 +395,16 @@ class FriendObject extends FlxSpriteGroup
         if(!Reflect.getProperty(parent, "canDesafiar")) return;
         Reflect.setProperty(parent, "canDesafiar", false);
         Reflect.setProperty(parent, "canSumir", false);
-        GJClient.desafiarAmigo(Std.string(user.id), hostearDesafio, function(){
-            Reflect.setProperty(parent, "canDesafiar", true);
-            Reflect.setProperty(parent, "canSumir", true);
-        });
+        GJClient.desafiarAmigo(Std.string(user.id), null, null);
+        hostearDesafio();
     }
 
-    function hostearDesafio(data:DataStore)
+    function hostearDesafio()
     {
         GlobalSoundManager.play(confirmMenu);
         var multiplayerState:MultiplayerMainMenuState = new MultiplayerMainMenuState();
         multiplayerState.aceitarConvite(GJClient.myID, true);
-        MusicBeatState.switchState(multiplayerState);
-        GameJoltFriendsMenu.instance.close();
+        MainMenuStateMobile.instance.convidar(multiplayerState);
     }
 
     function pegarIcon()

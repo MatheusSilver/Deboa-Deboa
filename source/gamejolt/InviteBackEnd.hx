@@ -55,10 +55,12 @@ class InviteBackEnd
 
     public function decline(which:InviteObject)
     {
-        parentState.remove(which);
         curInvites.remove(which);
-        which.destroy();
 
+        FlxTween.tween(which, {x: -500}, 0.75, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
+            which.destroy();
+            parentState.remove(which);
+        }});
         for(i in 0...curInvites.length)
         {
             curInvites[i].index = i;
@@ -150,7 +152,7 @@ class InviteObject extends FlxSpriteGroup
     public function setInfo(usuario:User)
     {
         user = usuario;
-        texto.text = '${user.username} está te desafiando!';
+        texto.text = '${user.username} está te convidando!';
         aparecer();
     }
 
@@ -188,6 +190,7 @@ class InviteObject extends FlxSpriteGroup
         if(!canDecline && !force) return;
         canDecline = false;
         canAccept = false;
+        GlobalSoundManager.play(confirmMenu);
         MainMenuStateMobile.instance.inviteBackEnd.decline(this);
     }
 

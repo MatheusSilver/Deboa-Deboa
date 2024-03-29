@@ -216,7 +216,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 						}
 						if(sala!=null)
 						{
-							entrar(sala);
+							entrar(sala, true);
 						} else {
 							trace("sala n encontrada");
 							avisarAlgo(LangUtil.getString("alert_room_unavailable", "multiplayer"), new MainMenuStateMobile());
@@ -225,7 +225,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					}
 					else
 					{
-						hostear();
+						hostear(true);
 					}
 				}
 				else
@@ -272,6 +272,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 	override function create()
 	{
 		instance = this;
+		if(!MainMenuStateMobile.passouCY)
+		{
+			MusicBeatState.switchState(new MainMenuStateMobile());
+		}
 		skinAtual = ClientPrefs.curMultiplayerNoteSkin;
 		FlxG.autoPause = false;
 		modifiers.ModifiersManager.currentModifiers = [];
@@ -582,9 +586,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 	}
 
-	public function hostear()
+	public function hostear(?force:Bool = false)
 	{
-		if (!canClick)
+		if (!canClick && !force)
 			return;
 
 		canClick = false;
@@ -729,9 +733,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		return salas;
 	}
 
-	public function entrar(room:RoomAvailable)
+	public function entrar(room:RoomAvailable, ?force:Bool = false)
 	{
-		if (!canClick)
+		if (!canClick && !force)
 			return;
 		if(roomList != null)
 		{

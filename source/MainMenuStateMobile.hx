@@ -1,5 +1,6 @@
 package;
 
+import multiplayer.MultiplayerMainMenuState;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.FlxCamera;
@@ -386,6 +387,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	}
 
+	var friendsMenu:GameJoltFriendsMenu;
 	override function update(elapsed:Float)
 	{
 		#if debug
@@ -442,7 +444,8 @@ class MainMenuStateMobile extends MusicBeatState
 					gamejoltUser.alpha = GJClient.logged ? Main.getMouseVisibility() ? 1 : selectingFriends ? 1 : 0.75 : 1;
 					if((Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(gamejoltUser) : (selectingFriends && controls.ACCEPT)) && GJClient.logged){
 						FlxTween.tween(gamejoltUser, {x: -1200}, 0.5, {ease: FlxEase.expoInOut});
-						openSubState(new GameJoltFriendsMenu());
+						friendsMenu = new GameJoltFriendsMenu();
+						openSubState(friendsMenu);
 					}
 				}
 			}
@@ -484,6 +487,12 @@ class MainMenuStateMobile extends MusicBeatState
 
 	}
 
+	public function convidar(multiplayerState:MultiplayerMainMenuState)
+	{
+		FlxG.cameras.remove(friendsMenu.scrollBar, true);
+		friendsMenu.close();
+        MusicBeatState.switchState(multiplayerState);
+	}
 
 	public function voltarUser()
 	{
