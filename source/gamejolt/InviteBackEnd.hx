@@ -1,5 +1,6 @@
 package gamejolt;
 
+import multiplayer.MultiplayerMainMenuState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.ui.FlxButton;
@@ -18,18 +19,20 @@ class InviteBackEnd
 {
     var curInvites:Array<InviteObject> = [];
     var parentState:FlxState;
+    var canSpawn = true;
 
     public function new(parent:FlxState)
     {
         this.parentState = parent;
         GJClient.getDesafios(spawnarInvite);
-        new FlxTimer().start(10, function(e:FlxTimer) {
+        new FlxTimer().start(5, function(e:FlxTimer) {
             GJClient.getDesafios(spawnarInvite);
         }, 0);
     }
 
     function spawnarInvite()
     {
+        if(!canSpawn) return;
         //trace(GJClient.invites);
         GJClient.canChangeInvites = false;
         for(invite in GJClient.invites)
@@ -62,6 +65,24 @@ class InviteBackEnd
             curInvites[i].updatePos(true);
         }
     }
+
+    public function sumidao(which:InviteObject)
+    {
+        canSpawn=false;
+        for(invite in curInvites)
+        {
+            invite.canAccept = false;
+            invite.canDecline = false;
+            if(invite == which)
+            {
+                FlxTween.tween(invite, {alpha: 0}, 0.8, {ease: FlxEase.expoInOut});
+            }
+            else
+            {
+                FlxTween.tween(invite, {x: -500}, 0.75, {ease: FlxEase.expoInOut});
+            }
+        }
+    }
 }
 
 class InviteObject extends FlxSpriteGroup
@@ -72,8 +93,8 @@ class InviteObject extends FlxSpriteGroup
     var acceptBt:FlxButton;
     var declineBt:FlxButton;
     public var index:Int;
-    var canAccept:Bool = false;
-    var canDecline:Bool = false;
+    public var canAccept:Bool = false;
+    public var canDecline:Bool = false;
 
     public function new(x, y, id:Int, index:Int)
     {
@@ -107,7 +128,7 @@ class InviteObject extends FlxSpriteGroup
         }, function(){
             if(!canDecline) return;
             declineBt.alpha = 0.75;
-        }, decline, "menus/gamejolt/declineBt");
+        }, function(){decline(false);}, "menus/gamejolt/declineBt");
         declineBt.x = 317;
         declineBt.y = 7;
         add(declineBt);
@@ -156,15 +177,15 @@ class InviteObject extends FlxSpriteGroup
             canAccept = false;
             canDecline = false;
             acceptBt.alpha = 0.75;
-            FlxTween.tween(this, {alpha: 0}, 1.25, {ease: FlxEase.linear, onComplete: function(twn:FlxTween){
-                decline();
+            FlxTween.tween(this, {x: -500}, 1, {ease: FlxEase.expoInOut, onComplete: function(twn:FlxTween){
+                decline(true);
             }});
         });
     }
 
-    public function decline()
+    public function decline(?force:Bool = false)
     {
-        if(!canDecline) return;
+        if(!canDecline && !force) return;
         canDecline = false;
         canAccept = false;
         MainMenuStateMobile.instance.inviteBackEnd.decline(this);
@@ -174,6 +195,12 @@ class InviteObject extends FlxSpriteGroup
         if(!canAccept) return;
         canAccept = false;
         canDecline = false;
+        MainMenuStateMobile.instance.inviteBackEnd.sumidao(this);
         GlobalSoundManager.play(confirmMenu);
+        new FlxTimer().start(1, function(twn:FlxTimer){
+            var multiplayerState:MultiplayerMainMenuState = new MultiplayerMainMenuState();
+            multiplayerState.aceitarConvite(Std.string(user.id), false);
+            MusicBeatState.switchState(multiplayerState);
+        });
     }
 }

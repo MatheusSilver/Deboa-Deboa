@@ -139,17 +139,17 @@ class GJClient
             {
                 daUser = urlData.users[0].developer_name;
                 daFormat = cast urlData.users[0];
-                printMsg('$daUser\'s data fetched sucessfully!');
+                if(!async){printMsg('$daUser\'s data fetched sucessfully!');}
             }
             else
             {
-                printMsg('Data fetching of the user $id failed!');
+                if(!async){printMsg('Data fetching of the user $id failed!');}
                 if (onFail != null) onFail();
             }
         }
         else
         {
-            printMsg('Data fetching of the user $id failed!');
+            if(!async){printMsg('Data fetching of the user $id failed!');}
             if (onFail != null) onFail();
         }
 
@@ -441,13 +441,16 @@ class GJClient
                             username: GJClient.userName,
                             user_token: getToken()
                         };
-                        printMsg('Data setted successfully!');
+                        if(!async) {printMsg('Data setted successfully!');}
                         if (onSuccess != null) onSuccess(daData);
                     }
                 },
                 function ()
                 {
-                    printMsg('Data setting failed!');
+                    if(!async)
+                    {
+                        printMsg('Data setting failed!');
+                    }
                     if (onFail != null) onFail();
                 }, async, null, true, null, false);
                 if (urlData != null) urlData; else return;   
@@ -467,8 +470,8 @@ class GJClient
                 ];
 
                 var urlData = urlResult(urlConstruct('data-store', null, daParams, !isPublic, !isPublic),
-                function () {printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
-                function () {printMsg('Data fetching failed!'); if (onFail != null) onFail();}, async, customCallback, invites);
+                function () {if(async) return; printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
+                function () {if(async) return; printMsg('Data fetching failed!'); if (onFail != null) onFail();}, async, customCallback, invites);
                 var daData:Null<DataStore> = urlData != null && logged ? urlData : null;
                 var valuetoReturn:String;
                 if(daData != null)
@@ -744,36 +747,37 @@ class GJClient
         return getData(id+"-status", null, null, true);
     }
 
-    public static function desafiarAmigo(idDele:String)
+    public static function desafiarAmigo(idDele:String, callback:(DataStore)->Void, callbackErrado:()->Void, ?debug:Bool = false)
     {
         var desafios:String = getData(idDele+"-invites", null, null, true);
         var meusDesafios:String = getData(myID+"-invites", null, null, true);
         var jaTem:Bool = false;
 
-        #if !debug
-        for(desafio in desafios.split(","))
+        if(!debug)
         {
-            if(desafio == myID)
-            {
-                jaTem = true;
-                break;
-            }
+            for(desafio in desafios.split(","))
+                {
+                    if(desafio == myID)
+                    {
+                        jaTem = true;
+                        break;
+                    }
+                }
+        
+                for(meuDesafio in meusDesafios.split(","))
+                {
+                    if(meuDesafio == idDele)
+                    {
+                        jaTem = true;
+                        break;
+                    }
+                }
         }
-
-        for(meuDesafio in meusDesafios.split(","))
-        {
-            if(meuDesafio == idDele)
-            {
-                jaTem = true;
-                break;
-            }
-        }
-        #end
 
         if(jaTem) return;
         desafios = desafios!=null && desafios!="" ? desafios+","+myID : myID;
         trace('Invites para o ${idDele}: ${desafios}');
-        setData(desafios, idDele+"-invites", null, null, true);
+        setData(desafios, idDele+"-invites", callback, callbackErrado, true);
     }
 
     public static var invites:Array<String> = [];
@@ -790,11 +794,6 @@ class GJClient
         {
             temDesafios();
         }
-    }
-
-    public static function aceitarOuRecusarDesafio(id:String, aceitar:() -> Void, recusar:() -> Void)
-    {
-        trace("nao implementado ainda");
     }
 
     public static function getUserAsync(id:Int, obj:InviteObject)

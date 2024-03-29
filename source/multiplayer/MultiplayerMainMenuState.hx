@@ -139,6 +139,20 @@ class MultiplayerMainMenuState extends MusicBeatState
 		return nomesEPaths;
 	}
 
+	var idConvite:String = "";
+	var convidei:Bool = false;
+	public function aceitarConvite(id:String, convidei:Bool)
+	{
+		idConvite = id;
+		this.convidei = convidei;
+	}
+
+	function resetInviteVars()
+	{
+		idConvite = "";
+		convidei = false;
+	}
+
 	function deactivateAll()
 	{
 		entrarBt.visible = false;
@@ -187,10 +201,40 @@ class MultiplayerMainMenuState extends MusicBeatState
 					add(roomList);
 				}
 			case MAIN:
-				skinsBt.visible = true;
-				entrarBt.visible = true;
-				hostearBt.visible = true;
-				multiplayerTxt.visible=true;
+				if(idConvite != "")
+				{
+					if(!convidei)
+					{
+						var sala:RoomAvailable = null;
+						for(room in getAvailableRooms())
+						{
+							if(room.metadata.displayName == idConvite)
+							{
+								sala = room;
+								break;
+							}
+						}
+						if(sala!=null)
+						{
+							entrar(sala);
+						} else {
+							trace("sala n encontrada");
+							avisarAlgo(LangUtil.getString("alert_room_unavailable", "multiplayer"), new MainMenuStateMobile());
+						}
+						resetInviteVars();
+					}
+					else
+					{
+						hostear();
+					}
+				}
+				else
+				{
+					skinsBt.visible = true;
+					entrarBt.visible = true;
+					hostearBt.visible = true;
+					multiplayerTxt.visible=true;
+				}
 			case CONNECTING:
 				connectingText.visible = true;
 			case SKINS:
@@ -548,13 +592,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 		
 
 		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
-		roomOptions.set("salaNome", GJClient.userName);
+		roomOptions.set("salaNome", idConvite!="" ? idConvite : GJClient.userName);
 		roomOptions.set("mode", "Score");
 		roomOptions.set("changeSides", false);
 		roomOptions.set("myName", GJClient.userName);
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "0");
 		roomOptions.set("noteSkin", skins[skinAtual][1]);
+		roomOptions.set("privateRoom", idConvite!=""?true:false);
+		resetInviteVars();
 
 		client.create("gameRoom", roomOptions, LobbyState, function(err, room) {
 			if (err != null) {
@@ -1174,9 +1220,12 @@ class RoomList extends MusicBeatSubstate
 		roomList = cast add(new FlxSpriteGroup());
 
 		for (room in rooms) {
-			var roomObject:RoomObject = new RoomObject(((100*num)+num*5), room);
-			roomList.add(roomObject);
-			num++;
+			if(room.metadata.privateRoom == false)
+			{
+				var roomObject:RoomObject = new RoomObject(((100*num)+num*5), room);
+				roomList.add(roomObject);
+				num++;
+			}
 		}
 
 		roomList.setPosition(2560);

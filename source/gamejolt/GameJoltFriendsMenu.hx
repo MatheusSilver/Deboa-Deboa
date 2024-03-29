@@ -6,6 +6,7 @@ import Utils.BSLTouchUtils;
 import flixel.math.FlxMath;
 import Utils.BSLSwipeUtils;
 import flixel.FlxG;
+import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.ui.FlxButton;
 import flixel.text.FlxText;
@@ -26,6 +27,7 @@ import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
 import Utils.FlxScrollableArea;
 import flixel.util.FlxTimer;
+import multiplayer.*;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -47,10 +49,14 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
     public var amigos:Array<FriendObject> = [];
     var amigosList:FlxSpriteGroup;
     var scrollBar:FlxScrollableArea;
+    public var canDesafiar:Bool = false;
+
+    public static var instance:GameJoltFriendsMenu;
 
 	public function new()
         {
             super();
+            instance = this;
             invisible_button = new FlxButton();
             invisible_button.setGraphicSize(Std.int(FlxG.width*0.89),Std.int(FlxG.height*0.8));
             invisible_button.y = FlxG.height*0.15;
@@ -136,7 +142,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         var x1:Float = 1; // bora x1?
         for(user in amiguineos)
             {
-                var friendo:FriendObject = new FriendObject((5*x1)+10, 20, user);
+                var friendo:FriendObject = new FriendObject((5*x1)+10, 20, user, this);
                 friendo.cameras = [camElementos];
                 friendo.alpha = 0;
                 amigos.push(friendo);
@@ -163,6 +169,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         FlxTween.tween(loadingTxt, {alpha: 0}, 0.15, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween)
         {
             remove(loadingTxt);
+            canDesafiar = true;
         }});
     }
             
@@ -270,7 +277,9 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 
     function tweenSair()
     {
+        if(!canSumir) return;
         canSumir = false;
+        canDesafiar = false;
         for(amigo in amigos)
             {
                 //FlxTween.tween(amigo, {y: 1464}, 0.5, {ease: FlxEase.expoInOut});
@@ -312,11 +321,13 @@ class FriendObject extends FlxSpriteGroup
     public var desc:FlxText;
     var desafiarBt:FlxButton;
     var amOnline:Bool = false;
+    var parent:FlxState;
 
-    public function new(x:Float, y:Float, user:User)
+    public function new(x:Float, y:Float, user:User, parent:FlxState)
     {
         super(x,y);
         this.user = user;
+        this.parent = parent;
         bg = new FlxSprite(0, 0).loadGraphic(Paths.image("menus/gamejolt/amigos/perfil"));
         bg.updateHitbox();
         add(bg);
@@ -374,7 +385,22 @@ class FriendObject extends FlxSpriteGroup
 
     function desafiar()
     {
-        GJClient.desafiarAmigo(Std.string(user.id));
+        if(!Reflect.getProperty(parent, "canDesafiar")) return;
+        Reflect.setProperty(parent, "canDesafiar", false);
+        Reflect.setProperty(parent, "canSumir", false);
+        GJClient.desafiarAmigo(Std.string(user.id), hostearDesafio, function(){
+            Reflect.setProperty(parent, "canDesafiar", true);
+            Reflect.setProperty(parent, "canSumir", true);
+        });
+    }
+
+    function hostearDesafio(data:DataStore)
+    {
+        GlobalSoundManager.play(confirmMenu);
+        var multiplayerState:MultiplayerMainMenuState = new MultiplayerMainMenuState();
+        multiplayerState.aceitarConvite(GJClient.myID, true);
+        MusicBeatState.switchState(multiplayerState);
+        GameJoltFriendsMenu.instance.close();
     }
 
     function pegarIcon()

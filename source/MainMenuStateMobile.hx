@@ -476,7 +476,7 @@ class MainMenuStateMobile extends MusicBeatState
 		#if debug
 		if(FlxG.keys.justPressed.P)
 		{
-			GJClient.desafiarAmigo(GJClient.myID);
+			GJClient.desafiarAmigo(GJClient.myID, null, null, true);
 		}
 		#end
 
