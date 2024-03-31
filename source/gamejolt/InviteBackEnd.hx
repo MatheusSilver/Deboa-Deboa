@@ -94,18 +94,21 @@ class InviteBackEnd extends FlxGroup
         {
             canSpawn = false;
             curInvites.remove(which);
-            FlxTween.tween(which, {x: -500}, 0.75, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
+            FlxTween.tween(which, {x: -500}, 0.3, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
                 FlxG.state.remove(which);
                 which.destroy();
-                canSpawn = true;
             }});
         }
 
-        for(i in 0...curInvites.length)
-        {
-            curInvites[i].index = i;
-            curInvites[i].updatePos(true);
-        }
+        new FlxTimer().start(0.25, function(e:FlxTimer) {
+            for(i in 0...curInvites.length)
+                {
+                    curInvites[i].index = i;
+                    curInvites[i].updatePos(true);
+                }
+            canSpawn = true;
+        });
+
     }
 
     public function sumidao(which:InviteObject)
