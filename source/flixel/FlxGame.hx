@@ -680,6 +680,12 @@ class FlxGame extends Sprite
 		if(onSwitchState != null){
 			if(MainMenuStateMobile.passeiAqui)
 				{
+					InviteBackEnd.cam = new FlxCamera();
+					InviteBackEnd.cam.bgColor.alpha = 0;
+					if(FlxG.cameras.list.contains(InviteBackEnd.cam)){
+						FlxG.cameras.remove(InviteBackEnd.cam);
+					}
+					FlxG.cameras.add(InviteBackEnd.cam, false);
 					InviteBackEnd.reInit();
 				}
 			onSwitchState(invites2);

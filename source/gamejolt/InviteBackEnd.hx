@@ -25,6 +25,7 @@ class InviteBackEnd extends FlxGroup
     public static var canSpawn = true;
     public static var instance:InviteBackEnd;
     public static var timer:FlxTimer;
+    public static var cam:FlxCamera;
 
     public static function init()
     {
@@ -36,7 +37,6 @@ class InviteBackEnd extends FlxGroup
         super();
 
         instance = this;
-
         GJClient.getDesafios(spawnarInvite);
         reInit();
         FlxG.game.onSwitchState=function(invites:Array<InviteObject>) {
@@ -70,7 +70,7 @@ class InviteBackEnd extends FlxGroup
             {
                 var newInvite:InviteObject = new InviteObject(-500, 0, Std.parseInt(invite), curInvites.length);
                 curInvites.push(newInvite);
-                newInvite.cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
+                newInvite.cameras = [cam];
                 FlxG.state.add(newInvite);
                 trace("spawning invite");
             }
@@ -80,6 +80,11 @@ class InviteBackEnd extends FlxGroup
         new FlxTimer().start(2.5, function(e:FlxTimer) {
             GJClient.canChangeInvites = true;
         });
+        for(i in 0...curInvites.length)
+            {
+                curInvites[i].index = i;
+                curInvites[i].updatePos(true);
+            }
         //trace(curInvites.length);
     }
 
@@ -205,7 +210,7 @@ class InviteObject extends FlxSpriteGroup
 
     public function redraw()
     {
-        this.cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
+        this.cameras = [InviteBackEnd.cam];
         //resetar();
     }
 
@@ -222,11 +227,11 @@ class InviteObject extends FlxSpriteGroup
     {
         if(smooth)
         {
-            FlxTween.tween(this, {y: 600-(90*(index))}, 0.2, {ease: FlxEase.linear});
+            FlxTween.tween(this, {y: (600-(90*(index)))}, 0.2, {ease: FlxEase.linear});
         }
         else
         {
-            this.y = 600-(90*(index));
+            this.y = (600-(90*(index)));
         }
     }
 
