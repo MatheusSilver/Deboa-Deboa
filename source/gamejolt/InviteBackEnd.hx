@@ -90,7 +90,6 @@ class InviteBackEnd extends FlxGroup
             canSpawn = false;
             curInvites.remove(which);
             FlxTween.tween(which, {x: -500}, 0.75, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
-                remove(which);
                 which.destroy();
                 canSpawn = true;
             }});
@@ -112,7 +111,10 @@ class InviteBackEnd extends FlxGroup
             invite.canDecline = false;
             if(invite == which)
             {
-                FlxTween.tween(invite, {alpha: 0}, 0.4, {ease: FlxEase.expoInOut, startDelay: 0.6});
+                FlxTween.tween(invite, {alpha: 0}, 0.4, {ease: FlxEase.expoInOut, startDelay: 0.6, onComplete: function(e:FlxTween) {
+                    canSpawn = true;
+                    invite.destroy();
+                }});
                 
             }
             else
