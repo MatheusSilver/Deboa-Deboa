@@ -70,7 +70,7 @@ class InviteBackEnd extends FlxGroup
             {
                 var newInvite:InviteObject = new InviteObject(-500, 0, Std.parseInt(invite), curInvites.length);
                 curInvites.push(newInvite);
-                newInvite.cameras = [MainMenuStateMobile.camAchievement];
+                newInvite.cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
                 FlxG.state.add(newInvite);
                 trace("spawning invite");
             }
@@ -203,7 +203,7 @@ class InviteObject extends FlxSpriteGroup
 
     public function redraw()
     {
-        this.cameras = [MainMenuStateMobile.camAchievement];
+        this.cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
         //resetar();
     }
 
