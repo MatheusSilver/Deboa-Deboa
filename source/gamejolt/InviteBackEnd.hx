@@ -179,7 +179,7 @@ class InviteObject extends FlxSpriteGroup
         add(declineBt);
 
         if(user != null) {
-            x=0;
+            this.x=0;
             canAccept = true;
             canDecline = true;
             return;
