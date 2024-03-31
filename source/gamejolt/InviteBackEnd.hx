@@ -119,6 +119,7 @@ class InviteBackEnd extends FlxGroup
             {
                 FlxTween.tween(invite, {alpha: 0}, 0.4, {ease: FlxEase.expoInOut, startDelay: 0.6, onComplete: function(e:FlxTween) {
                     canSpawn = true;
+                    FlxG.state.remove(invite);
                     invite.destroy();
                 }});
                 
