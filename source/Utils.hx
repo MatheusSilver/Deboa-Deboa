@@ -523,6 +523,7 @@ class FlxScrollbar extends FlxSpriteGroup
 	private var _dragStartedWhenBarWasAt:Float; // the x or y (depending on orientation) of the bar at drag start (also for whole page movements)
 	private var _trackClickCountdown = 0.0; // timer until you start getting repeated whole-page-movements when holding down the mouse button
 	private var _mouseWheelMultiplier:Int;
+	private var canScroll:Bool;
 
 	/**
 	 * Create a new scrollbar graphic.  You'll have to hide it yourself when needed.
@@ -539,10 +540,10 @@ class FlxScrollbar extends FlxSpriteGroup
 	 * @param	MouseWheelMultiplier	How much to multiply mouse wheel deltas by.  Set to 0 to disable mouse wheeling.  Default 100.
 	 */
 	public function new(X:Float, Y:Float, Width:Float, Height:Float, Orientation:FlxScrollbarOrientation, Colour:FlxColor, Camera:FlxScrollableArea,
-			?InitiallyVisible:Bool = false, ?State:FlxState, ?MouseWheelMultiplier:Int = 100)
+			?InitiallyVisible:Bool = false, ?State:FlxState, ?MouseWheelMultiplier:Int = 100, ?canScroll:Bool = true)
 	{
 		super(X, Y);
-
+		this.canScroll = canScroll;
 		_state = State;
 		if (_state == null)
 			_state = FlxG.state;
@@ -596,7 +597,7 @@ class FlxScrollbar extends FlxSpriteGroup
 
 	override public function update(elapsed:Float)
 	{
-		if (!visible)
+		if (!visible || !canScroll)
 			return;
 		var mousePosition = FlxPoint.get(Utils.BSLTouchUtils.pegarpos("x"), Utils.BSLTouchUtils.pegarpos("y"));
 		var tryToScrollPage = false;
@@ -895,12 +896,16 @@ class FlxScrollableArea extends FlxCamera
 		scroll.x = content.x;
 		scroll.y = content.y;
 
-		_verticalScrollbar = new FlxScrollbar(0, 0, scrollbarThickness, 1, FlxScrollbarOrientation.VERTICAL, ScrollbarColour, this, false, _state,
-			MouseWheelMultiplier);
-		_state.add(_verticalScrollbar);
-		_horizontalScrollbar = new FlxScrollbar(0, 0, 1, scrollbarThickness, FlxScrollbarOrientation.HORIZONTAL, ScrollbarColour, this, false, _state,
-			MouseWheelMultiplier);
-		_state.add(_horizontalScrollbar);
+
+		_verticalScrollbar = new FlxScrollbar(0, 0, scrollbarThickness>0?scrollbarThickness:1, 1, FlxScrollbarOrientation.VERTICAL, ScrollbarColour, this, false, _state,
+			MouseWheelMultiplier, scrollbarThickness>0?false:true);
+		_horizontalScrollbar = new FlxScrollbar(0, 0, 1, scrollbarThickness>0?scrollbarThickness:1, FlxScrollbarOrientation.HORIZONTAL, ScrollbarColour, this, false, _state,
+			MouseWheelMultiplier, scrollbarThickness>0?false:true);
+			_verticalScrollbar.alpha = scrollbarThickness>0?1:0;
+			_horizontalScrollbar.alpha = scrollbarThickness>0?1:0;
+			_state.add(_verticalScrollbar);
+			_state.add(_horizontalScrollbar);
+
 
 		onResize();
 	}
