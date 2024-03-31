@@ -41,7 +41,7 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var psychEngineVersion:String = 'V1'; //This is also used for Discord RPC
 
 	public var camGame:FlxCamera;
-	public var camAchievement:FlxCamera;
+	public static var camAchievement:FlxCamera;
 	var clicavel:Bool = false;
 
 
@@ -70,6 +70,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var checkiftouch:Bool = false;
 	public static var canClick:Bool = false;
 	public static var newVersion:Bool = false;
+	public static var passeiAqui:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
 	public static var version:String = '0.10.0';
@@ -79,18 +80,16 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var passouCY:Bool = false;
 
 	var gamejoltUser:GameJoltUserObject;
-	public var inviteBackEnd:InviteBackEnd;
 
 	override function create()
 	{
+		passeiAqui = true;
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		Conductor.changeBPM(112);
 		instance = this;
 		GameJoltLoginState.syncProgress();
-		if(GJClient.logged) {
-			inviteBackEnd = new InviteBackEnd(this);
-		}
+
 		#if rpc
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
@@ -109,6 +108,11 @@ class MainMenuStateMobile extends MusicBeatState
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
+
+		if(GJClient.logged && InviteBackEnd.instance==null) {
+			InviteBackEnd.init();
+		}
+
 		Main.mouse_allowed = true;
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;

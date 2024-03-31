@@ -10,6 +10,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.ui.FlxButton;
 import flixel.addons.transition.FlxTransitionableState;
+import gamejolt.GJClient;
 
 using StringTools;
 
@@ -159,6 +160,13 @@ class SobreState extends MusicBeatState
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
+
+		#if debug
+		if(FlxG.keys.justPressed.P)
+		{
+			GJClient.desafiarAmigo(GJClient.myID, null, null, true);
+		}
+		#end
 
 		super.update(elapsed);
 		if (FlxG.sound.music.volume == 0)

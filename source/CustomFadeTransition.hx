@@ -76,7 +76,6 @@ class CustomFadeTransition extends MusicBeatSubstate
 		{
 			imagem.cameras = [nextCamera];
 		}
-		nextCamera = null;
 	}
 
 	override function update(elapsed:Float)

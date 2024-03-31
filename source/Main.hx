@@ -1,5 +1,6 @@
 package;
 
+import gamejolt.InviteBackEnd;
 import openfl.filters.ColorMatrixFilter;
 import openfl.filters.BitmapFilter;
 #if mobile
@@ -19,6 +20,7 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.display.StageScaleMode;
 import openfl.events.Event;
+import gamejolt.InviteBackEnd;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -158,6 +160,7 @@ class Main extends Sprite
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate,
 			game.skipSplash, game.startFullscreen));
 
+
 		fpsVar = new FPS(5, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
@@ -192,7 +195,8 @@ class Main extends Sprite
 			FlxG.game.setFilters(shaderarray); // Resumindo: Se tu quer enxergar as cores certinhas, tu vai ter lag no jogo k
 		}
 		FlxG.fullscreen = ClientPrefs.fullscreen; // Lá em cima as clientprefs ainda não haviam sido carregadas
-		
+		FlxG.updateFramerate = ClientPrefs.framerate;
+		FlxG.drawFramerate = ClientPrefs.framerate;
 		FlxG.fixedTimestep = false; // Agora eu fiquei na dúvida entre deixar isso falso, ou deixar isso como verdadeiro.
 		// Eu mandei lá no Discord, uma gravação onde o FPS Cap é 240 e ele fica SUPER lagado. Só consegui resolver isso deixando o timestep como falso.
 	}

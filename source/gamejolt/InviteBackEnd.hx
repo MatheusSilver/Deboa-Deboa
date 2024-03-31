@@ -1,5 +1,7 @@
 package gamejolt;
 
+import flixel.FlxSubState;
+import openfl.display.DisplayObject;
 import multiplayer.MultiplayerMainMenuState;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -14,25 +16,52 @@ import flixel.FlxState;
 import flixel.tweens.FlxTween;
 import haxe.Constraints.Function;
 import flixel.tweens.FlxEase;
+import flixel.FlxCamera;
+import flixel.group.FlxGroup;
 
-class InviteBackEnd
+class InviteBackEnd extends FlxGroup
 {
-    var curInvites:Array<InviteObject> = [];
-    var parentState:FlxState;
-    var canSpawn = true;
+    public static var curInvites:Array<InviteObject> = [];
+    public static var canSpawn = true;
+    public static var instance:InviteBackEnd;
+    public static var timer:FlxTimer;
 
-    public function new(parent:FlxState)
+    public static function init()
     {
-        this.parentState = parent;
+        instance = new InviteBackEnd();
+    }
+
+    public function new()
+    {
+        super();
+
+        instance = this;
+
         GJClient.getDesafios(spawnarInvite);
-        new FlxTimer().start(5, function(e:FlxTimer) {
+        reInit();
+        FlxG.game.onSwitchState=function(invites:Array<InviteObject>) {
+            curInvites = invites;
+            for(invite in invites)
+            {
+                invite.redraw();
+            }
+        };
+    }
+
+    public static function reInit()
+    {
+        if(timer!= null){timer.cancel();}
+        if(!PlayState.isPlayState){GJClient.getDesafios(spawnarInvite);}
+        timer = new FlxTimer().start(5, function(e:FlxTimer) {
+            if(PlayState.isPlayState) return;
             GJClient.getDesafios(spawnarInvite);
         }, 0);
     }
 
-    function spawnarInvite()
+    static function spawnarInvite()
     {
         if(!canSpawn) return;
+        if(PlayState.isPlayState) return;
         //trace(GJClient.invites);
         GJClient.canChangeInvites = false;
         for(invite in GJClient.invites)
@@ -41,8 +70,9 @@ class InviteBackEnd
             {
                 var newInvite:InviteObject = new InviteObject(-500, 0, Std.parseInt(invite), curInvites.length);
                 curInvites.push(newInvite);
-                newInvite.cameras = [Reflect.getProperty(parentState, "camAchievement")];
-                parentState.add(newInvite);
+                newInvite.cameras = [MainMenuStateMobile.camAchievement];
+                FlxG.state.add(newInvite);
+                trace("spawning invite");
             }
             GJClient.removeInvite(invite);
         }
@@ -55,12 +85,17 @@ class InviteBackEnd
 
     public function decline(which:InviteObject)
     {
-        curInvites.remove(which);
+        if(which != null)
+        {
+            canSpawn = false;
+            curInvites.remove(which);
+            FlxTween.tween(which, {x: -500}, 0.75, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
+                remove(which);
+                which.destroy();
+                canSpawn = true;
+            }});
+        }
 
-        FlxTween.tween(which, {x: -500}, 0.75, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
-            which.destroy();
-            parentState.remove(which);
-        }});
         for(i in 0...curInvites.length)
         {
             curInvites[i].index = i;
@@ -82,7 +117,7 @@ class InviteBackEnd
             }
             else
             {
-                FlxTween.tween(invite, {x: -500}, 0.75, {ease: FlxEase.expoInOut});
+                decline(invite);
             }
         }
     }
@@ -90,7 +125,7 @@ class InviteBackEnd
 
 class InviteObject extends FlxSpriteGroup
 {
-    var user:User;
+    public var user:User;
     var texto:FlxText;
     var bg:FlxSprite;
     var acceptBt:FlxButton;
@@ -99,7 +134,7 @@ class InviteObject extends FlxSpriteGroup
     public var canAccept:Bool = false;
     public var canDecline:Bool = false;
 
-    public function new(x, y, id:Int, index:Int)
+    public function new(x, y, id:Int, index:Int, ?user:User = null)
     {
         super(x, y);
         this.index = index;
@@ -136,8 +171,24 @@ class InviteObject extends FlxSpriteGroup
         declineBt.y = 7;
         add(declineBt);
 
-
+        if(user != null) {
+            x=0;
+            canAccept = true;
+            canDecline = true;
+            return;
+        }
         GJClient.getUserAsync(id, this);
+    }
+    
+    function resetar()
+    {
+        declineBt.x = 317;
+        declineBt.y = 7;
+        acceptBt.x = 390;
+        acceptBt.y = 7;
+        bg.x=-36;
+        texto.x=10;
+        texto.y=25;
     }
 
     function makeButton(onOver:()->Void, onOut:()->Void, onDown:()->Void, graphic:String):FlxButton
@@ -150,10 +201,18 @@ class InviteObject extends FlxSpriteGroup
         return bt;
     }
 
-    public function setInfo(usuario:User)
+    public function redraw()
+    {
+        this.cameras = [MainMenuStateMobile.camAchievement];
+        //resetar();
+    }
+
+    public function setInfo(usuario:User, ?jaTinha:Bool = false)
     {
         user = usuario;
         texto.text = '${user.username} ${LangUtil.getString("menu_friends_invite_request", "menu")}';
+        if(jaTinha)
+            return;
         aparecer();
     }
 
@@ -192,16 +251,18 @@ class InviteObject extends FlxSpriteGroup
         canDecline = false;
         canAccept = false;
         GlobalSoundManager.play(confirmMenu);
-        MainMenuStateMobile.instance.inviteBackEnd.decline(this);
+        InviteBackEnd.instance.decline(this);
     }
 
     public function accept() {
         if(!canAccept) return;
+        if(PlayState.isPlayState) return;
         canAccept = false;
         canDecline = false;
-        MainMenuStateMobile.instance.inviteBackEnd.sumidao(this);
+        InviteBackEnd.instance.sumidao(this);
         GlobalSoundManager.play(confirmMenu);
         new FlxTimer().start(1, function(twn:FlxTimer){
+            InviteBackEnd.instance.decline(this);
             var multiplayerState:MultiplayerMainMenuState = new MultiplayerMainMenuState();
             multiplayerState.aceitarConvite(Std.string(user.id), false);
             MusicBeatState.switchState(multiplayerState);

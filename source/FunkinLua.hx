@@ -2135,7 +2135,7 @@ class FunkinLua {
 			case 'camorig' | 'orig': return FlxG.camera;
 			case 'campasta' | 'pasta': return PastaNightSelect.selectCam;
 			case 'gameMenu' : return MainMenuStateMobile.instance.camGame;
-			case 'achMenu' : return MainMenuStateMobile.instance.camAchievement;
+			case 'achMenu' : return MainMenuStateMobile.camAchievement;
 		}
 		return PlayState.instance.camGame;
 	}
