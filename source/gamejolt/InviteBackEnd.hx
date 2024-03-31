@@ -160,10 +160,22 @@ class InviteObject extends FlxSpriteGroup
         add(texto);
 
         acceptBt = makeButton(function(){
+            if(FlxG.state!=null){
+                if(FlxG.state.subState!=null)
+                {
+                    return;
+                }
+            }
             if(!canAccept) return;
             acceptBt.alpha = 1;
             GlobalSoundManager.play(scrollMenu);
         }, function(){
+            if(FlxG.state!=null){
+                if(FlxG.state.subState!=null)
+                {
+                    return;
+                }
+            }
             if(!canAccept) return;
             acceptBt.alpha = 0.75;
         }, accept, "menus/gamejolt/acceptBt");
@@ -172,10 +184,22 @@ class InviteObject extends FlxSpriteGroup
         add(acceptBt);
 
         declineBt = makeButton(function(){
+            if(FlxG.state!=null){
+                if(FlxG.state.subState!=null)
+                {
+                    return;
+                }
+            }
             if(!canDecline) return;
             declineBt.alpha = 1;
             GlobalSoundManager.play(scrollMenu);
         }, function(){
+            if(FlxG.state!=null){
+                if(FlxG.state.subState!=null)
+                {
+                    return;
+                }
+            }
             if(!canDecline) return;
             declineBt.alpha = 0.75;
         }, function(){decline(false);}, "menus/gamejolt/declineBt");
@@ -260,6 +284,12 @@ class InviteObject extends FlxSpriteGroup
     public function decline(?force:Bool = false)
     {
         if(!canDecline && !force) return;
+        if(FlxG.state!=null){
+            if(FlxG.state.subState!=null)
+            {
+                return;
+            }
+        }
         canDecline = false;
         canAccept = false;
         GlobalSoundManager.play(confirmMenu);
@@ -269,6 +299,12 @@ class InviteObject extends FlxSpriteGroup
     public function accept() {
         if(!canAccept) return;
         if(PlayState.isPlayState) return;
+        if(FlxG.state!=null){
+            if(FlxG.state.subState!=null)
+            {
+                return;
+            }
+        }
         canAccept = false;
         canDecline = false;
         InviteBackEnd.instance.sumidao(this);

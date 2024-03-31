@@ -243,6 +243,8 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         {
             MainMenuStateMobile.instance.camGame.setFilters([blur]);
             MainMenuStateMobile.camAchievement.setFilters([blur]);
+            if(InviteBackEnd.cam!=null){InviteBackEnd.cam.setFilters([blur]);}
+
             FlxTween.tween(blur, {blurX: 3, blurY: 3}, 0.5, {ease: FlxEase.quartInOut});
         }
 
@@ -301,6 +303,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                     {
                         MainMenuStateMobile.instance.camGame.setFilters([]);
                         MainMenuStateMobile.camAchievement.setFilters([]);
+                        if(InviteBackEnd.cam!=null){InviteBackEnd.cam.setFilters([]);}
                     }
                 close();
             }});
