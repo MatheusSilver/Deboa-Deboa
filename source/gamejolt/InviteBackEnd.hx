@@ -117,9 +117,12 @@ class InviteBackEnd extends FlxGroup
             invite.canDecline = false;
             if(invite == which)
             {
-                FlxTween.tween(invite, {alpha: 0}, 0.4, {ease: FlxEase.expoInOut, startDelay: 0.6, onComplete: function(e:FlxTween) {
+                FlxTween.tween(invite, {alpha: 0}, 0.25, {ease: FlxEase.expoInOut, startDelay: 0.6, onComplete: function(e:FlxTween) {
                     canSpawn = true;
-                    FlxG.state.remove(invite);
+                    if(FlxG.state!=null)
+                    {
+                        FlxG.state.remove(invite);
+                    }
                     invite.destroy();
                 }});
                 
@@ -270,8 +273,8 @@ class InviteObject extends FlxSpriteGroup
         canDecline = false;
         InviteBackEnd.instance.sumidao(this);
         GlobalSoundManager.play(confirmMenu);
-        new FlxTimer().start(1, function(twn:FlxTimer){
-            InviteBackEnd.instance.decline(this);
+        new FlxTimer().start(1.25, function(twn:FlxTimer){
+            //InviteBackEnd.instance.decline(this);
             var multiplayerState:MultiplayerMainMenuState = new MultiplayerMainMenuState();
             multiplayerState.aceitarConvite(Std.string(user.id), false);
             MusicBeatState.switchState(multiplayerState);
