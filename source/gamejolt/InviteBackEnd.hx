@@ -95,6 +95,7 @@ class InviteBackEnd extends FlxGroup
             canSpawn = false;
             curInvites.remove(which);
             FlxTween.tween(which, {x: -500}, 0.75, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
+                FlxG.state.remove(which);
                 which.destroy();
                 canSpawn = true;
             }});
