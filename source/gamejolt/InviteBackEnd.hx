@@ -145,6 +145,7 @@ class InviteObject extends FlxSpriteGroup
     public var index:Int;
     public var canAccept:Bool = false;
     public var canDecline:Bool = false;
+    public var timeLeft:Float;
 
     public function new(x, y, id:Int, index:Int, ?user:User = null)
     {
@@ -271,14 +272,14 @@ class InviteObject extends FlxSpriteGroup
             canAccept = true;
             canDecline = true;
         }});
-        new FlxTimer().start(120, function(twn:FlxTimer){
+        /*new FlxTimer().start(120, function(twn:FlxTimer){
             canAccept = false;
             canDecline = false;
             acceptBt.alpha = 0.75;
             FlxTween.tween(this, {x: -500}, 1, {ease: FlxEase.expoInOut, onComplete: function(twn:FlxTween){
                 decline(true);
             }});
-        });
+        });*/
     }
 
     public function decline(?force:Bool = false)

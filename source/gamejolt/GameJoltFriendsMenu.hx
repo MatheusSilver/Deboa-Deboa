@@ -152,8 +152,9 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             }
         
         amigosList.setPosition(0, 2560);
-        var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 508 );
+        var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 484 );
         scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
+        scrollBar.bgColor.alpha = 0;
         FlxG.cameras.add(scrollBar);
         new FlxTimer().start(0.25, function(e:FlxTimer) {
             for(amigo in amigos)
