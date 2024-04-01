@@ -68,6 +68,11 @@
         "version": null
       },
       {
+        "name": "akifox-asynchttp",
+        "type": "haxelib",
+        "version": null
+      },
+      {
         "name": "hxvlc",
         "type": "git",
         "version": null,
