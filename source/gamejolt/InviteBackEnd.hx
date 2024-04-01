@@ -37,6 +37,9 @@ class InviteBackEnd extends FlxGroup
         super();
 
         instance = this;
+        cam = new FlxCamera();
+        cam.bgColor.alpha = 0;
+        FlxG.cameras.add(cam, false);
         GJClient.getDesafios(spawnarInvite);
         reInit();
         FlxG.game.onSwitchState=function(invites:Array<InviteObject>) {
@@ -62,6 +65,7 @@ class InviteBackEnd extends FlxGroup
     {
         if(!canSpawn) return;
         if(PlayState.isPlayState) return;
+        if(cam==null) return;
         //trace(GJClient.invites);
         GJClient.canChangeInvites = false;
         for(invite in GJClient.invites)
@@ -243,6 +247,7 @@ class InviteObject extends FlxSpriteGroup
 
     public function redraw()
     {
+        if(InviteBackEnd.cam==null) return;
         this.cameras = [InviteBackEnd.cam];
         //resetar();
     }
