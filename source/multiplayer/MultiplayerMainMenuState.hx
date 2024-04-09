@@ -1224,6 +1224,7 @@ class RoomList extends MusicBeatSubstate
 		roomList = cast add(new FlxSpriteGroup());
 
 		for (room in rooms) {
+			//trace('room is private: ${room.metadata.privateRoom}');
 			if(room.metadata.privateRoom == false)
 			{
 				var roomObject:RoomObject = new RoomObject(((100*num)+num*5), room);

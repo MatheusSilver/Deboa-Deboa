@@ -3316,7 +3316,7 @@ class PlayState extends MusicBeatState
 			// ja entendi como funciona bruh
 			if (curSong.toLowerCase() == 'chaos' && cpuControlled)
 				startachieving("chaos_bot");
-			else if (SONG.song.toLowerCase() == 'best-friends' && deathCounter >= 5)
+			else if (SONG.song.toLowerCase() == 'best-friends' && deathCounter >= 4)
 				startachieving("side_deaths");
 
 			var ret:Dynamic = callOnLuas('onGameOver', []);
