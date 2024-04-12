@@ -103,7 +103,7 @@ class ModifiersMenuState extends MusicBeatSubstate
             buttons.push(modifierButton);
             delay+=0.045;
             delayNegativo-=0.045;
-            y1-=24;
+            y1-=25.5;
             x1+=135;
         }
         trace(delay);
