@@ -789,6 +789,7 @@ class GJClient
 
     private static function callbackGetDesafios(response:HttpResponse, temDesafios:() -> Void):Void
     {
+        if(response.toJson() == null) return;
         invites = Std.string(response.toJson().response.data).split(",");
         if(invites != [] && invites != null)
         {

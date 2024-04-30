@@ -642,9 +642,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 		}
 		var url:String = servidor.replace("ws", "http")+"/charts/"+musicas[MusicaAtual][1]+".json";
-		var mySkin:String = players[getIndexBySession(curRoom.sessionId)].noteSkin;
-		var oppSkin:String = players[getOtherIndexBySession(curRoom.sessionId)].noteSkin;
-		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, mySkin, oppSkin));
+		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, players[getIndexBySession(curRoom.sessionId)], players[getOtherIndexBySession(curRoom.sessionId)]));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -1039,7 +1037,7 @@ class LobbyPlayerObject extends FlxSpriteGroup
 		super(x,y);
 
 		// BOYFRIEND LES GOOO
-		bf = new Boyfriend(0, 0);
+		bf = new Boyfriend(0, 0, charID);
 		bf.playAnim('idle', false, false, 10);
 		add(bf);
 

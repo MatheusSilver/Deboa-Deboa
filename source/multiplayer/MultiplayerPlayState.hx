@@ -36,6 +36,7 @@ import openfl.net.URLRequest;
 import openfl.events.Event;
 import openfl.events.ErrorEvent;
 import openfl.display.Loader;
+import multiplayer.MultiplayerMainMenuState;
 
 using StringTools;
 
@@ -81,12 +82,18 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var mySkin:String;
 	var oppSkin:String;
 
+	var myBf:Boyfriend;
+	var oppBf:Boyfriend;
 
-	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myNoteSkin:String, oppNoteSkin:String) {
+
+	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myObject:LobbyPlayerObject, oppObject:LobbyPlayerObject) {
 		instance = this;
 		currentMode = modo;
-		mySkin = myNoteSkin;
-		oppSkin = oppNoteSkin;
+		mySkin = myObject.noteSkin;
+		oppSkin = oppObject.noteSkin;
+		myBf = new Boyfriend(0, 0, myObject.charID);
+		oppBf = new Boyfriend(0, 0, oppObject.charID);
+
 		this.startPos = startPos;
 		Conductor.songPosition = startPos - startOffset;
         if(!trocarLados)
@@ -120,7 +127,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		super();
 	}
 
-
 	var scoreTxt:FlxText;
 	//var opponentScoreTxt:FlxText;
 
@@ -136,6 +142,9 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		add(bg);
+
+		add(myBf);
+		add(oppBf);
 
 		ready = new FlxSprite().loadGraphic(Paths.image('ready', 'shared'));
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
@@ -169,6 +178,19 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				});
 			}
 		
+		myBf.x = playerStrums.getFirstAlive().x;
+		oppBf.x = opponentStrums.getFirstAlive().x;
+		myBf.screenCenter(Y);
+		oppBf.screenCenter(Y);
+
+		if(!ClientPrefs.downScroll){
+			myBf.y+=100;
+			oppBf.y+=100;
+		}
+
+		myBf.flipX = !isPlayer1 ? true : false;
+		oppBf.flipX = isPlayer1 ? true : false;
+
 		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
 		add(grpNoteSplashes);
 
@@ -237,6 +259,23 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		add(terminarTxt);
 
 		super.create();
+	}
+
+	function hitNoteBf(who:Boyfriend, idAnim:Int){
+		var animToPlay:String = "";
+		switch (Std.int(Math.abs(idAnim)))
+		{
+			case 0:
+				animToPlay = 'singLEFT';
+			case 1:
+				animToPlay = 'singDOWN';
+			case 2:
+				animToPlay = 'singUP';
+			case 3:
+				animToPlay = 'singRIGHT';
+		}
+		who.playAnim(animToPlay != "" ? animToPlay : 'none', true);
+		who.holdTimer = 0;
 	}
 
 	var ready:FlxSprite;
@@ -801,6 +840,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 									}
 								}
 							}
+							hitNoteBf(oppBf, daNote.noteData);
 							MultiplayerMainMenuState.instance.daNoteReceived.remove(daNote.noteData);
 						}
 					else
@@ -845,6 +885,16 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		if(!startingSong)
 		{
 			keyShit();
+
+			var holdTimerThreshold:Float = Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * oppBf.singDuration;
+			if (oppBf.animation.curAnim != null
+				&& oppBf.holdTimer > holdTimerThreshold
+				&& oppBf.animation.curAnim.name.startsWith('sing')
+				&& !oppBf.animation.curAnim.name.endsWith('miss')
+				&& !endingSong)
+			{
+				oppBf.dance();
+			}
 		}
 		switch(currentMode)
 		{
@@ -862,7 +912,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	override function beatHit()
 	{
 		super.beatHit();
-
 		if (generatedMusic)
 		{
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
@@ -966,6 +1015,16 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 		}
 
+		var holdTimerThreshold:Float = Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * myBf.singDuration;
+		if (!controlHoldArray.contains(true) && myBf.animation.curAnim != null
+			&& myBf.holdTimer > holdTimerThreshold
+			&& myBf.animation.curAnim.name.startsWith('sing')
+			&& !myBf.animation.curAnim.name.endsWith('miss')
+			&& !endingSong)
+		{
+			myBf.dance();
+		}
+
 		playerStrums.forEach(function(spr:StrumNote)
 		{
 			if(controlArray[spr.ID] && spr.animation.curAnim.name != 'confirm') {
@@ -994,6 +1053,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				songHits++;
 				if(combo > 9999) combo = 9999;
 			}
+
+			hitNoteBf(myBf, note.noteData);
 			
 			playerStrums.forEach(function(spr:StrumNote)
 			{
