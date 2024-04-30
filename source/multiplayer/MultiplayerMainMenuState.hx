@@ -86,7 +86,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var daNoteReceived:Array<Int> = [];
 
 	// PLAYERS
-	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190), new LobbyPlayerObject(681,190)];
+	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190, true), new LobbyPlayerObject(681,190)];
 	public static var instance:MultiplayerMainMenuState;
 
 	// SKINS
@@ -1032,13 +1032,14 @@ class LobbyPlayerObject extends FlxSpriteGroup
 	public var isConnected:Bool = false;
 	var textinhoBF:FlxText;
 
-	public function new(x:Float, y:Float)
+	public function new(x:Float, y:Float, flipX:Bool = false)
 	{
 		super(x,y);
 
 		// BOYFRIEND LES GOOO
 		bf = new Boyfriend(0, 0, charID);
 		bf.playAnim('idle', false, false, 10);
+		bf.flipX = flipX;
 		add(bf);
 
 		// TEXTINHO TEXTOSO
