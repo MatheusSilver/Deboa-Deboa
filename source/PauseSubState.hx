@@ -302,6 +302,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.cpuControlled = false;
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					MusicBeatState.switchState(new EstadoDeTrocaReverso());
+					Achievements.syncWithGJLater();
 			}
 		}
 	}

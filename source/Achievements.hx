@@ -49,6 +49,9 @@ class Achievements {
 		['galeria',			true, 		185895, 		'geral', 		1], 
 		['pause_jumpscare',	true, 		186989, 		'orgulho', 		1]//ok
 	];
+
+	static var syncLater:Array<Int> = [];
+
 	public static function unlockAchievement(name:String, ?makeSound:Bool=true, ?gamejolt:Bool=true):Void {
 		FlxG.log.add('Completed achievement "' + name +'"');
 		ClientPrefs.achievementsMap.set(name, true);
@@ -66,7 +69,22 @@ class Achievements {
 			#end
 		}
 
+		if(PlayState.isPlayState && GJClient.logged && !TitleState.ModoOffline){
+			syncLater.push(Achievements.getAchievementIndex(name));
+		}
+
 		ClientPrefs.save();
+	}
+
+	public static function syncWithGJLater(){
+		for(i in syncLater) {
+			#if GAMEJOLT_ALLOWED
+			TitleState.instance.verificarConexao();
+			if(GJClient.logged && !TitleState.ModoOffline)
+				GJClient.trophieAdd(achievementsStuff[i][2]);
+			#end
+			syncLater.remove(i);
+		}
 	}
 
 	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
