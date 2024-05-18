@@ -1,0 +1,250 @@
+import haxe.Json;
+import Song;
+import lime.utils.Assets;
+import openfl.utils.Assets as OpenFlAssets;
+
+using StringTools;
+
+typedef WeekFile =
+{
+	// JSON variables
+	var songs:Array<Dynamic>;
+	var weekCharacters:Array<String>;
+	var weekBackground:String;
+	var weekBefore:String;
+	var storyName:String;
+	var weekName:String;
+	var freeplayColor:Array<Int>;
+	var startUnlocked:Bool;
+	var hideStoryMode:Bool;
+	var hideFreeplay:Bool;
+}
+
+typedef StageFile =
+{
+	var directory:String;
+	var defaultZoom:Float;
+	var isPixelStage:Bool;
+
+	var boyfriend:Array<Dynamic>;
+	var girlfriend:Array<Dynamic>;
+	var opponent:Array<Dynamic>;
+}
+
+class WeekData
+{
+	public static var weeksLoaded:Map<String, WeekData> = new Map<String, WeekData>();
+	public static var weeksList:Array<String> = [];
+	public static var freeplayList:Array<String> = []; // solução preguiçosa, sodasse
+
+	public var folder:String = '';
+
+	// JSON variables
+	public var songs:Array<Dynamic>;
+	public var weekCharacters:Array<String>;
+	public var weekBackground:String;
+	public var weekBefore:String;
+	public var storyName:String;
+	public var weekName:String;
+	public var freeplayColor:Array<Int>;
+	public var startUnlocked:Bool;
+	public var hideStoryMode:Bool;
+	public var hideFreeplay:Bool;
+
+	public static function createWeekFile():WeekFile
+	{
+		var weekFile:WeekFile = {
+			songs: [
+				["Bopeebo", "dad", [146, 113, 253], "Bopeebo"],
+				["Fresh", "dad", [146, 113, 253], "Fresh"],
+				["Dad Battle", "dad", [146, 113, 253], "Dad Battle"]
+			], // Yeah, aparentemente o negocio tem que ser mais bonitin, MERDA!!! // Sdds BS engine
+			weekCharacters: ['dad', 'bf', 'gf'],
+			weekBackground: 'stage',
+			weekBefore: 'tutorial',
+			storyName: 'Your New Week',
+			weekName: 'Custom Week',
+			freeplayColor: [146, 113, 253],
+			startUnlocked: true,
+			hideStoryMode: false,
+			hideFreeplay: false
+		};
+		return weekFile;
+	}
+
+	// HELP: Is there any way to convert a WeekFile to WeekData without having to put all variables there manually? I'm kind of a noob in haxe lmao
+	public function new(weekFile:WeekFile)
+	{
+		songs = weekFile.songs;
+		weekCharacters = weekFile.weekCharacters;
+		weekBackground = weekFile.weekBackground;
+		weekBefore = weekFile.weekBefore;
+		storyName = weekFile.storyName;
+		weekName = weekFile.weekName;
+		freeplayColor = weekFile.freeplayColor;
+		startUnlocked = weekFile.startUnlocked;
+		hideStoryMode = weekFile.hideStoryMode;
+		hideFreeplay = weekFile.hideFreeplay;
+	}
+
+	public static function reloadWeekFiles(isStoryMode:Null<Bool> = false)
+	{
+		weeksList = [];
+		freeplayList = [];
+
+		weeksLoaded.clear();
+		var directories:Array<String> = [Paths.getPreloadPath()];
+
+		var sexList:Array<String> = Utils.CoolUtil.coolTextFile(Paths.getPreloadPath('weeks/weekList.txt'));
+		for (i in 0...sexList.length)
+		{
+			for (j in 0...directories.length)
+			{
+				var fileToCheck:String = directories[j] + 'weeks/' + sexList[i] + '.json';
+				if (!weeksLoaded.exists(sexList[i]))
+				{
+					var week:WeekFile = getWeekFile(fileToCheck);
+					if (week != null)
+					{
+						var weekFile:WeekData = new WeekData(week);
+
+						if (weekFile != null
+							&& (isStoryMode == null
+								|| (isStoryMode && !weekFile.hideStoryMode)
+								|| (!isStoryMode && !weekFile.hideFreeplay)))
+						{
+							weeksLoaded.set(sexList[i], weekFile);
+							weeksList.push(sexList[i]);
+						}
+					}
+				}
+			}
+		}
+
+		var eitabixosexo:Array<String> = Utils.CoolUtil.coolTextFile(Paths.getPreloadPath('weeks/freeplayList.txt'));
+		for (i in 0...eitabixosexo.length)
+		{
+			for (j in 0...directories.length)
+			{
+				var fileToCheck:String = directories[j] + 'weeks/' + eitabixosexo[i] + '.json';
+				if (!weeksLoaded.exists(eitabixosexo[i]))
+				{
+					var week:WeekFile = getWeekFile(fileToCheck);
+					if (week != null)
+					{
+						var weekFile:WeekData = new WeekData(week);
+
+						if (weekFile != null)
+						{
+							weeksLoaded.set(eitabixosexo[i], weekFile);
+							freeplayList.push(eitabixosexo[i]);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private static function getWeekFile(path:String):WeekFile
+	{
+		var rawJson:String = null;
+		if (OpenFlAssets.exists(path))
+		{
+			rawJson = Assets.getText(path);
+		}
+
+		if (rawJson != null && rawJson.length > 0)
+		{
+			return cast Json.parse(rawJson);
+		}
+		return null;
+	}
+
+	//   FUNCTIONS YOU WILL PROBABLY NEVER NEED TO USE
+	// To use on PlayState.hx or Highscore stuff
+	public static function getWeekFileName():String
+	{
+		return weeksList[PlayState.storyWeek];
+	}
+
+	// Used on LoadingState, nothing really too relevant
+	public static function getCurrentWeek():WeekData
+	{
+		return weeksLoaded.get(weeksList[PlayState.storyWeek]);
+	}
+
+	public static function setDirectoryFromWeek(?data:WeekData = null)
+	{
+		Paths.currentModDirectory = '';
+		if (data != null && data.folder != null && data.folder.length > 0)
+		{
+			Paths.currentModDirectory = data.folder;
+		}
+	}
+}
+
+class StageData
+{
+	public static var forceNextDirectory:String = null;
+
+	public static function loadDirectory(SONG:SwagSong)
+	{
+		var stage:String = '';
+		if (SONG.stage != null)
+		{
+			stage = SONG.stage;
+		}
+		else if (SONG.song != null)
+		{
+			switch (SONG.song.toLowerCase().replace(' ', '-'))
+			{
+				case 'spookeez' | 'south' | 'monster':
+					stage = 'spooky';
+				case 'pico' | 'blammed' | 'philly' | 'philly-nice':
+					stage = 'philly';
+				case 'milf' | 'satin-panties' | 'high':
+					stage = 'limo';
+				case 'cocoa' | 'eggnog':
+					stage = 'mall';
+				case 'winter-horrorland':
+					stage = 'mallEvil';
+				case 'senpai' | 'roses':
+					stage = 'school';
+				case 'thorns':
+					stage = 'schoolEvil';
+				default:
+					stage = 'stage';
+			}
+		}
+		else
+		{
+			stage = 'stage';
+		}
+
+		var stageFile:StageFile = getStageFile(stage);
+		if (stageFile == null)
+		{ // preventing crashes
+			forceNextDirectory = '';
+		}
+		else
+		{
+			forceNextDirectory = stageFile.directory;
+		}
+	}
+
+	public static function getStageFile(stage:String):StageFile
+	{
+		var rawJson:String = null;
+		var path:String = Paths.getPreloadPath('stages/' + stage + '.json');
+
+		if (Assets.exists(path))
+		{
+			rawJson = Assets.getText(path);
+		}
+		else
+		{
+			return null;
+		}
+		return cast Json.parse(rawJson);
+	}
+}

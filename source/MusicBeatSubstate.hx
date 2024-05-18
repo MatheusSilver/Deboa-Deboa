@@ -1,11 +1,12 @@
 package;
 
 import flixel.FlxG;
-import Conductor.BPMChangeEvent;
+import Song.BPMChangeEvent;
 import flixel.FlxSubState;
+import Input.PlayerSettings;
 #if mobileC
 import flixel.input.actions.FlxActionInput;
-import ui.FlxVirtualPad;
+import ui.MobileControls.FlxVirtualPad;
 #end
 
 class MusicBeatSubstate extends FlxSubState
@@ -20,9 +21,9 @@ class MusicBeatSubstate extends FlxSubState
 
 	private var curStep:Int = 0;
 	private var curBeat:Int = 0;
-	private var controls(get, never):Controls;
+	private var controls(get, never):Input.Controls;
 
-	inline function get_controls():Controls
+	inline function get_controls():Input.Controls
 		return PlayerSettings.player1.controls;
 	
 	#if mobileC
@@ -78,13 +79,13 @@ class MusicBeatSubstate extends FlxSubState
 			songTime: 0,
 			bpm: 0
 		}
-		for (i in 0...Conductor.bpmChangeMap.length)
+		for (i in 0...Song.Conductor.bpmChangeMap.length)
 		{
-			if (Conductor.songPosition > Conductor.bpmChangeMap[i].songTime)
-				lastChange = Conductor.bpmChangeMap[i];
+			if (Song.Conductor.songPosition > Song.Conductor.bpmChangeMap[i].songTime)
+				lastChange = Song.Conductor.bpmChangeMap[i];
 		}
 
-		curStep = lastChange.stepTime + Math.floor((Conductor.songPosition - lastChange.songTime) / Conductor.stepCrochet);
+		curStep = lastChange.stepTime + Math.floor((Song.Conductor.songPosition - lastChange.songTime) / Song.Conductor.stepCrochet);
 	}
 
 	public function stepHit():Void

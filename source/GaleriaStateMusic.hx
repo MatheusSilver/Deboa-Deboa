@@ -123,19 +123,19 @@ class GaleriaStateMusic extends MusicBeatState
 		overlaySuporte.x = FlxG.width - overlaySuporte.width;
 		add(overlaySuporte);
 
-		letrasbotao = new FlxButton(0,0,LangUtil.getString("gall_lyrics_button", "gallery"));
+		letrasbotao = new FlxButton(0,0,Linguagem.LangUtil.getString("gall_lyrics_button", "gallery"));
 		letrasbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
 		letrasbotao.x = FlxG.width - 50 - letrasbotao.width;
-		letrasbotao.label.setFormat(LangUtil.getFont("roboto"), 16, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		letrasbotao.label.setFormat(Linguagem.LangUtil.getFont("roboto"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 		letrasbotao.labelAlphas=[letrasbotao.alpha,letrasbotao.alpha+0.15,1];	
 		letrasbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,20)];
 		letrasbotao.label.bold=true;
 		letrasbotao.y = 0;
 		letrasbotao.alpha = 0;
 
-		playListbotao = new FlxButton(0,0,LangUtil.getString("gall_playlist_button", "gallery"));
+		playListbotao = new FlxButton(0,0,Linguagem.LangUtil.getString("gall_playlist_button", "gallery"));
 		playListbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
-		playListbotao.label.setFormat(LangUtil.getFont("roboto"), 16, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		playListbotao.label.setFormat(Linguagem.LangUtil.getFont("roboto"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 		playListbotao.labelAlphas=[playListbotao.alpha,playListbotao.alpha+0.15,1];	
 		playListbotao.label.bold=true;
 		playListbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,21)];
@@ -143,7 +143,7 @@ class GaleriaStateMusic extends MusicBeatState
 		playListbotao.y = letrasbotao.y;
 		playListbotao.alpha = 0;
 
-		tocandoagora = new FlxText(playListbotao.x, FlxG.height*0.45 - 30, 100, LangUtil.getString("gall_play_now", "gallery"), 13);
+		tocandoagora = new FlxText(playListbotao.x, FlxG.height*0.45 - 30, 100, Linguagem.LangUtil.getString("gall_play_now", "gallery"), 13);
 		tocandoagora.setFormat(Paths.font("Arial.ttf"), 13, 0xFF808080, LEFT);
 		tocandoagora.alpha = 0;
 		add(tocandoagora);
@@ -173,7 +173,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		for (i in 0...options.length) { //Em busca da engine automática k
 			
-			var optionText:FlxText = new FlxText(playListbotao.x, playListbotao.y + playListbotao.height + i*75 + 35, 200, LangUtil.getString("gall_"+options[i], "gallery"), 16);
+			var optionText:FlxText = new FlxText(playListbotao.x, playListbotao.y + playListbotao.height + i*75 + 35, 200, Linguagem.LangUtil.getString("gall_"+options[i], "gallery"), 16);
 			optionText.setFormat(Paths.font("Arial.ttf"), 16, 0xFFFFFF, LEFT);
 			optionText.alpha = 0;
 			optionText.antialiasing = ClientPrefs.globalAntialiasing;
@@ -513,9 +513,9 @@ class GaleriaStateMusic extends MusicBeatState
 
 			#if rpc
 			if(!pausado)
-				DiscordClient.changePresence(LangUtil.getString("rpc_ytb_music_listening", "rpc"), GaleriaState.titulos[curSelected], true, songLength - curTime);
+				DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_ytb_music_listening", "rpc"), GaleriaState.titulos[curSelected], true, songLength - curTime);
 			else
-				DiscordClient.changePresence(LangUtil.getString("rpc_ytb_music_paused", "rpc"), GaleriaState.titulos[curSelected], true, songLength - curTime);
+				DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_ytb_music_paused", "rpc"), GaleriaState.titulos[curSelected], true, songLength - curTime);
 			#end
 
 		if((BSLTouchUtils.over(menuItems)&&!isLetras) || BSLTouchUtils.over(checkboxArray) ||
@@ -661,7 +661,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		//Limpa primeiro, depois recarrega a letra
 		if (openfl.utils.Assets.exists(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true)))
-			daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true));
+			daLyric = Utils.CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true));
 		else
 			daLyric = ['Não', 'Existem', 'Letras', 'Nyehehehehehehehhe'];
 

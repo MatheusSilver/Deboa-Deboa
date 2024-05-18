@@ -45,9 +45,9 @@ class ControlSongSubstate extends MusicBeatSubstate
 		var alphas:Array<Float> = [0.6, 1.25];
 		confirmInt = onYes ? 0 : 1;
 		if (confirmInt == 0) {
-			explanationtext.text = LangUtil.getString("control_text_expla_yes", "data", "\n");
+			explanationtext.text = Linguagem.LangUtil.getString("control_text_expla_yes", "data", "\n");
 		} else if (confirmInt == 1){
-			explanationtext.text = LangUtil.getString("control_text_expla_no", "data", "\n");
+			explanationtext.text = Linguagem.LangUtil.getString("control_text_expla_no", "data", "\n");
 		}
 
 		noText.alpha = alphas[confirmInt];
@@ -67,17 +67,17 @@ class ControlSongSubstate extends MusicBeatSubstate
 		bg.scrollFactor.set();
 		add(bg);
 
-		var text:Alphabet = new Alphabet(0, 180, LangUtil.getString("control_text_activate_gif", "data"), true);
+		var text:Alphabet = new Alphabet(0, 180, Linguagem.LangUtil.getString("control_text_activate_gif", "data"), true);
 		text.screenCenter(X);
 		alphabetArray.push(text);
 		text.alpha = 0;
 		add(text);
 
-		yesText = new Alphabet(0, text.y + 150, LangUtil.getString("common_text_yes", "data"), true);
+		yesText = new Alphabet(0, text.y + 150, Linguagem.LangUtil.getString("common_text_yes", "data"), true);
 		yesText.screenCenter(X);
 		yesText.x -= 200;
 		add(yesText);
-		noText = new Alphabet(0, text.y + 150, LangUtil.getString("common_text_no", "data"), true);
+		noText = new Alphabet(0, text.y + 150, Linguagem.LangUtil.getString("common_text_no", "data"), true);
 		noText.screenCenter(X);
 		noText.x += 200;
 		add(noText);

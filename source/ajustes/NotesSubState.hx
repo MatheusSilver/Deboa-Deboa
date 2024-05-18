@@ -3,7 +3,7 @@ package ajustes;
 #if rpc
 import Discord.DiscordClient;
 #end
-import Controls;
+import Input.Controls;
 import flash.text.TextField;
 import flash.text.TextField;
 import flixel.FlxG;
@@ -93,9 +93,9 @@ class NotesSubState extends MusicBeatState
 			newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
 			shaderArray.push(newShader);
 		}
-		var hueText:String = LangUtil.getString("opt_hue", "optionsMenu");
-		var saturationText:String = LangUtil.getString("opt_saturation", "optionsMenu");
-		var brightnessText:String = LangUtil.getString("opt_brightness", "optionsMenu"); //CLAReza kek
+		var hueText:String = Linguagem.LangUtil.getString("opt_hue", "optionsMenu");
+		var saturationText:String = Linguagem.LangUtil.getString("opt_saturation", "optionsMenu");
+		var brightnessText:String = Linguagem.LangUtil.getString("opt_brightness", "optionsMenu"); //CLAReza kek
 		var whitespacelen:Int = Math.floor((24-hueText.length + saturationText.length + brightnessText.length)/6);
 		var whitespace:String = ''; //Eu realmente não gosto deste code...
 		for (i in 0...whitespacelen) {
@@ -224,7 +224,7 @@ class NotesSubState extends MusicBeatState
 			}
 		}
 
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+		var lerpVal:Float = Utils.CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 		for (i in 0...grpNotes.length)
 		{
 			var item = grpNotes.members[i];

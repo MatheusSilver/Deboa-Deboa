@@ -168,9 +168,9 @@ function onUpdatePost(elapsed)
 if getPropertyFromClass('flixel.FlxG', 'keys.justPressed.SPACE') and not skipped and skipable then
 
 
-	setPropertyFromClass('Conductor', 'songPosition', 13.6 * 1000  ) -- 13.6
-	setPropertyFromClass('flixel.FlxG', 'sound.music.time', getPropertyFromClass('Conductor', 'songPosition'))
-	setProperty('vocals.time', getPropertyFromClass('Conductor', 'songPosition'))
+	setPropertyFromClass('Song.Conductor', 'songPosition', 13.6 * 1000  ) -- 13.6
+	setPropertyFromClass('flixel.FlxG', 'sound.music.time', getPropertyFromClass('Song.Conductor', 'songPosition'))
+	setProperty('vocals.time', getPropertyFromClass('Song.Conductor', 'songPosition'))
 	
 --Remove intro stuff	
 	

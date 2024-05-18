@@ -22,7 +22,7 @@ class AlreadyLogged extends MusicBeatState
 		Main.mouse_allowed = true;
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_credit_menu", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_credit_menu", "rpc"), null);
 		#end
 
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));

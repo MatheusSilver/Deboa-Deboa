@@ -301,7 +301,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = false;
 					PlayState.cpuControlled = false;
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
-					MusicBeatState.switchState(new EstadoDeTrocaReverso());
+					MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
 					Achievements.syncWithGJLater();
 			}
 		}
@@ -353,7 +353,7 @@ class PauseSubState extends MusicBeatSubstate
 			var manager:FlxTimerManager = new FlxTimerManager();
 			manager.clear();
 			loops=0;
-					new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer){
+					new FlxTimer().start(Song.Conductor.crochet / 1000, function(tmr:FlxTimer){
 						loops++;
 						switch (Std.int(loops))
 						{ 

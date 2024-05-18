@@ -488,9 +488,9 @@ setProperty('hand attack.y',getProperty('dad.y')+60)
 
 if GameOver == true then
 
-setPropertyFromClass('Conductor', 'songPosition', -10000 ) -- it is counted by milliseconds, 1000 = 1 second
-setPropertyFromClass('flixel.FlxG', 'sound.music.time', getPropertyFromClass('Conductor', 'songPosition'))
-setProperty('vocals.time', getPropertyFromClass('Conductor', 'songPosition'))
+setPropertyFromClass('Song.Conductor', 'songPosition', -10000 ) -- it is counted by milliseconds, 1000 = 1 second
+setPropertyFromClass('flixel.FlxG', 'sound.music.time', getPropertyFromClass('Song.Conductor', 'songPosition'))
+setProperty('vocals.time', getPropertyFromClass('Song.Conductor', 'songPosition'))
 setPropertyFromClass('flixel.FlxG', 'sound.music.volume', 0)
 setProperty('vocals.volume', 0)
 

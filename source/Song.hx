@@ -1,11 +1,165 @@
 package;
 
-import Section.SwagSection;
 import haxe.Json;
 import lime.utils.Assets;
 
 using StringTools;
 
+typedef SwagSection =
+{
+	var sectionNotes:Array<Dynamic>;
+	var lengthInSteps:Int;
+	var typeOfSection:Int;
+	var mustHitSection:Bool;
+	var gfSection:Bool;
+	var bpm:Float;
+	var changeBPM:Bool;
+	var altAnim:Bool;
+}
+
+class Section
+{
+	public var sectionNotes:Array<Dynamic> = [];
+
+	public var lengthInSteps:Int = 16;
+	public var gfSection:Bool = false;
+	public var typeOfSection:Int = 0;
+	public var mustHitSection:Bool = true;
+
+	/**
+	 *	Copies the first section into the second section!
+	 */
+	public static var COPYCAT:Int = 0;
+
+	public function new(lengthInSteps:Int = 16)
+	{
+		this.lengthInSteps = lengthInSteps;
+	}
+}
+
+typedef BPMChangeEvent =
+{
+	var stepTime:Int;
+	var songTime:Float;
+	var bpm:Float;
+	@:optional var stepCrochet:Float;
+}
+
+class Conductor
+{
+	public static var bpm:Float = 100;
+	public static var crochet:Float = ((60 / bpm) * 1000); // beats in milliseconds
+	public static var stepCrochet:Float = crochet / 4; // steps in milliseconds
+	public static var songPosition:Float;
+	public static var lastSongPos:Float;
+	public static var offset:Float = 0;
+
+	public static var safeFrames:Int = 10;
+	public static var safeZoneOffset:Float = (safeFrames / 60) * 1000; // is calculated in create(), is safeFrames in milliseconds
+
+	public static var bpmChangeMap:Array<BPMChangeEvent> = [];
+
+	public function new() {}
+
+	public static function getBPMFromSeconds(time:Float)
+	{
+		var lastChange:BPMChangeEvent = {
+			stepTime: 0,
+			songTime: 0,
+			bpm: bpm,
+			stepCrochet: stepCrochet
+		}
+		for (i in 0...Conductor.bpmChangeMap.length)
+		{
+			if (time >= Conductor.bpmChangeMap[i].songTime)
+				lastChange = Conductor.bpmChangeMap[i];
+		}
+
+		return lastChange;
+	}
+
+	public static function getBPMFromStep(step:Float)
+	{
+		var lastChange:BPMChangeEvent = {
+			stepTime: 0,
+			songTime: 0,
+			bpm: bpm,
+			stepCrochet: stepCrochet
+		}
+		for (i in 0...Conductor.bpmChangeMap.length)
+		{
+			if (Conductor.bpmChangeMap[i].stepTime <= step)
+				lastChange = Conductor.bpmChangeMap[i];
+		}
+
+		return lastChange;
+	}
+
+	public static function mapBPMChanges(song:SwagSong)
+	{
+		bpmChangeMap = [];
+
+		var curBPM:Float = song.bpm;
+		var totalSteps:Int = 0;
+		var totalPos:Float = 0;
+		for (i in 0...song.notes.length)
+		{
+			if (song.notes[i].changeBPM && song.notes[i].bpm != curBPM)
+			{
+				curBPM = song.notes[i].bpm;
+				var event:BPMChangeEvent = {
+					stepTime: totalSteps,
+					songTime: totalPos,
+					bpm: curBPM,
+					stepCrochet: ((60 / curBPM) * 1000) / 4
+				};
+				bpmChangeMap.push(event);
+			}
+
+			var deltaSteps:Int = song.notes[i].lengthInSteps;
+			totalSteps += deltaSteps;
+			totalPos += ((60 / curBPM) * 1000 / 4) * deltaSteps;
+		}
+		#if debug
+		trace("new BPM map BUDDY " + bpmChangeMap);
+		#end
+	}
+
+	public static function stepToSeconds(step:Float)
+	{
+		var lastChange = getBPMFromStep(step);
+		return step * lastChange.stepCrochet; // TODO: make less shit and take BPM into account PROPERLY
+	}
+
+	public static function getCrotchetAtTime(time:Float)
+	{
+		var lastChange = getBPMFromSeconds(time);
+		return lastChange.stepCrochet * 4;
+	}
+
+	public static function beatToSeconds(beat:Float)
+	{
+		var step = beat * 4;
+		var lastChange = getBPMFromStep(step);
+		return lastChange.songTime
+			+
+			((step - lastChange.stepTime) / (lastChange.bpm / 60) / 4) * 1000; // step * (lastChange.stepCrochet*4); // TODO: make less shit and take BPM into account PROPERLY
+	}
+
+	public static function getStep(time:Float)
+	{
+		var lastChange = getBPMFromSeconds(time);
+		return lastChange.stepTime + (time - lastChange.songTime) / lastChange.stepCrochet;
+	}
+
+	public static function changeBPM(newBpm:Float)
+	{
+		bpm = newBpm;
+
+		crochet = ((60 / bpm) * 1000);
+		stepCrochet = crochet / 4;
+	}
+}
 
 typedef SwagSong =
 {
@@ -58,11 +212,12 @@ class Song
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
 	{
 		var rawJson = null;
-		
+
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 
-		if(rawJson == null) { //Isso aqui só foi feito pra engine poder reconhecer as lyrics que o konan for colocar sem precisar serem compiladas
+		if (rawJson == null)
+		{ // Isso aqui só foi feito pra engine poder reconhecer as lyrics que o konan for colocar sem precisar serem compiladas
 			// Não sabia que o assets não conseguia fazer isso, mas até que faz sentido
 			#if DESKTOPDEBUG
 			rawJson = sys.io.File.getContent(Paths.json(formattedFolder + '/' + formattedSong)).trim();
@@ -77,24 +232,9 @@ class Song
 			// LOL GOING THROUGH THE BULLSHIT TO CLEAN IDK WHATS STRANGE
 		}
 
-		// FIX THE CASTING ON WINDOWS/NATIVE
-		// Windows???
-		// trace(songData);
-
-		// trace('LOADED FROM JSON: ' + songData.notes);
-		/* 
-			for (i in 0...songData.notes.length)
-			{
-				trace('LOADED FROM JSON: ' + songData.notes[i].sectionNotes);
-				// songData.notes[i].sectionNotes = songData.notes[i].sectionNotes
-			}
-
-				daNotes = songData.notes;
-				daSong = songData.song;
-				daBpm = songData.bpm; */
-
 		var songJson:SwagSong = parseJSONshit(rawJson);
-		if(jsonInput != 'events') StageData.loadDirectory(songJson);
+		if (jsonInput != 'events')
+			Metadata.StageData.loadDirectory(songJson);
 		return songJson;
 	}
 

@@ -24,7 +24,7 @@ import openfl.display.BlendMode;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ShaderFilter;
 import openfl.utils.Assets as OpenFlAssets;
-
+import Videos.MP4Sprite;
 using StringTools;
 #if LUA_ALLOWED
 import llua.Convert;
@@ -90,11 +90,11 @@ class FunkinLua {
 		set('inChartEditor', false);
 
 		// Song/Week shit
-		set('curBpm', Conductor.bpm);
+		set('curBpm', Song.Conductor.bpm);
 		set('bpm', PlayState.SONG.bpm);
 		set('scrollSpeed', PlayState.SONG.speed);
-		set('crochet', Conductor.crochet);
-		set('stepCrochet', Conductor.stepCrochet);
+		set('crochet', Song.Conductor.crochet);
+		set('stepCrochet', Song.Conductor.stepCrochet);
 	//	set('songLength', FlxG.sound.music.length);
 		set('songName', PlayState.SONG.song);
 		set('startedCountdown', false);
@@ -103,7 +103,7 @@ class FunkinLua {
 		set('stage', PlayState.SONG.stage);
 		set('difficulty', PlayState.storyDifficulty);
 		set('weekRaw', PlayState.storyWeek);
-		set('week', WeekData.weeksList[PlayState.storyWeek]);
+		set('week', Metadata.WeekData.weeksList[PlayState.storyWeek]);
 		set('seenCutscene', PlayState.seenCutscene);
 
 		// Camera poo
@@ -749,7 +749,7 @@ class FunkinLua {
 			PlayState.instance.endSong();
 		});
 		Lua_helper.add_callback(lua, "getSongPosition", function() {
-			return Conductor.songPosition - 18; //sei lá porque mas é isso... (usado no debugging da chasing)
+			return Song.Conductor.songPosition - 18; //sei lá porque mas é isso... (usado no debugging da chasing)
 		});
 
 		Lua_helper.add_callback(lua, "getCharacterX", function(type:String) {
@@ -869,7 +869,7 @@ class FunkinLua {
 			PlayState.instance.modchartVideoSprites.set(tag, leVideo);
 		});
 		Lua_helper.add_callback(lua, "playVideoSprite", function(tag:String, video:String, size:Float = 1) {
-			PlayState.instance.modchartVideoSprites.get(tag).playMP4(Paths.video(video), Conductor.songPosition / 1000);
+			PlayState.instance.modchartVideoSprites.get(tag).playMP4(Paths.video(video), Song.Conductor.songPosition / 1000);
 			PlayState.instance.modchartVideoSprites.get(tag).scale.x = PlayState.instance.modchartVideoSprites.get(tag).scale.y = size;
 		});
 
@@ -940,13 +940,13 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {
 			if(PlayState.instance.modchartSprites.exists(obj)) {
-				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, CoolUtil.colorFromString(color));
+				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, Utils.CoolUtil.colorFromString(color));
 				return;
 			}
 
 			var object:FlxSprite = Reflect.getProperty(PlayState.instance, obj);
 			if(object != null) {
-				object.makeGraphic(width, height, CoolUtil.colorFromString(color));
+				object.makeGraphic(width, height, Utils.CoolUtil.colorFromString(color));
 				return;
 			}
 		});
@@ -1656,7 +1656,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "luaSpriteMakeGraphic", function(tag:String, width:Int, height:Int, color:String) {
 			//luaTrace("luaSpriteMakeGraphic is deprecated! Use makeGraphic instead", false, true);
 			if(PlayState.instance.modchartSprites.exists(tag))
-				PlayState.instance.modchartSprites.get(tag).makeGraphic(width, height, CoolUtil.colorFromString(color));
+				PlayState.instance.modchartSprites.get(tag).makeGraphic(width, height, Utils.CoolUtil.colorFromString(color));
 			return;
 		});
 		Lua_helper.add_callback(lua, "luaSpriteAddAnimationByPrefix", function(tag:String, name:String, prefix:String, framerate:Int = 24, loop:Bool = true) {

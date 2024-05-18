@@ -20,7 +20,7 @@ Agora a parte específica para compilações de android:
 `haxelib install actuate`
 
 e ainda deverá instalar essa ultima extensão:
-`haxelib git extension-webview https://github.com/MateuzinhoX02/extension-webview`
+`haxelib git extension-webview https://github.com/TeamX02/extension-webview`
 
 Caso o seu projeto não rode com Vídeos, basta remover o Videos_Allowed de project.xml
 Ou caso não queira Lua em seu projeto, basta remover o Lua_Allowed do seu projeto.

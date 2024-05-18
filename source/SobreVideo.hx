@@ -6,6 +6,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import Videos.MP4Sprite;
 
 using StringTools;
 #if rpc
@@ -32,7 +33,7 @@ class SobreVideo extends MusicBeatState
             Main.mouse_allowed = true;
 			#if rpc
 			// Updating Discord Rich Presence
-			DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);
+			DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_about", "rpc"), null);
 			#end
             FlxG.sound.music.fadeIn(0.35, 0.7, 0);
             new FlxTimer().start(0.8, function(tmr:FlxTimer){

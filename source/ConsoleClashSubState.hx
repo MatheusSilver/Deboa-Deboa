@@ -57,7 +57,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		
 		var name:String = song;
 		if(week > -1) {
-			name = WeekData.weeksLoaded.get(WeekData.weeksList[week]).weekName;
+			name = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[week]).weekName;
 		}
 		
 		

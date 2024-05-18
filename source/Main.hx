@@ -24,6 +24,7 @@ import gamejolt.InviteBackEnd;
 #if rpc
 import Discord.DiscordClient;
 #end
+import Linguagem.FireTongueEx;
 
 using StringTools;
 

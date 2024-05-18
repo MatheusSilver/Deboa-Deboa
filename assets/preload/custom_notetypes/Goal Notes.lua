@@ -39,7 +39,7 @@ function goodNoteHit(id, noteData, noteType, isSustainNote)
 		
 		doTweenAngle('angleTweenCam','camera',360,1,'linear')
 		
-	    setPropertyFromClass('Conductor', 'songPosition', -100000 ) -- it is counted by milliseconds, 1000 = 1 second
+	    setPropertyFromClass('Song.Conductor', 'songPosition', -100000 ) -- it is counted by milliseconds, 1000 = 1 second
      
         setPropertyFromClass('flixel.FlxG', 'sound.music.volume', 0)
 		

@@ -2,6 +2,7 @@ package;
 
 import Utils.BSLSwipeUtils;
 import Utils.BSLTouchUtils;
+import Utils.SpriteSwapper;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -38,7 +39,7 @@ class CreditsMusics extends MusicBeatState
 		Main.mouse_allowed = true;
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_credit_menu", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_credit_menu", "rpc"), null);
 		#end
 		/*bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -95,7 +96,7 @@ class CreditsMusics extends MusicBeatState
 		if (Main.getMouseVisibility()){
 			#if desktop
 			if(FlxG.mouse.wheel != 0 && creditList.members[0].tweenController==null)
-				changeSelection(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
+				changeSelection(Utils.CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
 			#end
 			if (BSLSwipeUtils.scrollX!=0 && creditList.members[0].tweenController==null){
 				creditList.forEach(function(spr:SpriteSwapper)

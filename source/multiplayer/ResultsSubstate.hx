@@ -27,11 +27,11 @@ class ResultsSubstate extends MusicBeatSubstate
         upper_black.antialiasing = ClientPrefs.globalAntialiasing;
 
         
-        var song_name:FlxText = new FlxText(0,0,0,CoolUtil.capitalize(PlayState.SONG.song), 32);
-        song_name.setFormat(LangUtil.getFont("smb"), 24, FlxColor.WHITE, LEFT);
+        var song_name:FlxText = new FlxText(0,0,0,Utils.CoolUtil.capitalize(PlayState.SONG.song), 32);
+        song_name.setFormat(Linguagem.LangUtil.getFont("smb"), 24, FlxColor.WHITE, LEFT);
 
         var diff_text:FlxText = new FlxText(0,song_name.y+song_name.height + 5, 0, "hard", 32);
-        diff_text.setFormat(LangUtil.getFont("smb"), 20, FlxColor.RED, LEFT);
+        diff_text.setFormat(Linguagem.LangUtil.getFont("smb"), 20, FlxColor.RED, LEFT);
 
         opp_box = new ResultsObject(FlxColor.RED, [1,2,3,4], 0.5, 10, 100, true);
         opp_box.y = (FlxG.height-opp_box.height)/2+50;
@@ -42,10 +42,10 @@ class ResultsSubstate extends MusicBeatSubstate
         player_box.x = 0;
 
         var opp_name:FlxText = new FlxText(opp_box.x, opp_box.y-40, opp_box.width, opp_name, 24);
-        opp_name.setFormat(LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        opp_name.setFormat(Linguagem.LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         
         var player_name:FlxText = new FlxText(player_box.x, player_box.y-40, player_box.width, player_name, 24);
-        player_name.setFormat(LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        player_name.setFormat(Linguagem.LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
 
 

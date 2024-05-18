@@ -89,7 +89,7 @@ class ModifiersManager
             {
                 if(i==modifierID)
                 {
-                    return LangUtil.getString("mod_desc_"+allModifiers[i][1], "modifier");
+                    return Linguagem.LangUtil.getString("mod_desc_"+allModifiers[i][1], "modifier");
                 }
             }
         return "";

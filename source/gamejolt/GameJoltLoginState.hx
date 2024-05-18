@@ -42,7 +42,7 @@ class GameJoltLoginState extends MusicBeatState
             #end
 
 			#if rpc
-			DiscordClient.changePresence(LangUtil.getString("rpc_gamejolt", "rpc"), null);
+			DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_gamejolt", "rpc"), null);
 			#end
 
 			var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('optionsmenu/login_back'));		
@@ -183,7 +183,7 @@ class GameJoltLoginState extends MusicBeatState
                     {
                         if(userBar.text != "USERNAME" && tokenBar.text != "TOKEN")
                             {
-                                msgBar.text=LangUtil.getString("gj_login_connecting", "optionsMenu");
+                                msgBar.text=Linguagem.LangUtil.getString("gj_login_connecting", "optionsMenu");
                                 GJClient.logout();
                                 GJClient.shitt=true;
                                 GJClient.setUserInfo(userBar.text, tokenBar.text);
@@ -210,7 +210,7 @@ class GameJoltLoginState extends MusicBeatState
                 new FlxTimer().start(2, function(tmr:FlxTimer){
                     esconderTexto=true;
                 });
-                msgBar.text=LangUtil.getString("gj_login_failed", "optionsMenu");
+                msgBar.text=Linguagem.LangUtil.getString("gj_login_failed", "optionsMenu");
             }
         public static function IrParaMenu():Void
             {

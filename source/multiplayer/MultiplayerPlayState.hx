@@ -2,7 +2,7 @@ package multiplayer;
 
 
 import FunkinLua;
-import Section.SwagSection;
+import Song.SwagSection;
 import Song.SwagSong;
 import flixel.FlxGame;
 import flixel.FlxG;
@@ -37,6 +37,7 @@ import openfl.events.Event;
 import openfl.events.ErrorEvent;
 import openfl.display.Loader;
 import multiplayer.MultiplayerMainMenuState;
+import Note.NoteSplash;
 
 using StringTools;
 
@@ -95,7 +96,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		oppBf = new Boyfriend(0, 0, oppObject.charID);
 
 		this.startPos = startPos;
-		Conductor.songPosition = startPos - startOffset;
+		Song.Conductor.songPosition = startPos - startOffset;
         if(!trocarLados)
 			{isPlayer1 = !isHost;}
 		else
@@ -121,7 +122,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			_song.arrowSkin = "NOTE_assets";
 			_song.splashSkin = "noteSplashes";
 			PlayState.SONG = _song;
-			startOffset = Conductor.crochet;
+			startOffset = Song.Conductor.crochet;
 			timerToStart = startOffset;
 		}
 		super();
@@ -241,7 +242,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		blackStuff.screenCenter(XY);
 		blackStuff.alpha = 0.5;
 		add(blackStuff);
-		waitingForOthers = new FlxText(0, 0, FlxG.width, LangUtil.getString("game_loading_txt", "multiplayer"), 30);
+		waitingForOthers = new FlxText(0, 0, FlxG.width, Linguagem.LangUtil.getString("game_loading_txt", "multiplayer"), 30);
 		waitingForOthers.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		waitingForOthers.screenCenter(XY);
 		add(waitingForOthers);
@@ -253,7 +254,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		add(terminarBar);
 		terminarBar.updateFilledBar();
 		terminarBar.updateBar();
-		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 80, FlxG.width, LangUtil.getString("game_stop_text", "multiplayer"), 17);
+		terminarTxt = new FlxText(20, ClientPrefs.downScroll  ? 40 : FlxG.height - 80, FlxG.width, Linguagem.LangUtil.getString("game_stop_text", "multiplayer"), 17);
 		terminarTxt.color = FlxColor.BLACK;
 		terminarTxt.visible = false;
 		add(terminarTxt);
@@ -289,7 +290,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		blackStuff.destroy();
 
 		var loops:Int = 0;
-		new FlxTimer().start(Conductor.crochet / 1000, function(tmr:FlxTimer){
+		new FlxTimer().start(Song.Conductor.crochet / 1000, function(tmr:FlxTimer){
 			loops++;
 			switch (Std.int(loops))
 			{ 
@@ -370,7 +371,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		vocals.volume = 0;
 
 		var songData = _song;
-		Conductor.changeBPM(songData.bpm);
+		Song.Conductor.changeBPM(songData.bpm);
 		
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -455,7 +456,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	
 							var susLength:Float = swagNote.sustainLength;
 	
-							susLength = susLength / Conductor.stepCrochet;
+							susLength = susLength / Song.Conductor.stepCrochet;
 							unspawnNotes.push(swagNote);
 	
 							var floorSus:Int = Math.floor(susLength);
@@ -464,7 +465,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 								{
 									oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 	
-									var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(_song.speed, 2)), daNoteData, oldNote, true);
+									var sustainNote:Note = new Note(daStrumTime + (Song.Conductor.stepCrochet * susNote) + (Song.Conductor.stepCrochet / FlxMath.roundDecimal(_song.speed, 2)), daNoteData, oldNote, true);
 									sustainNote.mustPress = gottaHitNote;
 									sustainNote.noteType = swagNote.noteType;
 									sustainNote.scrollFactor.set();
@@ -569,11 +570,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		switch(euGanhei())
 		{
 			case 0:
-				textoAviso.text = LangUtil.getString("results_tie_text", "multiplayer");
+				textoAviso.text = Linguagem.LangUtil.getString("results_tie_text", "multiplayer");
 			case 1:
-				textoAviso.text = LangUtil.getString("results_win_text", "multiplayer");
+				textoAviso.text = Linguagem.LangUtil.getString("results_win_text", "multiplayer");
 			case -1:
-				textoAviso.text = LangUtil.getString("results_lose_text", "multiplayer");
+				textoAviso.text = Linguagem.LangUtil.getString("results_lose_text", "multiplayer");
 		}
 
 		add(textoAviso);
@@ -632,7 +633,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		while (shouldUpdate()){
 			if (startingSong) {
 				/*timerToStart -= elapsed * 1000;
-				Conductor.songPosition = startPos - timerToStart;*/
+				Song.Conductor.songPosition = startPos - timerToStart;*/
 				if(podeComecar > 1 && !saidGo) {
 					podeComecar = 0;
 					sayGo();
@@ -642,7 +643,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 					startSong();
 				}
 			} else {
-				Conductor.songPosition += elapsed * 1000;
+				Song.Conductor.songPosition += elapsed * 1000;
 				if(podeTerminar > 1 && !endingSong)
 				{
 					endSong();
@@ -682,7 +683,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			var time:Float = 1500;
 			if(roundedSpeed < 1) time /= roundedSpeed;
 
-			while (unspawnNotes.length > 0 && unspawnNotes[0].strumTime - Conductor.songPosition < time)
+			while (unspawnNotes.length > 0 && unspawnNotes[0].strumTime - Song.Conductor.songPosition < time)
 			{
 				var dunceNote:Note = unspawnNotes[0];
 				notes.add(dunceNote);
@@ -733,7 +734,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				}
 				if(daNote.copyY) {
 					if (ClientPrefs.downScroll) {
-						daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
+						daNote.y = (strumY + 0.45 * (Song.Conductor.songPosition - daNote.strumTime) * roundedSpeed);
 						if (daNote.isSustainNote) {
 							//Jesus fuck this took me so much mother fucking time AAAAAAAAAA
 							if (daNote.animation.curAnim.name.endsWith('end')) {
@@ -762,7 +763,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 							}
 						}
 					} else {
-						daNote.y = (strumY - 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
+						daNote.y = (strumY - 0.45 * (Song.Conductor.songPosition - daNote.strumTime) * roundedSpeed);
 
 						if(daNote.mustPress || daNote.hitByOpponent)
 						{
@@ -801,7 +802,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 							else
 							{
 								if (ClientPrefs.downScroll) {
-									daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
+									daNote.y = (strumY + 0.45 * (Song.Conductor.songPosition - daNote.strumTime) * roundedSpeed);
 									if (daNote.animation.curAnim.name.endsWith('end')) {
 										daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * roundedSpeed + (46 * (roundedSpeed - 1));
 										daNote.y -= 46 * (1 - (fakeCrochet / 600)) * roundedSpeed;
@@ -826,7 +827,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 								}
 								else
 								{
-									daNote.y = (strumY - 0.45 * (Conductor.songPosition - daNote.strumTime) * roundedSpeed);
+									daNote.y = (strumY - 0.45 * (Song.Conductor.songPosition - daNote.strumTime) * roundedSpeed);
 										
 									if (daNote.isSustainNote
 										&& daNote.y + daNote.offset.y * daNote.scale.y <= center
@@ -886,7 +887,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		{
 			keyShit();
 
-			var holdTimerThreshold:Float = Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * oppBf.singDuration;
+			var holdTimerThreshold:Float = Song.Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * oppBf.singDuration;
 			if (oppBf.animation.curAnim != null
 				&& oppBf.holdTimer > holdTimerThreshold
 				&& oppBf.animation.curAnim.name.startsWith('sing')
@@ -899,11 +900,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		switch(currentMode)
 		{
 			case 0:
-				scoreTxt.text = LangUtil.getString("game_your_score", "multiplayer") +' '+songScore +  '\n' + LangUtil.getString("game_opp_score", "multiplayer") +' '+opponentScore;
+				scoreTxt.text = Linguagem.LangUtil.getString("game_your_score", "multiplayer") +' '+songScore +  '\n' + Linguagem.LangUtil.getString("game_opp_score", "multiplayer") +' '+opponentScore;
 			case 1:
-				scoreTxt.text = LangUtil.getString("game_your_hits", "multiplayer") +' '+songHits + '\n' + LangUtil.getString("game_opp_hits", "multiplayer") +' '+opponentHits;
+				scoreTxt.text = Linguagem.LangUtil.getString("game_your_hits", "multiplayer") +' '+songHits + '\n' + Linguagem.LangUtil.getString("game_opp_hits", "multiplayer") +' '+opponentHits;
 			case 2:
-				scoreTxt.text = LangUtil.getString("game_your_misses", "multiplayer") +' '+songMisses + '\n' + LangUtil.getString("game_opp_misses", "multiplayer") +' '+opponentMisses;
+				scoreTxt.text = Linguagem.LangUtil.getString("game_your_misses", "multiplayer") +' '+songMisses + '\n' + Linguagem.LangUtil.getString("game_opp_misses", "multiplayer") +' '+opponentMisses;
 		}
 		MultiplayerMainMenuState.instance.enviarMissesEHits(songHits, songMisses, songScore);
 		super.update(elapsed);
@@ -921,7 +922,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	override function stepHit()
 	{
 		super.stepHit();
-		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
+		if (FlxG.sound.music.time > Song.Conductor.songPosition + 20 || FlxG.sound.music.time < Song.Conductor.songPosition - 20)
 		{
 			resyncVocals();
 		}
@@ -932,8 +933,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		vocals.pause();
 
 		FlxG.sound.music.play();
-		Conductor.songPosition = FlxG.sound.music.time;
-		vocals.time = Conductor.songPosition;
+		Song.Conductor.songPosition = FlxG.sound.music.time;
+		vocals.time = Song.Conductor.songPosition;
 		vocals.play();
 	}
 
@@ -1015,7 +1016,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			}
 		}
 
-		var holdTimerThreshold:Float = Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * myBf.singDuration;
+		var holdTimerThreshold:Float = Song.Conductor.stepCrochet * (0.0011 /*/ FlxG.sound.music.pitch*/) * myBf.singDuration;
 		if (!controlHoldArray.contains(true) && myBf.animation.curAnim != null
 			&& myBf.holdTimer > holdTimerThreshold
 			&& myBf.animation.curAnim.name.startsWith('sing')
@@ -1095,7 +1096,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var goods:Int = 0;
 	private function popUpScore(note:Note = null):Void
 	{
-		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + 8); 
+		var noteDiff:Float = Math.abs(note.strumTime - Song.Conductor.songPosition + 8); 
 
 		var placement:String = Std.string(combo);
 
@@ -1103,19 +1104,19 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 		var daRating:String = "sick";
 
-		if (noteDiff > Conductor.safeZoneOffset * 0.75)
+		if (noteDiff > Song.Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'shit';
 			shits++;
 			score = 50;
 		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.5)
+		else if (noteDiff > Song.Conductor.safeZoneOffset * 0.5)
 		{
 			daRating = 'bad';
 			bads++;
 			score = 100;
 		}
-		else if (noteDiff > Conductor.safeZoneOffset * 0.25)
+		else if (noteDiff > Song.Conductor.safeZoneOffset * 0.25)
 		{
 			daRating = 'good';
 			goods++;

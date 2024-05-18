@@ -27,9 +27,9 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 }
 
 enum abstract Sounds(String) to String from String {
-	final confirmMenu = "confirmMenu";
-	final cancelMenu = "cancelMenu";
-	final scrollMenu = "scrollMenu";
-	final click = "click";
-	final negado = "negado";
+    final confirmMenu = "confirmMenu";
+    final cancelMenu = "cancelMenu";
+    final scrollMenu = "scrollMenu";
+    final click = "click";
+    final negado = "negado";
 }

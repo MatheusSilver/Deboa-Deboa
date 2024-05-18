@@ -1,7 +1,6 @@
-package;
-
-//Tudo isso foi baseado no DDTO com algumas mudanças sutís.
-
+import firetongue.FireTongue;
+import flixel.addons.ui.interfaces.IFireTongue;
+import firetongue.Replace;
 import Utils.BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -15,6 +14,59 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
 using StringTools;
+
+class FireTongueEx extends FireTongue implements IFireTongue
+{
+	public function new()
+	{
+		super();
+	}
+}
+
+class LangUtil
+{
+	public static function getFont(type:String = 'letravio'):String
+	{
+		var font:String = '';
+
+		switch (type.toLowerCase())
+		{
+			case "sonic-1":
+				font = "sonic-1-hud-font.ttf";
+			case "sonic-3":
+				font = "sonic-3-and-knuckles-credits.ttf";
+			case "smb":
+				font = "smb1.ttf";
+			case "roboto":
+				font = "Roboto.ttf";
+			default:
+				font = 'letravio.ttf';
+		}
+
+		return font;
+	}
+
+	public static function getString(flag:String, context:String = 'data', ?replace:Dynamic):String
+	{
+		var str:String = Main.tongue.get(flag, context);
+
+		if (replace != null)
+			str = Replace.flags(str, ["<X>"], [Std.string(replace)]);
+
+		return str;
+	}
+
+	// Foi um caso tão especifico que nem me importei em modificar a decima que já era usada varias vezes.
+	public static function getStringArray(flag:String, context:String = 'data', replace:Array<String>):String
+	{
+		var str:String = Main.tongue.get(flag, context);
+
+		for (i in 0...replace.length)
+			str = Replace.flags(str, ["<X" + i + ">"], [Std.string(replace[i])]);
+
+		return str;
+	}
+}
 
 class LanguageState extends MusicBeatState
 {
@@ -38,7 +90,7 @@ class LanguageState extends MusicBeatState
 
 		// Featuring: working around dumb library issues
 		// https://github.com/larsiusprime/firetongue/issues/48
-		localeList = CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
+		localeList = Utils.CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
 
 		for (i in 0...localeList.length)
 			textMenuItems.push(Main.tongue.getIndexString(Language, localeList[i], ClientPrefs.lingua));
@@ -49,18 +101,18 @@ class LanguageState extends MusicBeatState
 		for (i in 0...textMenuItems.length)
 		{
 			var optionText:FlxText = new FlxText(0, 300 + (i * 43), FlxG.width, textMenuItems[i]);
-			optionText.setFormat(LangUtil.getFont('letravio'), 27, FlxColor.WHITE, CENTER);
+			optionText.setFormat(Linguagem.LangUtil.getFont('letravio'), 27, FlxColor.WHITE, CENTER);
 			optionText.screenCenter(X);
 			optionText.borderStyle = OUTLINE;
-			optionText.borderColor = FlxColor.TRANSPARENT;			
+			optionText.borderColor = FlxColor.TRANSPARENT;
 			optionText.antialiasing = ClientPrefs.globalAntialiasing;
 			optionText.ID = i;
 			grpOptionsTexts.add(optionText);
 		}
 
-		titleText = new FlxText(0, 150, FlxG.width, LangUtil.getString('langMenu'));
+		titleText = new FlxText(0, 150, FlxG.width, Linguagem.LangUtil.getString('langMenu'));
 		titleText.screenCenter(X);
-		titleText.setFormat(LangUtil.getFont('letravio'), 48, FlxColor.WHITE, CENTER);
+		titleText.setFormat(Linguagem.LangUtil.getFont('letravio'), 48, FlxColor.WHITE, CENTER);
 		titleText.antialiasing = ClientPrefs.globalAntialiasing;
 		add(titleText);
 
@@ -78,7 +130,6 @@ class LanguageState extends MusicBeatState
 	{
 		if (direction < 0)
 			direction = textMenuItems.length - 1;
-			
 
 		if (direction >= textMenuItems.length)
 			direction = 0;
@@ -87,19 +138,21 @@ class LanguageState extends MusicBeatState
 
 		Main.tongue.initialize({locale: localeList[curSelected]});
 
-		titleText.text = LangUtil.getString('langMenu');
+		titleText.text = Linguagem.LangUtil.getString('langMenu');
 
-		textMenuItems=[];
+		textMenuItems = [];
 
 		for (i in 0...localeList.length)
 			textMenuItems.push(Main.tongue.getIndexString(Language, localeList[i], localeList[curSelected]));
 
 		grpOptionsTexts.forEach(function(txt:FlxText)
-			{
-				txt.text=textMenuItems[txt.ID];
-				if (txt.ID == curSelected) txt.setBorderStyle(OUTLINE, FlxColor.RED);
-				else txt.setBorderStyle(OUTLINE, FlxColor.TRANSPARENT);
-			});
+		{
+			txt.text = textMenuItems[txt.ID];
+			if (txt.ID == curSelected)
+				txt.setBorderStyle(OUTLINE, FlxColor.RED);
+			else
+				txt.setBorderStyle(OUTLINE, FlxColor.TRANSPARENT);
+		});
 	}
 
 	override function update(elapsed:Float)
@@ -108,28 +161,36 @@ class LanguageState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P){
+			if (controls.UI_UP_P)
+			{
 				GlobalSoundManager.play(scrollMenu);
-				changeSelection(curSelected-1);
-			}else if (controls.UI_DOWN_P){
+				changeSelection(curSelected - 1);
+			}
+			else if (controls.UI_DOWN_P)
+			{
 				GlobalSoundManager.play(scrollMenu);
-				changeSelection(curSelected+1);
-			}else if (Main.getMouseVisibility()){
+				changeSelection(curSelected + 1);
+			}
+			else if (Main.getMouseVisibility())
+			{
 				grpOptionsTexts.forEach(function(txt:FlxText)
-					{
-						if (BSLTouchUtils.aperta(txt, txt.ID) == "primeiro"){ //Honestamente essa sempre foi minha função favorita (até porque foi a primeira), pena que não dá pra usar ela muito.
-							GlobalSoundManager.play(scrollMenu);
-							changeSelection(txt.ID);
-						}else if (BSLTouchUtils.aperta(txt, txt.ID) == "segundo")
-							accept();
-					});
+				{
+					if (BSLTouchUtils.aperta(txt, txt.ID) == "primeiro")
+					{ // Honestamente essa sempre foi minha função favorita (até porque foi a primeira), pena que não dá pra usar ela muito.
+						GlobalSoundManager.play(scrollMenu);
+						changeSelection(txt.ID);
+					}
+					else if (BSLTouchUtils.aperta(txt, txt.ID) == "segundo")
+						accept();
+				});
 			}
 			if (controls.ACCEPT)
 				accept();
 		}
 	}
 
-	private function accept():Void{
+	private function accept():Void
+	{
 		selectedSomethin = true;
 		FlxG.sound.play(Paths.sound('confirmMenu'));
 

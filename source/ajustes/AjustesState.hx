@@ -42,10 +42,10 @@ class AjustesState extends MusicBeatState
 
 	override function create()
 	{
-		//Conductor.changeBPM(112);
+		//Song.Conductor.changeBPM(112);
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_settings", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_settings", "rpc"), null);
 		#end
 		
 		if (FlxG.sound.music == null){
@@ -124,9 +124,9 @@ class AjustesState extends MusicBeatState
 					button.loadGraphic(Paths.image('optionsmenu/gamejooj-locked', 'preload'));
 			}else{
 				button.loadGraphic(Paths.image('buttons_base/SettingsMenu', 'preload'));
-				button.label.text =LangUtil.getString("opt_"+optionShit[i], "optionsMenu");
+				button.label.text =Linguagem.LangUtil.getString("opt_"+optionShit[i], "optionsMenu");
 			}
-			button.label.setFormat(LangUtil.getFont('sonic-3'), 28, FlxColor.WHITE, LEFT);
+			button.label.setFormat(Linguagem.LangUtil.getFont('sonic-3'), 28, FlxColor.WHITE, LEFT);
 			button.labelOffsets = [FlxPoint.get(84,36), FlxPoint.get(84,36), FlxPoint.get(84,36)];
 			button.setGraphicSize(Std.int(button.width * 0.6));
 			button.updateHitbox();
@@ -202,7 +202,7 @@ class AjustesState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music != null)
-			Conductor.songPosition = FlxG.sound.music.time;
+			Song.Conductor.songPosition = FlxG.sound.music.time;
 		if(pode)
 			//Silvio ser bulo de mais pra entender isso.
 			{
@@ -274,7 +274,7 @@ class AjustesState extends MusicBeatState
 				case 'controls': MusicBeatState.switchState(new #if desktop ajustes.KeysSubstate() #elseif mobile ajustes.ControlesState() #end);
 				case 'arrows': MusicBeatState.switchState(new ajustes.NotesSubState());
 				case 'gamejooj': MusicBeatState.switchState(new GameJoltLoginState());
-				case "language": MusicBeatState.switchState(new LanguageState());
+				case "language": MusicBeatState.switchState(new Linguagem.LanguageState());
 			}	
 		}
 

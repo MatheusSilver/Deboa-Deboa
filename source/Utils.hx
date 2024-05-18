@@ -1,5 +1,9 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.graphics.FlxGraphic;
+import flixel.util.FlxAxes;
+import flixel.tweens.FlxTween;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -10,16 +14,22 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.util.FlxColor;
 import openfl.display.BitmapData;
+import flixel.util.FlxColor;
+import flixel.util.FlxSave;
+import flixel.FlxG;
 import openfl.utils.Assets;
+
+using StringTools;
+
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
 #if android
 import haxe.crypto.Md5; // Assim o Md5 não é compilado no PC e não fica como Unused import
+import flixel.math.FlxPoint;
+import ui.MobileControls.FlxVirtualPad;
 #end
-
-using StringTools;
 
 enum ResizeMode
 {
@@ -146,6 +156,114 @@ class Asset2File
 		#else
 		return #if sys Sys.getCwd() + #end id;
 		#end
+	}
+}
+
+/**
+ * Serve para fazer o swipe em objetos na tela.
+ */
+// Não sei para que servem os parâmetros
+
+class SpriteSwapper extends FlxSprite
+{
+	public var target:Int;
+	public var tweenController:FlxTween;
+
+	private var spaceBetween:Int;
+
+	public var tweenTimer:Float = 0.5;
+
+	private var activeAxis:FlxAxes;
+	private final num_objects:Int;
+	private final objectsList:Int;
+
+	public var specialOffset:Float = 0;
+
+	public function new(target:Int, sprite:FlxGraphic, objects_on_screen:Int = 1, space_between:Int = 1, swipe_axis:FlxAxes = X, size_mult:Float = 1,
+			objects_in_list = 1)
+	{
+		this.num_objects = objects_on_screen - 1;
+		this.objectsList = objects_in_list;
+		if (num_objects < 1)
+			num_objects = 1; // nope, isso não nescessariamente representa o numero de objetos na tela
+		// Ou representa se você contar o ZERO
+
+		super(0, 0);
+		this.spaceBetween = space_between;
+		this.activeAxis = swipe_axis;
+
+		this.loadGraphic(sprite);
+		this.setTarget(target);
+		if (activeAxis == X)
+		{
+			this.setGraphicSize(Std.int(FlxG.width / num_objects * size_mult));
+			this.setPosition(((FlxG.width / this.num_objects) * this.target - this.width) / 2 + this.target * this.spaceBetween, 0);
+			this.screenCenter(Y);
+		}
+		else if (activeAxis == Y)
+		{
+			this.setGraphicSize(Std.int(FlxG.height / num_objects * size_mult));
+			this.setPosition(0, (FlxG.height / this.num_objects * this.target - this.height) / 2 + this.target * this.spaceBetween);
+			this.screenCenter(X);
+		}
+	}
+
+	public function checkTween():Void
+	{
+		if (tweenController != null)
+			tweenController.cancel();
+	}
+
+	public function updateTarget(manual:Bool = false):Void
+	{
+		this.checkTween();
+
+		if (activeAxis == X)
+		{
+			if (!manual)
+				this.setTarget(Math.round((2 * this.x + this.width) / ((FlxG.width / num_objects) + 2 * this.spaceBetween)));
+
+			tweenController = FlxTween.tween(this, {x: (FlxG.width / num_objects * target - this.width) / 2 + target * this.spaceBetween + specialOffset},
+				tweenTimer, {
+					ease: FlxEase.quadInOut,
+					onComplete: function(twn:FlxTween)
+					{
+						tweenController = null;
+					}
+				});
+		}
+		else if (activeAxis == Y)
+		{
+			if (!manual)
+				this.setTarget(Math.round((2 * this.y + this.height) / ((FlxG.height / num_objects) + 2 * this.spaceBetween)));
+			tweenController = FlxTween.tween(this, {y: (FlxG.height / num_objects * target - this.height) / 2 + target * this.spaceBetween + specialOffset},
+				tweenTimer, {
+					ease: FlxEase.quadInOut,
+					onComplete: function(twn:FlxTween)
+					{
+						tweenController = null;
+					}
+				});
+		}
+	}
+
+	public inline function getTarget():Int
+	{
+		return this.target;
+	}
+
+	public function setTarget(target):Void
+	{
+		this.target = target; // usa isso pra trocar fazer o scroll
+		this.visible = Math.abs(this.target) <= 4;
+		if (this.target <= -5)
+		{
+			this.target += this.objectsList;
+		}
+		else if (this.target > this.objectsList - 5)
+		{
+			this.target -= this.objectsList;
+		}
 	}
 }
 
@@ -322,11 +440,11 @@ class BSLTouchUtils
 		return false;
 	}
 
-	//Adaptação para um code bem antigo do ytb music
+	// Adaptação para um code bem antigo do ytb music
 	public static function justsolto():Bool
 	{
 		#if desktop
-			return FlxG.mouse.justReleased;
+		return FlxG.mouse.justReleased;
 		#elseif mobile
 		for (touch in FlxG.touches.list)
 			return touch.justReleased;
@@ -358,23 +476,27 @@ class BSLTouchUtils
 	 */
 	public static function pegarpos(pos:String):Int
 	{
-		for (touch in FlxG.touches.list){
+		for (touch in FlxG.touches.list)
+		{
 			if (pos == 'x')
 				return touch.x;
-	
+
 			if (pos == 'y')
 				return touch.y;
-	
 		}
 		return 0;
 	}
 	#end
 
-	public static function teclado(acao:String) { // Converter para lua
+	public static function teclado(acao:String)
+	{ // Converter para lua
 		#if mobile
-		if(acao == "abrir") {
-            FlxG.stage.window.textInputEnabled = true;
-		} else if(acao == "fechar") {
+		if (acao == "abrir")
+		{
+			FlxG.stage.window.textInputEnabled = true;
+		}
+		else if (acao == "fechar")
+		{
 			FlxG.stage.window.textInputEnabled = false;
 		}
 		#else
@@ -434,18 +556,18 @@ class BSLSwipeUtils
 			else if (scrollX < 0)
 				scrollSpeed += scrollAcceleration;
 
-			scrollSpeed = Std.int(CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
+			scrollSpeed = Std.int(Utils.CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
 		}
 
 		#if desktop
 		if (FlxG.mouse.wheel != 0)
 		{
-			scrollX += FlxG.mouse.wheel*mouseScrollMultiplier;
+			scrollX += FlxG.mouse.wheel * mouseScrollMultiplier;
 		}
 		// Talvez isso possa vir a ser útil :thinking:
 		#end
 		scrollX += Std.int(scrollSpeed);
-		scrollX = CoolUtil.mathClamp(scrollX, -FlxG.width/max_x, FlxG.width/max_x);
+		scrollX = Utils.CoolUtil.mathClamp(scrollX, -FlxG.width / max_x, FlxG.width / max_x);
 		if (Math.abs(scrollX) <= Math.abs(scrollSpeed))
 			resetScrolls();
 		else
@@ -477,18 +599,18 @@ class BSLSwipeUtils
 			else if (scrollY < 0)
 				scrollSpeed += scrollAcceleration;
 
-			scrollSpeed = Std.int(CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
+			scrollSpeed = Std.int(Utils.CoolUtil.mathClamp(scrollSpeed, -maxScrollSpeed, maxScrollSpeed));
 		}
 
 		#if desktop
 		if (FlxG.mouse.wheel != 0)
 		{
-			scrollY += FlxG.mouse.wheel*mouseScrollMultiplier;
+			scrollY += FlxG.mouse.wheel * mouseScrollMultiplier;
 		}
 		// Talvez isso possa vir a ser útil :thinking:
 		#end
 		scrollY += Std.int(scrollSpeed);
-		scrollY = CoolUtil.mathClamp(scrollY, -FlxG.height/max_y, FlxG.height/max_y);
+		scrollY = Utils.CoolUtil.mathClamp(scrollY, -FlxG.height / max_y, FlxG.height / max_y);
 		if (Math.abs(scrollY) <= Math.abs(scrollSpeed))
 			resetScrolls();
 		else
@@ -501,7 +623,6 @@ class BSLSwipeUtils
 		scrollSpeed = 0;
 		if (!reset_manual)
 			is_swipping = false;
-
 	}
 }
 
@@ -711,7 +832,7 @@ class FlxScrollbar extends FlxSpriteGroup
 			}
 			if (whichWayToScroll != 0)
 				updateViewScroll();
-		} 
+		}
 		#if !mobile
 		else if (FlxG.mouse.wheel != 0)
 		{
@@ -896,16 +1017,14 @@ class FlxScrollableArea extends FlxCamera
 		scroll.x = content.x;
 		scroll.y = content.y;
 
-
-		_verticalScrollbar = new FlxScrollbar(0, 0, scrollbarThickness>0?scrollbarThickness:1, 1, FlxScrollbarOrientation.VERTICAL, ScrollbarColour, this, false, _state,
-			MouseWheelMultiplier, scrollbarThickness>0?false:true);
-		_horizontalScrollbar = new FlxScrollbar(0, 0, 1, scrollbarThickness>0?scrollbarThickness:1, FlxScrollbarOrientation.HORIZONTAL, ScrollbarColour, this, false, _state,
-			MouseWheelMultiplier, scrollbarThickness>0?false:true);
-			_verticalScrollbar.alpha = scrollbarThickness>0?1:0;
-			_horizontalScrollbar.alpha = scrollbarThickness>0?1:0;
-			_state.add(_verticalScrollbar);
-			_state.add(_horizontalScrollbar);
-
+		_verticalScrollbar = new FlxScrollbar(0, 0, scrollbarThickness > 0 ? scrollbarThickness : 1, 1, FlxScrollbarOrientation.VERTICAL, ScrollbarColour,
+			this, false, _state, MouseWheelMultiplier, scrollbarThickness > 0 ? false : true);
+		_horizontalScrollbar = new FlxScrollbar(0, 0, 1, scrollbarThickness > 0 ? scrollbarThickness : 1, FlxScrollbarOrientation.HORIZONTAL, ScrollbarColour,
+			this, false, _state, MouseWheelMultiplier, scrollbarThickness > 0 ? false : true);
+		_verticalScrollbar.alpha = scrollbarThickness > 0 ? 1 : 0;
+		_horizontalScrollbar.alpha = scrollbarThickness > 0 ? 1 : 0;
+		_state.add(_verticalScrollbar);
+		_state.add(_horizontalScrollbar);
 
 		onResize();
 	}
@@ -1111,6 +1230,304 @@ class FlxScrollableArea extends FlxCamera
 	{
 		_horizontalScrollbar.forceRedraw();
 		_verticalScrollbar.forceRedraw();
+	}
+}
+
+#if mobile
+/**
+ * Variáveis e configurações fundamentais para o uso dos controles (VirtualPad e Hitbox)
+ */
+class Config
+{
+	// Modificado pelo Silver (Ele só pediu pra eu fazer uma commit que mudava umas coisas)
+	// Criado por LuckyDog7
+	// https://github.com/MatheusSilver/miku-public/
+
+	/**
+	 * Função para retornar o modo dos controles.
+	 * @return Retorna uma Int (ClientPrefs.buttonsMode) que representa o modo dos controles de acordo com o save.
+	 */
+	public static function getcontrolmode():Int
+	{
+		// load control mode num from FlxSave
+		if (ClientPrefs.buttonsMode != null)
+			return ClientPrefs.buttonsMode[0];
+		return 0;
+	}
+
+	/**
+	 * Função para trocar o modo dos controles e salva ele nas variáveis do ClientPrefs.
+	 * @param mode A Int da troca de modos, ou seja, ClientPrefs.buttonsMode[0] = mode.
+	 * @return Retorna uma Int que representa o modo dos controles de acordo com o save.
+	 */
+	public static function setcontrolmode(mode:Int = 0):Int
+	{
+		// save control mode num from FlxSave
+		if (ClientPrefs.buttonsMode == null)
+			ClientPrefs.buttonsMode = new Array();
+		ClientPrefs.buttonsMode[0] = mode;
+		ClientPrefs.save();
+
+		return ClientPrefs.buttonsMode[0];
+	}
+
+	/**
+	 * Salva a customização feita nos controles, quando o modo é "Customizado".
+	 * @param _pad O VirtualPad (ui.FlxVirtualPad)
+	 */
+	public static function savecustom(_pad:FlxVirtualPad)
+	{
+		trace("saved");
+
+		if (ClientPrefs.buttons == null)
+		{
+			ClientPrefs.buttons = new Array();
+
+			for (buttons in _pad)
+			{
+				ClientPrefs.buttons.push(FlxPoint.get(buttons.x, buttons.y));
+			}
+		}
+		else
+		{
+			var tempCount:Int = 0;
+			for (buttons in _pad)
+			{
+				ClientPrefs.buttons[tempCount] = FlxPoint.get(buttons.x, buttons.y);
+				tempCount++;
+			}
+		}
+		ClientPrefs.save();
+	}
+
+	/**
+	 * Carrega o save da customização dos controles, quando o modo é "Customizado".
+	 * @param _pad O VirtualPad (ui.FlxVirtualPad)
+	 * @return Retorna a variável _pad após as posições serem trocadas.
+	 */
+	public static function loadcustom(_pad:FlxVirtualPad):FlxVirtualPad
+	{
+		// load pad
+		if (ClientPrefs.buttons == null)
+			return _pad;
+		var tempCount:Int = 0;
+
+		for (buttons in _pad)
+		{
+			buttons.x = ClientPrefs.buttons[tempCount].x;
+			buttons.y = ClientPrefs.buttons[tempCount].y;
+			tempCount++;
+		}
+		return _pad;
+	}
+}
+#end
+
+class CoolUtil
+{
+	/**
+	 * Umma Array que contém o nome e prefixo das dificuldades.
+	 */
+	public static var difficultyStuff:Array<Dynamic> = [
+		['Easy', '-easy'], // 0
+		['Normal', ''], // 1
+		['Hard', '-hard'], // 2 - honestamente estou pensando em trocar o 'Hard' por 'Difícil' mas né? a maioria da rapaziada tá acostumada com 'Hard'
+		['Sonic', '-sega'], // 3
+		['Mario', '-nintendo'], // 4
+		['MX', '-mx'], // 5
+		['Lord-X', '-lorx-x'], // 6
+		['Hypno', '-hypno'] // 7
+	];
+
+	// Não sei o que isso faz
+	inline public static function formatScore(zeros_vezes:Int, num_vezes:Int):String
+	{
+		var zeros:String = repeat("0",
+			zeros_vezes - (Std.int(Math.log(num_vezes) / Math.log(10)) + 1)); // Maldito haxe que não tem função log10 já imbutida :skull:
+		var num:String = Std.string(num_vezes);
+
+		return zeros + num;
+	}
+
+	// Não sei o que isso faz
+	inline public static function repeat(str:String, times:Int):String
+	{
+		var result:String = "";
+		for (i in 0...times)
+			result += str;
+		return result;
+	}
+
+	// Não sei o que isso faz
+	public static function mathClamp(n:Float, min:Float, max:Float):Int
+	{
+		return Std.int(Math.min(Math.max(n, min), max));
+	}
+
+	/**
+	 * Formata um texto deixando ele bonitinho (Letras maíusculas e minúsculas)
+	 * @param text O texto que você vai capitalizar. (nem sei se essa palavra existe pra ser bem sincero)
+	 */
+	inline public static function capitalize(text:String)
+	{
+		return text.charAt(0).toUpperCase() + text.substr(1);
+	}
+
+	/**
+	 * Retorna uma cor de uma String.
+	 * @param color A cor em formato de String. 
+	 * @return Retorna um FlxColor.
+	 */
+	inline public static function colorFromString(color:String):FlxColor // Já estava ficando deveras pito com isso...
+	{
+		var hideChars = ~/[\t\n\r]/;
+		var color:String = hideChars.split(color).join('').trim();
+		if (color.startsWith('0x'))
+			color = color.substring(color.length - 6);
+
+		var colorNum:Null<FlxColor> = FlxColor.fromString(color);
+		if (colorNum == null)
+			colorNum = FlxColor.fromString('#$color');
+		return colorNum != null ? colorNum : FlxColor.WHITE;
+	}
+
+	/**
+	 * Função que retorna a dificuldade em Uppercase.
+	 * @return Retorna uma String que representa a dificuldade em Uppercase. (EASY, NORMAL, HARD.)
+	 */
+	public static function difficultyString():String
+	{
+		return difficultyStuff[PlayState.storyDifficulty][0].toUpperCase();
+	}
+
+	// Não sei o que isso faz
+	public static function boundTo(value:Float, min:Float, max:Float):Float
+	{
+		var newValue:Float = value;
+		if (newValue < min)
+			newValue = min;
+		else if (newValue > max)
+			newValue = max;
+		return newValue;
+	}
+	
+	/**
+	 * Carrega um arquivo de Texto (pode carregar outros arquivos também, mas o foco principal são arquivos .txt)
+	 * @param path Caminho do seu arquivo
+	 * @return Retorna uma Array<String> que contém o seu texto.
+	 */
+	public static function coolTextFile(path:String):Array<String>
+	{
+		var daList:Array<String> = [];
+		if (Assets.exists(path))
+			daList = Assets.getText(path).trim().split('\n');
+		for (i in 0...daList.length)
+		{
+			daList[i] = daList[i].trim();
+		}
+
+		return daList;
+	}
+
+	/**
+	 * Transforma uma String em Array usando o método .split para criar linebreaks.
+	 * @param string A String que será utilizada para criar a lista.
+	 * @return Retorna uma lista (Array<String>) com as linhas da Array separadas.
+	 */
+	public static function listFromString(string:String):Array<String>
+	{
+		var daList:Array<String> = [];
+		daList = string.trim().split('\n');
+
+		for (i in 0...daList.length)
+		{
+			daList[i] = daList[i].trim();
+		}
+
+		return daList;
+	}
+
+	// Não sei o que isso faz
+	public static function dominantColor(sprite:flixel.FlxSprite):Int
+	{
+		var countByColor:Map<Int, Int> = [];
+		for (col in 0...sprite.frameWidth)
+		{
+			for (row in 0...sprite.frameHeight)
+			{
+				var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
+				if (colorOfThisPixel != 0)
+				{
+					if (countByColor.exists(colorOfThisPixel))
+					{
+						countByColor[colorOfThisPixel] = countByColor[colorOfThisPixel] + 1;
+					}
+					else if (countByColor[colorOfThisPixel] != 13520687 - (2 * 13520687))
+					{
+						countByColor[colorOfThisPixel] = 1;
+					}
+				}
+			}
+		}
+		var maxCount = 0;
+		var maxKey:Int = 0; // after the loop this will store the max color
+		countByColor[flixel.util.FlxColor.BLACK] = 0;
+		for (key in countByColor.keys())
+		{
+			if (countByColor[key] >= maxCount)
+			{
+				maxCount = countByColor[key];
+				maxKey = key;
+			}
+		}
+		return maxKey;
+	}
+
+	/**
+	 * Cria uma Array de números
+	 * @param max O número máximo que sua Array terá. 
+	 * @param min O número mínimo que sua Array terá. (Já é 0 por padrão.)
+	 * @return Array completa com números entre min e max
+	 */
+	public static function numberArray(max:Int, ?min = 0):Array<Int>
+	{
+		var dumbArray:Array<Int> = [];
+		for (i in min...max)
+		{
+			dumbArray.push(i);
+		}
+		return dumbArray;
+	}
+
+	// Não sei pra que isso serve, então aqui não tem explicação
+	public static function camLerpShit(lerp:Float):Float
+	{
+		return lerp * (FlxG.elapsed / (1 / 60));
+	}
+
+	/**
+	 * Abre um URL.
+	 * @param URL do Site que você deseja abrir.
+	 */
+	public static function browserLoad(site:String)
+	{
+		#if linux
+		Sys.command('/usr/bin/xdg-open', [site]);
+		#else
+		FlxG.openURL(site);
+		#end
+	}
+
+	/**
+	 * Retorna o path da Savedata do jogo (Compatível com as versões antigas e novas do Flixel.)
+	 * @return Path da Savedata
+	 */
+	public static function getSavePath():String
+	{
+		@:privateAccess // galakxisne
+		return #if (flixel < "5.0.0") 'galaccine' #else FlxG.stage.application.meta.get('company')
+			+ '/'
+			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
 }
 

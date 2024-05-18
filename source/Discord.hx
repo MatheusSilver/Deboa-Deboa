@@ -47,7 +47,7 @@ class DiscordClient
 	static function onReady()
 	{
 		DiscordRpc.presence({
-			details: LangUtil.getString("rpc_title", "rpc"),
+			details: Linguagem.LangUtil.getString("rpc_title", "rpc"),
 			state: null,
 			largeImageKey: 'icon',
 			#if rpc

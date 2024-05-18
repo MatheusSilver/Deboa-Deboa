@@ -234,8 +234,8 @@ class LoadingState extends MusicBeatState
 	static function getNextState(target:FlxState, stopMusic = false):FlxState
 		{
 			var actualdirectory:String = 'shared';
-			var weekDir:String = StageData.forceNextDirectory;
-			StageData.forceNextDirectory = null;
+			var weekDir:String = Metadata.StageData.forceNextDirectory;
+			Metadata.StageData.forceNextDirectory = null;
 	
 			if(weekDir != null && weekDir.length > 0 && weekDir != '') actualdirectory = weekDir;
 	

@@ -64,8 +64,8 @@ class GameJoltUserObject extends FlxSpriteGroup
 			userIcon.updateHitbox();
 		}
 
-		userName = new FlxText(userOutline.x+userOutline.width + 5, userBG.y, userBG.width - userIcon.width, GJClient.logged ? GJClient.userName:LangUtil.getString("menu_disconnected", "menu"));
-		userName.setFormat(LangUtil.getFont("vio"), 36, 0xffffff, LEFT, OUTLINE, FlxColor.BLACK);
+		userName = new FlxText(userOutline.x+userOutline.width + 5, userBG.y, userBG.width - userIcon.width, GJClient.logged ? GJClient.userName:Linguagem.LangUtil.getString("menu_disconnected", "menu"));
+		userName.setFormat(Linguagem.LangUtil.getFont("vio"), 36, 0xffffff, LEFT, OUTLINE, FlxColor.BLACK);
 		userName.y += userName.height/3;
 		userBG.antialiasing = ClientPrefs.globalAntialiasing;
 		userIcon.antialiasing = ClientPrefs.globalAntialiasing;

@@ -54,7 +54,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         Main.mouse_allowed = true;
         #if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_modifiers", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_modifiers", "rpc"), null);
 		#end
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("modifiers/bg"));
@@ -183,7 +183,7 @@ class ModifiersMenuState extends MusicBeatSubstate
             }
         }
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
-        pontosMultiLerp = FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 2));
+        pontosMultiLerp = FlxMath.lerp(pontosMultiLerp, pontosMulti, Utils.CoolUtil.boundTo(elapsed * 24, 0, 2));
         if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
 			pontosMultiLerp = pontosMulti;
         textMultiplier.text = "X"+Std.string(Math.round(pontosMultiLerp*100)/100);

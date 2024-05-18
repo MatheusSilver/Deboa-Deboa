@@ -5,8 +5,7 @@ import flixel.util.FlxSave;
 import lime.app.Application;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
-import Controls;
-import PlayerSettings;
+import Input.PlayerSettings;
 import TitleState;
 
 class ClientPrefs
@@ -86,20 +85,9 @@ class ClientPrefs
 
 	private static var importantMap:Map<String, Array<String>> = ["flixelSound" => ["volume"]];
 
-	/** Quick Function to Fix Save Files for Flixel 5
-		@BeastlyGabi
-	**/
-	inline public static function getSavePath(folder:String = 'galaccine'):String
-	{
-		@:privateAccess
-		return #if (flixel < "5.0.0") folder #else FlxG.stage.application.meta.get('company')
-			+ '/'
-			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
-	}
-
 	public static function init()
 	{
-		FlxG.save.bind('modboa', getSavePath());
+		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
 
 		// https://github.com/ShadowMario/FNF-PsychEngine/pull/11633
 		for (field in Type.getClassFields(ClientPrefs))
@@ -132,7 +120,7 @@ class ClientPrefs
 	{
 		// ensure that we're saving (hopefully)
 		if (FlxG.save.data == null)
-			FlxG.save.bind('modboa', getSavePath());
+			FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
 
 		for (field in Type.getClassFields(ClientPrefs))
 		{
@@ -150,7 +138,7 @@ class ClientPrefs
     public static function salvarControles() {
 
         var save:FlxSave = new FlxSave();
-		save.bind('controlesmodboa', CoolUtil.getSavePath());
+		save.bind('controlesmodboa', Utils.CoolUtil.getSavePath());
 		save.data.customControls = keyBinds;
 		save.flush();
 		FlxG.log.add("Settings saved!");
@@ -158,7 +146,7 @@ class ClientPrefs
     }
 
     public static function reloadControls() {
-		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
+		PlayerSettings.player1.controls.setKeyboardScheme(Input.KeyboardScheme.Solo);
 
 		TitleState.muteKeys = copyKey(keyBinds.get('volume_mute'));
 		TitleState.volumeDownKeys = copyKey(keyBinds.get('volume_down'));
@@ -170,7 +158,7 @@ class ClientPrefs
 
     public static function carregarControles() {
         var save:FlxSave = new FlxSave();
-		save.bind('controlesmodboa', CoolUtil.getSavePath());
+		save.bind('controlesmodboa', Utils.CoolUtil.getSavePath());
 		if(save != null && save.data.customControls != null) {
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {

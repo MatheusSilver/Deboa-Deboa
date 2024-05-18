@@ -25,7 +25,7 @@ class PreMainMenuState extends MusicBeatState
 		Main.mouse_allowed = true;
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_credit_menu", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_credit_menu", "rpc"), null);
 		#end
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 		var supbg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('ph'));
@@ -94,12 +94,12 @@ class PreMainMenuState extends MusicBeatState
 	{
 		GlobalSoundManager.play(confirmMenu);
 		#if desktop
-		VideoStatePC.specialSetting = NORMAL;
-		VideoStatePC.videoPath = Paths.video("aviso");
-		VideoStatePC.NextState = new MainMenuStateMobile();
-		MusicBeatState.switchState(new VideoStatePC());
+		Videos.VideoStatePC.specialSetting = NORMAL;
+		Videos.VideoStatePC.videoPath = Paths.video("aviso");
+		Videos.VideoStatePC.NextState = new MainMenuStateMobile();
+		MusicBeatState.switchState(new Videos.VideoStatePC());
 		#elseif mobile
-		LoadingState.loadAndSwitchState(new VideoState('assets/videos/aviso.mp', new MainMenuStateMobile()));
+		LoadingState.loadAndSwitchState(new Videos.VideoState('assets/videos/aviso.mp', new MainMenuStateMobile()));
 		#end
 	}
 

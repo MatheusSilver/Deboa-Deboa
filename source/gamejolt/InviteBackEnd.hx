@@ -255,7 +255,7 @@ class InviteObject extends FlxSpriteGroup
     public function setInfo(usuario:User, ?jaTinha:Bool = false)
     {
         user = usuario;
-        texto.text = '${user.username} ${LangUtil.getString("menu_friends_invite_request", "menu")}';
+        texto.text = '${user.username} ${Linguagem.LangUtil.getString("menu_friends_invite_request", "menu")}';
         if(jaTinha)
             return;
         aparecer();

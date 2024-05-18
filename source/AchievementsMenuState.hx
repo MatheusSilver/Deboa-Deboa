@@ -38,7 +38,7 @@ class AchievementsMenuState extends MusicBeatState
 	override function create()
 	{
 		#if rpc
-		DiscordClient.changePresence(LangUtil.getString("rpc_achievement_menu", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_achievement_menu", "rpc"), null);
 		#end
 		achieve_list_len = 0;
 		options = [];
@@ -126,7 +126,7 @@ class AchievementsMenuState extends MusicBeatState
 		{
 			var announceText:FlxText;
 			sincronizando = true;
-			announceText = new FlxText(0, 0, 0, LangUtil.getString("ach_desc_sync", "achievement"), 24);
+			announceText = new FlxText(0, 0, 0, Linguagem.LangUtil.getString("ach_desc_sync", "achievement"), 24);
 			announceText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			announceText.screenCenter(XY);
 			var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -158,7 +158,7 @@ class AchievementsMenuState extends MusicBeatState
 		{
 			changeSelection();
 		}
-		Conductor.changeBPM(112);
+		Song.Conductor.changeBPM(112);
 
 		#if mobileC
 		addVirtualPad(UP_DOWN, B);
@@ -254,8 +254,8 @@ class AchievementsMenuState extends MusicBeatState
 				achievementArray[i].alpha = 1;
 			}
 		}
-		descText.text = LangUtil.getString("ach_desc_"+Achievements.achievementsStuff[curSelected][0], "achievement");
-		titleText.text = Achievements.isAchievementUnlocked(options.get(curSelected)) ? LangUtil.getString("ach_name_"+options.get(curSelected), "achievement") : '?????';
+		descText.text = Linguagem.LangUtil.getString("ach_desc_"+Achievements.achievementsStuff[curSelected][0], "achievement");
+		titleText.text = Achievements.isAchievementUnlocked(options.get(curSelected)) ? Linguagem.LangUtil.getString("ach_name_"+options.get(curSelected), "achievement") : '?????';
 	}
 
 	override function beatHit()

@@ -33,6 +33,7 @@ import openfl.net.URLLoader;
 import openfl.net.URLRequest;
 import openfl.utils.Assets as OpenFlAssets;
 import gamejolt.*;
+import Input.PlayerSettings;
 
 using StringTools;
 
@@ -116,7 +117,7 @@ class TitleState extends MusicBeatState
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 		super.create();
 
-		FlxG.save.bind('modboa', CoolUtil.getSavePath());
+		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
 		ClientPrefs.init();
 		ClientPrefs.carregarControles();
 		/*PlayState.addShaderToCamera('game', new VCRDistortionEffect(0.5,true,false,true));
@@ -132,7 +133,7 @@ class TitleState extends MusicBeatState
 		if (FlxG.save.data.lingua == null){
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new LanguageState());
+			MusicBeatState.switchState(new Linguagem.LanguageState());
 		}
 		else if (ClientPrefs.pibby)
 		{
@@ -233,7 +234,7 @@ class TitleState extends MusicBeatState
 		// GJClient.setUserInfo(FlxG.save.data.user, FlxG.save.data.token);
 		// GJClient.initialize();
 
-		Conductor.changeBPM(114);
+		Song.Conductor.changeBPM(114);
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
@@ -365,7 +366,7 @@ class TitleState extends MusicBeatState
 			titleText.alpha = opacidade;
 		}
 		if (FlxG.sound.music != null)
-			Conductor.songPosition = FlxG.sound.music.time;
+			Song.Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
 		gradientBar.updateHitbox();
@@ -464,15 +465,15 @@ class TitleState extends MusicBeatState
 			switch (sickBeats)
 			{
 				case 1: // Checar aqui depois
-					createCoolText([LangUtil.getString("intro_text_vio_team", "data")], 45);
+					createCoolText([Linguagem.LangUtil.getString("intro_text_vio_team", "data")], 45);
 				case 3:
-					addMoreText(LangUtil.getString("intro_text_presents", "data"), 45);
+					addMoreText(Linguagem.LangUtil.getString("intro_text_presents", "data"), 45);
 				case 4:
 					deleteCoolText();
 				case 5:
-					createCoolText([LangUtil.getString("intro_text_ok_ok", "data")], -60);
+					createCoolText([Linguagem.LangUtil.getString("intro_text_ok_ok", "data")], -60);
 				case 7:
-					addMoreText(LangUtil.getString("intro_text_galaxy", "data"), -60);
+					addMoreText(Linguagem.LangUtil.getString("intro_text_galaxy", "data"), -60);
 				case 8:
 					deleteCoolText();
 				case 9:

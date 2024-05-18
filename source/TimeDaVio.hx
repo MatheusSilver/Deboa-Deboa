@@ -183,7 +183,7 @@ class TimeDaVio extends MusicBeatState
 		BSLSwipeUtils.swipeHorizontal();
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_vio_team","rpc")+" " + CoolUtil.capitalize(creditInfo[curSelected][0]), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_vio_team","rpc")+" " + Utils.CoolUtil.capitalize(creditInfo[curSelected][0]), null);
 		#end
 		if (controls.BACK)
 		{
@@ -377,11 +377,11 @@ class TimeDaVio extends MusicBeatState
 		FlxTransitionableState.skipNextTransOut = true;
 		switch (object){
 			case "twitter":
-				CoolUtil.browserLoad(creditInfo[curSelected][2]);
+				Utils.CoolUtil.browserLoad(creditInfo[curSelected][2]);
 			case "youtube":
-				CoolUtil.browserLoad(creditInfo[curSelected][3] );
+				Utils.CoolUtil.browserLoad(creditInfo[curSelected][3] );
 			case "discord":
-				CoolUtil.browserLoad(creditInfo[curSelected][1]);
+				Utils.CoolUtil.browserLoad(creditInfo[curSelected][1]);
 		}
 	}
 

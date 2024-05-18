@@ -278,7 +278,7 @@ class SonicNumberSprite extends FlxSpriteGroup
 
         PlayState.instance.timeTxt.text = minutesRemaining + ':' + secondsRemaining;
 
-        var curMS:Float = Math.floor(Conductor.songPosition - ClientPrefs.noteOffset);
+        var curMS:Float = Math.floor(Song.Conductor.songPosition - ClientPrefs.noteOffset);
         var curSex:Int = Math.floor(curMS / 1000);
         if (curSex < 0)
             curSex = 0;

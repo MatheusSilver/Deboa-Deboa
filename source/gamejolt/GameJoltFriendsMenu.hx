@@ -83,7 +83,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         FlxG.cameras.add(camElementos, false);
 
 		#if rpc
-		DiscordClient.changePresence(LangUtil.getString("rpc_friends", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_friends", "rpc"), null);
 		#end
 
 		bg = new FlxSprite(0, 1280).loadGraphic(Paths.image("menus/gamejolt/amigos/BG"));
@@ -100,7 +100,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         });
         voltar_button.alpha = 0;
         voltar_button.visible = true;
-        voltar_button.label = new FlxText(0, 3, 229, LangUtil.getString("menu_back", "menu"), 50);
+        voltar_button.label = new FlxText(0, 3, 229, Linguagem.LangUtil.getString("menu_back", "menu"), 50);
         voltar_button.label.setFormat(Paths.font("letravio.ttf"), 50, FlxColor.WHITE, CENTER);
         voltar_button.cameras = [camElementos];
         voltar_button.setGraphicSize(229, 103);
@@ -108,7 +108,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         voltar_button.label.offset.y-=7;
         add(voltar_button);
         
-        label = new FlxText(0, 0, 600, LangUtil.getString("menu_friends", "menu"), 70);
+        label = new FlxText(0, 0, 600, Linguagem.LangUtil.getString("menu_friends", "menu"), 70);
         label.setFormat(Paths.font("letravio.ttf"), 70, FlxColor.WHITE, LEFT);
         label.cameras = [camElementos];
         label.x = 145;
@@ -297,7 +297,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             FlxTween.tween(voltar_button, {y: 63+1280}, 0.5, {ease: FlxEase.expoInOut});
             FlxTween.tween(bg, {y: 1280}, 0.5, {ease: FlxEase.expoInOut, onComplete: function(e:FlxTween) {
                 #if rpc
-                DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
+                DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_main_menu", "rpc"), null);
                 #end
                 MainMenuStateMobile.canClick = true;
                 if(ClientPrefs.shaders)
@@ -358,12 +358,12 @@ class FriendObject extends FlxSpriteGroup
         //trace(isOnline); // sus
         if(amOnline)
         {
-            desc.text = LangUtil.getString("menu_friends_online", "menu");
+            desc.text = Linguagem.LangUtil.getString("menu_friends_online", "menu");
             desc.color = FlxColor.GREEN;
         }
         else
         {
-            desc.text = LangUtil.getString("menu_friends_offline", "menu");
+            desc.text = Linguagem.LangUtil.getString("menu_friends_offline", "menu");
             desc.color = FlxColor.RED;
         }
 
@@ -374,7 +374,7 @@ class FriendObject extends FlxSpriteGroup
 
         if(amOnline)
         {
-            desafiarBt = new FlxButton(0, 0, LangUtil.getString("menu_friends_invite", "menu"), desafiar);
+            desafiarBt = new FlxButton(0, 0, Linguagem.LangUtil.getString("menu_friends_invite", "menu"), desafiar);
             desafiarBt.loadGraphic(Paths.image("menus/gamejolt/amigos/inviteBt", 'preload', false));
             desafiarBt.updateHitbox();
             desafiarBt.x = 10;

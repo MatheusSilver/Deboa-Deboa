@@ -12,6 +12,8 @@ import flixel.util.FlxColor;
 import haxe.Json;
 import openfl.utils.Assets;
 
+import Input.PlayerSettings;
+
 using StringTools;
 
 typedef DialogueCharacterFile = {

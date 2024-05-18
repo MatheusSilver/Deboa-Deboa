@@ -124,7 +124,7 @@ class BaseOptionsMenu extends MusicBeatState
 		for (i in 0...options.length)
 		{
 			var isCentered:Bool = unselectableCheck(i);
-			var optionText:Alphabet = new Alphabet(0, 70 * i, LangUtil.getString("opt_name_"+options[i], "option_name"), false, false, 0.05, 1, 'alfabetovio'); // esse true no final é pro texto ser branco
+			var optionText:Alphabet = new Alphabet(0, 70 * i, Linguagem.LangUtil.getString("opt_name_"+options[i], "option_name"), false, false, 0.05, 1, 'alfabetovio'); // esse true no final é pro texto ser branco
 			optionText.isMenuItem = true;
 			if(isCentered) {
 				optionText.screenCenter(X);
@@ -423,7 +423,7 @@ class BaseOptionsMenu extends MusicBeatState
 				curSelected = 0;
 		} while(unselectableCheck(curSelected));
 
-		descText.text = LangUtil.getString("opt_desc_"+options[curSelected], "option_desc", "\n");
+		descText.text = Linguagem.LangUtil.getString("opt_desc_"+options[curSelected], "option_desc", "\n");
 
 		var bullShit:Int = 0;
 
@@ -551,7 +551,7 @@ class BaseOptionsMenu extends MusicBeatState
 			case 1: return "Deuteranopia";
 			case 2: return "Tritanopia";
 			case 3: return "Protanopia";
-			default: return LangUtil.getString("common_text_filter", "data");
+			default: return Linguagem.LangUtil.getString("common_text_filter", "data");
 		}
 	}
 

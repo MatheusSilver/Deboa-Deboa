@@ -36,7 +36,7 @@ class SobreState extends MusicBeatState
 		Main.mouse_allowed = true;
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_about", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_about", "rpc"), null);
 		#end
 		bg = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/sobre (back)'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -50,18 +50,18 @@ class SobreState extends MusicBeatState
 		faixa.alpha = 1;
 		add(faixa);
 
-		gtext = new FlxText(0, 0, faixa.width, LangUtil.getString("menu_video_gallery", "credits").toUpperCase(), 48);
+		gtext = new FlxText(0, 0, faixa.width, Linguagem.LangUtil.getString("menu_video_gallery", "credits").toUpperCase(), 48);
 		gtext.antialiasing = ClientPrefs.globalAntialiasing;
-		gtext.setFormat(LangUtil.getFont("smb"), 36, CoolUtil.colorFromString("#f9c9a5"), CENTER);
+		gtext.setFormat(Linguagem.LangUtil.getFont("smb"), 36, Utils.CoolUtil.colorFromString("#f9c9a5"), CENTER);
 		gtext.updateHitbox();
 		gtext.x = 43;
 		gtext.y = 40;
 		gtext.alpha = 1;
 		add(gtext);
 
-		ctext = new FlxText(0, 0, faixa.width, LangUtil.getString("menu_credit_menu", "credits").toUpperCase(), 48);
+		ctext = new FlxText(0, 0, faixa.width, Linguagem.LangUtil.getString("menu_credit_menu", "credits").toUpperCase(), 48);
 		ctext.antialiasing = ClientPrefs.globalAntialiasing;
-		ctext.setFormat(LangUtil.getFont("smb"), 36, CoolUtil.colorFromString("#f9c9a5"), CENTER);
+		ctext.setFormat(Linguagem.LangUtil.getFont("smb"), 36, Utils.CoolUtil.colorFromString("#f9c9a5"), CENTER);
 		ctext.updateHitbox();
 		ctext.x = 636; // btw, isso n foi intencional
 		ctext.y = 36;  // DAV??????????????? :fearful: - Era 666 :skull:
@@ -233,7 +233,7 @@ class SobreState extends MusicBeatState
 				#if desktop
 				MusicBeatState.switchState(new SobreVideo());
 				#elseif mobile
-				FlxG.switchState(new VideoState('assets/videos/EngineBase/aviso', (new SobreState())));
+				FlxG.switchState(new Videos.VideoState('assets/videos/EngineBase/aviso', (new SobreState())));
 				#end
 			case "sunny":
 				MusicBeatState.switchState(new GaleriaState());

@@ -86,13 +86,13 @@ class MainMenuStateMobile extends MusicBeatState
 		passeiAqui = true;
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		Conductor.changeBPM(112);
+		Song.Conductor.changeBPM(112);
 		instance = this;
 		GameJoltLoginState.syncProgress();
 
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(LangUtil.getString("rpc_main_menu", "rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_main_menu", "rpc"), null);
 		#end
 
 		if(FlxG.sound.music == null || !FlxG.sound.music.active) {
@@ -324,7 +324,7 @@ class MainMenuStateMobile extends MusicBeatState
 			switch (daChoice)
 			{
 				case 'story':
-					MusicBeatState.switchState(new EstadoDeLimpeza());
+					MusicBeatState.switchState(new Limpeza.EstadoDeLimpeza());
 				case 'freeplay':
 					if(!passouCY)
 						return;
@@ -401,7 +401,7 @@ class MainMenuStateMobile extends MusicBeatState
 		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
 		#end
 		if (FlxG.sound.music != null)
-			Conductor.songPosition = FlxG.sound.music.time;
+			Song.Conductor.songPosition = FlxG.sound.music.time;
 
 		if(canClick)
 			{
@@ -457,7 +457,7 @@ class MainMenuStateMobile extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.7)
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
+		var lerpVal:Float = Utils.CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (!selectedSomethin && canClick)

@@ -3,7 +3,7 @@ package ajustes;
 #if rpc
 import Discord.DiscordClient;
 #end
-import Controls;
+import Input.Controls;
 import flash.text.TextField;
 import flash.text.TextField;
 import flixel.FlxG;
@@ -31,32 +31,32 @@ class KeysSubstate extends MusicBeatState {
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
 
-	private var defaultKey:String = LangUtil.getString("key_reset", "key");
+	private var defaultKey:String = Linguagem.LangUtil.getString("key_reset", "key");
 	private var bindLength:Int = 0;
 
 	var optionShit:Array<Dynamic> = [
-		[LangUtil.getString("key_note", "key")],
-		[LangUtil.getString("key_left", "key"), 'note_left'],
-		[LangUtil.getString("key_down", "key"), 'note_down'],
-		[LangUtil.getString("key_up", "key"), 'note_up'],
-		[LangUtil.getString("key_right", "key"), 'note_right'],
-		[LangUtil.getString("key_dodge", "key"), 'note_space'],
+		[Linguagem.LangUtil.getString("key_note", "key")],
+		[Linguagem.LangUtil.getString("key_left", "key"), 'note_left'],
+		[Linguagem.LangUtil.getString("key_down", "key"), 'note_down'],
+		[Linguagem.LangUtil.getString("key_up", "key"), 'note_up'],
+		[Linguagem.LangUtil.getString("key_right", "key"), 'note_right'],
+		[Linguagem.LangUtil.getString("key_dodge", "key"), 'note_space'],
 		[''],
 		['UI'],
-		[LangUtil.getString("key_left", "key"), 'ui_left'],
-		[LangUtil.getString("key_down", "key"), 'ui_down'],
-		[LangUtil.getString("key_up", "key"), 'ui_up'],
-		[LangUtil.getString("key_right", "key"), 'ui_right'],
+		[Linguagem.LangUtil.getString("key_left", "key"), 'ui_left'],
+		[Linguagem.LangUtil.getString("key_down", "key"), 'ui_down'],
+		[Linguagem.LangUtil.getString("key_up", "key"), 'ui_up'],
+		[Linguagem.LangUtil.getString("key_right", "key"), 'ui_right'],
 		[''],
-		[LangUtil.getString("key_reset", "key"), 'reset'],
-		[LangUtil.getString("key_accept", "key"), 'accept'],
-		[LangUtil.getString("key_return", "key"), 'back'],
-		[LangUtil.getString("key_pause", "key"), 'pause'],
+		[Linguagem.LangUtil.getString("key_reset", "key"), 'reset'],
+		[Linguagem.LangUtil.getString("key_accept", "key"), 'accept'],
+		[Linguagem.LangUtil.getString("key_return", "key"), 'back'],
+		[Linguagem.LangUtil.getString("key_pause", "key"), 'pause'],
 		[''],
-		[LangUtil.getString("key_volume", "key")],
-		[LangUtil.getString("key_mute", "key"), 'volume_mute'],
-		[LangUtil.getString("key_volup", "key"), 'volume_up'],
-		[LangUtil.getString("key_voldown", "key"), 'volume_down'],
+		[Linguagem.LangUtil.getString("key_volume", "key")],
+		[Linguagem.LangUtil.getString("key_mute", "key"), 'volume_mute'],
+		[Linguagem.LangUtil.getString("key_volup", "key"), 'volume_up'],
+		[Linguagem.LangUtil.getString("key_voldown", "key"), 'volume_down'],
 		['']#if debug ,
 		['DEBUG'],
 		['Tecla 1', 'debug_1'],
@@ -283,13 +283,13 @@ class KeysSubstate extends MusicBeatState {
 
 	private function addBindTexts(optionText:Alphabet, num:Int) {
 		var keys:Array<Dynamic> = ClientPrefs.keyBinds.get(optionShit[num][1]);
-		var text1 = new AttachedText(InputFormatter.getKeyName(keys[0]), 400, -55);
+		var text1 = new AttachedText(Input.InputFormatter.getKeyName(keys[0]), 400, -55);
 		text1.setPosition(optionText.x + 400, optionText.y - 55);
 		text1.sprTracker = optionText;
 		grpInputs.push(text1);
 		add(text1);
 
-		var text2 = new AttachedText(InputFormatter.getKeyName(keys[1]), 650, -55);
+		var text2 = new AttachedText(Input.InputFormatter.getKeyName(keys[1]), 650, -55);
 		text2.setPosition(optionText.x + 650, optionText.y - 55);
 		text2.sprTracker = optionText;
 		grpInputsAlt.push(text2);

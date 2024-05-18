@@ -100,10 +100,10 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		PlayState.instance.setOnLuas('inGameOver', true);
 
-		Conductor.songPosition = 0;
+		Song.Conductor.songPosition = 0;
 		
 		FlxG.sound.play(Paths.sound(deathSoundName));
-		Conductor.changeBPM(100);
+		Song.Conductor.changeBPM(100);
 
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
@@ -137,7 +137,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
-			MusicBeatState.switchState(new EstadoDeTrocaReverso());
+			MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
 
 			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
@@ -161,7 +161,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (FlxG.sound.music.playing)
 		{
-			Conductor.songPosition = FlxG.sound.music.time;
+			Song.Conductor.songPosition = FlxG.sound.music.time;
 		}
 		PlayState.instance.callOnLuas('onUpdatePost', [elapsed]);
 	}

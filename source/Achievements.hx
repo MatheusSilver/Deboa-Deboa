@@ -235,7 +235,7 @@ class AchievementObject extends FlxSpriteGroup {
 		}
 		
 
-		var achievementName:FlxText = new FlxText(0, achievementBG.y + 50, achievementBG.width*0.6, LangUtil.getString("ach_name_"+Achievements.achievementsStuff[id][0], "achievement"), 16);
+		var achievementName:FlxText = new FlxText(0, achievementBG.y + 50, achievementBG.width*0.6, Linguagem.LangUtil.getString("ach_name_"+Achievements.achievementsStuff[id][0], "achievement"), 16);
 		achievementName.setFormat(Paths.font("letravio.ttf"), 24, FlxColor.WHITE, RIGHT);
 		achievementName.scrollFactor.set();
 

@@ -20,8 +20,8 @@ class MenuButton extends FlxSpriteGroup
         button_bg.antialiasing=ClientPrefs.globalAntialiasing;
         add(button_bg);
 
-        button_text = new FlxText(0, 0, button_bg.width, LangUtil.getString(textRef, textFile));
-        button_text.setFormat(LangUtil.getFont(font), 44, FlxColor.WHITE, LEFT);
+        button_text = new FlxText(0, 0, button_bg.width, Linguagem.LangUtil.getString(textRef, textFile));
+        button_text.setFormat(Linguagem.LangUtil.getFont(font), 44, FlxColor.WHITE, LEFT);
         button_text.antialiasing=ClientPrefs.globalAntialiasing;
         button_text.x = (button_bg.width-button_text.width)/2;
         button_text.y += (button_bg.height-button_text.height)/2;
@@ -79,12 +79,12 @@ class CreditButton extends FlxSpriteGroup
     public function new(bgwidth:Float, icon_image:String, iconPos:String, textRef:String, textColor:String)
     {
         super();
-        bg = new FlxSprite(0,0).makeGraphic(Std.int(bgwidth-10),100,CoolUtil.colorFromString("#380601"), false);
+        bg = new FlxSprite(0,0).makeGraphic(Std.int(bgwidth-10),100,Utils.CoolUtil.colorFromString("#380601"), false);
         bg.updateHitbox();
         add(bg);
 
-        var text:FlxText = new FlxText(0,0,bg.width*0.65, LangUtil.getString("cred_"+textRef, "credits", '\n').toUpperCase());
-        text.setFormat(LangUtil.getFont("smb"), 34, CoolUtil.colorFromString(textColor), CENTER);
+        var text:FlxText = new FlxText(0,0,bg.width*0.65, Linguagem.LangUtil.getString("cred_"+textRef, "credits", '\n').toUpperCase());
+        text.setFormat(Linguagem.LangUtil.getFont("smb"), 34, Utils.CoolUtil.colorFromString(textColor), CENTER);
         text.setPosition((bg.width-text.width)/2,(bg.height-text.height)/2);
         text.solid = false;
         add(text);

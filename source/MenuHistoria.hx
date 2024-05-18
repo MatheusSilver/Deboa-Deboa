@@ -99,7 +99,7 @@ class MenuHistoria extends MusicBeatSubstate
 		vhsSom = new FlxSound().loadEmbedded(Paths.sound('vhs_entra'));
 		vhsSom.volume = 2;
 
-		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
+		var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(dapreselected);
 		for (j in 0...leWeek.songs.length)
 		{
 			musicas.push(leWeek.songs[j][0]);
@@ -107,7 +107,7 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 
 		Main.mouse_allowed = true;
-		if (curSelected >= WeekData.weeksList.length)
+		if (curSelected >= Metadata.WeekData.weeksList.length)
 			curSelected = 0;
 		persistentUpdate = persistentDraw = true;
 
@@ -125,7 +125,7 @@ class MenuHistoria extends MusicBeatSubstate
 		perfilSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('nota_invisivel', 'preload'));
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
-		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
+		Metadata.WeekData.setDirectoryFromWeek(Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[0]));
 
 		lockSprite = new FlxSprite(0, 0);
 		lockSprite.loadGraphic(Paths.image("Story_Mode/lock", 'preload'));
@@ -146,7 +146,7 @@ class MenuHistoria extends MusicBeatSubstate
 		highscoreText = new FlxText(FlxG.width -1250, FlxG.height -690, 600);
 		highscoreText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 25, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		highscoreText.borderSize = 2;
-		highscoreText.text = LangUtil.getString("label_high_score", "data")+ " \n0";
+		highscoreText.text = Linguagem.LangUtil.getString("label_high_score", "data")+ " \n0";
 		highscoreText.updateHitbox();
 		highscoreText.alpha=0;
 
@@ -229,7 +229,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 		var saveStr:Array<String> = MenuPreHistoria.curSave.split(",");
 		var curWeekNum:Int = Std.parseInt(saveStr[MenuPreHistoria.curWeek]);
-		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
+		var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(dapreselected);
 		for (j in 0...leWeek.songs.length)
 		{
 			if (curWeekNum != 0)
@@ -255,23 +255,23 @@ class MenuHistoria extends MusicBeatSubstate
 		#if rpc
 		if (!selectedWeek && update_rpc)
 		{
-			DiscordClient.changePresence(LangUtil.getString("rpc_story_mode_normal","rpc")+" ", 
-			LangUtil.getString("rpc_week_label_"+dapreselected.toLowerCase(),"rpc"), null);
+			DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_story_mode_normal","rpc")+" ", 
+			Linguagem.LangUtil.getString("rpc_week_label_"+dapreselected.toLowerCase(),"rpc"), null);
 		}
 		#end
 
 		/*trace("APERTAVEL:"+apertavel);
 		trace("MODIFIERS OPENED:"+modifiersOpened);*/
-		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2));
-		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		highscoreText.text = LangUtil.getString("label_high_score", "data")+" \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
+		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, Utils.CoolUtil.boundTo(elapsed * 12, 0, 2));
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, Utils.CoolUtil.boundTo(elapsed * 24, 0, 1)));
+		highscoreText.text = Linguagem.LangUtil.getString("label_high_score", "data")+" \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
 
 		if (Math.abs(lerpMultiplier - intendedMultiplier) <= 0.001)
 			lerpMultiplier = intendedMultiplier;
 
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
-		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC ui.FlxVirtualPad.instance.buttonX.justPressed #end;
+		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC ui.MobileControls.FlxVirtualPad.instance.buttonX.justPressed #end;
 
 		if(crossplataforma && !modifiersOpened && !movedBack && !selectedWeek && canOpenModifiers && MainMenuStateMobile.passouCY) {
 			modifiersOpened = true;
@@ -285,7 +285,7 @@ class MenuHistoria extends MusicBeatSubstate
 				//Deixar só pro mobile depois
 				#if desktop
 				if(FlxG.mouse.wheel != 0 && apertavel){
-					changeSong(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1), CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1)==-1);
+					changeSong(Utils.CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1), Utils.CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1)==-1);
 					GlobalSoundManager.play(scrollMenu);
 				}
 				#end
@@ -405,18 +405,18 @@ class MenuHistoria extends MusicBeatSubstate
 		}
 		trace(poop);
 
-		if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-"
+		if (OpenFlAssets.exists(Paths.imagechecker("scrolling/scroll-" + Metadata.WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-"
 			+ musicas[curSelected].toLowerCase() + " (back)",
 			'preload')))
 		{
-			pastbgSprite.loadGraphic(Paths.image("scrolling/scroll-" + WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-"
+			pastbgSprite.loadGraphic(Paths.image("scrolling/scroll-" + Metadata.WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-"
 				+ musicas[curSelected].toLowerCase() + " (back)",
 				'preload'));
 		}
 		else
 		{
 			FlxG.log.warn('Não foi possível achar '
-				+ Paths.image("scrolling/scroll-" + WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-"
+				+ Paths.image("scrolling/scroll-" + Metadata.WeekData.weeksLoaded.get(dapreselected).weekBackground + "/scroll-"
 					+ musicas[curSelected].toLowerCase() + " (back)",
 					'preload'));
 			pastbgSprite.loadGraphic('assets/images/menuDesat.png');
@@ -455,13 +455,13 @@ class MenuHistoria extends MusicBeatSubstate
 					if (PlayState.SONG.videonombre != null && PlayState.SONG.videonombre.length > 5)
 					{
 						#if desktop
-						VideoStatePC.NextState = new PlayState();
-						VideoStatePC.specialSetting = NORMAL;
+						Videos.VideoStatePC.NextState = new PlayState();
+						Videos.VideoStatePC.specialSetting = NORMAL;
 						PlayState.limparCache = true;
-						VideoStatePC.videoPath = Paths.video(PlayState.SONG.videonombre);
-						MusicBeatState.switchState(new VideoStatePC());
+						Videos.VideoStatePC.videoPath = Paths.video(PlayState.SONG.videonombre);
+						MusicBeatState.switchState(new Videos.VideoStatePC());
 						#elseif mobile
-						LoadingState.loadAndSwitchState(new VideoState('assets/videos/' + PlayState.SONG.videonombre, new PlayState()));
+						LoadingState.loadAndSwitchState(new Videos.VideoState('assets/videos/' + PlayState.SONG.videonombre, new PlayState()));
 						PlayState.limparCache = true;
 						#end
 					}
@@ -501,7 +501,7 @@ class MenuHistoria extends MusicBeatSubstate
 		else if (nombres[curSelected].toLowerCase() == 'cross console clash')
 		{
 			#if rpc
-			DiscordClient.changePresence(LangUtil.getString("rpc_story_mode_ccc","rpc"), "Cross Console Clash", null);
+			DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_story_mode_ccc","rpc"), "Cross Console Clash", null);
 			#end
 			naopodevoltar = true;
 			apertavel = false;
@@ -545,7 +545,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 	function entrada()
 	{
-		var escolhaWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
+		var escolhaWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(dapreselected);
 		var pasta:String = escolhaWeek.weekBackground;
 		FlxTween.tween(perfilSprite, {y: -FlxG.height}, 0.05, {
 			ease: FlxEase.expoInOut,
@@ -592,8 +592,8 @@ class MenuHistoria extends MusicBeatSubstate
 		intendedMultiplier = Highscore.getMultiplier(songLowerCase, 2);
 		numText.text = Std.string(curSelected+1)+"/"+Std.string(musicas.length);
 
-		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
-		WeekData.setDirectoryFromWeek(leWeek);
+		var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(dapreselected);
+		Metadata.WeekData.setDirectoryFromWeek(leWeek);
 
 		if (musicasLockadas[curSelected] == true)
 		{

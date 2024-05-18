@@ -81,7 +81,7 @@ function onCreatePost()
 end
 
 function onCountdownStarted()
-	setPropertyFromClass('Conductor', 'songPosition', 0);
+	setPropertyFromClass('Song.Conductor', 'songPosition', 0);
 end
 
 function onPause()

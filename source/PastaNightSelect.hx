@@ -33,7 +33,7 @@ class PastaNightSelect extends MusicBeatState
 		super.create();
 
 		#if rpc
-		DiscordClient.changePresence(LangUtil.getString("rpc_pasta_night","rpc"), "Noite da Rapaziada", null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_pasta_night","rpc"), "Noite da Rapaziada", null);
 		#end
 
 		FlxG.sound.playMusic(Paths.music('PastaNightSelect', 'preload'), 1, true);
