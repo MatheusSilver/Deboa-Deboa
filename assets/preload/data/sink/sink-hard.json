@@ -29116,6 +29116,7 @@
 		"noteStyle": "normal",
 		"speed": 2.8,
 		"bpm": 140,
-		"legendaOffset": -40
+		"legendaOffset": -40,
+		"legendaSpacing": 64
 	}
 }
