@@ -2862,6 +2862,8 @@
 		"validScore": true,
 		"stage": "crimge",
 		"bpm": 79,
-		"speed": 2.5
+		"speed": 2.5,
+		"legendaOffset": -35,
+		"legendaSpacing": 0
 	}
 }

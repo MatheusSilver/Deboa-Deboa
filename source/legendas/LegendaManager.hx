@@ -8,16 +8,18 @@ class LegendaManager {
     public var legendas:Array<LegendaObject> = [];
     public var legendaCamRef:String;
     public var downScrollOffset:Float = 0;
+    public var defaultSpacing:Float = 0;
     var legendPath:String;
     var parent:FlxState;
     public static var instance:LegendaManager;
 
-    public function new(legendaCamRef:String, parent:FlxState, legendPath:String, ?offset:Float = 0) {
+    public function new(legendaCamRef:String, parent:FlxState, legendPath:String, ?offset:Float = 0, ?spacing:Float = 0) {
         instance = this;
         this.legendaCamRef = legendaCamRef;
         this.parent = parent;
         this.legendPath = legendPath;
         this.downScrollOffset = offset;
+        this.defaultSpacing = spacing;
         FlxG.watch.add(this, "legendas", "Legendas");
     }
 

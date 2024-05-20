@@ -170,6 +170,7 @@ typedef SwagSong =
 	var speed:Float;
 	var videonombre:String;
 	var legendaOffset:Float;
+	var legendaSpacing:Float;
 
 	var player1:String;
 	var player2:String;
@@ -199,6 +200,7 @@ class Song
 	public var stage:String;
 	public var canfollowpermitido:Bool = false;
 	public var legendaOffset:Float;
+	public var legendaSpacing:Float = 64;
 
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';

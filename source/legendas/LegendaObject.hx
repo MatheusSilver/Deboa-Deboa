@@ -79,15 +79,15 @@ class LegendaObject extends FlxSpriteGroup {
     public function updatePos() {
         if(index <= 2){
             if(ClientPrefs.downScroll) {
-                this.y = ((-350+(LegendaManager.instance.downScrollOffset))+(64*(newIndex)));
+                this.y = ((-350+(LegendaManager.instance.downScrollOffset))+(LegendaManager.instance.defaultSpacing*(newIndex)));
             } else {
                 this.y = (0-(64*(newIndex)));
             }
         } else {
             if(!ClientPrefs.downScroll) {
-                this.y = ((-350+(LegendaManager.instance.downScrollOffset))+(64*(newIndex-2)));
+                this.y = ((-350+(LegendaManager.instance.downScrollOffset))+(LegendaManager.instance.defaultSpacing*(newIndex-2)));
             } else {
-                this.y = (0-(64*(newIndex-2)));
+                this.y = (0-(LegendaManager.instance.defaultSpacing*(newIndex-2)));
             }  
         }
 

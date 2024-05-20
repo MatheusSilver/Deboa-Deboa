@@ -565,7 +565,7 @@ class PlayState extends MusicBeatState
 		vimdopause = false;
 
 		if(ClientPrefs.legendas) {
-			legendaManager = new LegendaManager("camLegenda", this, legendPath, SONG.legendaOffset);
+			legendaManager = new LegendaManager("camLegenda", this, legendPath, SONG.legendaOffset, SONG.legendaSpacing);
 		}
 
 		// Nenhum problema pra só uma string

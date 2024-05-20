@@ -256,7 +256,8 @@ class ChartingState extends MusicBeatState
 				stage: 'stage',
 				validScore: false,
 				isRing: false,
-				legendaOffset: 0
+				legendaOffset: 0,
+				legendaSpacing: 64
 			};
 		}
 		
@@ -2304,6 +2305,7 @@ class ChartingState extends MusicBeatState
 			splashSkin: _song.splashSkin,
 			canfollowpermitido: _song.canfollowpermitido,
 			legendaOffset: 0,
+			legendaSpacing: 64,
 
 			player1: _song.player1,
 			player2: _song.player2,
@@ -2373,6 +2375,7 @@ class ChartingState extends MusicBeatState
 				splashSkin: _song.splashSkin,
 				canfollowpermitido: _song.canfollowpermitido,
 				legendaOffset: 0,
+				legendaSpacing: 64,
 	
 				player1: _song.player1,
 				player2: _song.player2,
@@ -2442,6 +2445,7 @@ class ChartingState extends MusicBeatState
 			splashSkin: _song.splashSkin,
 			canfollowpermitido: _song.canfollowpermitido,
 			legendaOffset: 0,
+			legendaSpacing: 64,
 
 			player1: _song.player1,
 			player2: _song.player2,
