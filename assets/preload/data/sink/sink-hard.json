@@ -29115,6 +29115,7 @@
 		"needsVoices": false,
 		"noteStyle": "normal",
 		"speed": 2.8,
-		"bpm": 140
+		"bpm": 140,
+		"legendaOffset": -40
 	}
 }

@@ -63,6 +63,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import sys.FileSystem;
 import sys.io.File;
+import legendas.*;
 
 using StringTools;
 
@@ -442,6 +443,8 @@ class PlayState extends MusicBeatState
 
 	var blackStuff:FlxSprite;
 
+	var legendaManager:LegendaManager;
+
 	override public function create()
 	{
 		if (limparCache) // Isso serve pro game não ficar limpando cache a cada vez que você reseta a música, fazendo assim o reset ser mais rápido.
@@ -460,7 +463,9 @@ class PlayState extends MusicBeatState
 		precacheList.set('pausescrollmenu', 'sound');
 		precacheList.set('breakfast', 'music');
 
+
 		legendPath = 'letras/' + SONG.song.toLowerCase() + '/' + ClientPrefs.lingua+"/";
+
 		// to perdido
 
 		isRing = SONG.isRing; // Top 10 otimizações mais sodas do Mundo talvez do Brasil
@@ -558,6 +563,10 @@ class PlayState extends MusicBeatState
 			SONG.speed = newSongSpeed;
 		}
 		vimdopause = false;
+
+		if(ClientPrefs.legendas) {
+			legendaManager = new LegendaManager("camLegenda", this, legendPath, SONG.legendaOffset);
+		}
 
 		// Nenhum problema pra só uma string
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
@@ -3403,6 +3412,18 @@ class PlayState extends MusicBeatState
 	{
 		switch (eventName)
 		{
+			case 'Adicionar Imagens':
+				if(ClientPrefs.legendas) {
+					if(value1!="") legendaManager.addLegenda(value1, null, 1); else legendaManager.removeLegenda(1);
+					if(value2!="") legendaManager.addLegenda(value2, null, 2); else legendaManager.removeLegenda(2);
+					if(value3!="") legendaManager.addLegenda(value3, null, 3); else legendaManager.removeLegenda(3);
+					if(value4!="") legendaManager.addLegenda(value4, null, 4); else legendaManager.removeLegenda(4);
+				}
+			case 'Adicionar Imagens diferenciado':
+				if(ClientPrefs.legendas) {
+					if(value1!="" && value2!="") legendaManager.addLegenda(value1, value2, 1); else legendaManager.removeLegenda(1);
+					if(value3!="" && value4!="") legendaManager.addLegenda(value3, value4, 2); else legendaManager.removeLegenda(2);
+				}
 			case 'Som de Censura':
 				if(!ClientPrefs.palavroes) {
 					if(value1=="play") { 
