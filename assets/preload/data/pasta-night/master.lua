@@ -406,7 +406,7 @@ end
 --amigo_legendas={"pastamx","pastalx","pastahyp"}
 
 function onEvent(name, value1, value2, value3)
-    if name == 'Adicionar Imagens diferenciado' and legendas then
+    if name == 'Adicionar Imagens diferenciadasso' and legendas then
         if MXPos == 'bf' and value1~="pastamx0" then
             if value2=="pastalx0" then
                 value2="pastalx"

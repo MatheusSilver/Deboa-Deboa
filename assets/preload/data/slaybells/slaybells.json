@@ -7593,6 +7593,7 @@
 		"stage": "you",
 		"needsVoices": false,
 		"speed": 2.7,
-		"bpm": 160
+		"bpm": 160,
+		"legendaOffset": -20
 	}
 }
