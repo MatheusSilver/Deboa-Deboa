@@ -27,7 +27,7 @@ function adjustPos(object, image)
 end
 
 function onEvent(name, value1, value2, value3, value4)
-    if name == 'Adicionar Imagens diferenciado' and (legendas == true or string.find(value1, "preycutscene")) then
+    if name == 'Adicionar Imagens diferenciadasso' and (legendas == true or string.find(value1, "preycutscene")) then
         if value2 == '' or value2 == 'null' or value2 == nil then
             removeLuaSprite('exe1', true);
         else
@@ -52,7 +52,7 @@ function onEvent(name, value1, value2, value3, value4)
         makeLuaSprite('exe', legendaPath..value1, 0, pos)
         propriedadescomuns('exe', value1)
         end
-    elseif name == 'Adicionar Imagens diferenciado' and legendas == false then
+    elseif name == 'Adicionar Imagens diferenciadasso' and legendas == false then
         if value1== "furnace1" or value1== "starved1" or value1 == "ssonic1" then
             removeLuaSprite('exe', true)
         end
