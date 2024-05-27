@@ -40,6 +40,8 @@ class LegendaObject extends FlxSpriteGroup {
             algum = true;
         }
 
+        this.alpha = ClientPrefs.opacidadeLegendas;
+
         if(algum)
             parent.add(this);
             return;
@@ -67,7 +69,6 @@ class LegendaObject extends FlxSpriteGroup {
             }
             algum = true;
         }
-
         this.alpha = ClientPrefs.opacidadeLegendas;
 
         if(algum)
