@@ -113,9 +113,9 @@ function initializePsyshock()
     addLuaSprite('Psyshock', true)
 end
 function updatePendulum()
-    local convertedTime = ((getSongPosition() / (crochet * beatInterval)) * math.pi)
-    setProperty('Pendelum.angle', (math.sin(convertedTime) * 32))
-    local pendulumTimeframe = math.floor(((convertedTime / math.pi) - math.floor(convertedTime / math.pi)) * 1000) / 1000
+    local convertedTime = ((getSongPosition() / (crochet * beatInterval)) * pi())
+    setProperty('Pendelum.angle', (seno(convertedTime) * 32))
+    local pendulumTimeframe = math.floor(((convertedTime / pi()) - math.floor(convertedTime / pi())) * 1000) / 1000
     local reach = 0.2;
     if pendulumTimeframe < reach or pendulumTimeframe > (1 - reach) then
         if not alreadyHit then

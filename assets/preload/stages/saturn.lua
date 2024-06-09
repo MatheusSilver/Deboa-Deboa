@@ -36,15 +36,15 @@ end
 function onUpdate()
 
 	if tailscircle == 'hovering' then
-        setProperty('dad.y', getProperty('dad.y') + math.sin(floaty) * 0.5);
+        setProperty('dad.y', getProperty('dad.y') + seno(floaty) * 0.5);
 		floaty = floaty + 0.06
-        setProperty('dad.x', getProperty('dad.x') + math.cos(floaty) * 0.5);
+        setProperty('dad.x', getProperty('dad.x') + cosseno(floaty) * 0.5);
 		floaty = floaty + 0.05
     end
     if tailscircle == 'circling' then
-        setProperty('dad.y', getProperty('dad.y') + math.sin(floaty) * 3.8);
+        setProperty('dad.y', getProperty('dad.y') + seno(floaty) * 3.8);
 		floaty = floaty + 0.06
-        setProperty('dad.x', getProperty('dad.x') + math.cos(floaty) * 1.9);
+        setProperty('dad.x', getProperty('dad.x') + cosseno(floaty) * 1.9);
 		floaty = floaty + 0.05
     end
 end

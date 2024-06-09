@@ -1,5 +1,6 @@
 package;
 
+import Utils.CoolUtil;
 import Videos.MP4Sprite;
 import Note.NoteSplash;
 import modifiers.ModifiersManager;
@@ -2906,7 +2907,7 @@ class PlayState extends MusicBeatState
 		if (cpuControlled)
 		{
 			botplaySine += 180 * elapsed;
-			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
+			botplayTxt.alpha = 1 - CoolUtil.seno((CoolUtil.pi() * botplaySine) / 180);
 		}
 		botplayTxt.visible = cpuControlled && !playingVideoMP4;
 
@@ -3133,7 +3134,7 @@ class PlayState extends MusicBeatState
 					else // Upscroll
 						daNote.distance = (-0.45 * (Song.Conductor.songPosition - daNote.strumTime) * SONG.speed * daNote.multSpeed);
 
-					var angleDir = strumDirection * Math.PI / 180;
+					var angleDir = strumDirection * CoolUtil.pi() / 180;
 					if (daNote.copyAngle)
 						daNote.angle = strumDirection - 90 + strumAngle;
 
@@ -3153,12 +3154,12 @@ class PlayState extends MusicBeatState
 						daNote.visible = false;
 
 					if (daNote.copyX)
-						daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
+						daNote.x = strumX + CoolUtil.cosseno(angleDir) * daNote.distance;
 
 
 					if (daNote.copyY)
 					{
-						daNote.y = strumY + Math.sin(angleDir) * daNote.distance;
+						daNote.y = strumY + CoolUtil.seno(angleDir) * daNote.distance;
 
 						if (daNote.isSustainNote && scrollModifierChecker != strumScroll)
 							daNote.flipY = strumScroll; //Lore se liga nisso aqui depois kkkkkkkkkkkkkkkkkk
@@ -7085,7 +7086,7 @@ class PlayState extends MusicBeatState
 				type: FlxTween.LOOPING,
 				loopDelay: 0,
 				onUpdate: function (twn:FlxTween) {
-					partic.x = partic.x + Math.sin(8 * twn.scale + 0.4 + Math.random()) * 100;
+					partic.x = partic.x + CoolUtil.seno(8 * twn.scale + 0.4 + Math.random()) * 100;
 					if (endingSong) {
 						destruirsprites(partic); // Aqui é necessário o sprite ser destruído pois ele não será mais usado.
 						twn.cancel();

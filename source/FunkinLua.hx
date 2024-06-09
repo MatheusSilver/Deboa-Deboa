@@ -178,7 +178,7 @@ class FunkinLua {
 
 		//stuff 4 noobz like you B)
 
-		
+		set('pi', Math.PI); // Deixei aqui só pra casos de eu ter colocado o pi como uma var e não como uma função nos scripts em lua.
 
 		Lua_helper.add_callback(lua, "addLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
@@ -1321,6 +1321,18 @@ class FunkinLua {
 			}
 		}); */
 		
+		Lua_helper.add_callback(lua, "seno", function(n:Float) {
+			return Utils.CoolUtil.seno(n);
+		});
+
+		Lua_helper.add_callback(lua, "cosseno", function(n:Float) {
+			return Utils.CoolUtil.cosseno(n);
+		});
+
+		Lua_helper.add_callback(lua, "pi", function() {
+			return Utils.CoolUtil.pi();
+		});
+
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
 			FlxG.sound.playMusic(Paths.music(sound), volume, loop);
 		});

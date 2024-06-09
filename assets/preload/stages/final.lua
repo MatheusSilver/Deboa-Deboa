@@ -431,40 +431,40 @@ floatyStuff = floatyStuff + 0.2
 if not ENDING then 
 
 
-doTweenY('floaty1', 'dad', (((math.sin(floatyStuff) / 4)*-3)*3.5)+30,0.001)
+doTweenY('floaty1', 'dad', (((seno(floatyStuff) / 4)*-3)*3.5)+30,0.001)
 
 --SONIC ALPHABET FLOAT
 
 
-doTweenY('S', 'S', (( (math.sin(floatyStuff) / 5 )*-3)*10.5 )+425,0.001)
+doTweenY('S', 'S', (( (seno(floatyStuff) / 5 )*-3)*10.5 )+425,0.001)
 
-doTweenY('O', 'O', (( (math.sin(floatyStuff) / 6 )*-3)*10.5 )+385,0.001)
+doTweenY('O', 'O', (( (seno(floatyStuff) / 6 )*-3)*10.5 )+385,0.001)
 
-doTweenY('N', 'N', (( (math.sin(floatyStuff) / 5 )*-3)*10.5 )+175,0.001)
+doTweenY('N', 'N', (( (seno(floatyStuff) / 5 )*-3)*10.5 )+175,0.001)
 
-doTweenY('I', 'I', (( (math.sin(floatyStuff) / 6 )*-3)*10.5 )+175,0.001)
+doTweenY('I', 'I', (( (seno(floatyStuff) / 6 )*-3)*10.5 )+175,0.001)
 
-doTweenY('C', 'C', (( (math.sin(floatyStuff) / 5 )*-3)*10.5 )+200,0.001)
+doTweenY('C', 'C', (( (seno(floatyStuff) / 5 )*-3)*10.5 )+200,0.001)
 
 
 
 --Floating things
 
-doTweenY('block1', 'block1', (( (math.sin(floatyStuff) / 5 )*-3)*10.5 )-95,0.001)
+doTweenY('block1', 'block1', (( (seno(floatyStuff) / 5 )*-3)*10.5 )-95,0.001)
 
-doTweenY('block2', 'block2', (( (math.sin(floatyStuff) / 7 )*-3)*10.5 )-50,0.001)
+doTweenY('block2', 'block2', (( (seno(floatyStuff) / 7 )*-3)*10.5 )-50,0.001)
 
-doTweenY('SEGA', 'SEGA', (( (math.sin(floatyStuff) / 8 )*-3)*10.5 )+40,0.001)
+doTweenY('SEGA', 'SEGA', (( (seno(floatyStuff) / 8 )*-3)*10.5 )+40,0.001)
 
-doTweenY('eggbox', 'eggbox', (( (math.sin(floatyStuff) / 9 )*-3)*10.5 )+85,0.001)
+doTweenY('eggbox', 'eggbox', (( (seno(floatyStuff) / 9 )*-3)*10.5 )+85,0.001)
 
-doTweenAngle('lines', 'lines', (( (math.sin(floatyStuff) / 10 )*-3)*5.5 )+0,0.001)
+doTweenAngle('lines', 'lines', (( (seno(floatyStuff) / 10 )*-3)*5.5 )+0,0.001)
 
-doTweenY('checkpoint', 'checkpoint', (( (math.sin(floatyStuff) / 4 )*-3)*10.5 )+280,0.001)
+doTweenY('checkpoint', 'checkpoint', (( (seno(floatyStuff) / 4 )*-3)*10.5 )+280,0.001)
 
-doTweenY('cube', 'cube', (( (math.sin(floatyStuff) / 3 )*-3)*10.5 )-60,0.001)
+doTweenY('cube', 'cube', (( (seno(floatyStuff) / 3 )*-3)*10.5 )-60,0.001)
 
-doTweenX('bfrun', 'boyfriend', (( (math.sin(floatyStuff) / 10 )*-3)*10.5 )+620,0.001)
+doTweenX('bfrun', 'boyfriend', (( (seno(floatyStuff) / 10 )*-3)*10.5 )+620,0.001)
 
 
 end

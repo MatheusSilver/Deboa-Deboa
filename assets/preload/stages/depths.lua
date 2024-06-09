@@ -92,7 +92,7 @@ end
 function moveBall(number) --ok
 	fallPos[number] = fallPos[number] + 0.003 * speed * ballScales[number]
 	local ypos = getHeight(-380, fallPos[number])
-	local xpos = math.sin(getSongPosition()/1000 + number * 0.45) * 50 * ballScales[number] + -80 + 200 * number
+	local xpos = seno(getSongPosition()/1000 + number * 0.45) * 50 * ballScales[number] + -80 + 200 * number
 
 	if ypos >= 1700 then
 		fallPos[number] = 0

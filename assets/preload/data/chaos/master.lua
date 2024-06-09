@@ -55,9 +55,9 @@ function onStepHit()
 function onUpdate(elapsed)
 	songPos = getSongPosition()
 	local currentBeat = (songPos/5000)*(curBpm/60)
-	doTweenY('opponentmove', 'dad', -400 - 150*math.sin((currentBeat+12*12)*math.pi), 2)
-	doTweenX('disruptor2', 'disruptor2.scale', 0 - 50*math.sin((currentBeat+1*0.1)*math.pi), 6)
-	doTweenY('disruptor2', 'disruptor2.scale', 0 - 31*math.sin((currentBeat+1*1)*math.pi), 6)
+	doTweenY('opponentmove', 'dad', -400 - 150 * seno((currentBeat+12*12) * pi), 2)
+	doTweenX('disruptor2', 'disruptor2.scale', 0 - 50* seno((currentBeat+1*0.1) * pi), 6)
+	doTweenY('disruptor2', 'disruptor2.scale', 0 - 31* seno((currentBeat+1*1) * pi), 6)
 	end
 
 	if curStep > 63 then
@@ -65,7 +65,7 @@ function onUpdate(elapsed)
     
         local currentBeat = (songPos/1000)*(bpm/80)
     
-        doTweenY(dadTweenY, 'dad', -500-40*math.sin((currentBeat*0.25)*math.pi),0.001)
+        doTweenY(dadTweenY, 'dad', -500-40 * seno((currentBeat*0.25) * pi),0.001)
 	end
 end
 

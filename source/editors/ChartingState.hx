@@ -1533,7 +1533,7 @@ class ChartingState extends MusicBeatState
 				if (curSelectedNote[0] == note.strumTime && curSelectedNote[1] == noteDataToCheck)
 				{
 					colorSine += 180 * elapsed;
-					var colorVal:Float = 0.7 + Math.sin((Math.PI * colorSine) / 180) * 0.3;
+					var colorVal:Float = 0.7 + Utils.CoolUtil.seno((Utils.CoolUtil.pi() * colorSine) / 180) * 0.3;
 					note.color = FlxColor.fromRGBFloat(colorVal, colorVal, colorVal, 0.999); //Alpha can't be 100% or the color won't be updated for some reason, guess i will die
 				}
 			}

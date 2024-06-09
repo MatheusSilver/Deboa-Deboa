@@ -1339,6 +1339,32 @@ class CoolUtil
 		['Hypno', '-hypno'] // 7
 	];
 
+	/**
+	 * Uma função aproximadamente 2-6 vezes mais rápida do que a do Math. (Margem de < 0.05% de erros - pode ser impreciso)
+	 * @param Número que será utilizado na função
+	 * @return Float
+	 */
+	inline public static function seno(n:Float):Float {
+		return FlxMath.fastSin(n);
+	}
+
+	/**
+	 * Uma função aproximadamente 2-6 vezes mais rápida do que a da classe 'Math'. (Margem de < 0.05% de erros - pode ser impreciso)
+	 * @param Número que será utilizado na função
+	 * @return Float
+	 */
+	inline public static function cosseno(n:Float):Float {
+		return FlxMath.fastCos(n);
+	}
+
+	/**
+	 * Uma função que retorna um número aproximado de pi.
+	 * @return Float (Math.PI)
+	 */
+	 inline public static function pi():Float {
+		return Math.PI;
+	}
+
 	// Não sei o que isso faz
 	inline public static function formatScore(zeros_vezes:Int, num_vezes:Int):String
 	{
