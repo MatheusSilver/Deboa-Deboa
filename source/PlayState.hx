@@ -7053,6 +7053,17 @@ class PlayState extends MusicBeatState
 		sprite.destroy(); // No caso, o destroy() serve pra apagar o objeto da memória
 	}
 
+	public function destruirspritesLua(obj:String) { // Isso é experimental
+		var sprite:FlxSprite = modchartSprites.get(obj);
+		if(modchartSprites.exists(obj)) {
+			sprite.visible = false;
+			remove(sprite);
+			sprite.kill();
+			sprite.destroy();
+			modchartSprites.remove(obj);
+		}
+	}
+
 	public function reload_presence():Void
 	{
 		#if rpc

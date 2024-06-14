@@ -732,6 +732,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "precacheSound", function(name:String) {
 			PlayState.instance.precacheList.set(name, 'sound');
 		});
+		Lua_helper.add_callback(lua, "destruirsprites", function(obj:String) {
+			PlayState.instance.destruirspritesLua(obj);
+		});
 		Lua_helper.add_callback(lua, "triggerEvent", function(name:String, arg1:Dynamic, arg2:Dynamic, arg3:Dynamic, arg4:Dynamic, arg5:Dynamic) {
 			var value1:String = arg1;
 			var value2:String = arg2;
@@ -1367,9 +1370,6 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "cyCut", function(texto:String) {
 			PlayState.instance.cyCutscene(texto);
-		});
-		Lua_helper.add_callback(lua, "destruirsprites", function(sprite:FlxSprite) {
-			PlayState.instance.destruirsprites(sprite);
 		});
 		Lua_helper.add_callback(lua, "playSound", function(sound:String, volume:Float = 1, ?tag:String = null) {
 			if(tag != null && tag.length > 0) {
