@@ -1,69 +1,67 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="Tails.png">
-	<!-- Created with Adobe Animate version 21.0.0.35450 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Tails DOWN0000" x="0" y="0" width="299" height="352" frameX="0" frameY="-9" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0001" x="299" y="0" width="298" height="356" frameX="0" frameY="-5" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0002" x="597" y="0" width="297" height="358" frameX="-1" frameY="-3" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0003" x="894" y="0" width="297" height="359" frameX="-1" frameY="-2" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0004" x="1191" y="0" width="298" height="360" frameX="0" frameY="-1" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0005" x="1489" y="0" width="298" height="361" frameX="0" frameY="0" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0006" x="1787" y="0" width="297" height="361" frameX="-1" frameY="0" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0007" x="2084" y="0" width="297" height="361" frameX="-1" frameY="0" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0008" x="2381" y="0" width="298" height="361" frameX="0" frameY="0" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0009" x="2679" y="0" width="298" height="361" frameX="0" frameY="0" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails DOWN0010" x="2977" y="0" width="298" height="361" frameX="0" frameY="0" frameWidth="299" frameHeight="361"/>
-	<SubTexture name="Tails IDLE0000" x="3275" y="0" width="257" height="412" frameX="-5" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0001" x="3532" y="0" width="257" height="412" frameX="-5" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0002" x="3789" y="0" width="259" height="412" frameX="-4" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0003" x="0" y="412" width="259" height="412" frameX="-4" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0004" x="259" y="412" width="260" height="412" frameX="-3" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0005" x="519" y="412" width="262" height="412" frameX="-1" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0006" x="781" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0007" x="1045" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0008" x="1309" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0009" x="1573" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0010" x="1837" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0011" x="2101" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0012" x="2365" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0013" x="2629" y="412" width="264" height="412"/>
-	<SubTexture name="Tails IDLE0014" x="2893" y="412" width="263" height="412" frameX="0" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0015" x="3156" y="412" width="261" height="412" frameX="-2" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0016" x="3417" y="412" width="260" height="412" frameX="-3" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0017" x="3677" y="412" width="258" height="412" frameX="-4" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0018" x="0" y="824" width="258" height="412" frameX="-4" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails IDLE0019" x="3275" y="0" width="257" height="412" frameX="-5" frameY="0" frameWidth="264" frameHeight="412"/>
-	<SubTexture name="Tails LEFT0000" x="258" y="824" width="352" height="398" frameX="0" frameY="-2" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0001" x="610" y="824" width="348" height="399" frameX="-4" frameY="-1" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0002" x="958" y="824" width="347" height="399" frameX="-5" frameY="-1" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0003" x="1305" y="824" width="346" height="399" frameX="-6" frameY="-1" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0004" x="1651" y="824" width="346" height="400" frameX="-6" frameY="0" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0005" x="1997" y="824" width="346" height="400" frameX="-6" frameY="0" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0006" x="2343" y="824" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0007" x="2688" y="824" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0008" x="3033" y="824" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0009" x="3378" y="824" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails LEFT0010" x="3723" y="824" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400"/>
-	<SubTexture name="Tails RIGHT0000" x="0" y="1236" width="333" height="396" frameX="0" frameY="-1" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0001" x="333" y="1236" width="323" height="393" frameX="0" frameY="-4" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0002" x="656" y="1236" width="323" height="397" frameX="0" frameY="0" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0003" x="979" y="1236" width="323" height="394" frameX="0" frameY="-3" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0004" x="1302" y="1236" width="323" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0005" x="1625" y="1236" width="324" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0006" x="1949" y="1236" width="325" height="388" frameX="0" frameY="-9" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0007" x="2274" y="1236" width="325" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0008" x="2599" y="1236" width="325" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0009" x="2924" y="1236" width="325" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails RIGHT0010" x="3249" y="1236" width="325" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397"/>
-	<SubTexture name="Tails UP0000" x="3574" y="1236" width="305" height="451" frameX="-4" frameY="0" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0001" x="0" y="1687" width="309" height="451" frameX="-2" frameY="0" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0002" x="309" y="1687" width="310" height="448" frameX="-1" frameY="-3" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0003" x="619" y="1687" width="312" height="445" frameX="0" frameY="-6" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0004" x="931" y="1687" width="312" height="444" frameX="0" frameY="-7" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0005" x="1243" y="1687" width="312" height="444" frameX="0" frameY="-7" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0006" x="1555" y="1687" width="312" height="444" frameX="0" frameY="-7" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0007" x="1867" y="1687" width="312" height="443" frameX="0" frameY="-8" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0008" x="2179" y="1687" width="312" height="443" frameX="0" frameY="-8" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0009" x="2491" y="1687" width="313" height="443" frameX="0" frameY="-8" frameWidth="313" frameHeight="451"/>
-	<SubTexture name="Tails UP0010" x="2804" y="1687" width="313" height="442" frameX="0" frameY="-9" frameWidth="313" frameHeight="451"/>
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="tailsmonoolho.png">
+<SubTexture name="Tails DOWN0000" x="0" y="0" width="299" height="350" frameX="0" frameY="-10" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0001" x="299" y="0" width="298" height="355" frameX="0" frameY="-6" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0002" x="597" y="0" width="297" height="357" frameX="-1" frameY="-4" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0003" x="894" y="0" width="297" height="359" frameX="-1" frameY="-2" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0004" x="1191" y="0" width="298" height="360" frameX="0" frameY="-1" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0005" x="1489" y="0" width="298" height="360" frameX="0" frameY="-1" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0006" x="1787" y="0" width="297" height="360" frameX="-1" frameY="-1" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0007" x="2084" y="0" width="297" height="361" frameX="-1" frameY="0" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0008" x="2381" y="0" width="298" height="361" frameX="0" frameY="0" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0009" x="0" y="361" width="298" height="361" frameX="0" frameY="0" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails DOWN0010" x="298" y="361" width="298" height="361" frameX="0" frameY="0" frameWidth="299" frameHeight="361" />
+<SubTexture name="Tails IDLE0000" x="596" y="361" width="257" height="412" frameX="-5" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0001" x="853" y="361" width="257" height="412" frameX="-5" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0002" x="1110" y="361" width="258" height="412" frameX="-4" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0003" x="1368" y="361" width="259" height="411" frameX="-4" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0004" x="1627" y="361" width="260" height="411" frameX="-3" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0005" x="1887" y="361" width="262" height="411" frameX="-1" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0006" x="2149" y="361" width="264" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0007" x="0" y="773" width="264" height="412" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0008" x="264" y="773" width="264" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0009" x="528" y="773" width="264" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0010" x="792" y="773" width="264" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0011" x="1056" y="773" width="264" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0012" x="1320" y="773" width="264" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0013" x="1584" y="773" width="264" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0014" x="1848" y="773" width="263" height="411" frameX="0" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0015" x="2111" y="773" width="260" height="412" frameX="-2" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0016" x="0" y="1185" width="260" height="411" frameX="-3" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0017" x="260" y="1185" width="258" height="411" frameX="-4" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0018" x="518" y="1185" width="257" height="411" frameX="-5" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails IDLE0019" x="596" y="361" width="257" height="412" frameX="-5" frameY="0" frameWidth="264" frameHeight="412" />
+<SubTexture name="Tails LEFT0000" x="775" y="1185" width="352" height="398" frameX="0" frameY="-2" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0001" x="1127" y="1185" width="348" height="399" frameX="-4" frameY="-1" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0002" x="1475" y="1185" width="347" height="399" frameX="-5" frameY="-1" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0003" x="1822" y="1185" width="346" height="399" frameX="-6" frameY="-1" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0004" x="2168" y="1185" width="346" height="400" frameX="-6" frameY="0" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0005" x="2514" y="1185" width="346" height="400" frameX="-6" frameY="0" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0006" x="0" y="1596" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0007" x="345" y="1596" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0008" x="690" y="1596" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0009" x="1035" y="1596" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails LEFT0010" x="1380" y="1596" width="345" height="400" frameX="-7" frameY="0" frameWidth="352" frameHeight="400" />
+<SubTexture name="Tails RIGHT0000" x="1725" y="1596" width="332" height="395" frameX="0" frameY="-1" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0001" x="2057" y="1596" width="322" height="393" frameX="0" frameY="-4" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0002" x="2379" y="1596" width="323" height="397" frameX="0" frameY="0" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0003" x="2702" y="1596" width="323" height="394" frameX="0" frameY="-3" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0004" x="0" y="1996" width="323" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0005" x="323" y="1996" width="324" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0006" x="647" y="1996" width="325" height="388" frameX="0" frameY="-9" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0007" x="972" y="1996" width="324" height="389" frameX="0" frameY="-8" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0008" x="1296" y="1996" width="325" height="388" frameX="0" frameY="-8" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0009" x="1621" y="1996" width="324" height="388" frameX="0" frameY="-8" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails RIGHT0010" x="1945" y="1996" width="324" height="388" frameX="0" frameY="-8" frameWidth="333" frameHeight="397" />
+<SubTexture name="Tails UP0000" x="2269" y="1996" width="305" height="451" frameX="-4" frameY="0" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0001" x="2574" y="1996" width="309" height="451" frameX="-2" frameY="0" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0002" x="0" y="2447" width="310" height="448" frameX="-1" frameY="-3" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0003" x="310" y="2447" width="312" height="445" frameX="0" frameY="-6" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0004" x="622" y="2447" width="312" height="444" frameX="0" frameY="-7" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0005" x="934" y="2447" width="312" height="444" frameX="0" frameY="-7" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0006" x="1246" y="2447" width="312" height="444" frameX="0" frameY="-7" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0007" x="1558" y="2447" width="312" height="443" frameX="0" frameY="-8" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0008" x="1870" y="2447" width="312" height="443" frameX="0" frameY="-8" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0009" x="2182" y="2447" width="312" height="443" frameX="0" frameY="-8" frameWidth="313" frameHeight="451" />
+<SubTexture name="Tails UP0010" x="2494" y="2447" width="312" height="442" frameX="0" frameY="-9" frameWidth="313" frameHeight="451" />
 </TextureAtlas>
