@@ -1557,6 +1557,47 @@ class CoolUtil
 	}
 }
 
+class ProgressionUtil 
+{
+	public static function terminouHistoria():Bool {
+		Metadata.WeekData.reloadWeekFiles(true);
+
+		var historiaMusicas:Int = 0;
+		for (i in 0...Metadata.WeekData.weeksList.length) {
+			var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[i]);
+			historiaMusicas += leWeek.songs.length;
+		}
+
+		//trace("Total de musicas: "+ historiaMusicas + "\n" + "Progresso: " + getSaveSum());
+		return getSaveSum() == historiaMusicas;
+	}
+
+	public static function terminouFreeplay():Bool {
+		Metadata.WeekData.reloadWeekFiles(true);
+
+		var freeplayMusicas:Int = 0;
+		for (i in 0...Metadata.WeekData.freeplayList.length) {
+			var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.freeplayList[i]);
+			freeplayMusicas += leWeek.songs.length;
+		}
+
+		//trace("Total de musicas freeplay: "+ freeplayMusicas + "\n" + "Progresso freeplay: " + FreeplayState.progressFreeplay);
+		return FreeplayState.progressFreeplay == freeplayMusicas;
+	}
+
+	public static function terminouTudo():Bool {
+		return terminouFreeplay() && terminouHistoria();
+	}
+
+	public static function getSaveSum():Int {
+		var sum:Int = 0;
+		for (i in 0...MenuPreHistoria.curSave.length) {
+			sum += Std.parseInt(MenuPreHistoria.curSave.split(",")[i]);
+		}
+		return sum;
+	}
+}
+
 // O que tem no esconderijo?
 // .........,,,,,,,,*******/////(((((##############################################
 // .........,,,,,,,,********//////(((((###########(((((((((((((/((((((((###%%%#####
