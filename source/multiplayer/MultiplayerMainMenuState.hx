@@ -86,7 +86,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var daNoteReceived:Array<Int> = [];
 
 	// PLAYERS
-	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190, true), new LobbyPlayerObject(681,190)];
+	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190/*, true*/), new LobbyPlayerObject(681,190)];
 	public static var instance:MultiplayerMainMenuState;
 
 	// SKINS
