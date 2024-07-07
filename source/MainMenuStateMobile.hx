@@ -73,8 +73,8 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var passeiAqui:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
-	public static var version:String = '0.10.0';
-	public static var changelogString:String = 'V'+version+'\nRemake Multiplayer;\nMenus Via Touch/Teclado;\nFixes VideoPlayer.';
+	public static var version:String = '0.10.1';
+	public static var changelogString:String = 'V'+version+'\n-Invites;\n-Fixes.';
 	public static var verificaDnvIdiota:Bool = false;
 
 	public static var passouCY:Bool = false;
