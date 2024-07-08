@@ -536,10 +536,11 @@ class BSLSwipeUtils
 	// foi o que eu entendi da função pelo menos
 	public static function swipeHorizontal():Void
 	{
+		#if mobile
 		if (BSLTouchUtils.justTouched())
 		{
 			prevTouchX = Std.int(BSLTouchUtils.pegarpos("x") / max_x);
-		}
+		} // Captura a posição inicial do toque.
 		else if (BSLTouchUtils.touched())
 		{
 			touchX = Std.int(BSLTouchUtils.pegarpos("x") / max_x);
@@ -548,8 +549,9 @@ class BSLSwipeUtils
 			scrollX = deltaX;
 
 			prevTouchX = touchX;
-		}
-		else if (Math.abs(scrollX) > 0)
+		} // Enquanto está segurando, calcula o deslocamento da posição inicial do toque e a velocidade do deslocamento
+		  // Válido apenas para toque na tela.
+		else #end if (Math.abs(scrollX) > 0)
 		{
 			if (scrollX > 0)
 				scrollSpeed -= scrollAcceleration;
@@ -579,6 +581,7 @@ class BSLSwipeUtils
 	 */
 	public static function swipeVertical():Void
 	{
+		#if mobile
 		if (BSLTouchUtils.justTouched())
 		{
 			prevTouchY = Std.int(BSLTouchUtils.pegarpos("y") / max_y);
@@ -592,7 +595,7 @@ class BSLSwipeUtils
 
 			prevTouchY = touchY;
 		}
-		else if (Math.abs(scrollY) > 0)
+		else #end if (Math.abs(scrollY) > 0)
 		{
 			if (scrollY > 0)
 				scrollSpeed -= scrollAcceleration;
