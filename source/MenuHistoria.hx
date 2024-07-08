@@ -273,7 +273,7 @@ class MenuHistoria extends MusicBeatSubstate
 			textoSpriteTweens.active = true;
 		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC ui.MobileControls.FlxVirtualPad.instance.buttonX.justPressed #end;
 
-		if(crossplataforma && !modifiersOpened && !movedBack && !selectedWeek && canOpenModifiers && MainMenuStateMobile.passouCY) {
+		if(crossplataforma && !modifiersOpened && !movedBack && !selectedWeek && canOpenModifiers && MainMenuStateMobile.passouCY #if !debug && Utils.ProgressionUtil.terminouTudo() #end) {
 			modifiersOpened = true;
 			update_rpc = false;
 			openSubState(new modifiers.ModifiersMenuState(false));

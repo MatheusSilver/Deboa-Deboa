@@ -73,8 +73,8 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var passeiAqui:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
-	public static var version:String = '0.10.0';
-	public static var changelogString:String = 'V'+version+'\nRemake Multiplayer;\nMenus Via Touch/Teclado;\nFixes VideoPlayer.';
+	public static var version:String = '0.10.1';
+	public static var changelogString:String = 'V'+version+'\n-Invites;\n-Fixes.';
 	public static var verificaDnvIdiota:Bool = false;
 
 	public static var passouCY:Bool = false;
@@ -89,6 +89,7 @@ class MainMenuStateMobile extends MusicBeatState
 		Song.Conductor.changeBPM(112);
 		instance = this;
 		GameJoltLoginState.syncProgress();
+		terminouHistoria = Utils.ProgressionUtil.terminouHistoria();
 
 		#if rpc
 		// Updating Discord Rich Presence
@@ -167,7 +168,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		for (i in 0...optionShit.length){
 			var botao:MenuButton = new MenuButton("MainMenu", "menu_"+optionShit[i], 'menu', "sonic-3", false);
-			botao.setLock(optionShit[i]=="multiplayer" && (!GJClient.logged||!passouCY) || optionShit[i]=="freeplay"&&!passouCY);
+			botao.setLock(optionShit[i]=="multiplayer" && (!GJClient.logged||!passouCY) || optionShit[i]=="freeplay"&&!terminouHistoria);
 			/*if (botao.isLocked)
 				botao.alpha = 0.75;*/
 			botao.alpha = 0.75;
@@ -355,7 +356,7 @@ class MainMenuStateMobile extends MusicBeatState
 						curSelected = 0;
 					else{
 						curSelected +=1;
-						if (optionShit[curSelected] == "freeplay" && !passouCY)
+						if (optionShit[curSelected] == "freeplay" && !Utils.ProgressionUtil.terminouHistoria())
 							curSelected +=1;
 						if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
 							curSelected +=1;
@@ -369,7 +370,7 @@ class MainMenuStateMobile extends MusicBeatState
 						curSelected -= 1;
 						if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
 							curSelected -=1;
-						if (optionShit[curSelected] == "freeplay" && !passouCY)
+						if (optionShit[curSelected] == "freeplay" && !terminouHistoria)
 							curSelected -=1;
 					}
 				}
@@ -391,6 +392,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	}
 
+	var terminouHistoria:Bool = false;
 	var friendsMenu:GameJoltFriendsMenu;
 	override function update(elapsed:Float)
 	{
@@ -410,7 +412,7 @@ class MainMenuStateMobile extends MusicBeatState
 					menuItems.forEach(function(spr:FlxSprite){
 						if(!selectingFriends || Main.getMouseVisibility())
 						{
-							if((optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
+							if((optionShit[spr.ID] == "freeplay" #if !debug && terminouHistoria #end) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
 								{
 									if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
 										curSelected = spr.ID;

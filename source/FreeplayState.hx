@@ -283,7 +283,7 @@ class FreeplayState extends MusicBeatState
 			if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0) change_swipe = -BSLSwipeUtils.scrollY;
 			else if (change_swipe != 0) changeSelection(true);
 		}
-		if (ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY) {
+		if (ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY #if !debug && Utils.ProgressionUtil.terminouTudo() #end) {
 			apertavel = false;
 			modifiersOpened = true;
 			openSubState(new modifiers.ModifiersMenuState(true));
