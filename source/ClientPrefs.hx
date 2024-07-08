@@ -51,6 +51,8 @@ class ClientPrefs
 	public static var curFilter:Null<Int> = 0; // isso é feio mas funciona :D
 	public static var curMultiplayerNoteSkin = 0;
 	public static var palavroes:Null<Bool> = true;
+
+	public static var firstBoot:Null<Bool> = true;
 	
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [

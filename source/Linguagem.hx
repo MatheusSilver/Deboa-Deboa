@@ -73,6 +73,8 @@ class LanguageState extends MusicBeatState
 	var backdrop:FlxBackdrop;
 	var titleText:FlxText;
 
+	public static var alreadySelected:Bool = false;
+
 	var curSelected:Int = 0;
 
 	var textMenuItems:Array<String> = [];
@@ -191,6 +193,7 @@ class LanguageState extends MusicBeatState
 
 	private function accept():Void
 	{
+		alreadySelected = true;
 		selectedSomethin = true;
 		FlxG.sound.play(Paths.sound('confirmMenu'));
 
@@ -217,14 +220,14 @@ class LanguageState extends MusicBeatState
 				{
 					FlxFlicker.flicker(txt, 1, 0.06, false, false, function(flick:FlxFlicker)
 					{
-						MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
+						MusicBeatState.switchState(ClientPrefs.firstBoot ? new TitleState() : new ajustes.AjustesState());
 					});
 				}
 				else
 				{
 					new FlxTimer().start(1, function(tmr:FlxTimer)
 					{
-						MusicBeatState.switchState(FlxG.save.data.flashing == null ? new TitleState() : new ajustes.AjustesState());
+						MusicBeatState.switchState(ClientPrefs.firstBoot ? new TitleState() : new ajustes.AjustesState());
 					});
 				}
 			}

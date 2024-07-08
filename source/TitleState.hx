@@ -130,22 +130,22 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
-		if (FlxG.save.data.lingua == null){
+		if (ClientPrefs.firstBoot && !Linguagem.LanguageState.alreadySelected){
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new Linguagem.LanguageState());
+		}
+		else if (ClientPrefs.firstBoot && !FlashingState.leftState)
+		{ // Só por colocar de volta mesmo
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.switchState(new FlashingState());
 		}
 		else if (ClientPrefs.pibby)
 		{
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new PibbyTela());
-		}
-		else if (FlxG.save.data.flashing == null && !FlashingState.leftState)
-		{ // Só por colocar de volta mesmo
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new FlashingState());
 		}
 		else if (!PreTitleState.jarodou)
 		{
