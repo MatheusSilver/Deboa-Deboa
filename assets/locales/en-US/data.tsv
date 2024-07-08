@@ -19,3 +19,6 @@ intro_text_vio_team	Vio Team
 intro_text_presents	Presents
 intro_text_ok_ok	ok ok
 intro_text_galaxy	Only the galaxy is the limit!
+flashing_warning	Warning<X>This game contains flashing lights and gore.<X>In case you are recording your screen:<X>it is advised to record the whole screen and not just the game directly.
+flashing_accept_desktop	Press ENTER to start the game or<X>ESC to deactivate the previous settings
+flashing_accept_mobile	Touch the Screen to start the game or<X>Return Button to deactivate the previous settings

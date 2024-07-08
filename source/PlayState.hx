@@ -1019,6 +1019,18 @@ class PlayState extends MusicBeatState
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
 
+		if (nomehistorico.toLowerCase() == 'infinito'){
+			infinitesimbol = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
+			infinitesimbol.y = timeBarBG.y - 40;
+			infinitesimbol.setGraphicSize(Std.int(timeTxt.height * 1.7));
+			infinitesimbol.cameras = [camHUD];
+			infinitesimbol.angle = 0; // I FORGOR :skull:
+			infinitesimbol.screenCenter(X);
+			infinitesimbol.centerOrigin(); // apenas para garantir que o eixo de spin fique no centro do simbolo infinito
+			add(infinitesimbol);
+			infinitesimbol.visible = false;
+		}
+
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
 		add(grpNoteSplashes);
@@ -4491,13 +4503,6 @@ class PlayState extends MusicBeatState
 				majinstrums = true;
 				triggerEventNote('noteskinchangeBF', 'Majin_Notes', '');
 				triggerEventNote('noteskinchangeOPPT', 'Majin_Notes', '');
-				infinitesimbol = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
-				infinitesimbol.y = timeBarBG.y - 40;
-				infinitesimbol.setGraphicSize(Std.int(timeTxt.height * 1.7));
-				infinitesimbol.cameras = [camHUD];
-				infinitesimbol.angle = 0; // I FORGOR :skull:
-				infinitesimbol.screenCenter(X);
-				infinitesimbol.centerOrigin(); // apenas para garantir que o eixo de spin fique no centro do simbolo infinito
 				timeBar.createFilledBar(0xFF7700FF, 0xFFFFFFFF);
 				FlxTween.num(songPercent, 0, 2.5, {ease: FlxEase.sineInOut}, function(v:Float)
 				{
@@ -4510,7 +4515,7 @@ class PlayState extends MusicBeatState
 				new FlxTimer().start(2.53, function(tmr:FlxTimer)
 				{
 					timeTxt.visible = false;
-					add(infinitesimbol);
+					infinitesimbol.visible = true;
 				});
 
 			case 'Change Character':

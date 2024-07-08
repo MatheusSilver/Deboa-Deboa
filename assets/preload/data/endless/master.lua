@@ -5,7 +5,6 @@
         if legendas then
             pushScriptData("Adicionar Imagens diferenciado")
         end
-        precacheImage('simbolo_infinito');
         precacheImage('Majin_Notes');
         precacheImage('conquistas/medalhas/achievements (btt-luxuria)');
         precacheImage('conquistas/keydSTARS/star-luxuria');

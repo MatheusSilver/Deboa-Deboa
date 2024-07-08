@@ -14,27 +14,15 @@ class FlashingState extends MusicBeatState
 	public static var leftState:Bool = false;
 
 	var warnText:FlxText;
-	var texto:String = "Aperte ENTER para prosseguir ou\nESC para desativar as configurações citadas";
+	final accept_text:String = Linguagem.LangUtil.getString("flashing_accept_" #if desktop + "desktop" #elseif mobile + "mobile" #end, "data", "\n");
 	override function create()
 	{
 		super.create();
 
-		#if mobile
-		texto = "Toque na tela para prosseguir ou\nBotão BACK para desativar as configurações citadas";
-		#end
-
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
-		warnText = new FlxText(0, 0, FlxG.width,
-			"AVISO IMPORTANTE\n
-			Este mod contém luzes piscantes e gore.\n
-			Caso esteja gravando sua tela (youtubers/streamers):\n
-			Recomendamos gravar a tela e não diretamente o jogo.\n
-			Desmarque as opções de Luzes Piscantes e Gore\n
-			para não causar problemas aos seus viewers.\n" +
-			"${texto}",
-			25);
+		warnText = new FlxText(0, 0, FlxG.width, Linguagem.LangUtil.getString("flashing_warning", "data", "\n") + accept_text, 25);
 		warnText.setFormat("VCR OSD Mono", 25, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(XY);
 		add(warnText);
@@ -51,6 +39,7 @@ class FlashingState extends MusicBeatState
 				ClientPrefs.firstBoot = false;
 				FlxFlicker.flicker(warnText, 1, 0.1, false, true, function(flk:FlxFlicker) {
 					new FlxTimer().start(0.5, function (tmr:FlxTimer) {
+						ClientPrefs.save();
 						MusicBeatState.switchState(new TitleState());
 					});
 				});
@@ -64,6 +53,7 @@ class FlashingState extends MusicBeatState
 					onComplete: function (twn:FlxTween) {
 						ClientPrefs.gore = false;
 						ClientPrefs.flashing = false;
+						ClientPrefs.save();
 						MusicBeatState.switchState(new TitleState());
 					}
 				});
