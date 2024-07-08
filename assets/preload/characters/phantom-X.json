@@ -70,8 +70,8 @@
 	"no_antialiasing": false,
 	"image": "characters/phantom_attack/lord x",
 	"position": [
-		255,
-		75
+		205,
+		25
 	],
 	"healthicon": "vessel/phantom_x",
 	"flip_x": false,

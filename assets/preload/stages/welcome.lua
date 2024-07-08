@@ -3,9 +3,9 @@ local wordVoid = false
 local sequence = false
 local followchars = true
 local modchart = true
-local xx = 700
+local xx = 650
 local yy = 570
-local xx2 = 700
+local xx2 = 650
 local yy2 = 570
 local ofs = 50
 local del = 0
@@ -23,6 +23,7 @@ local x = {}
 local y = {}
 
 function onCreate()
+	setProperty('camHUD.alpha', 0)
 	precacheImage('fonts')
 
 	makeLuaSprite('bg', 'bg/welcome', 0, 0)
@@ -218,7 +219,9 @@ end
 
 function onEvent(name, value1, value2)
 	if name == "phantom_event" then
-		if value1 == "10" then
+		if value1 == "introGoIn" then
+			doTweenAlpha('xRevealD', 'camHUD', 1, 0.1, 'linear')
+		elseif value1 == "10" then
 			modchart = false
 		elseif value1 == "992" then
 			doTweenAlpha('xRevealA', 'dad', 0, 1, 'linear')
@@ -231,8 +234,9 @@ function onEvent(name, value1, value2)
 			setProperty('dad.x', getProperty('dad.x') - 470)
 			setProperty('dad.y', getProperty('dad.y') - 130)
 			characterPlayAnim('dad', 'entrance', true)
+		elseif value1 == "1220" then
 			doTweenAlpha('xRevealD', 'camHUD', 1, 0.1, 'linear')
-		elseif value1 == "1220" or value1 == "1268" or value1 == "1360" or value1 == "1508" or value1 == "2010" or value1 == "2070" or value1 == "2134" then
+		elseif value1 == "1268" or value1 == "1360" or value1 == "1508" or value1 == "2010" or value1 == "2070" or value1 == "2134" then
 			onVoidEvent()
 		end
 	end
