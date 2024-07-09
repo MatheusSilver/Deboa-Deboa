@@ -742,6 +742,8 @@ class GJClient
                                     callbackGetDesafios(response, customCallback);
                             }
                         } else {
+                            if(response == null)
+                                return;
                             result = response.toJson().response;
                             success = response.toJson().response.success == 'true';
 
