@@ -556,6 +556,7 @@ class GaleriaStateMusic extends MusicBeatState
 							loopar = false;
 							playsequencia = false;
 					}
+					reloadValues(); //Silvio Bulinho kek
 				}
 			}else if (BSLTouchUtils.apertasimples(random_play_mini)){
 				playrandom = !playrandom;
