@@ -39,7 +39,7 @@ class Paths
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 	public static var currentTrackedSounds_cacheID:Map<String, String> = [];
 
-	public static var dumpExclusions:Array<String> = [];
+	public static var dumpExclusions:Array<String> = ["transicoes/transition"];
 
 	public static function excludeAsset(key:String):Void {
 		if (!dumpExclusions.contains(key))
@@ -47,7 +47,7 @@ class Paths
 	}
 
 	public static function clear_memory_by_key(key:String, remove_local_mem:Bool = false){
-		if (currentTrackedAssets.exists(key)){
+		if (currentTrackedAssets.exists(key) && !dumpExclusions.contains(key)){
 			var obj = currentTrackedAssets.get(key);
 			@:privateAccess
 			if (obj != null)
@@ -142,6 +142,7 @@ class Paths
 		var cache:haxe.ds.Map<String, FlxGraphic> = cast Reflect.field(FlxG.bitmap, "_cache");
 		for (key => graphic in cache)
 		{
+			
 			if (key.indexOf("text") == 0 && graphic.useCount <= 0)
 			{
 				FlxG.bitmap.remove(graphic);

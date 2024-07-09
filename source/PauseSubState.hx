@@ -41,6 +41,7 @@ class PauseSubState extends MusicBeatSubstate
 	var scrollingSound:FlxSound;
 
 	var preto:FlxSprite;
+	var pretoTrans:FlxSprite;
 	var bg:FlxSprite;
 	var exe:FlxSprite;
 	var linhabaixo:FlxSprite;
@@ -120,26 +121,26 @@ class PauseSubState extends MusicBeatSubstate
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music(pauseMusicName), true, true);
 		pauseMusic.volume = 0;
 		pauseMusic.play(false, FlxG.random.int(0, Std.int(pauseMusic.length / 2)));
-
+		
 		FlxG.sound.list.add(pauseMusic);
-
+		
 		bg = new FlxSprite(0,0).loadGraphic(Paths.image('top_icons/pause', "locales", true, true));
 		bg.setGraphicSize(FlxG.width);
 		bg.y = -bg.height;
-
-
+		
+		
 		linhabaixo = new FlxSprite(0,0).makeGraphic(FlxG.width, Std.int(bg.height), FlxColor.BLACK);
 		linhabaixo.y = FlxG.height + linhabaixo.height;
-	
+		
 		perfil = new FlxSprite().loadGraphic(Paths.image('pause/pause (perfil)'));
 		perfil.alpha = 1;
 		perfil.x = FlxG.width;
-
-	
+		
+		
 		exe = new FlxSprite().loadGraphic(Paths.image('pause/pause (sonicexe)'));
 		exe.alpha = 1;
 		exe.x = FlxG.width;
-
+		
 		menuItems_icons = new FlxTypedGroup<PauseButton>();
 		
 		for (i in 0...menuItems_names.length){
@@ -153,9 +154,9 @@ class PauseSubState extends MusicBeatSubstate
 			new_button.ID = i;
 			menuItems_icons.add(new_button);
 		}
-
+		
 		super(); //Antes, prepara-se os coiso
-				 //Depois, são as interações.
+		//Depois, são as interações.
 		add(preto);
 		add(bg);
 		add(linhabaixo);
@@ -178,9 +179,9 @@ class PauseSubState extends MusicBeatSubstate
 		FlxTween.tween(linhabaixo, {y: FlxG.height-linhabaixo.height}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(perfil, {x: FlxG.width-perfil.width}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(exe, {x: FlxG.width-exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween){aberto=true;}});
-
+		
 		changeSelection();
-
+		
 		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" #if !debug && !jafizJumpscare #end)
 			{
 				aaa = false;
@@ -188,58 +189,61 @@ class PauseSubState extends MusicBeatSubstate
 				jumpecare.x = 0;
 				FlxTween.tween(jumpecare, {x: 1000}, 180, {ease: FlxEase.linear});
 			}
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
-		new FlxTimer().start(0.15, function(tmr:FlxTimer){
-			lugarTelaX = Lib.current.stage.window.x;
-			lugarTelaY = Lib.current.stage.window.y;
-		}); //Evitar crash no alt + f4
-		#if mobileC
-		addVirtualPad(UP_DOWN, A);
-		var camcontrol = new FlxCamera();
+			cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+			new FlxTimer().start(0.15, function(tmr:FlxTimer){
+				lugarTelaX = Lib.current.stage.window.x;
+				lugarTelaY = Lib.current.stage.window.y;
+			}); //Evitar crash no alt + f4
+			#if mobileC
+			addVirtualPad(UP_DOWN, A);
+			var camcontrol = new FlxCamera();
 		FlxG.cameras.add(camcontrol);
 		camcontrol.bgColor.alpha = 0;
 		_virtualpad.cameras = [camcontrol];
 		#end
 		if(ClientPrefs.shaders)
-			{
-				if(!PlayState.instance.shaders_running)
-				{
-					PlayState.instance.camGame.setFilters([blurShader/*, grayScale*/]);
-					PlayState.instance.camHUD.setFilters([blurShader/*, grayScale*/]);
-					PlayState.instance.camLegenda.setFilters([blurShader/*, grayScale*/]);
-					PlayState.instance.camOther.setFilters([blurShader/*, grayScale*/]);
-				}
-				FlxTween.tween(blurShader, {blurX: 3, blurY: 3}, 1.25, {ease: FlxEase.quartInOut});
-				/*var newMatrix:Array<Float> = [
-					0.5, 0.5, 0.5, 0, 0,
-					0.5, 0.5, 0.5, 0, 0,
-					0.5, 0.5, 0.5, 0, 0,
-					  0,   0,   0, 1, 0,
-				];
-				FlxTween.tween(grayScale, {matrix: newMatrix}, 1.25, {ease: FlxEase.quartInOut});*/
+		{
+			if(!PlayState.instance.shaders_running){
+				PlayState.instance.camGame.setFilters([blurShader/*, grayScale*/]);
+				PlayState.instance.camHUD.setFilters([blurShader/*, grayScale*/]);
+				PlayState.instance.camLegenda.setFilters([blurShader/*, grayScale*/]);
+				PlayState.instance.camOther.setFilters([blurShader/*, grayScale*/]);
 			}
+		FlxTween.tween(blurShader, {blurX: 3, blurY: 3}, 1.25, {ease: FlxEase.quartInOut});
+		/*var newMatrix:Array<Float> = [
+			0.5, 0.5, 0.5, 0, 0,
+			0.5, 0.5, 0.5, 0, 0,
+			0.5, 0.5, 0.5, 0, 0,
+			0,   0,   0, 1, 0,
+			];
+			FlxTween.tween(grayScale, {matrix: newMatrix}, 1.25, {ease: FlxEase.quartInOut});*/
+		}
+		pretoTrans = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+		pretoTrans.alpha = 0;
+		pretoTrans.visible = false;
+		add(pretoTrans);
 	}
-
+				
 	override function update(elapsed:Float)
 	{
 		if(PlayState.instance.curSong.toLowerCase()=="triple-trouble" && podeJumpscare #if !debug && !jafizJumpscare #end)
-			{
-				#if debug trace(jumpecare.x); #end
-				if(jumpecare.x==1000)
-					{
-						jumpscareExecute();
-						podeJumpscare=false;
-					}
-			}
+		{
+			#if debug trace(jumpecare.x); #end
+			if(jumpecare.x==1000)
+				{
+					jumpscareExecute();
+					podeJumpscare=false;
+				}
+		}
 		if(inJumpscare&&!ClientPrefs.fullscreen)
-			{
-				shakeWindow();
-			}
+		{
+			shakeWindow();
+		}
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
-
+		
 		super.update(elapsed);
-
+		
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
 		var accepted = controls.ACCEPT;
@@ -301,7 +305,10 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.changedDifficulty = false;
 					PlayState.cpuControlled = false;
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
-					MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
+					pretoTrans.visible = true;
+					FlxTween.tween(pretoTrans, {alpha : 1}, 0.5, {ease:FlxEase.quartInOut, onComplete: function(twn:FlxTween){
+						MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
+					}} );
 					//Achievements.syncWithGJLater();
 			}
 		}

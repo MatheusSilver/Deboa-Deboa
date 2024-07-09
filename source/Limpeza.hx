@@ -30,6 +30,7 @@ class EstadoDeTrocaReverso extends MusicBeatState
 
 		new flixel.util.FlxTimer().start(0.5, function(tmr:flixel.util.FlxTimer)
 		{
+			CustomFadeTransition.nextCamera = null; //Garantido que a transição volte ao lugar certo após o fim da musica
 			if (PlayState.modohistoria)
 			{
 				PlayState.modohistoria = false;
