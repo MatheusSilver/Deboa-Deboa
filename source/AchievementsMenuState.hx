@@ -138,20 +138,28 @@ class AchievementsMenuState extends MusicBeatState
 				Achievements.loadAchievements();
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
-					Achievements.syncAchievementsGJ();
+					Achievements.syncAchievementsGJ(function(){
+						trace("sincronizadissimo");
+
+						for (i in 0...Achievements.achievementsStuff.length)
+							{
+								Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][0], false);
+								FirstTimeAqui = false;
+							}
+
+						remove(preto);
+						remove(announceText);
+						sincronizando = false;
+						changeSelection();
+					}, function(){
+						trace("nao consegui sincronizar mano dsclp ae :c");
+
+						remove(preto);
+						remove(announceText);
+						sincronizando = false;
+						changeSelection();
+					});
 				});
-				new FlxTimer().start(1.5, function(tmr:FlxTimer)
-				{
-					remove(preto);
-					remove(announceText);
-					sincronizando = false;
-					changeSelection();
-				});
-				for (i in 0...Achievements.achievementsStuff.length)
-				{
-					Achievements.isAchievementUnlocked(Achievements.achievementsStuff[i][0], false);
-					FirstTimeAqui = false;
-				}
 			});
 		}
 		if (!sincronizando)
@@ -169,12 +177,13 @@ class AchievementsMenuState extends MusicBeatState
 		BSLSwipeUtils.reset_manual=false;
 		super.create();
 	}
-
 	var reload:Bool = false;
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		if(sincronizando)
+			return;
 
 		Utils.BSLSwipeUtils.swipeVertical();
 		if (controls.UI_UP_P && apertavel)
@@ -197,7 +206,7 @@ class AchievementsMenuState extends MusicBeatState
 			reload = false; //Serve apenas pra isso não ficar spammando.
 			changeSelection();
 		}
-		if (controls.BACK && !sincronizando)
+		if (controls.BACK)
 		{
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());

@@ -98,16 +98,31 @@ class Achievements {
 		return false;
 	}
 
-	public static function syncAchievementsGJ()
+	static var GJList:Array<Trophie>;
+	public static function syncAchievementsGJ(?onSuccess:() -> Void, ?onFail:() -> Void):Void
 		{
 			#if GAMEJOLT_ALLOWED
 			TitleState.instance.verificarConexao(true);
 			if(GJClient.logged && !TitleState.ModoOffline){
-				var GJList:Array<Trophie> = GJClient.getTrophiesList();
-				for(trophie in GJList)
-				{
-					if(trophie.achieved){unlockAchievement(getAchievementID(trophie.id), false, false);}
-				}
+				GJClient.getTrophiesList(true, function () {
+					for(trophie in GJList)
+						{
+							unlockAchievement(getAchievementID(trophie.id), false, false);
+						}
+					GJList = [];
+					if(onSuccess != null)
+						onSuccess();
+				}, function () {
+					GJList = [];
+					if(onFail != null)
+						onFail();
+				}, true, function(?result:Null<Dynamic>) {
+					if(result.trophies == null)
+						return;
+					GJList = result.trophies;
+					//trace("GJList: "+ GJList); eu vou explodir
+				});
+
 			}
 			#end
 		}
