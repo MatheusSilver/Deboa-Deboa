@@ -2678,8 +2678,10 @@ class PlayState extends MusicBeatState
 		super.closeSubState();
 	}
 
+	var focado:Bool = true;
 	override public function onFocus():Void
 	{
+		focado = true;
 		#if rpc
 		if (health > 0 && !paused)
 		{
@@ -2711,7 +2713,7 @@ class PlayState extends MusicBeatState
 
 	override public function onFocusLost():Void
 	{
-
+		focado = false;
 		/*if (ClientPrefs.pausarauto && !isDead)
 			{
 				persistentUpdate = false;
@@ -2723,8 +2725,10 @@ class PlayState extends MusicBeatState
 
 		if (ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused && !ControlSongSubstate.gifPermitido )
 		{
-			new flixel.util.FlxTimer().start(0.05, function(tmr:flixel.util.FlxTimer)
+			new flixel.util.FlxTimer().start(0.1, function(tmr:flixel.util.FlxTimer)
 			{
+				if(focado)
+					return;
 				openPauseMenu(); // Fix jumpscare da triple bolo
 			});
 		}
