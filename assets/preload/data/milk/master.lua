@@ -23,12 +23,4 @@
 			setProperty('dad.visible', false)
 			runTimer('FatherReturn', 0.7)
 		end
-	
-		if curStep == 53 then
-			triggerEvent('video player','AnimacoesJogaveis/luanzito', '0', 'false', 'false')
-		end
-	
-		if curStep == 96 then
-			triggerEvent('stop video', "true")
-		end
 	end
