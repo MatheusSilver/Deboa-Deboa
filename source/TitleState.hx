@@ -482,11 +482,14 @@ class TitleState extends MusicBeatState
 					addMoreText(curWacky[1]);
 				case 12:
 					deleteCoolText();
-				case 13:
-					addMoreText('FNF');
 				case 14:
-					addMoreText('ModBoa');
+					addMoreText('FNF');
 				case 15:
+					addMoreText('ModBoa');
+				case 16:
+					if(FlxG.random.int(0,5000)==1)
+						addMoreText('.EXE');
+				case 17:
 					skipIntro();
 			}
 		}
