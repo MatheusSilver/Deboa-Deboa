@@ -350,6 +350,11 @@ class PauseSubState extends MusicBeatSubstate
 
 	function startCountdownback()
 		{
+			if(PlayState.instance.playingVideoMP4) {
+				close();
+				return;
+			}
+
 			var manager:FlxTimerManager = new FlxTimerManager();
 			manager.clear();
 			loops=0;
