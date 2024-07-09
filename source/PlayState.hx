@@ -4915,7 +4915,7 @@ class PlayState extends MusicBeatState
 				cpuControlled = false;
 			}
 			transitioning = true;
-			Achievements.syncWithGJLater();
+			//Achievements.syncWithGJLater();
 		}
 	}
 
@@ -6808,7 +6808,7 @@ class PlayState extends MusicBeatState
 		var id:Int = Achievements.getAchievementIndex(nome);
 		if (!Achievements.isAchievementUnlocked(nome))
 		{
-			Achievements.unlockAchievement(nome, true, false);
+			Achievements.unlockAchievement(nome, true, true);
 			startAchievement(nome);
 			// Basicamente serve para garantir que o achievement seja salvo na hora que ele é desbloqueado no meio da música, e não apenas caso você zere a musica (evitar frustrações sacas?)
 		}

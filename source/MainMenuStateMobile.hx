@@ -398,6 +398,12 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		#if debug
 		if(FlxG.keys.justPressed.FOUR) giveAchievement('modboa');
+		/*if(FlxG.keys.justPressed.NINE) {
+			for (i in 0...Achievements.achievementsStuff.length) {
+				GJClient.trophieRemove(Achievements.achievementsStuff[i][2]);
+				trace("removendo: "+Achievements.achievementsStuff[i][0]);
+			}
+		}*/
 		#end
 		#if (desktop && debug)
 		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
