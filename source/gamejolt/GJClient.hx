@@ -131,7 +131,7 @@ class GJClient
         var daFormat:Null<User> = null;
 
         var daParam:Null<Array<Array<String>>> = id != null ? [['user_id', Std.string(id)]] : null;
-        var urlData = urlResult(urlConstruct('users', null, daParam, id == null, false), onSuccess, onFail, async, null, false, inviteObject);
+        var urlData = urlResult(urlConstruct('users', null, daParam, id == null, false), onSuccess, onFail, async, null, USER, inviteObject);
 
         if (urlData != null)
         {
@@ -218,16 +218,17 @@ class GJClient
      * @return The array with all the Trophies of the game in .json format
      *          (returns `null` if there are no Trophies in the game to fetch or if there's no GUI inserted in the application yet).
      */
-    public static function getTrophiesList(?achievedOnes:Bool, ?onSuccess:() -> Void, ?onFail:() -> Void):Null<Array<Trophie>>
+    public static function getTrophiesList(?achievedOnes:Bool, ?onSuccess:() -> Void, ?onFail:() -> Void, ?async:Bool = false, ?customCallback:(?result:Null<Dynamic>) -> Void):Null<Array<Trophie>>
     {
         var daParam:Null<Array<Array<String>>> = achievedOnes != null ? [['achieved', Std.string(achievedOnes)]] : null;
         var urlData = urlResult(urlConstruct('trophies', null, daParam),
         function () {printMsg('Trophies list fetched successfully!'); if (onSuccess != null) onSuccess();},
-        function () {printMsg('Trophies list fetching failed!'); if (onFail != null) onFail();});
+        function () {printMsg('Trophies list fetching failed!'); if (onFail != null) onFail();}, true, customCallback);
         var daFormat:Null<Array<Trophie>> = urlData != null && logged ? urlData.trophies : [];
         return daFormat;
     }
 
+    static var daAddList:Array<Trophie>;
     /**
      * Gives a trophie from the game to the actual user logged in!
      * 
@@ -240,36 +241,44 @@ class GJClient
      */
     public static function trophieAdd(id:Int, ?onSuccess:Trophie -> Void, ?onFail:() -> Void)
     {
-        var daList = getTrophiesList();
-
-        if (logged && daList != null)
-        {
-            var urlData = urlResult(urlConstruct('trophies', 'add-achieved', [['trophy_id', Std.string(id)]]),
-            function ()
-            {
-                for (troph in daList)
+        daAddList = [];
+        getTrophiesList(false, function(){
+            if (logged && daAddList != null)
                 {
-                    if (troph.id == id)
+                    var urlData = urlResult(urlConstruct('trophies', 'add-achieved', [['trophy_id', Std.string(id)]]),
+                    function ()
                     {
-                        if (troph.achieved == false)
+                        for (troph in daAddList)
                         {
-                            printMsg('Trophie "${troph.title}" has been achieved by ${getUser()}!');
-                            if (onSuccess != null) onSuccess(troph);
+                            if (troph.id == id)
+                            {
+                                if (troph.achieved == false)
+                                {
+                                    printMsg('Trophie "${troph.title}" has been achieved by ${getUser()}!');
+                                    if (onSuccess != null) onSuccess(troph);
+                                }
+                                else printMsg('Trophie "${troph.title}" is already taken by ${getUser()}!');
+                                break;
+                            }
                         }
-                        else printMsg('Trophie "${troph.title}" is already taken by ${getUser()}!');
-                        break;
-                    }
+                    },
+                    function ()
+                    {
+                        printMsg('The trophie ID "$id" was not found in the game database!');
+                        if (onFail != null) onFail();
+                    }, true);
+                    if (urlData != null) urlData; else return;   
                 }
-            },
-            function ()
-            {
-                printMsg('The trophie ID "$id" was not found in the game database!');
-                if (onFail != null) onFail();
-            });
-            if (urlData != null) urlData; else return;   
-        }
+        }, null, true, function(?result:Null<Dynamic>){
+            if(result.trophies == null)
+                return;
+            daAddList = result.trophies;
+        });
+
+        
     }
 
+    static var daRemoveList:Array<Trophie>;
     /**
      * Removes a trophie of the game from the actual user logged in. Useful in case it was achieved by cheating or just for test it out!
      * 
@@ -282,34 +291,41 @@ class GJClient
      */
     public static function trophieRemove(id:Int, ?onSuccess:Trophie -> Void, ?onFail:() -> Void)
     {
-        var daList = getTrophiesList();
-
-        if (logged && daList != null)
-        {
-            var urlData = urlResult(urlConstruct('trophies', 'remove-achieved', [['trophy_id', Std.string(id)]]),
-            function ()
-            {
-                for (troph in daList)
+        daRemoveList = [];
+        getTrophiesList(function(){
+            if (logged && daRemoveList != null)
                 {
-                    if (troph.id == id)
+                    var urlData = urlResult(urlConstruct('trophies', 'remove-achieved', [['trophy_id', Std.string(id)]]),
+                    function ()
                     {
-                        if (troph.achieved != false)
+                        for (troph in daRemoveList)
                         {
-                            printMsg('Trophie "${troph.title}" has been quitted from ${getUser()}!');
-                            if (onSuccess != null) onSuccess(troph);
+                            if (troph.id == id)
+                            {
+                                if (troph.achieved != false)
+                                {
+                                    printMsg('Trophie "${troph.title}" has been quitted from ${getUser()}!');
+                                    if (onSuccess != null) onSuccess(troph);
+                                }
+                                else printMsg('Trophie "${troph.title}" is not taken by ${getUser()} yet!');
+                                break;
+                            }
                         }
-                        else printMsg('Trophie "${troph.title}" is not taken by ${getUser()} yet!');
-                        break;
-                    }
+                    },
+                    function ()
+                    {
+                        printMsg('The trophie ID "$id" was not found in the game database!');
+                        if (onFail != null) onFail();
+                    }, true);
+                    if (urlData != null) urlData; else return;  
                 }
-            },
-            function ()
-            {
-                printMsg('The trophie ID "$id" was not found in the game database!');
-                if (onFail != null) onFail();
-            });
-            if (urlData != null) urlData; else return;  
-        }
+        }, null, true, function(?result:Null<Dynamic>){
+            if(result.trophies == null)
+                return;
+            daRemoveList = result.trophies;
+        });
+
+
     }
 
     /**
@@ -452,12 +468,12 @@ class GJClient
                         printMsg('Data setting failed!');
                     }
                     if (onFail != null) onFail();
-                }, async, null, true, null, false);
+                }, async, null, INVITE, null, false);
                 if (urlData != null) urlData; else return;   
             }
         }
     
-        public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void, ?isPublic:Bool = false, ?async:Bool = false, ?customCallback:() -> Void, ?invites:Bool):String // GJClient.getData("key"); exemplo de puxar algum valor
+        public static function getData(dataKey:String, ?onSuccess:() -> Void, ?onFail:() -> Void, ?isPublic:Bool = false, ?async:Bool = false, ?customCallback:(?result:Null<Dynamic>) -> Void, ?invites:Bool):String // GJClient.getData("key"); exemplo de puxar algum valor
             {
                 var daParams:Array<Array<String>> = isPublic ? [
                     ['game_id', Std.string(GJKeys.id)],
@@ -672,7 +688,7 @@ class GJClient
         return null;
     }
 
-    static function urlResult(daUrl:Null<Http>, ?onSuccess:() -> Void, ?onFail:() -> Void, ?async:Bool = false, ?customCallback:() -> Void, ?invites:Bool = false, ?inviteObject:InviteObject, ?hasCallback:Bool = true):Null<Dynamic>
+    static function urlResult(daUrl:Null<Http>, ?onSuccess:() -> Void, ?onFail:() -> Void, ?async:Bool = false, ?customCallback:(?result:Null<Dynamic>) -> Void, ?type:RequestType, ?inviteObject:InviteObject, ?hasCallback:Bool = true):Null<Dynamic>
     {
         var result:Dynamic = '';
         var success:Bool = false;
@@ -710,22 +726,41 @@ class GJClient
                 callback: function(response:HttpResponse){
                     if(hasCallback)
                     {
-                        if(invites)
-                            {
-                                callbackGetDesafios(response, customCallback);
-                            }
-                            else
-                            {
-                                var daFormat:Null<User> = null;
-                                if (response.toJson().response.users[0] != null)
-                                {
+                        if(type != null) {
+                            switch(type) {
+                                case USER:
+                                    var daFormat:Null<User> = null;
                                     if (response.toJson().response.users[0] != null)
                                     {
-                                        daFormat = cast response.toJson().response.users[0];
+                                        if (response.toJson().response.users[0] != null)
+                                        {
+                                            daFormat = cast response.toJson().response.users[0];
+                                        }
                                     }
-                                }
-                                inviteObject.setInfo(daFormat);
+                                    inviteObject.setInfo(daFormat);
+                                case INVITE:
+                                    callbackGetDesafios(response, customCallback);
                             }
+                        } else {
+                            if(response == null)
+                                return;
+                            result = response.toJson().response;
+                            success = response.toJson().response.success == 'true';
+
+                            //trace(result);
+
+                            if(customCallback!=null) {
+                                customCallback(result != null ? success ? result : null : null);
+                            }
+
+                            if (success) {if (onSuccess != null) onSuccess();}
+                            else
+                            {
+                                printMsg(Std.string(result.message));
+                                if (onFail != null) onFail();
+                            }                            
+                        }
+
                     }
                 }
             });
@@ -782,12 +817,12 @@ class GJClient
 
     public static var invites:Array<String> = [];
     public static var canChangeInvites:Bool = true;
-    public static function getDesafios(temDesafios:() -> Void)
+    public static function getDesafios(temDesafios:(?result:Null<Dynamic>) -> Void)
     {
         getData(myID+"-invites", null, null, true, true, temDesafios, true);
     }
 
-    private static function callbackGetDesafios(response:HttpResponse, temDesafios:() -> Void):Void
+    private static function callbackGetDesafios(response:HttpResponse, temDesafios:(?result:Null<Dynamic>) -> Void):Void
     {
         if(response.toJson() == null) return;
         invites = Std.string(response.toJson().response.data).split(",");
@@ -816,4 +851,9 @@ class GJClient
 
     static function getUser():Null<String> {return FlxG.save.data.user;}
     static function getToken():Null<String> {return FlxG.save.data.token;}
+}
+
+enum RequestType {
+	INVITE;
+	USER;
 }

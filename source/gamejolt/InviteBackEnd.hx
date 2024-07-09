@@ -61,7 +61,7 @@ class InviteBackEnd extends FlxGroup
         }, 0);
     }
 
-    static function spawnarInvite()
+    static function spawnarInvite(?result:Null<Dynamic>)
     {
         if(!canSpawn) return;
         if(PlayState.isPlayState) return;

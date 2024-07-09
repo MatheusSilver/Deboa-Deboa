@@ -50,7 +50,7 @@ class Achievements {
 		['pause_jumpscare',	true, 		186989, 		'orgulho', 		1]//ok
 	];
 
-	static var syncLater:Array<Int> = [];
+	//static var syncLater:Array<Int> = [];
 
 	public static function unlockAchievement(name:String, ?makeSound:Bool=true, ?gamejolt:Bool=true):Void {
 		FlxG.log.add('Completed achievement "' + name +'"');
@@ -69,14 +69,14 @@ class Achievements {
 			#end
 		}
 
-		if(PlayState.isPlayState && GJClient.logged && !TitleState.ModoOffline){
+		/*if(PlayState.isPlayState && GJClient.logged && !TitleState.ModoOffline){
 			syncLater.push(Achievements.getAchievementIndex(name));
-		}
+		}*/
 
 		ClientPrefs.save();
 	}
 
-	public static function syncWithGJLater(){
+	/*public static function syncWithGJLater(){
 		for(i in syncLater) {
 			#if GAMEJOLT_ALLOWED
 			TitleState.instance.verificarConexao();
@@ -85,7 +85,7 @@ class Achievements {
 			#end
 			syncLater.remove(i);
 		}
-	}
+	}*/
 
 	public static function isAchievementUnlocked(name:String, ?naochecar:Bool=true) {
 		var id:Int = Achievements.getAchievementIndex(name);
@@ -98,16 +98,31 @@ class Achievements {
 		return false;
 	}
 
-	public static function syncAchievementsGJ()
+	static var GJList:Array<Trophie>;
+	public static function syncAchievementsGJ(?onSuccess:() -> Void, ?onFail:() -> Void):Void
 		{
 			#if GAMEJOLT_ALLOWED
 			TitleState.instance.verificarConexao(true);
 			if(GJClient.logged && !TitleState.ModoOffline){
-				var GJList:Array<Trophie> = GJClient.getTrophiesList();
-				for(trophie in GJList)
-				{
-					if(trophie.achieved){unlockAchievement(getAchievementID(trophie.id), false, false);}
-				}
+				GJClient.getTrophiesList(true, function () {
+					for(trophie in GJList)
+						{
+							unlockAchievement(getAchievementID(trophie.id), false, false);
+						}
+					GJList = [];
+					if(onSuccess != null)
+						onSuccess();
+				}, function () {
+					GJList = [];
+					if(onFail != null)
+						onFail();
+				}, true, function(?result:Null<Dynamic>) {
+					if(result.trophies == null)
+						return;
+					GJList = result.trophies;
+					//trace("GJList: "+ GJList); eu vou explodir
+				});
+
 			}
 			#end
 		}

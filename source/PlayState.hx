@@ -2678,8 +2678,10 @@ class PlayState extends MusicBeatState
 		super.closeSubState();
 	}
 
+	var focado:Bool = true;
 	override public function onFocus():Void
 	{
+		focado = true;
 		#if rpc
 		if (health > 0 && !paused)
 		{
@@ -2711,7 +2713,7 @@ class PlayState extends MusicBeatState
 
 	override public function onFocusLost():Void
 	{
-
+		focado = false;
 		/*if (ClientPrefs.pausarauto && !isDead)
 			{
 				persistentUpdate = false;
@@ -2723,8 +2725,10 @@ class PlayState extends MusicBeatState
 
 		if (ClientPrefs.pausarauto && canPause && !cpuControlled && startedCountdown && !paused && !ControlSongSubstate.gifPermitido )
 		{
-			new flixel.util.FlxTimer().start(0.05, function(tmr:flixel.util.FlxTimer)
+			new flixel.util.FlxTimer().start(0.2, function(tmr:flixel.util.FlxTimer)
 			{
+				if(focado)
+					return;
 				openPauseMenu(); // Fix jumpscare da triple bolo
 			});
 		}
@@ -4911,7 +4915,7 @@ class PlayState extends MusicBeatState
 				cpuControlled = false;
 			}
 			transitioning = true;
-			Achievements.syncWithGJLater();
+			//Achievements.syncWithGJLater();
 		}
 	}
 
@@ -6804,7 +6808,7 @@ class PlayState extends MusicBeatState
 		var id:Int = Achievements.getAchievementIndex(nome);
 		if (!Achievements.isAchievementUnlocked(nome))
 		{
-			Achievements.unlockAchievement(nome, true, false);
+			Achievements.unlockAchievement(nome, true, true);
 			startAchievement(nome);
 			// Basicamente serve para garantir que o achievement seja salvo na hora que ele é desbloqueado no meio da música, e não apenas caso você zere a musica (evitar frustrações sacas?)
 		}

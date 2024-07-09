@@ -302,7 +302,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.cpuControlled = false;
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
-					Achievements.syncWithGJLater();
+					//Achievements.syncWithGJLater();
 			}
 		}
 	}
@@ -350,6 +350,11 @@ class PauseSubState extends MusicBeatSubstate
 
 	function startCountdownback()
 		{
+			if(PlayState.instance.playingVideoMP4) {
+				close();
+				return;
+			}
+
 			var manager:FlxTimerManager = new FlxTimerManager();
 			manager.clear();
 			loops=0;
