@@ -756,7 +756,7 @@ class GJClient
                             if (success) {if (onSuccess != null) onSuccess();}
                             else
                             {
-                                //printMsg(Std.string(result.message));
+                                printMsg(Std.string(result.message));
                                 if (onFail != null) onFail();
                             }                            
                         }
