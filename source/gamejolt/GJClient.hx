@@ -743,6 +743,7 @@ class GJClient
                             }
                         } else {
                             if(response == null)
+                                customCallback(null);
                                 return;
                             result = response.toJson().response;
                             success = response.toJson().response.success == 'true';
