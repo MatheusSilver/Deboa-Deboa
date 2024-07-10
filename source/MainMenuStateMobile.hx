@@ -406,7 +406,7 @@ class MainMenuStateMobile extends MusicBeatState
 		}*/
 		#end
 		#if (desktop && debug)
-		if(FlxG.keys.justPressed.SIX) MusicBeatState.switchState(new editors.VideoEventState());
+		if(FlxG.keys.justPressed.SIX) openSubState(new PopUpSubState("modifier_unlock", "modifier_unlock", camAchievement));
 		#end
 		if (FlxG.sound.music != null)
 			Song.Conductor.songPosition = FlxG.sound.music.time;

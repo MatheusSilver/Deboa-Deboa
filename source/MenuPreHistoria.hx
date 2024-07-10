@@ -206,6 +206,9 @@ class MenuPreHistoria extends MusicBeatState
 		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_pre_story","rpc")+" ", Linguagem.LangUtil.getString("rpc_week_label_"+Metadata.WeekData.weeksList[curWeek].toLowerCase(),"rpc"), null);
 		#end
 
+		#if (desktop && debug)
+		if(FlxG.keys.justPressed.SIX) openSubState(new PopUpSubState("modifier_unlock", "modifier_unlock"));
+		#end
 		if (makeAnimUnlock && !inCut && apertavel && !movedBack && !selectedWeek)
 		{
 			inCut = true;

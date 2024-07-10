@@ -12,6 +12,12 @@
 	<!-- usada na galeria -->
 	<file id="gallery" value="galleryMenu.tsv"/>
 
+	<!-- usada nos titulos de popup -->
+	<file id="popupTitles" value="popupTitles.tsv"/>
+
+	<!-- usada nas descrições dos popup -->
+	<file id="popupDescs" value="popupDescs.tsv"/>
+
 	<!-- usado no menu de opcoes geral -->
 	<file id="optionsMenu" value="optionsMenu.tsv"/>
 
