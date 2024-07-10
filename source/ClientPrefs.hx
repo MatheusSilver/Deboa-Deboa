@@ -53,6 +53,11 @@ class ClientPrefs
 	public static var palavroes:Null<Bool> = true;
 
 	public static var firstBoot:Null<Bool> = true;
+
+	// Pop ups
+	public static var multiplayerPopUp:Null<Bool> = false;
+	public static var freeplayPopUp:Null<Bool> = false;
+	public static var modifiersPopUp:Null<Bool> = false; 
 	
 	// Controls
 	public static var keyBinds:Map<String, Array<FlxKey>> = [

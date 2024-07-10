@@ -187,6 +187,14 @@ class FreeplayState extends MusicBeatState
 
 		// Ordem importa
 		#if mobileC addVirtualPad(FULL, A_B_X_Y); #end
+
+		if(Utils.ProgressionUtil.terminouFreeplay() && !ClientPrefs.modifiersPopUp) {
+			ClientPrefs.modifiersPopUp = true;
+			ClientPrefs.save();
+			openSubState(new PopUpSubState("modifier_unlock", "modifier_unlock", null, function() {
+				closeSubState();
+			}));
+		}
 		super.create();
 	}
 

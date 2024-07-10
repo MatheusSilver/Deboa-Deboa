@@ -20,7 +20,7 @@ class PopUpSubState extends MusicBeatSubstate {
     private var titleText:FlxText;
     private var contentText:FlxText;
     private var inAnimation:Bool = true;
-    public function new(titleID:String, contentID:String, ?camera:FlxCamera) {
+    public function new(titleID:String, contentID:String, ?camera:FlxCamera, ?callback:() -> Void) {
         super();
 
         background = new FlxSprite();
@@ -39,7 +39,12 @@ class PopUpSubState extends MusicBeatSubstate {
         popupBG.screenCenter(XY);
         add(popupBG);
 
-        okButton = new FlxButton(onClick);
+        okButton = new FlxButton(function(){
+            if(callback!=null){
+                callback();
+            }
+            onClick();
+        });
         okButton.loadGraphic(Paths.image("mainmenu/btokPOPUP", "preload"));
         if(camera != null) okButton.cameras = [camera];
         okButton.setGraphicSize(Std.int(okButton.width*0.99)); //Aquele um por cento é
@@ -56,7 +61,7 @@ class PopUpSubState extends MusicBeatSubstate {
         titleText.alpha = 0;
         add(titleText);
 
-        contentText = new FlxText(popupBG.x + 17, titleText.y + 200, popupBG.width*0.95, LangUtil.getString('desc_${contentID}', "popupDescs", "\n\n"));
+        contentText = new FlxText(popupBG.x + 17, titleText.y + 150, popupBG.width*0.95, LangUtil.getString('desc_${contentID}', "popupDescs", "\n\n"));
         contentText.setFormat(LangUtil.getFont("sonic-3"), 20, FlxColor.WHITE, "center", FlxTextBorderStyle.NONE);
         if(camera != null) contentText.cameras = [camera];
         contentText.alpha = 0;

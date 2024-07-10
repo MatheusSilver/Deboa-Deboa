@@ -62,7 +62,7 @@ class MenuPreHistoria extends MusicBeatState
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 
 		PlayState.modohistoria = false;
-		Main.mouse_allowed = false;
+		Main.mouse_allowed = true;
 		Metadata.WeekData.reloadWeekFiles(true);
 		if (curWeek >= Metadata.WeekData.weeksList.length)
 			curWeek = 0;
@@ -132,6 +132,22 @@ class MenuPreHistoria extends MusicBeatState
 
 		changeWeek(); //Por algum motivo que sei lá qual, a função closesubstate era chamada também
 		//Logo, não precisa disso aqui.
+
+		if(MainMenuStateMobile.passouCY && !ClientPrefs.multiplayerPopUp) {
+			ClientPrefs.multiplayerPopUp = true;
+			ClientPrefs.save();
+			openSubState(new PopUpSubState("multiplayer_unlock", "multiplayer_unlock", null, function(){
+				closeSubState();
+			}));
+		}
+
+		if(Utils.ProgressionUtil.terminouHistoria() && !ClientPrefs.freeplayPopUp) {
+			ClientPrefs.freeplayPopUp = true;
+			ClientPrefs.save();
+			openSubState(new PopUpSubState("freeplay_unlock", "freeplay_unlock", null, function(){
+				closeSubState();
+			}));
+		}
 
 		//Precisa disso pra voltar do playstate.
 		super.create();
@@ -400,7 +416,7 @@ class MenuPreHistoria extends MusicBeatState
 				old_bg.setPosition(bgSprite.x,bgSprite.y);
 				old_linha_down.setPosition(blackbardown.x,blackbardown.y);
 				old_linha_up.setPosition(blackbarup.x,blackbarup.y);
-				apertavel = true; // Só pra garantir que a animação de entrada NÃO ocorra ao mesmo tempo que a de saida.
+				apertavel = true;// Só pra garantir que a animação de entrada NÃO ocorra ao mesmo tempo que a de saida.
 				old_bg.visible = old_linha_down.visible=old_linha_up.visible=old_perfil.visible = true;
 				bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= false;
 			}

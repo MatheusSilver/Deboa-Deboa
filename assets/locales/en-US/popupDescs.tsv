@@ -1,2 +1,4 @@
 flag	context
-desc_modifier_unlock	Aperte CTRL nos menus de<X>Freeplay ou Modo Historia<X>para abrir o menu de modifiers
+desc_modifier_unlock	Press CTRL in the menus of<X>Freeplay or Story Mode<X>to open the modifiers menu
+desc_multiplayer_unlock	You can now access the<X>Multiplayer mode in the<X>main menu if you are<X>logged in with GameJolt
+desc_freeplay_unlock	You can now access<X>Freeplay in the<X>main menu

@@ -168,7 +168,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 		for (i in 0...optionShit.length){
 			var botao:MenuButton = new MenuButton("MainMenu", "menu_"+optionShit[i], 'menu', "sonic-3", false);
-			botao.setLock(optionShit[i]=="multiplayer" && (!GJClient.logged||!passouCY) || optionShit[i]=="freeplay"&&!terminouHistoria);
+			botao.setLock(optionShit[i]=="multiplayer" && (!GJClient.logged||!passouCY||TitleState.ModoOffline) || optionShit[i]=="freeplay"&&!terminouHistoria);
 			/*if (botao.isLocked)
 				botao.alpha = 0.75;*/
 			botao.alpha = 0.75;
@@ -418,7 +418,7 @@ class MainMenuStateMobile extends MusicBeatState
 					menuItems.forEach(function(spr:FlxSprite){
 						if(!selectingFriends || Main.getMouseVisibility())
 						{
-							if((optionShit[spr.ID] == "freeplay" #if !debug && terminouHistoria #end) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY))
+							if((optionShit[spr.ID] == "freeplay" #if !debug && terminouHistoria #end) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY&&!TitleState.ModoOffline))
 								{
 									if((Main.getMouseVisibility() ? BSLTouchUtils.over(spr) : spr.ID == curSelected) && spr.alpha == 0.75){
 										curSelected = spr.ID;
