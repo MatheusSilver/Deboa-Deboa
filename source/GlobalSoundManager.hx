@@ -13,7 +13,7 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 	public static function play(?som:Sounds):Void
 	{
 		if (listaDeSons.exists(som))
-			listaDeSons.get(som).play();
+			listaDeSons.get(som).play(true);
 		else{
 			var temp = new FlxSound().loadEmbedded(Paths.sound(som, "preload"));
 			temp.volume = ClientPrefs.efeitosVolume;
