@@ -1391,6 +1391,8 @@ class PlayState extends MusicBeatState
 
 				case 'milk':
 					startCountdown();
+					blackFuck.visible = true; //garantindo apenas. Lá na frente o coiso volta ao normal.
+					blackFuck.alpha = 1;
 					add(blackFuck);
 					startCircle.loadGraphic(Paths.image('StartScreen/Sunky'));
 					startCircle.scale.x = 0;
@@ -1487,9 +1489,10 @@ class PlayState extends MusicBeatState
 
 		callOnLuas('onCreatePost', []);
 
+		cacheCountdown(); //Era só isso, o #78 Mas tem chance de algum arquivo faltante atrapalhar nisso também.
+
 		super.create();
 
-		cacheCountdown();
 		// cachePopUpScore();
 		// trace("Iniciando precache no PlayState.");
 
