@@ -37,8 +37,8 @@ class LangUtil
 				font = "sonic-3-and-knuckles-credits.ttf";
 			case "smb":
 				font = "smb1.ttf";
-			case "roboto":
-				font = "Roboto.ttf";
+			case "hiraginosans":
+				font = "HiraginoSans.otf";
 			default:
 				font = 'letravio.ttf';
 		}

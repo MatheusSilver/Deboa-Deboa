@@ -1,5 +1,6 @@
 package;
 
+import Linguagem.LangUtil;
 import Utils.BSLSwipeUtils;
 import flixel.math.FlxPoint;
 import ui.FlxButton;
@@ -41,6 +42,7 @@ class GaleriaStateMusic extends MusicBeatState
 	var prevSong:FlxSound;
 
 	var scrollableArea:FlxSprite;
+	var scrollableLetras:FlxSprite;
 
 	var loopar:Bool = false;
 	var playsequencia:Bool = false;
@@ -126,7 +128,7 @@ class GaleriaStateMusic extends MusicBeatState
 		letrasbotao = new FlxButton(0,0,Linguagem.LangUtil.getString("gall_lyrics_button", "gallery"));
 		letrasbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
 		letrasbotao.x = FlxG.width - 50 - letrasbotao.width;
-		letrasbotao.label.setFormat(Linguagem.LangUtil.getFont("roboto"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		letrasbotao.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 		letrasbotao.labelAlphas=[letrasbotao.alpha,letrasbotao.alpha+0.15,1];	
 		letrasbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,20)];
 		letrasbotao.label.bold=true;
@@ -135,7 +137,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		playListbotao = new FlxButton(0,0,Linguagem.LangUtil.getString("gall_playlist_button", "gallery"));
 		playListbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
-		playListbotao.label.setFormat(Linguagem.LangUtil.getFont("roboto"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		playListbotao.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 		playListbotao.labelAlphas=[playListbotao.alpha,playListbotao.alpha+0.15,1];	
 		playListbotao.label.bold=true;
 		playListbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,21)];
@@ -159,7 +161,7 @@ class GaleriaStateMusic extends MusicBeatState
 			scrollingStuff.ID = i;
 
 			if (i == 0)
-				segureoPrimeiroY = scrollingStuff.y;
+				segureoPrimeiroY = scrollingStuff.y + 15;
 
 			//Propósitos de economizar renderização
 			menuItems.add(scrollingStuff);
@@ -227,7 +229,7 @@ class GaleriaStateMusic extends MusicBeatState
 		add(botaodireita);
 
 		timer = new FlxText(botaodireita.x + botaodireita.width + 15, 0, 80, "0:00/0:00", 10);
-		timer.setFormat(Paths.font("Roboto.ttf"), 12, 0xaaaaaa, LEFT);
+		timer.setFormat(LangUtil.getFont("hiraginoSans"), 12, 0xaaaaaa, LEFT);
 		timer.y = botaodireita.y + botaodireita.height/2 - timer.height/2;
 		add(timer);
 		
@@ -250,6 +252,12 @@ class GaleriaStateMusic extends MusicBeatState
 		scrollableArea.y = thumbtocandoagora.y;
 		scrollableArea.visible=false;
 		add(scrollableArea);
+
+		scrollableLetras= new FlxSprite(0,0).makeGraphic(Std.int(overlaySuporte.width), Std.int(FlxG.height - barraInferior.height - overlaySuporte.height), FlxColor.TRANSPARENT);
+		scrollableLetras.x = overlaySuporte.x;
+		scrollableLetras.y = overlaySuporte.y + overlaySuporte.height;
+		scrollableLetras.visible=false;
+		add(scrollableLetras);
 
 		add(tocandoagorasuporte);
 		add(thumbtocandoagora);
@@ -469,17 +477,14 @@ class GaleriaStateMusic extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		BSLSwipeUtils.swipeVertical();
-		if(Utils.BSLTouchUtils.over(scrollableArea))
+		if(isLetras && BSLTouchUtils.over(scrollableLetras))
 		{
-			if (!isLetras)
-			{
-				if(menuItems.members[0].y + BSLSwipeUtils.scrollY <= segureoPrimeiroY && menuItems.members[GaleriaState.leMusic.length-1].y + BSLSwipeUtils.scrollY>= FlxG.height - barraInferior.y + 525)
-					menuItems.forEach(function(spr:FlxSprite){spr.y += BSLSwipeUtils.scrollY;});
-			}else
-				if(textGroup.members[0].y + BSLSwipeUtils.scrollY <= playListbotao.height+playListbotao.y - 25 && textGroup.members[textGroup.length-1].y + BSLSwipeUtils.scrollY >= FlxG.height - barraInferior.height - 30)
-					textGroup.forEach(function(spr:FlxText){spr.y += BSLSwipeUtils.scrollY;});
-					
-		}
+			if(textGroup.members[0].y + BSLSwipeUtils.scrollY <= playListbotao.height+playListbotao.y + 10 && textGroup.members[textGroup.length-1].y + BSLSwipeUtils.scrollY >= FlxG.height - barraInferior.height - 30)
+				textGroup.forEach(function(spr:FlxText){spr.y += BSLSwipeUtils.scrollY;});
+			
+		}else if (!isLetras && BSLTouchUtils.over(scrollableArea))
+			if(menuItems.members[0].y + BSLSwipeUtils.scrollY <= segureoPrimeiroY && menuItems.members[GaleriaState.leMusic.length-1].y + BSLSwipeUtils.scrollY>= FlxG.height - barraInferior.y + 510)
+				menuItems.forEach(function(spr:FlxSprite){spr.y += BSLSwipeUtils.scrollY;});
 
 		if (controls.BACK || (Utils.BSLTouchUtils.over(sair) && Utils.BSLTouchUtils.justTouched())) {
 			menutoca= true;
@@ -669,7 +674,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		for (i in 0...daLyric.length) {
 			var daText:FlxText = new FlxText(overlaySuporte.x,playListbotao.y + playListbotao.height , thumbtocandoagora.width, daLyric[i], 15);
-			daText.setFormat(Paths.font('Roboto.ttf'), 15, 0xffffff, CENTER);
+			daText.setFormat(LangUtil.getFont("hiraginoSans"), 14, 0xffffff, CENTER);
 			daText.y += daText.height*i;
 			daText.antialiasing=true;
 			//daText.setBorderStyle(OUTLINE, 0xffffff, 3, 10);

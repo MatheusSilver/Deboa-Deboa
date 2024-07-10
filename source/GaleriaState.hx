@@ -105,7 +105,7 @@ class GaleriaState extends MusicBeatState
 			add(bgmusica);
 			galeriaButton = new FlxButton(FlxG.width, 100, Linguagem.LangUtil.getString("gall_gallery_button", "gallery"));
 			galeriaButton.makeGraphic(158,50, FlxColor.TRANSPARENT);
-			galeriaButton.label.setFormat(Linguagem.LangUtil.getFont("roboto"), 24, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+			galeriaButton.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 20, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 			galeriaButton.labelAlphas=[galeriaButton.alpha,galeriaButton.alpha+0.15,1];		
 			galeriaButton.updateHitbox();
 			galeriaButton.x = 491;
@@ -149,7 +149,7 @@ class GaleriaState extends MusicBeatState
 
 			musicButton = new FlxButton(FlxG.width, 100, Linguagem.LangUtil.getString("gall_music_button", "gallery"));
 			musicButton.makeGraphic(158,50, FlxColor.TRANSPARENT);
-			musicButton.label.setFormat(Linguagem.LangUtil.getFont("roboto"), 22, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+			musicButton.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 20, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 			musicButton.labelAlphas=[musicButton.alpha,musicButton.alpha+0.15,1];	
 			musicButton.updateHitbox();
 			musicButton.x = 640;
