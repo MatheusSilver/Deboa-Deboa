@@ -1,3 +1,4 @@
+local valor_pi = 3.14159265359
 --original pos dad = -900, 100
 --modded pos dad = -700, 600
 --local allowCountdown = false
@@ -32,6 +33,8 @@ function propriedadescomuns(var)
     addLuaSprite(var, true);
 end
 
+
+
 function onStepHit()
 	if curStep == 7 then
 		doTweenZoom('zoom', 'camGame', 0.67, 0.5, 'sineOut');
@@ -52,12 +55,14 @@ function onStepHit()
 		--setProperty('opponentDefault.x', -900)
 		--setProperty('opponentDefault.y', 100)
 	end
+	
 function onUpdate(elapsed)
 	songPos = getSongPosition()
 	local currentBeat = (songPos/5000)*(curBpm/60)
-	doTweenY('opponentmove', 'dad', -400 - 150 * seno((currentBeat+12*12) * pi), 2)
-	doTweenX('disruptor2', 'disruptor2.scale', 0 - 50* seno((currentBeat+1*0.1) * pi), 6)
-	doTweenY('disruptor2', 'disruptor2.scale', 0 - 31* seno((currentBeat+1*1) * pi), 6)
+
+	doTweenY('opponentmove', 'dad', -400 - 150 * seno((currentBeat+12*12) * valor_pi), 2)
+	doTweenX('disruptor2', 'disruptor2.scale', 0 - 50* seno((currentBeat+1*0.1) * valor_pi), 6)
+	doTweenY('disruptor2', 'disruptor2.scale', 0 - 31* seno((currentBeat+1*1) * valor_pi), 6)
 	end
 
 	if curStep > 63 then
@@ -65,7 +70,7 @@ function onUpdate(elapsed)
     
         local currentBeat = (songPos/1000)*(bpm/80)
     
-        doTweenY(dadTweenY, 'dad', -500-40 * seno((currentBeat*0.25) * pi),0.001)
+        doTweenY(dadTweenY, 'dad', -500-40 * seno((currentBeat*0.25) * valor_pi),0.001)
 	end
 end
 
