@@ -10,7 +10,7 @@ class GlobalSoundManager //Originalmente feito para o port de DDTO+ Android
 	//Mas o mais importante mesmo é que permite customizar o barulho dos efeitos sonoros.
 
 	public static var listaDeSons:Map<String, FlxSound> = [];
-	public static function play(?som:Sounds, forceRestart:Bool = false):Void
+	public static function play(?som:Sounds, forceRestart:Bool = true):Void
 	{
 		if (listaDeSons.exists(som))
 			listaDeSons.get(som).play(forceRestart);

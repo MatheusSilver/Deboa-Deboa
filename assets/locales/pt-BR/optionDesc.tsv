@@ -26,3 +26,4 @@ opt_desc_opacity	Altera a opacidade das legendas.
 opt_desc_cam_effects	Se marcado, a camera irá acompanhar as notas da música <X> também irá permitir outros efeitos de zoom acompanhados da batida da musica.
 opt_desc_hide_hud	Deixa o hud da música invisível.
 opt_desc_hide_time	Esconde o marcador de tempo da música.
+opt_desc_soundType_ID	Som

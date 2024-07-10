@@ -26,3 +26,4 @@ opt_desc_opacity	Changes the opacity of subtitles.
 opt_desc_cam_effects	If checked, the camera will follow the notes of the song<X>will also allow for other zoom effects accompanied by the beat of the music.
 opt_desc_hide_hud	Set the game hud invisible.
 opt_desc_hide_time	Hide the song time marker.
+opt_desc_soundType_ID	Sound

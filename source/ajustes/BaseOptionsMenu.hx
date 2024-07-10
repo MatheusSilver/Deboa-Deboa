@@ -385,7 +385,7 @@ class BaseOptionsMenu extends MusicBeatState
  				}
 				reloadValues();
 
-				if(holdTime <= 0) GlobalSoundManager.play(scrollMenu);
+				if(holdTime <= 0 && options[curSelected] != "hitsound_type" && options[curSelected] != "hitsound_volume") GlobalSoundManager.play(scrollMenu);
 				holdTime += elapsed;
 			} else if (controls.ACCEPT && options[curSelected] == 'hitsound_test' && ClientPrefs.hitSounds){
 				var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
@@ -530,7 +530,7 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'hitsound_volume':
 						daText = Std.string(ClientPrefs.osusom);
 					case 'hitsound_type':
-						daText = 'Som ' + Std.string(ClientPrefs.hitSoundType);
+						daText = Linguagem.LangUtil.getString("opt_desc_soundType_ID", "option_desc", "\n")+ " " + Std.string(ClientPrefs.hitSoundType);
 					case 'hitsound_test':
 						daText = '';
 					case 'opacity':

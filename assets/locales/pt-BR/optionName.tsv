@@ -4,7 +4,7 @@ opt_name_colorblindness_filter	Daltonismo
 opt_name_gore	Gore
 opt_name_fps_max	FPS
 opt_name_note_delay	Delay de Nota
-opt_name_game_volume	Volume dos Sons
+opt_name_game_volume	Volume Sons
 opt_name_fps_visible	FPS Visível
 opt_name_shaders	Shaders
 opt_name_low_quality	Baixa Qualidade
@@ -15,7 +15,7 @@ opt_name_hitsound	Hitsound
 opt_name_fullscreen	Tela Cheia
 opt_name_hitsound_test	Testar
 opt_name_hitsound_type	Tipo
-opt_name_hitsound_volume	Volume do Hitsound
+opt_name_hitsound_volume	Volume Hitsounds
 opt_name_middlescroll	Middlescroll
 opt_name_auto_pause	Pause Automático
 opt_name_splash	Splash de Nota
