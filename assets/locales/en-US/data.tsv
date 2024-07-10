@@ -2,8 +2,9 @@ flag	context
 webview_touch	Touch on the screen to continue
 descVideo	Press SPACE to skip
 langMenu	Language Selection:
-label_high_score	HIGH SCORE: 
-label_play_sample	Press <X0> to listen to the Song, <X1> to open the Modifiers Menu.
+label_high_score	HIGHSCORE:
+label_play_sample	Press <X0> to listen to the Song
+label_play_sample_modifiers	<X0> to open the Modifiers Menu
 label_pause_continue	Resume
 label_pause_practice	Practice
 label_pause_restart	Restart
@@ -22,3 +23,4 @@ intro_text_galaxy	Only the galaxy is the limit!
 flashing_warning	Warning<X>This game contains flashing lights and gore.<X>In case you are recording your screen:<X>it is advised to record the whole screen and not just the game directly.
 flashing_accept_desktop	Press ENTER to start the game or<X>ESC to deactivate the previous settings
 flashing_accept_mobile	Touch the Screen to start the game or<X>Return Button to deactivate the previous settings
+key_label_space	SPACE

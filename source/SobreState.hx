@@ -150,8 +150,8 @@ class SobreState extends MusicBeatState
 				closeSubState();
 				openSubState(new PopUpSubState("tutorial", "tutorial_3", null, function(){
 					closeSubState();
-				}));
-			}));
+				}, 150, false, true));
+			}, 150, false, true));
 		}));
 	}
 

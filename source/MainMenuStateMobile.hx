@@ -74,7 +74,6 @@ class MainMenuStateMobile extends MusicBeatState
 	var gameJoltIcon:FlxSprite;
 
 	public static var version:String = '0.10.1';
-	public static var changelogString:String = 'V'+version+'\n-Invites;\n-Fixes.';
 	public static var verificaDnvIdiota:Bool = false;
 
 	public static var passouCY:Bool = false;
@@ -197,7 +196,25 @@ class MainMenuStateMobile extends MusicBeatState
 		}
 
 		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
-			clicavel = true;
+			if(newVersion)
+				{
+				canClick = false;
+				openSubState(new PopUpSubState("changelog", "changelog", camAchievement, function(){
+					FlxG.save.data.gameVersion = version;
+					ClientPrefs.save();
+					GlobalSoundManager.play(confirmMenu);
+					newVersion = false;
+					canClick = true;
+					closeSubState();
+				}, 100, true));
+			}
+			else
+			{
+				FlxG.save.data.gameVersion = version;
+				ClientPrefs.save();
+				canClick=true;
+			}
+			clicavel = true;        
 		});
 
 		checkiftouch = false;
@@ -217,50 +234,6 @@ class MainMenuStateMobile extends MusicBeatState
 		versionShit.updateHitbox();
 		add(versionShit);
 
-		if(newVersion)
-			{
-				var preto:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
-				preto.alpha=0.75;
-				preto.updateHitbox();
-				preto.cameras = [camAchievement];
-				add(preto);
-				var novoBG:FlxSprite = new FlxSprite(421, 87, Paths.image('mainmenu/updatescreen', 'locales', true, true));
-				novoBG.cameras = [camAchievement];
-				add(novoBG);
-				var textinho:FlxText = new FlxText(0, 0, 400, changelogString, 12);
-				textinho.scrollFactor.set();
-				textinho.setFormat("sonic-1-hud-font.ttf", 36, FlxColor.GRAY, LEFT);
-				textinho.x = 446;
-				textinho.y = 162;
-				textinho.updateHitbox();
-				textinho.cameras = [camAchievement];
-				add(textinho);
-				var novoButton:FlxButton = new FlxButton(523, 548, '');
-				novoButton.cameras = [camAchievement];
-				novoButton.loadGraphic(Paths.image('mainmenu/btok', 'preload'));
-				novoButton.alpha = 0.75;
-				novoButton.onOver.callback = function(){novoButton.alpha=1; GlobalSoundManager.play(scrollMenu);};
-				novoButton.onOut.callback = function(){novoButton.alpha=0.75;};
-				novoButton.onDown.callback = function(){
-					FlxG.save.data.gameVersion = version;
-					ClientPrefs.save();
-					novoButton.visible=false;
-					novoBG.visible=false;
-					preto.visible=false;
-					textinho.visible=false;
-					GlobalSoundManager.play(confirmMenu);
-					newVersion = false;
-					canClick = true;
-				};
-				add(novoButton);
-				canClick=false;
-			}
-		else
-			{
-				FlxG.save.data.gameVersion = version;
-				ClientPrefs.save();
-				canClick=true;
-			}
 		super.create();
 
 		new FlxTimer().start(300, function(twn:FlxTimer){

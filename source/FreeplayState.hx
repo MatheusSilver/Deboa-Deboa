@@ -153,12 +153,6 @@ class FreeplayState extends MusicBeatState
 
 		if (curSelected >= songs.length)	curSelected = 0;
 
-		var leText:String = Linguagem.LangUtil.getStringArray("label_play_sample", "data", [#if desktop "Espaço" #else "X" #end, #if desktop "CTRL" #else "Y" #end]);
-		// space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
-		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
-		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
-		text.scrollFactor.set();
-		add(text);
 
 		disc.loadGraphic(Paths.image("freeplay-disc/disco", 'preload'));
 		disc.x = (FlxG.width - 460) / 2 - 250; // Bem vindo a turma de matemática avançada
@@ -195,6 +189,15 @@ class FreeplayState extends MusicBeatState
 				closeSubState();
 			}));
 		}
+
+		var leText:String = Linguagem.LangUtil.getStringArray("label_play_sample", "data", [#if desktop Linguagem.LangUtil.getString("key_label_space", "data") #else "X" #end]) + (ClientPrefs.modifiersPopUp ? ", " + Linguagem.LangUtil.getStringArray("label_play_sample_modifiers", "data", [#if desktop "CTRL" #else "Y" #end]) : "");
+		// space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
+		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
+		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
+		text.scrollFactor.set();
+		add(text);
+
+
 		super.create();
 	}
 

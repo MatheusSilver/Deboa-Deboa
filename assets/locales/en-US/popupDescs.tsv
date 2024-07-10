@@ -5,3 +5,4 @@ desc_freeplay_unlock	You can now access<X>Freeplay in the<X>main menu
 desc_tutorial_1	Welcome to ModBoa EXE,<X>this mod supports<X>various types of input
 desc_tutorial_2	Choose between touch,<X>keyboard/mouse or controller
 desc_tutorial_3	The input mode can<X>be switched at any time
+desc_changelog	v0.11.0<X>Added PopUps<X>Asynchronous GJClient<X>Removal of countdown in cutscene<X>Removal of screen sliding on Desktop<X>Progression improvements<X>Bug fixes

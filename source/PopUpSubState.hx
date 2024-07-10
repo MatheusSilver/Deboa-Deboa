@@ -20,7 +20,7 @@ class PopUpSubState extends MusicBeatSubstate {
     private var titleText:FlxText;
     private var contentText:FlxText;
     private var inAnimation:Bool = true;
-    public function new(titleID:String, contentID:String, ?camera:FlxCamera, ?callback:() -> Void) {
+    public function new(titleID:String, contentID:String, ?camera:FlxCamera, ?callback:() -> Void, ?yValue:Float = 150, ?otherFont:Bool = false, ?skipAnim:Bool = false) {
         super();
 
         background = new FlxSprite();
@@ -61,13 +61,13 @@ class PopUpSubState extends MusicBeatSubstate {
         titleText.alpha = 0;
         add(titleText);
 
-        contentText = new FlxText(popupBG.x + 17, titleText.y + 150, popupBG.width*0.95, LangUtil.getString('desc_${contentID}', "popupDescs", "\n\n"));
-        contentText.setFormat(LangUtil.getFont("sonic-3"), 20, FlxColor.WHITE, "center", FlxTextBorderStyle.NONE);
+        contentText = new FlxText(popupBG.x + 17, titleText.y + yValue, popupBG.width*0.95, LangUtil.getString('desc_${contentID}', "popupDescs", otherFont?"\n":"\n\n"));
+        contentText.setFormat(LangUtil.getFont(otherFont ? "sonic-1" : "sonic-3"), otherFont ? 30 : 20, FlxColor.WHITE, "center", FlxTextBorderStyle.NONE);
         if(camera != null) contentText.cameras = [camera];
         contentText.alpha = 0;
         add(contentText);
 
-        showPopup();
+        showPopup(skipAnim);
     }
 
     private function onClick():Void {
@@ -91,16 +91,27 @@ class PopUpSubState extends MusicBeatSubstate {
         }});
     }
 
-    public function showPopup():Void {
+    public function showPopup(skipAnim:Bool):Void {
         inAnimation = true;
+        
+        if(skipAnim) {
+            background.alpha = 0.25;
+            popupBG.alpha = 1;
+            okButton.alpha = 1;
+            titleText.alpha = 1;
+            contentText.alpha = 1;
+            inAnimation = false;
+            return;
+        }
+
         // Tween background alpha to 0.25
-        FlxTween.tween(background, {alpha: 0.25}, 1);
+        FlxTween.tween(background, {alpha: 0.25}, 0.5);
 
         // Tween popup, texts, and button alpha to 1
-        FlxTween.tween(popupBG, {alpha: 1}, 1);
-        FlxTween.tween(okButton, {alpha: 1}, 1);
-        FlxTween.tween(titleText, {alpha: 1}, 1);
-        FlxTween.tween(contentText, {alpha: 1}, 1, {onComplete: function (twn:FlxTween){
+        FlxTween.tween(popupBG, {alpha: 1}, 0.5);
+        FlxTween.tween(okButton, {alpha: 1}, 0.5);
+        FlxTween.tween(titleText, {alpha: 1}, 0.5);
+        FlxTween.tween(contentText, {alpha: 1}, 0.5, {onComplete: function (twn:FlxTween){
             inAnimation = false;
         }});
     }

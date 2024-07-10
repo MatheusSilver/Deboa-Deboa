@@ -5,3 +5,4 @@ desc_freeplay_unlock	Agora voce pode acessar o<X>Freeplay no<X>menu principal
 desc_tutorial_1	Bem vindo ao ModBoa EXE,<X>esse mod possui suporte<X>a diversos tipos de entrada
 desc_tutorial_2	Escolha entre touch,<X>teclado/mouse ou controle
 desc_tutorial_3	O modo de entrada pode<X>ser alternado a qualquer<X>momento
+desc_changelog	v0.11.0<X>PopUps adicionados<X>GJClient assincrono<X>Remocao contagem em cutscene<X>Remocao deslizar tela no Desktop<X>Melhorias na progressao<X>Correcao de bugs
