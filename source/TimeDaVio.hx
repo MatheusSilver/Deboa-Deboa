@@ -36,10 +36,14 @@ class TimeDaVio extends MusicBeatState
 	var canChange:Bool = false;
 
 	private var buttonsMap:Map<String, FlxButton>;
+
+	private final ENTRY_FIRST_POS:Array<Int> = [93,768];
+	private final ENTRY_MIDDLE_POS:Array<Int> = [248,921];
+	private final ENTRY_LAST_POS:Array<Int> = [405,1072];
 	
 	
 	// nome,  discord,  twitter,  youtube
-	var creditInfo:Array<Dynamic> = [
+	final creditInfo:Array<Array<String>> = [
 		[	'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
 		[	'dav',  '',  'https://twitter.com/Davizinhn',  'https://www.youtube.com/@Davizinhn' ],
 		[	'ash',  '',  'https://twitter.com/Ashuro_Privety',  '' ],
@@ -57,7 +61,7 @@ class TimeDaVio extends MusicBeatState
 		[	'jinzo',   'https://discord.gg/YxMwmAY39p',  'https://twitter.com/JinzoM',  '' ],
 		[	'lightwuz',   'https://discord.com/invite/5prgn8H2P8',  'https://twitter.com/lightwuz',  'https://www.youtube.com/@Lightwuz' ],
 		[	'lonny',   'https://discord.gg/a7PEnvCaxU',  'https://twitter.com/lonejustchillin',  'https://www.youtube.com/@samelonny' ],
-		[	'mayoral',   '',  'https://www.facebook.com/christian.palheta',  'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g' ],
+		[	'mayoral',   'https://www.facebook.com/christian.palheta',  '',  'https://www.youtube.com/channel/UCModzG9hcT1XggjsQtmBc7g' ],
 		[	'molten',   '',  'https://twitter.com/M0lt3nziito',  'https://www.youtube.com/@M0lt3nziito' ],
 		[	'neko',   '',  '',  'https://www.youtube.com/@nihdiaz1145' ],
 		[	'nih',   'https://discord.gg/jNdV8BEUZU',  'https://twitter.com/orochigad0',  'https://www.youtube.com/c/OrochiDubzkkk' ],
@@ -158,17 +162,13 @@ class TimeDaVio extends MusicBeatState
 		FlxTween.tween(perfil, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
 		FlxTween.tween(desc, {x: 0}, 1.5, {ease: FlxEase.quartInOut});
 		FlxTween.tween(estante, {x: 0}, 1.6, {ease: FlxEase.quartInOut});
-		FlxTween.tween(youtube, {x: 248}, 1.65, {ease: FlxEase.quartInOut});
-		FlxTween.tween(twitter, {x: 93}, 1.65, {ease: FlxEase.quartInOut});
-		FlxTween.tween(discord, {x: 405}, 1.65, {ease: FlxEase.quartInOut});
 		FlxTween.tween(icon, {x: 0}, 1.7, {ease: FlxEase.quartInOut});
 
 		new FlxTimer().start(1.8, function(tmr:FlxTimer)
 		{
 			canChange = true;
 		});
-
-		updateButtons();
+		tweenButtons(0);
 		#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
@@ -299,9 +299,7 @@ class TimeDaVio extends MusicBeatState
 				FlxTween.tween(perfil, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(desc, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
 				FlxTween.tween(estante, {x: 0}, 1.55, {ease: FlxEase.quartInOut});
-				FlxTween.tween(youtube, {x: 768}, 1.60, {ease: FlxEase.quartInOut});
-				FlxTween.tween(twitter, {x: 1072}, 1.60, {ease: FlxEase.quartInOut});
-				FlxTween.tween(discord, {x: 921}, 1.60, {ease: FlxEase.quartInOut});
+				tweenButtons(1);
 				FlxTween.tween(icon, {x: 0}, 1.65, {ease: FlxEase.quartInOut});
 			}
 			else
@@ -328,12 +326,9 @@ class TimeDaVio extends MusicBeatState
 				FlxTween.tween(mic, {x: 0}, 1.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(desc, {x: 0}, 1.45, {ease: FlxEase.quartInOut});
 				FlxTween.tween(estante, {x: 0}, 1.55, {ease: FlxEase.quartInOut});
-				FlxTween.tween(youtube, {x: 248}, 1.60, {ease: FlxEase.quartInOut});
-				FlxTween.tween(twitter, {x: 93}, 1.60, {ease: FlxEase.quartInOut});
-				FlxTween.tween(discord, {x: 405}, 1.60, {ease: FlxEase.quartInOut});
+				tweenButtons(0);
 				FlxTween.tween(icon, {x: 0}, 1.65, {ease: FlxEase.quartInOut});
 			}
-			updateButtons();
 			new FlxTimer().start(1.7, function(tmr:FlxTimer)
 			{
 				canChange = true;
@@ -343,12 +338,12 @@ class TimeDaVio extends MusicBeatState
 
 	private function buttonAvailable(key:String):Bool{
 		switch (key){
+			case "discord":
+				return creditInfo[curSelected][1] != '';
 			case "twitter":
 				return creditInfo[curSelected][2] != '';
 			case "youtube":
 				return creditInfo[curSelected][3]  != '';
-			case "discord":
-				return creditInfo[curSelected][1] != '';
 			default:
 				return false;
 		}
@@ -385,24 +380,55 @@ class TimeDaVio extends MusicBeatState
 		}
 	}
 
-	function updateButtons()
+	private var isFacebook:Bool = false;
+	function updateDiscord(link:String):Void
 	{
-		// tudo veio
-		switch(creditInfo[curSelected][0])
-		{
-			case "mayoral":
-				twitter.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
-			case "sayuri":
-				discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
-			case "sah":
-				discord.loadGraphic(Paths.image('sobremenu/creditos/elenco/elenco-fb', 'preload'));
-			default:
-				twitter.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-twitter', 'preload'));
-				discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-discord', 'preload'));
+		discord.visible = link != "";
+		if (link.contains("facebook") && !isFacebook) {
+			discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-facebook', 'preload'));
+			isFacebook = true;
+		}else if (link.contains("discord") && isFacebook){
+			discord.loadGraphic(Paths.image('sobremenu/creditos/timedavio/btt-discord', 'preload'));
+			isFacebook = false;
 		}
+	}
+	
+	function updateTwitter(link:String):Void
+	{
+		twitter.visible = link != "";
+	}
+	
+	function updateYT(link:String):Void
+	{
+		youtube.visible = link != "";
+	}
 
-		twitter.alpha = 0.75;
-		youtube.alpha = 0.75;
-		discord.alpha = 0.75;
+	function updateButtons(teamMember:Array<String>):Void
+	{
+		updateDiscord(teamMember[1]);
+		updateTwitter(teamMember[2]);
+		updateYT(teamMember[3]);
+	}
+
+	function tweenButtons(section:Int):Void //Provavelmente isso é over enginnering mas sodasse.
+	{
+		updateButtons(creditInfo[curSelected]);
+		var buttons:Array<FlxButton> = [];
+		for (button in buttonsMap.iterator())
+			if (button.visible) buttons.push(button);
+
+		switch (buttons.length){
+			case 1:
+				FlxTween.tween(buttons[0], {x: ENTRY_MIDDLE_POS[section]}, 1.65, {ease: FlxEase.quartInOut});
+			case 2:
+				FlxTween.tween(buttons[0], {x: ENTRY_FIRST_POS[section]}, 1.65, {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[1], {x: ENTRY_LAST_POS[section]}, 1.65, {ease: FlxEase.quartInOut});
+			case 3:
+				FlxTween.tween(buttons[0], {x: ENTRY_FIRST_POS[section]}, 1.65, {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[1], {x: ENTRY_MIDDLE_POS[section]}, 1.65, {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[2], {x: ENTRY_LAST_POS[section]}, 1.65, {ease: FlxEase.quartInOut});
+			default:
+				FlxG.log.error("Não foram achadas redes sociais para este manito.");
+		}
 	}
 }
