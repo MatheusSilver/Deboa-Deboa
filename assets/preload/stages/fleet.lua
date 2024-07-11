@@ -55,14 +55,14 @@ function onBeatHit()
 	if curBeat % 2 == 0 then
 		objectPlayAnimation('porkerbop', 'first', true);
 	end
-end
-
-function onUpdate(elapsed)
 	if curBeat == 3 then
 		setCamMove(true)
 		camMoving = true
 	end
-	if curBeat < 20 and mustHitSection and camMoving then
+end
+
+function onUpdate(elapsed)
+	if curBeat < 20 and not mustHitSection and camMoving then
 		updateCamPos('dad')
 		triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
 	end
@@ -90,6 +90,7 @@ end
 
 function onEvent(name, value1,value2)
 	if name == "Change Character" and value2 == "fleetway-bf" then
+		triggerEvent("Add Camera Zoom", "0.25", "0.25")
 		playSound("SUPERBF")
 	end
 end
