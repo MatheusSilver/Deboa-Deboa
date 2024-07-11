@@ -32,29 +32,6 @@ function propriedadescomuns(var)
     screenCenter(var, 'x')
     addLuaSprite(var, true);
 end
-
-
-
-function onStepHit()
-	if curStep == 7 then
-		doTweenZoom('zoom', 'camGame', 0.67, 0.5, 'sineOut');
-		triggerEvent('Camera Follow Pos','','')
-	end
-	if curStep == 64 then
-		setProperty('camHUD.visible', true) ;
-	end
-	if curStep == 8 then
-		setProperty('dad.alpha', 1);
-		doTweenY('dady', 'dad', -300, 0.8, 'sineOut');
-            	setProperty('defaultCamZoom',0.67)
-
-	end
-	if curStep == 20 then
-		doTweenX('dadx', 'dad', -1100, 1.8, 'circInOut');
-	        started = true
-		--setProperty('opponentDefault.x', -900)
-		--setProperty('opponentDefault.y', 100)
-	end
 	
 function onUpdate(elapsed)
 	songPos = getSongPosition()
@@ -63,9 +40,8 @@ function onUpdate(elapsed)
 	doTweenY('opponentmove', 'dad', -400 - 150 * seno((currentBeat+12*12) * valor_pi), 2)
 	doTweenX('disruptor2', 'disruptor2.scale', 0 - 50* seno((currentBeat+1*0.1) * valor_pi), 6)
 	doTweenY('disruptor2', 'disruptor2.scale', 0 - 31* seno((currentBeat+1*1) * valor_pi), 6)
-	end
 
-	if curStep > 63 then
+	if curBeat >= 16 then
         songPos = getSongPosition()
     
         local currentBeat = (songPos/1000)*(bpm/80)

@@ -11,7 +11,53 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						555.3015873016,
+						-1,
+						"fast event chaos",
+						"step7",
+						"",
+						"",
+						""
+					],
+					[
+						655.3015873016,
+						-1,
+						"fast event chaos",
+						"step8",
+						"",
+						"",
+						""
+					],
+					[
+						1111.3015873016,
+						-1,
+						"fast event chaos",
+						"beat3",
+						"",
+						"",
+						""
+					],
+					[
+						1587.3015873016,
+						-1,
+						"fast event chaos",
+						"step20",
+						"",
+						"",
+						""
+					],
+					[
+						5079.3015873016,
+						-1,
+						"fast event chaos",
+						"step64",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false

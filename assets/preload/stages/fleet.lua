@@ -55,10 +55,6 @@ function onBeatHit()
 	if curBeat % 2 == 0 then
 		objectPlayAnimation('porkerbop', 'first', true);
 	end
-	if curBeat == 3 then
-		setCamMove(true)
-		camMoving = true
-	end
 end
 
 function onUpdate(elapsed)
@@ -92,6 +88,26 @@ function onEvent(name, value1,value2)
 	if name == "Change Character" and value2 == "fleetway-bf" then
 		triggerEvent("Add Camera Zoom", "0.25", "0.25")
 		playSound("SUPERBF")
+	end
+	if name == "fast event chaos" then
+		if value1 == "beat3" then -- Meio que já disse isso antes, não curto muito eventos associados a curBeat ou curStep exatos 
+			setCamMove(true)
+			camMoving = true
+		elseif value1 == "step7" then
+			doTweenZoom('zoom', 'camGame', 0.67, 0.5, 'sineOut');
+			triggerEvent('Camera Follow Pos','','')
+		elseif value1 == "step8" then
+			setProperty('dad.alpha', 1);
+			setProperty("dad.y", 500)
+			doTweenY('dady', 'dad', -300, 0.7, 'sineOut');
+			setProperty('defaultCamZoom',0.67)
+		elseif value1 == "step20" then
+			doTweenX('dadx', 'dad', -1100, 1.8, 'circInOut');
+		elseif value1 == "step64" then
+			setProperty('camHUD.alpha', 0)
+			setProperty('camHUD.visible', true)
+			doTweenAlpha('hudalphatween', 'camHUD', 1, 0.25, 'cubeInOut')
+		end
 	end
 end
 
