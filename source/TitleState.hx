@@ -1,5 +1,6 @@
 package;
 
+import fx.ParticleParser;
 import modifiers.ModifiersManager;
 import FunkinLua;
 import flash.display.Sprite;
@@ -293,6 +294,10 @@ class TitleState extends MusicBeatState
 		add(logoBl1);
 
 		add(logoBl);
+
+		particles = new ParticleParser(FlxG.width, FlxG.height, 1, 0.1, "test");
+		particles.setPosition(0,FlxG.height);
+
 		candothething = true;
 
 		titleText = new FlxSprite(-80, 600).loadGraphic(Paths.image('titleEnter',"locales",true,true));
@@ -491,6 +496,7 @@ class TitleState extends MusicBeatState
 	}
 
 	var skippedIntro:Bool = false;
+	var particles:ParticleParser;
 
 	function skipIntro():Void
 	{
@@ -505,6 +511,7 @@ class TitleState extends MusicBeatState
 
 			FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
 
+			add(particles);
 			logoBl.angle = -7;
 
 			new FlxTimer().start(0.005, function(tmr:FlxTimer)

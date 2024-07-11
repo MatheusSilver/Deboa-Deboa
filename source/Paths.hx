@@ -292,6 +292,11 @@ class Paths
 		return 'assets/fonts/$key';
 	}
 
+	inline static public function pex(key:String):Array<Dynamic>
+	{
+		return [getLibraryPathForce('data/$key.pex', "particles"),image(key, "particles", false)];
+	}
+
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
 	{		
 		if(OpenFlAssets.exists(Paths.getPath(key, type))) {
@@ -372,6 +377,7 @@ class Paths
 		#end
 
 
+		trace('Could not find image at path $path');
 		FlxG.log.error('Could not find image at path $path');
 		return null; //Apenas para garantir que o jooj tentará carregar do jeito normal primeiro (ou então ajuidar a descobrir qual o pilantra.)
 	}
