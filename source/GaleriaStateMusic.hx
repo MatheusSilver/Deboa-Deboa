@@ -523,7 +523,7 @@ class GaleriaStateMusic extends MusicBeatState
 				DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_ytb_music_paused", "rpc"), GaleriaState.titulos[curSelected], true, songLength - curTime);
 			#end
 
-		if((BSLTouchUtils.over(menuItems)&&!isLetras) || BSLTouchUtils.over(checkboxArray) ||
+		if((BSLTouchUtils.over(menuItems)&&!isLetras && BSLTouchUtils.over(scrollableArea)) || BSLTouchUtils.over(checkboxArray) ||
 			BSLTouchUtils.over(GaleriaMusicObject.likeSprite) || BSLTouchUtils.over(GaleriaMusicObject.dislikeSprite) ||
 		BSLTouchUtils.over(botaodireita) || BSLTouchUtils.over(botaoesquerda) ||
 		BSLTouchUtils.over(botaoPauseContinue) || BSLTouchUtils.over(sair) || 
