@@ -243,25 +243,25 @@ class SonicNumberSprite extends FlxSpriteGroup
 
         if (song == 'prey' || song == 'round-a-bout')
         {
-            PlayState.instance.scoreTxt.visible = false;
-            PlayState.instance.timeBar.visible = false;
+            PlayState.instance.hud.scoreTxt.visible = false;
+            PlayState.instance.hud.timeBar.visible = false;
             if (song == 'round-a-bout')
             {
-                PlayState.instance.timeTxt.x = FlxG.width - PlayState.instance.timeTxt.width + 100;
+                PlayState.instance.hud.timeTxt.x = FlxG.width - PlayState.instance.hud.timeTxt.width + 100;
             }
             if (hudFolder != 'sonic3')
             {
-                PlayState.instance.timeTxt.visible = false;
+                PlayState.instance.hud.timeTxt.visible = false;
             }
             else
             {
-                PlayState.instance.healthBar.visible = false;
-                PlayState.instance.healthBarBG.visible = false;
-                PlayState.instance.iconP1.visible = false;
-                PlayState.instance.iconP2.visible = false;
+                PlayState.instance.hud.healthBar.visible = false;
+                PlayState.instance.hud.healthBarBG.visible = false;
+                PlayState.instance.hud.iconP1.visible = false;
+                PlayState.instance.hud.iconP2.visible = false;
             }
-            PlayState.instance.timeBarBG.visible = false;
-            PlayState.instance.judgementCounter.visible = false;
+            PlayState.instance.hud.timeBarBG.visible = false;
+            PlayState.instance.hud.judgementCounter.visible = false;
         }
         else if (song == 'you-cant-run')
         {
@@ -276,7 +276,7 @@ class SonicNumberSprite extends FlxSpriteGroup
         if (secondsRemaining.length < 2)
             secondsRemaining = '0' + secondsRemaining; // Dunno how to make it display a zero first in Haxe lol
 
-        PlayState.instance.timeTxt.text = minutesRemaining + ':' + secondsRemaining;
+        PlayState.instance.hud.timeTxt.text = minutesRemaining + ':' + secondsRemaining;
 
         var curMS:Float = Math.floor(Song.Conductor.songPosition - ClientPrefs.noteOffset);
         var curSex:Int = Math.floor(curMS / 1000);

@@ -601,8 +601,8 @@ class FunkinLua {
 			cancelTimer(tag);
 		});
 		Lua_helper.add_callback(lua, "changeHealthBar", function(isGrad:Bool) {
-			PlayState.instance.isGrad = isGrad;
-			PlayState.instance.reloadHealthBarColors();
+			PlayState.instance.hud.isGrad = isGrad;
+			PlayState.instance.hud.reloadHealthBarColors();
 		});
 
 		/*Lua_helper.add_callback(lua, "getPropertyAdvanced", function(varsStr:String) {
@@ -928,15 +928,15 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua,"changeIcon", function(icon:String, image:String) {
 			if(icon=='bf')
-				PlayState.instance.iconP1.changeIcon(image)
+				PlayState.instance.hud.iconP1.changeIcon(image)
 			else if (icon=='dad')
-				PlayState.instance.iconP2.changeIcon(image)
+				PlayState.instance.hud.iconP2.changeIcon(image)
 			else if (icon=='switch'){
-				PlayState.instance.iconP2.changeIcon(PlayState.instance.boyfriend.healthIcon);
-				PlayState.instance.iconP1.changeIcon(PlayState.instance.dad.healthIcon);
+				PlayState.instance.hud.iconP2.changeIcon(PlayState.instance.boyfriend.healthIcon);
+				PlayState.instance.hud.iconP1.changeIcon(PlayState.instance.dad.healthIcon);
 			}else {
-				PlayState.instance.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
-				PlayState.instance.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
+				PlayState.instance.hud.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+				PlayState.instance.hud.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
 			}
 
 		});
