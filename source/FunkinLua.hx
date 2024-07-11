@@ -49,6 +49,7 @@ class FunkinLua {
 
 	public var scriptName:String = '';
 	public var closed:Bool = false;
+	var hudVars:Array<String>;
 
 	public var accessedProps:Map<String, Dynamic> = null;
 	public function new(script:String) {
@@ -180,6 +181,8 @@ class FunkinLua {
 
 		set('pi', Math.PI); // Deixei aqui só pra casos de eu ter colocado o pi como uma var e não como uma função nos scripts em lua.
 
+		hudVars = Type.getInstanceFields(Type.getClass(PlayState.instance.hud));
+
 		Lua_helper.add_callback(lua, "addLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
 			if(luaFile.endsWith(".lua"))cervix=luaFile;
@@ -269,6 +272,9 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "getPropertySpecial", function(variable:String) {
 			var result:Dynamic = null;
 			var killMe:Array<String> = variable.split('.');
+			if(hudVars.contains(killMe[0])) {
+				killMe.insert(0, "hud");
+			}
 			if(killMe.length > 1)
 				result = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
 			else
@@ -278,6 +284,9 @@ class FunkinLua {
 		
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String) {
 			var killMe:Array<String> = variable.split('.');
+			if(hudVars.contains(killMe[0])) {
+				killMe.insert(0, "hud");
+			}
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = null;
 				if(PlayState.instance.modchartSprites.exists(killMe[0])) {
@@ -295,6 +304,9 @@ class FunkinLua {
 		});
 		Lua_helper.add_callback(lua, "setProperty", function(variable:String, value:Dynamic) {
 			var killMe:Array<String> = variable.split('.');
+			if(hudVars.contains(killMe[0])) {
+				killMe.insert(0, "hud");
+			}
 			if(killMe.length > 1) {
 				setVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1], value);
 				return true;
