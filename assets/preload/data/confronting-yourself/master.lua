@@ -71,6 +71,11 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('montanhaqueanda1', 'montanhas', 400-100, 33, 'linear')
 		doTweenX('awaqueanda1', 'awa', 400-250, 33, 'linear')
 		doTweenX('eitacachorreira', 'cachorreira', 400-250, 33, 'linear')
+
+		playSound('sonicpeelout', 1, 'peelout')
+		triggerEvent("Add Camera Zoom", "8", "0")
+		setCamMove(false)
+		triggerEvent('Camera Follow Pos',camPosDadX+1800,camPosDadY+150)
 		mudarRPCdetalhes('cy_ato_2')
 	elseif curPhase == 3 then
 		--cancelTween('florqueanda1')
@@ -309,9 +314,8 @@ function onCreatePost()
 	setObjectCamera('healthFollower', 'camHUD')
 	setGraphicSize('healthFollower', 75)
 
-	setObjectOrder('healthFollower', getObjectOrder('healthBarBG') + 1)
 	addLuaSprite('healthFollower')
-	setObjectOrder('healthFollower', getObjectOrder('healthBarBG') + 1)
+	setObjectOrder('healthFollower', getObjectOrder('hud.healthBarBG') + 2)
 end
 
 function onUpdate()

@@ -295,8 +295,8 @@ class TitleState extends MusicBeatState
 
 		add(logoBl);
 
-		particles = new ParticleParser(FlxG.width, FlxG.height, 1, 0.1, "test");
-		particles.setPosition(0,FlxG.height);
+		// particles = new ParticleParser(FlxG.width, FlxG.height, 1, 0.1, "test");
+		// particles.setPosition(0,FlxG.height);
 
 		candothething = true;
 
@@ -496,7 +496,7 @@ class TitleState extends MusicBeatState
 	}
 
 	var skippedIntro:Bool = false;
-	var particles:ParticleParser;
+	// var particles:ParticleParser;
 
 	function skipIntro():Void
 	{
@@ -511,7 +511,7 @@ class TitleState extends MusicBeatState
 
 			FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
 
-			add(particles);
+			// add(particles);
 			logoBl.angle = -7;
 
 			new FlxTimer().start(0.005, function(tmr:FlxTimer)

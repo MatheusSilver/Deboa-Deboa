@@ -135,6 +135,9 @@ function onEvent(evento, valor1, valor2)
                 removeLuaSprite(animaisdegrandeporte[i], true)
             end
         end
+        if valor1 == "reactivateCamera" then
+            setCamMove(true)
+        end
         if valor1 == '5-5' then
             if not middlescroll then
                 for i = 0, getProperty('opponentStrums.length')-1 do
@@ -189,11 +192,21 @@ function onEvent(evento, valor1, valor2)
             setCamMove(false)
 			cyCut('blahblah');
             runTimer('triggerstatic', 3.5)
-            setProperty('knuxerabos.y', getCharacterY('boyfriend')+425)
-		    setProperty('knuxerabos.x', getProperty('boyfriend.x')+1800)
-            runTimer('followdepois', 2)
-            doTweenX('knuxindo', 'knuxerabos', getCharacterX('bf')+625, 5.2, 'cubein')
-            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+180)
+            triggerEvent('Camera Follow Pos',camPosBFX-600,camPosBFY+165)
+            setProperty('boyfriend.x', getCharacterX('bf')-1300)
+            setProperty('dad.y', getCharacterY('dad')+300) -- Só pra tirar o pé dele da cena
+                                                           -- Sim, seria mais fácil deixar ele invisível
+                                                           -- Mas isso iria complicar muito depois já que a troca de boneco é rápida.
+            setProperty('knuxerabos.y', getCharacterY('bf')+425)
+		    setProperty('knuxerabos.x', getCharacterX('bf')+780)
+            runTimer('followdepois', 3.5)   --Opção 1 
+            --runTimer('followdepois', 4.3) --Opção 2
+                                                --Escolha!
+                                                -- Essa cena pode ser feita de duas formas:
+                                                -- 1: A camera fica parada no Tails e Knucks
+                                                -- 2: A camera acompanha o sonic a partir de um dado momento até bater no tails e knucks
+                                                -- A que achar melhor, é só descomentar.
+            doTweenX('knuxindo', 'boyfriend', getCharacterX('bf')+520, 5.2, 'cubein')
             triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
 
