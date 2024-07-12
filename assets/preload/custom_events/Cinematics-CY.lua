@@ -10,7 +10,7 @@ function onCreate()
 	--THE TOP BAR
 	makeLuaSprite('UpperBar', 'empty', 0, -k)
 	makeGraphic('UpperBar', 1280, k, '000000')
-	setObjectCamera('UpperBar', 'hud')
+	setObjectCamera('UpperBar', 'camHUD')
 	addLuaSprite('UpperBar', false)
 	--setObjectOrder('UpperBar', getObjectOrder('timeTxt') - 2)
 
@@ -18,13 +18,17 @@ function onCreate()
 	--THE BOTTOM BAR
 	makeLuaSprite('LowerBar', 'empty', 0, 720)
 	makeGraphic('LowerBar', 1280, k, '000000')
-	setObjectCamera('LowerBar', 'hud')
+	setObjectCamera('LowerBar', 'camHUD')
 	addLuaSprite('LowerBar', false)
 	--setObjectOrder('LowerBar', getObjectOrder('timeTxt') - 1)
 
 	setProperty('UpperBar.visible', false)
 	setProperty('LowerBar.visible', false)
 
+end
+function onCreatePost()
+	setObjectOrder('LowerBar', getObjectOrder('hud.healthBarBG')+1)	 
+	setObjectOrder('UpperBar', getObjectOrder('hud.healthBarBG')+1)
 
 end
 

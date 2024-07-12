@@ -1334,15 +1334,6 @@
 						""
 					],
 					[
-						133250,
-						-1,
-						"trans CY",
-						"5-99",
-						"",
-						"",
-						""
-					],
-					[
 						133062.5,
 						-1,
 						"trocar stage",
@@ -2463,6 +2454,15 @@
 						"flyingsonicCY",
 						"",
 						""
+					],
+					[
+						243880,
+						-1,
+						"trans CY",
+						"preTransAto9",
+						"",
+						"",
+						""
 					]
 				],
 				"bpm": 0,
@@ -2555,6 +2555,15 @@
 						""
 					],
 					[
+						259960,
+						-1,
+						"trans CY",
+						"reactivateCamera",
+						"",
+						"",
+						""
+					],
+					[
 						258840,
 						-1,
 						"trocar stage",
@@ -2573,7 +2582,7 @@
 						""
 					],
 					[
-						258960,
+						259460,
 						-1,
 						"stop video",
 						"true",
@@ -2689,7 +2698,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						276480,
+						-1,
+						"trans CY",
+						"ato9lockCameras",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -2759,7 +2778,17 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [],
+				"sectionNotes": [
+					[
+						291840,
+						-1,
+						"trans CY",
+						"ato9unlockCamerasPT2",
+						"",
+						"",
+						""
+					]
+				],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -2940,6 +2969,15 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
+					[
+						320000,
+						-1,
+						"trans CY",
+						"preTrans10",
+						"",
+						"",
+						""
+					],
 					[
 						322000,
 						-1,

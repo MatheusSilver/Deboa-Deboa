@@ -62,11 +62,11 @@ function onCreate()
 end
 
 function transVermelha()
-    soundFadeCancel('statica')
+    --soundFadeCancel('statica')
     setProperty('fx.alpha', 0.8)
 	doTweenAlpha('fleetON', 'fx', 0, 1, 'linear')
-    playSound('stat', 0.4, 'statica')
-    soundFadeOut('statica', 1.5)
+    --playSound('stat', 0.4, 'statica')
+    --soundFadeOut('statica', 1.5)
 end
 
 function onSongStart()
@@ -76,11 +76,14 @@ end
 
 function onEvent(evento, valor1, valor2)
     if evento == 'trans CY' then
-        if valor == '5-99' then
-            fastChar('Invisibru AM', 'Sonic Exe AM')
-        end
         if valor1 == '500' then
             mudarRPCdetalhes('cy_ato_8_half')
+        end
+        if valor1== "preTransAto9" then
+            setCamMove(false)
+            triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
+            setCharacterX("bf", getCharacterX("bf")-1500)
+            setCharacterX("dad", getCharacterX("dad")-1500)
         end
         if valor1 == '20' then
             triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
@@ -223,8 +226,7 @@ function onEvent(evento, valor1, valor2)
             setProperty('iconP2.alpha', 0)
         end
 
-        if valor1 == '9' then -- Antecede a mudança de stage
-            --Verificar com a Vio se tem como integrar uma transição no vídeo.
+        if valor1 == '9' then
             if not middlescroll then
                 for i = 0, getProperty('opponentStrums.length')-1 do
                     setPropertyFromGroup('opponentStrums', i, 'visible', true);
@@ -236,13 +238,37 @@ function onEvent(evento, valor1, valor2)
             if flashing then
             cameraFlash('legenda', '0xffff00', 4, true)
             end
+            --setCharacterX("bf", getCharacterX("bf")-1500)
+            --setCharacterX("dad", getCharacterX("dad")-1500)
+            --Copiando ideias de forma gratuita :sunglasses:
+            triggerEvent('Camera Follow Pos',camPosBFX-500,camPosBFY)
+            doTweenX('bfIndoATO9', 'boyfriend', getCharacterX('bf')+1300, 3, 'cubeinOut')
+            doTweenX('dadIndoATO9', 'dad', getCharacterX('dad')+1900, 2.5, 'cubeinOut')
+            
             changeHealthBar(false)
         end
-
+        if valor1 == "ato9lockCameras" then
+            setCamMove(false)
+            triggerEvent('Camera Follow Pos',(camPosBFX+camPosDadX)/2,(camPosBFY+camPosDadY)/2)
+            triggerEvent("Set Cam Zoom", '0.63', 'nada', 'nada', 'nada')
+        end
+        if valor1=="ato9unlockCamerasPT2" then
+            setCamMove(true)
+            triggerEvent("Set Cam Zoom", '0.75', 'nada', 'nada', 'nada')
+        end
+        if valor1 == "preTrans10" then
+            setCamMove(false)
+            --triggerEvent('Camera Follow Pos',(camPosBFX+camPosDadX)/2,(camPosBFY+camPosDadY)/2)
+            triggerEvent("Set Cam Zoom", '0.75', 'nada', 'nada', 'nada')
+            
+            doTweenX('bfIndoATOfinale', 'boyfriend', getCharacterX('boyfriend')+3300, 2, 'cubein')
+            doTweenX('dadIndoATOfinale', 'dad', getCharacterX('dad')+3500, 2, 'cubein')
+        end
         if valor1 == '10' then
             if flashing then
             cameraFlash('legenda', '0xffff00', 3, true)
             end
+            setCamMove(true)            
             triggerEvent("Particula CY", 'nada', 'nada', 'nada', 'nada') -- obviamente me refiro a um peixe
         end
 
@@ -261,6 +287,9 @@ function criarAnimaisdeGrandePorte()
     end
 end
 function onTweenCompleted(tag)
+    if tag == "bfIndoATO9" then
+        updateCamPos('all')
+    end
     if tag == 'knuxindo' then
         triggerEvent('Change Character','gf','Soul Knuckles')
         triggerEvent('Change Character','bf','Sonic Fear')

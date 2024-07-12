@@ -275,7 +275,8 @@ function onCreate()
 	precacheImage('splashes/blood')
 	precacheImage('pixelUI/NOTE_assets_exezoom')
 	precacheImage('pixelUI/NOTE_assets_exezoomENDS')
-	precacheSound('stat')
+	--precacheSound('stat')
+	precacheSound("sonicpeelout")
 	precacheSound('exerisadinha')
 
 	--setGameover('sonic', 'gameOverEndSonic', 'breakfast')
@@ -293,18 +294,16 @@ function onCreatePost()
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setProperty('oppIcon.visible', false)
 	setObjectCamera('oppIcon', 'camHUD')
-	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
 	addLuaSprite('oppIcon')
-	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
+	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 5)
 
 	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/cy/sonicAH', 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setProperty('bfIcon.visible', false)
 	setObjectCamera('bfIcon', 'camHUD')
-	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
 	addLuaSprite('bfIcon')
-	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
+	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 6)
 
 	--Ring code
 	makeAnimatedLuaSprite('healthFollower', 'ring', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y')-27)
@@ -315,7 +314,7 @@ function onCreatePost()
 	setGraphicSize('healthFollower', 75)
 
 	addLuaSprite('healthFollower')
-	setObjectOrder('healthFollower', getObjectOrder('hud.healthBarBG') + 2)
+	setObjectOrder('healthFollower', getObjectOrder('hud.healthBarBG') + 4)
 end
 
 function onUpdate()
@@ -331,7 +330,9 @@ function onUpdate()
 		-- Caso o sonico esteja na esquerda e o opp esteja na direita, é a formula abaixo
 		-- setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2)
 		-- Caso contrário, bf na direita e opp na esquerda (que é o caso da CY), então...
-		setProperty('healthFollower.x', getProperty('healthBar.x') - 35 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+		if (getProperty('health') >= 0.05 and getProperty('health') <= 1.95)then
+			setProperty('healthFollower.x', getProperty('healthBar.x') - 35 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+		end
 		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
 	end
 	speedChanger = speedChanger + 1
