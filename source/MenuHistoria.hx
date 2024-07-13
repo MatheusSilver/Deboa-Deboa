@@ -186,7 +186,7 @@ class MenuHistoria extends MusicBeatSubstate
 			flixel.tweens.FlxTween.tween(blackLock, {alpha: 0}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
 		}
 		super.create();
-		if (FlxG.save.data.progress == "7,3,2,1,1,2,2,2,4") test_unlock("heroi");
+		
 		new FlxTimer().start(2, function(tmr:FlxTimer) {
             canOpenModifiers = true;
 		});

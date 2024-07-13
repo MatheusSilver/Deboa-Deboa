@@ -1572,7 +1572,7 @@ class ProgressionUtil
 		}
 
 		//trace("Total de musicas: "+ historiaMusicas + "\n" + "Progresso: " + getSaveSum());
-		return getSaveSum() == historiaMusicas;
+		return getSaveSum() == historiaMusicas+1;
 	}
 
 	public static function terminouFreeplay():Bool {
@@ -1585,7 +1585,7 @@ class ProgressionUtil
 		}
 
 		//trace("Total de musicas freeplay: "+ freeplayMusicas + "\n" + "Progresso freeplay: " + FreeplayState.progressFreeplay);
-		return FreeplayState.progressFreeplay == freeplayMusicas;
+		return FlxG.save.data.freeplayProgress == freeplayMusicas+1;
 	}
 
 	public static function terminouTudo():Bool {
