@@ -6,7 +6,9 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import flixel.FlxCamera;
 import openfl.utils.Assets as OpenFlAssets;
+import Achievements.AchievementObject;
 import gamejolt.*;
 
 using StringTools;
@@ -66,6 +68,10 @@ class MenuPreHistoria extends MusicBeatState
 		Metadata.WeekData.reloadWeekFiles(true);
 		if (curWeek >= Metadata.WeekData.weeksList.length)
 			curWeek = 0;
+
+		camAchievement = new FlxCamera();
+		camAchievement.bgColor.alpha = 0;
+		FlxG.cameras.add(camAchievement, false);
 
 		bgSprite = new FlxSprite(-1000, 0);
 		bgSprite.alpha = 1;
@@ -149,10 +155,34 @@ class MenuPreHistoria extends MusicBeatState
 			}));
 		}
 
+		if (Utils.ProgressionUtil.terminouHistoria()) test_unlock("heroi");
+
 		//Precisa disso pra voltar do playstate.
 		super.create();
 	}
 
+	function test_unlock(achieve:String){
+		#if ACHIEVEMENTS_ALLOWED
+		var achieveID:Int = Achievements.getAchievementIndex(achieve);
+		if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+			ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][0], true);
+			giveAchievement(achieve);
+			ClientPrefs.save();
+		}
+		#end
+		return;
+	}
+
+	public var camAchievement:FlxCamera;
+
+	#if ACHIEVEMENTS_ALLOWED
+	// Unlocks "Freaky on a Friday Night" achievement
+	function giveAchievement(achievementname) {
+		add(new AchievementObject(achievementname, camAchievement));
+		GlobalSoundManager.play(confirmMenu);
+		trace('Giving achievement '+ achievementname);
+	}
+	#end
 	
 
 	function verifySave()
@@ -187,6 +217,8 @@ class MenuPreHistoria extends MusicBeatState
 				makeAnimUnlock = true; // precisa disso pra dar block no input e tbm pra saber quando que pode mudar de coiso
 				saveArray[curWeek + 1]++;
 				weekAnimNum = curWeek + 1;
+			} else if (curWeek == saveArray.length-1 && saveArray[curWeek]<5) {
+				saveArray[curWeek]++;
 			}
 		}
 		else

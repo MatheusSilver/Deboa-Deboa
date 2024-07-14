@@ -63,7 +63,7 @@ class FreeplayState extends MusicBeatState
 	public static function addProgress()
 	{
 		trace("curSelected: " + Std.string(curSelected) + "\nprogressFreeplay: " + Std.string(progressFreeplay) + "\nweekLength: " + Std.string(9));
-		if (progressFreeplay < 9) {
+		if (progressFreeplay <= 9) {
 			if (curSelected + 1 == progressFreeplay) {
 				progressFreeplay++;
 				GameJoltLoginState.syncProgressFreeplay();
@@ -129,6 +129,8 @@ class FreeplayState extends MusicBeatState
 		BSLSwipeUtils.reset_manual = false;
 
 		for (i in 0...progressFreeplay) {
+			if(i>9)
+				return;
 			var songText:Alphabet = new Alphabet(0, (70 * i), songs[i].display.toLowerCase(), false, false, 0.05, 0.7, 'alfabetovio');
 			songText.isMenuTrem = true;
 			songText.targetY = i;
