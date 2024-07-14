@@ -655,8 +655,8 @@
 						71187.5,
 						-1,
 						"Add Camera Zoom",
-						"0.25",
-						"0.25",
+						"1",
+						"1",
 						"",
 						""
 					],
@@ -1965,9 +1965,9 @@
 					[
 						197880,
 						-1,
-						"hudfade",
-						"0",
-						"1.5",
+						"trans CY",
+						"preTransAto8",
+						"",
 						"",
 						""
 					]
@@ -2296,7 +2296,7 @@
 						""
 					],
 					[
-						217010,
+						217510,
 						-1,
 						"video player",
 						"AnimacoesJogaveis/cycutscene",

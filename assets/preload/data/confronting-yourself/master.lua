@@ -2,7 +2,8 @@ local speedChanger = 0
 
 --Agora que sei que as funções em lua se comunicam entre os diversos .lua, acho que isso seja mais fácil omega kek
 
-healthDrain = false;
+healthDrain = false
+lockAto6Run = false
 
 ato8Change = false;
 
@@ -39,12 +40,44 @@ function onBeatHit()
 	end
 end
 
+lerpa = 0
+lerpb = 0
+lerpc = 0
+acceleration = 0.0145 -- Aceleração constante
+totalTime = 1.05 -- Tempo total da animação em segundos
+currentTime = 0 -- Tempo atual da animação
+prevTime = 0
 function onUpdatePost(elapsed)
 	if healthDrain then
-    	mult = lerp(1, getProperty('iconP1.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
+		mult = lerp(1, getProperty('iconP1.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
     	scaleObject('oppIcon', mult, mult)
 		scaleObject('bfIcon', mult, mult)
 	end
+	if phasedetector == 9 and lockAto6Run then
+		
+        currentTime = currentTime + elapsed
+        if currentTime <= totalTime then
+            local t = speedChanger - prevTime
+            local newPositionA = (-speedChanger*45 + 0.5 * acceleration*45 * t * t)
+            local newPositionB = (-speedChanger*20 + 0.5 * acceleration*20 * t * t)
+            local newPositionC = (-speedChanger*10 + 0.5 * acceleration*10 * t * t)
+
+            setProperty('angelislandchao.scrollX', newPositionA)
+            setProperty('angelislandarvores.scrollX', newPositionB)
+            setProperty('angelislandbg.scrollX', newPositionC)
+        end
+    end
+end
+
+function onTimerCompleted(tag)
+	if tag == "lockmovement" then
+        lockAto6Run = true
+		prevTime = speedChanger
+        lerpa = -speedChanger * 45
+        lerpb = -speedChanger * 20
+        lerpc = -speedChanger * 10
+        currentTime = 0 -- Reinicia o tempo atual para a nova animação
+    end
 end
 
 function lerp(a, b, ratio)
@@ -52,9 +85,13 @@ function lerp(a, b, ratio)
 end
 
 function boundTo(value, min, max)
-    newValue = value
-    if newValue < min then newValue = min elseif newValue > max then newValue = max end
-    return newValue
+    if value < min then
+        return min
+    elseif value > max then
+        return max
+    else
+        return value
+    end
 end
 
 function changePhases(curPhase) -- Fazer um lua só pra isso.
@@ -200,6 +237,9 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		doTweenX('espacoqueandadeboa', 'phase9-2', -3000, 80, 'linear')
 		doTweenX('deatheggqueanda', 'phase9-3', -2000, 70, 'linear')
 		mudarRPCdetalhes('cy_ato_9')
+
+		--Trocar lados...
+
 	elseif curPhase == 13 then	
 		triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
 		--cancelTween('deatheggqueanda')
@@ -209,6 +249,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		for i = 1,#phase10cheetos do
 			setProperty(phase10cheetos[i]..'.visible',true)
 		end
+		triggerEvent("strum swap2", "cy", 'false')
 		mudarRPCdetalhes('cy_ato_10')
 		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-20, 1, 'smoothstepin')
 		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-20, 1, 'smoothstepin')
@@ -287,7 +328,7 @@ function onCreate()
 end
 
 function onCreatePost()
-
+	lockAto6Run = false
 	--Icons code
 	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('healthBar.y') -80)
 	loadGraphic('oppIcon', 'icons/cy/sonicexeAH', 150)
@@ -317,6 +358,7 @@ function onCreatePost()
 	setObjectOrder('healthFollower', getObjectOrder('hud.healthBarBG') + 4)
 end
 
+
 function onUpdate()
 	if healthDrain then
 		if getProperty('health') < 0.25 then
@@ -344,7 +386,7 @@ function onUpdate()
     setPropertyTiledLuaSprite("ceu.scrollX", speedChanger*0.5*10)
 	elseif phasedetector == 6 then
 	setPropertyTiledLuaSprite("chaorunning1EXE.scrollX", speedChanger*40)
-	elseif phasedetector == 9 then
+	elseif phasedetector == 9 and not lockAto6Run then
 	setPropertyTiledLuaSprite("angelislandchao.scrollX", -speedChanger*45)
 	setPropertyTiledLuaSprite("angelislandarvores.scrollX", -speedChanger*20)
 	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)

@@ -3230,7 +3230,18 @@ class PlayState extends MusicBeatState
 				isSwapped = false;
 				if (value2 != 'true')
 				{ // Só pra corrigir um bugzinho na Prey
-					if (!ClientPrefs.middleScroll && value1 != 'true')
+					if (!ClientPrefs.middleScroll && value1 == 'cy'){ //Essa parte é exclusiva da CY especialmente do ato finale.
+						FlxTween.tween(strumLineNotes.members[0], {x: (strumLineNotes.members[0].x) - 645}, 1, {ease: FlxEase.quadInOut});
+						FlxTween.tween(strumLineNotes.members[1], {x: (strumLineNotes.members[1].x) - 645}, 1, {ease: FlxEase.quadInOut});
+						FlxTween.tween(strumLineNotes.members[2], {x: (strumLineNotes.members[2].x) - 645}, 1, {ease: FlxEase.quadInOut});
+						FlxTween.tween(strumLineNotes.members[3], {x: (strumLineNotes.members[3].x) - 645}, 1, {ease: FlxEase.quadInOut});
+
+						FlxTween.tween(strumLineNotes.members[4], {x: (strumLineNotes.members[4].x) + 645}, 1, {ease: FlxEase.quadInOut});
+						FlxTween.tween(strumLineNotes.members[5], {x: (strumLineNotes.members[5].x) + 645}, 1, {ease: FlxEase.quadInOut});
+						FlxTween.tween(strumLineNotes.members[6], {x: (strumLineNotes.members[6].x) + 645}, 1, {ease: FlxEase.quadInOut});
+						FlxTween.tween(strumLineNotes.members[7], {x: (strumLineNotes.members[7].x) + 645}, 1, {ease: FlxEase.quadInOut});
+					}
+					else if (!ClientPrefs.middleScroll && value1 != 'true')
 					{
 						playerStrums.forEach(function(spr:FlxSprite)
 						{

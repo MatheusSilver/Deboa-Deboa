@@ -376,14 +376,14 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('phase10-1.visible', false)
 	addLuaSprite('phase10-1',false)
 
-	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-150,260)--5
+	makeLuaSprite('phase10-2','cenarios/phase10/stone1',-350,260)--5
 	setLuaSpriteScrollFactor('phase10-2',0.2,0.2)
 	setProperty('phase10-2.scale.x', 1.1)
 	setProperty('phase10-2.scale.y', 1.1)
 	setProperty('phase10-2.visible', false)
 	addLuaSprite('phase10-2',true)
 
-	makeLuaSprite('phase10-3','cenarios/phase10/stone2',950,300)--5
+	makeLuaSprite('phase10-3','cenarios/phase10/stone2',600,300)--5
 	setLuaSpriteScrollFactor('phase10-3',0.2,0.2)
 	setProperty('phase10-3.scale.x', 0.9)
 	setProperty('phase10-3.scale.y', 0.9)

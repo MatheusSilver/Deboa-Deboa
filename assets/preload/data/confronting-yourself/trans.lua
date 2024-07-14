@@ -43,6 +43,16 @@ function onCreate()
     setProperty('modBoaLogoExe.y', getProperty('modBoaLogoExe.y')+50)
     setProperty('modBoaLogoExe.visible', false)
 	addLuaSprite('modBoaLogoExe', false)
+    
+
+    -- Usado exclusivamente no fim do ato 7 durante a risada do sonico executável.
+    makeLuaSprite("redOverlay", "RedVG", 0,0)
+    setObjectCamera('redOverlay', 'legenda')
+    setGraphicSize('redOverlay', screenWidth, screenHeight)
+    screenCenter('redOverlay', "xy")
+    setProperty("redOverlay.alpha", 0)
+    setProperty("redOverlay.visible", false)
+    addLuaSprite("redOverlay", false)
 
     makeLuaSprite('paredefogo','firewall',0,screenHeight+300)
     setObjectCamera('paredefogo', 'legenda')
@@ -194,22 +204,16 @@ function onEvent(evento, valor1, valor2)
         if valor1 == '7' then
             setCamMove(false)
 			cyCut('blahblah');
-            runTimer('triggerstatic', 3.5)
-            triggerEvent('Camera Follow Pos',camPosBFX-600,camPosBFY+165)
-            setProperty('boyfriend.x', getCharacterX('bf')-1300)
+            runTimer('triggerstatic', 4)
+            triggerEvent('Camera Follow Pos',camPosBFX-900,camPosBFY+165)
+            setProperty('boyfriend.x', getCharacterX('bf')-600)
             setProperty('dad.y', getCharacterY('dad')+300) -- Só pra tirar o pé dele da cena
                                                            -- Sim, seria mais fácil deixar ele invisível
                                                            -- Mas isso iria complicar muito depois já que a troca de boneco é rápida.
             setProperty('knuxerabos.y', getCharacterY('bf')+425)
-		    setProperty('knuxerabos.x', getCharacterX('bf')+780)
-            runTimer('followdepois', 3.5)   --Opção 1 
-            --runTimer('followdepois', 4.3) --Opção 2
-                                                --Escolha!
-                                                -- Essa cena pode ser feita de duas formas:
-                                                -- 1: A camera fica parada no Tails e Knucks
-                                                -- 2: A camera acompanha o sonic a partir de um dado momento até bater no tails e knucks
-                                                -- A que achar melhor, é só descomentar.
-            doTweenX('knuxindo', 'boyfriend', getCharacterX('bf')+520, 5.2, 'cubein')
+		    setProperty('knuxerabos.x', getCharacterX('bf')+2000)
+            runTimer('followdepois', 2.5)
+                                                            
             triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
 
@@ -225,6 +229,12 @@ function onEvent(evento, valor1, valor2)
             setProperty('dad.alpha', 0)
             setProperty('iconP2.alpha', 0)
         end
+        if valor1 == 'preTransAto8' then
+            setProperty("redOverlay.visible", true)
+            doTweenAlpha("redOverlayout", "redOverlay", 1, 1.75, "linear")
+            triggerEvent("hudfade", "0", "1.5")
+            
+        end
 
         if valor1 == '9' then
             if not middlescroll then
@@ -235,6 +245,7 @@ function onEvent(evento, valor1, valor2)
             setProperty('dad.alpha', 1)
             setProperty('boyfriend.alpha', 1)
             setProperty('iconP2.alpha', 1)
+            triggerEvent("strum swap1", "false", 'false')
             if flashing then
             cameraFlash('legenda', '0xffff00', 4, true)
             end
@@ -287,10 +298,14 @@ function criarAnimaisdeGrandePorte()
     end
 end
 function onTweenCompleted(tag)
+    if tag == "redOverlayout" then
+        cameraFlash('achMenu', '0xff0000', 3, true)
+        removeLuaSprite("redOverlay")
+    end
     if tag == "bfIndoATO9" then
         updateCamPos('all')
     end
-    if tag == 'knuxindo' then
+    if tag == 'sonicclashknux' then
         triggerEvent('Change Character','gf','Soul Knuckles')
         triggerEvent('Change Character','bf','Sonic Fear')
         triggerEvent('Change Character','dad','Soul Tails')
@@ -324,8 +339,14 @@ function onTweenCompleted(tag)
 end
 
 function onTimerCompleted(tag)
+    if tag == "clashSonicKnucks" then
+        doTweenX('sonicclashknux', 'boyfriend', getCharacterX('bf')+510, 2.2, 'quartin') -- Quartin de doido k (na real a ideia é que ele chegue lá a milhão por hora)
+    end
     if tag == 'followdepois' then
-        triggerEvent('Camera Follow Pos',camPosBFX+205,camPosBFY+165)
+        runTimer('lockmovement', 0.15)
+        doTweenX('goknux', 'knuxerabos', getCharacterX('bf')+760, 0.25, 'quadInOut')
+        triggerEvent('Camera Follow Pos',camPosBFX+20,camPosBFY+165)
+        runTimer('clashSonicKnucks', 1)
     end
     if tag == 'triggerstatic' then
         triggerEvent("eventos-tripletrouble", '1024', 'nada', 'nada', 'nada')
