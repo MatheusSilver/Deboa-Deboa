@@ -401,7 +401,7 @@ class PlayState extends MusicBeatState
 	public static var loadingImage:String;
 
 	var isexe:Bool = true;
-	public static var cNum:Int = 0;
+	public var cNum:Int = 0;
 	
 	public static var vimdopause:Bool = false;
 	public static var newSongSpeed:Float;

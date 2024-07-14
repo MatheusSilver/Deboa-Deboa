@@ -124,7 +124,7 @@ class ExtraHUDObject extends FlxSpriteGroup
 					+ meses[leDate.getMonth()]
 					+ "\n";
 			case "triple-trouble":
-				counterNum.text = Std.string(PlayState.cNum);
+				counterNum.text = Std.string(PlayState.instance.cNum);
 		}
 
 		super.update(elapsed);
