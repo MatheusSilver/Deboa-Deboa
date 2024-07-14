@@ -27,7 +27,7 @@ import lime.utils.Assets;
 
 using StringTools;
 
-class KeysSubstate extends MusicBeatState {
+class AjustesTeclado extends MusicBeatState {
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
 

@@ -1144,96 +1144,129 @@ class Controls extends FlxActionSet
 }
 
 class InputFormatter {
-	public static function getKeyName(key:FlxKey):String {
+	public static function getKeyNameGamepad(key:FlxGamepadInputID):String {
 		switch (key) {
-			case BACKSPACE:
-				return "BckSpc";
-			case CONTROL:
-				return "Ctrl";
-			case ALT:
-				return "Alt";
-			case CAPSLOCK:
-				return "Caps";
-			case PAGEUP:
-				return "PgUp";
-			case PAGEDOWN:
-				return "PgDown";
-			case ZERO:
-				return "0";
-			case ONE:
-				return "1";
-			case TWO:
-				return "2";
-			case THREE:
-				return "3";
-			case FOUR:
-				return "4";
-			case FIVE:
-				return "5";
-			case SIX:
-				return "6";
-			case SEVEN:
-				return "7";
-			case EIGHT:
-				return "8";
-			case NINE:
-				return "9";
-			case NUMPADZERO:
-				return "#0";
-			case NUMPADONE:
-				return "#1";
-			case NUMPADTWO:
-				return "#2";
-			case NUMPADTHREE:
-				return "#3";
-			case NUMPADFOUR:
-				return "#4";
-			case NUMPADFIVE:
-				return "#5";
-			case NUMPADSIX:
-				return "#6";
-			case NUMPADSEVEN:
-				return "#7";
-			case NUMPADEIGHT:
-				return "#8";
-			case NUMPADNINE:
-				return "#9";
-			case NUMPADMULTIPLY:
-				return "#*";
-			case NUMPADPLUS:
-				return "#+";
-			case NUMPADMINUS:
-				return "#-";
-			case NUMPADPERIOD:
-				return "#.";
-			case SEMICOLON:
-				return ";";
-			case COMMA:
-				return ",";
-			case PERIOD:
-				return ".";
-			//case SLASH:
-			//	return "/";
-			case GRAVEACCENT:
-				return "`";
-			case LBRACKET:
-				return "[";
-			//case BACKSLASH:
-			//	return "\\";
-			case RBRACKET:
-				return "]";
-			case QUOTE:
-				return "'";
-			case PRINTSCREEN:
-				return "PrtScrn";
-			case NONE:
-				return '---';
+			case DPAD_LEFT: return "Dir. p/ esquerda";
+			case DPAD_RIGHT: return "Dir. p/ direita";
+			case DPAD_UP: return "Dir. p/ cima";
+			case DPAD_DOWN: return "Dir. p/ baixo";
+			case BACK: return "Select";
+			case START: return "Start";
+			case A: return "Xis";
+			case B: return "Bolinha";
+			case X: return "Quadrado";
+			case Y: return "Triangulo";
+			case GUIDE: return "PS";
+			case LEFT_SHOULDER: return "L1";
+			case LEFT_TRIGGER: return "L2";
+			case RIGHT_SHOULDER: return "R1";
+			case RIGHT_TRIGGER: return "R2";
+			case LEFT_STICK_DIGITAL_DOWN: return "Analog. esquerda p/ baixo";
+			case LEFT_STICK_DIGITAL_UP: return "Analog. esquerda p/ cima";
+			case LEFT_STICK_DIGITAL_RIGHT: return "Analog. esquerda p/ direita";
+			case LEFT_STICK_DIGITAL_LEFT: return "Analog. esquerda p/ esquerda";
+			case RIGHT_STICK_DIGITAL_DOWN: return "Analog. direita p/ baixo";
+			case RIGHT_STICK_DIGITAL_UP: return "Analog. direita p/ cima";
+			case RIGHT_STICK_DIGITAL_RIGHT: return "Analog. direita p/ direita";
+			case RIGHT_STICK_DIGITAL_LEFT: return "Analog. direita p/ esquerda";
+			case NONE: return '---';
+				
 			default:
 				var label:String = '' + key;
 				if(label.toLowerCase() == 'null') return '---';
 				return '' + label.charAt(0).toUpperCase() + label.substr(1).toLowerCase();
 		}
 	}
+	public static function getKeyName(key:FlxKey):String {
+			switch (key) {
+				case BACKSPACE:
+					return "BckSpc";
+				case CONTROL:
+					return "Ctrl";
+				case ALT:
+					return "Alt";
+				case CAPSLOCK:
+					return "Caps";
+				case PAGEUP:
+					return "PgUp";
+				case PAGEDOWN:
+					return "PgDown";
+				case ZERO:
+					return "0";
+				case ONE:
+					return "1";
+				case TWO:
+					return "2";
+				case THREE:
+					return "3";
+				case FOUR:
+					return "4";
+				case FIVE:
+					return "5";
+				case SIX:
+					return "6";
+				case SEVEN:
+					return "7";
+				case EIGHT:
+					return "8";
+				case NINE:
+					return "9";
+				case NUMPADZERO:
+					return "#0";
+				case NUMPADONE:
+					return "#1";
+				case NUMPADTWO:
+					return "#2";
+				case NUMPADTHREE:
+					return "#3";
+				case NUMPADFOUR:
+					return "#4";
+				case NUMPADFIVE:
+					return "#5";
+				case NUMPADSIX:
+					return "#6";
+				case NUMPADSEVEN:
+					return "#7";
+				case NUMPADEIGHT:
+					return "#8";
+				case NUMPADNINE:
+					return "#9";
+				case NUMPADMULTIPLY:
+					return "#*";
+				case NUMPADPLUS:
+					return "#+";
+				case NUMPADMINUS:
+					return "#-";
+				case NUMPADPERIOD:
+					return "#.";
+				case SEMICOLON:
+					return ";";
+				case COMMA:
+					return ",";
+				case PERIOD:
+					return ".";
+				//case SLASH:
+				//	return "/";
+				case GRAVEACCENT:
+					return "`";
+				case LBRACKET:
+					return "[";
+				//case BACKSLASH:
+				//	return "\\";
+				case RBRACKET:
+					return "]";
+				case QUOTE:
+					return "'";
+				case PRINTSCREEN:
+					return "PrtScrn";
+				case NONE:
+					return '---';
+				default:
+					var label:String = '' + key;
+					if(label.toLowerCase() == 'null') return '---';
+					return '' + label.charAt(0).toUpperCase() + label.substr(1).toLowerCase();
+			}
+		}
 }
 
 class PlayerSettings

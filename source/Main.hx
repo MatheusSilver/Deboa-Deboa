@@ -1,5 +1,7 @@
 package;
 
+import flixel.input.gamepad.FlxGamepad;
+import flixel.input.gamepad.FlxGamepad.FlxGamepadModel;
 import gamejolt.InviteBackEnd;
 import openfl.filters.ColorMatrixFilter;
 import openfl.filters.BitmapFilter;
@@ -69,6 +71,8 @@ class Main extends Sprite
 	#if mobile
 	private static var touch_allowed:Bool = true;
 	#end
+	private static var gamepad:FlxGamepad = null;
+	public static var gamepad_model:FlxGamepadModel = null;
 
 	public static function mouseVisibility(visible:Bool):Void
 	{
@@ -200,5 +204,7 @@ class Main extends Sprite
 		FlxG.drawFramerate = ClientPrefs.framerate;
 		FlxG.fixedTimestep = false; // Agora eu fiquei na dúvida entre deixar isso falso, ou deixar isso como verdadeiro.
 		// Eu mandei lá no Discord, uma gravação onde o FPS Cap é 240 e ele fica SUPER lagado. Só consegui resolver isso deixando o timestep como falso.
+		gamepad = FlxG.gamepads.lastActive;
+		if(gamepad.connected) gamepad_model = gamepad.detectedModel; // Isso é usado pro nome dos botões lá do InputFormatter
 	}
 }

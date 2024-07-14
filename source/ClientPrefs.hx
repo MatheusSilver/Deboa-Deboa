@@ -87,11 +87,15 @@ class ClientPrefs
 
 	public static var keyBindsGamepad:Map<String, Array<FlxGamepadInputID>> = [
 		// Key Bind, Name for ControlsSubState
-		'note_left' => [FlxGamepadInputID.X,FlxGamepadInputID.DPAD_LEFT,FlxGamepadInputID.LEFT_SHOULDER],
-		'note_down' => [FlxGamepadInputID.A, FlxGamepadInputID.DPAD_DOWN, FlxGamepadInputID.LEFT_TRIGGER],
+		/* LEFT_TRIGGER   = L2
+		   LEFT_SHOULDER  = L1
+		   RIGHT_TRIGGER  = R2
+		   RIGHT_SHOULDER = L1 - Guitar Hero/Clone Hero input mapping */
+		'note_left' => [FlxGamepadInputID.X,FlxGamepadInputID.DPAD_LEFT],
+		'note_down' => [FlxGamepadInputID.A, FlxGamepadInputID.DPAD_DOWN],
 		'note_space' => [FlxGamepadInputID.LEFT_STICK_CLICK, FlxGamepadInputID.RIGHT_STICK_CLICK], //Isso equivale a R3 e L3
-		'note_up' => [FlxGamepadInputID.Y, FlxGamepadInputID.DPAD_UP, FlxGamepadInputID.RIGHT_TRIGGER],
-		'note_right' => [FlxGamepadInputID.B, FlxGamepadInputID.DPAD_RIGHT,	FlxGamepadInputID.RIGHT_SHOULDER],
+		'note_up' => [FlxGamepadInputID.Y, FlxGamepadInputID.DPAD_UP],
+		'note_right' => [FlxGamepadInputID.B, FlxGamepadInputID.DPAD_RIGHT],
 		'ui_left' => [FlxGamepadInputID.DPAD_LEFT, FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT],
 		'ui_down' => [FlxGamepadInputID.DPAD_DOWN, FlxGamepadInputID.LEFT_STICK_DIGITAL_DOWN],
 		'ui_up' => [FlxGamepadInputID.DPAD_UP, FlxGamepadInputID.LEFT_STICK_DIGITAL_UP],
