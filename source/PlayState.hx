@@ -5417,8 +5417,8 @@ class PlayState extends MusicBeatState
 
 		if (!note.isSustainNote)
 		{
-			note.kill();
 			notes.remove(note, true);
+			note.kill();
 			note.destroy();
 		}
 	}
