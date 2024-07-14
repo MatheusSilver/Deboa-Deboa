@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.FlxG;
 import flixel.util.FlxSave;
 import lime.app.Application;
@@ -7,6 +8,8 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import Input.PlayerSettings;
 import TitleState;
+import flixel.input.gamepad.FlxGamepad;
+import flixel.input.gamepad.FlxGamepadButton;
 
 class ClientPrefs
 {
@@ -82,11 +85,35 @@ class ClientPrefs
 		'debug_2' => [EIGHT, NONE]
 	];
 
+	public static var keyBindsGamepad:Map<String, Array<FlxGamepadInputID>> = [
+		// Key Bind, Name for ControlsSubState
+		'note_left' => [FlxGamepadInputID.X,FlxGamepadInputID.DPAD_LEFT,FlxGamepadInputID.LEFT_SHOULDER],
+		'note_down' => [FlxGamepadInputID.A, FlxGamepadInputID.DPAD_DOWN, FlxGamepadInputID.LEFT_TRIGGER],
+		'note_space' => [FlxGamepadInputID.LEFT_STICK_CLICK, FlxGamepadInputID.RIGHT_STICK_CLICK], //Isso equivale a R3 e L3
+		'note_up' => [FlxGamepadInputID.Y, FlxGamepadInputID.DPAD_UP, FlxGamepadInputID.RIGHT_TRIGGER],
+		'note_right' => [FlxGamepadInputID.B, FlxGamepadInputID.DPAD_RIGHT,	FlxGamepadInputID.RIGHT_SHOULDER],
+		'ui_left' => [FlxGamepadInputID.DPAD_LEFT, FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT],
+		'ui_down' => [FlxGamepadInputID.DPAD_DOWN, FlxGamepadInputID.LEFT_STICK_DIGITAL_DOWN],
+		'ui_up' => [FlxGamepadInputID.DPAD_UP, FlxGamepadInputID.LEFT_STICK_DIGITAL_UP],
+		'ui_right' => [FlxGamepadInputID.DPAD_RIGHT, FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT],
+		'accept' => [FlxGamepadInputID.A],
+		'back' => [FlxGamepadInputID.B],
+		'pause' => [FlxGamepadInputID.START],
+		'reset' => [FlxGamepadInputID.BACK],
+		'volume_mute' => [NONE],
+		'volume_up' => [NONE],
+		'volume_down' => [NONE],
+		'debug_1' => [NONE],
+		'debug_2' => [NONE]
+	];
+
 	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
+	public static var defaultKeysGamepad:Map<String, Array<FlxGamepadInputID>> = null;
 
 	public static function loadDefaultKeys()
 	{
 		defaultKeys = keyBinds.copy();
+		defaultKeysGamepad = keyBindsGamepad.copy();
 		// trace(defaultKeys);
 	}
 
@@ -147,6 +174,7 @@ class ClientPrefs
         var save:FlxSave = new FlxSave();
 		save.bind('controlesmodboa', Utils.CoolUtil.getSavePath());
 		save.data.customControls = keyBinds;
+		save.data.customControlsGamepad = keyBindsGamepad;
 		save.flush();
 		FlxG.log.add("Settings saved!");
 
@@ -170,6 +198,13 @@ class ClientPrefs
 			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
 			for (control => keys in loadedControls) {
 				keyBinds.set(control, keys);
+			}
+			reloadControls();
+		}
+		if(save != null && save.data.customControlsGamepad != null) {
+			var loadedControls:Map<String, Array<FlxGamepadInputID>> = save.data.customControlsGamepad;
+			for (control => keys in loadedControls) {
+				keyBindsGamepad.set(control, keys);
 			}
 			reloadControls();
 		}

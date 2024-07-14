@@ -777,6 +777,22 @@ class Controls extends FlxActionSet
 		}
 	}
 
+	public function bindGamepadKeys(control:Control, keys:Array<FlxGamepadInputID>)
+	{
+		#if (haxe >= "4.0.0")
+		inline forEachBound(control, (action, state) -> addGamepadKeys(action, keys, state));
+		#else
+		forEachBound(control, function(action, state) addGamepadKeys(action, keys, state));
+		#end	
+	}
+	
+	inline static function addGamepadKeys(action:FlxActionDigital, keys:Array<FlxGamepadInputID>, state:FlxInputState)
+	{
+		for (key in keys)
+			if(key != NONE)
+				action.addGamepad(key, state);
+	}
+
 	public function bindKeys(control:Control, keys:Array<FlxKey>)
 	{
 		#if (haxe >= "4.0.0")
@@ -785,7 +801,13 @@ class Controls extends FlxActionSet
 		forEachBound(control, function(action, state) addKeys(action, keys, state));
 		#end	
 	}
-
+	
+	inline static function addKeys(action:FlxActionDigital, keys:Array<FlxKey>, state:FlxInputState)
+	{
+		for (key in keys)
+			if(key != NONE)
+				action.addKey(key, state);
+	}
 	public function unbindKeys(control:Control, keys:Array<FlxKey>)
 	{
 		#if (haxe >= "4.0.0")
@@ -795,12 +817,6 @@ class Controls extends FlxActionSet
 		#end		
 	}	
 	
-	inline static function addKeys(action:FlxActionDigital, keys:Array<FlxKey>, state:FlxInputState)
-	{
-		for (key in keys)
-			if(key != NONE)
-				action.addKey(key, state);
-	}
 
 	static function removeKeys(action:FlxActionDigital, keys:Array<FlxKey>)
 	{
@@ -820,11 +836,13 @@ class Controls extends FlxActionSet
 
 		keyboardScheme = scheme;
 		var keysMap = ClientPrefs.keyBinds;
+		var gamepadMap = ClientPrefs.keyBindsGamepad;
 		
 		#if (haxe >= "4.0.0")
 		switch (scheme)
 		{
 			case Solo:
+				//Teclado
 				inline bindKeys(Control.UI_UP, keysMap.get('ui_up'));
 				inline bindKeys(Control.UI_DOWN, keysMap.get('ui_down'));
 				inline bindKeys(Control.UI_LEFT, keysMap.get('ui_left'));
@@ -839,6 +857,24 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.BACK, keysMap.get('back'));
 				inline bindKeys(Control.PAUSE, keysMap.get('pause'));
 				inline bindKeys(Control.RESET, keysMap.get('reset'));
+
+				//Gamepad
+				inline bindGamepadKeys(Control.UI_UP, gamepadMap.get('ui_up'));
+				inline bindGamepadKeys(Control.UI_DOWN, gamepadMap.get('ui_down'));
+				inline bindGamepadKeys(Control.UI_LEFT, gamepadMap.get('ui_left'));
+				inline bindGamepadKeys(Control.UI_RIGHT, gamepadMap.get('ui_right'));
+				inline bindGamepadKeys(Control.NOTE_UP, gamepadMap.get('note_up'));
+				inline bindGamepadKeys(Control.NOTE_DOWN, gamepadMap.get('note_down'));
+				inline bindGamepadKeys(Control.NOTE_SPACE, gamepadMap.get('note_space'));
+				inline bindGamepadKeys(Control.NOTE_LEFT, gamepadMap.get('note_left'));
+				inline bindGamepadKeys(Control.NOTE_RIGHT, gamepadMap.get('note_right'));
+
+				inline bindGamepadKeys(Control.ACCEPT, gamepadMap.get('accept'));
+				inline bindGamepadKeys(Control.BACK, gamepadMap.get('back'));
+				inline bindGamepadKeys(Control.PAUSE, gamepadMap.get('pause'));
+				inline bindGamepadKeys(Control.RESET, gamepadMap.get('reset'));
+
+
 			case Duo(true):
 				inline bindKeys(Control.UI_UP, [W]);
 				inline bindKeys(Control.UI_DOWN, [S]);
