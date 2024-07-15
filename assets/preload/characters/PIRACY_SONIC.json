@@ -84,7 +84,7 @@
 		0,
 		0
 	],
-	"healthicon": "piracy",
+	"healthicon": "piracy/piracy",
 	"flip_x": false,
 	"healthbar_colors": [
 		75,
