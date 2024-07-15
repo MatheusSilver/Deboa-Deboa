@@ -92,11 +92,11 @@ class ExtraHUDObject extends FlxSpriteGroup
 				add(contadordevida);
 				add(monitor);
 			case "triple-trouble":
-				ringCounter = new FlxSprite(1133, ClientPrefs.downScroll ? 50 : 610).loadGraphic(Paths.image('tp_ring_counter', "locales", true, true));
+				ringCounter = new FlxSprite(1083, ClientPrefs.downScroll ? 50 : 610).loadGraphic(Paths.image('tp_ring_counter', "locales", true, true));
 				add(ringCounter);
 				ringCounter.cameras = [PlayState.instance.camHUD];
 	
-				counterNum = new FlxText(1207, ClientPrefs.downScroll ? 56 : 606, 0, '0', 10, false);
+				counterNum = new FlxText(1157, ClientPrefs.downScroll ? 56 : 606, 0, '0', 10, false);
 				counterNum.setFormat('EurostileTBla', 60, FlxColor.fromRGB(255, 204, 51), FlxTextBorderStyle.OUTLINE, FlxColor.fromRGB(204, 102, 0));
 				counterNum.setBorderStyle(OUTLINE, FlxColor.fromRGB(204, 102, 0), 3, 1);
 				add(counterNum);
