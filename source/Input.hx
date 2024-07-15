@@ -1146,30 +1146,32 @@ class Controls extends FlxActionSet
 class InputFormatter {
 	public static function getKeyNameGamepad(key:FlxGamepadInputID):String {
 		switch (key) {
-			case DPAD_LEFT: return "Dir. p/ esquerda";
-			case DPAD_RIGHT: return "Dir. p/ direita";
-			case DPAD_UP: return "Dir. p/ cima";
-			case DPAD_DOWN: return "Dir. p/ baixo";
-			case BACK: return "Select";
-			case START: return "Start";
-			case A: return "Xis";
-			case B: return "Bolinha";
-			case X: return "Quadrado";
-			case Y: return "Triangulo";
-			case GUIDE: return "PS";
-			case LEFT_SHOULDER: return "L1";
-			case LEFT_TRIGGER: return "L2";
-			case RIGHT_SHOULDER: return "R1";
-			case RIGHT_TRIGGER: return "R2";
-			case LEFT_STICK_DIGITAL_DOWN: return "Analog. esquerda p/ baixo";
-			case LEFT_STICK_DIGITAL_UP: return "Analog. esquerda p/ cima";
-			case LEFT_STICK_DIGITAL_RIGHT: return "Analog. esquerda p/ direita";
-			case LEFT_STICK_DIGITAL_LEFT: return "Analog. esquerda p/ esquerda";
-			case RIGHT_STICK_DIGITAL_DOWN: return "Analog. direita p/ baixo";
-			case RIGHT_STICK_DIGITAL_UP: return "Analog. direita p/ cima";
-			case RIGHT_STICK_DIGITAL_RIGHT: return "Analog. direita p/ direita";
-			case RIGHT_STICK_DIGITAL_LEFT: return "Analog. direita p/ esquerda";
-			case NONE: return '---';
+			case DPAD_LEFT: return "dpad_left";
+			case DPAD_RIGHT: return "dpad_right";
+			case DPAD_UP: return "dpad_up";
+			case DPAD_DOWN: return "dpad_down";
+			case BACK: return "select";
+			case START: return "start";
+			case A: return "button_down";
+			case B: return "button_right";
+			case X: return "button_left";
+			case Y: return "button_up";
+			case GUIDE: return "guide";
+			case LEFT_SHOULDER: return "l1";
+			case LEFT_TRIGGER: return "l2";
+			case RIGHT_SHOULDER: return "r1";
+			case RIGHT_TRIGGER: return "r2";
+			case LEFT_STICK_DIGITAL_DOWN: return "left_ana_down"; // TU NÃO ACHO QUE EU IA ESCREVER OUTRA COISA AQUI NÉ?
+			case LEFT_STICK_DIGITAL_UP: return "left_ana_up";
+			case LEFT_STICK_DIGITAL_RIGHT: return "left_ana_right";
+			case LEFT_STICK_DIGITAL_LEFT: return "left_ana_left";
+			case RIGHT_STICK_DIGITAL_DOWN: return "right_ana_down";
+			case RIGHT_STICK_DIGITAL_UP: return "right_ana_up";
+			case RIGHT_STICK_DIGITAL_RIGHT: return "right_ana_right";
+			case RIGHT_STICK_DIGITAL_LEFT: return "right_ana_left";
+			case RIGHT_STICK_CLICK: return "right_ana_click";
+			case LEFT_STICK_CLICK: return "left_ana_click";
+			case NONE: return '---'; // A.K.A. o que tu tá fazendo com teu controle mano?
 				
 			default:
 				var label:String = '' + key;
@@ -1180,85 +1182,103 @@ class InputFormatter {
 	public static function getKeyName(key:FlxKey):String {
 			switch (key) {
 				case BACKSPACE:
-					return "BckSpc";
+					return "bckspc";
+				case ENTER:
+					return "enter";
 				case CONTROL:
-					return "Ctrl";
+					return "ctrl";
 				case ALT:
-					return "Alt";
+					return "alt";
 				case CAPSLOCK:
-					return "Caps";
+					return "caps";
+				case INSERT:
+					return "insert";
+				case END:
+					return "end";
 				case PAGEUP:
-					return "PgUp";
+					return "pgup";
 				case PAGEDOWN:
-					return "PgDown";
-				case ZERO:
+					return "pgdown";
+				case ZERO | NUMPADZERO:
 					return "0";
-				case ONE:
+				case ONE | NUMPADONE:
 					return "1";
-				case TWO:
+				case TWO | NUMPADTWO:
 					return "2";
-				case THREE:
+				case THREE | NUMPADTHREE:
 					return "3";
-				case FOUR:
+				case FOUR | NUMPADFOUR:
 					return "4";
-				case FIVE:
+				case FIVE | NUMPADFIVE:
 					return "5";
-				case SIX:
+				case SIX | NUMPADSIX:
 					return "6";
-				case SEVEN:
+				case SEVEN | NUMPADSEVEN:
 					return "7";
-				case EIGHT:
+				case EIGHT | NUMPADEIGHT:
 					return "8";
-				case NINE:
+				case NINE | NUMPADNINE:
 					return "9";
-				case NUMPADZERO:
-					return "#0";
-				case NUMPADONE:
-					return "#1";
-				case NUMPADTWO:
-					return "#2";
-				case NUMPADTHREE:
-					return "#3";
-				case NUMPADFOUR:
-					return "#4";
-				case NUMPADFIVE:
-					return "#5";
-				case NUMPADSIX:
-					return "#6";
-				case NUMPADSEVEN:
-					return "#7";
-				case NUMPADEIGHT:
-					return "#8";
-				case NUMPADNINE:
-					return "#9";
+				case F1:
+					return "f1";
+				case F2:
+					return "f2";
+				case F3:
+					return "f3";
+				case F4:
+					return "f4";
+				case F5:
+					return "f5";
+				case F6:
+					return "f6";
+				case F7:
+					return "f7";
+				case F8:
+					return "f8";
+				case F9:
+					return "f9";
+				case F10:
+					return "f10";
+				case F11:
+					return "f11";
+				case F12:
+					return "f12";
+				case SHIFT:
+					return "shift";
+				case SPACE:
+					return "space";
 				case NUMPADMULTIPLY:
-					return "#*";
-				case NUMPADPLUS:
-					return "#+";
-				case NUMPADMINUS:
-					return "#-";
-				case NUMPADPERIOD:
-					return "#.";
+					return "multiply";
+				case TAB:
+					return "tab";
+				case NUMPADPLUS | PLUS:
+					return "plus";
+				case NUMPADMINUS | MINUS:
+					return "minus";
 				case SEMICOLON:
 					return ";";
 				case COMMA:
-					return ",";
-				case PERIOD:
-					return ".";
+					return "less";
+				case PERIOD: 
+					return "more";
 				//case SLASH:
 				//	return "/";
-				case GRAVEACCENT:
-					return "`";
+				case DELETE:
+					return "del";
+				case ESCAPE:
+					return "escape";
+				case HOME:
+					return "homem";
 				case LBRACKET:
 					return "[";
-				//case BACKSLASH:
-				//	return "\\";
+				case BACKSLASH:
+					return "backslash";
 				case RBRACKET:
 					return "]";
 				case QUOTE:
-					return "'";
+					return "quote";
 				case PRINTSCREEN:
-					return "PrtScrn";
+					return "prtscrn";
 				case NONE:
 					return '---';
 				default:

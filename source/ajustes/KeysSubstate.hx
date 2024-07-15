@@ -1,5 +1,8 @@
 package ajustes;
 
+import flixel.input.gamepad.FlxGamepadInputID;
+import flixel.input.gamepad.lists.FlxGamepadButtonList;
+import flixel.input.gamepad.FlxGamepad;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -27,9 +30,10 @@ import lime.utils.Assets;
 
 using StringTools;
 
-class AjustesTeclado extends MusicBeatState {
+class KeysSubstate extends MusicBeatState {
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
+	private static var gamepad:FlxGamepad;
 
 	private var defaultKey:String = Linguagem.LangUtil.getString("key_reset", "key");
 	private var bindLength:Int = 0;
@@ -65,8 +69,8 @@ class AjustesTeclado extends MusicBeatState {
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
-	private var grpInputs:Array<AttachedText> = [];
-	private var grpInputsAlt:Array<AttachedText> = [];
+	private var grpInputs:Array<AttachedSprite> = [];
+	private var grpInputsAlt:Array<AttachedSprite> = [];
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
 
@@ -103,7 +107,7 @@ class AjustesTeclado extends MusicBeatState {
 			} else {
 				optionText.forceX = 200;
 			}
-			optionText.yMult = 60;
+			optionText.yMult = 90;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 
@@ -116,10 +120,43 @@ class AjustesTeclado extends MusicBeatState {
 		changeSelection();
 	}
 
+	private var gamepadModel:String = "Keyboard"; //Provavelmente não a melhor escolha, mas lesgo.
+
+	private function setGamepadModel(gamepad:FlxGamepad):Void
+	{
+		switch(gamepad.detectedModel){
+			case PS4:
+				gamepadModel = "PS4";
+			case SWITCH_PRO:
+				gamepadModel = "Switch";
+			default:
+				gamepadModel = "Xinput"; //Aparentemente os controles do Steam e do Xbox seguem o mesmo padrão. (Infelizmente não tenho um steam deck pra testar).
+		}
+	}
+
+	private function isGamepadConnected():Bool
+	{
+		if (FlxG.gamepads.lastActive != null){
+			gamepad = FlxG.gamepads.lastActive;
+			setGamepadModel(gamepad);
+			return true;
+		}
+		return false;
+	}
+
 	var leaving:Bool = false;
 	var bindingTime:Float = 0;
+	var keyboardMode:Bool = true;
 	override function update(elapsed:Float) {
 		if(!rebindingKey) {
+			if (isGamepadConnected() && FlxG.gamepads.anyButton() && keyboardMode){
+				keyboardMode = false;
+				reloadKeys();
+			}else if (FlxG.keys.pressed.ANY && !keyboardMode){
+				gamepadModel = "Keyboard";
+				keyboardMode = true;
+				reloadKeys();
+			}
 			if (controls.UI_UP_P) {
 				changeSelection(-1);
 			}
@@ -159,22 +196,17 @@ class AjustesTeclado extends MusicBeatState {
 				}
 			}
 		} else {
-			var keyPressed:Int = FlxG.keys.firstJustPressed();
+			var keyPressed:Int;
+			if (keyboardMode) keyPressed = FlxG.keys.firstJustPressed();
+			else 			  keyPressed = gamepad.firstJustPressedID();
+			trace(keyPressed);
 			if (keyPressed > -1) {
-				var keysArray:Array<FlxKey> = ClientPrefs.keyBinds.get(optionShit[curSelected][1]);
-				keysArray[curAlt ? 1 : 0] = keyPressed;
-
-				var opposite:Int = (curAlt ? 0 : 1);
-				if(keysArray[opposite] == keysArray[1 - opposite]) {
-					keysArray[opposite] = NONE;
-				}
-				ClientPrefs.keyBinds.set(optionShit[curSelected][1], keysArray);
-
-				reloadKeys();
-				GlobalSoundManager.play(confirmMenu);
-				rebindingKey = false;
+				if (keyboardMode)
+					changeBindsKeyboard(keyPressed);
+				else
+					changeBindsGamepad(keyPressed);
 			}
-
+			
 			bindingTime += elapsed;
 			if(bindingTime > 5) {
 				if (curAlt) {
@@ -192,6 +224,38 @@ class AjustesTeclado extends MusicBeatState {
 			nextAccept -= 1;
 		}
 		super.update(elapsed);
+	}
+
+	private function changeBindsKeyboard(newBind:Int):Void
+	{
+		var keysArray:Array<FlxKey> = ClientPrefs.keyBinds.get(optionShit[curSelected][1]);
+		keysArray[curAlt ? 1 : 0] = newBind;
+		
+		var opposite:Int = (curAlt ? 0 : 1);
+		if(keysArray[opposite] == keysArray[1 - opposite]) {
+			keysArray[opposite] = NONE;
+		}
+		ClientPrefs.keyBinds.set(optionShit[curSelected][1], keysArray);
+		
+		reloadKeys();
+		GlobalSoundManager.play(confirmMenu);
+		rebindingKey = false;
+	}
+
+	private function changeBindsGamepad(newBind:Int):Void
+	{
+		var keysArray:Array<FlxGamepadInputID> = ClientPrefs.keyBindsGamepad.get(optionShit[curSelected][1]);
+		keysArray[curAlt ? 1 : 0] = newBind;
+		
+		var opposite:Int = (curAlt ? 0 : 1);
+		if(keysArray[opposite] == keysArray[1 - opposite]) {
+			keysArray[opposite] = NONE;
+		}
+		ClientPrefs.keyBindsGamepad.set(optionShit[curSelected][1], keysArray);
+		
+		reloadKeys();
+		GlobalSoundManager.play(confirmMenu);
+		rebindingKey = false;
 	}
 
 	function getInputTextNum() {
@@ -281,15 +345,27 @@ class AjustesTeclado extends MusicBeatState {
 		return optionShit[num].length < 2 && optionShit[num][0] != defaultKey;
 	}
 
-	private function addBindTexts(optionText:Alphabet, num:Int) {
-		var keys:Array<Dynamic> = ClientPrefs.keyBinds.get(optionShit[num][1]);
-		var text1 = new AttachedText(Input.InputFormatter.getKeyName(keys[0]), 400, -55);
+	private function formatKey(inputData:Dynamic):String
+		{
+			if (keyboardMode) return Input.InputFormatter.getKeyName(inputData);
+			else 			  return Input.InputFormatter.getKeyNameGamepad(inputData);
+		}
+	
+	private function addBindTexts(optionText:Alphabet, num:Int) { //Preguiça de mudar o nome da função.
+		var keys:Array<Dynamic>;
+		if (keyboardMode) keys = ClientPrefs.keyBinds.get(optionShit[num][1]);
+		else 			  keys = ClientPrefs.keyBindsGamepad.get(optionShit[num][1]);
+		var text1 = new AttachedSprite('input/$gamepadModel/${formatKey(keys[0])}', null, "preload");
+		text1.xAdd = 450;
+		text1.yAdd = -25;
 		text1.setPosition(optionText.x + 400, optionText.y - 55);
 		text1.sprTracker = optionText;
 		grpInputs.push(text1);
 		add(text1);
 
-		var text2 = new AttachedText(Input.InputFormatter.getKeyName(keys[1]), 650, -55);
+		var text2 = new AttachedSprite('input/$gamepadModel/${formatKey(keys[1])}', null, "preload");
+		text2.xAdd = 650;
+		text2.yAdd = -25;
 		text2.setPosition(optionText.x + 650, optionText.y - 55);
 		text2.sprTracker = optionText;
 		grpInputsAlt.push(text2);
@@ -298,13 +374,13 @@ class AjustesTeclado extends MusicBeatState {
 
 	function reloadKeys() {
 		while(grpInputs.length > 0) {
-			var item:AttachedText = grpInputs[0];
+			var item:AttachedSprite = grpInputs[0];
 			item.kill();
 			grpInputs.remove(item);
 			item.destroy();
 		}
 		while(grpInputsAlt.length > 0) {
-			var item:AttachedText = grpInputsAlt[0];
+			var item:AttachedSprite = grpInputsAlt[0];
 			item.kill();
 			grpInputsAlt.remove(item);
 			item.destroy();

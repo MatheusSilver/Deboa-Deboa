@@ -271,7 +271,8 @@ class AjustesState extends MusicBeatState
 			switch (state)
 			{
 				case 'settings': MusicBeatState.switchState(new ajustes.BaseOptionsMenu()); //graficos, gameplay e etc.
-				case 'controls': MusicBeatState.switchState(new #if desktop ajustes.AjustesTeclado() #elseif mobile ajustes.ControlesState() #end); //A base do gamepad tá pronta, só decidi não colocar aqui pq está num estado bem instável e experimental.
+				case 'controls': MusicBeatState.switchState(new ajustes.KeysSubstate());
+				#if mobile case "mobileControls": MusicBeatState.switchState(new ajustes.ControlesState()); #end //Tem gente que joga no mobile com teclado, mouse e gamepad A.K.A. Frost
 				case 'arrows': MusicBeatState.switchState(new ajustes.NotesSubState());
 				case 'gamejooj': MusicBeatState.switchState(new GameJoltLoginState());
 				case "language": MusicBeatState.switchState(new Linguagem.LanguageState());
