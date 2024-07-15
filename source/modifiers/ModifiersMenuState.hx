@@ -272,8 +272,9 @@ class ModifierButton extends FlxSpriteGroup
 
     public function tweenBotaoSair()
     {
-        GlobalSoundManager.play(scrollMenu);
-        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.15, {ease: FlxEase.expoInOut, startDelay: delayNegativo});
+        FlxTween.tween(this, {y: 0, x: 0, alpha: 0}, 0.15, {ease: FlxEase.expoInOut, startDelay: delayNegativo, onStart: function(tween:FlxTween){
+            GlobalSoundManager.play(scrollMenu);
+        }});
     }
 
     override function update(elapsed:Float)
