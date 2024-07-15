@@ -1,5 +1,6 @@
 package;
 
+import flixel.input.gamepad.FlxGamepad;
 import Utils.CoolUtil;
 import Videos.MP4Sprite;
 import Note.NoteSplash;
@@ -1657,7 +1658,12 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.volume = 0;
 				vocals.volume = 0;
 			}
-			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, Linguagem.LangUtil.getString("descVideo"), 32); // Achei cringe
+
+			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+			var conectado:Bool = gamepad.connected;
+			var android:String = Linguagem.LangUtil.getString("webview_touch", "data");
+			var pc:String = Linguagem.LangUtil.getString("descVideo1") + ((conectado) ? ' ${Linguagem.LangUtil.getString("key_label_space_gamepad")} ${Linguagem.LangUtil.getString("descVideo2")}' : ' ${Linguagem.LangUtil.getString("key_label_space")} ${Linguagem.LangUtil.getString("descVideo2")}');
+			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, #if android android #elseif desktop pc #end, 32); // Achei cringe
 			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			letext.scrollFactor.set();
 			letext.alpha = 0;
@@ -1666,6 +1672,7 @@ class PlayState extends MusicBeatState
 			trace(videoSpr.bitmap.length);
 			videoSpr.playMP4(diretorio, null, oldPosition);
 			playingVideoMP4 = true;
+			if(conectado) canPause = false; // Eu fiz isso só pra não ficar pausando o jogo toda vez que tu tentar pular o vídeo.
 			switch (curSong.toLowerCase())
 			{
 				case "prey":
@@ -1754,7 +1761,7 @@ class PlayState extends MusicBeatState
 
 			vocals.time = Song.Conductor.songPosition;
 			vocals.play();
-
+			canPause = true;
 		}
 	}
 

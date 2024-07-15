@@ -1,3 +1,4 @@
+import flixel.input.gamepad.FlxGamepad;
 #if mobile
 import extension.webview.WebView;
 import flixel.FlxSubState;
@@ -147,7 +148,7 @@ class VideoStatePC extends MusicBeatState
 	public static var videoPath:String = Paths.video("EngineBase/intromic");
 	public static var NextState:FlxState = new TitleState();
 	public static var specialSetting:Videos.GameState;
-
+	public var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 	override function create()
 	{
 		video = new MP4Sprite(0,0, specialSetting);
@@ -166,7 +167,11 @@ class VideoStatePC extends MusicBeatState
 		// Até que tá mais bonitinho agora
 		video.playMP4(videoPath, NextState);
 
-		letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, Linguagem.LangUtil.getString("descVideo"), 32); // Achei cringe
+		var conectado:Bool = gamepad.connected;
+		var android:String = Linguagem.LangUtil.getString("webview_touch", "data");
+		var pc:String = Linguagem.LangUtil.getString("descVideo1") + ((conectado) ? ' ${Linguagem.LangUtil.getString("key_label_space_gamepad")} ${Linguagem.LangUtil.getString("descVideo2")}' : ' ${Linguagem.LangUtil.getString("key_label_space")} ${Linguagem.LangUtil.getString("descVideo2")}');
+		
+		letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, #if android android #elseif desktop pc #end, 32); // Achei cringe
 		letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		letext.scrollFactor.set();
 		letext.alpha = 0;
@@ -183,7 +188,8 @@ class VideoStatePC extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		if (letext.alpha == 0 && FlxG.keys.justReleased.ANY)
+		var justPressed:Bool = FlxG.keys.justReleased.ANY || gamepad.justPressed.START #if android || BSLTouchUtils.justTouched(); #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
+		if (letext.alpha == 0 && justPressed)
 		{
 			alphaon = true;
 			twn.start(4, function(twn:FlxTimer)
@@ -332,7 +338,9 @@ class MP4Sprite extends FlxVideoSprite
 
 	override public function update(elapsed:Float)
 	{
-		if (FlxG.keys.justReleased.SPACE && canSkip==true && curState != GameState.ABOUT && curState != GameState.PLAYSTATE && !queronaoviver && this.bitmap.isPlaying) {
+		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
+		var justPressed:Bool = FlxG.keys.justReleased.SPACE || gamepad.justPressed.START #if android || BSLTouchUtils.justTouched(); #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
+		if (justPressed && canSkip==true && curState != GameState.ABOUT && curState != GameState.PLAYSTATE && !queronaoviver && this.bitmap.isPlaying) {
 			this.bitmap.mute = true;
 			this.onVLCComplete();
 		}

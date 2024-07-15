@@ -1,6 +1,7 @@
 flag	context
 webview_touch	Touch on the screen to continue
-descVideo	Press SPACE to skip
+descVideo1	Press
+descVideo2	to Skip
 langMenu	Language Selection:
 label_high_score	HIGHSCORE:
 label_play_sample	Press <X0> to listen to the Song
@@ -24,3 +25,4 @@ flashing_warning	Warning<X>This game contains flashing lights and gore.<X>In cas
 flashing_accept_desktop	Press ENTER to start the game or<X>ESC to deactivate the previous settings
 flashing_accept_mobile	Touch the Screen to start the game or<X>Return Button to deactivate the previous settings
 key_label_space	SPACE
+key_label_space_gamepad	SPACE/START

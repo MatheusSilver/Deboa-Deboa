@@ -1,6 +1,7 @@
 ﻿flag	context
-webview_touch	Toque na tela para continuar
-descVideo	Aperte ESPAÇO para pular
+webview_touch	Toque na tela para pular
+descVideo1	Aperte
+descVideo2	para pular
 langMenu	Seleção de Idioma
 label_high_score	RECORDE:
 label_play_sample	Aperte <X0> para ouvir uma prévia da música
@@ -24,3 +25,4 @@ flashing_warning	AVISO IMPORTANTE<X>Este mod contém luzes piscantes e gore.<X>C
 flashing_accept_desktop	Aperte ENTER para prosseguir ou<X>ESC para desativar as configurações citadas
 flashing_accept_mobile	Toque na tela para prosseguir ou<X>Botão BACK para desativar as configurações citadas
 key_label_space	ESPAÇO
+key_label_space_gamepad	ESPAÇO/START
