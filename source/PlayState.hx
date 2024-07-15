@@ -2309,7 +2309,7 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event[4];
 				addCharacterToList(newCharacter, charType);
-			case 'Adicionar Imagens' | 'Adicionar Imagens diferenciado':
+			case 'Adicionar Imagens' | 'Adicionar Imagens diferenciado' | 'Adicionar Imagens diferenciadasso':
 				if (ClientPrefs.legendas || (StringTools.contains(event[3].toLowerCase(), "preycutscene") && SONG.song.toLowerCase() == "prey"))
 				{
 					// trace('executando cache de lyrics');
