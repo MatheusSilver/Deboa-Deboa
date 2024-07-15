@@ -3956,7 +3956,7 @@ class PlayState extends MusicBeatState
 						dad.y += 50;
 						FlxTween.tween(dad, {x: 580 - 450}, 3, {ease: FlxEase.cubeInOut});
 						FlxTween.tween(gf, {x: 580 - 375}, 3, {ease: FlxEase.cubeInOut});
-						SONG.speed = 4.0;
+						SONG.speed = 3.8;
 						FlxTween.tween(blackFuck, {alpha: 0}, 1, {ease: FlxEase.cubeInOut});
 						FlxTween.tween(camHUD, {alpha: 1}, 1, {ease: FlxEase.cubeInOut});
 
