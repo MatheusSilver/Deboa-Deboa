@@ -21,6 +21,8 @@ end
 function onCreatePost() -- Tirado de Hud.lua pq na real... Um script só pra fazer isso é sacanagem
 	setObjectOrder('healthBar', 11)
 	setObjectOrder('healthBarBG', 12)
+    setObjectOrder('iconP1', 13)
+	setObjectOrder('iconP2', 14) --CATORZE UHAUHAHUAHUAHUAHA
 end
 
 function onStepHit()
