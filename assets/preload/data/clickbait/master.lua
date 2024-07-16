@@ -16,6 +16,8 @@ function onCreate()
     screenCenter('fleeplay');
     setProperty('fleeplay.alpha', 0)
     addLuaSprite('fleeplay', false);
+    setProperty("healthBar.visible", not hideHud)
+    setProperty("healthBarBG.visible", not hideHud)
 end
 
 function onCreatePost() -- Tirado de Hud.lua pq na real... Um script só pra fazer isso é sacanagem

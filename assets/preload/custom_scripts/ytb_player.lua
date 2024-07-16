@@ -9,6 +9,7 @@ function onCreatePost()
 	setObjectCamera('ytb', 'camHUD2');
 	screenCenter('ytb')
 	setProperty('ytb.y', screenHeight - 25);
+	setProperty("ytb.visible", not hideHud)
 	addLuaSprite('ytb', false);
 
 --	setProperty('timeBar.y', 695);
