@@ -61,65 +61,9 @@ class ClientPrefs
 	public static var multiplayerPopUp:Null<Bool> = false;
 	public static var freeplayPopUp:Null<Bool> = false;
 	public static var modifiersPopUp:Null<Bool> = false; 
-	
-	// Controls
-	public static var keyBinds:Map<String, Array<FlxKey>> = [
-		// Key Bind, Name for ControlsSubState
-		'note_left' => [A, LEFT],
-		'note_down' => [S, DOWN],
-		'note_space' => [SPACE],
-		'note_up' => [W, UP],
-		'note_right' => [D, RIGHT],
-		'ui_left' => [A, LEFT],
-		'ui_down' => [S, DOWN],
-		'ui_up' => [W, UP],
-		'ui_right' => [D, RIGHT],
-		'accept' => [SPACE, ENTER],
-		'back' => [BACKSPACE, ESCAPE],
-		'pause' => [ENTER, ESCAPE],
-		'reset' => [R, NONE],
-		'volume_mute' => [ZERO, NONE],
-		'volume_up' => [NUMPADPLUS, PLUS],
-		'volume_down' => [NUMPADMINUS, MINUS],
-		'debug_1' => [SEVEN, NONE],
-		'debug_2' => [EIGHT, NONE]
-	];
 
-	public static var keyBindsGamepad:Map<String, Array<FlxGamepadInputID>> = [
-		// Key Bind, Name for ControlsSubState
-		/* LEFT_TRIGGER   = L2
-		   LEFT_SHOULDER  = L1
-		   RIGHT_TRIGGER  = R2
-		   RIGHT_SHOULDER = L1 - Guitar Hero/Clone Hero input mapping */
-		'note_left' => [FlxGamepadInputID.X,FlxGamepadInputID.DPAD_LEFT],
-		'note_down' => [FlxGamepadInputID.A, FlxGamepadInputID.DPAD_DOWN],
-		'note_space' => [FlxGamepadInputID.LEFT_STICK_CLICK, FlxGamepadInputID.RIGHT_STICK_CLICK], //Isso equivale a R3 e L3
-		'note_up' => [FlxGamepadInputID.Y, FlxGamepadInputID.DPAD_UP],
-		'note_right' => [FlxGamepadInputID.B, FlxGamepadInputID.DPAD_RIGHT],
-		'ui_left' => [FlxGamepadInputID.DPAD_LEFT, FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT],
-		'ui_down' => [FlxGamepadInputID.DPAD_DOWN, FlxGamepadInputID.LEFT_STICK_DIGITAL_DOWN],
-		'ui_up' => [FlxGamepadInputID.DPAD_UP, FlxGamepadInputID.LEFT_STICK_DIGITAL_UP],
-		'ui_right' => [FlxGamepadInputID.DPAD_RIGHT, FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT],
-		'accept' => [FlxGamepadInputID.A],
-		'back' => [FlxGamepadInputID.B],
-		'pause' => [FlxGamepadInputID.START],
-		'reset' => [FlxGamepadInputID.BACK],
-		'volume_mute' => [NONE],
-		'volume_up' => [NONE],
-		'volume_down' => [NONE],
-		'debug_1' => [NONE],
-		'debug_2' => [NONE]
-	];
-
-	public static var defaultKeys:Map<String, Array<FlxKey>> = null;
-	public static var defaultKeysGamepad:Map<String, Array<FlxGamepadInputID>> = null;
-
-	public static function loadDefaultKeys()
-	{
-		defaultKeys = keyBinds.copy();
-		defaultKeysGamepad = keyBindsGamepad.copy();
-		// trace(defaultKeys);
-	}
+	public static var keyBinds:Map<String, Array<FlxKey>>;
+	public static var keyBindsGamepad:Map<String, Array<FlxGamepadInputID>>;
 
 	private static var importantMap:Map<String, Array<String>> = ["flixelSound" => ["volume"]];
 
@@ -148,12 +92,11 @@ class ClientPrefs
 			if (flxProp != null)
 				Reflect.setField(FlxG.sound, flixelS, flxProp);
 		}
-
-		Highscore.load();
+		
+		carregarControles();
 		PlayerSettings.init();
-        carregarControles();
+		Highscore.load();
 	}
-
 	public static function save()
 	{
 		// ensure that we're saving (hopefully)
@@ -196,23 +139,35 @@ class ClientPrefs
 	}
 
     public static function carregarControles() {
-        var save:FlxSave = new FlxSave();
+		var save:FlxSave = new FlxSave();
 		save.bind('controlesmodboa', Utils.CoolUtil.getSavePath());
-		if(save != null && save.data.customControls != null) {
-			var loadedControls:Map<String, Array<FlxKey>> = save.data.customControls;
-			for (control => keys in loadedControls) {
+	
+		var defaultKeyboardControls:Map<String, Array<FlxKey>> = Input.DefaultInputs.defaultKeys;
+		for (control => keys in defaultKeyboardControls) {
+			keyBinds.set(control, keys);
+		}
+	
+		if (save != null && save.data.customControls != null) {
+			var customKeyboardControls:Map<String, Array<FlxKey>> = save.data.customControls;
+			for (control => keys in customKeyboardControls) {
 				keyBinds.set(control, keys);
 			}
-			reloadControls();
 		}
-		if(save != null && save.data.customControlsGamepad != null) {
-			var loadedControls:Map<String, Array<FlxGamepadInputID>> = save.data.customControlsGamepad;
-			for (control => keys in loadedControls) {
+	
+		var defaultGamepadControls:Map<String, Array<FlxGamepadInputID>> = Input.DefaultInputs.defaultKeysGamepad;
+		for (control => keys in defaultGamepadControls) {
+			keyBindsGamepad.set(control, keys);
+		}
+	
+		if (save != null && save.data.customControlsGamepad != null) {
+			var customGamepadControls:Map<String, Array<FlxGamepadInputID>> = save.data.customControlsGamepad;
+			for (control => keys in customGamepadControls) {
 				keyBindsGamepad.set(control, keys);
 			}
-			reloadControls();
 		}
-    }
+	
+		reloadControls();
+	}
 
 	public static function copyKey(arrayToCopy:Array<FlxKey>):Array<FlxKey> {
 		var copiedArray:Array<FlxKey> = arrayToCopy.copy();

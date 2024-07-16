@@ -52,7 +52,7 @@ class KeysSubstate extends MusicBeatState {
 		[Linguagem.LangUtil.getString("key_up", "key"), 'ui_up'],
 		[Linguagem.LangUtil.getString("key_right", "key"), 'ui_right'],
 		[''],
-		[Linguagem.LangUtil.getString("key_reset", "key"), 'reset'],
+		[Linguagem.LangUtil.getString("key_restart", "key"), 'restart'],
 		[Linguagem.LangUtil.getString("key_accept", "key"), 'accept'],
 		[Linguagem.LangUtil.getString("key_return", "key"), 'back'],
 		[Linguagem.LangUtil.getString("key_pause", "key"), 'pause'],
@@ -134,14 +134,13 @@ class KeysSubstate extends MusicBeatState {
 		}
 	}
 
-	private function isGamepadConnected():Bool
+	private function updateGamepad():Void
 	{
 		if (FlxG.gamepads.lastActive != null){
 			gamepad = FlxG.gamepads.lastActive;
 			setGamepadModel(gamepad);
-			return true;
-		}
-		return false;
+		}else
+			gamepad = null;
 	}
 
 	var leaving:Bool = false;
@@ -149,13 +148,16 @@ class KeysSubstate extends MusicBeatState {
 	var keyboardMode:Bool = true;
 	override function update(elapsed:Float) {
 		if(!rebindingKey) {
-			if (isGamepadConnected() && FlxG.gamepads.anyButton() && keyboardMode){
+			if (FlxG.gamepads.anyButton() && keyboardMode){
 				keyboardMode = false;
+				updateGamepad();
 				reloadKeys();
+				changeSelection();
 			}else if (FlxG.keys.pressed.ANY && !keyboardMode){
 				gamepadModel = "Keyboard";
 				keyboardMode = true;
 				reloadKeys();
+				changeSelection();
 			}
 			if (controls.UI_UP_P) {
 				changeSelection(-1);
@@ -168,19 +170,26 @@ class KeysSubstate extends MusicBeatState {
 			}
 
 			if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) { //haha sistema anti burrice
-				ClientPrefs.reloadControls();
 				/*
 				grpOptions.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
 				}); */
-				MusicBeatState.switchState(new ajustes.AjustesState());
 				ClientPrefs.salvarControles();
+				ClientPrefs.reloadControls();
 				GlobalSoundManager.play(cancelMenu);
+				MusicBeatState.switchState(new ajustes.AjustesState());
 			}
 
-			if(controls.ACCEPT || FlxG.keys.justPressed.ENTER && nextAccept <= 0) {
+			if(controls.ACCEPT && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
-					ClientPrefs.keyBinds = ClientPrefs.defaultKeys.copy();
+					ClientPrefs.keyBinds.clear();
+					ClientPrefs.keyBinds = Input.DefaultInputs.defaultKeys.copy();
+					
+					ClientPrefs.keyBindsGamepad.clear();
+					ClientPrefs.keyBindsGamepad = Input.DefaultInputs.defaultKeysGamepad.copy();
+					
+					ClientPrefs.reloadControls();
+					
 					reloadKeys();
 					changeSelection();
 					GlobalSoundManager.play(confirmMenu);
@@ -199,21 +208,17 @@ class KeysSubstate extends MusicBeatState {
 			var keyPressed:Int;
 			if (keyboardMode) keyPressed = FlxG.keys.firstJustPressed();
 			else 			  keyPressed = gamepad.firstJustPressedID();
-			trace(keyPressed);
+			
 			if (keyPressed > -1) {
-				if (keyboardMode)
-					changeBindsKeyboard(keyPressed);
-				else
-					changeBindsGamepad(keyPressed);
+				if (keyboardMode) changeBindsKeyboard(keyPressed);
+				else			  changeBindsGamepad(keyPressed);
 			}
 			
 			bindingTime += elapsed;
 			if(bindingTime > 5) {
-				if (curAlt) {
-					grpInputsAlt[curSelected].alpha = 1;
-				} else {
-					grpInputs[curSelected].alpha = 1;
-				}
+				grpInputsAlt[curSelected].alpha = curAlt ? 1 : 0.5;
+				grpInputs[curSelected].alpha = !curAlt ? 1 : 0.5;
+
 				GlobalSoundManager.play(scrollMenu);
 				rebindingKey = false;
 				bindingTime = 0;
@@ -251,6 +256,7 @@ class KeysSubstate extends MusicBeatState {
 		if(keysArray[opposite] == keysArray[1 - opposite]) {
 			keysArray[opposite] = NONE;
 		}
+
 		ClientPrefs.keyBindsGamepad.set(optionShit[curSelected][1], keysArray);
 		
 		reloadKeys();
@@ -319,19 +325,13 @@ class KeysSubstate extends MusicBeatState {
 		curAlt = !curAlt;
 		for (i in 0...grpInputs.length) {
 			if(grpInputs[i].sprTracker == grpOptions.members[curSelected]) {
-				grpInputs[i].alpha = 0.6;
-				if(!curAlt) {
-					grpInputs[i].alpha = 1;
-				}
+				grpInputs[i].alpha = !curAlt ? 1 : 0.6;
 				break;
 			}
 		}
 		for (i in 0...grpInputsAlt.length) {
 			if(grpInputsAlt[i].sprTracker == grpOptions.members[curSelected]) {
-				grpInputsAlt[i].alpha = 0.6;
-				if(curAlt) {
-					grpInputsAlt[i].alpha = 1;
-				}
+				grpInputsAlt[i].alpha = curAlt ? 1 : 0.6;
 				break;
 			}
 		}
@@ -346,10 +346,10 @@ class KeysSubstate extends MusicBeatState {
 	}
 
 	private function formatKey(inputData:Dynamic):String
-		{
-			if (keyboardMode) return Input.InputFormatter.getKeyName(inputData);
-			else 			  return Input.InputFormatter.getKeyNameGamepad(inputData);
-		}
+	{
+		if (keyboardMode) return Input.InputFormatter.getKeyName(inputData);
+		else 			  return Input.InputFormatter.getKeyNameGamepad(inputData);
+	}
 	
 	private function addBindTexts(optionText:Alphabet, num:Int) { //Preguiça de mudar o nome da função.
 		var keys:Array<Dynamic>;
@@ -358,6 +358,8 @@ class KeysSubstate extends MusicBeatState {
 		var text1 = new AttachedSprite('input/$gamepadModel/${formatKey(keys[0])}', null, "preload");
 		text1.xAdd = 450;
 		text1.yAdd = -25;
+		text1.copyAlpha = false;
+		
 		text1.setPosition(optionText.x + 400, optionText.y - 55);
 		text1.sprTracker = optionText;
 		grpInputs.push(text1);
@@ -366,6 +368,8 @@ class KeysSubstate extends MusicBeatState {
 		var text2 = new AttachedSprite('input/$gamepadModel/${formatKey(keys[1])}', null, "preload");
 		text2.xAdd = 650;
 		text2.yAdd = -25;
+		text2.copyAlpha = false;
+
 		text2.setPosition(optionText.x + 650, optionText.y - 55);
 		text2.sprTracker = optionText;
 		grpInputsAlt.push(text2);

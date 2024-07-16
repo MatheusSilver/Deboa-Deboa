@@ -16,6 +16,59 @@ import ui.MobileControls.Hitbox;
 import ui.MobileControls.Hitbox2; //OOOOOOOOOOOOMAGAWD HITBOX2?????? DOS MESMOS CRIADORES DE ZAPORUNGA SHARAPOVA 2????? OMAGAAAAAAAAAAAAAAAAAAAWD
 #end
 
+class DefaultInputs{ //Então... Eu havia esquecido de um fator extremamente inportante do ClientPrefs... Ele literalmente salva TODOS
+					 //as variáveis, consequentemente, mesmo que o defaultKeys seja uma constante do tipo final, ele ainda é salvo de forma a ser recarregado depois.
+
+	// Controls
+	public static final defaultKeys:Map<String, Array<FlxKey>> = [
+		// Key Bind, Name for ControlsSubState
+		'note_left' => [A, LEFT],
+		'note_down' => [S, DOWN],
+		'note_space' => [SPACE],
+		'note_up' => [W, UP],
+		'note_right' => [D, RIGHT],
+		'ui_left' => [A, LEFT],
+		'ui_down' => [S, DOWN],
+		'ui_up' => [W, UP],
+		'ui_right' => [D, RIGHT],
+		'accept' => [SPACE, ENTER],
+		'back' => [BACKSPACE, ESCAPE],
+		'pause' => [ENTER, ESCAPE],
+		'restart' => [R, NONE],
+		'volume_mute' => [ZERO, NONE],
+		'volume_up' => [NUMPADPLUS, PLUS],
+		'volume_down' => [NUMPADMINUS, MINUS],
+		'debug_1' => [SEVEN, NONE],
+		'debug_2' => [EIGHT, NONE]
+	];
+
+	public static final defaultKeysGamepad:Map<String, Array<FlxGamepadInputID>> = [
+		// Key Bind, Name for ControlsSubState
+		/* LEFT_TRIGGER   = L2
+		   LEFT_SHOULDER  = L1
+		   RIGHT_TRIGGER  = R2
+		   RIGHT_SHOULDER = L1 - Guitar Hero/Clone Hero input mapping */
+		'note_left' => [FlxGamepadInputID.X,FlxGamepadInputID.DPAD_LEFT],
+		'note_down' => [FlxGamepadInputID.A, FlxGamepadInputID.DPAD_DOWN],
+		'note_space' => [FlxGamepadInputID.LEFT_STICK_CLICK, FlxGamepadInputID.RIGHT_STICK_CLICK], //Isso equivale a R3 e L3
+		'note_up' => [FlxGamepadInputID.Y, FlxGamepadInputID.DPAD_UP],
+		'note_right' => [FlxGamepadInputID.B, FlxGamepadInputID.DPAD_RIGHT],
+		'ui_left' => [FlxGamepadInputID.DPAD_LEFT, FlxGamepadInputID.LEFT_STICK_DIGITAL_LEFT],
+		'ui_down' => [FlxGamepadInputID.DPAD_DOWN, FlxGamepadInputID.LEFT_STICK_DIGITAL_DOWN],
+		'ui_up' => [FlxGamepadInputID.DPAD_UP, FlxGamepadInputID.LEFT_STICK_DIGITAL_UP],
+		'ui_right' => [FlxGamepadInputID.DPAD_RIGHT, FlxGamepadInputID.LEFT_STICK_DIGITAL_RIGHT],
+		'accept' => [FlxGamepadInputID.A, NONE],
+		'back' => [FlxGamepadInputID.B, NONE],
+		'pause' => [FlxGamepadInputID.START, NONE],
+		'restart' => [FlxGamepadInputID.BACK, NONE],
+		'volume_mute' => [NONE, NONE],
+		'volume_up' => [NONE, NONE],
+		'volume_down' => [NONE, NONE],
+		'debug_1' => [NONE, NONE],
+		'debug_2' => [NONE, NONE]
+	];
+}
+
 #if (haxe >= "4.0.0")
 enum abstract Action(String) to String from String
 {
@@ -367,7 +420,7 @@ class Controls extends FlxActionSet
 		for (action in digitalActions)
 			byName[action.name] = action;
 
-		setKeyboardScheme(scheme, false);
+		//setKeyboardScheme(scheme, false);
 	}
 	#else
 	public function new(name, scheme:KeyboardScheme = null)
@@ -816,6 +869,26 @@ class Controls extends FlxActionSet
 		forEachBound(control, function(action, _) removeKeys(action, keys));
 		#end		
 	}	
+
+	public function unbindGamepadKeys(control:Control, keys:Array<FlxGamepadInputID>)
+	{
+		#if (haxe >= "4.0.0")
+		inline forEachBound(control, (action, _) -> removeGamepadKeys(action, keys));
+		#else
+		forEachBound(control, function(action, _) removeGamepadKeys(action, keys));
+		#end		
+	}	
+
+	static function removeGamepadKeys(action:FlxActionDigital, keys:Array<FlxGamepadInputID>)
+	{
+		var i = action.inputs.length;
+		while (i-- > 0)
+		{
+			var input = action.inputs[i];
+			if (input.device == KEYBOARD && keys.indexOf(cast input.inputID) != -1)
+				action.remove(input);
+		}
+	}
 	
 
 	static function removeKeys(action:FlxActionDigital, keys:Array<FlxKey>)
@@ -856,9 +929,9 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.ACCEPT, keysMap.get('accept'));
 				inline bindKeys(Control.BACK, keysMap.get('back'));
 				inline bindKeys(Control.PAUSE, keysMap.get('pause'));
-				inline bindKeys(Control.RESET, keysMap.get('reset'));
+				inline bindKeys(Control.RESET, keysMap.get('restart'));
 
-				//Gamepad
+				// Gamepad
 				inline bindGamepadKeys(Control.UI_UP, gamepadMap.get('ui_up'));
 				inline bindGamepadKeys(Control.UI_DOWN, gamepadMap.get('ui_down'));
 				inline bindGamepadKeys(Control.UI_LEFT, gamepadMap.get('ui_left'));
@@ -872,7 +945,7 @@ class Controls extends FlxActionSet
 				inline bindGamepadKeys(Control.ACCEPT, gamepadMap.get('accept'));
 				inline bindGamepadKeys(Control.BACK, gamepadMap.get('back'));
 				inline bindGamepadKeys(Control.PAUSE, gamepadMap.get('pause'));
-				inline bindGamepadKeys(Control.RESET, gamepadMap.get('reset'));
+				inline bindGamepadKeys(Control.RESET, gamepadMap.get('restart'));
 
 
 			case Duo(true):

@@ -82,6 +82,9 @@ class TitleState extends MusicBeatState
 		{
 			instance=this;
 		}
+		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
+		PlayerSettings.init();
+		ClientPrefs.init();
 		FlxTransitionableState.skipNextTransOut = true;
 		MainMenuStateMobile.newVersion = FlxG.save.data.gameVersion != MainMenuStateMobile.version && FlxG.save.data.gameVersion != null;
 		if (FlxG.save.data.progress != null)
@@ -113,14 +116,9 @@ class TitleState extends MusicBeatState
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
 		FlxG.sound.volumeUpKeys = volumeUpKeys;
 
-		PlayerSettings.init();
-
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 		super.create();
 
-		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
-		ClientPrefs.init();
-		ClientPrefs.carregarControles();
 		/*PlayState.addShaderToCamera('game', new VCRDistortionEffect(0.5,true,false,true));
 			PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true)); */
 		Highscore.load();
