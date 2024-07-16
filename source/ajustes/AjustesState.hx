@@ -209,7 +209,7 @@ class AjustesState extends MusicBeatState
 				if (!selectedSomethin){
 					handle_input();
 					option_buttons.forEach(function(object:FlxButton){
-						if (Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(object) : controls.ACCEPT)
+						if (Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(object) : controls.ACCEPT && curSelected == object.ID)
 							click(object);
 						else if (Main.getMouseVisibility() ? BSLTouchUtils.over(object) : curSelected == object.ID)
 							hover(object);
