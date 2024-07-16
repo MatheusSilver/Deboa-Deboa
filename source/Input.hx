@@ -1214,6 +1214,12 @@ class Controls extends FlxActionSet
 	{
 		return input.device == GAMEPAD && (deviceID == FlxInputDeviceID.ALL || input.deviceID == deviceID);
 	}
+
+	public static function get_ANY():Bool {
+		if(FlxG.keys.justReleased.ANY || FlxG.gamepads.anyButton())
+			return true;
+		return false;
+	}
 }
 
 class InputFormatter {
