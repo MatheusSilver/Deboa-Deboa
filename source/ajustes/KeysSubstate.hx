@@ -209,7 +209,7 @@ class KeysSubstate extends MusicBeatState {
 			if (keyboardMode) keyPressed = FlxG.keys.firstJustPressed();
 			else 			  keyPressed = gamepad.firstJustPressedID();
 			
-			if (keyPressed > -1) {
+			if (checkValidInput(keyPressed)) {
 				if (keyboardMode) changeBindsKeyboard(keyPressed);
 				else			  changeBindsGamepad(keyPressed);
 			}
@@ -229,6 +229,20 @@ class KeysSubstate extends MusicBeatState {
 			nextAccept -= 1;
 		}
 		super.update(elapsed);
+	}
+
+	private function checkValidInput(inputValue:Int):Bool
+	{
+		if (keyboardMode) return inputValue > -1;
+		else{
+			switch (gamepadModel){
+				case "Switch": return inputValue > -1;
+				case "Xinput": return (inputValue != 10);
+				case "PS4":    return inputValue > -1; //Tem que testar aqui também. 
+				default:	   return inputValue >= -1;
+			}
+
+		}
 	}
 
 	private function changeBindsKeyboard(newBind:Int):Void
