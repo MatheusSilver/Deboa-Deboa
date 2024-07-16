@@ -173,12 +173,13 @@ class VideoStatePC extends MusicBeatState
 		// Até que tá mais bonitinho agora
 		video.playMP4(videoPath, NextState);
 
-		var android:String = Linguagem.LangUtil.getString("webview_touch", "data");
+		//var android:String = Linguagem.LangUtil.getString("webview_touch", "data");
 		//var pc:String = Linguagem.LangUtil.getString("descVideo1") + (' ${Linguagem.LangUtil.getString("key_label_space")} ${Linguagem.LangUtil.getString("descVideo2")}');
 		
-		skipText = new SkipText(0, 0);
+		skipText = new SkipText(-50, FlxG.height - 150);
 		skipText.updateHitbox();
-		skipText.screenCenter(X);
+		skipText.scrollFactor.set();
+		//skipText.screenCenter(X);
 		skipText.alpha = 0;
 
 		add(video);
@@ -243,7 +244,7 @@ class SkipText extends FlxSpriteGroup {
 		letext.updateHitbox();
 		add(letext);
 
-		key = new FlxSprite(0,0).loadGraphic(Paths.image(InputLabel.instance.getKeyLabelPath("accept")));
+		key = new FlxSprite(0,-32).loadGraphic(Paths.image(InputLabel.instance.getKeyLabelPath("accept")));
 		key.updateHitbox();
 		add(key);
 		

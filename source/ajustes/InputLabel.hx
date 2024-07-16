@@ -17,26 +17,28 @@ class InputLabel extends FlxObject{
     public function new(){
         instance = this;
         super(x,y);
+		updateWithChange();
     }
 
-    override function update(elapsed:Float){
-		super.update(elapsed);
-
+	function updateWithChange() {
 		if (FlxG.gamepads.anyButton() && keyboardMode){
 			keyboardMode = false;
-            updateGamepad();
+			updateGamepad();
 		}else if (FlxG.keys.pressed.ANY && !keyboardMode){
-			gamepadModel = "Keyboard";
 			keyboardMode = true;
+			updateGamepad();
 		}
 	}
 
 	public function getKeyLabelPath(bind:String):String {
+		updateWithChange();
+
 		var keys:Array<Dynamic>;
 		if (keyboardMode) keys = ClientPrefs.keyBinds.get(bind);
 		else 			  keys = ClientPrefs.keyBindsGamepad.get(bind);
 
-        return 'input/$gamepadModel/${formatKey(keys[0])}';
+		var model = keyboardMode ? "Keyboard" : gamepadModel;
+        return 'input/$model/${formatKey(keys[0])}';
 	}
 
 	private function formatKey(inputData:Dynamic):String
@@ -60,9 +62,11 @@ class InputLabel extends FlxObject{
 	private function updateGamepad():Void
 	{
 		if (FlxG.gamepads.lastActive != null){
+			keyboardMode = false;
 			gamepad = FlxG.gamepads.lastActive;
 			setGamepadModel(gamepad);
 		}else
+			keyboardMode = true;
 			gamepad = null;
 	}
 }

@@ -146,6 +146,7 @@ class KeysSubstate extends MusicBeatState {
 	var leaving:Bool = false;
 	var bindingTime:Float = 0;
 	var keyboardMode:Bool = true;
+	var canLeave:Bool = true;
 	override function update(elapsed:Float) {
 		if(!rebindingKey) {
 			if (FlxG.gamepads.anyButton() && keyboardMode){
@@ -169,7 +170,7 @@ class KeysSubstate extends MusicBeatState {
 				changeAlt();
 			}
 
-			if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) { //haha sistema anti burrice
+			if ((controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) && canLeave) { //haha sistema anti burrice
 				/*
 				grpOptions.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
@@ -205,6 +206,7 @@ class KeysSubstate extends MusicBeatState {
 				}
 			}
 		} else {
+			canLeave = false;
 			var keyPressed:Int;
 			if (keyboardMode) keyPressed = FlxG.keys.firstJustPressed();
 			else 			  keyPressed = gamepad.firstJustPressedID();
@@ -212,6 +214,10 @@ class KeysSubstate extends MusicBeatState {
 			if (checkValidInput(keyPressed)) {
 				if (keyboardMode) changeBindsKeyboard(keyPressed);
 				else			  changeBindsGamepad(keyPressed);
+				new FlxTimer().start(0.1, function(tmr:FlxTimer)
+					{
+						canLeave = true;
+					});
 			}
 			
 			bindingTime += elapsed;
@@ -222,6 +228,7 @@ class KeysSubstate extends MusicBeatState {
 				GlobalSoundManager.play(scrollMenu);
 				rebindingKey = false;
 				bindingTime = 0;
+				canLeave = true;
 			}
 		}
 
