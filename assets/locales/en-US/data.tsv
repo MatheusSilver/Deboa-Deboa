@@ -2,6 +2,7 @@ flag	context
 webview_touch	Touch on the screen to continue
 descVideo1	Press
 descVideo2	to Skip
+descVideo3	SKIP
 langMenu	Language Selection:
 label_high_score	HIGHSCORE:
 label_play_sample	Press <X0> to listen to the Song

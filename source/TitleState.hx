@@ -1,5 +1,6 @@
 package;
 
+import ajustes.InputLabel;
 import fx.ParticleParser;
 import modifiers.ModifiersManager;
 import FunkinLua;
@@ -150,6 +151,7 @@ class TitleState extends MusicBeatState
 		{
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
+			new InputLabel();
 			MusicBeatState.switchState(new PreTitleState()); // Não atrapalha no PC, e Resolve o problema do mobile, todos ganham k
 			ModifiersManager.loadSave();
 			verificarConexao();
