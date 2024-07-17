@@ -229,7 +229,7 @@ class KeysSubstate extends MusicBeatState {
 			}
 		} else {
 			canLeave = false;
-			var keyPressed:Int;
+			var keyPressed:Int = -1;
 			if (Main.isKeyboard) 										 keyPressed = FlxG.keys.firstJustPressed();
 			else if (Utils.GamepadUtil.getGamepadConnected())		     keyPressed = Utils.GamepadUtil.getGamepadPressedButton();
 
