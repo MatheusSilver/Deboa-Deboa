@@ -56,7 +56,7 @@ class ClientPrefs
 	public static var curMultiplayerNoteSkin = 0;
 	public static var palavroes:Null<Bool> = true;
 
-	public static var gamepadDisplay:InputDevices = ANY;
+	public static var gamepadDisplay:InputDevices = AUTO;
 
 	public static var firstBoot:Null<Bool> = true;
 

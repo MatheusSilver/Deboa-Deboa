@@ -330,7 +330,7 @@ class KeysSubstate extends MusicBeatState {
 	private function changeDisplayedGamepadButtons(add:Int = 1){
 		curSelectedGamepadIcon+=add;
 		if (curSelectedGamepadIcon > availableGamepadModels.length-1) curSelectedGamepadIcon = 0; //Não há motivo para se preocupar com outro resultado eu acho...
-		if(Utils.GamepadUtil.getActualGamepadModel() == availableGamepadModels[curSelectedGamepadIcon])	ClientPrefs.gamepadDisplay = ANY;
+		if(Utils.GamepadUtil.getActualGamepadModel() == availableGamepadModels[curSelectedGamepadIcon])	ClientPrefs.gamepadDisplay = AUTO;
 		else												 ClientPrefs.gamepadDisplay = availableGamepadModels[curSelectedGamepadIcon];
 
 

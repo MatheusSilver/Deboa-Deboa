@@ -51,7 +51,7 @@ enum InputDevices //Lista com todos os tipos de controle que esperamos que algu√
 	PS4_Controller;
 	Switch_Controller;
 	Xinput_Controller;
-	ANY;
+	AUTO;
 }
 
 /**
@@ -1605,7 +1605,7 @@ class GamepadUtil
 	inline public static function getDisplayGamepadModel():InputDevices
 	{
 		if (Main.isKeyboard) return Keyboard;
-		else if (ClientPrefs.gamepadDisplay==ANY) return getActualGamepadModel();
+		else if (ClientPrefs.gamepadDisplay==AUTO) return getActualGamepadModel();
 		else								 return ClientPrefs.gamepadDisplay;
 	}
 
