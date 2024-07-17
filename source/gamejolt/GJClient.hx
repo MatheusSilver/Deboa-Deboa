@@ -223,7 +223,7 @@ class GJClient
         var daParam:Null<Array<Array<String>>> = achievedOnes != null ? [['achieved', Std.string(achievedOnes)]] : null;
         var urlData = urlResult(urlConstruct('trophies', null, daParam),
         function () {printMsg('Trophies list fetched successfully!'); if (onSuccess != null) onSuccess();},
-        function () {printMsg('Trophies list fetching failed!'); if (onFail != null) onFail();}, true, customCallback);
+        function () {printMsg('Trophies list fetching failed!'); if (onFail != null) onFail();}, true, customCallback, null, null, true);
         var daFormat:Null<Array<Trophie>> = urlData != null && logged ? urlData.trophies : [];
         return daFormat;
     }
@@ -487,7 +487,7 @@ class GJClient
 
                 var urlData = urlResult(urlConstruct('data-store', null, daParams, !isPublic, !isPublic),
                 function () {if(async) return; printMsg('Data fetched successfully!'); if (onSuccess != null) onSuccess();},
-                function () {if(async) return; printMsg('Data fetching failed!'); if (onFail != null) onFail();}, async, customCallback, invites);
+                function () {if(async) return; printMsg('Data fetching failed!'); if (onFail != null) onFail();}, async, customCallback, invites ? INVITE : USER);
                 var daData:Null<DataStore> = urlData != null && logged ? urlData : null;
                 var valuetoReturn:String;
                 if(daData != null)
@@ -742,15 +742,20 @@ class GJClient
                                     callbackGetDesafios(response, customCallback);
                             }
                         } else {
-                            if(response == null)
-                                customCallback(null);
+                            /*if(response.content == null)
+                                if(hasCallback && customCallback!=null) {
+                                    customCallback(null);
+                                }
+                                return;*/
+                            result = response.toJson();
+                            if(result==null)
                                 return;
-                            result = response.toJson().response;
+                            result = result.response;
                             success = response.toJson().response.success == 'true';
 
                             //trace(result);
 
-                            if(customCallback!=null) {
+                            if(hasCallback && customCallback!=null) {
                                 customCallback(result != null ? success ? result : null : null);
                             }
 

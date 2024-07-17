@@ -105,6 +105,7 @@ class Achievements {
 			TitleState.instance.verificarConexao(true);
 			if(GJClient.logged && !TitleState.ModoOffline){
 				GJClient.getTrophiesList(true, function () {
+					if(GJList==null) GJList = [];
 					for(trophie in GJList)
 						{
 							unlockAchievement(getAchievementID(trophie.id), false, false);
@@ -118,6 +119,7 @@ class Achievements {
 						onFail();
 				}, true, function(?result:Null<Dynamic>) {
 					if(result.trophies == null)
+						GJList = [];
 						return;
 					GJList = result.trophies;
 					//trace("GJList: "+ GJList); eu vou explodir
