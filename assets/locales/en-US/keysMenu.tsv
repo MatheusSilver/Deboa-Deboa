@@ -28,4 +28,5 @@ mobile_coordinate_up	X coordinate of the top button:
 mobile_coordinate_down	X coordinate of the bottom button:
 mobile_coordinate_left	X coordinate of the left button:
 mobile_coordinate_right	X coordinate of the right button:
-
+key_audiosection	Sounds
+key_general_commands	Commands

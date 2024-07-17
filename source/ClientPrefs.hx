@@ -1,5 +1,6 @@
 package;
 
+import Utils.InputDevices;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.FlxG;
 import flixel.util.FlxSave;
@@ -54,6 +55,8 @@ class ClientPrefs
 	public static var curFilter:Null<Int> = 0; // isso é feio mas funciona :D
 	public static var curMultiplayerNoteSkin = 0;
 	public static var palavroes:Null<Bool> = true;
+
+	public static var gamepadDisplay:InputDevices = ANY;
 
 	public static var firstBoot:Null<Bool> = true;
 

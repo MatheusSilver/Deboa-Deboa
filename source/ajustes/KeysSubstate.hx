@@ -1,8 +1,8 @@
 package ajustes;
 
+import Utils.BSLTouchUtils;
+import Utils.InputDevices;
 import flixel.input.gamepad.FlxGamepadInputID;
-import flixel.input.gamepad.lists.FlxGamepadButtonList;
-import flixel.input.gamepad.FlxGamepad;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -33,7 +33,11 @@ using StringTools;
 class KeysSubstate extends MusicBeatState {
 	private static var curSelected:Int = -1;
 	private static var curAlt:Bool = false;
-	private static var gamepad:FlxGamepad;
+
+	private var curSelectedGamepadIcon:Int=0;
+	private final availableGamepadModels:Array<InputDevices> = [PS4_Controller,Switch_Controller,Xinput_Controller];
+
+	private var gamepadIcon:FlxSprite;
 
 	private var defaultKey:String = Linguagem.LangUtil.getString("key_reset", "key");
 	private var bindLength:Int = 0;
@@ -52,11 +56,13 @@ class KeysSubstate extends MusicBeatState {
 		[Linguagem.LangUtil.getString("key_up", "key"), 'ui_up'],
 		[Linguagem.LangUtil.getString("key_right", "key"), 'ui_right'],
 		[''],
+		[Linguagem.LangUtil.getString("key_general_commands", "key")],
 		[Linguagem.LangUtil.getString("key_restart", "key"), 'restart'],
 		[Linguagem.LangUtil.getString("key_accept", "key"), 'accept'],
 		[Linguagem.LangUtil.getString("key_return", "key"), 'back'],
 		[Linguagem.LangUtil.getString("key_pause", "key"), 'pause'],
 		[''],
+		[Linguagem.LangUtil.getString("key_audiosection", "key")],
 		[Linguagem.LangUtil.getString("key_volume", "key")],
 		[Linguagem.LangUtil.getString("key_mute", "key"), 'volume_mute'],
 		[Linguagem.LangUtil.getString("key_volup", "key"), 'volume_up'],
@@ -77,6 +83,8 @@ class KeysSubstate extends MusicBeatState {
 	public function new() {
 		super();
 
+		Main.mouse_allowed = true;
+		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('escolhendo-branco'));
 		bg.color = 0xffffffff; //arrumem a cor a vosso gosto
 		bg.updateHitbox();
@@ -117,49 +125,63 @@ class KeysSubstate extends MusicBeatState {
 				if(curSelected < 0) curSelected = i;
 			}
 		}
+
+		gamepadIcon = new FlxSprite(50,50);
+		if (!Utils.GamepadUtil.getGamepadConnected()) gamepadIcon.loadGraphic(Paths.image("input/disconnected", "preload"));
+		else 				    gamepadIcon.loadGraphic(Paths.image('input/${Utils.GamepadUtil.getDisplayGamepadModel()}'));
+		
+		gamepadIcon.antialiasing=ClientPrefs.globalAntialiasing;
+		gamepadIcon.setGraphicSize(125,125);
+		gamepadIcon.updateHitbox();
+		gamepadIcon.centerOrigin();
+		gamepadIcon.visible = !Main.isKeyboard;
+		add(gamepadIcon);
 		changeSelection();
 	}
 
-	private var gamepadModel:String = "Keyboard"; //Provavelmente não a melhor escolha, mas lesgo.
+	private function setGamepadIcon(icon:String){
+		gamepadIcon.visible = true;
+		gamepadIcon.loadGraphic(Paths.image('input/$icon', "preload"));
+		gamepadIcon.setGraphicSize(125,125);
+		gamepadIcon.updateHitbox();
+		gamepadIcon.centerOrigin();
+	}
 
-	private function setGamepadModel(gamepad:FlxGamepad):Void
-	{
-		switch(gamepad.detectedModel){
-			case PS4:
-				gamepadModel = "PS4";
-			case SWITCH_PRO:
-				gamepadModel = "Switch";
-			default:
-				gamepadModel = "Xinput"; //Aparentemente os controles do Steam e do Xbox seguem o mesmo padrão. (Infelizmente não tenho um steam deck pra testar).
+	private function checkGamepadAvailable(){
+		if (!Main.isKeyboard && !voceFoiAvisado && !Utils.GamepadUtil.getGamepadConnected()){ //Só para avisar caso o player esteja no gamepad e por algum motivo ele desligar.
+																		  					  //Confia, isso não é nem um pouco específico.
+			setGamepadIcon("disconnected");
+			voceFoiAvisado = true;
+		}else if(!Main.isKeyboard && voceFoiAvisado && Utils.GamepadUtil.getGamepadConnected()){
+			setGamepadIcon('${Utils.GamepadUtil.getDisplayGamepadModel()}');
+			voceFoiAvisado = false;
 		}
 	}
-
-	private function updateGamepad():Void
-	{
-		if (FlxG.gamepads.lastActive != null){
-			gamepad = FlxG.gamepads.lastActive;
-			setGamepadModel(gamepad);
-		}else
-			gamepad = null;
-	}
-
+	var voceFoiAvisado:Bool = false;
 	var leaving:Bool = false;
 	var bindingTime:Float = 0;
-	var keyboardMode:Bool = true;
 	var canLeave:Bool = true;
 	override function update(elapsed:Float) {
+		checkGamepadAvailable();
 		if(!rebindingKey) {
-			if (FlxG.gamepads.anyButton() && keyboardMode){
-				keyboardMode = false;
-				updateGamepad();
-				reloadKeys();
+			if (Utils.GamepadUtil.getGamepadConnected()){
+				if (BSLTouchUtils.pressionando(gamepadIcon)) gamepadIcon.setGraphicSize(110,110);
+				else if (BSLTouchUtils.solto(gamepadIcon)){
+					changeDisplayedGamepadButtons();
+				}   
+			}
+
+			if (Utils.GamepadUtil.anyGamepadButtonPressed() && Main.isKeyboard){
+				Main.isKeyboard = false;
+				changeDisplayedGamepadButtons(0);
 				changeSelection();
-			}else if (FlxG.keys.pressed.ANY && !keyboardMode){
-				gamepadModel = "Keyboard";
-				keyboardMode = true;
+			}else if (FlxG.keys.pressed.ANY && !Main.isKeyboard){
+				Main.isKeyboard = true;
+				gamepadIcon.visible = false;
 				reloadKeys();
 				changeSelection();
 			}
+
 			if (controls.UI_UP_P) {
 				changeSelection(-1);
 			}
@@ -208,17 +230,16 @@ class KeysSubstate extends MusicBeatState {
 		} else {
 			canLeave = false;
 			var keyPressed:Int;
-			if (keyboardMode) keyPressed = FlxG.keys.firstJustPressed();
-			else 			  keyPressed = gamepad.firstJustPressedID();
-			
-			if (checkValidInput(keyPressed)) {
-				if (keyboardMode) changeBindsKeyboard(keyPressed);
-				else			  changeBindsGamepad(keyPressed);
-				new FlxTimer().start(0.1, function(tmr:FlxTimer)
-					{
-						canLeave = true;
-					});
-			}
+			if (Main.isKeyboard) keyPressed = FlxG.keys.firstJustPressed();
+			else		         keyPressed = Utils.GamepadUtil.getGamepadPressedButton();
+
+			if (Main.isKeyboard && FlxG.keys.justPressed.ANY) 										 changeBindsKeyboard(keyPressed);
+			else if (!Main.isKeyboard && Utils.GamepadUtil.anyGamepadButtonPressed())			     changeBindsGamepad(keyPressed);
+
+			new FlxTimer().start(0.1, function(tmr:FlxTimer)
+				{
+					canLeave = true;
+				});
 			
 			bindingTime += elapsed;
 			if(bindingTime > 5) {
@@ -238,29 +259,45 @@ class KeysSubstate extends MusicBeatState {
 		super.update(elapsed);
 	}
 
-	private function checkValidInput(inputValue:Int):Bool
-	{
-		if (keyboardMode) return inputValue > -1;
-		else{
-			switch (gamepadModel){
-				case "Switch": return inputValue > -1;
-				case "Xinput": return (inputValue != 10);
-				case "PS4":    return inputValue > -1; //Tem que testar aqui também. 
-				default:	   return inputValue >= -1;
-			}
+	var sectionStart:Int;
+	var sectionEnd:Int;
 
+	private function getSection():Void
+	{
+
+		if (curSelected <= 5){ //Feio mas fazer o que né, faltou café pra pensar numa solução bonita pra isso...
+			sectionStart = 1; 
+			sectionEnd=5;
+		}else if (curSelected <= 11){
+			sectionStart = 8;
+			sectionEnd = 11;
+		}else if (curSelected <= 17){
+			sectionStart = 14;
+			sectionEnd = 17;
+		}else if (curSelected <= 23){
+			sectionStart = 21;
+			sectionEnd = 23;
+		}else if (curSelected <= 27){
+			sectionStart=26;
+			sectionEnd=27;
 		}
 	}
 
 	private function changeBindsKeyboard(newBind:Int):Void
 	{
+		
+		getSection();
+		
+		for (i in sectionStart...sectionEnd){
+			var sectionKeys = ClientPrefs.keyBinds.get(optionShit[i][1]);
+			if (sectionKeys[0]==newBind) sectionKeys[0] = NONE;
+			if (sectionKeys[1]==newBind) sectionKeys[1] = NONE;
+			
+			ClientPrefs.keyBinds.set(optionShit[i][1], sectionKeys);
+		}
 		var keysArray:Array<FlxKey> = ClientPrefs.keyBinds.get(optionShit[curSelected][1]);
 		keysArray[curAlt ? 1 : 0] = newBind;
 		
-		var opposite:Int = (curAlt ? 0 : 1);
-		if(keysArray[opposite] == keysArray[1 - opposite]) {
-			keysArray[opposite] = NONE;
-		}
 		ClientPrefs.keyBinds.set(optionShit[curSelected][1], keysArray);
 		
 		reloadKeys();
@@ -270,13 +307,18 @@ class KeysSubstate extends MusicBeatState {
 
 	private function changeBindsGamepad(newBind:Int):Void
 	{
+		
+		getSection();
+		
+		for (i in sectionStart...sectionEnd){
+			var sectionKeys = ClientPrefs.keyBindsGamepad.get(optionShit[i][1]);
+			if (sectionKeys[0]==newBind) sectionKeys[0] = NONE;
+			if (sectionKeys[1]==newBind) sectionKeys[1] = NONE;
+			
+			ClientPrefs.keyBindsGamepad.set(optionShit[i][1], sectionKeys);
+		}
 		var keysArray:Array<FlxGamepadInputID> = ClientPrefs.keyBindsGamepad.get(optionShit[curSelected][1]);
 		keysArray[curAlt ? 1 : 0] = newBind;
-		
-		var opposite:Int = (curAlt ? 0 : 1);
-		if(keysArray[opposite] == keysArray[1 - opposite]) {
-			keysArray[opposite] = NONE;
-		}
 
 		ClientPrefs.keyBindsGamepad.set(optionShit[curSelected][1], keysArray);
 		
@@ -284,6 +326,18 @@ class KeysSubstate extends MusicBeatState {
 		GlobalSoundManager.play(confirmMenu);
 		rebindingKey = false;
 	}
+
+	private function changeDisplayedGamepadButtons(add:Int = 1){
+		curSelectedGamepadIcon+=add;
+		if (curSelectedGamepadIcon > availableGamepadModels.length-1) curSelectedGamepadIcon = 0; //Não há motivo para se preocupar com outro resultado eu acho...
+		if(Utils.GamepadUtil.getActualGamepadModel() == availableGamepadModels[curSelectedGamepadIcon])	ClientPrefs.gamepadDisplay = ANY;
+		else												 ClientPrefs.gamepadDisplay = availableGamepadModels[curSelectedGamepadIcon];
+
+
+		setGamepadIcon('${Utils.GamepadUtil.getDisplayGamepadModel()}');
+		reloadKeys();
+	}
+
 
 	function getInputTextNum() {
 		var num:Int = 0;
@@ -365,18 +419,13 @@ class KeysSubstate extends MusicBeatState {
 		}
 		return optionShit[num].length < 2 && optionShit[num][0] != defaultKey;
 	}
-
-	private function formatKey(inputData:Dynamic):String
-	{
-		if (keyboardMode) return Input.InputFormatter.getKeyName(inputData);
-		else 			  return Input.InputFormatter.getKeyNameGamepad(inputData);
-	}
 	
 	private function addBindTexts(optionText:Alphabet, num:Int) { //Preguiça de mudar o nome da função.
 		var keys:Array<Dynamic>;
-		if (keyboardMode) keys = ClientPrefs.keyBinds.get(optionShit[num][1]);
-		else 			  keys = ClientPrefs.keyBindsGamepad.get(optionShit[num][1]);
-		var text1 = new AttachedSprite('input/$gamepadModel/${formatKey(keys[0])}', null, "preload");
+		if (Main.isKeyboard) keys = ClientPrefs.keyBinds.get(optionShit[num][1]);
+		else 			     keys = ClientPrefs.keyBindsGamepad.get(optionShit[num][1]);
+		
+		var text1 = new AttachedSprite('input/${Utils.GamepadUtil.getDisplayGamepadModel()}/${Utils.GamepadUtil.formatKey(keys[0])}', null, "preload");
 		text1.xAdd = 450;
 		text1.yAdd = -25;
 		text1.copyAlpha = false;
@@ -386,7 +435,7 @@ class KeysSubstate extends MusicBeatState {
 		grpInputs.push(text1);
 		add(text1);
 
-		var text2 = new AttachedSprite('input/$gamepadModel/${formatKey(keys[1])}', null, "preload");
+		var text2 = new AttachedSprite('input/${Utils.GamepadUtil.getDisplayGamepadModel()}/${Utils.GamepadUtil.formatKey(keys[1])}', null, "preload");
 		text2.xAdd = 650;
 		text2.yAdd = -25;
 		text2.copyAlpha = false;

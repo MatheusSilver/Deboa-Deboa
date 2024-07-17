@@ -53,8 +53,12 @@ class MusicBeatSubstate extends FlxSubState
 	override function update(elapsed:Float)
 	{
 
-		if (Main.getMouseVisibility() && (FlxG.keys.pressed.ANY || FlxG.gamepads.anyButton())){
+		if (Main.getMouseVisibility() && (FlxG.keys.pressed.ANY || Utils.GamepadUtil.anyGamepadButtonPressed())){
+			if (!Main.isKeyboard && FlxG.keys.pressed.ANY) Main.isKeyboard = true;
+			else if (Main.isKeyboard && Utils.GamepadUtil.anyGamepadButtonPressed()) Main.isKeyboard = false;
+
 			Main.mouseVisibility(false);
+			
 		}else if (Main.mouse_allowed && #if !mobile FlxG.mouse.justMoved #else Utils.BSLTouchUtils.justTouched() #end){
 			Main.mouseVisibility(true);
 		}

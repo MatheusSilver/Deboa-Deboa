@@ -1,5 +1,6 @@
 package;
 
+import Utils.InputDevices;
 #if CRASHLOG_HANDLER
 import haxe.io.Path;
 import sys.io.File;
@@ -56,6 +57,9 @@ class Main extends Sprite
 
 	public static var fpsVar:FPS;
 	public static var tongue:FireTongueEx;
+
+	public static var inputDevice:InputDevices = Keyboard;
+	public static var isKeyboard:Bool = true;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
