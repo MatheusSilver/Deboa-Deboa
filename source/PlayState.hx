@@ -973,7 +973,7 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 
-		if (nomehistorico.toLowerCase() == 'infinito'){
+		if (nomehistorico.toLowerCase() == 'infinito' && !ClientPrefs.hideTime){
 			infinitesimbol = new FlxSprite().loadGraphic(Paths.image('simbolo_infinito'));
 			infinitesimbol.y = hud.timeBarBG.y - 40;
 			infinitesimbol.setGraphicSize(Std.int(hud.timeTxt.height * 1.7));
@@ -4285,20 +4285,22 @@ class PlayState extends MusicBeatState
 				majinstrums = true;
 				triggerEventNote('noteskinchangeBF', 'Majin_Notes', '');
 				triggerEventNote('noteskinchangeOPPT', 'Majin_Notes', '');
-				hud.timeBar.createFilledBar(0xFF7700FF, 0xFFFFFFFF);
-				FlxTween.num(songPercent, 0, 2.5, {ease: FlxEase.sineInOut}, function(v:Float)
-				{
-					songPercent = v;
-				});
-				FlxTween.num(secondsTotal, 6039, 2.5, {ease: FlxEase.linear}, function(v2:Float)
-				{
-					hud.timeTxt.text = FlxStringUtil.formatTime(v2, false);
-				});
-				new FlxTimer().start(2.53, function(tmr:FlxTimer)
-				{
-					hud.timeTxt.visible = false;
-					infinitesimbol.visible = true;
-				});
+				if(!ClientPrefs.hideTime) {
+					hud.timeBar.createFilledBar(0xFF7700FF, 0xFFFFFFFF);
+					FlxTween.num(songPercent, 0, 2.5, {ease: FlxEase.sineInOut}, function(v:Float)
+					{
+						songPercent = v;
+					});
+					FlxTween.num(secondsTotal, 6039, 2.5, {ease: FlxEase.linear}, function(v2:Float)
+					{
+						hud.timeTxt.text = FlxStringUtil.formatTime(v2, false);
+					});
+					new FlxTimer().start(2.53, function(tmr:FlxTimer)
+					{
+						hud.timeTxt.visible = false;
+						infinitesimbol.visible = true;
+					});
+				}
 
 			case 'Change Character':
 				var charType:Int = 0;
@@ -6403,7 +6405,7 @@ class PlayState extends MusicBeatState
 		{
 			FlxTween.angle(tospin, 0, 360, 0.35, {ease: FlxEase.quintOut});
 		});
-		if (majinstrums)
+		if (majinstrums && !ClientPrefs.hideTime)
 		{
 			FlxTween.angle(infinitesimbol, 0, 180, 0.35, {ease: FlxEase.quintOut}); // haha, simetria massa.
 		}
