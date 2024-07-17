@@ -24,9 +24,8 @@ class InputLabel extends FlxObject{
 		if (FlxG.gamepads.anyButton() && keyboardMode){
 			keyboardMode = false;
 			updateGamepad();
-		}else if (FlxG.keys.pressed.ANY && !keyboardMode){
+		} else if (FlxG.keys.pressed.ANY && !keyboardMode){
 			keyboardMode = true;
-			updateGamepad();
 		}
 	}
 

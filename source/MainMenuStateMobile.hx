@@ -440,7 +440,7 @@ class MainMenuStateMobile extends MusicBeatState
 		var lerpVal:Float = Utils.CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
-		if (!selectedSomethin && canClick)
+		if (!selectedSomethin && canClick && clicavel)
 		{
 
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
