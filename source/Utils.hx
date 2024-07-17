@@ -1,5 +1,7 @@
 package;
 
+import flixel.input.gamepad.FlxGamepadButton;
+import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.FlxGamepad.FlxGamepadModel;
 import flixel.tweens.FlxEase;
 import flixel.graphics.FlxGraphic;
@@ -1618,6 +1620,11 @@ class GamepadUtil
 	{
 		if (isValidInput(FlxG.gamepads.lastActive.firstJustPressedID(), getActualGamepadModel())) return FlxG.gamepads.lastActive.firstJustPressedID();
 		return -1; // Só pra poder padronizar como none.
+	}
+
+	inline public static function checkGamepadPressedButton(button:FlxGamepadInputID):Bool
+	{
+		return FlxG.gamepads.anyJustPressed(button);
 	}
 
 	inline public static function getGamepadConnected():Bool

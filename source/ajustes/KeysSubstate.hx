@@ -192,7 +192,7 @@ class KeysSubstate extends MusicBeatState {
 				changeAlt();
 			}
 
-			if ((controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) && canLeave) { //haha sistema anti burrice
+			if ((FlxG.keys.justPressed.ESCAPE || Utils.GamepadUtil.checkGamepadPressedButton(B) #if mobile || FlxG.android.justReleased.BACK #end) && canLeave) { //haha sistema anti burrice
 				/*
 				grpOptions.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
@@ -203,7 +203,7 @@ class KeysSubstate extends MusicBeatState {
 				MusicBeatState.switchState(new ajustes.AjustesState());
 			}
 
-			if(controls.ACCEPT && nextAccept <= 0) {
+			if(FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE || Utils.GamepadUtil.checkGamepadPressedButton(A) && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
 					ClientPrefs.keyBinds.clear();
 					ClientPrefs.keyBinds = Input.DefaultInputs.defaultKeys.copy();
@@ -230,8 +230,8 @@ class KeysSubstate extends MusicBeatState {
 		} else {
 			canLeave = false;
 			var keyPressed:Int;
-			if (Main.isKeyboard) keyPressed = FlxG.keys.firstJustPressed();
-			else		         keyPressed = Utils.GamepadUtil.getGamepadPressedButton();
+			if (Main.isKeyboard) 										 keyPressed = FlxG.keys.firstJustPressed();
+			else if (Utils.GamepadUtil.getGamepadConnected())		     keyPressed = Utils.GamepadUtil.getGamepadPressedButton();
 
 			if (Main.isKeyboard && FlxG.keys.justPressed.ANY) 										 changeBindsKeyboard(keyPressed);
 			else if (!Main.isKeyboard && Utils.GamepadUtil.anyGamepadButtonPressed())			     changeBindsGamepad(keyPressed);
