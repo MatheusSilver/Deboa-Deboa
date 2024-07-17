@@ -404,6 +404,10 @@ class FunkinLua {
 			if(leObj != null) {
 				return PlayState.instance.members.indexOf(leObj);
 			}
+			var leObj:FlxBasic = Reflect.getProperty(PlayState.instance.hud, obj);
+			if(leObj != null) {
+				return PlayState.instance.members.indexOf(leObj);
+			}
 			//luaTrace("Object " + obj + " doesn't exist!");
 			return -1;
 		});
@@ -418,6 +422,12 @@ class FunkinLua {
 			}
 
 			var leObj:FlxBasic = Reflect.getProperty(PlayState.instance, obj);
+			if(leObj != null) {
+				PlayState.instance.remove(leObj, true);
+				PlayState.instance.insert(position, leObj);
+				return;
+			}
+			var leObj:FlxBasic = Reflect.getProperty(PlayState.instance.hud, obj);
 			if(leObj != null) {
 				PlayState.instance.remove(leObj, true);
 				PlayState.instance.insert(position, leObj);
@@ -1176,6 +1186,12 @@ class FunkinLua {
 				poop.updateHitbox();
 				return;
 			}
+			var poop:FlxSprite = Reflect.getProperty(PlayState.instance.hud, obj);
+			if(poop != null) {
+				poop.scale.set(x, y);
+				poop.updateHitbox();
+				return;
+			}
 			//luaTrace('Couldnt find object: ' + obj);
 		});
 		Lua_helper.add_callback(lua, "updateHitbox", function(obj:String) {
@@ -1259,6 +1275,11 @@ class FunkinLua {
 				object.cameras = [cameraFromString(camera)];
 				return true;
 			}
+			var object:FlxObject = Reflect.getProperty(PlayState.instance.hud, obj);
+			if(object != null) {
+				object.cameras = [cameraFromString(camera)];
+				return true;
+			}
 			//luaTrace("Object " + obj + " doesn't exist!");
 			return false;
 		});
@@ -1287,6 +1308,9 @@ class FunkinLua {
 
 			if(spr==null){
 				var killMe:Array<String> = obj.split('.');
+				if(hudVars.contains(killMe[0])) {
+					killMe.insert(0, "hud");
+				}
 				spr = getObjectDirectly(killMe[0]);
 				if(killMe.length > 1) {
 					spr = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
@@ -2339,9 +2363,9 @@ class FunkinLua {
 		}
 
 	public static inline function getInstance()
-		{
-			return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
-		}
+	{
+		return PlayState.instance.isDead ? GameOverSubstate.instance : PlayState.instance;
+	}
 
 	public function luaTrace(text:String, ignoreCheck:Bool = false, deprecated:Bool = false, color:FlxColor = FlxColor.WHITE) {
 		#if LUA_ALLOWED
@@ -2357,8 +2381,8 @@ class FunkinLua {
 
 	inline static function getTextObject(name:String):FlxText
 	{
-		return PlayState.instance.modchartTexts.exists(name) ? PlayState.instance.modchartTexts.get(name) : Reflect.getProperty(PlayState.instance, name);
-	}
+		return PlayState.instance.modchartTexts.exists(name) ? PlayState.instance.modchartTexts.get(name) : Type.getInstanceFields(Type.getClass(PlayState.instance.hud)).contains(name) ? Reflect.getProperty(PlayState.instance.hud, name) : Reflect.getProperty(PlayState.instance, name);
+	} //Cuidado, linha gigantesca acima :skull:
 
 	inline static function getTiledSpriteObject(name:String):FlxTiledSprite
 		{

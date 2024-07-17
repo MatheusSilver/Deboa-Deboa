@@ -65,6 +65,7 @@ import openfl.utils.Assets as OpenFlAssets;
 import sys.FileSystem;
 import sys.io.File;
 import legendas.*;
+import Videos.SkipText;
 
 using StringTools;
 
@@ -1631,7 +1632,7 @@ class PlayState extends MusicBeatState
 	}
 
 	public var videoSpr:MP4Sprite;
-	public var letext:FlxText;
+	public var letext:SkipText;
 
 	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String, ?endingSong1:String)
 	{
@@ -1657,8 +1658,8 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.volume = 0;
 				vocals.volume = 0;
 			}
-			letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, Linguagem.LangUtil.getString("descVideo"), 32); // Achei cringe
-			letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			letext = new SkipText(-50, FlxG.height - 150);
+			letext.updateHitbox();
 			letext.scrollFactor.set();
 			letext.alpha = 0;
 			letext.cameras = [camLegenda];
@@ -2620,7 +2621,7 @@ class PlayState extends MusicBeatState
 	{
 		if (playingVideoMP4 && !paused)
 		{
-			if (letext.alpha == 0 && FlxG.keys.justReleased.ANY)
+			if (letext.alpha == 0 && Input.Controls.get_ANY())
 			{
 				alphaon = true;
 				twn.start(4, function(twn:FlxTimer)
@@ -2643,7 +2644,7 @@ class PlayState extends MusicBeatState
 			{
 				// video.canSkip = false;
 			}
-			if (alphaon && letext.alpha == 1 && FlxG.keys.justReleased.SPACE)
+			if (alphaon && letext.alpha == 1 && controls.ACCEPT)
 			{
 				pularVideo();
 			}

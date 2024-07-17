@@ -11,7 +11,14 @@ import openfl.events.Event;
 import hxvlc.flixel.FlxVideoSprite;
 import Videos.MP4Sprite;
 #end
-
+import flixel.group.FlxSpriteGroup;
+import flixel.input.gamepad.FlxGamepadInputID;
+import flixel.input.gamepad.lists.FlxGamepadButtonList;
+import flixel.input.gamepad.FlxGamepad;
+import ajustes.InputLabel;
+import flixel.FlxObject;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
@@ -142,7 +149,7 @@ class VideoSubState extends MusicBeatSubstate
 class VideoStatePC extends MusicBeatState
 {
 	var video:MP4Sprite;
-	var letext:FlxText;
+	var skipText:SkipText;
 
 	public static var videoPath:String = Paths.video("EngineBase/intromic");
 	public static var NextState:FlxState = new TitleState();
@@ -166,16 +173,17 @@ class VideoStatePC extends MusicBeatState
 		// Até que tá mais bonitinho agora
 		video.playMP4(videoPath, NextState);
 
-		var android:String = Linguagem.LangUtil.getString("webview_touch", "data");
-		var pc:String = Linguagem.LangUtil.getString("descVideo1") + ('${Linguagem.LangUtil.getString("key_label_space")} ${Linguagem.LangUtil.getString("descVideo2")}');
+		//var android:String = Linguagem.LangUtil.getString("webview_touch", "data");
+		//var pc:String = Linguagem.LangUtil.getString("descVideo1") + (' ${Linguagem.LangUtil.getString("key_label_space")} ${Linguagem.LangUtil.getString("descVideo2")}');
 		
-		letext = new FlxText(50, FlxG.height - 100, FlxG.width - 100, #if android android #elseif desktop pc #end, 32); // Achei cringe
-		letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		letext.scrollFactor.set();
-		letext.alpha = 0;
+		skipText = new SkipText(-50, FlxG.height - 150);
+		skipText.updateHitbox();
+		skipText.scrollFactor.set();
+		//skipText.screenCenter(X);
+		skipText.alpha = 0;
 
 		add(video);
-		add(letext);
+		add(skipText);
 
 		super.create();
 	}
@@ -186,8 +194,8 @@ class VideoStatePC extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		var justPressed:Bool = FlxG.keys.justReleased.ANY #if android || BSLTouchUtils.justTouched(); #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
-		if (letext.alpha == 0 && justPressed)
+		var justPressed:Bool = Input.Controls.get_ANY() #if android || BSLTouchUtils.justTouched(); #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
+		if (skipText.alpha == 0 && justPressed)
 		{
 			alphaon = true;
 			twn.start(4, function(twn:FlxTimer)
@@ -196,22 +204,22 @@ class VideoStatePC extends MusicBeatState
 			});
 		}
 
-		if (alphaon && letext.alpha != 1)
+		if (alphaon && skipText.alpha != 1)
 		{
-			letext.alpha = letext.alpha + 0.25;
+			skipText.alpha = skipText.alpha + 0.25;
 			video.canSkip = false;
 		}
-		else if (alphaon && letext.alpha == 1)
+		else if (alphaon && skipText.alpha == 1)
 		{
 			video.canSkip = true;
 		}
 
-		if (!alphaon && letext.alpha != 0)
+		if (!alphaon && skipText.alpha != 0)
 		{
-			letext.alpha = letext.alpha - 0.25;
+			skipText.alpha = skipText.alpha - 0.25;
 			video.canSkip = false;
 		}
-		else if (!alphaon && letext.alpha == 0)
+		else if (!alphaon && skipText.alpha == 0)
 		{
 			video.canSkip = false;
 		}
@@ -224,6 +232,30 @@ class VideoStatePC extends MusicBeatState
 	}
 }
 
+class SkipText extends FlxSpriteGroup {
+	var letext:FlxText;
+	var key:FlxSprite;
+
+	public function new(x:Float, y:Float) {
+		super(x, y);
+
+		letext = new FlxText(100, 0, 0, Linguagem.LangUtil.getString("descVideo3"), 32);
+		letext.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		letext.updateHitbox();
+		add(letext);
+
+		key = new FlxSprite(0,-32).loadGraphic(Paths.image(InputLabel.instance.getKeyLabelPath("accept")));
+		key.updateHitbox();
+		add(key);
+		
+	}
+
+	override function update(elapsed:Float){
+		super.update(elapsed);
+		key.loadGraphic(Paths.image(InputLabel.instance.getKeyLabelPath("accept")));
+	}
+}
+
 class MP4Sprite extends FlxVideoSprite
 {
 	public var nextState:FlxState;
@@ -233,6 +265,11 @@ class MP4Sprite extends FlxVideoSprite
 	public var oldPosition:Float = 0;
 	private var curState:GameState;
 	var parentState:FlxState;
+
+	public var controls(get, never):Input.Controls;
+	inline function get_controls():Input.Controls
+		return Input.PlayerSettings.player1.controls;
+
 	
 	public function new(x:Int=0, y:Int=0, curState:GameState)
 	{
@@ -336,7 +373,7 @@ class MP4Sprite extends FlxVideoSprite
 
 	override public function update(elapsed:Float)
 	{
-		var justPressed:Bool = FlxG.keys.justReleased.SPACE #if android || BSLTouchUtils.justTouched(); #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
+		var justPressed:Bool = controls.ACCEPT #if android || BSLTouchUtils.justTouched(); #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
 		if (justPressed && canSkip==true && curState != GameState.ABOUT && curState != GameState.PLAYSTATE && !queronaoviver && this.bitmap.isPlaying) {
 			this.bitmap.mute = true;
 			this.onVLCComplete();

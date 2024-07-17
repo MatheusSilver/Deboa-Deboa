@@ -146,6 +146,7 @@ class KeysSubstate extends MusicBeatState {
 	var leaving:Bool = false;
 	var bindingTime:Float = 0;
 	var keyboardMode:Bool = true;
+	var canLeave:Bool = true;
 	override function update(elapsed:Float) {
 		if(!rebindingKey) {
 			if (FlxG.gamepads.anyButton() && keyboardMode){
@@ -169,7 +170,7 @@ class KeysSubstate extends MusicBeatState {
 				changeAlt();
 			}
 
-			if (controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) { //haha sistema anti burrice
+			if ((controls.BACK #if mobile || FlxG.android.justReleased.BACK #end) && canLeave) { //haha sistema anti burrice
 				/*
 				grpOptions.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
@@ -205,13 +206,18 @@ class KeysSubstate extends MusicBeatState {
 				}
 			}
 		} else {
+			canLeave = false;
 			var keyPressed:Int;
 			if (keyboardMode) keyPressed = FlxG.keys.firstJustPressed();
 			else 			  keyPressed = gamepad.firstJustPressedID();
 			
-			if (keyPressed > -1) {
+			if (checkValidInput(keyPressed)) {
 				if (keyboardMode) changeBindsKeyboard(keyPressed);
 				else			  changeBindsGamepad(keyPressed);
+				new FlxTimer().start(0.1, function(tmr:FlxTimer)
+					{
+						canLeave = true;
+					});
 			}
 			
 			bindingTime += elapsed;
@@ -222,6 +228,7 @@ class KeysSubstate extends MusicBeatState {
 				GlobalSoundManager.play(scrollMenu);
 				rebindingKey = false;
 				bindingTime = 0;
+				canLeave = true;
 			}
 		}
 
@@ -229,6 +236,20 @@ class KeysSubstate extends MusicBeatState {
 			nextAccept -= 1;
 		}
 		super.update(elapsed);
+	}
+
+	private function checkValidInput(inputValue:Int):Bool
+	{
+		if (keyboardMode) return inputValue > -1;
+		else{
+			switch (gamepadModel){
+				case "Switch": return inputValue > -1;
+				case "Xinput": return (inputValue != 10);
+				case "PS4":    return inputValue > -1; //Tem que testar aqui também. 
+				default:	   return inputValue >= -1;
+			}
+
+		}
 	}
 
 	private function changeBindsKeyboard(newBind:Int):Void

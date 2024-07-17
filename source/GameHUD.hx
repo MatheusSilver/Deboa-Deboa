@@ -101,6 +101,8 @@ class GameHUD extends FlxTypedGroup<FlxBasic>
 		{
 			botplayTxt.y = timeBarBG.y - 78;
 		}
+		if (Paths.formatToSongPath(PlayState.SONG.song).toLowerCase() == 'triple-trouble')
+			botplayTxt.y += ClientPrefs.downScroll ? -50: 50;
         
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
 		judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

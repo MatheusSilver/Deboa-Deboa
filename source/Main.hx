@@ -1,5 +1,14 @@
 package;
 
+#if CRASHLOG_HANDLER
+import haxe.io.Path;
+import sys.io.File;
+import sys.FileSystem;
+import haxe.CallStack;
+import haxe.CallStack.StackItem;
+import openfl.events.UncaughtErrorEvent;
+#end
+import flixel.input.gamepad.FlxGamepadManager;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepad.FlxGamepadModel;
 import gamejolt.InviteBackEnd;
@@ -7,9 +16,6 @@ import openfl.filters.ColorMatrixFilter;
 import openfl.filters.BitmapFilter;
 #if mobile
 import haxe.CallStack.StackItem;
-import haxe.CallStack;
-import haxe.io.Path;
-import openfl.events.UncaughtErrorEvent;
 import sys.io.Process;
 #end
 import flixel.FlxG;
@@ -107,20 +113,24 @@ class Main extends Sprite
 		setupGame();
 	}
 
-	#if mobile
+	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
+	// very cool person for real they don't get enough credit for their work
+	#if CRASHLOG_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
 		var errMsg:String = "";
 		var path:String;
-		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
+		var fullStack:Array<StackItem> = CallStack.callStack();
+		var errorStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
 
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "crash/" + "PsychEngine_" + dateNow + ".txt";
+		path = "./crash/" + "ModBoaEXE_" + dateNow + ".txt";
 
-		for (stackItem in callStack)
+		errMsg += "\n\n ----- Full CallStack -----\n\n";
+		for (stackItem in fullStack)
 		{
 			switch (stackItem)
 			{
@@ -131,16 +141,34 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nErro: "
-			+ e.error
-			+ "\nSó sabo que nada sebo.";
+		errMsg += "\n\n ----- Error CallStack -----\n\n";
+		for (stackItem in errorStack)
+		{
+			switch (stackItem)
+			{
+				case FilePos(s, file, line, column):
+					errMsg += file + " (line " + line + ")\n";
+				default:
+					Sys.println(stackItem);
+			}
+		}
+
+		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/MatheusSilver/Deboa-Deboa\n\n> Crash Handler written by: sqirra-rng";
+
+		if (!FileSystem.exists("./crash/"))
+			FileSystem.createDirectory("./crash/");
+
+		File.saveContent(path, errMsg + "\n");
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
-		Application.current.window.alert(errMsg, "Erro!");
+		Application.current.window.alert(errMsg, "Error!");
+		#if rpc
+		DiscordClient.shutdown();
+		#end
 		Sys.exit(1);
-	}
+	}	
 	#end
 
 	private function setupGame():Void
@@ -178,6 +206,10 @@ class Main extends Sprite
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
+		#end
+
+		#if CRASHLOG_HANDLER
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 
 		#if rpc

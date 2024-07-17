@@ -195,9 +195,15 @@ class MainMenuStateMobile extends MusicBeatState
 			FlxTween.tween(menuItems.members[i], {x: FlxG.width - (2.15+(-i/13))*(menuItems.members[i].width/1.42)}, 0.3, {ease: FlxEase.expoInOut, startDelay: 0.1*(1+2*i)});
 		}
 
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 34, 0, "ModBoa: EXE v" + version, 12);
+		versionShit.scrollFactor.set();
+		versionShit.setFormat("sonic-1-hud-font.ttf", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.updateHitbox();
+		add(versionShit);
+
 		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
 			if(newVersion)
-				{
+			{
 				canClick = false;
 				openSubState(new PopUpSubState("changelog", "changelog", camAchievement, function(){
 					FlxG.save.data.gameVersion = version;
@@ -226,13 +232,6 @@ class MainMenuStateMobile extends MusicBeatState
 			//Mas a questão é que pra isso, o mano vai ter que passar aqui primeiro. (eu acho...)
 			if (ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) test_unlock("toastie");
 		#end
-
-
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 34, 0, "ModBoa: EXE v" + version, 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat("sonic-1-hud-font.ttf", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		versionShit.updateHitbox();
-		add(versionShit);
 
 		super.create();
 
@@ -441,7 +440,7 @@ class MainMenuStateMobile extends MusicBeatState
 		var lerpVal:Float = Utils.CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
-		if (!selectedSomethin && canClick)
+		if (!selectedSomethin && canClick && clicavel)
 		{
 
 			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
