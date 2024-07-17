@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 import GlobalSoundManager.Sounds;
 import flixel.util.FlxColor;
 import Linguagem.LangUtil;
@@ -20,8 +21,14 @@ class PopUpSubState extends MusicBeatSubstate {
     private var titleText:FlxText;
     private var contentText:FlxText;
     private var inAnimation:Bool = true;
+    var callback:() -> Void;
+    var canClick:Bool =false;
     public function new(titleID:String, contentID:String, ?camera:FlxCamera, ?callback:() -> Void, ?yValue:Float = 150, ?otherFont:Bool = false, ?skipAnim:Bool = false) {
         super();
+
+        if(callback!=null) {
+            this.callback = callback;
+        }
 
         background = new FlxSprite();
         background.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
@@ -39,12 +46,7 @@ class PopUpSubState extends MusicBeatSubstate {
         popupBG.screenCenter(XY);
         add(popupBG);
 
-        okButton = new FlxButton(function(){
-            if(callback!=null){
-                callback();
-            }
-            onClick();
-        });
+        okButton = new FlxButton();
         okButton.loadGraphic(Paths.image("mainmenu/btokPOPUP", "preload"));
         if(camera != null) okButton.cameras = [camera];
         okButton.setGraphicSize(Std.int(okButton.width*0.99)); //Aquele um por cento é
@@ -91,6 +93,19 @@ class PopUpSubState extends MusicBeatSubstate {
         }});
     }
 
+    function clickButton() {
+        if(callback!=null){
+            callback();
+        }
+        onClick();
+    }
+
+    override function update(elapsed:Float){
+        if((controls.ACCEPT && canClick) || (Utils.BSLTouchUtils.apertasimples(okButton))) {
+            clickButton();
+        }
+    }
+
     public function showPopup(skipAnim:Bool):Void {
         inAnimation = true;
         
@@ -101,10 +116,14 @@ class PopUpSubState extends MusicBeatSubstate {
             titleText.alpha = 1;
             contentText.alpha = 1;
             inAnimation = false;
+            new FlxTimer().start(0.5, function(timer:FlxTimer){
+                canClick = true;
+            });
             return;
         }
 
         // Tween background alpha to 0.25
+        // chatgpt és tu?
         FlxTween.tween(background, {alpha: 0.25}, 0.5);
 
         // Tween popup, texts, and button alpha to 1
@@ -113,6 +132,7 @@ class PopUpSubState extends MusicBeatSubstate {
         FlxTween.tween(titleText, {alpha: 1}, 0.5);
         FlxTween.tween(contentText, {alpha: 1}, 0.5, {onComplete: function (twn:FlxTween){
             inAnimation = false;
+            canClick = true;
         }});
     }
 }
