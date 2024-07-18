@@ -403,12 +403,8 @@ class FlxGamepadManager implements IFlxInputManager
 		name = name.toLowerCase().remove("-").remove("_");
 		return if (name.contains("ouya"))
 				OUYA; // "OUYA Game Controller"
-			else if (name.contains("wireless controller") || name.contains("ps4"))
-				PS4; // "Wireless Controller" or "PS4 controller"
 			else if (name.contains("logitech"))
 				LOGITECH;
-			else if ((name.contains("xbox") && name.contains("360")) || name.contains("xinput"))
-				XINPUT;
 			else if (name.contains("nintendo rvlcnt01tr"))
 				WII_REMOTE; // WiiRemote with motion plus
 			else if (name.contains("nintendo rvlcnt01"))
@@ -423,8 +419,25 @@ class FlxGamepadManager implements IFlxInputManager
 				SWITCH_JOYCON_RIGHT;
 			else if (name.contains("mfi"))
 				MFI;// Keep last. "mfi" may show up in brand names, words, serials or SKUs
+			else if (identifyDualshock(name))
+				PS4;
 			else
-				UNKNOWN;
+				XINPUT;
+	}
+
+
+	function identifyDualshock(name:String):Bool{
+		//Raiju é controle de rico, slc...
+		return (name.contains("ps4") || name.contains("ps3") || name.contains("dual") || 
+			name.contains("raiju") || name.contains("ds4") || name.contains("twin") || 
+			name.contains("ds3") || name.contains("station") ); //Play ainda tem risco de ser
+	}
+	
+	function identifyXinput(name:String):Bool{
+		//Raiju é controle de rico, slc...
+		return (name.contains("usb") || name.contains("vjoy") || name.contains("xbox") || 
+			name.contains("xinput") || name.contains("360") || name.contains("generic") || 
+			name.contains("ds3") || name.contains("station") ); //Play ainda tem risco de ser
 	}
 
 	function removeGamepad(Device:GameInputDevice):Void
