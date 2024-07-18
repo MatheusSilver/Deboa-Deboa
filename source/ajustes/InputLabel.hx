@@ -6,11 +6,12 @@ import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.lists.FlxGamepadButtonList;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.FlxG;
+import Utils.InputDevices;
 
 class InputLabel extends FlxObject{
 
     var keyboardMode:Bool = true;
-	var gamepadModel:String = "Keyboard";
+	var gamepadModel:InputDevices = AUTO;
 	var gamepad:FlxGamepad;
     public static var instance:InputLabel;
 
@@ -36,8 +37,8 @@ class InputLabel extends FlxObject{
 		if (keyboardMode) keys = ClientPrefs.keyBinds.get(bind);
 		else 			  keys = ClientPrefs.keyBindsGamepad.get(bind);
 
-		var model = keyboardMode ? "Keyboard" : gamepadModel;
-        return 'input/$model/${formatKey(keys[0])}';
+		var model:Dynamic = keyboardMode ? "Keyboard" : gamepadModel;
+        return 'input/${model}/${formatKey(keys[0])}';
 	}
 
 	private function formatKey(inputData:Dynamic):String
@@ -46,24 +47,12 @@ class InputLabel extends FlxObject{
 			else 			  return Input.InputFormatter.getKeyNameGamepad(inputData);
 		}
 
-	private function setGamepadModel(gamepad:FlxGamepad):Void
-	{
-		switch(gamepad.detectedModel){
-			case PS4:
-				gamepadModel = "PS4";
-			case SWITCH_PRO:
-				gamepadModel = "Switch";
-			default:
-				gamepadModel = "Xinput"; //Aparentemente os controles do Steam e do Xbox seguem o mesmo padrão. (Infelizmente não tenho um steam deck pra testar).
-		}
-	}
-
 	private function updateGamepad():Void
 	{
 		if (FlxG.gamepads.lastActive != null){
 			keyboardMode = false;
 			gamepad = FlxG.gamepads.lastActive;
-			setGamepadModel(gamepad);
+			gamepadModel = Utils.GamepadUtil.getDisplayGamepadModel();
 		}else
 			keyboardMode = true;
 			gamepad = null;
