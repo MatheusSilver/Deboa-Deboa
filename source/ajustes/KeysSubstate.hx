@@ -127,9 +127,12 @@ class KeysSubstate extends MusicBeatState {
 		}
 
 		gamepadIcon = new FlxSprite(50,50);
-		if (!Utils.GamepadUtil.getGamepadConnected() && !Main.isKeyboard) gamepadIcon.loadGraphic(Paths.image("input/disconnected", "preload"));
-		else 				    gamepadIcon.loadGraphic(Paths.image('input/${Utils.GamepadUtil.getDisplayGamepadModel()}'));
+		if (!Utils.GamepadUtil.getGamepadConnected() || Main.isKeyboard) 
+			gamepadIcon.loadGraphic(Paths.image("input/disconnected", "preload"));
+		else if (!Main.isKeyboard)
+			gamepadIcon.loadGraphic(Paths.image('input/${Utils.GamepadUtil.getDisplayGamepadModel()}'));
 		
+		//Code issue kek
 		gamepadIcon.antialiasing=ClientPrefs.globalAntialiasing;
 		gamepadIcon.setGraphicSize(125,125);
 		gamepadIcon.updateHitbox();
