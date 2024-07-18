@@ -135,11 +135,13 @@ class CreditsMods extends MusicBeatState
 				BSLSwipeUtils.is_swipping = false;
 			}
 		}else{
-			if (creditList.members[0].tweenController==null){
-				if (controls.UI_UP_P)
-					changeSelection(1);
-				else if (controls.UI_DOWN_P)
-					changeSelection(-1);
+			if(canChange) {
+				if (creditList.members[0].tweenController==null){
+					if (controls.UI_UP_P)
+						changeSelection(1);
+					else if (controls.UI_DOWN_P)
+						changeSelection(-1);
+				}
 			}
 		}
 		super.update(elapsed);
