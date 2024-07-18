@@ -140,6 +140,9 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	override function create()
 	{	
+		if(ClientPrefs.framerate > 60) // Fix temporário pro bug das notas teleportando
+			FlxG.updateFramerate = FlxG.drawFramerate = 60;
+
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		add(bg);
@@ -530,7 +533,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	var endingSong:Bool = false;
 	public function endSong() {
+		if(FlxG.updateFramerate != ClientPrefs.framerate && FlxG.drawFramerate != ClientPrefs.framerate)
+			FlxG.updateFramerate = FlxG.drawFramerate = ClientPrefs.framerate; // Se não tiver isso, o jogo não volta ao cap normal.
+
 		endingSong = true;
+
 		if(FlxG.sound.music!= null)
 		{
 			FlxG.sound.music.stop();		
