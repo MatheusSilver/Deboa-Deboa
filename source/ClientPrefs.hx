@@ -65,8 +65,8 @@ class ClientPrefs
 	public static var freeplayPopUp:Null<Bool> = false;
 	public static var modifiersPopUp:Null<Bool> = false; 
 
-	public static var keyBinds:Map<String, Array<FlxKey>>;
-	public static var keyBindsGamepad:Map<String, Array<FlxGamepadInputID>>;
+	public static var keyBinds:Map<String, Array<FlxKey>> = new Map<String, Array<FlxKey>>();
+	public static var keyBindsGamepad:Map<String, Array<FlxGamepadInputID>> = new Map<String, Array<FlxGamepadInputID>>();
 
 	private static var importantMap:Map<String, Array<String>> = ["flixelSound" => ["volume"]];
 
