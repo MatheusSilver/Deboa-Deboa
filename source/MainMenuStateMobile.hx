@@ -299,8 +299,6 @@ class MainMenuStateMobile extends MusicBeatState
 				case 'story':
 					MusicBeatState.switchState(new Limpeza.EstadoDeLimpeza());
 				case 'freeplay':
-					if(!passouCY)
-						return;
 					MusicBeatState.switchState(new FreeplayState());
 				case 'achievements':
 					MusicBeatState.switchState(new AchievementsMenuState());
