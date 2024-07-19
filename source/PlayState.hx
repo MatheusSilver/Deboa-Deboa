@@ -2766,6 +2766,9 @@ class PlayState extends MusicBeatState
         if (health > 2)
             health = 2;
 
+		if (health < 0)
+			health = 0;
+
 		if (startingSong)
 		{
 			if (startedCountdown)
