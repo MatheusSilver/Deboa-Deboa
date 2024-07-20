@@ -218,7 +218,7 @@ class PlayState extends MusicBeatState
 	public static var goods:Int = 0;
 	public static var sicks:Int = 0;
 
-	public var noteKillOffset:Float = 320;
+	public static var noteKillOffset:Float = 320;
 
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
@@ -2655,8 +2655,7 @@ class PlayState extends MusicBeatState
 		else
 			while (shouldUpdate())
 			{
-				if (SONG.song.toLowerCase() != "confronting-yourself")
-					callOnLuas('onUpdate', [elapsed]);
+				callOnLuas('onUpdate', [elapsed]);
 
 				timeAccumulated -= UPDATE_INTERVAL;
 			}
