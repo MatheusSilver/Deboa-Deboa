@@ -86,7 +86,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var myBf:Boyfriend;
 	var oppBf:Boyfriend;
 
-
 	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myObject:LobbyPlayerObject, oppObject:LobbyPlayerObject) {
 		instance = this;
 		currentMode = modo;
@@ -154,7 +153,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
 		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
 		
-		strumLine = new FlxSprite(PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
+		strumLine = new FlxSprite(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
 		
@@ -1157,7 +1156,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		{
 			// FlxG.log.add(i);
             var babyArrow:StrumNote;
-			babyArrow = new StrumNote(PlayState.STRUM_X, strumLine.y, i, player);
+			babyArrow = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
 
 			babyArrow.alpha = 0;
 			FlxTween.tween(babyArrow, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
