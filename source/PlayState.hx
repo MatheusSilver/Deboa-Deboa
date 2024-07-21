@@ -403,6 +403,7 @@ class PlayState extends MusicBeatState
 
 	var isexe:Bool = true;
 	public var cNum:Int = 0;
+	public var realCNum:Int = 0;
 	
 	public static var vimdopause:Bool = false;
 	public static var newSongSpeed:Float;
@@ -3776,7 +3777,7 @@ class PlayState extends MusicBeatState
 						startachieving('eggman_free');
 
 					case 4120:
-						if (cNum >= 63 && !cpuControlled && !usedPractice) // Estou sendo legal e estou deixando você perder um anel
+						if (realCNum >= 63 && !cpuControlled && !usedPractice) // Estou sendo legal e estou deixando você perder um anel
 							startachieving('rings');
 				}
 
@@ -5549,6 +5550,7 @@ class PlayState extends MusicBeatState
 			if (isRing && note.noteData == 2)
 			{
 				cNum += 1;
+				realCNum += 1;
 				ring.play(true);
 			}
 			if (canRegen)
