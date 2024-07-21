@@ -320,6 +320,9 @@ class GameJoltLoginState extends MusicBeatState
         FlxG.save.data.progress = "1,0,0,0,0,0,0,0,0";
         MenuPreHistoria.curSave = FlxG.save.data.progress;
         GJClient.setData(MenuPreHistoria.curSave, "progress");
+        FlxG.save.data.freeplayProgress = 1;
+        FreeplayState.progressFreeplay = FlxG.save.data.freeplayProgress;
+        GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
     }
             
 }
