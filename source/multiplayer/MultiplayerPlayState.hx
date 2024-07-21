@@ -54,6 +54,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
 	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
+	public var strumBGS:FlxTypedGroup<StrumBG>;
 
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
@@ -152,6 +153,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		set = new FlxSprite().loadGraphic(Paths.image('set', 'shared'));
 		go = new FlxSprite().loadGraphic(Paths.image('go', 'shared'));
 		
+		if (ClientPrefs.focus){
+			strumBGS = new FlxTypedGroup<StrumBG>(3);
+			add(strumBGS);
+		}
+
+
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
@@ -163,6 +170,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
+
+		if (ClientPrefs.focus)
+			strumBGS.add(new StrumBG(playerStrums));
+
+		if (ClientPrefs.focus)
+			strumBGS.add(new StrumBG(opponentStrums));
 
 
 		generateStaticArrows(0, oppSkin);
