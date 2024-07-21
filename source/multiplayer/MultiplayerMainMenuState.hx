@@ -27,6 +27,7 @@ import multiplayer.entities.*;
 import io.colyseus.serializer.schema.Schema;
 import io.colyseus.serializer.schema.types.*;
 import gamejolt.*;
+import Utils;
 
 using StringTools;
 
@@ -111,6 +112,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var TrocarLados:Bool = false;
 
 	public var musicas:Array<Dynamic> = [];
+	public var musicasDesbloqueadas:Array<Dynamic> = [];
 	public var MusicaAtual:Int = 0;
 
 	public var roomList:RoomList;
@@ -137,6 +139,19 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 		
 		return nomesEPaths;
+	}
+
+	function getAllUnlockedSongs():Array<Dynamic> 
+	{
+		var myPossibleSongs:Int = ProgressionUtil.terminouHistoria() && FlxG.save.data.freeplayProgress > 0 ? ProgressionUtil.getSaveSum()+Std.int(FlxG.save.data.freeplayProgress-1) : ProgressionUtil.getSaveSum();
+		var retornar:Array<Dynamic> = new Array<Dynamic>();
+		for (i in 0...musicas.length) {
+			if(i < myPossibleSongs-1) {
+				retornar.push(musicas[i]);
+			}
+		}
+		
+		return retornar;
 	}
 
 	var idConvite:String = "";
@@ -281,6 +296,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		modifiers.ModifiersManager.currentModifiers = [];
 		client = new Client(servidor);
 		musicas = getAllSongs();
+		musicasDesbloqueadas = getAllUnlockedSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, Linguagem.LangUtil.getString("main_label", "multiplayer"), 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		multiplayerTxt.y = -1500;
@@ -1318,7 +1334,7 @@ class OptionsSubstate extends MusicBeatSubstate
 	//name, type, desc
 	var options:Array<Dynamic> = [
 		[Linguagem.LangUtil.getString("opt_gamemode_name", "multiplayer"), 1, Linguagem.LangUtil.getString("opt_gamemode_desc", "multiplayer"), ["ModoDeJogo", "modos", true]],
-		[Linguagem.LangUtil.getString("opt_cursong_name", "multiplayer"), 1, Linguagem.LangUtil.getString("opt_cursong_desc", "multiplayer"), ["MusicaAtual", "musicas", false]], 
+		[Linguagem.LangUtil.getString("opt_cursong_name", "multiplayer"), 1, Linguagem.LangUtil.getString("opt_cursong_desc", "multiplayer"), ["MusicaAtual", "musicasDesbloqueadas", false]], 
 		[Linguagem.LangUtil.getString("opt_changesides_name", "multiplayer"), 0, Linguagem.LangUtil.getString("opt_changesides_desc", "multiplayer"), ["TrocarLados"]]
 	];
 

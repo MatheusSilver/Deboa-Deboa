@@ -134,6 +134,8 @@ class MainMenuStateMobile extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
+
+		// FUNFACT: O nome disso é machine pq quando eu tinha um pc ruim demorava um ano pra compilar a source pela primeira vez, e como eu só mexia com lua e não mudava muito a source, eu ficava reusando a mesma source pros mods que eu fazia. E antes da vio me chamar pra começar o modboa, eu tava fazendo um mod de catghost e o menu era dentro uma maquina de arcade. Enfim, ta aí até hj (desde 2021).
 		machine = new FlxSprite(0).loadGraphic(Paths.image('menus/faixa', 'preload'));
 		machine.scrollFactor.x = 0;
 		machine.scrollFactor.y = 0;
@@ -368,6 +370,7 @@ class MainMenuStateMobile extends MusicBeatState
 	{
 		#if debug
 		if(FlxG.keys.justPressed.FOUR) giveAchievement('modboa');
+		//if(FlxG.keys.justPressed.NINE) GameJoltLoginState.resetAllProgress();
 		/*if(FlxG.keys.justPressed.NINE) {
 			for (i in 0...Achievements.achievementsStuff.length) {
 				GJClient.trophieRemove(Achievements.achievementsStuff[i][2]);

@@ -313,5 +313,13 @@ class GameJoltLoginState extends MusicBeatState
             trace("New Data GJ: " + GJClient.getData("progressFreeplay"));
         }
     }
+
+    public static function resetAllProgress() 
+    {
+        trace("resetando todo o progresso");
+        FlxG.save.data.progress = "1,0,0,0,0,0,0,0,0";
+        MenuPreHistoria.curSave = FlxG.save.data.progress;
+        GJClient.setData(MenuPreHistoria.curSave, "progress");
+    }
             
 }
