@@ -50,7 +50,7 @@ class LegendaManager {
         var legenda:LegendaObject = findLegendaWithIndex(id);
         if(legenda == null) return;
         legendas.remove(legenda);
-        legenda.fadeOut();
+        parent.remove(legenda);
         atualizarY();
     }
 

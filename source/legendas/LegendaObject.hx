@@ -5,8 +5,6 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import ClientPrefs;
 import flixel.FlxState;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 
 class LegendaObject extends FlxSpriteGroup {
 
@@ -17,14 +15,12 @@ class LegendaObject extends FlxSpriteGroup {
     var legendPath:String;
     public var index:Int = 0;
     public var newIndex:Int = 0;
-    var parent:FlxState;
 
     public function new(textoLocation:String, fundoLocation:String, legendPath:String, parent:FlxState, index:Int) {
         super();
 
         this.index = index;
         this.legendPath = legendPath;
-        this.parent = parent;
         fundo = new FlxSprite(0,0);
         texto = new FlxSprite(0,0);
         var algum:Bool = false;
@@ -44,25 +40,13 @@ class LegendaObject extends FlxSpriteGroup {
             algum = true;
         }
 
-        this.alpha = 0;
+        this.alpha = ClientPrefs.opacidadeLegendas;
 
         if(algum)
             parent.add(this);
-            fadeIn();
             return;
 
         LegendaManager.instance.removeLegenda(this.index);
-    }
-
-    public function fadeIn() {
-        FlxTween.tween(this, {alpha: ClientPrefs.opacidadeLegendas}, 0.05, {ease: FlxEase.linear});
-    }
-
-    public function fadeOut() {
-        FlxTween.tween(this, {alpha: 0}, 0.05, {ease: FlxEase.linear, onComplete: function(tween:FlxTween){
-            parent.remove(this);
-            this.kill();
-        }});
     }
 
     public function updateLegenda(novoTexto:String, novoFundo:String) {
