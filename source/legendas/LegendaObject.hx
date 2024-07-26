@@ -55,14 +55,17 @@ class LegendaObject extends FlxSpriteGroup {
     }
 
     public function fadeIn() {
-        FlxTween.tween(this, {alpha: ClientPrefs.opacidadeLegendas}, 0.05, {ease: FlxEase.linear});
+        alpha = ClientPrefs.opacidadeLegendas;
+        //FlxTween.tween(this, {alpha: ClientPrefs.opacidadeLegendas}, 0.05, {ease: FlxEase.linear});
     }
 
     public function fadeOut() {
-        FlxTween.tween(this, {alpha: 0}, 0.05, {ease: FlxEase.linear, onComplete: function(tween:FlxTween){
+        parent.remove(this);
+        this.kill();
+        /*FlxTween.tween(this, {alpha: 0}, 0.05, {ease: FlxEase.linear, onComplete: function(tween:FlxTween){
             parent.remove(this);
             this.kill();
-        }});
+        }});*/
     }
 
     public function updateLegenda(novoTexto:String, novoFundo:String) {

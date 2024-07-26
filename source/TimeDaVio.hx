@@ -247,7 +247,7 @@ class TimeDaVio extends MusicBeatState
 
 		if (BSLSwipeUtils.is_swipping) BSLSwipeUtils.resetScrolls();
 
-		if (curSelectedBkp > 8)
+		if (curSelectedBkp > 7)
 		{
 			FlxTween.tween(bgCima, {y: -720}, 0.65, {ease: FlxEase.quartInOut});
 			FlxTween.tween(bgBaixo, {y: 720}, 0.8, {ease: FlxEase.quartInOut});
@@ -275,7 +275,7 @@ class TimeDaVio extends MusicBeatState
 
 		new FlxTimer().start(1.05, function(tmr:FlxTimer)
 		{
-			if (curSelected > 8)
+			if (curSelected > 7)
 			{
 				estante.x = 593;
 				perfil.x = -1280;

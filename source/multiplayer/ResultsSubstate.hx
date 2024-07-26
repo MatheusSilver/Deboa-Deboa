@@ -4,20 +4,17 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
+import flixel.group.FlxSpriteGroup;
 
-class ResultsSubstate extends MusicBeatSubstate
+class ResultsSubstate extends FlxSpriteGroup
 {
-    public static var opp_name:String = "";
-    public static var opp_data:Array<Int> = [];
-    public static var opp_accuracy:Int;
-    public static var opp_high_combo:Int;
-    public static var opp_score:Int;
-
     var opp_box:ResultsObject;
     var player_box:ResultsObject;
 
-    public function new(player_results:Array<Int>, player_accuracy:Float, player_high_combo:Int, player_score:Int, player_name:String)
+    public function new(myProperties:PlayerProperties, oppProperties:PlayerProperties, amPlayer1:Bool)
     {
+        super(x,y);
+
         var black_overlay:FlxSprite = new FlxSprite(0,0).makeGraphic(1,1, FlxColor.BLACK);
         black_overlay.setGraphicSize(FlxG.width, FlxG.height);
         black_overlay.alpha = 0.3;
@@ -33,23 +30,22 @@ class ResultsSubstate extends MusicBeatSubstate
         var diff_text:FlxText = new FlxText(0,song_name.y+song_name.height + 5, 0, "hard", 32);
         diff_text.setFormat(Linguagem.LangUtil.getFont("smb"), 20, FlxColor.RED, LEFT);
 
-        opp_box = new ResultsObject(FlxColor.RED, [1,2,3,4], 0.5, 10, 100, true);
+        opp_box = new ResultsObject(FlxColor.RED, oppProperties.results, oppProperties.accuracy, oppProperties.high_combo, oppProperties.score, true);
         opp_box.y = (FlxG.height-opp_box.height)/2+50;
-        opp_box.x = FlxG.width - opp_box.width;
+        opp_box.x = !amPlayer1 ? FlxG.width - opp_box.width : 0;
         
-        player_box = new ResultsObject(FlxColor.BLUE, [1,2,3,4], 0.5, 10, 100, false);
+        player_box = new ResultsObject(FlxColor.BLUE, myProperties.results, myProperties.accuracy, myProperties.high_combo, myProperties.score, false);
         player_box.y = opp_box.y;
-        player_box.x = 0;
+        player_box.x = !amPlayer1 ? 0 : FlxG.width - opp_box.width;
 
-        var opp_name:FlxText = new FlxText(opp_box.x, opp_box.y-40, opp_box.width, opp_name, 24);
+        var opp_name:FlxText = new FlxText(opp_box.x, opp_box.y-40, opp_box.width, oppProperties.name, 24);
         opp_name.setFormat(Linguagem.LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         
-        var player_name:FlxText = new FlxText(player_box.x, player_box.y-40, player_box.width, player_name, 24);
+        var player_name:FlxText = new FlxText(player_box.x, player_box.y-40, player_box.width, myProperties.name, 24);
         player_name.setFormat(Linguagem.LangUtil.getFont("vio"), 26, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
 
 
-        super();
         
         add(black_overlay);
         add(upper_black);
@@ -63,5 +59,21 @@ class ResultsSubstate extends MusicBeatSubstate
 
         player_box.intro_anim([1,2,3,4], 100);
 
+    }
+}
+
+class PlayerProperties {
+    public var results:Array<Int>;
+    public var accuracy:Float;
+    public var high_combo:Int;
+    public var score:Int;
+    public var name:String;
+
+    public function new(name:String, score:Int, high_combo:Int, accuracy:Float, results:Array<Int>) {
+        this.name = name;
+        this.score = score;
+        this.high_combo = high_combo;
+        this.accuracy = accuracy;
+        this.results = results;
     }
 }

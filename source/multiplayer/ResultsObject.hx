@@ -20,6 +20,8 @@ class ResultsObject extends FlxSpriteGroup
     private var score_bottom_text:FlxText;
     private var scoreTxt:FlxText;
 
+    // se pa tudo aqui vai ter que ser refeito k
+
     public function new(bgcolor:FlxColor, results_array:Array<Int>, accuracy:Float, high_combo:Int, score:Int, ?startReady:Bool = true){
         
         //Bloco de cima

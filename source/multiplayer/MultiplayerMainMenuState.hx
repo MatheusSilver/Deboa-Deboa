@@ -296,7 +296,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		modifiers.ModifiersManager.currentModifiers = [];
 		client = new Client(servidor);
 		musicas = getAllSongs();
-		musicasDesbloqueadas = getAllUnlockedSongs();
+		musicasDesbloqueadas = musicas;//getAllUnlockedSongs();
 		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, Linguagem.LangUtil.getString("main_label", "multiplayer"), 100);
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		multiplayerTxt.y = -1500;
@@ -527,6 +527,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 			MultiplayerPlayState.instance.opponentScore = message.score;
 		});
 
+		curRoom.onMessage("enviarFinalScore", function(message) {
+			if(!isPlayingMatch)
+				return;
+			MultiplayerPlayState.instance.oppCombo = message.combo;
+			MultiplayerPlayState.instance.oppResults = message.hits;
+			MultiplayerPlayState.instance.oppAccuracy = message.accuracy;
+		});
+
 		curRoom.onMessage("queroSair", function(message) {
 			if(!isPlayingMatch)
 				return;
@@ -697,12 +705,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 		curRoom.send("enviarMisses", {hits: hits, misses: misses, score: score});
 	}
 
-	public function send_results(hits:Array<Int>, combo:Int, score:Int, playerName:String)
+	public function send_results(hits:Array<Int>, combo:Int, accuracy:Float)
 	{
-		var hits_message:String = '';
-		for (hit in hits){hits_message += Std.string(hit) + ", ";}
-		hits_message = hits_message.substring(0, hits_message.length - 2); //Serve para remover o último ", "
-		//usuario.send({myID: myID, message: Std.string(myID) + "\n" + hits_message + "\n" + Std.string(combo) + "\n" + Std.string(score) + "\n" + playerName, verb: 'results'});
+		if(!isPlayingMatch || curRoom == null)
+			return;
+		curRoom.send("enviarFinalScore", {hits: hits, combo: combo, accuracy: accuracy});
 	}
 
 	public function endMatch()

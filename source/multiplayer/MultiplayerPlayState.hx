@@ -1,6 +1,7 @@
 package multiplayer;
 
 
+import multiplayer.ResultsSubstate.PlayerProperties;
 import FunkinLua;
 import Song.SwagSection;
 import Song.SwagSong;
@@ -87,6 +88,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 	var myBf:Boyfriend;
 	var oppBf:Boyfriend;
+	var oppName:String;
 
 	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myObject:LobbyPlayerObject, oppObject:LobbyPlayerObject) {
 		instance = this;
@@ -95,6 +97,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		oppSkin = oppObject.noteSkin;
 		myBf = new Boyfriend(0, 0, myObject.charID);
 		oppBf = new Boyfriend(0, 0, oppObject.charID);
+		oppName = oppObject.nome;
 
 		this.startPos = startPos;
 		Song.Conductor.songPosition = startPos - startOffset;
@@ -273,6 +276,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		terminarTxt.visible = false;
 		add(terminarTxt);
 
+		RecalculateRating();
 		super.create();
 	}
 
@@ -554,19 +558,52 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			vocals.destroy();
 		}
 
-		//MultiplayerMainMenuState.instance.send_results([sicks, goods, bads, shits], combo, songScore, GJClient.userName);
 		if(podeTerminar > 1)
 		{
 			close();
 		}
 		else
 		{
-			mostrarResults();
+			MultiplayerMainMenuState.instance.send_results([sicks, goods, bads, shits], combo, accuracy);
+			if(FlxG.sound.music != null)
+				{
+					FlxG.sound.music.volume = 0;	
+				}
+			new FlxTimer().start(5, function(tmr:FlxTimer) {
+				mostrarResults();
+			});
 		}
         trace("cabou !");
 	}
+	
+	public var oppCombo:Int;
+	public var oppAccuracy:Float;
+	public var oppResults:Array<Int>;
+	function mostrarResults() {
+		if(FlxG.sound.music != null)
+			{
+				FlxG.sound.music.volume = 0;	
+			}
 
-	function mostrarResults()
+		var resultsScreen:ResultsSubstate = new ResultsSubstate(new PlayerProperties(gamejolt.GJClient.userName, songScore, combo, accuracy, [sicks, goods, bads, shits]), new PlayerProperties(oppName, opponentScore, oppCombo, oppAccuracy, oppResults), isPlayer1);
+		add(resultsScreen);
+		switch(euGanhei())
+		{
+			case 0:
+				trace(Linguagem.LangUtil.getString("results_tie_text", "multiplayer"));
+			case 1:
+				trace(Linguagem.LangUtil.getString("results_win_text", "multiplayer"));
+			case -1:
+				trace(Linguagem.LangUtil.getString("results_lose_text", "multiplayer"));
+		}
+		new FlxTimer().start(18, function(tmr:FlxTimer) {
+			close();
+		});
+	}
+
+
+
+	/*function mostrarResults()
 	{
 		if(FlxG.sound.music != null)
 		{
@@ -597,7 +634,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		new FlxTimer().start(5, function(tmr:FlxTimer) {
 			close();
 		});
-	}
+	}*/
 
 	function euGanhei():Int
 	{
@@ -1140,6 +1177,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var shits:Int = 0;
 	var bads:Int = 0;
 	var goods:Int = 0;
+	var accuracy:Float;
 	private function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Song.Conductor.songPosition + 8); 
@@ -1187,6 +1225,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 				daRating = 'good'
 			else if (combo > 4)
 				daRating = 'bad';
+
+		RecalculateRating();
 	}
 
 
@@ -1259,6 +1299,36 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 		splash.setupNoteSplash(x, y, data, skin, hue, sat, brt);
 		grpNoteSplashes.add(splash);
+	}
+
+	public var ratingString:String;
+	public var ratingPercent:Float;
+	public function RecalculateRating()
+	{
+		ratingPercent = songScore / ((songHits + songMisses) * 300);
+		if (!Math.isNaN(ratingPercent) && ratingPercent < 0)
+			ratingPercent = 0;
+
+		if (Math.isNaN(ratingPercent))
+		{
+			ratingString = '?';
+		}
+		else if (ratingPercent >= 1)
+		{
+			ratingPercent = 1;
+			ratingString = Linguagem.LangUtil.getString("play_rating_"+PlayState.ratingStuff[PlayState.ratingStuff.length - 1][0], "playstate"); // Uses last string
+		}
+		else
+		{
+			for (i in 0...PlayState.ratingStuff.length - 1)
+			{
+				if (ratingPercent < PlayState.ratingStuff[i][1])
+				{
+					ratingString = Linguagem.LangUtil.getString("play_rating_"+PlayState.ratingStuff[i][0], "playstate");
+					break;
+				}
+			}
+		}
 	}
 	
 	override function destroy() {
