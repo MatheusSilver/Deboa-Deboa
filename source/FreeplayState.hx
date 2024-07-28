@@ -269,8 +269,8 @@ class FreeplayState extends MusicBeatState
 
 		scoreText.text = Linguagem.LangUtil.getString("label_high_score", "data") + ' (' + Math.round(lerpMultiplier * 100) / 100 + "X) " + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 
-		var upP = controls.UI_UP_P;
-		var downP = controls.UI_DOWN_P;
+		var upP = controls.UI_UP;
+		var downP = controls.UI_DOWN;
 		var accepted = controls.ACCEPT;
 		var space = #if desktop FlxG.keys.justPressed.SPACE #elseif mobileC ui.MobileControls.FlxVirtualPad.instance.buttonX.justPressed #end;
 		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC ui.MobileControls.FlxVirtualPad.instance.buttonY.justPressed #end;

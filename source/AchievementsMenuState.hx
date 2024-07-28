@@ -186,11 +186,11 @@ class AchievementsMenuState extends MusicBeatState
 			return;
 
 		Utils.BSLSwipeUtils.swipeVertical();
-		if (controls.UI_UP_P && apertavel)
+		if (controls.UI_UP && apertavel)
 		{
 			changeSelection(-1);
 		}
-		if (controls.UI_DOWN_P && apertavel)
+		if (controls.UI_DOWN && apertavel)
 		{
 			changeSelection(1);
 		}
