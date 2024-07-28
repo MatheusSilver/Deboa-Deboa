@@ -319,6 +319,7 @@ class MP4Sprite extends FlxVideoSprite
 			}
 	}
 
+	var alreadySkipped:Bool = false;
 	public function onVLCComplete()
 	{
 		if (curState == EDITOR)
@@ -337,8 +338,9 @@ class MP4Sprite extends FlxVideoSprite
 				{
 					if(curState == GameState.NORMAL) // acho que da pra otimizar esses ifs aqui mas n to com mto tempo pra gastar nisso
 					{
-						if(parentState!=null)
+						if(parentState!=null && !alreadySkipped)
 						{
+							alreadySkipped = true;
 							parentState.openSubState(new LoadingState.LoadingsState());
 						}
 						LoadingState.loadAndSwitchState(new PlayState());
