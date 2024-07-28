@@ -21,6 +21,7 @@ import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
+import ui.FakeMouse;
 
 
 using StringTools;
@@ -45,6 +46,8 @@ class ModifiersMenuState extends MusicBeatSubstate
     var canClick:Bool = false;
 
     var isFreeplay:Bool = false;
+
+    var fakeMouse:FakeMouse;
 
 	public function new(isFreeplay:Bool)
 	{
@@ -107,9 +110,12 @@ class ModifiersMenuState extends MusicBeatSubstate
             x1+=135;
         }
         trace(delay);
+
+        fakeMouse = new FakeMouse();
         
         add(text);
         add(textMultiplier);
+        add(fakeMouse);
         calculateMultiplier();
         pontosMultiLerp = pontosMulti;
         tweenCoisos();
@@ -169,10 +175,17 @@ class ModifiersMenuState extends MusicBeatSubstate
         currentButton = null;
         for (button in buttons)
             {
-                if (Utils.BSLTouchUtils.over(button) && canClick)
-                {
-                    currentButton = button;
-                    break;
+                if(Main.getMouseVisibility()) {
+                    if (Utils.BSLTouchUtils.over(button) && canClick)
+                        {
+                            currentButton = button;
+                            break;
+                        }
+                } else {
+                    if (FlxG.overlap(button, fakeMouse) && canClick) {
+                        currentButton = button;
+                        break;
+                    }
                 }
             }
         if(currentButton != null && canClick)
@@ -187,7 +200,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
 			pontosMultiLerp = pontosMulti;
         textMultiplier.text = "X"+Std.string(Math.round(pontosMultiLerp*100)/100);
-        if(Utils.BSLTouchUtils.justTouched() && currentButton != null && canClick)
+        if((Main.getMouseVisibility() ? Utils.BSLTouchUtils.justTouched() : controls.ACCEPT) && currentButton != null && canClick)
             {
                 currentButton.clique();
                 for (button in buttons)

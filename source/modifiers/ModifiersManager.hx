@@ -157,6 +157,6 @@ class ModifiersManager
 
     public static function isUsingModifiers():Bool
     {
-        return getFinalModifier() != 1;
+        return currentModifiers != []; //Uma forma mais direta k
     }
 }
