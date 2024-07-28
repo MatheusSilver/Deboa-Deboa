@@ -38,24 +38,27 @@ class GameJoltUserObject extends FlxSpriteGroup
 				GameJoltLoginState.syncProgressFreeplay();
 				MainMenuStateMobile.verificaDnvIdiota = false;
 			}
-
-			var loader:Loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
-				var bmp:Bitmap = cast(loader.content, Bitmap);
-				var bmd:BitmapData = bmp.bitmapData;
-				userIcon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
-				userIcon.setGraphicSize(Std.int(userOutline.width), Std.int(userOutline.height));
-				userIcon.updateHitbox();
-				var tempMask:FlxSprite = new FlxSprite(icon_pos[0], icon_pos[1]);
-				//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
-				tempMask.makeGraphic(Std.int(userOutline.width), Std.int(userOutline.height), FlxColor.TRANSPARENT);
-				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width+OUTLINE_SIZE)/2,(tempMask.height+OUTLINE_SIZE)/2,Math.min(tempMask.width, tempMask.height)/2-OUTLINE_SIZE,FlxColor.RED);
-				// add(tempCircle);
-				FlxSpriteUtil.alphaMaskFlxSprite(userIcon, tempCircle, userIcon);
-				tempMask.destroy();
-				tempCircle.destroy();
-			});
-			loader.load(new URLRequest(GJClient.avatarURL.replace("/60/",'/${Std.int(userOutline.height)}/').replace(".webp", ".png")));
+			
+			if(!GJClient.avatarURL.contains("no-avatar"))
+			{
+				var loader:Loader = new Loader();
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
+					var bmp:Bitmap = cast(loader.content, Bitmap);
+					var bmd:BitmapData = bmp.bitmapData;
+					userIcon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
+					userIcon.setGraphicSize(Std.int(userOutline.width), Std.int(userOutline.height));
+					userIcon.updateHitbox();
+					var tempMask:FlxSprite = new FlxSprite(icon_pos[0], icon_pos[1]);
+					//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
+					tempMask.makeGraphic(Std.int(userOutline.width), Std.int(userOutline.height), FlxColor.TRANSPARENT);
+					var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width+OUTLINE_SIZE)/2,(tempMask.height+OUTLINE_SIZE)/2,Math.min(tempMask.width, tempMask.height)/2-OUTLINE_SIZE,FlxColor.RED);
+					// add(tempCircle);
+					FlxSpriteUtil.alphaMaskFlxSprite(userIcon, tempCircle, userIcon);
+					tempMask.destroy();
+					tempCircle.destroy();
+				});
+				loader.load(new URLRequest(GJClient.avatarURL.replace("/60/",'/${Std.int(userOutline.height)}/').replace(".webp", ".png")));
+			}
 		}
 
 		if(userIcon.graphic == null) {
