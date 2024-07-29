@@ -23,7 +23,7 @@ function onCreate()
 end
 
 function onSongStart()
-    triggerEvent('video player','AnimacoesJogaveis/finale_intro', '1', 'false')
+    --triggerEvent('video player','AnimacoesJogaveis/finale_intro', '1', 'false') NAO CHAME OS VIDEOS POR LUA!!!!!
 end
 
 
@@ -307,9 +307,6 @@ function onEvent(name, value1, value2)
         end
         if value1 =='GranFinale-ato3bf' then -- cara a cara
             zoomModifier=false
-        end
-        if value1== 'videoend' then
-            triggerEvent('video player','AnimacoesJogaveis/GranFinale_end', '1', 'false', 'true')
         end
         if value1== 'cleanstage' then
             setProperty('camHUD.visible', false)

@@ -63,6 +63,15 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
+						0,
+						-1,
+						"video player",
+						"AnimacoesJogaveis/finale_intro",
+						"1",
+						"false",
+						""
+					],
+					[
 						6538.46153846154,
 						-1,
 						"trocar ato",
@@ -2977,11 +2986,11 @@
 					[
 						311230.769230769,
 						-1,
-						"trocar ato",
-						"videoend",
-						"",
-						"",
-						""
+						"video player",
+						"AnimacoesJogaveis/GranFinale_end",
+						"1",
+						"false",
+						"true"
 					]
 				],
 				"bpm": 0,
