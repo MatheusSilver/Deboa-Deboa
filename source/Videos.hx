@@ -266,16 +266,21 @@ class MP4Sprite extends FlxVideoSprite
 	private var curState:GameState;
 	var parentState:FlxState;
 
+	var isPrecached:Bool = false;
+	public var videoName:String;
+
 	public var controls(get, never):Input.Controls;
 	inline function get_controls():Input.Controls
 		return Input.PlayerSettings.player1.controls;
 
 	
-	public function new(x:Int=0, y:Int=0, curState:GameState)
+	public function new(x:Int=0, y:Int=0, curState:GameState, ?precached:Bool = false)
 	{
 		super(x,y);
 		this.moves = false;
 		this.curState = curState;
+		this.isPrecached = precached;
+
 		FlxG.autoPause = false;
 
 		this.bitmap.onOpening.add(onVLCVideoReady);
@@ -288,10 +293,18 @@ class MP4Sprite extends FlxVideoSprite
 		parentState = parent;
 	}
 
+	public function precache(file:String) {
+		this.load(checkFile(file), 0);
+		this.videoName = file;
+		canSkip=false;
+	}
+
 	public function playMP4(file:String, ?repeat:UInt=0, ?oldPosition:Float, ?nextState:FlxState):Void
 	{
 		this.oldPosition = oldPosition;
-		this.load(checkFile(file), repeat);
+		if(!isPrecached) {
+			this.load(checkFile(file), repeat);
+		}
 		this.play();
 		this.nextState = nextState;
 		this.bitmap.mute = false;

@@ -1635,6 +1635,8 @@ class PlayState extends MusicBeatState
 	public var videoSpr:MP4Sprite;
 	public var letext:SkipText;
 
+	var precachedVideos:Array<MP4Sprite> = [];
+
 	public function videoPlayer(nomedovideo:String, audioVolume:String, ?muteplayAudio:String, ?endingSong1:String)
 	{
 		var oldPosition:Float = Song.Conductor.songPosition / 1000;
@@ -1643,7 +1645,17 @@ class PlayState extends MusicBeatState
 		if (Assets.exists(diretorio))
 		{
 			endingSong = endingSong1=="true";
-			videoSpr = new MP4Sprite(0, 0, PLAYSTATE);
+
+			for (videoSprite in precachedVideos) {
+				if(videoSprite.videoName == diretorio) {
+					videoSpr = videoSprite;
+					precachedVideos.remove(videoSprite);
+					break;
+				}
+			}
+
+			if(videoSpr == null) videoSpr = new MP4Sprite(0, 0, PLAYSTATE);
+
 			videoSpr.visible = true;
 			videoSpr.canSkip = true;
 			// if(audioVolume != '' || audioVolume != null){video.videoVolume = Std.parseFloat(audioVolume);}
@@ -2314,6 +2326,13 @@ class PlayState extends MusicBeatState
 							precacheList.set(legendPath + event[i], 'image');
 					}
 
+				}
+			case 'video player':
+				if (OpenFlAssets.exists(Paths.video(event[3]))) {
+					var video:MP4Sprite = new MP4Sprite(0, 0, PLAYSTATE, true);
+					video.precache(Paths.video(event[3]));
+					precachedVideos.push(video);
+					trace("Fazendo precache do video: "+event[3]);
 				}
 		}
 
