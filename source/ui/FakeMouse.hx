@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxColor;
 import Input.PlayerSettings;
+import flixel.FlxCamera;
 
 class FakeMouse extends FlxSprite {
     public var baseSpeed:Float;
@@ -15,6 +16,8 @@ class FakeMouse extends FlxSprite {
     public var speedY:Float = 0;
     public var enabled:Bool = false;
 
+    public static var instance:FakeMouse;
+
     public function new(center:Bool = true, BaseSpeed:Float = 700, Acceleration:Float = 300, MaxSpeed:Float = 1300) {
         super(center ? (FlxG.width / 2) - 10 : 0, center ? (FlxG.height / 2) - 10 : 0);
         loadGraphic(Paths.image('input/fakePointer', 'preload'));
@@ -22,6 +25,7 @@ class FakeMouse extends FlxSprite {
         baseSpeed = BaseSpeed;
         _acceleration = Acceleration;
         maxSpeed = MaxSpeed;
+        instance = this;
     }
 
     private var UPDATE_INTERVAL:Float = 1.0 / 60.0;
@@ -83,7 +87,7 @@ class FakeMouse extends FlxSprite {
         if (y > FlxG.height - height) y = FlxG.height - height;
     }
 
-    private var controls(get, never):Input.Controls;
+    public var controls(get, never):Input.Controls;
 
     inline function get_controls():Input.Controls {
         return PlayerSettings.player1.controls;

@@ -393,6 +393,8 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		var overlapFound = checkMouseOverlap();
 		if (!overlapFound)
 			overlapFound = checkTouchOverlap();
+		if (!overlapFound && !Main.getMouseVisibility())
+			overlapFound = checkFakeMouseOverlap();
 
 		if (currentInput != null && currentInput.justReleased && overlapFound)
 		{
@@ -442,6 +444,18 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		return overlap;
 	}
 
+	function checkFakeMouseOverlap():Bool
+	{
+		var overlap = false;
+		if(FakeMouse.instance != null) {
+			if (checkFakeInput(FakeMouse.instance))
+				{
+					overlap = true;
+				}
+		}
+		return overlap;
+	}
+
 	function checkInput(pointer:FlxPointer, input:IFlxInput, justPressedPosition:FlxPoint, camera:FlxCamera):Bool
 	{
 		if (maxInputMovement != Math.POSITIVE_INFINITY
@@ -459,12 +473,22 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 		return false;
 	}
 
+	function checkFakeInput(fakePointer:FakeMouse) {
+		if (fakePointer.overlaps(this))
+			{
+				updateStatus(input, true);
+				return true;
+			}
+
+		return false;
+	}
+
 	/**
 	 * Updates the button status by calling the respective event handler function.
 	 */
-	function updateStatus(input:IFlxInput):Void
+	function updateStatus(input:IFlxInput, ?isFakePointer:Bool = false):Void
 	{
-		if (input.justPressed)
+		if (input.justPressed || (isFakePointer && FakeMouse.instance.controls.ACCEPT && !Main.getMouseVisibility()))
 		{
 			currentInput = input;
 			onDownHandler();
