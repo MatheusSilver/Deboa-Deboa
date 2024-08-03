@@ -425,7 +425,7 @@ class FriendObject extends FlxSpriteGroup
 				var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
 				//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
 				tempMask.makeGraphic(Std.int(icon.width), Std.int(icon.height), FlxColor.TRANSPARENT);
-				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width+3)/2,(tempMask.height+3)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
+				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
 				// add(tempCircle);
 				FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
 				tempMask.destroy();

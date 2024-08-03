@@ -218,6 +218,7 @@ class GameJoltLoginState extends MusicBeatState
                 FlxG.save.data.token = tokenBar.text;
                 Achievements.syncAchievementsGJ();
                 MainMenuStateMobile.verificaDnvIdiota = true;
+                if(InviteBackEnd.instance==null) {new InviteBackEnd();}
                 MusicBeatState.switchState(new ajustes.AjustesState());
             }
 
