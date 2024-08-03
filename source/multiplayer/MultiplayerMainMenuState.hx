@@ -1,5 +1,6 @@
 package multiplayer;
 
+import multiplayer.menus.MainMenu;
 import modifiers.ModifiersManager;
 import haxe.Constraints.Function;
 import flixel.FlxG;
@@ -11,7 +12,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
+import ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import io.colyseus.Client;
@@ -28,6 +29,7 @@ import io.colyseus.serializer.schema.Schema;
 import io.colyseus.serializer.schema.types.*;
 import gamejolt.*;
 import Utils;
+import multiplayer.menus.shared.*;
 
 using StringTools;
 
@@ -63,6 +65,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var textinhoDebug:FlxText;
 	var connectingText:FlxText;
 	var readyTxt:FlxText;
+
+	var mainMenu:MainMenu;
 
 	// SUBMENU OPÇÕES
 	public var isOnOptions:Bool = false;
@@ -245,10 +249,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 				else
 				{
-					skinsBt.visible = true;
+					/*skinsBt.visible = true;
 					entrarBt.visible = true;
 					hostearBt.visible = true;
-					multiplayerTxt.visible=true;
+					multiplayerTxt.visible=true;*/
+					mainMenu.visible = true;
 				}
 			case CONNECTING:
 				connectingText.visible = true;
@@ -291,6 +296,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
+		mainMenu = new MainMenu();
 		skinAtual = ClientPrefs.curMultiplayerNoteSkin;
 		FlxG.autoPause = false;
 		modifiers.ModifiersManager.currentModifiers = [];
@@ -391,6 +397,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		skinsTxt.screenCenter(X);
 		add(skinsTxt);
 
+		add(mainMenu);
 		changeMenu(CONNECTING);
 		checkServers();
 	}
@@ -428,13 +435,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(!voltarMenu)
 		{
 			changeMenu(MAIN);
-			FlxTween.tween(multiplayerTxt, {y: 51}, 0.75, {ease: FlxEase.expoInOut});
+			canClick = true;
+			/*FlxTween.tween(multiplayerTxt, {y: 51}, 0.75, {ease: FlxEase.expoInOut});
 			FlxTween.tween(entrarBt, {y: 394}, 1.45, {ease: FlxEase.expoInOut});
 			FlxTween.tween(hostearBt, {y: 253}, 1.25, {ease: FlxEase.expoInOut});
 			FlxTween.tween(skinsBt, {y: 535}, 1.65, {ease: FlxEase.expoInOut, onComplete: function(tween:FlxTween)
 			{
 				canClick = true;
-			}});
+			}});*/
 		}
 	}
 
@@ -987,9 +995,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 	}
 
+	var isCoolBeat:Bool = true;
 	override function beatHit()
 	{
-		super.beatHit();
 		for (player in players)
 		{
 			if(player.keys == [false, false, false, false])
@@ -997,6 +1005,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 				player.bf.playAnim('idle', true);
 			}
 		}
+
+		super.beatHit();
 	}
 							  //Não é mignon (malz...)
 	public function createButton(file:String, scale:Float, x:Float, y:Float, visible:Bool = true, centralize:Bool = true, ?callback:Function = null, ?arg:Dynamic= null, ?label:String = null):FlxButton {

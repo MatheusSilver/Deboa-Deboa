@@ -39,6 +39,10 @@ class LangUtil
 				font = "smb1.ttf";
 			case "hiraginosans":
 				font = "HiraginoSans.otf";
+			case "gameboy":
+				font = "Early GameBoy.ttf";
+			case "gobold":
+				font = "Gobold Uplow.otf";
 			default:
 				font = 'letravio.ttf';
 		}

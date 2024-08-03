@@ -21,6 +21,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSave;
 import flixel.FlxG;
 import openfl.utils.Assets;
+import flixel.text.FlxText;
 
 using StringTools;
 
@@ -141,6 +142,25 @@ class Utils
 	{
 		openfl.system.System.setClipboard(coisa.trim());
 	}
+
+	public static function createColoredText(text:String, colors:Array<FlxColor>, x:Float, y:Float, size:Int, font:String, ?offset:Int = 0):Array<FlxText>
+		{
+			var currentX:Float = x;
+			var allTexts:Array<FlxText> = new Array<FlxText>();
+	
+			for (i in 0...text.length)
+			{
+				var char:String = text.charAt(i);
+				var color:FlxColor = colors[i<2?0:1];
+				var textPart:FlxText = new FlxText(currentX, y, 0, char);
+				textPart.setFormat(font, size, color);
+				
+				currentX += textPart.width+offset;
+				allTexts.push(textPart);
+			}
+
+			return allTexts;
+		}
 }
 
 /**
