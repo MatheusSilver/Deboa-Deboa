@@ -1,6 +1,6 @@
 package multiplayer;
 
-import multiplayer.menus.MainMenu;
+import multiplayer.menus.*;
 import modifiers.ModifiersManager;
 import haxe.Constraints.Function;
 import flixel.FlxG;
@@ -67,6 +67,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var readyTxt:FlxText;
 
 	var mainMenu:MainMenu;
+	var noteSkins:NoteSkins;
+	var barra:Barra;
 
 	// SUBMENU OPÇÕES
 	public var isOnOptions:Bool = false;
@@ -103,7 +105,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		[Linguagem.LangUtil.getString("skin_classic", "multiplayer"), "NOTE_assets"]
 	];
 	public var skinAtual:Int = 0;
-	public var skinSelector:SkinSelector;
+
 
 	// VARIAVEIS OPÇÕES
 	public var modos:Array<Dynamic> = [
@@ -180,7 +182,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		skinsBt.visible = false;
 		voltarSkinsBt.visible = false;
-		skinSelector.visible = false;
 		skinsTxt.visible = false;
 		
 		comecarBt.visible = false;
@@ -188,6 +189,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 		readyTxt.visible = false;
 
 		connectingText.visible = false;
+
+		mainMenu.visible = false;
+		noteSkins.visible = false;
+		barra.backButton.visible=false;
+		barra.changeLabelText("");
 
 		if(roomList != null)
 		{
@@ -258,9 +264,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 			case CONNECTING:
 				connectingText.visible = true;
 			case SKINS:
-				skinsTxt.visible = true;
-				voltarSkinsBt.visible = true;
-				skinSelector.visible = true;
+				noteSkins.visible = true;
+				barra.backButton.visible = true;
+				barra.changeLabelText("SKINS DE SETAS");
 			default:
 				trace("esse menu ainda não foi adicionado");
 		}
@@ -296,7 +302,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
-		mainMenu = new MainMenu();
+
 		skinAtual = ClientPrefs.curMultiplayerNoteSkin;
 		FlxG.autoPause = false;
 		modifiers.ModifiersManager.currentModifiers = [];
@@ -307,6 +313,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		multiplayerTxt.y = -1500;
 		multiplayerTxt.screenCenter(X);
+
+		mainMenu = new MainMenu();
+		noteSkins = new NoteSkins();
+		barra = new Barra(FlxColor.fromRGB(17, 12, 8));
 
 		bGround = new FlxSprite(0, 0).loadGraphic(Paths.image('ph')); // paulo henrique
 		bGround.setGraphicSize(Std.int(bGround.width));
@@ -364,10 +374,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		add(readyTxt);
 
-		skinSelector = new SkinSelector();
-		skinSelector.screenCenter(XY);
-		add(skinSelector);
-
 		voltarSkinsBt = createButton('multiplayer/voltarSkinsBt', 0.6, 0, 563, false, true,  function(){
 			if (curMenu != SKINS || !canClick)
 				return;
@@ -398,6 +404,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 		add(skinsTxt);
 
 		add(mainMenu);
+		add(noteSkins);
+		add(barra);
 		changeMenu(CONNECTING);
 		checkServers();
 	}
@@ -1122,83 +1130,6 @@ class LobbyPlayerObject extends FlxSpriteGroup
 	}
 }
 
-class SkinSelector extends FlxSpriteGroup
-{
-	var skinAtual:Int = 0;
-	var skinList:Array<Dynamic>;
-
-	var fundo:FlxSprite;
-	var atual:FlxText;
-	var setaDireita:FlxButton;
-	var setaEsquerda:FlxButton;
-
-	public function new()
-	{
-		super();
-		skinAtual = Reflect.getProperty(MultiplayerMainMenuState.instance, "skinAtual");
-		skinList = Reflect.getProperty(MultiplayerMainMenuState.instance, "skins");
-
-		fundo = new FlxSprite(0,0).makeGraphic(980, 100, FlxColor.GRAY);
-		add(fundo);
-		
-		atual = new FlxText(95, 28, 800, skinList[skinAtual][0], 30);
-		atual.wordWrap = false;
-		atual.alignment = CENTER;
-		add(atual);
-
-		setaEsquerda = new FlxButton(20, 18.5, "", clickEsquerda);
-		setaEsquerda.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
-		setaEsquerda.updateHitbox();
-		add(setaEsquerda);
-
-		setaDireita = new FlxButton(895, 18.5, "", clickDireita);
-		setaDireita.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
-		setaDireita.flipX=true;
-		setaDireita.updateHitbox();
-		add(setaDireita);
-	}
-
-	function clickEsquerda()
-		{
-			if(!this.visible)
-				return;
-			if(skinAtual-1 >= 0)
-				{
-					skinAtual--;
-				}
-				else
-				{
-					skinAtual = skinList.length-1;
-				}
-			save();
-	
-		}
-	
-		function clickDireita()
-			{
-				if(!this.visible)
-					return;
-				if(skinAtual+1 < skinList.length)
-					{
-						skinAtual++;
-					}
-					else
-					{
-						skinAtual = 0;
-					}
-				save();
-		
-			}
-
-	public function save()
-	{
-		atual.text = skinList[skinAtual][0];
-		Reflect.setProperty(MultiplayerMainMenuState.instance, "skinAtual", skinAtual);
-		ClientPrefs.curMultiplayerNoteSkin = skinAtual;
-		ClientPrefs.save();
-	}
-
-}
 
 class RoomList extends MusicBeatSubstate
 {

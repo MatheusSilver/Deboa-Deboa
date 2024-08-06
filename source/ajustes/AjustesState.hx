@@ -12,7 +12,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
+import ui.FlxButton;
 import flixel.util.FlxTimer;
 import gamejolt.*;
 

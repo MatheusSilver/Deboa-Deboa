@@ -40,8 +40,7 @@ class MainMenu extends FlxTypedGroup<FlxBasic>
 
     var bg:FlxSprite;
     var fleet:FlxSprite;
-    var barra:Barra;
-    var label:FlxSprite;
+	var label:FlxSprite;
 	var faixa:Faixa;
 
     var hostBt:MainMenuButton;
@@ -81,29 +80,11 @@ class MainMenu extends FlxTypedGroup<FlxBasic>
 		joinBt = new MainMenuButton(Linguagem.LangUtil.getString("main_join_bt", "multiplayer"), 40, 400, true);
 		add(joinBt);
 
-		skinsBt = new MainMenuButton(Linguagem.LangUtil.getString("main_skins_bt", "multiplayer"), 40, 500, false);
+		skinsBt = new MainMenuButton(Linguagem.LangUtil.getString("main_skins_bt", "multiplayer"), 40, 500, false, function(){
+			MultiplayerMainMenuState.instance.changeMenu(SKINS);
+		});
 		add(skinsBt);
-
-        barra = new Barra(FlxColor.fromRGB(17, 12, 8));
-        add(barra);
     }
-
-	/*override function update(elapsed:Float) {
-		if(FlxG.keys.pressed.P) {
-			fleet.y++;
-		} else if(FlxG.keys.pressed.L) {
-			fleet.y--;
-		} else if(FlxG.keys.justPressed.M) {
-			trace("X: "+fleet.x);
-			trace("Y: "+fleet.y);
-		}
-
-		if(FlxG.keys.pressed.W) {
-			fleet.x++;
-		} else if(FlxG.keys.pressed.S) {
-			fleet.x--;
-		}
-	}*/
 }
 
 class MainMenuButton extends FlxButton
@@ -143,6 +124,7 @@ class MainMenuButton extends FlxButton
 			{
 				callback();
 			}
+			this.alpha=0.75;
 		}
     }
 }

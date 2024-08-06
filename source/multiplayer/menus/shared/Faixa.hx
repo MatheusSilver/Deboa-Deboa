@@ -76,25 +76,4 @@ class Faixa extends FlxSpriteGroup {
 		});
 		loader.load(new URLRequest(GJClient.avatarURL.replace("/62/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
     }
-
-    /*override function update(elapsed:Float) {
-		if(FlxG.keys.justPressed.P) {
-            for(letra in text) {
-                letra.y++;
-            }
-		} else if(FlxG.keys.justPressed.L) {
-            for(letra in text) {
-                letra.y--;
-            }
-		} else if(FlxG.keys.justPressed.M) {
-			//trace("X: "+icon.x);
-			trace("Y: "+text[0].y);
-		}
-        
-		if(FlxG.keys.justPressed.A) {
-			icon.x--;
-		} else if(FlxG.keys.justPressed.S) {
-			icon.x++;
-		}
-	}*/
 }
