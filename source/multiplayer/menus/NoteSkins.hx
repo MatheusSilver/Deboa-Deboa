@@ -115,6 +115,7 @@ class SkinSelector extends FlxSpriteGroup
 		{
 			if(!this.visible)
 				return;
+			GlobalSoundManager.play(scrollMenu);
 			if(skinAtual-1 >= 0)
 				{
 					skinAtual--;
@@ -131,6 +132,7 @@ class SkinSelector extends FlxSpriteGroup
 			{
 				if(!this.visible)
 					return;
+				GlobalSoundManager.play(scrollMenu);
 				if(skinAtual+1 < skinList.length)
 					{
 						skinAtual++;

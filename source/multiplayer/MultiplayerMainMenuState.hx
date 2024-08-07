@@ -68,6 +68,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	var mainMenu:MainMenu;
 	var noteSkins:NoteSkins;
+	var joinMenu:JoinMenu;
 	var barra:Barra;
 
 	// SUBMENU OPÇÕES
@@ -192,6 +193,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		mainMenu.visible = false;
 		noteSkins.visible = false;
+		joinMenu.visible = false;
 		barra.backButton.visible=false;
 		barra.changeLabelText("");
 
@@ -220,11 +222,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 				readyTxt.visible = true;
 			case ROOMLIST:
-				if(roomList!=null)
+				joinMenu.visible = true;
+				joinMenu.refreshRooms();
+				barra.backButton.visible=true;
+				barra.changeLabelText("MULTIPLAYER");
+				/*if(roomList!=null)
 				{
 					roomList.adicionar();
 					add(roomList);
-				}
+				}*/
 			case MAIN:
 				if(idConvite != "")
 				{
@@ -316,6 +322,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		mainMenu = new MainMenu();
 		noteSkins = new NoteSkins();
+		joinMenu = new JoinMenu();
 		barra = new Barra(FlxColor.fromRGB(17, 12, 8));
 
 		bGround = new FlxSprite(0, 0).loadGraphic(Paths.image('ph')); // paulo henrique
@@ -405,6 +412,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 		add(mainMenu);
 		add(noteSkins);
+		add(joinMenu);
 		add(barra);
 		changeMenu(CONNECTING);
 		checkServers();
