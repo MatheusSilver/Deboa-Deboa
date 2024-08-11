@@ -69,6 +69,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	var mainMenu:MainMenu;
 	var noteSkins:NoteSkins;
 	var joinMenu:JoinMenu;
+	var lobby:Lobby;
 	var barra:Barra;
 
 	// SUBMENU OPÇÕES
@@ -194,6 +195,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		mainMenu.visible = false;
 		noteSkins.visible = false;
 		joinMenu.visible = false;
+		lobby.visible = false;
 		barra.backButton.visible=false;
 		barra.changeLabelText("");
 
@@ -210,7 +212,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		switch(nextMenu)
 		{
 			case LOBBY:
-				if(isHost)
+				lobby.visible = true;
+				barra.backButton.visible=true;
+				barra.changeLabelText("PRONTOS 0/2");
+				/*if(isHost)
 				{
 					comecarBt.x = 276;
 					comecarBt.visible = true;
@@ -220,7 +225,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				{
 					comecarBt.screenCenter(X);
 				}
-				readyTxt.visible = true;
+				readyTxt.visible = true;*/
 			case ROOMLIST:
 				joinMenu.visible = true;
 				joinMenu.refreshRooms();
@@ -323,6 +328,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		mainMenu = new MainMenu();
 		noteSkins = new NoteSkins();
 		joinMenu = new JoinMenu();
+		lobby = new Lobby();
 		barra = new Barra(FlxColor.fromRGB(17, 12, 8));
 
 		bGround = new FlxSprite(0, 0).loadGraphic(Paths.image('ph')); // paulo henrique
@@ -413,6 +419,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		add(mainMenu);
 		add(noteSkins);
 		add(joinMenu);
+		add(lobby);
 		add(barra);
 		changeMenu(CONNECTING);
 		checkServers();
@@ -488,6 +495,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if (isOnServer)
 		{
 			inputShit();
+		} else {
+			if(FlxG.keys.justPressed.L) {
+				hostear();
+			}
 		}
 		canInitMatch = isOnServer && !isPlayingMatch;
 		super.update(elapsed);

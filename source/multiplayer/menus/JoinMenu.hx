@@ -135,7 +135,7 @@ class RoomList extends FlxSpriteGroup
 
     override function update(elapsed:Float) {
         super.update(elapsed);
-        if(BSLTouchUtils.over(this)) {
+        if(BSLTouchUtils.over(this) && this.visible && objectsArray.length > 0) {
             swipes();
         }
     }
