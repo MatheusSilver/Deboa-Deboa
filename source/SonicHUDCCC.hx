@@ -57,15 +57,11 @@ class SonicHUDCCC extends FlxTypedGroup<FlxBasic>
 		// call the initializations and stuffs
 		super();
 
-		if(PlayState.storyDifficulty == 3){ //Dificuldade do Mario
-		isMario = false;}
-		else{isMario = true;}
+		if(PlayState.storyDifficulty == 3) 		isMario = false;
+		else									isMario = true;
 
 		// le healthbar setup
-		var barY = FlxG.height - (7 * 6);
-		if (ClientPrefs.downScroll)
-			barY = 3 * 6;
-		
+		var barY = (ClientPrefs.downScroll) ? 3 * 6 : FlxG.height - (7 * 6);
 		var UIBox:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('bg'));
 		UIBox.setGraphicSize(Std.int(UIBox.width * 6));
 		UIBox.updateHitbox();

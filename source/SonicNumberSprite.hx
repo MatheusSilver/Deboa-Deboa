@@ -30,14 +30,14 @@ class SonicNumberSprite extends FlxSpriteGroup
         
         if (PlayState.sonicHUDStyles.exists(song))
             hudStyle = PlayState.sonicHUDStyles.get(song);
+
         var hudFolder = hudStyle;
+        
         if (hudStyle == 'soniccd')
             hudFolder = 'sonic1';
+
         if (song == 'round-a-bout')
-        {
-            hudStyle = 'sonic3';
-            hudFolder = 'sonic3';
-        }
+            hudStyle = hudFolder = 'sonic3';
 
         var scoreLabel:FlxSprite = new FlxSprite(15, 25).loadGraphic(Paths.image("sonicUI/" + hudFolder + "/score"));
         scoreLabel.setGraphicSize(Std.int(scoreLabel.width * 3));

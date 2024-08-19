@@ -41,7 +41,6 @@ class TimeDaVio extends MusicBeatState
 	private final ENTRY_MIDDLE_POS:Array<Int> = [248,921];
 	private final ENTRY_LAST_POS:Array<Int> = [405,1072];
 	
-	
 	// nome,  discord,  twitter,  youtube
 	final creditInfo:Array<Array<String>> = [
 		[	'vio', 'https://discord.gg/G3BmXXeshA', 'https://twitter.com/galaccine', 'https://www.youtube.com/c/galaccine'],
@@ -72,9 +71,9 @@ class TimeDaVio extends MusicBeatState
 	override function create()
 	{
 		BSLSwipeUtils.max_x = Std.int(FlxG.width/2); //O cara vai ter que mandar o jutsu por pelo menos metade da tela.
-		BSLSwipeUtils.mouseScrollMultiplier=1;
-		BSLSwipeUtils.reset_manual=true;
-		Main.mouse_allowed = true;
+		BSLSwipeUtils.mouseScrollMultiplier = 1;
+		BSLSwipeUtils.reset_manual = Main.mouse_allowed = true;
+		
 		bgBaixo = new FlxSprite(0, 0).loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/back'));
 		bgBaixo.antialiasing = ClientPrefs.globalAntialiasing;
 		bgBaixo.alpha = 1;
@@ -169,14 +168,13 @@ class TimeDaVio extends MusicBeatState
 			canChange = true;
 		});
 		tweenButtons(0);
+
 		#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
+
 		super.create();
-	}// 420
-
-
-
+	}
 
 	override function update(elapsed:Float)
 	{
@@ -235,16 +233,15 @@ class TimeDaVio extends MusicBeatState
 					out(key);
 			}
 		}
-		super.update(elapsed);
+
 		if (FlxG.sound.music.volume == 0)
-		{
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
-		}
+
+		super.update(elapsed);
 	}
 
 	function changeSelection(newCurselected:Int)
 	{
-
 		if (BSLSwipeUtils.is_swipping) BSLSwipeUtils.resetScrolls();
 
 		if (curSelectedBkp > 7)

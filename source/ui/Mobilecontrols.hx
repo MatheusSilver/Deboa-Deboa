@@ -1,5 +1,8 @@
 package ui;
 
+// Eu sinto uma vontade grande de reescrever esse code dos controles por inteiro
+// Isso aqui tá meio datado e já tá dando alguns problemas nessas engines mais novas por algum motivo que eu não sei qual...
+
 #if mobileC
 import flash.display.BitmapData;
 import flixel.FlxG;
@@ -16,10 +19,10 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
-@:keep @:bitmap("assets/Modes/images/virtual-input.png")
+@:keep @:bitmap("assets/mobilecontrols/images/virtual-input.png")
 class GraphicVirtualInput extends BitmapData {}
 
-@:file("assets/Modes/images/virtual-input.txt")
+@:file("assets/mobilecontrols/images/virtual-input.txt")
 class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
 
 class FlxVirtualPad extends FlxSpriteGroup
@@ -305,7 +308,9 @@ class Hitbox extends FlxSpriteGroup
 	public function createhitbox(X:Float, framestring:String)
 	{
 		var button = new FlxButton(X, 0);
-		var frames = Paths.getSparrowAtlas('hitbox', 'mobilecontrols');
+		// Eu posso estar sendo louco, mas, eu já usei o getSparrowAtlas nessa parte em outro mod e deu problema
+		// Não tenho certeza, mas de qualquer jeito tá aí
+		var frames = FlxAtlasFrames.fromSparrow('assets/mobilecontrols/images/hitbox/hitbox.png', 'assets/mobilecontrols/images/hitbox/hitbox.xml');
 
 		var graphic:FlxGraphic = FlxGraphic.fromFrame(frames.getByName(framestring));
 
@@ -418,7 +423,7 @@ class Hitbox2 extends FlxSpriteGroup
 	public function createhitbox(X:Float, framestring:String)
 	{
 		var button = new FlxButton(X, 0);
-		var frames = Paths.getSparrowAtlas('hitboxExtra', 'mobilecontrols');
+		var frames = FlxAtlasFrames.fromSparrow('assets/mobilecontrols/images/hitbox/hitboxExtra.png', 'assets/mobilecontrols/images/hitbox/hitboxExtra.xml');
 
 		var graphic:FlxGraphic = FlxGraphic.fromFrame(frames.getByName(framestring));
 

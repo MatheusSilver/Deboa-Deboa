@@ -25,26 +25,26 @@ class SobreVideo extends MusicBeatState
     var ha2:Float=177;
 	public static var videoPath:String = Paths.video("EngineBase/aviso");
 
+	override function create() {
+        #if rpc
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_about", "rpc"), null);
+		#end
 
-	override function create()
-		{
-            video = new MP4Sprite(-10, -5, ABOUT);
-            video.canSkip = false;
-            Main.mouse_allowed = true;
-			#if rpc
-			// Updating Discord Rich Presence
-			DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_about", "rpc"), null);
-			#end
-            FlxG.sound.music.fadeIn(0.35, 0.7, 0);
-            new FlxTimer().start(0.8, function(tmr:FlxTimer){
-                video.playMP4(videoPath, new SobreState());
-                video.scale.x = video.scale.y = 0.73;
-                video.y -= 70;
-                barra.alpha=1;
-                FlxTween.num(0.0, 1.0, 73, function(num){ ha = num; });
-                FlxTween.tween(barra, {x: 0}, 73);
+        video = new MP4Sprite(-10, -5, ABOUT);
+        video.canSkip = false;
+        Main.mouse_allowed = true;
+			
+        FlxG.sound.music.fadeIn(0.35, 0.7, 0);
+        new FlxTimer().start(0.8, function(tmr:FlxTimer){
+            video.playMP4(videoPath, new SobreState());
+            video.scale.x = video.scale.y = 0.73;
+            video.y -= 70;
+            barra.alpha=1;
+            FlxTween.num(0.0, 1.0, 73, function(num){ ha = num; });
+            FlxTween.tween(barra, {x: 0}, 73);
 
-                new FlxTimer().start(76, function(tmr:FlxTimer){
+            new FlxTimer().start(76, function(tmr:FlxTimer){
                     #if desktop
                     FlxG.mouse.unload();
                     #end
@@ -78,11 +78,11 @@ class SobreVideo extends MusicBeatState
 		}
 
 	override function update(elapsed:Float)
-		{
-            barra.scale.set(ha, 1);
-            barra.y=0;
-            //sampleTxt.text=Std.string(videoMenu.x)+"\n"+Std.string(videoMenu.y);
-            video.canSkip = false;
+	{
+        barra.scale.set(ha, 1);
+        barra.y=0;
+        //sampleTxt.text=Std.string(videoMenu.x)+"\n"+Std.string(videoMenu.y);
+        video.canSkip = false;
 			super.update(elapsed);
             if (controls.BACK) {
                 #if desktop

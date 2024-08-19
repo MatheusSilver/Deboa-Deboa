@@ -80,35 +80,30 @@ class TitleState extends MusicBeatState
 	override public function create():Void
 	{
 		if(instance == null)
-		{
-			instance=this;
-		}
-		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
-		PlayerSettings.init();
-		ClientPrefs.init();
-		FlxTransitionableState.skipNextTransOut = true;
-		MainMenuStateMobile.newVersion = FlxG.save.data.gameVersion != MainMenuStateMobile.version && FlxG.save.data.gameVersion != null;
-		if (FlxG.save.data.progress != null)
-		{
-			MenuPreHistoria.curSave = FlxG.save.data.progress;
-			if (GJClient.logged)
-			{
-				GameJoltLoginState.syncProgress();
-			}
-		}
-		else
-		{
-			FlxG.save.data.progress = "1,0,0,0,0,0,0,0,0";
-			MenuPreHistoria.curSave = FlxG.save.data.progress;
-			if (GJClient.logged)
-			{
-				GameJoltLoginState.syncProgress();
-			}
-		}
-		// FlxG.switchState(new GameJoltLogin());
+			instance = this;
+
 		#if android
 		FlxG.android.preventDefaultKeys = [BACK];
 		#end
+
+		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
+		ClientPrefs.init();
+
+		FlxTransitionableState.skipNextTransOut = true;
+
+		MainMenuStateMobile.newVersion = FlxG.save.data.gameVersion != MainMenuStateMobile.version && FlxG.save.data.gameVersion != null;
+
+		if (FlxG.save.data.progress != null)
+			MenuPreHistoria.curSave = FlxG.save.data.progress;
+		else {
+			FlxG.save.data.progress = "1,0,0,0,0,0,0,0,0";
+			MenuPreHistoria.curSave = FlxG.save.data.progress;
+		}
+		if (GJClient.logged)
+			GameJoltLoginState.syncProgress();
+
+		// FlxG.switchState(new GameJoltLogin());
+		
 		// FunkinLua.addShaderToCamera('orig', new BloomEffect(0.05/512.0,0.05));
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 
@@ -122,7 +117,6 @@ class TitleState extends MusicBeatState
 
 		/*PlayState.addShaderToCamera('game', new VCRDistortionEffect(0.5,true,false,true));
 			PlayState.addShaderToCamera('hud', new VCRDistortionEffect(0.5,true,false,true)); */
-		Highscore.load();
 
 		Main.mouse_allowed = false;
 		#if FREEPLAY
@@ -130,41 +124,28 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		MusicBeatState.switchState(new ChartingState());
 		#else
-		if (ClientPrefs.firstBoot && !Linguagem.LanguageState.alreadySelected){
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+		if (ClientPrefs.firstBoot && !Linguagem.LanguageState.alreadySelected) {
+			FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new Linguagem.LanguageState());
-		}
-		else if (ClientPrefs.firstBoot && !FlashingState.leftState)
-		{ // Só por colocar de volta mesmo
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+		} else if (ClientPrefs.firstBoot && !FlashingState.leftState) {
+			// Só por colocar de volta mesmo
+			FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
-		}
-		else if (ClientPrefs.pibby)
-		{
+		} else if (ClientPrefs.pibby) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new PibbyTela());
-		}
-		else if (!PreTitleState.jarodou)
-		{
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
+		} else if (!PreTitleState.jarodou) {
+			FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 			new InputLabel();
 			MusicBeatState.switchState(new PreTitleState()); // Não atrapalha no PC, e Resolve o problema do mobile, todos ganham k
 			ModifiersManager.loadSave();
 			verificarConexao();
-		}
-		else
-		{
-			if (initialized)
-			{
+		} else {
+			if (initialized) {
 				startIntro();
 				canSkipIntro=true;
-			}
-			else
-			{
+			} else {
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					startIntro();
@@ -185,14 +166,14 @@ class TitleState extends MusicBeatState
 		{
 			if(!canVerify && !force)
 				return;
-			canVerify=false;
+
+			canVerify = false;
 			new FlxTimer().start(30, function(tmr:FlxTimer){
 				canVerify=true;
 			});
 			urlLoader = new URLLoader();
 			urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
 			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
-	
 			var request = new URLRequest("https://gamejolt.com");
 			urlLoader.load(request);
 		}
@@ -218,15 +199,10 @@ class TitleState extends MusicBeatState
 	var opacidadesuporte:Int = -1;
 	var candothething:Bool = false;
 
-
-	function startIntro()
-	{
-		if (!initialized)
-		{
-			if (FlxG.sound.music == null)
-			{
+	function startIntro() {
+		if (!initialized) {
+			if (FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
-
 				FlxG.sound.music.fadeIn(4, 0, 0.7);
 			}
 		}
@@ -292,7 +268,6 @@ class TitleState extends MusicBeatState
 		add(supbg);
 		add(logoBl3);
 		add(logoBl1);
-
 		add(logoBl);
 
 		// particles = new ParticleParser(FlxG.width, FlxG.height, 1, 0.1, "test");
@@ -306,7 +281,6 @@ class TitleState extends MusicBeatState
 		// titleText.y=550;
 		titleText.updateHitbox();
 		titleText.screenCenter(X);
-
 		add(titleText);
 
 		credGroup = new FlxGroup();
@@ -334,10 +308,8 @@ class TitleState extends MusicBeatState
 
 		FlxTween.tween(credTextShit, {y: credTextShit.y + 20}, 2.9, {ease: FlxEase.quadInOut, type: PINGPONG});
 
-		if (initialized)
-			skipIntro();
-		else
-			initialized = true;
+		if (initialized)	skipIntro();
+		else				initialized = true;
 
 		// credGroup.add(credTextShit);
 	}
@@ -345,14 +317,11 @@ class TitleState extends MusicBeatState
 	function getIntroTextShit():Array<Array<String>>
 	{
 		var fullText:String = Assets.getText(Paths.txt('introText', "locales", true));
-
 		var firstArray:Array<String> = fullText.split('\n');
 		var swagGoodArray:Array<Array<String>> = [];
 
 		for (i in firstArray)
-		{
 			swagGoodArray.push(i.split('--'));
-		}
 
 		return swagGoodArray;
 	}
@@ -361,15 +330,12 @@ class TitleState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (candothething == true)
-		{
-			if (opacidade > 1)
-				opacidadesuporte = -1;
-			else if (opacidade < 0)
-				opacidadesuporte = 1; // Yeah yeah químico das matemática muito loka
-
+		if (candothething) {
+			if (opacidade > 1)			opacidadesuporte = -1;
+			else if (opacidade < 0)		opacidadesuporte = 1; // Yeah yeah químico das matemática muito loka
 			titleText.alpha = opacidade;
 		}
+
 		if (FlxG.sound.music != null)
 			Song.Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
@@ -377,19 +343,11 @@ class TitleState extends MusicBeatState
 		gradientBar.updateHitbox();
 		gradientBar.y = FlxG.height - gradientBar.height;
 
-		var pressedEnter:Bool = controls.ACCEPT;
-
-		#if mobile
-		pressedEnter = Utils.BSLTouchUtils.justTouched() || controls.ACCEPT;
-		#end
-
-		if (!transitioning && skippedIntro)
-		{
-			if (pressedEnter)
-			{
-				if (ClientPrefs.flashing){
-				FlxG.camera.flash(FlxColor.WHITE, 1);
-				}
+		var pressedEnter:Bool = controls.ACCEPT #if mobile || Utils.BSLTouchUtils.justTouched() #end;
+		if (!transitioning && skippedIntro) {
+			if (pressedEnter) {
+				if (ClientPrefs.flashing)
+					FlxG.camera.flash(FlxColor.WHITE, 1);
 				GlobalSoundManager.play(confirmMenu);
 
 				transitioning = true;
@@ -405,9 +363,7 @@ class TitleState extends MusicBeatState
 		}
 
 		if (pressedEnter && !skippedIntro && canSkipIntro)
-		{
 			skipIntro();
-		}
 
 		opacidade += 0.01 * opacidadesuporte;
 
@@ -453,11 +409,10 @@ class TitleState extends MusicBeatState
 
 	override function beatHit()
 	{
-		if (logoBl1 != null)
-		{
-			logoBl1.animation.play('bump', true);
-		}
 		super.beatHit();
+
+		if (logoBl1 != null)
+			logoBl1.animation.play('bump', true);
 
 		if (!closedState)
 		{
@@ -502,16 +457,13 @@ class TitleState extends MusicBeatState
 	{
 		if (!skippedIntro)
 		{
-			if (ClientPrefs.flashing){
-			FlxG.camera.flash(FlxColor.WHITE, 1);
-			}
+			if (ClientPrefs.flashing)
+				FlxG.camera.flash(FlxColor.WHITE, 1);
 			remove(credGroup);
 			remove(gradientBar);
 			skippedIntro = true;
 
 			FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
-
-			// add(particles);
 			logoBl.angle = -7;
 
 			new FlxTimer().start(0.005, function(tmr:FlxTimer)

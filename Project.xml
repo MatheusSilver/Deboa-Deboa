@@ -44,7 +44,6 @@
 	<define name="MODS_ALLOWED" />
 	<define name="CRASHLOG_HANDLER" unless="mobile"/>
 	<define name="LUA_ALLOWED" />
-	<define name="DESKTOPDEBUG" if="windows debug" unless="mobile || web" />
 	<!-- Yeah Yeah -->
 	<define name="ACHIEVEMENTS_ALLOWED" />
 
@@ -61,6 +60,7 @@
 	<!-- Isso vai ser tãaaaaaaaaaaaaaaaaaaaaao chato de fazer... -->
 	<!-- Vocês agora me devem um pudim, Ass. Silvio -->
 	<section if="PRELOAD_ALL">
+		<library name="locales" 		      	 preload="true" />
 		<library name="particles"      			 preload="true" />
 		<library name="songs"        			 preload="true" />
 		<library name="shared"       			 preload="true" />
@@ -68,7 +68,6 @@
 		<library name="week-phantom_attack"      preload="true" />
 		<library name="week-slaybells"       	 preload="true" />
 		<library name="week-blacksun"       	 preload="true" />
-		<library name="locales" 		      	 preload="true" />
 		<library name="week-ccc"        		 preload="true" />
 		<library name="week-chaos"        		 preload="true" />
 		<library name="week-clickbait"      	 preload="true" />
@@ -101,6 +100,7 @@
 	</section>
 
 	<section if="NO_PRELOAD_ALL">
+		<library name="locales" 		      	 preload="false" />
 		<library name="particles"      			 preload="false" />
 		<library name="songs"        			 preload="false" />
 		<library name="shared"       			 preload="false" />
@@ -108,7 +108,6 @@
 		<library name="week-phantom_attack"      preload="false" />
 		<library name="week-slaybells"       	 preload="false" />
 		<library name="week-blacksun"       	 preload="false" />
-		<library name="locales" 		      	 preload="false" />
 		<library name="week-ccc"        		 preload="false" />
 		<library name="week-chaos"        		 preload="false" />
 		<library name="week-clickbait"      	 preload="false" />
@@ -139,8 +138,10 @@
 		<library name="week-xenophanes"          preload="false" />
 	</section>
 	<!-- EU NÃO ESTOU SUPORTANDO MAIS... AAAAAAAAAAAAAAAAA -->
-	<assets path="assets/particles"       			   library="particles"        			  exclude="*.ogg" if="web"/>
-	<assets path="assets/particles"       			   library="particles"       			  exclude="*.mp3" unless="web"/>
+	<assets path="assets/locales"      	   	   	   library="locales"        	  	  exclude="*.ogg" if="web"/>
+	<assets path="assets/locales"        	   	   library="locales"       	  		  exclude="*.mp3" unless="web"/>
+	<assets path="assets/particles"       		   library="particles"        		  exclude="*.ogg" if="web"/>
+	<assets path="assets/particles"       		   library="particles"       		  exclude="*.mp3" unless="web"/>
 	<assets path="assets/songs"       			   library="songs"        			  exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"       			   library="songs"       			  exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"      			   library="shared"       			  exclude="*.ogg" if="web"/>
@@ -151,8 +152,6 @@
 	<assets path="assets/week-phantom_attack"      library="week-phantom_attack"      exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-blacksun"      	   library="week-blacksun"        	  exclude="*.ogg" if="web"/>
 	<assets path="assets/week-blacksun"        	   library="week-blacksun"       	  exclude="*.mp3" unless="web"/>
-	<assets path="assets/locales"      	   	   	   library="locales"        	  	  exclude="*.ogg" if="web"/>
-	<assets path="assets/locales"        	   	   library="locales"       	  		  exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-slaybells"      	   library="week-slaybells"        	  exclude="*.ogg" if="web"/>
 	<assets path="assets/week-slaybells"           library="week-slaybells"       	  exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-ccc"        		   library="week-ccc"         		  exclude="*.ogg" if="web"/>
@@ -212,28 +211,29 @@
 	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-xenophanes"          library="week-xenophanes"          exclude="*.ogg" if="web"/>
 
-
-	<!-- N entendi essa parte -->
-	<!-- So sei q funciona -->
+	<!-- Linguagens -->
 	<assets path="assets/locales/pt-BR"/>
 	<assets path="assets/locales/en-US"/>
 	<assets path="assets/locales/index.xml"/>
 
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
-	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/>
+	<assets path='art/speed.gif' rename='speed.gif' if="desktop"/> <!-- Isso aqui poderia bem que poderia ser refeito estilo os popups da Fatality -->
 
 	<!-- videos setup -->
-	<assets path="assets/videos/Mobile" if="mobile" />
+	<section if="mobile">
+		<assets path="assets/videos/Mobile" if="mobile" />
+		<assets path='assets/videos/EngineBase' if="mobile"/>
+		<assets path='assets/videos/Intro' if="mobile"/>
+		<assets path='assets/videos/VideosRandoms' if="mobile"/>
+	</section>
+
+	<section if="desktop">
+		<assets path='assets/videos/EngineBase' exclude="*.html" if="desktop"/>
+		<assets path='assets/videos/Intro' exclude="*.html" if="desktop"/>
+		<assets path='assets/videos/VideosRandoms' exclude="*.html" if="desktop"/>
+	</section>
+	
 	<assets path='assets/videos/AnimacoesJogaveis' />
-		
-	<assets path='assets/videos/EngineBase' exclude="*.html" if="desktop"/>
-	<assets path='assets/videos/Intro' exclude="*.html" if="desktop"/>
-	<assets path='assets/videos/VideosRandoms' exclude="*.html" if="desktop"/>
-
-	<assets path='assets/videos/EngineBase' if="mobile"/>
-	<assets path='assets/videos/Intro' if="mobile"/>
-	<assets path='assets/videos/VideosRandoms' if="mobile"/>
-
 	<assets path='assets/videos/mikudeusa.mp' /> <!-- NUNCA REMOVA A MIKU!!!!!!!🙀🙀🙀🙀🙀🙀🙀 -->
 
 	<!-- assets path="CHANGELOG.md" rename='changelog.txt' -->
@@ -256,7 +256,7 @@
 	<!--In case you want to use the ui package-->
 	<haxelib name="hxvlc" if="desktop || android" /> <!--https://github.com/MatheusSilver/hxvlc-->
 	<haxelib name="flixel-ui" />
-	<haxelib name="linc_luajit"/> <!--https://github.com/Sirox228/linc_luajit-->
+	<haxelib name="linc_luajit"/> <!--https://github.com/Sirox228/linc_luajit ou aquele outro que o silvio usa, vai que-->
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="colyseus"/> <!--0.14.10-->
 	<haxelib name="colyseus-websocket"/>
@@ -310,8 +310,8 @@
 	<!--Isso pode até ser útil, mas não deveria ser nescessário no Android-->
 	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 
-	<haxedef name="rpc" unless="debug || mobile"/>
 	<!--só trocar se quiser rpc-->
+	<haxedef name="rpc" unless="debug || mobile"/>
 
 	<!--Used for Izzy Engine's crash handler-->
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASHLOG_HANDLER" />

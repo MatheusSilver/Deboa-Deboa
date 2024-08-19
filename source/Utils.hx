@@ -1,5 +1,5 @@
-package;
-
+// Esse code em específico tá chegando a ficar até poluído k
+// Nunca pensei que isso viraria uma espécie de PlayState 2 :skull:
 import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.FlxGamepad.FlxGamepadModel;
@@ -32,7 +32,7 @@ import sys.io.File;
 #if android
 import haxe.crypto.Md5; // Assim o Md5 não é compilado no PC e não fica como Unused import
 import flixel.math.FlxPoint;
-import ui.MobileControls.FlxVirtualPad;
+import ui.Mobilecontrols.FlxVirtualPad;
 #end
 
 enum ResizeMode

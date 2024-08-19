@@ -1,5 +1,6 @@
 package;
 
+// Bom... Eu nem sei se isso funciona no Android, mas a condição do desktop e mobile tá aí né
 import flixel.system.FlxAssets.FlxShader;
 import openfl.display.BitmapData;
 import openfl.display.Shader;

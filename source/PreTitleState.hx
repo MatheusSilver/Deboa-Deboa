@@ -17,45 +17,33 @@ class PreTitleState extends MusicBeatState
 		var random1:Int = FlxG.random.int(1, 175); // Tava muito difícil de ver
 		if (FlxG.save.data.firstTime != null || !ClientPrefs.firstTime || FlxG.save.data.flashing != null) // Algum desses caras tem que funfar
 		{
-			#if desktop
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
+				#if desktop
 				Videos.VideoStatePC.specialSetting = TITLE;
+				#end
 				if (openfl.utils.Assets.exists(Paths.video('VideosRandoms/haha' + random1)))
-				{
+					#if desktop
 					Videos.VideoStatePC.videoPath = Paths.video('VideosRandoms/haha' + random1);
-				}
-
-				MusicBeatState.switchState(new Videos.VideoStatePC());
-			});
-			#elseif mobile
-			// aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-			new FlxTimer().start(1.5, function(tmr:FlxTimer)
-			{
-				if (openfl.utils.Assets.exists(Paths.video('VideosRandoms/haha' + random1)))
-				{
+				#elseif mobile
 					MusicBeatState.switchState(new Videos.VideoState(Paths.video('VideosRandoms/haha' + random1), (new TitleState())));
-				}
 				else
-				{
 					MusicBeatState.switchState(new Videos.VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
-				}
-			});
-			#end
-		}
-		else
-		{
-			#if desktop
-			new FlxTimer().start(1.5, function(tmr:FlxTimer)
-			{
+				#end
+
+				#if desktop
 				MusicBeatState.switchState(new Videos.VideoStatePC());
+				#end
 			});
-			#elseif mobile
+		} else {
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
-				FlxG.switchState(new Videos.VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
+				#if desktop
+				MusicBeatState.switchState(new Videos.VideoStatePC());
+				#elseif mobile
+				MusicBeatState.switchState(new Videos.VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
+				#end
 			});
-			#end
 		}
 		super.create();
 	}
