@@ -41,16 +41,21 @@ Caso você não tenha um computador e quiser compilar o mod para Android, basta 
 * Vio - Diretora do projeto
 # Charts e outras coisas
 * Konan - Charts/legendas/luas/ports
+* Vinnie - Charts
+* Gouz - Charts
+* Rabbit - Charts
 # Artistas
 * Ashuro - artista principal - CY, Menus, Slaybells, Scrollings e mais artes
 * Cat - artista - CY, Scrollings, sprites e mais artes 
 * Hugo - artista, CY, Scrollings, ideias, sprites e mais artes 
+* Nova - artista
+* Frost - artista, fez o reshade de diversos sprites
 # Coding
 * Dav - Diretor de code/luas
-# <img src="art/YT Matheus Silver (1).png" align="center"> Team Silver - Port Mobile </img>
-*  - Matheus Silver - Coding PC e port mobile
-*  - Lorena - Port Mobile, Revisão de codes, otimização de codes, sistema de cache adaptado
-*  - Clara -  Port Mobile, otimização de alguns sprites, ajustes, e mais outras coisas
+# <img src="art/YT Matheus Silver (1).png" align="center"> Team Silver - Coding para a versão de PC e Mobile </img>
+*  - Matheus Silver - Coding para a versão de PC e Mobile
+*  - Lorena - Coding para a versão de PC e Mobile, Revisão de codes, otimização de codes, sistema de cache adaptado
+*  - Clara -  Coding para a versão de PC e Mobile, otimização de alguns sprites, ajustes, e mais outras coisas
 *  -------------------------
 * Konan - Programador
 * MateusX02 - Coding/Ajuda na otimização e no port Mobile
