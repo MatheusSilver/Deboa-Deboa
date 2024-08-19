@@ -52,13 +52,12 @@ Caso você não tenha um computador e quiser compilar o mod para Android, basta 
 * Frost - artista, fez o reshade de diversos sprites
 # Coding
 * Dav - Diretor de code/luas
+* Konan - Programador
+* MateusX02 - Coding/Ajuda na otimização e no port Mobile
 # <img src="art/YT Matheus Silver (1).png" align="center"> Team Silver - Coding para a versão de PC e Mobile </img>
 *  - Matheus Silver - Coding para a versão de PC e Mobile
 *  - Lorena - Coding para a versão de PC e Mobile, Revisão de codes, otimização de codes, sistema de cache adaptado
-*  - Clara -  Coding para a versão de PC e Mobile, otimização de alguns sprites, ajustes, e mais outras coisas
-*  -------------------------
-* Konan - Programador
-* MateusX02 - Coding/Ajuda na otimização e no port Mobile
+*  - Clara -  Coding para a versão de PC e Mobile, otimização de alguns sprites, ajustes, e mais outras 
 
 ## Creditos - Psych Engine 0.4.2:
 * Shadow Mario - Programação
