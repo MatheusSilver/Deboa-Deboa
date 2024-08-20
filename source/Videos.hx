@@ -1,3 +1,5 @@
+import flixel.util.FlxColor;
+import flixel.FlxSprite;
 #if mobile
 import extension.webview.WebView;
 import flixel.FlxSubState;
@@ -231,6 +233,7 @@ class VideoStatePC extends MusicBeatState
 		alphaon = false;
 	}
 }
+#end
 
 class SkipText extends FlxSpriteGroup {
 	var letext:FlxText;
@@ -256,7 +259,7 @@ class SkipText extends FlxSpriteGroup {
 	}
 }
 
-class MP4Sprite extends FlxVideoSprite
+class MP4Sprite extends hxvlc.flixel.FlxVideoSprite
 {
 	public var nextState:FlxState;
 	public var canSkip:Bool = false;
@@ -388,7 +391,7 @@ class MP4Sprite extends FlxVideoSprite
 
 	override public function update(elapsed:Float)
 	{
-		var justPressed:Bool = controls.ACCEPT #if android || BSLTouchUtils.justTouched(); #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
+		var justPressed:Bool = controls.ACCEPT #if android || Utils.BSLTouchUtils.justTouched() #end; // Aqui vai uma fix pro Android também, já que não tinha como pular os vídeos nele.
 		if (justPressed && canSkip==true && curState != GameState.ABOUT && curState != GameState.PLAYSTATE && !queronaoviver && this.bitmap.isPlaying) {
 			this.bitmap.mute = true;
 			this.onVLCComplete();
@@ -421,4 +424,3 @@ enum GameState {
 	EDITOR;
 	LUA;
 }
-#end

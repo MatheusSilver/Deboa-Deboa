@@ -78,7 +78,9 @@ import flixel.sound.FlxSound;
 import flixel.system.FlxSound;
 #end
 #if mobileC
-import ui.MobileControls.Modes;
+import ui.Mobilecontrols.Modes;
+import ui.Mobilecontrols.FlxDPadMode;
+import ui.Mobilecontrols.FlxActionMode;
 #end
 
 class PlayState extends MusicBeatState

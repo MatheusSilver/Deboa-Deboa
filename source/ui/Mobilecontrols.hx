@@ -4,6 +4,8 @@ package ui;
 // Isso aqui tá meio datado e já tá dando alguns problemas nessas engines mais novas por algum motivo que eu não sei qual...
 
 #if mobileC
+import ui.Mobilecontrols.FlxDPadMode;
+import ui.Mobilecontrols.FlxActionMode;
 import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
@@ -26,7 +28,7 @@ class GraphicVirtualInput extends BitmapData {}
 class VirtualInputData extends #if (lime_legacy || nme) ByteArray #else ByteArrayData #end {}
 
 class FlxVirtualPad extends FlxSpriteGroup
-{
+{	
 	public var buttonA:FlxButton;
 	public var buttonB:FlxButton;
 	public var buttonC:FlxButton;

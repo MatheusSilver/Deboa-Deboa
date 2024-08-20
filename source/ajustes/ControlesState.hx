@@ -10,8 +10,10 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import haxe.Json;
 import ui.FlxButton;
-import ui.MobileControls.FlxVirtualPad;
-import ui.MobileControls.Hitbox;
+import ui.Mobilecontrols.FlxVirtualPad;
+import ui.Mobilecontrols.Hitbox;
+import ui.Mobilecontrols.FlxDPadMode;
+import ui.Mobilecontrols.FlxActionMode;
 
 using StringTools;
 #if lime

@@ -9,7 +9,9 @@ import flixel.addons.ui.FlxUIState;
 import Input.PlayerSettings;
 #if mobileC
 import flixel.input.actions.FlxActionInput;
-import ui.MobileControls.FlxVirtualPad;
+import ui.Mobilecontrols.FlxVirtualPad;
+import ui.Mobilecontrols.FlxDPadMode;
+import ui.Mobilecontrols.FlxActionMode;
 #end
 
 class MusicBeatState extends FlxUIState
