@@ -495,10 +495,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if (isOnServer)
 		{
 			inputShit();
-		} else {
-			if(FlxG.keys.justPressed.L) {
-				hostear();
-			}
 		}
 		canInitMatch = isOnServer && !isPlayingMatch;
 		super.update(elapsed);

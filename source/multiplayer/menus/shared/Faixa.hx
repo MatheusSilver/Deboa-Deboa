@@ -95,24 +95,59 @@ class FaixaLobby extends FlxSpriteGroup {
         this.gameJoltID = Std.parseInt(gameJoltID);
         userData = GJClient.getUserData(Std.parseInt(gameJoltID));
 
-        text = Utils.createColoredText(userData.username.toUpperCase(), [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, 0, 36, Linguagem.LangUtil.getFont("gobold"), -2);
+        if(!isLeft) {
+            text = Utils.createColoredText(userData.username.toUpperCase(), [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
 
-        bgInicio = new FlxSprite(0, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa1"));
-        add(bgInicio);
+            bgInicio = new FlxSprite(0, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa1"));
+    
+            bgMeio = new FlxSprite(0, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa3"));
+            bgMeio.setGraphicSize(Std.int(text[text.length-1].x-bgInicio.x)-1, 56);
+            bgMeio.updateHitbox();
+            add(bgMeio);
+            add(bgInicio);
+            bgMeio.x+=bgInicio.width;
+            bgMeio.y+=1;
+    
+            bgFinal = new FlxSprite(bgMeio.x+bgMeio.width, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa2"));
+            add(bgFinal);
+    
+            icon = new FlxSprite(0, 0).loadGraphic(Paths.image("menus/gamejolt/userIcon"));
+            icon.antialiasing = ClientPrefs.globalAntialiasing;
+            icon.setGraphicSize(62, 62);
+            icon.y = -2;
+            icon.x = 50;
+            add(icon);
+        } else {
+            text = Utils.createColoredText(userData.username.toUpperCase(), [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
 
-        bgMeio = new FlxSprite(0,3.5).makeGraphic(Std.int(text[text.length-1].x-bgInicio.x)+5, 52, FlxColor.fromRGB(2, 1, 0));
-        bgMeio.x+=bgInicio.width;
-        add(bgMeio);
+            bgInicio = new FlxSprite(0, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa2"));
+            bgInicio.flipX=true;
+    
+            bgMeio = new FlxSprite(0, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa3"));
+            bgMeio.setGraphicSize(Std.int(text[text.length-1].x-bgInicio.x)-1, 56);
+            bgMeio.updateHitbox();
+            add(bgMeio);
+            add(bgInicio);
+            bgMeio.x+=bgInicio.width;
+            bgMeio.y+=1;
+    
+            bgFinal = new FlxSprite(bgMeio.x+bgMeio.width, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa1"));
+            bgFinal.flipX=true;
+            add(bgFinal);
 
-        bgFinal = new FlxSprite(bgMeio.x+bgMeio.width, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa2"));
-        add(bgFinal);
+            for(textinho in text) {
+                textinho.x+=(bgMeio.x+1)-120;
+            }
+    
+            icon = new FlxSprite(0, 0).loadGraphic(Paths.image("menus/gamejolt/userIcon"));
+            icon.antialiasing = ClientPrefs.globalAntialiasing;
+            icon.setGraphicSize(62, 62);
+            icon.y = -2;
+            icon.x = bgFinal.x-80;
+            add(icon);
+        }
 
-        icon = new FlxSprite(0, 0).loadGraphic(Paths.image("menus/gamejolt/userIcon"));
-        icon.antialiasing = ClientPrefs.globalAntialiasing;
-        icon.setGraphicSize(47, 47);
-        icon.y = 6;
-        icon.x = 50;
-        add(icon);
+
 
         for(letra in text) {
             add(letra);
@@ -134,18 +169,19 @@ class FaixaLobby extends FlxSpriteGroup {
 				var bmp:Bitmap = cast(loader.content, Bitmap);
 				var bmd:BitmapData = bmp.bitmapData;
 				icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
-				icon.setGraphicSize(47, 47); // aparentemente aquele numero do link é uma mentira :womp: :womp:
+				icon.setGraphicSize(62, 62); // aparentemente aquele numero do link é uma mentira :womp: :womp:
 				icon.updateHitbox();
 				var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
 				//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
-				tempMask.makeGraphic(47, 47, FlxColor.TRANSPARENT);
-				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2,FlxColor.RED);
+				tempMask.makeGraphic(62, 62, FlxColor.TRANSPARENT);
+				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
 				// add(tempCircle);
 				FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
 				tempMask.destroy();
 				tempCircle.destroy();
+                icon.setGraphicSize(47, 47);
 			}
 		});
-		loader.load(new URLRequest(userData.avatar_url.replace("/47/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
+		loader.load(new URLRequest(userData.avatar_url.replace("/62/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
     }
 }
