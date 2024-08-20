@@ -87,6 +87,7 @@ class TitleState extends MusicBeatState
 		#end
 
 		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
+		PlayerSettings.init(); // x02 burro
 		ClientPrefs.init();
 
 		FlxTransitionableState.skipNextTransOut = true;
