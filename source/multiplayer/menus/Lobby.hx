@@ -41,19 +41,22 @@ class Lobby extends FlxTypedGroup<FlxBasic>
 
     var bg:FlxSprite;
 	var faixa:FaixaLobby;
-
+	var faixaLeft:FaixaLobby;
 
 
     public function new() {
         super();
         instance = this;
 
-        bg = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/noteskins/bg", 'preload'));
+        bg = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/lobby/bg", 'preload'));
         bg.setGraphicSize(FlxG.width, FlxG.height);
         add(bg);
 
 		faixa = new FaixaLobby(GJClient.myID, 0, 62, false);
 		add(faixa);
+
+        faixaLeft = new FaixaLobby(GJClient.myID, 0, 162, true);
+		add(faixaLeft);
 
     }
 }

@@ -74,7 +74,9 @@ class MainMenu extends FlxTypedGroup<FlxBasic>
         label.y = 78;
         add(label);
 
-        hostBt = new MainMenuButton(Linguagem.LangUtil.getString("main_host_bt", "multiplayer"), 40, 300, false);
+        hostBt = new MainMenuButton(Linguagem.LangUtil.getString("main_host_bt", "multiplayer"), 40, 300, false, function(){
+			MultiplayerMainMenuState.instance.hostear();
+		});
 		add(hostBt);
 
 		joinBt = new MainMenuButton(Linguagem.LangUtil.getString("main_join_bt", "multiplayer"), 40, 400, true, function(){
