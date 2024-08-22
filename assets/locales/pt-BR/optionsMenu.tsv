@@ -1,6 +1,7 @@
 flag	context
 opt_settings	Configuracoes
 opt_controls	Controles
+opt_mobileControls	Controles Mobile
 opt_arrows	Tipo de Setas
 opt_language	Idioma
 opt_gamejooj	Gamejolt
