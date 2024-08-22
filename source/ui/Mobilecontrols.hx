@@ -105,6 +105,10 @@ class FlxVirtualPad extends FlxSpriteGroup
 				actions.add(add(buttonX = createButton(FlxG.width - 44 * 3, FlxG.height - 85 * 3, 44 * 3, 45 * 3, "x")));
 				actions.add(add(buttonA = createButton(FlxG.width - 44 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "a")));
 				actions.add(add(buttonB = createButton(FlxG.width - 86 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "b")));
+			case X_Y:
+				// Tacando os botões lá na esquerda pro lado direito ficar livre pro swipe no Freeplay
+				actions.add(add(buttonX = createButton(0, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "x")));
+				actions.add(add(buttonY = createButton(42 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "y")));
 			case D:
 				actions.add(add(buttonDodge = createButton(FlxG.width - (45 * 3), FlxG.height / 2 - 45 / 2, 44 * 3, 45 * 3, "d")));
 			case NONE: // do nothing
@@ -185,6 +189,7 @@ enum FlxActionMode
 	A_B;
 	A_B_C;
 	A_B_X_Y;
+	X_Y;
 	D;
 }
 
@@ -312,7 +317,7 @@ class Hitbox extends FlxSpriteGroup
 		var button = new FlxButton(X, 0);
 		// Eu posso estar sendo louco, mas, eu já usei o getSparrowAtlas nessa parte em outro mod e deu problema
 		// Não tenho certeza, mas de qualquer jeito tá aí
-		var frames = FlxAtlasFrames.fromSparrow('assets/mobilecontrols/images/hitbox/hitbox.png', 'assets/mobilecontrols/images/hitbox/hitbox.xml');
+		var frames = Paths.getSparrowAtlas('hitbox', 'mobilecontrols');
 
 		var graphic:FlxGraphic = FlxGraphic.fromFrame(frames.getByName(framestring));
 

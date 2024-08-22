@@ -181,8 +181,10 @@ class FreeplayState extends MusicBeatState
 
 		new FlxTimer().start(0.3, function(tmr:FlxTimer) { apertavel = true; });
 
-		// Ordem importa
-		#if mobileC addVirtualPad(FULL, A_B_X_Y); #end
+		// AAAAAAAA
+		#if mobileC
+		addVirtualPad(NONE, X_Y);
+		#end
 
 		if(Utils.ProgressionUtil.terminouFreeplay() && !ClientPrefs.modifiersPopUp) {
 			ClientPrefs.modifiersPopUp = true;
@@ -301,7 +303,7 @@ class FreeplayState extends MusicBeatState
 			modifiersOpened = true;
 			openSubState(new modifiers.ModifiersMenuState(true));
 		}
-		if (controls.BACK && apertavel) {
+		if ((controls.BACK #if android || FlxG.android.justReleased.BACK #end) && apertavel) {
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}

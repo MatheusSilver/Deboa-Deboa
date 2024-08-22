@@ -178,7 +178,7 @@ class BaseOptionsMenu extends MusicBeatState
 		BSLSwipeUtils.reset_manual=false;
 		changeSelection();
 		#if mobileC
-		addVirtualPad(FULL, A_B);
+		addVirtualPad(LEFT_RIGHT, NONE);
 		#end
 		reloadValues();
 	}
@@ -218,7 +218,7 @@ class BaseOptionsMenu extends MusicBeatState
 				changeSelection();
 		}
 
-		if (controls.BACK) {	
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end) {	
 			GlobalSoundManager.changeVolumes(); //Feito unica e exclusivamente pra salvar os novos volumes.
 			ClientPrefs.save();
 			MusicBeatState.switchState(new ajustes.AjustesState());

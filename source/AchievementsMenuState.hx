@@ -168,10 +168,6 @@ class AchievementsMenuState extends MusicBeatState
 		}
 		Song.Conductor.changeBPM(112);
 
-		#if mobileC
-		addVirtualPad(UP_DOWN, B);
-		#end
-
 		BSLSwipeUtils.max_y = Std.int(FlxG.width/(achieve_list_len)*2);//Isso serve pra permitir que o player possa ir no máximo até a metade da lista ao passar o dedo do topo até o fim de sua tela.
 		BSLSwipeUtils.mouseScrollMultiplier=1;
 		BSLSwipeUtils.reset_manual=false;
@@ -206,7 +202,7 @@ class AchievementsMenuState extends MusicBeatState
 			reload = false; //Serve apenas pra isso não ficar spammando.
 			changeSelection();
 		}
-		if (controls.BACK)
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());

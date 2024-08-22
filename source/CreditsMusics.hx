@@ -69,9 +69,6 @@ class CreditsMusics extends MusicBeatState
 		FlxTween.tween(bg, {y: 0}, 1, {ease: FlxEase.quartInOut});
 		FlxTween.tween(creditList, {x: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1});
 
-		#if mobileC
-		addVirtualPad(LEFT_RIGHT, A_B);
-		#end
 		super.create();
 	}
 
@@ -88,7 +85,7 @@ class CreditsMusics extends MusicBeatState
 					}
 				}
 			});	
-		if (controls.BACK)
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new SobreState());

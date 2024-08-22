@@ -57,7 +57,7 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 		super();
 
 		// bg
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic('assets/images/menuBG.png');
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menu/bg', 'mobilecontrols'));
 		bg.scrollFactor.x = 0;
 		bg.scrollFactor.y = 0.18;
 		bg.setGraphicSize(Std.int(bg.width * 1.1));
@@ -77,9 +77,10 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 		//text inputvari
 		inputvari = new FlxText(125, 50, 0,controlitems[0], 48);
+		inputvari.font = Paths.font('sonic-cd-menu-font.ttf');
 
 		//arrows
-		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
+		var ui_tex = Paths.getSparrowAtlas('menu/buttons', 'mobilecontrols');
 
 		leftArrow = new FlxSprite(inputvari.x - 60,inputvari.y - 10);
 		leftArrow.frames = ui_tex;
@@ -109,22 +110,22 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 		// buttons
 
-		exitbutton = new FlxUIButton(FlxG.width - 650,25,Linguagem.LangUtil.getString("mobile_coordinate_solo_quit", "key"));
+		exitbutton = new FlxUIButton(FlxG.width - 650,25,Linguagem.LangUtil.getString("mobile_solo_quit", "key"));
 		exitbutton.resize(125,50);
 		exitbutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
 
-		var savebutton = new FlxUIButton((exitbutton.x + exitbutton.width + 25),25,Linguagem.LangUtil.getString("mobile_coordinate_quit_save", "key"),() -> {
+		var savebutton = new FlxUIButton((exitbutton.x + exitbutton.width + 25),25,Linguagem.LangUtil.getString("mobile_quit_save", "key"),() -> {
 			save();
 			MusicBeatState.switchState(new ajustes.AjustesState());
 		});
 		savebutton.resize(250,50);
 		savebutton.setLabelFormat("VCR OSD Mono",24,FlxColor.BLACK,"center");
 
-		exportbutton = new FlxUIButton(FlxG.width - 150, 25, Linguagem.LangUtil.getString("mobile_coordinate_export", "key"), () -> { savetoclipboard(_pad); } );
+		exportbutton = new FlxUIButton(FlxG.width - 150, 25, Linguagem.LangUtil.getString("mobile_export", "key"), () -> { savetoclipboard(_pad); } );
 		exportbutton.resize(125,50);
 		exportbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
 
-		importbutton = new FlxUIButton(exportbutton.x, 100, Linguagem.LangUtil.getString("mobile_coordinate_import", "key"), () -> { loadfromclipboard(_pad); });
+		importbutton = new FlxUIButton(exportbutton.x, 100, Linguagem.LangUtil.getString("mobile_import", "key"), () -> { loadfromclipboard(_pad); });
 		importbutton.resize(125,50);
 		importbutton.setLabelFormat("VCR OSD Mono", 24, FlxColor.BLACK,"center");
 

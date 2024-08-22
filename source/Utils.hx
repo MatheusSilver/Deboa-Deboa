@@ -29,11 +29,12 @@ using StringTools;
 import sys.FileSystem;
 import sys.io.File;
 #end
-#if android
+#if mobileC
 import haxe.crypto.Md5; // Assim o Md5 não é compilado no PC e não fica como Unused import
 import flixel.math.FlxPoint;
 import ui.Mobilecontrols.FlxVirtualPad;
 #end
+
 
 enum ResizeMode
 {
@@ -1272,7 +1273,7 @@ class FlxScrollableArea extends FlxCamera
 	}
 }
 
-#if mobile
+#if mobileC // ata
 /**
  * Variáveis e configurações fundamentais para o uso dos controles (VirtualPad e Hitbox)
  */

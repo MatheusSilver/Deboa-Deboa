@@ -156,10 +156,6 @@ class GaleriaState extends MusicBeatState
 			musicButton.y = 376;
 			musicButton.alpha = 0.7;
 			add(musicButton);
-
-			#if mobile
-			//addhitboxtouch();
-			#end
 	
 			super.create();
         }
@@ -258,7 +254,7 @@ class GaleriaState extends MusicBeatState
 							ClientPrefs.save();
 						}
 					}
-				if (controls.BACK) {
+				if (controls.BACK #if android || FlxG.android.justReleased.BACK #end) {
 					mouseskin = '';
 					#if desktop
 					FlxG.mouse.unload();

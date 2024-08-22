@@ -63,6 +63,7 @@
 		<library name="locales" 		      	 preload="true" />
 		<library name="particles"      			 preload="true" />
 		<library name="songs"        			 preload="true" />
+		<library name="mobilecontrols"			 preload="true" 	if="mobileC"/>
 		<library name="shared"       			 preload="true" />
 		<library name="week-bestfriendo"         preload="true" />
 		<library name="week-phantom_attack"      preload="true" />
@@ -104,6 +105,7 @@
 		<library name="particles"      			 preload="false" />
 		<library name="songs"        			 preload="false" />
 		<library name="shared"       			 preload="false" />
+		<library name="mobilecontrols"			 preload="false" 	if="mobileC"/>
 		<library name="week-bestfriendo"         preload="false" />
 		<library name="week-phantom_attack"      preload="false" />
 		<library name="week-slaybells"       	 preload="false" />
@@ -138,6 +140,7 @@
 		<library name="week-xenophanes"          preload="false" />
 	</section>
 	<!-- EU NÃO ESTOU SUPORTANDO MAIS... AAAAAAAAAAAAAAAAA -->
+	<assets path="assets/mobilecontrols"      	   library="mobilecontrols"        	  if="mobileC"/>
 	<assets path="assets/locales"      	   	   	   library="locales"        	  	  exclude="*.ogg" if="web"/>
 	<assets path="assets/locales"        	   	   library="locales"       	  		  exclude="*.mp3" unless="web"/>
 	<assets path="assets/particles"       		   library="particles"        		  exclude="*.ogg" if="web"/>

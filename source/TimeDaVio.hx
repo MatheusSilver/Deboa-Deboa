@@ -169,10 +169,6 @@ class TimeDaVio extends MusicBeatState
 		});
 		tweenButtons(0);
 
-		#if mobileC
-		addVirtualPad(LEFT_RIGHT, A_B);
-		#end
-
 		super.create();
 	}
 
@@ -183,7 +179,7 @@ class TimeDaVio extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_vio_team","rpc")+" " + Utils.CoolUtil.capitalize(creditInfo[curSelected][0]), null);
 		#end
-		if (controls.BACK)
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new SobreState());

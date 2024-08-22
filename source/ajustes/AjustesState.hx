@@ -32,7 +32,7 @@ class AjustesState extends MusicBeatState
 	var letext:FlxText;
 	var isCoolBeat:Bool=true;
 	//var gradientBar:FlxGradient;
-	var optionShit:Array<String> = ['settings','controls', 'arrows', 'language', 'gamejooj'];
+	var optionShit:Array<String> = ['settings','controls', #if mobileC 'mobileControls', #end 'arrows', 'language', 'gamejooj'];
 
 	var machine:FlxSprite;
 	var logoBl:FlxSprite;
@@ -272,7 +272,7 @@ class AjustesState extends MusicBeatState
 			{
 				case 'settings': MusicBeatState.switchState(new ajustes.BaseOptionsMenu()); //graficos, gameplay e etc.
 				case 'controls': MusicBeatState.switchState(new ajustes.KeysSubstate());
-				#if mobile case "mobileControls": MusicBeatState.switchState(new ajustes.ControlesState()); #end //Tem gente que joga no mobile com teclado, mouse e gamepad A.K.A. Frost
+				#if mobileC case "mobileControls": MusicBeatState.switchState(new ajustes.ControlesState()); #end //Tem gente que joga no mobile com teclado, mouse e gamepad A.K.A. Frost
 				case 'arrows': MusicBeatState.switchState(new ajustes.NotesSubState());
 				case 'gamejooj': MusicBeatState.switchState(new GameJoltLoginState());
 				case "language": MusicBeatState.switchState(new Linguagem.LanguageState());

@@ -486,7 +486,7 @@ class GaleriaStateMusic extends MusicBeatState
 			if(menuItems.members[0].y + BSLSwipeUtils.scrollY <= segureoPrimeiroY && menuItems.members[GaleriaState.leMusic.length-1].y + BSLSwipeUtils.scrollY>= FlxG.height - barraInferior.y + 510)
 				menuItems.forEach(function(spr:FlxSprite){spr.y += BSLSwipeUtils.scrollY;});
 
-		if (controls.BACK || (Utils.BSLTouchUtils.over(sair) && Utils.BSLTouchUtils.justTouched())) {
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end ||(Utils.BSLTouchUtils.over(sair) && Utils.BSLTouchUtils.justTouched())) {
 			menutoca= true;
 			GlobalSoundManager.play('click');
 			GaleriaState.firsttimemusic = false;

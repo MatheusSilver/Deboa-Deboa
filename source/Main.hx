@@ -159,6 +159,7 @@ class Main extends Sprite
 
 		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/MatheusSilver/Deboa-Deboa\n\n> Crash Handler written by: sqirra-rng";
 
+		#if desktop
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
 
@@ -166,6 +167,7 @@ class Main extends Sprite
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
+		#end
 
 		Application.current.window.alert(errMsg, "Error!");
 		#if rpc

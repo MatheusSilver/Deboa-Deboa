@@ -82,6 +82,11 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function create()
 	{
+		#if android
+		passouCY = true;
+		terminouHistoria = true;
+		#end
+		
 		passeiAqui = true;
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
