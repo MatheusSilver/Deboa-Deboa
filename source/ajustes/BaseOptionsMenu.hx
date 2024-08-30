@@ -63,6 +63,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'gameplay_cap',
 		'downscroll',
 		'middlescroll',
+		'reset',
 		//'Ghost Tapping', //Isso é deveras é perigoso em algumas músicas
 		'note_delay',
 		'splash',
@@ -304,6 +305,9 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'middlescroll':
 						ClientPrefs.middleScroll = !ClientPrefs.middleScroll;
 
+					case 'reset':
+						ClientPrefs.canReset = !ClientPrefs.canReset;
+
 					case 'Ghost Tapping':
 						ClientPrefs.ghostTapping = !ClientPrefs.ghostTapping;
 
@@ -494,6 +498,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.downScroll;
 					case 'middlescroll':
 						daValue = ClientPrefs.middleScroll;
+					case 'reset':
+						daValue = ClientPrefs.canReset;
 					case 'Ghost Tapping':
 						daValue = ClientPrefs.ghostTapping;
 					case 'Swearing':

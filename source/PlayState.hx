@@ -2854,7 +2854,7 @@ class PlayState extends MusicBeatState
 		FlxG.watch.addQuick("stepShit", curStep);
 
 		// RESET = Quick Game Over Screen
-		if (controls.RESET && !inCutscene && !endingSong && !playingVideoMP4)
+		if (ClientPrefs.canReset && controls.RESET && !inCutscene && !endingSong && !playingVideoMP4)
 		{
 			resetforcado = true;
 			canRegen = !ModifiersManager.isEnabledbyName("no_death");

@@ -1,4 +1,5 @@
 flag	context
+opt_desc_reset	If unchecked, pressing the RESET bind will do nothing.
 opt_desc_bad_words	Disable bad words<X>(Subtitles and Dub)
 opt_desc_colorblindness_filter	Switch between filters,<X>the ideal one for your case of color blindness.<X>(Can cause performance problems)
 opt_desc_gore	Turn this off if you don't want to see<X>the gore elements in the song.
