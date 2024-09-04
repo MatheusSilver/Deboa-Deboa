@@ -40,8 +40,7 @@ class Lobby extends FlxTypedGroup<FlxBasic>
     public static var instance:Lobby;
 
     var bg:FlxSprite;
-	var faixa:FaixaLobby;
-	var faixaLeft:FaixaLobby;
+	var players:Array<LobbyPlayer> = [new LobbyPlayer(203, -10, true, GJClient.myID), new LobbyPlayer(522, 218, false, "0")];
 
 
     public function new() {
@@ -52,11 +51,50 @@ class Lobby extends FlxTypedGroup<FlxBasic>
         bg.setGraphicSize(FlxG.width, FlxG.height);
         add(bg);
 
-		faixa = new FaixaLobby(GJClient.myID, 0, 62, false);
-		add(faixa);
+        for (player in players) {
+            add(player);
+        }
 
-        faixaLeft = new FaixaLobby(GJClient.myID, 0, 162, true);
-		add(faixaLeft);
+    }
+}
 
+class LobbyPlayer extends FlxSpriteGroup
+{
+    public var gjID:String;
+    public var sessionId:String = "";
+	public var nome:String = "Player 1";
+	public var noteSkin:String = "NOTE_assets";
+    public var faixa:FaixaLobby;
+	public var bf:FlxSprite;
+    public var isPlayer1:Bool;
+
+    public function new(x:Float, y:Float, isPlayer1:Bool, gamejoltID:String)
+	{
+		super(x,y);
+        gjID=gamejoltID;
+        this.isPlayer1 = isPlayer1;
+        bf = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/lobby/"+(isPlayer1?"exe":"bf")));
+        bf.setGraphicSize(Std.int(bf.width * 0.6667), Std.int(bf.height * 0.6667));
+        add(bf);
+        updatePlayer(gjID);
+	}
+
+    public function updatePlayer(newGJID:String) {
+        gjID=newGJID;
+
+        if(gjID=="0")
+            this.alpha = 0.75;
+            return;
+
+        this.alpha = 1;
+		faixa = new FaixaLobby(gjID, 0, bf.y+78, isPlayer1);
+        if(isPlayer1) {
+            faixa.x-=(faixa.width)+(938*0.64);
+            faixa.x+=faixa.width;
+        } else {
+            faixa.y-=260;
+            faixa.x+=120;
+        }
+        add(faixa);
     }
 }

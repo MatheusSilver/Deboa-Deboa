@@ -84,19 +84,19 @@ class FaixaLobby extends FlxSpriteGroup {
     var icon:FlxSprite;
     var bgInicio:FlxSprite;
     var bgFinal:FlxSprite;
-    var bgMeio:FlxSprite;
+    public var bgMeio:FlxSprite;
     var text:Array<FlxText>;
 
     var userData:User;
 
-    public function new(gameJoltID:String, x:Int, y:Int, isLeft:Bool) {
+    public function new(gameJoltID:String, x:Float, y:Float, isLeft:Bool) {
         super(x, y);
 
         this.gameJoltID = Std.parseInt(gameJoltID);
         userData = GJClient.getUserData(Std.parseInt(gameJoltID));
 
         if(!isLeft) {
-            text = Utils.createColoredText(userData.username.toUpperCase(), [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
+            text = Utils.createColoredText(userData!=null ? userData.username.toUpperCase() : " ", [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
 
             bgInicio = new FlxSprite(0, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa1"));
     
@@ -118,7 +118,7 @@ class FaixaLobby extends FlxSpriteGroup {
             icon.x = 50;
             add(icon);
         } else {
-            text = Utils.createColoredText(userData.username.toUpperCase(), [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
+            text = Utils.createColoredText(userData!=null ? userData.username.toUpperCase() : " ", [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
 
             bgInicio = new FlxSprite(0, 0).loadGraphic(Paths.image("multiplayer/menus/lobby/faixa2"));
             bgInicio.flipX=true;
@@ -155,11 +155,32 @@ class FaixaLobby extends FlxSpriteGroup {
         pegarIcon();
     } 
 
+    override function update(elapsed:Float) {
+        super.update(elapsed);
+
+        if(FlxG.keys.pressed.S){
+            icon.y++;
+        }
+        if(FlxG.keys.pressed.W){
+            icon.y--;
+        }
+        if(FlxG.keys.pressed.A){
+            icon.x--;
+        }
+        if(FlxG.keys.pressed.D){
+            icon.x++;
+        }
+
+        FlxG.watch.addQuick("icon X", icon.x);
+        FlxG.watch.addQuick("icon Y", icon.y);
+    }
+
     function pegarIcon()
     {
-        if(gameJoltID<0) {
+        if(gameJoltID==0) {
             icon.loadGraphic(Paths.image("menus/gamejolt/userIcon"));
             icon.setGraphicSize(47, 47);
+
             return;
         }
         var loader:Loader = new Loader();

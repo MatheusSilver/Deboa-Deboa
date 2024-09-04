@@ -122,15 +122,17 @@ class RoomList extends FlxSpriteGroup
         objectsArray = [];
 		var num:Int = 1;
         roomObjects = cast add(new FlxSpriteGroup());
-        for (room in rooms) {
-			if(room.metadata.privateRoom == false)
-			{
-				var roomButton:RoomButton = new RoomButton(room.metadata.displayName, 0, ((88*num)+num*5));
-				roomObjects.add(roomButton);
-                objectsArray.push(roomButton);
-				num++;
-			}
-		}
+        if(rooms != null) {
+            for (room in rooms) {
+                if(room.metadata.privateRoom == false)
+                {
+                    var roomButton:RoomButton = new RoomButton(room.metadata.displayName, 0, ((88*num)+num*5));
+                    roomObjects.add(roomButton);
+                    objectsArray.push(roomButton);
+                    num++;
+                }
+            }
+        }
     }
 
     override function update(elapsed:Float) {
