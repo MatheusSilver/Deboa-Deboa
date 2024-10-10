@@ -22,4 +22,7 @@ class LobbyPlayer extends Schema {
 	@:type("string")
 	public var noteSkin: String = "";
 
+	@:type("string")
+	public var gamejoltId: String = "";
+
 }

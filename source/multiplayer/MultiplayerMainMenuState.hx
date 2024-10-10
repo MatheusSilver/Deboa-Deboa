@@ -506,15 +506,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 			switch(message.type)
 			{
 				case "entrou":
-					players[message.playerIndex].nome = message.username;
-					players[message.playerIndex].charID = message.char;
-					players[message.playerIndex].sessionId = message.sessionId;
-					players[message.playerIndex].noteSkin = message.noteSkin;
+					lobby.players[message.playerIndex].sessionId = message.sessionId;
+					lobby.players[message.playerIndex].noteSkin = message.noteSkin;
+					lobby.players[message.playerIndex].updatePlayer(message.gamejoltId);
 				case "saiu":
-					players[message.playerIndex].nome = "";
-					players[message.playerIndex].charID = "bf";
-					players[message.playerIndex].sessionId = "";
-					players[message.playerIndex].noteSkin = "NOTE_assets";
+					lobby.players[message.playerIndex].sessionId = "";
+					lobby.players[message.playerIndex].noteSkin = "NOTE_assets";
+					lobby.players[message.playerIndex].updatePlayer("0");
 			}
 		});
 
@@ -658,6 +656,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "0");
 		roomOptions.set("noteSkin", skins[skinAtual][1]);
+		roomOptions.set("gamejoltId", GJClient.myID);
 		roomOptions.set("privateRoom", idConvite!=""?true:false);
 		resetInviteVars();
 
@@ -673,9 +672,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			isOnServer = true;
 			
 			changeMenu(LOBBY);
-			players[0].nome = GJClient.userName;
-			players[0].charID = "bf";
-			players[0].sessionId = curRoom.sessionId;
+
+			lobby.players[0].noteSkin = skins[skinAtual];
+			lobby.players[0].sessionId = curRoom.sessionId;
+			lobby.players[0].updatePlayer(GJClient.myID);
 
 			eventHandlers();
 
@@ -801,6 +801,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "1");
 		roomOptions.set("noteSkin", skins[skinAtual][1]);
+		roomOptions.set("gamejoltId", GJClient.myID);
 
 		client.getAvailableRooms("gameRoom", function(err, rooms) {
 			if (err != null) {
@@ -829,9 +830,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 						isOnServer = true;
 			
 						changeMenu(LOBBY);
-						players[1].nome = GJClient.userName;
-						players[1].charID = "bf";
-						players[1].sessionId = curRoom.sessionId;
+						lobby.players[1].noteSkin = skins[skinAtual];
+						lobby.players[1].sessionId = curRoom.sessionId;
+						lobby.players[1].updatePlayer(GJClient.myID);
 			
 						eventHandlers();
 			
@@ -927,6 +928,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function inputShit()
 	{
+		/*
 		if(!isPlayingMatch)
 		{
 			if (controls.NOTE_UP_P)
@@ -963,6 +965,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					solteiObotao("esquerda");
 				}
 		}
+		*/
 	}
 
 	public function avisarAlgo(avisarIssoAqui:String, ?nextState:FlxState = null)

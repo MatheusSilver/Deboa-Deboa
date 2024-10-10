@@ -116,6 +116,7 @@ class FaixaLobby extends FlxSpriteGroup {
             icon.setGraphicSize(62, 62);
             icon.y = -2;
             icon.x = 50;
+            icon.visible = false;
             add(icon);
         } else {
             text = Utils.createColoredText(userData!=null ? userData.username.toUpperCase() : " ", [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
@@ -144,6 +145,7 @@ class FaixaLobby extends FlxSpriteGroup {
             icon.setGraphicSize(62, 62);
             icon.y = -2;
             icon.x = bgFinal.x-80;
+            icon.visible = false;
             add(icon);
         }
 
@@ -153,6 +155,7 @@ class FaixaLobby extends FlxSpriteGroup {
             add(letra);
         }
         pegarIcon();
+        icon.visible = true;
     } 
 
     override function update(elapsed:Float) {
