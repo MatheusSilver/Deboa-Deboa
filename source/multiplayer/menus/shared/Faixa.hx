@@ -155,7 +155,6 @@ class FaixaLobby extends FlxSpriteGroup {
             add(letra);
         }
         pegarIcon();
-        icon.visible = true;
     } 
 
     override function update(elapsed:Float) {
@@ -180,32 +179,37 @@ class FaixaLobby extends FlxSpriteGroup {
 
     function pegarIcon()
     {
-        if(gameJoltID==0) {
+        if(userData == null) {
             icon.loadGraphic(Paths.image("menus/gamejolt/userIcon"));
-            icon.setGraphicSize(47, 47);
-
-            return;
+            var bmd:BitmapData = icon.graphic.bitmap;
+            modifySprite(bmd);
+        } else {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
+                if(!GJClient.avatarURL.contains("no-avatar"))
+                {
+                    var bmp:Bitmap = cast(loader.content, Bitmap);
+                    var bmd:BitmapData = bmp.bitmapData;
+                    modifySprite(bmd);
+                }
+            });
+            loader.load(new URLRequest(userData.avatar_url.replace("/62/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
         }
-        var loader:Loader = new Loader();
-		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
-            if(!GJClient.avatarURL.contains("no-avatar"))
-            {
-				var bmp:Bitmap = cast(loader.content, Bitmap);
-				var bmd:BitmapData = bmp.bitmapData;
-				icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
-				icon.setGraphicSize(62, 62); // aparentemente aquele numero do link é uma mentira :womp: :womp:
-				icon.updateHitbox();
-				var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
-				//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
-				tempMask.makeGraphic(62, 62, FlxColor.TRANSPARENT);
-				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
-				// add(tempCircle);
-				FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
-				tempMask.destroy();
-				tempCircle.destroy();
-                icon.setGraphicSize(47, 47);
-			}
-		});
-		loader.load(new URLRequest(userData.avatar_url.replace("/62/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
+    }
+
+    function modifySprite(bmd:BitmapData) {
+        icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
+        icon.setGraphicSize(62, 62); // aparentemente aquele numero do link é uma mentira :womp: :womp:
+        icon.updateHitbox();
+        var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
+        //Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
+        tempMask.makeGraphic(62, 62, FlxColor.TRANSPARENT);
+        var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
+        // add(tempCircle);
+        FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
+        tempMask.destroy();
+        tempCircle.destroy();
+        icon.setGraphicSize(47, 47);
+        icon.visible = true;
     }
 }
