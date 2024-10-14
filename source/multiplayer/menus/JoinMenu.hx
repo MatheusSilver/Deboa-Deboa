@@ -62,16 +62,12 @@ class JoinMenu extends FlxTypedGroup<FlxBasic>
 		faixa = new Faixa(0, 62);
 		add(faixa);
 
-        fleet = new FlxSprite(426, -187);
-		fleet.frames = Paths.getSparrowAtlas('multiplayer/menus/mainmenu/FleetwayMulti', 'preload');
-		fleet.animation.addByPrefix('Idle', "Idle", 30);
-		fleet.setGraphicSize(Std.int(fleet.width/1.3));
+		fleet = new FlxSprite(622, -50);
+		fleet.loadGraphic(Paths.image('multiplayer/menus/fleetway', 'preload'));
 		fleet.antialiasing = ClientPrefs.globalAntialiasing;
 		add(fleet);
-		fleet.animation.play('Idle', true, false);
-		fleet.animation.finishCallback = (a:String)->{
-			fleet.animation.play('Idle', true, false);
-		}
+
+		FlxTween.tween(fleet, {y:-30}, 0.6, {ease: FlxEase.sineInOut, type: PINGPONG});
 
         refreshBt = new FlxButton(547, 564, "", function(){
 			if(!MultiplayerMainMenuState.instance.canClick || !refreshBt.visible)
