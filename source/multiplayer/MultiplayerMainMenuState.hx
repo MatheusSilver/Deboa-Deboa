@@ -83,15 +83,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	// SERVER
     public var client:Client;
-	var curRoom:Room<LobbyState>;
+	public var curRoom:Room<LobbyState>;
 	var quisSair:Bool = false;
 
 	var isOnServer:Bool = false;
 	var isHost:Bool = false;
 	var myID:Int = 0;
-	var canInitMatch:Bool = false;
+	public var canInitMatch:Bool = false;
 	//var selectedMusic:String = "soulless/soulless-hard";
-	var isPlayingMatch:Bool = false;
+	public var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [];
 
 	// PLAYERS
@@ -200,6 +200,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 		barra.configButton.visible=false;
 		barra.changeLabelText("");
 
+		joinMenu.roomList.refresh([]);
+
 		if(roomList != null)
 		{
 			roomList.remover();
@@ -216,7 +218,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				lobby.visible = true;
 				barra.backButton.visible=true;
 				barra.configButton.visible=true;
-				barra.changeLabelText("PRONTOS 0/ 2"); // font issues
+				barra.changeLabelText("LOBBY"); // font issues
 				/*if(isHost)
 				{
 					comecarBt.x = 276;
@@ -588,7 +590,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 
 		curRoom.onMessage("newReady", function(message) {
-			readyTxt.text = Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " "+Std.string(message)+"/2";
+			//readyTxt.text = Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " "+Std.string(message)+"/2";
+			trace(Std.string(message)+"/2");
 		});
 
 		curRoom.onMessage("leave", function(message) {
@@ -699,7 +702,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 		}
 		var url:String = servidor.replace("ws", "http")+"/charts/"+musicas[MusicaAtual][1]+".json";
-		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, players[getIndexBySession(curRoom.sessionId)], players[getOtherIndexBySession(curRoom.sessionId)]));
+		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, lobby.players[getIndexBySession(curRoom.sessionId)], lobby.players[getOtherIndexBySession(curRoom.sessionId)]));
 	}
 
 	public function enviarInputGame(note:Int)

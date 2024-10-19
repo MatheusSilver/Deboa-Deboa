@@ -44,7 +44,7 @@ class JoinMenu extends FlxTypedGroup<FlxBasic>
     var fleet:FlxSprite;
 	var faixa:Faixa;
 
-    var roomList:RoomList;
+    public var roomList:RoomList;
     var refreshBt:FlxButton;
 
 
@@ -67,7 +67,7 @@ class JoinMenu extends FlxTypedGroup<FlxBasic>
 		fleet.antialiasing = ClientPrefs.globalAntialiasing;
 		add(fleet);
 
-		FlxTween.tween(fleet, {y:-30}, 0.6, {ease: FlxEase.sineInOut, type: PINGPONG});
+		FlxTween.tween(fleet, {y:-30}, 1, {ease: FlxEase.sineInOut, type: PINGPONG});
 
         refreshBt = new FlxButton(547, 564, "", function(){
 			if(!MultiplayerMainMenuState.instance.canClick || !refreshBt.visible)
@@ -122,7 +122,7 @@ class RoomList extends FlxSpriteGroup
             for (room in rooms) {
                 if(room.metadata.privateRoom == false)
                 {
-                    var roomButton:RoomButton = new RoomButton(room.metadata.displayName, 0, ((88*num)+num*5));
+                    var roomButton:RoomButton = new RoomButton(room.metadata.displayName, 0, ((88*num)+num*5), room);
                     roomObjects.add(roomButton);
                     objectsArray.push(roomButton);
                     num++;
@@ -161,7 +161,7 @@ class RoomList extends FlxSpriteGroup
 
 class RoomButton extends FlxButton
 {
-    public function new(label:String, x:Float, y:Float) {
+    public function new(label:String, x:Float, y:Float, room:RoomAvailable) {
         super(x,y);
 		this.loadGraphic(Paths.image("multiplayer/menus/mainmenu/bt-orange", 'preload'));
         this.updateHitbox();
@@ -176,8 +176,9 @@ class RoomButton extends FlxButton
 		}
 
 		this.onDown.callback = function() {
-			if(!this.visible || !MultiplayerMainMenuState.instance.canClick || !MainMenu.instance.visible)
-				return;
+			/*if(!MultiplayerMainMenuState.instance.canClick || !this.visible)
+				return;*/
+            MultiplayerMainMenuState.instance.entrar(room);
 			GlobalSoundManager.play(confirmMenu);
 		}
     }

@@ -63,7 +63,7 @@ class MainMenu extends FlxTypedGroup<FlxBasic>
 		fleet.antialiasing = ClientPrefs.globalAntialiasing;
 		add(fleet);
 
-		FlxTween.tween(fleet, {y:-30}, 0.6, {ease: FlxEase.sineInOut, type: PINGPONG});
+		FlxTween.tween(fleet, {y:-30}, 1, {ease: FlxEase.sineInOut, type: PINGPONG});
 
         label = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/mainmenu/label", 'preload'));
         label.x = 40;

@@ -314,7 +314,7 @@
 	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 
 	<!--só trocar se quiser rpc-->
-	<haxedef name="rpc" unless="debug || mobile"/>
+	<!--haxedef name="rpc" unless="debug || mobile"/-->
 
 	<!--Used for Izzy Engine's crash handler-->
 	<haxedef name="HXCPP_CHECK_POINTER" if="CRASHLOG_HANDLER" />

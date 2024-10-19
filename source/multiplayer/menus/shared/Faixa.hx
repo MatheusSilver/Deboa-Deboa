@@ -85,7 +85,7 @@ class FaixaLobby extends FlxSpriteGroup {
     var bgInicio:FlxSprite;
     var bgFinal:FlxSprite;
     public var bgMeio:FlxSprite;
-    var text:Array<FlxText>;
+    public var text:Array<FlxText>;
 
     var userData:User;
 
