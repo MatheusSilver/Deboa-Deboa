@@ -85,7 +85,7 @@ class FaixaLobby extends FlxSpriteGroup {
     var bgInicio:FlxSprite;
     var bgFinal:FlxSprite;
     public var bgMeio:FlxSprite;
-    var text:Array<FlxText>;
+    public var text:Array<FlxText>;
 
     var userData:User;
 
@@ -116,6 +116,7 @@ class FaixaLobby extends FlxSpriteGroup {
             icon.setGraphicSize(62, 62);
             icon.y = -2;
             icon.x = 50;
+            icon.visible = false;
             add(icon);
         } else {
             text = Utils.createColoredText(userData!=null ? userData.username.toUpperCase() : " ", [FlxColor.fromRGB(233, 99, 34), FlxColor.fromRGB(253, 246, 241)], 122, -1, 36, Linguagem.LangUtil.getFont("gobold"), -2);
@@ -144,6 +145,7 @@ class FaixaLobby extends FlxSpriteGroup {
             icon.setGraphicSize(62, 62);
             icon.y = -2;
             icon.x = bgFinal.x-80;
+            icon.visible = false;
             add(icon);
         }
 
@@ -177,32 +179,37 @@ class FaixaLobby extends FlxSpriteGroup {
 
     function pegarIcon()
     {
-        if(gameJoltID==0) {
+        if(userData == null) {
             icon.loadGraphic(Paths.image("menus/gamejolt/userIcon"));
-            icon.setGraphicSize(47, 47);
-
-            return;
+            var bmd:BitmapData = icon.graphic.bitmap;
+            modifySprite(bmd);
+        } else {
+            var loader:Loader = new Loader();
+            loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
+                if(!GJClient.avatarURL.contains("no-avatar"))
+                {
+                    var bmp:Bitmap = cast(loader.content, Bitmap);
+                    var bmd:BitmapData = bmp.bitmapData;
+                    modifySprite(bmd);
+                }
+            });
+            loader.load(new URLRequest(userData.avatar_url.replace("/62/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
         }
-        var loader:Loader = new Loader();
-		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
-            if(!GJClient.avatarURL.contains("no-avatar"))
-            {
-				var bmp:Bitmap = cast(loader.content, Bitmap);
-				var bmd:BitmapData = bmp.bitmapData;
-				icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
-				icon.setGraphicSize(62, 62); // aparentemente aquele numero do link é uma mentira :womp: :womp:
-				icon.updateHitbox();
-				var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
-				//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
-				tempMask.makeGraphic(62, 62, FlxColor.TRANSPARENT);
-				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
-				// add(tempCircle);
-				FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
-				tempMask.destroy();
-				tempCircle.destroy();
-                icon.setGraphicSize(47, 47);
-			}
-		});
-		loader.load(new URLRequest(userData.avatar_url.replace("/62/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
+    }
+
+    function modifySprite(bmd:BitmapData) {
+        icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
+        icon.setGraphicSize(62, 62); // aparentemente aquele numero do link é uma mentira :womp: :womp:
+        icon.updateHitbox();
+        var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
+        //Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
+        tempMask.makeGraphic(62, 62, FlxColor.TRANSPARENT);
+        var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
+        // add(tempCircle);
+        FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
+        tempMask.destroy();
+        tempCircle.destroy();
+        icon.setGraphicSize(47, 47);
+        icon.visible = true;
     }
 }

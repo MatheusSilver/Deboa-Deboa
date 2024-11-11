@@ -44,7 +44,7 @@ class JoinMenu extends FlxTypedGroup<FlxBasic>
     var fleet:FlxSprite;
 	var faixa:Faixa;
 
-    var roomList:RoomList;
+    public var roomList:RoomList;
     var refreshBt:FlxButton;
 
 
@@ -62,16 +62,12 @@ class JoinMenu extends FlxTypedGroup<FlxBasic>
 		faixa = new Faixa(0, 62);
 		add(faixa);
 
-        fleet = new FlxSprite(426, -187);
-		fleet.frames = Paths.getSparrowAtlas('multiplayer/menus/mainmenu/FleetwayMulti', 'preload');
-		fleet.animation.addByPrefix('Idle', "Idle", 30);
-		fleet.setGraphicSize(Std.int(fleet.width/1.3));
+		fleet = new FlxSprite(622, -50);
+		fleet.loadGraphic(Paths.image('multiplayer/menus/fleetway', 'preload'));
 		fleet.antialiasing = ClientPrefs.globalAntialiasing;
 		add(fleet);
-		fleet.animation.play('Idle', true, false);
-		fleet.animation.finishCallback = (a:String)->{
-			fleet.animation.play('Idle', true, false);
-		}
+
+		FlxTween.tween(fleet, {y:-30}, 1, {ease: FlxEase.sineInOut, type: PINGPONG});
 
         refreshBt = new FlxButton(547, 564, "", function(){
 			if(!MultiplayerMainMenuState.instance.canClick || !refreshBt.visible)
@@ -126,7 +122,7 @@ class RoomList extends FlxSpriteGroup
             for (room in rooms) {
                 if(room.metadata.privateRoom == false)
                 {
-                    var roomButton:RoomButton = new RoomButton(room.metadata.displayName, 0, ((88*num)+num*5));
+                    var roomButton:RoomButton = new RoomButton(room.metadata.displayName, 0, ((88*num)+num*5), room);
                     roomObjects.add(roomButton);
                     objectsArray.push(roomButton);
                     num++;
@@ -165,7 +161,7 @@ class RoomList extends FlxSpriteGroup
 
 class RoomButton extends FlxButton
 {
-    public function new(label:String, x:Float, y:Float) {
+    public function new(label:String, x:Float, y:Float, room:RoomAvailable) {
         super(x,y);
 		this.loadGraphic(Paths.image("multiplayer/menus/mainmenu/bt-orange", 'preload'));
         this.updateHitbox();
@@ -180,8 +176,9 @@ class RoomButton extends FlxButton
 		}
 
 		this.onDown.callback = function() {
-			if(!this.visible || !MultiplayerMainMenuState.instance.canClick || !MainMenu.instance.visible)
-				return;
+			/*if(!MultiplayerMainMenuState.instance.canClick || !this.visible)
+				return;*/
+            MultiplayerMainMenuState.instance.entrar(room);
 			GlobalSoundManager.play(confirmMenu);
 		}
     }

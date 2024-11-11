@@ -40,6 +40,7 @@ import openfl.display.Loader;
 import multiplayer.MultiplayerMainMenuState;
 import Note.NoteSplash;
 import Utils.CoolUtil;
+import multiplayer.menus.Lobby;
 
 using StringTools;
 
@@ -90,14 +91,14 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var oppBf:Boyfriend;
 	var oppName:String;
 
-	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myObject:LobbyPlayerObject, oppObject:LobbyPlayerObject) {
+	public function new(startPos:Float, whichSong:String, isHost:Bool, trocarLados:Bool, modo:Int, myObject:LobbyPlayer, oppObject:LobbyPlayer) {
 		instance = this;
 		currentMode = modo;
-		mySkin = myObject.noteSkin;
+		mySkin = MultiplayerMainMenuState.instance.skins[MultiplayerMainMenuState.instance.skinAtual][1];
 		oppSkin = oppObject.noteSkin;
-		myBf = new Boyfriend(0, 0, myObject.charID);
-		oppBf = new Boyfriend(0, 0, oppObject.charID);
-		oppName = oppObject.nome;
+		myBf = new Boyfriend(0, 0, "bf");
+		oppBf = new Boyfriend(0, 0, "bf");
+		oppName = oppObject.getName();
 
 		this.startPos = startPos;
 		Song.Conductor.songPosition = startPos - startOffset;

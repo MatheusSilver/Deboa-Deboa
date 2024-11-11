@@ -83,15 +83,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	// SERVER
     public var client:Client;
-	var curRoom:Room<LobbyState>;
+	public var curRoom:Room<LobbyState>;
 	var quisSair:Bool = false;
 
 	var isOnServer:Bool = false;
 	var isHost:Bool = false;
 	var myID:Int = 0;
-	var canInitMatch:Bool = false;
+	public var canInitMatch:Bool = false;
 	//var selectedMusic:String = "soulless/soulless-hard";
-	var isPlayingMatch:Bool = false;
+	public var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [];
 
 	// PLAYERS
@@ -197,7 +197,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 		joinMenu.visible = false;
 		lobby.visible = false;
 		barra.backButton.visible=false;
+		barra.configButton.visible=false;
 		barra.changeLabelText("");
+
+		joinMenu.roomList.refresh([]);
 
 		if(roomList != null)
 		{
@@ -214,7 +217,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 			case LOBBY:
 				lobby.visible = true;
 				barra.backButton.visible=true;
-				barra.changeLabelText("PRONTOS 0/2");
+				barra.configButton.visible=true;
+				barra.changeLabelText("LOBBY"); // font issues
 				/*if(isHost)
 				{
 					comecarBt.x = 276;
@@ -336,7 +340,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		bGround.antialiasing = ClientPrefs.globalAntialiasing;
 		bGround.updateHitbox();
 		bGround.alpha = 1;
-		add(bGround);
+		//add(bGround);
 
 		readyTxt = new FlxText(0, 0, FlxG.width - 95, Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " 0/2", 100);
 		readyTxt.setFormat(Paths.font("letravio.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -347,11 +351,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 		textinhoDebug.screenCenter(XY);
 
 		hostearBt = createButton('multiplayer/hospedarBt', 0.6, 0, 1500, true, true, hostear, null, Linguagem.LangUtil.getString("main_host_bt", "multiplayer"));
-		add(hostearBt);
+		//add(hostearBt);
 		entrarBt = createButton('multiplayer/entrarBt', 0.6, 0, 1500, true, true, mostrarSalas, null, Linguagem.LangUtil.getString("main_join_bt", "multiplayer"));
-		add(entrarBt);
+		//add(entrarBt);
 
-		add(multiplayerTxt);
+		//add(multiplayerTxt);
 		super.create();
 
 		var num:Int = 0;
@@ -368,7 +372,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					curRoom.send("toggle-ready");
 				}
 		}, null, Linguagem.LangUtil.getString("lobby_ready_bt", "multiplayer"));
-		add(comecarBt);
+		//add(comecarBt);
 
 		configBt = createButton('multiplayer/configBt', 0.6, 857, 563, false, false, function(){
 			if (isOnOptions || isPlayingMatch)
@@ -378,14 +382,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 			comecarBt.visible = false;
 			openSubState(new OptionsSubstate());
 		} );
-		add(configBt);
+		//add(configBt);
 
 		connectingText = new FlxText(0, 0, 0, Linguagem.LangUtil.getString("txt_connecting", "multiplayer"), 24);
 		connectingText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		connectingText.screenCenter(XY);
 		add(connectingText);
 
-		add(readyTxt);
+		//add(readyTxt);
 
 		voltarSkinsBt = createButton('multiplayer/voltarSkinsBt', 0.6, 0, 563, false, true,  function(){
 			if (curMenu != SKINS || !canClick)
@@ -406,15 +410,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 				canClick = true;
 			});
 		}, null, Linguagem.LangUtil.getString("main_skins_bt", "multiplayer"));
-		add(skinsBt);
+		//add(skinsBt);
 
-		add(voltarSkinsBt);
+		//add(voltarSkinsBt);
 
 		skinsTxt = new FlxText(0, 0, FlxG.width - 95, Linguagem.LangUtil.getString("skins_label", "multiplayer"), 100);
 		skinsTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		skinsTxt.y = 51;
 		skinsTxt.screenCenter(X);
-		add(skinsTxt);
+		//add(skinsTxt);
 
 		add(mainMenu);
 		add(noteSkins);
@@ -506,15 +510,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 			switch(message.type)
 			{
 				case "entrou":
-					players[message.playerIndex].nome = message.username;
-					players[message.playerIndex].charID = message.char;
-					players[message.playerIndex].sessionId = message.sessionId;
-					players[message.playerIndex].noteSkin = message.noteSkin;
+					lobby.players[message.playerIndex].sessionId = message.sessionId;
+					lobby.players[message.playerIndex].noteSkin = message.noteSkin;
+					lobby.players[message.playerIndex].updatePlayer(message.gamejoltId);
 				case "saiu":
-					players[message.playerIndex].nome = "";
-					players[message.playerIndex].charID = "bf";
-					players[message.playerIndex].sessionId = "";
-					players[message.playerIndex].noteSkin = "NOTE_assets";
+					lobby.players[message.playerIndex].sessionId = "";
+					lobby.players[message.playerIndex].noteSkin = "NOTE_assets";
+					lobby.players[message.playerIndex].updatePlayer("0");
 			}
 		});
 
@@ -588,7 +590,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 
 		curRoom.onMessage("newReady", function(message) {
-			readyTxt.text = Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " "+Std.string(message)+"/2";
+			//readyTxt.text = Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " "+Std.string(message)+"/2";
+			trace(Std.string(message)+"/2");
 		});
 
 		curRoom.onMessage("leave", function(message) {
@@ -658,6 +661,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "0");
 		roomOptions.set("noteSkin", skins[skinAtual][1]);
+		roomOptions.set("gamejoltId", GJClient.myID);
 		roomOptions.set("privateRoom", idConvite!=""?true:false);
 		resetInviteVars();
 
@@ -673,9 +677,10 @@ class MultiplayerMainMenuState extends MusicBeatState
 			isOnServer = true;
 			
 			changeMenu(LOBBY);
-			players[0].nome = GJClient.userName;
-			players[0].charID = "bf";
-			players[0].sessionId = curRoom.sessionId;
+
+			lobby.players[0].noteSkin = skins[skinAtual];
+			lobby.players[0].sessionId = curRoom.sessionId;
+			lobby.players[0].updatePlayer(GJClient.myID);
 
 			eventHandlers();
 
@@ -697,7 +702,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 		}
 		var url:String = servidor.replace("ws", "http")+"/charts/"+musicas[MusicaAtual][1]+".json";
-		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, players[getIndexBySession(curRoom.sessionId)], players[getOtherIndexBySession(curRoom.sessionId)]));
+		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, lobby.players[getIndexBySession(curRoom.sessionId)], lobby.players[getOtherIndexBySession(curRoom.sessionId)]));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -801,6 +806,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		roomOptions.set("myChar", "bf");
 		roomOptions.set("isHost", "1");
 		roomOptions.set("noteSkin", skins[skinAtual][1]);
+		roomOptions.set("gamejoltId", GJClient.myID);
 
 		client.getAvailableRooms("gameRoom", function(err, rooms) {
 			if (err != null) {
@@ -829,9 +835,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 						isOnServer = true;
 			
 						changeMenu(LOBBY);
-						players[1].nome = GJClient.userName;
-						players[1].charID = "bf";
-						players[1].sessionId = curRoom.sessionId;
+						lobby.players[1].noteSkin = skins[skinAtual];
+						lobby.players[1].sessionId = curRoom.sessionId;
+						lobby.players[1].updatePlayer(GJClient.myID);
 			
 						eventHandlers();
 			
@@ -927,6 +933,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public function inputShit()
 	{
+		/*
 		if(!isPlayingMatch)
 		{
 			if (controls.NOTE_UP_P)
@@ -963,6 +970,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					solteiObotao("esquerda");
 				}
 		}
+		*/
 	}
 
 	public function avisarAlgo(avisarIssoAqui:String, ?nextState:FlxState = null)

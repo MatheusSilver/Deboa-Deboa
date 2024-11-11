@@ -12,6 +12,7 @@ import Linguagem.LangUtil;
 class Barra extends FlxSpriteGroup
 {
     public var backButton:FlxButton;
+    public var configButton:FlxButton;
     var label:FlxText;
 
 	public function new(color:FlxColor) {
@@ -27,13 +28,20 @@ class Barra extends FlxSpriteGroup
 		add(barraCima);
 		add(barraBaixo);
 
-        backButton = new FlxButton(barraCima.x+21,barraCima.y+8, "", function(){
+        backButton = new FlxButton(barraCima.x+21,barraCima.y+4, "", function(){
 			if(!MultiplayerMainMenuState.instance.canClick || !backButton.visible)
 				return;
 			MultiplayerMainMenuState.instance.voltarMenu();
 		});
 		backButton.loadGraphic(Paths.image("multiplayer/menus/voltar"));
 		add(backButton);
+
+		configButton = new FlxButton(backButton.x+backButton.width*1.3, backButton.y, "", function(){
+			if(!MultiplayerMainMenuState.instance.canClick || !configButton.visible)
+				return;
+		});
+		configButton.loadGraphic(Paths.image("multiplayer/menus/config"));
+		add(configButton);
 
 		label = new FlxText(FlxG.width-10, 6, 0, "", 8);
 		label.setFormat(LangUtil.getFont("gameboy"), 29, FlxColor.WHITE, FlxTextAlign.RIGHT);

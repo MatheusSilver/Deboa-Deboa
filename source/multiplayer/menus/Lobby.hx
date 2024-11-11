@@ -40,7 +40,8 @@ class Lobby extends FlxTypedGroup<FlxBasic>
     public static var instance:Lobby;
 
     var bg:FlxSprite;
-	var players:Array<LobbyPlayer> = [new LobbyPlayer(203, -10, true, GJClient.myID), new LobbyPlayer(522, 218, false, "0")];
+    public var players:Array<LobbyPlayer> = [new LobbyPlayer(203, -10, true, "0"), new LobbyPlayer(522, 218, false, "0")];
+    var go:FlxButton;
 
 
     public function new() {
@@ -55,6 +56,14 @@ class Lobby extends FlxTypedGroup<FlxBasic>
             add(player);
         }
 
+        go = new FlxButton(1126,511, "", function(){
+			if(MultiplayerMainMenuState.instance.canInitMatch && !MultiplayerMainMenuState.instance.isPlayingMatch)
+				{	
+					MultiplayerMainMenuState.instance.curRoom.send("toggle-ready");
+				}
+        });
+        go.loadGraphic(Paths.image("multiplayer/menus/go", 'preload'));
+        add(go);
     }
 }
 
@@ -62,7 +71,6 @@ class LobbyPlayer extends FlxSpriteGroup
 {
     public var gjID:String;
     public var sessionId:String = "";
-	public var nome:String = "Player 1";
 	public var noteSkin:String = "NOTE_assets";
     public var faixa:FaixaLobby;
 	public var bf:FlxSprite;
@@ -71,23 +79,27 @@ class LobbyPlayer extends FlxSpriteGroup
     public function new(x:Float, y:Float, isPlayer1:Bool, gamejoltID:String)
 	{
 		super(x,y);
-        gjID=gamejoltID;
         this.isPlayer1 = isPlayer1;
         bf = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/lobby/"+(isPlayer1?"exe":"bf")));
         bf.setGraphicSize(Std.int(bf.width * 0.6667), Std.int(bf.height * 0.6667));
         add(bf);
-        updatePlayer(gjID);
+        updatePlayer(gamejoltID);
 	}
 
     public function updatePlayer(newGJID:String) {
-        gjID=newGJID;
-
-        if(gjID=="0")
-            this.alpha = 0.75;
+        if(gjID == newGJID)
             return;
 
-        this.alpha = 1;
+        gjID=newGJID;
+
+        this.alpha = gjID == "0" ? 0.75 : 1;
+        if(faixa!=null && faixa.text!=null) {
+            for(texto in faixa.text) {
+                remove(texto);
+            }
+        }
 		faixa = new FaixaLobby(gjID, 0, bf.y+78, isPlayer1);
+        faixa.visible = true;
         if(isPlayer1) {
             faixa.x-=(faixa.width)+(938*0.64);
             faixa.x+=faixa.width;
@@ -96,5 +108,12 @@ class LobbyPlayer extends FlxSpriteGroup
             faixa.x+=120;
         }
         add(faixa);
+    }
+
+    public function getName():String {
+        if(gjID == "0")
+            return "Epaminondas";
+        var userData:User = GJClient.getUserData(Std.parseInt(gjID));
+        return userData == null ? "Epaminondas" : userData.username; 
     }
 }

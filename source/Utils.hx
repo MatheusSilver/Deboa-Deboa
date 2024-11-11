@@ -109,14 +109,19 @@ class Utils
 	public static function readDirectory(library:String):Array<String>
 	{
 		#if mobile
-		var something:Array<String> = [];
-		var bruh = Assets.list();
-		for (folder in bruh.filter(text -> text.contains('$library')))
-		{
-			if (!folder.startsWith('.'))
-				something.push(folder);
-		}
-		return something;
+		// Isso foi pego da PR que eu falei lá no main.
+		var result = [];
+        for (library in Main.assetsList.filter(archives -> archives.contains(folder))) {
+            if (!library.startsWith('.')) {
+                var name = library.replace(folder + '/', '').split('/')[0];
+                if (result.indexOf(name) == -1)
+                    result.push(name);
+            }
+        }
+        result.sort((a, b) -> {
+            return a.toUpperCase() < b.toUpperCase() ? -1 : (a.toUpperCase() > b.toUpperCase() ? 1 : 0);
+        });
+        return result;
 		#else
 		return FileSystem.readDirectory(library);
 		#end

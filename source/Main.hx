@@ -40,6 +40,10 @@ using StringTools;
 class Main extends Sprite
 {
 	#if mobile
+	// Essa commit é quase inteira baseada numa PR feita no port da FE para android
+	// https://github.com/musk-h/forever-engine-android-port/pull/1
+	// Só troquei a lógica trocando a var de dentro do HSys (no meu caso, o Utils) e movendo pro Main.
+	public static var assetsList:Array<String>;
 	public static var path = lime.system.System.applicationStorageDirectory;
 	#end
 
@@ -234,6 +238,11 @@ class Main extends Sprite
 		{
 			FlxG.game.setFilters(shaderarray); // Resumindo: Se tu quer enxergar as cores certinhas, tu vai ter lag no jogo k
 		}
+
+		#if mobile
+		assetsList = Assets.list(); // Só fiz isso pra salvar na RAM e não ter que carregar a lista dos assets toda vez que o readDirectory for chamado
+		// Isso é bom pra performance, considerando que no mobile a lista de arquivos do APK não mudará.
+		#end
 		FlxG.fullscreen = ClientPrefs.fullscreen; // Lá em cima as clientprefs ainda não haviam sido carregadas
 		FlxG.updateFramerate = ClientPrefs.framerate;
 		FlxG.drawFramerate = ClientPrefs.framerate;
