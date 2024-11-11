@@ -482,6 +482,9 @@ class PlayState extends MusicBeatState
 
 		practiceMode = false;
 		// var gameCam:FlxCamera = FlxG.camera;
+
+		// @?rewrite - reescrever de forma que somente as cameras que serão usadas na música sejam adicionadas
+		// OBS: Não tenho certeza se isso faria alguma diferença na performance (por isso a tag ?rewrite e não rewrite)
 		camGame = new FlxCamera();
 		camCCC = new FlxCamera();
 		camHUD = new FlxCamera();
@@ -606,7 +609,8 @@ class PlayState extends MusicBeatState
 		if(!ClientPrefs.hideHud) {
 			add(hud);
 		}
-
+ 
+		// @rewrite - reescrever função e melhorar a lógica/organização do code "extrahudobject".
 		switch (curStage)
 		{
 			case 'too-slow':
@@ -1068,6 +1072,7 @@ class PlayState extends MusicBeatState
 		blackFuck.alpha = 0;
 		blackFuck.visible = false;
 
+		// @rewrite - trocar isso pelos controles do Jigsaw ou implementar os controles da x02engine.
 		#if mobileC
 		mcontrols = new Modes();
 		switch (mcontrols.mode)
@@ -6892,6 +6897,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	// @rewrite
 	function particulacy() {
 		for (i in 0...30) {
 			var partic:FlxSprite = new FlxSprite(-1200 + 150 * i, 1000).loadGraphic(Paths.image('particulas', 'week-confronting'));
