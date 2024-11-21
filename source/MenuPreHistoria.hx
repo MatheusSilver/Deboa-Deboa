@@ -27,6 +27,7 @@ class MenuPreHistoria extends MusicBeatState
 	private var old_linha_up:FlxSprite=new FlxSprite();
 	private var old_linha_down:FlxSprite=new FlxSprite();
 	public static var maintainVisible:Bool = false;
+	public static var irDireto:Bool = false;
 
 	// Eu acho que tenho um probleminha...
 	// Na real... Eu só fiquei muito puto fazendo esse menu, mas no fim deu bom, PONTO PRA GRIFINÓRIA!
@@ -134,6 +135,7 @@ class MenuPreHistoria extends MusicBeatState
 		if (makeAnimUnlock)
 		{
 			curWeek = weekAnimNum;
+			irDireto = false;
 		}
 
 		changeWeek(); //Por algum motivo que sei lá qual, a função closesubstate era chamada também
@@ -271,14 +273,16 @@ class MenuPreHistoria extends MusicBeatState
 				blackLock.alpha = 0;
 				lockSprite.alpha = 0;
 
-				new FlxTimer().start(0.7, function(tmr:FlxTimer)
+				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
+					maintainVisible = true;
+					selectWeek();
 					inCut = false;
 					makeAnimUnlock = false;
 				});
 			});
 		}
-		if (!movedBack && !selectedWeek && !makeAnimUnlock)
+		if (!movedBack && !selectedWeek && !makeAnimUnlock && !irDireto)
 		{
 			if (Main.getMouseVisibility()){
 				//Deixar só pro mobile depois
@@ -315,7 +319,7 @@ class MenuPreHistoria extends MusicBeatState
 			#end
 		}
 
-		if (controls.BACK && !movedBack && !selectedWeek && !inCut && !makeAnimUnlock)
+		if (controls.BACK && !movedBack && !selectedWeek && !inCut && !makeAnimUnlock && !irDireto)
 		{
 			GlobalSoundManager.play(cancelMenu);
 			movedBack = true;
@@ -337,7 +341,7 @@ class MenuPreHistoria extends MusicBeatState
 			MenuHistoria.curSelected = 0;
 		}
 		MenuHistoria.preHistoriaSelected = curWeek;
-		if (stopspamming == false)
+		if (stopspamming == false && !irDireto)
 		{
 			GlobalSoundManager.play(confirmMenu);
 			stopspamming = true;
@@ -430,7 +434,7 @@ class MenuPreHistoria extends MusicBeatState
 		bgSprite.x = 0 - bgSprite.width;
 		blackbarup.y = 0 - blackbarup.height;
 		blackbardown.y = FlxG.height;
-		var curtimer:Float = 0.5; // Por pura preguiça de trocar isso o tempo todo...
+		var curtimer:Float = irDireto ? 0: 0.5; // Por pura preguiça de trocar isso o tempo todo...
 		bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= true;
 		FlxTween.tween(blackbarup, {y: 0}, curtimer, {ease: FlxEase.expoInOut});
 		FlxTween.tween(blackbardown, {y: FlxG.height - 53}, curtimer, {ease: FlxEase.expoInOut});
@@ -472,6 +476,11 @@ class MenuPreHistoria extends MusicBeatState
 				lockSprite.alpha = 1;
 				blackLock.alpha = 0.55;
 			}
+		}
+
+		if (!makeAnimUnlock && irDireto) {
+			selectWeek();
+			irDireto = false;
 		}
 	}
 

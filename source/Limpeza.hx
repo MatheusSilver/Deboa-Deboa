@@ -35,6 +35,7 @@ class EstadoDeTrocaReverso extends MusicBeatState
 			{
 				PlayState.modohistoria = false;
 				MusicBeatState.switchState(new MenuPreHistoria());
+				MenuPreHistoria.irDireto = true;
 				MenuPreHistoria.maintainVisible = false;
 			}
 			else
