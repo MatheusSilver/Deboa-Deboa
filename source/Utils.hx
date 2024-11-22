@@ -500,13 +500,13 @@ class BSLTouchUtils
 	 * Retorna uma int da posição atual do seu mouse
 	 * @param pos A posição que tu quer (X ou Y) - deve ser escrita como "x" ou "y".
 	 */
-	public static function pegarpos(pos:String):Int
+	public static function pegarpos(pos:String, ?world:Bool = false):Float
 	{
 		if (pos == 'x')
-			return FlxG.mouse.x;
+			return !world ? FlxG.mouse.x : FlxG.mouse.getPositionInCameraView().x;
 
 		if (pos == 'y')
-			return FlxG.mouse.y;
+			return !world ? FlxG.mouse.y : FlxG.mouse.getPositionInCameraView().y;
 
 		return 0;
 	}

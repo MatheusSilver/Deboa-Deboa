@@ -1,9 +1,11 @@
+import flixel.input.mouse.FlxMouse;
 import firetongue.FireTongue;
 import flixel.addons.ui.interfaces.IFireTongue;
 import firetongue.Replace;
 import Utils.BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup;
 import flixel.addons.display.FlxBackdrop;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.effects.FlxFlicker;
@@ -72,6 +74,7 @@ class LangUtil
 	}
 }
 
+/*
 class LanguageState extends MusicBeatState
 {
 	var backdrop:FlxBackdrop;
@@ -235,6 +238,164 @@ class LanguageState extends MusicBeatState
 					});
 				}
 			}
+		});
+	}
+}*/
+
+class LanguageState extends MusicBeatState {
+	public static var alreadySelected:Bool = false;
+
+	var bg:FlxSprite;
+
+	var euaBandeira:BandeiraCircle;
+	var brBandeira:BandeiraCircle;
+
+	var sonicBr:FlxSprite;
+	var xenoEua:FlxSprite;
+
+	var brSelected:Bool = false;
+	var canInteract:Bool = true;
+
+	var brHitbox:FlxSprite;
+
+	override function create() {
+		super.create();
+		Main.mouse_allowed = true;
+
+		bg = new FlxSprite(0, 0, Paths.image("optionsmenu/idiomas/bg", "preload"));
+		add(bg);
+
+		euaBandeira = new BandeiraCircle(966.50, 36.50, "eua");
+		add(euaBandeira);
+
+		brBandeira = new BandeiraCircle(-313.50, 36.50, "br", true);
+		add(brBandeira);
+
+		sonicBr = new FlxSprite(173, 50, Paths.image("optionsmenu/idiomas/sonicbr"));
+		add(sonicBr);
+
+		xenoEua = new FlxSprite(685, 50, Paths.image("optionsmenu/idiomas/xenous"));
+		add(xenoEua);
+
+		brHitbox = new FlxSprite(0,0).makeGraphic(679, 720, FlxColor.WHITE);
+		brHitbox.updateHitbox();
+		brHitbox.alpha = 0;
+		add(brHitbox);
+		tweensColor();
+	}
+
+	//var canTween:Bool = true;
+	var mudou:Bool = false;
+	var lastFrameValue:Bool;
+	override function update(elapsed:Float) {
+		super.update(elapsed);
+
+		if(canInteract) {
+			if(Main.getMouseVisibility()) {
+				brSelected = Utils.BSLTouchUtils.over(brHitbox);
+				if(Utils.BSLTouchUtils.justTouched()) {
+					canInteract = false;
+					selectLanguage(brSelected);
+				}
+			} else {
+				if(controls.UI_LEFT_P || controls.UI_RIGHT_P) {
+					brSelected = !brSelected;
+				}
+				if(controls.ACCEPT) {
+					canInteract=false;
+					selectLanguage(brSelected);
+				}
+			}
+
+			if(controls.BACK) {
+				GlobalSoundManager.play(negado);
+			}
+		}
+
+		if(!mudou)
+			mudou = lastFrameValue!=brSelected;
+		lastFrameValue = brSelected;
+
+		if(/*canTween && */mudou) { 
+			mudou = false;
+			tweensColor();
+		}
+
+	}
+
+	function selectLanguage(which:Bool) {
+		var localeList:Array<Dynamic> = Utils.CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
+		ClientPrefs.lingua = localeList[which?0:1];
+		trace('Game language set to ${ClientPrefs.lingua}');
+		Main.tongue.initialize({locale: ClientPrefs.lingua});
+		ClientPrefs.save();
+		
+		GlobalSoundManager.play(confirmMenu);
+
+		brBandeira.rotateTween.cancel();
+		euaBandeira.rotateTween.cancel();
+		if (ClientPrefs.flashing)
+		{
+			FlxFlicker.flicker(which ? sonicBr : xenoEua, 1, 0.2, true, false, function(flick:FlxFlicker)
+			{
+				MusicBeatState.switchState(ClientPrefs.firstBoot ? new TitleState() : new ajustes.AjustesState());
+			});
+			FlxFlicker.flicker(which ? brBandeira : euaBandeira, 1, 0.2, true, false);
+		}
+		else
+		{
+			new FlxTimer().start(1, function(tmr:FlxTimer)
+			{
+				MusicBeatState.switchState(ClientPrefs.firstBoot ? new TitleState() : new ajustes.AjustesState());
+			});
+		}
+	}
+
+	function tweensColor() {
+		//canTween = false;
+
+		/*FlxTween.tween(sonicBr, {alpha: brSelected ? 1 : 0.75}, 0.1, {
+			ease: FlxEase.smoothStepIn,
+		});
+		FlxTween.tween(xenoEua, {alpha: !brSelected ? 1 : 0.75}, 0.1, {
+			ease: FlxEase.smoothStepIn,
+		});
+		FlxTween.tween(euaBandeira.bandeiraSpr, {alpha: !brSelected ? 1 : 0.75}, 0.1, {
+			ease: FlxEase.smoothStepIn,
+		});
+		FlxTween.tween(brBandeira.bandeiraSpr, {alpha: brSelected ? 1 : 0.75}, 0.1, {
+			ease: FlxEase.smoothStepIn,
+		});*/
+		GlobalSoundManager.play(scrollMenu);
+		sonicBr.color= brSelected ? FlxColor.WHITE : FlxColor.GRAY;
+		brBandeira.color= brSelected ? FlxColor.WHITE : FlxColor.GRAY;
+		xenoEua.color= !brSelected ? FlxColor.WHITE : FlxColor.GRAY;
+		euaBandeira.color= !brSelected ? FlxColor.WHITE : FlxColor.GRAY;
+
+
+		/*new FlxTimer().start(0.15, function(tmr:FlxTimer) {
+			canTween = true;
+		});*/
+	}
+}
+
+class BandeiraCircle extends FlxSpriteGroup {
+
+	public var bandeiraSpr:FlxSprite;
+	public var rotateTween:FlxTween;
+
+	public function new(x:Float, y:Float, spriteName:String, ?invertido:Bool = false) {
+		super(x, y);
+
+		bandeiraSpr = new FlxSprite(0,35, Paths.image('optionsmenu/idiomas/${spriteName}', 'preload'));
+		add(bandeiraSpr);
+		rotate(invertido);
+	}
+
+	public function rotate(?invertido:Bool = false) {
+		rotateTween = FlxTween.tween(bandeiraSpr, {angle: invertido ? bandeiraSpr.angle - 180 : bandeiraSpr.angle + 180}, 10, {
+			ease: FlxEase.linear,
+			onComplete: function(twn:FlxTween) { rotate(invertido); }
 		});
 	}
 }
