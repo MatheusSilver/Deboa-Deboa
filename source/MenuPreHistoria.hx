@@ -434,7 +434,7 @@ class MenuPreHistoria extends MusicBeatState
 		bgSprite.x = 0 - bgSprite.width;
 		blackbarup.y = 0 - blackbarup.height;
 		blackbardown.y = FlxG.height;
-		var curtimer:Float = irDireto ? 0: 0.5; // Por pura preguiça de trocar isso o tempo todo...
+		var curtimer:Float = !makeAnimUnlock && irDireto ? 0: 0.5; // Por pura preguiça de trocar isso o tempo todo...
 		bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= true;
 		FlxTween.tween(blackbarup, {y: 0}, curtimer, {ease: FlxEase.expoInOut});
 		FlxTween.tween(blackbardown, {y: FlxG.height - 53}, curtimer, {ease: FlxEase.expoInOut});
@@ -443,7 +443,6 @@ class MenuPreHistoria extends MusicBeatState
 			ease: FlxEase.expoInOut,
 			onComplete: function(twn:FlxTween)
 			{
-				
 				old_bg.loadGraphicFromSprite(bgSprite);
 				old_linha_down.loadGraphicFromSprite(blackbardown);
 				old_linha_up.loadGraphicFromSprite(blackbarup);
@@ -479,6 +478,20 @@ class MenuPreHistoria extends MusicBeatState
 		}
 
 		if (!makeAnimUnlock && irDireto) {
+			blackbarup.y = 0;
+			blackbardown.y = FlxG.height - 53;
+			bgSprite.x = 0; 
+			perfilSprite.x = FlxG.width - perfilSprite.width;
+			old_bg.loadGraphicFromSprite(bgSprite);
+			old_linha_down.loadGraphicFromSprite(blackbardown);
+			old_linha_up.loadGraphicFromSprite(blackbarup);
+			old_perfil.loadGraphicFromSprite(perfilSprite);
+			old_perfil.setPosition(perfilSprite.x,perfilSprite.y);
+			old_bg.setPosition(bgSprite.x,bgSprite.y);
+			old_linha_down.setPosition(blackbardown.x,blackbardown.y);
+			old_linha_up.setPosition(blackbarup.x,blackbarup.y);
+			old_bg.visible = old_linha_down.visible=old_linha_up.visible=old_perfil.visible = true;
+			bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= false;
 			selectWeek();
 			irDireto = false;
 		}
