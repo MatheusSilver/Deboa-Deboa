@@ -520,7 +520,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 	{
 		if (_spriteLabel != null && labelAlphas.length > status)
 		{
-			_spriteLabel.alpha = 1; //alpha * labelAlphas[status];
+			_spriteLabel.alpha = /*1; */alpha * labelAlphas[status];
 		}
 	}
 
