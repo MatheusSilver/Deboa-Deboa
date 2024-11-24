@@ -9,8 +9,6 @@ import flixel.FlxG;
 import Utils.InputDevices;
 
 class InputLabel extends FlxObject{
-
-    var keyboardMode:Bool = true;
 	var gamepadModel:InputDevices = AUTO;
 	var gamepad:FlxGamepad;
     public static var instance:InputLabel;
@@ -22,11 +20,11 @@ class InputLabel extends FlxObject{
     }
 
 	function updateWithChange() {
-		if (FlxG.gamepads.anyButton() && keyboardMode){
-			keyboardMode = false;
-			updateGamepad();
-		} else if (FlxG.keys.pressed.ANY && !keyboardMode){
-			keyboardMode = true;
+		if (Utils.GamepadUtil.anyGamepadButtonPressed() && Main.isKeyboard){
+			Main.isKeyboard = false;
+			gamepadModel = Utils.GamepadUtil.getDisplayGamepadModel();
+		} else if (FlxG.keys.pressed.ANY && !Main.isKeyboard){
+			Main.isKeyboard = true;
 		}
 	}
 
@@ -34,27 +32,16 @@ class InputLabel extends FlxObject{
 		updateWithChange();
 
 		var keys:Array<Dynamic>;
-		if (keyboardMode) keys = ClientPrefs.keyBinds.get(bind);
+		if (Main.isKeyboard) keys = ClientPrefs.keyBinds.get(bind);
 		else 			  keys = ClientPrefs.keyBindsGamepad.get(bind);
 
-		var model:Dynamic = keyboardMode ? "Keyboard" : gamepadModel;
+		var model:Dynamic = Main.isKeyboard ? "Keyboard" : gamepadModel;
         return 'input/${model}/${formatKey(keys[0])}';
 	}
 
 	private function formatKey(inputData:Dynamic):String
 		{
-			if (keyboardMode) return Input.InputFormatter.getKeyName(inputData);
+			if (Main.isKeyboard) return Input.InputFormatter.getKeyName(inputData);
 			else 			  return Input.InputFormatter.getKeyNameGamepad(inputData);
 		}
-
-	private function updateGamepad():Void
-	{
-		if (FlxG.gamepads.lastActive != null){
-			keyboardMode = false;
-			gamepad = FlxG.gamepads.lastActive;
-			gamepadModel = Utils.GamepadUtil.getDisplayGamepadModel();
-		}else
-			keyboardMode = true;
-			gamepad = null;
-	}
 }

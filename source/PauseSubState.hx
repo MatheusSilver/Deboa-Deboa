@@ -327,7 +327,12 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(PlayState.instance.camLegenda, {zoom: originalZoomLegenda}, 0.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(PlayState.instance.camOther, {zoom: originalZoomOther}, 0.35, {ease: FlxEase.quartInOut});
 				//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2}, 0.35, {ease: FlxEase.quartInOut});
-				FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut});
+				FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween) {
+					if(PlayState.instance.playingVideoMP4)
+					{
+						startCountdownback();
+					}
+				}});
 				if(ClientPrefs.shaders) {
 				FlxTween.tween(blurShader, {blurX: 0, blurY: 0}, 1.25, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween)
 				{
@@ -339,7 +344,10 @@ class PauseSubState extends MusicBeatSubstate
 						PlayState.instance.camOther.setFilters([]);
 					}
 				}});
-				startCountdownback(); // não sei se vai quebrar alguma coisa, mas é algo pro bem....
+				if(!PlayState.instance.playingVideoMP4)
+				{
+					startCountdownback(); // não sei se vai quebrar alguma coisa, mas é algo pro bem....
+				}
 				/*var newMatrix:Array<Float> = [
 					1, 0, 0, 0, 0,
 					0, 1, 0, 0, 0,
