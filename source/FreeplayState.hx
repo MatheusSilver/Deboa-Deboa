@@ -17,6 +17,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import gamejolt.*;
 import openfl.utils.Assets as OpenFlAssets;
+import ui.FlxTextWithIcons;
 
 using StringTools;
 #if (flixel >= "5.3.0")
@@ -59,6 +60,8 @@ class FreeplayState extends MusicBeatState
 
 	public static var progressFreeplay:Int = 1;
 	public static var modifiersOpened:Bool = false;
+
+	var textWithIcon:FlxTextWithIcons;
 
 	public static function addProgress()
 	{
@@ -194,13 +197,16 @@ class FreeplayState extends MusicBeatState
 			}));
 		}
 
-		var leText:String = Linguagem.LangUtil.getStringArray("label_play_sample", "data", [#if desktop Linguagem.LangUtil.getString("key_label_space", "data") #else "X" #end]) + (ClientPrefs.modifiersPopUp ? ", " + Linguagem.LangUtil.getStringArray("label_play_sample_modifiers", "data", [#if desktop "CTRL" #else "Y" #end]) : "");
+		/*var leText:String = Linguagem.LangUtil.getStringArray("label_play_sample", "data", [#if desktop Linguagem.LangUtil.getString("key_label_space", "data") #else "X" #end]) + (ClientPrefs.modifiersPopUp ? ", " + Linguagem.LangUtil.getStringArray("label_play_sample_modifiers", "data", [#if desktop "CTRL" #else "Y" #end]) : "");
 		// space ou algum outro botão ainda a ser programado para ouvir uma prévia da musica.
 		var text:FlxText = new FlxText(-200 - 578 + 753, FlxG.height - 40, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
-		add(text);
+		add(text);*/
 
+		textWithIcon = new FlxTextWithIcons("Aperte o [accept] seu bobão", "vcr");
+		textWithIcon.y = FlxG.height - textWithIcon.height - 10;
+		add(textWithIcon);
 
 		super.create();
 	}

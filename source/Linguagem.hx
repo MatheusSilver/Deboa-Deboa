@@ -45,6 +45,8 @@ class LangUtil
 				font = "Early GameBoy.ttf";
 			case "gobold":
 				font = "Gobold Uplow.otf";
+			case "vcr":
+				font = "vcr.ttf";
 			default:
 				font = 'letravio.ttf';
 		}

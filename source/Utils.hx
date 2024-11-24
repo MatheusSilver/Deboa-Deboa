@@ -1629,11 +1629,15 @@ class GamepadUtil
 
 	inline public static function getActualGamepadModel():InputDevices
 	{
-		switch (FlxG.gamepads.lastActive.detectedModel)
-		{
-			case SWITCH_PRO: return Switch_Controller;
-			case PS4:    	 return PS4_Controller;
-			default:	   	 return Xinput_Controller;
+		if(FlxG.gamepads.lastActive != null) {
+			switch (FlxG.gamepads.lastActive.detectedModel)
+			{
+				case SWITCH_PRO: return Switch_Controller;
+				case PS4:    	 return PS4_Controller;
+				default:	   	 return Xinput_Controller;
+			}
+		} else {
+			return Xinput_Controller;
 		}
 	}
 
