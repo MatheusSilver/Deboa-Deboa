@@ -142,6 +142,7 @@ class MenuPreHistoria extends MusicBeatState
 		//Logo, não precisa disso aqui.
 
 		if(MainMenuStateMobile.passouCY && !ClientPrefs.multiplayerPopUp) {
+			irDireto = false;
 			ClientPrefs.multiplayerPopUp = true;
 			ClientPrefs.save();
 			openSubState(new PopUpSubState("multiplayer_unlock", "multiplayer_unlock", null, function(){
@@ -150,6 +151,7 @@ class MenuPreHistoria extends MusicBeatState
 		}
 
 		if(Utils.ProgressionUtil.terminouHistoria() && !ClientPrefs.freeplayPopUp) {
+			irDireto = false;
 			ClientPrefs.freeplayPopUp = true;
 			ClientPrefs.save();
 			openSubState(new PopUpSubState("freeplay_unlock", "freeplay_unlock", null, function(){
