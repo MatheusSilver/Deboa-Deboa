@@ -204,8 +204,10 @@ class FreeplayState extends MusicBeatState
 		text.scrollFactor.set();
 		add(text);*/
 
-		textWithIcon = new FlxTextWithIcons("Aperte o [accept] seu bobão", "vcr");
-		textWithIcon.y = FlxG.height - textWithIcon.height - 10;
+		textWithIcon = new FlxTextWithIcons("Aperte [X/SPACE] para ouvir uma prévia da música e [Y/CONTROL] para abrir o menu de modifiers", "vcr", true);
+		textWithIcon.y = FlxG.height - textWithIcon.height - 62;
+		textWithIcon.x = -529.1 * (textWithIcon.width/1154);
+		//textWithIcon.scale.set(0.8, 0.8);
 		add(textWithIcon);
 
 		super.create();
@@ -280,8 +282,8 @@ class FreeplayState extends MusicBeatState
 		var upP = controls.UI_UP;
 		var downP = controls.UI_DOWN;
 		var accepted = controls.ACCEPT;
-		var space = #if desktop FlxG.keys.justPressed.SPACE #elseif mobileC ui.Mobilecontrols.FlxVirtualPad.instance.buttonX.justPressed #end;
-		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC ui.Mobilecontrols.FlxVirtualPad.instance.buttonY.justPressed #end;
+		var space = #if desktop FlxG.keys.justPressed.SPACE #elseif mobileC ui.Mobilecontrols.FlxVirtualPad.instance.buttonX.justPressed #end || Utils.GamepadUtil.checkGamepadPressedButton(2);
+		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC ui.Mobilecontrols.FlxVirtualPad.instance.buttonY.justPressed #end || Utils.GamepadUtil.checkGamepadPressedButton(3);
 
 
 		if (!Main.getMouseVisibility() && apertavel) {

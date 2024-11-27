@@ -6,6 +6,7 @@ import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.lists.FlxGamepadButtonList;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.FlxG;
+import flixel.input.keyboard.FlxKey;
 import Utils.InputDevices;
 
 class InputLabel extends FlxObject{
@@ -38,6 +39,17 @@ class InputLabel extends FlxObject{
 
 		var model:Dynamic = Main.isKeyboard ? "Keyboard" : gamepadModel;
         return 'input/${model}/${formatKey(keys[0])}';
+	}
+
+	public function getLiteralLabelPath(literal:String, literalKeyboard:String):String {
+		updateWithChange();
+
+		var key:Dynamic;
+		if (Main.isKeyboard) key = FlxKey.fromString(literalKeyboard);
+		else 			  key = FlxGamepadInputID.fromString(literal);
+
+		var model:Dynamic = Main.isKeyboard ? "Keyboard" : gamepadModel;
+        return 'input/${model}/${formatKey(key)}';
 	}
 
 	private function formatKey(inputData:Dynamic):String
