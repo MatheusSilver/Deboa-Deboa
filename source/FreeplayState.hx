@@ -204,7 +204,8 @@ class FreeplayState extends MusicBeatState
 		text.scrollFactor.set();
 		add(text);*/
 
-		textWithIcon = new FlxTextWithIcons("Aperte [X/SPACE] para ouvir uma prévia da música e [Y/CONTROL] para abrir o menu de modifiers", "vcr", true);
+		var leText:String = ClientPrefs.modifiersPopUp ? Linguagem.LangUtil.getStringArray("label_play_sample", "data", ["[X/SPACE]"]) + ", " + Linguagem.LangUtil.getStringArray("label_play_sample_modifiers", "data", ["[Y/CONTROL]"]) : Linguagem.LangUtil.getStringArray("label_play_sample", "data", ["[X/SPACE]"]);
+		textWithIcon = new FlxTextWithIcons(leText, "vcr", true);
 		textWithIcon.y = FlxG.height - textWithIcon.height - 62;
 		textWithIcon.x = -529.1 * (textWithIcon.width/1154);
 		//textWithIcon.scale.set(0.8, 0.8);
