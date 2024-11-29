@@ -126,6 +126,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         FlxTween.tween(bg, {alpha: 1}, 0.2, {ease: FlxEase.expoInOut});
         FlxTween.tween(textBG, {alpha: 1}, 0.3, {ease: FlxEase.expoInOut});
         FlxTween.tween(textMultiplier, {alpha: 1}, 0.25, {ease: FlxEase.expoInOut});
+        FlxTween.tween(fakeMouse, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.5});
         FlxTween.tween(faixa, {y: faixaY, alpha:1}, 0.25, {ease: FlxEase.expoInOut,
             onComplete: function(twn:FlxTween) {
                 for (button in buttons)
@@ -151,6 +152,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         FlxTween.tween(textBG, {alpha: 0}, 0.3, {ease: FlxEase.expoInOut});
         FlxTween.tween(faixa, {y: 720, alpha:0}, 1, {ease: FlxEase.expoInOut, startDelay: 0.4});
         FlxTween.tween(bg, {alpha: 0}, 1.25, {ease: FlxEase.expoInOut});
+        FlxTween.tween(fakeMouse, {alpha: 0}, 1, {ease: FlxEase.expoInOut, startDelay: 0.25});
         new FlxTimer().start(1.35, function(tmr:FlxTimer) {
             if(isFreeplay)
             {
