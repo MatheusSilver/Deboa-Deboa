@@ -264,7 +264,7 @@ class MenuHistoria extends MusicBeatSubstate
 		trace("MODIFIERS OPENED:"+modifiersOpened);*/
 		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, Utils.CoolUtil.boundTo(elapsed * 12, 0, 2));
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, Utils.CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		highscoreText.text = Linguagem.LangUtil.getString("label_high_score", "data")+" \n"+Math.round(lerpMultiplier*100)/100+"X " +Std.string(lerpScore);
+		highscoreText.text = Linguagem.LangUtil.getString("label_high_score", "data")+" \n"+ ( Utils.ProgressionUtil.terminouTudo() ? Math.round(lerpMultiplier*100)/100+  "X " : "") +Std.string(lerpScore);
 
 		if (Math.abs(lerpMultiplier - intendedMultiplier) <= 0.001)
 			lerpMultiplier = intendedMultiplier;

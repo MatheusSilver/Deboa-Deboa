@@ -278,7 +278,7 @@ class FreeplayState extends MusicBeatState
 		if (ratingSplit.length < 2)	ratingSplit.push('');
 		while (ratingSplit[1].length < 2)	ratingSplit[1] += '0';
 
-		scoreText.text = Linguagem.LangUtil.getString("label_high_score", "data") + ' (' + Math.round(lerpMultiplier * 100) / 100 + "X) " + lerpScore + ' (' + ratingSplit.join('.') + '%)';
+		scoreText.text = Linguagem.LangUtil.getString("label_high_score", "data") + (Utils.ProgressionUtil.terminouTudo() ? ' (' + Math.round(lerpMultiplier * 100) / 100 + "X) " : "") + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 
 		var upP = controls.UI_UP;
 		var downP = controls.UI_DOWN;
