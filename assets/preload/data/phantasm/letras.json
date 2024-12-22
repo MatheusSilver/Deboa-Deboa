@@ -2886,7 +2886,7 @@
 		"arrowSkin": null,
 		"needsVoices": false,
 		"startinvisibru": true,
-		"canfollowpermitido": null,
+		"canfollowpermitido": true,
 		"song": "phantasm",
 		"isRing": null,
 		"videonombre": null

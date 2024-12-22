@@ -281,6 +281,10 @@ class FunkinLua {
 				result = getVarInArray(getInstance(), variable);
 			return result;
 		});
+
+		Lua_helper.add_callback(lua, "getString", function(str:String, id:String) {
+			return Linguagem.LangUtil.getString(str, id); // tá
+		});
 		
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String) {
 			var killMe:Array<String> = variable.split('.');

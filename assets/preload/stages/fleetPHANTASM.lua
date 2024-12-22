@@ -1,11 +1,5 @@
-local bgs = {'fleet', 'sonic'}
-
-function onCreate()
-	precacheSound('stat')
-	precacheImage('cenarios/phantasm/fleet_bg')
-	precacheImage('cenarios/phantasm/fleet_tree')
-	addCharacterToList('fleetwayPHANTASM', 'boyfriend')
-	
+function onCreate() -- Isso aqui é só pro setup dos cenários
+					-- e para o setup das transições
 	makeAnimatedLuaSprite('fx', 'vintage', 0, 0)
 	addAnimationByPrefix('fx', 'idle', 'idle', 16, true)
 	scaleObject('fx', 3, 3)
@@ -19,18 +13,6 @@ function onCreate()
 
 	makeLuaSprite('tree', 'cenarios/phantasm/sonic_tree', 0, 0)
 	addLuaSprite('tree', false)
-
-	setPropertyFromClass('GameOverSubstate', 'bgType', 'sonic'); --Character json file for the death animation
-    setPropertyFromClass('GameOverSubstate', 'deathSoundName', 'gameOverEndSonic'); --put in mods/sounds/
-    setPropertyFromClass('GameOverSubstate', 'loopSoundName', 'breakfast'); --put in mods/sounds/
-end
-
-function onStartCountdown()
-	setProperty('gf.alpha', 0)
-	setProperty('dad.alpha', 0)
-	setProperty('iconP2.alpha', 0)
-	
-	return Function_Continue
 end
 
 function onStepHit()
