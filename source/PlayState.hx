@@ -673,27 +673,27 @@ class PlayState extends MusicBeatState
 			case 'P3Stage': // i fixed the bgs and shit!!! - razencro part 1 - bg's finalizados sílvio parte 2
 					if(!ClientPrefs.lowQuality)
 					{
-					sSKY = new FlxSprite(-621.1, -395.65).loadGraphic(Paths.image('cenarios/Glitch'));
-					sSKY.scrollFactor.set(0.9, 1);
-					sSKY.antialiasing = ClientPrefs.globalAntialiasing;
-					sSKY.active = false;
-					sSKY.scale.x = 1.2;
-					sSKY.scale.y = 1.2;
-					add(sSKY);
+						sSKY = new FlxSprite(-621.1, -395.65).loadGraphic(Paths.image('cenarios/Glitch'));
+						sSKY.scrollFactor.set(0.9, 1);
+						sSKY.antialiasing = ClientPrefs.globalAntialiasing;
+						sSKY.active = false;
+						sSKY.scale.x = 1.2;
+						sSKY.scale.y = 1.2;
+						add(sSKY);
 					}
 
 					ring = new FlxSound().loadEmbedded(Paths.sound('Ring'));
 
 					if (!ClientPrefs.lowQuality){
-					p3staticbg = new FlxSprite(0, 0);
-					p3staticbg.frames = Paths.getSparrowAtlas('effects/estatica', 'shared');
-					p3staticbg.animation.addByPrefix('P3Static', 'TitleMenuSSBG instance 1', 24, true);
-					p3staticbg.animation.play('P3Static');
-					p3staticbg.screenCenter();
-					p3staticbg.scale.x = 4.5;
-					p3staticbg.scale.y = 4.5;
-					p3staticbg.visible = false;
-					add(p3staticbg);
+						p3staticbg = new FlxSprite(0, 0);
+						p3staticbg.frames = Paths.getSparrowAtlas('effects/estatica', 'shared');
+						p3staticbg.animation.addByPrefix('P3Static', 'TitleMenuSSBG instance 1', 24, true);
+						p3staticbg.animation.play('P3Static');
+						p3staticbg.screenCenter();
+						p3staticbg.scale.x = 4.5;
+						p3staticbg.scale.y = 4.5;
+						p3staticbg.visible = false;
+						add(p3staticbg);
 					}
 
 					bg_triple = new FlxSprite(-630.4, -266).loadGraphic(Paths.image('cenarios/ground'));
@@ -3123,6 +3123,9 @@ class PlayState extends MusicBeatState
 				vocals.play();
 			}
 		} // talvez isso seja útil...
+
+		if(FlxG.keys.justPressed.SHIFT) // fiz isso pra poder testar as musicas sem ter que jogar/abrir o pause e meu jogo congelar
+			cpuControlled = !cpuControlled;
 		#end
 
 		setOnLuas('cameraX', camFollowPos.x);
@@ -3752,18 +3755,21 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(FlxG.camera, {zoom: 0.9}, 2, {ease: FlxEase.cubeOut});
 						defaultCamZoom = 0.9;
 
-						p3staticbg.visible = true;
+						if(!ClientPrefs.lowQuality)
+							p3staticbg.visible = true;
 
 					case 1296: // Entrada do knuckles omaga, use strum swap 1 aqui junto com os eventos de troca de boneco.
 
 						bg_triple.visible = false;
-						sSKY.visible = false;
+						if(!ClientPrefs.lowQuality)
+							sSKY.visible = false;
 						ceu_scrap.visible = true;
 						chao_scrap.visible = true;
 						FlxTween.tween(FlxG.camera, {zoom: 0.85}, 2, {ease: FlxEase.cubeOut});
 						defaultCamZoom = 0.85;
 
-						p3staticbg.visible = false;
+						if(!ClientPrefs.lowQuality)
+							p3staticbg.visible = false;
 
 						doP3JumpKNUCKLES();
 
@@ -3771,19 +3777,22 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(FlxG.camera, {zoom: 0.9}, 2, {ease: FlxEase.cubeOut});
 						defaultCamZoom = 0.9;
 
-						p3staticbg.visible = true;
+						if(!ClientPrefs.lowQuality)
+							p3staticbg.visible = true;
 						startachieving('knuckles_free');
 						chao_scrap.visible=false;
 						ceu_scrap.visible=false;
 						bg_triple.visible = true;
-						sSKY.visible = true;
+						if(!ClientPrefs.lowQuality)
+							sSKY.visible = true;
 
 					case 2823: // Entrada do eggman, pra reverter o efeito das notas, use o evento strum swap 2
 						doP3JumpEGGMAN();
 
 						FlxTween.tween(FlxG.camera, {zoom: 1}, 2, {ease: FlxEase.cubeOut});
 						defaultCamZoom = 1;
-						p3staticbg.visible = false;
+						if(!ClientPrefs.lowQuality)
+							p3staticbg.visible = false;
 
 					case 2887, 3015, 4039:
 						dad.playAnim('laugh', true);
@@ -3792,7 +3801,8 @@ class PlayState extends MusicBeatState
 						dad.nonanimated = false;
 
 					case 4111: // Final, vá de acordo com a ordem no chat do discord pra trocar os bonecos.
-						p3staticbg.visible = true;
+						if(!ClientPrefs.lowQuality)
+							p3staticbg.visible = true;
 						FlxTween.tween(playerStrums.members[2], {alpha: 0}, 1, {ease: FlxEase.cubeOut});
 						FlxTween.tween(playerStrums.members[0], {x: playerStrums.members[0].x + 160 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut});
 						FlxTween.tween(playerStrums.members[1], {x: playerStrums.members[1].x + 160 * 0.7 / 4}, 1, {ease: FlxEase.cubeOut});
