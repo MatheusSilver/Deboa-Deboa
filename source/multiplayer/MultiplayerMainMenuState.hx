@@ -609,7 +609,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 		});
 
-		curRoom.connection.onClose = function() {
+		curRoom.connection.onClose = function(e) {
 			if(isPlayingMatch)
 			{
 				MultiplayerPlayState.instance.podeTerminar+=2;
