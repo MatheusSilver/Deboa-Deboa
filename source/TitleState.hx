@@ -82,13 +82,7 @@ class TitleState extends MusicBeatState
 		if(instance == null)
 			instance = this;
 
-		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
-		#end
-
-		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
-		PlayerSettings.init(); // x02 burro
-		ClientPrefs.init();
+		trace('oi');
 
 		FlxTransitionableState.skipNextTransOut = true;
 

@@ -330,6 +330,7 @@ class LanguageState extends MusicBeatState {
 		ClientPrefs.lingua = localeList[which?0:1];
 		trace('Game language set to ${ClientPrefs.lingua}');
 		Main.tongue.initialize({locale: ClientPrefs.lingua});
+		alreadySelected = true; // ajuda
 		ClientPrefs.save();
 		
 		GlobalSoundManager.play(confirmMenu);
