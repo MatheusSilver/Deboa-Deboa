@@ -15,7 +15,7 @@ import flixel.input.gamepad.FlxGamepadButton;
 class ClientPrefs
 {
 	// Novamente um state feito pelo Silver no mesmo port da hatsune miku
-	public static var shaders:Null<Bool> = #if windows true #else false #end;
+	public static var shaders:Null<Bool> = #if desktop true #else false #end;
 	public static var downScroll:Null<Bool> = false;
 	public static var pibby:Null<Bool> = false;
 	public static var middleScroll:Null<Bool> = false;

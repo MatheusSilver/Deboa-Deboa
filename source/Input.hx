@@ -1261,7 +1261,7 @@ class InputFormatter {
 			default:
 				var label:String = '' + key;
 				if(label.toLowerCase() == 'null') return '---';
-				return '' + label.charAt(0).toUpperCase() + label.substr(1).toLowerCase();
+				return label;
 		}
 	}
 	public static function getKeyName(key:FlxKey):String {
@@ -1369,7 +1369,7 @@ class InputFormatter {
 				default:
 					var label:String = '' + key;
 					if(label.toLowerCase() == 'null') return '---';
-					return '' + label.charAt(0).toUpperCase() + label.substr(1).toLowerCase();
+					return label; // isso nem ao menos faz sentido, levando em consideração que tudo dentro das pastas de input no preload é em minúsculo.
 			}
 		}
 }

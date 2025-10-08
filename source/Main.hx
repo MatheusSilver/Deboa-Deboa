@@ -213,6 +213,11 @@ class Main extends Sprite
 		tongue = new FireTongueEx();
 		tongue.initialize({locale: ClientPrefs.lingua});
 
+		#if linux
+		var icon = lime.graphics.Image.fromFile("icon.png");
+		Lib.current.stage.window.setIcon(icon);
+		#end
+		
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
