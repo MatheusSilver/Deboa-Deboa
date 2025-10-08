@@ -7,7 +7,7 @@ class Init extends MusicBeatState {
 		super.create();
 
 		#if android
-		FlxG.android.preventDefaultKeys = [BACK];
+		flixel.FlxG.android.preventDefaultKeys = [BACK];
 		#end
 		
 		ClientPrefs.init(); // nao precisava das outras funções de init(). elas ja estao nessa funcao aqui.
