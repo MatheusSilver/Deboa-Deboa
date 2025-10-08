@@ -1,38 +1,49 @@
-name: Windows
+# This is a basic workflow to help you get started with Actions
 
-# This workflow only exists to build the game without having to clear locally
-on: workflow_dispatch
+name: Linux Build
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   Build:
-    # The type of runner that the job will run on
-    runs-on: windows-latest
-
-    # Steps represent a sequence of tasks Fthat will be executed as part of the job
+    runs-on: ubuntu-latest
+    permissions:
+        contents: write
+        actions: write
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3.3.0
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          submodules: true
 
-      - uses: krdlab/setup-haxe@master
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.2.5
-      # Runs a set of commands using the runners shell
-      - name: Install Haxelib
+
+      - name: Installing Libraries
         run: |
-          haxelib setup ~/haxelib
-          haxelib install hxcpp 4.2.1 > /dev/null --quiet
-          haxelib set hxcpp 4.2.1
-          haxelib git linc_luajit https://github.com/superpowers04/linc_luajit.git
-          haxelib install colyseus 0.14.10
-          haxelib set colyseus 0.14.10
-          haxelib list
-      - name: Compile
-        run: haxelib run lime build Project.xml windows -final
-        # If this worked, we could've done --app-version="3.0.0-${{github.sha}}"
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v3.1.2
+          sudo apt-get install libvlc-dev
+          sudo apt-get install libvlccore-dev
+          haxelib install hmm --quiet
+          haxelib run hmm install
+
+      - name: Building
+        run: haxelib run lime build linux -final
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
         with:
-          name: ModBoa Windows
-          path: 'export/release/windows/bin'
+          name: Linux Build
+          path: 'export/release/linux/bin'
+          if-no-files-found: warn

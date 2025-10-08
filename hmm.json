@@ -11,16 +11,6 @@
         "version": "9.1.0"
       },
       {
-        "name": "actuate",
-        "type": "haxelib",
-        "version": null
-      },
-      {
-        "name": "extension-networking",
-        "type": "haxelib",
-        "version": null
-      },
-      {
         "name": "flixel",
         "type": "haxelib",
         "version": "4.11.0"
@@ -33,22 +23,12 @@
       {
         "name": "flixel-tools",
         "type": "haxelib",
-        "version": null
+        "version": "1.5.1"
       },
       {
         "name": "flixel-ui",
         "type": "haxelib",
         "version": "2.4.0"
-      },
-      {
-        "name": "tjson",
-        "type": "haxelib",
-        "version": null
-      },
-      {
-        "name": "hxjsonast",
-        "type": "haxelib",
-        "version": null
       },
       {
         "name": "hxcpp-debug-server",
@@ -78,6 +58,13 @@
         "version": null,
         "ref": "main",
         "url": "https://github.com/MatheusSilver/hxvlc.git"
+      },
+      {
+        "name": "linc_luajit",
+        "type": "git",
+        "version": null,
+        "ref": "main",
+        "url": "https://github.com/superpowers04/linc_luajit.git"
       }
     ]
   }
