@@ -48,6 +48,16 @@
         "version": null
       },
       {
+        "name": "colyseus",
+        "type": "haxelib",
+        "version": "0.14.10"
+      },
+      {
+        "name": "colyseus-websocket",
+        "type": "haxelib",
+        "version": null
+      },
+      {
         "name": "akifox-asynchttp",
         "type": "haxelib",
         "version": null
