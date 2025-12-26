@@ -43,5 +43,5 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: Windows Build
-          path: 'export/release/windows/bin'
+          path: 'export/release/windows/debug'
           if-no-files-found: warn
