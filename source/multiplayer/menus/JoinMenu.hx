@@ -115,9 +115,8 @@ class RoomList extends FlxSpriteGroup
     }
 
     public function refresh(rooms:Array<RoomAvailable>) {
-        objectsArray = [];
+        clearAll();
 		var num:Int = 1;
-        roomObjects = cast add(new FlxSpriteGroup());
         if(rooms != null) {
             for (room in rooms) {
                 if(room.metadata.privateRoom == false)
@@ -154,6 +153,13 @@ class RoomList extends FlxSpriteGroup
                     sala.y += BSLSwipeUtils.scrollY*20;
                 }
             }
+    }
+
+    public function clearAll() {
+        for(room in objectsArray) {
+            remove(room);
+        }
+        roomObjects = cast add(new FlxSpriteGroup());
     }
 
     

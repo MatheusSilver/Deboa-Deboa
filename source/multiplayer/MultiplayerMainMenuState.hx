@@ -49,7 +49,8 @@ enum MenuEnum {
 
 class MultiplayerMainMenuState extends MusicBeatState
 {
-	private var servidor:String = "ws://serveo.net:2567";
+	private var servidor:String = "ws://caboose.proxy.rlwy.net:26358";
+	private var serverStatic:String = "https://modboa-servers.up.railway.app/";
 
 	// COISAS UI
 	var hostearBt:FlxButton;
@@ -200,7 +201,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		barra.configButton.visible=false;
 		barra.changeLabelText("");
 
-		joinMenu.roomList.refresh([]);
+		joinMenu.roomList.clearAll();
 
 		if(roomList != null)
 		{
@@ -281,7 +282,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 			case SKINS:
 				noteSkins.visible = true;
 				barra.backButton.visible = true;
-				barra.changeLabelText("SKINS DE SETAS");
+				barra.changeLabelText("SKINS");
 			default:
 				trace("esse menu ainda não foi adicionado");
 		}
@@ -432,7 +433,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 	function checkServers()
 	{
 		trace('checking for update');
-		var http = new haxe.Http(servidor.replace("ws", "http")+"/");
+		var http = new haxe.Http(serverStatic);
+		
 		var voltarMenu:Bool = false;
 		http.onData = function(data:String)
 		{
@@ -701,7 +703,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 					OptionsSubstate.instance.close();
 				}
 		}
-		var url:String = servidor.replace("ws", "http")+"/charts/"+musicas[MusicaAtual][1]+".json";
+		var url:String = serverStatic+"charts/"+musicas[MusicaAtual][1]+".json";
 		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, lobby.players[getIndexBySession(curRoom.sessionId)], lobby.players[getOtherIndexBySession(curRoom.sessionId)]));
 	}
 

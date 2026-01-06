@@ -42,8 +42,9 @@ class Connection {
         }
 
         // Isso tava dando erro compilando em Linux
-        this.ws.onclose = function(?e:Dynamic) {
-			this.onClose(e);
+        // dav: e esse fix ta dando erro no windows kkkaksjfs
+        this.ws.onclose = function() {
+			this.onClose(null);
 		}
 
         this.ws.onerror = function(message) {
