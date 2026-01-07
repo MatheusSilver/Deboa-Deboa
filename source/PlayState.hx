@@ -4719,14 +4719,14 @@ class PlayState extends MusicBeatState
 				}
 				else if (curSong == 'green-hills' && !Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0]))
 				{
-					// Sim, isso funciona no android/mobile
+					// Sim, isso funciona no android/mobile... - eu pelo menos não vi nada funcionando...
 					// Aparentemente eu e o Silver ficamos em dúvida se isso funfava ou não, mas como eu tenho certeza, tá aqui k
-					if(!modohistoria #if !debug && !usedPractice #end)
-						{
-							FreeplayState.addProgress();
-						}
-					ClientPrefs.pibby = true;
+					if(!modohistoria #if !debug && !usedPractice && !cpuControlled #end)
+						FreeplayState.addProgress();
+					
+					ClientPrefs.pibby = !usedPractice && !cpuControlled ? "legitimo" : "botplay";
 					ClientPrefs.save(); //Isso aqui deveria estar em cima...
+
 					lime.app.Application.current.window.alert(Linguagem.LangUtil.getString("play_pibby,error,desc", "playstate"), Linguagem.LangUtil.getString("play_pibby,error,title", "playstate"));
 					lime.system.System.exit(0);
 				}

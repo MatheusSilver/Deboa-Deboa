@@ -126,7 +126,7 @@ class TitleState extends MusicBeatState
 			// Só por colocar de volta mesmo
 			FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new FlashingState());
-		} else if (ClientPrefs.pibby) {
+		} else if (ClientPrefs.pibby == "legitimo" || ClientPrefs.pibby == "botplay") {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
 			MusicBeatState.switchState(new PibbyTela());
