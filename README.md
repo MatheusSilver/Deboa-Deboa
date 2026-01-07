@@ -4,37 +4,6 @@ Essa engine foi originalmente baseada na [Psych Engine](https://github.com/Shado
 Caso queira conferir a versão base da engine para seus próprios trabalhos e projetos veja o repositório oficial da [BSL Engine Mobile](https://github.com/MatheusSilver/BSL-Engine-Mobile).
 
 Os criadores desta engine também são grandes fãs de Osu, então você pode esperar uma abordagem muito mais arcade dos mods do que o normal com sistemas de ranqueamento, modifiers que aumentam a dificuldade e a pontuação, além de outras características de layout e gameplay de Osu
-## Tutorial de Build simplificado:
-Siga esses seguintes passos FUNDAMENTAIS para a compilação:
-* Instale o [Git](https://git-scm.com/downloads)
-* Instale o [Haxe](https://haxe.org/download/version/4.2.5/) - Se atente ao número da versão! O Projeto ModBoa não é compatível com outras versões do Haxe e a versão 4.2.5 é a menos bugada para compilar este projeto no presente momento.
-* Instale o [Haxeflixel](https://haxeflixel.com/documentation/getting-started/)
-* Instale o [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/vs/community/) e na hora de instalar as coisas, importe a seguinte [configuração](https://drive.google.com/file/d/1RVxsn2pAIanVKevcAh_VmFnGqy1Q5Xo9/view?usp=sharing) e espere baixar e instalar (tudo isso é feito automáticamente).
-* Logo após instalar as ferramentas de compilação do VSC2022 (ou a versão que estiver no momento que você for compilar isso), clone o repositório do Projeto ModBoa usando seu Terminal de preferência via Git.
-`git clone https://https://github.com/MatheusSilver/Deboa-Deboa`
-* Abra novamente o Terminal, só que dessa vez, dentro do diretório raiz do código fonte, e execute o comando:
-`haxelib install hmm`
-* Em seguida, o comando:
-`haxelib run hmm install`
-
-Parte específica para a compilação de Android via PC:
-* Faça TODOS os passos que foram indicados acima.
-* Instale a extensão "extension-webview" usando o comando:
-`haxelib git extension-webview https://github.com/TeamX02/extension-webview`
-* Baixe e instale o [Android Studio](https://developer.android.com/studio)
-* Baixe e extraia as ferramentas de compilação [JDK](https://drive.google.com/file/d/1dIIISXyuNaXTZzIdvCAkIm7_Ee4Y9I-7/view?usp=sharing) e [NDK](https://drive.google.com/file/d/1Eifen5o1Mky0Mr2jl3eO-BiDYeuuRA1n/view?usp=sharing) para onde você preferir.
-* Após a instalação completa do Android Studio, já no menu principal, clique em "More Actions" e depois em "SDK Manager"
-* Dentro do gerenciador de SDKs, entre no submenu de "SDK Platforms" e selecione as seguintes opções:
-![andr](https://i.imgur.com/d9YBzFJ.png)
-* Entre no submenu de "SDK Tools" e selecione as seguintes opções:
-![andr2](https://i.imgur.com/L100sOm.png)
-* Rode o comando `lime setup android` e coloque o caminho de onde suas coisas estão extraídas/instaladas.
-![andr3](https://i.imgur.com/AR8NCnV.png)
-
-Caso você não tenha um computador e quiser compilar o mod para Android, basta usar as workflows do GitHub:
-* Faça um fork do repositório do ModBoa.
-* Após isso, entre na aba Actions, abaixo do nome do repositório
-* Ative o uso de Workflows, vá em `Android Build CI`, depois clique em Run Workflows e aperte no botão verde.
 
 ## Creditos - Projeto ModBoa:
 # Direção:
@@ -70,3 +39,44 @@ Caso você não tenha um computador e quiser compilar o mod para Android, basta 
 * Verwex - Criador da Engine
 
 Divirta-se
+
+## Tutorial de Build simplificado:
+Caso for compilar utilizando o Github Actions, vá para o fim do texto.
+Abaixo, passos fundamentais para a compilação:
+* Instale o [Git](https://git-scm.com/downloads)
+* Instale o [Haxe](https://haxe.org/download/version/4.2.5/) - Se atente ao número da versão! O Projeto ModBoa não é compatível com outras versões do Haxe.
+* Instale o [Haxeflixel](https://haxeflixel.com/documentation/getting-started/)
+
+### Específico para Windows
+* Instale o [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/vs/community/) e na hora de instalar as coisas, importe a seguinte [configuração](https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/VSC_config) (baixe apertando no símbolo de download ao lado de "Raw") e espere baixar e instalar (tudo isso é feito automáticamente).
+
+### Específico para Linux
+* Instale os pacotes `g++`, `gcc-multilib`, `g++-multilib` e também os pacotes necessários do libVLC.
+* Os pacotes libVLC podem ser instalados com os comandos `sudo apt install libvlc-dev libvlccore-dev libvlccore9` em distros baseadas em Ubuntu/Debian. Já para outras distros, siga as recomendações da [documentação do hxvlc](https://github.com/MAJigsaw77/hxvlc?tab=readme-ov-file#dependencies)'
+
+### Específico para Android
+* Instale a extensão "extension-webview" usando o comando:
+`haxelib git extension-webview https://github.com/x02mateus/extension-webview`
+* Baixe e instale o [Android Studio](https://developer.android.com/studio)
+* Baixe e extraia as ferramentas de compilação [JDK](https://adoptium.net/pt-BR/temurin/releases?version=11) e [NDK](https://github.com/android/ndk/wiki/unsupported-downloads#r21e) para onde você preferir.
+* Após a instalação completa do Android Studio, já no menu principal, clique em "More Actions" e depois em "SDK Manager"
+* Dentro do gerenciador de SDKs, entre no submenu de "SDK Platforms" e selecione as seguintes opções:
+![andr](https://i.imgur.com/d9YBzFJ.png)
+* Entre no submenu de "SDK Tools" e selecione as seguintes opções:
+![andr2](https://i.imgur.com/L100sOm.png)
+* Rode o comando `lime setup android` e coloque o caminho de onde suas coisas estão extraídas/instaladas.
+![andr3](https://i.imgur.com/AR8NCnV.png)
+
+* Logo após as os passos específicos para cada sistema, clone o repositório do Projeto ModBoa utilizando o comando:
+`git clone https://https://github.com/MatheusSilver/Deboa-Deboa`
+* Dentro do diretório raiz do código-fonte (certifique que o Terminal aponta para o diretório do código-fonte do jogo), execute o comando:
+`haxelib install hmm`
+* E em seguida, o comando:
+`haxelib run hmm install`
+
+### Específico para o Github Actions
+Caso você queira evitar o trabalho das instalações para a compilação, segue o passo a passo para a compilação diretamente no Github:
+* Faça um fork do repositório do ModBoa.
+* Na aba Actions, abaixo do nome do repositório, ative o uso de Workflows, escolha entre `Android Build`, `Linux Build` ou `Windows Build`, depois clique em Run Workflows e aperte no botão verde.
+* Ao finalizar da compilação, você deve receber um email avisando se houve erros ou se tudo ocorreu com sucesso.
+* Para baixar o resultado da build, basta entrar na compilação executada por você e descer até achar a opção de download.
