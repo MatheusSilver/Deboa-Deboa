@@ -55,7 +55,7 @@
       {
         "name": "colyseus-websocket",
         "type": "haxelib",
-        "version": null
+        "version": "1.0.7"
       },
       {
         "name": "akifox-asynchttp",
