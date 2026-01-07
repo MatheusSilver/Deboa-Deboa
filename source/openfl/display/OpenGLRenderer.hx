@@ -63,7 +63,15 @@ class OpenGLRenderer extends DisplayObjectRenderer
 	@:noCompletion private static var __hasColorTransformValue:Array<Bool> = [false];
 	@:noCompletion private static var __scissorRectangle:Rectangle = new Rectangle();
 	@:noCompletion private static var __textureSizeValue:Array<Float> = [0, 0];
-
+	
+	// Essa melhoria tem como objetivo fazer shaders não serem criadas duas vezes.
+    // https://github.com/openfl/openfl/pull/2730
+	@:noCompletion private static var __staticDefaultDisplayShader:DisplayObjectShader;
+	@:noCompletion private static var __staticDefaultDisplayShaderFast:DisplayObjectShaderFast;
+	@:noCompletion private static var __staticDefaultGraphicsShader:GraphicsShader;
+	@:noCompletion private static var __staticDefaultGraphicsShaderFast:GraphicsShaderFast;
+	@:noCompletion private static var __staticMaskShader:Context3DMaskShader;
+	
 	/**
 		The current OpenGL render context
 	**/
@@ -161,16 +169,22 @@ class OpenGLRenderer extends DisplayObjectRenderer
 		__stencilReference = 0;
 		__tempRect = new Rectangle();
 
-		__defaultDisplayShader = new DisplayObjectShader();
-		__defaultDisplayShaderFast = new DisplayObjectShaderFast();
-		__defaultGraphicsShader = new GraphicsShader();
-		__defaultGraphicsShaderFast = new GraphicsShaderFast();
+		if (__staticDefaultDisplayShader == null) __staticDefaultDisplayShader = new DisplayObjectShader();
+		if (__staticDefaultDisplayShaderFast == null) __staticDefaultDisplayShaderFast = new DisplayObjectShaderFast();
+		if (__staticDefaultGraphicsShader == null) __staticDefaultGraphicsShader = new GraphicsShader();
+		if (__staticDefaultGraphicsShaderFast == null) __staticDefaultGraphicsShaderFast = new GraphicsShaderFast();
+		if (__staticMaskShader == null) __staticMaskShader = new Context3DMaskShader();
+
+		__defaultDisplayShader = __staticDefaultDisplayShader;
+		__defaultDisplayShaderFast = __staticDefaultDisplayShaderFast;
+		__defaultGraphicsShader = __staticDefaultGraphicsShader;
+		__defaultGraphicsShaderFast = __staticDefaultGraphicsShaderFast;
 		__defaultShader = __defaultDisplayShader;   
 
 		__initShader(__defaultShader);
 
 		__scrollRectMasks = new ObjectPool<Shape>(function() return new Shape());
-		__maskShader = new Context3DMaskShader();
+		__maskShader = __staticMaskShader;
 	}
 
 	/**
