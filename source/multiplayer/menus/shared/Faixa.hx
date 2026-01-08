@@ -160,7 +160,7 @@ class FaixaLobby extends FlxSpriteGroup {
     override function update(elapsed:Float) {
         super.update(elapsed);
 
-        if(FlxG.keys.pressed.S){
+        /*if(FlxG.keys.pressed.S){
             icon.y++;
         }
         if(FlxG.keys.pressed.W){
@@ -174,7 +174,7 @@ class FaixaLobby extends FlxSpriteGroup {
         }
 
         FlxG.watch.addQuick("icon X", icon.x);
-        FlxG.watch.addQuick("icon Y", icon.y);
+        FlxG.watch.addQuick("icon Y", icon.y);*/
     }
 
     function pegarIcon()
