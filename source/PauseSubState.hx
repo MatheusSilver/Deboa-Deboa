@@ -235,10 +235,12 @@ class PauseSubState extends MusicBeatSubstate
 					podeJumpscare=false;
 				}
 		}
+		#if desktop
 		if(inJumpscare&&!ClientPrefs.fullscreen)
 		{
 			shakeWindow();
 		}
+		#end
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
 		
@@ -500,6 +502,7 @@ class PauseSubState extends MusicBeatSubstate
 			}
 		}
 
+		#if desktop
 		function shakeWindow():Void
 			{
 				var window:Window = Lib.current.stage.window;
@@ -520,6 +523,7 @@ class PauseSubState extends MusicBeatSubstate
 				window.x = lugarTelaX;
 				window.y = lugarTelaY;
 			}
+		#end
 
 	override function destroy()
 	{
