@@ -1482,7 +1482,7 @@ class PlayState extends MusicBeatState
 		intro1 = new FlxSound().loadEmbedded(Paths.sound('intro1' + introSoundsSuffix, library));
 		intro2 = new FlxSound().loadEmbedded(Paths.sound('intro2' + introSoundsSuffix, library));
 		intro3 = new FlxSound().loadEmbedded(Paths.sound('intro3' + introSoundsSuffix, library));
-		introgo = new FlxSound().loadEmbedded(Paths.sound('introGo' + introSoundsSuffix, library));
+		introgo = new FlxSound().loadEmbedded(Paths.sound('introGo' + introSoundsSuffix, 'preload'));
 
 		intro1.volume = intro2.volume = intro3.volume = volume;
 		introgo.volume = curSong.toLowerCase() == 'sunshine' ? 0 : volume;		
