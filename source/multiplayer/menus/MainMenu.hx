@@ -34,62 +34,61 @@ import multiplayer.menus.shared.*;
 
 using StringTools;
 
-class MainMenu extends FlxTypedGroup<FlxBasic> 
+class MainMenu extends MultiplayerMenu
 {
-    public static var instance:MainMenu;
-
     var bg:FlxSprite;
     var fleet:FlxSprite;
 	var label:FlxSprite;
 	var faixa:Faixa;
 
+	// aaaa pq que eu fazia os botoes ASSIMMMM AAAAAA MDS EU ERA UM IDIOTA
     var hostBt:MainMenuButton;
     var joinBt:MainMenuButton;
     var skinsBt:MainMenuButton;
 
     public function new() {
         super();
-        instance = this;
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/mainmenu/bg", 'preload'));
         bg.setGraphicSize(FlxG.width, FlxG.height);
-        add(bg);
+		addToMenu(bg, {alpha: 1}, {alpha: 0});
 
 		faixa = new Faixa(0, 177);
-		add(faixa);
+		addToMenu(faixa, {x: 0}, {x:-faixa.width*1.1});
 
 		fleet = new FlxSprite(622, -50);
 		fleet.loadGraphic(Paths.image('multiplayer/menus/fleetway', 'preload'));
 		fleet.antialiasing = ClientPrefs.globalAntialiasing;
-		add(fleet);
+		addToMenu(fleet, {alpha: 1}, {alpha: 0});
 
 		FlxTween.tween(fleet, {y:-30}, 1, {ease: FlxEase.sineInOut, type: PINGPONG});
 
         label = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/mainmenu/label", 'preload'));
         label.x = 40;
         label.y = 78;
-        add(label);
+		addToMenu(label, {y: 78}, {y: -label.height*1.1});
 
-        hostBt = new MainMenuButton(Linguagem.LangUtil.getString("main_host_bt", "multiplayer"), 40, 300, false, function(){
+        hostBt = new MainMenuButton(Linguagem.LangUtil.getString("main_host_bt", "multiplayer"), 40, 300, this, false, function(){
 			MultiplayerMainMenuState.instance.hostear();
-		});
-		add(hostBt);
+		}, null);
+		addToMenu(hostBt, {y: 300}, {y: 1780});
 
-		joinBt = new MainMenuButton(Linguagem.LangUtil.getString("main_join_bt", "multiplayer"), 40, 400, true, function(){
+		joinBt = new MainMenuButton(Linguagem.LangUtil.getString("main_join_bt", "multiplayer"), 40, 400, this, true, function(){
 			MultiplayerMainMenuState.instance.changeMenu(ROOMLIST);
-		});
-		add(joinBt);
+		}, null);
+		addToMenu(joinBt, {y: 400}, {y: 1780});
 
-		skinsBt = new MainMenuButton(Linguagem.LangUtil.getString("main_skins_bt", "multiplayer"), 40, 500, false, function(){
+		skinsBt = new MainMenuButton(Linguagem.LangUtil.getString("main_skins_bt", "multiplayer"), 40, 500, this, false, function(){
 			MultiplayerMainMenuState.instance.changeMenu(SKINS);
-		});
-		add(skinsBt);
+		}, null);
+		addToMenu(skinsBt, {y: 500}, {y: 1780});
+
     }
 }
 
 class MainMenuButton extends FlxButton
 {
-    public function new(label:String, x:Float, y:Float, ?isOrange:Bool = false, ?callback:Function = null, ?arg:Dynamic= null, ?parent:FlxState) {
+    public function new(label:String, x:Float, y:Float,  parent:MultiplayerMenu, ?isOrange:Bool = false, ?callback:Function = null, ?arg:Dynamic= null) {
         super(x,y);
 		this.loadGraphic(Paths.image("multiplayer/menus/mainmenu/" + (isOrange ? "bt-orange" : "bt"), 'preload'));
         this.updateHitbox();
@@ -102,18 +101,18 @@ class MainMenuButton extends FlxButton
 		}
 		this.alpha = 0.75;
 		this.onOver.callback = function() {
-			if(!this.visible || !MultiplayerMainMenuState.instance.canClick || !MainMenu.instance.visible)
+			if(!this.visible || !parent.amActive())
 				return;
 			GlobalSoundManager.play(scrollMenu);
 			this.alpha=1;
 		}
 		this.onOut.callback = function() {
-			if(!this.visible || !MultiplayerMainMenuState.instance.canClick || !MainMenu.instance.visible)
+			if(!this.visible || !parent.amActive())
 				return;
 			this.alpha=0.75;
 		}
 		this.onDown.callback = function() {
-			if(!this.visible || callback == null || !MultiplayerMainMenuState.instance.canClick || !MainMenu.instance.visible)
+			if(!this.visible || callback == null || !parent.amActive())
 				return;
 			GlobalSoundManager.play(confirmMenu);
 			if(arg != null)

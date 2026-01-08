@@ -95,8 +95,9 @@ class LobbyPlayer extends FlxSpriteGroup
         this.alpha = gjID == "0" ? 0.75 : 1;
         if(faixa!=null && faixa.text!=null) {
             for(texto in faixa.text) {
-                remove(texto);
+                faixa.remove(texto);
             }
+            remove(faixa);
         }
 		faixa = new FaixaLobby(gjID, 0, bf.y+78, isPlayer1);
         faixa.visible = true;

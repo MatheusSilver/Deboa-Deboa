@@ -36,7 +36,7 @@ import Linguagem.LangUtil;
 
 using StringTools;
 
-class JoinMenu extends FlxTypedGroup<FlxBasic> 
+class JoinMenu extends MultiplayerMenu
 {
     public static var instance:JoinMenu;
 
@@ -53,19 +53,19 @@ class JoinMenu extends FlxTypedGroup<FlxBasic>
         instance = this;
 
         roomList = new RoomList(35, 148);
-        add(roomList);
+		addToMenu(roomList, {y: 148}, {y: 1780});
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/joinmenu/bg", 'preload'));
         bg.setGraphicSize(FlxG.width, FlxG.height);
-        add(bg);
+		addToMenu(bg, {alpha: 1}, {alpha: 0});
 
 		faixa = new Faixa(0, 62);
-		add(faixa);
+        addToMenu(faixa, {x: 0}, {x:-faixa.width*1.1});
 
 		fleet = new FlxSprite(622, -50);
 		fleet.loadGraphic(Paths.image('multiplayer/menus/fleetway', 'preload'));
 		fleet.antialiasing = ClientPrefs.globalAntialiasing;
-		add(fleet);
+		addToMenu(fleet, {alpha: 1}, {alpha: 0});
 
 		FlxTween.tween(fleet, {y:-30}, 1, {ease: FlxEase.sineInOut, type: PINGPONG});
 
@@ -75,8 +75,7 @@ class JoinMenu extends FlxTypedGroup<FlxBasic>
 			refreshRooms();
 		});
 		refreshBt.loadGraphic(Paths.image("multiplayer/menus/joinmenu/refreshbutton"));
-		add(refreshBt);
-
+		addToMenu(refreshBt, {y: 564}, {y: 1780});
     }
 
     public function refreshRooms() {
