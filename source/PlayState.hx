@@ -1474,22 +1474,18 @@ class PlayState extends MusicBeatState
 		for (asset in introAlts)
 			precacheList.set(asset, 'image');
 
-		if (curSong.toLowerCase() == 'sunshine')
-		{
-			intro1 = new FlxSound().loadEmbedded(Paths.sound('intro3' + introSoundsSuffix, 'week-sunshine'));
-			intro2 = new FlxSound().loadEmbedded(Paths.sound('intro2' + introSoundsSuffix, 'week-sunshine'));
-			intro3 = new FlxSound().loadEmbedded(Paths.sound('intro1' + introSoundsSuffix, 'week-sunshine'));
-		}else{
-			intro1 = new FlxSound().loadEmbedded(Paths.sound('intro1' + introSoundsSuffix, 'preload'));
-			intro2 = new FlxSound().loadEmbedded(Paths.sound('intro2' + introSoundsSuffix, 'preload'));
-			intro3 = new FlxSound().loadEmbedded(Paths.sound('intro3' + introSoundsSuffix, 'preload'));
-		}
-		
-		intro1.volume = 0.6;
-		intro2.volume = 0.6;
-		intro3.volume = 0.6;
-		introgo = new FlxSound().loadEmbedded(Paths.sound('introGo' + introSoundsSuffix, 'preload'));
-		introgo.volume = curSong.toLowerCase() == 'sunshine' ? 0: 0.6;
+		// não faço ideia se isso tá do jeito que deveria ser
+		// tentei fazer a fix com base no volume do flixel (o que foi apontado no Trello), e também com base na opção de volume no jogo
+		var library:String = curSong.toLowerCase() == 'sunshine' ? 'week-sunshine' : 'preload';
+		var volume:Float = (FlxG.sound.music.volume > 0 || ClientPrefs.efeitosVolume > 0) ? 0.6 : 0;
+
+		intro1 = new FlxSound().loadEmbedded(Paths.sound('intro1' + introSoundsSuffix, library));
+		intro2 = new FlxSound().loadEmbedded(Paths.sound('intro2' + introSoundsSuffix, library));
+		intro3 = new FlxSound().loadEmbedded(Paths.sound('intro3' + introSoundsSuffix, library));
+		introgo = new FlxSound().loadEmbedded(Paths.sound('introGo' + introSoundsSuffix, library));
+
+		intro1.volume = intro2.volume = intro3.volume = volume;
+		introgo.volume = curSong.toLowerCase() == 'sunshine' ? 0 : volume;		
 	}
 
 	public var vidSound:FlxSound;
