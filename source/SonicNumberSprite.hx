@@ -395,7 +395,7 @@ class SonicNumberSprite extends FlxSpriteGroup
 
 	private function updateSonicVida()
 	{
-		var seperatedScore:Array<String> = Std.string(Std.int(health * 50))
+		var seperatedScore:Array<String> = Std.string(Std.int(PlayState.instance.health * 50)) // Ele tava pegando um "health" do FlxObject aqui
 			.split(""); // Quando você entender o motivo de ser 50 e não 100... Meu amigo... tu vai curtir muito.
 		if (seperatedScore.length < vidaNumbers.length)
 		{
@@ -410,6 +410,8 @@ class SonicNumberSprite extends FlxSpriteGroup
 		}
 		if (seperatedScore.length > vidaNumbers.length)
 			seperatedScore.resize(vidaNumbers.length);
+
+        trace(seperatedScore);
 
 		for (idx in 0...seperatedScore.length)
 		{
