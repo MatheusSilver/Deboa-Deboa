@@ -8,6 +8,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic;
 import flixel.tweens.misc.VarTween;
 import flixel.util.FlxStringUtil;
+import flixel.FlxObject;
 
 using StringTools;
 
@@ -18,6 +19,8 @@ enum TransitionTweenType {
 
 class MultiplayerMenu extends FlxTypedGroup<FlxBasic> 
 {
+    public var objectPool:Map<String, Dynamic> = [];
+
     var tweensEntrada:Array<VarTween> = [];
     var tweensSaida:Array<VarTween> = [];
     
@@ -48,13 +51,17 @@ class MultiplayerMenu extends FlxTypedGroup<FlxBasic>
     }
 
     function playTweens(tweenList:Array<VarTween>, otherMenu:MultiplayerMenu, ?callback:()->Void = null, ?semEsperar:Bool = false) {
+        var objectosAResetar:Array<Dynamic> = [];
+
         for(tween in tweenList) {
 			if (tween._object == null) continue;
 
             if (otherMenu != null) {
-                var irmao: Dynamic = findPropertyInOtherState(tween._object, otherMenu);
+                var irmao: Dynamic = findObjectInMap(findObjectNameInMap(tween._object), otherMenu);
                 if (irmao != null) {
-                    var newTween:VarTween = FlxTween.tween(tween._object, {x: irmao.x, y:irmao.y, "scale.x": irmao.scale.x, "scale.y": irmao.scale.y}, semEsperar ? 0 : transitionSpeed, {ease: FlxEase.sineInOut}, false);
+                    objectosAResetar.push([tween._object, {x: tween._object.x, y:tween._object.y, height: tween._object.height, width: tween._object.width}]);
+
+                    var newTween:VarTween = FlxTween.tween(tween._object, irmao, semEsperar ? 0 : transitionSpeed, {ease: FlxEase.sineInOut}, false);
                     newTween.start();
                     continue;
                 }
@@ -65,39 +72,44 @@ class MultiplayerMenu extends FlxTypedGroup<FlxBasic>
 
         new FlxTimer().start(transitionSpeed, function(tmr:FlxTimer)
 		{
+            for(objecto in objectosAResetar) {
+                var resetTween:VarTween = FlxTween.tween(objecto[0], objecto[1], 0, {ease: FlxEase.linear}, false);
+                resetTween.start();
+            }
+
             if (callback == null) return;
             callback();
 		});
     }
 
-    function findPropertyInOtherState(reference:String, otherState:Dynamic): Dynamic {
-        var achado:Dynamic = Reflect.getProperty(otherState, reference.toString());
+    function findObjectNameInMap(instance:FlxObject):String {
+        for (key => objecto in objectPool) {
+            if (objecto[1] == instance) {
+                return key;
+            }
+        }
 
-        if (achado == null) return null;
-        if (!compareClass(achado, reference)) return null;
-
-        return achado;
+        return null;
     }
 
-    function getClassName(object: Dynamic): String {
-        return FlxStringUtil.getClassName(object, true);
-    }
+    function findObjectInMap(key:String, otherState:MultiplayerMenu):Dynamic {
+        var coiso:Dynamic = otherState.objectPool.get(key);
+        if (coiso == null) return null;
 
-    // eu sei que dava pra fazer de um jeito MTOOO melhor isso daqui pra n ser limitado a quantidade de comparações, mas assim ja serve.
-    function compareClass(object1:Dynamic, object2:Dynamic) : Bool {
-        var className1:String = getClassName(object1);
-        var className2:String = getClassName(object2);
-
-        return className1 == className2;
+        return coiso[0];
     }
 
     public function amActive():Bool {
         return MultiplayerMainMenuState.instance.curSubmenu == this && !MultiplayerMainMenuState.instance.isTransitioning && MultiplayerMainMenuState.instance.canClick;
     }
 
-	public function addToMenu(basico:FlxBasic, entrada:Dynamic, saida:Dynamic) {
+	public function addToMenu(basico:FlxObject, entrada:Dynamic, saida:Dynamic, ?reference:String) {
         add(basico);
         tweensSaida.push(FlxTween.tween(basico, saida, transitionSpeed, {ease: FlxEase.sineInOut}, false));
         tweensEntrada.push(FlxTween.tween(basico, entrada, transitionSpeed, {ease: FlxEase.sineInOut}, false));
+
+        // deixa pra la
+        //if (reference == null || reference == "") return;
+        //objectPool.set(reference, [{x: basico.x, y: basico.y, width: basico.width, height: basico.height}, basico.toString()]);
     }
 }

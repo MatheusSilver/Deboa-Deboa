@@ -54,7 +54,7 @@ class MainMenu extends MultiplayerMenu
 		addToMenu(bg, {alpha: 1}, {alpha: 0});
 
 		faixa = new Faixa(0, 177);
-		addToMenu(faixa, {x: 0}, {x:-faixa.width*1.1});
+		addToMenu(faixa, {x: 0}, {x:-faixa.width*1.1}, "faixa");
 
 		fleet = new FlxSprite(622, -50);
 		fleet.loadGraphic(Paths.image('multiplayer/menus/fleetway', 'preload'));

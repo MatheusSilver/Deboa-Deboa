@@ -50,31 +50,16 @@ enum MenuEnum {
 
 class MultiplayerMainMenuState extends MusicBeatState
 {
-	private var servidor:String = "ws://caboose.proxy.rlwy.net:26358";
+	// não é bom isso aqui ser hard coded....
+	private var servidor:String = "ws://caboose.proxy.rlwy.net:26358"; 
 	private var serverStatic:String = "https://modboa-servers.up.railway.app/";
 
 	// COISAS UI
-	var hostearBt:FlxButton;
-	var entrarBt:FlxButton;
-	var skinsBt:FlxButton;
-	var skinsTxt:FlxText;
-	var voltarSkinsBt:FlxButton;
-	var comecarBt:FlxButton;
-	var configBt:FlxButton;
-	var bGround:FlxSprite;
-	var multiplayerTxt:FlxText;
 	public var canClick:Bool = false;
-	var textinhoDebug:FlxText;
-	var connectingText:FlxText;
-	var readyTxt:FlxText;
 
 	// submenus
 	public var curSubmenu:MultiplayerMenu;
 	public var isTransitioning:Bool = true;
-	//var mainMenu:MainMenu;
-	//var noteSkins:NoteSkins;
-	//var joinMenu:JoinMenu;
-	//var lobby:Lobby;
 	var barra:Barra;
 
 	// SUBMENU OPÇÕES
@@ -99,8 +84,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var isPlayingMatch:Bool = false;
 	public var daNoteReceived:Array<Int> = [];
 
-	// PLAYERS
-	public var players:Array<LobbyPlayerObject> = [new LobbyPlayerObject(174,190/*, true*/), new LobbyPlayerObject(681,190)];
 	public static var instance:MultiplayerMainMenuState;
 
 	// SKINS
@@ -112,7 +95,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		[Linguagem.LangUtil.getString("skin_classic", "multiplayer"), "NOTE_assets"]
 	];
 	public var skinAtual:Int = 0;
-
 
 	// VARIAVEIS OPÇÕES
 	public var modos:Array<Dynamic> = [
@@ -128,7 +110,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 	public var musicasDesbloqueadas:Array<Dynamic> = [];
 	public var MusicaAtual:Int = 0;
 
-	public var roomList:RoomList;
+
 	public var curMenu:MenuEnum = CONNECTING;
 
 	function getAllSongs():Array<Dynamic>
@@ -183,40 +165,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	function deactivateAll()
 	{
-		entrarBt.visible = false;
-		hostearBt.visible = false;
-		multiplayerTxt.visible=false;
-
-		skinsBt.visible = false;
-		voltarSkinsBt.visible = false;
-		skinsTxt.visible = false;
-		
-		comecarBt.visible = false;
-		configBt.visible = false;
-		readyTxt.visible = false;
-
-		connectingText.visible = false;
-
-		/*mainMenu.visible = false;
-		noteSkins.visible = false;
-		joinMenu.visible = false;
-		lobby.visible = false;*/
 		barra.backButton.visible=false;
 		barra.configButton.visible=false;
 		barra.changeLabelText("");
-
-		//joinMenu.roomList.clearAll();
-
-		if(roomList != null)
-		{
-			roomList.remover();
-			roomList = null;
-		}
 	}
 
 	var preloadedMenus:Map<MenuEnum, MultiplayerMenu> = [];
 	function preloadAllMenus() {
-		preloadedMenus = [MAIN => new MainMenu(), ROOMLIST => new JoinMenu()];
+		preloadedMenus = [MAIN => new MainMenu(), ROOMLIST => new JoinMenu(), SKINS => new NoteSkins(), LOBBY => new Lobby(), CONNECTING => new Connecting()];
 		
 		var isFirst:Bool = true;
 		for (menu in preloadedMenus) {
@@ -232,17 +188,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 		switch(nextMenu)
 		{
 			case LOBBY:
-				//lobby.visible = true;
+				makeMenuChange(preloadedMenus[LOBBY]);
 				barra.backButton.visible=true;
 				barra.configButton.visible=true;
 				barra.changeLabelText("LOBBY"); // font issues
-
 			case ROOMLIST:
-				/*joinMenu.visible = true;
-				joinMenu.refreshRooms();*/
+				makeMenuChange(preloadedMenus[ROOMLIST]);
 				barra.backButton.visible=true;
 				barra.changeLabelText("MULTIPLAYER");
-				makeMenuChange(preloadedMenus[ROOMLIST]);
 			case MAIN:
 				if(idConvite != "")
 				{
@@ -273,13 +226,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 				else
 				{
-					barra.backButton.visible=true;
 					makeMenuChange(preloadedMenus[MAIN]);
+					barra.backButton.visible=true;
 				}
 			case CONNECTING:
-				//connectingText.visible = true;
+				makeMenuChange(preloadedMenus[CONNECTING]);
 			case SKINS:
-				//noteSkins.visible = true;
+				makeMenuChange(preloadedMenus[SKINS]);
 				barra.backButton.visible = true;
 				barra.changeLabelText("SKINS");
 			default:
@@ -290,8 +243,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	function makeMenuChange(newMenu:MultiplayerMenu) {
 		if (curSubmenu == null) {
-			newMenu.open(curSubmenu);
 			curSubmenu = newMenu;
+			newMenu.open(curSubmenu);
 			return;
 		}
 		
@@ -306,9 +259,11 @@ class MultiplayerMainMenuState extends MusicBeatState
 			if (isTransitioning) 
 				return;
 
+			GlobalSoundManager.play(cancelMenu);
 			switch(curMenu)
 			{
 				case LOBBY:
+					changeMenu(CONNECTING);
 					quisSair=true;
 					if(curRoom != null)
 						{
@@ -326,6 +281,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 			}
 		}
 
+	function reiniciarTudo()
+	{
+		quisSair = false;
+		curRoom = null;
+		isOnServer = false;
+		isPlayingMatch = false;
+		isOnOptions = false;
+		isHost = false;
+		changeMenu(MAIN);
+	}
+
 	override function create()
 	{
 		instance = this;
@@ -340,95 +306,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 		client = new Client(servidor);
 		musicas = getAllSongs();
 		musicasDesbloqueadas = musicas;//getAllUnlockedSongs();
-		multiplayerTxt = new FlxText(0, 0, FlxG.width - 95, Linguagem.LangUtil.getString("main_label", "multiplayer"), 100);
-		multiplayerTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		multiplayerTxt.y = -1500;
-		multiplayerTxt.screenCenter(X);
 
-		bGround = new FlxSprite(0, 0).loadGraphic(Paths.image('ph')); // paulo henrique
-		bGround.setGraphicSize(Std.int(bGround.width));
-		bGround.antialiasing = ClientPrefs.globalAntialiasing;
-		bGround.updateHitbox();
-		bGround.alpha = 1;
-		//add(bGround);
-
-		readyTxt = new FlxText(0, 0, FlxG.width - 95, Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " 0/2", 100);
-		readyTxt.setFormat(Paths.font("letravio.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		readyTxt.y = 51;
-		readyTxt.screenCenter(X);
-
-		textinhoDebug = new FlxText(0, 0, 0, "", 25, true);
-		textinhoDebug.screenCenter(XY);
-
-		hostearBt = createButton('multiplayer/hospedarBt', 0.6, 0, 1500, true, true, hostear, null, Linguagem.LangUtil.getString("main_host_bt", "multiplayer"));
-		//add(hostearBt);
-		entrarBt = createButton('multiplayer/entrarBt', 0.6, 0, 1500, true, true, mostrarSalas, null, Linguagem.LangUtil.getString("main_join_bt", "multiplayer"));
-		//add(entrarBt);
-
-		//add(multiplayerTxt);
 		super.create();
-
-		var num:Int = 0;
-		for (player in players)
-		{
-			player.nome = num == 0 ? "" : "";
-			add(player);
-			num++;
-		}
-
-		comecarBt = createButton('multiplayer/iniciarBt', 0.6, 276, 563, false, false, function(){
-			if(canInitMatch && !isPlayingMatch)
-				{	
-					curRoom.send("toggle-ready");
-				}
-		}, null, Linguagem.LangUtil.getString("lobby_ready_bt", "multiplayer"));
-		//add(comecarBt);
-
-		configBt = createButton('multiplayer/configBt', 0.6, 857, 563, false, false, function(){
-			if (isOnOptions || isPlayingMatch)
-				return;
-			isOnOptions = true;
-			configBt.visible = false;
-			comecarBt.visible = false;
-			openSubState(new OptionsSubstate());
-		} );
-		//add(configBt);
-
-		connectingText = new FlxText(0, 0, 0, Linguagem.LangUtil.getString("txt_connecting", "multiplayer"), 24);
-		connectingText.setFormat(Paths.font("sonic-cd-menu-font.ttf"), 24, 0xFFFFFF, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		connectingText.screenCenter(XY);
-		add(connectingText);
-
-		//add(readyTxt);
-
-		voltarSkinsBt = createButton('multiplayer/voltarSkinsBt', 0.6, 0, 563, false, true,  function(){
-			if (curMenu != SKINS || !canClick)
-				return;
-			canClick = false;
-			new FlxTimer().start(0.1, function (tmr:FlxTimer) {
-				voltarMenu();
-				canClick = true;
-			});
-		}, null, Linguagem.LangUtil.getString("main_back_bt", "multiplayer"));
-
-		skinsBt = createButton('multiplayer/iniciarBt', 0.6, 0, 1500, false, true, function(){
-			if (curMenu != MAIN || !canClick)
-				return;
-			canClick = false;
-			new FlxTimer().start(0.1, function (tmr:FlxTimer) {
-				changeMenu(SKINS);
-				canClick = true;
-			});
-		}, null, Linguagem.LangUtil.getString("main_skins_bt", "multiplayer"));
-		//add(skinsBt);
-
-		//add(voltarSkinsBt);
-
-		skinsTxt = new FlxText(0, 0, FlxG.width - 95, Linguagem.LangUtil.getString("skins_label", "multiplayer"), 100);
-		skinsTxt.setFormat(Paths.font("letravio.ttf"), 100, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		skinsTxt.y = 51;
-		skinsTxt.screenCenter(X);
-		//add(skinsTxt);
 
 		preloadAllMenus();
 		barra = new Barra(FlxColor.fromRGB(17, 12, 8));
@@ -454,7 +333,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 			{
 				trace('versao muito antiga');
 				avisarAlgo(Linguagem.LangUtil.getString("alert_old_version", "multiplayer"), new MainMenuStateMobile());
-				connectingText.visible = false;
 				voltarMenu = true;
 			}
 		}
@@ -463,7 +341,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			trace('error: $error');
 			avisarAlgo(Linguagem.LangUtil.getString("alert_connection_error", "multiplayer"), new MainMenuStateMobile());
-			connectingText.visible = false;
 			voltarMenu = true;
 		}
 
@@ -472,21 +349,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		{
 			changeMenu(MAIN);
 			canClick = true;
-			/*FlxTween.tween(multiplayerTxt, {y: 51}, 0.75, {ease: FlxEase.expoInOut});
-			FlxTween.tween(entrarBt, {y: 394}, 1.45, {ease: FlxEase.expoInOut});
-			FlxTween.tween(hostearBt, {y: 253}, 1.25, {ease: FlxEase.expoInOut});
-			FlxTween.tween(skinsBt, {y: 535}, 1.65, {ease: FlxEase.expoInOut, onComplete: function(tween:FlxTween)
-			{
-				canClick = true;
-			}});*/
 		}
-	}
-
-	public function onOverBtns()
-	{
-		if (!canClick)
-			return;
-		GlobalSoundManager.play(scrollMenu);
 	}
 
 	public function getIsOnServer():Bool
@@ -498,17 +361,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 	{
 		if (controls.BACK && !isOnOptions && canClick && !isPlayingMatch)
 		{
-			GlobalSoundManager.play(cancelMenu);
 			voltarMenu();
 		}
 
-
-		configBt.visible = isOnServer && isHost && !isOnOptions;
-		comecarBt.visible = isOnServer && !isOnOptions;
-		if (isOnServer)
-		{
-			inputShit();
-		}
 		canInitMatch = isOnServer && !isPlayingMatch;
 		super.update(elapsed);
 	}
@@ -516,17 +371,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 	function eventHandlers()
 	{
 		curRoom.onMessage("lobbyPlayers", function(message) {
-			/*switch(message.type)
+			switch(message.type)
 			{
 				case "entrou":
-					(cast(preloadedMenus[LOBBY], Lobby)).players[message.playerIndex].sessionId = message.sessionId;
-					(cast(preloadedMenus[LOBBY], Lobby)).players[message.playerIndex].noteSkin = message.noteSkin;
-					(cast(preloadedMenus[LOBBY], Lobby)).players[message.playerIndex].updatePlayer(message.gamejoltId);
+					Lobby.instance.players[message.playerIndex].sessionId = message.sessionId;
+					Lobby.instance.players[message.playerIndex].noteSkin = message.noteSkin;
+					Lobby.instance.players[message.playerIndex].updatePlayer(message.gamejoltId);
 				case "saiu":
-					(cast(preloadedMenus[LOBBY], Lobby)).players[message.playerIndex].sessionId = "";
-					(cast(preloadedMenus[LOBBY], Lobby)).players[message.playerIndex].noteSkin = "NOTE_assets";
-					(cast(preloadedMenus[LOBBY], Lobby)).players[message.playerIndex].updatePlayer("0");
-			}*/
+					Lobby.instance.players[message.playerIndex].sessionId = "";
+					Lobby.instance.players[message.playerIndex].noteSkin = "NOTE_assets";
+					Lobby.instance.players[message.playerIndex].updatePlayer("0");
+			}
 		});
 
 
@@ -594,10 +449,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 			MultiplayerPlayState.instance.podeTerminar+=2; // DESCULPA X02 E LORENA NÃO MIM MATEM
 		});
 
-		curRoom.onMessage("lobbyInput", function(message) {
-			mudaAeMano(Std.string(getIndexBySession(message.clientID)), message.qual, message.tipo, message.isHost);
-		});
-
 		curRoom.onMessage("newReady", function(message) {
 			//readyTxt.text = Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " "+Std.string(message)+"/2";
 			trace(Std.string(message)+"/2");
@@ -631,26 +482,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		};
 
 		curRoom.onLeave+=reiniciarTudo;
-	}
-
-	function reiniciarTudo()
-	{
-		quisSair = false;
-		curRoom = null;
-		isOnServer = false;
-		isPlayingMatch = false;
-		isOnOptions = false;
-		isHost = false;
-
-		changeMenu(MAIN);
-
-		var num:Int = 0;
-		for (player in players)
-		{
-			player.nome = num == 0 ? "" : "";
-			add(player);
-			num++;
-		}
 	}
 
 	public function hostear(?force:Bool = false)
@@ -687,15 +518,79 @@ class MultiplayerMainMenuState extends MusicBeatState
 			
 			changeMenu(LOBBY);
 
-			/*(cast(preloadedMenus[LOBBY], Lobby)).players[0].noteSkin = skins[skinAtual];
-			(cast(preloadedMenus[LOBBY], Lobby)).players[0].sessionId = curRoom.sessionId;
-			(cast(preloadedMenus[LOBBY], Lobby)).players[0].updatePlayer(GJClient.myID);*/
+			Lobby.instance.players[0].noteSkin = skins[skinAtual];
+			Lobby.instance.players[0].sessionId = curRoom.sessionId;
+			Lobby.instance.players[0].updatePlayer(GJClient.myID);
 
 			eventHandlers();
 
 			canClick = true;
 
 		});
+	}
+
+	public function entrar(room:RoomAvailable, ?force:Bool = false)
+	{
+		if (!canClick && !force)
+			return;
+
+		canClick = false;
+		changeMenu(CONNECTING);
+
+		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
+		roomOptions.set("myName", GJClient.userName);
+		roomOptions.set("myChar", "bf");
+		roomOptions.set("isHost", "1");
+		roomOptions.set("noteSkin", skins[skinAtual][1]);
+		roomOptions.set("gamejoltId", GJClient.myID);
+
+		client.getAvailableRooms("gameRoom", function(err, rooms) {
+			if (err != null) {
+			  	trace(err);
+				avisarAlgo(Std.string(err));
+				changeMenu(MAIN);
+			  	return;
+			}
+			var contem:Bool = false;
+			for (roomAvailable in rooms)
+			{
+				if(roomAvailable.roomId == room.roomId)
+				{
+					client.joinById(room.roomId, roomOptions, LobbyState, function(err, room) {
+						if (err != null) {
+							trace("JOIN ERROR: " + err);
+							avisarAlgo(Std.string(err));
+							canClick = true;
+							changeMenu(MAIN);
+							return;
+						}
+			
+			
+						curRoom = room;
+						isHost = false;
+						isOnServer = true;
+			
+						changeMenu(LOBBY);
+						Lobby.instance.players[1].noteSkin = skins[skinAtual];
+						Lobby.instance.players[1].sessionId = curRoom.sessionId;
+						Lobby.instance.players[1].updatePlayer(GJClient.myID);
+			
+						eventHandlers();
+			
+						canClick = true;
+					});
+					contem = true;
+					break;
+				}
+			}
+			if(!contem)
+			{
+				canClick = true;
+				avisarAlgo(Linguagem.LangUtil.getString("alert_room_unavailable", "multiplayer"));
+				changeMenu(MAIN);
+			}
+		});
+
 	}
 
 	public function initMatch()
@@ -711,7 +606,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 				}
 		}
 		var url:String = serverStatic+"charts/"+musicas[MusicaAtual][1]+".json";
-		//openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, lobby.players[getIndexBySession(curRoom.sessionId)], lobby.players[getOtherIndexBySession(curRoom.sessionId)]));
+		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, Lobby.instance.players[getIndexBySession(curRoom.sessionId)], Lobby.instance.players[getOtherIndexBySession(curRoom.sessionId)]));
 	}
 
 	public function enviarInputGame(note:Int)
@@ -763,31 +658,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 			return;
 		//openSubstate(new ResultsSubstate([sicks, goods, bads, shits], 1, combo, songScore, GJClient.username));
 		isPlayingMatch = false;
-		for(bf in players)
-		{
-			bf.keys = [false, false, false, false];
-			bf.resetPos();
-		}
+
 		daNoteReceived = [];
 		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		if(isHost)
 		{
 			curRoom.send("endedMatch");
 		}
-	}
-
-	public function mostrarSalas()
-	{
-		if(!canClick)
-			return;
-		canClick = false;
-		new FlxTimer().start(0.1, function (tmr:FlxTimer) {
-			var roomArray:Array<RoomAvailable> = getAvailableRooms();
-			changeMenu(ROOMLIST);
-			roomList = new RoomList(roomArray);
-			openSubState(roomList);
-			canClick = true;
-		});
 	}
 
 	public function getAvailableRooms():Array<RoomAvailable>
@@ -798,80 +675,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 		  });
 		return salas;
 	}
-
-	public function entrar(room:RoomAvailable, ?force:Bool = false)
-	{
-		if (!canClick && !force)
-			return;
-		if(roomList != null)
-		{
-			roomList.remover();
-		}
-		canClick = false;
-		changeMenu(CONNECTING);
-
-		var roomOptions:Map<String, Dynamic> = new Map<String, Dynamic>();
-		roomOptions.set("myName", GJClient.userName);
-		roomOptions.set("myChar", "bf");
-		roomOptions.set("isHost", "1");
-		roomOptions.set("noteSkin", skins[skinAtual][1]);
-		roomOptions.set("gamejoltId", GJClient.myID);
-
-		client.getAvailableRooms("gameRoom", function(err, rooms) {
-			if (err != null) {
-			  	trace(err);
-				avisarAlgo(Std.string(err));
-				changeMenu(MAIN);
-			  	return;
-			}
-			var contem:Bool = false;
-			for (roomAvailable in rooms)
-			{
-				if(roomAvailable.roomId == room.roomId)
-				{
-					client.joinById(room.roomId, roomOptions, LobbyState, function(err, room) {
-						if (err != null) {
-							trace("JOIN ERROR: " + err);
-							avisarAlgo(Std.string(err));
-							canClick = true;
-							changeMenu(MAIN);
-							return;
-						}
-			
-			
-						curRoom = room;
-						isHost = false;
-						isOnServer = true;
-			
-						changeMenu(LOBBY);
-						/*lobby.players[1].noteSkin = skins[skinAtual];
-						lobby.players[1].sessionId = curRoom.sessionId;
-						lobby.players[1].updatePlayer(GJClient.myID);*/
-			
-						eventHandlers();
-			
-						canClick = true;
-					});
-					contem = true;
-					break;
-				}
-			}
-			if(!contem)
-			{
-				canClick = true;
-				avisarAlgo(Linguagem.LangUtil.getString("alert_room_unavailable", "multiplayer"));
-				changeMenu(MAIN);
-			}
-		});
-
-
-	}
-
+	
 	function getIndexBySession(sessionId:String):Int
 	{
-		for (i in 0...players.length)
+		for (i in 0...Lobby.instance.players.length)
 		{
-			if(players[i].sessionId == sessionId)
+			if(Lobby.instance.players[i].sessionId == sessionId)
 			{
 				return i;
 			}
@@ -881,105 +690,14 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	function getOtherIndexBySession(sessionId:String):Int
 	{
-		for (i in 0...players.length)
+		for (i in 0...Lobby.instance.players.length)
 		{
-			if(players[i].sessionId != sessionId)
+			if(Lobby.instance.players[i].sessionId != sessionId)
 			{
 				return i;
 			}
 		}
 		return -1;
-	}
-
-	function segureiObotao(qual:String)
-	{
-		curRoom.send("lobbyInput", {clientID: curRoom.sessionId, tipo: "Segurei", qual: qual, isHost: isHost});
-	}
-
-	function solteiObotao(qual:String)
-	{
-		curRoom.send("lobbyInput", {clientID: curRoom.sessionId, tipo: "Soltei", qual: qual, isHost: isHost});
-	}
-
-	function mudaAeMano(zero:String, one:String, two:String, ?isServer:Bool = false)
-	{
-		var zeroInt:Int = Std.parseInt(zero);
-		if (two == "Segurei")
-		{
-			switch (one)
-			{
-				case "cima":
-					players[zeroInt].keys[2] = true;
-				case "baixo":
-					players[zeroInt].keys[1] = true;
-				case "direita":
-					players[zeroInt].keys[3] = true;
-				case "esquerda":
-					players[zeroInt].keys[0] = true;
-			}
-
-			players[zeroInt].bfAnims(one);
-		}
-		else
-		{
-			switch (one)
-			{
-				case "cima":
-					players[zeroInt].keys[2] = false;
-				case "baixo":
-					players[zeroInt].keys[1] = false;
-				case "direita":
-					players[zeroInt].keys[3] = false;
-				case "esquerda":
-					players[zeroInt].keys[0] = false;
-			}
-			if (players[zeroInt].keys[0] == false && players[zeroInt].keys[1] == false && players[zeroInt].keys[2] == false && players[zeroInt].keys[3] == false)
-			{
-				players[zeroInt].bfAnims(one, true);
-			}
-		}
-	}
-
-	public function inputShit()
-	{
-		/*
-		if(!isPlayingMatch)
-		{
-			if (controls.NOTE_UP_P)
-				{
-					segureiObotao("cima");
-				}
-				if (controls.NOTE_DOWN_P)
-				{
-					segureiObotao("baixo");
-				}
-				if (controls.NOTE_RIGHT_P)
-				{
-					segureiObotao("direita");
-				}
-				if (controls.NOTE_LEFT_P)
-				{
-					segureiObotao("esquerda");
-				}
-		
-				if (controls.NOTE_UP_R)
-				{
-					solteiObotao("cima");
-				}
-				if (controls.NOTE_DOWN_R)
-				{
-					solteiObotao("baixo");
-				}
-				if (controls.NOTE_RIGHT_R)
-				{
-					solteiObotao("direita");
-				}
-				if (controls.NOTE_LEFT_R)
-				{
-					solteiObotao("esquerda");
-				}
-		}
-		*/
 	}
 
 	public function avisarAlgo(avisarIssoAqui:String, ?nextState:FlxState = null)
@@ -1035,20 +753,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 	}
 
-	var isCoolBeat:Bool = true;
-	override function beatHit()
-	{
-		for (player in players)
-		{
-			if(player.keys == [false, false, false, false])
-			{
-				player.bf.playAnim('idle', true);
-			}
-		}
-
-		super.beatHit();
-	}
-							  //Não é mignon (malz...)
+	//Não é mignon (malz...)
 	public function createButton(file:String, scale:Float, x:Float, y:Float, visible:Bool = true, centralize:Bool = true, ?callback:Function = null, ?arg:Dynamic= null, ?label:String = null):FlxButton {
         var button = new FlxButton(x, y, '');
 		button.loadGraphic(Paths.image(label == null ? file : "buttons_base/MultiplayerMenu", 'preload', false));
@@ -1094,214 +799,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 }
 
-class LobbyPlayerObject extends FlxSpriteGroup
-{
-	public var sessionId:String = "";
-	public var nome:String = "Player 1";
-	public var charID:String = "bf";
-	public var noteSkin:String = "NOTE_assets";
-	public var keys:Array<Bool> = [false, false, false, false];
-	public var bf:Boyfriend;
-	public var isConnected:Bool = false;
-	var textinhoBF:FlxText;
-
-	public function new(x:Float, y:Float, flipX:Bool = false)
-	{
-		super(x,y);
-
-		// BOYFRIEND LES GOOO
-		bf = new Boyfriend(0, 0, charID);
-		bf.playAnim('idle', false, false, 10);
-		bf.flipX = flipX;
-		add(bf);
-
-		// TEXTINHO TEXTOSO
-		textinhoBF = new FlxText(-15, 0, 500, "", 45, true);
-		textinhoBF.alignment = CENTER;
-		add(textinhoBF);
-		textinhoBF.y = bf.y-60;
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-		isConnected = nome != "";
-		textinhoBF.text = isConnected ? nome : "";
-		bf.alpha = isConnected ? 1 : 0.5;
-		bf.visible = MultiplayerMainMenuState.instance.getIsOnServer();
-		textinhoBF.visible = MultiplayerMainMenuState.instance.getIsOnServer();
-		textinhoBF.alignment = CENTER;
-	}
-
-	public function bfAnims(direction:String, ?soltou:Bool = false)
-		{
-			if (!soltou)
-			{
-				switch (direction)
-				{
-					case "esquerda":
-						bf.playAnim('singLEFT', true);
-					case "baixo":
-						bf.playAnim('singDOWN', true);
-					case "cima":
-						bf.playAnim('singUP', true);
-					case "direita":
-						bf.playAnim('singRIGHT', true);
-				}
-			}
-	
-			if (soltou)
-			{
-				bf.playAnim('idle', false);
-			}
-		}
-
-	public function resetPos()
-	{
-		bf.playAnim('idle', true);
-	}
-}
-
-
-class RoomList extends MusicBeatSubstate
-{
-	var bg:FlxSprite;
-	var scrollBar:FlxScrollableArea;
-	var roomList:FlxSpriteGroup;
-	var viewPortRect:FlxRect;
-	var backButton:FlxButton;
-	var refreshButton:FlxButton;
-	
-	public function new(rooms:Array<RoomAvailable>)
-	{
-		super();
-		refresh(rooms);
-		MultiplayerMainMenuState.instance.curMenu = ROOMLIST;
-	}
-
-	function arrumarOffsets(button:FlxButton)
-	{
-		button.label.offset.x = -75;
-		button.label.offset.y = -25.5;
-		button.label.size = 35;
-	}
-
-	public function refresh(rooms:Array<RoomAvailable>)
-	{
-		if(backButton == null)
-		{
-			backButton = MultiplayerMainMenuState.instance.createButton('', 0.45, 0, 535+82.5, true, true, function(){
-				if(!MultiplayerMainMenuState.instance.canClick || MultiplayerMainMenuState.instance.curMenu != ROOMLIST)
-					return;
-				MultiplayerMainMenuState.instance.canClick = false;
-				new FlxTimer().start(0.1, function (tmr:FlxTimer) {
-					MultiplayerMainMenuState.instance.voltarMenu();
-					MultiplayerMainMenuState.instance.canClick = true;
-				});
-			}, null, Linguagem.LangUtil.getString("main_back_bt", "multiplayer"));
-			arrumarOffsets(backButton);
-			add(backButton);
-		}
-		if(refreshButton == null)
-		{
-			refreshButton = MultiplayerMainMenuState.instance.createButton('', 0.5, 0, 535-30, true, true, function(){
-				if(!MultiplayerMainMenuState.instance.canClick || MultiplayerMainMenuState.instance.curMenu != ROOMLIST)
-					return;
-				remover();
-				MultiplayerMainMenuState.instance.mostrarSalas();
-			}, null, Linguagem.LangUtil.getString("main_refresh_bt", "multiplayer"));
-			arrumarOffsets(refreshButton);
-			add(refreshButton);
-		}
-
-
-		var num:Int = 0;
-		roomList = cast add(new FlxSpriteGroup());
-
-		for (room in rooms) {
-			//trace('room is private: ${room.metadata.privateRoom}');
-			if(room.metadata.privateRoom == false)
-			{
-				var roomObject:RoomObject = new RoomObject(((100*num)+num*5), room);
-				roomList.add(roomObject);
-				num++;
-			}
-		}
-
-		roomList.setPosition(2560);
-		viewPortRect = new FlxRect( 340, 5, 600, 500 );
-
-		scrollBar = new FlxScrollableArea(viewPortRect, roomList.getHitbox(), Utils.ResizeMode.FIT_WIDTH, -1, FlxColor.LIME, this);
-		adicionar();
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-		if (controls.BACK)
-			{
-				GlobalSoundManager.play(cancelMenu);
-				MultiplayerMainMenuState.instance.voltarMenu();
-			}
-	}
-
-	public function adicionar()
-	{
-		if(!FlxG.cameras.list.contains(scrollBar))
-		{
-			FlxG.cameras.add(scrollBar);
-		}
-	}
-
-	public function remover()
-	{
-		if(FlxG.cameras.list.contains(scrollBar))
-			{
-				FlxG.cameras.remove(scrollBar, true);
-			}
-		close();
-	}
-
-	override function close()
-	{
-		super.close();
-	}
-
-}
-
-class RoomObject extends FlxSpriteGroup
-{
-	var nameTxt:FlxText;
-	var descTxt:FlxText;
-	var fundo:FlxSprite;
-	var room:RoomAvailable;
-	var joinButton:FlxButton;
-
-	public function new(y:Int, room:RoomAvailable)
-	{
-		super(0,y);
-		this.room = room;
-		this.alpha = 0.75;
-		fundo = new FlxSprite(0,0).makeGraphic(600, 100, FlxColor.GRAY);
-		add(fundo);
-		createJoinButton();
-		nameTxt = new FlxText(0, 30, 600, room.metadata.displayName, 30, true);
-		nameTxt.autoSize=true;
-		nameTxt.alignment=CENTER;
-		add(nameTxt);
-	}
-
-	function createJoinButton()
-	{
-		joinButton = new FlxButton(0, 0, "", function(){MultiplayerMainMenuState.instance.entrar(room);GlobalSoundManager.play(confirmMenu);});
-		joinButton.onOver.callback = function(){this.alpha = 1;GlobalSoundManager.play(scrollMenu);} ;
-		joinButton.onOut.callback = function(){this.alpha = 1;};
-        joinButton.setGraphicSize(Std.int(this.width), Std.int(this.height));
-        joinButton.updateHitbox();
-		joinButton.alpha = 0.75;
-		add(joinButton);
-	}
-}
 
 class OptionsSubstate extends MusicBeatSubstate
 {

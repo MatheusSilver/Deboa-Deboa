@@ -35,7 +35,7 @@ import Linguagem.LangUtil;
 
 using StringTools;
 
-class NoteSkins extends FlxTypedGroup<FlxBasic> 
+class NoteSkins extends MultiplayerMenu
 {
     public static var instance:NoteSkins;
 
@@ -51,14 +51,14 @@ class NoteSkins extends FlxTypedGroup<FlxBasic>
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/noteskins/bg", 'preload'));
         bg.setGraphicSize(FlxG.width, FlxG.height);
-        add(bg);
+		addToMenu(bg, {alpha: 1}, {alpha: 0});
 
 		faixa = new Faixa(0, 62);
-		add(faixa);
+		addToMenu(faixa, {x: 0}, {x: -faixa.width*1.1}, "faixa");
 		
 		skinSelector = new SkinSelector();
 		skinSelector.y+=50;
-		add(skinSelector);
+		addToMenu(skinSelector, {y: skinSelector.y}, {y: skinSelector.height*4});
 
     }
 }
@@ -113,7 +113,7 @@ class SkinSelector extends FlxSpriteGroup
 
 	function clickEsquerda()
 		{
-			if(!this.visible)
+			if(!NoteSkins.instance.amActive())
 				return;
 			GlobalSoundManager.play(scrollMenu);
 			if(skinAtual-1 >= 0)
@@ -130,7 +130,7 @@ class SkinSelector extends FlxSpriteGroup
 	
 		function clickDireita()
 			{
-				if(!this.visible)
+				if(!NoteSkins.instance.amActive())
 					return;
 				GlobalSoundManager.play(scrollMenu);
 				if(skinAtual+1 < skinList.length)

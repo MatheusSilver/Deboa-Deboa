@@ -35,12 +35,12 @@ import Linguagem.LangUtil;
 
 using StringTools;
 
-class Lobby extends FlxTypedGroup<FlxBasic> 
+class Lobby extends MultiplayerMenu
 {
     public static var instance:Lobby;
 
     var bg:FlxSprite;
-    public var players:Array<LobbyPlayer> = [new LobbyPlayer(203, -10, true, "0"), new LobbyPlayer(522, 218, false, "0")];
+    public var players:Array<LobbyPlayer> = [new LobbyPlayer(203, -10, true, "0", -1400), new LobbyPlayer(522, 218, false, "0", 1400)];
     var go:FlxButton;
 
 
@@ -50,10 +50,10 @@ class Lobby extends FlxTypedGroup<FlxBasic>
 
         bg = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/lobby/bg", 'preload'));
         bg.setGraphicSize(FlxG.width, FlxG.height);
-        add(bg);
+        addToMenu(bg, {alpha: 1}, {alpha: 0});
 
         for (player in players) {
-            add(player);
+            addToMenu(player, {x: player.x}, {x: player.posicaoSaida});
         }
 
         go = new FlxButton(1126,511, "", function(){
@@ -63,7 +63,20 @@ class Lobby extends FlxTypedGroup<FlxBasic>
 				}
         });
         go.loadGraphic(Paths.image("multiplayer/menus/go", 'preload'));
-        add(go);
+        addToMenu(go, {x: 1126}, {x: 1350});
+    }
+
+    public function resetPlayers() {
+		for (player in players) {
+            player.resetPlayer();
+        }
+    }
+
+    public override function close(oldMenu:MultiplayerMenu) {
+        super.close(oldMenu);
+        new FlxTimer().start(transitionSpeed+0.1, function(tmr:FlxTimer) {
+			resetPlayers();
+        });
     }
 }
 
@@ -75,15 +88,17 @@ class LobbyPlayer extends FlxSpriteGroup
     public var faixa:FaixaLobby;
 	public var bf:FlxSprite;
     public var isPlayer1:Bool;
+    public var posicaoSaida:Float;
 
-    public function new(x:Float, y:Float, isPlayer1:Bool, gamejoltID:String)
+    public function new(x:Float, y:Float, isPlayer1:Bool, gamejoltID:String, posicaoSaida:Float)
 	{
 		super(x,y);
         this.isPlayer1 = isPlayer1;
         bf = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/lobby/"+(isPlayer1?"exe":"bf")));
         bf.setGraphicSize(Std.int(bf.width * 0.6667), Std.int(bf.height * 0.6667));
+        this.posicaoSaida = posicaoSaida;
         add(bf);
-        updatePlayer(gamejoltID);
+        resetPlayer();
 	}
 
     public function updatePlayer(newGJID:String) {
@@ -116,5 +131,9 @@ class LobbyPlayer extends FlxSpriteGroup
             return "Epaminondas";
         var userData:User = GJClient.getUserData(Std.parseInt(gjID));
         return userData == null ? "Epaminondas" : userData.username; 
+    }
+
+    public function resetPlayer() {
+        updatePlayer("0");
     }
 }

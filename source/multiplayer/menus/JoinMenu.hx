@@ -1,6 +1,5 @@
 package multiplayer.menus;
 
-import multiplayer.MultiplayerMainMenuState.RoomObject;
 import cpp.abi.Abi;
 import haxe.Constraints.Function;
 import flixel.FlxG;
@@ -60,7 +59,7 @@ class JoinMenu extends MultiplayerMenu
 		addToMenu(bg, {alpha: 1}, {alpha: 0});
 
 		faixa = new Faixa(0, 62);
-        addToMenu(faixa, {x: 0}, {x:-faixa.width*1.1});
+        addToMenu(faixa, {x: 0}, {x:-faixa.width*1.1}, "faixa");
 
 		fleet = new FlxSprite(622, -50);
 		fleet.loadGraphic(Paths.image('multiplayer/menus/fleetway', 'preload'));
@@ -76,6 +75,13 @@ class JoinMenu extends MultiplayerMenu
 		});
 		refreshBt.loadGraphic(Paths.image("multiplayer/menus/joinmenu/refreshbutton"));
 		addToMenu(refreshBt, {y: 564}, {y: 1780});
+    }
+
+    public override function open(oldMenu:MultiplayerMenu) {
+        super.open(oldMenu);
+        new FlxTimer().start(transitionSpeed+0.25, function(tmr:FlxTimer) {
+			refreshRooms();
+        });
     }
 
     public function refreshRooms() {
