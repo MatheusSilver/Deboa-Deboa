@@ -12,7 +12,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.display3D.textures.Texture;
 import openfl.display.BitmapData;
-import flash.media.Sound;
+import openfl.media.Sound;
 import flixel.util.FlxDestroyUtil;
 
 #if cpp
@@ -38,6 +38,14 @@ class Paths
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
 	public static var currentTrackedSounds_cacheID:Map<String, String> = [];
+
+	public inline static function isAudioLoaded(key:String):Bool {
+		return currentTrackedSounds_cacheID.exists(key);
+	}
+
+	public inline static function getLoadedAudio(key:String):Sound{
+		return currentTrackedSounds.get(currentTrackedSounds_cacheID.get(key));
+	}
 
 	public static var dumpExclusions:Array<String> = ["transicoes/transition"];
 
@@ -334,23 +342,7 @@ class Paths
 			if (!currentTrackedAssets.exists(key))
 			{
 				var bitmap:BitmapData = OpenFlAssets.getBitmapData(path, false);
-				var graphic:FlxGraphic = null;
-
-				if (gpu)
-				{
-					var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, false, 0);
-					texture.uploadFromBitmapData(bitmap);
-					currentTrackedTextures.set(key, texture);
-					bitmap.disposeImage();
-					FlxDestroyUtil.dispose(bitmap);
-					bitmap = null;
-					graphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, key);
-				}
-				else
-					graphic = FlxGraphic.fromBitmapData(bitmap, false, key, false);
-
-				graphic.persist = true;
-				currentTrackedAssets.set(key, graphic);
+				processBitmap(key, bitmap, gpu);
 			}
 			/*else
 				trace('Carregando do cache existente: $key');*/
@@ -382,22 +374,76 @@ class Paths
 		return null; //Apenas para garantir que o jooj tentará carregar do jeito normal primeiro (ou então ajuidar a descobrir qual o pilantra.)
 	}
 
-	public static function returnSound(key:String, path:String, file:String, ?library:String) {
-		// I hate this so god damn much
-		//Eu também passei a odiar meu caro colega nordestino :fist::pensive:
+	public static function preloadSound(key:String, path:String, cachingManager:PreCacheManager, ?library:String){
+		var address:String = getSoundAddress(key, path, key, library);
 
+	    if (isAudioLoaded(key)){
+			cachingManager.decreaseLoadedObjects();
+			return;
+		}
+
+	    OpenFlAssets.loadSound(address).onComplete(function(sound:Sound) {
+    	    currentTrackedSounds_cacheID.set(key, address);
+			currentTrackedSounds.set(address, sound);
+			cachingManager.decreaseLoadedObjects();
+			
+    	});
+	}
+
+	public static function preloadImage(key:String, cachingManager:PreCacheManager, ?library:String){
+		var gpuAllowed:Bool = ClientPrefs.loadingexperimental;
+
+		var path:String = getPath('images/$key.png', IMAGE, library);
+		if (OpenFlAssets.exists(path, IMAGE)){
+			if (!currentTrackedAssets.exists(key))
+			{
+				OpenFlAssets.loadBitmapData(path).onComplete(function(bitmap:BitmapData) {
+					processBitmap(key, bitmap, gpuAllowed);
+					cachingManager.decreaseLoadedObjects();
+				});
+			}else{
+				cachingManager.decreaseLoadedObjects();
+			}
+		}
+	}
+
+	private static function processBitmap(key, bitmap, gpuAllowed){
+		var graphic:FlxGraphic = null;
+		if (gpuAllowed)
+		{
+			var texture = FlxG.stage.context3D.createTexture(bitmap.width, bitmap.height, BGRA, false, 0);
+			texture.uploadFromBitmapData(bitmap);
+			currentTrackedTextures.set(key, texture);
+			bitmap.disposeImage();
+			FlxDestroyUtil.dispose(bitmap);
+			bitmap = null;
+			graphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, key);
+		}
+		else
+			graphic = FlxGraphic.fromBitmapData(bitmap, false, key, false);
+
+		graphic.persist = true;
+		currentTrackedAssets.set(key, graphic);
+	}
+
+	public static function getSoundAddress(key:String, path:String, file:String, ?library:String):String {
 		var gottenPath:String = getPath('$path/$file.$SOUND_EXT', SOUND, library);
 		var folder:String = '';
 
 		if (path == 'songs')
 			folder = 'songs:';
 
-		var address:String = folder+gottenPath;
+		return folder+gottenPath;
+	}
 
-		// trace(gottenPath);
+	public static function returnSound(key:String, path:String, file:String, ?library:String) {
+		// I hate this so god damn much
+		//Eu também passei a odiar meu caro colega nordestino :fist::pensive:
+
+		var address:String = getSoundAddress(key, path, file, library);
 		if (OpenFlAssets.exists(address, SOUND))
 		{
-			if (!currentTrackedSounds_cacheID.exists(key)){
+			if (!isAudioLoaded(key)){
 				currentTrackedSounds_cacheID.set(key, address);
 				currentTrackedSounds.set(address, OpenFlAssets.getSound(address));
 			}
