@@ -411,8 +411,6 @@ class SonicNumberSprite extends FlxSpriteGroup
 		if (seperatedScore.length > vidaNumbers.length)
 			seperatedScore.resize(vidaNumbers.length);
 
-        trace(seperatedScore);
-
 		for (idx in 0...seperatedScore.length)
 		{
 			if (seperatedScore[idx] != '' || idx == vidaNumbers.length - 1)
