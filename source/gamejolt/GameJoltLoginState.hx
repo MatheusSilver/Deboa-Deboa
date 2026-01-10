@@ -36,10 +36,8 @@ class GameJoltLoginState extends MusicBeatState
             esconderTexto = false;
 
 			Main.mouse_allowed = true;
-            
-            #if mobile
-            FlxG.stage.window.textInputEnabled = true;
-            #end
+
+            FlxG.sound.soundTrayEnabled = false;
 
 			#if rpc
 			DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_gamejolt", "rpc"), null);
@@ -119,6 +117,7 @@ class GameJoltLoginState extends MusicBeatState
 
             if (controls.BACK && podeSair) {
                 GlobalSoundManager.play(cancelMenu);
+                FlxG.sound.soundTrayEnabled = true;
                 MusicBeatState.switchState(new ajustes.AjustesState());
             }
 
@@ -131,6 +130,12 @@ class GameJoltLoginState extends MusicBeatState
             loginbotao.onOver.callback = loginHover;
 			loginbotao.onOut.callback = loginOut;
 			loginbotao.onDown.callback = loginClick;
+
+            #if mobile
+            // melhoria
+            FlxG.stage.window.textInputEnabled = userBar.hasFocus || tokenBar.hasFocus;
+            #end
+
             
             if(!podeSair)
             {
