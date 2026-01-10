@@ -43,5 +43,5 @@
 
 		setPropertyFromClass('GameOverSubstate', 'loopSoundName', 'sonicCD'); --put in mods/sounds/
 
-		close()
+		
 	end

@@ -20,6 +20,6 @@ function onCreate()
 
 	precacheSound('hitStatic1');
 
-    close()
+    stop()
 
 end
