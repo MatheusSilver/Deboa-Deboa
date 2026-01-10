@@ -38,8 +38,8 @@ import openfl.events.Event;
 import openfl.events.ErrorEvent;
 import openfl.display.Loader;
 import multiplayer.MultiplayerMainMenuState;
-import Note.NoteSplash;
-import Utils.CoolUtil;
+import NoteSplash;
+import CoolUtil;
 import multiplayer.menus.Lobby;
 
 using StringTools;

@@ -30,7 +30,7 @@ class ResultsObject extends FlxSpriteGroup
         upper_bg.antialiasing=ClientPrefs.globalAntialiasing;
         add(upper_bg);
         
-        scoreTxt = new FlxText(upper_bg.x, 0, upper_bg.width, Utils.CoolUtil.formatScore(6, score), 36);
+        scoreTxt = new FlxText(upper_bg.x, 0, upper_bg.width, CoolUtil.formatScore(6, score), 36);
         scoreTxt.setFormat(Linguagem.LangUtil.getFont("smb"), 36, FlxColor.WHITE, RIGHT, OUTLINE_FAST, FlxColor.BLACK);
         if (!startReady) scoreTxt.text = "0000000";
         scoreTxt.updateHitbox();
@@ -60,7 +60,7 @@ class ResultsObject extends FlxSpriteGroup
             sprite.ID = i;
             results_sprite.add(sprite);
 
-            var text:FlxText = new FlxText(sprite.x + sprite.width + 15, 0, 0, Utils.CoolUtil.formatScore(3, Std.int(results_array[i])), 32);
+            var text:FlxText = new FlxText(sprite.x + sprite.width + 15, 0, 0, CoolUtil.formatScore(3, Std.int(results_array[i])), 32);
             if (!startReady)
                 text.alpha = 0;
             text.setFormat(Linguagem.LangUtil.getFont('smb'), 20, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
@@ -77,7 +77,7 @@ class ResultsObject extends FlxSpriteGroup
         normal_bottom_text.setFormat(Linguagem.LangUtil.getFont("smb"), 26, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
         add(normal_bottom_text);
 
-        score_bottom_text = new FlxText(normal_bottom_text.x, normal_bottom_text.y+ normal_bottom_text.height + 10, normal_bottom_text.fieldWidth, Utils.CoolUtil.formatScore(4, high_combo) + "      " + Math.floor(accuracy * 100) + "%");
+        score_bottom_text = new FlxText(normal_bottom_text.x, normal_bottom_text.y+ normal_bottom_text.height + 10, normal_bottom_text.fieldWidth, CoolUtil.formatScore(4, high_combo) + "      " + Math.floor(accuracy * 100) + "%");
         if (!startReady)
             score_bottom_text.alpha = 0;
         score_bottom_text.setFormat(Linguagem.LangUtil.getFont("smb"), 26, FlxColor.WHITE, LEFT, OUTLINE_FAST, FlxColor.BLACK);
@@ -91,7 +91,7 @@ class ResultsObject extends FlxSpriteGroup
     {
         FlxTween.num(0, score, baseTweenDuration + score * 0.000005, {ease: FlxEase.linear}, function(v:Float)
         {
-            scoreTxt.text = Utils.CoolUtil.formatScore(7, Std.int(v));
+            scoreTxt.text = CoolUtil.formatScore(7, Std.int(v));
         });
         FlxTween.tween(score_bottom_text, { alpha:1 }, 0.5);
         FlxTween.tween(normal_bottom_text, { alpha:1 }, 0.5);
@@ -112,7 +112,7 @@ class ResultsObject extends FlxSpriteGroup
         
                     FlxTween.num(0, results_array[i], tweenDuration, {ease: FlxEase.linear, startDelay: i * delay + 0.5 }, function(v:Float)
                     {
-                        results_text.members[i].text = Utils.CoolUtil.formatScore(3, Std.int(v));
+                        results_text.members[i].text = CoolUtil.formatScore(3, Std.int(v));
                     });
                 }
             });

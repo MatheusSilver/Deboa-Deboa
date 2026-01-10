@@ -137,17 +137,17 @@ class FlxEase
 
 	public static inline function sineIn(t:Float):Float
 	{
-		return -Utils.CoolUtil.cosseno(PI2 * t) + 1;
+		return -CoolUtil.cosseno(PI2 * t) + 1;
 	}
 
 	public static inline function sineOut(t:Float):Float
 	{
-		return Utils.CoolUtil.seno(PI2 * t);
+		return CoolUtil.seno(PI2 * t);
 	}
 
 	public static inline function sineInOut(t:Float):Float
 	{
-		return -Utils.CoolUtil.cosseno(Math.PI * t) / 2 + .5;
+		return -CoolUtil.cosseno(Math.PI * t) / 2 + .5;
 	}
 
 	public static function bounceIn(t:Float):Float
@@ -248,13 +248,13 @@ class FlxEase
 	public static inline function elasticIn(t:Float):Float
 	{
 		return -(ELASTIC_AMPLITUDE * Math.pow(2,
-			10 * (t -= 1)) * Utils.CoolUtil.seno((t - (ELASTIC_PERIOD / (2 * Math.PI) * Math.asin(1 / ELASTIC_AMPLITUDE))) * (2 * Math.PI) / ELASTIC_PERIOD));
+			10 * (t -= 1)) * CoolUtil.seno((t - (ELASTIC_PERIOD / (2 * Math.PI) * Math.asin(1 / ELASTIC_AMPLITUDE))) * (2 * Math.PI) / ELASTIC_PERIOD));
 	}
 
 	public static inline function elasticOut(t:Float):Float
 	{
 		return (ELASTIC_AMPLITUDE * Math.pow(2,
-			-10 * t) * Utils.CoolUtil.seno((t - (ELASTIC_PERIOD / (2 * Math.PI) * Math.asin(1 / ELASTIC_AMPLITUDE))) * (2 * Math.PI) / ELASTIC_PERIOD)
+			-10 * t) * CoolUtil.seno((t - (ELASTIC_PERIOD / (2 * Math.PI) * Math.asin(1 / ELASTIC_AMPLITUDE))) * (2 * Math.PI) / ELASTIC_PERIOD)
 			+ 1);
 	}
 
@@ -262,9 +262,9 @@ class FlxEase
 	{
 		if (t < 0.5)
 		{
-			return -0.5 * (Math.pow(2, 10 * (t -= 0.5)) * Utils.CoolUtil.seno((t - (ELASTIC_PERIOD / 4)) * (2 * Math.PI) / ELASTIC_PERIOD));
+			return -0.5 * (Math.pow(2, 10 * (t -= 0.5)) * CoolUtil.seno((t - (ELASTIC_PERIOD / 4)) * (2 * Math.PI) / ELASTIC_PERIOD));
 		}
-		return Math.pow(2, -10 * (t -= 0.5)) * Utils.CoolUtil.seno((t - (ELASTIC_PERIOD / 4)) * (2 * Math.PI) / ELASTIC_PERIOD) * 0.5 + 1;
+		return Math.pow(2, -10 * (t -= 0.5)) * CoolUtil.seno((t - (ELASTIC_PERIOD / 4)) * (2 * Math.PI) / ELASTIC_PERIOD) * 0.5 + 1;
 	}
 }
 

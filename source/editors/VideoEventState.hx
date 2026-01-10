@@ -15,7 +15,7 @@ import flixel.addons.ui.FlxUIButton;
 import flixel.FlxG;
 import flixel.FlxCamera;
 import flixel.FlxSprite;
-import Videos.MP4Sprite;
+import MP4Sprite;
 import flixel.util.FlxColor;
 import openfl.net.FileReference;
 import openfl.events.Event;

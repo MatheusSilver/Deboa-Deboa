@@ -26,7 +26,7 @@ class CustomFadeTransition extends MusicBeatSubstate
 		super();
 
 		this.isTransIn = isTransIn;
-		var zoom:Float = Utils.CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
+		var zoom:Float = CoolUtil.boundTo(FlxG.camera.zoom, 0.05, 1);
 
 		transBlack = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		transBlack.scrollFactor.set();

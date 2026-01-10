@@ -1,6 +1,6 @@
 package ajustes;
 
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;

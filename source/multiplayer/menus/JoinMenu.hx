@@ -19,7 +19,7 @@ import io.colyseus.Room;
 import io.colyseus.events.EventHandler;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
-import Utils.FlxScrollableArea;
+import FlxScrollbar.FlxScrollableArea;
 import flixel.math.FlxRect;
 import openfl.utils.Assets as OpenFlAssets;
 import multiplayer.schemas.*;
@@ -32,6 +32,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic;
 import multiplayer.menus.shared.*;
 import Linguagem.LangUtil;
+import BSLTouchUtils.BSLSwipeUtils;
 
 using StringTools;
 

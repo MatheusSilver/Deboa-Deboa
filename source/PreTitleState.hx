@@ -20,28 +20,28 @@ class PreTitleState extends MusicBeatState
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
 				#if desktop
-				Videos.VideoStatePC.specialSetting = TITLE;
+				VideoStatePC.specialSetting = TITLE;
 				#end
 				if (openfl.utils.Assets.exists(Paths.video('VideosRandoms/haha' + random1)))
 					#if desktop
-					Videos.VideoStatePC.videoPath = Paths.video('VideosRandoms/haha' + random1);
+					VideoStatePC.videoPath = Paths.video('VideosRandoms/haha' + random1);
 				#elseif mobile
-					MusicBeatState.switchState(new Videos.VideoState(Paths.video('VideosRandoms/haha' + random1), (new TitleState())));
+					MusicBeatState.switchState(new VideoState(Paths.video('VideosRandoms/haha' + random1), (new TitleState())));
 				else
-					MusicBeatState.switchState(new Videos.VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
+					MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
 				#end
 
 				#if desktop
-				MusicBeatState.switchState(new Videos.VideoStatePC());
+				MusicBeatState.switchState(new VideoStatePC());
 				#end
 			});
 		} else {
 			new FlxTimer().start(1.5, function(tmr:FlxTimer)
 			{
 				#if desktop
-				MusicBeatState.switchState(new Videos.VideoStatePC());
+				MusicBeatState.switchState(new VideoStatePC());
 				#elseif mobile
-				MusicBeatState.switchState(new Videos.VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
+				MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
 				#end
 			});
 		}

@@ -1,7 +1,7 @@
 package ajustes;
 
 #if mobileC
-import Utils.Config;
+import mobile.Config;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.ui.FlxUIButton;
@@ -10,10 +10,10 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import haxe.Json;
 import ui.FlxButton;
-import ui.Mobilecontrols.FlxVirtualPad;
-import ui.Mobilecontrols.Hitbox;
-import ui.Mobilecontrols.FlxDPadMode;
-import ui.Mobilecontrols.FlxActionMode;
+import mobile.ui.FlxVirtualPad;
+import mobile.ui.Hitbox;
+import mobile.MobileControls.FlxDPadMode;
+import mobile.MobileControls.FlxActionMode;
 
 using StringTools;
 #if lime

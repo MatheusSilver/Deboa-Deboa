@@ -2,7 +2,7 @@ import flixel.input.mouse.FlxMouse;
 import firetongue.FireTongue;
 import flixel.addons.ui.interfaces.IFireTongue;
 import firetongue.Replace;
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
@@ -101,7 +101,7 @@ class LanguageState extends MusicBeatState
 
 		// Featuring: working around dumb library issues
 		// https://github.com/larsiusprime/firetongue/issues/48
-		localeList = Utils.CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
+		localeList = CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
 
 		for (i in 0...localeList.length)
 			textMenuItems.push(Main.tongue.getIndexString(Language, localeList[i], ClientPrefs.lingua));
@@ -294,8 +294,8 @@ class LanguageState extends MusicBeatState {
 
 		if(canInteract) {
 			if(Main.getMouseVisibility()) {
-				brSelected = Utils.BSLTouchUtils.over(brHitbox);
-				if(Utils.BSLTouchUtils.justTouched()) {
+				brSelected = BSLTouchUtils.over(brHitbox);
+				if(BSLTouchUtils.justTouched()) {
 					canInteract = false;
 					selectLanguage(brSelected);
 				}
@@ -326,7 +326,7 @@ class LanguageState extends MusicBeatState {
 	}
 
 	function selectLanguage(which:Bool) {
-		var localeList:Array<Dynamic> = Utils.CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
+		var localeList:Array<Dynamic> = CoolUtil.coolTextFile(Paths.txt('languages', 'preload'));
 		ClientPrefs.lingua = localeList[which?0:1];
 		trace('Game language set to ${ClientPrefs.lingua}');
 		Main.tongue.initialize({locale: ClientPrefs.lingua});

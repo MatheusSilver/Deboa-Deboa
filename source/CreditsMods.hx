@@ -2,10 +2,10 @@
 
 package;
 
-import Utils.BSLTouchUtils;
-import Utils.SpriteSwapper;
+import BSLTouchUtils;
+import BSLTouchUtils.SpriteSwapper;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import Utils.BSLSwipeUtils;
+import BSLTouchUtils.BSLSwipeUtils;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -120,7 +120,7 @@ class CreditsMods extends MusicBeatState
 		if (Main.getMouseVisibility()){
 			#if desktop
 			if(FlxG.mouse.wheel != 0 && creditList.members[0].tweenController==null)
-				changeSelection(Utils.CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
+				changeSelection(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
 			#end
 			if (BSLSwipeUtils.scrollY!=0 && creditList.members[0].tweenController==null){
 				creditList.forEach(function(spr:SpriteSwapper)

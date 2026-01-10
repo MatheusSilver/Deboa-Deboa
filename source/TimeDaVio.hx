@@ -1,7 +1,7 @@
 package;
 
-import Utils.BSLSwipeUtils;
-import Utils.BSLTouchUtils;
+import BSLTouchUtils.BSLSwipeUtils;
+import BSLTouchUtils;
 import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import flixel.FlxG;
@@ -177,7 +177,7 @@ class TimeDaVio extends MusicBeatState
 		BSLSwipeUtils.swipeHorizontal();
 		#if rpc
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_vio_team","rpc")+" " + Utils.CoolUtil.capitalize(creditInfo[curSelected][0]), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_vio_team","rpc")+" " + CoolUtil.capitalize(creditInfo[curSelected][0]), null);
 		#end
 		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
@@ -365,11 +365,11 @@ class TimeDaVio extends MusicBeatState
 		FlxTransitionableState.skipNextTransOut = true;
 		switch (object){
 			case "twitter":
-				Utils.CoolUtil.browserLoad(creditInfo[curSelected][2]);
+				CoolUtil.browserLoad(creditInfo[curSelected][2]);
 			case "youtube":
-				Utils.CoolUtil.browserLoad(creditInfo[curSelected][3] );
+				CoolUtil.browserLoad(creditInfo[curSelected][3] );
 			case "discord":
-				Utils.CoolUtil.browserLoad(creditInfo[curSelected][1]);
+				CoolUtil.browserLoad(creditInfo[curSelected][1]);
 		}
 	}
 

@@ -7,7 +7,7 @@ import flixel.input.gamepad.lists.FlxGamepadButtonList;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;
-import Utils.InputDevices;
+import GamepadUtil.InputDevices;
 
 class InputLabel extends FlxObject{
 	var gamepadModel:InputDevices = Keyboard;
@@ -18,13 +18,13 @@ class InputLabel extends FlxObject{
         instance = this;
         super(x,y);
 		updateWithChange();
-		gamepadModel = Utils.GamepadUtil.getDisplayGamepadModel() != Keyboard ? Utils.GamepadUtil.getDisplayGamepadModel() : Utils.GamepadUtil.getActualGamepadModel();
+		gamepadModel = GamepadUtil.getDisplayGamepadModel() != Keyboard ? GamepadUtil.getDisplayGamepadModel() : GamepadUtil.getActualGamepadModel();
     }
 
 	function updateWithChange() {
-		if (Utils.GamepadUtil.anyGamepadButtonPressed() && Main.isKeyboard){
+		if (GamepadUtil.anyGamepadButtonPressed() && Main.isKeyboard){
 			Main.isKeyboard = false;
-			gamepadModel = Utils.GamepadUtil.getDisplayGamepadModel() != Keyboard ? Utils.GamepadUtil.getDisplayGamepadModel() : Xinput_Controller;
+			gamepadModel = GamepadUtil.getDisplayGamepadModel() != Keyboard ? GamepadUtil.getDisplayGamepadModel() : Xinput_Controller;
 		} else if (FlxG.keys.pressed.ANY && !Main.isKeyboard){
 			Main.isKeyboard = true;
 		}

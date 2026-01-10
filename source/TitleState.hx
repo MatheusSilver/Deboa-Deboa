@@ -338,7 +338,7 @@ class TitleState extends MusicBeatState
 		gradientBar.updateHitbox();
 		gradientBar.y = FlxG.height - gradientBar.height;
 
-		var pressedEnter:Bool = controls.ACCEPT #if mobile || Utils.BSLTouchUtils.justTouched() #end;
+		var pressedEnter:Bool = controls.ACCEPT #if mobile || BSLTouchUtils.justTouched() #end;
 		if (!transitioning && skippedIntro) {
 			if (pressedEnter) {
 				if (ClientPrefs.flashing)

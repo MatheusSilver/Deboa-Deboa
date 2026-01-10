@@ -24,7 +24,7 @@ import openfl.display.BlendMode;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ShaderFilter;
 import openfl.utils.Assets as OpenFlAssets;
-import Videos.MP4Sprite;
+import MP4Sprite;
 using StringTools;
 #if LUA_ALLOWED
 import llua.Convert;
@@ -104,7 +104,7 @@ class FunkinLua {
 		set('stage', PlayState.SONG.stage);
 		set('difficulty', PlayState.storyDifficulty);
 		set('weekRaw', PlayState.storyWeek);
-		set('week', Metadata.WeekData.weeksList[PlayState.storyWeek]);
+		set('week', WeekData.weeksList[PlayState.storyWeek]);
 		set('seenCutscene', PlayState.seenCutscene);
 
 		// Camera poo
@@ -841,16 +841,16 @@ class FunkinLua {
 		// Real não sei se essa função realmente funciona, mas só peguei do DDTO Android do Silver
 		Lua_helper.add_callback(lua, "getMouseX", function(camera:String) {
 			var cam:FlxCamera = cameraFromString(camera);
-			return Utils.BSLTouchUtils.pegarpos("x");
+			return BSLTouchUtils.pegarpos("x");
 		});
 
 		Lua_helper.add_callback(lua, "getMouseY", function(camera:String) {
 			var cam:FlxCamera = cameraFromString(camera);
-			return Utils.BSLTouchUtils.pegarpos("y");
+			return BSLTouchUtils.pegarpos("y");
 		});
 
 		Lua_helper.add_callback(lua, "tecladoMobile", function(coiso:String) {
-			Utils.BSLTouchUtils.teclado(coiso);
+			BSLTouchUtils.teclado(coiso);
 		});
 		
 		//Furtado da Psych 6.3 apenas para ser usado na Slaybells
@@ -969,13 +969,13 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {
 			if(PlayState.instance.modchartSprites.exists(obj)) {
-				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, Utils.CoolUtil.colorFromString(color));
+				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, CoolUtil.colorFromString(color));
 				return;
 			}
 
 			var object:FlxSprite = Reflect.getProperty(PlayState.instance, obj);
 			if(object != null) {
-				object.makeGraphic(width, height, Utils.CoolUtil.colorFromString(color));
+				object.makeGraphic(width, height, CoolUtil.colorFromString(color));
 				return;
 			}
 		});
@@ -1365,15 +1365,15 @@ class FunkinLua {
 		}); */
 		
 		Lua_helper.add_callback(lua, "seno", function(n:Float) {
-			return Utils.CoolUtil.seno(n);
+			return CoolUtil.seno(n);
 		});
 
 		Lua_helper.add_callback(lua, "cosseno", function(n:Float) {
-			return Utils.CoolUtil.cosseno(n);
+			return CoolUtil.cosseno(n);
 		});
 
 		Lua_helper.add_callback(lua, "pi", function() {
-			return Utils.CoolUtil.pi();
+			return CoolUtil.pi();
 		});
 
 		Lua_helper.add_callback(lua, "playMusic", function(sound:String, volume:Float = 1, loop:Bool = false) {
@@ -1382,27 +1382,27 @@ class FunkinLua {
 
 		// FlxGMouse e Touch completos aqui
 		Lua_helper.add_callback(lua, "justTouched", function() {
-			Utils.BSLTouchUtils.justTouched();
+			BSLTouchUtils.justTouched();
 		});
 
 		Lua_helper.add_callback(lua, "aperta", function(coisas:Dynamic, coisasID:Int) {
-			Utils.BSLTouchUtils.aperta(coisas, coisasID);
+			BSLTouchUtils.aperta(coisas, coisasID);
 		});
 
 		Lua_helper.add_callback(lua, "apertasimples", function(coisa:Dynamic) {
-			Utils.BSLTouchUtils.apertasimples(coisa);
+			BSLTouchUtils.apertasimples(coisa);
 		});
 
 		Lua_helper.add_callback(lua, "pressionando", function(coisa:Dynamic) {
-			Utils.BSLTouchUtils.pressionando(coisa);
+			BSLTouchUtils.pressionando(coisa);
 		});
 
 		Lua_helper.add_callback(lua, "solto", function(coisa:Dynamic) {
-			Utils.BSLTouchUtils.solto(coisa);
+			BSLTouchUtils.solto(coisa);
 		});
 
 		Lua_helper.add_callback(lua, "over", function(coisa:Dynamic) {
-			Utils.BSLTouchUtils.over(coisa);
+			BSLTouchUtils.over(coisa);
 		});
 		
 		Lua_helper.add_callback(lua, "mudarRPCdetalhes", function(texto:String) {
@@ -1708,7 +1708,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "luaSpriteMakeGraphic", function(tag:String, width:Int, height:Int, color:String) {
 			//luaTrace("luaSpriteMakeGraphic is deprecated! Use makeGraphic instead", false, true);
 			if(PlayState.instance.modchartSprites.exists(tag))
-				PlayState.instance.modchartSprites.get(tag).makeGraphic(width, height, Utils.CoolUtil.colorFromString(color));
+				PlayState.instance.modchartSprites.get(tag).makeGraphic(width, height, CoolUtil.colorFromString(color));
 			return;
 		});
 		Lua_helper.add_callback(lua, "luaSpriteAddAnimationByPrefix", function(tag:String, name:String, prefix:String, framerate:Int = 24, loop:Bool = true) {

@@ -1,7 +1,7 @@
 package;
 
 import Linguagem.LangUtil;
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;

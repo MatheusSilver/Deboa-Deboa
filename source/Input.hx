@@ -11,11 +11,11 @@ import flixel.FlxG;
 import flixel.util.FlxSignal;
 #if mobileC
 import ui.FlxButton;
-import ui.Mobilecontrols.FlxVirtualPad;
-import ui.Mobilecontrols.Hitbox;
-import ui.Mobilecontrols.Hitbox2; //OOOOOOOOOOOOMAGAWD HITBOX2?????? DOS MESMOS CRIADORES DE ZAPORUNGA SHARAPOVA 2????? OMAGAAAAAAAAAAAAAAAAAAAWD
-import ui.Mobilecontrols.FlxDPadMode;
-import ui.Mobilecontrols.FlxActionMode;
+import mobile.ui.FlxVirtualPad;
+import mobile.ui.Hitbox;
+import mobile.ui.Hitbox2; //OOOOOOOOOOOOMAGAWD HITBOX2?????? DOS MESMOS CRIADORES DE ZAPORUNGA SHARAPOVA 2????? OMAGAAAAAAAAAAAAAAAAAAAWD
+import mobile.MobileControls.FlxDPadMode;
+import mobile.MobileControls.FlxActionMode;
 #end
 
 class DefaultInputs{ //Então... Eu havia esquecido de um fator extremamente inportante do ClientPrefs... Ele literalmente salva TODOS

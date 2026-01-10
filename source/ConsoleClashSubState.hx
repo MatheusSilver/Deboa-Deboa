@@ -57,7 +57,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		
 		var name:String = song;
 		if(week > -1) {
-			name = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[week]).weekName;
+			name = WeekData.weeksLoaded.get(WeekData.weeksList[week]).weekName;
 		}
 		
 		
@@ -148,11 +148,11 @@ class ConsoleClashSubState extends MusicBeatSubstate
 				confirm();
 			}
 		}else{
-			if (Utils.BSLTouchUtils.apertasimples(sonic_button)&&!onSonic)
+			if (BSLTouchUtils.apertasimples(sonic_button)&&!onSonic)
 				onSonic=true;
-			else if (Utils.BSLTouchUtils.apertasimples(mario_button)&&onSonic)
+			else if (BSLTouchUtils.apertasimples(mario_button)&&onSonic)
 				onSonic=false;
-			else if (Utils.BSLTouchUtils.apertasimples(sonic_button) || Utils.BSLTouchUtils.apertasimples(mario_button)){
+			else if (BSLTouchUtils.apertasimples(sonic_button) || BSLTouchUtils.apertasimples(mario_button)){
 				confirm();
 				return;
 			}

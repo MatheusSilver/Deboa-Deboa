@@ -224,7 +224,7 @@ class NotesSubState extends MusicBeatState
 			}
 		}
 
-		var lerpVal:Float = Utils.CoolUtil.boundTo(elapsed * 9.6, 0, 1);
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
 		for (i in 0...grpNotes.length)
 		{
 			var item = grpNotes.members[i];

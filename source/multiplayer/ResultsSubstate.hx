@@ -24,7 +24,7 @@ class ResultsSubstate extends FlxSpriteGroup
         upper_black.antialiasing = ClientPrefs.globalAntialiasing;
 
         
-        var song_name:FlxText = new FlxText(0,0,0,Utils.CoolUtil.capitalize(PlayState.SONG.song), 32);
+        var song_name:FlxText = new FlxText(0,0,0,CoolUtil.capitalize(PlayState.SONG.song), 32);
         song_name.setFormat(Linguagem.LangUtil.getFont("smb"), 24, FlxColor.WHITE, LEFT);
 
         var diff_text:FlxText = new FlxText(0,song_name.y+song_name.height + 5, 0, "hard", 32);

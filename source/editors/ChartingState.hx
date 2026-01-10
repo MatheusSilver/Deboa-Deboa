@@ -264,7 +264,7 @@ class ChartingState extends MusicBeatState
 		if(curSection >= _song.notes.length) curSection = _song.notes.length - 1;
 
 
-		//FlxG.save.bind('funkin', Utils.CoolUtil.getSavePath());
+		//FlxG.save.bind('funkin', CoolUtil.getSavePath());
 
 		tempBpm = _song.bpm;
 
@@ -525,7 +525,7 @@ class ChartingState extends MusicBeatState
 		var directories:Array<String> = [Paths.getPreloadPath('characters/')];
 
 		var tempMap:Map<String, Bool> = new Map<String, Bool>();
-		var characters:Array<String> = Utils.CoolUtil.coolTextFile(Paths.txt('characterList'));
+		var characters:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
 		for (i in 0...characters.length) {
 			tempMap.set(characters[i], true);
 		}
@@ -547,7 +547,7 @@ class ChartingState extends MusicBeatState
 			}
 		}
 		#else
-		var charToCheck = Utils.CoolUtil.coolTextFile(Paths.txt('characterList'));
+		var charToCheck = CoolUtil.coolTextFile(Paths.txt('characterList'));
 		#end
 
 		var player1DropDown = new FlxUIDropDownMenuCustom(10, stepperSpeed.y + 45, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true), function(character:String)
@@ -577,7 +577,7 @@ class ChartingState extends MusicBeatState
 		var directories:Array<String> = [Paths.getPreloadPath('stages/')];
 
 		tempMap.clear();
-		var stageFile:Array<String> = Utils.CoolUtil.coolTextFile(Paths.txt('stageList'));
+		var stageFile:Array<String> = CoolUtil.coolTextFile(Paths.txt('stageList'));
 		var stages:Array<String> = [];
 		for (i in 0...stageFile.length) { //Prevent duplicates
 			var stageToCheck:String = stageFile[i];
@@ -606,7 +606,7 @@ class ChartingState extends MusicBeatState
 			}
 		}
 		#else 
-		stageToCheck = Utils.CoolUtil.coolTextFile(Paths.txt('stageList'));
+		stageToCheck = CoolUtil.coolTextFile(Paths.txt('stageList'));
 		#end
 
 		if(stages.length < 1) stages.push('stage');
@@ -827,7 +827,7 @@ class ChartingState extends MusicBeatState
 			key++;
 		}
 
-		var notetypeslista:Array<String> = Utils.CoolUtil.coolTextFile(Paths.getPreloadPath('custom_notetypes/luaList'));
+		var notetypeslista:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('custom_notetypes/luaList'));
 		#if desktop
 		var directories:Array<String> = [Paths.getPreloadPath('custom_notetypes/')];
 		for (i in 0...directories.length) {
@@ -882,7 +882,7 @@ class ChartingState extends MusicBeatState
 		var tab_group_event = new FlxUI(null, UI_box);
 		tab_group_event.name = 'Events';
 
-		var robertaeventos:Array<String> = Utils.CoolUtil.coolTextFile(Paths.getPreloadPath('custom_events/eventoslist'));
+		var robertaeventos:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('custom_events/eventoslist'));
 		#if desktop
 		var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 		var directories:Array<String> = [Paths.getPreloadPath('custom_events/')];
@@ -1380,7 +1380,7 @@ class ChartingState extends MusicBeatState
 				if(vocals != null) vocals.stop();
 
 				//if(_song.stage == null) _song.stage = stageDropDown.selectedLabel;
-				Metadata.StageData.loadDirectory(_song);
+				StageData.loadDirectory(_song);
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 
@@ -1533,7 +1533,7 @@ class ChartingState extends MusicBeatState
 				if (curSelectedNote[0] == note.strumTime && curSelectedNote[1] == noteDataToCheck)
 				{
 					colorSine += 180 * elapsed;
-					var colorVal:Float = 0.7 + Utils.CoolUtil.seno((Utils.CoolUtil.pi() * colorSine) / 180) * 0.3;
+					var colorVal:Float = 0.7 + CoolUtil.seno((CoolUtil.pi() * colorSine) / 180) * 0.3;
 					note.color = FlxColor.fromRGBFloat(colorVal, colorVal, colorVal, 0.999); //Alpha can't be 100% or the color won't be updated for some reason, guess i will die
 				}
 			}

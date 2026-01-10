@@ -15,7 +15,7 @@ import io.colyseus.Room;
 import io.colyseus.events.EventHandler;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
-import Utils.FlxScrollableArea;
+import FlxScrollbar.FlxScrollableArea;
 import flixel.math.FlxRect;
 import openfl.utils.Assets as OpenFlAssets;
 import multiplayer.schemas.*;

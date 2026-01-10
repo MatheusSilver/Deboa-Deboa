@@ -101,7 +101,7 @@ class PopUpSubState extends MusicBeatSubstate {
     }
 
     override function update(elapsed:Float){
-        if((controls.ACCEPT && canClick) || (Utils.BSLTouchUtils.apertasimples(okButton))) {
+        if((controls.ACCEPT && canClick) || (BSLTouchUtils.apertasimples(okButton))) {
             clickButton();
         }
     }

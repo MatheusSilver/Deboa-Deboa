@@ -1,10 +1,10 @@
 package;
 
 import Linguagem.LangUtil;
-import Utils.BSLSwipeUtils;
+import BSLTouchUtils.BSLSwipeUtils;
 import flixel.math.FlxPoint;
 import ui.FlxButton;
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -128,7 +128,7 @@ class GaleriaStateMusic extends MusicBeatState
 		letrasbotao = new FlxButton(0,0,Linguagem.LangUtil.getString("gall_lyrics_button", "gallery"));
 		letrasbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
 		letrasbotao.x = FlxG.width - 50 - letrasbotao.width;
-		letrasbotao.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		letrasbotao.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 16, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 		letrasbotao.labelAlphas=[letrasbotao.alpha,letrasbotao.alpha+0.15,1];	
 		letrasbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,20)];
 		letrasbotao.label.bold=true;
@@ -137,7 +137,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		playListbotao = new FlxButton(0,0,Linguagem.LangUtil.getString("gall_playlist_button", "gallery"));
 		playListbotao.loadGraphic(Paths.image('buttons_base/ytb_music_button', "preload"));
-		playListbotao.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 16, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+		playListbotao.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 16, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 		playListbotao.labelAlphas=[playListbotao.alpha,playListbotao.alpha+0.15,1];	
 		playListbotao.label.bold=true;
 		playListbotao.labelOffsets = [FlxPoint.get(0,20), FlxPoint.get(0,20), FlxPoint.get(0,21)];
@@ -486,7 +486,7 @@ class GaleriaStateMusic extends MusicBeatState
 			if(menuItems.members[0].y + BSLSwipeUtils.scrollY <= segureoPrimeiroY && menuItems.members[GaleriaState.leMusic.length-1].y + BSLSwipeUtils.scrollY>= FlxG.height - barraInferior.y + 510)
 				menuItems.forEach(function(spr:FlxSprite){spr.y += BSLSwipeUtils.scrollY;});
 
-		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end ||(Utils.BSLTouchUtils.over(sair) && Utils.BSLTouchUtils.justTouched())) {
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end ||(BSLTouchUtils.over(sair) && BSLTouchUtils.justTouched())) {
 			menutoca= true;
 			GlobalSoundManager.play('click');
 			GaleriaState.firsttimemusic = false;
@@ -667,7 +667,7 @@ class GaleriaStateMusic extends MusicBeatState
 
 		//Limpa primeiro, depois recarrega a letra
 		if (openfl.utils.Assets.exists(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true)))
-			daLyric = Utils.CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true));
+			daLyric = CoolUtil.coolTextFile(Paths.lyric(GaleriaState.leMusic[curSelected].toLowerCase(), "locales", true));
 		else
 			daLyric = ['Não', 'Existem', 'Letras', 'Nyehehehehehehehhe'];
 

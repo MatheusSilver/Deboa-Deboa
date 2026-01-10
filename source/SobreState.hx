@@ -1,7 +1,7 @@
 package;
 
 import flixel.text.FlxText;
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import CustomButtons.CreditButton;
 #if rpc
 import Discord.DiscordClient;
@@ -55,7 +55,7 @@ class SobreState extends MusicBeatState
 
 		gtext = new FlxText(0, 0, faixa.width, Linguagem.LangUtil.getString("menu_video_gallery", "credits").toUpperCase(), 48);
 		gtext.antialiasing = ClientPrefs.globalAntialiasing;
-		gtext.setFormat(Linguagem.LangUtil.getFont("smb"), 36, Utils.CoolUtil.colorFromString("#f9c9a5"), CENTER);
+		gtext.setFormat(Linguagem.LangUtil.getFont("smb"), 36, CoolUtil.colorFromString("#f9c9a5"), CENTER);
 		gtext.updateHitbox();
 		gtext.x = 43;
 		gtext.y = 40;
@@ -64,7 +64,7 @@ class SobreState extends MusicBeatState
 
 		ctext = new FlxText(0, 0, faixa.width, Linguagem.LangUtil.getString("menu_credit_menu", "credits").toUpperCase(), 48);
 		ctext.antialiasing = ClientPrefs.globalAntialiasing;
-		ctext.setFormat(Linguagem.LangUtil.getFont("smb"), 36, Utils.CoolUtil.colorFromString("#f9c9a5"), CENTER);
+		ctext.setFormat(Linguagem.LangUtil.getFont("smb"), 36, CoolUtil.colorFromString("#f9c9a5"), CENTER);
 		ctext.updateHitbox();
 		ctext.x = 636; // btw, isso n foi intencional
 		ctext.y = 36;  // DAV??????????????? :fearful: - Era 666 :skull:
@@ -277,7 +277,7 @@ class SobreState extends MusicBeatState
 				#if desktop
 				MusicBeatState.switchState(new SobreVideo());
 				#elseif mobile
-				FlxG.switchState(new Videos.VideoState('assets/videos/EngineBase/aviso', (new SobreState())));
+				FlxG.switchState(new VideoState('assets/videos/EngineBase/aviso', (new SobreState())));
 				#end
 			case "sunny":
 				MusicBeatState.switchState(new GaleriaState());

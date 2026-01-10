@@ -1,6 +1,6 @@
 package;
 
-import Utils.InputDevices;
+import GamepadUtil.InputDevices;
 #if CRASHLOG_HANDLER
 import haxe.io.Path;
 import sys.io.File;

@@ -31,7 +31,7 @@ class FlashingState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		if(!leftState) {
-			if(controls.ACCEPT #if mobile || Utils.BSLTouchUtils.justTouched() #end) {
+			if(controls.ACCEPT #if mobile || BSLTouchUtils.justTouched() #end) {
 				leftState = true;
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;

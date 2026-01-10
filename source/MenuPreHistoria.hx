@@ -66,8 +66,8 @@ class MenuPreHistoria extends MusicBeatState
 
 		PlayState.modohistoria = false;
 		Main.mouse_allowed = true;
-		Metadata.WeekData.reloadWeekFiles(true);
-		if (curWeek >= Metadata.WeekData.weeksList.length)
+		WeekData.reloadWeekFiles(true);
+		if (curWeek >= WeekData.weeksList.length)
 			curWeek = 0;
 
 		camAchievement = new FlxCamera();
@@ -84,7 +84,7 @@ class MenuPreHistoria extends MusicBeatState
 		perfilSprite = new FlxSprite(-1000, 0);
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 
-		Metadata.WeekData.setDirectoryFromWeek(Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[0]));
+		WeekData.setDirectoryFromWeek(WeekData.weeksLoaded.get(WeekData.weeksList[0]));
 		lockSprite = new FlxSprite(0, 0);
 		lockSprite.loadGraphic(Paths.image("Story_Mode/lock", 'preload'));
 		lockSprite.screenCenter(XY);
@@ -150,7 +150,7 @@ class MenuPreHistoria extends MusicBeatState
 			}));
 		}
 
-		if(Utils.ProgressionUtil.terminouHistoria() && !ClientPrefs.freeplayPopUp) {
+		if(ProgressionUtil.terminouHistoria() && !ClientPrefs.freeplayPopUp) {
 			irDireto = false;
 			ClientPrefs.freeplayPopUp = true;
 			ClientPrefs.save();
@@ -159,7 +159,7 @@ class MenuPreHistoria extends MusicBeatState
 			}));
 		}
 
-		if (Utils.ProgressionUtil.terminouHistoria()) test_unlock("heroi");
+		if (ProgressionUtil.terminouHistoria()) test_unlock("heroi");
 
 		//Precisa disso pra voltar do playstate.
 		super.create();
@@ -255,7 +255,7 @@ class MenuPreHistoria extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		#if rpc
-		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_pre_story","rpc")+" ", Linguagem.LangUtil.getString("rpc_week_label_"+Metadata.WeekData.weeksList[curWeek].toLowerCase(),"rpc"), null);
+		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_pre_story","rpc")+" ", Linguagem.LangUtil.getString("rpc_week_label_"+WeekData.weeksList[curWeek].toLowerCase(),"rpc"), null);
 		#end
 
 		#if (desktop && debug)
@@ -290,7 +290,7 @@ class MenuPreHistoria extends MusicBeatState
 				//Deixar só pro mobile depois
 				#if desktop
 				if(FlxG.mouse.wheel != 0 && apertavel){
-					changeWeek(Utils.CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
+					changeWeek(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
 					GlobalSoundManager.play(scrollMenu);
 				}
 				#end
@@ -351,7 +351,7 @@ class MenuPreHistoria extends MusicBeatState
 
 		selectedWeek = true;
 
-		MenuHistoria.dapreselected = Metadata.WeekData.weeksList[curWeek];
+		MenuHistoria.dapreselected = WeekData.weeksList[curWeek];
 
 		// Teoricamente, isso deve fazer com que o menu se desfaça uma última vez e dê lugar ao menu de historia...
 
@@ -378,15 +378,15 @@ class MenuPreHistoria extends MusicBeatState
 		apertavel = false;
 		curWeek += change;
 
-		if (curWeek >= Metadata.WeekData.weeksList.length)
+		if (curWeek >= WeekData.weeksList.length)
 			curWeek = 0;
 		if (curWeek < 0)
-			curWeek = Metadata.WeekData.weeksList.length - 1;
+			curWeek = WeekData.weeksList.length - 1;
 
 		PlayState.storyWeek = curWeek;
 
-		var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[curWeek]);
-		Metadata.WeekData.setDirectoryFromWeek(leWeek);
+		var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
+		WeekData.setDirectoryFromWeek(leWeek);
 
 		bgSprite.visible = perfilSprite.visible= blackbarup.visible=blackbardown.visible=change != 0 || maintainVisible;
 		var assetName:String = leWeek.weekBackground;
@@ -502,7 +502,7 @@ class MenuPreHistoria extends MusicBeatState
 	public function updateBG()
 	{
 		bgSprite.alpha = 1;
-		var weekescolhida:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[curWeek]);
+		var weekescolhida:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[curWeek]);
 		var assetName:String = weekescolhida.weekBackground;
 		old_bg.loadGraphic(Paths.image("scrolling/scroll-"+ assetName+ "/scroll-"+ weekescolhida.songs[MenuHistoria.curSelected][0].toLowerCase() + " (back)", 'preload'));
 	}

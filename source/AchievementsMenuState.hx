@@ -1,6 +1,6 @@
 package;
 
-import Utils.BSLSwipeUtils;
+import BSLTouchUtils.BSLSwipeUtils;
 #if rpc
 import Discord.DiscordClient;
 #end
@@ -181,7 +181,7 @@ class AchievementsMenuState extends MusicBeatState
 		if(sincronizando)
 			return;
 
-		Utils.BSLSwipeUtils.swipeVertical();
+		BSLTouchUtils.BSLSwipeUtils.swipeVertical();
 		if (controls.UI_UP && apertavel)
 		{
 			changeSelection(-1);

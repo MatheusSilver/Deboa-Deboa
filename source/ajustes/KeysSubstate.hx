@@ -1,7 +1,7 @@
 package ajustes;
 
-import Utils.BSLTouchUtils;
-import Utils.InputDevices;
+import BSLTouchUtils;
+import GamepadUtil.InputDevices;
 import flixel.input.gamepad.FlxGamepadInputID;
 #if rpc
 import Discord.DiscordClient;
@@ -127,10 +127,10 @@ class KeysSubstate extends MusicBeatState {
 		}
 
 		gamepadIcon = new FlxSprite(50,50);
-		if (!Utils.GamepadUtil.getGamepadConnected() || Main.isKeyboard) 
+		if (!GamepadUtil.getGamepadConnected() || Main.isKeyboard) 
 			gamepadIcon.loadGraphic(Paths.image("input/disconnected", "preload"));
 		else if (!Main.isKeyboard)
-			gamepadIcon.loadGraphic(Paths.image('input/${Utils.GamepadUtil.getDisplayGamepadModel()}'));
+			gamepadIcon.loadGraphic(Paths.image('input/${GamepadUtil.getDisplayGamepadModel()}'));
 		
 		//Code issue kek
 		gamepadIcon.antialiasing=ClientPrefs.globalAntialiasing;
@@ -151,12 +151,12 @@ class KeysSubstate extends MusicBeatState {
 	}
 
 	private function checkGamepadAvailable(){
-		if (!Main.isKeyboard && !voceFoiAvisado && !Utils.GamepadUtil.getGamepadConnected()){ //Só para avisar caso o player esteja no gamepad e por algum motivo ele desligar.
+		if (!Main.isKeyboard && !voceFoiAvisado && !GamepadUtil.getGamepadConnected()){ //Só para avisar caso o player esteja no gamepad e por algum motivo ele desligar.
 																		  					  //Confia, isso não é nem um pouco específico.
 			setGamepadIcon("disconnected");
 			voceFoiAvisado = true;
-		}else if(!Main.isKeyboard && voceFoiAvisado && Utils.GamepadUtil.getGamepadConnected()){
-			setGamepadIcon('${Utils.GamepadUtil.getDisplayGamepadModel()}');
+		}else if(!Main.isKeyboard && voceFoiAvisado && GamepadUtil.getGamepadConnected()){
+			setGamepadIcon('${GamepadUtil.getDisplayGamepadModel()}');
 			voceFoiAvisado = false;
 		}
 	}
@@ -167,14 +167,14 @@ class KeysSubstate extends MusicBeatState {
 	override function update(elapsed:Float) {
 		checkGamepadAvailable();
 		if(!rebindingKey) {
-			if (Utils.GamepadUtil.getGamepadConnected()){
+			if (GamepadUtil.getGamepadConnected()){
 				if (BSLTouchUtils.pressionando(gamepadIcon)) gamepadIcon.setGraphicSize(110,110);
 				else if (BSLTouchUtils.solto(gamepadIcon)){
 					changeDisplayedGamepadButtons();
 				}   
 			}
 
-			if (Utils.GamepadUtil.anyGamepadButtonPressed() && Main.isKeyboard){
+			if (GamepadUtil.anyGamepadButtonPressed() && Main.isKeyboard){
 				Main.isKeyboard = false;
 				changeDisplayedGamepadButtons(0);
 				changeSelection();
@@ -195,7 +195,7 @@ class KeysSubstate extends MusicBeatState {
 				changeAlt();
 			}
 
-			if ((FlxG.keys.justPressed.ESCAPE || Utils.GamepadUtil.checkGamepadPressedButton(B) #if mobile || FlxG.android.justReleased.BACK #end) && canLeave) { //haha sistema anti burrice
+			if ((FlxG.keys.justPressed.ESCAPE || GamepadUtil.checkGamepadPressedButton(B) #if mobile || FlxG.android.justReleased.BACK #end) && canLeave) { //haha sistema anti burrice
 				/*
 				grpOptions.forEachAlive(function(spr:Alphabet) {
 					spr.alpha = 0;
@@ -206,7 +206,7 @@ class KeysSubstate extends MusicBeatState {
 				MusicBeatState.switchState(new ajustes.AjustesState());
 			}
 
-			if(FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE || Utils.GamepadUtil.checkGamepadPressedButton(A) && nextAccept <= 0) {
+			if(FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE || GamepadUtil.checkGamepadPressedButton(A) && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
 					ClientPrefs.keyBinds.clear();
 					ClientPrefs.keyBinds = Input.DefaultInputs.defaultKeys.copy();
@@ -234,10 +234,10 @@ class KeysSubstate extends MusicBeatState {
 			canLeave = false;
 			var keyPressed:Int = -1;
 			if (Main.isKeyboard) 										 keyPressed = FlxG.keys.firstJustPressed();
-			else if (Utils.GamepadUtil.getGamepadConnected())		     keyPressed = Utils.GamepadUtil.getGamepadPressedButton();
+			else if (GamepadUtil.getGamepadConnected())		     keyPressed = GamepadUtil.getGamepadPressedButton();
 
 			if (Main.isKeyboard && FlxG.keys.justPressed.ANY) 										 changeBindsKeyboard(keyPressed);
-			else if (!Main.isKeyboard && Utils.GamepadUtil.anyGamepadButtonPressed())			     changeBindsGamepad(keyPressed);
+			else if (!Main.isKeyboard && GamepadUtil.anyGamepadButtonPressed())			     changeBindsGamepad(keyPressed);
 
 			new FlxTimer().start(0.1, function(tmr:FlxTimer)
 				{
@@ -333,11 +333,11 @@ class KeysSubstate extends MusicBeatState {
 	private function changeDisplayedGamepadButtons(add:Int = 1){
 		curSelectedGamepadIcon+=add;
 		if (curSelectedGamepadIcon > availableGamepadModels.length-1) curSelectedGamepadIcon = 0; //Não há motivo para se preocupar com outro resultado eu acho...
-		if(Utils.GamepadUtil.getActualGamepadModel() == availableGamepadModels[curSelectedGamepadIcon])	ClientPrefs.gamepadDisplay = AUTO;
+		if(GamepadUtil.getActualGamepadModel() == availableGamepadModels[curSelectedGamepadIcon])	ClientPrefs.gamepadDisplay = AUTO;
 		else												 ClientPrefs.gamepadDisplay = availableGamepadModels[curSelectedGamepadIcon];
 
 
-		setGamepadIcon('${Utils.GamepadUtil.getDisplayGamepadModel()}');
+		setGamepadIcon('${GamepadUtil.getDisplayGamepadModel()}');
 		reloadKeys();
 	}
 
@@ -428,7 +428,7 @@ class KeysSubstate extends MusicBeatState {
 		if (Main.isKeyboard) keys = ClientPrefs.keyBinds.get(optionShit[num][1]);
 		else 			     keys = ClientPrefs.keyBindsGamepad.get(optionShit[num][1]);
 		
-		var text1 = new AttachedSprite('input/${Utils.GamepadUtil.getDisplayGamepadModel()}/${Utils.GamepadUtil.formatKey(keys[0])}', null, "preload");
+		var text1 = new AttachedSprite('input/${GamepadUtil.getDisplayGamepadModel()}/${GamepadUtil.formatKey(keys[0])}', null, "preload");
 		text1.xAdd = 450;
 		text1.yAdd = -25;
 		text1.copyAlpha = false;
@@ -438,7 +438,7 @@ class KeysSubstate extends MusicBeatState {
 		grpInputs.push(text1);
 		add(text1);
 
-		var text2 = new AttachedSprite('input/${Utils.GamepadUtil.getDisplayGamepadModel()}/${Utils.GamepadUtil.formatKey(keys[1])}', null, "preload");
+		var text2 = new AttachedSprite('input/${GamepadUtil.getDisplayGamepadModel()}/${GamepadUtil.formatKey(keys[1])}', null, "preload");
 		text2.xAdd = 650;
 		text2.yAdd = -25;
 		text2.copyAlpha = false;

@@ -94,12 +94,12 @@ class PreMainMenuState extends MusicBeatState
 	{
 		GlobalSoundManager.play(confirmMenu);
 		#if desktop
-		Videos.VideoStatePC.specialSetting = NORMAL;
-		Videos.VideoStatePC.videoPath = Paths.video("aviso");
-		Videos.VideoStatePC.NextState = new MainMenuStateMobile();
-		MusicBeatState.switchState(new Videos.VideoStatePC());
+		VideoStatePC.specialSetting = NORMAL;
+		VideoStatePC.videoPath = Paths.video("aviso");
+		VideoStatePC.NextState = new MainMenuStateMobile();
+		MusicBeatState.switchState(new VideoStatePC());
 		#elseif mobile
-		LoadingState.loadAndSwitchState(new Videos.VideoState('assets/videos/aviso.mp', new MainMenuStateMobile()));
+		LoadingState.loadAndSwitchState(new VideoState('assets/videos/aviso.mp', new MainMenuStateMobile()));
 		#end
 	}
 

@@ -1,7 +1,7 @@
 package ajustes;
 
-import Utils.BSLTouchUtils;
-import Utils.BSLSwipeUtils;
+import BSLTouchUtils;
+import BSLTouchUtils.BSLSwipeUtils;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;

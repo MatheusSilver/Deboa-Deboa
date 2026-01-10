@@ -22,7 +22,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import lime.utils.Assets;
-import Note.NoteSplash;
+import NoteSplash;
 
 using StringTools;
 

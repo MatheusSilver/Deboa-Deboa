@@ -1,8 +1,8 @@
 package;
 
-import Utils.CoolUtil;
-import Videos.MP4Sprite;
-import Note.NoteSplash;
+import CoolUtil;
+import MP4Sprite;
+import NoteSplash;
 import modifiers.ModifiersManager;
 import Linguagem.LangUtil;
 import Achievements;
@@ -13,7 +13,7 @@ import Song.Conductor;
 import Shaders;
 import Song.SwagSong;
 import SonicHUDCCC; // tive que trocar o nome pra não conflitar com o outro sonic hud usado na prey, YCR e talvez na nova confronting
-import Metadata.StageFile;
+import StageData.StageFile;
 import Sys;
 import editors.CharacterEditorState;
 import editors.ChartingState;
@@ -65,7 +65,7 @@ import openfl.utils.Assets as OpenFlAssets;
 import sys.FileSystem;
 import sys.io.File;
 import legendas.*;
-import Videos.SkipText;
+import MP4Sprite.SkipText;
 
 using StringTools;
 
@@ -78,9 +78,9 @@ import flixel.sound.FlxSound;
 import flixel.system.FlxSound;
 #end
 #if mobileC
-import ui.Mobilecontrols.Modes;
-import ui.Mobilecontrols.FlxDPadMode;
-import ui.Mobilecontrols.FlxActionMode;
+import mobile.MobileControls.Modes;
+import mobile.MobileControls.FlxDPadMode;
+import mobile.MobileControls.FlxActionMode;
 #end
 
 class PlayState extends MusicBeatState
@@ -540,7 +540,7 @@ class PlayState extends MusicBeatState
 		art.antialiasing = ClientPrefs.globalAntialiasing;
 		art.alpha = 1;
 
-		storyDifficultyText = Linguagem.LangUtil.getString("rpc_diff_text_"+Utils.CoolUtil.difficultyStuff[storyDifficulty][0].toLowerCase(), "rpc");
+		storyDifficultyText = Linguagem.LangUtil.getString("rpc_diff_text_"+CoolUtil.difficultyStuff[storyDifficulty][0].toLowerCase(), "rpc");
 
 		if(!vimdopause)
 		{
@@ -576,7 +576,7 @@ class PlayState extends MusicBeatState
 		curStage = PlayState.SONG.stage;
 
 		trace('stage is: ' + curStage);
-		stageData = Metadata.StageData.getStageFile(curStage);
+		stageData = StageData.getStageFile(curStage);
 
 		if (stageData == null)
 		{ // Stage couldn't be found, create a dummy stage for preventing a crash
@@ -963,7 +963,7 @@ class PlayState extends MusicBeatState
 		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); // Checks for vanilla/Senpai dialogue
 		if (OpenFlAssets.exists(file))
 		{
-			dialogue = Utils.CoolUtil.coolTextFile(file);
+			dialogue = CoolUtil.coolTextFile(file);
 		}
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;
@@ -2092,7 +2092,7 @@ class PlayState extends MusicBeatState
 		var file:String = Paths.json(songName + '/events');
 		if (curSong.toLowerCase() == 'cross-console-clash')
 		{
-			file = Paths.json(songName + '/events' + Utils.CoolUtil.difficultyStuff[storyDifficulty][1]);
+			file = Paths.json(songName + '/events' + CoolUtil.difficultyStuff[storyDifficulty][1]);
 		}
 
 		if (Utils.exists(file))
@@ -2100,7 +2100,7 @@ class PlayState extends MusicBeatState
 			var eventsData:Array<SwagSection>;
 			if (curSong.toLowerCase() == 'cross-console-clash')
 			{
-				eventsData = Song.loadFromJson('events' + Utils.CoolUtil.difficultyStuff[storyDifficulty][1], songName).notes;
+				eventsData = Song.loadFromJson('events' + CoolUtil.difficultyStuff[storyDifficulty][1], songName).notes;
 			}
 			else
 			{
@@ -2699,7 +2699,7 @@ class PlayState extends MusicBeatState
 
 		if (!inCutscene)
 		{
-			var lerpVal:Float = Utils.CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed, 0, 1);
+			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 			if (!startingSong && !endingSong && boyfriend.animation.curAnim.name.startsWith('idle'))
 			{
@@ -2849,8 +2849,8 @@ class PlayState extends MusicBeatState
 
 		if (camZooming && curSong.toLowerCase() != "cross-console-clash")
 		{
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, Utils.CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
-			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, Utils.CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 		}
 
 		FlxG.watch.addQuick("beatShit", curBeat);
@@ -4652,8 +4652,8 @@ class PlayState extends MusicBeatState
 					// if ()
 					if (!usedPractice)
 					{
-						MenuHistoria.weekCompleted.set(Metadata.WeekData.weeksList[storyWeek], true);
-						Highscore.saveWeekScore(Metadata.WeekData.getWeekFileName(), campaignScore, storyDifficulty);
+						MenuHistoria.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 						FlxG.save.flush();
 					}
 					usedPractice = false;
@@ -4662,7 +4662,7 @@ class PlayState extends MusicBeatState
 				}
 				else
 				{
-					var difficulty:String = '' + Utils.CoolUtil.difficultyStuff[storyDifficulty][1];
+					var difficulty:String = '' + CoolUtil.difficultyStuff[storyDifficulty][1];
 
 					trace('LOADING NEXT SONG');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);

@@ -1,9 +1,9 @@
 package;
 
 import LoadingState.LoadingsState;
-import Utils.BSLSwipeUtils;
-import Utils.BSLTouchUtils;
-import Metadata.WeekData;
+import BSLTouchUtils.BSLSwipeUtils;
+import BSLTouchUtils;
+import WeekData;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -85,7 +85,7 @@ class FreeplayState extends MusicBeatState
 		else { FlxG.save.data.freeplayProgress = progressFreeplay; }
 	
 		firstTime = true;
-		Metadata.WeekData.reloadWeekFiles(true); // note for future silver
+		WeekData.reloadWeekFiles(true); // note for future silver
 		// Este code, SEMPRE, deve ser colocado quando não se utiliza 'dapreselected', ele é quem carrega as weeks.
 
 		apertavel = false;
@@ -94,8 +94,8 @@ class FreeplayState extends MusicBeatState
 
 		#if rpc DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_freeplay", "rpc"), null); #end
 
-		for (i in 0...Metadata.WeekData.freeplayList.length) {
-			var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.freeplayList[i]);
+		for (i in 0...WeekData.freeplayList.length) {
+			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 			var leSongs:Array<String> = [];
 			var leChars:Array<String> = [];
 			var leNombres:Array<String> = [];
@@ -105,7 +105,7 @@ class FreeplayState extends MusicBeatState
 				leNombres.push(leWeek.songs[j][3]);
 			}
 
-			Metadata.WeekData.setDirectoryFromWeek(leWeek);
+			WeekData.setDirectoryFromWeek(leWeek);
 			for (song in leWeek.songs)
 			{
 				var colors:Array<Int> = song[2];
@@ -113,7 +113,7 @@ class FreeplayState extends MusicBeatState
 				addSong(song[0], i, song[1], FlxColor.fromRGB(colors[0], colors[1], colors[2]), song[3]);
 			}
 		}
-		Metadata.WeekData.setDirectoryFromWeek();
+		WeekData.setDirectoryFromWeek();
 
 		bg = new FlxSprite().loadGraphic(Paths.image('Freeplay/menu/bg'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -149,7 +149,7 @@ class FreeplayState extends MusicBeatState
 			songText.x = 600;
 		}
 
-		Metadata.WeekData.setDirectoryFromWeek();
+		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(15, 15, 0, "", 32);
 		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
@@ -189,7 +189,7 @@ class FreeplayState extends MusicBeatState
 		addVirtualPad(NONE, X_Y);
 		#end
 
-		if(Utils.ProgressionUtil.terminouFreeplay() && !ClientPrefs.modifiersPopUp) {
+		if(ProgressionUtil.terminouFreeplay() && !ClientPrefs.modifiersPopUp) {
 			ClientPrefs.modifiersPopUp = true;
 			ClientPrefs.save();
 			openSubState(new PopUpSubState("modifier_unlock", "modifier_unlock", null, function() {
@@ -266,9 +266,9 @@ class FreeplayState extends MusicBeatState
 		}
 		#end
 
-		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, Utils.CoolUtil.boundTo(elapsed * 12, 0, 2));
-		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, Utils.CoolUtil.boundTo(elapsed * 24, 0, 1)));
-		lerpRating = FlxMath.lerp(lerpRating, intendedRating, Utils.CoolUtil.boundTo(elapsed * 12, 0, 1));
+		lerpMultiplier = FlxMath.lerp(lerpMultiplier, intendedMultiplier, CoolUtil.boundTo(elapsed * 12, 0, 2));
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
+		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
 
 		if (Math.abs(lerpScore - intendedScore) <= 10)	lerpScore = intendedScore;
 		if (Math.abs(lerpRating - intendedRating) <= 0.01)	lerpRating = intendedRating;
@@ -278,13 +278,13 @@ class FreeplayState extends MusicBeatState
 		if (ratingSplit.length < 2)	ratingSplit.push('');
 		while (ratingSplit[1].length < 2)	ratingSplit[1] += '0';
 
-		scoreText.text = Linguagem.LangUtil.getString("label_high_score", "data") + (Utils.ProgressionUtil.terminouTudo() ? ' (' + Math.round(lerpMultiplier * 100) / 100 + "X) " : "") + lerpScore + ' (' + ratingSplit.join('.') + '%)';
+		scoreText.text = Linguagem.LangUtil.getString("label_high_score", "data") + (ProgressionUtil.terminouTudo() ? ' (' + Math.round(lerpMultiplier * 100) / 100 + "X) " : "") + lerpScore + ' (' + ratingSplit.join('.') + '%)';
 
 		var upP = controls.UI_UP;
 		var downP = controls.UI_DOWN;
 		var accepted = controls.ACCEPT;
-		var space = #if desktop FlxG.keys.justPressed.SPACE #elseif mobileC ui.Mobilecontrols.FlxVirtualPad.instance.buttonX.justPressed #end || Utils.GamepadUtil.checkGamepadPressedButton(2);
-		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC ui.Mobilecontrols.FlxVirtualPad.instance.buttonY.justPressed #end || Utils.GamepadUtil.checkGamepadPressedButton(3);
+		var space = #if desktop FlxG.keys.justPressed.SPACE #elseif mobileC mobile.ui.FlxVirtualPad.instance.buttonX.justPressed #end || GamepadUtil.checkGamepadPressedButton(2);
+		var ctrl = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC mobile.ui.FlxVirtualPad.instance.buttonY.justPressed #end || GamepadUtil.checkGamepadPressedButton(3);
 
 
 		if (!Main.getMouseVisibility() && apertavel) {
@@ -307,7 +307,7 @@ class FreeplayState extends MusicBeatState
 			if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0) change_swipe = -BSLSwipeUtils.scrollY;
 			else if (change_swipe != 0) changeSelection(true);
 		}
-		if (ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY #if !debug && Utils.ProgressionUtil.terminouTudo() #end) {
+		if (ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY #if !debug && ProgressionUtil.terminouTudo() #end) {
 			apertavel = false;
 			modifiersOpened = true;
 			openSubState(new modifiers.ModifiersMenuState(true));
@@ -341,7 +341,7 @@ class FreeplayState extends MusicBeatState
 			}
 			trace(poop);
 
-			weekNombre = Metadata.WeekData.freeplayList[songs[curSelected].week]; // Array dentro de array dentro de array k
+			weekNombre = WeekData.freeplayList[songs[curSelected].week]; // Array dentro de array dentro de array k
 			trace(weekNombre);
 
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);

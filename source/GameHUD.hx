@@ -17,7 +17,7 @@ import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import Utils.CoolUtil;
+import CoolUtil;
 import modifiers.ModifiersManager;
 
 using StringTools;
@@ -209,11 +209,11 @@ class GameHUD extends FlxTypedGroup<FlxBasic>
                 if(scoreTxt!=null) scoreTxt.text = Linguagem.LangUtil.getString("play_counter_score", "playstate") + ': ' + PlayState.instance.songScore + ' | '+Linguagem.LangUtil.getString("play_counter_misses", "playstate")+ ': ' + PlayState.instance.songMisses + ' | '+Linguagem.LangUtil.getString("play_counter_accuracy", "playstate")+ ': ' + PlayState.instance.ratingString + ' (' + Math.floor(PlayState.instance.ratingPercent * 100) + '%)';
             }
 
-            var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Utils.CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+            var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
             iconP1.scale.set(mult, mult);
             iconP1.updateHitbox();
     
-            var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Utils.CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+            var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
             iconP2.scale.set(mult, mult);
             iconP2.updateHitbox();
     

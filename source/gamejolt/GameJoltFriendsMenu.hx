@@ -2,9 +2,9 @@ package gamejolt;
 
 // Aparentemente as coordenadas ficam bugadas em substates...
 // Talvez eu precise usar camera, mas não tenho certeza
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import flixel.math.FlxMath;
-import Utils.BSLSwipeUtils;
+import BSLTouchUtils.BSLSwipeUtils;
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
@@ -25,7 +25,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.util.FlxSpriteUtil;
 import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
-import Utils.FlxScrollableArea;
+import FlxScrollbar.FlxScrollableArea;
 import flixel.util.FlxTimer;
 import multiplayer.*;
 #if rpc
@@ -153,7 +153,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         
         amigosList.setPosition(0, 2560);
         var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 484 );
-        scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), Utils.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
+        scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), FlxScrollbar.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
         scrollBar.bgColor.alpha = 0;
         FlxG.cameras.add(scrollBar);
         new FlxTimer().start(0.25, function(e:FlxTimer) {

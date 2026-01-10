@@ -178,7 +178,7 @@ class ModifiersMenuState extends MusicBeatSubstate
         for (button in buttons)
             {
                 if(Main.getMouseVisibility()) {
-                    if (Utils.BSLTouchUtils.over(button) && canClick)
+                    if (BSLTouchUtils.over(button) && canClick)
                         {
                             currentButton = button;
                             break;
@@ -198,11 +198,11 @@ class ModifiersMenuState extends MusicBeatSubstate
             }
         }
         text.text = currentButton != null ?currentButton.name.toUpperCase() + ": " + currentButton.desc : ""; // só pa fica bunitu
-        pontosMultiLerp = FlxMath.lerp(pontosMultiLerp, pontosMulti, Utils.CoolUtil.boundTo(elapsed * 24, 0, 2));
+        pontosMultiLerp = FlxMath.lerp(pontosMultiLerp, pontosMulti, CoolUtil.boundTo(elapsed * 24, 0, 2));
         if (Math.abs(pontosMultiLerp - pontosMulti) <= 0.001)
 			pontosMultiLerp = pontosMulti;
         textMultiplier.text = "X"+Std.string(Math.round(pontosMultiLerp*100)/100);
-        if((Main.getMouseVisibility() ? Utils.BSLTouchUtils.justTouched() : controls.ACCEPT) && currentButton != null && canClick)
+        if((Main.getMouseVisibility() ? BSLTouchUtils.justTouched() : controls.ACCEPT) && currentButton != null && canClick)
             {
                 currentButton.clique();
                 for (button in buttons)

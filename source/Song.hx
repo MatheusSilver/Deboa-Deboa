@@ -1,5 +1,7 @@
 package;
 
+// Isso eu acho util estar unificado. Não vou mexer.
+
 import haxe.Json;
 import lime.utils.Assets;
 
@@ -238,7 +240,7 @@ class Song
 
 		var songJson:SwagSong = parseJSONshit(rawJson);
 		if (jsonInput != 'events')
-			Metadata.StageData.loadDirectory(songJson);
+			StageData.loadDirectory(songJson);
 		return songJson;
 	}
 

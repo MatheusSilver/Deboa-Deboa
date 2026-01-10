@@ -21,7 +21,7 @@ import io.colyseus.Room;
 import io.colyseus.events.EventHandler;
 import openfl.events.KeyboardEvent;
 import flixel.group.FlxSpriteGroup;
-import Utils.FlxScrollableArea;
+import FlxScrollbar.FlxScrollableArea;
 import flixel.math.FlxRect;
 import openfl.utils.Assets as OpenFlAssets;
 import multiplayer.schemas.*;
@@ -115,18 +115,18 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	function getAllSongs():Array<Dynamic>
 	{
-		Metadata.WeekData.reloadWeekFiles(true);
+		WeekData.reloadWeekFiles(true);
 		var nomesEPaths:Array<Dynamic> = [];
-		for (i in 0...Metadata.WeekData.weeksList.length) {
-			var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[i]);
+		for (i in 0...WeekData.weeksList.length) {
+			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 			for (i in 0...leWeek.songs.length) {
 				var path:String = Paths.formatToSongPath(leWeek.songs[i][0]);
 				nomesEPaths.push([leWeek.songs[i][3], path]);
 			}
 		}
 
-		for (i in 0...Metadata.WeekData.freeplayList.length) {
-			var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.freeplayList[i]);
+		for (i in 0...WeekData.freeplayList.length) {
+			var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 			for (i in 0...leWeek.songs.length) {
 				var path:String = Paths.formatToSongPath(leWeek.songs[i][0]);
 				nomesEPaths.push([leWeek.songs[i][3], path]);
@@ -802,7 +802,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 class OptionsSubstate extends MusicBeatSubstate
 {
-	var scrollBar:FlxScrollableArea;
+	var scrollBar:FlxScrollbar.FlxScrollableArea;
 	var optionsObjects:FlxSpriteGroup;
 	public static var instance:OptionsSubstate;
 	var backButton:FlxButton;
@@ -841,7 +841,7 @@ class OptionsSubstate extends MusicBeatSubstate
 
 		optionsObjects.setPosition(-1280, 0);
 
-		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), optionsObjects.getHitbox(), Utils.ResizeMode.NONE, -1, FlxColor.LIME, this);
+		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), optionsObjects.getHitbox(), FlxScrollbar.ResizeMode.NONE, -1, FlxColor.LIME, this);
 		FlxG.cameras.add(scrollBar);
 	}
 	

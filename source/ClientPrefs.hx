@@ -1,6 +1,6 @@
 package;
 
-import Utils.InputDevices;
+import GamepadUtil.InputDevices;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.FlxG;
 import flixel.util.FlxSave;
@@ -72,7 +72,7 @@ class ClientPrefs
 
 	public static function init()
 	{
-		FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
+		FlxG.save.bind('modboa', CoolUtil.getSavePath());
 
 		// https://github.com/ShadowMario/FNF-PsychEngine/pull/11633
 		for (field in Type.getClassFields(ClientPrefs))
@@ -104,7 +104,7 @@ class ClientPrefs
 	{
 		// ensure that we're saving (hopefully)
 		if (FlxG.save.data == null)
-			FlxG.save.bind('modboa', Utils.CoolUtil.getSavePath());
+			FlxG.save.bind('modboa', CoolUtil.getSavePath());
 
 		for (field in Type.getClassFields(ClientPrefs))
 		{
@@ -122,7 +122,7 @@ class ClientPrefs
     public static function salvarControles() {
 
         var save:FlxSave = new FlxSave();
-		save.bind('controlesmodboa', Utils.CoolUtil.getSavePath());
+		save.bind('controlesmodboa', CoolUtil.getSavePath());
 		save.data.customControls = keyBinds;
 		save.data.customControlsGamepad = keyBindsGamepad;
 		save.flush();
@@ -143,7 +143,7 @@ class ClientPrefs
 
     public static function carregarControles() {
 		var save:FlxSave = new FlxSave();
-		save.bind('controlesmodboa', Utils.CoolUtil.getSavePath());
+		save.bind('controlesmodboa', CoolUtil.getSavePath());
 	
 		var defaultKeyboardControls:Map<String, Array<FlxKey>> = Input.DefaultInputs.defaultKeys;
 		for (control => keys in defaultKeyboardControls) {

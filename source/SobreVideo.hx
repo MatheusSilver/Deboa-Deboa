@@ -6,7 +6,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import Videos.MP4Sprite;
+import MP4Sprite;
 
 using StringTools;
 #if rpc

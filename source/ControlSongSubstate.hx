@@ -1,4 +1,4 @@
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import LoadingState.LoadingsState;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -113,7 +113,7 @@ class ControlSongSubstate extends MusicBeatSubstate
 				onYes=true;
 			else if (BSLTouchUtils.apertasimples(noText)&&onYes)
 				onYes=false;
-			else if (Utils.BSLTouchUtils.apertasimples(yesText) || Utils.BSLTouchUtils.apertasimples(noText)){
+			else if (BSLTouchUtils.apertasimples(yesText) || BSLTouchUtils.apertasimples(noText)){
 				trace("by click");
 				confirm();
 				return;

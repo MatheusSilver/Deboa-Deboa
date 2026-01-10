@@ -1,6 +1,6 @@
 package;
 
-import Utils.BSLSwipeUtils;
+import BSLTouchUtils.BSLSwipeUtils;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -48,7 +48,7 @@ class GaleriaState extends MusicBeatState
 			Paths.clearStoredMemory();
 			Paths.clearUnusedMemory();
 
-			Metadata.WeekData.reloadWeekFiles(true); //Obrigado silvio do passado por essa anotação em FreeplayState.hx
+			WeekData.reloadWeekFiles(true); //Obrigado silvio do passado por essa anotação em FreeplayState.hx
 			//DaMusic part
 			BSLSwipeUtils.max_y=1;
 			BSLSwipeUtils.reset_manual=false;
@@ -58,16 +58,16 @@ class GaleriaState extends MusicBeatState
 			camAchievement.bgColor.alpha = 0;
 			FlxG.cameras.add(camAchievement);
 
-			for (i in 0...Metadata.WeekData.weeksList.length) {
-				var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.weeksList[i]);
+			for (i in 0...WeekData.weeksList.length) {
+				var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 				for (j in 0...leWeek.songs.length) {
 					leSongs.push(leWeek.songs[j][3]);
 					leMusic.push(leWeek.songs[j][0]);
 					titulos.push(leWeek.songs[j][3]);
 					}
 			}
-			for (i in 0...Metadata.WeekData.freeplayList.length) { //Extração da lista de músicas tanto do freeplas, quanto do modo história.
-				var leWeek:Metadata.WeekData = Metadata.WeekData.weeksLoaded.get(Metadata.WeekData.freeplayList[i]);
+			for (i in 0...WeekData.freeplayList.length) { //Extração da lista de músicas tanto do freeplas, quanto do modo história.
+				var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.freeplayList[i]);
 				for (j in 0...leWeek.songs.length) {
 					leSongs.push(leWeek.songs[j][3]);
 					leMusic.push(leWeek.songs[j][0]);
@@ -105,7 +105,7 @@ class GaleriaState extends MusicBeatState
 			add(bgmusica);
 			galeriaButton = new FlxButton(FlxG.width, 100, Linguagem.LangUtil.getString("gall_gallery_button", "gallery"));
 			galeriaButton.makeGraphic(158,50, FlxColor.TRANSPARENT);
-			galeriaButton.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 20, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+			galeriaButton.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 20, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 			galeriaButton.labelAlphas=[galeriaButton.alpha,galeriaButton.alpha+0.15,1];		
 			galeriaButton.updateHitbox();
 			galeriaButton.x = 491;
@@ -149,7 +149,7 @@ class GaleriaState extends MusicBeatState
 
 			musicButton = new FlxButton(FlxG.width, 100, Linguagem.LangUtil.getString("gall_music_button", "gallery"));
 			musicButton.makeGraphic(158,50, FlxColor.TRANSPARENT);
-			musicButton.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 20, Utils.CoolUtil.colorFromString("0xc6c6c6"), CENTER);
+			musicButton.label.setFormat(Linguagem.LangUtil.getFont("hiraginoSans"), 20, CoolUtil.colorFromString("0xc6c6c6"), CENTER);
 			musicButton.labelAlphas=[musicButton.alpha,musicButton.alpha+0.15,1];	
 			musicButton.updateHitbox();
 			musicButton.x = 640;
@@ -190,7 +190,7 @@ class GaleriaState extends MusicBeatState
 				 
 				//A ordem aparentemente faz uma diferença ferrada na otimização disso.
 				if(!stoploading){
-				if(Utils.BSLTouchUtils.over(playsArray) || (Utils.BSLTouchUtils.over(galeriaButton)&&!isGaleria) || (Utils.BSLTouchUtils.over(musicButton)&&isGaleria)){
+				if(BSLTouchUtils.over(playsArray) || (BSLTouchUtils.over(galeriaButton)&&!isGaleria) || (BSLTouchUtils.over(musicButton)&&isGaleria)){
 					if(mouseskin != "pointerselected"){
 						mouseskin = 'pointerselected';
 						#if desktop
@@ -223,18 +223,18 @@ class GaleriaState extends MusicBeatState
 						spr.visible = false;
 					}
 
-					if(Utils.BSLTouchUtils.justTouched() && clicavel)
+					if(BSLTouchUtils.justTouched() && clicavel)
 					{
-						if(Utils.BSLTouchUtils.over(spr)){
+						if(BSLTouchUtils.over(spr)){
 							stoploading = true;
 							GlobalSoundManager.play('click');
 							GaleriaStateMusic.songPosInArray = spr.ID;
 							MusicBeatState.switchState(new GaleriaStateMusic());
 							FlxG.sound.music.fadeOut(1, 0);
-						}else if (Utils.BSLTouchUtils.over(galeriaButton) && !isGaleria){
+						}else if (BSLTouchUtils.over(galeriaButton) && !isGaleria){
 							galeriapressed();
 							GlobalSoundManager.play('click');
-						}else if (Utils.BSLTouchUtils.over(musicButton) && isGaleria){
+						}else if (BSLTouchUtils.over(musicButton) && isGaleria){
 							musicpressed();
 							GlobalSoundManager.play('click');
 						}

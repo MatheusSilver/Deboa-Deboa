@@ -26,7 +26,7 @@ import openfl.events.Event;
 import openfl.net.URLRequest;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepadInputID;
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import CustomButtons.MenuButton;
 import gamejolt.*;
 
@@ -93,7 +93,7 @@ class MainMenuStateMobile extends MusicBeatState
 		Song.Conductor.changeBPM(112);
 		instance = this;
 		GameJoltLoginState.syncProgress();
-		terminouHistoria = Utils.ProgressionUtil.terminouHistoria();
+		terminouHistoria = ProgressionUtil.terminouHistoria();
 
 		#if rpc
 		// Updating Discord Rich Presence
@@ -333,7 +333,7 @@ class MainMenuStateMobile extends MusicBeatState
 						curSelected = 0;
 					else{
 						curSelected +=1;
-						if (optionShit[curSelected] == "freeplay" && !Utils.ProgressionUtil.terminouHistoria())
+						if (optionShit[curSelected] == "freeplay" && !ProgressionUtil.terminouHistoria())
 							curSelected +=1;
 						if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
 							curSelected +=1;
@@ -443,7 +443,7 @@ class MainMenuStateMobile extends MusicBeatState
 		if (FlxG.sound.music.volume < 0.7)
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		
-		var lerpVal:Float = Utils.CoolUtil.boundTo(elapsed * 5.6, 0, 1);
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (!selectedSomethin && canClick && clicavel)

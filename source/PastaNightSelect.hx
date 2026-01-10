@@ -1,6 +1,6 @@
 package;
 
-import Utils.BSLTouchUtils;
+import BSLTouchUtils;
 import LoadingState.LoadingsState;
 import flixel.FlxCamera;
 import flixel.FlxG;
