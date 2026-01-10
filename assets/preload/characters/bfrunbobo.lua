@@ -20,7 +20,7 @@ function onEvent(event, v1, v2)
     elseif v1 == 'beef' then
         scriptActive = false
         removeLuaSprite('bfrunlegsbobo')
-        close();
+        stop();
     elseif getProperty("bfrunlegsbobo.visible")  and v1 == 'bf' then
         scriptActive = false
         setProperty('bfrunlegsbobo.visible', false) --Não tenho certeza, mas acho que esse sprite só é usado uma única vez.

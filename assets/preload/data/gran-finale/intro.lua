@@ -54,5 +54,5 @@ function transAto2()
     cameraFlash('legenda', '0xff0000', 2, true)
     end
     removeLuaSprite('sonicIntro1', true)
-    --close()
+    stop()
 end
