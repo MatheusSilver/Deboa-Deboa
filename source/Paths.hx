@@ -390,7 +390,7 @@ class Paths
     	});
 	}
 
-	public static function preloadImage(key:String, cachingManager:PreCacheManager, ?library:String){
+	public static function preloadImage(key:String, cachingManager:PreCacheManager, ?library:String, ?char:Character = null){
 		var gpuAllowed:Bool = ClientPrefs.loadingexperimental;
 
 		var path:String = getPath('images/$key.png', IMAGE, library);
@@ -399,10 +399,21 @@ class Paths
 			{
 				OpenFlAssets.loadBitmapData(path).onComplete(function(bitmap:BitmapData) {
 					processBitmap(key, bitmap, gpuAllowed);
-					cachingManager.decreaseLoadedObjects();
+					if (char == null)
+						cachingManager.decreaseLoadedObjects();
+					else {
+						/* Primeiro carregamos as infos do personagem, e depois marcamos que ele foi carregado */
+						char.onImageLoaded();
+						cachingManager.decreaseLoadedObjects();
+					}
 				});
 			}else{
-				cachingManager.decreaseLoadedObjects();
+				if (char == null)
+					cachingManager.decreaseLoadedObjects();
+				else {
+					char.onImageLoaded();
+					cachingManager.decreaseLoadedObjects();
+				}
 			}
 		}
 	}

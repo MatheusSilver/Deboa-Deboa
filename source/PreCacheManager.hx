@@ -4,6 +4,7 @@ class PreCacheManager
 {
     private var sounds:Array<String>;
     private var images:Array<String>;
+    private var characters:Array<Character>;
     private var music:Array<String>;
     private var assetsToLoad:Int = 0;
     private var onLoadComplete:Void->Void;
@@ -19,10 +20,15 @@ class PreCacheManager
         sounds = [];
         images = [];
         music  = [];
+        characters = [];
     }
 
     inline public function requestSound(key:String):Void
         sounds.push(key);
+    
+    inline public function requestCharacter(char:Character):Void
+        characters.push(char);
+    
 
     inline public function requestImage(key:String):Void
         images.push(key);
@@ -32,13 +38,16 @@ class PreCacheManager
 
     public function loadAssets():Void
     {
-        assetsToLoad = sounds.length + images.length + music.length;
+        assetsToLoad = sounds.length + images.length + music.length + characters.length;
 
         if (assetsToLoad == 0)
         {
             finish();
             return;
         }
+
+        for (k in characters)
+            Paths.preloadImage(k.imageFile, this, "shared", k);
 
         for (k in sounds)
             Paths.preloadSound(k, "sounds", this);
