@@ -454,7 +454,12 @@ class AlphaCharacter extends FlxSprite
 {
 	public static var fontTexture:String = '';
 
-	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçéã§óíá";
+	// Provavelmente deve ter algo faltando aqui, mas, caso precisar adicionar algo faltante
+	// tem o PSD no art/ que facilita pra qualquer um editar.
+
+	// O spritesheet dos alfabetos são meio bugados por conta dos caracteres com acento então
+	// não recomendo usar Spritesheet generator e essas coisa aí pq eles bugam todo o XML.
+	public static var alphabet:String = "abcdefghijklmnopqrstuvwxyzçáéíóúâêôãõà";
 
 	public static var numbers:String = "1234567890";
 
@@ -551,7 +556,7 @@ class AlphaCharacter extends FlxSprite
 		animation.play(letter);
 		updateHitbox();
 
-		y = (110 - height);
+		y = (120 - height); // ajuste finissimo
 		y += row * 60;
 	}
 
