@@ -193,6 +193,11 @@ class PlayState extends MusicBeatState
 	// event variables
 	private var isCameraOnForcedPos:Bool = false;
 
+	/* A ideia é impedir que esse cara "esqueça" quem ele já carregou após um reset */
+	private var loadedBFs:Array<String> = [];
+	private var loadedDADs:Array<String> = [];
+	private var loadedGFs:Array<String> = [];
+
 	#if (haxe >= "4.0.0")
 	public var boyfriendMap:Map<String, Boyfriend> = new Map();
 	public var dadMap:Map<String, Character> = new Map();
@@ -273,7 +278,7 @@ class PlayState extends MusicBeatState
 
 	var songPercent:Float = 0;
 
-
+	var cacheLoader:PreCacheManager;
 
 	private var generatedMusic:Bool = false;
 
@@ -441,6 +446,8 @@ class PlayState extends MusicBeatState
 
 		Achievements.loadAchievements();
 		Main.mouse_allowed = false;
+
+		cacheLoader = new PreCacheManager(finishCreate);
 
 		// Precache geral
 		cambump_allowed = true;
@@ -1380,8 +1387,6 @@ class PlayState extends MusicBeatState
 
 		// trace('executando precachelist');
 
-		var cacheLoader:PreCacheManager = new PreCacheManager(finishCreate);
-
 		for (key => type in precacheList)
 		{
 			switch (type)
@@ -1516,45 +1521,75 @@ class PlayState extends MusicBeatState
 		switch (type)
 		{
 			case 0:
-				if (!boyfriendMap.exists(newCharacter))
+				if (!loadedBFs.contains(newCharacter) && !boyfriendMap.exists(newCharacter))
 				{
-					var newBoyfriend:Boyfriend = new Boyfriend(0, 0, newCharacter);
-					boyfriendMap.set(newCharacter, newBoyfriend);
-					boyfriendGroup.add(newBoyfriend);
-					startCharacterPos(newBoyfriend);
-					newBoyfriend.alpha = 0.00001;
-					newBoyfriend.visible = false;
-					newBoyfriend.alreadyLoaded = false;
-					startCharacterLua(newBoyfriend.curCharacter);
+					loadedBFs.push(newCharacter);
+					var newBF:Boyfriend; 
+					newBF = new Boyfriend(0, 0, newCharacter, function() {
+						startBF(newBF, newCharacter);
+					});
+					cacheLoader.requestCharacter(newBF);
+					
 				}
 
 			case 1:
-				if (!dadMap.exists(newCharacter))
+				if (!loadedDADs.contains(newCharacter) && !dadMap.exists(newCharacter))
 				{
-					var newDad:Character = new Character(0, 0, newCharacter);
-					dadMap.set(newCharacter, newDad);
-					dadGroup.add(newDad);
-					startCharacterPos(newDad, true);
-					newDad.alpha = 0.00001;
-					newDad.visible = false;
-					newDad.alreadyLoaded = false;
-					startCharacterLua(newDad.curCharacter);
+					loadedDADs.push(newCharacter);
+					var newDad:Character; 
+					newDad = new Character(0, 0, newCharacter, function() {
+						startDAD(newDad, newCharacter);
+					});
+					cacheLoader.requestCharacter(newDad);
 				}
 
 			case 2:
-				if (!gfMap.exists(newCharacter))
+				if (!loadedGFs.contains(newCharacter) && !gfMap.exists(newCharacter))
 				{
-					var newGf:Character = new Character(0, 0, newCharacter);
-					newGf.scrollFactor.set(0.95, 0.95);
-					gfMap.set(newCharacter, newGf);
-					gfGroup.add(newGf);
-					startCharacterPos(newGf);
-					newGf.alpha = 0.00001;
-					newGf.visible = false;
-					newGf.alreadyLoaded = false;
-					startCharacterLua(newGf.curCharacter);
+					loadedGFs.push(newCharacter);
+					var newGf:Character; 
+					newGf = new Character(0, 0, newCharacter, function() {
+						startGF(newGf, newCharacter);
+					});
+					cacheLoader.requestCharacter(newGf);
+					
 				}
 		}
+		
+	}
+
+	private function startBF(newBoyfriend:Boyfriend, newCharacter:String){
+		newBoyfriend.setupCharacter();
+		boyfriendMap.set(newCharacter, newBoyfriend);
+		boyfriendGroup.add(newBoyfriend);
+		startCharacterPos(newBoyfriend);
+		newBoyfriend.alpha = 0.00001;
+		newBoyfriend.visible = false;
+		newBoyfriend.alreadyLoaded = false;
+		startCharacterLua(newBoyfriend.curCharacter);
+	}
+
+	private function startDAD(newDad:Character, newCharacter:String){
+		newDad.setupCharacter();
+		dadMap.set(newCharacter, newDad);
+		dadGroup.add(newDad);
+		startCharacterPos(newDad, true);
+		newDad.alpha = 0.00001;
+		newDad.visible = false;
+		newDad.alreadyLoaded = false;
+		startCharacterLua(newDad.curCharacter);
+	}
+
+	private function startGF(newGf:Character, newCharacter:String){
+		newGf.setupCharacter();
+		newGf.scrollFactor.set(0.95, 0.95);
+		gfMap.set(newCharacter, newGf);
+		gfGroup.add(newGf);
+		startCharacterPos(newGf);
+		newGf.alpha = 0.00001;
+		newGf.visible = false;
+		newGf.alreadyLoaded = false;
+		startCharacterLua(newGf.curCharacter);
 	}
 
 	function startCharacterLua(name:String)

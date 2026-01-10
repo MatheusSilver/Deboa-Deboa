@@ -12,6 +12,6 @@ function onCreate()
         precacheImage('pixelUI/ring-clash');
     end
 
-    close()
+    stop()
 
 end

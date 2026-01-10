@@ -11,6 +11,6 @@ function onCreate()
     precacheSound('sppok');
     precacheSound('staticBUZZ');
 
-    close()
+    stop()
 
 end

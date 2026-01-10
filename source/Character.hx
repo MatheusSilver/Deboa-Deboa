@@ -67,9 +67,11 @@ class Character extends FlxSprite
 	public var originalFlipX:Bool = false;
 	public var healthColorArray:Array<Int> = [255, 0, 0];
 	public var alreadyLoaded:Bool = true; //Used by "Change Character" event
+	public var json:CharacterFile;
+	public var onImageLoaded:Void->Void;
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
-	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false)
+	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?onLoaded:Void->Void = null)
 	{
 		super(x, y);
 
@@ -80,78 +82,76 @@ class Character extends FlxSprite
 		#end
 		curCharacter = character;
 		this.isPlayer = isPlayer;
+		this.onImageLoaded = onLoaded;
 		antialiasing = ClientPrefs.globalAntialiasing;
 
 		var library:String = null;
-		switch (curCharacter)
+		var characterPath:String = 'characters/' + curCharacter + '.json';
+		var path:String = Paths.getPreloadPath(characterPath);
+		if (!Assets.exists(path))
 		{
-			//case 'your character name in case you want to hardcode him instead':
-
-			default:
-				var characterPath:String = 'characters/' + curCharacter + '.json';
-				var path:String = Paths.getPreloadPath(characterPath);
-				if (!Assets.exists(path))
-				{
-					path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
-				}
-
-				var rawJson = Assets.getText(path);
-
-
-				var json:CharacterFile = cast Json.parse(rawJson);
-				if(Assets.exists(Paths.getPath('images/' + json.image + '.txt', TEXT))) {
-					frames = Paths.getPackerAtlas(json.image);
-				} else {
-					frames = Paths.getSparrowAtlas(json.image);
-				}
-				imageFile = json.image;
-
-				if(json.scale != 1) {
-					jsonScale = json.scale;
-					setGraphicSize(Std.int(width * jsonScale));
-					updateHitbox();
-				}
-
-				positionArray = json.position;
-				cameraPosition = json.camera_position;
-
-				healthIcon = json.healthicon;
-				singDuration = json.sing_duration;
-				flipX = !!json.flip_x;
-				if(json.no_antialiasing) {
-					antialiasing = false;
-					noAntialiasing = true;
-				}
-
-				if(json.healthbar_colors != null && json.healthbar_colors.length > 2)
-					healthColorArray = json.healthbar_colors;
-
-				antialiasing = !noAntialiasing;
-				if(!ClientPrefs.globalAntialiasing) antialiasing = false;
-
-				animationsArray = json.animations;
-				if(animationsArray != null && animationsArray.length > 0) {
-					for (anim in animationsArray) {
-						var animAnim:String = '' + anim.anim;
-						var animName:String = '' + anim.name;
-						var animFps:Int = anim.fps;
-						var animLoop:Bool = !!anim.loop; //Bruh
-						var animIndices:Array<Int> = anim.indices;
-						if(animIndices != null && animIndices.length > 0) {
-							animation.addByIndices(animAnim, animName, animIndices, "", animFps, animLoop);
-						} else {
-							animation.addByPrefix(animAnim, animName, animFps, animLoop);
-						}
-
-						if(anim.offsets != null && anim.offsets.length > 1) {
-							addOffset(anim.anim, anim.offsets[0], anim.offsets[1]);
-						}
-					}
-				} else {
-					quickAnimAdd('idle', 'BF idle dance');
-				}
-				//trace('Loaded file to character ' + curCharacter);
+			path = Paths.getPreloadPath('characters/' + DEFAULT_CHARACTER + '.json'); //If a character couldn't be found, change him to BF just to prevent a crash
 		}
+
+		var rawJson = Assets.getText(path);
+
+
+		json = cast Json.parse(rawJson);
+		
+		imageFile = json.image;
+		
+		if(onLoaded == null)
+			setupCharacter();
+	}
+	
+	public function setupCharacter(){
+		frames = Paths.getSparrowAtlas(json.image);
+
+		if(json.scale != 1) {
+			jsonScale = json.scale;
+			setGraphicSize(Std.int(width * jsonScale));
+			updateHitbox();
+		}
+
+		positionArray = json.position;
+		cameraPosition = json.camera_position;
+
+		healthIcon = json.healthicon;
+		singDuration = json.sing_duration;
+		flipX = !!json.flip_x;
+		if(json.no_antialiasing) {
+			antialiasing = false;
+			noAntialiasing = true;
+		}
+
+		if(json.healthbar_colors != null && json.healthbar_colors.length > 2)
+			healthColorArray = json.healthbar_colors;
+
+		antialiasing = !noAntialiasing;
+		if(!ClientPrefs.globalAntialiasing) antialiasing = false;
+
+		animationsArray = json.animations;
+		if(animationsArray != null && animationsArray.length > 0) {
+			for (anim in animationsArray) {
+				var animAnim:String = '' + anim.anim;
+				var animName:String = '' + anim.name;
+				var animFps:Int = anim.fps;
+				var animLoop:Bool = !!anim.loop; //Bruh
+				var animIndices:Array<Int> = anim.indices;
+				if(animIndices != null && animIndices.length > 0) {
+					animation.addByIndices(animAnim, animName, animIndices, "", animFps, animLoop);
+				} else {
+					animation.addByPrefix(animAnim, animName, animFps, animLoop);
+				}
+
+				if(anim.offsets != null && anim.offsets.length > 1) {
+					addOffset(anim.anim, anim.offsets[0], anim.offsets[1]);
+				}
+			}
+		} else {
+			quickAnimAdd('idle', 'BF idle dance');
+		}
+		//trace('Loaded file to character ' + curCharacter);
 		originalFlipX = flipX;
 
 		if(animOffsets.exists('singLEFTmiss') || animOffsets.exists('singDOWNmiss') || animOffsets.exists('singUPmiss') || animOffsets.exists('singRIGHTmiss')) hasMissAnimations = true;

@@ -20,6 +20,6 @@ function onEvent(event, v1, v2)
 
     if event == 'trocar ato' and value1 == 'maoboba' then
         removeLuaSprite('bfrunlegs1', true)
-        close();
+        stop();
     end
 end
