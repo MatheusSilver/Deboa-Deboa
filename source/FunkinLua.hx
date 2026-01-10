@@ -1524,6 +1524,13 @@ class FunkinLua {
 			return closed;
 		});
 
+		/* Convenientemente tem uma função que "fecha", o lua, mas que não encerra ele de fato... */
+		Lua_helper.add_callback(lua, "stop", function() {
+			closed = true;
+			PlayState.instance.removeLua(this);
+			return closed;
+		});
+
 		Lua_helper.add_callback(lua, "startachieving", function(achieveID:String) {
 			if(achieveID != null && achieveID.length > 0 && Achievements.getAchievementIndex(achieveID) != -1)
 				return PlayState.instance.startachieving(achieveID);
