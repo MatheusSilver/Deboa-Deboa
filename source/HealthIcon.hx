@@ -34,16 +34,20 @@ class HealthIcon extends FlxSprite
 		else changeIcon('bf');
 	}
 
+	public static function getIconPath(char:String){
+		var iconPath:String ='icons/fnf/bf';
+		if(OpenFlAssets.exists(Paths.imagechecker("icons/icon-" + char, "shared"))) 
+			iconPath = 'icons/icon-' + char; // Psych antiga (Só pra caso alguém esqueca e coloque um icon no padrão antigo na raiz da pasta)
+		else if(OpenFlAssets.exists(Paths.imagechecker("icons/" + char, "shared"))) // Padrão de icons do ModBoa (icons/pasta/icon)
+			iconPath = 'icons/' + char;		
+
+		return iconPath;
+	}
+
 	private var iconOffsets:Array<Float> = [0, 0];
 	public function changeIcon(char:String) {
 		if(this.char != char) {
-			var name:String = 'icons/' + char;
-			if(OpenFlAssets.exists(Paths.imagechecker("icons/icon-" + char, "shared"))) 
-				name = 'icons/icon-' + char; // Psych antiga (Só pra caso alguém esqueca e coloque um icon no padrão antigo na raiz da pasta)
-			else if(OpenFlAssets.exists(Paths.imagechecker("icons/" + char, "shared"))) // Padrão de icons do ModBoa (icons/pasta/icon)
-				name = 'icons/' + char;
-			else
-				name = 'icons/fnf/bf';
+			final name:String = getIconPath(char);
 			
 			var file:Dynamic = Paths.image(name, 'shared');
 
