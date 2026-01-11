@@ -118,7 +118,7 @@
 		90,
 		500
 	],
-	"healthicon": "sonic icons",
+	"healthicon": "cy/sonic icons",
 	"flip_x": true,
 	"healthbar_colors": [
 		108,
