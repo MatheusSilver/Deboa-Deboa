@@ -40,6 +40,8 @@ class HealthIcon extends FlxSprite
 			iconPath = 'icons/icon-' + char; // Psych antiga (Só pra caso alguém esqueca e coloque um icon no padrão antigo na raiz da pasta)
 		else if(OpenFlAssets.exists(Paths.imagechecker("icons/" + char, "shared"))) // Padrão de icons do ModBoa (icons/pasta/icon)
 			iconPath = 'icons/' + char;		
+		else
+			flixel.FlxG.log.warn('Could not find ${char} icon, loading BF instead');	
 
 		return iconPath;
 	}

@@ -382,12 +382,15 @@ class Paths
 			return;
 		}
 
-	    OpenFlAssets.loadSound(address).onComplete(function(sound:Sound) {
-    	    currentTrackedSounds_cacheID.set(key, address);
-			currentTrackedSounds.set(address, sound);
-			cachingManager.decreaseLoadedObjects();
-			
-    	});
+		if (OpenFlAssets.exists(address, SOUND)){
+			OpenFlAssets.loadSound(address).onComplete(function(sound:Sound) {
+				currentTrackedSounds_cacheID.set(key, address);
+				currentTrackedSounds.set(address, sound);
+				cachingManager.decreaseLoadedObjects();
+				
+			});
+		} else
+			FlxG.log.error('Could not find sound at ${address}');
 	}
 
 	public static function preloadImage(key:String, cachingManager:PreCacheManager, ?library:String, ?char:Character = null){
@@ -415,7 +418,8 @@ class Paths
 					cachingManager.decreaseLoadedObjects();
 				}
 			}
-		}
+		} else
+			FlxG.log.error('Could not find image at ${path}');
 	}
 
 	private static function processBitmap(key, bitmap, gpuAllowed){
