@@ -99,6 +99,7 @@ class Character extends FlxSprite
 		json = cast Json.parse(rawJson);
 		
 		imageFile = json.image;
+		healthIcon = json.healthicon;
 		
 		if(onLoaded == null)
 			setupCharacter();
@@ -116,7 +117,6 @@ class Character extends FlxSprite
 		positionArray = json.position;
 		cameraPosition = json.camera_position;
 
-		healthIcon = json.healthicon;
 		singDuration = json.sing_duration;
 		flipX = !!json.flip_x;
 		if(json.no_antialiasing) {
