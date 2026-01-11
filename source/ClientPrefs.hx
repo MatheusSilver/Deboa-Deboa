@@ -38,7 +38,7 @@ class ClientPrefs
 	public static var hitSoundType:Null<Int> = 1;
 	public static var osusom:Null<Float> = 0.5;
 	public static var efeitosVolume:Null<Float> = 0.8;
-	public static var noteOffset:Null<Int> = 0;
+	public static var noteOffset:Null<Int> = 0; // Isso está em milissegundos
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var ghostTapping:Null<Bool> = true;
 	public static var hideTime:Null<Bool> = false;

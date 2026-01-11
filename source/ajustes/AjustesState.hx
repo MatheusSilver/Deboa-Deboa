@@ -233,6 +233,11 @@ class AjustesState extends MusicBeatState
 			selectedSomethin = true;
 			MusicBeatState.switchState(new editors.MasterEditorMenu());
 		}
+		else if (FlxG.keys.justPressed.EIGHT)
+		{
+			selectedSomethin = true;
+			MusicBeatState.switchState(new SyncState());
+		}
 		#end
 			super.update(elapsed);	
 		}
