@@ -7,4 +7,5 @@ function onCreate()
     
     addLuaSprite('bg', false)
     
+    stop()
 end
