@@ -43,6 +43,8 @@ class Lobby extends MultiplayerMenu
     public var players:Array<LobbyPlayer> = [new LobbyPlayer(203, -10, true, "0", -1400), new LobbyPlayer(522, 218, false, "0", 1400)];
     var go:FlxButton;
 
+    var readyTxt:FlxText;
+
 
     public function new() {
         super();
@@ -53,17 +55,38 @@ class Lobby extends MultiplayerMenu
         addToMenu(bg, {alpha: 1}, {alpha: 0});
 
         for (player in players) {
-            addToMenu(player, {x: player.x}, {x: player.posicaoSaida});
+            addToMenu(player, {alpha: 1}, {alpha: 0});
+            addTween(player.bf, {x: player.bf.x}, {x: player.posicaoSaida});
         }
 
+        readyTxt = new FlxText(0,0, 0, "PRONTOS: 0/2");
+        readyTxt.setFormat(Linguagem.LangUtil.getFont("gobold"), 24, FlxColor.fromRGB(233, 99, 34), FlxTextAlign.LEFT);
+        readyTxt.text = (Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") +" 0/2").toUpperCase();
+        readyTxt.screenCenter(X);
+        readyTxt.y = FlxG.height-52-readyTxt.height*1.1;
+        readyTxt.x=8;
+
+        addToMenu(readyTxt, {y: readyTxt.y}, {y: FlxG.height});
+
         go = new FlxButton(1126,511, "", function(){
-			if(MultiplayerMainMenuState.instance.canInitMatch && !MultiplayerMainMenuState.instance.isPlayingMatch)
+			if(MultiplayerMainMenuState.instance.canInitMatch && !MultiplayerMainMenuState.instance.isPlayingMatch && amActive())
 				{	
 					MultiplayerMainMenuState.instance.curRoom.send("toggle-ready");
 				}
         });
+        go.alpha = 0.75;
+        go.onOver.callback = function() {
+            go.alpha = 1;
+        };
+        go.onOut.callback = function() {
+            go.alpha = 0.75;
+        };
         go.loadGraphic(Paths.image("multiplayer/menus/go", 'preload'));
         addToMenu(go, {x: 1126}, {x: 1350});
+    }
+
+    public function updateReadyText(texto:String) {
+        readyTxt.text = texto.toUpperCase();
     }
 
     public function resetPlayers() {
@@ -72,8 +95,17 @@ class Lobby extends MultiplayerMenu
         }
     }
 
-    public override function close(oldMenu:MultiplayerMenu) {
-        super.close(oldMenu);
+    public function updatePlayers() {
+        for (player in players) {
+            player.updatePlayer(player.gjID, true);
+        }
+    }
+
+    public override function close(nextMenu:MultiplayerMenu, ?tweenar:Bool = true) {
+        super.close(nextMenu);
+        
+        if (!tweenar) return;
+
         new FlxTimer().start(transitionSpeed+0.1, function(tmr:FlxTimer) {
 			resetPlayers();
         });
@@ -85,7 +117,7 @@ class LobbyPlayer extends FlxSpriteGroup
     public var gjID:String;
     public var sessionId:String = "";
 	public var noteSkin:String = "NOTE_assets";
-    public var faixa:FaixaLobby;
+    public var faixas:Array<FaixaLobby> = [];
 	public var bf:FlxSprite;
     public var isPlayer1:Bool;
     public var posicaoSaida:Float;
@@ -97,33 +129,38 @@ class LobbyPlayer extends FlxSpriteGroup
         bf = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/lobby/"+(isPlayer1?"exe":"bf")));
         bf.setGraphicSize(Std.int(bf.width * 0.6667), Std.int(bf.height * 0.6667));
         this.posicaoSaida = posicaoSaida;
+        bf.alpha = 0.75;
         add(bf);
         resetPlayer();
 	}
 
-    public function updatePlayer(newGJID:String) {
-        if(gjID == newGJID)
+    public function updatePlayer(newGJID:String, ?force:Bool =false) {
+        if(gjID == newGJID && !force)
             return;
 
-        gjID=newGJID;
+        var ultimaFaixa:FaixaLobby = currentFaixa(); 
 
-        this.alpha = gjID == "0" ? 0.75 : 1;
-        if(faixa!=null && faixa.text!=null) {
-            for(texto in faixa.text) {
-                faixa.remove(texto);
-            }
-            remove(faixa);
+        FlxTween.tween(bf, {alpha: newGJID == "0" ? 0.75 : 1}, 0.25, {ease: FlxEase.sineIn});
+
+        if(ultimaFaixa!=null && ultimaFaixa.text!=null) {
+            ultimaFaixa.sair(this);
+            faixas.remove(ultimaFaixa);
         }
-		faixa = new FaixaLobby(gjID, 0, bf.y+78, isPlayer1);
-        faixa.visible = true;
+
+		var novaFaixa:FaixaLobby = new FaixaLobby(newGJID, 0, bf.y+78, isPlayer1);
+        novaFaixa.visible = true;
         if(isPlayer1) {
-            faixa.x-=(faixa.width)+(938*0.64);
-            faixa.x+=faixa.width;
+            novaFaixa.x-=(938*0.38);
         } else {
-            faixa.y-=260;
-            faixa.x+=120;
+            novaFaixa.y-=268;
+            novaFaixa.x+=120*5.48;
         }
-        add(faixa);
+
+        novaFaixa.aparecer();
+        faixas.push(novaFaixa);
+
+        gjID=newGJID;
+        add(novaFaixa);
     }
 
     public function getName():String {
@@ -134,6 +171,15 @@ class LobbyPlayer extends FlxSpriteGroup
     }
 
     public function resetPlayer() {
+        bf.alpha = 0.75;
         updatePlayer("0");
+    }
+
+    function currentFaixa():FaixaLobby {
+        return faixas.length < 1 ? null : faixas[faixas.length-1];
+    }
+
+    function ultimaFaixa():FaixaLobby {
+        return faixas.length < 2 ? null : faixas[faixas.length-2];
     }
 }

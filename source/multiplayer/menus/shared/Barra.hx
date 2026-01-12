@@ -6,6 +6,8 @@ import flixel.FlxSprite;
 import flixel.FlxG;
 import ui.FlxButton;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import Linguagem.LangUtil;
 
 
@@ -39,6 +41,8 @@ class Barra extends FlxSpriteGroup
 		configButton = new FlxButton(backButton.x+backButton.width*1.3, backButton.y, "", function(){
 			if(!MultiplayerMainMenuState.instance.canClick || !configButton.visible)
 				return;
+
+			MultiplayerMainMenuState.instance.changeMenu(OPTIONS);
 		});
 		configButton.loadGraphic(Paths.image("multiplayer/menus/config"));
 		add(configButton);
@@ -52,6 +56,8 @@ class Barra extends FlxSpriteGroup
     public function changeLabelText(text:String) {
         label.text = text;
 		label.x = FlxG.width-(label.fieldWidth+10);
+		/*label.text = "";
+		FlxTween.tween(label, {text: text}, {ease: FlxEase.sineInOut});*/
     }
 
 

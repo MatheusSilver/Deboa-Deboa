@@ -52,6 +52,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
     public var canDesafiar:Bool = false;
 
     public static var instance:GameJoltFriendsMenu;
+    public static var friendsCache:Array<User>;
 
 	public function new()
         {
@@ -138,7 +139,8 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         amigosList = cast add(new FlxSpriteGroup());
 		amigosList.add(fakeBG);
         
-        var amiguineos:Array<User> = GJClient.getFriendsList(); // pra evitar ele a ficar dando fetch toda hora
+        var amiguineos:Array<User> = friendsCache == null ? GJClient.getFriendsList() : friendsCache; // pra evitar ele a ficar dando fetch toda hora
+        friendsCache = amiguineos;
         // ninguém nunca me respondeu, estou triste :cry:
         var x1:Float = 1; // bora x1?
         for(user in amiguineos)
@@ -149,8 +151,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                 amigos.push(friendo);
                 amigosList.add(friendo);
                 x1+=75;
-            }
-        
+            }        
         amigosList.setPosition(0, 2560);
         var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 484 );
         scrollBar = new FlxScrollableArea(viewPortRect, amigosList.getHitbox(), FlxScrollbar.ResizeMode.FIT_HEIGHT, 0, FlxColor.GRAY);
@@ -418,21 +419,25 @@ class FriendObject extends FlxSpriteGroup
             if(!user.avatar_url.contains("no-avatar"))
             {
 				var bmp:Bitmap = cast(loader.content, Bitmap);
-				var bmd:BitmapData = bmp.bitmapData;
-				icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
-				icon.setGraphicSize(Std.int(icon.width), Std.int(icon.height));
-				icon.updateHitbox();
-				var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
-				//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
-				tempMask.makeGraphic(Std.int(icon.width), Std.int(icon.height), FlxColor.TRANSPARENT);
-				var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
-				// add(tempCircle);
-				FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
-				tempMask.destroy();
-				tempCircle.destroy();
+                colocarIcon(bmp);
 			}
 		});
 		loader.load(new URLRequest(user.avatar_url.replace("/60/",'/${Std.int(icon.height)}/').replace(".webp", ".png")));
+    }
+
+    function colocarIcon(bmp:Bitmap) {
+		var bmd:BitmapData = bmp.bitmapData;
+        icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
+		icon.setGraphicSize(Std.int(icon.width), Std.int(icon.height));
+		icon.updateHitbox();
+		var tempMask:FlxSprite = new FlxSprite(icon.x, icon.y);
+		//Por algum motivo, não posso só colocar ele pra trackear o userOutline :fist::pensive:
+		tempMask.makeGraphic(Std.int(icon.width), Std.int(icon.height), FlxColor.TRANSPARENT);
+		var tempCircle:FlxSprite = FlxSpriteUtil.drawCircle(tempMask,(tempMask.width)/2,(tempMask.height)/2,Math.min(tempMask.width, tempMask.height)/2-3,FlxColor.RED);
+		// add(tempCircle);
+		FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
+		tempMask.destroy();
+		tempCircle.destroy();
     }
 }
 

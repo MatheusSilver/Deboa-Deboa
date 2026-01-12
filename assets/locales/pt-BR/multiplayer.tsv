@@ -1,4 +1,4 @@
-﻿flag	context
+flag	context
 txt_connecting	Conectando...
 alert_connection_error	Erro de conexão
 alert_host_disconnected	O host se desconectou
@@ -13,9 +13,9 @@ selection_misses_name	ERROS
 selection_misses_desc	Ganha quem tiver o menor número de erros.
 opt_changesides_name	Trocar Lados
 opt_changesides_desc	Troca o lado dos jogadores
-opt_gamemode_name	Modo de Jogo
+opt_gamemode_name	Modo
 opt_gamemode_desc	Muda o modo de jogo atual
-opt_cursong_name	Música Atual
+opt_cursong_name	Musica
 opt_cursong_desc	Muda a música atual
 opt_label	OPÇÕES
 main_label	MULTIPLAYER
