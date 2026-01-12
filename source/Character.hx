@@ -99,13 +99,15 @@ class Character extends FlxSprite
 		json = cast Json.parse(rawJson);
 		
 		imageFile = json.image;
+		healthIcon = json.healthicon;
 		
 		if(onLoaded == null)
 			setupCharacter();
 	}
 	
 	public function setupCharacter(){
-		frames = Paths.getSparrowAtlas(json.image);
+		// Apenas por garantia, já que todos agora ficam em shared
+		frames = Paths.getSparrowAtlas(json.image, "shared");
 
 		if(json.scale != 1) {
 			jsonScale = json.scale;
@@ -116,7 +118,6 @@ class Character extends FlxSprite
 		positionArray = json.position;
 		cameraPosition = json.camera_position;
 
-		healthIcon = json.healthicon;
 		singDuration = json.sing_duration;
 		flipX = !!json.flip_x;
 		if(json.no_antialiasing) {

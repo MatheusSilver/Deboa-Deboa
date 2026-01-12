@@ -82,7 +82,7 @@ class MainMenuStateMobile extends MusicBeatState
 
 	override function create()
 	{
-		#if android
+		#if (android && debug)
 		passouCY = true;
 		terminouHistoria = true;
 		#end

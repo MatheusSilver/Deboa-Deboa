@@ -12,4 +12,5 @@ function onCreate()
 	makeLuaSprite('GROUND1','cenarios/piracy/GROUND',-600,-200)
 	addLuaSprite('GROUND1', false)
 	
+	stop()
 end

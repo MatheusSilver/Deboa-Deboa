@@ -1529,6 +1529,7 @@ class PlayState extends MusicBeatState
 						startBF(newBF, newCharacter);
 					});
 					cacheLoader.requestCharacter(newBF);
+					cacheLoader.requestImage(HealthIcon.getIconPath(newBF.healthIcon));
 					
 				}
 
@@ -1541,6 +1542,7 @@ class PlayState extends MusicBeatState
 						startDAD(newDad, newCharacter);
 					});
 					cacheLoader.requestCharacter(newDad);
+					cacheLoader.requestImage(HealthIcon.getIconPath(newDad.healthIcon));
 				}
 
 			case 2:
@@ -1552,6 +1554,8 @@ class PlayState extends MusicBeatState
 						startGF(newGf, newCharacter);
 					});
 					cacheLoader.requestCharacter(newGf);
+					/*cacheLoader.requestImage(HealthIcon.getIconPath(newGf.healthIcon));*/
+					/* Não deveria ser necessário mas né? */
 					
 				}
 		}
@@ -3860,6 +3864,8 @@ class PlayState extends MusicBeatState
 						FlxTween.tween(boyfriend, {alpha: 1}, 6);
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-FURNACEBLU_assetszoom', '');
 						triggerEventNote('Change Character', 'dad', 'Furnace'); // Ele já foi carregado mesmo então tá safe
+																				// "NÃO, ELE NÃO HAVIA SIDO CARREGADO SEU BUCHA!!!"
+																				// Silvio do futuro xingando o Silvio do passado...
 						storyDifficultyText = Linguagem.LangUtil.getString("rpc_diff_neutral", "rpc");
 						reload_presence();
 						dad.x -= 1000;
