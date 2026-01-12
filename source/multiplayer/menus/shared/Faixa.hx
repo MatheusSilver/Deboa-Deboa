@@ -22,6 +22,7 @@ import flixel.group.FlxGroup;
 import flixel.math.FlxRect;
 import flixel.util.FlxTimer;
 import gamejolt.GJClient;
+import multiplayer.menus.Lobby.LobbyPlayer;
 import Utils;
 
 using StringTools;
@@ -122,6 +123,8 @@ class FaixaLobby extends FlxSpriteGroup
 	public var text:Array<FlxText>;
 
 	var userData:User;
+	var baseX:Float;
+	var foraX:Float;
 
 	public function new(gameJoltID:String, x:Float, y:Float, isLeft:Bool)
 	{
@@ -155,6 +158,8 @@ class FaixaLobby extends FlxSpriteGroup
 			icon.x = 50;
 			icon.visible = false;
 			add(icon);
+
+			foraX = this.width*1.5;
 		}
 		else
 		{
@@ -188,6 +193,8 @@ class FaixaLobby extends FlxSpriteGroup
 			icon.x = bgFinal.x - 80;
 			icon.visible = false;
 			add(icon);
+
+			foraX = -this.width*1.5;
 		}
 
 		for (letra in text)
@@ -197,25 +204,8 @@ class FaixaLobby extends FlxSpriteGroup
 		pegarIcon();
 	}
 
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		/*if(FlxG.keys.pressed.S){
-				icon.y++;
-			}
-			if(FlxG.keys.pressed.W){
-				icon.y--;
-			}
-			if(FlxG.keys.pressed.A){
-				icon.x--;
-			}
-			if(FlxG.keys.pressed.D){
-				icon.x++;
-			}
-
-			FlxG.watch.addQuick("icon X", icon.x);
-			FlxG.watch.addQuick("icon Y", icon.y); */
+	public function setBase() {
+		baseX = this.x;
 	}
 
 	function pegarIcon()
@@ -242,6 +232,7 @@ class FaixaLobby extends FlxSpriteGroup
 		}
 	}
 
+	var imageLoaded:Bool = false;
 	function modifySprite(bmd:BitmapData)
 	{
 		icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
@@ -258,5 +249,26 @@ class FaixaLobby extends FlxSpriteGroup
 		tempCircle.destroy();
 		icon.setGraphicSize(47, 47);
 		icon.visible = true;
+
+		imageLoaded = true;
+	}
+
+	public function aparecer() {
+		setBase();
+		this.x = foraX; 
+		if (gameJoltID == 0) 
+			return;
+
+		FlxTween.tween(this, {x: baseX}, 0.75, {ease: FlxEase.sineOut});
+	}
+
+
+	public function sair(parent:LobbyPlayer) {
+		FlxTween.tween(this, {x: foraX}, 0.5, {ease: FlxEase.sineIn, onComplete: function(tw:FlxTween) {
+			for(texto in text) {
+                remove(texto);
+            }
+            parent.remove(this);
+		}});
 	}
 }

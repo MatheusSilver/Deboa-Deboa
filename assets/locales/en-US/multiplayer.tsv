@@ -1,4 +1,4 @@
-﻿flag	context
+flag	context
 txt_connecting	Connecting...
 alert_connection_error	Connection error
 alert_host_disconnected	Host disconnected
@@ -13,7 +13,7 @@ selection_misses_name	MISSES
 selection_misses_desc	Who has the least misses wins.
 opt_changesides_name	Change sides
 opt_changesides_desc	Changes the players sides
-opt_gamemode_name	Game Mode
+opt_gamemode_name	Mode
 opt_gamemode_desc	Changes the current game mode
 opt_cursong_name	Song
 opt_cursong_desc	Changes the song that will be played

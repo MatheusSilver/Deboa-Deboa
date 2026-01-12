@@ -45,6 +45,7 @@ enum MenuEnum {
     ROOMLIST;
     CREATE;
 	LOBBY;
+	OPTIONS;
 	SKINS;
 }
 
@@ -98,9 +99,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	// VARIAVEIS OPÇÕES
 	public var modos:Array<Dynamic> = [
-		[Linguagem.LangUtil.getString("selection_score_name", "multiplayer"), Linguagem.LangUtil.getString("selection_score_desc", "multiplayer")],
-		[Linguagem.LangUtil.getString("selection_hits_name", "multiplayer"), Linguagem.LangUtil.getString("selection_hits_desc", "multiplayer")],
-		[Linguagem.LangUtil.getString("selection_misses_name", "multiplayer"), Linguagem.LangUtil.getString("selection_misses_desc", "multiplayer")]
+		[Linguagem.LangUtil.getString("selection_score_name", "multiplayer"), Linguagem.LangUtil.getString("selection_score_desc", "multiplayer"), "pontos"],
+		[Linguagem.LangUtil.getString("selection_hits_name", "multiplayer"), Linguagem.LangUtil.getString("selection_hits_desc", "multiplayer"), "precisao"],
+		[Linguagem.LangUtil.getString("selection_misses_name", "multiplayer"), Linguagem.LangUtil.getString("selection_misses_desc", "multiplayer"), "erros"]
 	];
 	public var ModoDeJogo:Int = 0;
 
@@ -172,7 +173,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	var preloadedMenus:Map<MenuEnum, MultiplayerMenu> = [];
 	function preloadAllMenus() {
-		preloadedMenus = [MAIN => new MainMenu(), ROOMLIST => new JoinMenu(), SKINS => new NoteSkins(), LOBBY => new Lobby(), CONNECTING => new Connecting()];
+		preloadedMenus = [MAIN => new MainMenu(), ROOMLIST => new JoinMenu(), SKINS => new NoteSkins(), LOBBY => new Lobby(), CONNECTING => new Connecting(), OPTIONS => new RoomOptions()];
 		
 		var isFirst:Bool = true;
 		for (menu in preloadedMenus) {
@@ -190,8 +191,17 @@ class MultiplayerMainMenuState extends MusicBeatState
 			case LOBBY:
 				makeMenuChange(preloadedMenus[LOBBY]);
 				barra.backButton.visible=true;
-				barra.configButton.visible=true;
+				barra.configButton.visible=isHost;
 				barra.changeLabelText("LOBBY"); // font issues
+			case OPTIONS:
+				if (!isHost) return;
+				if (!isOnServer) return;
+				if (isOnOptions) return;
+				if (isPlayingMatch) return;
+
+				makeMenuChange(preloadedMenus[OPTIONS], false);
+				barra.backButton.visible=true;
+				barra.changeLabelText("OPTIONS");
 			case ROOMLIST:
 				makeMenuChange(preloadedMenus[ROOMLIST]);
 				barra.backButton.visible=true;
@@ -241,7 +251,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		curMenu = nextMenu;
 	}
 
-	function makeMenuChange(newMenu:MultiplayerMenu) {
+	function makeMenuChange(newMenu:MultiplayerMenu, ?tweenar:Bool = true) {
 		if (curSubmenu == null) {
 			curSubmenu = newMenu;
 			newMenu.open(curSubmenu);
@@ -249,15 +259,15 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 		
 		newMenu.open(curSubmenu);
-		curSubmenu.close(newMenu);
+		curSubmenu.close(newMenu, tweenar);
 
 		curSubmenu = newMenu;
 	}
 
 	public function voltarMenu()
 		{
-			if (isTransitioning) 
-				return;
+			if (isTransitioning) return;
+			if (isPlayingMatch) return;
 
 			GlobalSoundManager.play(cancelMenu);
 			switch(curMenu)
@@ -276,6 +286,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 					MusicBeatState.switchState(new MainMenuStateMobile());
 				case SKINS:
 					changeMenu(MAIN);
+				case OPTIONS:
+					changeMenu(LOBBY);
 				default:
 					trace("n tem menu anterior");
 			}
@@ -388,10 +400,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		curRoom.onMessage("everyoneReady", function(message){
 			if(!isHost || isPlayingMatch)
 				return;
-			if(OptionsSubstate.instance!=null)
-			{
-				OptionsSubstate.instance.close();
-			}
+
 			curRoom.send("init-game", {musicaAtual: MusicaAtual, trocarLados: TrocarLados, modoDeJogo: ModoDeJogo});
 		});
 
@@ -450,8 +459,7 @@ class MultiplayerMainMenuState extends MusicBeatState
 		});
 
 		curRoom.onMessage("newReady", function(message) {
-			//readyTxt.text = Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " "+Std.string(message)+"/2";
-			trace(Std.string(message)+"/2");
+			Lobby.instance.updateReadyText(Linguagem.LangUtil.getString("lobby_ready_label", "multiplayer") + " "+Std.string(message)+"/2");
 		});
 
 		curRoom.onMessage("leave", function(message) {
@@ -598,13 +606,6 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if(isPlayingMatch || curRoom == null)
 			return;
 		isPlayingMatch = true;
-		if(isHost)
-		{
-			if(OptionsSubstate.instance!=null)
-				{
-					OptionsSubstate.instance.close();
-				}
-		}
 		var url:String = serverStatic+"charts/"+musicas[MusicaAtual][1]+".json";
 		openSubState(new multiplayer.MultiplayerPlayState(0, url, isHost, TrocarLados, ModoDeJogo, Lobby.instance.players[getIndexBySession(curRoom.sessionId)], Lobby.instance.players[getOtherIndexBySession(curRoom.sessionId)]));
 	}
@@ -797,213 +798,4 @@ class MultiplayerMainMenuState extends MusicBeatState
         return button;
     }
 
-}
-
-
-class OptionsSubstate extends MusicBeatSubstate
-{
-	var scrollBar:FlxScrollbar.FlxScrollableArea;
-	var optionsObjects:FlxSpriteGroup;
-	public static var instance:OptionsSubstate;
-	var backButton:FlxButton;
-
-	// 0 = Bool, 1 = Selection
-	//name, type, desc
-	var options:Array<Dynamic> = [
-		[Linguagem.LangUtil.getString("opt_gamemode_name", "multiplayer"), 1, Linguagem.LangUtil.getString("opt_gamemode_desc", "multiplayer"), ["ModoDeJogo", "modos", true]],
-		[Linguagem.LangUtil.getString("opt_cursong_name", "multiplayer"), 1, Linguagem.LangUtil.getString("opt_cursong_desc", "multiplayer"), ["MusicaAtual", "musicasDesbloqueadas", false]], 
-		[Linguagem.LangUtil.getString("opt_changesides_name", "multiplayer"), 0, Linguagem.LangUtil.getString("opt_changesides_desc", "multiplayer"), ["TrocarLados"]]
-	];
-
-	public function new()
-	{
-		super();
-	}
-
-	override function create()
-	{
-		instance=this;
-		backButton = MultiplayerMainMenuState.instance.createButton('', 0.6, 0, 435, true, true, function(){
-				close();
-			}, null, Linguagem.LangUtil.getString("main_back_bt", "multiplayer"));
-		add(backButton);
-		var num:Int = 1;
-		optionsObjects = cast add(new FlxSpriteGroup());
-		var textoOptions:FlxText = new FlxText(0, 50, 0, Linguagem.LangUtil.getString("opt_label", "multiplayer"), 30);
-		textoOptions.screenCenter(X);
-		optionsObjects.add(textoOptions);
-
-		for (option in options) {
-			var button:OptionObject = new OptionObject(((100*num)+num*5), option[0], option[1], option[2], option[3]);
-			optionsObjects.add(button);
-			num++;
-		}
-
-		optionsObjects.setPosition(-1280, 0);
-
-		scrollBar = new FlxScrollableArea( new FlxRect( 0, 0, FlxG.width, FlxG.height ), optionsObjects.getHitbox(), FlxScrollbar.ResizeMode.NONE, -1, FlxColor.LIME, this);
-		FlxG.cameras.add(scrollBar);
-	}
-	
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-		if (controls.BACK)
-		{
-			close();
-		}
-	}
-
-	override function close()
-	{
-		FlxG.cameras.remove(scrollBar);
-		MultiplayerMainMenuState.instance.isOnOptions = false;
-		super.close();
-		instance=null;
-	}
-}
-
-class OptionObject extends FlxSpriteGroup
-{
-	// principais
-	var nameTxt:FlxText;
-	var descTxt:FlxText;
-	var fundo:FlxSprite;
-	var type:Int;
-
-	//bool
-	var button:FlxButton;
-	var ativado:Bool;
-	var reference:String;
-
-	//selection
-	var selection:SelectionObject;
-
-	public function new(y:Int, name:String, type:Int, desc:String, variable:Dynamic)
-		{
-			super(150, y);
-			this.type = type;
-			fundo = new FlxSprite(0,0).makeGraphic(1280-300, 100, FlxColor.GRAY);
-			add(fundo);
-			nameTxt = new FlxText(25, 20, 0, name, 30);
-			add(nameTxt);
-			descTxt = new FlxText(25, 50, 0, desc, 20);
-			add(descTxt);
-			switch(type)
-			{
-				case 0: // se for só um bool
-					reference = variable[0];
-					ativado = Reflect.getProperty(MultiplayerMainMenuState.instance, reference);
-					button = new FlxButton(1165.5-300+20, 18.5, "", clickButton);
-					button.loadGraphic(Paths.image(ativado?'multiplayer/submenus/checkbox_checked':'multiplayer/submenus/checkbox', 'preload'));
-					button.updateHitbox();
-					add(button);
-				case 1: // se for selecionável
-					selection = new SelectionObject(500, 18.5, variable);
-					add(selection);
-			}
-		}
-	
-	function clickButton()
-	{
-		ativado = !ativado;
-		button.loadGraphic(Paths.image(ativado?'multiplayer/submenus/checkbox_checked':'multiplayer/submenus/checkbox', 'preload'));
-		save();
-	}
-
-	function save()
-	{
-		Reflect.setProperty(MultiplayerMainMenuState.instance, reference, ativado);
-	}
-}
-
-class SelectionObject extends FlxSpriteGroup
-{
-	var atual:FlxText;
-	var desc:FlxText;
-	var setaDireita:FlxButton;
-	var setaEsquerda:FlxButton;
-
-	var value:Int;
-	var list:Array<Dynamic>;
-	var reference:String;
-
-	public function new(x:Float, y:Float, variable:Dynamic)
-	{
-		super(x, y);
-		reference = variable[0];
-		value = Reflect.getProperty(MultiplayerMainMenuState.instance, reference);
-		list = Reflect.getProperty(MultiplayerMainMenuState.instance, variable[1]);
-
-
-		atual = new FlxText(97.5, 18, 300, list[value][0], 23);
-		atual.wordWrap = false;
-		atual.alignment = CENTER;
-		add(atual);
-
-		//se tem desc
-		if(variable[2] == true)
-		{
-			atual.y = 12;
-			desc = new FlxText(97.5, 30, 300, list[value][1], 12);
-			desc.autoSize = true;
-			desc.alignment = CENTER;
-			add(desc);
-		}
-
-		setaEsquerda = new FlxButton(45, 0, "", clickEsquerda);
-		setaEsquerda.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
-		setaEsquerda.updateHitbox();
-		add(setaEsquerda);
-		setaDireita = new FlxButton(385, 0, "", clickDireita);
-		setaDireita.loadGraphic(Paths.image('multiplayer/submenus/seta', 'preload'));
-		setaDireita.flipX=true;
-		setaDireita.updateHitbox();
-		add(setaDireita);
-	}
-
-	function clickEsquerda()
-	{
-		if(value-1 >= 0)
-			{
-				value--;
-			}
-			else
-			{
-				value = list.length-1;
-			}
-		save();
-
-	}
-
-	function clickDireita()
-		{
-			if(value+1 < list.length)
-				{
-					value++;
-				}
-				else
-				{
-					value = 0;
-				}
-			save();
-	
-		}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		atual.text = list[value][0];
-		if(desc!=null)
-		{
-			desc.text = list[value][1];
-		}
-
-	}
-
-	function save()
-	{
-		Reflect.setProperty(MultiplayerMainMenuState.instance, reference, value);
-	}
 }
