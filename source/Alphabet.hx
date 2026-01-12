@@ -160,7 +160,8 @@ class Alphabet extends FlxSpriteGroup
 
 				if (consecutiveSpaces > 0)
 				{
-					xPos += 40 * consecutiveSpaces * textSize;
+					var ajuste:Int = AlphaCharacter.fontTexture != 'alfabetovio' ? 40 : 25;
+					xPos += ajuste * consecutiveSpaces * textSize;
 				}
 				consecutiveSpaces = 0;
 

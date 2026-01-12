@@ -26,7 +26,8 @@ class HealthIcon extends FlxSprite
 		super.update(elapsed);
 
 		if (sprTracker != null)
-			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
+			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y); // Espero do fundo do meu coração que isso só aconteça no Freeplay.
+																			 // De qualquer jeito, alguns icons não devem ter o mesmo tamanho ou mesmo offset no PNG.
 	}
 
 	public function swapOldIcon() {
