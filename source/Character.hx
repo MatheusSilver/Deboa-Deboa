@@ -106,7 +106,8 @@ class Character extends FlxSprite
 	}
 	
 	public function setupCharacter(){
-		frames = Paths.getSparrowAtlas(json.image);
+		// Apenas por garantia, já que todos agora ficam em shared
+		frames = Paths.getSparrowAtlas(json.image, "shared");
 
 		if(json.scale != 1) {
 			jsonScale = json.scale;
