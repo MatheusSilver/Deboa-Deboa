@@ -33,6 +33,7 @@ class ClientPrefs
 	public static var cursing:Null<Bool> = true;
 	public static var camZooms:Null<Bool> = true;
 	public static var hideHud:Null<Bool> = false;
+	public static var animSpeed:Null<Float> = 1;
 	public static var hitSounds:Null<Bool> = false;
 	public static var fullscreen:Null<Bool> = false;
 	public static var hitSoundType:Null<Int> = 1;

@@ -348,7 +348,7 @@ class TitleState extends MusicBeatState
 				transitioning = true;
 				// FlxG.sound.music.stop();
 
-				new FlxTimer().start(1.5, function(tmr:FlxTimer)
+				new FlxTimer().start(1.5/ClientPrefs.animSpeed, function(tmr:FlxTimer)
 				{
 					MusicBeatState.switchState(new MainMenuStateMobile());
 					closedState = true;
@@ -458,15 +458,15 @@ class TitleState extends MusicBeatState
 			remove(gradientBar);
 			skippedIntro = true;
 
-			FlxTween.tween(logoBl, {y: -100}, 1.4, {ease: FlxEase.expoInOut});
+			FlxTween.tween(logoBl, {y: -100}, 1.4/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
 			logoBl.angle = -7;
 
 			new FlxTimer().start(0.005, function(tmr:FlxTimer)
 			{
 				if (logoBl.angle == -7)
-					FlxTween.angle(logoBl, logoBl.angle, 7, 3, {ease: FlxEase.quartInOut});
+					FlxTween.angle(logoBl, logoBl.angle, 7, 3/ClientPrefs.animSpeed, {ease: FlxEase.quartInOut});
 				if (logoBl.angle == 7)
-					FlxTween.angle(logoBl, logoBl.angle, -7, 3, {ease: FlxEase.quartInOut});
+					FlxTween.angle(logoBl, logoBl.angle, -7, 3/ClientPrefs.animSpeed, {ease: FlxEase.quartInOut});
 			}, 0);
 		}
 	}

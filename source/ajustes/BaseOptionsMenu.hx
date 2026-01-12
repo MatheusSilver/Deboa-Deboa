@@ -42,6 +42,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'hitsound_type',
 		'hitsound_test',
 		'colorblindness_filter',
+		'animspeed'
 	];
 
 	static var options:Array<String> = [
@@ -76,6 +77,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'flashing',
 		'gore',
 		'colorblindness_filter',
+		'animspeed',
 		'bad_words',
 		'global_sounds_cap',
 		'game_volume',
@@ -388,6 +390,10 @@ class BaseOptionsMenu extends MusicBeatState
 						if (ClientPrefs.curFilter >= 3) ClientPrefs.curFilter = 3;
 						if (ClientPrefs.curFilter <= 0) ClientPrefs.curFilter = 0;
 						changeFilter(ClientPrefs.curFilter); // k
+					case 'animspeed':
+						ClientPrefs.animSpeed += addo;
+						if (ClientPrefs.animSpeed < 1) ClientPrefs.animSpeed = 1;
+						if (ClientPrefs.animSpeed > 2.5) ClientPrefs.animSpeed = 2.5;
  				}
 				reloadValues();
 
@@ -545,6 +551,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = Std.string(ClientPrefs.opacidadeLegendas);
 					case 'colorblindness_filter':
 						daText = getFilterType(ClientPrefs.curFilter);
+					case 'animspeed':
+						daText = Std.string(ClientPrefs.animSpeed);
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;
