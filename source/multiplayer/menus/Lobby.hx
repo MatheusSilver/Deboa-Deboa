@@ -150,7 +150,7 @@ class LobbyPlayer extends FlxSpriteGroup
 		var novaFaixa:FaixaLobby = new FaixaLobby(newGJID, 0, bf.y+78, isPlayer1);
         novaFaixa.visible = true;
         if(isPlayer1) {
-            novaFaixa.x-=(938*0.38);
+            novaFaixa.x= (-356.44) - (novaFaixa.width-1050); //nossa eu sou mto burro
         } else {
             novaFaixa.y-=268;
             novaFaixa.x+=120*5.48;
