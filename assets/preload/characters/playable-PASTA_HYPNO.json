@@ -157,7 +157,7 @@
 		0,
 		0
 	],
-	"healthicon": "pasta-hypno",
+	"healthicon": "pasta/pasta-hypno",
 	"flip_x": true,
 	"healthbar_colors": [
 		249,
