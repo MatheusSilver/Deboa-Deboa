@@ -3,6 +3,7 @@ opt_name_reset	Reset Button
 opt_name_bad_words	Bad Words
 opt_name_colorblindness_filter	Daltonism
 opt_name_animspeed	Animations Speed
+opt_name_cursor_size	Cursor size
 opt_name_gore	Gore
 opt_name_fps_max	FPS
 opt_name_note_delay	Note Delay

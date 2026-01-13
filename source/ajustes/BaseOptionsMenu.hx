@@ -42,7 +42,8 @@ class BaseOptionsMenu extends MusicBeatState
 		'hitsound_type',
 		'hitsound_test',
 		'colorblindness_filter',
-		'animspeed'
+		'animspeed',
+		'cursor_size'
 	];
 
 	static var options:Array<String> = [
@@ -76,9 +77,10 @@ class BaseOptionsMenu extends MusicBeatState
 		'acessibilidade_cap',
 		'flashing',
 		'gore',
+		'bad_words',
 		'colorblindness_filter',
 		'animspeed',
-		'bad_words',
+		'cursor_size',
 		'global_sounds_cap',
 		'game_volume',
 		'hitsound_sounds_cap',
@@ -394,6 +396,11 @@ class BaseOptionsMenu extends MusicBeatState
 						ClientPrefs.animSpeed += addo;
 						if (ClientPrefs.animSpeed < 1) ClientPrefs.animSpeed = 1;
 						if (ClientPrefs.animSpeed > 2.5) ClientPrefs.animSpeed = 2.5;
+					case 'cursor_size':
+						ClientPrefs.cursor_size += addo;
+						if (ClientPrefs.cursor_size < 0.5) ClientPrefs.cursor_size = 0.5;
+						if (ClientPrefs.cursor_size > 2) ClientPrefs.cursor_size = 2;
+						FlxG.mouse.load(ClientPrefs.cursor_size);
  				}
 				reloadValues();
 
@@ -553,6 +560,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = getFilterType(ClientPrefs.curFilter);
 					case 'animspeed':
 						daText = Std.string(ClientPrefs.animSpeed);
+					case 'cursor_size':
+						daText = Std.string(ClientPrefs.cursor_size);
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;
