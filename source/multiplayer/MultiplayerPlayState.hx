@@ -96,8 +96,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		currentMode = modo;
 		mySkin = MultiplayerMainMenuState.instance.skins[MultiplayerMainMenuState.instance.skinAtual][1];
 		oppSkin = oppObject.noteSkin;
+		
 		myBf = new Boyfriend(0, 0, "bf", null, false);
+		myBf.playAnim('idle', false, false, 10);
 		oppBf = new Boyfriend(0, 0, "bf", null, false);
+		oppBf.playAnim('idle', false, false, 10);
+
 		oppName = oppObject.getName();
 
 		this.startPos = startPos;
@@ -180,16 +184,18 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		playerStrums = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
 
-		if (ClientPrefs.focus)
+		if (ClientPrefs.focus) {
 			strumBGS.add(new StrumBG(playerStrums));
 
-		if (ClientPrefs.focus)
-			strumBGS.add(new StrumBG(opponentStrums));
+			if(!ClientPrefs.middleScroll) {
+				strumBGS.add(new StrumBG(opponentStrums));
+			}
+		}
 
 		generateStaticArrows(0, oppSkin);
 		generateStaticArrows(1, mySkin);
 
-		if (!isPlayer1)
+		if (!isPlayer1 && !ClientPrefs.middleScroll)
 		{
 			playerStrums.forEach(function(spr:FlxSprite)
 			{
@@ -210,6 +216,18 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		{
 			myBf.y += 100;
 			oppBf.y += 100;
+		}
+
+		if(ClientPrefs.middleScroll) {
+			for (note in playerStrums) {
+				strumLineNotes.remove(note);
+			}
+			playerStrums.clear();
+			generateStaticArrows(1, mySkin, true);
+
+			opponentStrums.forEachAlive(function (note:StrumNote) {
+				note.visible = false;
+			});
 		}
 
 		myBf.flipX = !isPlayer1 ? true : false;
@@ -236,18 +254,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			MultiplayerMainMenuState.instance.enviarPrecisoTerminar();
 		}
 
-		/*#if LUA_ALLOWED
-			for (notetype in noteTypeMap.keys()) {
-				var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
-				if(Assets.exists(luaToLoad)) {
-					var lua:editors.EditorLua = new editors.EditorLua(luaToLoad);
-					new FlxTimer().start(0.1, function (tmr:FlxTimer) {
-						lua.stop();
-						lua = null;
-					});
-				}
-			}
-			#end */
+
 		noteTypeMap.clear();
 		noteTypeMap = null;
 
@@ -260,7 +267,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 		Main.mouse_allowed = false;
 
-		// sayGo();
 		blackStuff = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		blackStuff.screenCenter(XY);
 		blackStuff.alpha = 0.5;
@@ -1196,12 +1202,12 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		RecalculateRating();
 	}
 
-	private function generateStaticArrows(player:Int, skin:String):Void
+	private function generateStaticArrows(player:Int, skin:String, ?middle:Bool = false):Void
 	{
 		for (i in 0...4)
 		{
 			var babyArrow:StrumNote;
-			babyArrow = new StrumNote(ClientPrefs.middleScroll ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
+			babyArrow = new StrumNote(middle ? PlayState.STRUM_X_MIDDLESCROLL : PlayState.STRUM_X, strumLine.y, i, player);
 
 			babyArrow.alpha = 0;
 			FlxTween.tween(babyArrow, {alpha: 1}, 0.5, {ease: FlxEase.circOut});

@@ -197,6 +197,10 @@ class StrumNote extends FlxSprite
 			playAnim(lastAnim, true);
 	}
 
+	public function getNoteData() {
+		return noteData;
+	}
+
 	public function postAddedToGroup() {
 		playAnim('static');
 		var posMultplier:Int = noteData;
