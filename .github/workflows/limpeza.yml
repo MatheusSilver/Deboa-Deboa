@@ -1,0 +1,64 @@
+name: Cleanup
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Disco antes da limpeza
+        run: |
+          echo "=== Uso de disco pre limpeza ==="
+          df -h /
+          echo "================================"
+
+      - name: Calcular espaco usado antes
+        id: before
+        run: |
+          USED_BEFORE=$(df --output=used / | tail -1)
+          echo "used_before=$USED_BEFORE" >> $GITHUB_OUTPUT
+
+      - name: Limpar builds
+        run: |
+          rm -rf export/
+          rm -rf .haxelib/
+
+      - name: Limpar cache haxe / hmm
+        run: |
+          rm -rf ~/.haxelib
+          rm -rf ~/.cache/haxe
+          rm -rf ~/.haxe
+
+      - name: Limpar cache android / gradle
+        run: |
+          rm -rf ~/.gradle
+          rm -rf export/**/android
+
+      - name: Limpeza de artefatos de build
+        run: |
+          find . -type d \( -name bin -o -name obj -o -name build \) -exec rm -rf {} +
+
+      - name: Disco depois da limpeza
+        run: |
+          echo "=== Uso de disco pos limpeza ==="
+          df -h /
+          echo "================================"
+
+      - name: Calcular espaco liberado
+        run: |
+          USED_AFTER=$(df --output=used / | tail -1)
+          USED_BEFORE=${{ steps.before.outputs.used_before }}
+
+          FREED=$((USED_BEFORE - USED_AFTER))
+
+          echo ""
+          echo "limpeza finalizada"
+          echo "foram liberados: $((FREED / 1024)) MB"
