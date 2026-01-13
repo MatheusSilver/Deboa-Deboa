@@ -33,6 +33,11 @@ class CoolUtil
 		return FlxMath.fastSin(n);
 	}
 
+	/* Essa é uma solução beeeeeeeeeeeeeem gambiarrada, mas é mais rápido do que repensar essas coisas como int*/
+	inline public static function stableOneDigitSum(variable:Float, sum:Int){
+		return (Std.int(Math.round(variable*10)) + sum)/10;
+	}
+
 	/**
 	 * Uma função aproximadamente 2-6 vezes mais rápida do que a da classe 'Math'. (Margem de < 0.05% de erros - pode ser impreciso)
 	 * @param Número que será utilizado na função

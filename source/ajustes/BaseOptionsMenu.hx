@@ -331,12 +331,12 @@ class BaseOptionsMenu extends MusicBeatState
 			}
 		} else {
 			if(controls.UI_LEFT || controls.UI_RIGHT) {
-				var add:Int = controls.UI_LEFT ? -1 : 1;
-				var addo:Float = controls.UI_LEFT ? -0.1 : 0.1;
+				final addTen:Int = controls.UI_LEFT ? -10 : 10;
+				final addOne:Int = controls.UI_LEFT ? -1 : 1;
 				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
 				switch(options[curSelected]) {
 					case 'fps_max':
-						ClientPrefs.framerate += add*10;
+						ClientPrefs.framerate += addTen;
 						if(ClientPrefs.framerate < 60) ClientPrefs.framerate = 60;
 						else if(ClientPrefs.framerate > 240) ClientPrefs.framerate = 240;
 
@@ -352,12 +352,12 @@ class BaseOptionsMenu extends MusicBeatState
 						if(holdTime > 1.5) { //Double speed after 1.5 seconds holding
 							mult = 2;
 						}
-						ClientPrefs.noteOffset += add * mult;
+						ClientPrefs.noteOffset += addOne * mult;
 						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
 						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
 					case 'hitsound_volume':
 						if (ClientPrefs.hitSounds){
-						ClientPrefs.osusom += addo;
+						ClientPrefs.osusom = CoolUtil.stableOneDigitSum(ClientPrefs.osusom, addOne);
 						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
 						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
@@ -365,7 +365,7 @@ class BaseOptionsMenu extends MusicBeatState
 						hitsound.play();
 					}
 					case 'game_volume':
-						ClientPrefs.efeitosVolume += addo;
+						ClientPrefs.efeitosVolume = CoolUtil.stableOneDigitSum(ClientPrefs.efeitosVolume, addOne);
 						if(ClientPrefs.efeitosVolume < 0.05) ClientPrefs.efeitosVolume = 0;
 						else if(ClientPrefs.efeitosVolume > 0.95) ClientPrefs.efeitosVolume = 1.0; 
 						var teste:FlxSound = new FlxSound().loadEmbedded(Paths.sound('Metronome_Tick', 'shared')); 
@@ -375,7 +375,7 @@ class BaseOptionsMenu extends MusicBeatState
 						teste.play();
 					case 'hitsound_type':
 						if (ClientPrefs.hitSounds){
-						ClientPrefs.hitSoundType += add;
+						ClientPrefs.hitSoundType += addOne;
 						if(ClientPrefs.hitSoundType <= 1) ClientPrefs.hitSoundType = 1;
 						else if(ClientPrefs.hitSoundType >= 13) ClientPrefs.hitSoundType = 13; //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
@@ -384,20 +384,20 @@ class BaseOptionsMenu extends MusicBeatState
 						}
 					case 'opacity':
 						if (ClientPrefs.legendas){
-							ClientPrefs.opacidadeLegendas+=addo;
+							ClientPrefs.opacidadeLegendas = (ClientPrefs.opacidadeLegendas*10 + addOne)/10;
 							if(ClientPrefs.opacidadeLegendas>0.95){ClientPrefs.opacidadeLegendas = 1;}else if(ClientPrefs.opacidadeLegendas<0.15){ClientPrefs.opacidadeLegendas=0.1;}
 						}
 					case 'colorblindness_filter':
-						ClientPrefs.curFilter += add;
+						ClientPrefs.curFilter += addOne;
 						if (ClientPrefs.curFilter >= 3) ClientPrefs.curFilter = 3;
 						if (ClientPrefs.curFilter <= 0) ClientPrefs.curFilter = 0;
 						changeFilter(ClientPrefs.curFilter); // k
 					case 'animspeed':
-						ClientPrefs.animSpeed += addo;
+						ClientPrefs.animSpeed = CoolUtil.stableOneDigitSum(ClientPrefs.animSpeed, addOne);
 						if (ClientPrefs.animSpeed < 1) ClientPrefs.animSpeed = 1;
 						if (ClientPrefs.animSpeed > 2.5) ClientPrefs.animSpeed = 2.5;
 					case 'cursor_size':
-						ClientPrefs.cursor_size += addo;
+						ClientPrefs.cursor_size = CoolUtil.stableOneDigitSum(ClientPrefs.cursor_size, addOne);
 						if (ClientPrefs.cursor_size < 0.5) ClientPrefs.cursor_size = 0.5;
 						if (ClientPrefs.cursor_size > 2) ClientPrefs.cursor_size = 2;
 						FlxG.mouse.load(ClientPrefs.cursor_size);
