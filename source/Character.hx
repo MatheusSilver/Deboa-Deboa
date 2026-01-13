@@ -70,8 +70,10 @@ class Character extends FlxSprite
 	public var json:CharacterFile;
 	public var onImageLoaded:Void->Void;
 
+	public var loadOnGPU:Bool = false;
+
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
-	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?onLoaded:Void->Void = null)
+	public function new(x:Float, y:Float, ?character:String = 'bf', ?isPlayer:Bool = false, ?onLoaded:Void->Void = null, ?gpu:Bool = true)
 	{
 		super(x, y);
 
@@ -84,6 +86,7 @@ class Character extends FlxSprite
 		this.isPlayer = isPlayer;
 		this.onImageLoaded = onLoaded;
 		antialiasing = ClientPrefs.globalAntialiasing;
+		loadOnGPU = gpu;
 
 		var library:String = null;
 		var characterPath:String = 'characters/' + curCharacter + '.json';
@@ -107,7 +110,7 @@ class Character extends FlxSprite
 	
 	public function setupCharacter(){
 		// Apenas por garantia, já que todos agora ficam em shared
-		frames = Paths.getSparrowAtlas(json.image, "shared");
+		frames = Paths.getSparrowAtlas(json.image, "shared", loadOnGPU);
 
 		if(json.scale != 1) {
 			jsonScale = json.scale;

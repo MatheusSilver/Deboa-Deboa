@@ -14,6 +14,7 @@ class StrumNote extends FlxSprite
 	public var direction:Float = 90;//plan on doing scroll directions soon -bb
 	public var downScroll:Bool = false;//plan on doing scroll directions soon -bb
 	public var sustainReduce:Bool = true;
+	var canGPU:Bool = true;
 	
 	private var player:Int;
 	
@@ -26,12 +27,13 @@ class StrumNote extends FlxSprite
 		return value;
 	}
 
-	public function new(x:Float, y:Float, leData:Int, player:Int) {
+	public function new(x:Float, y:Float, leData:Int, player:Int, ?canGPU:Bool = true) {
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
 		noteData = leData;
 		this.player = player;
 		this.noteData = leData;
+		this.canGPU = canGPU;
 		super(x, y);
 
 		if(PlayState.storyDifficulty == 3) {
@@ -130,7 +132,7 @@ class StrumNote extends FlxSprite
 					animation.add('confirm', [15, 19], 24, false);
 			}
 		} else {
-			frames = Paths.getSparrowAtlas(texture);
+			frames = Paths.getSparrowAtlas(texture, null, canGPU);
 			animation.addByPrefix('green', 'arrowUP');
 			animation.addByPrefix('blue', 'arrowDOWN');
 			if(texture == 'RING_assets')
