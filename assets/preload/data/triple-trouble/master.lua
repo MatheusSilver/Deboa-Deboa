@@ -4,9 +4,9 @@ function onCreate()
 	precacheImage('staticNotes');
 	precacheImage('daSTAT');
 	precacheImage('hitStatic');
-    precacheSound('P3Jumps/TailsScreamLOL');
-    precacheSound('P3Jumps/KnucklesScreamLOL');
-    precacheSound('P3Jumps/EggmanScreamLOL');
+    -- precacheSound('P3Jumps/TailsScreamLOL');
+    -- precacheSound('P3Jumps/KnucklesScreamLOL');
+    -- precacheSound('P3Jumps/EggmanScreamLOL');
 
     precacheImage('conquistas/medalhas/achievements (btt-orgulho)');
     precacheImage('conquistas/keydSTARS/star-orgulho');

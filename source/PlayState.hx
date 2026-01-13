@@ -6327,8 +6327,8 @@ class PlayState extends MusicBeatState
 		FlxG.camera.shake(0.0025, 0.50);
 		add(doP3JumpTAILS);
 
-		if (curSong.toLowerCase() == 'triple-trouble')
-			FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), .1);
+		// if (curSong.toLowerCase() == 'triple-trouble')
+		// 	FlxG.sound.play(Paths.sound('P3Jumps/TailsScreamLOL', 'week-xenophanes'), 0.01);
 
 		if (!special)
 		{
@@ -6391,8 +6391,8 @@ class PlayState extends MusicBeatState
 
 		add(doP3JumpKNUCKLES);
 
-		if (curSong.toLowerCase() == 'triple-trouble')
-			FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), .1);
+		// if (curSong.toLowerCase() == 'triple-trouble')
+		// 	FlxG.sound.play(Paths.sound('P3Jumps/KnucklesScreamLOL', 'week-xenophanes'), 0.01);
 
 		new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{
@@ -6442,7 +6442,7 @@ class PlayState extends MusicBeatState
 
 		add(doP3JumpEGGMAN);
 
-		FlxG.sound.play(Paths.sound('P3Jumps/EggmanScreamLOL', 'week-xenophanes'), .1);
+		// FlxG.sound.play(Paths.sound('P3Jumps/EggmanScreamLOL', 'week-xenophanes'), 0.01);
 
 		new FlxTimer().start(0.2, function(tmr:FlxTimer)
 		{
