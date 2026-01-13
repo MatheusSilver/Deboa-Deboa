@@ -96,11 +96,6 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		currentMode = modo;
 		mySkin = MultiplayerMainMenuState.instance.skins[MultiplayerMainMenuState.instance.skinAtual][1];
 		oppSkin = oppObject.noteSkin;
-		
-		myBf = new Boyfriend(0, 0, "bf", null, false);
-		myBf.playAnim('idle', false, false, 10);
-		oppBf = new Boyfriend(0, 0, "bf", null, false);
-		oppBf.playAnim('idle', false, false, 10);
 
 		oppName = oppObject.getName();
 
@@ -157,6 +152,11 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
 		add(bg);
+
+		myBf = new Boyfriend(0, 0, "bf", null, false);
+		myBf.playAnim('idle', false, false, 10);
+		oppBf = new Boyfriend(0, 0, "bf", null, false);
+		oppBf.playAnim('idle', false, false, 10);
 
 		add(myBf);
 		add(oppBf);
