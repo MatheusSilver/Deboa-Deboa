@@ -4,6 +4,7 @@
 
 -- Na real... Considerando que essa é uma das músicas mais complexas do mod, imagino que mais do que 5 pessoas estão lendo isso... Mas anyway
 
+jeffOffsetSafado = -0
 
 bfChart=''
 gfChart=''
@@ -134,7 +135,7 @@ function onCreate()
     setScrollFactor('CoronationPeach',0.9, 0.9)
     scaleObject('CoronationPeach',consistentSize* 0.5,consistentSize* 0.5)
 
-    makeAnimatedLuaSprite('Shinto','cenarios/ShintoPastaNight',610*1.035, 312*1.08)
+    makeAnimatedLuaSprite('Shinto','cenarios/ShintoPastaNight',630*1.035, 312*1.08)
     addAnimationByPrefix('Shinto','bop','Shitno',24,false)
     setScrollFactor('Shinto',0.9, 0.9)
     scaleObject('Shinto',consistentSize* 0.5,consistentSize* 0.5)
@@ -147,10 +148,6 @@ function onCreate()
     setScrollFactor('Jack',0.9, 0.9)
     scaleObject('Jack',consistentSize* 0.5,consistentSize* 0.5)
     addLuaSprite('Jack',false)
-
-    makeLuaSprite('OtherTable','cenarios/TableMisc',750+110,210*1.3+110)
-    setScrollFactor('OtherTable',0.9, 0.9)
-    scaleObject('OtherTable',consistentSize* 0.5,consistentSize* 0.5)
 
 
     makeAnimatedLuaSprite('SlenderBitch','cenarios/Buds_Slender_Effects',735*1.15,35*4)
@@ -166,7 +163,35 @@ function onCreate()
     scaleObject('Ben',consistentSize* 0.55,consistentSize* 0.55)
     addLuaSprite('Ben',false)
     playAnim('Ben','idle')
+    
+    makeAnimatedLuaSprite('Jeff','cenarios/Jeff',472-90+90+jeffOffsetSafado, 305-40+40+15)
+    addAnimationByPrefix('Jeff','bop','mynamejeff instance ',24,false)
+    setScrollFactor('Jeff',0.9, 0.9)
+    scaleObject('Jeff',consistentSize* 0.78,consistentSize* 0.78)
+    
+    if gore then
+        makeAnimatedLuaSprite('MouseMesaSafadissima','cenarios/Mousetable',consistentPosition[1] + 825 * consistentSize, consistentPosition[2] + 630 * consistentSize)
+        addAnimationByPrefix('MouseMesaSafadissima','bop','Mousetable',24,false)
+        setScrollFactor('MouseMesaSafadissima',0.9, 0.9)
+        scaleObject('MouseMesaSafadissima',consistentSize* 0.5,consistentSize* 0.5)
+        addLuaSprite('MouseMesaSafadissima',false)
+        setProperty('MouseMesaSafadissima.x',getProperty('MouseMesaSafadissima.x')-getProperty('MouseMesaSafadissima.width')/2+90)
+        setProperty('MouseMesaSafadissima.y',getProperty('MouseMesaSafadissima.y')-getProperty('MouseMesaSafadissima.height')+40)
+    else
+        makeLuaSprite('MESASAFADA','cenarios/TableMisc',350+jeffOffsetSafado,510)
+        setScrollFactor('MESASAFADA',0.9, 0.9)
+        scaleObject('MESASAFADA',consistentSize* 0.5,consistentSize* 0.5)
+    end
+    
+    makeAnimatedLuaSprite('JeffArm','cenarios/JeffArm',500-10+jeffOffsetSafado, 445)
+    addAnimationByPrefix('JeffArm','bop','Only the arm shit instance ',24,false)
+    setScrollFactor('JeffArm',0.9, 0.9)
+    scaleObject('JeffArm',consistentSize* 0.78,consistentSize* 0.78)
 
+    addLuaSprite("Jeff")
+    addLuaSprite("MESASAFADA")
+    addLuaSprite("JeffArm")
+    
     makeAnimatedLuaSprite('Squid','cenarios/Squirtward',750+40,210*1.18-20)
     addAnimationByPrefix('Squid','bop','Squidward_idleBody',24,false)
     setScrollFactor('Squid',0.9, 0.9)
@@ -179,41 +204,20 @@ function onCreate()
     scaleObject('SquidHead',consistentSize* 0.6,consistentSize* 0.6)
     addLuaSprite('SquidHead',false)
 
-    addLuaSprite('OtherTable',false)
 
-    makeAnimatedLuaSprite('Jeff','cenarios/Jeff',472-90+90, 305-40+40)
-    addAnimationByPrefix('Jeff','bop','mynamejeff instance ',24,false)
-    setScrollFactor('Jeff',0.9, 0.9)
-    scaleObject('Jeff',consistentSize* 0.78,consistentSize* 0.78)
-    addLuaSprite('Jeff',false)
 
-    if gore then
-    makeAnimatedLuaSprite('Mousetable','cenarios/Mousetable',consistentPosition[1] + 825 * consistentSize, consistentPosition[2] + 630 * consistentSize)
-    addAnimationByPrefix('Mousetable','bop','Mousetable',24,false)
-    setScrollFactor('Mousetable',0.9, 0.9)
-    scaleObject('Mousetable',consistentSize* 0.5,consistentSize* 0.5)
-    addLuaSprite('Mousetable',false)
-    setProperty('Mousetable.x',getProperty('Mousetable.x')-getProperty('Mousetable.width')/2+90)
-    setProperty('Mousetable.y',getProperty('Mousetable.y')-getProperty('Mousetable.height')+40)
-    end
-
-    makeAnimatedLuaSprite('JeffArm','cenarios/JeffArm',500-90+90, 445-40+40)
-    addAnimationByPrefix('JeffArm','bop','Only the arm shit instance ',24,false)
-    setScrollFactor('JeffArm',0.9, 0.9)
-    scaleObject('JeffArm',consistentSize* 0.78,consistentSize* 0.78)
-    addLuaSprite('JeffArm',false)
-
-    makeLuaSprite('Table','cenarios/TABLE',0,0)
-	scaleObject('Table',0.75,0.75)
-	screenCenter('Table','xy')
-	setProperty('Table.x',getProperty('Table.x')-50)
-	setProperty('Table.y',getProperty('Table.y')+750)
-	setObjectOrder('Table',40)
-	addLuaSprite('Table',false)
+    makeLuaSprite('MesaSafadissima','cenarios/TABLE',0,0)
+	scaleObject('MesaSafadissima',0.75,0.75)
+	screenCenter('MesaSafadissima','xy')
+	setProperty('MesaSafadissima.x',getProperty('MesaSafadissima.x')-50)
+	setProperty('MesaSafadissima.y',getProperty('MesaSafadissima.y')+750)
+	addLuaSprite('MesaSafadissima',false)
 
     PosCharacters()
 	
 end
+
+objectPlus = 5
 function PosCharacters()
 	HypnoOffsetY=100
     HypnoOffsetX=50
@@ -241,9 +245,9 @@ function PosCharacters()
     gfChart='MXArms'
     setProperty('MXArms.x',getCharacterX('gf')+MXOffsetX)
     setProperty('MXArms.y',getCharacterY('gf')+MXOffsetY)
-    setObjectOrder('boyfriendGroup',getObjectOrder('Table')+1)
-    setObjectOrder('dadGroup',getObjectOrder('Table')-1)
-    setObjectOrder('gfGroup',getObjectOrder('Table')-1)
+    setObjectOrder('boyfriendGroup',getObjectOrder('MesaSafadissima')+1+objectPlus)
+    setObjectOrder('dadGroup',getObjectOrder('MesaSafadissima')-1+objectPlus)
+    setObjectOrder('gfGroup',getObjectOrder('MesaSafadissima')-1+objectPlus)
     setProperty('gf.flipX',false)
 
     elseif stage == 'bar' then
@@ -266,9 +270,9 @@ function PosCharacters()
     setProperty('dad.flipX',false)
     setProperty('HypnoArms.x',getCharacterX('dad')+HypnoOffsetX)
     setProperty('HypnoArms.y',getCharacterY('dad')+HypnoOffsetY)
-	setObjectOrder('boyfriendGroup',getObjectOrder('Table')-1)
-    setObjectOrder('dadGroup',getObjectOrder('Table')-1)
-    setObjectOrder('gfGroup',getObjectOrder('Table')+1)
+	setObjectOrder('boyfriendGroup',getObjectOrder('MesaSafadissima')-1+objectPlus)
+    setObjectOrder('dadGroup',getObjectOrder('MesaSafadissima')-1+objectPlus)
+    setObjectOrder('gfGroup',getObjectOrder('MesaSafadissima')+1+objectPlus)
     else
 	setCharacterX('dad',LordX[1])
 	setCharacterY('dad',LordX[2])
@@ -289,16 +293,16 @@ function PosCharacters()
     gfChart='MXArms'
     setProperty('MXArms.x',getCharacterX('gf')+MXOffsetX)
     setProperty('MXArms.y',getCharacterY('gf')+MXOffsetY)
-	setObjectOrder('boyfriendGroup',getObjectOrder('Table')-1)
-    setObjectOrder('dadGroup',getObjectOrder('Table')+1)
-    setObjectOrder('gfGroup',getObjectOrder('Table')-1)
+	setObjectOrder('boyfriendGroup',getObjectOrder('MesaSafadissima')-1+objectPlus)
+    setObjectOrder('dadGroup',getObjectOrder('MesaSafadissima')+1+objectPlus)
+    setObjectOrder('gfGroup',getObjectOrder('MesaSafadissima')-1+objectPlus)
     end
 
     addLuaSprite('MXArms',true)
     addLuaSprite('HypnoArms',true)
 
-    setObjectOrder('MXArms',getObjectOrder('Table')+1)
-	setObjectOrder('HypnoArms',getObjectOrder('Table')+1)
+    setObjectOrder('MXArms', getObjectOrder('MesaSafadissima')+1+objectPlus)
+	setObjectOrder('HypnoArms', getObjectOrder('MesaSafadissima')+2+objectPlus)
 
     setProperty('POW.x',getProperty('MXArms.x')-MXOffsetX-195)
     setProperty('POW.y',getProperty('MXArms.y')-MXOffsetY+460)
@@ -311,7 +315,7 @@ function onBeatHit()
 	if curBeat % 2 == 0 then
         playAnim('Widemouth','bop')
         if gore then 
-            playAnim('Mousetable','bop')
+            playAnim('MouseMesaSafadissima','bop')
         end
         playAnim('Jack','bop')
         playAnim('Jeff','bop')

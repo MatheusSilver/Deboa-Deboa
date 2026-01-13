@@ -1483,7 +1483,7 @@ class PlayState extends MusicBeatState
 			precacheList.set(asset, 'image');
 
 		var library:String = curSong.toLowerCase() == 'sunshine' ? 'week-sunshine' : 'preload';
-		var volume:Float = (FlxG.sound.music.volume > 0 || ClientPrefs.efeitosVolume > 0) ? 0.6 : 0;
+		var volume:Float = ClientPrefs.efeitosVolume;
 
 		intro1 = new FlxSound().loadEmbedded(Paths.sound('intro1' + introSoundsSuffix, library));
 		intro2 = new FlxSound().loadEmbedded(Paths.sound('intro2' + introSoundsSuffix, library));
@@ -1491,8 +1491,7 @@ class PlayState extends MusicBeatState
 		introgo = new FlxSound().loadEmbedded(Paths.sound('introGo' + introSoundsSuffix, 'preload'));
 		
 		intro1.volume = intro2.volume = intro3.volume = volume;
-		introgo.volume = curSong.toLowerCase() == 'sunshine' ? 0 : volume;	
-		introgo.volume = curSong.toLowerCase() == 'sunshine' ? 0: 0.6;
+		introgo.volume = curSong.toLowerCase() == 'sunshine' ? 0 : volume;
 	}
 
 	public var vidSound:FlxSound;

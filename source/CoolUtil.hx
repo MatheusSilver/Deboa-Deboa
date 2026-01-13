@@ -34,7 +34,7 @@ class CoolUtil
 	}
 
 	/* Essa é uma solução beeeeeeeeeeeeeem gambiarrada, mas é mais rápido do que repensar essas coisas como int*/
-	inline public static function stableOneDigitSum(variable:Float, sum:Int){
+	inline public static function stableOneDigitSum(variable:Float, sum:Int):Float {
 		return (Std.int(Math.round(variable*10)) + sum)/10;
 	}
 
