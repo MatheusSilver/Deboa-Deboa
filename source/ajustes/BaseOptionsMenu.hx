@@ -358,16 +358,16 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'hitsound_volume':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.osusom = CoolUtil.stableOneDigitSum(ClientPrefs.osusom, addOne);
-						if(ClientPrefs.osusom < 0.1) ClientPrefs.osusom = 0.1;
-						else if(ClientPrefs.osusom > 1.0) ClientPrefs.osusom = 1.0; 
+						if(ClientPrefs.osusom < 0.1) {ClientPrefs.osusom = 0.1; return;}
+						else if(ClientPrefs.osusom > 1.0) {ClientPrefs.osusom = 1.0; return;}
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
 					}
 					case 'game_volume':
 						ClientPrefs.efeitosVolume = CoolUtil.stableOneDigitSum(ClientPrefs.efeitosVolume, addOne);
-						if(ClientPrefs.efeitosVolume < 0.05) ClientPrefs.efeitosVolume = 0;
-						else if(ClientPrefs.efeitosVolume > 0.95) ClientPrefs.efeitosVolume = 1.0; 
+						if(ClientPrefs.efeitosVolume < 0.05) {ClientPrefs.efeitosVolume = 0; return;}
+						else if(ClientPrefs.efeitosVolume > 0.95) {ClientPrefs.efeitosVolume = 1.0; return; }
 						var teste:FlxSound = new FlxSound().loadEmbedded(Paths.sound('Metronome_Tick', 'shared')); 
 						//Podem trocar isso quando quiserem,
 						//o próprio nome da variável já diz o pq eu escolhi um som random
@@ -376,8 +376,8 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'hitsound_type':
 						if (ClientPrefs.hitSounds){
 						ClientPrefs.hitSoundType += addOne;
-						if(ClientPrefs.hitSoundType <= 1) ClientPrefs.hitSoundType = 1;
-						else if(ClientPrefs.hitSoundType >= 13) ClientPrefs.hitSoundType = 13; //A ordem importa k
+						if(ClientPrefs.hitSoundType <= 1) {ClientPrefs.hitSoundType = 1; return;}
+						else if(ClientPrefs.hitSoundType >= 13) {ClientPrefs.hitSoundType = 13; return; } //A ordem importa k
 						var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound(('osu/' + ClientPrefs.hitSoundType), 'shared'));
 						hitsound.volume = ClientPrefs.osusom;
 						hitsound.play();
