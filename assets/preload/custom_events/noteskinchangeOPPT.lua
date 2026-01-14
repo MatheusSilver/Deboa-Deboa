@@ -33,11 +33,11 @@ function onUpdatePost(elapsed)
             end
         end
         
-        pendingIndex = endIndex
+        pendingIndex = endIndex -1
         
 
         -- Esse carinha apaga o conjunto de carregamento.
-        if pendingIndex >= pendingTextureChange.totalNotes then
+        if pendingIndex >= pendingTextureChange.totalNotes-1 then
             pendingTextureChange = nil
         end
     end
