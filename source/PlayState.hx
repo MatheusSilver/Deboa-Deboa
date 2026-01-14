@@ -850,10 +850,8 @@ class PlayState extends MusicBeatState
 			hitsound.volume = ClientPrefs.osusom; // I FORGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR
 		}
 
-		if (!ClientPrefs.palavroes) {
-			censura = new FlxSound().loadEmbedded(Paths.sound('censura', 'shared'));
-			censura.volume = 1.5;
-		}
+		censura = new FlxSound().loadEmbedded(Paths.sound('censura', 'shared'));
+		censura.volume = ClientPrefs.efeitosVolume;
 
 		pauseSound = new FlxSound().loadEmbedded(Paths.sound('PauseEnter'));
 		pauseSound.volume = 0.6;
@@ -3278,15 +3276,19 @@ class PlayState extends MusicBeatState
 					if(value3!="" && value4!="") legendaManager.addLegenda(value3, value4, 2); else legendaManager.removeLegenda(2);
 				}
 			case 'Som de Censura':
-				if(!ClientPrefs.palavroes) {
-					if(value1=="play") { 
-						censura.play(); 
-						FlxG.sound.music.volume=0;
-					} else if(value1=="pause") {
-						censura.pause();
-						FlxG.sound.music.volume=1;
-					}
+				/*if (ClientPrefs.palavroes) 
+					return; - quem sabe isso pode ser util? */
+
+				// Dessa forma qualquer um que mexer nisso sai feliz por não ter que ficar escrevendo a cada evento.
+				// Ainda mais se você estiver usando esse evento na too fest...
+				if(censura.playing) {
+					FlxG.sound.music.volume = 1;
+					censura.pause();
+				} else {
+					FlxG.sound.music.volume = 0;
+					censura.play();
 				}
+
 			case 'Particula CY':
 				particulacy();
 			case 'video player':

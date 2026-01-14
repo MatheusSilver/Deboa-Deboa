@@ -77,7 +77,6 @@ class BaseOptionsMenu extends MusicBeatState
 		'acessibilidade_cap',
 		'flashing',
 		'gore',
-		'bad_words',
 		'colorblindness_filter',
 		'animspeed',
 		'cursor_size',
@@ -253,10 +252,7 @@ class BaseOptionsMenu extends MusicBeatState
 
 					case 'gore':
 						ClientPrefs.gore = !ClientPrefs.gore;
-					
-					case 'bad_words':
-						ClientPrefs.palavroes = !ClientPrefs.palavroes;
-
+				
 					case 'shaders':
 						ClientPrefs.shaders = !ClientPrefs.shaders;
 					case 'aliasing':
@@ -493,8 +489,6 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.lowQuality;
 					case 'gore':
 						daValue = ClientPrefs.gore;
-					case 'bad_words':
-						daValue = ClientPrefs.palavroes;
 					case 'aliasing':
 						daValue = ClientPrefs.globalAntialiasing;
 					case 'cam_effects':

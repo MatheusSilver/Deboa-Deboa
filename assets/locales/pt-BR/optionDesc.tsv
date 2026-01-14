@@ -1,6 +1,5 @@
 ﻿flag	context
 opt_desc_reset	Caso desmarcado, apertar a bind RESET não fará nada.
-opt_desc_bad_words	Desativa os palavrões (Legendas e dublagens)
 opt_desc_colorblindness_filter	Troque entre filtros,<X>o ideal para seu caso de daltonismo.<X>(Pode causar problemas de performance)
 opt_desc_animspeed	Altere a velocidade das animações dos menus.
 opt_desc_cursor_size	Aumente ou diminua o tamanho do cursor.
