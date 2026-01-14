@@ -5,7 +5,7 @@
         if legendas then
             pushScriptData("Adicionar Imagens diferenciado")
         end
-        precacheImage('Majin_Notes');
+        precacheImage('multiplayer/notes/Majin_Notes');
         precacheImage('conquistas/medalhas/achievements (btt-luxuria)');
         precacheImage('conquistas/keydSTARS/star-luxuria');
 
@@ -41,29 +41,39 @@
         if curBeat == 222 then
             setCamMove = false
             triggerEvent('Camera Follow Pos', '690', '820')
-            doTweenZoom('bruh', 'camGame', 1.2, 0.7, 'cubeInOut')
+            doTweenZoom('bruh1', 'camGame', 1.2, 0.7, 'cubeInOut')
             setProperty('three.visible', true)
             doTweenAlpha('threeAlpha', 'three', 0, 0.25, 'cubeOut');
         end
     
         if curBeat == 223 then
-            doTweenZoom('bruh', 'camGame', 1.5, 0.7, 'cubeInOut')
+            cancelTween("bruh1")
+            doTweenZoom('bruh2', 'camGame', 1.5, 0.7, 'cubeInOut')
             setProperty('two.visible', true)
             doTweenAlpha('twoAlpha', 'two', 0, 0.25, 'cubeOut');
         end
     
         if curBeat == 224 then
-            doTweenZoom('bruh', 'camGame', 1.8, 0.7, 'cubeInOut')
+            cancelTween("bruh2")
+            doTweenZoom('bruh3', 'camGame', 1.8, 0.7, 'cubeInOut')
             setProperty('one.visible', true)
             doTweenAlpha('oneAlpha', 'one', 0, 0.25, 'cubeOut');
         end
     
         if curBeat == 225 then
-            setCamMove = true
-            triggerEvent('Camera Follow Pos', '', '')
+            cancelTween("bruh3")
             doTweenZoom('bruh', 'camGame', 0.9, 0.7, 'cubeInOut')
             setProperty('gofun.visible', true)
             doTweenAlpha('gofunAlpha', 'gofun', 0, 0.25, 'cubeOut');
+        end
+        
+        if curBeat == 226 then
+            cancelTween("bruh")
+            setCamMove = true
+            removeLuaSprite('one')
+            removeLuaSprite('two')
+            removeLuaSprite('three')
+            removeLuaSprite('gofun')
         end
 
         objectPlayAnimation('funboppers2ANIM', 'bumpypillar', true)

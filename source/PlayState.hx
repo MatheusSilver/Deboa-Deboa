@@ -4361,8 +4361,8 @@ class PlayState extends MusicBeatState
 
 			case 'tempo infinito':
 				majinstrums = true;
-				triggerEventNote('noteskinchangeBF', 'Majin_Notes', '');
-				triggerEventNote('noteskinchangeOPPT', 'Majin_Notes', '');
+				triggerEventNote('noteskinchangeBF', 'multiplayer/notes/Majin_Notes', '');
+				triggerEventNote('noteskinchangeOPPT', 'multiplayer/notes/Majin_Notes', '');
 				if(!ClientPrefs.hideTime) {
 					hud.timeBar.createFilledBar(0xFF7700FF, 0xFFFFFFFF);
 					FlxTween.num(songPercent, 0, 2.5, {ease: FlxEase.sineInOut}, function(v:Float)
