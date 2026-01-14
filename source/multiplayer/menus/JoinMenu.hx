@@ -148,8 +148,8 @@ class RoomList extends FlxSpriteGroup
                     var roomButton:RoomButton = new RoomButton(room.metadata.displayName, 0, ((88*num)+num*5), room);
                     roomObjects.add(roomButton);
                     objectsArray.push(roomButton);
-                    num++;
                     JoinMenu.instance.addButton(roomButton, num);
+                    num++;
                 }
             }
         }
