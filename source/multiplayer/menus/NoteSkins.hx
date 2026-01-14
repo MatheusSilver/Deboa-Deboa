@@ -94,12 +94,18 @@ class SkinSelector extends FlxSpriteGroup
 		setaEsquerda.loadGraphic(Paths.image('multiplayer/menus/noteskins/seta', 'preload'));
 		setaEsquerda.updateHitbox();
 		add(setaEsquerda);
+		setarCallbacks(setaEsquerda);
+
+		NoteSkins.instance.addButton(setaEsquerda, 0);
 
 		setaDireita = new FlxButton(920, 360, "", clickDireita);
 		setaDireita.loadGraphic(Paths.image('multiplayer/menus/noteskins/seta', 'preload'));
 		setaDireita.flipX=true;
 		setaDireita.updateHitbox();
 		add(setaDireita);
+		setarCallbacks(setaDireita);
+		
+		NoteSkins.instance.addButton(setaDireita, 1);
 
 		noteSprite = new FlxSprite(0, 0);
 		noteSprite.frames = Paths.getSparrowAtlas('multiplayer/notes/'+skinList[skinAtual][1], 'preload');
@@ -109,6 +115,21 @@ class SkinSelector extends FlxSpriteGroup
 		noteSprite.y = 331;
 		noteSprite.screenCenter(X);
 		add(noteSprite);
+	}
+
+	function setarCallbacks(bt:FlxButton) {
+		bt.onOut.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !NoteSkins.instance.amActive())
+				return;
+			bt.alpha = 0.5;
+		}
+
+        bt.onOver.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !NoteSkins.instance.amActive())
+				return;
+            GlobalSoundManager.play(scrollMenu);
+			bt.alpha = 1;
+		}
 	}
 
 	function clickEsquerda()

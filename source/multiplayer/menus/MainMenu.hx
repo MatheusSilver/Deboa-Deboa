@@ -72,17 +72,19 @@ class MainMenu extends MultiplayerMenu
 			MultiplayerMainMenuState.instance.hostear();
 		}, null);
 		addToMenu(hostBt, {y: 300}, {y: 1780});
+		addButton(hostBt, 0);
 
 		joinBt = new MainMenuButton(Linguagem.LangUtil.getString("main_join_bt", "multiplayer"), 40, 400, this, true, function(){
 			MultiplayerMainMenuState.instance.changeMenu(ROOMLIST);
 		}, null);
 		addToMenu(joinBt, {y: 400}, {y: 1780});
+		addButton(joinBt, 1);
 
 		skinsBt = new MainMenuButton(Linguagem.LangUtil.getString("main_skins_bt", "multiplayer"), 40, 500, this, false, function(){
 			MultiplayerMainMenuState.instance.changeMenu(SKINS);
 		}, null);
 		addToMenu(skinsBt, {y: 500}, {y: 1780});
-
+		addButton(skinsBt, 2);
     }
 }
 
@@ -111,6 +113,7 @@ class MainMenuButton extends FlxButton
 				return;
 			this.alpha=0.75;
 		}
+
 		this.onDown.callback = function() {
 			if(!this.visible || callback == null || !parent.amActive())
 				return;

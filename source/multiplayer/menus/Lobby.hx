@@ -71,11 +71,13 @@ class Lobby extends MultiplayerMenu
         go = new FlxButton(1126,511, "", function(){
 			if(MultiplayerMainMenuState.instance.canInitMatch && !MultiplayerMainMenuState.instance.isPlayingMatch && amActive())
 				{	
+                    GlobalSoundManager.play(confirmMenu);
 					MultiplayerMainMenuState.instance.curRoom.send("toggle-ready");
 				}
         });
         go.alpha = 0.75;
         go.onOver.callback = function() {
+            GlobalSoundManager.play(scrollMenu);
             go.alpha = 1;
         };
         go.onOut.callback = function() {
@@ -83,6 +85,7 @@ class Lobby extends MultiplayerMenu
         };
         go.loadGraphic(Paths.image("multiplayer/menus/go", 'preload'));
         addToMenu(go, {x: 1126}, {x: 1350});
+        addButton(go, 0);
     }
 
     public function updateReadyText(texto:String) {

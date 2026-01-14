@@ -31,6 +31,7 @@ import io.colyseus.serializer.schema.types.*;
 import gamejolt.*;
 import Utils;
 import multiplayer.menus.shared.*;
+import Lambda;
 
 using StringTools;
 
@@ -87,6 +88,8 @@ class MultiplayerMainMenuState extends MusicBeatState
 
 	public static var instance:MultiplayerMainMenuState;
 
+	public var keyboardMode:Bool = false;
+
 	// SKINS
 	public var skins:Array<Dynamic> = [
 		[Linguagem.LangUtil.getString("skin_default", "multiplayer"), "default_notes"],
@@ -135,6 +138,88 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 		
 		return nomesEPaths;
+	}
+
+	public function HandleKeyboardMode(?force:Bool = false) {
+		if (Main.getMouseVisibility()) 
+			return;
+
+		if (!canClick) return;
+		if (isTransitioning) return;
+		if (isPlayingMatch) return;
+
+		var oldSelected:Int = curSubmenu.lastBtSelected;
+		var max:Int = Lambda.count(curSubmenu.buttons);
+
+
+		if (oldSelected == -1) {
+			curSubmenu.lastBtSelected = 0;
+			for (index => bt in curSubmenu.buttons) {
+				if (bt == null) continue;
+
+				if (bt.onOut.callback == null) {
+					bt.alpha = 0.5;
+				} else {
+					bt.onOut.fire();
+				}
+			}
+		} else {
+			if (max == 1) {
+				curSubmenu.lastBtSelected = 0;
+			} else {
+				if (controls.UI_DOWN_P || controls.UI_RIGHT_P) {
+					if (curSubmenu.lastBtSelected+1 < max) {
+						curSubmenu.lastBtSelected+=1;
+					} else {
+						curSubmenu.lastBtSelected = 0;
+					}
+				} else if (controls.UI_UP_P || controls.UI_LEFT_P) {
+					if (curSubmenu.lastBtSelected-1 >= 0) {
+						curSubmenu.lastBtSelected-=1;
+					} else {
+						curSubmenu.lastBtSelected = 0;
+					}
+				}
+			}
+		}
+
+
+		for (index => bt in curSubmenu.buttons) {
+			if (bt == null) continue;
+
+			if (index != curSubmenu.lastBtSelected) {
+				if (oldSelected == index) {
+					if (bt.onOut.callback == null) {
+						bt.alpha = 0.5;
+					} else {
+						bt.onOut.fire();
+					}
+				}
+				continue;
+			}
+
+			if (controls.ACCEPT) {
+				bt.onDown.fire();
+				bt.onUp.fire();
+				break;
+			}
+
+			if (oldSelected == index && !force) continue;
+
+			if (bt.onOver.callback == null) {
+				bt.alpha = 1;
+				GlobalSoundManager.play(scrollMenu);
+			} else {
+				bt.onOver.fire();
+			}
+		}
+
+		if (barra.configButton.visible == false) return;
+
+		var ctrl = FlxG.keys.justPressed.CONTROL || GamepadUtil.checkGamepadPressedButton(3);
+		if (ctrl) {
+			barra.configButton.onUp.fire();
+		}
 	}
 
 	function getAllUnlockedSongs():Array<Dynamic> 
@@ -377,6 +462,9 @@ class MultiplayerMainMenuState extends MusicBeatState
 		}
 
 		canInitMatch = isOnServer && !isPlayingMatch;
+
+		HandleKeyboardMode();
+
 		super.update(elapsed);
 	}
 
