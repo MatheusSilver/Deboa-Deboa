@@ -56,7 +56,6 @@ class ClientPrefs
 	public static var shaderMatrix:Array<Float> = [];
 	public static var curFilter:Null<Int> = 0; // isso é feio mas funciona :D
 	public static var curMultiplayerNoteSkin = 0;
-	public static var palavroes:Null<Bool> = true;
 	public static var canReset:Null<Bool> = true; // fiz isso pois meu dedo gordo clica sem querer querendo no R toda vez que eu aperto D ou F no teclado :D
 	public static var gamepadDisplay:InputDevices = AUTO;
 
