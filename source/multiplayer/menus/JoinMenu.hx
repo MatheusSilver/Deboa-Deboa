@@ -75,8 +75,24 @@ class JoinMenu extends MultiplayerMenu
 			refreshRooms();
 		});
 		refreshBt.loadGraphic(Paths.image("multiplayer/menus/joinmenu/refreshbutton"));
+        setarCallbacks(refreshBt);
 		addToMenu(refreshBt, {y: 564}, {y: 1780});
     }
+
+    function setarCallbacks(bt:FlxButton) {
+		bt.onOut.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !JoinMenu.instance.amActive())
+				return;
+			bt.alpha = 0.5;
+		}
+
+        bt.onOver.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !JoinMenu.instance.amActive())
+				return;
+            GlobalSoundManager.play(scrollMenu);
+			bt.alpha = 1;
+		}
+	}
 
     public override function open(oldMenu:MultiplayerMenu) {
         super.open(oldMenu);
@@ -86,7 +102,9 @@ class JoinMenu extends MultiplayerMenu
     }
 
     public function refreshRooms() {
+        resetButton();
         roomList.createAll();
+        addButton(refreshBt, 0);
     }
 }
 
@@ -131,6 +149,7 @@ class RoomList extends FlxSpriteGroup
                     roomObjects.add(roomButton);
                     objectsArray.push(roomButton);
                     num++;
+                    JoinMenu.instance.addButton(roomButton, num);
                 }
             }
         }
@@ -177,6 +196,7 @@ class RoomButton extends FlxButton
         super(x,y);
 		this.loadGraphic(Paths.image("multiplayer/menus/mainmenu/bt-orange", 'preload'));
         this.updateHitbox();
+        this.alpha = 0.5;
 
 		if(label != null)
 		{
@@ -188,10 +208,25 @@ class RoomButton extends FlxButton
 		}
 
 		this.onDown.callback = function() {
-			/*if(!MultiplayerMainMenuState.instance.canClick || !this.visible)
-				return;*/
+			if(!MultiplayerMainMenuState.instance.canClick || !JoinMenu.instance.amActive())
+				return;
             MultiplayerMainMenuState.instance.entrar(room);
 			GlobalSoundManager.play(confirmMenu);
 		}
+
+        this.onOut.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !JoinMenu.instance.amActive())
+				return;
+			this.alpha = 0.5;
+		}
+
+        this.onOver.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !JoinMenu.instance.amActive())
+				return;
+            GlobalSoundManager.play(scrollMenu);
+			this.alpha = 1;
+		}
+
+
     }
 }

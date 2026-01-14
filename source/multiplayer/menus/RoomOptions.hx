@@ -63,6 +63,21 @@ class RoomOptions extends MultiplayerMenu
         faixa = new Faixa(0, 66);
 		addToMenu(faixa, {x: 0}, {x: -faixa.width*1.1}, "faixa");
     }
+
+    public function setarCallbacks(bt:FlxButton) {
+		bt.onOut.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !amActive())
+				return;
+			bt.alpha = 0.5;
+		}
+
+        bt.onOver.callback = function() {
+			if(!MultiplayerMainMenuState.instance.canClick || !amActive())
+				return;
+            GlobalSoundManager.play(scrollMenu);
+			bt.alpha = 1;
+		}
+	}
 }
 
 class ReverseButton extends FlxSpriteGroup {
@@ -82,13 +97,15 @@ class ReverseButton extends FlxSpriteGroup {
 		button.loadGraphic(Paths.image(ativado?'multiplayer/menus/options/reversed/reverseBt-off':'multiplayer/menus/options/reversed/reverseBt-on', 'preload'));
 		button.updateHitbox();
 		add(button);
+        RoomOptions.instance.setarCallbacks(button);
+        RoomOptions.instance.addButton(button, 2);
     }
 
 	function clickButton()
 	{
         if(!RoomOptions.instance.amActive()) return;
 
-        GlobalSoundManager.play(scrollMenu);
+        GlobalSoundManager.play(confirmMenu);
 		ativado = !ativado;
 		button.loadGraphic(Paths.image(ativado?'multiplayer/menus/options/reversed/reverseBt-off':'multiplayer/menus/options/reversed/reverseBt-on', 'preload'));
 		save();
@@ -146,6 +163,9 @@ class OptionSelectionList extends FlxSpriteGroup {
 
             add(setaEsquerda);
             add(setaDireita);
+
+            RoomOptions.instance.addButton(setaDireita, 1);
+            RoomOptions.instance.addButton(setaEsquerda, 0);
         } else {
             selectionList = new SelectionList(["ModoDeJogo", "modos", true], MultiplayerMainMenuState.instance);
 
@@ -178,7 +198,12 @@ class OptionSelectionList extends FlxSpriteGroup {
 
             add(setaEsquerda);
             add(setaDireita);
+            RoomOptions.instance.addButton(setaDireita, 4);
+            RoomOptions.instance.addButton(setaEsquerda, 3);
         }
+
+        RoomOptions.instance.setarCallbacks(setaEsquerda);
+        RoomOptions.instance.setarCallbacks(setaDireita);
     }
 
     function createSeta(direita:Bool):FlxButton {

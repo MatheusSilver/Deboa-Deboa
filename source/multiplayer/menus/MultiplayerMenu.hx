@@ -3,6 +3,7 @@ package multiplayer.menus;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.FlxSprite;
+import flixel.ui.FlxButton;
 import flixel.util.FlxTimer;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic;
@@ -25,6 +26,9 @@ class MultiplayerMenu extends FlxTypedGroup<FlxBasic>
     var tweensSaida:Array<VarTween> = [];
     
     var transitionSpeed:Float = 0.25;
+
+    public var buttons:Map<Int, Dynamic> = [];
+    public var lastBtSelected:Int = -1;
     
     public function close(nextMenu:MultiplayerMenu, ?makeTween:Bool = true) {
         MultiplayerMainMenuState.instance.isTransitioning = true;
@@ -41,6 +45,7 @@ class MultiplayerMenu extends FlxTypedGroup<FlxBasic>
         MultiplayerMainMenuState.instance.isTransitioning = true;
         playTweens(tweensEntrada, oldMenu, function() {
             MultiplayerMainMenuState.instance.isTransitioning = false;
+            MultiplayerMainMenuState.instance.HandleKeyboardMode(true);
         });
     }
 
@@ -69,6 +74,16 @@ class MultiplayerMenu extends FlxTypedGroup<FlxBasic>
 
     public function amActive():Bool {
         return MultiplayerMainMenuState.instance.curSubmenu == this && !MultiplayerMainMenuState.instance.isTransitioning && MultiplayerMainMenuState.instance.canClick;
+    }
+
+    public function addButton(bt:Dynamic, index:Int) {
+        if (buttons.get(index) != null) return;
+
+        buttons.set(index, bt);
+    }
+
+    public function resetButton() {
+        buttons.clear();
     }
 
 	public function addToMenu(basico:FlxObject, entrada:Dynamic, saida:Dynamic, ?reference:String) {
