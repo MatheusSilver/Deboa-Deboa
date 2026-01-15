@@ -133,10 +133,10 @@ class AchievementsMenuState extends MusicBeatState
 			preto.alpha = 0.75;
 			add(preto);
 			add(announceText);
-			new FlxTimer().start(1.5, function(tmr:FlxTimer)
+			new FlxTimer().start(1.5/ClientPrefs.animSpeed, function(tmr:FlxTimer)
 			{
 				Achievements.loadAchievements();
-				new FlxTimer().start(1, function(tmr:FlxTimer)
+				new FlxTimer().start(1/ClientPrefs.animSpeed, function(tmr:FlxTimer)
 				{
 					Achievements.syncAchievementsGJ(function(){
 						trace("sincronizadissimo");

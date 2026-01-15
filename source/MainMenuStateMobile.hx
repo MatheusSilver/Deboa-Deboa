@@ -283,7 +283,7 @@ class MainMenuStateMobile extends MusicBeatState
 					FlxTween.tween(menuItems.members[spr.ID], {x: spr.x-35}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1,
 						onComplete: function(proximo:FlxTween)
 						{
-							FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width+10}, 1.0, {ease: FlxEase.expoInOut, startDelay: 0.3});
+							FlxTween.tween(menuItems.members[spr.ID], {x: FlxG.width+10}, 1.0/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut, startDelay: 0.3});
 						}});
 				}else{
 					FlxTween.tween(spr, {x: FlxG.width+10}, 0.5, {ease: FlxEase.expoInOut, startDelay: 0.1});
@@ -300,7 +300,7 @@ class MainMenuStateMobile extends MusicBeatState
 		GlobalSoundManager.play(confirmMenu);
 		var daChoice:String = optionShit[state];
 		sumidao(state);
-		new FlxTimer().start(1.7, function(tmr:FlxTimer) {
+		new FlxTimer().start(1.7/ClientPrefs.animSpeed, function(tmr:FlxTimer) {
 			switch (daChoice)
 			{
 				case 'story':

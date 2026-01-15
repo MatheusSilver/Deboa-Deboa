@@ -1,7 +1,7 @@
 flag	context
 opt_desc_reset	If unchecked, pressing the RESET bind will do nothing.
 opt_desc_colorblindness_filter	Switch between filters,<X>the ideal one for your case of color blindness.<X>(Can cause performance problems)
-opt_desc_animspeed	Change the speed of the menu animations.
+opt_desc_animspeed	Controls the speed of menu animations.<X>Higher values make them faster.
 opt_desc_cursor_size	Increase or decrease the cursor size.
 opt_desc_gore	Turn this off if you don't want to see<X>the gore elements in the song.
 opt_desc_fps_max	Determines the maximum FPS achievable.
