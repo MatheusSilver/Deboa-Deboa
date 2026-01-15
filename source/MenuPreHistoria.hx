@@ -367,6 +367,9 @@ class MenuPreHistoria extends MusicBeatState
 		FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, 1, {ease: FlxEase.expoInOut});
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
+			// Corrige o bug de entrar e sair da CCC para o menu de weeks depois ir do menu de weeks direto para CCC
+			// Extremamente específico mas vai que né?
+			MenuHistoria.instance = null;
 			openSubState(new MenuHistoria());
 			makeAnimUnlock = false;
 			inCut = false;

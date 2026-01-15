@@ -22,11 +22,11 @@ using StringTools;
 
 class ConsoleClashSubState extends MusicBeatSubstate
 {
+	var alreadyInitialized:Bool = false;
 	var bg:FlxSprite;
 	var alphabetArray:Array<Alphabet> = [];
 	var onSonic:Bool = true;
 	var clashsupBG:FlxSprite;
-	var paracomessapohameno:Bool = false;
 	var console:FlxSprite;
 	var text:Alphabet;
 	private var entrada:Bool = true;
@@ -42,6 +42,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 	// Week -1 = Freeplay
 	public function new(song:String, week:Int = -1)
 	{
+		alreadyInitialized = false;
 		Main.mouse_allowed=true;
 		consoleCam = new FlxCamera(0, 0, 768, 672);//Ainda a calcular...
 
@@ -49,7 +50,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		this.week = week;
 
 		new FlxTimer().start(1.0, function(tmr:FlxTimer) {
-			paracomessapohameno = true;
+			alreadyInitialized = true;
 		});
 
 		
@@ -125,6 +126,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
 		#end
+		
 	}
 
 	override function update(elapsed:Float)
@@ -135,28 +137,31 @@ class ConsoleClashSubState extends MusicBeatSubstate
 			var spr = alphabetArray[i];
 			spr.alpha += elapsed * 2.5;
 		}
-		if(!Main.getMouseVisibility()){
-			if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
-				GlobalSoundManager.play(scrollMenu);
-				onSonic = !onSonic;
+		if (alreadyInitialized){
+			if(!Main.getMouseVisibility()){
+				if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
+					GlobalSoundManager.play(scrollMenu);
+					onSonic = !onSonic;
+					updateOptions();
+				}
+				if(controls.BACK) { //ok
+					close();
+					MenuHistoria.instance.returnFromCCC();
+				} else if(controls.ACCEPT) 
+				{
+					confirm();
+				}
+			}else{
+				if (BSLTouchUtils.apertasimples(sonic_button)&&!onSonic)
+					onSonic=true;
+				else if (BSLTouchUtils.apertasimples(mario_button)&&onSonic)
+					onSonic=false;
+				else if (BSLTouchUtils.apertasimples(sonic_button) || BSLTouchUtils.apertasimples(mario_button)){
+					confirm();
+					return;
+				}
 				updateOptions();
 			}
-			if(controls.BACK) { //ok
-				if(!negadoAud.playing) negadoAud.play();
-			} else if(controls.ACCEPT && paracomessapohameno) 
-			{
-				confirm();
-			}
-		}else{
-			if (BSLTouchUtils.apertasimples(sonic_button)&&!onSonic)
-				onSonic=true;
-			else if (BSLTouchUtils.apertasimples(mario_button)&&onSonic)
-				onSonic=false;
-			else if (BSLTouchUtils.apertasimples(sonic_button) || BSLTouchUtils.apertasimples(mario_button)){
-				confirm();
-				return;
-			}
-			updateOptions();
 		}
 		super.update(elapsed);
 	}

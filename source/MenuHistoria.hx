@@ -543,7 +543,7 @@ class MenuHistoria extends MusicBeatSubstate
 		});
 	}
 
-	function entrada()
+	function entrada(?onComplete:Void->Void):Void
 	{
 		var escolhaWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		var pasta:String = escolhaWeek.weekBackground;
@@ -577,6 +577,8 @@ class MenuHistoria extends MusicBeatSubstate
 		});
 		var songLowerCase:String = Paths.formatToSongPath(musicas[curSelected]);
 		highscoreText.text = "HIGHSCORE: \n"+Std.string(Highscore.getScore(songLowerCase, 2));
+
+		if (onComplete != null) onComplete();
 	}
 
 	public function changeSong(change:Int = 0, side:Bool = false):Void
@@ -737,5 +739,14 @@ class MenuHistoria extends MusicBeatSubstate
 			return Paths.image("scrolling/scroll-" + assetName + "/scroll-" + key.toLowerCase() + " (txt)",'locales',true,true);
 		}else
 			return Paths.image("scrolling/scroll-" + assetName + "/scroll-" + key.toLowerCase() + " (txt)");
+	}
+
+	public function returnFromCCC(){
+		entrada(function() {
+			naopodevoltar = false;
+			apertavel = true;
+			persistentUpdate = true;
+			selectedWeek = false;
+		});
 	}
 }
