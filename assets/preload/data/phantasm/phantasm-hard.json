@@ -3,8 +3,8 @@
 		"sectionLengths": [],
 		"player1": "sonicPHANTASM",
 		"events": [],
-		"gfVersion": "invisibru",
-		"player2": "sonicPHANTASM",
+		"gfVersion": "fleetwayPHANTASM_Invisibru",
+		"player2": "fleetwayPHANTASM_Invisibru",
 		"notes": [
 			{
 				"sectionNotes": [
@@ -6848,12 +6848,12 @@
 				"mustHitSection": true
 			}
 		],
-		"player3": "invisibru",
+		"player3": "fleetwayPHANTASM_Invisibru",
 		"song": "phantasm",
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,
-		"startinvisibru": true,
+		"startfleetwayPHANTASM_Invisibru": true,
 		"splashSkin": "noteSplashes",
 		"stage": "fleetPHANTASM",
 		"speed": 2.8,
