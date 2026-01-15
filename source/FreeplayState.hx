@@ -48,6 +48,7 @@ class FreeplayState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var intendedMultiplier:Float = 1;
 	var intendedRating:Float = 0;
+	var alreadyInitialized:Bool = false;
 
 	public static var instance:FreeplayState;
 	private var grpSongs:FlxTypedGroup<Alphabet>;
@@ -56,7 +57,7 @@ class FreeplayState extends MusicBeatState
 
 	var bg:FlxSprite;
 	var perfilSprite:FlxSprite = null;
-	var outroperfilSprite:FlxSprite = null; // Fuuuuuuuuuuuuuuuuuuuuuuu
+	var outroPerfilSprite:FlxSprite = null; // Fuuuuuuuuuuuuuuuuuuuuuuu
 
 	public static var progressFreeplay:Int = 1;
 	public static var modifiersOpened:Bool = false;
@@ -77,6 +78,8 @@ class FreeplayState extends MusicBeatState
 	override function create()
 	{
 		if (instance == null) { instance = this; }
+
+		alreadyInitialized = false;
 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
@@ -160,29 +163,25 @@ class FreeplayState extends MusicBeatState
 
 
 		disc.loadGraphic(Paths.image("freeplay-disc/disco", 'preload'));
-		disc.x = (FlxG.width - 460) / 2 - 250; // Bem vindo a turma de matemática avançada
+		disc.updateHitbox();
+		disc.x = (FlxG.width) / 2 - disc.width * 1.1;
+		disc.screenCenter(Y);
 		add(disc);
-		perfilSprite = new FlxSprite(0, 0);
+		perfilSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("freeplay-disc/disco", 'preload'));
+		perfilSprite.updateHitbox();
+		perfilSprite.setPosition(disc.x, disc.y);
 		perfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		add(perfilSprite);
-		outroperfilSprite = new FlxSprite(0, 0);
-		outroperfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
-		add(outroperfilSprite);
-		outroperfilSprite.alpha = 0;
+		outroPerfilSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("freeplay-disc/disco", 'preload'));
+		outroPerfilSprite.updateHitbox();
+		outroPerfilSprite.setPosition(disc.x, disc.y);
+		outroPerfilSprite.antialiasing = ClientPrefs.globalAntialiasing;
+		add(outroPerfilSprite);
+		outroPerfilSprite.alpha = 0;
 		perfilSprite.alpha = 0;
-		disc.screenCenter(Y);
-		perfilSprite.screenCenter(Y);
-		outroperfilSprite.screenCenter(Y);
-		disc.x = 38;
-		disc.x = disc.x - 82.5;
-		perfilSprite.x = 18 + 38;
-		perfilSprite.alpha = 0;
-		outroperfilSprite.alpha = 0;
-		outroperfilSprite.x = 18 + 38;
 
+		
 		changeSelection(true);
-
-		new FlxTimer().start(0.3, function(tmr:FlxTimer) { apertavel = true; });
 
 		// AAAAAAAA
 		#if mobileC
@@ -244,8 +243,10 @@ class FreeplayState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		perfilSprite.angle = disc.angle;
-		outroperfilSprite.angle = disc.angle;
+		if (alreadyInitialized){
+			perfilSprite.angle = disc.angle;
+			outroPerfilSprite.angle = disc.angle;
+		}
 
 		if (FlxG.sound.music == null)	FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		if (FlxG.sound.music.volume < 0.7)	FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -404,20 +405,27 @@ class FreeplayState extends MusicBeatState
 			if (item.targetY == 0) item.alpha = 1;
 		}
 		Paths.currentModDirectory = songs[curSelected].folder;
-		var curtimer:Float = 0.3;
-
+		
+		if (firstTime)
+			new FlxTimer().start(1, function(tmr:FlxTimer) {
+				tweenDiscs();
+			});
+		else
+			tweenDiscs();
+	}
+		
+		
+	private function tweenDiscs(){
+		final curtimer:Float = 0.3;
 		if (!apertavel) {
-			FlxTween.tween(outroperfilSprite, {alpha: 0}, curtimer, {
+			FlxTween.tween(outroPerfilSprite, {alpha: 0}, curtimer, {
 				ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween)
 				{
 					if (OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-" + songs[curSelected].songName.toLowerCase(), 'preload'))) { // anti crashing moment
-						outroperfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-" + songs[curSelected].songName.toLowerCase(), 'preload'));
-						outroperfilSprite.updateHitbox();
-						outroperfilSprite.screenCenter(Y);
-						outroperfilSprite.alpha = 1;
-						outroperfilSprite.scale.x = 1.05;
-						outroperfilSprite.scale.y = 1.05;
+						outroPerfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-" + songs[curSelected].songName.toLowerCase(), 'preload'));
+						outroPerfilSprite.updateHitbox();
+						outroPerfilSprite.alpha = 1;
 					} else {
 						FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-" + songs[curSelected].songName.toLowerCase());
 					}
@@ -426,10 +434,7 @@ class FreeplayState extends MusicBeatState
 			if (OpenFlAssets.exists(Paths.imagechecker("freeplay-disc/disc-" + songs[curSelected].songName.toLowerCase(), 'preload'))) { // anti crashing moment
 				perfilSprite.loadGraphic(Paths.image("freeplay-disc/disc-" + songs[curSelected].songName.toLowerCase(), 'preload'));
 				perfilSprite.updateHitbox();
-				perfilSprite.screenCenter(Y);
 				perfilSprite.alpha = 0;
-				perfilSprite.scale.x = 1.05;
-				perfilSprite.scale.y = 1.05;
 			} else {
 				FlxG.log.warn('Não foi possível achar ' + "freeplay-disc/disc-" + songs[curSelected].songName.toLowerCase());
 			}
@@ -439,8 +444,9 @@ class FreeplayState extends MusicBeatState
 					perfilSprite.alpha = 0;
 					apertavel = true;
 					if (firstTime) {
-						cd_spin();
 						firstTime = false;
+						alreadyInitialized = true;
+						cd_spin(); 
 					}
 				}
 			});

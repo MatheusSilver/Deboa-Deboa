@@ -174,7 +174,7 @@ end
         end   
     end
     
-    function onUpdate() 
+    function onFixedUpdate() 
         if darknotevisibility then
             if getPropertyFromGroup('strumLineNotes', 4, 'alpha') > 0 then
                 setPropertyFromGroup('strumLineNotes', 4, 'alpha', getPropertyFromGroup('strumLineNotes', 4, 'alpha') - 0.02);

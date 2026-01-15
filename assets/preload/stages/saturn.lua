@@ -33,18 +33,17 @@ function onStepHit()
 	
 end
 
-function onUpdate()
 
-	if tailscircle == 'hovering' then
-        setProperty('dad.y', getProperty('dad.y') + seno(floaty) * 0.5);
-		floaty = floaty + 0.06
-        setProperty('dad.x', getProperty('dad.x') + cosseno(floaty) * 0.5);
-		floaty = floaty + 0.05
-    end
-    if tailscircle == 'circling' then
-        setProperty('dad.y', getProperty('dad.y') + seno(floaty) * 3.8);
-		floaty = floaty + 0.06
-        setProperty('dad.x', getProperty('dad.x') + cosseno(floaty) * 1.9);
-		floaty = floaty + 0.05
+function onFixedUpdate()
+    if tailscircle == 'hovering' then
+		floaty = floaty + (0.06) 
+        setProperty('dad.y', getProperty('dad.y') + seno(floaty) * 0.5)
+		floaty = floaty + (0.05)
+        setProperty('dad.x', getProperty('dad.x') + cosseno(floaty) * 0.5)
+	elseif tailscircle == 'circling' then
+		floaty = floaty + (0.06) 
+        setProperty('dad.y', getProperty('dad.y') + seno(floaty) * 3.8)
+		floaty = floaty + (0.05)
+        setProperty('dad.x', getProperty('dad.x') + cosseno(floaty) * 1.9)
     end
 end

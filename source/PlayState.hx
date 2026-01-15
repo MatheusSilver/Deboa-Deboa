@@ -2711,15 +2711,14 @@ class PlayState extends MusicBeatState
 			}
 		}
 		timeAccumulated += elapsed;
-		if (SONG.song.toLowerCase() == "confronting-yourself")
-			callOnLuas('onUpdate', [elapsed]);
-		else
-			while (shouldUpdate())
-			{
-				callOnLuas('onUpdate', [elapsed]);
 
-				timeAccumulated -= UPDATE_INTERVAL;
-			}
+		callOnLuas('onUpdate', [elapsed]);
+		if (shouldUpdate())
+		{
+			callOnLuas('onFixedUpdate', []);
+			timeAccumulated -= UPDATE_INTERVAL;
+		}
+
 
 		/*if (FlxG.keys.justPressed.NINE)
 			{
