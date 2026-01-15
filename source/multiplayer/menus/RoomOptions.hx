@@ -77,6 +77,8 @@ class RoomOptions extends MultiplayerMenu
             GlobalSoundManager.play(scrollMenu);
 			bt.alpha = 1;
 		}
+
+        bt.alpha = 0.5;
 	}
 }
 

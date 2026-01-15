@@ -144,7 +144,13 @@ class MultiplayerMainMenuState extends MusicBeatState
 		if (Main.getMouseVisibility()) 
 			return;
 
-		if (!canClick) return;
+		if (!canClick) {
+			if (okBt.visible && controls.ACCEPT) {
+				okBt.onUp.fire();
+				okBt.onDown.fire();
+			}	
+			return;
+		}
 		if (isTransitioning) return;
 		if (isPlayingMatch) return;
 

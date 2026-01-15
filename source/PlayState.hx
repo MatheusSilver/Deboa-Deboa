@@ -1759,7 +1759,7 @@ class PlayState extends MusicBeatState
 
 	public function pularVideo(?naoPularTempo:Bool = false)
 	{
-		if (playingVideoMP4)
+		if (playingVideoMP4 && !paused)
 		{
 			letext.alpha = 0;
 			camHUD.alpha = 1;
