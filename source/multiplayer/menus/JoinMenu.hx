@@ -92,6 +92,7 @@ class JoinMenu extends MultiplayerMenu
             GlobalSoundManager.play(scrollMenu);
 			bt.alpha = 1;
 		}
+        bt.alpha = 0.5;
 	}
 
     public override function open(oldMenu:MultiplayerMenu) {
