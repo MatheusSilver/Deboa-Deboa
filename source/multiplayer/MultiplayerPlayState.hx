@@ -32,6 +32,8 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.util.FlxSort;
 import lime.utils.Assets;
+import openfl.utils.Assets as OpenFlAssets;
+import sys.FileSystem;
 import openfl.net.URLRequest;
 import openfl.events.Event;
 import openfl.events.ErrorEvent;
@@ -146,6 +148,8 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	var timerToStart:Float = 0;
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 
+	public var luaArray:Array<FunkinLua> = [];
+
 	override function create()
 	{
 		updateTime = true;
@@ -247,16 +251,27 @@ class MultiplayerPlayState extends MusicBeatSubstate
 			else
 				vocals = new FlxSound();
 			generateSong(_song.song);
+			
+			#if LUA_ALLOWED
+			for (notetype in noteTypeMap.keys()) {
+				var luaToLoad:String = Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
+				if(Assets.exists(luaToLoad)) {
+					var lua:editors.EditorLua = new editors.EditorLua(luaToLoad);
+					new FlxTimer().start(0.1, function (tmr:FlxTimer) {
+						lua.stop();
+						lua = null;
+					});
+				}
+			}
+			#end
+			noteTypeMap.clear();
+			noteTypeMap = null;
 		}
 		else
 		{
 			FlxG.log.error("Algo deu errado, tentando terminar a partida.");
 			MultiplayerMainMenuState.instance.enviarPrecisoTerminar();
 		}
-
-
-		noteTypeMap.clear();
-		noteTypeMap = null;
 
 		scoreTxt = new FlxText(0, ClientPrefs.downScroll ? 25 : FlxG.height - 65, FlxG.width, "", 50);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 25, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -455,10 +470,10 @@ class MultiplayerPlayState extends MusicBeatSubstate
 	{
 		for (songNotes in section.sectionNotes)
 		{
-			if (songNotes[1] > -1 && (!isRing || (songNotes[1] != 2 && songNotes[1] != 7)))
+			if (songNotes[1] > -1 && !isRing)
 			{ // Real notes - excluindo-se as notas de anel.
-				if (songNotes[3] == "" || songNotes[3] == null || songNotes[3] == "dualSing" || songNotes[3] == "GF Sing")
-				{
+				/*if (songNotes[3] == "" || songNotes[3] == null || songNotes[3] == "dualSing" || songNotes[3] == "GF Sing")
+				{*/
 					if (isRing && songNotes[1] >= 2)
 						songNotes[1] -= songNotes[1] >= 7 ? 2 : 1;
 					// 2 pra remover a nota de anel tanto do opp quanto do bf, 1 pra remover só do bf.
@@ -539,7 +554,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 							noteTypeMap.set(swagNote.noteType, true);
 						}
 					}
-				}
+				//}
 			}
 		}
 	}

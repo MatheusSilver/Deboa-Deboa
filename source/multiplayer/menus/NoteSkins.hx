@@ -130,6 +130,7 @@ class SkinSelector extends FlxSpriteGroup
             GlobalSoundManager.play(scrollMenu);
 			bt.alpha = 1;
 		}
+		bt.alpha = 0.5;
 	}
 
 	function clickEsquerda()

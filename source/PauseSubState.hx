@@ -330,8 +330,8 @@ class PauseSubState extends MusicBeatSubstate
 				FlxTween.tween(PlayState.instance.camOther, {zoom: originalZoomOther}, 0.35, {ease: FlxEase.quartInOut});
 				//FlxTween.tween(PlayState.instance.camHUD2, {zoom: originalZoomHUD2}, 0.35, {ease: FlxEase.quartInOut});
 				FlxTween.tween(exe, {x: FlxG.width+exe.width}, 0.6, {ease: FlxEase.quartInOut, onComplete: function(twn:FlxTween) {
-					if(!PlayState.instance.playingVideoMP4) // Acho que era pra ser assim...
-					{
+					if(PlayState.instance.playingVideoMP4) // Acho que era pra ser assim...
+					{									// Não era meu mano....
 						startCountdownback();
 					}
 				}});
