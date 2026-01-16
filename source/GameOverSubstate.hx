@@ -108,16 +108,16 @@ class GameOverSubstate extends MusicBeatSubstate
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 
-	var eusougalinha:Bool = false;
+	var eusougalinha:Bool = false; // que merda de nome de variavel é essa
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
 		if(!isEnding){
-		if (retryButton.angle == -3)
-			retryTween = FlxTween.angle(retryButton, retryButton.angle, 3, 1.5, {ease: FlxEase.quartInOut});
-		if (retryButton.angle == 3)
-			retryTween = FlxTween.angle(retryButton, retryButton.angle, -3, 1.5, {ease: FlxEase.quartInOut});
+			if (retryButton.angle == -3)
+				retryTween = FlxTween.angle(retryButton, retryButton.angle, 3, 1.5, {ease: FlxEase.quartInOut});
+			if (retryButton.angle == 3)
+				retryTween = FlxTween.angle(retryButton, retryButton.angle, -3, 1.5, {ease: FlxEase.quartInOut});
 		}
 
 		PlayState.instance.callOnLuas('onUpdate', [elapsed]);
@@ -133,6 +133,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.BACK && eusougalinha)
 		{
+			isEnding = true;
 			FlxG.sound.music.stop();
 
 			PlayState.deathCounter = 0;
