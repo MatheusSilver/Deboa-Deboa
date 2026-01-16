@@ -112,6 +112,7 @@ function onEvent(evento, valor1, valor2)
             
             fastChar('invisibruphase3heroi', 'Sonicphase3vilao')
             setProperty('iconP2.alpha', 0)
+            triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
             transVermelha()
         end
         if valor1 == '4' then
