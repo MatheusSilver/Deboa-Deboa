@@ -348,7 +348,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty("phase9-2.antialiasing", false)
 	setProperty("phase9-2.visible", false)
 	setProperty("phase9-2.x", -400)
-	setProperty("phase9-2.y", -110)
+	setProperty("phase9-2.y", -160)
 	addLuaSprite('phase9-2', false);
 
 	makeLuaSprite('phase9-3','cenarios/phase9/3',1000,-620)--5
