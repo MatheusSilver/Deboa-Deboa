@@ -216,6 +216,8 @@ function onEvent(evento, valor1, valor2)
             setProperty('knuxerabos.y', getCharacterY('bf')+425)
 		    setProperty('knuxerabos.x', getCharacterX('bf')+2000)
             runTimer('followdepois', 2.5)
+            runTimer('lockmovement', 2.48) -- Essa linha talvez precise ser ajustada 
+                                           -- Caso perceba alguma quebra de movimento bruta.
                                                             
             triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
         end
@@ -343,11 +345,14 @@ end
 
 function onTimerCompleted(tag)
     if tag == "clashSonicKnucks" then
-        doTweenX('sonicclashknux', 'boyfriend', getCharacterX('bf')+510, 2.2, 'quartin') -- Quartin de doido k (na real a ideia é que ele chegue lá a milhão por hora)
+        prevBosBF = getCharacterX('bf')
+        setProperty("boyfriend.x", prevBosBF-700)
+        doTweenX('sonicclashknux', 'boyfriend', prevBosBF+510, 2.2, 'quartin') -- Quartin de doido k (na real a ideia é que ele chegue lá a milhão por hora)
     end
     if tag == 'followdepois' then
-        runTimer('lockmovement', 0.15)
-        doTweenX('goknux', 'knuxerabos', getCharacterX('bf')+760, 0.25, 'quadInOut')
+        
+        setProperty("knuxerabos.x", getCharacterX('bf')+760)
+        -- doTweenX('goknux', 'knuxerabos', getCharacterX('bf')+760, 0.25, 'quadInOut')
         triggerEvent('Camera Follow Pos',camPosBFX+20,camPosBFY+165)
         runTimer('clashSonicKnucks', 1)
     end

@@ -288,15 +288,14 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('angelislandarvores');
 
 	makeLuaTiledSprite('angelislandchao','cenarios/phase6/gramado',6810,1024,true,false) --1
-	setLuaSpriteScrollFactor('angelislandchao',0.4,1)
+	setLuaSpriteScrollFactor('angelislandchao',1,1)
 	setPropertyTiledLuaSprite("angelislandchao.antialiasing", false)
-	setPropertyTiledLuaSprite("angelislandchao.x", -555)
+	setPropertyTiledLuaSprite("angelislandchao.x", -655)
 	setPropertyTiledLuaSprite("angelislandchao.y", -165-60)
 	setPropertyTiledLuaSprite("angelislandchao.visible", false)
 	addLuaSprite('angelislandchao');
 
 	makeLuaSprite('knuxerabos','tailsknuckles',800,2000)--5
-	setLuaSpriteScrollFactor('knuxerabos',0.9,0.9)
 	setProperty('knuxerabos.scale.x', 0.6)
 	setProperty('knuxerabos.scale.y', 0.6)
 	setProperty('knuxerabos.visible', false)
