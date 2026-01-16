@@ -326,7 +326,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	addLuaSprite('phase7-3',true)
 
 	makeLuaSprite('phase7-4','cenarios/phase7/4',-300,-50)--5
-	setLuaSpriteScrollFactor('phase7-4',0.6,0.4)
+	setLuaSpriteScrollFactor('phase7-4',0.6,0.6)
 	setProperty('phase7-4.scale.x', 1.65)
 	setProperty('phase7-4.scale.y', 1.65)
 	setProperty('phase7-4.visible', false)
@@ -348,7 +348,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty("phase9-2.antialiasing", false)
 	setProperty("phase9-2.visible", false)
 	setProperty("phase9-2.x", -400)
-	setProperty("phase9-2.y", -160)
+	setProperty("phase9-2.y", -110)
 	addLuaSprite('phase9-2', false);
 
 	makeLuaSprite('phase9-3','cenarios/phase9/3',1000,-620)--5
