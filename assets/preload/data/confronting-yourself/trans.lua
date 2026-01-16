@@ -117,6 +117,7 @@ function onEvent(evento, valor1, valor2)
         end
         if valor1 == '4' then
             fastChar('Sonicphase3heroi', 'invisibruphase3vilao')
+            triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
             if flashing then
             cameraFlash('legenda', '0xffffff', 1, true)
             end
@@ -124,6 +125,7 @@ function onEvent(evento, valor1, valor2)
         if valor1 == '4-5' then
             transVermelha()
             fastChar('invisibruphase3heroi', 'Sonicphase3vilao')
+            triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
             triggerEvent("trocar stage", '5', 'nada', 'nada', 'nada')
         end
         if valor1 == '4-10' then
@@ -131,7 +133,7 @@ function onEvent(evento, valor1, valor2)
             cameraFlash('legenda', '0xffffff', 1, true)
             end
             fastChar('Sonicphase3heroi', 'invisibruphase3vilao')
-            --fastChar('Sonicphase3heroi', 'Sonicphase3vilao')
+            triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
             triggerEvent("trocar stage", '4', 'nada', 'nada', 'nada')
         end
         if valor1 == '5' then
