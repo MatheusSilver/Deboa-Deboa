@@ -53,10 +53,16 @@ class MusicBeatState extends FlxUIState
 	}
 	#end			
 
+	var lastMouseX:Float = 0;
+	var lastMouseY:Float = 0;
+	var mouseActuallyMoved:Bool = false;
 	override function create() {
 		camBeat = FlxG.camera;
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		super.create();
+
+		lastMouseX = FlxG.mouse.screenX;
+		lastMouseY = FlxG.mouse.screenY;
 
 		// Custom made Trans out
 		if(!skip) {
@@ -76,16 +82,20 @@ class MusicBeatState extends FlxUIState
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
+		mouseActuallyMoved = (FlxG.mouse.screenX != lastMouseX || FlxG.mouse.screenY != lastMouseY);
+
 		if (Main.getMouseVisibility() && (FlxG.keys.pressed.ANY || GamepadUtil.anyGamepadButtonPressed())){
 			if (!Main.isKeyboard && FlxG.keys.pressed.ANY) Main.isKeyboard = true;
 			else if (Main.isKeyboard && GamepadUtil.anyGamepadButtonPressed()) Main.isKeyboard = false;
 
 			Main.mouseVisibility(false);
 			
-		}else if (Main.mouse_allowed && #if !mobile FlxG.mouse.justMoved #else BSLTouchUtils.justTouched() #end){
+		}else if (Main.mouse_allowed && #if !mobile mouseActuallyMoved #else BSLTouchUtils.justTouched() #end){
 			Main.mouseVisibility(true);
 		}
 
+		lastMouseX = FlxG.mouse.screenX;
+		lastMouseY = FlxG.mouse.screenY;
 		super.update(elapsed);
 	}
 

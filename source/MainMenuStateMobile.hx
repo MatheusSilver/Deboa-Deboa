@@ -38,8 +38,6 @@ import Discord.DiscordClient;
 
 class MainMenuStateMobile extends MusicBeatState
 {
-	public static var psychEngineVersion:String = 'V1'; //This is also used for Discord RPC
-
 	public var camGame:FlxCamera;
 	public static var camAchievement:FlxCamera;
 	var clicavel:Bool = false;
@@ -52,7 +50,6 @@ class MainMenuStateMobile extends MusicBeatState
 	var letext:FlxText;
 	var isCoolBeat:Bool=true;
 	public static var instance:MainMenuStateMobile;
-	//var gradientBar:FlxGradient;
 	
 	var optionShit:Array<String> = 
 	['story',
@@ -74,7 +71,7 @@ class MainMenuStateMobile extends MusicBeatState
 	var gameJoltIcon:FlxSprite;
 
 	public static var version:String = '0.12.2';
-	public static var verificaDnvIdiota:Bool = false;
+	public static var verificaDnvIdiota:Bool = false; // que isso que grosseria
 
 	public static var passouCY:Bool = false;
 

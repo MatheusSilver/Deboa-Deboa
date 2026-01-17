@@ -218,9 +218,10 @@ class FreeplayState extends MusicBeatState
 		super.closeSubState();
 	}
 
+	var cdSpinTween:FlxTween;
 	private function cd_spin()
 	{
-		FlxTween.tween(disc, {angle: disc.angle + 180}, 30, {
+		cdSpinTween = FlxTween.tween(disc, {angle: disc.angle + 180}, 30, {
 			ease: FlxEase.linear,
 			onComplete: function(twn:FlxTween) { cd_spin(); }
 		});
@@ -235,6 +236,12 @@ class FreeplayState extends MusicBeatState
 		substate.close();
 		apertavel = true;
 		modifiersOpened = false;
+		if (cdSpinTween != null) {
+			cdSpinTween = FlxTween.tween(disc, {angle: disc.angle + 180}, 30, {
+				ease: FlxEase.linear,
+				onComplete: function(twn:FlxTween) { cd_spin(); }
+			});
+		}
 		#if rpc DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_freeplay", "rpc"), null); #end
 	}
 
@@ -311,11 +318,17 @@ class FreeplayState extends MusicBeatState
 		if (ctrl && !modifiersOpened && apertavel && MainMenuStateMobile.passouCY #if !debug && ProgressionUtil.terminouTudo() #end) {
 			apertavel = false;
 			modifiersOpened = true;
+			if (cdSpinTween != null) {
+				cdSpinTween.cancel();
+			}
 			openSubState(new modifiers.ModifiersMenuState(true));
 		}
 		if ((controls.BACK #if android || FlxG.android.justReleased.BACK #end) && apertavel) {
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new MainMenuStateMobile());
+			if (cdSpinTween != null) {
+				cdSpinTween.cancel();
+			}
 		}
 		if (space && instPlaying != curSelected && apertavel) {
 			Paths.currentModDirectory = songs[curSelected].folder;
