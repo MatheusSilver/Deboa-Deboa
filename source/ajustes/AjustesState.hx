@@ -184,17 +184,17 @@ class AjustesState extends MusicBeatState
 			else{
 				curSelected +=1;
 				if (optionShit[curSelected] == "gamejooj" && (GJClient.logged || TitleState.ModoOffline))
-					curSelected = 0;
+					curSelected +=1;
 			}
 		}
 		else if (controls.UI_UP_P)
 		{
 			if (curSelected - 1 < 0)
 				curSelected = optionShit.length - 1;
-				if (optionShit[curSelected] == "gamejooj" && (GJClient.logged || TitleState.ModoOffline))
-					curSelected -=1;
 			else{
 				curSelected -= 1;
+				if (optionShit[curSelected] == "gamejooj" && (GJClient.logged || TitleState.ModoOffline))
+					curSelected -=1;
 			}
 		}
 	}
