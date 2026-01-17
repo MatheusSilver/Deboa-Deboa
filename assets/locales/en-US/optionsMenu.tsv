@@ -1,5 +1,6 @@
 flag	context
 opt_settings	Settings
+opt_sync	Audio Sync
 opt_controls	Controls
 opt_mobileControls	Mobile Controls
 opt_arrows	Note Colors

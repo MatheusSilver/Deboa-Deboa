@@ -32,7 +32,7 @@ class AjustesState extends MusicBeatState
 	var letext:FlxText;
 	var isCoolBeat:Bool=true;
 	//var gradientBar:FlxGradient;
-	var optionShit:Array<String> = ['settings','controls', #if mobileC 'mobileControls', #end 'arrows', 'language', 'gamejooj'];
+	var optionShit:Array<String> = ['settings','controls', #if mobileC 'mobileControls', #end 'arrows', 'language', 'gamejooj', 'sync'];
 
 	var machine:FlxSprite;
 	var logoBl:FlxSprite;
@@ -114,9 +114,9 @@ class AjustesState extends MusicBeatState
 		option_buttons = new FlxTypedGroup<FlxButton>();
 		add(option_buttons);
 
-		var k:Int = Math.floor((FlxG.height - 115*optionShit.length)/2);
+		var k:Int = Math.floor((FlxG.height - 95*optionShit.length)/2);
 		for (i in 0...optionShit.length){
-			var button:FlxButton = new FlxButton(FlxG.width, k + 115*i, "");
+			var button:FlxButton = new FlxButton(FlxG.width, k + 105*i, "");
 			if (optionShit[i] == "gamejooj"){
 				if(!GJClient.logged && !TitleState.ModoOffline)
 					button.loadGraphic(Paths.image('optionsmenu/gamejooj', 'preload'));
@@ -126,9 +126,9 @@ class AjustesState extends MusicBeatState
 				button.loadGraphic(Paths.image('buttons_base/SettingsMenu', 'preload'));
 				button.label.text =Linguagem.LangUtil.getString("opt_"+optionShit[i], "optionsMenu");
 			}
-			button.label.setFormat(Linguagem.LangUtil.getFont('sonic-3'), 28, FlxColor.WHITE, LEFT);
-			button.labelOffsets = [FlxPoint.get(84,36), FlxPoint.get(84,36), FlxPoint.get(84,36)];
-			button.setGraphicSize(Std.int(button.width * 0.6));
+			button.label.setFormat(Linguagem.LangUtil.getFont('sonic-3'), 24, FlxColor.WHITE, LEFT);
+			button.labelOffsets = [FlxPoint.get(78,33), FlxPoint.get(78,33), FlxPoint.get(78,33)];
+			button.setGraphicSize(Std.int(button.width * 0.55));
 			button.updateHitbox();
 			button.alpha = 0.75;
 			button.labelAlphas = [button.alpha, 1, 1];
@@ -150,7 +150,7 @@ class AjustesState extends MusicBeatState
 	
 		for (i in 0...optionShit.length){
 			new FlxTimer().start(0.1 + 1/optionShit.length*i, function(tmr:FlxTimer) {
-				FlxTween.tween(option_buttons.members[i], {x: FlxG.width - 2.5*option_buttons.members[i].width + 786}, 0.6,
+				FlxTween.tween(option_buttons.members[i], {x: FlxG.width - 2.5*option_buttons.members[i].width + 730}, 0.6,
 					 {ease: FlxEase.expoInOut, onComplete: function(twn:FlxTween){
 						if (i == optionShit.length -1)
 							pode=true;
@@ -233,11 +233,6 @@ class AjustesState extends MusicBeatState
 			selectedSomethin = true;
 			MusicBeatState.switchState(new editors.MasterEditorMenu());
 		}
-		else if (FlxG.keys.justPressed.EIGHT)
-		{
-			selectedSomethin = true;
-			MusicBeatState.switchState(new SyncState());
-		}
 		#end
 			super.update(elapsed);	
 		}
@@ -280,6 +275,7 @@ class AjustesState extends MusicBeatState
 				#if mobileC case "mobileControls": MusicBeatState.switchState(new ajustes.ControlesState()); #end //Tem gente que joga no mobile com teclado, mouse e gamepad A.K.A. Frost
 				case 'arrows': MusicBeatState.switchState(new ajustes.NotesSubState());
 				case 'gamejooj': MusicBeatState.switchState(new GameJoltLoginState());
+				case 'sync':	MusicBeatState.switchState(new ajustes.SyncState());
 				case "language": MusicBeatState.switchState(new Linguagem.LanguageState());
 			}	
 		}

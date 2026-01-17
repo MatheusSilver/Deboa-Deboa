@@ -1,3 +1,5 @@
+package ajustes;
+
 import flixel.util.FlxTimer;
 import flixel.sound.FlxSound;
 import flixel.tweens.FlxEase;
