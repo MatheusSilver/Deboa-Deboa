@@ -76,7 +76,6 @@ class TitleState extends MusicBeatState
 	public static var updateVersion:String = '';
 
 	public static var ModoOffline:Bool = false;
-
 	override public function create():Void
 	{
 		if(instance == null)
@@ -132,10 +131,16 @@ class TitleState extends MusicBeatState
 			MusicBeatState.switchState(new PibbyTela());
 		} else if (!PreTitleState.jarodou) {
 			FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
-			new InputLabel();
-			MusicBeatState.switchState(new PreTitleState()); // Não atrapalha no PC, e Resolve o problema do mobile, todos ganham k
-			ModifiersManager.loadSave();
+			var connectionVerify:FlxText;
+			connectionVerify = new FlxText(0, 0, 0, Linguagem.LangUtil.getString("menu_connecting", "mainMenu"), 16);
+			connectionVerify.setFormat(Linguagem.LangUtil.getFont("gobold2"), 16, FlxColor.GRAY);
+			connectionVerify.screenCenter(XY);
+			add(connectionVerify);
+
 			verificarConexao();
+			new InputLabel();
+			ModifiersManager.loadSave();
+			MusicBeatState.switchState(new PreTitleState()); // Não atrapalha no PC, e Resolve o problema do mobile, todos ganham k
 		} else {
 			if (initialized) {
 				startIntro();
@@ -149,13 +154,8 @@ class TitleState extends MusicBeatState
 			}
 		}
 		#end
-
-		#if desktop
-		// GameJoltAPI.connect();
-		// GameJoltAPI.authDaUser(FlxG.save.data.gjUser, FlxG.save.data.gjToken);
-		// Updating Discord Rich Presence
-		#end
 	}
+	
 	public static var canVerify:Bool = true;
 	public function verificarConexao(?force:Bool = false):Void
 		{
