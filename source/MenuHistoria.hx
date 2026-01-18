@@ -80,6 +80,14 @@ class MenuHistoria extends MusicBeatSubstate
 
 	var canOpenModifiers:Bool = false;
 
+	var skipFirstTrans:Bool = false;
+
+	public override function new(?skipFirstTrans:Bool = false) {
+		this.skipFirstTrans = skipFirstTrans;
+
+		super();
+	}
+
 
 	override function create()
 	{
@@ -166,7 +174,7 @@ class MenuHistoria extends MusicBeatSubstate
 		add(blackLock);
 		add(lockSprite);
 
-		changeSong();
+		changeSong(0, false, skipFirstTrans);
 
 		#if mobileC
 		addVirtualPad(LEFT_RIGHT, A_B);
@@ -543,7 +551,7 @@ class MenuHistoria extends MusicBeatSubstate
 		});
 	}
 
-	function entrada(?onComplete:Void->Void):Void
+	function entrada(?onComplete:Void->Void, ?skipTrans:Bool = false):Void
 	{
 		var escolhaWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		var pasta:String = escolhaWeek.weekBackground;
@@ -581,7 +589,7 @@ class MenuHistoria extends MusicBeatSubstate
 		if (onComplete != null) onComplete();
 	}
 
-	public function changeSong(change:Int = 0, side:Bool = false):Void
+	public function changeSong(change:Int = 0, side:Bool = false, ?skipTrans:Bool = false):Void
 	{
 		apertavel = false;
 		curSelected += change;
@@ -633,7 +641,13 @@ class MenuHistoria extends MusicBeatSubstate
 		bgSprite.setGraphicSize(FlxG.width, FlxG.height);
 		pastbgSprite.screenCenter(XY);
 
-		var curtimer:Float = 0.3;
+		var curtimer:Float = skipTrans ? 0.001 : 0.3;
+
+		if (skipTrans) {
+			bgSprite.alpha = 1;
+			pastbgSprite.alpha = 0;
+		}
+
 		FlxTween.tween(bgSprite, {alpha: 1}, curtimer * 2, {ease: FlxEase.expoInOut});
 		FlxTween.tween(pastbgSprite, {alpha: 0}, curtimer * 2, {
 			ease: FlxEase.expoInOut,
@@ -727,7 +741,8 @@ class MenuHistoria extends MusicBeatSubstate
 				textoSprite.screenCenter(X);
 				perfilSprite.screenCenter(X);
 				perfilSprite.y = -FlxG.height;
-				entrada();
+
+				entrada(null, skipTrans);
 			}
 		});
 	}

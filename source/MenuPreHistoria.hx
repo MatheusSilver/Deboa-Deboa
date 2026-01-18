@@ -336,7 +336,7 @@ class MenuPreHistoria extends MusicBeatState
 	var selectedWeek:Bool = false;
 	var stopspamming:Bool = false;
 
-	function selectWeek()
+	function selectWeek(?skipTrans:Bool = false)
 	{
 		if (MenuHistoria.preHistoriaSelected != curWeek)
 		{
@@ -361,19 +361,30 @@ class MenuPreHistoria extends MusicBeatState
 		updateBG();
 		old_bg.setGraphicSize(FlxG.width, FlxG.height);
 		old_bg.screenCenter(XY);
-		FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
-		FlxTween.tween(blackbardown, {y: FlxG.height}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
-		FlxTween.tween(bgSprite, {alpha: 0}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
-		FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
-		new FlxTimer().start(1/ClientPrefs.animSpeed, function(tmr:FlxTimer)
+
+		if (skipTrans) {
+			blackbarup.y = 0 - blackbarup.height;
+			blackbardown.y = FlxG.height;
+			bgSprite.alpha = 0;
+			perfilSprite.x = FlxG.width + perfilSprite.width;
+		} else {
+			FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
+			FlxTween.tween(blackbardown, {y: FlxG.height}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
+			FlxTween.tween(bgSprite, {alpha: 0}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
+			FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
+		}
+
+		
+		new FlxTimer().start(1 / ClientPrefs.animSpeed, function(tmr:FlxTimer)
 		{
 			// Corrige o bug de entrar e sair da CCC para o menu de weeks depois ir do menu de weeks direto para CCC
 			// Extremamente específico mas vai que né?
 			MenuHistoria.instance = null;
-			openSubState(new MenuHistoria());
+			openSubState(new MenuHistoria(skipTrans));
 			makeAnimUnlock = false;
 			inCut = false;
 		});
+
 	}
 
 	public function changeWeek(change:Int = 0):Void
@@ -497,7 +508,7 @@ class MenuPreHistoria extends MusicBeatState
 			old_linha_up.setPosition(blackbarup.x,blackbarup.y);
 			old_bg.visible = old_linha_down.visible=old_linha_up.visible=old_perfil.visible = true;
 			bgSprite.visible = perfilSprite.visible = blackbarup.visible = blackbardown.visible= false;
-			selectWeek();
+			selectWeek(true);
 			irDireto = false;
 		}
 	}
