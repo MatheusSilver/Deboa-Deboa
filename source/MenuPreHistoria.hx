@@ -7,6 +7,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import flixel.FlxCamera;
+import flixel.addons.transition.FlxTransitionableState;
 import openfl.utils.Assets as OpenFlAssets;
 import Achievements.AchievementObject;
 import gamejolt.*;

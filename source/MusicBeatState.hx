@@ -71,6 +71,11 @@ class MusicBeatState extends FlxUIState
 		FlxTransitionableState.skipNextTransOut = false;
 	}
 
+	public override function closeSubState() {
+		super.closeSubState();
+		FlxTransitionableState.skipNextTransOut = false;
+	}
+
 	override function update(elapsed:Float)
 	{
 		//everyStep();

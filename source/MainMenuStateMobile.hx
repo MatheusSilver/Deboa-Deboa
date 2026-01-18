@@ -116,9 +116,6 @@ class MainMenuStateMobile extends MusicBeatState
 		}
 
 		Main.mouse_allowed = true;
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
-
 		persistentUpdate = persistentDraw = true;
 
 		bg = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg-wfiltro'));
