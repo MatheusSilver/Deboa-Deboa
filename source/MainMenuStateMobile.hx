@@ -70,7 +70,7 @@ class MainMenuStateMobile extends MusicBeatState
 	public static var passeiAqui:Bool = false;
 	var gameJoltIcon:FlxSprite;
 
-	public static var version:String = '0.12.2';
+	public static var version:String = '0.13.0';
 	public static var verificaDnvIdiota:Bool = false; // que isso que grosseria
 
 	public static var passouCY:Bool = false;

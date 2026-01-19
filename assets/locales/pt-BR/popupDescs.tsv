@@ -2,9 +2,9 @@ flag	context
 desc_modifier_unlock	Aperte CTRL nos menus de<X>Freeplay ou Modo Historia<X>para abrir o menu de modifiers
 desc_multiplayer_unlock	Agora voce pode acessar o<X>modo Multiplayer no menu<X>principal se estiver<X>logado com a GameJolt
 desc_freeplay_unlock	Agora voce pode acessar o<X>Freeplay no<X>menu principal
-desc_tutorial_1 Bem-vindo ao ModBoa EXE!<X>Este mod oferece suporte completo<X>a múltiplos tipos de entrada.
-desc_tutorial_2 Você pode usar teclado,<X>mouse e controle ao mesmo tempo,<X>sem necessidade de configuração externa.
-desc_tutorial_2_mobile  Você pode usar touch, teclado,<X>mouse e controle ao mesmo tempo,<X>sem necessidade de configuração externa.
-desc_tutorial_3 O modo de entrada é alterado<X>automaticamente conforme<X>o uso do tipo de entrada.
-desc_tutorial_4 É possível utilizar o scroll do mouse nos menus,<X>configurar os botões do Gamepad na config.<x>de controles e etc.
-desc_changelog	v0.12.0<X>Troca de keybinds e skip de videos com Gamepad<X>Setas na Prey mais lentas<X>Melhorias nas transições da CY<X>Opção Hide Hud otimizada<X>Suporte a Capslock no login da GameJolt<X>Correcao de bugs
+desc_tutorial_1 Bem-vindo ao ModBoa EXE!<X>Este mod oferece suporte completo<X>a múltiplos tipos de entrada.	
+desc_tutorial_2 Você pode usar teclado,<X>mouse e controle ao mesmo tempo,<X>sem necessidade de configuração externa.	
+desc_tutorial_2_mobile  Você pode usar touch, teclado,<X>mouse e controle ao mesmo tempo,<X>sem necessidade de configuração externa.	
+desc_tutorial_3 O modo de entrada é alterado<X>automaticamente conforme<X>o uso do tipo de entrada.	
+desc_tutorial_4 É possível utilizar o scroll do mouse nos menus,<X>configurar os botões do Gamepad na config.<x>de controles e etc.	
+desc_changelog	v0.13.0<X>beep bop
