@@ -93,6 +93,7 @@ class PreMainMenuState extends MusicBeatState
 	function simClick():Void
 	{
 		GlobalSoundManager.play(confirmMenu);
+		MainMenuStateMobile.firstTime = true;
 		#if desktop
 		VideoStatePC.specialSetting = NORMAL;
 		VideoStatePC.videoPath = Paths.video("aviso");

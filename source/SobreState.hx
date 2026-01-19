@@ -27,8 +27,6 @@ class SobreState extends MusicBeatState
 	private final menusArray:Array<String> = ["sunny", "dav", "vio", "exe", "saster" ];
 	private var curSelected:Int = 0;
 
-	var helpBt:FlxButton;
-
 	//A ideia já tava tão avançada nesse ponto, então fui para a base da gambiarra.
 
 	override function create()
@@ -131,28 +129,8 @@ class SobreState extends MusicBeatState
 		arrow.alpha = 0.75;
 		add(arrow);
 
-		helpBt = new FlxButton(0,0,"");
-		helpBt.loadGraphic(Paths.image('sobremenu/interrog', 'preload'));
-		helpBt.updateHitbox();
-		helpBt.x = 68;
-		helpBt.y = 599;
-		helpBt.alpha = 0.75;
-		add(helpBt);
-
 		updateuwu(menu_isLeft);
 		super.create();
-	}
-
-	function helpPopUps(){
-		openSubState(new PopUpSubState("tutorial", "tutorial_1", null, function(){
-			closeSubState();
-			openSubState(new PopUpSubState("tutorial", "tutorial_2", null, function(){
-				closeSubState();
-				openSubState(new PopUpSubState("tutorial", "tutorial_3", null, function(){
-					closeSubState();
-				}, 150, false, true));
-			}, 150, false, true));
-		}));
 	}
 
 	private function handle_input():Void{
@@ -171,7 +149,7 @@ class SobreState extends MusicBeatState
 			else
 				curSelected -= 1;
 		}else if ((menu_isLeft ? controls.UI_RIGHT_P : controls.UI_LEFT_P)){
-			updateuwu(!menu_isLeft);
+			updateuwu(false);
 			GlobalSoundManager.play(confirmMenu);
 		}
 	}
@@ -224,27 +202,6 @@ class SobreState extends MusicBeatState
 			GlobalSoundManager.play(confirmMenu);
 			updateuwu(!menu_isLeft);
 		};
-
-		helpBt.onOver.callback = function() {
-			if(!helpBt.visible)
-				return;
-			GlobalSoundManager.play(scrollMenu);
-			helpBt.alpha = 1;
-		}
-
-		helpBt.onOut.callback = function(){
-			if(!helpBt.visible)
-				return;
-			helpBt.alpha = 0.75;
-		};
-
-		helpBt.onDown.callback = function() {
-			if(!helpBt.visible)
-				return;
-			helpBt.alpha = 1;
-			GlobalSoundManager.play(confirmMenu);
-			helpPopUps();
-		}
 	}
 
 	function hover(object:CreditButton):Void
@@ -296,7 +253,6 @@ class SobreState extends MusicBeatState
 		buttonMapping.get("saster").visible = !menu_isLeft;
 		buttonMapping.get("vio").visible = !menu_isLeft;
 		buttonMapping.get("exe").visible = !menu_isLeft;
-		helpBt.visible = menu_isLeft;
 		ctext.visible = !menu_isLeft;
 		arrow.flipX = menu_isLeft;
 		arrow.x = !menu_isLeft ? 280 : 836;

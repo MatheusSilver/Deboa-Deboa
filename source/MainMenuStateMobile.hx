@@ -75,6 +75,8 @@ class MainMenuStateMobile extends MusicBeatState
 
 	public static var passouCY:Bool = false;
 
+	public static var vindoPreMenu:Bool = false;
+
 	var gamejoltUser:GameJoltUserObject;
 
 	override function create()
@@ -84,7 +86,7 @@ class MainMenuStateMobile extends MusicBeatState
 		terminouHistoria = true;
 		#end
 		
-		passeiAqui = true;
+		passeiAqui = true; 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 		Song.Conductor.changeBPM(112);
@@ -221,6 +223,10 @@ class MainMenuStateMobile extends MusicBeatState
 				ClientPrefs.save();
 				canClick=true;
 			}
+
+			if(vindoPreMenu)
+				helpPopUps();
+
 			clicavel = true;        
 		});
 
@@ -360,7 +366,22 @@ class MainMenuStateMobile extends MusicBeatState
 				selectingFriends = false;
 			}
 		}
+	}
 
+	private function helpPopUps(){
+		openSubState(new PopUpSubState("tutorial", "tutorial_1", null, function(){
+			closeSubState();
+			openSubState(new PopUpSubState("tutorial", #if mobile "tutorial_2_mobile" #else "tutorial_2" #end, null, function(){
+				closeSubState();
+				openSubState(new PopUpSubState("tutorial", "tutorial_3", null, function(){
+					closeSubState();
+					openSubState(new PopUpSubState("tutorial", "tutorial_4", null, function(){
+						closeSubState();
+						vindoPreMenu = false;
+					}, 150, false, true));
+				}, 150, false, true));
+			}, 150, false, true));
+		}));
 	}
 
 	var terminouHistoria:Bool = false;
