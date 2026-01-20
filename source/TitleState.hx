@@ -169,7 +169,7 @@ class TitleState extends MusicBeatState
 			urlLoader = new URLLoader();
 			urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
 			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);
-			var request = new URLRequest("https://www.google.com/");
+			var request = new URLRequest("https://www.google.com/generate_204"); // Não tem nada nessa página. Ela carrega e fecha, por isso pode ser melhor pela rapidez.
 			urlLoader.load(request);
 		}
 

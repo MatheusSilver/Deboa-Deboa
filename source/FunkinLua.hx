@@ -180,7 +180,7 @@ class FunkinLua {
 
 		set('pi', Math.PI); // Deixei aqui só pra casos de eu ter colocado o pi como uma var e não como uma função nos scripts em lua.
 
-		hudVars = Type.getInstanceFields(Type.getClass(PlayState.instance.hud));
+		hudVars = Type.getInstanceFields(Type.getClass(PlayState.instance.HUD));
 
 		Lua_helper.add_callback(lua, "addLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
@@ -407,7 +407,7 @@ class FunkinLua {
 			if(leObj != null) {
 				return PlayState.instance.members.indexOf(leObj);
 			}
-			var leObj:FlxBasic = Reflect.getProperty(PlayState.instance.hud, obj);
+			var leObj:FlxBasic = Reflect.getProperty(PlayState.instance.HUD, obj);
 			if(leObj != null) {
 				return PlayState.instance.members.indexOf(leObj);
 			}
@@ -430,7 +430,7 @@ class FunkinLua {
 				PlayState.instance.insert(position, leObj);
 				return;
 			}
-			var leObj:FlxBasic = Reflect.getProperty(PlayState.instance.hud, obj);
+			var leObj:FlxBasic = Reflect.getProperty(PlayState.instance.HUD, obj);
 			if(leObj != null) {
 				PlayState.instance.remove(leObj, true);
 				PlayState.instance.insert(position, leObj);
@@ -626,8 +626,8 @@ class FunkinLua {
 			cancelTimer(tag);
 		});
 		Lua_helper.add_callback(lua, "changeHealthBar", function(isGrad:Bool) {
-			PlayState.instance.hud.isGrad = isGrad;
-			PlayState.instance.hud.reloadHealthBarColors();
+			PlayState.instance.HUD.isGrad = isGrad;
+			PlayState.instance.HUD.reloadHealthBarColors();
 		});
 
 		/*Lua_helper.add_callback(lua, "getPropertyAdvanced", function(varsStr:String) {
@@ -953,15 +953,15 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua,"changeIcon", function(icon:String, image:String) {
 			if(icon=='bf')
-				PlayState.instance.hud.iconP1.changeIcon(image)
+				PlayState.instance.HUD.iconP1.changeIcon(image)
 			else if (icon=='dad')
-				PlayState.instance.hud.iconP2.changeIcon(image)
+				PlayState.instance.HUD.iconP2.changeIcon(image)
 			else if (icon=='switch'){
-				PlayState.instance.hud.iconP2.changeIcon(PlayState.instance.boyfriend.healthIcon);
-				PlayState.instance.hud.iconP1.changeIcon(PlayState.instance.dad.healthIcon);
+				PlayState.instance.HUD.iconP2.changeIcon(PlayState.instance.boyfriend.healthIcon);
+				PlayState.instance.HUD.iconP1.changeIcon(PlayState.instance.dad.healthIcon);
 			}else {
-				PlayState.instance.hud.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
-				PlayState.instance.hud.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
+				PlayState.instance.HUD.iconP2.changeIcon(PlayState.instance.dad.healthIcon);
+				PlayState.instance.HUD.iconP1.changeIcon(PlayState.instance.boyfriend.healthIcon);
 			}
 
 		});
@@ -1189,7 +1189,7 @@ class FunkinLua {
 				poop.updateHitbox();
 				return;
 			}
-			var poop:FlxSprite = Reflect.getProperty(PlayState.instance.hud, obj);
+			var poop:FlxSprite = Reflect.getProperty(PlayState.instance.HUD, obj);
 			if(poop != null) {
 				poop.scale.set(x, y);
 				poop.updateHitbox();
@@ -1278,7 +1278,7 @@ class FunkinLua {
 				object.cameras = [cameraFromString(camera)];
 				return true;
 			}
-			var object:FlxObject = Reflect.getProperty(PlayState.instance.hud, obj);
+			var object:FlxObject = Reflect.getProperty(PlayState.instance.HUD, obj);
 			if(object != null) {
 				object.cameras = [cameraFromString(camera)];
 				return true;
@@ -2391,7 +2391,7 @@ class FunkinLua {
 
 	inline static function getTextObject(name:String):FlxText
 	{
-		return PlayState.instance.modchartTexts.exists(name) ? PlayState.instance.modchartTexts.get(name) : Type.getInstanceFields(Type.getClass(PlayState.instance.hud)).contains(name) ? Reflect.getProperty(PlayState.instance.hud, name) : Reflect.getProperty(PlayState.instance, name);
+		return PlayState.instance.modchartTexts.exists(name) ? PlayState.instance.modchartTexts.get(name) : Type.getInstanceFields(Type.getClass(PlayState.instance.HUD)).contains(name) ? Reflect.getProperty(PlayState.instance.HUD, name) : Reflect.getProperty(PlayState.instance, name);
 	} //Cuidado, linha gigantesca acima :skull:
 
 	inline static function getTiledSpriteObject(name:String):FlxTiledSprite

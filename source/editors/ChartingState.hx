@@ -253,7 +253,7 @@ class ChartingState extends MusicBeatState
 				player3: 'gf',
 				speed: 1,
 				canfollowpermitido: true,
-				stage: 'stage',
+				stage: 'confronting',
 				validScore: false,
 				isRing: false,
 				legendaOffset: 0,

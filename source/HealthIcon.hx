@@ -8,14 +8,12 @@ using StringTools;
 class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
-	private var isOldIcon:Bool = false;
 	private var isPlayer:Bool = false;
 	private var char:String = '';
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super();
-		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
 		changeIcon(char);
 		scrollFactor.set();
@@ -29,12 +27,7 @@ class HealthIcon extends FlxSprite
 			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y); // Espero do fundo do meu coração que isso só aconteça no Freeplay.
 																			 // De qualquer jeito, alguns icons não devem ter o mesmo tamanho ou mesmo offset no PNG.
 	}
-
-	public function swapOldIcon() {
-		if(isOldIcon = !isOldIcon) changeIcon('bf-old');
-		else changeIcon('bf');
-	}
-
+	
 	public static function getIconPath(char:String){
 		var iconPath:String ='icons/fnf/bf';
 		if(OpenFlAssets.exists(Paths.imagechecker("icons/icon-" + char, "shared"))) 

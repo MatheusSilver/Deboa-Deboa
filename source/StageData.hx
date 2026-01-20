@@ -22,47 +22,13 @@ class StageData
 
 	public static function loadDirectory(SONG:Song.SwagSong)
 	{
-		var stage:String = '';
-		if (SONG.stage != null)
-		{
-			stage = SONG.stage;
-		}
-		else if (SONG.song != null)
-		{
-			switch (SONG.song.toLowerCase().replace(' ', '-'))
-			{
-				case 'spookeez' | 'south' | 'monster':
-					stage = 'spooky';
-				case 'pico' | 'blammed' | 'philly' | 'philly-nice':
-					stage = 'philly';
-				case 'milf' | 'satin-panties' | 'high':
-					stage = 'limo';
-				case 'cocoa' | 'eggnog':
-					stage = 'mall';
-				case 'winter-horrorland':
-					stage = 'mallEvil';
-				case 'senpai' | 'roses':
-					stage = 'school';
-				case 'thorns':
-					stage = 'schoolEvil';
-				default:
-					stage = 'stage';
-			}
-		}
-		else
-		{
-			stage = 'stage';
-		}
+		var stage:String = SONG.stage != null ? SONG.stage : 'confronting'; // Seguindo a lógica que a CY também é a padrão no PlayState.
 
 		var stageFile:StageFile = getStageFile(stage);
 		if (stageFile == null)
-		{ // preventing crashes
 			forceNextDirectory = '';
-		}
 		else
-		{
 			forceNextDirectory = stageFile.directory;
-		}
 	}
 
 	public static function getStageFile(stage:String):StageFile
@@ -71,13 +37,10 @@ class StageData
 		var path:String = Paths.getPreloadPath('stages/' + stage + '.json');
 
 		if (Assets.exists(path))
-		{
 			rawJson = Assets.getText(path);
-		}
 		else
-		{
 			return null;
-		}
+		
 		return cast Json.parse(rawJson);
 	}
 }

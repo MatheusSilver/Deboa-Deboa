@@ -109,6 +109,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	}
 
 	var eusougalinha:Bool = false; // que merda de nome de variavel é essa
+	// https://www.youtube.com/watch?v=4XKGfziuw5c -> minuto 1:14
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);

@@ -23,9 +23,6 @@ using StringTools;
 class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
-		'Menu Character Editor',
-		/*'Dialogue Editor',
-		'Dialogue Portrait Editor',*/
 		'Character Editor'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
@@ -81,12 +78,6 @@ class MasterEditorMenu extends MusicBeatState
 			switch(options[curSelected]) {
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
-				case 'Menu Character Editor':
-					MusicBeatState.switchState(new MenuCharacterEditorState());
-				/*case 'Dialogue Portrait Editor':
-					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
-				case 'Dialogue Editor':
-					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);*/
 			}
 			FlxG.sound.music.volume = 0;
 		}
