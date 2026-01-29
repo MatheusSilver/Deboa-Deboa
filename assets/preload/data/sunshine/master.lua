@@ -18,6 +18,8 @@
         setCamMove(true) --Só pra garantir...
         addCharacterToList("bf_dream", 'bf')
         addCharacterToList("tailsdoll_dream", 'dad')
+        addCharacterToList("bf", 'bf')
+        addCharacterToList("tailsdoll-cartoon", 'dad')
     end
 
     function onCreatePost()
