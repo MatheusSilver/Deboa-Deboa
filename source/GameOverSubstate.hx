@@ -24,6 +24,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	var bg:FlxSprite;
 	var retryButton:FlxButton;
 	var retryTween:FlxTween;
+	var entryTween:FlxTween;
 	var canClick:Bool = true;
 	public static var instance:GameOverSubstate;
 
@@ -87,7 +88,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		super.create();
 		
-		FlxTween.tween(bg, {alpha: 1}, 0.7, {ease: FlxEase.linear, onComplete: function (twn:FlxTween){
+		entryTween = FlxTween.tween(bg, {alpha: 1}, 0.7, {ease: FlxEase.linear, onComplete: function (twn:FlxTween){
 			retryTween = FlxTween.tween(retryButton, {y: 15}, 0.7, {ease: FlxEase.cubeInOut});
 		}});
 		
@@ -135,6 +136,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (controls.BACK && eusougalinha)
 		{
 			isEnding = true;
+			cancelTweens();
 			FlxG.sound.music.stop();
 
 			PlayState.deathCounter = 0;
@@ -168,6 +170,17 @@ class GameOverSubstate extends MusicBeatSubstate
 		PlayState.instance.callOnLuas('onUpdatePost', [elapsed]);
 	}
 
+	private function cancelTweens():Void{
+		if (retryTween != null){
+			retryTween.cancel();
+			retryTween = null;
+		}
+		if (entryTween != null){
+			entryTween.cancel();
+			entryTween = null;
+		}
+	}
+
 	override function beatHit()
 		{
 			super.beatHit();
@@ -190,10 +203,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			eaepedrinho = false;
 			canClick = false;
 			isEnding = true;
-			if (retryTween != null){
-				retryTween.cancel();
-				retryTween = null;
-			}
+			cancelTweens();
 
 			FlxG.sound.music.stop();
 			FlxG.sound.play(Paths.music(endSoundName));
