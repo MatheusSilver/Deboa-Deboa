@@ -137,7 +137,7 @@ class PlayState extends MusicBeatState
 
 	public var bgSkychasing:FlxSprite;
 
-	var daNoteStatic:FlxSprite = new FlxSprite(0, 0);
+	var daNoteStatic:FlxSprite;
 
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -6266,6 +6266,20 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function loadStaticNotes(){
+		if (!ClientPrefs.flashing || daNoteStatic != null) return;
+
+		daNoteStatic = new FlxSprite(0, 0);
+		daNoteStatic.frames = Paths.getSparrowAtlas('hitStatic');
+		daNoteStatic.setGraphicSize(FlxG.width, FlxG.height);
+		daNoteStatic.updateHitbox();
+		daNoteStatic.screenCenter();
+		daNoteStatic.cameras = [camHUD2];
+		daNoteStatic.visible = false;
+		daNoteStatic.animation.addByPrefix('static', 'staticANIMATION', 24, false);
+		add(daNoteStatic);
+	}
+
 	function staticHitMiss()
 	{
 		if (ClientPrefs.flashing)
@@ -6273,30 +6287,17 @@ class PlayState extends MusicBeatState
 			#if debug
 			trace('lol you missed the static note!');
 			#end
-			daNoteStatic = new FlxSprite(0, 0);
-			daNoteStatic.frames = Paths.getSparrowAtlas('hitStatic');
-
-			daNoteStatic.setGraphicSize(FlxG.width, FlxG.height);
-
-			daNoteStatic.screenCenter();
-
-			daNoteStatic.cameras = [camHUD2];
-
-			daNoteStatic.animation.addByPrefix('static', 'staticANIMATION', 24, false);
-
+			daNoteStatic.visible = true;
 			daNoteStatic.animation.play('static', true);
 
 			FlxG.sound.play(Paths.sound("hitStatic1"));
 
-			add(daNoteStatic);
-
 			new FlxTimer().start(.15, function(trol:FlxTimer) // here we go again...
 			{
-				daNoteStatic.alpha = 0;
 				#if debug
 				trace('ended HITSTATICLAWL');
 				#end
-				remove(daNoteStatic);
+				daNoteStatic.visible = false;
 			});
 		}
 	}
@@ -6448,8 +6449,8 @@ class PlayState extends MusicBeatState
 	function cinematicBars(appear:Bool) // IF (TRUE) MOMENT?????
 	{
 		if (topBar == null || bottomBar == null){ //carga preguiçosa seria melhor maybe...
-			topBar = new FlxSprite(0, -170).makeGraphic(1, 1, FlxColor.BLACK);
-			bottomBar = new FlxSprite(0, 720).makeGraphic(1, 1, FlxColor.BLACK);
+			topBar = new FlxSprite(0, 0).makeGraphic(1, 1, FlxColor.BLACK);
+			bottomBar = new FlxSprite(0, 0).makeGraphic(1, 1, FlxColor.BLACK);
 
 			topBar.cameras = [camOther];
 			bottomBar.cameras = [camOther];
@@ -6458,26 +6459,30 @@ class PlayState extends MusicBeatState
 			topBar.updateHitbox();
 			bottomBar.setGraphicSize(FlxG.width, 170);
 			bottomBar.updateHitbox();
-			
-			topBar.setPosition(0, -170);
-			bottomBar.setPosition(0, -170);
-		}
-		if (appear)
-		{
+
+			topBar.setPosition(0, -topBar.height);
+			bottomBar.setPosition(0, FlxG.height);
 			add(topBar);
 			add(bottomBar);
+			topBar.visible = false;
+			bottomBar.visible = false;
+		}
+
+		/* Que coiso tenebroso foi esse que eu fiz meu deus... */
+		if (appear)
+		{
+			topBar.visible = bottomBar.visible = true;
 			FlxTween.tween(topBar, {y: 0}, 0.5, {ease: FlxEase.quadOut});
-			FlxTween.tween(bottomBar, {y: 550}, 0.5, {ease: FlxEase.quadOut});
+			FlxTween.tween(bottomBar, {y: FlxG.height-bottomBar.height}, 0.5, {ease: FlxEase.quadOut});
 		}
 		else
 		{
-			FlxTween.tween(topBar, {y: -170}, 0.5, {ease: FlxEase.quadOut});
-			FlxTween.tween(bottomBar, {y: 720}, 0.5, {
+			FlxTween.tween(topBar, {y: -bottomBar.height}, 0.5, {ease: FlxEase.quadOut});
+			FlxTween.tween(bottomBar, {y: FlxG.height}, 0.5, {
 				ease: FlxEase.quadOut,
 				onComplete: function(fuckme:FlxTween)
 				{
-					remove(topBar);
-					remove(bottomBar);
+					topBar.visible = bottomBar.visible = false;
 				}
 			});
 		}
