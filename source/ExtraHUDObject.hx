@@ -35,6 +35,8 @@ class ExtraHUDObject extends FlxSpriteGroup
 		switch (songName)
 		{
 			case "round-a-bout":
+				if (!ClientPrefs.shaders) return;
+
 				// Isso aqui era pra ficar bem na frente mesmo da tela, mas ele tá mexendo e fica no "fundo"
 				tempogravador = new FlxText(50, 0, 0, "", 48);
 				tempogravador.text = '';
@@ -43,26 +45,23 @@ class ExtraHUDObject extends FlxSpriteGroup
 				tempogravador.screenCenter(XY);
 				tempogravador.x += 125;
 				tempogravador.y += 125;
-				tempogravador.visible = ClientPrefs.shaders;
+				tempogravador.visible = true;
 				tempogravador.antialiasing = false;
-				tempogravador.cameras = [PlayState.instance.camHUD];
 				add(tempogravador);
+				tempogravador.cameras = [PlayState.instance.camHUD];
 
-				if (ClientPrefs.shaders)
-				{
-					efeito_estatico = new FlxSprite(0, 0);
-					efeito_estatico.frames = Paths.getSparrowAtlas("estatica", "week-sunshine");
-					efeito_estatico.animation.addByPrefix('idle', 'estatica idle', 14, true);
-					efeito_estatico.color = FlxColor.WHITE;
-					efeito_estatico.alpha = 0.15;
-					efeito_estatico.animation.play("idle", true);
-					efeito_estatico.setGraphicSize(Std.int(FlxG.width * 1.7));
-					efeito_estatico.screenCenter(XY);
-					efeito_estatico.visible = false;
-					efeito_estatico.cameras = [PlayState.instance.camHUD];
-					add(efeito_estatico);
-				}
 
+				efeito_estatico = new FlxSprite(0, 0);
+				efeito_estatico.frames = Paths.getSparrowAtlas("estatica", "week-sunshine");
+				efeito_estatico.animation.addByPrefix('idle', 'estatica idle', 14, true);
+				efeito_estatico.color = FlxColor.WHITE;
+				efeito_estatico.alpha = 0.15;
+				efeito_estatico.animation.play("idle", true);
+				efeito_estatico.setGraphicSize(Std.int(FlxG.width * 1.7));
+				efeito_estatico.screenCenter(XY);
+				efeito_estatico.visible = false;
+				add(efeito_estatico);
+				efeito_estatico.cameras = [PlayState.instance.camHUD];
 				PlayState.instance.analog_shader();
 			case "sunshine":
 				efeito_estatico = new FlxSprite(0, 0);
@@ -71,11 +70,11 @@ class ExtraHUDObject extends FlxSpriteGroup
 				efeito_estatico.color = FlxColor.WHITE;
 				efeito_estatico.alpha = 0.15;
 				efeito_estatico.animation.play("idle", true);
-				efeito_estatico.cameras = [PlayState.instance.camHUD];
 				efeito_estatico.setGraphicSize(Std.int(FlxG.width * 1.7));
 				efeito_estatico.screenCenter(XY);
 				efeito_estatico.visible = false;
 				add(efeito_estatico);
+				efeito_estatico.cameras = [PlayState.instance.camHUD];
 			case "chasing":
 				monitor = new FlxSprite(-108, -100, Paths.image('cenarios/chasing/monitor'));
 				monitor.antialiasing = ClientPrefs.globalAntialiasing;
