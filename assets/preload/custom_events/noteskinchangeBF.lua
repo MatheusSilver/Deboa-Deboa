@@ -27,7 +27,8 @@ function onUpdatePost(elapsed)
     if pendingTextureChange then
         local endIndex = math.min(pendingIndex + batchSize, pendingTextureChange.totalNotes)
         for i = pendingIndex, endIndex - 1 do
-            if getPropertyFromGroup('unspawnNotes', i, 'mustPress') then
+            -- Quando uma nota não tem tipo definido, ela é uma nota comum, ou seja, não é nota de dano ou outra coisa aleatória.
+            if getPropertyFromGroup('unspawnNotes', i, 'mustPress') and getPropertyFromGroup('unspawnNotes', i, 'noteType') == nil then
 				setPropertyFromGroup('unspawnNotes', i, 'texture', pendingTextureChange.texture)
                 if pendingTextureChange.splashTexture ~= '' then
                     setPropertyFromGroup('unspawnNotes', i, 'noteSplashTexture', pendingTextureChange.splashTexture)

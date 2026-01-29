@@ -25,7 +25,7 @@ function onUpdatePost(elapsed)
     if pendingTextureChange then
         local endIndex = math.min(pendingIndex + batchSize, pendingTextureChange.totalNotes)
         for i = pendingIndex, endIndex - 1 do
-            if not getPropertyFromGroup('unspawnNotes', i, 'mustPress') then
+            if not getPropertyFromGroup('unspawnNotes', i, 'mustPress') and getPropertyFromGroup('unspawnNotes', i, 'noteType') == nil then
 				setPropertyFromGroup('unspawnNotes', i, 'texture', pendingTextureChange.texture)
                 if pendingTextureChange.splashTexture ~= '' then
                     setPropertyFromGroup('unspawnNotes', i, 'noteSplashTexture', pendingTextureChange.splashTexture)
