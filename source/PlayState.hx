@@ -3880,8 +3880,6 @@ class PlayState extends MusicBeatState
 					HUD.healthBarBG.x -= 150;
 					triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
 					triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
-					// Certamente não a mais elegante das soluções, mas certamente a mais curta.
-					triggerEventNote('Camera Follow Pos', Std.string(dad.cameraPosition[0]), Std.string(dad.cameraPosition[1]), "true");
 				}
 			case 'TelaPreta': // a
 				if (value1 == 'true')

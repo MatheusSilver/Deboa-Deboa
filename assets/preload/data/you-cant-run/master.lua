@@ -14,6 +14,12 @@ function onCreate()
 	addLuaSprite('vg', true);
 end
 
+function onEvent(event, v1, v2)
+	if event == "Change Character" and v1 == "dad" then
+		triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
+	end
+end
+
 function opponentNoteHit()
 	local isPixel = curStep > 531 and curStep < 783
 	if not isPixel then
