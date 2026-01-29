@@ -3,13 +3,10 @@
 function onCreate()
 
 	precacheImage('PhantomNote');
-	precacheImage('staticNotes');
 	precacheImage('daSTAT');
-	precacheImage('hitStatic');
 	precacheImage('pixelUI/arrows1-soniczoom')
 	precacheImage('pixelUI/arrows1-soniczoomENDS')
 	precacheImage('splashes/bloodpixel');
-	precacheSound('hitStatic1');
 
     makeLuaSprite('vg', 'RedVG', 0, 0);
 	setObjectCamera('vg', 'camHUD');

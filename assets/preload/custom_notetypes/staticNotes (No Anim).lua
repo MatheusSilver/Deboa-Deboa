@@ -1,4 +1,7 @@
 function onCreate()
+	precacheImage('staticNotes')
+	precacheSound('hitStatic1')
+	precacheImage('hitStatic');
 	for i = 0, getProperty('unspawnNotes.length')-1 do
 		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'staticNotes (No Anim)' then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'staticNotes');
@@ -8,6 +11,10 @@ function onCreate()
 			setPropertyFromGroup('unspawnNotes', i, 'hitCausesMiss', false);
 		end
 	end
+end
+
+function onCreatePost()
+	loadStatic()
 end
 
 function noteMiss(id, noteData, noteType, isSustainNote)

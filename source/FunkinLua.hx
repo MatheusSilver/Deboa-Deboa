@@ -1523,6 +1523,11 @@ class FunkinLua {
 			return closed;
 		});
 
+		/* Ok... Isso está bem feio, mas na falta de ideia melhor... E que mexa em menos coisa*/
+		Lua_helper.add_callback(lua, "loadStatic", function() {
+			PlayState.instance.loadStaticNotes();
+		});
+
 		/* Convenientemente tem uma função que "fecha", o lua, mas que não encerra ele de fato... */
 		Lua_helper.add_callback(lua, "stop", function() {
 			closed = true;
