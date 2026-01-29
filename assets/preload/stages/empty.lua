@@ -2,6 +2,7 @@
 local followchars = true
 local modchart = true
 local sickness = true
+local prevCamPos = 0
 
 local angleshit = 2;
 local anglevar = 2;
@@ -10,7 +11,7 @@ local mult = -5
 
 
 function onUpdatePost(elapsed)
-	mult = lerp(1, getProperty('iconP2.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
+	mult = lerp(1, getProperty('cyclopIcon.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
 	scaleObject('cyclopIcon', mult, mult)
 end
 
@@ -33,7 +34,7 @@ function onUpdate(elapsed)
 		characterPlayAnim('dad', 'alt-idle', true);
 	end
 
-	setProperty('cyclopIcon.x', getProperty('healthBar.x') - 150 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+	setProperty('cyclopIcon.x', getProperty('HUD.iconP2.x'))
 
 	if getProperty('health') < 0.4 then
 		objectPlayAnimation('cyclopIcon', 'perdendo', false);
@@ -52,7 +53,7 @@ function onCreate()
 	setScrollFactor('barrier', 0, 0);
 	setProperty('barrier.alpha',0)
 	setObjectCamera('barrier','camHUD')
-	setProperty("barrier.x", midX - getProperty("barrier.width")/2)
+	setProperty("barrier.x", midX)
 	if(downscroll)then
 		setProperty("barrier.y", screenHeight*0.11 - getProperty("barrier.height")/2 )
 	else
@@ -71,13 +72,12 @@ function onStartCountdown()
 end
 
 function onCreatePost()
-	makeAnimatedLuaSprite('cyclopIcon', 'icon_cyclops', getProperty('healthBar.x')-150 + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y')-75)
+	makeAnimatedLuaSprite('cyclopIcon', 'icon_cyclops', getProperty('HUD.iconP2.x'), getProperty('HUD.iconP2.y'))
 	addAnimationByPrefix('cyclopIcon', 'perdendo', 'losing', 24, true)
 	addAnimationByPrefix('cyclopIcon', 'idle', 'natural', 24, true)
 	setObjectCamera('cyclopIcon', 'camHUD')
-	setObjectOrder('cyclopIcon', getObjectOrder('healthBarBG') + 1)
-	setProperty('iconP2.visible', false)
-	addLuaSprite('cyclopIcon', true)
+	addLuaSprite('cyclopIcon')
+	setProperty('HUD.iconP2.visible', false)
 end
 
 function onCountdownStarted()
@@ -129,17 +129,34 @@ function onStepHit()
 	end
 end
 
+function onTweenCompleted(name)
+	if name == "introTweenL" then
+		doTweenAngle('introTweenR', 'camGame', angleshit, 3, 'sineinout')
+	end
+	if name == "introTweenR" then
+		doTweenAngle('introTweenL', 'camGame', -angleshit, 3, 'sineinout')
+	end
+end
+
 function onBeatHit()
 	scaleObject('cyclopIcon', 1.2, 1.2)
 	if curBeat == 433 then
 		cameraFade('camGame', '000000', '1')
 	end
 	if curBeat <= 1 then
-		doTweenZoom('ZoomIn', 'camGame', '1.15', '13.2', 'linear')
+		doTweenZoom('ZoomIn', 'camGame', '1.3', '13.2', 'linear')
 		doTweenZoom('ZoomInHud', 'camHUD', '4', '0.2', 'linear')
+		prevCamPos = getProperty("camGame.y")
+		doTweenY('introTweenDown', 'camGame', "-50", "11", 'linear')
+		doTweenAngle('introTweenL', 'camGame', -angleshit, 3, 'sineinout')
 	end
 	if curBeat == 32 then
 		doTweenZoom('ZoomIn', 'camGame', '0.92', '0.1', 'linear')
+		cancelTween("introTweenR")
+		cancelTween("introTweenL")
+		cancelTween("introTweenDown")
+		setProperty("camGame.y", prevCamPos)
+		doTweenAngle('introTweenL', 'camGame', 0, 3, 'sineinout')
 	end
 	if curBeat == 31 then
 		setProperty('camHUD.alpha',1)

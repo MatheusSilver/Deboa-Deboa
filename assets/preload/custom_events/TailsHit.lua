@@ -7,7 +7,7 @@ function onCreate()
 	setProperty('tails.alpha',0)
 	setObjectCamera('tails','camOther')
 
-	makeAnimatedLuaSprite('knux','sprites/knucklees',485, 0)
+	makeAnimatedLuaSprite('knux','sprites/knucklees',485, 200)
 	addAnimationByPrefix('knux','khit','kuckles no',24,false)
 	setScrollFactor('knux', 0, 0);
 	scaleObject('knux', 0.5, 0.5);
