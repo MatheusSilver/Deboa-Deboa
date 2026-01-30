@@ -37,15 +37,22 @@ class GifWindow
 	var positionAttrib:Int;
 	var texCoordAttrib:Int;
 	var samplerUniform:GLUniformLocation;
+	
+	public static final gifWidth:Int = 300;
+	public static final gifHeight:Int = 300;
+	
+	// o loop é para o caso de acharem uma má ideia deixar ele se apagar sozinho, ai fica fácil de manter ele ai.
+	private var shouldLoop:Bool = true;
+	private var hasFinished:Bool = false;
 
-	public function new(path:String, xPos:Float, yPos:Float)
+	public function new(path:String, xPos:Float, yPos:Float, loop:Bool = true)
 	{
         Application.current.window.onClose.add(function(){
             close();
         });
 		window = Application.current.createWindow({
-			width: 300,
-			height: 300,
+			width: gifWidth,
+			height: gifHeight,
 			borderless: true,
 			alwaysOnTop: true
 		});
@@ -54,6 +61,8 @@ class GifWindow
 		window.x = Std.int(xPos);
 		window.y = Std.int(yPos);
 		window.title = "";
+		
+		shouldLoop = loop;
 
 		loadFrames(path);
 
@@ -172,13 +181,23 @@ class GifWindow
 
 	function update(dt:Float)
 	{
-		if (frames.length == 0)
+		if (frames.length == 0 || hasFinished)
 			return;
 		timer += dt / 1000;
 		if (timer >= frames[curFrame].delay)
 		{
 			timer = 0;
-			curFrame = (curFrame + 1) % frames.length;
+			curFrame++;
+			
+			if (curFrame >= frames.length)
+			{
+				curFrame = 0;
+				if (!shouldLoop)
+				{
+					hasFinished = true;
+					close();
+				}
+			}
 		}
 	}
 
