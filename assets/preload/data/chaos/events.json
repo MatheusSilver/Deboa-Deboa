@@ -325,15 +325,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						30396.8253968254,
-						-1,
-						"Change Character",
-						"1",
-						"fleetway-1"
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
@@ -344,6 +336,13 @@
 				"altAnim": false,
 				"typeOfSection": 0,
 				"sectionNotes": [
+					[
+						30473.1904761905,
+						-1,
+						"Change Character",
+						"1",
+						"fleetway-1"
+					],
 					[
 						30476.1904761905,
 						-1,
@@ -431,7 +430,7 @@
 				"typeOfSection": 0,
 				"sectionNotes": [
 					[
-						40476.1904761905,
+						40530.1904761905,
 						-1,
 						"Change Character",
 						"1",

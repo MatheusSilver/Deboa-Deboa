@@ -4,6 +4,8 @@ camMoving = false
 
 function onCreate()
 	precacheSound("SUPERBF")
+    precacheSound("beam")
+	
 	-- background shit
 	makeLuaSprite('Wall', 'fleet/Wall', -3800, -1000);
 	setScrollFactor('Wall', 0.7, 0.7);
@@ -19,7 +21,7 @@ function onCreate()
 	addAnimationByPrefix('Emerald Beam Charged', 'start', 'Emerald Beam Charged instance', 24, true);
 	
 	makeAnimatedLuaSprite('Emeralds', 'fleet/Emeralds', -860,-600);
-	addAnimationByPrefix('Emeralds', 'start', 'TheEmeralds instance', 30, true);
+	addAnimationByPrefix('Emeralds', 'start', 'TheEmeralds instance', 24, true);
 	
 	makeAnimatedLuaSprite('porkerbop', 'fleet/Porker Lewis', 1200, -900);
 	addAnimationByPrefix('porkerbop', 'first', 'Porker FG', 24, false);
@@ -28,9 +30,11 @@ function onCreate()
 	--makeAnimatedLuaSprite('The Chamber', 'fleet/The Chamber', -1470, 200);
 	--addAnimationByPrefix('The Chamber', 'fall', 'Chamber Sonic Fall', 24, false);
 	--setScrollFactor('The Chamber', 1, 1);
-	makeLuaSprite('The Chamber', 'fleet/The_Chamber_simples', -1470, 540);
+	makeLuaSprite('The Chamber', 'fleet/The_Chamber_simples', -1450, 580);
+	scaleObject('The Chamber', 1, 0.9);
+
 	-- Se quiser voltar com a anim do sonico caindo é só comentar a linha de cima e descomentar as outras 3 em cima dela.
-	makeLuaSprite('pebles', 'fleet/pebles', -1980, 820);
+	makeLuaSprite('pebles', 'fleet/pebles', -1900, 820);
 	scaleObject('pebles', 1.05, 1.05);
 
 
