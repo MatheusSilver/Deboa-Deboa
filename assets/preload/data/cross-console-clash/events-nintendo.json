@@ -119,29 +119,7 @@
 				"lengthInSteps": 16,
 				"altAnim": false,
 				"typeOfSection": 0,
-				"sectionNotes": [
-					[
-						320305.555555556,
-						-1,
-						"Change Character",
-						"bf",
-						"mario-ccc-small"
-					],
-					[
-						310305.555555556,
-						-1,
-						"Change Character",
-						"bf",
-						"mario-ccc"
-					],
-					[
-						300305.555555556,
-						-1,
-						"Change Character",
-						"gf",
-						"luigi-ccc"
-					]
-				],
+				"sectionNotes": [],
 				"bpm": 0,
 				"changeBPM": false,
 				"mustHitSection": false
