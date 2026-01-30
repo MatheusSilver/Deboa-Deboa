@@ -1,5 +1,8 @@
 package;
 
+import lime.ui.Window;
+import lime.ui.WindowAttributes;
+import lime.app.Application;
 import multiplayer.MultiplayerMainMenuState;
 import Achievements;
 import editors.MasterEditorMenu;
@@ -247,6 +250,12 @@ class MainMenuStateMobile extends MusicBeatState
 		});
 
 		if (Lambda.count(ClientPrefs.achievementsMap) == 32) test_unlock("colecionador");
+
+
+		// TODO: COLOCAR ISSO AQUI NO EVENTO DA CONTROL
+		new FlxTimer().start(4, function(tmr:FlxTimer) {
+			new GifWindow("assets/images/gif/control/");
+		});
 	}
 
 	function test_unlock(achieve:String){
