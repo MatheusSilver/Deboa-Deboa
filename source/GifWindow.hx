@@ -38,7 +38,7 @@ class GifWindow
 	var texCoordAttrib:Int;
 	var samplerUniform:GLUniformLocation;
 
-	public function new(path:String)
+	public function new(path:String, xPos:Float, yPos:Float)
 	{
         Application.current.window.onClose.add(function(){
             close();
@@ -46,12 +46,13 @@ class GifWindow
 		window = Application.current.createWindow({
 			width: 300,
 			height: 300,
-			x: 0,
-			y: 0,
 			borderless: true,
 			alwaysOnTop: true
 		});
 
+		/* O construtor não altera a posição por si só. */
+		window.x = Std.int(xPos);
+		window.y = Std.int(yPos);
 		window.title = "";
 
 		loadFrames(path);
