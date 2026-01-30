@@ -317,6 +317,9 @@ class PlayState extends MusicBeatState
 	public var camAchievement:FlxCamera;
 	public var cameraSpeed:Float = 1;
 
+	var blammedLightsBlack:FlxSprite;
+	var blammedLightsBlackTween:FlxTween;
+
 	public static var isRing:Bool = false;
 
 	public var songScore:Int = 0;
@@ -838,6 +841,16 @@ class PlayState extends MusicBeatState
 
 		if (doPush)
 			luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaFile)));
+
+		/* Para deixar o x02 menos puto, irei colocar de volta as blammed lights apenas para as duas músicas que usam ele */
+		if (curStage == 'beachhouse' || curStage == "illegal1"){
+			blammedLightsBlack = new FlxSprite(BF_X - FlxG.width * 2, BF_Y - FlxG.height * 2);
+			blammedLightsBlack.makeGraphic(Std.int(FlxG.width * 5), Std.int(FlxG.height * 5), FlxColor.BLACK);
+			insert(members.indexOf(boyfriendGroup) - 1, blammedLightsBlack);
+	
+			blammedLightsBlack.alpha = 0.0;
+
+		}
 
 		var gfVersion:String = SONG.player3;
 		if (gfVersion == null || gfVersion.length < 1)
@@ -2338,6 +2351,10 @@ class PlayState extends MusicBeatState
 
 			if (!startTimer.finished)
 				startTimer.active = false;
+
+			if (blammedLightsBlackTween != null)
+				blammedLightsBlackTween.active = false;
+
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = false;
 
@@ -2376,6 +2393,8 @@ class PlayState extends MusicBeatState
 				startTimer.active = true;
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = true;
+			if (blammedLightsBlackTween != null)
+				blammedLightsBlackTween.active = true;
 
 			var chars:Array<Character> = [boyfriend, gf, dad];
 			for (i in 0...chars.length)
@@ -3256,6 +3275,121 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('hey', true);
 					boyfriend.specialAnim = true;
 					boyfriend.heyTimer = time;
+				}
+
+			/* Usado na Green Hills*/
+			case 'Blammed Lights':
+				var lightId:Int = Std.parseInt(value1);
+				if (Math.isNaN(lightId))
+					lightId = 0;
+
+				if (lightId > 0 && curLightEvent != lightId)
+				{
+					if (lightId > 5)
+						lightId = FlxG.random.int(1, 5, [curLightEvent]);
+
+					var color:Int = 0xffffffff;
+					switch (lightId)
+					{
+						case 1: // Blue
+							color = 0xff31a2fd;
+						case 2: // Green
+							color = 0xff31fd8c;
+						case 3: // Pink
+							color = 0xfff794f7;
+						case 4: // Red
+							color = 0xfff96d63;
+						case 5: // Orange
+							color = 0xfffba633;
+					}
+					curLightEvent = lightId;
+
+					if (blammedLightsBlack.alpha == 0)
+					{
+						if (blammedLightsBlackTween != null)
+						{
+							blammedLightsBlackTween.cancel();
+						}
+						blammedLightsBlackTween = FlxTween.tween(blammedLightsBlack, {alpha: 1}, 1, {
+							ease: FlxEase.quadInOut,
+							onComplete: function(twn:FlxTween)
+							{
+								blammedLightsBlackTween = null;
+							}
+						});
+
+						var chars:Array<Character> = [boyfriend, gf, dad];
+						for (i in 0...chars.length)
+						{
+							if (chars[i].colorTween != null)
+							{
+								chars[i].colorTween.cancel();
+							}
+							chars[i].colorTween = FlxTween.color(chars[i], 1, FlxColor.WHITE, color, {
+								onComplete: function(twn:FlxTween)
+								{
+									chars[i].colorTween = null;
+								},
+								ease: FlxEase.quadInOut
+							});
+						}
+					}
+					else
+					{
+						if (blammedLightsBlackTween != null)
+						{
+							blammedLightsBlackTween.cancel();
+						}
+						blammedLightsBlackTween = null;
+						blammedLightsBlack.alpha = 1;
+
+						var chars:Array<Character> = [boyfriend, gf, dad];
+						for (i in 0...chars.length)
+						{
+							if (chars[i].colorTween != null)
+							{
+								chars[i].colorTween.cancel();
+							}
+							chars[i].colorTween = null;
+						}
+						dad.color = color;
+						boyfriend.color = color;
+						gf.color = color;
+					}
+				}
+				else
+				{
+					if (blammedLightsBlack.alpha != 0)
+					{
+						if (blammedLightsBlackTween != null)
+						{
+							blammedLightsBlackTween.cancel();
+						}
+						blammedLightsBlackTween = FlxTween.tween(blammedLightsBlack, {alpha: 0}, 1, {
+							ease: FlxEase.quadInOut,
+							onComplete: function(twn:FlxTween)
+							{
+								blammedLightsBlackTween = null;
+							}
+						});
+					}
+
+					var chars:Array<Character> = [boyfriend, gf, dad];
+					for (i in 0...chars.length)
+					{
+						if (chars[i].colorTween != null)
+						{
+							chars[i].colorTween.cancel();
+						}
+						chars[i].colorTween = FlxTween.color(chars[i], 1, chars[i].color, FlxColor.WHITE, {
+							onComplete: function(twn:FlxTween)
+							{
+								chars[i].colorTween = null;
+							},
+							ease: FlxEase.quadInOut
+						});
+					}
+					curLightEvent = 0;
 				}
 
 			case 'Set GF Speed':
