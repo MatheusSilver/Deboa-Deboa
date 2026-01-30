@@ -110,10 +110,8 @@ function onEvent(name, value1, value2)
         if value1 == "intro" then
             setProperty("sonic_cuidado.visible", true)
             doTweenAlpha("cuidado_intro", "sonic_cuidado", 1, 0.5, "smoothstepin")
-			traceLog("rodei 1")
         elseif value1 == "out" then
             doTweenAlpha("cuidado_out", "sonic_cuidado", 0, 0.5, "smoothstepout")
-			traceLog("rodei 2")
 		end
     end
 end
