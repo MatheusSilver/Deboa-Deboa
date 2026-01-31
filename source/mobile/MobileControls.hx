@@ -1,6 +1,6 @@
 package mobile;
 
-#if MOBILE_CONTROLS
+#if mobileC
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import mobile.Config;

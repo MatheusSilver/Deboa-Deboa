@@ -1,6 +1,6 @@
 package mobile.ui;
 
-#if MOBILE_CONTROLS
+#if mobileC
 import flash.display.BitmapData;
 import flixel.FlxG;
 import flixel.graphics.FlxGraphic;
@@ -104,7 +104,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 				actions.add(add(buttonX = createButton(FlxG.width - 44, FlxG.height - 85, 44, 45, "x")));
 				actions.add(add(buttonB = createButton(FlxG.width - 86, FlxG.height - 45, 44, 45, "b")));
 				actions.add(add(buttonA = createButton(FlxG.width - 44, FlxG.height - 45, 44, 45, "a")));
-            ase X_Y:
+            case X_Y:
 				// Tacando os botões lá na esquerda pro lado direito ficar livre pro swipe no Freeplay
 				actions.add(add(buttonX = createButton(0, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "x")));
 				actions.add(add(buttonY = createButton(42 * 3, FlxG.height - 45 * 3, 44 * 3, 45 * 3, "y")));

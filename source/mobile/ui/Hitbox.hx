@@ -1,6 +1,7 @@
 package mobile.ui;
 
-#if MOBILE_CONTROLS
+#if mobileC
+import flixel.group.FlxSpriteGroup;
 import ui.FlxButton;
 
 /**
