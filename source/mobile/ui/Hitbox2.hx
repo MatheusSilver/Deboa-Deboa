@@ -23,7 +23,7 @@ class Hitbox2 extends FlxSpriteGroup
         var size:Int = FlxG.width != null ? FlxG.width / 5 : 320;
         buttonsCoords = [0, size, size, size * 2, size * 3];
         
-		var hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('hitboxExtra_hint'));
+		var hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('hitboxExtra_hint', 'mobilecontrols'));
 		hint.setGraphicSize(FlxG.width, FlxG.height);
 		hint.screenCenter();
 		hint.moves = false;
