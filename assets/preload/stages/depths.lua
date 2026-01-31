@@ -35,6 +35,8 @@ function onCreate()
 		end
 	end
 	setScrollFactor('ceiling', 0.9, 0.9)
+	setProperty("ceiling.y", -100)
+	setProperty("depths.y", -100)
 
 	speed = 240 / getPropertyFromClass('ClientPrefs', 'framerate')
 	for i = 1,10 do fallPos[i] = 0 end
@@ -52,6 +54,14 @@ function onCreatePost()
 	setObjectCamera('vgpreto', 'camHUD2');
 	setProperty('vgpreto.alpha', 0.6)
 	addLuaSprite('vgpreto', true);
+
+	-- Talvez um desperdicio, mas é mais econômico do que eu inventar outro evento para isso. (Usado na talassofobia)
+	makeLuaSprite('vgpretoExtra', 'blackvignette', 0, 0);
+	setObjectCamera('vgpretoExtra', 'camHUD2');
+	setProperty('vgpretoExtra.alpha', 1)
+	setProperty('vgpretoExtra.visible', true)
+	screenCenter("vgpretoExtra", "xy")
+	addLuaSprite('vgpretoExtra', true);
 
 	if not lowQuality then
 		makeAnimatedLuaSprite('waves', 'cenarios/depths/waves', 0, 0)
@@ -72,12 +82,44 @@ function onCreatePost()
 
 
 	addLuaSprite('r', true)
+
+	makeLuaSprite("sonic_cuidado", "AlexisTransition", 0, 0)
+    screenCenter("sonic_cuidado", "xy")
+    setProperty("sonic_cuidado.alpha", 0)
+    setProperty("sonic_cuidado.visible", false)
+    setObjectCamera("sonic_cuidado", 'camHUD2');
+    addLuaSprite("sonic_cuidado", true)
+end
+
+function onEvent(name, value1, value2)
+	if name == 'CharacterAlphaTween' then
+		if value1 == 'dad' then
+			fadelooping = false -- Isso serve basicamente pra ajustar o finalzinho da musica e fazer o GHOUL sumir de vez
+		end
+	end
+
+	if name == "TelaPreta" and value2 == "blackVGgo" then
+		setProperty("vgpretoExtra.visible", true)
+	end
+
+	if name == "notestween" and value1 == "bf" and value2 == "1,0.4" then
+		doTweenAlpha("vgpretoExtraOut", "vgpretoExtra", 0, 0.5, "linear")
+	end
+
+	if name == "cuidado_event" then
+        if value1 == "intro" then
+            setProperty("sonic_cuidado.visible", true)
+            doTweenAlpha("cuidado_intro", "sonic_cuidado", 1, 0.5, "smoothstepin")
+        elseif value1 == "out" then
+            doTweenAlpha("cuidado_out", "sonic_cuidado", 0, 0.5, "smoothstepout")
+		end
+    end
 end
 
 function opponentNoteHit(id, direction, noteType, isSustainNote)
 	if first and curBeat < 510 and dead == false and fadelooping then
 		setProperty('dad.alpha', 0.4)
-		setProperty('iconP2.alpha', 1)
+		setProperty('HUD.iconP2.alpha', 1)
 		doTweenAlpha('boo1', 'dad', 0, 0.6, 'linear')
 		first = false
 	end
@@ -102,8 +144,10 @@ function moveBall(number) --ok
 end
 
 function onStartCountdown() --ok
+	setProperty('HUD.iconP2.alpha', 0)
 	setProperty('dad.alpha', 0)
-	setProperty('iconP2.alpha', 0)
+	setProperty('HUD.visible', false)
+	setProperty('camHUD.visible', false)
 	doTweenAlpha('b', 'waves', 0.06, 0.6, 'linear')
 	doTweenAlpha("c", 'vgpreto', 0.3, 0.6, 'linear')
 	return Function_Continue
@@ -118,6 +162,7 @@ function onStepHit()
 end
 
 function onTweenCompleted(tag)
+	if tag == "vgpretoExtraOut" then removeLuaSprite("vgpretoExtra") end
 	if tag == 'boo1' and fadelooping then doTweenAlpha('boo2', 'dad', 0.45, 0.6, 'linear') end
 	if tag == 'boo2' and fadelooping then doTweenAlpha('boo1', 'dad', 0.1, 0.6, 'linear') end
 	if tag == 'a' and alphaLoop then doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
@@ -127,9 +172,18 @@ function onTweenCompleted(tag)
 	if tag == 'first' then alphaLoop = true; doTweenAlpha('b', 'waves', 0.06, 0.8, 'linear') end
 	if tag == 'r1' then doTweenAlpha('r2', 'r', 0.5, 1, 'linear') end
 	if tag == 'r2' then doTweenAlpha('r1', 'r', 1, 1, 'linear') end
+
+	if tag == "cuidado_out" then removeLuaSprite("sonic_cuidado") end
 end
 local wasLooping = false
 function onBeatHit()
+
+	if curBeat == 30 then
+		cameraFlash('other', 'FFFFFF', '0.5')
+		setProperty('HUD.visible', true)
+		setProperty('camHUD.visible', true)
+		setProperty('vgpretoExtra.visible', false)
+	end
 	if curBeat % 16 == 0 and #fall < 10 then
 		local rng = getRandomInt(1,10, exclusion)
 		table.insert(fall, #fall+1, rng)
@@ -155,12 +209,4 @@ function getHeight(baseH, tiempo)
 
     height = baseH + ((gravity)*tiempo*tiempo)/2
     return height
-end
-
-function onEvent(name, value1, value2)
-	if name == 'CharacterAlphaTween' then
-		if value1 == 'dad' then
-			fadelooping = false -- Isso serve basicamente pra ajustar o finalzinho da musica e fazer o GHOUL sumir de vez
-		end
-	end
 end

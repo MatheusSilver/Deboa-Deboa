@@ -80,6 +80,11 @@ class CoolUtil
 		return Std.int(Math.min(Math.max(n, min), max));
 	}
 
+	public static inline function randomFloat(from:Float, to:Float):Float
+    {
+        return (from + ((to - from) * Math.random()));
+    }
+
 	/**
 	 * Formata um texto deixando ele bonitinho (Letras maíusculas e minúsculas)
 	 * @param text O texto que você vai capitalizar. (nem sei se essa palavra existe pra ser bem sincero)

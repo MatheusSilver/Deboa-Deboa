@@ -40,9 +40,10 @@ end
 
 function onTimerCompleted(tag, loops, loopsLeft)
    if tag == 'Died' and Dodged == false then
-   setProperty('health', 0);
+        setProperty('health', 0);
+        playSound("beam", 1)
    elseif tag == 'Died' and Dodged == true then
-   characterPlayAnim('boyfriend', 'dodge', true);
-   Dodged = false
+        characterPlayAnim('boyfriend', 'dodge', true);
+        Dodged = false
    end
 end

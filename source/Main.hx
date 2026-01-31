@@ -70,6 +70,8 @@ class Main extends Sprite
 
 	public static var inputDevice:InputDevices = Keyboard;
 	public static var isKeyboard:Bool = true;
+	public static var desktopResolutionX:Float;
+	public static var desktopResolutionY:Float;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -211,6 +213,8 @@ class Main extends Sprite
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+		Lib.current.stage.addEventListener(Event.RESIZE, onStageResize);
+		
 		if (fpsVar != null)
 		{
 			fpsVar.visible = ClientPrefs.showFPS;
@@ -259,5 +263,27 @@ class Main extends Sprite
 		FlxG.drawFramerate = ClientPrefs.framerate;
 		FlxG.fixedTimestep = false; // Agora eu fiquei na dúvida entre deixar isso falso, ou deixar isso como verdadeiro.
 		// Eu mandei lá no Discord, uma gravação onde o FPS Cap é 240 e ele fica SUPER lagado. Só consegui resolver isso deixando o timestep como falso.
+
+		/* Usado para capturar a resolução total do pc */
+		/* Especificamente para a Control */
+		desktopResolutionX = Lib.application.window.display.bounds.width;
+		desktopResolutionY = Lib.application.window.display.bounds.height;
+	}
+
+	/* Serve para mudar a resolução do jogo a depender do tamanho da janela. */
+	/* Se quiser, pode usar isso para definir uma opção extra estilo aquelas de jogos da unreal que trocam a resolução do jooj*/
+	private function onStageResize(e:Event):Void
+    {
+        var newWidth:Int = Lib.application.window.width;
+        var newHeight:Int = Lib.application.window.height;
+
+		updateGameResolution(newWidth, newHeight);
+    }
+
+	public function updateGameResolution(width:Int, height:Int){
+		game.width = width;
+        game.height = height;
+        
+        FlxG.resizeGame(width, height);
 	}
 }
