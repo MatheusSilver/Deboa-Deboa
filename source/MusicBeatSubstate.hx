@@ -7,8 +7,6 @@ import Input.PlayerSettings;
 #if mobileC
 import flixel.input.actions.FlxActionInput;
 import mobile.ui.FlxVirtualPad;
-import mobile.MobileControls.FlxDPadMode;
-import mobile.MobileControls.FlxActionMode;
 #end
 
 class MusicBeatSubstate extends FlxSubState
@@ -19,8 +17,11 @@ class MusicBeatSubstate extends FlxSubState
 	public function new()
 	{
 		super();
+		
+		#if desktop
 		lastMouseX = FlxG.mouse.screenX;
 		lastMouseY = FlxG.mouse.screenY;
+		#end
 	}
 
 	private var lastBeat:Float = 0;
@@ -59,7 +60,7 @@ class MusicBeatSubstate extends FlxSubState
 
 	override function update(elapsed:Float)
 	{
-		mouseActuallyMoved = (FlxG.mouse.screenX != lastMouseX || FlxG.mouse.screenY != lastMouseY);
+		#if desktop mouseActuallyMoved = (FlxG.mouse.screenX != lastMouseX || FlxG.mouse.screenY != lastMouseY); #end
 		if (Main.getMouseVisibility() && (FlxG.keys.pressed.ANY || GamepadUtil.anyGamepadButtonPressed())){
 			if (!Main.isKeyboard && FlxG.keys.pressed.ANY) Main.isKeyboard = true;
 			else if (Main.isKeyboard && GamepadUtil.anyGamepadButtonPressed()) Main.isKeyboard = false;

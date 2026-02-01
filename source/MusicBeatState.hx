@@ -10,8 +10,6 @@ import Input.PlayerSettings;
 #if mobileC
 import flixel.input.actions.FlxActionInput;
 import mobile.ui.FlxVirtualPad;
-import mobile.MobileControls.FlxDPadMode;
-import mobile.MobileControls.FlxActionMode;
 #end
 
 class MusicBeatState extends FlxUIState
@@ -61,8 +59,10 @@ class MusicBeatState extends FlxUIState
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		super.create();
 
+		#if desktop
 		lastMouseX = FlxG.mouse.screenX;
 		lastMouseY = FlxG.mouse.screenY;
+		#end
 
 		// Custom made Trans out
 		if(!skip) {
@@ -87,7 +87,7 @@ class MusicBeatState extends FlxUIState
 		if (oldStep != curStep && curStep > 0)
 			stepHit();
 
-		mouseActuallyMoved = (FlxG.mouse.screenX != lastMouseX || FlxG.mouse.screenY != lastMouseY);
+		#if desktop mouseActuallyMoved = (FlxG.mouse.screenX != lastMouseX || FlxG.mouse.screenY != lastMouseY); #end
 
 		if (Main.getMouseVisibility() && (FlxG.keys.pressed.ANY || GamepadUtil.anyGamepadButtonPressed())){
 			if (!Main.isKeyboard && FlxG.keys.pressed.ANY) Main.isKeyboard = true;
@@ -99,8 +99,11 @@ class MusicBeatState extends FlxUIState
 			Main.mouseVisibility(true);
 		}
 
+		#if desktop
 		lastMouseX = FlxG.mouse.screenX;
 		lastMouseY = FlxG.mouse.screenY;
+		#end
+		
 		super.update(elapsed);
 	}
 

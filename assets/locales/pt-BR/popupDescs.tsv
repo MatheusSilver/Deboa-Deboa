@@ -4,7 +4,7 @@ desc_multiplayer_unlock	Agora voce pode acessar o<X>modo Multiplayer no menu<X>p
 desc_freeplay_unlock	Agora voce pode acessar o<X>Freeplay no<X>menu principal
 desc_tutorial_1 Bem-vindo ao ModBoa EXE!<X>Este mod oferece suporte completo<X>a múltiplos tipos de entrada.	
 desc_tutorial_2 Você pode usar teclado,<X>mouse e controle ao mesmo tempo,<X>sem necessidade de configuração externa.	
-desc_tutorial_2_mobile  Você pode usar touch, teclado,<X>mouse e controle ao mesmo tempo,<X>sem necessidade de configuração externa.	
+desc_tutorial_2_mobile  Você pode usar touch, teclado,<X>e gamepad ao mesmo tempo,<X>sem necessidade de configuração externa.	
 desc_tutorial_3 O modo de entrada é alterado<X>automaticamente conforme<X>o uso do tipo de entrada.	
 desc_tutorial_4 É possível utilizar o scroll do mouse nos menus,<X>configurar os botões do Gamepad na config.<x>de controles e etc.	
 desc_changelog	v0.13.0<X>beep bop

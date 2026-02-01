@@ -1,3 +1,4 @@
+#if desktop
 import lime.graphics.OpenGLRenderContext;
 import lime.app.Application;
 import lime.ui.Window;
@@ -272,3 +273,4 @@ class GifWindow
 		}
 	}
 }
+#end

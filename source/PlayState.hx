@@ -62,8 +62,6 @@ import openfl.filters.ShaderFilter;
 import openfl.system.System;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
-import sys.FileSystem;
-import sys.io.File;
 import legendas.*;
 import MP4Sprite.SkipText;
 
@@ -78,9 +76,7 @@ import flixel.sound.FlxSound;
 import flixel.system.FlxSound;
 #end
 #if mobileC
-import mobile.MobileControls.Modes;
-import mobile.MobileControls.FlxDPadMode;
-import mobile.MobileControls.FlxActionMode;
+import mobile.MobileControls;
 #end
 
 class PlayState extends MusicBeatState
@@ -354,7 +350,7 @@ class PlayState extends MusicBeatState
 	var pauseSound:FlxSound;
 
 	#if mobileC
-	var mcontrols:Modes;
+	public var mcontrols:MobileControls;
 	#end
 
 	public var luaArray:Array<FunkinLua> = [];
@@ -1024,28 +1020,22 @@ class PlayState extends MusicBeatState
 		blackFuck.visible = false;
 
 		#if mobileC
-		mcontrols = new Modes();
+		var desvio:Bool = (curSong.toLowerCase() == 'triple-trouble'
+					|| curSong.toLowerCase() == 'chaos'
+					|| nomehistorico.toLowerCase() == 'gran finale'
+					|| curSong.toLowerCase() == 'prey'
+					|| curSong.toLowerCase() == 'pasta-night');
+
+		mcontrols = new MobileControls(desvio);
 		switch (mcontrols.mode)
 		{
 			case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
-				controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, NONE);
-				if (curSong.toLowerCase() == 'triple-trouble'
-					|| curSong.toLowerCase() == 'chaos'
-					|| nomehistorico.toLowerCase() == 'gran finale'
-					|| curSong.toLowerCase() == 'prey'
-					|| curSong.toLowerCase() == 'pasta-night')
-				{
-					controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, A);
-				}
+				controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, desvio ? A : NONE);
 			case HITBOX:
-				if (curSong.toLowerCase() == 'triple-trouble'
-					|| curSong.toLowerCase() == 'chaos'
-					|| nomehistorico.toLowerCase() == 'gran finale'
-					|| curSong.toLowerCase() == 'prey'
-					|| curSong.toLowerCase() == 'pasta-night')
-					controls.setSpecialHitBoxNOTES(mcontrols._hitbox2);
-				else
+				if(!desvio)
 					controls.setHitBoxNOTES(mcontrols._hitbox);
+				else
+					controls.setSpecialHitBoxNOTES(mcontrols._hitbox2);
 
 			default:
 		}
@@ -2339,6 +2329,26 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function get_space_bind(action:String = "JUST_PRESSED"):Bool {
+		#if mobileC
+		if(mcontrols.mode != HITBOX && mcontrols.mode != KEYBOARD) {
+			switch(action) {
+				case 'PRESSED': return mobile.ui.FlxVirtualPad.instance.buttonA.pressed;
+				case 'JUST_PRESSED': return mobile.ui.FlxVirtualPad.instance.buttonA.justPressed;
+				case 'JUST_RELEASED': return mobile.ui.FlxVirtualPad.instance.buttonA.justReleased;
+				default: return mobile.ui.FlxVirtualPad.instance.buttonA.justPressed;
+			}
+		}
+		#end
+		
+		switch(action) {
+			case 'PRESSED': return controls.NOTE_SPACE;
+			case 'JUST_PRESSED': return controls.NOTE_SPACE_P;
+			case 'JUST_RELEASED': return controls.NOTE_SPACE_R;
+			default: return controls.NOTE_SPACE_P;
+		}
+	}
+
 	override function openSubState(SubState:FlxSubState)
 	{
 		if (paused)
@@ -3167,7 +3177,9 @@ class PlayState extends MusicBeatState
 			case 'stop video':
 				pularVideo(value1 == "true" ? true : false);
 			case 'Socorro':
+				#if desktop
 				lime.app.Application.current.window.title = value1;
+				#end
 			case 'strum swap2': //	OMAGA 2???????? DOS MESMOS CRIADORES DO WHATSAPP 2??? OOOOOOOOOOOMAGAAAAAWD (Silvio momentos antes de coringar colocando eventos na Triple-Trouble)
 				isSwapped = false;
 				if (value2 != 'true')
@@ -4478,6 +4490,8 @@ class PlayState extends MusicBeatState
 		#if mobileC
 		mcontrols.visible = false;
 		#end
+		if(SONG.song.toLowerCase() == 'control' && ControlSongSubstate.gifPermitido)
+			Main.mouseVisibility(false);
 		majinstrums = false;
 		canRegen = !ModifiersManager.isEnabledbyName("no_death");
 		canuseevents = true;
@@ -4601,7 +4615,9 @@ class PlayState extends MusicBeatState
 						ease: FlxEase.cubeInOut,
 						onComplete: function(twn:FlxTween)
 						{
+							#if desktop
 							lime.app.Application.current.window.title = 'FNF: ModBoa EXE';
+							#end
 							MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
 						}
 					});
@@ -4968,7 +4984,7 @@ class PlayState extends MusicBeatState
 			[controls.NOTE_RIGHT, controls.NOTE_RIGHT_P, controls.NOTE_RIGHT_R]
 		];
 		if (isRing)
-			controlsArray.insert(2,[controls.NOTE_SPACE, controls.NOTE_SPACE_P, controls.NOTE_SPACE_R]);
+			controlsArray.insert(2,[get_space_bind("PRESSED"), get_space_bind("JUST_PRESSED"), get_space_bind("JUST_RELEASED")]);
 
 		var controlArray:Array<Bool> = [];
 		var controlReleaseArray:Array<Bool> = [];
@@ -6365,6 +6381,17 @@ class PlayState extends MusicBeatState
 		}
 		#end
 	}
+
+	#if mobile
+	public function spawn_speed() {
+		var speed:Speed = new Speed();
+		var x:Float = CoolUtil.randomFloat(0, FlxG.width - speed.width);
+		var y:Float = CoolUtil.randomFloat(0, FlxG.height - speed.height);
+		speed.setPosition(x, y);
+		speed.cameras = [camHUD2];
+		add(speed);
+	}
+	#end
 
 	function doJumpscare()
 	{

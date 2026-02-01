@@ -4,7 +4,7 @@ desc_multiplayer_unlock	You can now access the<X>Multiplayer mode in the<X>main 
 desc_freeplay_unlock	You can now access<X>Freeplay in the<X>main menu
 desc_tutorial_1 Welcome to ModBoa EXE!<X>This mod provides full support<X>for multiple input types.	
 desc_tutorial_2 You can use keyboard,<X>mouse and controller at the same time,<X>with no external configuration required.	
-desc_tutorial_2_mobile  You can use touch, keyboard,<X>mouse and controller at the same time,<X>with no external configuration required.	
+desc_tutorial_2_mobile  You can use touch, keyboard,<X>and gamepad at the same time,<X>with no external configuration required.	
 desc_tutorial_3 The input mode is switched<X>automatically based on<X>the input being used.	
 desc_tutorial_4 You can use the mouse scroll wheel in menus,<X>configure gamepad buttons in the<x>control settings, and more.	
 desc_changelog	v0.13.0<X>beep bop

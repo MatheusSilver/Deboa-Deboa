@@ -25,6 +25,7 @@ import haxe.crypto.Md5;
  */
 class Utils
 {
+	
 	/**
 	 * Lê o conteúdo de um arquivo.
 	 * @param id Arquivo que será lido pela função
@@ -73,19 +74,20 @@ class Utils
 		#if mobile
 		// Isso foi pego da PR que eu falei lá no main.
 		var result = [];
-		for (library in Main.assetsList.list().filter(archives -> archives.contains(id)))
-		{
-			if (!library.startsWith('.'))
-			{
-				var name = library.replace(id + '/', '').split('/')[0];
-				if (result.indexOf(name) == -1)
-					result.push(name);
-			}
-		}
-
+    
+        for (library in Main.assetList.filter(archives -> archives.contains(id))) {
+            if (!library.startsWith('.')) {
+                var name = library.replace(id + '/', '').split('/')[0];
+                // contains pero un poooco mas rapido
+                if (result.indexOf(name) == -1)
+                    result.push(name);
+            }
+        }
+    
         result.sort((a, b) -> {
             return a.toUpperCase() < b.toUpperCase() ? -1 : (a.toUpperCase() > b.toUpperCase() ? 1 : 0);
         });
+    
         return result;
 		#else
 		return FileSystem.readDirectory(id);
@@ -99,7 +101,7 @@ class Utils
 	public static function fromFile(id:String)
 	{
 		#if mobile
-		return Assets.getBitmapData(id);
+		return openfl.utils.Assets.getBitmapData(id);
 		#else
 		return BitmapData.fromFile(id);
 		#end

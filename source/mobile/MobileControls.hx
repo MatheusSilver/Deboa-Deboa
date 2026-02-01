@@ -6,14 +6,17 @@ import flixel.group.FlxSpriteGroup;
 import mobile.Config;
 import mobile.ui.FlxVirtualPad;
 import mobile.ui.Hitbox;
+import mobile.ui.Hitbox2;
 
 class MobileControls extends FlxSpriteGroup
 {
 	public var mode:ControlsGroup = HITBOX;
 	public var _hitbox:Hitbox;
+	public var _hitbox2:Hitbox2;
 	public var _virtualPad:FlxVirtualPad;
 
-	public function new()
+	public function new(usa_desvio:Bool = false) // Deve existir uma forma mais inteligente de fazer isso, mas essa foi uma solução de imediato...
+	// Esse false só serve pra quando isso for criado fora do PlayState
 	{
 		super();
 
@@ -29,8 +32,13 @@ class MobileControls extends FlxSpriteGroup
 			case VIRTUALPAD_CUSTOM:
 				initVirtualPad(2);
 			case HITBOX:
-				_hitbox = new Hitbox();
-				add(_hitbox); 
+				if(!usa_desvio) {
+					_hitbox = new Hitbox();
+					add(_hitbox);
+				} else {
+					_hitbox2 = new Hitbox2();
+					add(_hitbox2);
+				}
 			case KEYBOARD:
 		}
 	}

@@ -2,9 +2,6 @@ package;
 
 import GamepadUtil.InputDevices;
 #if CRASHLOG_HANDLER
-import haxe.io.Path;
-import sys.io.File;
-import sys.FileSystem;
 import haxe.CallStack;
 import haxe.CallStack.StackItem;
 import openfl.events.UncaughtErrorEvent;
@@ -46,10 +43,7 @@ using StringTools;
 class Main extends Sprite
 {
 	#if mobile
-	// Essa commit é quase inteira baseada numa PR feita no port da FE para android
-	// https://github.com/musk-h/forever-engine-android-port/pull/1
-	// Só troquei a lógica trocando a var de dentro do HSys (no meu caso, o Utils) e movendo pro Main.
-	public static var assetsList:Array<String>;
+	public static var assetList:Array<String> = Assets.list(); // pola
 	public static var path = lime.system.System.applicationStorageDirectory;
 	#end
 
@@ -70,8 +64,10 @@ class Main extends Sprite
 
 	public static var inputDevice:InputDevices = Keyboard;
 	public static var isKeyboard:Bool = true;
+	#if desktop
 	public static var desktopResolutionX:Float;
 	public static var desktopResolutionY:Float;
+	#end 
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -131,6 +127,7 @@ class Main extends Sprite
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
 	// very cool person for real they don't get enough credit for their work
+
 	#if CRASHLOG_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
@@ -138,12 +135,6 @@ class Main extends Sprite
 		var path:String;
 		var fullStack:Array<StackItem> = CallStack.callStack();
 		var errorStack:Array<StackItem> = CallStack.exceptionStack(true);
-		var dateNow:String = Date.now().toString();
-
-		dateNow = dateNow.replace(" ", "_");
-		dateNow = dateNow.replace(":", "'");
-
-		path = "./crash/" + "ModBoaEXE_" + dateNow + ".txt";
 
 		errMsg += "\n\n ----- Full CallStack -----\n\n";
 		for (stackItem in fullStack)
@@ -169,17 +160,7 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/MatheusSilver/Deboa-Deboa\n\n> Crash Handler written by: sqirra-rng";
-
-		#if desktop
-		if (!FileSystem.exists("./crash/"))
-			FileSystem.createDirectory("./crash/");
-
-		File.saveContent(path, errMsg + "\n");
-
-		Sys.println(errMsg);
-		Sys.println("Crash dump saved in " + Path.normalize(path));
-		#end
+		errMsg += "\nUncaught Error: " + e.error;
 
 		Application.current.window.alert(errMsg, "Error!");
 		#if rpc
@@ -213,7 +194,9 @@ class Main extends Sprite
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+		#if desktop
 		Lib.current.stage.addEventListener(Event.RESIZE, onStageResize);
+		#end
 		
 		if (fpsVar != null)
 		{
@@ -254,22 +237,21 @@ class Main extends Sprite
 			FlxG.game.setFilters(shaderarray); // Resumindo: Se tu quer enxergar as cores certinhas, tu vai ter lag no jogo k
 		}
 
-		#if mobile
-		assetsList = Assets.list(); // Só fiz isso pra salvar na RAM e não ter que carregar a lista dos assets toda vez que o readDirectory for chamado
-		// Isso é bom pra performance, considerando que no mobile a lista de arquivos do APK não mudará.
-		#end
 		FlxG.fullscreen = ClientPrefs.fullscreen; // Lá em cima as clientprefs ainda não haviam sido carregadas
 		FlxG.updateFramerate = ClientPrefs.framerate;
 		FlxG.drawFramerate = ClientPrefs.framerate;
 		FlxG.fixedTimestep = false; // Agora eu fiquei na dúvida entre deixar isso falso, ou deixar isso como verdadeiro.
 		// Eu mandei lá no Discord, uma gravação onde o FPS Cap é 240 e ele fica SUPER lagado. Só consegui resolver isso deixando o timestep como falso.
 
+		#if desktop
 		/* Usado para capturar a resolução total do pc */
 		/* Especificamente para a Control */
 		desktopResolutionX = Lib.application.window.display.bounds.width;
 		desktopResolutionY = Lib.application.window.display.bounds.height;
+		#end
 	}
 
+	#if desktop
 	/* Serve para mudar a resolução do jogo a depender do tamanho da janela. */
 	/* Se quiser, pode usar isso para definir uma opção extra estilo aquelas de jogos da unreal que trocam a resolução do jooj*/
 	private function onStageResize(e:Event):Void
@@ -286,4 +268,5 @@ class Main extends Sprite
         
         FlxG.resizeGame(width, height);
 	}
+	#end
 }

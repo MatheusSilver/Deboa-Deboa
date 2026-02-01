@@ -26,9 +26,9 @@ class PreTitleState extends MusicBeatState
 					#if desktop
 					VideoStatePC.videoPath = Paths.video('VideosRandoms/haha' + random1);
 				#elseif mobile
-					MusicBeatState.switchState(new VideoState(Paths.video('VideosRandoms/haha' + random1), (new TitleState())));
+					MusicBeatState.switchState(new VideoState(Paths.video('VideosRandoms/haha' + random1),  new TitleState()));
 				else
-					MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
+					MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic',  new TitleState()));
 				#end
 
 				#if desktop
@@ -41,7 +41,7 @@ class PreTitleState extends MusicBeatState
 				#if desktop
 				MusicBeatState.switchState(new VideoStatePC());
 				#elseif mobile
-				MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic', (new TitleState())));
+				MusicBeatState.switchState(new VideoState('assets/videos/EngineBase/intromic',  new TitleState()));
 				#end
 			});
 		}

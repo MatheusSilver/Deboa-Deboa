@@ -703,7 +703,7 @@ class FunkinLua {
 				case 'back': key = PlayState.instance.controls.BACK;
 				case 'pause': key = PlayState.instance.controls.PAUSE;
 				case 'reset': key = PlayState.instance.controls.RESET;
-				case 'space': key = PlayState.instance.controls.NOTE_SPACE_P; //Apenas para que a Chaos e Final Escape possam usar o botão custom
+				case 'space': key = PlayState.instance.get_space_bind("JUST_PRESSED"); //Apenas para que a Chaos e Final Escape possam usar o botão custom
 				case '0': key = FlxG.keys.justPressed.ZERO; // esses números eram do vs calculadora k
 				case '1': key = FlxG.keys.justPressed.ONE;
 				case '2': key = FlxG.keys.justPressed.TWO;
@@ -847,10 +847,6 @@ class FunkinLua {
 			var cam:FlxCamera = cameraFromString(camera);
 			return BSLTouchUtils.pegarpos("y");
 		});
-
-		Lua_helper.add_callback(lua, "tecladoMobile", function(coiso:String) {
-			BSLTouchUtils.teclado(coiso);
-		});
 		
 		//Furtado da Psych 6.3 apenas para ser usado na Slaybells
 		Lua_helper.add_callback(lua, "addOffset", function(obj:String, anim:String, x:Float, y:Float) {
@@ -967,7 +963,11 @@ class FunkinLua {
 		});
 
 		Lua_helper.add_callback(lua, "controlGif", function() {
+			#if desktop
 			new GifWindow("assets/images/gif/control/", CoolUtil.randomFloat(0, Main.desktopResolutionX-GifWindow.gifWidth), CoolUtil.randomFloat(0, Main.desktopResolutionY-GifWindow.gifHeight), false);
+			#else
+			PlayState.instance.spawn_speed();
+			#end
 		});
 
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {

@@ -2,7 +2,7 @@ package;
 
 #if mobile
 import flixel.FlxG;
-import flixel.FlxState;
+import flixel.text.FlxText;
 import extension.webview.WebView;
 
 using StringTools;

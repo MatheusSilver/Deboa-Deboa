@@ -12,8 +12,6 @@ import haxe.Json;
 import ui.FlxButton;
 import mobile.ui.FlxVirtualPad;
 import mobile.ui.Hitbox;
-import mobile.MobileControls.FlxDPadMode;
-import mobile.MobileControls.FlxActionMode;
 
 using StringTools;
 #if lime
