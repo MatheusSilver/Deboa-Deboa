@@ -1,21 +1,25 @@
 function onEvent(name, value1, value2)
 	if name == "Image Appearance" then
-		makeLuaSprite('image', value1, -150, -200);
-		addLuaSprite('image', true);
-		doTweenColor('hello', 'image', 'FFFFFFFF', 0.5, 'quartIn');
-		setObjectCamera('image', 'other');
+		makeLuaSprite('appImage', value1, 0, 0);
+		setProperty("appImage.visible", false)
+		addLuaSprite('appImage');
+		doTweenColor('hello', 'appImage', 'FFFFFFFF', 0.5, 'quartIn');
+		setObjectCamera('appImage', 'achMenu');
+		setGraphicSize("appImage", screenWidth, screenHeight)
+		screenCenter("appImage", 'xy')
 		runTimer('wait', value2);
 	end
 end
 
 function onTimerCompleted(tag, loops, loopsleft)
 	if tag == 'wait' then
-		doTweenAlpha('byebye', 'image', 0, 0.1, 'linear');
+		setProperty("appImage.visible", true)
+		doTweenAlpha('byebye', 'appImage', 0, 0.1, 'linear');
 	end
 end
 
 function onTweenCompleted(tag)
 	if tag == 'byebye' then
-		removeLuaSprite('image', true);
+		removeLuaSprite('appImage', true);
 	end
 end
