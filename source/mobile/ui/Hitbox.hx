@@ -1,11 +1,14 @@
 package mobile.ui;
 
-#if MOBILE_CONTROLS
+#if mobileC
+import flixel.group.FlxSpriteGroup;
 import ui.FlxButton;
 
 /**
  *  Reescrevi esse code, tentando deixar tudo mais limpo e melhor de ler
  */
+
+/* Posso fazer isso totalmente via code tambem se quiserem */
 class Hitbox extends FlxSpriteGroup
 {
 	public var buttonLeft:FlxButton;
@@ -22,7 +25,7 @@ class Hitbox extends FlxSpriteGroup
         var size:Int = FlxG.width != null ? FlxG.width / 4 : 320;
         buttonsCoords = [0, size, size * 2, size * 3];
 
-		var hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('hitbox_hint'));
+		var hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('hitbox_hint', 'mobilecontrols'));
 		hint.setGraphicSize(FlxG.width, FlxG.height);
 		hint.screenCenter();
 		hint.moves = false;

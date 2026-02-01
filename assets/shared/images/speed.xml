@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="speed.png">
+
+	<!-- Frame 0 (12x) -->
+	<SubTexture name="speed0000" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0001" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0002" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0003" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0004" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0005" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0006" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0007" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0008" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0009" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0010" x="0" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0011" x="0" y="0" width="1000" height="1000"/>
+
+	<!-- Frame 1 (5x) -->
+	<SubTexture name="speed0012" x="0" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0013" x="0" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0014" x="0" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0015" x="0" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0016" x="0" y="1000" width="1000" height="1000"/>
+
+	<!-- Frame 2 (5x) -->
+	<SubTexture name="speed0017" x="1000" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0018" x="1000" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0019" x="1000" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0020" x="1000" y="0" width="1000" height="1000"/>
+	<SubTexture name="speed0021" x="1000" y="0" width="1000" height="1000"/>
+
+	<!-- Frame 3 (19x) -->
+	<SubTexture name="speed0022" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0023" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0024" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0025" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0026" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0027" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0028" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0029" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0030" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0031" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0032" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0033" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0034" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0035" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0036" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0037" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0038" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0039" x="1000" y="1000" width="1000" height="1000"/>
+	<SubTexture name="speed0040" x="1000" y="1000" width="1000" height="1000"/>
+
+</TextureAtlas>

@@ -62,6 +62,7 @@
 	<section if="PRELOAD_ALL">
 		<library name="locales" 		      	 preload="true" />
 		<library name="particles"      			 preload="true" />
+		<library name="shaders"      			 preload="true" />
 		<library name="songs"        			 preload="true" />
 		<library name="mobilecontrols"			 preload="true" 	if="mobileC"/>
 		<library name="shared"       			 preload="true" />
@@ -104,6 +105,7 @@
 	<section if="NO_PRELOAD_ALL">
 		<library name="locales" 		      	 preload="false" />
 		<library name="particles"      			 preload="false" />
+		<library name="shaders"      			 preload="false" />
 		<library name="songs"        			 preload="false" />
 		<library name="shared"       			 preload="false" />
 		<library name="mobilecontrols"			 preload="false" 	if="mobileC"/>
@@ -147,6 +149,8 @@
 	<assets path="assets/locales"        	   	   library="locales"       	  		  exclude="*.mp3" unless="web"/>
 	<assets path="assets/particles"       		   library="particles"        		  exclude="*.ogg" if="web"/>
 	<assets path="assets/particles"       		   library="particles"       		  exclude="*.mp3" unless="web"/>
+	<assets path="assets/shaders"       		   library="shaders"        		  exclude="*.ogg" if="web"/>
+	<assets path="assets/shaders"       		   library="shaders"       		  	  exclude="*.mp3" unless="web"/>
 	<assets path="assets/songs"       			   library="songs"        			  exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"       			   library="songs"       			  exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"      			   library="shared"       			  exclude="*.ogg" if="web"/>

@@ -94,35 +94,37 @@ class GifWindow
 
 	function setupGL(gl:OpenGLRenderContext)
 	{
-		var vertexSource = "attribute vec2 aPosition;
-            attribute vec2 aTexCoord;
-            varying vec2 vTexCoord;
-            
-            void main() {
-                gl_Position = vec4(aPosition, 0.0, 1.0);
-                vTexCoord = aTexCoord;
-            }";
-
-		var fragmentSource = "precision mediump float;
-            varying vec2 vTexCoord;
-            uniform sampler2D uSampler;
-            
-            void main() {
-                gl_FragColor = texture2D(uSampler, vTexCoord);
-            }";
+		// Assim é menos difícil de quebrar a identação no Linux do que definindo a shader em uma string
+		var vertexSource =  Utils.getContent(Paths.getPreloadPath('shaders/gif.vert'));
+		var fragmentSource = Utils.getContent(Paths.getPreloadPath('shaders/gif.frag'));
 
 		var vertexShader = gl.createShader(gl.VERTEX_SHADER);
 		gl.shaderSource(vertexShader, vertexSource);
 		gl.compileShader(vertexShader);
+		#if (debug && linux)
+		if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+			trace(gl.getShaderInfoLog(vertexShader));
+		}
+		#end
 
 		var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
 		gl.shaderSource(fragmentShader, fragmentSource);
 		gl.compileShader(fragmentShader);
+		#if (debug && linux)
+		if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+			trace(gl.getShaderInfoLog(fragmentShader));
+		}
+		#end
 
 		program = gl.createProgram();
 		gl.attachShader(program, vertexShader);
 		gl.attachShader(program, fragmentShader);
 		gl.linkProgram(program);
+		#if (debug && linux)
+		if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+			trace(gl.getProgramInfoLog(program));
+		}
+		#end
 		gl.useProgram(program);
 
 		positionAttrib = gl.getAttribLocation(program, "aPosition");
@@ -220,6 +222,9 @@ class GifWindow
 
 		gl.clearColor(0, 0, 0, 0);
 		gl.clear(gl.COLOR_BUFFER_BIT);
+
+		/* Talvez isso seja necessário mas por enquanto, só o fix de identação bastou.
+		gl.viewport(0, 0, window.width, window.height); */
 
 		var scale = Math.min(window.width / img.width, window.height / img.height);
 		var w = img.width * scale;
