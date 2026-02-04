@@ -65,9 +65,9 @@
 	"healthicon": "d-side/fake-mighty-d-side",
 	"flip_x": false,
 	"healthbar_colors": [
-		150,
-		139,
-		195
+		94,
+		45,
+		123
 	],
 	"camera_position": [
 		-20,

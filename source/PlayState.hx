@@ -425,6 +425,9 @@ class PlayState extends MusicBeatState
 	];
 	private var sonicHUD:SonicNumberSprite;
 
+	public var songSpeedTween:FlxTween;
+	public var songSpeed(default, set):Float = 1;
+
 	// loading stuff
 	var art = new FlxSprite();
 	var loadingbar = new FlxSprite();
@@ -551,14 +554,14 @@ class PlayState extends MusicBeatState
 		if(!vimdopause)
 		{
 			if (ModifiersManager.isEnabledbyName("fast_note"))
-				SONG.speed = SONG.speed * 1.5;
+				songSpeed = SONG.speed * 1.5;
 			else if (ModifiersManager.isEnabledbyName("slow_note"))
-				SONG.speed = SONG.speed *0.5;
-			newSongSpeed = SONG.speed; // pra dps do pause ele conseguir pegar o mesmo valor
+				songSpeed = SONG.speed *0.5;
+			newSongSpeed = songSpeed; // pra dps do pause ele conseguir pegar o mesmo valor
 		}
 		else
 		{
-			SONG.speed = newSongSpeed;
+			songSpeed = newSongSpeed;
 		}
 		vimdopause = false;
 
@@ -654,7 +657,7 @@ class PlayState extends MusicBeatState
 			case 'd-side-stage':
 				var bg = new BGSprite('TOO-SLOW/background ladders', -200, -290, 0.75, 0.75);
 				add(bg);
-				var icicles = new BGSprite('TOO-SLOW/icicles background', -121, -55, 0.85, 0.85);
+				var icicles = new BGSprite('TOO-SLOW/icicles background', -121, -180, 0.85, 0.85);
 				add(icicles);
 				fakeTooSlow = new BGSprite('TOO-SLOW/main stage', -490, 6, 1, 1);
 				add(fakeTooSlow);
@@ -2013,11 +2016,14 @@ class PlayState extends MusicBeatState
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 	private var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
 
-	inline public function tweenSongDuration() { FlxTween.tween(this, {songLength: FlxG.sound.music.length, health: 1}, 3); }
+	inline public function tweenSongDuration() { 
+		FlxTween.tween(this, {songLength: FlxG.sound.music.length, health: 1}, 3);
+	 }
 	inline public function updateTimeBar() { HUD.timeBar.createFilledBar(0x00D416E3, 0xFFD416E3).updateBar(); }
 
 	private function generateSong(dataPath:String):Void
 	{
+		songSpeed = SONG.speed;
 		var songData = SONG;
 		Song.Conductor.changeBPM(songData.bpm);
 
@@ -2203,7 +2209,7 @@ class PlayState extends MusicBeatState
 
 							var sustainNote:Note = new Note(daStrumTime
 								+ (Song.Conductor.stepCrochet * susNote)
-								+ (Song.Conductor.stepCrochet / FlxMath.roundDecimal(SONG.speed, 2)), daNoteData,
+								+ (Song.Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)), daNoteData,
 								oldNote, true);
 							sustainNote.mustPress = gottaHitNote;
 							sustainNote.noteType = swagNote.noteType;
@@ -2385,6 +2391,8 @@ class PlayState extends MusicBeatState
 
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = false;
+			if (songSpeedTween != null)
+				songSpeedTween.active = false;
 
 			var chars:Array<Character> = [boyfriend, gf, dad];
 			for (i in 0...chars.length)
@@ -2421,6 +2429,8 @@ class PlayState extends MusicBeatState
 				startTimer.active = true;
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = true;
+			if (songSpeedTween != null)
+				songSpeedTween.active = true;
 			if (blammedLightsBlackTween != null)
 				blammedLightsBlackTween.active = true;
 
@@ -2810,6 +2820,7 @@ class PlayState extends MusicBeatState
 		if (unspawnNotes[0] != null)
 		{
 			var time:Float = 1500;
+			if(songSpeed < 1) time /= songSpeed;
 			if (roundedSpeed < 1)
 				time /= roundedSpeed;
 			if (unspawnNotes[0].multSpeed < 1)
@@ -2876,9 +2887,9 @@ class PlayState extends MusicBeatState
 					strumAlpha *= daNote.multAlpha;
 
 					if (strumScroll) // Downscroll
-						daNote.distance = (0.45 * (Song.Conductor.songPosition - daNote.strumTime) * SONG.speed * daNote.multSpeed);
+						daNote.distance = (0.45 * (Song.Conductor.songPosition - daNote.strumTime) * songSpeed);
 					else // Upscroll
-						daNote.distance = (-0.45 * (Song.Conductor.songPosition - daNote.strumTime) * SONG.speed * daNote.multSpeed);
+						daNote.distance = (-0.45 * (Song.Conductor.songPosition - daNote.strumTime) * songSpeed);
 
 					var angleDir = strumDirection * CoolUtil.pi() / 180;
 					if (daNote.copyAngle)
@@ -2914,8 +2925,8 @@ class PlayState extends MusicBeatState
 						{
 							if (daNote.animation.curAnim.name.endsWith('end'))
 							{
-								daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * SONG.speed + (46 * (SONG.speed - 1));
-								daNote.y -= 46 * (1 - (fakeCrochet / 600)) * SONG.speed;
+								daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * songSpeed  + (46 * (songSpeed  - 1));
+								daNote.y -= 46 * (1 - (fakeCrochet / 600)) * songSpeed ;
 								if (isPixelStage)
 								{
 									daNote.y += 8 + (6 - daNote.originalHeightForCalcs) * PlayState.daPixelZoom;
@@ -2925,8 +2936,8 @@ class PlayState extends MusicBeatState
 									daNote.y -= 19;
 								}
 							}
-							daNote.y += (Note.swagWidth / 2) - (60.5 * (SONG.speed - 1));
-							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (SONG.speed - 1);
+							daNote.y += (Note.swagWidth / 2) - (60.5 * (songSpeed  - 1));
+							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (songSpeed  - 1);
 						}
 					}
 
@@ -2981,7 +2992,7 @@ class PlayState extends MusicBeatState
 					}
 
 					// Kill extremely late notes and cause misses
-					if (Song.Conductor.songPosition > noteKillOffset + daNote.strumTime - 200) // Um pouco mais preciso
+					if (Song.Conductor.songPosition > noteKillOffset + daNote.strumTime) // Um pouco mais preciso
 					{
 						if (daNote.mustPress && !cpuControlled && !daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit))
 						{
@@ -3240,6 +3251,28 @@ class PlayState extends MusicBeatState
 				HUD.iconP2.changeIcon(dad.healthIcon);
 				HUD.iconP1.changeIcon(boyfriend.healthIcon);
 				HUD.reloadHealthBarColors();
+			case 'Change Scroll Speed':
+				var val1:Float = Std.parseFloat(value1);
+				var val2:Float = Std.parseFloat(value2);
+				if(Math.isNaN(val1)) val1 = 1;
+				if(Math.isNaN(val2)) val2 = 0;
+
+				var newValue:Float = SONG.speed * val1;
+
+				if(val2 <= 0)
+				{
+					songSpeed = newValue;
+				}
+				else
+				{
+					songSpeedTween = FlxTween.tween(this, {songSpeed: newValue}, val2, {ease: FlxEase.linear, onComplete:
+						function (twn:FlxTween)
+						{
+							songSpeedTween = null;
+						}
+					});
+				}
+
 			case 'strum swap1':
 				isSwapped = true;
 				if (!ClientPrefs.middleScroll && value1 != 'true')
@@ -3314,7 +3347,7 @@ class PlayState extends MusicBeatState
 				if(value1.trim()!=''){
 			 		lyricsInText = new FlxText(0, 570, 0, value1, 32);
 					lyricsInText.cameras = [camOther];
-					lyricsInText.setFormat(Paths.font("sonic-1-hud-font.ttf"), 24, FlxColor.fromString(value2), CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					lyricsInText.setFormat(Paths.font("sonic-1-hud-font.ttf"), 48, FlxColor.fromString(value2), CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					lyricsInText.screenCenter(X);
 					lyricsInText.updateHitbox();
 					add(lyricsInText);
@@ -6830,6 +6863,33 @@ class PlayState extends MusicBeatState
 			- Song.Conductor.songPosition
 			- ClientPrefs.noteOffset);
 		#end
+	}
+
+	function set_songSpeed(value:Float):Float
+	{
+		if(generatedMusic)
+		{
+			var ratio:Float = value / songSpeed; //funny word huh
+			for (note in notes)
+			{
+				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
+				{
+					note.scale.y *= ratio;
+					note.updateHitbox();
+				}
+			}
+			for (note in unspawnNotes)
+			{
+				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
+				{
+					note.scale.y *= ratio;
+					note.updateHitbox();
+				}
+			}
+		}
+		songSpeed = value;
+		noteKillOffset = 350 / songSpeed;
+		return value;
 	}
 
 	// Btw é realmente util refazer isso na 0.14.

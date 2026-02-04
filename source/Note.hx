@@ -312,7 +312,7 @@ class Note extends FlxSprite
 							prevNote.animation.play('redhold');
 					}
 
-				prevNote.scale.y *= Song.Conductor.stepCrochet / 100 * 1.05 * PlayState.SONG.speed;
+				prevNote.scale.y *= Song.Conductor.stepCrochet / 100 * 1.05 * PlayState.instance.songSpeed;
 				if (PlayState.isPixelStage)
 				{
 					prevNote.scale.y *= 1.19;

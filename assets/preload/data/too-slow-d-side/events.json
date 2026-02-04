@@ -2,7 +2,7 @@
 	"song": {
 		"speed": 3,
 		"stage": "d-side-stage",
-		"player1": "bf",
+		"player1": "bf-d-side",
 		"player2": "mighty-d-side-intro",
 		"player3": "gf-d-side",
 		"notes": [
@@ -286,7 +286,7 @@
 					[
 						30000,
 						-1,
-						"customBlack",
+						"BlackOut",
 						"true",
 						"",
 						"",
@@ -384,14 +384,14 @@
 					[
 						35000,
 						-1,
-						"customBlack",
+						"BlackOut",
 						"false",
 						"",
 						"",
 						""
 					],
 					[
-						35003.2552083333,
+						35001,
 						-1,
 						"eventos-d-side",
 						"448",
@@ -995,6 +995,15 @@
 						"customLyrics",
 						"YOU'LL EVER SEE.",
 						"#c940ff",
+						"",
+						""
+					],
+					[
+						95000,
+						-1,
+						"customLyrics",
+						"",
+						"",
 						"",
 						""
 					]
