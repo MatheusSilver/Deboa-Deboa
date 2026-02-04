@@ -3871,7 +3871,7 @@ class PlayState extends MusicBeatState
 						triggerEventNote('noteskinchangeOPPT', 'NOTE-STARVI_assetszoom', ''); // must do Arrumar esse sprite.
 					case 1547: // Just settings tbh
 						health = 1;
-						SONG.speed = 3.3; // A musica começa mais lenta, e nessa parte, ela fica com a velocidade .2 menor do que a chart normal
+						triggerEventNote('Change Scroll Speed', '1,18', ''); //3.3/2.8
 						boyfriend.animation.finishCallback = function(slash:String)
 						{
 							if (dad.animation.curAnim.name == "first dialogue")
@@ -3996,7 +3996,7 @@ class PlayState extends MusicBeatState
 						dad.y += 50;
 						FlxTween.tween(dad, {x: 580 - 450}, 3, {ease: FlxEase.cubeInOut});
 						FlxTween.tween(gf, {x: 580 - 375}, 3, {ease: FlxEase.cubeInOut});
-						SONG.speed = 3.8;
+						triggerEventNote('Change Scroll Speed', '1,36', ''); //3,8/2,8
 						FlxTween.tween(blackFuck, {alpha: 0}, 1, {ease: FlxEase.cubeInOut});
 						FlxTween.tween(camHUD, {alpha: 1}, 1, {ease: FlxEase.cubeInOut});
 
@@ -4022,7 +4022,7 @@ class PlayState extends MusicBeatState
 						HUD.scoreTxt.visible = false;
 						HUD.timeBar.createFilledBar(0xFF000000, 0xFFFF0000);
 						HUD.timeTxt.visible = true;
-						SONG.speed = 2.8; // Talvez isso seja muito lento, mas  a idéia é essa mesma k
+						triggerEventNote('Change Scroll Speed', '0.82', ''); //2,3/2,8
 						HUD.timeBarBG.visible = true;
 						canRegen = false;
 						camHUD.alpha = 1; // Só pra garantir
