@@ -970,6 +970,14 @@ class FunkinLua {
 			new GifWindow("assets/images/gif/control/", CoolUtil.randomFloat(0, Main.desktopResolutionX-GifWindow.gifWidth), CoolUtil.randomFloat(0, Main.desktopResolutionY-GifWindow.gifHeight), false);
 		});
 
+		Lua_helper.add_callback(lua, "resetDurationTween", function() {
+			PlayState.instance.tweenSongDuration();
+		});
+
+		Lua_helper.add_callback(lua, "updateTimeBar", function() {
+			PlayState.instance.updateTimeBar();
+		});
+
 		Lua_helper.add_callback(lua, "makeGraphic", function(obj:String, width:Int, height:Int, color:String) {
 			if(PlayState.instance.modchartSprites.exists(obj)) {
 				PlayState.instance.modchartSprites.get(obj).makeGraphic(width, height, CoolUtil.colorFromString(color));

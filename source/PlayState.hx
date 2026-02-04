@@ -134,6 +134,12 @@ class PlayState extends MusicBeatState
 	var fakertransform:FlxSprite;
 	var daJumpscare:FlxSprite = new FlxSprite(0, 0);
 	var daP3Static:FlxSprite = new FlxSprite(0, 0);
+	
+	// Usado exclusivamente na too-slow d-side, mas talvez possamos adaptar para a drop and roll se necessário.
+	private var lyricsInText:FlxText;
+
+	public var fakeTooSlow:BGSprite;
+	public var urTooSlow:BGSprite;
 
 	public var bgSkychasing:FlxSprite;
 
@@ -339,7 +345,7 @@ class PlayState extends MusicBeatState
 
 	public var inCutscene:Bool = false;
 
-	var songLength:Float = 0;
+	public var songLength:Float = 0;
 
 	// eu n sei onde oclocar isso pq eu to perdido socorro eu tenho medo do playstate alguém me ajuda preciso ser salvo
 	var omagaaaa:FlxSprite;
@@ -645,6 +651,16 @@ class PlayState extends MusicBeatState
 				var whiteFuck:FlxSprite; // Talvez eu arrange outra serventia pra isso.
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 				add(whiteFuck);
+			case 'd-side-stage':
+				var bg = new BGSprite('TOO-SLOW/background ladders', -200, -290, 0.75, 0.75);
+				add(bg);
+				var icicles = new BGSprite('TOO-SLOW/icicles background', -121, -55, 0.85, 0.85);
+				add(icicles);
+				fakeTooSlow = new BGSprite('TOO-SLOW/main stage', -490, 6, 1, 1);
+				add(fakeTooSlow);
+				urTooSlow = new BGSprite('TOO-SLOW/main stage spoopy', -490, 6, 1, 1);
+				add(urTooSlow);
+				urTooSlow.visible=false;
 			case 'P2Stage':
 				if(!ClientPrefs.lowQuality) {
 				p2Sky = new BGSprite('cenarios/Glitch', -200, -200, 0.6, 0.6);
@@ -849,7 +865,11 @@ class PlayState extends MusicBeatState
 			insert(members.indexOf(boyfriendGroup) - 1, blammedLightsBlack);
 	
 			blammedLightsBlack.alpha = 0.0;
+		}
 
+		if(curStage=='d-side-stage'){
+			var fgIce = new BGSprite('TOO-SLOW/icicles foreground', -400, 11, 2, 2);
+			add(fgIce);
 		}
 
 		var gfVersion:String = SONG.player3;
@@ -1976,6 +1996,11 @@ class PlayState extends MusicBeatState
 		FlxTween.tween(HUD.timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(HUD.timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
+
+		if(SONG.song.toLowerCase()=='too-slow-d-side'){
+			songLength = 35000;
+		}
+
 		#if rpc
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, nomehistorico + " (" + storyDifficultyText + ")", HUD.iconP2.getCharacter(), true, songLength);
@@ -1987,6 +2012,9 @@ class PlayState extends MusicBeatState
 	var debugNum:Int = 0;
 	private var noteTypeMap:Map<String, Bool> = new Map<String, Bool>();
 	private var eventPushedMap:Map<String, Bool> = new Map<String, Bool>();
+
+	inline public function tweenSongDuration() { FlxTween.tween(this, {songLength: FlxG.sound.music.length, health: 1}, 3); }
+	inline public function updateTimeBar() { HUD.timeBar.createFilledBar(0x00D416E3, 0xFFD416E3).updateBar(); }
 
 	private function generateSong(dataPath:String):Void
 	{
@@ -3275,6 +3303,21 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('hey', true);
 					boyfriend.specialAnim = true;
 					boyfriend.heyTimer = time;
+				}
+
+			case 'customLyrics':
+				if(lyricsInText!=null){
+					remove(lyricsInText);
+					lyricsInText.destroy();
+				}
+				if(value2.trim()=='')value2='#FFFFFF';
+				if(value1.trim()!=''){
+			 		lyricsInText = new FlxText(0, 570, 0, value1, 32);
+					lyricsInText.cameras = [camOther];
+					lyricsInText.setFormat(Paths.font("sonic-1-hud-font.ttf"), 24, FlxColor.fromString(value2), CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					lyricsInText.screenCenter(X);
+					lyricsInText.updateHitbox();
+					add(lyricsInText);
 				}
 
 			/* Usado na Green Hills*/

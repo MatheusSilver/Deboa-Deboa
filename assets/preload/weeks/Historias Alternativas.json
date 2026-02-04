@@ -64,6 +64,16 @@
 				0
 			],
 			"Best Friends"
+		],
+		[
+			"too-slow-d-side",
+			"d-side/fake-mighty-d-side",
+			[
+				255,
+				0,
+				0
+			],
+			"Lerdeza D-Side"
 		]
 		],
 	"hideStoryMode": true,

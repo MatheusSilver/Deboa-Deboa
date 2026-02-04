@@ -95,6 +95,7 @@
 		<library name="week-prey"        		 preload="true" />
 		<library name="week-rastro"        		 preload="true" />
 		<library name="week-roundabout"          preload="true" />
+		<library name="week-sides"        		 preload="true" />
 		<library name="week-sink"        		 preload="true" />
 		<library name="week-soulless"      		 preload="true" />
 		<library name="week-sunshine"        	 preload="true" />
@@ -138,6 +139,7 @@
 		<library name="week-prey"        		 preload="false" />
 		<library name="week-rastro"        		 preload="false" />
 		<library name="week-roundabout"          preload="false" />
+		<library name="week-sides"        		 preload="false" />
 		<library name="week-sink"        		 preload="false" />
 		<library name="week-soulless"      		 preload="false" />
 		<library name="week-sunshine"        	 preload="false" />
@@ -213,6 +215,8 @@
 	<assets path="assets/week-rastro"         	   library="week-rastro"              exclude="*.ogg" if="web"/>
 	<assets path="assets/week-roundabout"          library="week-roundabout"          exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-roundabout"          library="week-roundabout"          exclude="*.ogg" if="web"/>
+	<assets path="assets/week-sides"         	   library="week-sides"               exclude="*.mp3" unless="web"/>
+	<assets path="assets/week-sides"         	   library="week-sides"               exclude="*.ogg" if="web"/>
 	<assets path="assets/week-sink"         	   library="week-sink"                exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-sink"         	   library="week-sink"                exclude="*.ogg" if="web"/>
 	<assets path="assets/week-soulless"            library="week-soulless"            exclude="*.mp3" unless="web"/>
