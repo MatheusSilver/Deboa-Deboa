@@ -14,8 +14,6 @@ import ui.FlxButton;
 import mobile.ui.FlxVirtualPad;
 import mobile.ui.Hitbox;
 import mobile.ui.Hitbox2; //OOOOOOOOOOOOMAGAWD HITBOX2?????? DOS MESMOS CRIADORES DE ZAPORUNGA SHARAPOVA 2????? OMAGAAAAAAAAAAAAAAAAAAAWD
-import mobile.MobileControls.FlxDPadMode;
-import mobile.MobileControls.FlxActionMode;
 #end
 
 class DefaultInputs{ //Então... Eu havia esquecido de um fator extremamente inportante do ClientPrefs... Ele literalmente salva TODOS
@@ -492,6 +490,7 @@ class Controls extends FlxActionSet
 
 	public function setSpecialHitBoxNOTES(hitbox:Hitbox2) //Ok... aqui vai dar um mini trampo //Parece mentira
 		{
+			// Acho que por aqui tá safe já que tá tudo setado pro space certinho
 			inline forEachBound(Control.NOTE_UP, (action, state) -> addbuttonuNOTES(action, hitbox.buttonUp, state));
 			inline forEachBound(Control.NOTE_DOWN, (action, state) -> addbuttonuNOTES(action, hitbox.buttonDown, state));
 			inline forEachBound(Control.NOTE_SPACE, (action, state) -> addbuttonuNOTES(action, hitbox.buttonSpace, state));
@@ -531,7 +530,7 @@ class Controls extends FlxActionSet
 		{
 			case A:
 				inline forEachBound(Control.ACCEPT, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonA, state));
-                        case B:
+            case B:
 				inline forEachBound(Control.BACK, (action, state) -> addbuttonuUI(action, virtualPad.buttonB, state));
 			case A_B:
 				inline forEachBound(Control.ACCEPT, (action, state) -> addbuttonuNOTES(action, virtualPad.buttonA, state));

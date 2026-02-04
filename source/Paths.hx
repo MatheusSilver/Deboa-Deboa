@@ -1,6 +1,6 @@
 package;
 
-#if (desktop || debug)
+#if (desktop && debug)
 import sys.FileSystem;
 #end
 import openfl.system.System;
@@ -349,7 +349,7 @@ class Paths
 
 			localTrackedAssets.push(key);
 			return currentTrackedAssets.get(key);
-		}#if (desktop || debug) // Nao kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkj
+		}#if (desktop && debug) // Nao kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkj
 		// po vei eu era mt burro
 		else if(FileSystem.exists(getPreloadPath('images/$key.png'))){
 			if (!currentTrackedAssets.exists(key))

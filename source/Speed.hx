@@ -1,3 +1,4 @@
+#if mobile
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 
@@ -13,7 +14,7 @@ class Speed extends FlxSpriteGroup
 		input_allowed = true;
 
 		speed = new FlxSprite();
-		speed.frames = Paths.getSparrowAtlas('speed', 'shared');
+		speed.frames = Paths.getSparrowAtlas('speed');
 		speed.antialiasing = ClientPrefs.globalAntialiasing;
 		speed.moves = false;
 
@@ -29,9 +30,6 @@ class Speed extends FlxSpriteGroup
 		add(speed);
 	}
 
-	public static inline function float(from:Float, to:Float):Float
-		return from + ((to - from) * Math.random());
-
 	override function update(elapsed:Float) {
 		if (input_allowed && BSLTouchUtils.apertasimples(speed))
 			close();
@@ -40,7 +38,7 @@ class Speed extends FlxSpriteGroup
 	}
 
 	private function close() {
-		Main.mouseVisibility(false);
 		input_allowed = visible = false;
 	}
 }
+#end

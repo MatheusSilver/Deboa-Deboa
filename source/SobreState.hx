@@ -234,7 +234,7 @@ class SobreState extends MusicBeatState
 				#if desktop
 				MusicBeatState.switchState(new SobreVideo());
 				#elseif mobile
-				FlxG.switchState(new VideoState('assets/videos/EngineBase/aviso', (new SobreState())));
+				FlxG.switchState(new VideoState('assets/videos/EngineBase/aviso', new SobreState()));
 				#end
 			case "sunny":
 				MusicBeatState.switchState(new GaleriaState());

@@ -1,8 +1,13 @@
 package mobile.ui;
 
 #if mobileC
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.FlxSprite;
+import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import ui.FlxButton;
+import flixel.graphics.FlxGraphic;
 
 /**
  *  Reescrevi esse code, tentando deixar tudo mais limpo e melhor de ler
@@ -15,13 +20,15 @@ class Hitbox2 extends FlxSpriteGroup
 	public var buttonUp:FlxButton;
 	public var buttonRight:FlxButton;
 
-	private var buttonsCoords:Array<Int> = []; // Adaptei isso pra ser dependente da resolução.
+	private var size:Float;
+	private var buttonsCoords:Array<Float> = []; // Adaptei isso pra ser dependente da resolução.
+
 	public function new()
 	{
 		super();
-
-        var size:Int = FlxG.width != null ? FlxG.width / 5 : 320;
-        buttonsCoords = [0, size, size, size * 2, size * 3];
+       
+		size = FlxG.width / 5; // Tenho em mente que isso será sempre 1280x720, o que confirma o 256. mas vai que né?
+        buttonsCoords = [0, size, size * 2 , size * 3, size * 4]; // Antes dessa correção, um botão ia sobrepor o outro.
         
 		var hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('hitboxExtra_hint', 'mobilecontrols'));
 		hint.setGraphicSize(FlxG.width, FlxG.height);
@@ -78,6 +85,6 @@ class Hitbox2 extends FlxSpriteGroup
 	}
 
     inline public static function loadHitboxGraphic(frame:String):FlxGraphic
-		return FlxGraphic.fromFrame(getSparrowAtlas('hitboxExtra', 'mobilecontrols').getByName(frame));
+		return FlxGraphic.fromFrame(Paths.getSparrowAtlas('hitboxExtra', 'mobilecontrols').getByName(frame));
 }
 #end

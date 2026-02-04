@@ -33,7 +33,6 @@ import flixel.math.FlxRect;
 import flixel.util.FlxSort;
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
-import sys.FileSystem;
 import openfl.net.URLRequest;
 import openfl.events.Event;
 import openfl.events.ErrorEvent;

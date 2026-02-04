@@ -43,7 +43,9 @@ class BaseOptionsMenu extends MusicBeatState
 		'hitsound_test',
 		'colorblindness_filter',
 		'animspeed',
+		#if desktop
 		'cursor_size'
+		#end
 	];
 
 	static var options:Array<String> = [
@@ -79,7 +81,9 @@ class BaseOptionsMenu extends MusicBeatState
 		'gore',
 		'colorblindness_filter',
 		'animspeed',
+		#if desktop
 		'cursor_size',
+		#end
 		'global_sounds_cap',
 		'game_volume',
 		'hitsound_sounds_cap',
@@ -398,11 +402,13 @@ class BaseOptionsMenu extends MusicBeatState
 						ClientPrefs.animSpeed = CoolUtil.stableOneDigitSum(ClientPrefs.animSpeed, addOne);
 						if (ClientPrefs.animSpeed < 1) ClientPrefs.animSpeed = 1;
 						if (ClientPrefs.animSpeed > 2.5) ClientPrefs.animSpeed = 2.5;
+					#if desktop
 					case 'cursor_size':
 						ClientPrefs.cursor_size = CoolUtil.stableOneDigitSum(ClientPrefs.cursor_size, addOne);
 						if (ClientPrefs.cursor_size < 0.5) ClientPrefs.cursor_size = 0.5;
 						if (ClientPrefs.cursor_size > 2) ClientPrefs.cursor_size = 2;
 						FlxG.mouse.load(ClientPrefs.cursor_size);
+					#end
  				}
 				reloadValues();
 

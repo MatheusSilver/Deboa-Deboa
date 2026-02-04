@@ -62,7 +62,7 @@
 	<section if="PRELOAD_ALL">
 		<library name="locales" 		      	 preload="true" />
 		<library name="particles"      			 preload="true" />
-		<library name="shaders"      			 preload="true" />
+		<library name="shaders"      			 preload="true" 	if="desktop"/> <!-- Por agora é exclusivo pra Desktop -->
 		<library name="songs"        			 preload="true" />
 		<library name="mobilecontrols"			 preload="true" 	if="mobileC"/>
 		<library name="shared"       			 preload="true" />
@@ -106,7 +106,7 @@
 	<section if="NO_PRELOAD_ALL">
 		<library name="locales" 		      	 preload="false" />
 		<library name="particles"      			 preload="false" />
-		<library name="shaders"      			 preload="false" />
+		<library name="shaders"      			 preload="false" 	if="desktop"/>
 		<library name="songs"        			 preload="false" />
 		<library name="shared"       			 preload="false" />
 		<library name="mobilecontrols"			 preload="false" 	if="mobileC"/>
@@ -151,8 +151,7 @@
 	<assets path="assets/locales"        	   	   library="locales"       	  		  exclude="*.mp3" unless="web"/>
 	<assets path="assets/particles"       		   library="particles"        		  exclude="*.ogg" if="web"/>
 	<assets path="assets/particles"       		   library="particles"       		  exclude="*.mp3" unless="web"/>
-	<assets path="assets/shaders"       		   library="shaders"        		  exclude="*.ogg" if="web"/>
-	<assets path="assets/shaders"       		   library="shaders"       		  	  exclude="*.mp3" unless="web"/>
+	<assets path="assets/shaders"       		   library="shaders"        		  if="desktop"/>
 	<assets path="assets/songs"       			   library="songs"        			  exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"       			   library="songs"       			  exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"      			   library="shared"       			  exclude="*.ogg" if="web"/>
@@ -337,13 +336,13 @@
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
 
-	<section if="windows">
+	<section if="windows || mobile">
 		<icon path="art/icon16.png" size='16'/>
 		<icon path="art/icon32.png" size='32'/>
 		<icon path="art/icon64.png" size='64'/>
 		<icon path="art/iconOG.png" />
 	</section>
 	<section if="linux">
-		<assets path='art/iconOG.png' rename='icon.png' if="linux" />
+		<assets path='art/iconOG.png' rename='icon.png'/>
 	</section>
 </project>
