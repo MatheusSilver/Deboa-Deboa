@@ -27,8 +27,6 @@ end
 
 
 function onUpdate(elapsed)
-	setProperty('timeBar.alpha',0)
-	setProperty('timeTxt.alpha',0)
 	if curStep <= 1 then
 		setProperty('dad.specialAnim', true);
 		characterPlayAnim('dad', 'alt-idle', true);
@@ -66,8 +64,10 @@ function onStartCountdown()
 	setProperty('gf.alpha', 0)
 	setProperty('dad.alpha', 1)
 	setProperty('boyfriend.alpha', 0)
+	setProperty('HUD.timeBar.visible',false)
+	setProperty('HUD.timeTxt.visible',false)
 	setProperty("dad.stunned",true)
-	--setProperty('scoreTxt.alpha', 0)
+	--setProperty('HUD.scoreTxt.alpha', 0)
 	return Function_Continue
 end
 

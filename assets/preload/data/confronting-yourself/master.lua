@@ -49,7 +49,7 @@ currentTime = 0 -- Tempo atual da animação
 prevTime = 0
 function onUpdatePost(elapsed)
 	if healthDrain then
-		mult = lerp(1, getProperty('iconP1.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
+		mult = lerp(1, getProperty('HUD.iconP1.scale.x'), boundTo(1 - (elapsed * 9), 0, 1));
     	scaleObject('oppIcon', mult, mult)
 		scaleObject('bfIcon', mult, mult)
 	end
@@ -205,7 +205,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 		mudarRPCdetalhes('cy_ato_6')
 		sai2D()
 		setProperty("cambump_allowed", false)
-		setProperty('bfIsLeft', false)
+		setProperty('HUD.bfIsLeft', false)
 	elseif curPhase == 10 then
 		setProperty("cambump_allowed", true)
 		setProperty('gfGroup.visible', true)
@@ -330,32 +330,32 @@ end
 function onCreatePost()
 	lockAto6Run = false
 	--Icons code
-	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('healthBar.y') -80)
+	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('HUD.healthBar.y') -80)
 	loadGraphic('oppIcon', 'icons/cy/sonicexeAH', 150)
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setProperty('oppIcon.visible', false)
 	setObjectCamera('oppIcon', 'camHUD')
 	addLuaSprite('oppIcon')
-	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 5)
+	setObjectOrder('oppIcon', getObjectOrder('HUD.healthBarBG') + 5)
 
-	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
+	makeLuaSprite('bfIcon', 'empty', getProperty('HUD.healthBar.width') + 285 ,getProperty('HUD.healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/cy/sonicAH', 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setProperty('bfIcon.visible', false)
 	setObjectCamera('bfIcon', 'camHUD')
 	addLuaSprite('bfIcon')
-	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 6)
+	setObjectOrder('bfIcon', getObjectOrder('HUD.healthBarBG') + 6)
 
 	--Ring code
-	makeAnimatedLuaSprite('healthFollower', 'ring', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2 ,getProperty('healthBarBG.y')-27)
+	makeAnimatedLuaSprite('healthFollower', 'ring', getProperty('HUD.healthBar.x') + getProperty('HUD.healthBar.width')*getProperty('health')/2 ,getProperty('HUD.healthBarBG.y')-27)
 	addAnimationByPrefix('healthFollower', 'idle', 'ring idle', 12, true)
 	objectPlayAnimation('healthFollower', 'idle', true)
 	setProperty('healthFollower.visible', false)
-	setObjectCamera('healthFollower', 'camHUD')
+	setObjectCamera('healthFollower', 'hud')
 	setGraphicSize('healthFollower', 75)
 
 	addLuaSprite('healthFollower')
-	setObjectOrder('healthFollower', getObjectOrder('hud.healthBarBG') + 4)
+	setObjectOrder('healthFollower', getObjectOrder('HUD.healthBarBG') + 4)
 end
 
 
@@ -370,10 +370,10 @@ function onUpdate()
 			objectPlayIndexedAnimation('bfIcon', 0)
 		end
 		-- Caso o sonico esteja na esquerda e o opp esteja na direita, é a formula abaixo
-		-- setProperty('healthFollower.x', getProperty('healthBar.x') + getProperty('healthBar.width')*getProperty('health')/2)
+		-- setProperty('healthFollower.x', getProperty('HUD.healthBar.x') + getProperty('HUD.healthBar.width')*getProperty('health')/2)
 		-- Caso contrário, bf na direita e opp na esquerda (que é o caso da CY), então...
 		if (getProperty('health') >= 0.05 and getProperty('health') <= 1.95)then
-			setProperty('healthFollower.x', getProperty('healthBar.x') - 35 + getProperty('healthBar.width')*((2-getProperty('health'))/2))
+			setProperty('healthFollower.x', getProperty('HUD.healthBar.x') - 35 + getProperty('HUD.healthBar.width')*((2-getProperty('health'))/2))
 		end
 		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
 	end
@@ -412,10 +412,10 @@ function entra2D()
 	setProperty('oppIcon.visible', true)
 	setProperty('bfIcon.visible', true)
 	setProperty('healthFollower.visible', true)
-	setProperty('iconP1.visible', false)
-	prevTwisted = getProperty('bfIsLeft')
-	setProperty('bfIsLeft', false)
-	setProperty('iconP2.visible', false)
+	setProperty('HUD.iconP1.visible', false)
+	prevTwisted = getProperty('HUD.bfIsLeft')
+	setProperty('HUD.bfIsLeft', false)
+	setProperty('HUD.iconP2.visible', false)
 	changeHealthBar(true)
 	triggerEvent("Cinematics-CY", '1', '0.5', 'nada', 'nada')
 	if ato8Change then
@@ -427,12 +427,12 @@ end
 function sai2D()
 	healthDrain = false
 	setProperty('health',1) --Design purposes
-	setProperty('bfIsLeft', prevTwisted)
+	setProperty('HUD.bfIsLeft', prevTwisted)
 	setProperty('healthFollower.visible', false)
 	setProperty('oppIcon.visible', false)
 	setProperty('bfIcon.visible', false)
-	setProperty('iconP1.visible', true)
-	setProperty('iconP2.visible', true)
+	setProperty('HUD.iconP1.visible', true)
+	setProperty('HUD.iconP2.visible', true)
 	changeHealthBar(false)
 	triggerEvent("Cinematics-CY", '2', '0.5', 'nada', 'nada')
 end

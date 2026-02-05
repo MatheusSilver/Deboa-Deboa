@@ -57,11 +57,13 @@
                 triggerEvent('Change Character', 'bf', 'bf_dream');
                 setProperty('defaultCamZoom', 2.2);
                 setProperty('stage.visible', false);
-                setProperty('healthBar.visible', false);
-                setProperty('healthBarBG.visible', false);
-                setProperty('iconP1.visible', false);
-                setProperty('iconP2.visible', false);
-                setProperty('scoreTxt.visible', false);
+                setProperty('HUD.healthBar.visible', false);
+                setProperty('HUD.healthBarBG.visible', false);
+                setProperty('HUD.iconP1.visible', false);
+                setProperty('HUD.iconP2.visible', false);
+                setProperty('HUD.scoreTxt.visible', false);
+                setProperty('HUD.timeBar.visible',false)
+	            setProperty('HUD.timeTxt.visible',false)
         
                 noteTweenX('left', 0, -2000, 0.01, 'linear');
                 noteTweenX('down', 1, -2000, 0.01, 'linear');
@@ -107,12 +109,14 @@
                 
                 setProperty('stage.alpha', 1);
                 setProperty('stage.visible', true);
-                setProperty('healthBar.visible', true);
-                setProperty('healthBarBG.visible', true);
-                setProperty('timeTxt.visible', true);
-                setProperty('iconP1.visible', true);
-                setProperty('iconP2.visible', true);
-                setProperty('scoreTxt.visible', true);
+                setProperty('HUD.healthBar.visible', true);
+                setProperty('HUD.healthBarBG.visible', true);
+                setProperty('HUD.timeTxt.visible', true);
+                setProperty('HUD.iconP1.visible', true);
+                setProperty('HUD.iconP2.visible', true);
+                setProperty('HUD.scoreTxt.visible', true);
+                setProperty('HUD.timeBar.visible',true)
+	            setProperty('HUD.timeTxt.visible',true)
         
                 noteTweenX('left', 0, defaultOpponentStrumX0, 0.01, 'linear');
                 noteTweenX('down', 1, defaultOpponentStrumX1, 0.01, 'linear');
@@ -152,7 +156,7 @@
 function propriedadescomuns(var)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
-    setLuaSpriteCamera(var, 'camhud'); -- O único motivo de eu usar o diferenciado é esse aqui
+    setLuaSpriteCamera(var, 'camHUD'); -- O único motivo de eu usar o diferenciado é esse aqui
                                        -- Assim poupo de ter que colocar um shader a mais pra camLegenda.
     --setGraphicSize(var, screenWidth) -- k
     screenCenter(var, 'x')

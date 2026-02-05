@@ -15,7 +15,7 @@ function onCreate()
 	setProperty('knux.alpha',0)
 	setObjectCamera('knux','camOther')
 
-	setProperty("healthBar.max",1)
+	setProperty("HUD.healthBar.max",1)
 end
 
 modchart = true

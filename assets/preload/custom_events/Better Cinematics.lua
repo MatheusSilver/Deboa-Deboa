@@ -1,4 +1,4 @@
-local HudPieces = {'hud.healthBarBG','hud.healthBar','hud.iconP1','hud.iconP2','hud.timeBar','hud.timeBarBG'}
+local HudPieces = {'HUD.healthBarBG','HUD.healthBar','HUD.iconP1','HUD.iconP2','HUD.timeBar','HUD.timeBarBG'}
 local index = 1
 function onCreatePost()
 
@@ -8,14 +8,14 @@ function onCreatePost()
 	--THE TOP BAR--
 	makeLuaSprite('UpperBar', 'empty', -110, -350)
 	makeGraphic('UpperBar', 1500, 350, '000000')
-	setObjectCamera('UpperBar', 'HUD')
+	setObjectCamera('UpperBar', 'camHUD')
 	addLuaSprite('UpperBar', false)
 
 
 	--THE BOTTOM BAR--
 	makeLuaSprite('LowerBar', 'empty', -110, 730)
 	makeGraphic('LowerBar', 1500, 350, '000000')
-	setObjectCamera('LowerBar', 'HUD')
+	setObjectCamera('LowerBar', 'camHUD')
 	addLuaSprite('LowerBar', false)
 	
 ------------------------------------------------------------------------

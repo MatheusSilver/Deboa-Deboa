@@ -7,30 +7,30 @@
 
 function onCreatePost()
 	--Icons code
-	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('healthBar.y') -80)
+	makeLuaSprite('oppIcon', 'empty', 230 ,getProperty('HUD.healthBar.y') -80)
 	loadGraphic('oppIcon', 'icons/xeno/xeno', 150)
 	addAnimation('oppIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setObjectCamera('oppIcon', 'camHUD')
-	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
+	setObjectOrder('oppIcon', getObjectOrder('HUD.healthBarBG') + 2)
 	addLuaSprite('oppIcon')
 	setProperty('oppIcon.visible', false)
-	setObjectOrder('oppIcon', getObjectOrder('healthBarBG') + 2)
+	setObjectOrder('oppIcon', getObjectOrder('HUD.healthBarBG') + 2)
 
-	makeLuaSprite('bfIcon', 'empty', getProperty('healthBar.width') + 285 ,getProperty('healthBar.y') -80)
+	makeLuaSprite('bfIcon', 'empty', getProperty('HUD.healthBar.width') + 285 ,getProperty('HUD.healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/fnf/bf', 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setObjectCamera('bfIcon', 'camHUD')
 	setProperty('bfIcon.visible', false)
 	setProperty('bfIcon.flipX', false)
-	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
+	setObjectOrder('bfIcon', getObjectOrder('HUD.healthBarBG') + 3)
 	addLuaSprite('bfIcon')
-	setObjectOrder('bfIcon', getObjectOrder('healthBarBG') + 3)
+	setObjectOrder('bfIcon', getObjectOrder('HUD.healthBarBG') + 3)
 
-	makeLuaSprite('HPbar', 'empty', getProperty('healthBar.x'),getProperty('healthBar.y'));
-	makeGraphic('HPbar',getProperty('healthBar.width'),getProperty('healthBar.height'),'00B6FF')
+	makeLuaSprite('HPbar', 'empty', getProperty('HUD.healthBar.x'),getProperty('HUD.healthBar.y'));
+	makeGraphic('HPbar',getProperty('HUD.healthBar.width'),getProperty('HUD.healthBar.height'),'00B6FF')
 	addLuaSprite('HPbar', true);
 	setProperty('HPbar.visible', false)
-	setObjectOrder('HPbar',getObjectOrder('healthBar') + 1)
+	setObjectOrder('HPbar',getObjectOrder('HUD.healthBar') + 1)
 	setObjectCamera('HPbar', 'hud');
 end
 

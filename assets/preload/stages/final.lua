@@ -190,19 +190,19 @@ setProperty('cameraSpeed',4)
 --EXE ICON
 
 
-	makeAnimatedLuaSprite('exeIcon', nil, 285, getProperty('healthBar.y') -80)
+	makeAnimatedLuaSprite('exeIcon', nil, 285, getProperty('HUD.healthBar.y') -80)
 	loadGraphic('exeIcon', 'icons/'..getProperty('dad.healthIcon'), 150)
 	addAnimation('exeIcon', 'icon/'..getProperty('dad.healthIcon'), {0, 1}, 0, true)
 	setObjectCamera('exeIcon', 'other')
-	setObjectOrder('exeIcon',getObjectOrder('healthBarBG') + 4)
+	setObjectOrder('exeIcon',getObjectOrder('HUD.healthBarBG') + 4)
 	setProperty('exeIcon.alpha',0)
 	addLuaSprite('exeIcon')
 	
-	makeAnimatedLuaSprite('bfIcon', nil, 285, getProperty('healthBar.y') -80)
+	makeAnimatedLuaSprite('bfIcon', nil, 285, getProperty('HUD.healthBar.y') -80)
 	loadGraphic('bfIcon', 'icons/'..getProperty('boyfriend.healthIcon'), 150)
 	addAnimation('bfIcon', 'icon/'..getProperty('boyfriend.healthIcon'), {0, 1}, 0, true)
 	setObjectCamera('bfIcon', 'other')
-	setObjectOrder('bfIcon',getObjectOrder('healthBar') + 3)
+	setObjectOrder('bfIcon',getObjectOrder('HUD.healthBar') + 3)
 	
 	setProperty('bfIcon.alpha',1)
 	
@@ -214,10 +214,10 @@ setProperty('cameraSpeed',4)
 	
 --HealthBar
 
-makeLuaSprite('HPbar', nil, getProperty('healthBar.x'),getProperty('healthBar.y'));
-makeGraphic('HPbar',getProperty('healthBar.width'),getProperty('healthBar.height'),'00B6FF')
+makeLuaSprite('HPbar', nil, getProperty('HUD.healthBar.x'),getProperty('HUD.healthBar.y'));
+makeGraphic('HPbar',getProperty('HUD.healthBar.width'),getProperty('HUD.healthBar.height'),'00B6FF')
 addLuaSprite('HPbar', true);
-setObjectOrder('HPbar',getObjectOrder('healthBar') + 1)
+setObjectOrder('HPbar',getObjectOrder('HUD.healthBar') + 1)
 setObjectCamera('HPbar', 'hud');
 
 setProperty('HPbar.visible',false )
@@ -320,9 +320,9 @@ setProperty('health',2)
 runTimer('HpDecay', 0.02, 0)
 runTimer('RandomRingFall',0.1,0)
 
-	setProperty('exeIcon.y',(getProperty('healthBar.y')-80) + 50 )
+	setProperty('exeIcon.y',(getProperty('HUD.healthBar.y')-80) + 50 )
 	doTweenAlpha('exeIconA','exeIcon',1,0.4,'quadOut')
-    doTweenY('exeIconY','exeIcon',getProperty('healthBar.y') - 80,0.4,'quadOut')
+    doTweenY('exeIconY','exeIcon',getProperty('HUD.healthBar.y') - 80,0.4,'quadOut')
 	
 	
 	setProperty('banner.y',450)

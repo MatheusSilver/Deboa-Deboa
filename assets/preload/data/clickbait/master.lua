@@ -16,15 +16,15 @@ function onCreate()
     screenCenter('fleeplay');
     setProperty('fleeplay.alpha', 0)
     addLuaSprite('fleeplay', false);
-    setProperty("healthBar.visible", not hideHud)
-    setProperty("healthBarBG.visible", not hideHud)
+    setProperty("HUD.healthBar.visible", not hideHud)
+    setProperty("HUD.healthBarBG.visible", not hideHud)
 end
 
 function onCreatePost() -- Tirado de Hud.lua pq na real... Um script só pra fazer isso é sacanagem
-	setObjectOrder('healthBar', 11)
-	setObjectOrder('healthBarBG', 12)
-    setObjectOrder('iconP1', 13)
-	setObjectOrder('iconP2', 14) --CATORZE UHAUHAHUAHUAHUAHA
+	setObjectOrder('HUD.healthBar', 11)
+	setObjectOrder('HUD.healthBarBG', 12)
+    setObjectOrder('HUD.iconP1', 13)
+	setObjectOrder('HUD.iconP2', 14) --CATORZE UHAUHAHUAHUAHUAHA
 end
 
 function onStepHit()

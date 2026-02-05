@@ -339,11 +339,11 @@ function onCreatePost()
 	triggerEvent('Camera Follow Pos',tostring((LordX[1]+264.5-50)),tostring(LordX[2]+245-200)-35)
     setPropertyFromClass('GameOverSubstate', 'bgType', 'pasta'); --Character json file for the death animation
 
-    setObjectOrder("healthBarBG", getObjectOrder("timeBarBG")-5)
-    setObjectOrder("scoreTxt", getObjectOrder("timeBarBG")-4)
-    setObjectOrder("healthBar", getObjectOrder("timeBarBG")-3)
-    setObjectOrder("iconP2", getObjectOrder("timeBarBG")-2)
-    setObjectOrder("iconP1", getObjectOrder("timeBarBG")-1)
+    setObjectOrder("HUD.healthBarBG", getObjectOrder("HUD.timeBarBG")-5)
+    setObjectOrder("HUD.scoreTxt", getObjectOrder("HUD.timeBarBG")-4)
+    setObjectOrder("HUD.healthBar", getObjectOrder("HUD.timeBarBG")-3)
+    setObjectOrder("HUD.iconP2", getObjectOrder("HUD.timeBarBG")-2)
+    setObjectOrder("HUD.iconP1", getObjectOrder("HUD.timeBarBG")-1)
 
 
 
@@ -386,7 +386,7 @@ local pos = 0;
 function propriedadescomuns(var,name)
     setScrollFactor(var, 0, 0);
     scaleObject(var, 1, 1);
-    setLuaSpriteCamera(var, 'hud'); --legenda por baixo das setas.
+    setLuaSpriteCamera(var, 'camHUD'); --legenda por baixo das setas.
     --setLuaSpriteCamera(var, 'legenda'); --Legenda por cima das setas
     setGraphicSize(var, screenWidth) -- k
     setProperty(var..".alpha", opacidadeLegendas);

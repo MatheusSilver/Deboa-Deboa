@@ -111,7 +111,7 @@ function onEvent(evento, valor1, valor2)
 			--O sistema antigo foi feito com strum swap e os dois dão conflito entre si.
             
             fastChar('invisibruphase3heroi', 'Sonicphase3vilao')
-            setProperty('iconP2.alpha', 0)
+            setProperty('HUD.iconP2.alpha', 0)
             triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
             transVermelha()
         end
@@ -145,7 +145,7 @@ function onEvent(evento, valor1, valor2)
             cameraFlash('legenda', '0xff0000', 3, true)
             end
             triggerEvent("Set Cam Zoom", '0.8', 'nada', 'nada', 'nada')
-            setProperty('iconP2.alpha', 1)
+            setProperty('HUD.iconP2.alpha', 1)
             fastChar('Sonic Pixel Running ato4', 'Sonic Exe Pixel Flying ato4')
             for i = 1,#animaisdegrandeporte do
                 removeLuaSprite(animaisdegrandeporte[i], true)
@@ -162,7 +162,7 @@ function onEvent(evento, valor1, valor2)
             end
             --triggerEvent("strum swap1", 'nada', 'nada', 'nada', 'nada')
             setCamMove(false);
-            setProperty('iconP2.alpha', 0)
+            setProperty('HUD.iconP2.alpha', 0)
             if flashing then
             cameraFlash('legenda', '0xff0000', 3, true)
             end
@@ -195,7 +195,7 @@ function onEvent(evento, valor1, valor2)
             end
         end
         if valor1 == '6-5' then
-            setProperty('iconP2.alpha', 1)
+            setProperty('HUD.iconP2.alpha', 1)
             --for i = 0, getProperty('opponentStrums.length')-1 do
             --  setPropertyFromGroup('opponentStrums', i, 'visible', true); -- Experimental, mas acho que deve funfar
             --end
@@ -232,7 +232,7 @@ function onEvent(evento, valor1, valor2)
                 end
             end
             setProperty('dad.alpha', 0)
-            setProperty('iconP2.alpha', 0)
+            setProperty('HUD.iconP2.alpha', 0)
         end
         if valor1 == 'preTransAto8' then
             setProperty("redOverlay.visible", true)
@@ -249,7 +249,7 @@ function onEvent(evento, valor1, valor2)
             end
             setProperty('dad.alpha', 1)
             setProperty('boyfriend.alpha', 1)
-            setProperty('iconP2.alpha', 1)
+            setProperty('HUD.iconP2.alpha', 1)
             triggerEvent("strum swap1", "false", 'false')
             if flashing then
             cameraFlash('legenda', '0xffff00', 4, true)

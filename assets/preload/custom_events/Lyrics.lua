@@ -3,8 +3,8 @@
 local lyricNumber = {0, 0, 0, 0}
 function onEvent(name, value1, value2)
     if name == 'Lyrics' then
-        local LyricX = getProperty('healthBarBG.x') - 150
-        local LyricY = getProperty('healthBarBG.y') + 40
+        local LyricX = getProperty('HUD.healthBarBG.x') - 150
+        local LyricY = getProperty('HUD.healthBarBG.y') + 40
         
         lyricNumber[1] = lyricNumber[1] + 1
         lyricNumber[2] = lyricNumber[1] - 1

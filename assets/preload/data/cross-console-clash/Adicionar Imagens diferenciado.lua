@@ -37,7 +37,7 @@ function propriedadescomuns(var, pos, name)
     setProperty(var..".alpha", opacidadeLegendas);
     screenCenter(var, 'x')
     adjustPos(var, name)
-    setObjectOrder(var, getObjectOrder("botplayTxt")-pos)
+    setObjectOrder(var, getObjectOrder("HUD.botplayTxt")-pos)
     addLuaSprite(var);
 
     

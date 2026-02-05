@@ -429,12 +429,12 @@ function tweenStuff(goUp) -- O Sonic segue uma lógica diferente.
 end
 
 function lifeStuffVisibility(visible)
-    setProperty('healthBarBG.visible', visible)
-    --setProperty('healthBar.visible', visible)
+    setProperty('HUD.healthBarBG.visible', visible)
+    --setProperty('HUD.healthBar.visible', visible)
     setProperty('HPbar.visible', visible)
     setProperty('oppIcon.visible', visible)
     setProperty('bfIcon.visible', visible)
-    setProperty('scoreTxt.visible', visible)
+    setProperty('HUD.scoreTxt.visible', visible)
 end
 
 function switchDrain(shouldDrain)
@@ -447,18 +447,18 @@ end
 function initialSettings()
     switchDrain(false)
     isDead= false
-    setProperty('healthBar.visible', false)
-    setProperty('iconP1.visible', false) --Agora estamos usando o que está contido dentro do próprio lua.
-    setProperty('iconP2.visible', false)
+    setProperty('HUD.healthBar.visible', false)
+    setProperty('HUD.iconP1.visible', false) --Agora estamos usando o que está contido dentro do próprio lua.
+    setProperty('HUD.iconP2.visible', false)
     setProperty('camHUD.visible', false)
     setProperty('camGame.visible', false)
     --setProperty('defaultCamZoom', 1.2)
-    setObjectOrder('healthBar', getObjectOrder('timeBar') -6)
-    setObjectOrder('healthBarBG', getObjectOrder('timeBar') -5)
+    setObjectOrder('HUD.healthBar', getObjectOrder('HUD.timeBar') -6)
+    setObjectOrder('HUD.healthBarBG', getObjectOrder('HUD.timeBar') -5)
     setCamMove(false);
     cameraMove = false
-    setProperty('healthBarBG.xAdd', -30)
-    setProperty('healthBarBG.yAdd', -20)
+    setProperty('HUD.healthBarBG.xAdd', -30)
+    setProperty('HUD.healthBarBG.yAdd', -20)
 
     lifeStuffVisibility(false)
 end
