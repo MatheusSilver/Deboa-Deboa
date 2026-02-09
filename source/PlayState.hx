@@ -2282,8 +2282,14 @@ class PlayState extends MusicBeatState
 					// trace('executando cache de lyrics');
 					for (i in 3...7){ //Silvio isso tava mt feio...
 									  //MAS TAVA CERTO DOIDA!!! - Ass: Silvio
-						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[i])))
-							precacheList.set(legendPath + event[i], 'image');
+						if (OpenFlAssets.exists(Paths.imagechecker(legendPath + event[i]))){
+							if (curSong.toLowerCase() == "cross-console-clash") 
+								Paths.image(legendPath + event[i])
+							else
+								precacheList.set(legendPath + event[i], 'image');
+							// Não sei o motivo, mas apenas a CCC tem problema com cache de legendas assincrono
+							// Como ela já é bastante leve, acho mais fácil manter isso com o pre cache antigo mesmo.
+						}
 					}
 
 				}

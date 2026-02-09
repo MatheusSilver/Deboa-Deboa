@@ -2,6 +2,10 @@ function onCreate()
 
     addCharacterToList('luigi-ccc', 'gf')
 
+	if legendas then
+        pushScriptData("Adicionar Imagens diferenciado")
+    end
+
     if difficulty == 4 then 
         precacheImage('pixelUI/flower-clash');
         precacheImage('pixelUI/shroom-clash');
@@ -16,7 +20,5 @@ function onCreate()
         precacheSound('Ring');
         precacheImage('pixelUI/ring-clash');
     end
-
-    stop()
 
 end
