@@ -1755,11 +1755,13 @@ class PlayState extends MusicBeatState
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if (ret != FunkinLua.Function_Stop)
 		{
-			generateStaticArrows(0);
-			generateStaticArrows(1);
+			// Gambiarrado, mas se for necessário, posso fazer isso ser uma opção da própria música.
+			var initAlpha = (SONG.song == "drop-and-roll" ? 0 : 1);
+			generateStaticArrows(0, initAlpha);
+			generateStaticArrows(1, initAlpha);
 			if (nomehistorico.toLowerCase() == 'noite da rapaziada')
 			{
-				generateStaticArrows(2);
+				generateStaticArrows(2, initAlpha);
 			}
 			for (i in 0...playerStrums.length)
 			{
@@ -1986,8 +1988,10 @@ class PlayState extends MusicBeatState
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
-		FlxTween.tween(HUD.timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
-		FlxTween.tween(HUD.timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		if (SONG.song != "drop-and-roll"){
+			FlxTween.tween(HUD.timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+			FlxTween.tween(HUD.timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		}
 
 
 		if(SONG.song.toLowerCase()=='too-slow-d-side'){
@@ -2320,7 +2324,7 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0] - earlyTime1, Obj2[0] - earlyTime2);
 	}
 
-	private function generateStaticArrows(player:Int):Void
+	private function generateStaticArrows(player:Int, initAlpha:Float = 1):Void
 	{
 		var keyCount:Int = 4;
 		if (isRing)
@@ -2337,7 +2341,7 @@ class PlayState extends MusicBeatState
 				babyArrow.alpha = 0;
 				if (!SONG.startinvisibru || player == 1)
 				{
-					FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
+					FlxTween.tween(babyArrow, {y: babyArrow.y + 10, alpha: initAlpha}, 1, {ease: FlxEase.circOut, startDelay: 0.5 + (0.2 * i)});
 				}
 				else
 				{
@@ -4345,7 +4349,32 @@ class PlayState extends MusicBeatState
 						infinitesimbol.visible = true;
 					});
 				}
-
+			case "colorEvent": //Alternativa mais rápida e prática do que ter que portar o RunHaxeCode
+				var duration:Float = Std.parseFloat(value1);
+				
+				//Literalmente um copia e cola do código do coloredapple.lua, mas só a parte de dentro do runHaxeCode.
+				if (Math.isNaN(duration) || duration <= 0)
+					duration = 0.1;
+				
+				if (value2 == "intro") {
+					var bfColor:Array<Int> = [Std.int(boyfriend.healthColorArray[0]), Std.int(boyfriend.healthColorArray[1]), Std.int(boyfriend.healthColorArray[2])];
+					var dadColor:Array<Int> = [Std.int(dad.healthColorArray[0]), Std.int(dad.healthColorArray[1]), Std.int(dad.healthColorArray[2])];
+					var gfColor:Array<Int> = [Std.int(gf.healthColorArray[0]), Std.int(gf.healthColorArray[1]), Std.int(gf.healthColorArray[2])];
+					
+					FlxTween.tween(boyfriend.colorTransform, {redOffset: bfColor[0], greenOffset: bfColor[1], blueOffset: bfColor[2], redMultiplier: 0, greenMultiplier: 0, blueMultiplier: 0}, duration);
+					FlxTween.tween(dad.colorTransform, {redOffset: dadColor[0], greenOffset: dadColor[1], blueOffset: dadColor[2], redMultiplier: 0, greenMultiplier: 0, blueMultiplier: 0}, duration);
+					
+					if ((gf.visible || gf.alpha > 0) && !gf.imageFile.contains("invisibru")) {
+						FlxTween.tween(gf.colorTransform, {redOffset: gfColor[0], greenOffset: gfColor[1], blueOffset: gfColor[2], redMultiplier: 0, greenMultiplier: 0, blueMultiplier: 0}, duration);
+					}
+				} else if (value2 == "out") {
+					FlxTween.tween(boyfriend.colorTransform, {redOffset: 0, greenOffset: 0, blueOffset: 1, redMultiplier: 1, greenMultiplier: 1, blueMultiplier: 1}, duration);
+					FlxTween.tween(dad.colorTransform, {redOffset: 0, greenOffset: 0, blueOffset: 0, redMultiplier: 1, greenMultiplier: 1, blueMultiplier: 1}, duration);
+					
+					if ((gf.visible || gf.alpha > 0) && !gf.imageFile.contains("invisibru")) {
+						FlxTween.tween(gf.colorTransform, {redOffset: 0, greenOffset: 0, blueOffset: 0, redMultiplier: 1, greenMultiplier: 1, blueMultiplier: 1}, duration);
+					}
+				}
 			case 'Change Character':
 				var charType:Int = 0;
 				switch (value1)

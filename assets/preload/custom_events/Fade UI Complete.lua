@@ -180,7 +180,7 @@ function onEvent(name, value1, value2)
             setProperty('HUD.timeTxt.alpha', 0)
             setProperty('HUD.botplayTxt.alpha', 0)
 		elseif type == 12 and duration > 0 then
-			noteTweenAlpha("noteGoneOpp1", 0, 0, duration, "quartInOut");
+            noteTweenAlpha("noteGoneOpp1", 0, 0, duration, "quartInOut");
             noteTweenAlpha("noteGoneOpp2", 1, 0, duration, "quartInOut");
             noteTweenAlpha("noteGoneOpp3", 2, 0, duration, "quartInOut");
             noteTweenAlpha("noteGoneOpp4", 3, 0, duration, "quartInOut");

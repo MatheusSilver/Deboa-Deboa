@@ -1,5 +1,5 @@
-local flyingItemsRightPos = -3500
-local flyingItemsLeftPos = 3500
+local flyingItemsRightPos = -2000
+local flyingItemsLeftPos = 3000
 
 function onCreate()
 
@@ -8,62 +8,6 @@ function onCreate()
 --- E FORTEMENTE modificado por Matheus Silver...
 
 --- PRA QUE TANTO SETOBJECTORDER????????????
-
-	makeLuaSprite('GardientFOREST', 'forestgradient', -300, -50)
-	
-	scaleObject('GardientFOREST', 1.2, 1.2)
-
-	addLuaSprite('GardientFOREST')
-	
-	setProperty('GardientFOREST.visible', true)
-
-    makeAnimatedLuaSprite('waterfall', 'waterfall', 550, 100);
-    
-	addAnimationByPrefix('waterfall', 'idle', 'waterfall', 24, true);
-	
-	scaleObject('waterfall', 1, 1);
-	
-	addLuaSprite('waterfall');
-	
-	setProperty('waterfall.visible', true)
-
-   	makeLuaSprite('forest', 'forest', -420, 120)
-	
-	setObjectOrder('forest', 2)
-	
-	scaleObject('forest', 1.1, 1.1)
-
-	addLuaSprite('forest')
-	
-	setProperty('forest.visible', true)
-	
-	makeLuaSprite('leaves1', 'leaves1', -200, -100)
-	
-	setObjectOrder('leaves1', 3)
-	
-	scaleObject('leaves1', 0.7, 0.7)
-
-	addLuaSprite('leaves1', true)
-	
-	setProperty('leaves1.visible', true)
-	
-	setObjectCamera('leaves1','hud');
-
-	-- Ok... Consigo aceitar o de cima.
-    
-	makeLuaSprite('obj1234', 'blackscreen', -400, 0)
-	
-	scaleObject('obj1234', 2.5, 2.5)
-
-	--	addLuaSprite('obj1234', true)
-	
-	
-	-- NÃO, SÓ NÃO!!!
-	
-	addLuaSprite('obj1234')
-	
-	setProperty('obj1234.visible', true)
-
 
 	---PART 2
     
@@ -180,25 +124,108 @@ function onCreate()
 	setProperty('sea2.visible', false)
 
 
+	-- PART 1
+
+	makeLuaSprite('GardientFOREST', 'forestgradient', -300, -50)
+	
+	scaleObject('GardientFOREST', 1.2, 1.2)
+
+	addLuaSprite('GardientFOREST')
+	
+	setProperty('GardientFOREST.visible', true)
+
+    makeAnimatedLuaSprite('waterfall', 'waterfall', 550, 100);
+    
+	addAnimationByPrefix('waterfall', 'idle', 'waterfall', 24, true);
+	
+	scaleObject('waterfall', 1, 1);
+	
+	addLuaSprite('waterfall');
+	
+	setProperty('waterfall.visible', true)
+
+   	makeLuaSprite('forest', 'forest', -420, 120)
+	
+	setObjectOrder('forest', 2)
+	
+	scaleObject('forest', 1.1, 1.1)
+
+	addLuaSprite('forest')
+	
+	setProperty('forest.visible', true)
+	
+	makeLuaSprite('leaves1', 'leaves1', -200, -100)
+	
+	setObjectOrder('leaves1', 3)
+	
+	scaleObject('leaves1', 0.7, 0.7)
+
+	addLuaSprite('leaves1', true)
+	
+	setProperty('leaves1.visible', true)
+	
+	setObjectCamera('leaves1','hud');
+
+	-- Ok... Consigo aceitar o de cima.
+    
+	makeLuaSprite('obj1234', 'blackscreen', -400, 0)
+	
+	scaleObject('obj1234', 2.5, 2.5)
+
+	--	addLuaSprite('obj1234', true)
+	
+	
+	-- NÃO, SÓ NÃO!!!
+	
+	addLuaSprite('obj1234')
+	
+	setProperty('obj1234.visible', true)
+
+
 end
 	
 	
 ---thanks deh4nk for this code
 ---Isso estava desnecessariamente bagunçado...
 function onTweenCompleted(tag)
-	if tag == 'obj1Move' then 
-		setProperty("obj1.x", flyingItemsLeftPos)
-		doTweenX('obj1Move', 'obj1', flyingItemsRightPos, 12, 'linear')
+	if tag == "objFinalOut" then
+		setProperty("obj1234.visible", false)
 	end
-	if tag == 'obj2Move' then
+	if tag == 'obj2Move' then 
+		setProperty("obj1.x", flyingItemsLeftPos)
+		doTweenX('obj1Move', 'obj1', flyingItemsRightPos, 6, 'linear')
+	end
+	if tag == 'obj1Move' then
 		setProperty("obj2.x", flyingItemsRightPos)
-		doTweenX('obj2Move', 'obj2', flyingItemsLeftPos, 14, 'linear')
+		doTweenX('obj2Move', 'obj2', flyingItemsLeftPos, 6, 'linear')
 	end
 end
 
 function onEvent(event, v1, v2)
+	if event == "Change Character" then
+		if v2 == "BFRerunhurt" then
+			triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY, true)
+		elseif v2 == "DiabloFake1" then
+			triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
+		end
+	end
+	if event == "colorEvent" then
+		if v2 == "intro" then
+			-- setProperty("obj1234.x", 2000)
+			-- setProperty("obj1234.y", 2000)
+			setProperty('obj1234.alpha', 1)
+			setProperty('obj1234.visible', true)
+		elseif v2 == "out" then
+			setProperty('obj1234.alpha', 1)
+			setProperty('obj1234.visible', true)
+			doTweenAlpha('objFinalOut', 'obj1234', 0, 0.8)
+		end
+	end
+
+
 	if event == "trocar ato" then
 		if v1 == "64" then
+			cameraFlash('legenda', '0xffffff', 1, true)
 			setProperty('obj1234.visible', false)
 		elseif v1 == "352" then
 			setProperty('sea1.visible', true)
@@ -218,8 +245,7 @@ function onEvent(event, v1, v2)
 			setProperty('obj2.visible', true)
 
 
-			doTweenX('obj1Move', 'obj1', flyingItemsRightPos, 12, 'linear')
-			doTweenX('obj2Move', 'obj2', flyingItemsLeftPos, 14, 'linear')
+			doTweenX('obj1Move', 'obj1', flyingItemsRightPos, 6, 'linear')
 		
 		elseif v1 == "2606" then
 			setProperty('RegularSkyFF.visible', true)
