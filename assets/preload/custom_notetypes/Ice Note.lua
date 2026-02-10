@@ -4,7 +4,6 @@ function onCreate()
 		--Check if the note is an Blammed Note
 		if getPropertyFromGroup('unspawnNotes', i, 'noteType') == 'Ice Note' then
 			setPropertyFromGroup('unspawnNotes', i, 'texture', 'ICENOTE_assets'); --Change texture
-			setPropertyFromGroup('unspawnNotes', i, 'noteSplashTexture', 'ICEnoteSplashes'); --Change texture
 
 			if getPropertyFromGroup('unspawnNotes', i, 'mustPress') == true then --Doesn't let Dad/Opponent notes get ignored
 				setPropertyFromGroup('unspawnNotes', i, 'ignoreNote', true); --Miss has penalties

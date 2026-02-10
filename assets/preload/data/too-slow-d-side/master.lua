@@ -1,7 +1,6 @@
 function onCreate()
 	setProperty('cameraSpeed', getProperty('cameraSpeed') + 1)
 	precacheImage('ICENOTE_assets')
-	precacheImage('splashes/ICEnoteSplashes')
 	precacheSound('hitIce')
 	precacheSound('struggle')
 	precacheSound('breakout')
