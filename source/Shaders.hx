@@ -62,6 +62,39 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 	}
 }
 
+class ReflectionShader extends FlxShader
+{
+	@:glFragmentSource('
+		#pragma header
+		
+		uniform float reflection;
+
+		void main()
+		{
+			#pragma body
+			vec2 uv = openfl_TextureCoordv;
+			
+			vec4 originalColor = flixel_texture2D(bitmap, uv);
+			
+			vec2 reflectedUv = vec2(uv.x, 1.0 - uv.y);
+			vec4 reflectedColor = flixel_texture2D(bitmap, reflectedUv);
+			
+			float reflectionFade = 1.0 - uv.y;
+			reflectedColor.a *= reflectionFade * reflectionFade;
+			
+			float mixFactor = smoothstep(0.3, 0.7, uv.y) * reflection;
+			gl_FragColor = mix(originalColor, reflectedColor, mixFactor);
+		}
+	')
+
+	public function new()
+	{
+		super();
+		reflection.value = [0.15];
+	}
+}
+
+
 class BuildingEffect {
   public var shader:BuildingShader = new BuildingShader();
   public function new(){

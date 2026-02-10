@@ -133,9 +133,27 @@ class PlayState extends MusicBeatState
 	
 	// Usado exclusivamente na too-slow d-side, mas talvez possamos adaptar para a drop and roll se necessário.
 	private var lyricsInText:FlxText;
+	var freezeCounter:Int = 0; // used for Ice Notes
+	var maxFreeze:Int = 4;
+	var indicatorTween:FlxTween;
+	var frozenIndicators:FlxSpriteGroup;
+	var leftIndicator:FlxSprite;
+	var rightIndicator:FlxSprite;
+	var freezeIndicator:FlxSprite;
+	var gfReflection:FlxSprite;
+	var dadReflection:FlxSprite;
+	var bfReflection:FlxSprite;
+	var frozenBFReflection:FlxSprite;
+	
+	public var frozenBF:FlxSprite;
+	public var gfReflectionOffset:Float = 0;
+	public var dadReflectionOffset:Float = 0;
+	public var bfReflectionOffset:Float = 0;
 
 	public var fakeTooSlow:BGSprite;
 	public var urTooSlow:BGSprite;
+
+	// Tudo o que está acima é especifico para a Too-Slow d-sides
 
 	public var bgSkychasing:FlxSprite;
 
@@ -651,15 +669,79 @@ class PlayState extends MusicBeatState
 				whiteFuck = new FlxSprite().makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.WHITE);
 				add(whiteFuck);
 			case 'd-side-stage':
+				dadReflectionOffset = -30;
+				bfReflectionOffset  = -40;
 				var bg = new BGSprite('TOO-SLOW/background ladders', -200, -290, 0.75, 0.75);
 				add(bg);
-				var icicles = new BGSprite('TOO-SLOW/icicles background', -121, -180, 0.85, 0.85);
+				var icicles = new BGSprite('TOO-SLOW/icicles background', -81, -140, 0.85, 0.85);
 				add(icicles);
 				fakeTooSlow = new BGSprite('TOO-SLOW/main stage', -490, 6, 1, 1);
 				add(fakeTooSlow);
 				urTooSlow = new BGSprite('TOO-SLOW/main stage spoopy', -490, 6, 1, 1);
 				add(urTooSlow);
 				urTooSlow.visible=false;
+
+				// A parte de baixo são os shaders que ficam no chão, descomente isso se quiser ter o chão conforme
+				// O video em #silvers-room
+
+				// if (ClientPrefs.shaders){
+				// 	var reflShader1 = new ReflectionShader();
+				// 	fakeTooSlow.shader = reflShader1;
+					
+				// 	var reflShader2 = new ReflectionShader();
+				// 	urTooSlow.shader = reflShader2;
+				// }
+
+				frozenBF = new FlxSprite(BF_X,BF_Y);
+				frozenBF.frames = Paths.getSparrowAtlas("snowgrave");
+				frozenBF.animation.addByPrefix("idle","Idle_Frozen",24);
+				frozenBF.animation.addByPrefix("0","1",24,false);
+				frozenBF.animation.addByPrefix("1","2",24,false);
+				frozenBF.animation.addByPrefix("2","3",24,false);
+				frozenBF.animation.addByPrefix("3","4",24,false);
+				frozenBF.animation.addByPrefix("4","4",24,false); // breakout anim
+				frozenBF.antialiasing=true;
+				frozenBF.visible=false;
+				frozenBF.scrollFactor.set(0.95, 0.95);
+				frozenBF.animation.play("idle",true);
+				frozenBF.centerOffsets();
+				if (ClientPrefs.shaders)
+				{
+					frozenBFReflection = createSpriteReflection(frozenBF, 230);
+					frozenBFReflection.scrollFactor.set(frozenBF.scrollFactor.x, frozenBF.scrollFactor.y);
+					frozenBFReflection.visible = false;
+					frozenBFReflection.animation.play("idle",true);
+					add(frozenBFReflection);
+				}
+				add(frozenBF);
+				frozenIndicators = new FlxSpriteGroup(FlxG.width/2 - 100, FlxG.height/2 - 100);
+				frozenIndicators.alpha=0;
+				frozenIndicators.cameras = [camOther];
+				leftIndicator = new FlxSprite(-150,0);
+				//leftIndicator.scrollFactor.set(0.95,0.95);
+				leftIndicator.frames = Paths.getSparrowAtlas("NOTE_assets");
+				leftIndicator.animation.addByPrefix('hit','purple0',24,false);
+				leftIndicator.animation.addByPrefix('idle','arrowLEFT',24,false);
+				leftIndicator.animation.play("idle",true);
+				leftIndicator.antialiasing=true;
+				leftIndicator.setGraphicSize(Std.int(leftIndicator.width*.75));
+				frozenIndicators.add(leftIndicator);
+
+				rightIndicator = new FlxSprite(150,0);
+				//rightIndicator.scrollFactor.set(0.95,0.95);
+				rightIndicator.frames = Paths.getSparrowAtlas("NOTE_assets");
+				rightIndicator.animation.addByPrefix('hit','red0',24,false);
+				rightIndicator.animation.addByPrefix('idle','arrowRIGHT',24,false);
+				rightIndicator.animation.play("idle",true);
+				rightIndicator.antialiasing=true;
+				rightIndicator.setGraphicSize(Std.int(leftIndicator.width*.75));
+				frozenIndicators.add(rightIndicator);
+
+				freezeIndicator = new FlxSprite(0, 0).loadGraphic(Paths.image('FreezeIndicator'));
+				freezeIndicator.alpha = 0;
+				freezeIndicator.cameras = [camOther];
+				add(freezeIndicator);
+				add(frozenIndicators);
 			case 'P2Stage':
 				if(!ClientPrefs.lowQuality) {
 				p2Sky = new BGSprite('cenarios/Glitch', -200, -200, 0.6, 0.6);
@@ -879,6 +961,7 @@ class PlayState extends MusicBeatState
 		}
 
 		gf = new Character(0, 0, gfVersion);
+		initCharacterReflection("gf");
 		startCharacterPos(gf);
 		gf.scrollFactor.set(0.95, 0.95);
 		gfGroup.add(gf);
@@ -897,6 +980,7 @@ class PlayState extends MusicBeatState
 
 		dad = new Character(0, 0, SONG.player2);
 		startCharacterPos(dad, true);
+		initCharacterReflection("dad");
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
 
@@ -904,6 +988,7 @@ class PlayState extends MusicBeatState
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
+		initCharacterReflection("bf");
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
 
@@ -919,6 +1004,11 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case "d-side-stage":
+				if (ClientPrefs.shaders){
+					var reflectionHider = new BGSprite('TOO-SLOW/toolazytocliprect', -490, 6, 1, 1);
+					add(reflectionHider);
+				}
 			case 'too-slow':
 				boyfriend.y += 25;
 				dad.y += 200;
@@ -4991,10 +5081,10 @@ class PlayState extends MusicBeatState
 
 	private function onKeyPress(key_pressed:Int):Void
 	{
-		if (!cpuControlled && startedCountdown && !paused && key_pressed > -1)
-		{
-			if (!boyfriend.stunned && generatedMusic && !endingSong)
-			{
+		if (!cpuControlled && startedCountdown && !paused && key_pressed > -1){
+			if(SONG.song.toLowerCase()=='too-slow-d-side' && freezeCounter>0){
+				handleUnfreezeInput(key_pressed);
+			}else if (!boyfriend.stunned && generatedMusic && !endingSong){
 				// more accurate hit time for the ratings?
 				var lastTime:Float = Song.Conductor.songPosition;
 				Song.Conductor.songPosition = FlxG.sound.music.time;
@@ -5494,6 +5584,7 @@ class PlayState extends MusicBeatState
 
 	function goodNoteHit(note:Note):Void
 	{
+		if (freezeCounter> 0) return;
 		if (!cpuControlled)
 		{
 			switch (note.noteType)
@@ -5512,6 +5603,31 @@ class PlayState extends MusicBeatState
 						boyfriend.playAnim('hurt', true);
 						boyfriend.specialAnim = true;
 					}
+				case 'Ice Note':
+					combo = 0;
+					if(indicatorTween!=null)indicatorTween.cancel();
+					freezeIndicator.alpha = 0;
+					freezeIndicator.alpha = 0;
+					indicatorTween = FlxTween.num(0, 1, 0.25, {ease: FlxEase.quadInOut,
+						onComplete: function(twn:FlxTween) {
+							indicatorTween = null;
+						}
+					}, function(v:Float) {
+						frozenIndicators.alpha = v;
+						freezeIndicator.alpha = v/4;
+					});
+					rightIndicator.animation.play("idle",true);
+					leftIndicator.animation.play("hit",true);
+					freezeCounter = maxFreeze+1;
+					FlxG.sound.play(Paths.sound("hitIce"),1);
+					frozenBF.animation.play("idle",true);
+					if (ClientPrefs.shaders){
+						frozenBFReflection.visible = true;
+						frozenBFReflection.animation.play("idle",true);
+						bfReflection.visible = false;
+					}
+					frozenBF.visible=true;
+					boyfriend.visible=false;
 			}
 		}
 		if (!note.wasGoodHit)
@@ -6186,6 +6302,127 @@ class PlayState extends MusicBeatState
 		callOnLuas('onBeatHit', []);
 	}
 
+	// Cria um reflexo invertido do personagem no chão
+	function createSpriteReflection(sprite:FlxSprite, yOffset:Float):FlxSprite {		
+		var reflection = new FlxSprite(0, 0);
+		setupSpriteReflection(reflection, sprite, yOffset);
+		return reflection;
+	}
+
+	// Usado se houver uma troca de bonecos
+	public function refreshReflectionSprite(curTarget:String):Void {
+		switch (curTarget){
+			case "dad": setupSpriteReflection(dadReflection, dad, dadReflectionOffset);
+			case "gf":  setupSpriteReflection(gfReflection, gf, gfReflectionOffset);
+			default:	setupSpriteReflection(bfReflection, boyfriend, bfReflectionOffset);
+		}
+	}
+
+	// Só porque eu acabei repetindo muito as linhas de setup básico...
+	private function setupSpriteReflection(reflection:FlxSprite, originalChar:FlxSprite, yOffset:Float){
+		reflection.frames = originalChar.frames;
+		reflection.animation.copyFrom(originalChar.animation);
+		reflection.flipY = true;
+		reflection.alpha = originalChar.alpha * 0.35;
+		reflection.color = 0xAAFFFFFF;
+		reflection.scale.x = originalChar.scale.x;
+		reflection.scale.y = originalChar.scale.y;
+		reflection.antialiasing = originalChar.antialiasing;
+		reflection.x = originalChar.x;
+		reflection.y = originalChar.y + originalChar.height + yOffset;
+		reflection.flipX = originalChar.flipX;
+		reflection.angle = originalChar.angle;
+		
+		reflection.updateHitbox();
+	}
+
+	private function initCharacterReflection(curTarget:String){
+		if (!ClientPrefs.shaders) return;
+
+		switch (curTarget){
+			case "dad": 
+				dadReflection = createSpriteReflection(dad, dadReflectionOffset);
+				dadReflection.scrollFactor.set(dad.scrollFactor.x, dad.scrollFactor.y);
+				dadGroup.add(dadReflection);
+			case "gf":
+				gfReflection = createSpriteReflection(gf, gfReflectionOffset);
+				gfReflection.scrollFactor.set(gf.scrollFactor.x, gf.scrollFactor.y);
+				gfGroup.add(gfReflection);
+			default:
+				bfReflection = createSpriteReflection(boyfriend, bfReflectionOffset);
+				bfReflection.scrollFactor.set(boyfriend.scrollFactor.x, boyfriend.scrollFactor.y);
+				boyfriendGroup.add(bfReflection);
+		}
+	}
+
+	public function mirrorUpdate(){
+		syncReflection(dadReflection, dad);
+		syncReflection(bfReflection, boyfriend);
+		syncReflection(gfReflection, gf);
+	}
+
+	// Esse carinha aqui que controla TODAS as animações sendo tocadas, se alguma animação ficar estranha
+	// Esse maninho aqui é o culpado.
+	function syncReflection(reflection:FlxSprite, original:Character):Void {
+		if (reflection == null || original == null) return;
+		
+		final animName:String = original.animation.curAnim.name;
+		final animFrame:Int = original.animation.curAnim.curFrame;
+		final offsetX:Float = original.animOffsets.get(animName)[0];
+		final offsetY:Float = 0;
+
+		if (reflection.animation.curAnim == null || reflection.animation.curAnim.name != animName) {
+			reflection.animation.play(animName, true, false, animFrame);
+		} else if (animName == "idle") {
+			reflection.animation.curAnim.curFrame = animFrame;
+		}
+		reflection.offset.set(offsetX, offsetY);
+	}
+
+	private function handleUnfreezeInput(keyPressed:Int){
+		var keyToPress = 3*(freezeCounter-1)%2; // left then right
+		if(keyPressed==keyToPress){
+			FlxG.sound.play(Paths.sound("struggle"),0.75);
+			freezeCounter--;
+
+			var shit = Math.floor(((maxFreeze-freezeCounter)/maxFreeze)*4);
+			frozenBF.animation.play('${shit}', true);
+			if (ClientPrefs.shaders)
+				frozenBFReflection.animation.play('${shit}', true);
+
+			var nextKey = 3*(freezeCounter-1)%2; // left then right
+			if(nextKey==3){
+				rightIndicator.animation.play("hit",true);
+				leftIndicator.animation.play("idle",true);
+			}else{
+				rightIndicator.animation.play("idle",true);
+				leftIndicator.animation.play("hit",true);
+			}
+		}
+
+		if(freezeCounter==0){
+			if(indicatorTween!=null)indicatorTween.cancel();
+			indicatorTween = FlxTween.num(1, 0, 0.25, {ease: FlxEase.quadInOut,
+				onComplete: function(twn:FlxTween) {
+					indicatorTween = null;
+				}
+			}, function(v:Float) {
+				frozenIndicators.alpha = v;
+				freezeIndicator.alpha = v/4;
+			});
+			FlxG.sound.play(Paths.sound("breakout"),1);
+			frozenBF.visible=false;
+			if (ClientPrefs.shaders){
+				frozenBFReflection.visible = false;
+				bfReflection.visible = true;
+			}
+			boyfriend.visible=true;
+			boyfriend.playAnim("hey",true);
+			boyfriend.specialAnim = true;
+			boyfriend.heyTimer = 0.6;
+		}
+	}
+
 	function doP3Static()
 	{
 		#if debug
@@ -6618,6 +6855,7 @@ class PlayState extends MusicBeatState
 
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float, extraStrum:Bool = false)
 	{
+		if (freezeCounter != 0 && !isDad) return;
 		var spr:StrumNote = null;
 		if (isDad && !extraStrum)
 		{

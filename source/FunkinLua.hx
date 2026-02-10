@@ -1962,6 +1962,12 @@ class FunkinLua {
 				Lua_helper.add_callback(lua, "sunshine_shaders", function(start:Bool) {
 					PlayState.instance.analog_shader(start);
 				});
+				Lua_helper.add_callback(lua, "updateMirrors", function(start:Bool) {
+					PlayState.instance.mirrorUpdate();
+				});
+				Lua_helper.add_callback(lua, "refreshCharacterMirror", function(char:String) {
+					PlayState.instance.refreshReflectionSprite(char);
+				});
 				
 
 				//Coisas adicionadas exclusivamente para a Final Escape caso isso estrague o resto dos luas

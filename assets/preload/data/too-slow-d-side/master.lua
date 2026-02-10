@@ -1,6 +1,23 @@
 function onCreate()
 	setProperty('cameraSpeed', getProperty('cameraSpeed') + 1)
+	precacheImage('ICENOTE_assets')
+	precacheImage('splashes/ICEnoteSplashes')
+	precacheSound('hitIce')
+	precacheSound('struggle')
+	precacheSound('breakout')
+	setObjectOrder("frozenBF", getObjectOrder("boyfriendGroup") + 1)
 end
+
+function onCreatePost()
+	setProperty("frozenBF.x", defaultBoyfriendX)
+	setProperty("frozenBF.y", defaultBoyfriendY + 250)
+end
+
+function onUpdatePost()
+	updateMirrors()
+end
+
+
 
 function setSuperZoom(status)
 	if cameraZoomOnBeat then setProperty("supersuperZoomShit", status) end
@@ -12,6 +29,12 @@ end
 
 
 function onEvent(event, v1, v2)
+	if event == "Change Character" then
+		if v2 == "mighty-atacado-d-side" then
+			setProperty("dadReflectionOffset", -160)
+			refreshCharacterMirror("dad")
+		end
+	end
 	if event == "eventos-d-side" then
 		if v1 == "384" then
 			doTweenAlpha('AlphaIcon', 'HUD.iconP2', 0, 0.45)
