@@ -2,6 +2,7 @@
 	"directory": "week-sink",
 	"defaultZoom": 1,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [770, 320],
 	"girlfriend": [600, 300],

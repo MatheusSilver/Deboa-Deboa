@@ -2,6 +2,7 @@
 	"directory": "week-pasta",
 	"defaultZoom": 0.7,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [700, 400],
 	"girlfriend": [-140,300],

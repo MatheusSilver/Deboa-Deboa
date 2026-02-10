@@ -2,6 +2,7 @@
 	"directory": "week-xenophanes",
 	"defaultZoom": 0.9,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [500, 78],
 	"girlfriend": [-43.65, 298.05],

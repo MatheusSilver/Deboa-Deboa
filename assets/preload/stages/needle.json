@@ -2,6 +2,7 @@
 	"directory": "week-roundabout",
 	"defaultZoom": 0.6,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [770, 100],
 	"girlfriend": [400, 130],

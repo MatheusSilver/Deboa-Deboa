@@ -2,6 +2,7 @@
 	"directory": "week-sunshine",
 	"defaultZoom": 0.86,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [1275, 200],
 	"girlfriend": [545, 80],

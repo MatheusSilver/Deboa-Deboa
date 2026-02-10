@@ -2,6 +2,7 @@
 	"directory": "week-bestfriendo",
 	"defaultZoom": 1,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [920, 100],
 	"girlfriend": [400, 130],

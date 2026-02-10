@@ -1,6 +1,8 @@
 {
 	"directory": "week-sides",
 	"defaultZoom": 0.8,
+	"isPixelStage": false,
+	"isReflective": true,
 
 	"boyfriend": [870, 100],
 	"girlfriend": [400, 130],

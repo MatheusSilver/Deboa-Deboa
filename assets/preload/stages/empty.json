@@ -2,6 +2,7 @@
 	"directory": "week-control",
 	"defaultZoom": 0.92,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [760, 430],
 	"girlfriend": [600, 570],

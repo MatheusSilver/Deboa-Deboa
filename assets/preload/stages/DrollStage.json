@@ -2,6 +2,7 @@
 	"directory": "week-drop",
 	"defaultZoom": 0.6,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [0, 0],
 	"girlfriend": [0, 0],

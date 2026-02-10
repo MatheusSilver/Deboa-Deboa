@@ -2,6 +2,7 @@
 	"directory": "week-infinite",
 	"defaultZoom": 0.9,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [850, 434],
 	"girlfriend": [400, 430],

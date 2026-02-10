@@ -254,6 +254,7 @@ class PlayState extends MusicBeatState
 
 	public static var curStage:String = '';
 	public static var isPixelStage:Bool = false;
+	public static var isReflective:Bool = false;
 	public static var SONG:SwagSong = null;
 	public static var isStoryMode:Bool = false;
 	public static var storyWeek:Int = 0;
@@ -607,6 +608,7 @@ class PlayState extends MusicBeatState
 				directory: "",
 				defaultZoom: 0.9,
 				isPixelStage: false,
+				isReflective: false,
 
 				boyfriend: [770, 100],
 				girlfriend: [400, 130],
@@ -616,6 +618,7 @@ class PlayState extends MusicBeatState
 
 		defaultCamZoom = stageData.defaultZoom;
 		isPixelStage = stageData.isPixelStage;
+		isReflective = stageData.isReflective;
 		BF_X = stageData.boyfriend[0];
 		BF_Y = stageData.boyfriend[1];
 		GF_X = stageData.girlfriend[0];
@@ -705,7 +708,7 @@ class PlayState extends MusicBeatState
 				frozenBF.scrollFactor.set(0.95, 0.95);
 				frozenBF.animation.play("idle",true);
 				frozenBF.centerOffsets();
-				if (ClientPrefs.shaders)
+				if (ClientPrefs.shaders && isReflective)
 				{
 					frozenBFReflection = createSpriteReflection(frozenBF, 230);
 					frozenBFReflection.scrollFactor.set(frozenBF.scrollFactor.x, frozenBF.scrollFactor.y);
@@ -6303,7 +6306,8 @@ class PlayState extends MusicBeatState
 	}
 
 	// Cria um reflexo invertido do personagem no chão
-	function createSpriteReflection(sprite:FlxSprite, yOffset:Float):FlxSprite {		
+	public function createSpriteReflection(sprite:FlxSprite, yOffset:Float):FlxSprite {		
+		if (!ClientPrefs.shaders || !isReflective) return null;
 		var reflection = new FlxSprite(0, 0);
 		setupSpriteReflection(reflection, sprite, yOffset);
 		return reflection;
@@ -6311,6 +6315,8 @@ class PlayState extends MusicBeatState
 
 	// Usado se houver uma troca de bonecos
 	public function refreshReflectionSprite(curTarget:String):Void {
+		if (!ClientPrefs.shaders || !isReflective) return;
+
 		switch (curTarget){
 			case "dad": setupSpriteReflection(dadReflection, dad, dadReflectionOffset);
 			case "gf":  setupSpriteReflection(gfReflection, gf, gfReflectionOffset);
@@ -6323,7 +6329,7 @@ class PlayState extends MusicBeatState
 		reflection.frames = originalChar.frames;
 		reflection.animation.copyFrom(originalChar.animation);
 		reflection.flipY = true;
-		reflection.alpha = originalChar.alpha * 0.35;
+		reflection.alpha = originalChar.alpha * 0.25;
 		reflection.color = 0xAAFFFFFF;
 		reflection.scale.x = originalChar.scale.x;
 		reflection.scale.y = originalChar.scale.y;
@@ -6337,7 +6343,7 @@ class PlayState extends MusicBeatState
 	}
 
 	private function initCharacterReflection(curTarget:String){
-		if (!ClientPrefs.shaders) return;
+		if (!ClientPrefs.shaders || !isReflective) return;
 
 		switch (curTarget){
 			case "dad": 

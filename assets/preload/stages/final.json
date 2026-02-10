@@ -2,6 +2,7 @@
 	"directory": "week-escapada",
 	"defaultZoom": 1,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [400, -100],
 	"girlfriend": [0, 0],

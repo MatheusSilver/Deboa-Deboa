@@ -2,6 +2,7 @@
 	"directory": "week-lerdeza",
 	"defaultZoom": 1.0,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [550, -45],
 	"girlfriend": [100, -45],

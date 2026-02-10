@@ -2,6 +2,7 @@
 	"directory": "week-ccc",
 	"defaultZoom": 0.608,
 	"isPixelStage": true,
+	"isReflective": false,
 
 	"boyfriend": [606, 216],
 	"girlfriend": [1026, 56],

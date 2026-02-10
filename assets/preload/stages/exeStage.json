@@ -2,6 +2,7 @@
 	"directory": "week-blacksun",
 	"defaultZoom": 0.9,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [1070, 200],
 	"girlfriend": [830, 300],

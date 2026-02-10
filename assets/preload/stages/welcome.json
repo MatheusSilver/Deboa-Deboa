@@ -2,6 +2,7 @@
 	"directory": "week-phantom_attack",
 	"defaultZoom": 0.69,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [270, -40],
 	"girlfriend": [660, 675],

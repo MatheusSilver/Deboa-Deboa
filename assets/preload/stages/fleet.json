@@ -2,6 +2,7 @@
 	"directory": "week-chaos",
 	"defaultZoom": 0.67,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [770, 100],
 	"girlfriend": [400, 130],

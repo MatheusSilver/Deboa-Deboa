@@ -2,6 +2,7 @@
     "directory" : "week-rastro",
     "defaultZoom": 0.75,
     "isPixelStage":false,
+    "isReflective": false,
     
     "boyfriend": [994, 68],
     "girlfriend": [-72, 146],

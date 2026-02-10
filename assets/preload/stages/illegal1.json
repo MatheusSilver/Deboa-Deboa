@@ -2,6 +2,7 @@
 	"directory": "week-piracy",
 	"defaultZoom": 0.7,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [770, 150],
 	"girlfriend": [300, 500

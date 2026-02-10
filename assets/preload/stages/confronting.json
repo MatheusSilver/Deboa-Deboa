@@ -2,6 +2,7 @@
 	"directory": "week-confronting",
 	"defaultZoom": 0.75,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [0, -160],
 	"girlfriend": [-150, 350],

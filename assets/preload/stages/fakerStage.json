@@ -2,6 +2,7 @@
 	"directory": "week-farsa",
 	"defaultZoom": 0.85,
 	"isPixelStage": false,
+	"isReflective": false,
 
 	"boyfriend": [818.95, -31],
 	"girlfriend": [600, 30],
