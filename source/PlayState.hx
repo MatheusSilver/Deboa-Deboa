@@ -374,6 +374,9 @@ class PlayState extends MusicBeatState
 
 	var pauseSound:FlxSound;
 
+	static final CONDUCTOR_DRIFT_THRESHOLD:Float = 65;
+	static final MUSIC_EASE_RATIO:Float = 42;
+
 	#if mobileC
 	public var mcontrols:MobileControls;
 	#end
@@ -2683,6 +2686,23 @@ class PlayState extends MusicBeatState
 		vocals.play();
 	}
 
+	// Copiado do FNF Original
+	// Tentei adaptar o sistema de offset, mas não tenho certeza se a fórmula está certa.
+	function resyncMusic(elapsed:Float):Void
+	{
+		if (FlxG.sound.music.playing)
+		{
+			final audioDiff:Float = Math.round(Math.abs(FlxG.sound.music.time - Song.Conductor.songPosition));
+			if (Math.abs(audioDiff - ClientPrefs.noteOffset) >= CONDUCTOR_DRIFT_THRESHOLD)
+			{
+				trace("Sincronizando audio");
+				// Only do neat & smooth lerps as long as the lerp doesn't fuck up and go WAY behind the music time triggering false resyncs
+				final easeRatio:Float = 1.0 - Math.exp(-(MUSIC_EASE_RATIO) * elapsed);
+				Song.Conductor.update(FlxMath.lerp(Song.Conductor.songPosition, FlxG.sound.music.time - ClientPrefs.noteOffset, easeRatio));
+			}
+		}
+	}
+
 	public var paused:Bool = false;
 
 	var startedCountdown:Bool = false;
@@ -2862,8 +2882,10 @@ class PlayState extends MusicBeatState
 		}
 		else
 		{
-			Song.Conductor.songPosition += FlxG.elapsed * 1000;
+			if (FlxG.sound.music.playing)
+				Song.Conductor.songPosition += FlxG.elapsed * 1000;
 
+			resyncMusic(elapsed);
 			if (!paused)
 			{
 				songTime += FlxG.game.ticks - previousFrameTime;

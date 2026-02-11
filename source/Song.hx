@@ -2,6 +2,8 @@ package;
 
 // Isso eu acho util estar unificado. Não vou mexer.
 
+import flixel.FlxG;
+import flixel.math.FlxMath;
 import haxe.Json;
 import lime.utils.Assets;
 
@@ -78,6 +80,55 @@ class Conductor
 		}
 
 		return lastChange;
+	}
+
+	/* Adaptado do código original do FNF */
+	public static function update(?songPos:Float):Void
+	{
+		var currentTime:Float = (FlxG.sound.music != null) ? FlxG.sound.music.time : 0.0;
+		var currentLength:Float = (FlxG.sound.music != null) ? FlxG.sound.music.length : 0.0;
+
+		if (songPos == null)
+		{
+			songPos = currentTime;
+		}
+
+		// If the song is playing, limit the song position to the length of the song or beginning of the song.
+		if (FlxG.sound.music != null)
+		{
+			songPosition = FlxMath.bound(songPos, 0, currentLength);
+		}
+		else
+		{
+			songPosition = songPos;
+		}
+
+		// Get the BPM change event for the current song position
+		var currentBPMEvent:BPMChangeEvent = getBPMFromSeconds(songPosition);
+
+		if (currentBPMEvent == null && FlxG.sound.music != null)
+		{
+			trace('WARNING: Conductor BPM map is empty or invalid.');
+		}
+		else if (currentBPMEvent != null && songPosition > 0.0)
+		{
+			// Calculate current position based on BPM event
+			var stepCrochet:Float = currentBPMEvent.stepCrochet;
+			var timeSinceEvent:Float = songPosition - currentBPMEvent.songTime;
+			
+			// roundDecimal prevents representing 8 as 7.9999999
+			var currentStepTime:Float = FlxMath.roundDecimal(
+				currentBPMEvent.stepTime + (timeSinceEvent / stepCrochet), 6);
+			
+			lastSongPos = songPosition;
+		}
+		else if (songPosition >= 0.0)
+		{
+			// Assume a constant BPM
+			var stepCrochet:Float = stepCrochet;
+			var currentStepTime:Float = FlxMath.roundDecimal((songPosition / stepCrochet), 4);
+			lastSongPos = songPosition;
+		}
 	}
 
 	public static function getBPMFromStep(step:Float)
