@@ -7,7 +7,7 @@
 	<SubTexture name="(0000" x="126" y="71" width="29" height="71" frameX="-6" frameY="-12" frameWidth="29" frameHeight="90"/>
 	<SubTexture name=")0000" x="37" y="247" width="29" height="71" frameX="-6" frameY="-12" frameWidth="29" frameHeight="90"/>
 	<SubTexture name="+0000" x="88" y="332" width="42" height="47" frameX="-6" frameY="-12" frameWidth="42" frameHeight="90"/>
-	<SubTexture name="-0000" x="132" y="332" width="25" height="17" frameX="-6" frameY="-12" frameWidth="25" frameHeight="90"/>
+	<SubTexture name="-0000" x="132" y="332" width="25" height="17" frameX="-6" frameY="-37" frameWidth="25" frameHeight="90"/>
 
 	<SubTexture name="00000" x="20" y="0" width="39" height="59" frameX="-6" frameY="-24" frameWidth="39" frameHeight="90"/>
 	<SubTexture name="10000" x="61" y="0" width="16" height="57" frameX="-6" frameY="-24" frameWidth="16" frameHeight="90"/>
