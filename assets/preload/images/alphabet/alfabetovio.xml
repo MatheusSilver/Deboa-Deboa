@@ -41,7 +41,7 @@
 	<SubTexture name="p0000" x="0" y="417" width="43" height="69" frameX="-6" frameY="-12" frameWidth="43" frameHeight="90"/>
 	<SubTexture name="q0000" x="102" y="417" width="46" height="76" frameX="-6" frameY="-12" frameWidth="46" frameHeight="90"/>
 	<SubTexture name="r0000" x="150" y="417" width="43" height="69" frameX="-6" frameY="-12" frameWidth="43" frameHeight="90"/>
-	<SubTexture name="s0000" x="195" y="417" width="42" height="71" frameX="-6" frameY="-10" frameWidth="42" frameHeight="90"/>
+	<SubTexture name="s0000" x="195" y="417" width="42" height="71" frameX="-6" frameY="-12" frameWidth="42" frameHeight="90"/>
 	<SubTexture name="t0000" x="239" y="417" width="42" height="69" frameX="-5" frameY="-12" frameWidth="42" frameHeight="90"/>
 	<SubTexture name="u0000" x="283" y="417" width="42" height="70" frameX="-6" frameY="-12" frameWidth="42" frameHeight="90"/>
 	<SubTexture name="v0000" x="51" y="501" width="44" height="69" frameX="-6" frameY="-12" frameWidth="44" frameHeight="90"/>
@@ -57,7 +57,7 @@
 	<SubTexture name="ç0000" x="89" y="155" width="42" height="90" frameX="-6" frameY="-12" frameWidth="42" frameHeight="90"/>
 	<SubTexture name="é0000" x="274" y="155" width="37" height="83" frameX="-6" frameY="0" frameWidth="37" frameHeight="90"/>
 	<SubTexture name="ê0000" x="313" y="155" width="42" height="82" frameX="-6" frameY="0" frameWidth="42" frameHeight="90"/>
-	<SubTexture name="í0000" x="225" y="247" width="25" height="83" frameX="-6" frameY="0" frameWidth="55" frameHeight="90"/>
+	<SubTexture name="í0000" x="225" y="247" width="25" height="83" frameX="-6" frameY="2" frameWidth="20" frameHeight="90"/>
 	<SubTexture name="ó0000" x="246" y="332" width="42" height="82" frameX="-6" frameY="0" frameWidth="42" frameHeight="90"/>
 	<SubTexture name="ô0000" x="290" y="332" width="42" height="81" frameX="-6" frameY="0" frameWidth="42" frameHeight="90"/>
 	<SubTexture name="õ0000" x="334" y="332" width="42" height="83" frameX="-6" frameY="0" frameWidth="42" frameHeight="90"/>
