@@ -32,6 +32,7 @@ import multiplayer.*;
 import Discord.DiscordClient;
 #end
 import flixel.FlxCamera;
+import flixel.addons.effects.chainable.FlxOutlineEffect;
 
 using StringTools;
 
@@ -143,14 +144,16 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         friendsCache = amiguineos;
         // ninguém nunca me respondeu, estou triste :cry:
         var x1:Float = 1; // bora x1?
+        var x2:Int = 0;
         for(user in amiguineos)
             {
-                var friendo:FriendObject = new FriendObject((5*x1)+10, 20, user, this);
+                var friendo:FriendObject = new FriendObject((5*x1)+10, 20, user, this, x2);
                 friendo.cameras = [camElementos];
                 friendo.alpha = 0;
                 amigos.push(friendo);
                 amigosList.add(friendo);
                 x1+=75;
+                x2+=1;
             }        
         amigosList.setPosition(0, 2560);
         var viewPortRect:FlxRect = new FlxRect( 74, 162, 1132, 484 );
@@ -179,7 +182,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         {
             sair();
         }
-        if(canSumir && amigos.length > 2)
+        if(canSumir && amigos.length >= 1)
         {
             swipes();
         }
@@ -187,6 +190,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         voltar_button.label.alpha = 1;
     }
 
+    var curSelection:Int = 0;
     function swipes(){
         var numeroSuperManeiro:Float = 745;
         var canSwipeRight:Bool = true;
@@ -195,17 +199,28 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         canSwipeRight = amigos[ultimoAmigo].x > numeroSuperManeiro;
         canSwipeLeft = amigos[0].x <= 15;
 
-        if (!Main.getMouseVisibility()){
-            if(canSwipeLeft && controls.UI_LEFT)
+        if (Main.isKeyboard){
+            if(controls.UI_LEFT_P)
             {
+                curSelection = Std.int(Math.max(0, curSelection-1));
                 for (amigo in amigos){
-                    amigo.x += 20;
+                    amigo.x+=amigo.width+15;
                 }
             }
-            else if(canSwipeRight && controls.UI_RIGHT)
+            else if(controls.UI_RIGHT_P)
             {
+                curSelection = Std.int(Math.min(amigos.length-1, curSelection+1));
                 for (amigo in amigos){
-                    amigo.x -= 20;
+                    amigo.x-=amigo.width+15;
+                }
+            }
+
+            if (amigos.length > 0) {
+                for (amigo in amigos){
+                    amigo.updateOutline(curSelection);
+                }
+                if (controls.ACCEPT) {
+                    amigos[curSelection].desafiar();
                 }
             }
         }
@@ -220,21 +235,26 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
                 }
             }
 
+            for (amigo in amigos){
+                amigo.alpha = 1;
+            }
         }
 
         if(amigos[0].x > 15)
         {
+            var offset = amigos[0].x - 15;
             for(amigo in amigos)
             {
-                amigo.x -= Math.ffloor(5);
+                amigo.x -= offset;
             }
         }
         else if(amigos[ultimoAmigo].x < numeroSuperManeiro)
         {
+            var offset = numeroSuperManeiro - amigos[ultimoAmigo].x;
             for(amigo in amigos)
-                {
-                    amigo.x += Math.ffloor(5);
-                }
+            {
+                amigo.x += offset;
+            }
         }
 
     }
@@ -325,11 +345,16 @@ class FriendObject extends FlxSpriteGroup
     var amOnline:Bool = false;
     var parent:FlxState;
 
-    public function new(x:Float, y:Float, user:User, parent:FlxState)
+    var outline:FlxSprite;
+
+    public var index:Int;
+
+    public function new(x:Float, y:Float, user:User, parent:FlxState, index:Int)
     {
         super(x,y);
         this.user = user;
         this.parent = parent;
+        this.index = index;
         bg = new FlxSprite(0, 0).loadGraphic(Paths.image("menus/gamejolt/amigos/perfil"));
         bg.updateHitbox();
         add(bg);
@@ -395,8 +420,9 @@ class FriendObject extends FlxSpriteGroup
         pegarIcon();
     }
 
-    function desafiar()
+    public function desafiar()
     {
+        if(desafiarBt == null) return;
         if(!Reflect.getProperty(parent, "canDesafiar")) return;
         Reflect.setProperty(parent, "canDesafiar", false);
         Reflect.setProperty(parent, "canSumir", false);
@@ -438,6 +464,10 @@ class FriendObject extends FlxSpriteGroup
 		FlxSpriteUtil.alphaMaskFlxSprite(icon, tempCircle, icon);
 		tempMask.destroy();
 		tempCircle.destroy();
+    }
+
+    public function updateOutline(currentSelection:Int) {
+        this.alpha = index == currentSelection ? 1 : 0.5;
     }
 }
 
