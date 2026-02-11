@@ -32,7 +32,6 @@ import multiplayer.*;
 import Discord.DiscordClient;
 #end
 import flixel.FlxCamera;
-import flixel.addons.effects.chainable.FlxOutlineEffect;
 
 using StringTools;
 
