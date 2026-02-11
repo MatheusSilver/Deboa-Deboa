@@ -168,7 +168,7 @@ function onCreate()
 
 	-- Ok... Consigo aceitar o de cima.
     
-	makeLuaSprite('obj1234', 'blackscreen', -400, 0)
+	makeLuaSprite('obj1234', 'blackscreen', -420, 0)
 	
 	scaleObject('obj1234', 2.5, 2.5)
 
