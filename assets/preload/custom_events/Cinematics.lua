@@ -13,7 +13,8 @@ function onCreate()
 	--THE TOP BAR
 	makeLuaSprite('UpperBar', 'empty', 0, -120)
 	makeGraphic('UpperBar', 1280, 120, '000000')
-	setObjectCamera('UpperBar', 'other')
+	-- setObjectCamera('UpperBar', 'other') -- Desse jeito, as notas são encobertas pelas pretas + dificil
+	setObjectCamera('UpperBar', 'hud') -- Desse jeito as notas passam por cima da barra preta + facil (só que talvez mais feio)
 	setProperty("UpperBar.visible", false)
 	addLuaSprite('UpperBar', false)
 
@@ -21,7 +22,8 @@ function onCreate()
 	--THE BOTTOM BAR
 	makeLuaSprite('LowerBar', 'empty', 0, 720)
 	makeGraphic('LowerBar', 1280, 120, '000000')
-	setObjectCamera('LowerBar', 'other')
+	-- setObjectCamera('UpperBar', 'other') -- Desse jeito, as notas são encobertas pelas pretas + dificil
+	setObjectCamera('LowerBar', 'hud') -- Desse jeito as notas passam por cima da barra preta + facil (só que talvez mais feio)
 	addLuaSprite('LowerBar', false)
 
 

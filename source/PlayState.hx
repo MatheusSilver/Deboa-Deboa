@@ -4064,6 +4064,7 @@ class PlayState extends MusicBeatState
 							FlxG.sound.music.pause();
 							vocals.pause();
 							Song.Conductor.songPosition = 383050; // Isso equivale a 383.05 segundos
+															// Obrigado silvio do passado
 							notes.forEachAlive(function(daNote:Note)
 							{
 								if (daNote.strumTime + 800 < Song.Conductor.songPosition)
@@ -4143,7 +4144,11 @@ class PlayState extends MusicBeatState
 						if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 5);
 						blackFuck.visible = true;
 						blackFuck.alpha = 1;
-						opponentStrums.forEach(function(tofade:FlxSprite){tofade.alpha = 1;});
+						opponentStrums.forEach(function(tofade:FlxSprite){tofade.alpha = 1;});	
+						
+					case 4481:
+						triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
+						triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');	
 
 					case 4498:
 						FlxTween.tween(sonicHUD, {alpha: 0}, 0.5, {ease: FlxEase.cubeInOut}); // sÓ pq fica estranho com a cinematics
@@ -4172,8 +4177,6 @@ class PlayState extends MusicBeatState
 						}
 						reload_presence();
 						cinematicBars(false);
-						triggerEventNote('noteskinchangeOPPT', 'NOTE_assets', '');
-						triggerEventNote('noteskinchangeBF', 'NOTE_assets', 'blood');
 						boyfriend.x = 998 - 208;
 						boyfriend.y = 302;
 						boyfriend.y -= 20;
