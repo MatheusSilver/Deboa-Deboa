@@ -17,7 +17,7 @@ ach_desc_sunky_fatos	Listen to sunky spit facts in milk
 ach_desc_rings	Get all the rings in Ameaça Tripla
 ach_desc_heroi	Beat all the sins (not from Final Fantasy)
 ach_desc_prey_bot	Lose Caça with botplay activated
-ach_desc_fake_full_combo	Full Combo, CONGRATULATIONS!!! Too bad it was in Soulless so everything was nullified :)
+ach_desc_story_clear	Finish the story mode
 ach_desc_prey_survive	Survive Furnace attack in Caça
 ach_desc_perfect	Beat any song with no misses
 ach_desc_sidekick	Beat Sidekick
@@ -33,3 +33,5 @@ ach_desc_fisk	Study Japanese with Majin in Infinito
 ach_desc_pibby	Beat Pibby Sonic
 ach_desc_galeria	See the entire gallery
 ach_desc_pause_jumpscare	Listen closely the pause menu music in Ameaça Tripla
+ach_desc_hidden	This achievement is hidden
+ach_desc_locked	This achievement has not been unlocked yet

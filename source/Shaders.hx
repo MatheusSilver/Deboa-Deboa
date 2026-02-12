@@ -62,6 +62,25 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 	}
 }
 
+/* Usado especificamente nos achievements, mas foi roubado e adaptado de DDTO */
+class GrayscaleShader extends FlxShader {
+    @:glFragmentSource('
+        #pragma header
+
+        void main() {
+			#pragma body
+            vec4 alteredColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
+
+            float gray = dot(alteredColor.rgb, vec3(0.299, 0.587, 0.114));
+
+            gl_FragColor = vec4(vec3(gray), alteredColor.a);
+        }
+    ')
+    public function new() {
+        super();
+    }
+}
+
 class ReflectionShader extends FlxShader
 {
 	@:glFragmentSource('

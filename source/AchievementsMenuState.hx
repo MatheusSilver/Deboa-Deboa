@@ -40,7 +40,7 @@ class AchievementsMenuState extends MusicBeatState
 		#if rpc
 		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_achievement_menu", "rpc"), null);
 		#end
-		achieve_list_len = 0;
+		achieve_list_len = Achievements.achievementsStuff.length;
 		options = [];
 		Main.mouse_allowed=true;
 		BSLSwipeUtils.resetScrolls();
@@ -54,18 +54,11 @@ class AchievementsMenuState extends MusicBeatState
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		for (i in 0...Achievements.achievementsStuff.length)
-		{
-			if (!Achievements.achievementsStuff[i][1] || ClientPrefs.achievementsMap.exists(Achievements.achievementsStuff[i][0]))
-			{
-				achieve_list_len++;
-				options.set(i, Achievements.achievementsStuff[i][0]);
-			}
-		}
+		for (i in 0...Achievements.achievementsStuff.length) options.set(i, Achievements.achievementsStuff[i][0]);
 
 		for (i in 0...achieve_list_len)
 		{
-			var achieveAlbum:String = Achievements.achievementsStuff[i][3];
+			var achieveAlbum:String = Achievements.getAchievementCategory(i);
 			var optionText:Alphabet = new Alphabet(-150, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
 			optionText.x += 25;
@@ -73,7 +66,7 @@ class AchievementsMenuState extends MusicBeatState
 			optionText.targetY = i;
 			grpOptions.add(optionText);
 
-			var icon:AttachedAchievement = new AttachedAchievement(-150, optionText.y, achieveAlbum);
+			var icon:AttachedAchievement = new AttachedAchievement(-150, optionText.y, achieveAlbum, i);
 			icon.sprTracker = optionText;
 			achievementArray.push(icon);
 			add(icon);
@@ -251,16 +244,31 @@ class AchievementsMenuState extends MusicBeatState
 			}
 		}
 
+		final achievementName:String = Achievements.getAchievementName(curSelected);
+		final isLocked:Bool = !Achievements.isAchievementUnlocked(achievementName);
+		final isHidden:Bool = Achievements.isAchievementHidden(curSelected);
+
 		for (i in 0...achievementArray.length)
 		{
-			achievementArray[i].alpha = 0.6;
-			if (i == curSelected)
-			{
-				achievementArray[i].alpha = 1;
-			}
+			final achieveName:String = Achievements.getAchievementName(i);
+			final achieved:Bool = Achievements.isAchievementUnlocked(achieveName);
+			final isSelected:Bool = (i == curSelected);
+			achievementArray[i].updateBanner(achieved, isSelected);
 		}
-		descText.text = Linguagem.LangUtil.getString("ach_desc_"+Achievements.achievementsStuff[curSelected][0], "achievement");
-		titleText.text = Achievements.isAchievementUnlocked(options.get(curSelected)) ? Linguagem.LangUtil.getString("ach_name_"+options.get(curSelected), "achievement") : '?????';
+
+		setupText(achievementName, (isLocked ? 0x808080 : 0x9755F0), isLocked, isHidden);	
+		for (i in 0...achievementArray.length) achievementArray[i].updateStarDisplay();
+	}
+
+	private function setupText(achievementName:String, color:FlxColor, isLocked:Bool, isHidden:Bool){
+		titleText.text = Linguagem.LangUtil.getString("ach_name_" + achievementName, "achievement");
+		descText.text = Linguagem.LangUtil.getString("ach_desc_" + achievementName, "achievement");
+		titleText.color = color;
+		if (isHidden){
+			descText.text = Linguagem.LangUtil.getString("ach_desc_hidden", "achievement");
+			titleText.text = "?????";
+		} else if (isLocked)  
+			descText.text += "\n" + Linguagem.LangUtil.getString("ach_desc_locked", "achievement");
 	}
 
 	override function beatHit()

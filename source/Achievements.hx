@@ -15,6 +15,7 @@ using StringTools;
 class Achievements {
 	//substituir os zeros pelos seus respectivos ID's de achievement da gamejolt
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
+		['story_clear',		false, 		181573, 		'geral', 		3], //ok1
 		['modboa',			true, 		181570, 		'geral', 		1], //ok1
 		['tarado_do_menu',	true,		195317, 		'geral', 		1],
 		['fe_clear',		false,		195318, 		'orgulho', 		2],
@@ -32,7 +33,6 @@ class Achievements {
 		['rings',			false, 		181720, 		'orgulho', 		3], //ok
 		['heroi',			false, 		181721, 		'geral', 		2],
 		['prey_bot',		true, 		181722, 		'alt', 			2], //ok
-		['fake_full_combo',	true, 		185666,			'meme maker', 	1], //ok
 		['prey_survive',	true, 		181723, 		'alt', 			2], //ok
 		['perfect',			false, 		181724, 		'geral', 		2], //ok
 		['sidekick',		false, 		181725, 		'orgulho', 		1], //ok
@@ -138,6 +138,18 @@ class Achievements {
 		return -1;
 	}
 
+	// Funções auxiliares para acessar propriedades do achievement
+	// So porque eu já estava ficando bem pito de ter que pegar cada um desses na mão
+	public inline static function getAchievementName(id:Int):String { return achievementsStuff[id][0]; }
+
+	public inline static function isAchievementHidden(id:Int):Bool { return achievementsStuff[id][1]; }
+
+	public inline static function getAchievementGJID(id:Int):Int { return achievementsStuff[id][2]; }
+
+	public inline static function getAchievementCategory(id:Int):String { return achievementsStuff[id][3]; }
+
+	public inline static function getAchievementStars(id:Int):Int { return achievementsStuff[id][4]; }
+
 	public static function getAchievementID(id:Int):String {
 		for (i in 0...achievementsStuff.length) {
 			if(achievementsStuff[i][2] == id) {
@@ -156,14 +168,24 @@ class Achievements {
 	}
 }
 
-class AttachedAchievement extends FlxSprite {
+class AttachedAchievement extends FlxSpriteGroup {
 	public var sprTracker:FlxSprite;
+	private var medalSprite:FlxSprite;
 	private var tag:String;
-	public function new(x:Float = 0, y:Float = 0, name:String) {
+	private var achievementIndex:Int = -1;
+	private var stars:Array<FlxSprite> = [];
+	
+	public function new(x:Float = 0, y:Float = 0, name:String, ?index:Int = -1) {
 		super(x, y);
 
+		achievementIndex = index;
+		
+		medalSprite = new FlxSprite(0, 0);
 		changeAchievement(name);
-		antialiasing = ClientPrefs.globalAntialiasing;
+		medalSprite.antialiasing = ClientPrefs.globalAntialiasing;
+		add(medalSprite);
+
+		loadStars();
 	}
 
 	public function changeAchievement(tag:String) {
@@ -172,9 +194,65 @@ class AttachedAchievement extends FlxSprite {
 	}
 
 	public function reloadAchievementImage() {
-		loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-' + tag + ")"));
-		scale.set(1.3, 1.3);
+		medalSprite.loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-' + tag + ")"));
+		medalSprite.scale.set(1.3, 1.3);
+		medalSprite.updateHitbox();
 		updateHitbox();
+	}
+	
+	private function loadStars() {
+		if (achievementIndex < 0)
+			return;
+			
+		final numStars:Int = Achievements.getAchievementStars(achievementIndex);
+		final achieveName:String = Achievements.getAchievementCategory(achievementIndex);
+		final isUnlocked:Bool = Achievements.isAchievementUnlocked(Achievements.getAchievementName(achievementIndex));
+		
+		// Limpar estrelas antigas
+		for (star in stars) {
+			remove(star);
+			star.destroy();
+		}
+		stars = [];
+		
+		if (isUnlocked && numStars > 0) {
+			var starStartX:Float = medalSprite.width - 275;
+			var starStartY:Float = (medalSprite.height / 2) - 20;
+			
+			for (i in 0...numStars) {
+				var star:FlxSprite = new FlxSprite(starStartX - (i * 60), starStartY);
+				
+				if (openfl.Assets.exists(Paths.imagechecker('conquistas/keydSTARS/star-' + achieveName, 'preload')))
+					star.loadGraphic(Paths.image('conquistas/keydSTARS/star-' + achieveName, 'preload'));
+				else
+					star.loadGraphic(Paths.image('conquistas/keydSTARS/star-geral', 'preload'));
+				
+				star.setGraphicSize(Std.int(star.width*0.9));
+				star.updateHitbox();
+				star.antialiasing = ClientPrefs.globalAntialiasing;
+				stars.push(star);
+				add(star);
+			}
+		}
+	}
+	
+	public function updateStarDisplay() { loadStars(); }
+	
+	public function updateBanner(isUnlocked:Bool, isSelected:Bool) {
+		if (isUnlocked) {
+			medalSprite.color = FlxColor.WHITE;
+			for (star in stars) star.color = FlxColor.WHITE;
+		} else {
+			medalSprite.shader = new Shaders.GrayscaleShader();
+			for (star in stars) star.shader = new Shaders.GrayscaleShader();
+		}
+		if (isSelected && isUnlocked) {
+			medalSprite.alpha = 1;
+			for (star in stars) star.alpha = 1;
+		} else {
+			medalSprite.alpha = 0.6;
+			for (star in stars) star.alpha = 0.6;
+		}
 	}
 
 	override function update(elapsed:Float) {

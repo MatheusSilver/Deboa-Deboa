@@ -4755,7 +4755,7 @@ class PlayState extends MusicBeatState
 		{
 			var achieve:String = checkForAchievement([
 				'toastie', 'besties', 'personel_clear', 'cy_clear', 'fe_clear', 'control_fc', 'bye_bye_fc', 'natal', 'hypno_clear', 'mx_clear', 'lx_clear',
-				'sidekick', 'toofest_fc', 'perfect', 'fake_full_combo'
+				'sidekick', 'toofest_fc', 'perfect'
 			]);
 
 			if (achieve != null)
@@ -7064,7 +7064,6 @@ class PlayState extends MusicBeatState
 					case 'hypno_clear': 	unlock = SONG.song.toLowerCase() == 'pasta-night' && storyDifficulty == 7;
 					case 'mx_clear': 		unlock = SONG.song.toLowerCase() == 'pasta-night' && storyDifficulty == 5;
 					case 'perfect': 		unlock = SONG.song.toLowerCase() != 'soulless' && songMisses == 0;
-					case 'fake_full_combo': unlock = SONG.song.toLowerCase() == 'soulless' && songMisses == 0;
 					case 'bye_bye_fc': 		unlock = SONG.song.toLowerCase() == 'cycles' && songMisses == 0;
 					case 'natal': 			unlock = SONG.song.toLowerCase() == 'slaybells';
 					case 'sidekick': 		unlock = SONG.song.toLowerCase() == 'sidekick';
