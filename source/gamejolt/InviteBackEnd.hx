@@ -54,9 +54,9 @@ class InviteBackEnd extends FlxGroup
     public static function reInit()
     {
         if(timer!= null){timer.cancel();}
-        if(!PlayState.isPlayState){GJClient.getDesafios(spawnarInvite);}
+        if(!CoolUtil.checkPlayState()){GJClient.getDesafios(spawnarInvite);}
         timer = new FlxTimer().start(5, function(e:FlxTimer) {
-            if(PlayState.isPlayState) return;
+            if(CoolUtil.checkPlayState()) return;
             GJClient.getDesafios(spawnarInvite);
         }, 0);
     }
@@ -64,7 +64,7 @@ class InviteBackEnd extends FlxGroup
     static function spawnarInvite(?result:Null<Dynamic>)
     {
         if(!canSpawn) return;
-        if(PlayState.isPlayState) return;
+        if(CoolUtil.checkPlayState()) return;
         if(cam==null) return;
         //trace(GJClient.invites);
         GJClient.canChangeInvites = false;
@@ -307,7 +307,7 @@ class InviteObject extends FlxSpriteGroup
 
     public function accept() {
         if(!canAccept) return;
-        if(PlayState.isPlayState) return;
+        if(CoolUtil.checkPlayState()) return;
         if(FlxG.state!=null){
             if(FlxG.state.subState!=null)
             {

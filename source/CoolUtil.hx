@@ -66,12 +66,20 @@ class CoolUtil
 	}
 
 	// Não sei o que isso faz
+	// Isso faz com que uma parte de uma string se repita uma certa quantidade de vezes
+	// Iria usar em algum lugar dos achievements mas por conta do sistema de locales, acabei só tirando.
+					// Silvio
 	inline public static function repeat(str:String, times:Int):String
 	{
 		var result:String = "";
 		for (i in 0...times)
 			result += str;
 		return result;
+	}
+
+	inline public static function checkPlayState(){
+		if (PlayState.instance != null) return PlayState.instance.isPlayState;
+		return false;
 	}
 
 	// Não sei o que isso faz

@@ -83,7 +83,7 @@ class PlayState extends MusicBeatState
 {
 	public static var movecameraallowed:Bool = true;
 	public var cambump_allowed:Bool = true;
-	public static var isPlayState:Bool = false;
+	public var isPlayState:Bool = false;
 
 	public var precacheList:Map<String, String> = new Map<String, String>();
 
@@ -467,6 +467,7 @@ class PlayState extends MusicBeatState
 			Paths.clearStoredMemory();
 
 		Achievements.loadAchievements();
+		this.isPlayState = true;
 		Main.mouse_allowed = false;
 
 		cacheLoader = new PreCacheManager(finishCreate);
