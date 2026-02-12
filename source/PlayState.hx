@@ -2426,6 +2426,15 @@ class PlayState extends MusicBeatState
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0] - earlyTime1, Obj2[0] - earlyTime2);
 	}
 
+	/* Função que ordena primeiro pegando a calda da nota, e depois a posição y que ela aparece, assim as tails da nota aparecem em baixo pois são spawnadas primeiro */
+	function sortNotesByYAndType(order:Int, note1:Note, note2:Note):Int
+	{
+		if (note1.isSustainNote && !note2.isSustainNote) return order;
+		if (!note1.isSustainNote && note2.isSustainNote) return -order;
+		
+		return FlxSort.byValues(order, note1.y, note2.y);
+	}
+
 	private function generateStaticArrows(player:Int, initAlpha:Float = 1):Void
 	{
 		var keyCount:Int = 4;
@@ -6255,7 +6264,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (generatedMusic)
-			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
+			notes.sort(sortNotesByYAndType, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 
 		HUD.iconP1.scale.set(1.2, 1.2);
 		HUD.iconP2.scale.set(1.2, 1.2);
