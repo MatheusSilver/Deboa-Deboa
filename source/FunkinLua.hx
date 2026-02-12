@@ -439,6 +439,17 @@ class FunkinLua {
 			//luaTrace("Object " + obj + " doesn't exist!");
 		});
 
+		Lua_helper.add_callback(lua, "setVideoObjectOrder", function(obj:String, position:Int) {
+			var video:ModchartVideoSprite = PlayState.instance.modchartVideoSprites.get(obj);
+			if(video.wasAdded) {
+				PlayState.instance.remove(video, true);
+				PlayState.instance.insert(position, video);
+				return;
+			}
+		});
+
+
+
 		// gay ass tweens
 		Lua_helper.add_callback(lua, "doTweenX", function(tag:String, vars:String, value:Dynamic, duration:Float, ease:String) {
 			var penisExam:Dynamic = tweenShit(tag, vars);
