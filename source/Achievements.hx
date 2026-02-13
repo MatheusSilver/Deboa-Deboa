@@ -15,7 +15,7 @@ using StringTools;
 class Achievements {
 	//substituir os zeros pelos seus respectivos ID's de achievement da gamejolt
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement, Gamejolt ID
-		['story_clear',		false, 		181573, 		'geral', 		3], //ok1
+		['game_clear',		false, 		181573, 		'geral', 		3], //ok1
 		['modboa',			true, 		181570, 		'geral', 		1], //ok1
 		['tarado_do_menu',	true,		195317, 		'geral', 		1],
 		['fe_clear',		false,		195318, 		'orgulho', 		2],

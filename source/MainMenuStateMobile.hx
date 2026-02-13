@@ -235,21 +235,24 @@ class MainMenuStateMobile extends MusicBeatState
 
 		checkiftouch = false;
 
+		
+		super.create();
+		
 		#if ACHIEVEMENTS_ALLOWED
 			test_unlock('modboa'); 
 			//Ok, isso pode parecer estranho, mas a questão é
 			//O mano sempre precisará mexer nas opções pra desbloquear toastie
 			//Mas a questão é que pra isso, o mano vai ter que passar aqui primeiro. (eu acho...)
 			if (ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing) test_unlock("toastie");
+			new FlxTimer().start(300, function(twn:FlxTimer){
+				test_unlock('tarado_do_menu');
+			});
+	
+			if (Lambda.count(ClientPrefs.achievementsMap) == 32) test_unlock("colecionador");
+		
+			if (ProgressionUtil.terminouTudo()) test_unlock("game_clear");
 		#end
-
-		super.create();
-
-		new FlxTimer().start(300, function(twn:FlxTimer){
-			test_unlock('tarado_do_menu');
-		});
-
-		if (Lambda.count(ClientPrefs.achievementsMap) == 32) test_unlock("colecionador");
+		
 	}
 
 	function test_unlock(achieve:String){

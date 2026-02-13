@@ -248,6 +248,8 @@ class AchievementsMenuState extends MusicBeatState
 		final isLocked:Bool = !Achievements.isAchievementUnlocked(achievementName);
 		final isHidden:Bool = Achievements.isAchievementHidden(curSelected);
 
+		for (i in 0...achievementArray.length) achievementArray[i].updateStarDisplay();
+		
 		for (i in 0...achievementArray.length)
 		{
 			final achieveName:String = Achievements.getAchievementName(i);
@@ -257,14 +259,13 @@ class AchievementsMenuState extends MusicBeatState
 		}
 
 		setupText(achievementName, (isLocked ? 0x808080 : 0x9755F0), isLocked, isHidden);	
-		for (i in 0...achievementArray.length) achievementArray[i].updateStarDisplay();
 	}
 
 	private function setupText(achievementName:String, color:FlxColor, isLocked:Bool, isHidden:Bool){
 		titleText.text = Linguagem.LangUtil.getString("ach_name_" + achievementName, "achievement");
 		descText.text = Linguagem.LangUtil.getString("ach_desc_" + achievementName, "achievement");
 		titleText.color = color;
-		if (isHidden){
+		if (isHidden && isLocked){
 			descText.text = Linguagem.LangUtil.getString("ach_desc_hidden", "achievement");
 			titleText.text = "?????";
 		} else if (isLocked)  
