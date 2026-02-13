@@ -684,9 +684,11 @@ class PlayState extends MusicBeatState
 				add(icicles);
 				fakeTooSlow = new BGSprite('TOO-SLOW/main stage', -490, 6, 1, 1);
 				add(fakeTooSlow);
-				urTooSlow = new BGSprite('TOO-SLOW/main stage spoopy', -490, 6, 1, 1);
-				add(urTooSlow);
-				urTooSlow.visible=false;
+				if (ClientPrefs.gore && !ClientPrefs.lowQuality){
+					urTooSlow = new BGSprite('TOO-SLOW/main stage spoopy', -490, 6, 1, 1);
+					add(urTooSlow);
+					urTooSlow.visible=false;
+				}
 
 				// A parte de baixo são os shaders que ficam no chão, descomente isso se quiser ter o chão conforme
 				// O video em #silvers-room

@@ -38,7 +38,7 @@ function onEvent(event, v1, v2)
 		if v1 == "384" then
 			doTweenAlpha('AlphaIcon', 'HUD.iconP2', 0, 0.45)
 			resetDurationTween()
-		elseif v1 == "447" then
+		elseif v1 == "447" and gore and lowQuality == false then
 			setProperty("urTooSlow.visible", true)
 			setProperty("fakeTooSlow.visible", false)
 			setSuperZoom(true)

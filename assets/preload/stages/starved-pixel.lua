@@ -150,11 +150,12 @@ function onEvent(name, value1, value2)
                 speedModifier=-120
             end,
             [1010101] = function()
-                if (gore) then
+                if gore then
+                    doTweenY("furnaceEndTweenY", 'furnaceTheEnd', -350, 1.5, "cubeinout")
+                else
+                    -- Aqui o furnace está em cima das tripinhas de el ouriçado
                     doTweenY("furnaceEndTweenY", 'furnaceTheEnd', -160, 1.5, "cubeinout")
                     doTweenX("furnaceEndTweenX", 'furnaceTheEnd', getProperty("furnaceTheEnd.x")+45, 1.5, "cubeinout")
-                else
-                    doTweenY("furnaceEndTweenY", 'furnaceTheEnd', -350, 1.5, "cubeinout")
                 end
             end,
             [4498] = function()

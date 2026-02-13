@@ -279,7 +279,11 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setPropertyTiledLuaSprite("angelislandbg.y", -260-60)
 	addLuaSprite('angelislandbg');
 
-	makeLuaTiledSprite('angelislandarvores','cenarios/phase6/arvores',4096,1024,true,false) --1
+	if gore then
+		makeLuaTiledSprite('angelislandarvores','cenarios/phase6/arvores',4096,1024,true,false) --1
+	else
+		makeLuaTiledSprite('angelislandchao','cenarios/phase6/arvores_sem_gore',4096,1024,true,false) --16810,1024,true,false) --1
+	end
 	setLuaSpriteScrollFactor('angelislandarvores',0.4,1)
 	setPropertyTiledLuaSprite("angelislandarvores.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandarvores.x", -555)
