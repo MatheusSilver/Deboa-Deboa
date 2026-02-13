@@ -157,13 +157,13 @@ class TimeDaVio extends MusicBeatState
 		mic.x = 257;
 		add(mic);
 
-		FlxTween.tween(bgCima, {y: 0}, 1/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-		FlxTween.tween(bgBaixo, {y: 0}, 1.15/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-		FlxTween.tween(mic, {x: 0}, 1.35/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-		FlxTween.tween(perfil, {x: 0}, 1.45/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-		FlxTween.tween(desc, {x: 0}, 1.5/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-		FlxTween.tween(estante, {x: 0}, 1.6/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-		FlxTween.tween(icon, {x: 0}, 1.7/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+		FlxTween.tween(bgCima, {y: 0}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.quartInOut});
+		FlxTween.tween(bgBaixo, {y: 0}, CoolUtil.getAnimSpeed(1.15), {ease: FlxEase.quartInOut});
+		FlxTween.tween(mic, {x: 0}, CoolUtil.getAnimSpeed(1.35), {ease: FlxEase.quartInOut});
+		FlxTween.tween(perfil, {x: 0}, CoolUtil.getAnimSpeed(1.45), {ease: FlxEase.quartInOut});
+		FlxTween.tween(desc, {x: 0}, CoolUtil.getAnimSpeed(1.5), {ease: FlxEase.quartInOut});
+		FlxTween.tween(estante, {x: 0}, CoolUtil.getAnimSpeed(1.6), {ease: FlxEase.quartInOut});
+		FlxTween.tween(icon, {x: 0}, CoolUtil.getAnimSpeed(1.7), {ease: FlxEase.quartInOut});
 
 		new FlxTimer().start(1.8, function(tmr:FlxTimer)
 		{
@@ -289,13 +289,13 @@ class TimeDaVio extends MusicBeatState
 				icon.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/icon', "locales", true , true));
 				desc.loadGraphic(Paths.image('sobremenu/creditos/elenco/' + creditInfo[curSelected][0] + '/desc', "locales", true , true));
 
-				FlxTween.tween(bgCima, {y: 0}, 1/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(bgBaixo, {y: 0}, 1.15/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(perfil, {x: 0}, 1.35/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(desc, {x: 0}, 1.45/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(estante, {x: 0}, 1.55/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgCima, {y: 0}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgBaixo, {y: 0}, CoolUtil.getAnimSpeed(1.15), {ease: FlxEase.quartInOut});
+				FlxTween.tween(perfil, {x: 0}, CoolUtil.getAnimSpeed(1.35), {ease: FlxEase.quartInOut});
+				FlxTween.tween(desc, {x: 0}, CoolUtil.getAnimSpeed(1.45), {ease: FlxEase.quartInOut});
+				FlxTween.tween(estante, {x: 0}, CoolUtil.getAnimSpeed(1.55), {ease: FlxEase.quartInOut});
 				tweenButtons(1);
-				FlxTween.tween(icon, {x: 0}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(icon, {x: 0}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
 			}
 			else
 			{
@@ -315,16 +315,16 @@ class TimeDaVio extends MusicBeatState
 				estante.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/estante'));
 				icon.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/icon', "locales", true, true));
 				desc.loadGraphic(Paths.image('sobremenu/creditos/timedavio/' + creditInfo[curSelected][0] + '/desc', "locales", true, true));
-				FlxTween.tween(bgCima, {y: 0}, 1/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(bgBaixo, {y: 0}, 1.15/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(perfil, {x: 0}, 1.35/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(mic, {x: 0}, 1.35/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(desc, {x: 0}, 1.45/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(estante, {x: 0}, 1.55/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgCima, {y: 0},CoolUtil.getAnimSpeed(1), {ease: FlxEase.quartInOut});
+				FlxTween.tween(bgBaixo, {y: 0}, CoolUtil.getAnimSpeed(1.15), {ease: FlxEase.quartInOut});
+				FlxTween.tween(perfil, {x: 0}, CoolUtil.getAnimSpeed(1.35), {ease: FlxEase.quartInOut});
+				FlxTween.tween(mic, {x: 0}, CoolUtil.getAnimSpeed(1.35), {ease: FlxEase.quartInOut});
+				FlxTween.tween(desc, {x: 0}, CoolUtil.getAnimSpeed(1.45), {ease: FlxEase.quartInOut});
+				FlxTween.tween(estante, {x: 0}, CoolUtil.getAnimSpeed(1.55), {ease: FlxEase.quartInOut});
 				tweenButtons(0);
-				FlxTween.tween(icon, {x: 0}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(icon, {x: 0}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
 			}
-			new FlxTimer().start(1.7/(ClientPrefs.animSpeed - 0.25), function(tmr:FlxTimer)
+			new FlxTimer().start(CoolUtil.getAnimSpeed(1.7), function(tmr:FlxTimer)
 			{
 				canChange = true;
 			});
@@ -414,14 +414,14 @@ class TimeDaVio extends MusicBeatState
 
 		switch (buttons.length){
 			case 1:
-				FlxTween.tween(buttons[0], {x: ENTRY_MIDDLE_POS[section]}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[0], {x: ENTRY_MIDDLE_POS[section]}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
 			case 2:
-				FlxTween.tween(buttons[0], {x: ENTRY_FIRST_POS[section]}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(buttons[1], {x: ENTRY_LAST_POS[section]}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[0], {x: ENTRY_FIRST_POS[section]}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[1], {x: ENTRY_LAST_POS[section]}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
 			case 3:
-				FlxTween.tween(buttons[0], {x: ENTRY_FIRST_POS[section]}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(buttons[1], {x: ENTRY_MIDDLE_POS[section]}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(buttons[2], {x: ENTRY_LAST_POS[section]}, 1.65/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[0], {x: ENTRY_FIRST_POS[section]}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[1], {x: ENTRY_MIDDLE_POS[section]}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
+				FlxTween.tween(buttons[2], {x: ENTRY_LAST_POS[section]}, CoolUtil.getAnimSpeed(1.65), {ease: FlxEase.quartInOut});
 			default:
 				FlxG.log.error("Não foram achadas redes sociais para este manito.");
 		}

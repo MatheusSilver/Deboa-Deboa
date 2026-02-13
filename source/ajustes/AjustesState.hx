@@ -167,7 +167,7 @@ class AjustesState extends MusicBeatState
 			if (button.ID == selecionado){
 				button.alpha = 1;
 				FlxTween.tween(button, {x: FlxG.width - button.width}, 0.5, {startDelay: 0.1, ease: FlxEase.expoInOut, onComplete:function(twn:FlxTween){
-					FlxTween.tween(button, {x: FlxG.width}, 1.0/ClientPrefs.animSpeed, {startDelay: 0.15, ease: FlxEase.expoInOut, onComplete: function(twn:FlxTween){
+					FlxTween.tween(button, {x: FlxG.width}, CoolUtil.getAnimSpeed(1.0), {startDelay: 0.15, ease: FlxEase.expoInOut, onComplete: function(twn:FlxTween){
 						next_state(optionShit[selecionado]);
 					}});
 				}});

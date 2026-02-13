@@ -93,6 +93,13 @@ class CoolUtil
         return (from + ((to - from) * Math.random()));
     }
 
+	public static inline function getAnimSpeed(base:Float):Float {
+		return if (ClientPrefs.reducedAnimations)
+			Math.max(base / 1.5, 0.1) // Assim é fácil tornar isso seguro sem ficar repetindo código.
+		else
+			base;
+	}
+
 	/**
 	 * Formata um texto deixando ele bonitinho (Letras maíusculas e minúsculas)
 	 * @param text O texto que você vai capitalizar. (nem sei se essa palavra existe pra ser bem sincero)

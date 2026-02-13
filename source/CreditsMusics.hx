@@ -66,8 +66,8 @@ class CreditsMusics extends MusicBeatState
 		}
 		add(creditList);
 		
-		FlxTween.tween(bg, {y: 0}, 1/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-		FlxTween.tween(creditList, {x: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1/(ClientPrefs.animSpeed - 0.25)});
+		FlxTween.tween(bg, {y: 0}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.quartInOut});
+		FlxTween.tween(creditList, {x: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: CoolUtil.getAnimSpeed(1)});
 
 		super.create();
 	}

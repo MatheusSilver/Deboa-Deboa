@@ -42,7 +42,6 @@ class BaseOptionsMenu extends MusicBeatState
 		'hitsound_type',
 		'hitsound_test',
 		'colorblindness_filter',
-		'animspeed',
 		#if desktop
 		'cursor_size'
 		#end
@@ -79,9 +78,9 @@ class BaseOptionsMenu extends MusicBeatState
 		'acessibilidade_cap',
 		'flashing',
 		'gore',
-		'colorblindness_filter',
 		'animspeed',
-		#if desktop
+		'colorblindness_filter',
+		#if !FLX_NO_MOUSE
 		'cursor_size',
 		#end
 		'global_sounds_cap',
@@ -282,6 +281,9 @@ class BaseOptionsMenu extends MusicBeatState
 					case 'flashing':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
 
+					case 'animspeed':
+						ClientPrefs.reducedAnimations = !ClientPrefs.reducedAnimations;
+
 					case 'hitsound':
 						ClientPrefs.hitSounds = !ClientPrefs.hitSounds;
 
@@ -398,10 +400,6 @@ class BaseOptionsMenu extends MusicBeatState
 						if (ClientPrefs.curFilter >= 3) ClientPrefs.curFilter = 3;
 						if (ClientPrefs.curFilter <= 0) ClientPrefs.curFilter = 0;
 						changeFilter(ClientPrefs.curFilter); // k
-					case 'animspeed':
-						ClientPrefs.animSpeed = CoolUtil.stableOneDigitSum(ClientPrefs.animSpeed, addOne);
-						if (ClientPrefs.animSpeed < 1) ClientPrefs.animSpeed = 1;
-						if (ClientPrefs.animSpeed > 2.5) ClientPrefs.animSpeed = 2.5;
 					#if desktop
 					case 'cursor_size':
 						ClientPrefs.cursor_size = CoolUtil.stableOneDigitSum(ClientPrefs.cursor_size, addOne);
@@ -511,6 +509,8 @@ class BaseOptionsMenu extends MusicBeatState
 						daValue = ClientPrefs.focus;
 					case 'flashing':
 						daValue = ClientPrefs.flashing;
+					case 'animspeed':
+						daValue = ClientPrefs.reducedAnimations;
 					case 'subtitles':
 						daValue = ClientPrefs.legendas;
 					case 'gpu':
@@ -564,8 +564,6 @@ class BaseOptionsMenu extends MusicBeatState
 						daText = Std.string(ClientPrefs.opacidadeLegendas);
 					case 'colorblindness_filter':
 						daText = getFilterType(ClientPrefs.curFilter);
-					case 'animspeed':
-						daText = Std.string(ClientPrefs.animSpeed);
 					case 'cursor_size':
 						daText = Std.string(ClientPrefs.cursor_size);
 				}

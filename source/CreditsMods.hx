@@ -86,10 +86,10 @@ class CreditsMods extends MusicBeatState
 				exe.x = 1029;
 				add(exe);
 
-				FlxTween.tween(faixa, {x: 376}, 1/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(exe, {x: 326}, 1.25/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(bg, {y: 0}, 0.8/(ClientPrefs.animSpeed - 0.25), {ease: FlxEase.quartInOut});
-				FlxTween.tween(creditList, {y: -FlxG.height*0.275}, 0.5, {ease: FlxEase.quartInOut, startDelay: 1.35/(ClientPrefs.animSpeed - 0.25)});
+				FlxTween.tween(faixa, {x: 376}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.quartInOut});
+				FlxTween.tween(exe, {x: 326}, CoolUtil.getAnimSpeed(1.25), {ease: FlxEase.quartInOut});
+				FlxTween.tween(bg, {y: 0}, CoolUtil.getAnimSpeed(0.8), {ease: FlxEase.quartInOut});
+				FlxTween.tween(creditList, {y: -FlxG.height*0.275}, 0.5, {ease: FlxEase.quartInOut, startDelay: CoolUtil.getAnimSpeed(1.35)});
 
 				new FlxTimer().start(1.8, function(tmr:FlxTimer)
 				{

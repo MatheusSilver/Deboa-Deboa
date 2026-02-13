@@ -1,7 +1,7 @@
 ﻿flag	context
 opt_desc_reset	Caso desmarcado, apertar a bind RESET não fará nada.
 opt_desc_colorblindness_filter	Troque entre filtros,<X>o ideal para seu caso de daltonismo.<X>(Pode causar problemas de performance)
-opt_desc_animspeed	Controle a velocidade das animações dos menus.<X>Valores maiores resultam em animações mais rápidas.
+opt_desc_animspeed  Diminui a duração das animações e transições do jogo.
 opt_desc_cursor_size	Aumente ou diminua o tamanho do cursor.
 opt_desc_gore	Desative isso para não visualizar<X>os elementos com gore nas músicas.
 opt_desc_fps_max	Determina o máximo de FPS alcançavel.

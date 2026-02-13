@@ -268,7 +268,7 @@ class MenuPreHistoria extends MusicBeatState
 			blackLock.alpha = 0.55;
 			lockSprite.alpha = 1;
 
-			new FlxTimer().start(1.5/ClientPrefs.animSpeed, function(tmr:FlxTimer)
+			new FlxTimer().start(CoolUtil.getAnimSpeed(1.5), function(tmr:FlxTimer)
 			{
 				FlxG.sound.play(Paths.sound('unlocked'), 1);
 				if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.WHITE, 0.5);
@@ -276,7 +276,7 @@ class MenuPreHistoria extends MusicBeatState
 				blackLock.alpha = 0;
 				lockSprite.alpha = 0;
 
-				new FlxTimer().start(1/ClientPrefs.animSpeed, function(tmr:FlxTimer)
+				new FlxTimer().start(CoolUtil.getAnimSpeed(1), function(tmr:FlxTimer)
 				{
 					maintainVisible = true;
 					selectWeek();
@@ -369,14 +369,14 @@ class MenuPreHistoria extends MusicBeatState
 			bgSprite.alpha = 0;
 			perfilSprite.x = FlxG.width + perfilSprite.width;
 		} else {
-			FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
-			FlxTween.tween(blackbardown, {y: FlxG.height}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
-			FlxTween.tween(bgSprite, {alpha: 0}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
-			FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width}, 1/ClientPrefs.animSpeed, {ease: FlxEase.expoInOut});
+			FlxTween.tween(blackbarup, {y: 0 - blackbarup.height}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.expoInOut});
+			FlxTween.tween(blackbardown, {y: FlxG.height}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.expoInOut});
+			FlxTween.tween(bgSprite, {alpha: 0}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.expoInOut});
+			FlxTween.tween(perfilSprite, {x: FlxG.width + perfilSprite.width},CoolUtil.getAnimSpeed(1), {ease: FlxEase.expoInOut});
 		}
 
 		
-		new FlxTimer().start(1 / ClientPrefs.animSpeed, function(tmr:FlxTimer)
+		new FlxTimer().start(CoolUtil.getAnimSpeed(1), function(tmr:FlxTimer)
 		{
 			// Corrige o bug de entrar e sair da CCC para o menu de weeks depois ir do menu de weeks direto para CCC
 			// Extremamente específico mas vai que né?

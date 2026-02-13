@@ -529,7 +529,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 	function tweenpracima()
 	{
-		textoSpriteTweens = FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, 1.5/(ClientPrefs.animSpeed - 0.25), {
+		textoSpriteTweens = FlxTween.tween(textoSprite, {y: perfilSprite.height + perfilSprite.y + 5}, CoolUtil.getAnimSpeed(1.5), {
 			ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween)
 			{
@@ -541,7 +541,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 	function tweenprabaixo()
 	{
-		textoSpriteTweens = FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height * 1.2}, 1.5/(ClientPrefs.animSpeed - 0.25), {
+		textoSpriteTweens = FlxTween.tween(textoSprite, {y: FlxG.height - textoSprite.height * 1.2}, CoolUtil.getAnimSpeed(1.5), {
 			ease: FlxEase.quadInOut,
 			onComplete: function(twn:FlxTween)
 			{
