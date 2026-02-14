@@ -171,6 +171,7 @@ class Achievements {
 class AttachedAchievement extends FlxSpriteGroup {
 	public var sprTracker:FlxSprite;
 	private var medalSprite:FlxSprite;
+	private var lockedIcon:FlxSprite;
 	private var tag:String;
 	private var achievementIndex:Int = -1;
 	private var stars:Array<FlxSprite> = [];
@@ -181,22 +182,32 @@ class AttachedAchievement extends FlxSpriteGroup {
 		achievementIndex = index;
 		
 		medalSprite = new FlxSprite(0, 0);
+		lockedIcon = new FlxSprite(0, 0);
 		changeAchievement(name);
 		medalSprite.antialiasing = ClientPrefs.globalAntialiasing;
 		add(medalSprite);
+		lockedIcon.antialiasing = ClientPrefs.globalAntialiasing;
+		add(lockedIcon);
 
 		loadStars();
 	}
 
 	public function changeAchievement(tag:String) {
 		this.tag = tag;
-		reloadAchievementImage();
+		reloadAchievementImage(Achievements.isAchievementUnlocked(Achievements.getAchievementName(achievementIndex)));
 	}
 
-	public function reloadAchievementImage() {
+	public function reloadAchievementImage(unlocked:Bool) {
 		medalSprite.loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-' + tag + ")"));
 		medalSprite.scale.set(1.3, 1.3);
 		medalSprite.updateHitbox();
+		if(!unlocked) {
+			lockedIcon.loadGraphic(Paths.image('conquistas/medalhas/achievements (btt-locked)'));
+			lockedIcon.x += 359 + (lockedIcon.width * 5 / 6) - 13; // matematica avancada
+			lockedIcon.y += 8;
+			lockedIcon.scale.set(1.3, 1.3);
+			lockedIcon.updateHitbox();
+		}
 		updateHitbox();
 	}
 	
