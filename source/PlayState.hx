@@ -7235,7 +7235,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function particulacy() {
-		final graphic = Paths.image('particles', 'week-confronting');
+		final graphic = Paths.image('particulas', 'week-confronting');
 
 		// Isso pode ser mais customizável btw, com coisas como alterar velocidade, cor, quantidade etc e tal.
 		// No momento, a ideia maior foi fazer isso aqui ser menos dependente de FPS (ainda é; por conta do twn.percent.) e não pesar tanto com muitas contas simultâneas.
