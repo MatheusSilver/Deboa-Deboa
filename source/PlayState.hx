@@ -7234,27 +7234,36 @@ class PlayState extends MusicBeatState
 		return value;
 	}
 
-	// Btw é realmente util refazer isso na 0.14.
 	function particulacy() {
+		final graphic = Paths.image('particles', 'week-confronting');
+
+		// Isso pode ser mais customizável btw, com coisas como alterar velocidade, cor, quantidade etc e tal.
+		// No momento, a ideia maior foi fazer isso aqui ser menos dependente de FPS (ainda é; por conta do twn.percent.) e não pesar tanto com muitas contas simultâneas.
+		// Além disso, as contas atualmente usadas aqui tornam este sistema mais estável do que antes.
 		for (i in 0...30) {
-			var partic:FlxSprite = new FlxSprite(-1200 + 150 * i, 1000).loadGraphic(Paths.image('particulas', 'week-confronting'));
+			var partic = new FlxSprite(-1200 + 150 * i, 1000);
+			partic.loadGraphic(graphic);
+
 			partic.antialiasing = ClientPrefs.globalAntialiasing;
 			partic.color = FlxColor.WHITE;
 			partic.scrollFactor.set(0.92, 0.92);
 			partic.active = false;
+
+			var randomScale = 0.4 + CoolUtil.randomFloat(0, 1);
+			partic.scale.set(randomScale, randomScale);
+
 			add(partic);
-		
-			partic.scale.set(0.4 + Math.random(), 0.4 + Math.random());
-			FlxTween.tween(partic, { y: partic.y - 2000, alpha: 1 }, (Math.random() * 5 + 3), {
+
+			var duration = CoolUtil.randomFloat(0, 1) * 5 + 3;
+			var waveOffset = CoolUtil.randomFloat(0, 1) * 6.28;
+			var startX = partic.x;
+
+			FlxTween.tween(partic, { y: partic.y - 2000 }, duration, {
 				ease: FlxEase.linear,
 				type: FlxTween.LOOPING,
-				loopDelay: 0,
-				onUpdate: function (twn:FlxTween) {
-					partic.x = partic.x + CoolUtil.seno(8 * twn.scale + 0.4 + Math.random()) * 100;
-					if (endingSong) {
-						destruirsprites(partic); // Aqui é necessário o sprite ser destruído pois ele não será mais usado.
-						twn.cancel();
-					}
+				onUpdate: function(twn:FlxTween) {
+					// Assim tudo fica mais estável do que só caótico
+					partic.x = startX + CoolUtil.seno(twn.percent * 8 + waveOffset) * 100;
 				}
 			});
 		}
