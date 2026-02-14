@@ -1597,3 +1597,38 @@ class Effect {
 	}
 	
 }
+
+class ColorblindData
+{
+	public static final matrizes:Array<Array<Float>> = [
+		null,
+		// Protanopia
+		[
+			0.43, 0.72, -0.15, 0, 0,
+			0.34, 0.57,  0.09, 0, 0,
+			-0.02, 0.03, 1.00, 0, 0,
+			0.00, 0.00,  0.00, 1, 0
+		],
+
+		// Deuteranopia
+		[
+			0.97, 0.11, -0.08, 0, 0,
+			0.02, 0.82,  0.16, 0, 0,
+			0.06, 0.88,  0.18, 0, 0,
+			0.00, 0.00,  0.00, 1, 0
+		],
+
+		// Tritanopia
+		[
+			0.20, 0.99, -0.19, 0, 0,
+			0.16, 0.79,  0.04, 0, 0,
+			0.01, -0.01, 1.00, 0, 0,
+			0.00, 0.00,  0.00, 1, 0
+		]
+	];
+
+	public static inline function valido(index:Int):Bool
+	{
+		return index > 0 && index < matrizes.length;
+	}
+}

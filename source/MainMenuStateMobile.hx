@@ -89,12 +89,6 @@ class MainMenuStateMobile extends MusicBeatState
 		terminouHistoria = true;
 		#end
 
-		trace(CoolUtil.getAnimSpeed(1));
-		trace(CoolUtil.getAnimSpeed(1.5));
-		trace(CoolUtil.getAnimSpeed(1.75));
-		trace(CoolUtil.getAnimSpeed(6.66));
-		trace(CoolUtil.getAnimSpeed(3.33));
-
 		passeiAqui = true; 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();

@@ -1,5 +1,7 @@
 package;
 
+import Shaders.ColorblindData;
+import openfl.filters.ShaderFilter;
 import GamepadUtil.InputDevices;
 #if CRASHLOG_HANDLER
 import haxe.CallStack;
@@ -68,6 +70,7 @@ class Main extends Sprite
 	public static var desktopResolutionX:Float;
 	public static var desktopResolutionY:Float;
 	#end 
+	public static var colorblindEffect:ColorMatrixFilter = null;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -231,11 +234,7 @@ class Main extends Sprite
 		}
 		#end
 
-		var shaderarray:Array<BitmapFilter> = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
-		if (ClientPrefs.shaderMatrix.length != 0)
-		{
-			FlxG.game.setFilters(shaderarray); // Resumindo: Se tu quer enxergar as cores certinhas, tu vai ter lag no jogo k
-		}
+		changeFilter(ClientPrefs.curFilter);
 
 		FlxG.fullscreen = ClientPrefs.fullscreen; // Lá em cima as clientprefs ainda não haviam sido carregadas
 		FlxG.updateFramerate = ClientPrefs.framerate;
@@ -249,6 +248,20 @@ class Main extends Sprite
 		desktopResolutionX = Lib.application.window.display.bounds.width;
 		desktopResolutionY = Lib.application.window.display.bounds.height;
 		#end
+	}
+
+	public static function changeFilter(filter:Int)
+	{
+		if (!ColorblindData.valido(filter))
+		{
+			FlxG.game.setFilters([]); // Não imagino que isso seja chamado em outro lugar que não seja o Options ou o Main...
+			colorblindEffect = null;
+			return;
+		}
+
+		var matrix = ColorblindData.matrizes[filter];
+		colorblindEffect = new ColorMatrixFilter(matrix);
+		FlxG.game.setFilters([colorblindEffect]);
 	}
 
 	#if desktop

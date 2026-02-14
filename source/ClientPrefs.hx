@@ -53,7 +53,6 @@ class ClientPrefs
 	public static var opacidadeLegendas:Float = 1;
 	public static var focus:Null<Bool> = false;
 	public static var lingua:Null<String> = "pt-BR";
-	public static var shaderMatrix:Array<Float> = [];
 	public static var curFilter:Null<Int> = 0; // isso é feio mas funciona :D
 	public static var curMultiplayerNoteSkin = 0;
 	public static var canReset:Null<Bool> = true; // fiz isso pois meu dedo gordo clica sem querer querendo no R toda vez que eu aperto D ou F no teclado :D

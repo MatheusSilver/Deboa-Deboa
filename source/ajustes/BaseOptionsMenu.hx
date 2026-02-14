@@ -397,9 +397,14 @@ class BaseOptionsMenu extends MusicBeatState
 						}
 					case 'colorblindness_filter':
 						ClientPrefs.curFilter += addOne;
-						if (ClientPrefs.curFilter >= 3) ClientPrefs.curFilter = 3;
-						if (ClientPrefs.curFilter <= 0) ClientPrefs.curFilter = 0;
-						changeFilter(ClientPrefs.curFilter); // k
+
+						if (ClientPrefs.curFilter >= Shaders.ColorblindData.matrizes.length)
+							ClientPrefs.curFilter = Shaders.ColorblindData.matrizes.length - 1;
+
+						if (ClientPrefs.curFilter < 0)
+							ClientPrefs.curFilter = 0;
+
+						Main.changeFilter(ClientPrefs.curFilter);
 					#if desktop
 					case 'cursor_size':
 						ClientPrefs.cursor_size = CoolUtil.stableOneDigitSum(ClientPrefs.cursor_size, addOne);
@@ -591,42 +596,5 @@ class BaseOptionsMenu extends MusicBeatState
 			}
 		}
 		return options[num] == null || options[num].length < 1;
-	}
-
-	function changeFilter(filter:Int) {
-		var elfiltro:Array<BitmapFilter>;
-		switch(filter) {
-			case 1:
-				ClientPrefs.shaderMatrix = [
-				0.43, 0.72, -.15, 0, 0,
-				0.34, 0.57, 0.09, 0, 0,
-				-.02, 0.03,    1, 0, 0,
-				   0,    0,    0, 1, 0, ];
-				elfiltro = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
-				FlxG.game.setFilters(elfiltro);
-			case 2:
-				ClientPrefs.shaderMatrix = [
-					0.97, 0.11, -.08, 0, 0,
-					0.02, 0.82, 0.16, 0, 0,
-					0.06, 0.88, 0.18, 0, 0,
-					   0,    0,    0, 1, 0,
-				];
-				elfiltro = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
-				FlxG.game.setFilters(elfiltro);
-			case 3:
-				ClientPrefs.shaderMatrix = [
-					0.20, 0.99, -.19, 0, 0,
-					0.16, 0.79, 0.04, 0, 0,
-					0.01, -.01,    1, 0, 0,
-					   0,    0,    0, 1, 0,
-				];
-				elfiltro = [new ColorMatrixFilter(ClientPrefs.shaderMatrix)];
-				FlxG.game.setFilters(elfiltro);
-			default:
-				// Só pra apagar tudo da array e tirar o filtro da tela (isso tava bugado)
-				ClientPrefs.shaderMatrix = []; // k
-				elfiltro = [];
-				FlxG.game.setFilters([]);
-		}	
 	}
 }
