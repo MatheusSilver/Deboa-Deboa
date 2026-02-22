@@ -71,7 +71,7 @@ class Main extends Sprite
 	public static var desktopResolutionY:Float;
 	#end 
 	public static var colorblindEffect:ColorMatrixFilter = null;
-
+	public static var is_GPU_allowed:Bool = false; // Melhor deixar isso aqui do que ficar repetindo a função.
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
 	public function new()

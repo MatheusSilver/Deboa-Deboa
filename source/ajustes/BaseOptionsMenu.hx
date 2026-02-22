@@ -59,7 +59,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'auto_pause',
 		#end
 		'fps_visible',
-		'gpu',
+		if(Main.is_GPU_allowed ) 'gpu',
 		#if !html5
 		'fps_max', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
