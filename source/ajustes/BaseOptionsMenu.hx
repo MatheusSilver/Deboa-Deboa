@@ -59,7 +59,7 @@ class BaseOptionsMenu extends MusicBeatState
 		'auto_pause',
 		#end
 		'fps_visible',
-		if(Main.is_GPU_allowed ) 'gpu',
+		'gpu',
 		#if !html5
 		'fps_max', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
@@ -132,6 +132,8 @@ class BaseOptionsMenu extends MusicBeatState
 
 		for (i in 0...options.length)
 		{
+			if (options[i] == "gpu" && !Main.is_GPU_allowed) continue;
+			
 			var isCentered:Bool = unselectableCheck(i);
 			var optionText:Alphabet = new Alphabet(0, 70 * i, Linguagem.LangUtil.getString("opt_name_"+options[i], "option_name"), false, false, 0.05, 1, 'alfabetovio'); // esse true no final é pro texto ser branco
 			optionText.isMenuItem = true;

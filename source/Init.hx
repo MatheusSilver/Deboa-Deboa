@@ -1,5 +1,9 @@
 package;
 
+import flixel.FlxG;
+using StringTools;
+
+
 // limpeza pros primeiros states
 
 class Init extends MusicBeatState {
@@ -21,7 +25,7 @@ class Init extends MusicBeatState {
 	}
 
 	/* Essa função checa se há disponível aceleração por hardware ou renderização por software */
-	inline private function checkGPU():Bool {
+	private function checkGPU():Bool {
 		#if mobile
 		return true;
 		#end
@@ -31,7 +35,7 @@ class Init extends MusicBeatState {
 		if(FlxG.stage.context3D == null)
 			return false;
 
-		final var driver = FlxG.stage.context3D.driverInfo;
+		var driver:String = FlxG.stage.context3D.driverInfo;
 		// A aceleração por software pode ser por causa de driver antigo, funcao desabilitada e etc.
 		// Sem aceleração por hardware, não é pertinente o uso da GPU e até não seguro no caso de ausência de uma.
 		return !driver.startsWith("Software");
