@@ -823,6 +823,10 @@ class PlayState extends MusicBeatState
 					chao_scrap.visible = false;
 					chao_scrap.setGraphicSize(Std.int(chao_scrap.width*0.83));
 					add(chao_scrap);
+			case "depths":
+				if (ClientPrefs.shaders) blurShader = new BlurFilter(); /* Evitar o Lag Spike na Sink*/
+			case "TDP2":
+				hotlineVHSEffect(true, 69, 420);
 			case 'needle':
 				defaultCamZoom = 0.6;
 
@@ -1277,11 +1281,6 @@ class PlayState extends MusicBeatState
 							opponentStrums.members[i].x += 80;
 						}
 					}
-					startCountdown();
-
-				case 'soulless':
-					camGame.alpha = 0;
-					camHUD.alpha = 0;
 					startCountdown();
 
 				case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
@@ -2806,6 +2805,12 @@ class PlayState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+
+		if (curStage == "TDP2" && ClientPrefs.shaders)
+		{
+			vcr.shader.data.iTime.value[0] += elapsed;
+		}
+		
 		if (Date.now().getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada') && songStarted)
 		{
 			startachieving('madrugada');
@@ -5931,6 +5936,33 @@ class PlayState extends MusicBeatState
 
 	public var shaders_running:Bool=false;
 
+	public function hotlineVHSEffect(start:Bool = true, ?stageX:Int, ?stageY:Int){
+		if (!ClientPrefs.shaders)
+			return;
+
+		if (stageX == null || stageY == null){
+			stageX = Lib.current.stage.stageWidth;
+			stageY = Lib.current.stage.stageHeight;
+		}
+
+		shaders_running=start;
+
+		if (start){
+			vcr = new ShaderFilter(new TapeVhsShader());
+			
+			vcr.shader.data.iTime.value = [0];
+			vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth, Lib.current.stage.stageHeight];
+
+			camGame.setFilters([vcr]);
+			camHUD.setFilters([vcr]);
+			// camLegenda.setFilters([vcr]); // Não tenho legendas para testar esse coiso.
+		}else{
+			camGame.filtersEnabled = false;
+			camHUD.filtersEnabled = false;
+			// camLegenda.filtersEnabled = false; // Continuo sem legendas e sem música para testar esse coiso.
+		}
+	}
+
 	public function analog_shader(start:Bool = true){
 		if (!ClientPrefs.shaders)
 			return;
@@ -6026,7 +6058,6 @@ class PlayState extends MusicBeatState
 				case 1602:
 					if (ClientPrefs.shaders)
 					{
-						blurShader = new BlurFilter();
 						blurShader.blurX = 0;
 						blurShader.blurY = 0;
 					}
@@ -6055,11 +6086,6 @@ class PlayState extends MusicBeatState
 						canPause = true;
 					}
 			}
-		}
-
-		if(curSong.toLowerCase() == "soulless")
-		{
-			canPause = curStep > 114;
 		}
 
 		if (curSong == "triple-trouble")

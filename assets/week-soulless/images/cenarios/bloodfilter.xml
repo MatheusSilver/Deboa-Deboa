@@ -1,0 +1,6 @@
+ <?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="bloodfilter.png">
+	<SubTexture name="bloodfilter0000" x="0" y="0" width="1402" height="1183" />
+	<SubTexture name="bloodfilter0001" x="0" y="1183" width="1402" height="1183" />
+	<SubTexture name="bloodfilter0002" x="0" y="2366" width="1402" height="1183" />
+</TextureAtlas>

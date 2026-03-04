@@ -30,12 +30,9 @@ class Init extends MusicBeatState {
 		return true;
 		#end
 
-		if(FlxG.stage == null)
-			return false;
-		if(FlxG.stage.context3D == null)
-			return false;
+		if(FlxG.stage == null || FlxG.stage.context3D == null) return false;
 
-		var driver:String = FlxG.stage.context3D.driverInfo;
+		final driver:String = FlxG.stage.context3D.driverInfo;
 		// A aceleração por software pode ser por causa de driver antigo, funcao desabilitada e etc.
 		// Sem aceleração por hardware, não é pertinente o uso da GPU e até não seguro no caso de ausência de uma.
 		return !driver.startsWith("Software");

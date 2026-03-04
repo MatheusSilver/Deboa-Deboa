@@ -317,6 +317,9 @@ class FunkinLua {
 			setVarInArray(getInstance(), variable, value);
 			return true;
 		});
+		Lua_helper.add_callback(lua, "setPropertyOnLuas", function(variable:String, value:Dynamic) {
+			PlayState.instance.setOnLuas(variable, value);
+		});
 		Lua_helper.add_callback(lua, "getPropertyFromGroup", function(obj:String, index:Int, variable:Dynamic) {
 			if(Std.isOfType(Reflect.getProperty(PlayState.instance, obj), FlxTypedGroup)) {
 				return Reflect.getProperty(Reflect.getProperty(PlayState.instance, obj).members[index], variable);
