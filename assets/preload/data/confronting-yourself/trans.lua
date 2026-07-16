@@ -285,7 +285,7 @@ function onEvent(evento, valor1, valor2)
             cameraFlash('legenda', '0xffff00', 3, true)
             end
             setCamMove(true)            
-            triggerEvent("Particula CY", 'nada', 'nada', 'nada', 'nada') -- obviamente me refiro a um peixe
+            triggerEvent("Particulas CY", 'nada', 'nada', 'nada', 'nada') -- obviamente me refiro a um peixe
         end
 
         if valor1 == 'animaisdegrandeporte' then

@@ -37,16 +37,16 @@ function onUpdate(elapsed)
 	songPos = getSongPosition()
 	local currentBeat = (songPos/5000)*(curBpm/60)
 
-	doTweenY('opponentmove', 'dad', -400 - 150 * seno((currentBeat+12*12) * valor_pi), 2)
-	doTweenX('disruptor2', 'disruptor2.scale', 0 - 50* seno((currentBeat+1*0.1) * valor_pi), 6)
-	doTweenY('disruptor2', 'disruptor2.scale', 0 - 31* seno((currentBeat+1*1) * valor_pi), 6)
+	doTweenY('opponentmove', 'dad', -400 - 150 * sin((currentBeat+12*12) * valor_pi), 2)
+	doTweenX('disruptor2', 'disruptor2.scale', 0 - 50* sin((currentBeat+1*0.1) * valor_pi), 6)
+	doTweenY('disruptor2', 'disruptor2.scale', 0 - 31* sin((currentBeat+1*1) * valor_pi), 6)
 
 	if curBeat >= 16 then
         songPos = getSongPosition()
     
         local currentBeat = (songPos/1000)*(bpm/80)
     
-        doTweenY(dadTweenY, 'dad', -500-40 * seno((currentBeat*0.25) * valor_pi),0.001)
+        doTweenY(dadTweenY, 'dad', -500-40 * sin((currentBeat*0.25) * valor_pi),0.001)
 	end
 end
 

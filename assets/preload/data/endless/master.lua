@@ -37,7 +37,9 @@
     end
     
     function onBeatHit() -- Isso é definitivamente um script já feito
-     
+        if curBeat == 1 then
+            triggerEvent("Particulas CY", 'nada', 'nada', 'nada', 'nada') -- obviamente me refiro a um peixe
+        end
         if curBeat == 222 then
             setCamMove = false
             triggerEvent('Camera Follow Pos', '690', '820')

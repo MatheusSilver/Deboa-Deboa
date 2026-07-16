@@ -3063,12 +3063,12 @@ class PlayState extends MusicBeatState
 						daNote.visible = false;
 
 					if (daNote.copyX)
-						daNote.x = strumX + CoolUtil.cosseno(angleDir) * daNote.distance;
+						daNote.x = strumX + CoolUtil.cos(angleDir) * daNote.distance;
 
 
 					if (daNote.copyY)
 					{
-						daNote.y = strumY + CoolUtil.seno(angleDir) * daNote.distance;
+						daNote.y = strumY + CoolUtil.sin(angleDir) * daNote.distance;
 
 						if (daNote.isSustainNote && scrollModifierChecker != strumScroll)
 							daNote.flipY = strumScroll; //Lore se liga nisso aqui depois kkkkkkkkkkkkkkkkkk
@@ -3351,8 +3351,8 @@ class PlayState extends MusicBeatState
 					censura.play();
 				}
 
-			case 'Particula CY':
-				particulacy();
+			case 'Particulas CY':
+				CY_particulas(); // Agora tá mais bem feito :D
 			case 'video player':
 				videoPlayer(value1, value2, value3, value4); //Preguiça de mexer aqui.
 			case 'stop video':
@@ -7260,38 +7260,56 @@ class PlayState extends MusicBeatState
 		return value;
 	}
 
-	function particulacy() {
+	function CY_particulas()
+	{
 		final graphic = Paths.image('particulas', 'week-confronting');
+		final count = 100;
 
-		// Isso pode ser mais customizável btw, com coisas como alterar velocidade, cor, quantidade etc e tal.
-		// No momento, a ideia maior foi fazer isso aqui ser menos dependente de FPS (ainda é; por conta do twn.percent.) e não pesar tanto com muitas contas simultâneas.
-		// Além disso, as contas atualmente usadas aqui tornam este sistema mais estável do que antes.
-		for (i in 0...30) {
-			var partic = new FlxSprite(-1200 + 150 * i, 1000);
-			partic.loadGraphic(graphic);
+		final spread = 180;
+		final stretchY = 0.75;
 
-			partic.antialiasing = ClientPrefs.globalAntialiasing;
-			partic.color = FlxColor.WHITE;
-			partic.scrollFactor.set(0.92, 0.92);
-			partic.active = false;
+		for (i in 0...count)
+		{
+			final side = (i < count / 2) ? "left" : "right";
+			final midpoint = (side == "left")
+				? dad.getMidpoint()
+				: boyfriend.getMidpoint();
 
-			var randomScale = 0.4 + CoolUtil.randomFloat(0, 1);
-			partic.scale.set(randomScale, randomScale);
+			var p = new FlxSprite();
+			p.loadGraphic(graphic);
 
-			add(partic);
+			p.antialiasing = ClientPrefs.globalAntialiasing;
+			p.scrollFactor.set(0.9, 0.9);
+			p.active = false;
 
-			var duration = CoolUtil.randomFloat(0, 1) * 5 + 3;
-			var waveOffset = CoolUtil.randomFloat(0, 1) * 6.28;
-			var startX = partic.x;
+			final scale = 0.3 + CoolUtil.randomFloat(0, 0.8);
+			p.scale.set(scale, scale);
 
-			FlxTween.tween(partic, { y: partic.y - 2000 }, duration, {
-				ease: FlxEase.linear,
-				type: FlxTween.LOOPING,
-				onUpdate: function(twn:FlxTween) {
-					// Assim tudo fica mais estável do que só caótico
-					partic.x = startX + CoolUtil.seno(twn.percent * 8 + waveOffset) * 100;
+			p.color = (side == "left")
+				? 0xFFD7263D // carmesim
+				: 0xFFFFD54A; // dourado
+
+			p.alpha = 0.85 + CoolUtil.randomFloat(0, 0.15);
+
+			final angle = CoolUtil.randomFloat(0, Math.PI * 2);
+			final radius = Math.pow(CoolUtil.randomFloat(0, 1), 0.7) * spread;
+
+			p.x = midpoint.x + CoolUtil.cos(angle) * radius;
+			p.y = midpoint.y + CoolUtil.sin(angle) * radius * stretchY;
+
+			add(p);
+
+			final duration = CoolUtil.randomFloat(3, 6);
+
+			FlxTween.tween(
+				p,
+				{ y: p.y - FlxG.height - 200 },
+				duration,
+				{
+					ease: FlxEase.linear,
+					type: FlxTween.LOOPING
 				}
-			});
+			);
 		}
 	}
 

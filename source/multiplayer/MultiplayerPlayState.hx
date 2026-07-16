@@ -734,13 +734,13 @@ class MultiplayerPlayState extends MusicBeatSubstate
 
 				if (daNote.copyX)
 				{
-					daNote.x = strumX + CoolUtil.cosseno(angleDir) * daNote.distance;
+					daNote.x = strumX + CoolUtil.cos(angleDir) * daNote.distance;
 				}
 				if (daNote.copyY)
 				{
 					if (ClientPrefs.downScroll)
 					{
-						daNote.y = strumY + CoolUtil.seno(angleDir) * daNote.distance;
+						daNote.y = strumY + CoolUtil.sin(angleDir) * daNote.distance;
 
 						if (daNote.isSustainNote)
 						{
@@ -770,7 +770,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 					}
 					else
 					{
-						daNote.y = strumY + CoolUtil.seno(angleDir) * daNote.distance;
+						daNote.y = strumY + CoolUtil.sin(angleDir) * daNote.distance;
 
 						if (daNote.mustPress || daNote.hitByOpponent)
 						{

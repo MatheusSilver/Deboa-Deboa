@@ -71,5 +71,5 @@ end
 
 function onUpdate()
 	currentBeat = (getSongPosition()/1000)*(bpm/120)
-	doTweenY(waterTweenY, 'water', 530 -80 * seno((currentBeat * 0.10) * pi()), 0.001)
+	doTweenY(waterTweenY, 'water', 530 -80 * sin((currentBeat * 0.10) * pi()), 0.001)
 end

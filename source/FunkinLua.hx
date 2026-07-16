@@ -1389,12 +1389,12 @@ class FunkinLua {
 			}
 		}); */
 		
-		Lua_helper.add_callback(lua, "seno", function(n:Float) {
-			return CoolUtil.seno(n);
+		Lua_helper.add_callback(lua, "sin", function(n:Float) {
+			return CoolUtil.sin(n);
 		});
 
-		Lua_helper.add_callback(lua, "cosseno", function(n:Float) {
-			return CoolUtil.cosseno(n);
+		Lua_helper.add_callback(lua, "cos", function(n:Float) {
+			return CoolUtil.cos(n);
 		});
 
 		Lua_helper.add_callback(lua, "pi", function() {

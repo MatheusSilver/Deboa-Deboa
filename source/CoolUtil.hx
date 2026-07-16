@@ -29,13 +29,8 @@ class CoolUtil
 	 * @param Número que será utilizado na função
 	 * @return Float
 	 */
-	inline public static function seno(n:Float):Float {
+	inline public static function sin(n:Float):Float {
 		return FlxMath.fastSin(n);
-	}
-
-	/* Essa é uma solução beeeeeeeeeeeeeem gambiarrada, mas é mais rápido do que repensar essas coisas como int*/
-	inline public static function stableOneDigitSum(variable:Float, sum:Int):Float {
-		return (Std.int(Math.round(variable*10)) + sum)/10;
 	}
 
 	/**
@@ -43,9 +38,16 @@ class CoolUtil
 	 * @param Número que será utilizado na função
 	 * @return Float
 	 */
-	inline public static function cosseno(n:Float):Float {
+	inline public static function cos(n:Float):Float {
 		return FlxMath.fastCos(n);
 	}
+
+
+	/* Essa é uma solução beeeeeeeeeeeeeem gambiarrada, mas é mais rápido do que repensar essas coisas como int*/
+	inline public static function stableOneDigitSum(variable:Float, sum:Int):Float {
+		return (Std.int(Math.round(variable*10)) + sum)/10;
+	}
+
 
 	/**
 	 * Uma função que retorna um número aproximado de pi.

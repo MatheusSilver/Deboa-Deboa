@@ -7,6 +7,6 @@ end
 function onUpdate()
     if getProperty("dad2.visible")then
         floaty2=floaty2+0.01
-        setProperty("dad2.y", getProperty("dad2.y")+seno(floaty2)*0.5)
+        setProperty("dad2.y", getProperty("dad2.y")+sin(floaty2)*0.5)
     end
 end

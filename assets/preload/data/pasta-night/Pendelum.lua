@@ -114,7 +114,7 @@ function initializePsyshock()
 end
 function updatePendulum()
     local convertedTime = ((getSongPosition() / (crochet * beatInterval)) * pi())
-    setProperty('Pendelum.angle', (seno(convertedTime) * 32))
+    setProperty('Pendelum.angle', (sin(convertedTime) * 32))
     local pendulumTimeframe = math.floor(((convertedTime / pi()) - math.floor(convertedTime / pi())) * 1000) / 1000
     local reach = 0.2;
     if pendulumTimeframe < reach or pendulumTimeframe > (1 - reach) then

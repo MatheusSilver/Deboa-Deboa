@@ -192,7 +192,7 @@ class GameHUD extends FlxTypedGroup<FlxBasic>
 		if (PlayState.cpuControlled)
             {
                 botplaySine += 180 * elapsed;
-                botplayTxt.alpha = 1 - CoolUtil.seno((CoolUtil.pi() * botplaySine) / 180);
+                botplayTxt.alpha = 1 - CoolUtil.sin((CoolUtil.pi() * botplaySine) / 180);
             }
         botplayTxt.visible = PlayState.cpuControlled && !PlayState.instance.playingVideoMP4;
 
