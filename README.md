@@ -48,7 +48,7 @@ Abaixo, passos fundamentais para a compilação:
 * Instale o [Haxeflixel](https://haxeflixel.com/documentation/getting-started/)
 
 ### Específico para Windows
-* Instale o [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/vs/community/) e na hora de instalar as coisas, importe a seguinte [configuração](https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/VSC_config) (baixe apertando no símbolo de download ao lado de "Raw") e espere baixar e instalar (tudo isso é feito automáticamente).
+* Instale o [Visual Studio Community](https://visualstudio.microsoft.com/pt-br/vs/community/) e na hora de instalar as coisas, importe a seguinte [configuração](https://github.com/MatheusSilver/Deboa-Deboa/blob/master/art/importar.vsconfig) (baixe apertando no símbolo de download ao lado de "Raw") e espere baixar e instalar (tudo isso é feito automáticamente).
 
 ### Específico para Linux
 * Instale os pacotes `g++`, `gcc-multilib`, `g++-multilib` e também os pacotes necessários do libVLC.
