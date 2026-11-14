@@ -46,6 +46,8 @@ class Note extends FlxSprite
 	public var colorSwap:ColorSwap;
 	public var inEditor:Bool = false;
 
+	static var sharedColorSwaps:Map<String, ColorSwap> = new Map();
+
 	private var earlyHitMult:Float = 0.5;
 
 	public static var swagWidth:Float = 160 * 0.7;
@@ -113,9 +115,9 @@ class Note extends FlxSprite
 	private function set_noteType(value:String):String
 	{
 		noteSplashTexture = PlayState.SONG.splashSkin;
-		colorSwap.hue = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
-		colorSwap.saturation = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
-		colorSwap.brightness = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
+		var hue:Float = ClientPrefs.arrowHSV[noteData % 4][0] / 360;
+		var saturation:Float = ClientPrefs.arrowHSV[noteData % 4][1] / 100;
+		var brightness:Float = ClientPrefs.arrowHSV[noteData % 4][2] / 100;
 
 		if (noteData > -1 && noteType != value)
 		{
@@ -127,9 +129,7 @@ class Note extends FlxSprite
 					ignoreNote = mustPress;
 					reloadNote('HURT');
 					noteSplashTexture = 'HURTnoteSplashes';
-					colorSwap.hue = 0;
-					colorSwap.saturation = 0;
-					colorSwap.brightness = 0;
+					hue = saturation = brightness = 0;
 					if (isSustainNote)
 					{
 						missHealth = 0.1 * 2;
@@ -142,9 +142,7 @@ class Note extends FlxSprite
 					lowPriority = true;
 
 				case 'CCC Regen': // Silverson comentários aleatórios em momentos que ele está coringando
-					colorSwap.hue = 0;
-					colorSwap.saturation = 0;
-					colorSwap.brightness = 0;
+					hue = saturation = brightness = 0;
 
 				case 'No Animation':
 					noAnimation = true;
@@ -158,10 +156,27 @@ class Note extends FlxSprite
 			}
 			noteType = value;
 		}
-		noteSplashHue = colorSwap.hue;
-		noteSplashSat = colorSwap.saturation;
-		noteSplashBrt = colorSwap.brightness;
+		useColorSwap(hue, saturation, brightness);
+		noteSplashHue = hue;
+		noteSplashSat = saturation;
+		noteSplashBrt = brightness;
 		return value;
+	}
+
+	function useColorSwap(hue:Float, saturation:Float, brightness:Float)
+	{
+		var key:String = hue + '|' + saturation + '|' + brightness;
+		colorSwap = sharedColorSwaps.get(key);
+		if (colorSwap == null)
+		{
+			colorSwap = new ColorSwap();
+			colorSwap.hue = hue;
+			colorSwap.saturation = saturation;
+			colorSwap.brightness = brightness;
+			sharedColorSwaps.set(key, colorSwap);
+		}
+
+		shader = (hue == 0 && saturation == 0 && brightness == 0) ? null : colorSwap.shader;
 	}
 
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inEditor:Bool = false)
@@ -187,8 +202,7 @@ class Note extends FlxSprite
 		if (noteData > -1)
 		{
 			texture = '';
-			colorSwap = new ColorSwap();
-			shader = colorSwap.shader;
+			useColorSwap(0, 0, 0);
 
 			x += swagWidth * (noteData % 4);
 

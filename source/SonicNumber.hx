@@ -38,6 +38,9 @@ class SonicNumber extends FlxSprite {
   }
 
   function set_number(realVal:Int){
+    if(realVal == number && animation.curAnim != null)
+      return number;
+
     var val:String = Std.string(realVal);
     if(animation.getByName(val)!=null){
       animation.play(val,true);

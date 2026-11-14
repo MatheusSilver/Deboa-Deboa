@@ -31,8 +31,6 @@ class ModifiersManager
         [1, "single_button", [], 0.7]
 ];
 
-    
-
     public static function setModifier(newModifierID:Int)
     {
         var intNaoPode:Array<Int> = allModifiers[newModifierID][2];
@@ -59,16 +57,17 @@ class ModifiersManager
         }
     }
 
+    static var idsByName:Map<String, Int> = null;
+
     public static function getIdByName(modifierName:String):Int
     {
-        for (i in 0...allModifiers.length)
+        if (idsByName == null)
         {
-            if(allModifiers[i][1]==modifierName)
-            {
-                return i;
-            }
+            idsByName = new Map();
+            for (i in 0...allModifiers.length)
+                idsByName.set(allModifiers[i][1], i);
         }
-        return -1;
+        return idsByName.exists(modifierName) ? idsByName.get(modifierName) : -1;
     }
 
     public static function getNameById(modifierID:Int):String
@@ -157,6 +156,6 @@ class ModifiersManager
 
     public static function isUsingModifiers():Bool
     {
-        return currentModifiers != []; //Uma forma mais direta k
+        return currentModifiers != null && currentModifiers.length > 0;
     }
 }

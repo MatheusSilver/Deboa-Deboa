@@ -1,6 +1,5 @@
 package;
 
-import Song.BPMChangeEvent;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxState;
@@ -114,18 +113,18 @@ class MusicBeatState extends FlxUIState
 
 	private function updateCurStep():Void
 	{
-		var lastChange:BPMChangeEvent = {
-			stepTime: 0,
-			songTime: 0,
-			bpm: 0
-		}
-		for (i in 0...Song.Conductor.bpmChangeMap.length)
+		var lastStepTime:Int = 0;
+		var lastSongTime:Float = 0;
+		for (change in Song.Conductor.bpmChangeMap)
 		{
-			if (Song.Conductor.songPosition >= Song.Conductor.bpmChangeMap[i].songTime)
-				lastChange = Song.Conductor.bpmChangeMap[i];
+			if (Song.Conductor.songPosition >= change.songTime)
+			{
+				lastStepTime = change.stepTime;
+				lastSongTime = change.songTime;
+			}
 		}
 
-		curStep = lastChange.stepTime + Math.floor(((Song.Conductor.songPosition - ClientPrefs.noteOffset) - lastChange.songTime) / Song.Conductor.stepCrochet);
+		curStep = lastStepTime + Math.floor(((Song.Conductor.songPosition - ClientPrefs.noteOffset) - lastSongTime) / Song.Conductor.stepCrochet);
 	}
 
 	public static function switchState(nextState:FlxState) {

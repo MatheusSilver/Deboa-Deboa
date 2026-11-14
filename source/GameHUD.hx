@@ -183,6 +183,30 @@ class GameHUD extends FlxTypedGroup<FlxBasic>
 
     }
 
+    var shownScore:Int = 0;
+    var shownMisses:Int = 0;
+    var shownRating:String = null;
+    var shownPercent:Int = 0;
+    var shownJudgementTotal:Int = 0;
+
+    function syncShownStats():Bool
+    {
+        var game:PlayState = PlayState.instance;
+        var percent:Int = game.ratingString == '?' ? 0 : Math.floor(game.ratingPercent * 100);
+        var judgementTotal:Int = PlayState.sicks + PlayState.goods + PlayState.bads + PlayState.shits;
+
+        if (game.songScore == shownScore && game.songMisses == shownMisses && game.ratingString == shownRating
+            && percent == shownPercent && judgementTotal == shownJudgementTotal)
+            return false;
+
+        shownScore = game.songScore;
+        shownMisses = game.songMisses;
+        shownRating = game.ratingString;
+        shownPercent = percent;
+        shownJudgementTotal = judgementTotal;
+        return true;
+    }
+
     override function update(elapsed:Float) {
         super.update(elapsed);
 
@@ -196,6 +220,8 @@ class GameHUD extends FlxTypedGroup<FlxBasic>
             }
         botplayTxt.visible = PlayState.cpuControlled && !PlayState.instance.playingVideoMP4;
 
+        if (syncShownStats())
+        {
             if (PlayState.instance.ratingString == '?')
             {
                 if(scoreTxt!=null) scoreTxt.text = Linguagem.LangUtil.getString("play_counter_score", "playstate") + ': ' + PlayState.instance.songScore + ' | '+ Linguagem.LangUtil.getString("play_counter_misses", "playstate") + ': ' + PlayState.instance.songMisses + ' | '+ Linguagem.LangUtil.getString("play_counter_accuracy", "playstate") + ': ' + PlayState.instance.ratingString;
@@ -206,41 +232,42 @@ class GameHUD extends FlxTypedGroup<FlxBasic>
                 judgementCounter.text = Linguagem.LangUtil.getString("play_counter_sicks", "playstate") + ' ' + '${PlayState.sicks}\n'+Linguagem.LangUtil.getString("play_counter_goods", "playstate") + ' ${PlayState.goods}\n'+Linguagem.LangUtil.getString("play_counter_bads", "playstate") + '${PlayState.bads}\n'+Linguagem.LangUtil.getString("play_counter_shits", "playstate") + ' ${PlayState.shits}\n'+Linguagem.LangUtil.getString("play_counter_misses", "playstate") + ' ${PlayState.instance.songMisses}'
                     + '\n'
                     + ''; // Aparentemente eu exagerei kek
-                if(scoreTxt!=null) scoreTxt.text = Linguagem.LangUtil.getString("play_counter_score", "playstate") + ': ' + PlayState.instance.songScore + ' | '+Linguagem.LangUtil.getString("play_counter_misses", "playstate")+ ': ' + PlayState.instance.songMisses + ' | '+Linguagem.LangUtil.getString("play_counter_accuracy", "playstate")+ ': ' + PlayState.instance.ratingString + ' (' + Math.floor(PlayState.instance.ratingPercent * 100) + '%)';
+                if(scoreTxt!=null) scoreTxt.text = Linguagem.LangUtil.getString("play_counter_score", "playstate") + ': ' + PlayState.instance.songScore + ' | '+Linguagem.LangUtil.getString("play_counter_misses", "playstate")+ ': ' + PlayState.instance.songMisses + ' | '+Linguagem.LangUtil.getString("play_counter_accuracy", "playstate")+ ': ' + PlayState.instance.ratingString + ' (' + shownPercent + '%)';
             }
+        }
 
-            var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-            iconP1.scale.set(mult, mult);
-            iconP1.updateHitbox();
-    
-            var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-            iconP2.scale.set(mult, mult);
-            iconP2.updateHitbox();
-    
-            var iconOffset:Int = 26;
-            
-    
-            if(PlayState.instance.curSong.toLowerCase() != "sink" && PlayState.instance.curSong.toLowerCase() != "phantasm")
-            {
-                iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
-                iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
-            }
-            else
-            {
-                iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(0, 0, 100, 100, 0) * 0.01) - iconOffset);
-                iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(100, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
-            }
+        var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+        iconP1.scale.set(mult, mult);
+        iconP1.updateHitbox();
 
-    
-            if (healthBar.percent < 20)
-                iconP1.animation.curAnim.curFrame = 1;
-            else
-                iconP1.animation.curAnim.curFrame = 0;
-    
-            if (healthBar.percent > 80)
-                iconP2.animation.curAnim.curFrame = 1;
-            else if (healthBar.percent < 80)
-                iconP2.animation.curAnim.curFrame = 0;
+        var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+        iconP2.scale.set(mult, mult);
+        iconP2.updateHitbox();
+
+        var iconOffset:Int = 26;
+
+
+        if(PlayState.instance.curSongLower != "sink" && PlayState.instance.curSongLower != "phantasm")
+        {
+            iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
+            iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
+        }
+        else
+        {
+            iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(0, 0, 100, 100, 0) * 0.01) - iconOffset);
+            iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(100, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
+        }
+
+
+        if (healthBar.percent < 20)
+            iconP1.animation.curAnim.curFrame = 1;
+        else
+            iconP1.animation.curAnim.curFrame = 0;
+
+        if (healthBar.percent > 80)
+            iconP2.animation.curAnim.curFrame = 1;
+        else if (healthBar.percent < 80)
+            iconP2.animation.curAnim.curFrame = 0;
     }
 
     public function reloadHealthBarColors()

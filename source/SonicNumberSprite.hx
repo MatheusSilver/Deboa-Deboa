@@ -269,14 +269,30 @@ class SonicNumberSprite extends FlxSpriteGroup
         }
     }
 
+    private var shownSecondsTotal:Int = -1;
+    private var shownScore:Null<Int> = null;
+    private var shownMisses:Null<Int> = null;
+    private var shownVida:Null<Int> = null;
+
+    override function set_visible(value:Bool):Bool
+    {
+        if (visible != value)
+            shownScore = shownMisses = shownVida = null;
+        return super.set_visible(value);
+    }
+
     override function update(elapsed:Float){
-        var minutesRemaining:Int = Math.floor(PlayState.instance.secondsTotal / 60);
-        var secondsRemaining:String = '' + PlayState.instance.secondsTotal % 60;
+        if (PlayState.instance.secondsTotal != shownSecondsTotal)
+        {
+            shownSecondsTotal = PlayState.instance.secondsTotal;
+            var minutesRemaining:Int = Math.floor(shownSecondsTotal / 60);
+            var secondsRemaining:String = '' + shownSecondsTotal % 60;
 
-        if (secondsRemaining.length < 2)
-            secondsRemaining = '0' + secondsRemaining; // Dunno how to make it display a zero first in Haxe lol
+            if (secondsRemaining.length < 2)
+                secondsRemaining = '0' + secondsRemaining; // Dunno how to make it display a zero first in Haxe lol
 
-        PlayState.instance.HUD.timeTxt.text = minutesRemaining + ':' + secondsRemaining;
+            PlayState.instance.HUD.timeTxt.text = minutesRemaining + ':' + secondsRemaining;
+        }
 
         var curMS:Float = Math.floor(Song.Conductor.songPosition - ClientPrefs.noteOffset);
         var curSex:Int = Math.floor(curMS / 1000);
@@ -291,17 +307,8 @@ class SonicNumberSprite extends FlxSpriteGroup
         {
             minNumber.number = curMins;
         }
-        var sepSex = Std.string(curSex).split("");
-        if (curSex < 10)
-        {
-            secondNumberA.number = 0;
-            secondNumberB.number = curSex;
-        }
-        else
-        {
-            secondNumberA.number = Std.parseInt(sepSex[0]);
-            secondNumberB.number = Std.parseInt(sepSex[1]);
-        }
+        secondNumberA.number = Std.int(curSex / 10);
+        secondNumberB.number = curSex % 10;
         if (millisecondNumberA != null && millisecondNumberB != null)
         {
             curMS = Math.round(curMS / 10);
@@ -325,6 +332,10 @@ class SonicNumberSprite extends FlxSpriteGroup
 
     private function updateSonicScore()
 	{
+		if (PlayState.instance.songScore == shownScore)
+			return;
+		shownScore = PlayState.instance.songScore;
+
 		var seperatedScore:Array<String> = Std.string(PlayState.instance.songScore).split("");
 		if (seperatedScore.length < scoreNumbers.length)
 		{
@@ -360,6 +371,10 @@ class SonicNumberSprite extends FlxSpriteGroup
 
 	private function updateSonicMisses()
 	{
+		if (PlayState.instance.songMisses == shownMisses)
+			return;
+		shownMisses = PlayState.instance.songMisses;
+
 		var seperatedScore:Array<String> = Std.string(PlayState.instance.songMisses).split("");
 		if (seperatedScore.length < missNumbers.length)
 		{
@@ -395,7 +410,12 @@ class SonicNumberSprite extends FlxSpriteGroup
 
 	private function updateSonicVida()
 	{
-		var seperatedScore:Array<String> = Std.string(Std.int(PlayState.instance.health * 50)) // Ele tava pegando um "health" do FlxObject aqui
+		var vida:Int = Std.int(PlayState.instance.health * 50);
+		if (vida == shownVida)
+			return;
+		shownVida = vida;
+
+		var seperatedScore:Array<String> = Std.string(vida) // Ele tava pegando um "health" do FlxObject aqui
 			.split(""); // Quando você entender o motivo de ser 50 e não 100... Meu amigo... tu vai curtir muito.
 		if (seperatedScore.length < vidaNumbers.length)
 		{

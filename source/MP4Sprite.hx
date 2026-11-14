@@ -186,6 +186,7 @@ class MP4Sprite extends hxvlc.flixel.FlxVideoSprite
 class SkipText extends flixel.group.FlxSpriteGroup {
 	var letext:FlxText;
 	var key:FlxSprite;
+	var keyLabelPath:String;
 
 	public function new(x:Float, y:Float) {
 		super(x, y);
@@ -195,14 +196,20 @@ class SkipText extends flixel.group.FlxSpriteGroup {
 		letext.updateHitbox();
 		add(letext);
 
-		key = new FlxSprite(0,-32).loadGraphic(Paths.image(ajustes.InputLabel.instance.getKeyLabelPath("accept")));
+		keyLabelPath = ajustes.InputLabel.instance.getKeyLabelPath("accept");
+		key = new FlxSprite(0,-32).loadGraphic(Paths.image(keyLabelPath));
 		key.updateHitbox();
 		add(key);
-		
+
 	}
 
 	override function update(elapsed:Float){
 		super.update(elapsed);
-		key.loadGraphic(Paths.image(ajustes.InputLabel.instance.getKeyLabelPath("accept")));
+
+		var newKeyLabelPath:String = ajustes.InputLabel.instance.getKeyLabelPath("accept");
+		if (newKeyLabelPath != keyLabelPath) {
+			keyLabelPath = newKeyLabelPath;
+			key.loadGraphic(Paths.image(keyLabelPath));
+		}
 	}
 }

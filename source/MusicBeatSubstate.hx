@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxG;
-import Song.BPMChangeEvent;
 import flixel.FlxSubState;
 import Input.PlayerSettings;
 #if mobileC
@@ -86,18 +85,18 @@ class MusicBeatSubstate extends FlxSubState
 
 	private function updateCurStep():Void
 	{
-		var lastChange:BPMChangeEvent = {
-			stepTime: 0,
-			songTime: 0,
-			bpm: 0
-		}
-		for (i in 0...Song.Conductor.bpmChangeMap.length)
+		var lastStepTime:Int = 0;
+		var lastSongTime:Float = 0;
+		for (change in Song.Conductor.bpmChangeMap)
 		{
-			if (Song.Conductor.songPosition > Song.Conductor.bpmChangeMap[i].songTime)
-				lastChange = Song.Conductor.bpmChangeMap[i];
+			if (Song.Conductor.songPosition > change.songTime)
+			{
+				lastStepTime = change.stepTime;
+				lastSongTime = change.songTime;
+			}
 		}
 
-		curStep = lastChange.stepTime + Math.floor((Song.Conductor.songPosition - lastChange.songTime) / Song.Conductor.stepCrochet);
+		curStep = lastStepTime + Math.floor((Song.Conductor.songPosition - lastSongTime) / Song.Conductor.stepCrochet);
 	}
 
 	public function stepHit():Void

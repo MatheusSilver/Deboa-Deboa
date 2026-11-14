@@ -176,6 +176,7 @@ class PlayState extends MusicBeatState
 	public var supersuperZoomShit:Bool = false;
 
 	public var secondsTotal:Int;
+	var shownSecondsTotal:Int = -1;
 
 	public static var ratingStuff:Array<Dynamic> = [
 		["suck", 0.2], // From 0% to 19%
@@ -273,6 +274,7 @@ class PlayState extends MusicBeatState
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 	public var eventNotes:Array<Dynamic> = [];
+	static inline final EVENT_EARLY_TRIGGER:Int = 7;
 
 	private var strumLine:FlxSprite;
 
@@ -292,6 +294,7 @@ class PlayState extends MusicBeatState
 
 	public var camZooming:Bool = false;
 	public var curSong:String = "";
+	public var curSongLower:String = "";
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
@@ -425,6 +428,11 @@ class PlayState extends MusicBeatState
 
 	public var canRegen:Bool = true;
 
+	var fadeInModifier:Bool = false;
+	var fadeOutModifier:Bool = false;
+	var invisibleNotesModifier:Bool = false;
+	var spinCameraModifier:Bool = false;
+
 	public static var loadingImage:String;
 
 	var isexe:Bool = true;
@@ -445,6 +453,7 @@ class PlayState extends MusicBeatState
 
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
+	var unspawnNotesSpeed:Float = 1;
 
 	// loading stuff
 	var art = new FlxSprite();
@@ -492,6 +501,10 @@ class PlayState extends MusicBeatState
 		cccVidaCounter = 2; // meida...
 		luigienter = false;
 		canRegen = !ModifiersManager.isEnabledbyName("no_death");
+		fadeInModifier = ModifiersManager.isEnabledbyName("fade_in_note");
+		fadeOutModifier = ModifiersManager.isEnabledbyName("fade_out_note");
+		invisibleNotesModifier = ModifiersManager.isEnabledbyName("invisible_notes");
+		spinCameraModifier = ModifiersManager.isEnabledbyName("spin_camera");
 		resetforcado = false;
 		canuseevents = true; // Apenas para ter certeza de que a música não vai vir bugada da Prey
 		majinstrums = false;
@@ -1224,6 +1237,8 @@ class PlayState extends MusicBeatState
 				luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaFile2)));
 			}
 		}
+
+		prepareEventNotes();
 
 		var daSong:String = Paths.formatToSongPath(curSong).toLowerCase();
 		if (isStoryMode && !seenCutscene)
@@ -2034,7 +2049,7 @@ class PlayState extends MusicBeatState
 
 				notes.forEachAlive(function(note:Note)
 				{
-					if (note.mustPress && !ModifiersManager.isEnabledbyName("fade_in_note") && !ModifiersManager.isEnabledbyName("fade_out_note")) // Fix para o dueto da CY
+					if (note.mustPress && !fadeInModifier && !fadeOutModifier) // Fix para o dueto da CY
 					{
 						note.copyAlpha = false;
 						note.alpha = note.multAlpha;
@@ -2120,6 +2135,7 @@ class PlayState extends MusicBeatState
 		Song.Conductor.changeBPM(songData.bpm);
 
 		curSong = songData.song;
+		curSongLower = curSong.toLowerCase();
 
 		if (SONG.needsVoices)
 		{
@@ -2347,12 +2363,20 @@ class PlayState extends MusicBeatState
 		// trace(unspawnNotes.length);
 
 		unspawnNotes.sort(sortByShit);
+		unspawnNotesSpeed = songSpeed;
+		generatedMusic = true;
+	}
+
+	function prepareEventNotes():Void
+	{
+		for (event in eventNotes)
+			event[EVENT_EARLY_TRIGGER] = eventNoteEarlyTrigger(event);
+
 		if (eventNotes.length > 1)
 		{ // No need to sort if there's a single one or none at all
 			eventNotes.sort(sortByTime);
 		}
 		checkEventNote();
-		generatedMusic = true;
 	}
 
 	function eventPushed(event:Array<Dynamic>)
@@ -2423,9 +2447,7 @@ class PlayState extends MusicBeatState
 
 	function sortByTime(Obj1:Array<Dynamic>, Obj2:Array<Dynamic>):Int
 	{
-		var earlyTime1:Float = eventNoteEarlyTrigger(Obj1);
-		var earlyTime2:Float = eventNoteEarlyTrigger(Obj2);
-		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0] - earlyTime1, Obj2[0] - earlyTime2);
+		return FlxSort.byValues(FlxSort.ASCENDING, Obj1[0] - Obj1[EVENT_EARLY_TRIGGER], Obj2[0] - Obj2[EVENT_EARLY_TRIGGER]);
 	}
 
 	/* Função que ordena primeiro pegando a calda da nota, e depois a posição y que ela aparece, assim as tails da nota aparecem em baixo pois são spawnadas primeiro */
@@ -2738,6 +2760,11 @@ class PlayState extends MusicBeatState
 		alphaon = false;
 	}
 
+	inline function reusableClipRect(note:Note):FlxRect
+	{
+		return note.clipRect != null ? note.clipRect : new FlxRect();
+	}
+
 	override public function update(elapsed:Float)
 	{
 		if (playingVideoMP4 && !paused)
@@ -2825,7 +2852,7 @@ class PlayState extends MusicBeatState
 			camGame.angle += 0.5;
 		}
 
-		if (SONG.song.toLowerCase() == 'personel' && IsNoteSpinning)
+		if (IsNoteSpinning && curSongLower == 'personel')
 		{
 			for (str in playerStrums)
 			{
@@ -2838,7 +2865,7 @@ class PlayState extends MusicBeatState
 				SpinAmount = SpinAmount + 0.005;
 			}
 		}
-		if (SONG.song.toLowerCase() == 'personel' && isPlayersSpinning)
+		if (isPlayersSpinning && curSongLower == 'personel')
 		{
 			dad.angle = dad.angle + SpinAmount;
 			SpinAmount = SpinAmount + 0.00003;
@@ -2936,7 +2963,11 @@ class PlayState extends MusicBeatState
 					if (!majinstrums)
 					{
 						songPercent = (curTime / songLength);
-						HUD.timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
+						if (secondsTotal != shownSecondsTotal)
+						{
+							shownSecondsTotal = secondsTotal;
+							HUD.timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
+						}
 					}
 				}
 			}
@@ -2944,7 +2975,7 @@ class PlayState extends MusicBeatState
 			// Song.Conductor.lastSongPos = FlxG.sound.music.time;
 		}
 
-		if (camZooming && curSong.toLowerCase() != "cross-console-clash")
+		if (camZooming && curSongLower != "cross-console-clash")
 		{
 			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
 			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
@@ -2981,6 +3012,8 @@ class PlayState extends MusicBeatState
 			while (unspawnNotes.length > 0 && unspawnNotes[0].strumTime - Song.Conductor.songPosition < time)
 			{
 				var dunceNote:Note = unspawnNotes[0];
+				if (songSpeed != unspawnNotesSpeed)
+					dunceNote.resizeByRatio(songSpeed / unspawnNotesSpeed);
 				notes.insert(0, dunceNote);
 				dunceNote.spawned = true;
 				callOnLuas('onSpawnNote', [
@@ -3049,9 +3082,9 @@ class PlayState extends MusicBeatState
 
 					if (daNote.copyAlpha)
 					{
-						if (ModifiersManager.isEnabledbyName("fade_in_note") && Math.abs(daNote.distance) >= 400){
+						if (fadeInModifier && Math.abs(daNote.distance) >= 400){
 							daNote.alpha = (1-((Math.abs(daNote.distance))/700))*strumAlpha;
-						}else if(ModifiersManager.isEnabledbyName("fade_out_note") && Math.abs(daNote.distance) < 250){
+						}else if(fadeOutModifier && Math.abs(daNote.distance) < 250){
 							daNote.alpha *= Math.abs(daNote.distance)/250*strumAlpha;
 						}else //O absolute value é usado pra não ter modificações entre o scroll normal e o downscroll (especialmente na pasta night)
 							daNote.alpha = strumAlpha;
@@ -3059,7 +3092,7 @@ class PlayState extends MusicBeatState
 						daNote.visible = strumVisible;
 					}
 
-					if (daNote.visible && daNote.mustPress && ModifiersManager.isEnabledbyName("invisible_notes"))
+					if (daNote.visible && daNote.mustPress && invisibleNotesModifier)
 						daNote.visible = false;
 
 					if (daNote.copyX)
@@ -3123,10 +3156,9 @@ class PlayState extends MusicBeatState
 						{
 							if (daNote.y - daNote.offset.y * daNote.scale.y + daNote.height >= center)
 							{
-								var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight);
-								swagRect.height = (center - daNote.y) / daNote.scale.y;
-								swagRect.y = daNote.frameHeight - swagRect.height;
-
+								var clipHeight:Float = (center - daNote.y) / daNote.scale.y;
+								var swagRect:FlxRect = reusableClipRect(daNote);
+								swagRect.set(0, daNote.frameHeight - clipHeight, daNote.frameWidth, clipHeight);
 								daNote.clipRect = swagRect;
 							}
 						}
@@ -3134,10 +3166,9 @@ class PlayState extends MusicBeatState
 						{
 							if (daNote.y + daNote.offset.y * daNote.scale.y <= center)
 							{
-								var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
-								swagRect.y = (center - daNote.y) / daNote.scale.y;
-								swagRect.height -= swagRect.y;
-
+								var clipY:Float = (center - daNote.y) / daNote.scale.y;
+								var swagRect:FlxRect = reusableClipRect(daNote);
+								swagRect.set(0, clipY, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y - clipY);
 								daNote.clipRect = swagRect;
 							}
 						}
@@ -3283,7 +3314,7 @@ class PlayState extends MusicBeatState
 	{
 		while (eventNotes.length > 0)
 		{
-			var early:Float = eventNoteEarlyTrigger(eventNotes[0]);
+			var early:Float = eventNotes[0][EVENT_EARLY_TRIGGER];
 			var leStrumTime:Float = eventNotes[0][0];
 			if (Song.Conductor.songPosition < leStrumTime - early)
 			{
@@ -5127,7 +5158,7 @@ class PlayState extends MusicBeatState
 	private function onKeyPress(key_pressed:Int):Void
 	{
 		if (!cpuControlled && startedCountdown && !paused && key_pressed > -1){
-			if(SONG.song.toLowerCase()=='too-slow-d-side' && freezeCounter>0){
+			if(curSongLower=='too-slow-d-side' && freezeCounter>0){
 				handleUnfreezeInput(key_pressed);
 			}else if (!boyfriend.stunned && generatedMusic && !endingSong){
 				// more accurate hit time for the ratings?
@@ -5305,7 +5336,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		if (curSong.toLowerCase() == 'cross-console-clash' && !invencibilidade && daNote.noteType != 'CCC Regen')
+		if (curSongLower == 'cross-console-clash' && !invencibilidade && daNote.noteType != 'CCC Regen')
 		{ // Top 10 mecanicas mais fodas dos animes que não sei dizer se é uma recriação ou se é eu inventando moda
 			cccVidaCounter--;
 			invencibilidade = true;
@@ -5328,7 +5359,7 @@ class PlayState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('ring_loss'), 0.5);
 			}
 
-			if (curSong.toLowerCase() == 'cross-console-clash')
+			if (curSongLower == 'cross-console-clash')
 			{
 				sonicHUDCCC.updateScoreText();
 			}
@@ -5711,7 +5742,7 @@ class PlayState extends MusicBeatState
 			switch (note.noteType)
 			{
 				case 'CCC Regen': // Feito segundo a concept de TomokiAo (pelo menos parcialmente k)
-					if (curSong.toLowerCase() == 'cross-console-clash' && cccVidaCounter < 2)
+					if (curSongLower == 'cross-console-clash' && cccVidaCounter < 2)
 					{
 						invencibilidade = true;
 						cccMiss = true;
@@ -5751,7 +5782,7 @@ class PlayState extends MusicBeatState
 				if (combo > 9999)
 					combo = 9999;
 
-				if (curSong.toLowerCase() == 'cross-console-clash')
+				if (curSongLower == 'cross-console-clash')
 				{
 					sonicHUDCCC.updateScoreText();
 				}
@@ -6043,7 +6074,7 @@ class PlayState extends MusicBeatState
 		if (ModifiersManager.isEnabledbyName("shake_camera"))
 			triggerEventNote("Screen Shake", ".25,.0125", ".25,.0125"); //Screen shake do mod do suicide mouse v2 do the-mayz suavizado
 
-		if (curSong.toLowerCase() == "sink" && ClientPrefs.shaders)
+		if (curSongLower == "sink" && ClientPrefs.shaders)
 		{
 			switch (curStep) // x02 deve estar orgulhoso
 			{
@@ -6080,7 +6111,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (curSong == "triple-trouble")
+		if (curSongLower == "triple-trouble")
 		{
 			isexe = curStep > 1040 && curStep < 1295 || curStep > 2320 && curStep < 2831 || curStep > 4112 && curStep < 5220;
 		}
@@ -6094,7 +6125,7 @@ class PlayState extends MusicBeatState
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
 
-		if (curSong.toLowerCase() == 'cross-console-clash' && cccMiss)
+		if (curSongLower == 'cross-console-clash' && cccMiss)
 			if (curStep % 2 == 0)
 			{
 				boyfriend.visible = false;
@@ -6105,21 +6136,21 @@ class PlayState extends MusicBeatState
 			}
 
 		// EVENTOS LASTSTEP
-		if (curSong.toLowerCase() == 'endless' && curStep == 1289 && !cpuControlled)
+		if (curSongLower == 'endless' && curStep == 1289 && !cpuControlled)
 			startachieving("fisk");
 
-		if (SONG.song.toLowerCase() == 'milk' && !cpuControlled)
+		if (curSongLower == 'milk' && !cpuControlled)
 		{
 			if (curStep == 1249)
 			{
 				startachieving("sunky_fatos");
 			}
 		}
-		if (curSong.toLowerCase() == 'prey' && curStep > 4490 && canuseevents == false)
+		if (curSongLower == 'prey' && curStep > 4490 && canuseevents == false)
 			canuseevents = true;
 
 		// cards triple trouble
-		if (curSong.toLowerCase() == 'triple-trouble' && ClientPrefs.legendas)
+		if (curSongLower == 'triple-trouble' && ClientPrefs.legendas)
 		{
 			switch (curStep)
 			{
@@ -6173,7 +6204,7 @@ class PlayState extends MusicBeatState
 					});
 			}
 		}
-		if (curSong == 'faker')
+		if (curSongLower == 'faker')
 		{
 			switch (curStep)
 			{ // Le saida fácil para um problema fácil, só que deveras chato de resolver.
@@ -6231,6 +6262,15 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
+		if (songStarted && ClientPrefs.shaders && Date.now().getHours() == 3 && !Achievements.isAchievementUnlocked('madrugada'))
+		{
+			startachieving('madrugada');
+		}
+		// Maluco... Quando eu olho pra isso aqui de novo fico tipo:
+		// Essa foi realmente uma das primeiras coisas que fiz no modboa? k
+		// Fun fact: Sim foi realmente a primeira coisa que fiz no modboa no dia 29/10/2022
+		// Data de reflexão sobre o assunto 07/02/2023 dia que os achievements foram programados
+
 		if (ModifiersManager.isEnabledbyName("paparazzi") && curBeat%2 == 0){
 			if (FlxG.random.bool(75)){
 				camHUD2.flash(0xFFFFFFFF, FlxG.random.float(0.1, 0.3), null, true);
@@ -6238,7 +6278,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (cccVidaCounter == 0 && boyfriend.curCharacter.startsWith('sonic') && curSong.toLowerCase() == 'cross-console-clash')
+		if (cccVidaCounter == 0 && boyfriend.curCharacter.startsWith('sonic') && curSongLower == 'cross-console-clash')
 		{
 			if (curBeat % 2 == 0)
 			{
@@ -6249,12 +6289,12 @@ class PlayState extends MusicBeatState
 				SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
 			}
 		}
-		else if (boyfriend.curCharacter.startsWith('sonic') && curSong.toLowerCase() == 'cross-console-clash')
+		else if (boyfriend.curCharacter.startsWith('sonic') && curSongLower == 'cross-console-clash')
 		{
 			SonicHUDCCC.ringsText.color = FlxColor.YELLOW;
 		}
 
-		if (curBeat == 162 && curSong.toLowerCase() == 'cross-console-clash' && !luigienter)
+		if (curBeat == 162 && curSongLower == 'cross-console-clash' && !luigienter)
 		{
 			luigienter = true;
 			triggerEventNote('Change Character', 'gf',
@@ -6317,7 +6357,7 @@ class PlayState extends MusicBeatState
 			&& FlxG.camera.zoom < 1.35
 			&& ClientPrefs.camZooms
 			&& curBeat % 4 == 0
-			&& curSong.toLowerCase() != "cross-console-clash")
+			&& curSongLower != "cross-console-clash")
 		{
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
@@ -7244,21 +7284,7 @@ class PlayState extends MusicBeatState
 		{
 			var ratio:Float = value / songSpeed; //funny word huh
 			for (note in notes)
-			{
-				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
-				{
-					note.scale.y *= ratio;
-					note.updateHitbox();
-				}
-			}
-			for (note in unspawnNotes)
-			{
-				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end'))
-				{
-					note.scale.y *= ratio;
-					note.updateHitbox();
-				}
-			}
+				note.resizeByRatio(ratio);
 		}
 		songSpeed = value;
 		noteKillOffset = 350 / songSpeed;
