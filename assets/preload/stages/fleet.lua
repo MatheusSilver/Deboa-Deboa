@@ -70,7 +70,6 @@ end
 
 -- Game over voiceline
 function onGameOver()
-	runTimer('playFleetLine', 2.7);
 	return Function_Continue;
 end
 

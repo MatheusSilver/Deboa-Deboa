@@ -13,7 +13,6 @@ local desvioPrey=false
 function onCreate()
 
     pushScriptData('vgs');
-    pushScriptData('Adicionar Imagens diferenciado');
     --Configurando o final.
     makeLuaSprite("theendbg", "cenarios/starved/Prey End", -400,-150)
     scaleObject("theendbg",1.3,1.3)
