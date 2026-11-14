@@ -13,6 +13,10 @@ import openfl.utils.Assets as OpenFlAssets;
 import openfl.display3D.textures.Texture;
 import openfl.display.BitmapData;
 import openfl.media.Sound;
+import lime.media.AudioBuffer;
+import lime.media.vorbis.VorbisFile;
+import lime.utils.Assets as LimeAssets;
+import haxe.io.Bytes;
 import flixel.util.FlxDestroyUtil;
 
 #if cpp
@@ -464,6 +468,22 @@ class Paths
 		return folder+gottenPath;
 	}
 
+	static function streamedSound(bytes:Bytes):Sound
+	{
+		#if (lime_vorbis && !web)
+		if (bytes == null)
+			return null;
+		var vorbisFile:VorbisFile = VorbisFile.fromBytes(bytes);
+		if (vorbisFile == null)
+			return null;
+		var buffer:AudioBuffer = AudioBuffer.fromVorbisFile(vorbisFile);
+		@:privateAccess buffer.__srcCustom = bytes;
+		return Sound.fromAudioBuffer(buffer);
+		#else
+		return null;
+		#end
+	}
+
 	public static function returnSound(key:String, path:String, file:String, ?library:String) {
 		// I hate this so god damn much
 		//Eu também passei a odiar meu caro colega nordestino :fist::pensive:
@@ -473,7 +493,10 @@ class Paths
 		{
 			if (!isAudioLoaded(key)){
 				currentTrackedSounds_cacheID.set(key, address);
-				currentTrackedSounds.set(address, OpenFlAssets.getSound(address));
+				var sound:Sound = path == 'songs' ? streamedSound(LimeAssets.getBytes(address)) : null;
+				if (sound == null)
+					sound = OpenFlAssets.getSound(address);
+				currentTrackedSounds.set(address, sound);
 			}
 		}
 		else
