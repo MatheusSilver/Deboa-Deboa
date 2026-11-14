@@ -396,6 +396,11 @@ class GaleriaStateMusic extends MusicBeatState
 		FlxG.sound.music.fadeIn(4, 0, 0.85);
 		songLength = FlxG.sound.music.length + 1000; //Um segundo cheio sendo adicionado aqui pois achei que o player de musicas do haxe tivesse o mesmo erro que o player do meu PC que add um sec a mais sempre
 		FlxG.sound.music.onComplete = playlistChecker;
+		if (pausado)
+		{
+			pausado = false;
+			botaoPauseContinue.loadGraphic(Paths.image('galeriamusicas/youtubemusic/pause', 'preload'));
+		}
 		FlxTween.tween(thumbnail, {x: -FlxG.width}, 0.1, {ease: FlxEase.quartInOut, onComplete: function (twn:FlxTween){
 			thumbnail.loadGraphic(Paths.image("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)", 'preload'));
 			FlxTween.tween(thumbnail, {x: 175}, 0.1, {ease: FlxEase.quartInOut});	
@@ -542,7 +547,7 @@ class GaleriaStateMusic extends MusicBeatState
 		} //Central do mouse
 
 		checkboxArray.forEach(function(spr:FlxSprite){
-			if(BSLTouchUtils.over(spr))
+			if(!isLetras && BSLTouchUtils.over(spr))
 			{
 				if(BSLTouchUtils.justTouched()){
 					switch(options[spr.ID]) { //Conserteza daria pra fazer melhor que isso, mas sabe como é né? preguiça
@@ -606,6 +611,7 @@ class GaleriaStateMusic extends MusicBeatState
 				if(menutoca){
 					FlxG.sound.music.fadeOut(1, 0);
 					FlxG.sound.playMusic(Paths.inst(GaleriaState.leMusic[curSelected].toLowerCase()),0);
+					FlxG.sound.music.onComplete = playlistChecker;
 					menutoca=false;
 					FlxG.sound.music.fadeIn(4, 0, 0.85);					
 				} else{

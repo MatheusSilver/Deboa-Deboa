@@ -56,8 +56,11 @@ class GaleriaState extends MusicBeatState
 
 			camAchievement = new FlxCamera();
 			camAchievement.bgColor.alpha = 0;
-			FlxG.cameras.add(camAchievement);
+			FlxG.cameras.add(camAchievement, false);
 
+			leSongs = [];
+			leMusic = [];
+			titulos = [];
 			for (i in 0...WeekData.weeksList.length) {
 				var leWeek:WeekData = WeekData.weeksLoaded.get(WeekData.weeksList[i]);
 				for (j in 0...leWeek.songs.length) {
@@ -243,7 +246,7 @@ class GaleriaState extends MusicBeatState
 				});
 				}
 
-				if(bg.y<=-bg.height)
+				if(bg.y<=-bg.height+FlxG.height)
 					{
 						Achievements.loadAchievements();
 						var achieveID:Int = Achievements.getAchievementIndex('galeria');
