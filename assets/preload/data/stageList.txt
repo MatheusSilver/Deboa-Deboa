@@ -21,7 +21,6 @@ empty
 exampleStage
 exeStage
 fakerStage
-final
 fleet
 fleetPHANTASM
 illegal1

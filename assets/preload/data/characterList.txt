@@ -9,7 +9,6 @@ bf-needle
 bf-pixel-sonic
 bfprespectiveflipped
 bfprespective
-bf-run
 bf-running-sonic-forward
 bf-running-sonic-outline
 bf-running-sonic-sweat
@@ -28,7 +27,6 @@ coldsteel
 cyclops
 dark_bf
 eggmanexe
-exefront
 faker
 Fleetway Christmas
 Fleetway Christmas2

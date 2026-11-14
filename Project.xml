@@ -76,7 +76,6 @@
 		<library name="week-confronting"         preload="true" />
 		<library name="week-control"       		 preload="true" />
 		<library name="week-drop"       		 preload="true" />
-		<library name="week-escapada"       	 preload="true" />
 		<library name="week-final-remake"      	 preload="true" />
 		<library name="week-fantasmas"       	 preload="true" />
 		<library name="week-farsa"        		 preload="true" />
@@ -120,7 +119,6 @@
 		<library name="week-confronting"         preload="false" />
 		<library name="week-control"       		 preload="false" />
 		<library name="week-drop"       		 preload="false" />
-		<library name="week-escapada"       	 preload="false" />
 		<library name="week-final-remake"      	 preload="false" />
 		<library name="week-fantasmas"       	 preload="false" />
 		<library name="week-farsa"        		 preload="false" />
@@ -176,8 +174,6 @@
 	<assets path="assets/week-control"         	   library="week-control"             exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-drop"         	   library="week-drop"    		      exclude="*.ogg" if="web"/>
 	<assets path="assets/week-drop"         	   library="week-drop"             	  exclude="*.mp3" unless="web"/>
-	<assets path="assets/week-escapada"            library="week-escapada"            exclude="*.ogg" if="web"/>
-	<assets path="assets/week-escapada"            library="week-escapada"            exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-final-remake"        library="week-final-remake"        exclude="*.ogg" if="web"/>
 	<assets path="assets/week-final-remake"        library="week-final-remake"        exclude="*.mp3" unless="web"/>
 	<assets path="assets/week-fantasmas"           library="week-fantasmas"           exclude="*.ogg" if="web"/>
