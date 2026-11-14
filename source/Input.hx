@@ -1343,8 +1343,10 @@ class InputFormatter {
 					return ";";
 				case COMMA:
 					return "less";
-				case PERIOD: 
+				case PERIOD | NUMPADPERIOD:
 					return "more";
+				case GRAVEACCENT:
+					return "Tilda_Key_Dark";
 				//case SLASH:
 				//	return "/";
 				case DELETE:

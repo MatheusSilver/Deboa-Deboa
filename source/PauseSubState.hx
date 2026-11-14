@@ -495,7 +495,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		function loadGraphics(sprite:FlxSprite, path:String):Void {
-			sprite.loadGraphic(Paths.image(path, 'week-sunshine'));
+			sprite.loadGraphic(Paths.image(path, PlayState.SONG.song.toLowerCase() == "sunshine" ? 'week-sunshine' : 'shared'));
 			if (PlayState.SONG.song.toLowerCase() == "sunshine") {
 				sprite.scale.set(0.5, 0.5);
 				sprite.screenCenter();

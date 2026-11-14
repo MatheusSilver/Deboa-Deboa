@@ -129,7 +129,7 @@ class RoomList extends FlxSpriteGroup
 
         refresh(MultiplayerMainMenuState.instance.getAvailableRooms());
 
-        outline = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/joinmenu/roomList", 'preload'));
+        outline = new FlxSprite(0,0).loadGraphic(Paths.image("multiplayer/menus/joinmenu/roomlist", 'preload'));
         add(outline);
 
         label = new FlxText(5, 9, 574, "ROOMLIST", 46);
