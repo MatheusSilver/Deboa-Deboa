@@ -128,6 +128,8 @@ class PastaNightSelect extends MusicBeatState
 	}
 
 	private function confirm(){
+		if (!canSelect)
+			return;
 		var crossDifficulty:Int = selector + 5;
 		FreeplayState.infoextended = 'Noite da Rapaziada';
 		persistentUpdate = false;

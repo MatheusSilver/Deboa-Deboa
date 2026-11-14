@@ -13,6 +13,7 @@ class ExtraHUDObject extends FlxSpriteGroup
 
 	// Needlemouse
 	var tempogravador:FlxText;
+	var shownSecond:Int = -1;
 	private final meses:Array<String> = [
 		'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 	];
@@ -24,6 +25,7 @@ class ExtraHUDObject extends FlxSpriteGroup
 	// Triple Trouble
 	var ringCounter:FlxSprite;
 	var counterNum:FlxText;
+	var shownRings:Int = -1;
 
 	public function new(songName:String) // Isso tem que ser aqui, por motivos de que: alguns huds são iniciados em locais diferentes no playstate
 	{
@@ -105,27 +107,44 @@ class ExtraHUDObject extends FlxSpriteGroup
 
 	override function update(elapsed:Float)
 	{
-		switch (PlayState.SONG.song.toLowerCase())
+		switch (PlayState.instance.curSongLower)
 		{
 			case "round-a-bout":
-				var leDate = Date.now();
-
-				tempogravador.text = (leDate.getHours() <= 12 ? leDate.getHours() : leDate.getHours() - 12)
-					+ ":"
-					+ (leDate.getMinutes() < 10 ? "0" + Std.string(leDate.getMinutes()) : Std.string(leDate.getMinutes()))
-					+ ':'
-					+ (leDate.getSeconds() < 10 ? "0" + Std.string(leDate.getSeconds()) : Std.string(leDate.getSeconds()))
-					+ '\n'
-					+ (leDate.getHours() <= 12 ? "AM" : "PM")
-					+ "\n"
-					+ Std.string(leDate.getDate())
-					+ " "
-					+ meses[leDate.getMonth()]
-					+ "\n";
+				if (tempogravador != null)
+					updateRecorderClock();
 			case "triple-trouble":
-				counterNum.text = Std.string(PlayState.instance.cNum);
+				if (counterNum != null && PlayState.instance.cNum != shownRings)
+				{
+					shownRings = PlayState.instance.cNum;
+					counterNum.text = Std.string(shownRings);
+				}
 		}
 
 		super.update(elapsed);
+	}
+
+	function updateRecorderClock()
+	{
+		var second:Int = Std.int(Sys.time());
+		if (second == shownSecond)
+			return;
+		shownSecond = second;
+
+		var leDate = Date.now();
+		var hours:Int = leDate.getHours();
+		var minutes:Int = leDate.getMinutes();
+		var seconds:Int = leDate.getSeconds();
+		tempogravador.text = (hours % 12 == 0 ? 12 : hours % 12)
+			+ ":"
+			+ (minutes < 10 ? "0" + Std.string(minutes) : Std.string(minutes))
+			+ ':'
+			+ (seconds < 10 ? "0" + Std.string(seconds) : Std.string(seconds))
+			+ '\n'
+			+ (hours < 12 ? "AM" : "PM")
+			+ "\n"
+			+ Std.string(leDate.getDate())
+			+ " "
+			+ meses[leDate.getMonth()]
+			+ "\n";
 	}
 }

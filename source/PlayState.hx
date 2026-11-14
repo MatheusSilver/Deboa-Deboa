@@ -2863,7 +2863,7 @@ class PlayState extends MusicBeatState
 
 
 
-		if (controls.PAUSE || FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if ((controls.PAUSE || FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end) && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', []);
 			if (ret != FunkinLua.Function_Stop)
@@ -6441,11 +6441,12 @@ class PlayState extends MusicBeatState
 	// Esse carinha aqui que controla TODAS as animações sendo tocadas, se alguma animação ficar estranha
 	// Esse maninho aqui é o culpado.
 	function syncReflection(reflection:FlxSprite, original:Character):Void {
-		if (reflection == null || original == null) return;
-		
+		if (reflection == null || original == null || original.animation.curAnim == null) return;
+
 		final animName:String = original.animation.curAnim.name;
 		final animFrame:Int = original.animation.curAnim.curFrame;
-		final offsetX:Float = original.animOffsets.get(animName)[0];
+		final animOffset:Array<Dynamic> = original.animOffsets.get(animName);
+		final offsetX:Float = animOffset != null ? animOffset[0] : 0;
 		final offsetY:Float = 0;
 
 		if (reflection.animation.curAnim == null || reflection.animation.curAnim.name != animName) {
