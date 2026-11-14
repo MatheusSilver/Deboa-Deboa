@@ -362,9 +362,10 @@ end
 
 function onUpdate()
 	if healthDrain then
-		if getProperty('health') < 0.25 then
+		local health = getProperty('health')
+		if health < 0.25 then
 			objectPlayIndexedAnimation('bfIcon', 1)
-		elseif getProperty('health') > 1.8 then
+		elseif health > 1.8 then
 			objectPlayIndexedAnimation('oppIcon', 1)
 		else
 			objectPlayIndexedAnimation('oppIcon', 0)
@@ -373,8 +374,8 @@ function onUpdate()
 		-- Caso o sonico esteja na esquerda e o opp esteja na direita, é a formula abaixo
 		-- setProperty('healthFollower.x', getProperty('HUD.healthBar.x') + getProperty('HUD.healthBar.width')*getProperty('health')/2)
 		-- Caso contrário, bf na direita e opp na esquerda (que é o caso da CY), então...
-		if (getProperty('health') >= 0.05 and getProperty('health') <= 1.95)then
-			setProperty('healthFollower.x', getProperty('HUD.healthBar.x') - 35 + getProperty('HUD.healthBar.width')*((2-getProperty('health'))/2))
+		if (health >= 0.05 and health <= 1.95)then
+			setProperty('healthFollower.x', getProperty('HUD.healthBar.x') - 35 + getProperty('HUD.healthBar.width')*((2-health)/2))
 		end
 		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
 	end

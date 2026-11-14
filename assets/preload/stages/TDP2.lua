@@ -6,19 +6,20 @@ local camY = 420
 local weewoo = 0
 local ofs = 30
 local curHealth = 1
+local shownHealth
 
 local function healthStuff()
 	curHealth = math.floor(getProperty('health')/2*100)
-	if (curHealth > 100) then
-		setTextString('funnyHud', 'Health: 100')
-	else 
-		setTextString('funnyHud', 'Health: ' .. curHealth)
+	local healthPercent = math.min(curHealth, 100)
+	if healthPercent == shownHealth then
+		return
 	end
+	shownHealth = healthPercent
+	setTextString('funnyHud', 'Health: ' .. healthPercent)
 end
 
 function onCreate()
 	setProperty('defaultCamZoom', 1.05)
-	
 	
 	makeAnimatedLuaSprite('bloodfilter', 'cenarios/bloodfilter', -108, -100)
 	addAnimationByPrefix('bloodfilter', 'bloodfilter', 'bloodfilter', 60, true)
@@ -61,8 +62,6 @@ function onCreate()
 	setScrollFactor('bg', 0.9, 0.9)
 	addLuaSprite('bg', false)
 
-	
-	
 	makeLuaText('funnyHud', 'Health: 0', 999, 60, 800)
 	setTextSize('funnyHud', 60)
 	setTextFont('funnyHud', 'HelpMe.ttf')

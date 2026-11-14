@@ -511,44 +511,46 @@ function onUpdate(elapsed)
                 setProperty('defaultCamZoom', zoomDAD)
             end
             updateCamPos('dad')
+            local anim = getPropertySpecial('dad.animation.curAnim.name')
             if camFollow then
-                if getPropertySpecial('dad.animation.curAnim.name') == 'singLEFT' then
+                if anim == 'singLEFT' then
                     triggerEvent('Camera Follow Pos',camPosDadX-ofs,camPosDadY)
                 end
-                if getPropertySpecial('dad.animation.curAnim.name') == 'singRIGHT' then
+                if anim == 'singRIGHT' then
                     triggerEvent('Camera Follow Pos',camPosDadX+ofs,camPosDadY)
                 end
-                if getPropertySpecial('dad.animation.curAnim.name') == 'singUP' then
+                if anim == 'singUP' then
                     triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY-ofs)
                 end
-                if getPropertySpecial('dad.animation.curAnim.name') == 'singDOWN' then
+                if anim == 'singDOWN' then
                     triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY+ofs)
                 end
             end
-            if getPropertySpecial('dad.animation.curAnim.name') == 'idle' or not camFollow then
+            if anim == 'idle' or not camFollow then
                 triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
             end
         else
             if zoomModifier then
                 setProperty('defaultCamZoom', zoomBF)
             end
+            local anim = getPropertySpecial('boyfriend.animation.curAnim.name')
             if camFollow then
             --updateCamPos('bf') -- Tenho minhas duvidas se o bf real vai precisar disso... Mas acho que não
-                if getPropertySpecial('boyfriend.animation.curAnim.name') == 'singLEFT' then
+                if anim == 'singLEFT' then
                     triggerEvent('Camera Follow Pos',camPosBFX-ofs,camPosBFY)
                 end
-                if getPropertySpecial('boyfriend.animation.curAnim.name') == 'singRIGHT' then
+                if anim == 'singRIGHT' then
                     triggerEvent('Camera Follow Pos',camPosBFX+ofs,camPosBFY)
                 end
-                if getPropertySpecial('boyfriend.animation.curAnim.name') == 'singUP' then
+                if anim == 'singUP' then
                     triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY-ofs)
                 end
-                if getPropertySpecial('boyfriend.animation.curAnim.name') == 'singDOWN' then
+                if anim == 'singDOWN' then
                     triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+ofs)
                 end
             end
 
-	        if getPropertySpecial('boyfriend.animation.curAnim.name') == 'idle' or not camFollow then
+	        if anim == 'idle' or not camFollow then
                 triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
             end 
         end

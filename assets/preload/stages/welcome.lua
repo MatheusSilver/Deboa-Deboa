@@ -52,15 +52,14 @@ end
 function onUpdate(elapsed)
 	--Mechanich
 
-	--Detects Keys Pressed Per Frame
-	for i = 1,25 do
-		kP[i] = getPropertyFromClass('flixel.FlxG', 'keys.pressed.'..keys[i])
-	end
-
-
 	--Word Sequence
 
 	if wordVoid then
+		--Detects Keys Pressed Per Frame
+		for i = 1,4 do
+			kP[numbersL[i]] = getPropertyFromClass('flixel.FlxG', 'keys.pressed.'..keys[numbersL[i]])
+		end
+
 		if kP[numbersL[1]] and letterPos == 1 then
 			--DissAppearTheLetter
 
@@ -116,53 +115,55 @@ function onUpdate(elapsed)
 	--Misc Stuff
 	if followchars == true then
 		if mustHitSection == false then
-		  if getProperty('dad.animation.curAnim.name') == 'singLEFT' then
+		  local anim = getProperty('dad.animation.curAnim.name')
+		  if anim == 'singLEFT' then
 			triggerEvent('Camera Follow Pos',xx-ofs,yy)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'singRIGHT' then
+		  if anim == 'singRIGHT' then
 			triggerEvent('Camera Follow Pos',xx+ofs,yy)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'singUP' then
+		  if anim == 'singUP' then
 			triggerEvent('Camera Follow Pos',xx,yy-ofs)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'singDOWN' then
+		  if anim == 'singDOWN' then
 			triggerEvent('Camera Follow Pos',xx,yy+ofs)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'singLEFT-alt' then
+		  if anim == 'singLEFT-alt' then
 			triggerEvent('Camera Follow Pos',xx-ofs,yy)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'singRIGHT-alt' then
+		  if anim == 'singRIGHT-alt' then
 			triggerEvent('Camera Follow Pos',xx+ofs,yy)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'singUP-alt' then
+		  if anim == 'singUP-alt' then
 			triggerEvent('Camera Follow Pos',xx,yy-ofs)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'singDOWN-alt' then
+		  if anim == 'singDOWN-alt' then
 			triggerEvent('Camera Follow Pos',xx,yy+ofs)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'idle-alt' then
+		  if anim == 'idle-alt' then
 			triggerEvent('Camera Follow Pos',xx,yy)
 		  end
-		  if getProperty('dad.animation.curAnim.name') == 'idle' then
+		  if anim == 'idle' then
 			triggerEvent('Camera Follow Pos',xx,yy)
 		  end
 		else
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singLEFT' then
+		  local anim = getProperty('boyfriend.animation.curAnim.name')
+		  if anim == 'singLEFT' then
 			triggerEvent('Camera Follow Pos',xx2-ofs,yy2)
 		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singRIGHT' then
+		  if anim == 'singRIGHT' then
 			triggerEvent('Camera Follow Pos',xx2+ofs,yy2)
 		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singUP' then
+		  if anim == 'singUP' then
 			triggerEvent('Camera Follow Pos',xx2,yy2-ofs)
 		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'singDOWN' then
+		  if anim == 'singDOWN' then
 			triggerEvent('Camera Follow Pos',xx2,yy2+ofs)
 		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'idle-alt' then
+		  if anim == 'idle-alt' then
 			triggerEvent('Camera Follow Pos',xx2,yy2)
 		  end
-		  if getProperty('boyfriend.animation.curAnim.name') == 'idle' then
+		  if anim == 'idle' then
 			triggerEvent('Camera Follow Pos',xx2,yy2)
 		  end
 		end

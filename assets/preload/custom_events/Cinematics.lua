@@ -1,9 +1,9 @@
 -- Created by RamenDominoes (Feel free to credit or not I don't really care)
 --Not bad for my first event created... I think
 
-StartStop = 0
+local FATOR_EXPO = 10 * math.log(2)
 
-Speed = 0
+local pecasHud = {'healthBarBG', 'healthBar', 'scoreTxt', 'iconP1', 'iconP2', 'timeBar', 'timeBarBG', 'timeTxt', 'judgementCounter'}
 
 
 
@@ -30,116 +30,14 @@ function onCreate()
 end
 
 
-function onUpdate()
-
-	if StartStop == 1 then
-	
-	setProperty("UpperBar.visible", true)
-	setProperty("LowerBar.visible", true)
-	doTweenY('Cinematics1-in', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2-in', 'LowerBar', 600, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 130, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 130, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 130, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', '')
-	doTweenAlpha('AlphaTween1', 'HUD.healthBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween2', 'HUD.healthBar', 0, 0.1)
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween4', 'HUD.iconP1', 0, 0.1)
-	doTweenAlpha('AlphaTween5', 'HUD.iconP2', 0, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 0, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 0, 0.1)
-
-
+local function tweenNotas(y, duracao)
+	for i = 0, 7 do
+		noteTweenY('NOTEMOVE'..(i + 1), i, y, duracao, 'expoOut')
 	end
+end
 
-	if downscroll and StartStop == 1 then
-	
-	setProperty("UpperBar.visible", true)
-	setProperty("LowerBar.visible", true)
-	doTweenY('Cinematics1-in', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2-in', 'LowerBar', 600, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 480, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 480, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 480, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', '')
-	doTweenAlpha('AlphaTween1', 'HUD.healthBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween2', 'HUD.healthBar', 0, 0.1)
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween4', 'HUD.iconP1', 0, 0.1)
-	doTweenAlpha('AlphaTween5', 'HUD.iconP2', 0, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 0, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 0, 0.1)
-
-	end
-
-
-	if StartStop == 2 then
-	
-	doTweenY('Cinematics1-out', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2-out', 'LowerBar', 720, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 50, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 50, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 50, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', 'BOTPLAY')
-	doTweenAlpha('AlphaTween1', 'HUD.healthBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween2', 'HUD.healthBar', 1, 0.1)
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween4', 'HUD.iconP1', 1, 0.1)
-	doTweenAlpha('AlphaTween5', 'HUD.iconP2', 1, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 1, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 1, 0.1)
-	--doTweenAlpha('AlphaTween9', 'HUD.botplayTxt', 1, 0.1)
-	
-	end
-
-	if downscroll and StartStop == 2 then
-	
-	doTweenY('Cinematics1-out', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2-out', 'LowerBar', 720, Speed, 'Linear')
-	noteTweenY('NOTEMOVE1', 0, 570, Speed, 'Linear')	
-	noteTweenY('NOTEMOVE2', 1, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE3', 2, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE4', 3, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE5', 4, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE6', 5, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE7', 6, 570, Speed, 'Linear')
-	noteTweenY('NOTEMOVE8', 7, 570, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', 'BOTPLAY')
-	doTweenAlpha('AlphaTween1', 'HUD.healthBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween2', 'HUD.healthBar', 1, 0.1)
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween4', 'HUD.iconP1', 1, 0.1)
-	doTweenAlpha('AlphaTween5', 'HUD.iconP2', 1, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 1, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 1, 0.1)
-	--doTweenAlpha('AlphaTween9', 'HUD.botplayTxt', 1, 0.1)
-	
-	end
-	
+local function tweenPecaHud(i, alpha)
+	doTweenAlpha('AlphaTween'..i, 'HUD.'..pecasHud[i], alpha, 0.1 * FATOR_EXPO, 'expoOut')
 end
 
 function onTweenCompleted(tag)
@@ -151,7 +49,31 @@ end
 
 function onEvent(name,value1,value2)
 	if name == 'Cinematics' then
-		StartStop = tonumber(value1)
-		Speed = tonumber(value2)
+		local startStop = tonumber(value1)
+		local duracao = (tonumber(value2) or 0) * FATOR_EXPO
+
+		if startStop == 1 then
+			cancelTween('Cinematics1-out')
+			cancelTween('Cinematics2-out')
+			setProperty("UpperBar.visible", true)
+			setProperty("LowerBar.visible", true)
+			doTweenY('Cinematics1-in', 'UpperBar', 0, duracao, 'expoOut')
+			doTweenY('Cinematics2-in', 'LowerBar', 600, duracao, 'expoOut')
+			tweenNotas(downscroll and 480 or 130, duracao)
+			setProperty('HUD.botplayTxt.text', '')
+			for i = 1, #pecasHud do
+				tweenPecaHud(i, 0)
+			end
+		elseif startStop == 2 then
+			cancelTween('Cinematics1-in')
+			cancelTween('Cinematics2-in')
+			doTweenY('Cinematics1-out', 'UpperBar', -120, duracao, 'expoOut')
+			doTweenY('Cinematics2-out', 'LowerBar', 720, duracao, 'expoOut')
+			tweenNotas(downscroll and 570 or 50, duracao)
+			setProperty('HUD.botplayTxt.text', 'BOTPLAY')
+			for i = 1, #pecasHud do
+				tweenPecaHud(i, 1)
+			end
+		end
 	end
 end

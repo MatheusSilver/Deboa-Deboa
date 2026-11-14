@@ -14,36 +14,38 @@ function onUpdate(elapsed)
     if getCamMove() then    
         if mustHitSection == false then
             updateCamPos('dad')
-            if getProperty('dad.animation.curAnim.name') == 'singLEFT' then
+            local anim = getProperty('dad.animation.curAnim.name')
+            if anim == 'singLEFT' then
                 triggerEvent('Camera Follow Pos',camPosDadX-ofs,camPosDadY)
             end
-            if getProperty('dad.animation.curAnim.name') == 'singRIGHT' then
+            if anim == 'singRIGHT' then
                 triggerEvent('Camera Follow Pos',camPosDadX+ofs,camPosDadY)
             end
-            if getProperty('dad.animation.curAnim.name') == 'singUP' then
+            if anim == 'singUP' then
                 triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY-ofs)
             end
-            if getProperty('dad.animation.curAnim.name') == 'singDOWN' then
+            if anim == 'singDOWN' then
                 triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY+ofs)
             end
-            if getProperty('dad.animation.curAnim.name') == 'idle' then
+            if anim == 'idle' then
                 triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY)
             end
         else
             --updateCamPos('bf') -- Tenho minhas duvidas se o bf real vai precisar disso... Mas acho que não
-            if getProperty('boyfriend.animation.curAnim.name') == 'singLEFT' then
+            local anim = getProperty('boyfriend.animation.curAnim.name')
+            if anim == 'singLEFT' then
                 triggerEvent('Camera Follow Pos',camPosBFX-ofs,camPosBFY)
             end
-            if getProperty('boyfriend.animation.curAnim.name') == 'singRIGHT' then
+            if anim == 'singRIGHT' then
                 triggerEvent('Camera Follow Pos',camPosBFX+ofs,camPosBFY)
             end
-            if getProperty('boyfriend.animation.curAnim.name') == 'singUP' then
+            if anim == 'singUP' then
                 triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY-ofs)
             end
-            if getProperty('boyfriend.animation.curAnim.name') == 'singDOWN' then
+            if anim == 'singDOWN' then
                 triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY+ofs)
             end
-	        if getProperty('boyfriend.animation.curAnim.name') == 'idle' then
+	        if anim == 'idle' then
                 triggerEvent('Camera Follow Pos',camPosBFX,camPosBFY)
             end 
         end

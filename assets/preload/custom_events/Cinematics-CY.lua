@@ -1,8 +1,8 @@
-StartStop = 0
-
-Speed = 0
-
 k = 60
+
+local FATOR_EXPO = 10 * math.log(2)
+
+local pecasHud = {'healthBarBG', 'healthBar', 'scoreTxt', 'iconP1', 'iconP2', 'timeBar', 'timeBarBG', 'timeTxt', 'judgementCounter'}
 
 function onCreate()
 	
@@ -33,81 +33,8 @@ function onCreatePost()
 end
 
 
-function onUpdate()
-
-	if StartStop == 1 then -- Entrada upscroll
-	
-	setProperty('UpperBar.visible', true)
-	setProperty('LowerBar.visible', true)
-	doTweenY('Cinematics1entrada', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2entrada', 'LowerBar', 660, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', '')
-	--[[doTweenY('AlphaTween1', 'HUD.healthBarBG', 0, 0.1)
-	doTweenY('AlphaTween2', 'HUD.healthBar', 0, 0.1)
-	doTweenY('AlphaTween4', 'HUD.iconP1', 0, 0.1)
-	doTweenY('AlphaTween5', 'HUD.iconP2', 0, 0.1)]]
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 0, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 0, 0.1)
-
-
-	end
-
-	if downscroll and StartStop == 1 then -- entrada downscroll
-	setProperty('UpperBar.visible', true)
-	setProperty('LowerBar.visible', true)
-	doTweenY('Cinematics1entrada', 'UpperBar', 0, Speed, 'Linear')
-	doTweenY('Cinematics2entrada', 'LowerBar', 660, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', '')
-	--[[doTweenAlpha('AlphaTween1', 'HUD.healthBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween2', 'HUD.healthBar', 0, 0.1)
-	doTweenAlpha('AlphaTween4', 'HUD.iconP1', 0, 0.1)
-	doTweenAlpha('AlphaTween5', 'HUD.iconP2', 0, 0.1)]]
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 0, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 0, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 0, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 0, 0.1)
-
-	end
-
-
-	if StartStop == 2 then -- Saida upscroll
-	
-	doTweenY('Cinematics1saida', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2saida', 'LowerBar', 720, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', 'BOTPLAY')
-	doTweenAlpha('AlphaTween1', 'HUD.healthBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween2', 'HUD.healthBar', 1, 0.1)
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween4', 'HUD.iconP1', 1, 0.1)
-	doTweenAlpha('AlphaTween5', 'HUD.iconP2', 1, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 1, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 1, 0.1)
-	
-	end
-
-	if downscroll and StartStop == 2 then -- Saida downscroll
-	
-	doTweenY('Cinematics1saida', 'UpperBar', -120, Speed, 'Linear')
-	doTweenY('Cinematics2saida', 'LowerBar', 720, Speed, 'Linear')
-	setProperty('HUD.botplayTxt.text', 'BOTPLAY')
-	--[[doTweenAlpha('AlphaTween1', 'HUD.healthBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween2', 'HUD.healthBar', 1, 0.1)
-	doTweenAlpha('AlphaTween4', 'HUD.iconP1', 1, 0.1)
-	doTweenAlpha('AlphaTween5', 'HUD.iconP2', 1, 0.1)]]
-	doTweenAlpha('AlphaTween3', 'HUD.scoreTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween6', 'HUD.timeBar', 1, 0.1)
-	doTweenAlpha('AlphaTween7', 'HUD.timeBarBG', 1, 0.1)
-	doTweenAlpha('AlphaTween8', 'HUD.timeTxt', 1, 0.1)
-	doTweenAlpha('AlphaTween9', 'HUD.judgementCounter', 1, 0.1)
-	
-	end
-	
+local function tweenPecaHud(i, alpha)
+	doTweenAlpha('AlphaTween'..i, 'HUD.'..pecasHud[i], alpha, 0.1 * FATOR_EXPO, 'expoOut')
 end
 
 function onTweenCompleted(tag)
@@ -119,7 +46,29 @@ end
 
 function onEvent(name,value1,value2)
 	if name == 'Cinematics-CY' then
-		StartStop = tonumber(value1)
-		Speed = tonumber(value2)
+		local startStop = tonumber(value1)
+		local duracao = (tonumber(value2) or 0) * FATOR_EXPO
+
+		if startStop == 1 then -- Entrada
+			cancelTween('Cinematics1saida')
+			cancelTween('Cinematics2saida')
+			setProperty('UpperBar.visible', true)
+			setProperty('LowerBar.visible', true)
+			doTweenY('Cinematics1entrada', 'UpperBar', 0, duracao, 'expoOut')
+			doTweenY('Cinematics2entrada', 'LowerBar', 660, duracao, 'expoOut')
+			setProperty('HUD.botplayTxt.text', '')
+			for _, i in ipairs({3, 6, 7, 8, 9}) do
+				tweenPecaHud(i, 0)
+			end
+		elseif startStop == 2 then -- Saida
+			cancelTween('Cinematics1entrada')
+			cancelTween('Cinematics2entrada')
+			doTweenY('Cinematics1saida', 'UpperBar', -120, duracao, 'expoOut')
+			doTweenY('Cinematics2saida', 'LowerBar', 720, duracao, 'expoOut')
+			setProperty('HUD.botplayTxt.text', 'BOTPLAY')
+			for i = 1, #pecasHud do
+				tweenPecaHud(i, 1)
+			end
+		end
 	end
 end

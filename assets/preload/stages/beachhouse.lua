@@ -27,7 +27,6 @@ function onCreate()
 	setLuaSpriteScrollFactor('water', 1, 1);
 	scaleObject('water', .7, .6);
 	
-	
 	--makeAnimatedLuaSprite('glitch', 'static', -600, -300);
 	--scaleObject('glitch', 2, 2);
     --addAnimationByPrefix('glitch', 'glitchout', 'static glitch', 24, true); -- WHAT?????
@@ -71,5 +70,5 @@ end
 
 function onUpdate()
 	currentBeat = (getSongPosition()/1000)*(bpm/120)
-	doTweenY(waterTweenY, 'water', 530 -80 * sin((currentBeat * 0.10) * pi()), 0.001)
+	setProperty('water.y', 530 -80 * sin((currentBeat * 0.10) * pi()))
 end
