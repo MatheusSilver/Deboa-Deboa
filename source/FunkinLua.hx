@@ -1,7 +1,6 @@
 import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.transition.FlxTransitionableState;
 //import DialogueBoxPsych;
-import Shaders;
 import Type.ValueType;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
@@ -21,8 +20,6 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.display.BlendMode;
-import openfl.filters.BitmapFilter;
-import openfl.filters.ShaderFilter;
 import openfl.utils.Assets as OpenFlAssets;
 import MP4Sprite;
 using StringTools;
@@ -39,17 +36,16 @@ class FunkinLua {
 	public static var Function_Continue = "Function_Continue";
 	public static var Function_StopLua:Dynamic = "Function_StopLua";
    
-	public static var camGameShaders:Array<ShaderEffect> = [];
-	public static var camHUDShaders:Array<ShaderEffect> = [];
-	public static var camOtherShaders:Array<ShaderEffect> = [];
- 
+	static var hudVars:Map<String, Bool> = null;
+
+	public static var runningScript:FunkinLua = null;
+
 	#if LUA_ALLOWED
 	public var lua:State = null;
 	#end
 
 	public var scriptName:String = '';
 	public var closed:Bool = false;
-	var hudVars:Array<String>;
 
 	public var accessedProps:Map<String, Dynamic> = null;
 	public function new(script:String) {
@@ -67,7 +63,9 @@ class FunkinLua {
 		if(resultStr != null && result != 0) {
 			lime.app.Application.current.window.alert(resultStr, 'Error on .LUA script!');
 			trace('Error on .LUA script! ' + resultStr);
+			Lua.close(lua);
 			lua = null;
+			closed = true;
 			return;
 		}
 		scriptName = script;
@@ -180,7 +178,11 @@ class FunkinLua {
 
 		set('pi', Math.PI); // Deixei aqui só pra casos de eu ter colocado o pi como uma var e não como uma função nos scripts em lua.
 
-		hudVars = Type.getInstanceFields(Type.getClass(PlayState.instance.HUD));
+		if(hudVars == null)
+		{
+			var inheritedFields:Array<String> = Type.getInstanceFields(Type.getSuperClass(GameHUD));
+			hudVars = [for (field in Type.getInstanceFields(GameHUD)) if (!inheritedFields.contains(field)) field => true];
+		}
 
 		Lua_helper.add_callback(lua, "addLuaScript", function(luaFile:String, ?ignoreAlreadyRunning:Bool = false) { //would be dope asf.
 			var cervix = luaFile + ".lua";
@@ -197,7 +199,7 @@ class FunkinLua {
 				{
 					for (luaInstance in PlayState.instance.luaArray)
 					{
-						if(luaInstance.scriptName == cervix)
+						if(!luaInstance.closed && luaInstance.scriptName == cervix)
 						{
 							trace('addLuaScript: The script "' + cervix + '" is already running!');
 							return;
@@ -225,7 +227,7 @@ class FunkinLua {
 				{
 					for (luaInstance in PlayState.instance.luaArray)
 					{
-						if(luaInstance.scriptName == cervix)
+						if(!luaInstance.closed && luaInstance.scriptName == cervix)
 						{
 							trace('addLuaScript: The script "' + cervix + '" is already running!');
 							return;
@@ -254,11 +256,9 @@ class FunkinLua {
 				{
 					for (luaInstance in PlayState.instance.luaArray)
 					{
-						if(luaInstance.scriptName == cervix)
+						if(!luaInstance.closed && luaInstance.scriptName == cervix)
 						{
-							////luaTrace('The script "' + cervix + '" is already running!');
-
-								PlayState.instance.luaArray.remove(luaInstance);
+							luaInstance.closed = true;
 							return;
 						}
 					}
@@ -270,10 +270,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertySpecial", function(variable:String) {
 			var result:Dynamic = null;
-			var killMe:Array<String> = variable.split('.');
-			if(hudVars.contains(killMe[0])) {
-				killMe.insert(0, "hud");
-			}
+			var killMe:Array<String> = splitPropertyPath(variable);
 			if(killMe.length > 1)
 				result = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
 			else
@@ -286,10 +283,7 @@ class FunkinLua {
 		});
 		
 		Lua_helper.add_callback(lua, "getProperty", function(variable:String) {
-			var killMe:Array<String> = variable.split('.');
-			if(hudVars.contains(killMe[0])) {
-				killMe.insert(0, "hud");
-			}
+			var killMe:Array<String> = splitPropertyPath(variable);
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = null;
 				if(PlayState.instance.modchartSprites.exists(killMe[0])) {
@@ -306,10 +300,7 @@ class FunkinLua {
 			return Reflect.getProperty(PlayState.instance, variable);
 		});
 		Lua_helper.add_callback(lua, "setProperty", function(variable:String, value:Dynamic) {
-			var killMe:Array<String> = variable.split('.');
-			if(hudVars.contains(killMe[0])) {
-				killMe.insert(0, "hud");
-			}
+			var killMe:Array<String> = splitPropertyPath(variable);
 			if(killMe.length > 1) {
 				setVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1], value);
 				return true;
@@ -1052,7 +1043,7 @@ class FunkinLua {
 				return;
 			}
 			else if(PlayState.instance.modchartTiledSprites.exists(obj)) {
-				PlayState.instance.modchartSprites.get(obj).animation.play(name, forced);
+				PlayState.instance.modchartTiledSprites.get(obj).animation.play(name, forced);
 				return;
 			}
 
@@ -1068,7 +1059,7 @@ class FunkinLua {
 				return;
 			}
 			else if(PlayState.instance.modchartTiledSprites.exists(obj)) {
-				PlayState.instance.modchartSprites.get(obj).animation.frameIndex = index;
+				PlayState.instance.modchartTiledSprites.get(obj).animation.frameIndex = index;
 				return;
 			}
 
@@ -1336,10 +1327,7 @@ class FunkinLua {
 			var spr:FlxSprite = PlayState.instance.getLuaObject(obj);
 
 			if(spr==null){
-				var killMe:Array<String> = obj.split('.');
-				if(hudVars.contains(killMe[0])) {
-					killMe.insert(0, "hud");
-				}
+				var killMe:Array<String> = splitPropertyPath(obj);
 				spr = getObjectDirectly(killMe[0]);
 				if(killMe.length > 1) {
 					spr = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
@@ -1544,21 +1532,18 @@ class FunkinLua {
 			if (text5 == null) text5 = '';
 			//luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
 		});
-		Lua_helper.add_callback(lua, "close", function() {
-			closed = true;
-			return closed;
-		});
+		var closeScript = function() {
+			if (runningScript == null)
+				return false;
+			runningScript.closed = true;
+			return true;
+		};
+		Lua_helper.add_callback(lua, "close", closeScript);
+		Lua_helper.add_callback(lua, "stop", closeScript);
 
 		/* Ok... Isso está bem feio, mas na falta de ideia melhor... E que mexa em menos coisa*/
 		Lua_helper.add_callback(lua, "loadStatic", function() {
 			PlayState.instance.loadStaticNotes();
-		});
-
-		/* Convenientemente tem uma função que "fecha", o lua, mas que não encerra ele de fato... */
-		Lua_helper.add_callback(lua, "stop", function() {
-			closed = true;
-			PlayState.instance.removeLua(this);
-			return closed;
 		});
 
 		Lua_helper.add_callback(lua, "startachieving", function(achieveID:String) {
@@ -1905,74 +1890,6 @@ class FunkinLua {
 
 		//Discord.DiscordClient.addLuaCallbacks(lua);
 
-				//SHADER SHIT
-
-		
-		
-				Lua_helper.add_callback(lua, "addChromaticAbberationEffect", function(camera:String,chromeOffset:Float = 0.005) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new ChromaticAberrationEffect(chromeOffset));
-					}
-				});
-				
-				Lua_helper.add_callback(lua, "addScanlineEffect", function(camera:String,lockAlpha:Bool=false) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new ScanlineEffect(lockAlpha));
-					}
-				});
-				Lua_helper.add_callback(lua, "addGrainEffect", function(camera:String,grainSize:Float,lumAmount:Float,lockAlpha:Bool=false) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new GrainEffect(grainSize,lumAmount,lockAlpha));
-					}
-				});
-				Lua_helper.add_callback(lua, "addTiltshiftEffect", function(camera:String,blurAmount:Float,center:Float) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new TiltshiftEffect(blurAmount,center));
-					}
-				});
-				Lua_helper.add_callback(lua, "addVCREffect", function(camera:String,glitchFactor:Float = 0.0,distortion:Bool=true,perspectiveOn:Bool=true,vignetteMoving:Bool=true) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new VCRDistortionEffect(glitchFactor,distortion,perspectiveOn,vignetteMoving));
-					}
-				});
-				Lua_helper.add_callback(lua, "addGlitchEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new GlitchEffect(waveSpeed,waveFrq,waveAmp));
-					}
-				});
-				Lua_helper.add_callback(lua, "addPulseEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new PulseEffect(waveSpeed,waveFrq,waveAmp));
-					}
-				});
-				Lua_helper.add_callback(lua, "addDistortionEffect", function(camera:String,waveSpeed:Float = 0.1,waveFrq:Float = 0.1,waveAmp:Float = 0.1) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new DistortBGEffect(waveSpeed,waveFrq,waveAmp));
-					}
-				});
-				Lua_helper.add_callback(lua, "addInvertEffect", function(camera:String,lockAlpha:Bool=false) {
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new InvertColorsEffect(lockAlpha));
-					}
-				});
-				Lua_helper.add_callback(lua, "addGreyscaleEffect", function(camera:String) { //for dem funkies
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new GreyscaleEffect());
-					}
-				});
-				Lua_helper.add_callback(lua, "add3DEffect", function(camera:String,xrotation:Float=0,yrotation:Float=0,zrotation:Float=0,depth:Float=0) { //for dem funkies
-					if(ClientPrefs.shaders) {
-					addShaderToCamera(camera, new ThreeDEffect(xrotation,yrotation,zrotation,depth));
-					}
-				});
-				Lua_helper.add_callback(lua, "addBloomEffect", function(camera:String,intensity:Float = 0.35,blurSize:Float=1.0) {
-					if(ClientPrefs.shaders){
-					addShaderToCamera(camera, new BloomEffect(blurSize/512.0,intensity));
-					}
-				});
-				Lua_helper.add_callback(lua, "clearEffects", function(camera:String) {
-					clearShaderFromCamera(camera);
-				});
 				Lua_helper.add_callback(lua, "sunshine_shaders", function(start:Bool) {
 					PlayState.instance.analog_shader(start);
 				});
@@ -2104,7 +2021,7 @@ class FunkinLua {
 	}
 
 	function resetTiledSpriteTag(tag:String) {
-		if(!PlayState.instance.modchartSprites.exists(tag)) {
+		if(!PlayState.instance.modchartTiledSprites.exists(tag)) {
 			return;
 		}
 		
@@ -2193,7 +2110,7 @@ class FunkinLua {
 			case 'sineout': return FlxEase.sineOut;
 			case 'smoothstepin': return FlxEase.smoothStepIn;
 			case 'smoothstepinout': return FlxEase.smoothStepInOut;
-			case 'smoothstepout': return FlxEase.smoothStepInOut;
+			case 'smoothstepout': return FlxEase.smoothStepOut;
 			case 'smootherstepin': return FlxEase.smootherStepIn;
 			case 'smootherstepinout': return FlxEase.smootherStepInOut;
 			case 'smootherstepout': return FlxEase.smootherStepOut;
@@ -2247,6 +2164,14 @@ class FunkinLua {
 			return coverMeInPiss;
 		}
 
+	static function splitPropertyPath(path:String):Array<String>
+	{
+		var parts:Array<String> = path.split('.');
+		if (hudVars.exists(parts[0]))
+			parts.insert(0, "HUD");
+		return parts;
+	}
+
 	public static function getObjectDirectly(objectName:String, ?checkForTextsToo:Bool = true):Dynamic
 	{
 		var coverMeInPiss:Dynamic = PlayState.instance.getLuaObject(objectName, checkForTextsToo);
@@ -2256,120 +2181,6 @@ class FunkinLua {
 		return coverMeInPiss;
 	}
 
-	public static function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
-	  
-	  
-		if(ClientPrefs.shaders)
-		  {
-			  switch(cam.toLowerCase()) {
-				  case 'camhud' | 'hud':
-						  camHUDShaders.push(effect);
-						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						  for(i in camHUDShaders){
-							newCamEffects.push(new ShaderFilter(i.shader));
-						  }
-						  PlayState.instance.camHUD.setFilters(newCamEffects);
-				  case 'camother' | 'other':
-						  camOtherShaders.push(effect);
-						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						  for(i in camOtherShaders){
-							newCamEffects.push(new ShaderFilter(i.shader));
-						  }
-						  PlayState.instance.camOther.setFilters(newCamEffects);
-				  case 'camgame' | 'game':
-						  camGameShaders.push(effect);
-						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						  for(i in camGameShaders){
-							newCamEffects.push(new ShaderFilter(i.shader));
-						  }
-						  PlayState.instance.camGame.setFilters(newCamEffects);
-				  case 'campasta' | 'pasta':
-							  camGameShaders.push(effect);
-							  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-							  for(i in camGameShaders){
-								newCamEffects.push(new ShaderFilter(i.shader));
-							  }
-							  PastaNightSelect.selectCam.setFilters(newCamEffects);
-				  default:
-						  camOtherShaders.push(effect);
-						  var newCamEffects:Array<BitmapFilter>=[]; // IT SHUTS HAXE UP IDK WHY BUT WHATEVER IDK WHY I CANT JUST ARRAY<SHADERFILTER>
-						  for(i in camOtherShaders){
-						  newCamEffects.push(new ShaderFilter(i.shader));
-						  }
-						  //PlayState.instance.camOther.setFilters(newCamEffects);
-						  FlxG.camera.setFilters(newCamEffects);
-				  
-				  
-					  
-					  
-			  }
-		  }
-		
-		
-		
-		
-	}
-  
-	public static function removeShaderFromCamera(cam:String,effect:ShaderEffect){
-		
-		
-		  switch(cam.toLowerCase()) {
-			  case 'camhud' | 'hud': 
-	  camHUDShaders.remove(effect);
-	  var newCamEffects:Array<BitmapFilter>=[];
-	  for(i in camHUDShaders){
-		newCamEffects.push(new ShaderFilter(i.shader));
-	  }
-	  PlayState.instance.camHUD.setFilters(newCamEffects);
-			  case 'camother' | 'other': 
-					  camOtherShaders.remove(effect);
-					  var newCamEffects:Array<BitmapFilter>=[];
-					  for(i in camOtherShaders){
-						newCamEffects.push(new ShaderFilter(i.shader));
-					  }
-					  PlayState.instance.camOther.setFilters(newCamEffects);
-					  case 'campasta' | 'pasta': 
-						  camOtherShaders.remove(effect);
-						  var newCamEffects:Array<BitmapFilter>=[];
-						  for(i in camOtherShaders){
-							newCamEffects.push(new ShaderFilter(i.shader));
-						  }
-						  PastaNightSelect.selectCam.setFilters(newCamEffects);
-			  default: 
-				  camGameShaders.remove(effect);
-				  var newCamEffects:Array<BitmapFilter>=[];
-				  for(i in camGameShaders){
-					newCamEffects.push(new ShaderFilter(i.shader));
-				  }
-				  PlayState.instance.camGame.setFilters(newCamEffects);
-		  }
-		  
-		
-	}
-	  
-	  
-	  
-	public static function clearShaderFromCamera(cam:String){
-		
-		
-		  switch(cam.toLowerCase()) {
-			  case 'camhud' | 'hud': 
-				  camHUDShaders = [];
-				  var newCamEffects:Array<BitmapFilter>=[];
-				  PlayState.instance.camHUD.setFilters(newCamEffects);
-			  case 'camother' | 'other': 
-				  camOtherShaders = [];
-				  var newCamEffects:Array<BitmapFilter>=[];
-				  PlayState.instance.camOther.setFilters(newCamEffects);
-			  default: 
-				  camGameShaders = [];
-				  var newCamEffects:Array<BitmapFilter>=[];
-				  PlayState.instance.camGame.setFilters(newCamEffects);
-		  }
-		  
-		
-	}
-  
 	public static function setVarInArray(instance:Dynamic, variable:String, value:Dynamic):Any
 		{
 			var shit:Array<String> = variable.split('[');
@@ -2428,8 +2239,10 @@ class FunkinLua {
 
 	inline static function getTextObject(name:String):FlxText
 	{
-		return PlayState.instance.modchartTexts.exists(name) ? PlayState.instance.modchartTexts.get(name) : Type.getInstanceFields(Type.getClass(PlayState.instance.HUD)).contains(name) ? Reflect.getProperty(PlayState.instance.HUD, name) : Reflect.getProperty(PlayState.instance, name);
-	} //Cuidado, linha gigantesca acima :skull:
+		if (PlayState.instance.modchartTexts.exists(name))
+			return PlayState.instance.modchartTexts.get(name);
+		return Reflect.getProperty(hudVars.exists(name) ? PlayState.instance.HUD : PlayState.instance, name);
+	}
 
 	inline static function getTiledSpriteObject(name:String):FlxTiledSprite
 		{
@@ -2475,6 +2288,7 @@ class FunkinLua {
 		if(closed) return Function_Continue;
 
 		lastCalledFunction = func;
+		var previousScript:FunkinLua = runningScript;
 		try {
 			if(lua == null) return Function_Continue;
 
@@ -2490,7 +2304,9 @@ class FunkinLua {
 			}
 
 			for (arg in args) Convert.toLua(lua, arg);
+			runningScript = this;
 			var status:Int = Lua.pcall(lua, args.length, 1, 0);
+			runningScript = previousScript;
 
 			// Checks if it's not successful, then show a error.
 			if (status != Lua.LUA_OK) {
@@ -2507,6 +2323,7 @@ class FunkinLua {
 			return result;
 		}
 		catch (e:Dynamic) {
+			runningScript = previousScript;
 			trace(e);
 		}
 		#end
@@ -2594,7 +2411,6 @@ class FunkinLua {
 		if(accessedProps != null) {
 			accessedProps.clear();
 		}
-		PlayState.instance.removeLua(this);
 		Lua.close(lua);
 		lua = null;
 		#end

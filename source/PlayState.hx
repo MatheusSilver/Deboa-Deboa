@@ -6019,14 +6019,6 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.fadeTween = null;
 	}
 
-	public function removeLua(lua:FunkinLua)
-	{
-		if (luaArray != null && !preventLuaRemove)
-		{
-			luaArray.remove(lua);
-		}
-	}
-
 	public static function cancelMusicFadeTween()
 	{
 		if (FlxG.sound.music.fadeTween != null)
@@ -6761,19 +6753,13 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	public function callOnLuas(event:String, args:Array<Dynamic>, ignoreStops = true, exclusions:Array<String> = null,
-			excludeValues:Array<Dynamic> = null):Dynamic
+	public function callOnLuas(event:String, args:Array<Dynamic>, ignoreStops = true, exclusions:Array<String> = null):Dynamic
 	{
 		var returnVal = FunkinLua.Function_Continue;
 		#if LUA_ALLOWED
-		if (exclusions == null)
-			exclusions = [];
-		if (excludeValues == null)
-			excludeValues = [];
-
 		for (script in luaArray)
 		{
-			if (exclusions.contains(script.scriptName))
+			if (script.closed || (exclusions != null && exclusions.contains(script.scriptName)))
 				continue;
 
 			var myValue = script.call(event, args);
@@ -6785,8 +6771,27 @@ class PlayState extends MusicBeatState
 				returnVal = myValue;
 			}
 		}
+
+		removeClosedLuas();
 		#end
 		return returnVal;
+	}
+
+	function removeClosedLuas():Void
+	{
+		if (FunkinLua.runningScript != null)
+			return;
+
+		var i:Int = luaArray.length;
+		while (i-- > 0)
+		{
+			var script:FunkinLua = luaArray[i];
+			if (script.closed)
+			{
+				luaArray.splice(i, 1);
+				script.stop();
+			}
+		}
 	}
 
 	public function setOnLuas(variable:String, arg:Dynamic)
