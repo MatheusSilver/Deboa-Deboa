@@ -140,7 +140,6 @@ class AudioManager
 	private static function getCurrentOutputDeviceName():String
 	{
 		#if (lime_cffi && !macro && lime_openal)
-		ALC.getString(null, ALC.ALL_DEVICES_SPECIFIER);
 		var name = ALC.getString(null, ALC.DEFAULT_ALL_DEVICES_SPECIFIER);
 
 		if (name == null || name.length == 0)

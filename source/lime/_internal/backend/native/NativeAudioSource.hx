@@ -223,6 +223,12 @@ class NativeAudioSource
 
 	public function pause():Void
 	{
+		if (handle == null && pendingPlay)
+		{
+			lastKnownTime = getCurrentTime();
+			lastKnownStamp = Timer.stamp();
+		}
+
 		playing = false;
 		pendingPlay = false;
 
@@ -688,7 +694,14 @@ class NativeAudioSource
 			}
 		}
 
-		return 0;
+		if (pendingPlay)
+		{
+			var estimate = lastKnownTime + Std.int((Timer.stamp() - lastKnownStamp) * 1000);
+			var total = getLength();
+			return estimate > total ? total : estimate;
+		}
+
+		return lastKnownTime;
 	}
 
 	public function setCurrentTime(value:Int):Int
