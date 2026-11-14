@@ -181,6 +181,7 @@ class ConsoleClashSubState extends MusicBeatSubstate
 		PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 		PlayState.storyDifficulty = crossDifficulty;
 		PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
+		SongPreloader.start(PlayState.SONG);
 		if(ClientPrefs.flashing) FlxG.camera.flash(onSonic ? FlxColor.BLUE : FlxColor.RED, 1.0);
 
 		openSubState(new LoadingsState());

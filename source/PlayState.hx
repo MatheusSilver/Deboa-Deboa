@@ -78,6 +78,8 @@ import flixel.system.FlxSound;
 import mobile.MobileControls;
 #end
 
+typedef StageImage = {key:String, library:Null<String>, atlas:Bool};
+
 class PlayState extends MusicBeatState
 {
 	public static var movecameraallowed:Bool = true;
@@ -467,10 +469,98 @@ class PlayState extends MusicBeatState
 
 	var legendaManager:LegendaManager;
 
+	public static function fixedPrecache():Array<{key:String, type:String}>
+	{
+		return [
+			{key: 'pause/pause (perfil)', type: 'image'},
+			{key: 'pause/pause (sonicexe)', type: 'image'},
+			{key: 'unpause', type: 'sound'},
+			{key: 'PauseEnter', type: 'sound'},
+			{key: 'pausescrollmenu', type: 'sound'},
+			{key: 'breakfast', type: 'music'}
+		];
+	}
+
+	public static function countdownImages(isPixelStage:Bool):Array<String>
+	{
+		return isPixelStage ? ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel'] : ['ready', 'set', 'go'];
+	}
+
+	public static function haxeStageImages(stage:String, gore:Bool, lowQuality:Bool, shaders:Bool):Array<StageImage>
+	{
+		var images:Array<StageImage> = [];
+		var image = function(key:String, ?library:String, atlas:Bool = false) images.push({key: key, library: library, atlas: atlas});
+		switch (stage)
+		{
+			case 'too-slow':
+				image('PolishedP1/' + (gore ? 'antigore' : 'FLOOR1'));
+			case 'fakerStage':
+				image('daSTAT', 'preload', true);
+				image('Faker_Transformation', null, true);
+			case 'd-side-stage':
+				image('TOO-SLOW/background ladders');
+				image('TOO-SLOW/icicles background');
+				image('TOO-SLOW/main stage');
+				if (gore && !lowQuality)
+					image('TOO-SLOW/main stage spoopy');
+				image('snowgrave', null, true);
+				image('NOTE_assets', null, true);
+				image('FreezeIndicator');
+				image('TOO-SLOW/icicles foreground');
+				if (shaders)
+					image('TOO-SLOW/toolazytocliprect');
+			case 'P2Stage':
+				if (!lowQuality)
+					image('cenarios/Glitch');
+				image('cenarios/ground');
+				image('cenarios/GreenHill');
+			case 'P3Stage':
+				if (!lowQuality)
+				{
+					image('cenarios/Glitch');
+					image('effects/estatica', 'shared', true);
+				}
+				image('cenarios/ground');
+				image('cenarios/ceu_scrap_brain');
+				image('cenarios/chao_scrap_brain');
+			case 'needle':
+				for (part in ['sky', 'mountains', 'ruins', 'CONK_CREET'])
+					image('cenarios/needlemouse/' + part);
+				if (!lowQuality)
+				{
+					image('cenarios/needlemouse/buildings');
+					image('cenarios/needlemouse/fg');
+				}
+			case 'chasing':
+				image('cenarios/chasing/GreenHill');
+				image('cenarios/chasing/BGSky');
+			case 'starved-pixel':
+				image('empty');
+		}
+		return images;
+	}
+
+	public static function startScreenImages(song:String):Array<StageImage>
+	{
+		var daSong:String = Paths.formatToSongPath(song).toLowerCase();
+		return switch (daSong)
+		{
+			case 'too-slow' | 'you-cant-run' | 'triple-trouble' | 'endless' | 'cycles' | 'prey' | 'faker' | 'black-sun' | 'round-a-bout':
+				[
+					{key: 'StartScreen/Circle-' + daSong, library: null, atlas: false},
+					{key: 'StartScreen/Text-' + daSong, library: 'locales', atlas: false}
+				];
+			case 'milk':
+				[{key: 'StartScreen/Sunky', library: null, atlas: false}];
+			default:
+				[];
+		}
+	}
+
 	override public function create()
 	{
 		if (limparCache) // Isso serve pro game não ficar limpando cache a cada vez que você reseta a música, fazendo assim o reset ser mais rápido.
-			Paths.clearStoredMemory();
+			Paths.clearStoredMemory(SongPreloader.keysFor(SONG));
 
 		Achievements.loadAchievements();
 		this.isPlayState = true;
@@ -481,12 +571,8 @@ class PlayState extends MusicBeatState
 		// Precache geral
 		cambump_allowed = true;
 
-		precacheList.set('pause/pause (perfil)', 'image');
-		precacheList.set('pause/pause (sonicexe)', 'image');
-		precacheList.set('unpause', 'sound');
-		precacheList.set('PauseEnter', 'sound');
-		precacheList.set('pausescrollmenu', 'sound');
-		precacheList.set('breakfast', 'music');
+		for (asset in fixedPrecache())
+			precacheList.set(asset.key, asset.type);
 
 
 		legendPath = 'letras/' + SONG.song.toLowerCase() + '/' + ClientPrefs.lingua+"/";
@@ -1517,13 +1603,7 @@ class PlayState extends MusicBeatState
 
 	function cacheCountdown()
 	{
-		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-		introAssets.set('default', ['ready', 'set', 'go']);
-		introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
-
-		var introAlts:Array<String> = introAssets.get('default');
-		if (isPixelStage)
-			introAlts = introAssets.get('pixel');
+		var introAlts:Array<String> = countdownImages(isPixelStage);
 
 		for (asset in introAlts)
 			precacheList.set(asset, 'image');
@@ -1605,6 +1685,27 @@ class PlayState extends MusicBeatState
 				}
 		}
 		
+	}
+
+	function prepareCharacter(name:String, charType:Int):Bool
+	{
+		addCharacterToList(name, charType);
+		if (isCharacterReady(name, charType))
+			return true;
+
+		trace('Personagem $name ainda está carregando, troca ignorada');
+		return false;
+	}
+
+	function isCharacterReady(name:String, charType:Int):Bool
+	{
+		return switch (charType)
+		{
+			case 0: boyfriendMap.exists(name);
+			case 1: dadMap.exists(name);
+			case 2: gfMap.exists(name);
+			default: false;
+		}
 	}
 
 	private function startBF(newBoyfriend:Boyfriend, newCharacter:String){
@@ -4551,13 +4652,8 @@ class PlayState extends MusicBeatState
 				switch (charType)
 				{
 					case 0:
-						if (boyfriend.curCharacter != value2)
+						if (boyfriend.curCharacter != value2 && prepareCharacter(value2, charType))
 						{
-							if (!boyfriendMap.exists(value2))
-							{
-								addCharacterToList(value2, charType);
-							}
-
 							boyfriend.visible = false;
 							boyfriend = boyfriendMap.get(value2);
 							if (!boyfriend.alreadyLoaded)
@@ -4574,13 +4670,8 @@ class PlayState extends MusicBeatState
 
 						updateCamPos('bf');
 					case 1:
-						if (dad.curCharacter != value2)
+						if (dad.curCharacter != value2 && prepareCharacter(value2, charType))
 						{
-							if (!dadMap.exists(value2))
-							{
-								addCharacterToList(value2, charType);
-							}
-
 							var wasGf:Bool = dad.curCharacter.startsWith('gf');
 							dad.visible = false;
 							dad = dadMap.get(value2);
@@ -4610,13 +4701,8 @@ class PlayState extends MusicBeatState
 						updateCamPos('dad');
 
 					case 2:
-						if (gf.curCharacter != value2)
+						if (gf.curCharacter != value2 && prepareCharacter(value2, charType))
 						{
-							if (!gfMap.exists(value2))
-							{
-								addCharacterToList(value2, charType);
-							}
-
 							gf.visible = false;
 							gf = gfMap.get(value2);
 							if (!gf.alreadyLoaded)
@@ -6000,11 +6086,12 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	private var preventLuaRemove:Bool = false;
-
 	override function destroy()
 	{
-		preventLuaRemove = true;
+		SongPreloader.release();
+		if (cacheLoader != null)
+			cacheLoader.cancel();
+
 		for (i in 0...luaArray.length)
 		{
 			luaArray[i].call('onDestroy', []);

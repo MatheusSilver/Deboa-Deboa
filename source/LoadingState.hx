@@ -224,11 +224,19 @@ class LoadingState extends MusicBeatState
 			waitTime = 1.6;
 		}
 
+		var toSong:Bool = Std.isOfType(target, PlayState);
+		if (toSong)
+			SongPreloader.start(PlayState.SONG);
+
 		FlxTransitionableState.skipNextTransIn = true;
 		FlxTransitionableState.skipNextTransOut = true;
 		new FlxTimer().start(waitTime, function(tmr:FlxTimer) {
-			FlxG.switchState(getNextState(target, stopMusic));
-		});	
+			var switchNow = function() FlxG.switchState(getNextState(target, stopMusic));
+			if (toSong)
+				SongPreloader.whenReady(switchNow);
+			else
+				switchNow();
+		});
 	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState

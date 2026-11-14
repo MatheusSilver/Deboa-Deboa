@@ -18,6 +18,8 @@ class VideoState extends MusicBeatState
 
 	var text:FlxText;
 
+	var closing:Bool = false;
+
 	public function new(source:String, toTrans:FlxState)
 	{
 		super();
@@ -48,12 +50,19 @@ class VideoState extends MusicBeatState
 
 	function onClose()
 	{ // not working
+		if (closing)
+			return;
+		closing = true;
+
 		text.alpha = 0;
 		changecount = 0;
 		// FlxG.autoPause = true;
 		trace('close!');
 		trace(nextState);
-		MusicBeatState.switchState(nextState);
+		if (Std.isOfType(nextState, PlayState))
+			SongPreloader.whenReady(() -> MusicBeatState.switchState(nextState), 0);
+		else
+			MusicBeatState.switchState(nextState);
 	}
 
 	function onURLChanging(url:String)

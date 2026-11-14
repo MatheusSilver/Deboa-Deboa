@@ -154,6 +154,7 @@ class PastaNightSelect extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.storyDifficulty = crossDifficulty;
 			PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
+			SongPreloader.start(PlayState.SONG);
 
 			if(ClientPrefs.flashing) FlxG.camera.flash(FlxColor.RED, 1.0);
 			selectCam = new FlxCamera(0, 0, 1280, 720);

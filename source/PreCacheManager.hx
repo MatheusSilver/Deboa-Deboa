@@ -9,6 +9,10 @@ class PreCacheManager
     private var assetsToLoad:Int = 0;
     private var onLoadComplete:Void->Void;
 
+    private var batchStarted:Bool = false;
+
+    public var cancelled(default, null):Bool = false;
+
     public function new(onLoadComplete:Void->Void)
     {
         clearLoadList();
@@ -23,21 +27,41 @@ class PreCacheManager
         characters = [];
     }
 
-    inline public function requestSound(key:String):Void
-        sounds.push(key);
-    
-    inline public function requestCharacter(char:Character):Void
-        characters.push(char);
-    
+    public function requestSound(key:String):Void
+    {
+        if (batchStarted)
+            Paths.sound(key);
+        else
+            sounds.push(key);
+    }
 
-    inline public function requestImage(key:String):Void
-        images.push(key);
+    public function requestCharacter(char:Character):Void
+    {
+        if (batchStarted)
+            char.onImageLoaded();
+        else
+            characters.push(char);
+    }
 
-    inline public function requestMusic(key:String):Void
-        music.push(key);
+    public function requestImage(key:String):Void
+    {
+        if (batchStarted)
+            Paths.image(key);
+        else
+            images.push(key);
+    }
+
+    public function requestMusic(key:String):Void
+    {
+        if (batchStarted)
+            Paths.music(key);
+        else
+            music.push(key);
+    }
 
     public function loadAssets():Void
     {
+        batchStarted = true;
         assetsToLoad = sounds.length + images.length + music.length + characters.length;
 
         if (assetsToLoad == 0)
@@ -75,6 +99,12 @@ class PreCacheManager
         // E se isso aqui não rodar, é porque novamente eu fiz muita muita merda...
         if (assetsToLoad == 0)
             finish();
+    }
+
+    public function cancel():Void
+    {
+        cancelled = true;
+        onLoadComplete = null;
     }
 
     private function finish():Void

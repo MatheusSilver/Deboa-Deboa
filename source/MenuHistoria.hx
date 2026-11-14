@@ -466,6 +466,7 @@ class MenuHistoria extends MusicBeatSubstate
 			// Nesse eu não vou mexer, tô com medo de ferrar alguma coisa.
 			if (toPlay && nombres[curSelected] != 'Noite da Rapaziada')
 			{
+				SongPreloader.start(PlayState.SONG);
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					if (PlayState.SONG.videonombre != null && PlayState.SONG.videonombre.length > 5)

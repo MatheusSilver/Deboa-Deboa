@@ -18,6 +18,11 @@ import lime.media.vorbis.VorbisFile;
 import lime.utils.Assets as LimeAssets;
 import haxe.io.Bytes;
 import flixel.util.FlxDestroyUtil;
+import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
+import flixel.math.FlxPoint;
+import flixel.math.FlxRect;
+import haxe.xml.Access;
+import openfl.geom.Rectangle;
 
 #if cpp
 import cpp.vm.Gc;
@@ -37,7 +42,7 @@ class Paths
 	inline public static final SOUND_EXT = #if web "mp3" #else "ogg" #end;
 	inline public static final VIDEO_EXT = "mp";
 
-	public static var localTrackedAssets:Array<String> = [];
+	public static var localTrackedAssets:Map<String, Bool> = [];
 	public static var currentTrackedTextures:Map<String, Texture> = [];
 	public static var currentTrackedAssets:Map<String, FlxGraphic> = [];
 	public static var currentTrackedSounds:Map<String, Sound> = [];
@@ -100,7 +105,7 @@ class Paths
 			for (key in currentTrackedAssets.keys())
 			{
 				// if it is not currently contained within the used local assets
-				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key))
+				if (!localTrackedAssets.exists(key) && !dumpExclusions.contains(key))
 				{
 					clear_memory_by_key(key);
 					counter++;
@@ -114,18 +119,19 @@ class Paths
 			#end
 	}
 
-	public static function clearStoredMemory(?cleanUnused:Bool = false)
+	public static function clearStoredMemory(?keep:Map<String, Bool>)
 	{
 			@:privateAccess
 			for (key in FlxG.bitmap._cache.keys())
-				clear_memory_by_key(key);
+				if (keep == null || !keep.exists(key))
+					clear_memory_by_key(key);
 
 			#if PRELOAD_ALL
 			// clear all sounds that are cached
 			var counterSound:Int = 0;
 			for (key in currentTrackedSounds_cacheID.keys())
 			{
-				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
+				if (!localTrackedAssets.exists(key) && !dumpExclusions.contains(key) && key != null && (keep == null || !keep.exists(key)))
 				{
 					// trace('test: ' + dumpExclusions, key);
 					clear_memory_by_key(key);
@@ -138,7 +144,7 @@ class Paths
 			var counterLeft:Int = 0;
 			for (key in OpenFlAssets.cache.getKeys())
 			{
-				if (!localTrackedAssets.contains(key) && !dumpExclusions.contains(key) && key != null)
+				if (!localTrackedAssets.exists(key) && !dumpExclusions.contains(key) && key != null)
 				{
 					OpenFlAssets.cache.clear(key);
 					counterLeft++;
@@ -147,9 +153,13 @@ class Paths
 			}
 
 			// flags everything to be cleared out next unused memory clear
-			localTrackedAssets = [];
+			localTrackedAssets.clear();
 			openfl.Assets.cache.clear("songs");
 			#end
+
+		if (keep != null)
+			for (key in keep.keys())
+				localTrackedAssets.set(key, true);
 
 		var cache:haxe.ds.Map<String, FlxGraphic> = cast Reflect.field(FlxG.bitmap, "_cache");
 		for (key => graphic in cache)
@@ -364,7 +374,7 @@ class Paths
 			/*else
 				trace('Carregando do cache existente: $key');*/
 
-			localTrackedAssets.push(key);
+			localTrackedAssets.set(key, true);
 			return currentTrackedAssets.get(key);
 		}#if (desktop && debug) // Nao kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkj
 		// po vei eu era mt burro
@@ -380,7 +390,7 @@ class Paths
 					graphic.persist = true;
 					currentTrackedAssets.set(key, graphic);
 				}
-				localTrackedAssets.push(key);
+				localTrackedAssets.set(key, true);
 				return currentTrackedAssets.get(key);
 		}
 		#end
@@ -394,49 +404,147 @@ class Paths
 	public static function preloadSound(key:String, path:String, cachingManager:PreCacheManager, ?library:String){
 		var address:String = getSoundAddress(key, path, key, library);
 
-	    if (isAudioLoaded(key)){
+		if (isAudioLoaded(key)){
 			cachingManager.decreaseLoadedObjects();
 			return;
 		}
 
-		if (OpenFlAssets.exists(address, SOUND)){
-			OpenFlAssets.loadSound(address).onComplete(function(sound:Sound) {
-				currentTrackedSounds_cacheID.set(key, address);
-				currentTrackedSounds.set(address, sound);
-				cachingManager.decreaseLoadedObjects();
-				
-			});
-		} else
+		if (!OpenFlAssets.exists(address, SOUND)){
 			FlxG.log.error('Could not find sound at ${address}');
+			cachingManager.decreaseLoadedObjects();
+			return;
+		}
+
+		OpenFlAssets.loadSound(address).onComplete(function(sound:Sound) {
+			currentTrackedSounds_cacheID.set(key, address);
+			currentTrackedSounds.set(address, sound);
+			cachingManager.decreaseLoadedObjects();
+		}).onError(function(_) {
+			FlxG.log.error('Could not load sound at ${address}');
+			cachingManager.decreaseLoadedObjects();
+		});
 	}
 
+	static var pendingImageLoads:Map<String, Array<Void->Void>> = [];
+
 	public static function preloadImage(key:String, cachingManager:PreCacheManager, ?library:String, ?char:Character = null){
-		var gpuAllowed:Bool = ClientPrefs.loadingexperimental;
+		var onDone:Void->Void = function() {
+			if (cachingManager.cancelled)
+				return;
+			localTrackedAssets.set(key, true);
+			/* Primeiro carregamos as infos do personagem, e depois marcamos que ele foi carregado */
+			if (char != null)
+				char.onImageLoaded();
+			cachingManager.decreaseLoadedObjects();
+		};
+
+		if (currentTrackedAssets.exists(key)){
+			onDone();
+			return;
+		}
+
+		if (pendingImageLoads.exists(key)){
+			pendingImageLoads.get(key).push(onDone);
+			return;
+		}
 
 		var path:String = getPath('images/$key.png', IMAGE, library);
-		if (OpenFlAssets.exists(path, IMAGE)){
-			if (!currentTrackedAssets.exists(key))
-			{
-				OpenFlAssets.loadBitmapData(path).onComplete(function(bitmap:BitmapData) {
-					processBitmap(key, bitmap, gpuAllowed);
-					if (char == null)
-						cachingManager.decreaseLoadedObjects();
-					else {
-						/* Primeiro carregamos as infos do personagem, e depois marcamos que ele foi carregado */
-						char.onImageLoaded();
-						cachingManager.decreaseLoadedObjects();
-					}
-				});
-			}else{
-				if (char == null)
-					cachingManager.decreaseLoadedObjects();
-				else {
-					char.onImageLoaded();
-					cachingManager.decreaseLoadedObjects();
-				}
-			}
-		} else
+		if (!OpenFlAssets.exists(path, IMAGE)){
 			FlxG.log.error('Could not find image at ${path}');
+			onDone();
+			return;
+		}
+
+		var gpuAllowed:Bool = ClientPrefs.loadingexperimental;
+		pendingImageLoads.set(key, [onDone]);
+		OpenFlAssets.loadBitmapData(path).onComplete(function(bitmap:BitmapData) {
+			if (currentTrackedAssets.exists(key))
+				FlxDestroyUtil.dispose(bitmap);
+			else
+				processBitmap(key, bitmap, gpuAllowed);
+			finishPendingImageLoad(key);
+		}).onError(function(_) {
+			FlxG.log.error('Could not load image at ${path}');
+			finishPendingImageLoad(key);
+		});
+	}
+
+	static function finishPendingImageLoad(key:String){
+		var callbacks:Array<Void->Void> = pendingImageLoads.get(key);
+		pendingImageLoads.remove(key);
+		for (callback in callbacks)
+			callback();
+	}
+
+	public static function registerDecodedImage(key:String, image:lime.graphics.Image, canGPU:Bool):Void
+	{
+		if (!currentTrackedAssets.exists(key))
+			processBitmap(key, BitmapData.fromImage(image), canGPU && ClientPrefs.loadingexperimental);
+		localTrackedAssets.set(key, true);
+	}
+
+	public static function registerSparrowFrames(key:String, xml:Xml):Void
+	{
+		var graphic:FlxGraphic = currentTrackedAssets.get(key);
+		if (graphic == null || FlxAtlasFrames.findFrame(graphic) != null)
+			return;
+
+		var frames:FlxAtlasFrames = new FlxAtlasFrames(graphic);
+		var data:Access = new Access(xml.firstElement());
+		for (texture in data.nodes.SubTexture)
+		{
+			var name = texture.att.name;
+			var trimmed = texture.has.frameX;
+			var rotated = (texture.has.rotated && texture.att.rotated == "true");
+			var flipX = (texture.has.flipX && texture.att.flipX == "true");
+			var flipY = (texture.has.flipY && texture.att.flipY == "true");
+
+			var rect = FlxRect.get(Std.parseFloat(texture.att.x), Std.parseFloat(texture.att.y), Std.parseFloat(texture.att.width),
+				Std.parseFloat(texture.att.height));
+
+			var size = if (trimmed)
+			{
+				new Rectangle(Std.parseInt(texture.att.frameX), Std.parseInt(texture.att.frameY), Std.parseInt(texture.att.frameWidth),
+					Std.parseInt(texture.att.frameHeight));
+			}
+			else
+			{
+				new Rectangle(0, 0, rect.width, rect.height);
+			}
+
+			var angle = rotated ? FlxFrameAngle.ANGLE_NEG_90 : FlxFrameAngle.ANGLE_0;
+			var offset = FlxPoint.get(-size.left, -size.top);
+			var sourceSize = FlxPoint.get(size.width, size.height);
+			if (rotated && !trimmed)
+				sourceSize.set(size.height, size.width);
+
+			frames.addAtlasFrame(rect, sourceSize, offset, name, angle, flipX, flipY);
+		}
+	}
+
+	public static function registerStreamedSound(key:String, address:String, bytes:Bytes):Void
+	{
+		if (!isAudioLoaded(key))
+		{
+			var sound:Sound = streamedSound(bytes);
+			if (sound == null)
+				sound = OpenFlAssets.getSound(address);
+			currentTrackedSounds_cacheID.set(key, address);
+			currentTrackedSounds.set(address, sound);
+		}
+		localTrackedAssets.set(address, true);
+	}
+
+	public static function registerDecodedSound(key:String, address:String, buffer:lime.media.AudioBuffer):Void
+	{
+		if (isAudioLoaded(key))
+			buffer.dispose();
+		else
+		{
+			currentTrackedSounds_cacheID.set(key, address);
+			currentTrackedSounds.set(address, Sound.fromAudioBuffer(buffer));
+		}
+		localTrackedAssets.set(address, true);
 	}
 
 	private static function processBitmap(key, bitmap, gpuAllowed){
@@ -502,7 +610,7 @@ class Paths
 		else
 			FlxG.log.error('Could not find sound at ${address}');
 
-		localTrackedAssets.push(address);
+		localTrackedAssets.set(address, true);
 		return currentTrackedSounds.get(address);
 	}
 }

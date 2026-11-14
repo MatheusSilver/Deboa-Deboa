@@ -348,6 +348,7 @@ class FreeplayState extends MusicBeatState
 			previewSong = PlayState.SONG.song;
 		}
 		else if (accepted && apertavel) {
+			apertavel = false;
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			infoextended = songs[curSelected].display;
@@ -365,6 +366,7 @@ class FreeplayState extends MusicBeatState
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = 2;
 			PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
+			SongPreloader.start(PlayState.SONG);
 
 			justread = songs[curSelected].songName;
 			new FlxTimer().start(0.5, function(tmr:FlxTimer) {
