@@ -30,6 +30,11 @@ end
 
 function onUpdatePost(elapsed)
     if pendingTextureChange then
+        local currentLength = getProperty('unspawnNotes.length')
+        local nasceram = pendingTextureChange.totalNotes - currentLength
+        pendingIndex = math.max(0, pendingIndex - nasceram)
+        pendingTextureChange.totalNotes = currentLength
+
         local endIndex = math.min(pendingIndex + batchSize, pendingTextureChange.totalNotes)
         for i = pendingIndex, endIndex - 1 do
             if (getPropertyFromGroup('unspawnNotes', i, 'spawned')) then

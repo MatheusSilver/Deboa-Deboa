@@ -39,11 +39,11 @@ function onFixedUpdate()
 		floaty = floaty + (0.06) 
         setProperty('dad.y', getProperty('dad.y') + sin(floaty) * 0.5)
 		floaty = floaty + (0.05)
-        setProperty('dad.x', getProperty('dad.x') + cossin(floaty) * 0.5)
+        setProperty('dad.x', getProperty('dad.x') + cos(floaty) * 0.5)
 	elseif tailscircle == 'circling' then
 		floaty = floaty + (0.06) 
         setProperty('dad.y', getProperty('dad.y') + sin(floaty) * 3.8)
 		floaty = floaty + (0.05)
-        setProperty('dad.x', getProperty('dad.x') + cossin(floaty) * 1.9)
+        setProperty('dad.x', getProperty('dad.x') + cos(floaty) * 1.9)
     end
 end
