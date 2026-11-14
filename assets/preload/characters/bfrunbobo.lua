@@ -17,7 +17,7 @@ function onEvent(event, v1, v2)
         setProperty('bfrunlegsbobo.visible', true)
         playAnim('bfrunlegsbobo', 'run')
         scriptActive = true
-    elseif v1 == 'beef' then
+    elseif event == 'Change Character' and v2 == 'beef' then
         scriptActive = false
         removeLuaSprite('bfrunlegsbobo')
         stop();

@@ -19,7 +19,7 @@ function onEvent(event, v1, v2)
         setProperty('bfrunlegshand.visible', false) --Não tenho certeza, mas acho que esse sprite só é usado uma única vez.
     end
 
-    if event == 'trocar ato' and value1 == 'lateralRun' then
+    if event == 'trocar ato' and v1 == 'lateralRun' then
         removeLuaSprite('bfrunlegshand', true)
         stop();
     end
