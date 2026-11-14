@@ -50,7 +50,7 @@ function onUpdate(elapsed)
 end
 
 function onEvent(name, value1, value2, value3, value4)
-    if name == 'Adicionar Imagens diferenciadasso' then
+    if name == 'Adicionar Imagens diferenciadasso' and legendas then
         if value1 == '' or value1 == 'null' or value1 == nil then
             removeLuaSprite('exe', true)
         else
