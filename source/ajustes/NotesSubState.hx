@@ -70,7 +70,7 @@ class NotesSubState extends MusicBeatState
 			}
 
 			var note:FlxSprite = new FlxSprite(posX - 70, yPos);
-			note.frames = Paths.getSparrowAtlas('NOTE_assets');
+			note.frames = Paths.getSparrowAtlas('NOTE_assets', 'preload');
 			switch (i)
 			{
 				case 0:

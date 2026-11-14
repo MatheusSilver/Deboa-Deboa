@@ -1559,7 +1559,7 @@ class ChartingState extends MusicBeatState
 			var metroStep:Int = Math.floor(((Song.Conductor.songPosition + metronomeOffsetStepper.value) / metroInterval) / 1000);
 			var lastMetroStep:Int = Math.floor(((lastConductorPos + metronomeOffsetStepper.value) / metroInterval) / 1000);
 			if(metroStep != lastMetroStep) {
-				FlxG.sound.play(Paths.sound('Metronome_Tick'));
+				FlxG.sound.play(Paths.sound('Metronome_Tick', 'shared'));
 				//trace('Ticked');
 			}
 		}

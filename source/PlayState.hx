@@ -4983,7 +4983,7 @@ class PlayState extends MusicBeatState
 					ClientPrefs.pibby = !usedPractice && !cpuControlled ? "legitimo" : "botplay";
 					ClientPrefs.save(); //Isso aqui deveria estar em cima...
 
-					lime.app.Application.current.window.alert(Linguagem.LangUtil.getString("play_pibby,error,desc", "playstate"), Linguagem.LangUtil.getString("play_pibby,error,title", "playstate"));
+					lime.app.Application.current.window.alert(Linguagem.LangUtil.getString("play_pibby_error_desc", "playstate"), Linguagem.LangUtil.getString("play_pibby_error_title", "playstate"));
 					lime.system.System.exit(0);
 				}
 				usedPractice = false;

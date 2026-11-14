@@ -167,7 +167,7 @@ class KeysSubstate extends MusicBeatState {
 	override function update(elapsed:Float) {
 		checkGamepadAvailable();
 		if(!rebindingKey) {
-			if (GamepadUtil.getGamepadConnected()){
+			if (GamepadUtil.getGamepadConnected() && !Main.isKeyboard){
 				if (BSLTouchUtils.pressionando(gamepadIcon)) gamepadIcon.setGraphicSize(110,110);
 				else if (BSLTouchUtils.solto(gamepadIcon)){
 					changeDisplayedGamepadButtons();

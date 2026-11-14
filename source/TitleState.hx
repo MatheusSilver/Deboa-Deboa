@@ -132,7 +132,7 @@ class TitleState extends MusicBeatState
 		} else if (!PreTitleState.jarodou) {
 			FlxTransitionableState.skipNextTransIn = FlxTransitionableState.skipNextTransOut = true;
 			var connectionVerify:FlxText;
-			connectionVerify = new FlxText(0, 0, 0, Linguagem.LangUtil.getString("menu_connecting", "mainMenu"), 16);
+			connectionVerify = new FlxText(0, 0, 0, Linguagem.LangUtil.getString("menu_connecting", "menu"), 16);
 			connectionVerify.setFormat(Linguagem.LangUtil.getFont("gobold2"), 16, FlxColor.GRAY);
 			connectionVerify.screenCenter(XY);
 			add(connectionVerify);
