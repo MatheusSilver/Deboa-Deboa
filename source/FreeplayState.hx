@@ -247,6 +247,7 @@ class FreeplayState extends MusicBeatState
 
 	var instPlaying:Int = -1;
 	var previewSong:String = null;
+	var songChosen:Bool = false;
 
 	override function update(elapsed:Float)
 	{
@@ -349,6 +350,7 @@ class FreeplayState extends MusicBeatState
 		}
 		else if (accepted && apertavel) {
 			apertavel = false;
+			songChosen = true;
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			infoextended = songs[curSelected].display;
@@ -460,7 +462,8 @@ class FreeplayState extends MusicBeatState
 				ease: FlxEase.expoInOut,
 				onComplete: function(twn:FlxTween) {
 					perfilSprite.alpha = 0;
-					apertavel = true;
+					if (!songChosen)
+						apertavel = true;
 					if (firstTime) {
 						firstTime = false;
 						alreadyInitialized = true;
