@@ -411,7 +411,7 @@ class GaleriaStateMusic extends MusicBeatState
 			textGroup.forEach(function(spr:FlxSprite){FlxTween.tween(spr, {alpha: 0}, 0.1, {ease: FlxEase.linear});});
 
 		loading_list.queue("scrolling/artes/scroll-" + GaleriaState.leMusic[curSelected].toLowerCase() + " (scroll)");
-		loading_list.queue(GaleriaState.leMusic[curSelected].toLowerCase());
+		loading_list.queue(Paths.songAudioKey(GaleriaState.leMusic[curSelected].toLowerCase(), 'Inst'));
 
 		reloadLyrics(isLetras);
 	}

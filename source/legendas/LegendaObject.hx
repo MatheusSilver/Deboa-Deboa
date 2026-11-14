@@ -61,10 +61,10 @@ class LegendaObject extends FlxSpriteGroup {
 
     public function fadeOut() {
         parent.remove(this);
-        this.kill();
+        this.destroy();
         /*FlxTween.tween(this, {alpha: 0}, 0.05, {ease: FlxEase.linear, onComplete: function(tween:FlxTween){
             parent.remove(this);
-            this.kill();
+            this.destroy();
         }});*/
     }
 

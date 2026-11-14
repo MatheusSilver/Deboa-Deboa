@@ -6012,9 +6012,52 @@ class PlayState extends MusicBeatState
 		}
 		luaArray = [];
 
+		for (note in unspawnNotes)
+			note.destroy();
+		unspawnNotes = [];
+
+		for (video in precachedVideos)
+			video.destroy();
+		precachedVideos = [];
+
+		for (sprite in modchartSprites)
+			if (!sprite.wasAdded)
+				sprite.destroy();
+		for (sprite in modchartTiledSprites)
+			if (!sprite.wasAdded)
+				sprite.destroy();
+		for (video in modchartVideoSprites)
+			if (!video.wasAdded)
+				video.destroy();
+		for (text in modchartTexts)
+			if (!text.wasAdded)
+				text.destroy();
+
 		/*FlxG.sound.music.pitch = 1;*/
 
 		super.destroy();
+
+		for (char in boyfriendMap)
+			char.destroy();
+		for (char in dadMap)
+			char.destroy();
+		for (char in gfMap)
+			char.destroy();
+		boyfriendMap.clear();
+		dadMap.clear();
+		gfMap.clear();
+		modchartSprites.clear();
+		modchartTiledSprites.clear();
+		modchartVideoSprites.clear();
+		modchartTexts.clear();
+		modchartTweens.clear();
+		modchartTimers.clear();
+		modchartSounds.clear();
+		variables.clear();
+		precacheList.clear();
+
+		if (instance == this)
+			instance = null;
 	}
 
 	public function cancelFadeTween()

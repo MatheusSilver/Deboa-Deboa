@@ -246,6 +246,7 @@ class FreeplayState extends MusicBeatState
 	}
 
 	var instPlaying:Int = -1;
+	var previewSong:String = null;
 
 	override function update(elapsed:Float)
 	{
@@ -339,10 +340,12 @@ class FreeplayState extends MusicBeatState
 				trace('Couldnt find file');
 			}
 			trace(poop);
+			Paths.forgetSongAudio(previewSong);
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7, false);
 			FlxG.sound.music.onComplete = finishSong;
 			instPlaying = curSelected;
+			previewSong = PlayState.SONG.song;
 		}
 		else if (accepted && apertavel) {
 			persistentUpdate = false;

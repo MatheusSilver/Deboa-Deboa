@@ -254,6 +254,7 @@ class MenuHistoria extends MusicBeatSubstate
 	}
 
 	var instPlaying:Int = -1;
+	var previewSong:String = null;
 	var executando:Bool = false;
 
 	private static var vocals:FlxSound = null;
@@ -338,7 +339,13 @@ class MenuHistoria extends MusicBeatSubstate
 					FlxG.sound.music.volume = 0;
 					Paths.currentModDirectory = musicas[curSelected].folder;
 					var poop:String = Highscore.formatSong(musicas[curSelected].toLowerCase(), 2);
+					Paths.forgetSongAudio(previewSong);
 					PlayState.SONG = Song.loadFromJson(poop, musicas[curSelected].toLowerCase());
+					if (vocals != null)
+					{
+						FlxG.sound.list.remove(vocals, true);
+						vocals.destroy();
+					}
 					if (PlayState.SONG.needsVoices)
 						vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 					else
@@ -352,6 +359,7 @@ class MenuHistoria extends MusicBeatSubstate
 					vocals.looped = true;
 					vocals.volume = 0.7;
 					instPlaying = curSelected;
+					previewSong = PlayState.SONG.song;
 					#end
 				}
 			}

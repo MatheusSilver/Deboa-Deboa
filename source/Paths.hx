@@ -258,8 +258,8 @@ class Paths
 		#if html5
 		return 'songs:assets/songs/${formatToSongPath(song)}/Voices.$SOUND_EXT';
 		#else
-		var songKey:String = '${formatToSongPath(song)}/Voices';
-		var voices = returnSound(song, 'songs', songKey);
+		var songKey:String = songAudioKey(song, 'Voices');
+		var voices = returnSound(songKey, 'songs', songKey);
 		return voices;
 		#end	}
 
@@ -268,8 +268,8 @@ class Paths
 		#if html5
 		return 'songs:assets/songs/${formatToSongPath(song)}/Inst.$SOUND_EXT';
 		#else
-		var songKey:String = '${formatToSongPath(song)}/Inst';
-		var inst = returnSound(song, 'songs', songKey);
+		var songKey:String = songAudioKey(song, 'Inst');
+		var inst = returnSound(songKey, 'songs', songKey);
 		return inst;
 		#end
 	}
@@ -327,6 +327,19 @@ class Paths
 		if (canGPU)
 			gpu = ClientPrefs.loadingexperimental;
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
+	}
+
+	public static function songAudioKey(song:String, file:String):String
+	{
+		return formatToSongPath(song) + '/' + file;
+	}
+
+	public static function forgetSongAudio(song:String):Void
+	{
+		if (song == null)
+			return;
+		clear_memory_by_key(songAudioKey(song, 'Inst'), true);
+		clear_memory_by_key(songAudioKey(song, 'Voices'), true);
 	}
 
 	inline static public function formatToSongPath(path:String) {
