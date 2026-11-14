@@ -280,7 +280,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 		if (textoSpriteTweens != null)
 			textoSpriteTweens.active = true;
-		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC mobile.ui.FlxVirtualPad.instance.buttonX.justPressed #end;
+		var crossplataforma = #if desktop FlxG.keys.justPressed.CONTROL #elseif mobileC (mobile.ui.FlxVirtualPad.instance != null && mobile.ui.FlxVirtualPad.instance.buttonY != null && mobile.ui.FlxVirtualPad.instance.buttonY.justPressed) #end;
 
 		if(crossplataforma && !modifiersOpened && !movedBack && !selectedWeek && canOpenModifiers && MainMenuStateMobile.passouCY #if !debug && ProgressionUtil.terminouTudo() #end) {
 			modifiersOpened = true;
@@ -333,14 +333,17 @@ class MenuHistoria extends MusicBeatSubstate
 			}
 			else if (FlxG.keys.justPressed.SPACE && musicasLockadas[curSelected] != true)
 			{
-				if (instPlaying != curSelected)
+				var previewFolder:String = Paths.formatToSongPath(musicas[curSelected]);
+				var poop:String = Highscore.formatSong(previewFolder, 2);
+				if (!OpenFlAssets.exists(Paths.json(previewFolder + '/' + poop)))
+					poop = previewFolder;
+				if (instPlaying != curSelected && OpenFlAssets.exists(Paths.json(previewFolder + '/' + poop)))
 				{
 					#if PRELOAD_ALL
 					FlxG.sound.music.volume = 0;
 					Paths.currentModDirectory = musicas[curSelected].folder;
-					var poop:String = Highscore.formatSong(musicas[curSelected].toLowerCase(), 2);
 					Paths.forgetSongAudio(previewSong);
-					PlayState.SONG = Song.loadFromJson(poop, musicas[curSelected].toLowerCase());
+					PlayState.SONG = Song.loadFromJson(poop, previewFolder);
 					if (vocals != null)
 					{
 						FlxG.sound.list.remove(vocals, true);

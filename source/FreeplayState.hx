@@ -135,8 +135,8 @@ class FreeplayState extends MusicBeatState
 		BSLSwipeUtils.reset_manual = false;
 
 		for (i in 0...progressFreeplay) {
-			if(i>9)
-				return;
+			if(i >= songs.length)
+				break;
 			var songText:Alphabet = new Alphabet(0, (70 * i), songs[i].display.toLowerCase(), false, false, 0.05, 0.7, 'alfabetovio');
 			songText.isMenuTrem = true;
 			songText.targetY = i;
@@ -401,8 +401,8 @@ class FreeplayState extends MusicBeatState
 		if (!swipping || change_swipe == 0) apertavel = false;
 		curSelected += change;
 
-		if (curSelected < 0)	curSelected = progressFreeplay - 1;
-		if (curSelected >= progressFreeplay)	curSelected = 0;
+		if (curSelected < 0)	curSelected = grpSongs.length - 1;
+		if (curSelected >= grpSongs.length)	curSelected = 0;
 
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, 2);
