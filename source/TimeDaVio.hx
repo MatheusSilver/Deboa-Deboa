@@ -31,8 +31,8 @@ class TimeDaVio extends MusicBeatState
 	var youtube:FlxButton;
 	var twitter:FlxButton;
 	var mic:FlxSprite;
-	static var curSelected:Int = 0;
-	static var curSelectedBkp:Int = 0;
+	var curSelected:Int = 0;
+	var curSelectedBkp:Int = 0;
 	var canChange:Bool = false;
 
 	private var buttonsMap:Map<String, FlxButton>;
@@ -242,7 +242,7 @@ class TimeDaVio extends MusicBeatState
 	{
 		if (BSLSwipeUtils.is_swipping) BSLSwipeUtils.resetScrolls();
 
-		if (curSelectedBkp > 7)
+		if (curSelectedBkp > 8)
 		{
 			FlxTween.tween(bgCima, {y: -720}, 0.65, {ease: FlxEase.quartInOut});
 			FlxTween.tween(bgBaixo, {y: 720}, 0.8, {ease: FlxEase.quartInOut});
@@ -270,7 +270,7 @@ class TimeDaVio extends MusicBeatState
 
 		new FlxTimer().start(1.05, function(tmr:FlxTimer)
 		{
-			if (curSelected > 7)
+			if (curSelected > 8)
 			{
 				estante.x = 593;
 				perfil.x = -1280;
