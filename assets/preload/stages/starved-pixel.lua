@@ -238,7 +238,7 @@ function onUpdate(elapsed)
         setProperty("warning.visible", false)
     end
     if should_run then
-        speedChanger = speedChanger + 1
+        speedChanger = speedChanger + elapsed * 60
         setPropertyTiledLuaSprite(bg_running..".scrollX", speedChanger*speedModifier*0.4)
         setPropertyTiledLuaSprite(floor_running..".scrollX", speedChanger*speedModifier)
     end

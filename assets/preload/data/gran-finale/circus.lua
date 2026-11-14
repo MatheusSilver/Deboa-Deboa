@@ -1,7 +1,7 @@
 local speedChanger = 10
 
 function onUpdate(elapsed)
-    speedChanger = speedChanger + 1
+    speedChanger = speedChanger + elapsed * 60
     setPropertyTiledLuaSprite("circusBG.scrollX", -speedChanger*10)
 end
 

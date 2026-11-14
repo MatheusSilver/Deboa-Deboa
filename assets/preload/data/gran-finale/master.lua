@@ -321,9 +321,6 @@ function onEvent(name, value1, value2)
 end
 
 function onTimerCompleted(tag)
-    if tag == 'HpDecay' then
-        setProperty('health',getProperty('health') - healthLoss)
-        end
     if tag == 'introEnd' then
         doTweenAlpha('blackFuckalpha', 'blackFuck', 0, 1, 'linear')
         doTweenAlpha('startCirclealpha', 'circuloinicio', 0, 1, 'linear')
@@ -340,7 +337,6 @@ function onTimerCompleted(tag)
         fastChar('bfrunbobo', 'invisibru')
         triggerEvent('trocar ato','lateralRun', '')
         switchDrain(false)
-        cancelTimer('HpDecay')
         setProperty('global_shader.visible', false)
         --triggerEvent('Play Animation','parry', 'bf')
 
@@ -439,9 +435,6 @@ end
 
 function switchDrain(shouldDrain)
     drainLife = shouldDrain
-    if not shouldDrain then
-        cancelTimer('HpDecay')
-    end
 end
 
 function initialSettings()
@@ -482,26 +475,27 @@ local ofs = 40;
 function onUpdate(elapsed)
     -- updateCamPos('all') -- Provavelmente isso deixaria essa parte um cadin lagada de mais.
     -- Provavelmente teremos que fazer uma modificação nesse script para o player com efeitos de camera desligados.
-    if getProperty('health') < 0.25 then
+    local health = getProperty('health')
+    if drainLife and not isDead and health > limite then
+        health = health - healthLoss * 60 * elapsed
+        setProperty('health', health)
+    end
+
+    if health < 0.25 then
         objectPlayIndexedAnimation('bfIcon', 1)
-    elseif getProperty('health') > 1.8 then
+    elseif health > 1.8 then
         objectPlayIndexedAnimation('oppIcon', 1)
     else
         objectPlayIndexedAnimation('oppIcon', 0)
         objectPlayIndexedAnimation('bfIcon', 0)
     end
 
-    if drainLife and not isDead and getProperty('health') > limite then
-        runTimer('HpDecay', 0.015, 0)
-    elseif getProperty('health') <= limite then
-        cancelTimer('HpDecay')
-    end
-    setProperty('HPbar.width', (getProperty('health') / 2) )
-    setProperty('HPbar.scale.x', (getProperty('health') / 2) )
+    setProperty('HPbar.width', (health / 2) )
+    setProperty('HPbar.scale.x', (health / 2) )
 
     updateHitbox('HPbar')
 
-    if getProperty('health') < 1.98 then
+    if health < 1.98 then
         setProperty('bfIcon.x', getProperty('HPbar.width') + 215 )
     end
     

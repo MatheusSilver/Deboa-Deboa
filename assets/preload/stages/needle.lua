@@ -4,9 +4,10 @@ function onCreate()
     floaty2 = 0
 end
 
-function onUpdate()
+function onUpdate(elapsed)
     if getProperty("dad2.visible")then
-        floaty2=floaty2+0.01
-        setProperty("dad2.y", getProperty("dad2.y")+sin(floaty2)*0.5)
+        local frameScale = elapsed * 60
+        floaty2=floaty2+0.01*frameScale
+        setProperty("dad2.y", getProperty("dad2.y")+sin(floaty2)*0.5*frameScale)
     end
 end

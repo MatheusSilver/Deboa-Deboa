@@ -360,7 +360,7 @@ function onCreatePost()
 end
 
 
-function onUpdate()
+function onUpdate(elapsed)
 	if healthDrain then
 		local health = getProperty('health')
 		if health < 0.25 then
@@ -377,9 +377,9 @@ function onUpdate()
 		if (health >= 0.05 and health <= 1.95)then
 			setProperty('healthFollower.x', getProperty('HUD.healthBar.x') - 35 + getProperty('HUD.healthBar.width')*((2-health)/2))
 		end
-		setProperty('healthFollower.angle', getProperty('healthFollower.angle')+36/60)
+		setProperty('healthFollower.angle', getProperty('healthFollower.angle') + 36 * elapsed)
 	end
-	speedChanger = speedChanger + 1
+	speedChanger = speedChanger + elapsed * 60
 
     if phasedetector == 1 then
 	setPropertyTiledLuaSprite("ceu.scrollX", speedChanger*0.5)

@@ -118,8 +118,8 @@ end
 end
 
 local speedchanger = 0
-function onUpdate()
-	speedchanger = speedchanger+1
+function onUpdate(elapsed)
+	speedchanger = speedchanger + elapsed * 60
 	if flashing then
 	if flashed then
 		setPropertyTiledLuaSprite('neve.scrollY', speedchanger*3)

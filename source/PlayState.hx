@@ -2833,30 +2833,32 @@ class PlayState extends MusicBeatState
 		if (tapeVhs != null && shaders_running)
 			tapeVhs.update(elapsed);
 
-		if (songStarted && ModifiersManager.isEnabledbyName("spin_camera")){
-			camHUD.angle += 0.5;
-			camGame.angle += 0.5;
+		var frameScale:Float = elapsed * 60;
+
+		if (songStarted && spinCameraModifier){
+			camHUD.angle += 0.5 * frameScale;
+			camGame.angle += 0.5 * frameScale;
 		}
 
 		if (IsNoteSpinning && curSongLower == 'personel')
 		{
 			for (str in playerStrums)
 			{
-				str.angle = str.angle + SpinAmount; // Porque eu quero e posso...
-				SpinAmount = SpinAmount + 0.005;
+				str.angle = str.angle + SpinAmount * frameScale; // Porque eu quero e posso...
+				SpinAmount = SpinAmount + 0.005 * frameScale;
 			}
 			for (str in opponentStrums)
 			{
-				str.angle = str.angle + SpinAmount;
-				SpinAmount = SpinAmount + 0.005;
+				str.angle = str.angle + SpinAmount * frameScale;
+				SpinAmount = SpinAmount + 0.005 * frameScale;
 			}
 		}
 		if (isPlayersSpinning && curSongLower == 'personel')
 		{
-			dad.angle = dad.angle + SpinAmount;
-			SpinAmount = SpinAmount + 0.00003;
-			boyfriend.angle = boyfriend.angle + SpinAmount;
-			SpinAmount = SpinAmount + 0.00003;
+			dad.angle = dad.angle + SpinAmount * frameScale;
+			SpinAmount = SpinAmount + 0.00003 * frameScale;
+			boyfriend.angle = boyfriend.angle + SpinAmount * frameScale;
+			SpinAmount = SpinAmount + 0.00003 * frameScale;
 		}
 
 
