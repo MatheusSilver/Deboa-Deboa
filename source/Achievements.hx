@@ -254,8 +254,8 @@ class AttachedAchievement extends FlxSpriteGroup {
 			medalSprite.color = FlxColor.WHITE;
 			for (star in stars) star.color = FlxColor.WHITE;
 		} else {
-			medalSprite.shader = new Shaders.GrayscaleShader();
-			for (star in stars) star.shader = new Shaders.GrayscaleShader();
+			medalSprite.shader = Shaders.GrayscaleShader.shared;
+			for (star in stars) star.shader = Shaders.GrayscaleShader.shared;
 		}
 		if (isSelected && isUnlocked) {
 			medalSprite.alpha = 1;

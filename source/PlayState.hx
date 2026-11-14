@@ -57,7 +57,6 @@ import openfl.Lib;
 import openfl.display.BitmapData;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
-import openfl.filters.BitmapFilter;
 import openfl.filters.ShaderFilter;
 import openfl.system.System;
 import openfl.utils.AssetType;
@@ -209,8 +208,6 @@ class PlayState extends MusicBeatState
 	public var modchartTexts:Map<String, ModchartText> = new Map();
 	#end
 
-	public static var shader_chromatic_abberation:ChromaticAberrationEffect;
-
 	// event variables
 	private var isCameraOnForcedPos:Bool = false;
 
@@ -251,7 +248,6 @@ class PlayState extends MusicBeatState
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
 	public var gfGroup:FlxSpriteGroup;
-	public var shaderUpdates:Array<Float->Void> = [];
 
 	public static var curStage:String = '';
 	public static var isPixelStage:Bool = false;
@@ -331,6 +327,7 @@ class PlayState extends MusicBeatState
 	var needleRuins:BGSprite;
 	var needleFg:FlxSprite;
 	var vcr:ShaderFilter;
+	var tapeVhs:TapeVhsShader;
 
 	public var camHUD:FlxCamera;
 	public var camCCC:FlxCamera;
@@ -2833,19 +2830,8 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		if (curStage == "TDP2" && ClientPrefs.shaders)
-		{
-			vcr.shader.data.iTime.value[0] += elapsed;
-		}
-		
-		if (Date.now().getHours() == 3 && ClientPrefs.shaders && !Achievements.isAchievementUnlocked('madrugada') && songStarted)
-		{
-			startachieving('madrugada');
-		}
-		// Maluco... Quando eu olho pra isso aqui de novo fico tipo:
-		// Essa foi realmente uma das primeiras coisas que fiz no modboa? k
-		// Fun fact: Sim foi realmente a primeira coisa que fiz no modboa no dia 29/10/2022
-		// Data de reflexão sobre o assunto 07/02/2023 dia que os achievements foram programados
+		if (tapeVhs != null && shaders_running)
+			tapeVhs.update(elapsed);
 
 		if (songStarted && ModifiersManager.isEnabledbyName("spin_camera")){
 			camHUD.angle += 0.5;
@@ -5979,11 +5965,8 @@ class PlayState extends MusicBeatState
 		shaders_running=start;
 
 		if (start){
-			vcr = new ShaderFilter(new TapeVhsShader());
-			
-			vcr.shader.data.iTime.value = [0];
-			vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth, Lib.current.stage.stageHeight];
-
+			tapeVhs = new TapeVhsShader();
+			vcr = new ShaderFilter(tapeVhs);
 			camGame.setFilters([vcr]);
 			camHUD.setFilters([vcr]);
 			// camLegenda.setFilters([vcr]); // Não tenho legendas para testar esse coiso.
@@ -6001,15 +5984,6 @@ class PlayState extends MusicBeatState
 		shaders_running=start;
 		if (start){
 			vcr = new ShaderFilter(new VCRDistortionShader());
-			vcr.shader.data.iTime.value = [0];
-			vcr.shader.data.vignetteOn.value = [true];
-			vcr.shader.data.perspectiveOn.value = [true];
-			vcr.shader.data.distortionOn.value = [true];
-			vcr.shader.data.scanlinesOn.value = [true];
-			vcr.shader.data.vignetteMoving.value = [true];
-			vcr.shader.data.glitchModifier.value = [0];
-			vcr.shader.data.iResolution.value = [Lib.current.stage.stageWidth, Lib.current.stage.stageHeight];
-
 			camGame.setFilters([vcr]);
 			camHUD.setFilters([vcr]);
 			ExtraHUDObject.efeito_estatico.visible=true;
