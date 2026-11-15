@@ -769,7 +769,7 @@ class FlxCamera extends FlxBasic
 			if (position == null)
 				position = renderPoint.set();
 
-			_bounds.set(0, 0, width, height);
+			_bounds.set(viewOffsetX, viewOffsetY, viewWidth, viewHeight);
 
 			var verticesLength:Int = vertices.length;
 			var currentVertexPosition:Int = 0;
@@ -839,7 +839,7 @@ class FlxCamera extends FlxBasic
 		}
 		else
 		{
-			_bounds.set(0, 0, width, height);
+			_bounds.set(viewOffsetX, viewOffsetY, viewWidth, viewHeight);
 			var isColored:Bool = (colors != null && colors.length != 0);
 			var drawItem:FlxDrawTrianglesItem = startTrianglesBatch(graphic, smoothing, isColored, blend);
 			drawItem.addTriangles(vertices, indices, uvtData, colors, position, _bounds);
