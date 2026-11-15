@@ -22,6 +22,14 @@ function onEvent(name, value1, value2)
             for i = 0, getProperty('opponentStrums.length')-1 do
 			    setPropertyFromGroup('opponentStrums', i, 'texture', value1); -- Experimental, mas acho que deve funfar
 		    end
+            for i = 0, getProperty('notes.length')-1 do
+                if not getPropertyFromGroup('notes', i, 'mustPress') and getPropertyFromGroup('notes', i, 'texture') == prevtexture then
+                    setPropertyFromGroup('notes', i, 'texture', value1)
+                    if value2 ~= '' then
+                        setPropertyFromGroup('notes', i, 'noteSplashTexture', value2)
+                    end
+                end
+            end
         end
     end
 end

@@ -24,6 +24,14 @@ function onEvent(name, value1, value2)
             for i = 0, getProperty('playerStrums.length')-1 do
 				setPropertyFromGroup('playerStrums', i, 'texture', value1); -- Experimental, mas acho que deve funfar
 			end
+            for i = 0, getProperty('notes.length')-1 do
+                if getPropertyFromGroup('notes', i, 'mustPress') and getPropertyFromGroup('notes', i, 'texture') == prevtexture then
+                    setPropertyFromGroup('notes', i, 'texture', value1)
+                    if value2 ~= '' then
+                        setPropertyFromGroup('notes', i, 'noteSplashTexture', value2)
+                    end
+                end
+            end
         end
     end
 end
