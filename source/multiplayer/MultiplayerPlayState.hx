@@ -416,7 +416,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 		var songData = _song;
 		Song.Conductor.changeBPM(songData.bpm);
 
-		notes = new FlxTypedGroup<Note>();
+		notes = new NoteGroup();
 		add(notes);
 
 		var noteData:Array<SwagSection>;

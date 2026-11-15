@@ -2241,7 +2241,7 @@ class PlayState extends MusicBeatState
 		FlxG.sound.list.add(vocals);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
-		notes = new FlxTypedGroup<Note>();
+		notes = new NoteGroup();
 		add(notes);
 
 		var noteData:Array<SwagSection>;
