@@ -223,7 +223,7 @@ class FaixaLobby extends FlxSpriteGroup
 			var loader:Loader = new Loader();
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void
 			{
-				if (!GJClient.avatarURL.contains("no-avatar"))
+				if (!userData.avatar_url.contains("no-avatar"))
 				{
 					var bmp:Bitmap = cast(loader.content, Bitmap);
 					var bmd:BitmapData = bmp.bitmapData;

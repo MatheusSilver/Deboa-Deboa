@@ -36,7 +36,8 @@ class MultiplayerMenu extends FlxTypedGroup<FlxBasic>
         
         playTweens(tweensSaida, nextMenu, function(){
             MultiplayerMainMenuState.instance.isTransitioning = false;
-            this.visible = false;
+            if (MultiplayerMainMenuState.instance.curSubmenu != this)
+                this.visible = false;
         });
     }
 

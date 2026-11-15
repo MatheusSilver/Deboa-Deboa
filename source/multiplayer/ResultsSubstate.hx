@@ -57,7 +57,7 @@ class ResultsSubstate extends FlxSpriteGroup
         add(player_box);
         add(player_name);
 
-        player_box.intro_anim([1,2,3,4], 100);
+        player_box.intro_anim(myProperties.results, myProperties.score);
 
     }
 }

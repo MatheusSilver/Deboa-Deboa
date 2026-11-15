@@ -461,6 +461,12 @@ class MultiplayerMainMenuState extends MusicBeatState
 		return isOnServer;
 	}
 
+	override function destroy()
+	{
+		modifiers.ModifiersManager.loadSave();
+		super.destroy();
+	}
+
 	override function update(elapsed:Float)
 	{
 		if (controls.BACK && !isOnOptions && canClick && !isPlayingMatch)

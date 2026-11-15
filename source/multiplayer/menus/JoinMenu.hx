@@ -104,7 +104,7 @@ class JoinMenu extends MultiplayerMenu
 
     public function refreshRooms() {
         resetButton();
-        roomList.createAll();
+        roomList.refresh(MultiplayerMainMenuState.instance.getAvailableRooms());
         addButton(refreshBt, 0);
     }
 }
@@ -182,10 +182,15 @@ class RoomList extends FlxSpriteGroup
     }
 
     public function clearAll() {
-        for(room in objectsArray) {
-            remove(room);
+        if (roomObjects == null) {
+            roomObjects = cast add(new FlxSpriteGroup());
+            return;
         }
-        roomObjects = cast add(new FlxSpriteGroup());
+        for(room in objectsArray) {
+            roomObjects.remove(room, true);
+            room.destroy();
+        }
+        objectsArray = [];
     }
 
     
