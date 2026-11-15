@@ -235,7 +235,7 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty('florrandom3EXE.visible', false)
 	addLuaSprite('florrandom3EXE',false)
 	
-	makeLuaTiledSprite('chaorunning1EXE','cenarios/phase4/floorscroll',2303,256,true,false) --1
+	makeLuaTiledSprite('chaorunning1EXE','cenarios/phase4/floorscroll',2303,319,true,false) --1
 	setLuaSpriteScrollFactor('chaorunning1EXE',1,1)
 	setPropertyTiledLuaSprite("chaorunning1EXE.antialiasing", false)
 	setPropertyTiledLuaSprite("chaorunning1EXE.x", -500 + daConstantX*0.9)
@@ -287,15 +287,15 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setLuaSpriteScrollFactor('angelislandarvores',0.4,1)
 	setPropertyTiledLuaSprite("angelislandarvores.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandarvores.x", -555)
-	setPropertyTiledLuaSprite("angelislandarvores.y", -175-100)
+	setPropertyTiledLuaSprite("angelislandarvores.y", -175-250)
 	setPropertyTiledLuaSprite("angelislandarvores.visible", false)
 	addLuaSprite('angelislandarvores');
 
-	makeLuaTiledSprite('angelislandchao','cenarios/phase6/gramado',6810,1024,true,false) --1
+	makeLuaTiledSprite('angelislandchao','cenarios/phase6/gramado',6810,1120,true,false) --1
 	setLuaSpriteScrollFactor('angelislandchao',1,1)
 	setPropertyTiledLuaSprite("angelislandchao.antialiasing", false)
 	setPropertyTiledLuaSprite("angelislandchao.x", -655)
-	setPropertyTiledLuaSprite("angelislandchao.y", -165-60)
+	setPropertyTiledLuaSprite("angelislandchao.y", -165-156)
 	setPropertyTiledLuaSprite("angelislandchao.visible", false)
 	addLuaSprite('angelislandchao');
 
