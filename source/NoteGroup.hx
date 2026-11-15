@@ -18,6 +18,13 @@ class NoteGroup extends FlxTypedGroup<Note>
 		FlxCamera._defaultCameras = oldDefaultCameras;
 	}
 
+	override public function forEachAlive(Function:Note->Void, Recurse:Bool = false):Void
+	{
+		for (note in members.copy())
+			if (note != null && note.exists && note.alive)
+				Function(note);
+	}
+
 	function drawNotes(sustains:Bool):Void
 	{
 		for (note in members)
