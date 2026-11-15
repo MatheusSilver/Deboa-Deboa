@@ -354,6 +354,14 @@ function onCreate() -- Aqui só serve para dar carregar e configurar os cenário
 	setProperty("phase9-2.y", -160)
 	addLuaSprite('phase9-2', false);
 
+	makeLuaTiledSprite('phase9-trilhos','cenarios/phase9/trilhos',4096,95,true,false)
+	setLuaSpriteScrollFactor('phase9-trilhos',0.4,0.3)
+	setPropertyTiledLuaSprite("phase9-trilhos.antialiasing", false)
+	setPropertyTiledLuaSprite("phase9-trilhos.visible", false)
+	setPropertyTiledLuaSprite("phase9-trilhos.x", -575)
+	setPropertyTiledLuaSprite("phase9-trilhos.y", -160+862)
+	addLuaSprite('phase9-trilhos', false);
+
 	makeLuaSprite('phase9-3','cenarios/phase9/3',1000,-620)--5
 	setLuaSpriteScrollFactor('phase9-3',0.4,0.3)
 	setProperty('phase9-3.scale.x', 0.4)

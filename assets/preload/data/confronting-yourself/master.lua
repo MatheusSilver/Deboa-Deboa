@@ -23,7 +23,7 @@ local phase6cheetos = {'angelislandchao', 'angelislandarvores', 'angelislandbg',
 
 local phase7cheetos = {'phase7-1', 'phase7-2', 'phase7-3', 'phase7-4'}
 
-local phase9cheetos = {'phase9-1', 'phase9-2', 'phase9-3'}
+local phase9cheetos = {'phase9-1', 'phase9-2', 'phase9-trilhos', 'phase9-3'}
 
 local phase10cheetos = {'phase10-1', 'phase10-2', 'phase10-3'}
 
@@ -394,6 +394,7 @@ function onUpdate(elapsed)
 	setPropertyTiledLuaSprite("angelislandbg.scrollX", -speedChanger*10)
 	elseif phasedetector == 12 then
 	setPropertyTiledLuaSprite("phase9-1.scrollX", -speedChanger*60)
+	setPropertyTiledLuaSprite("phase9-trilhos.scrollX", -speedChanger*90)
 	end
 end
 
