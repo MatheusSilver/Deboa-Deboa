@@ -2630,7 +2630,7 @@ class PlayState extends MusicBeatState
 				vocals.pause();
 			}
 
-			if (!startTimer.finished)
+			if (startTimer != null && !startTimer.finished)
 				startTimer.active = false;
 
 			if (blammedLightsBlackTween != null)
@@ -2672,7 +2672,7 @@ class PlayState extends MusicBeatState
 				resyncVocals();
 			}
 
-			if (!startTimer.finished)
+			if (startTimer != null && !startTimer.finished)
 				startTimer.active = true;
 			if (finishTimer != null && !finishTimer.finished)
 				finishTimer.active = true;
@@ -2703,7 +2703,7 @@ class PlayState extends MusicBeatState
 			callOnLuas('onResume', []);
 
 			#if rpc
-			if (startTimer.finished)
+			if (startTimer != null && startTimer.finished)
 			{
 				DiscordClient.changePresence(detailsText, nomehistorico
 					+ " ("
