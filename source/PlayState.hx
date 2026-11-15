@@ -92,8 +92,6 @@ class PlayState extends MusicBeatState
 
 	var isSwapped:Bool = false; // Para ser usado exclusivamente na CY provavelmente
 
-	var scrollModifierChecker:Bool; // Usado apenas para flipar a pontinha da nota caso a música mude de downscroll para upscroll no meio do caminho. - Vulgo Pasta Night
-
 	public static var cccVidaCounter:Int = 2;
 
 	var ring:FlxSound; // Vio e seu "Vai!!!" servindo como ótimas influências : D
@@ -1092,8 +1090,6 @@ class PlayState extends MusicBeatState
 		initCharacterReflection("dad");
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
-
-		scrollModifierChecker = ClientPrefs.downScroll;
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
@@ -3208,7 +3204,7 @@ class PlayState extends MusicBeatState
 					{
 						daNote.y = strumY + CoolUtil.sin(angleDir) * daNote.distance;
 
-						if (daNote.isSustainNote && scrollModifierChecker != strumScroll)
+						if (daNote.isSustainNote)
 							daNote.flipY = strumScroll; //Lore se liga nisso aqui depois kkkkkkkkkkkkkkkkkk
 						// Jesus fuck this took me so much mother fucking time AAAAAAAAAA
 						if (strumScroll && daNote.isSustainNote)

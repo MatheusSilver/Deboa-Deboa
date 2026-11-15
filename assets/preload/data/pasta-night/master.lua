@@ -563,9 +563,6 @@ function ScrollChanges()
     end
 
         scrolling=WhoScrolling(scrolling)
-        for i = 0, getProperty('notes.length')-1 do
-            setPropertyFromGroup('notes', i, 'multSpeed',0.7) 
-        end
 
 
 end
