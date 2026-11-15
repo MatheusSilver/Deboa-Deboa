@@ -64,7 +64,7 @@
 			"fps": 24,
 			"anim": "singLEFTmiss",
 			"loop": false,
-			"name": "Left_Miss_Flip"
+			"name": "Left_Miss"
 		},
 		{
 			"offsets": [
@@ -75,7 +75,7 @@
 			"fps": 24,
 			"anim": "singRIGHTmiss",
 			"loop": false,
-			"name": "Right_Miss_Flip"
+			"name": "Miss_Right"
 		},
 		{
 			"offsets": [
