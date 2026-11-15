@@ -44,39 +44,39 @@ class FakeMouse extends FlxSprite {
 
         while (shouldUpdate()) {
             if (controls.UI_LEFT) {
-                speedX -= _acceleration * elapsed;
+                speedX -= _acceleration * UPDATE_INTERVAL;
                 if (speedX < -maxSpeed) speedX = -maxSpeed;
             } else if (controls.UI_RIGHT) {
-                speedX += _acceleration * elapsed;
+                speedX += _acceleration * UPDATE_INTERVAL;
                 if (speedX > maxSpeed) speedX = maxSpeed;
             } else {
                 if (speedX > 0) {
-                    speedX -= baseSpeed * elapsed;
+                    speedX -= baseSpeed * UPDATE_INTERVAL;
                     if (speedX < 0) speedX = 0;
                 } else if (speedX < 0) {
-                    speedX += baseSpeed * elapsed;
+                    speedX += baseSpeed * UPDATE_INTERVAL;
                     if (speedX > 0) speedX = 0;
                 }
             }
 
             if (controls.UI_UP) {
-                speedY -= _acceleration * elapsed;
+                speedY -= _acceleration * UPDATE_INTERVAL;
                 if (speedY < -maxSpeed) speedY = -maxSpeed;
             } else if (controls.UI_DOWN) {
-                speedY += _acceleration * elapsed;
+                speedY += _acceleration * UPDATE_INTERVAL;
                 if (speedY > maxSpeed) speedY = maxSpeed;
             } else {
                 if (speedY > 0) {
-                    speedY -= baseSpeed * elapsed;
+                    speedY -= baseSpeed * UPDATE_INTERVAL;
                     if (speedY < 0) speedY = 0;
                 } else if (speedY < 0) {
-                    speedY += baseSpeed * elapsed;
+                    speedY += baseSpeed * UPDATE_INTERVAL;
                     if (speedY > 0) speedY = 0;
                 }
             }
 
-            x += speedX * elapsed;
-            y += speedY * elapsed;
+            x += speedX * UPDATE_INTERVAL;
+            y += speedY * UPDATE_INTERVAL;
 
             timeAccumulated -= UPDATE_INTERVAL;
         }

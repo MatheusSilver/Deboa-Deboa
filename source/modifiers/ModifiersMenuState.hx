@@ -49,11 +49,14 @@ class ModifiersMenuState extends MusicBeatSubstate
 
     var fakeMouse:FakeMouse;
 
+	var mouseAntes:Bool = true;
+
 	public function new(isFreeplay:Bool)
 	{
 		super();
         this.isFreeplay = isFreeplay;
         
+        mouseAntes = Main.mouse_allowed;
         Main.mouse_allowed = true;
         #if rpc
 		// Updating Discord Rich Presence
@@ -167,7 +170,7 @@ class ModifiersMenuState extends MusicBeatSubstate
 
     override function close()
     {
-        Main.mouse_allowed = false;
+        Main.mouse_allowed = mouseAntes;
         super.close();
     }
 
@@ -212,7 +215,7 @@ class ModifiersMenuState extends MusicBeatSubstate
                 calculateMultiplier();
             }
 
-		if (controls.BACK && canClick)
+		if ((controls.BACK #if android || FlxG.android.justReleased.BACK #end) && canClick)
 		{
 			GlobalSoundManager.play(cancelMenu);
             tweenSair();
