@@ -72,7 +72,7 @@ class SobreVideo extends MusicBeatState
             sampleTxt.alpha = 1;
             //add(sampleTxt);
             #if desktop
-            FlxG.mouse.load(Paths.image('sobremenu/galeria/pointer'), 1, 0, 0);
+            FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/pointer'), 1, 0, 0);
             #end
 			super.create();
 		}

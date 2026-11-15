@@ -32,7 +32,7 @@ class SobreState extends MusicBeatState
 	override function create()
 	{
 		#if desktop
-		FlxG.mouse.load(Paths.image('sobremenu/galeria/cursor'), 1, 0, 0);
+		FlxG.mouse.load(Paths.imagechecker('sobremenu/galeria/cursor'), 1, 0, 0);
 		#end
 		Main.mouse_allowed = true;
 		#if rpc
@@ -149,7 +149,7 @@ class SobreState extends MusicBeatState
 			else
 				curSelected -= 1;
 		}else if ((menu_isLeft ? controls.UI_RIGHT_P : controls.UI_LEFT_P)){
-			updateuwu(false);
+			updateuwu(!menu_isLeft);
 			GlobalSoundManager.play(confirmMenu);
 		}
 	}
@@ -159,6 +159,9 @@ class SobreState extends MusicBeatState
 		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			GlobalSoundManager.play(cancelMenu);
+			#if desktop
+			FlxG.mouse.unload();
+			#end
 			MusicBeatState.switchState(new MainMenuStateMobile());
 		}
 
@@ -181,7 +184,7 @@ class SobreState extends MusicBeatState
 		for (key in buttonMapping.iterator()){
 			if ((Main.getMouseVisibility() ? BSLTouchUtils.over(key.bg) : curSelected == key.ID) && !key.isOver && key.visible)
 				hover(key);
-			else if ((Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(key.bg) : controls.ACCEPT) && key.isOver && key.visible)
+			if ((Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(key.bg) : controls.ACCEPT) && key.isOver && key.visible)
 				click(key);
 			else if (key.isOver && !(Main.getMouseVisibility() ? BSLTouchUtils.over(key.bg) : curSelected == key.ID) && key.visible)
 				out(key);
