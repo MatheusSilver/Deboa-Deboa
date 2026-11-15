@@ -138,16 +138,17 @@ class ConsoleClashSubState extends MusicBeatSubstate
 			spr.alpha += elapsed * 2.5;
 		}
 		if (alreadyInitialized){
-			if(!Main.getMouseVisibility()){
+			if(controls.BACK #if android || FlxG.android.justReleased.BACK #end) { //ok
+				close();
+				MenuHistoria.instance.returnFromCCC();
+			}
+			else if(!Main.getMouseVisibility()){
 				if(controls.UI_LEFT_P || controls.UI_RIGHT_P) { //ok
 					GlobalSoundManager.play(scrollMenu);
 					onSonic = !onSonic;
 					updateOptions();
 				}
-				if(controls.BACK) { //ok
-					close();
-					MenuHistoria.instance.returnFromCCC();
-				} else if(controls.ACCEPT) 
+				if(controls.ACCEPT) 
 				{
 					confirm();
 				}

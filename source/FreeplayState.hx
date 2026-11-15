@@ -77,7 +77,7 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
-		if (instance == null) { instance = this; }
+		instance = this;
 
 		alreadyInitialized = false;
 
@@ -366,6 +366,7 @@ class FreeplayState extends MusicBeatState
 
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
+			PlayState.modohistoria = false;
 			PlayState.storyDifficulty = 2;
 			PlayState.songMultiplier = modifiers.ModifiersManager.getFinalModifier();
 			SongPreloader.start(PlayState.SONG);

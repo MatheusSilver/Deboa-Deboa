@@ -29,6 +29,7 @@ class MenuPreHistoria extends MusicBeatState
 	private var old_linha_down:FlxSprite=new FlxSprite();
 	public static var maintainVisible:Bool = false;
 	public static var irDireto:Bool = false;
+	var popUpsPendentes:Array<Void->PopUpSubState> = [];
 
 	// Eu acho que tenho um probleminha...
 	// Na real... Eu só fiquei muito puto fazendo esse menu, mas no fim deu bom, PONTO PRA GRIFINÓRIA!
@@ -59,9 +60,9 @@ class MenuPreHistoria extends MusicBeatState
 		{
 			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		}
-		if (FlxG.sound.music.volume == 0)
+		if (FlxG.sound.music.volume < 0.7)
 		{
-			FlxG.sound.music.fadeIn(4, 0, 0.7);
+			FlxG.sound.music.fadeIn(4, FlxG.sound.music.volume, 0.7);
 		}
 		// FunkinLua.addShaderToCamera('orig', new ChromaticAberrationEffect(0.0010));
 
@@ -139,14 +140,11 @@ class MenuPreHistoria extends MusicBeatState
 			irDireto = false;
 		}
 
-		changeWeek(); //Por algum motivo que sei lá qual, a função closesubstate era chamada também
-		//Logo, não precisa disso aqui.
-
 		if(MainMenuStateMobile.passouCY && !ClientPrefs.multiplayerPopUp) {
 			irDireto = false;
 			ClientPrefs.multiplayerPopUp = true;
 			ClientPrefs.save();
-			openSubState(new PopUpSubState("multiplayer_unlock", "multiplayer_unlock", null, function(){
+			popUpsPendentes.push(function() return new PopUpSubState("multiplayer_unlock", "multiplayer_unlock", null, function(){
 				closeSubState();
 			}));
 		}
@@ -155,10 +153,13 @@ class MenuPreHistoria extends MusicBeatState
 			irDireto = false;
 			ClientPrefs.freeplayPopUp = true;
 			ClientPrefs.save();
-			openSubState(new PopUpSubState("freeplay_unlock", "freeplay_unlock", null, function(){
+			popUpsPendentes.push(function() return new PopUpSubState("freeplay_unlock", "freeplay_unlock", null, function(){
 				closeSubState();
 			}));
 		}
+
+		changeWeek(); //Por algum motivo que sei lá qual, a função closesubstate era chamada também
+		//Logo, não precisa disso aqui.
 
 		if (ProgressionUtil.terminouHistoria()) test_unlock("heroi");
 
@@ -255,6 +256,9 @@ class MenuPreHistoria extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		if (popUpsPendentes.length > 0 && subState == null)
+			openSubState(popUpsPendentes.shift()());
+
 		#if rpc
 		DiscordClient.changePresence(Linguagem.LangUtil.getString("rpc_pre_story","rpc")+" ", Linguagem.LangUtil.getString("rpc_week_label_"+WeekData.weeksList[curWeek].toLowerCase(),"rpc"), null);
 		#end

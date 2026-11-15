@@ -314,6 +314,8 @@ class MenuHistoria extends MusicBeatSubstate
 
 			if (controls.BACK && !movedBack && !selectedWeek && apertavel && !naopodevoltar)
 			{
+				if (vocals != null)
+					finishSong();
 				modifiersOpened = false;
 				apertavel = false;
 				FlxTween.tween(numText, {alpha: 0}, 0.4, {ease: FlxEase.quartInOut});
@@ -392,8 +394,19 @@ class MenuHistoria extends MusicBeatSubstate
 		super.update(elapsed);
 	}
 
+	private function stopPreviewVocals():Void
+	{
+		if (vocals == null)
+			return;
+		vocals.stop();
+		FlxG.sound.list.remove(vocals, true);
+		vocals.destroy();
+		vocals = null;
+	}
+
 	private function finishSong():Void
 	{
+		stopPreviewVocals();
 		FlxG.sound.music.stop();
 		FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 		FlxG.sound.music.fadeIn(4, 0, 0.7);
@@ -405,6 +418,7 @@ class MenuHistoria extends MusicBeatSubstate
 
 	function selectSong(toPlay:Bool)
 	{
+		stopPreviewVocals();
 		if (stopspamming == false)
 		{
 			vhsSom.play(true);
@@ -769,6 +783,8 @@ class MenuHistoria extends MusicBeatSubstate
 	}
 
 	public function returnFromCCC(){
+		PlayState.modohistoria = false;
+		stopspamming = false;
 		entrada(function() {
 			naopodevoltar = false;
 			apertavel = true;
