@@ -326,12 +326,7 @@ class Note extends FlxSprite
 							prevNote.animation.play('redhold');
 					}
 
-				prevNote.scale.y *= Song.Conductor.stepCrochet / 100 * 1.05 * (PlayState.instance != null ? PlayState.instance.songSpeed : PlayState.SONG.speed);
-				if (PlayState.isPixelStage)
-				{
-					prevNote.scale.y *= 1.19;
-					prevNote.scale.y *= (6 / height); // Auto adjust note size
-				}
+				prevNote.scale.y = Song.Conductor.stepCrochet * 0.4515 * (PlayState.instance != null ? PlayState.instance.songSpeed : PlayState.SONG.speed) / prevNote.frameHeight;
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
 			}
@@ -352,10 +347,7 @@ class Note extends FlxSprite
 			offsetX += 36;
 	}
 
-	var zoomCoiso:Bool = false;
 	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
-
-	public var originalHeightForCalcs:Float = 6;
 
 	public function reloadNote(?prefix:String = '', ?texture:String = '', ?suffix:String = '')
 	{
@@ -386,6 +378,7 @@ class Note extends FlxSprite
 		arraySkin[arraySkin.length - 1] = prefix + arraySkin[arraySkin.length - 1] + suffix;
 
 		var lastScaleY:Float = scale.y;
+		var lastFrameHeight:Int = frameHeight;
 		var blahblah:String = arraySkin.join('/');
 		if (PlayState.isPixelStage)
 		{
@@ -394,7 +387,6 @@ class Note extends FlxSprite
 				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'));
 				width = width / 4;
 				height = height / 2;
-				originalHeightForCalcs = height;
 				loadGraphic(Paths.image('pixelUI/' + blahblah + 'ENDS'), true, Math.floor(width), Math.floor(height));
 			}
 			else
@@ -442,23 +434,20 @@ class Note extends FlxSprite
 			antialiasing = ClientPrefs.globalAntialiasing;
 		}
 		if (isSustainNote)
-		{ // 0.951
+		{
+			if (animName != null)
+				animation.play(animName, true);
 			scale.y = lastScaleY;
+			if (animName != null && !animName.endsWith('end'))
+				scale.y *= lastFrameHeight / frameHeight;
+			updateHitbox();
 		}
-		if (texture.endsWith('zoom') && isSustainNote && !zoomCoiso)
+		else
 		{
-			scale.y = lastScaleY * 0.951;
-			zoomCoiso = true;
+			updateHitbox();
+			if (animName != null)
+				animation.play(animName, true);
 		}
-		else if (!texture.endsWith('zoom') && isSustainNote && zoomCoiso)
-		{
-			scale.y = lastScaleY * 1.05152;
-			zoomCoiso = false;
-		}
-		updateHitbox();
-
-		if (animName != null)
-			animation.play(animName, true);
 
 		if (inEditor)
 		{

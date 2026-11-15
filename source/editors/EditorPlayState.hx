@@ -363,13 +363,7 @@ class EditorPlayState extends MusicBeatState
 						if (daNote.isSustainNote) {
 							//Jesus fuck this took me so much mother fucking time AAAAAAAAAA
 							if (daNote.animation.curAnim.name.endsWith('end')) {
-								daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * roundedSpeed + (46 * (roundedSpeed - 1));
-								daNote.y -= 46 * (1 - (fakeCrochet / 600)) * roundedSpeed;
-								if(PlayState.isPixelStage) {
-									daNote.y += 8;
-								} else {
-									daNote.y -= 19;
-								}
+								daNote.y += 0.4515 * (fakeCrochet / 4) * roundedSpeed - daNote.frameHeight * daNote.scale.y;
 							} 
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (roundedSpeed - 1));
 							daNote.y += 27.5 * ((PlayState.SONG.bpm / 100) - 1) * (roundedSpeed - 1);

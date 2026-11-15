@@ -747,9 +747,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 							// Jesus fuck this took me so much mother fucking time AAAAAAAAAA
 							if (daNote.animation.curAnim.name.endsWith('end'))
 							{
-								daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * _song.speed + (46 * (_song.speed - 1));
-								daNote.y -= 46 * (1 - (fakeCrochet / 600)) * _song.speed;
-								daNote.y -= 19;
+								daNote.y += 0.4515 * (fakeCrochet / 4) * _song.speed - daNote.frameHeight * daNote.scale.y;
 							}
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (_song.speed - 1));
 							daNote.y += 27.5 * ((_song.bpm / 100) - 1) * (_song.speed - 1);
@@ -813,9 +811,7 @@ class MultiplayerPlayState extends MusicBeatSubstate
 								daNote.y = (strumY + 0.45 * (Song.Conductor.songPosition - daNote.strumTime) * _song.speed);
 								if (daNote.animation.curAnim.name.endsWith('end'))
 								{
-									daNote.y += 10.5 * (fakeCrochet / 400) * 1.5 * _song.speed + (46 * (_song.speed - 1));
-									daNote.y -= 46 * (1 - (fakeCrochet / 600)) * _song.speed;
-									daNote.y -= 19;
+									daNote.y += 0.4515 * (fakeCrochet / 4) * _song.speed - daNote.frameHeight * daNote.scale.y;
 								}
 								daNote.y += (Note.swagWidth / 2) - (60.5 * (_song.speed - 1));
 								daNote.y += 27.5 * ((_song.bpm / 100) - 1) * (_song.speed - 1);
