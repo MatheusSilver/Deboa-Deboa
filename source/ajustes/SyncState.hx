@@ -97,13 +97,13 @@ class SyncState extends MusicBeatState {
 			lightPlayCount++;
 			// Esse timer aqui é para a próxima batida.
 
-			if (lightPlayCount == TOTAL_SIGNALS) canPressToSync = true;
 			new FlxTimer().start(BEAT_INTERVAL, function(_) {
 				playNextLight();
 			});
 		} else {
 			testingSoundHeavy.play();
 			currentSoundTime = haxe.Timer.stamp(); // tempo em milisegundos
+			canPressToSync = true;
 		}
 	}
 
@@ -145,7 +145,7 @@ class SyncState extends MusicBeatState {
 	//Aqui era para ter alguma coisa que desse indicação visual do som calibrado, mas já fritei meu cerébro para pensar em tudo até aqui.
 	private function startTesting() {
 		status = TESTING;
-		offset = Math.round(calculateAverageDelay());
+		offset = Std.int(Math.max(0, Math.min(500, Math.round(calculateAverageDelay() * 1000))));
 		
 		detailsText.text = "Teste de sincronização\nAtraso: " + Std.string(offset) + "ms\n" +
 		"aperte ENTER PARA salvar os resultados!\n" +
@@ -156,6 +156,12 @@ class SyncState extends MusicBeatState {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
+
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end) {
+			GlobalSoundManager.play(cancelMenu);
+			MusicBeatState.switchState(new ajustes.AjustesState());
+			return;
+		}
 
 		if(status == INIT && FlxG.keys.justPressed.SPACE) {
 			GlobalSoundManager.play(confirmMenu);

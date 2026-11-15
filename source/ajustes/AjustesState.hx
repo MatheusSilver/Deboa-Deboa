@@ -256,6 +256,7 @@ class AjustesState extends MusicBeatState
 		function click(object:FlxButton):Void{
 			if (optionShit[object.ID]!="gamejooj" || (!GJClient.logged && !TitleState.ModoOffline)){
 				object.alpha=1;
+				curSelected = object.ID;
 				select(curSelected);
 			}
 		}

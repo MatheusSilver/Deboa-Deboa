@@ -106,6 +106,7 @@ class BaseOptionsMenu extends MusicBeatState
 	{
 
 		super();
+		Main.mouse_allowed = true;
 
 		bg = new FlxSprite().loadGraphic(Paths.image('escolhendo-branco'));
 		bg.color = 0xfffc4f4f; //arrumem a cor a vosso gosto
@@ -130,10 +131,11 @@ class BaseOptionsMenu extends MusicBeatState
 		grpTexts = new FlxTypedGroup<AttachedText>();
 		add(grpTexts);
 
+		if (!Main.is_GPU_allowed)
+			options.remove("gpu");
+
 		for (i in 0...options.length)
 		{
-			if (options[i] == "gpu" && !Main.is_GPU_allowed) continue;
-			
 			var isCentered:Bool = unselectableCheck(i);
 			var optionText:Alphabet = new Alphabet(0, 70 * i, Linguagem.LangUtil.getString("opt_name_"+options[i], "option_name"), false, false, 0.05, 1, 'alfabetovio'); // esse true no final é pro texto ser branco
 			optionText.isMenuItem = true;
@@ -216,11 +218,15 @@ class BaseOptionsMenu extends MusicBeatState
 		}
 		if (Main.getMouseVisibility()){		
 			BSLSwipeUtils.swipeVertical();
+			if (BSLTouchUtils.justTouched())
+				touchScrolled = false;
+			if (BSLSwipeUtils.scrollY != 0)
+				touchScrolled = true;
 			for (option in grpOptions.members)
 			{
-				if (BSLTouchUtils.solto(option) && option.targetY == 0 && !BSLSwipeUtils.is_swipping)
+				if (BSLTouchUtils.solto(option) && option.targetY == 0 && !BSLSwipeUtils.is_swipping && !touchScrolled)
 					accepted = true;
-				else if (BSLTouchUtils.solto(option) && !BSLSwipeUtils.is_swipping)
+				else if (BSLTouchUtils.solto(option) && !BSLSwipeUtils.is_swipping && !touchScrolled)
 					changeSelection(Std.int(option.targetY));
 			}
 			if (Math.abs(change_swipe) <= Math.abs(BSLSwipeUtils.scrollY) && BSLSwipeUtils.scrollY != 0)
@@ -419,7 +425,7 @@ class BaseOptionsMenu extends MusicBeatState
 
 				if(holdTime <= 0 && options[curSelected] != "hitsound_type" && options[curSelected] != "hitsound_volume") GlobalSoundManager.play(scrollMenu);
 				holdTime += elapsed;
-			} else if (controls.ACCEPT && options[curSelected] == 'hitsound_test' && ClientPrefs.hitSounds){
+			} else if (accepted && options[curSelected] == 'hitsound_test' && ClientPrefs.hitSounds){
 				var hitsound:FlxSound = new FlxSound().loadEmbedded(Paths.sound('osu/' + ClientPrefs.hitSoundType, 'shared'));
 				hitsound.volume = ClientPrefs.osusom;
 				hitsound.play();
@@ -439,6 +445,7 @@ class BaseOptionsMenu extends MusicBeatState
 	}
 
 	private var change_swipe:Int = 0;
+	var touchScrolled:Bool = false;
 	
 	function changeSelection(change:Int = 0)
 	{
