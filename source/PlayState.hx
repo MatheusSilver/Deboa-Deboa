@@ -493,7 +493,7 @@ class PlayState extends MusicBeatState
 		switch (stage)
 		{
 			case 'too-slow':
-				image('PolishedP1/' + (gore ? 'antigore' : 'FLOOR1'));
+				image('PolishedP1/' + (gore ? 'FLOOR1' : 'antigore'));
 			case 'fakerStage':
 				image('daSTAT', 'preload', true);
 				image('Faker_Transformation', null, true);
@@ -741,7 +741,7 @@ class PlayState extends MusicBeatState
 			case 'too-slow':
 				{
 					var bg:FlxSprite;
-					bg = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/${ClientPrefs.gore ? "antigore" : "FLOOR1"}'));
+					bg = new FlxSprite(-297 - 230, -246).loadGraphic(Paths.image('PolishedP1/${ClientPrefs.gore ? "FLOOR1" : "antigore"}'));
 					bg.antialiasing = ClientPrefs.globalAntialiasing;
 					bg.scrollFactor.set(1.3, 1);
 					bg.active = false;
