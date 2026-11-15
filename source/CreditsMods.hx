@@ -104,6 +104,7 @@ class CreditsMods extends MusicBeatState
 		BSLSwipeUtils.max_y = 2;
 		BSLSwipeUtils.mouseScrollMultiplier=0; //Isso desativa o mouse do BSLSwipeUtils
 		BSLSwipeUtils.reset_manual=true;
+		BSLSwipeUtils.is_swipping = false;
 		Main.mouse_allowed = true;
 
 		super.create();
@@ -112,10 +113,15 @@ class CreditsMods extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		BSLSwipeUtils.swipeVertical();
-		if (controls.BACK && canChange)
+		if ((controls.BACK #if android || FlxG.android.justReleased.BACK #end) && canChange)
 		{
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new SobreState());
+		}
+		if (creditList == null)
+		{
+			super.update(elapsed);
+			return;
 		}
 		if (Main.getMouseVisibility()){
 			#if desktop
@@ -127,7 +133,7 @@ class CreditsMods extends MusicBeatState
 				{				
 					spr.y+=BSLSwipeUtils.scrollY*1.1;
 				});	
-			}else if(BSLSwipeUtils.is_swipping && !BSLTouchUtils.pressionando(bg)){
+			}else if(BSLSwipeUtils.is_swipping && !BSLTouchUtils.touched()){
 				creditList.forEach(function(spr:SpriteSwapper)
 				{					
 					spr.updateTarget();

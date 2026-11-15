@@ -24,6 +24,7 @@ class CreditsMusics extends MusicBeatState
 	// var faixa:FlxSprite;
 	// var exe:FlxSprite;
 	var creditList:FlxTypedSpriteGroup<SpriteSwapper>;
+	var canChange:Bool = false;
 
 	var creditStuff:Array<String> = [
 		'mars', 'penkaru', 'saster', 'solunary', 'spookawaii', 'teles', 'ankinluu', 'apartygoer', 'c52278', 'd4rksp1ne20', 'ehtmareiner', 'jark1412',
@@ -36,6 +37,7 @@ class CreditsMusics extends MusicBeatState
 		BSLSwipeUtils.max_x = 3;
 		BSLSwipeUtils.mouseScrollMultiplier=0; //Isso desativa o mouse do BSLSwipeUtils
 		BSLSwipeUtils.reset_manual=true;
+		BSLSwipeUtils.is_swipping = false;
 		Main.mouse_allowed = true;
 		#if rpc
 		// Updating Discord Rich Presence
@@ -67,7 +69,9 @@ class CreditsMusics extends MusicBeatState
 		add(creditList);
 		
 		FlxTween.tween(bg, {y: 0}, CoolUtil.getAnimSpeed(1), {ease: FlxEase.quartInOut});
-		FlxTween.tween(creditList, {x: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: CoolUtil.getAnimSpeed(1)});
+		FlxTween.tween(creditList, {x: 0}, 0.5, {ease: FlxEase.quartInOut, startDelay: CoolUtil.getAnimSpeed(1), onComplete: function(twn:FlxTween) {
+			canChange = true;
+		}});
 
 		super.create();
 	}
@@ -90,7 +94,7 @@ class CreditsMusics extends MusicBeatState
 			GlobalSoundManager.play(cancelMenu);
 			MusicBeatState.switchState(new SobreState());
 		}
-		if (Main.getMouseVisibility()){
+		if (canChange && Main.getMouseVisibility()){
 			#if desktop
 			if(FlxG.mouse.wheel != 0 && creditList.members[0].tweenController==null)
 				changeSelection(CoolUtil.mathClamp(FlxG.mouse.wheel,-1,1));
@@ -100,14 +104,14 @@ class CreditsMusics extends MusicBeatState
 				{				
 					spr.x+=BSLSwipeUtils.scrollX;
 				});	
-			}else if(BSLSwipeUtils.is_swipping && !BSLTouchUtils.pressionando(bg)){
+			}else if(BSLSwipeUtils.is_swipping && !BSLTouchUtils.touched()){
 				creditList.forEach(function(spr:SpriteSwapper)
 				{					
 					spr.updateTarget();
 				});	
 				BSLSwipeUtils.is_swipping = false;
 			}
-		}else{
+		}else if (canChange){
 			if (creditList.members[0].tweenController==null){
 				if (controls.UI_RIGHT_P)
 					changeSelection(-1);
