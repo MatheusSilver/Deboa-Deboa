@@ -64,7 +64,7 @@ function onCreate()
     makeAnimatedLuaSprite('fx', 'vintage', 0, 0)
 	addAnimationByPrefix('fx', 'idle', 'idle', 16, true)
 	scaleObject('fx', 3, 3)
-	setObjectCamera('fx', 'hud2')
+	setObjectCamera('fx', 'ccc')
 	objectPlayAnimation('fx', 'idle', true)
 	setProperty('fx.alpha', 0)
     addLuaSprite('fx', true)
@@ -130,7 +130,7 @@ function onEvent(evento, valor1, valor2)
         end
         if valor1 == '4-10' then
             if flashing then
-            cameraFlash('legenda', '0xffffff', 1, true)
+            cameraFlash('ccc', '0xffffff', 1, true)
             end
             fastChar('Sonicphase3heroi', 'invisibruphase3vilao')
             triggerEvent('Camera Follow Pos',camPosDadX,camPosDadY, true)
@@ -142,7 +142,7 @@ function onEvent(evento, valor1, valor2)
             --end
             dueto(false)
             if flashing then
-            cameraFlash('legenda', '0xff0000', 3, true)
+            cameraFlash('ccc', '0xff0000', 3, true)
             end
             triggerEvent("Set Cam Zoom", '0.8', 'nada', 'nada', 'nada')
             setProperty('HUD.iconP2.alpha', 1)
@@ -315,7 +315,9 @@ function onTweenCompleted(tag)
         triggerEvent('Change Character','dad','Soul Tails')
         triggerEvent('noteskinchangeBF','NOTE_assets','blood')
         triggerEvent('noteskinchangeOPPT','NOTE_assets','')
-        triggerEvent('eventos-tripletrouble','400289222','nada')
+        if flashing then
+        cameraFlash('ccc', '0xff0000', 3, true)
+        end
         cyCut('KEK');
         setCamMove(true);
         triggerEvent("trocar stage", '10', 'nada', 'nada', 'nada')

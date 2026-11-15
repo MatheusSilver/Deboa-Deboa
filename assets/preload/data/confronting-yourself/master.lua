@@ -309,7 +309,6 @@ function onCreate()
 	
 	pushScriptData("trans")
 
-	precacheImage('Tails')
 	--precacheImage('Knuckles')
 	precacheImage('Phase3Static')
 	precacheImage('vintage')
