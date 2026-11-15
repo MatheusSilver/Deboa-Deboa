@@ -13,6 +13,8 @@ class CustomFadeTransition extends MusicBeatSubstate
 	public static var finishCallback:Void->Void;
 
 	private var leTween:FlxTween = null;
+	var transInTimer:FlxTimer = null;
+	var transInTween:FlxTween = null;
 
 	public static var nextCamera:FlxCamera;
 
@@ -43,12 +45,12 @@ class CustomFadeTransition extends MusicBeatSubstate
 			transBlack.visible = true;
 			imagem.scale.x = 0.5;
 			imagem.scale.y = 0.5;
-			new FlxTimer().start(0.5, function(tmr:FlxTimer)
+			transInTimer = new FlxTimer().start(0.5, function(tmr:FlxTimer)
 			{
 				transBlack.visible = false;
 				if(imagem==null)
 					return;
-				FlxTween.tween(imagem.scale, {x: 240, y: 240}, duration, {
+				transInTween = FlxTween.tween(imagem.scale, {x: 240, y: 240}, duration, {
 					onComplete: function(twn:FlxTween)
 					{
 						close();
@@ -87,6 +89,10 @@ class CustomFadeTransition extends MusicBeatSubstate
 
 	override function destroy()
 	{
+		if (transInTimer != null)
+			transInTimer.cancel();
+		if (transInTween != null)
+			transInTween.cancel();
 		if (leTween != null)
 		{
 			finishCallback();

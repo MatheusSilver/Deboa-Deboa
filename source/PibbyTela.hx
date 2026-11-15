@@ -41,8 +41,15 @@ class PibbyTela extends MusicBeatState
 					if (!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][0]))
 					{
 						ClientPrefs.achievementsMap.set(Achievements.achievementsStuff[achieveID][0], true);
+						ClientPrefs.pibby = "nulo";
 						ClientPrefs.save();
 						giveAchievement();	
+					}
+					else
+					{
+						ClientPrefs.pibby = "nulo";
+						ClientPrefs.save();
+						FlxG.switchState(new TitleState());
 					}
 					#end
 				}

@@ -156,16 +156,13 @@ class TitleState extends MusicBeatState
 		#end
 	}
 	
-	public static var canVerify:Bool = true;
+	static var ultimaVerificacao:Float = -30;
 	public function verificarConexao(?force:Bool = false):Void
 		{
-			if(!canVerify && !force)
+			if(!force && haxe.Timer.stamp() - ultimaVerificacao < 30)
 				return;
 
-			canVerify = false;
-			new FlxTimer().start(30, function(tmr:FlxTimer){
-				canVerify=true;
-			});
+			ultimaVerificacao = haxe.Timer.stamp();
 			urlLoader = new URLLoader();
 			urlLoader.addEventListener(Event.COMPLETE, handleLoadComplete);
 			urlLoader.addEventListener(IOErrorEvent.IO_ERROR, handleLoadError);

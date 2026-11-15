@@ -285,7 +285,7 @@ class LanguageState extends MusicBeatState {
 		brHitbox.updateHitbox();
 		brHitbox.alpha = 0;
 		add(brHitbox);
-		tweensColor();
+		tweensColor(false);
 	}
 
 	//var canTween:Bool = true;
@@ -356,7 +356,7 @@ class LanguageState extends MusicBeatState {
 		}
 	}
 
-	function tweensColor() {
+	function tweensColor(tocarSom:Bool = true) {
 		//canTween = false;
 
 		/*FlxTween.tween(sonicBr, {alpha: brSelected ? 1 : 0.75}, 0.1, {
@@ -371,7 +371,8 @@ class LanguageState extends MusicBeatState {
 		FlxTween.tween(brBandeira.bandeiraSpr, {alpha: brSelected ? 1 : 0.75}, 0.1, {
 			ease: FlxEase.smoothStepIn,
 		});*/
-		GlobalSoundManager.play(scrollMenu);
+		if (tocarSom)
+			GlobalSoundManager.play(scrollMenu);
 		sonicBr.color= brSelected ? FlxColor.WHITE : FlxColor.GRAY;
 		brBandeira.color= brSelected ? FlxColor.WHITE : FlxColor.GRAY;
 		xenoEua.color= !brSelected ? FlxColor.WHITE : FlxColor.GRAY;
