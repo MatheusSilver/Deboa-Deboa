@@ -304,6 +304,8 @@ class FlxCamera extends FlxBasic
 	 */
 	public var filtersEnabled:Bool = true;
 
+	public var fxPaused:Bool = false;
+
 	/**
 	 * Internal, used in blit render mode in camera's `fill()` method for less garbage creation.
 	 * It represents the size of buffer `BitmapData`
@@ -1053,13 +1055,17 @@ class FlxCamera extends FlxBasic
 		}
 
 		updateScroll();
-		updateFlash(elapsed);
-		updateFade(elapsed);
+		if (!fxPaused)
+		{
+			updateFlash(elapsed);
+			updateFade(elapsed);
+		}
 
 		flashSprite.filters = filtersEnabled ? _filters : null;
 
 		updateFlashSpritePosition();
-		updateShake(elapsed);
+		if (!fxPaused)
+			updateShake(elapsed);
 	}
 
 	/**

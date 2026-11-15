@@ -2623,6 +2623,43 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	var frozenTweens:Array<FlxTween> = [];
+	var frozenTimers:Array<FlxTimer> = [];
+
+	function freezeTweensAndTimers()
+	{
+		FlxTween.globalManager.forEach(function(twn:FlxTween)
+		{
+			if (twn.active)
+			{
+				twn.active = false;
+				frozenTweens.push(twn);
+			}
+		});
+		FlxTimer.globalManager.forEach(function(tmr:FlxTimer)
+		{
+			if (tmr.active && !tmr.finished)
+			{
+				tmr.active = false;
+				frozenTimers.push(tmr);
+			}
+		});
+		for (cam in [camGame, camCCC, camHUD, camLegenda, camOther, camHUD2])
+			cam.fxPaused = true;
+	}
+
+	function unfreezeTweensAndTimers()
+	{
+		for (twn in frozenTweens)
+			twn.active = true;
+		for (tmr in frozenTimers)
+			tmr.active = true;
+		frozenTweens = [];
+		frozenTimers = [];
+		for (cam in [camGame, camCCC, camHUD, camLegenda, camOther, camHUD2])
+			cam.fxPaused = false;
+	}
+
 	override function openSubState(SubState:FlxSubState)
 	{
 		if (paused)
@@ -2675,32 +2712,7 @@ class PlayState extends MusicBeatState
 				resyncVocals();
 			}
 
-			if (startTimer != null && !startTimer.finished)
-				startTimer.active = true;
-			if (finishTimer != null && !finishTimer.finished)
-				finishTimer.active = true;
-			if (songSpeedTween != null)
-				songSpeedTween.active = true;
-			if (blammedLightsBlackTween != null)
-				blammedLightsBlackTween.active = true;
-
-			var chars:Array<Character> = [boyfriend, gf, dad];
-			for (i in 0...chars.length)
-			{
-				if (chars[i].colorTween != null)
-				{
-					chars[i].colorTween.active = true;
-				}
-			}
-
-			for (tween in modchartTweens)
-			{
-				tween.active = true;
-			}
-			for (timer in modchartTimers)
-			{
-				timer.active = true;
-			}
+			unfreezeTweensAndTimers();
 			paused = false;
 			pausarVideo(false);
 			callOnLuas('onResume', []);
@@ -2786,8 +2798,9 @@ class PlayState extends MusicBeatState
 
 	function openPauseMenu()
 	{
-		if(!canPause)
+		if(!canPause || paused)
 			return;
+		freezeTweensAndTimers();
 		persistentUpdate = false;
 		persistentDraw = true;
 		paused = true;

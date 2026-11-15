@@ -309,6 +309,7 @@ class PauseSubState extends MusicBeatSubstate
 					if(didJumpscare){Achievements.unlockAchievement('pause_jumpscare');}
 					pretoTrans.visible = true;
 					FlxTween.tween(pretoTrans, {alpha : 1}, 0.5, {ease:FlxEase.quartInOut, onComplete: function(twn:FlxTween){
+						flixel.addons.transition.FlxTransitionableState.skipNextTransIn = true;
 						MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
 					}} );
 					//Achievements.syncWithGJLater();
@@ -346,10 +347,6 @@ class PauseSubState extends MusicBeatSubstate
 						PlayState.instance.camOther.setFilters([]);
 					}
 				}});
-				if(!PlayState.instance.playingVideoMP4)
-				{
-					startCountdownback(); // não sei se vai quebrar alguma coisa, mas é algo pro bem....
-				}
 				/*var newMatrix:Array<Float> = [
 					1, 0, 0, 0, 0,
 					0, 1, 0, 0, 0,
@@ -357,6 +354,10 @@ class PauseSubState extends MusicBeatSubstate
 					  0,   0,   0, 1, 0,
 				];
 				FlxTween.tween(grayScale, {matrix: newMatrix}, 1.25, {ease: FlxEase.quartInOut});*/
+				}
+				if(!PlayState.instance.playingVideoMP4)
+				{
+					startCountdownback(); // não sei se vai quebrar alguma coisa, mas é algo pro bem....
 				}
 				jumpecare.destroy();
 	}
