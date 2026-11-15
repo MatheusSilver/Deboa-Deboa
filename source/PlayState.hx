@@ -4962,6 +4962,7 @@ class PlayState extends MusicBeatState
 					{
 						FreeplayState.addProgress();
 					}
+					FlxG.save.flush();
 
 					blackFuck.cameras = [camAchievement];
 					blackFuck.visible = true;
