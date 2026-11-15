@@ -76,6 +76,7 @@ class GameOverSubstate extends MusicBeatSubstate
 							endBullshit();
 						});
 				};
+		retryButton.cameras = cameras;
 		add(retryButton);
 
 		eaepedrinho = true;
@@ -133,7 +134,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			});
 		}
 
-		if (controls.BACK && eusougalinha)
+		if ((controls.BACK #if android || FlxG.android.justReleased.BACK #end) && eusougalinha && !isEnding)
 		{
 			isEnding = true;
 			cancelTweens();
@@ -142,8 +143,11 @@ class GameOverSubstate extends MusicBeatSubstate
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
 			MusicBeatState.switchState(new Limpeza.EstadoDeTrocaReverso());
+			PlayState.usedPractice = false;
+			PlayState.changedDifficulty = false;
+			PlayState.cpuControlled = false;
 
-			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'));
+			FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 
@@ -158,7 +162,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('gameoverfalas/' + FlxG.random.int(1, 12, exclude)), 1, false, null, true, function() {
 					if(!isEnding)
 					{
-						FlxG.sound.music.fadeIn(2.25, 1, 4);
+						FlxG.sound.music.fadeIn(2.25, 0.2, 1);
 					}
 				});
 			}
@@ -171,6 +175,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	}
 
 	private function cancelTweens():Void{
+		FlxTween.cancelTweensOf(retryButton);
 		if (retryTween != null){
 			retryTween.cancel();
 			retryTween = null;
