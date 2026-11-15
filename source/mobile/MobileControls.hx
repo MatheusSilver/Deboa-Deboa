@@ -26,11 +26,11 @@ class MobileControls extends FlxSpriteGroup
 		switch (mode)
 		{
 			case VIRTUALPAD_RIGHT:
-				initVirtualPad(0);
+				initVirtualPad(0, usa_desvio);
 			case VIRTUALPAD_LEFT:
-				initVirtualPad(1);
+				initVirtualPad(1, usa_desvio);
 			case VIRTUALPAD_CUSTOM:
-				initVirtualPad(2);
+				initVirtualPad(2, usa_desvio);
 			case HITBOX:
 				if(!usa_desvio) {
 					_hitbox = new Hitbox();
@@ -43,17 +43,18 @@ class MobileControls extends FlxSpriteGroup
 		}
 	}
 
-	function initVirtualPad(vpadMode:Int)
+	function initVirtualPad(vpadMode:Int, desvio:Bool = false)
 	{
+		var action:FlxActionMode = desvio ? A : NONE;
 		switch (vpadMode)
 		{
 			case 1:
-				_virtualPad = new FlxVirtualPad(FULL, NONE);
+				_virtualPad = new FlxVirtualPad(FULL, action);
 			case 2:
-				_virtualPad = new FlxVirtualPad(FULL, NONE);
+				_virtualPad = new FlxVirtualPad(FULL, action);
 				_virtualPad = Config.loadcustom(_virtualPad);
 			default:
-				_virtualPad = new FlxVirtualPad(RIGHT_FULL, NONE);
+				_virtualPad = new FlxVirtualPad(RIGHT_FULL, action);
 		}
 
 		_virtualPad.alpha = 0.75;

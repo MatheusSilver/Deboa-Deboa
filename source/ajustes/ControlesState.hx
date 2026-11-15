@@ -390,14 +390,25 @@ class ControlesState extends MusicBeatState //Code desenvolvido dois anos atrás
 
 		var cbtext:String = Clipboard.text; // this not working on android 10 or higher
 
-		if (!cbtext.endsWith("}")) return;
+		if (cbtext == null || !cbtext.endsWith("}")) return;
 
-		var json = Json.parse(cbtext);
+		var json:Dynamic = null;
+		try
+		{
+			json = Json.parse(cbtext);
+		}
+		catch (e:Dynamic)
+		{
+			return;
+		}
+		if (json == null || json.buttonsarray == null) return;
 
 		var tempCount:Int = 0;
 
 		for(buttons in pad)
 		{
+			if (tempCount >= json.buttonsarray.length || json.buttonsarray[tempCount] == null)
+				break;
 			buttons.x = json.buttonsarray[tempCount].x;
 			buttons.y = json.buttonsarray[tempCount].y;
 			tempCount++;

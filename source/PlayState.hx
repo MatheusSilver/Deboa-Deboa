@@ -2603,11 +2603,14 @@ class PlayState extends MusicBeatState
 	public function get_space_bind(action:String = "JUST_PRESSED"):Bool {
 		#if mobileC
 		if(mcontrols.mode != HITBOX && mcontrols.mode != KEYBOARD) {
+			var botaoDesvio = mcontrols._virtualPad != null ? mcontrols._virtualPad.buttonA : null;
+			if (botaoDesvio == null)
+				return false;
 			switch(action) {
-				case 'PRESSED': return mobile.ui.FlxVirtualPad.instance.buttonA.pressed;
-				case 'JUST_PRESSED': return mobile.ui.FlxVirtualPad.instance.buttonA.justPressed;
-				case 'JUST_RELEASED': return mobile.ui.FlxVirtualPad.instance.buttonA.justReleased;
-				default: return mobile.ui.FlxVirtualPad.instance.buttonA.justPressed;
+				case 'PRESSED': return botaoDesvio.pressed;
+				case 'JUST_PRESSED': return botaoDesvio.justPressed;
+				case 'JUST_RELEASED': return botaoDesvio.justReleased;
+				default: return botaoDesvio.justPressed;
 			}
 		}
 		#end

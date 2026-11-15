@@ -147,7 +147,7 @@ class ClientPrefs
 	
 		var defaultKeyboardControls:Map<String, Array<FlxKey>> = Input.DefaultInputs.defaultKeys;
 		for (control => keys in defaultKeyboardControls) {
-			keyBinds.set(control, keys);
+			keyBinds.set(control, keys.copy());
 		}
 	
 		if (save != null && save.data.customControls != null) {
@@ -159,7 +159,7 @@ class ClientPrefs
 	
 		var defaultGamepadControls:Map<String, Array<FlxGamepadInputID>> = Input.DefaultInputs.defaultKeysGamepad;
 		for (control => keys in defaultGamepadControls) {
-			keyBindsGamepad.set(control, keys);
+			keyBindsGamepad.set(control, keys.copy());
 		}
 	
 		if (save != null && save.data.customControlsGamepad != null) {

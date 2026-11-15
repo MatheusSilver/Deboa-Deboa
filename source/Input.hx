@@ -474,6 +474,8 @@ class Controls extends FlxActionSet
 
 	public function addbuttonuNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState) 
 	{
+		if (button == null)
+			return;
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedinputsNOTES.push(input);
 		
@@ -551,6 +553,8 @@ class Controls extends FlxActionSet
 	
 
 	public function addbuttonuUI(action:FlxActionDigital, button:FlxButton, state:FlxInputState) {
+		if (button == null)
+			return;
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedinputsUI.push(input);
 		
@@ -910,7 +914,10 @@ class Controls extends FlxActionSet
 	public function setKeyboardScheme(scheme:KeyboardScheme, reset = true)
 	{
 		if (reset)
+		{
 			removeKeyboard();
+			removeGamepad();
+		}
 
 		keyboardScheme = scheme;
 		var keysMap = ClientPrefs.keyBinds;
@@ -1497,8 +1504,6 @@ class PlayerSettings
 			var gamepad = FlxG.gamepads.getByID(0);
 			if (gamepad == null)
 				throw 'Unexpected null gamepad. id:0';
-
-			player1.controls.addDefaultGamepad(0);
 		}
 
 		if (numGamepads > 1)

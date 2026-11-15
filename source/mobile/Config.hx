@@ -61,6 +61,8 @@ class Config
 
 		for (buttons in _pad)
 		{
+			if (tempCount >= ClientPrefs.buttons.length)
+				break;
 			buttons.x = ClientPrefs.buttons[tempCount].x;
 			buttons.y = ClientPrefs.buttons[tempCount].y;
 			tempCount++;

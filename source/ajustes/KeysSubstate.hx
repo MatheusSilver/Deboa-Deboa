@@ -176,7 +176,8 @@ class KeysSubstate extends MusicBeatState {
 
 			if (GamepadUtil.anyGamepadButtonPressed() && Main.isKeyboard){
 				Main.isKeyboard = false;
-				changeDisplayedGamepadButtons(0);
+				setGamepadIcon('${GamepadUtil.getDisplayGamepadModel()}');
+				reloadKeys();
 				changeSelection();
 			}else if (FlxG.keys.pressed.ANY && !Main.isKeyboard){
 				Main.isKeyboard = true;
@@ -209,10 +210,12 @@ class KeysSubstate extends MusicBeatState {
 			if(FlxG.keys.justPressed.ENTER || FlxG.keys.justPressed.SPACE || GamepadUtil.checkGamepadPressedButton(A) && nextAccept <= 0) {
 				if(optionShit[curSelected][0] == defaultKey) {
 					ClientPrefs.keyBinds.clear();
-					ClientPrefs.keyBinds = Input.DefaultInputs.defaultKeys.copy();
+					for (control => keys in Input.DefaultInputs.defaultKeys)
+						ClientPrefs.keyBinds.set(control, keys.copy());
 					
 					ClientPrefs.keyBindsGamepad.clear();
-					ClientPrefs.keyBindsGamepad = Input.DefaultInputs.defaultKeysGamepad.copy();
+					for (control => keys in Input.DefaultInputs.defaultKeysGamepad)
+						ClientPrefs.keyBindsGamepad.set(control, keys.copy());
 					
 					ClientPrefs.reloadControls();
 					
@@ -246,8 +249,8 @@ class KeysSubstate extends MusicBeatState {
 			
 			bindingTime += elapsed;
 			if(bindingTime > 5) {
-				grpInputsAlt[curSelected].alpha = curAlt ? 1 : 0.5;
-				grpInputs[curSelected].alpha = !curAlt ? 1 : 0.5;
+				grpInputsAlt[getInputTextNum()].alpha = curAlt ? 1 : 0.5;
+				grpInputs[getInputTextNum()].alpha = !curAlt ? 1 : 0.5;
 
 				GlobalSoundManager.play(scrollMenu);
 				rebindingKey = false;
