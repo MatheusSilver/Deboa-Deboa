@@ -6853,7 +6853,7 @@
 		"validScore": true,
 		"sections": 0,
 		"needsVoices": false,
-		"startfleetwayPHANTASM_Invisibru": true,
+		"startinvisibru": true,
 		"splashSkin": "noteSplashes",
 		"stage": "fleetPHANTASM",
 		"speed": 2.8,
