@@ -9,6 +9,12 @@ end
 
 local curHitting = false;
 
+function onCreate()
+    if not cameraZoomOnBeat then
+        ofs = 0
+    end
+end
+
 function opponentNoteHit(id, direction, noteType, isSustainNote)
  if mustHitSection == false and getCamMove() then
     if direction == 0 then

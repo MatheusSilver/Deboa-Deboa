@@ -1311,7 +1311,7 @@ class PlayState extends MusicBeatState
 		if (OpenFlAssets.exists(luaFile))
 			luaArray.push(new FunkinLua(Utils.Asset2File.getPath(luaFile)));
 
-		if (ClientPrefs.camZooms && !SONG.canfollowpermitido)
+		if (!SONG.canfollowpermitido)
 		{
 			var luaFile2 = 'custom_scripts/camFollowGlobal.lua';
 			luaFile2 = Paths.getPreloadPath(luaFile2);

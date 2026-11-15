@@ -154,7 +154,7 @@ class SongPreloader
 			isPixelStage: isPixelStage,
 			noteSplashes: ClientPrefs.noteSplashes,
 			legendas: ClientPrefs.legendas,
-			camFollowScript: ClientPrefs.camZooms && !song.canfollowpermitido,
+			camFollowScript: !song.canfollowpermitido,
 			legendPath: 'letras/' + songLower + '/' + ClientPrefs.lingua + '/',
 			eventFiles: [songLower == 'cross-console-clash' ? 'events' + CoolUtil.difficultyStuff[PlayState.storyDifficulty][1] : 'events', 'palavroes', 'letras']
 		});
