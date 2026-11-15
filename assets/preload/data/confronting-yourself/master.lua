@@ -250,6 +250,7 @@ function changePhases(curPhase) -- Fazer um lua só pra isso.
 			setProperty(phase10cheetos[i]..'.visible',true)
 		end
 		triggerEvent("strum swap2", "cy", 'false')
+		triggerEvent("Particulas CY", 'nada', 'nada', 'nada', 'nada')
 		mudarRPCdetalhes('cy_ato_10')
 		doTweenY('pedrasobe1', 'phase10-2', getProperty('phase10-2.y')-20, 1, 'smoothstepin')
 		doTweenY('pedrasobe2', 'phase10-3', getProperty('phase10-3.y')-20, 1, 'smoothstepin')

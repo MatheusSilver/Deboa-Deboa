@@ -7413,15 +7413,13 @@ class PlayState extends MusicBeatState
 		for (i in 0...count)
 		{
 			final side = (i < count / 2) ? "left" : "right";
-			final midpoint = (side == "left")
-				? dad.getMidpoint()
-				: boyfriend.getMidpoint();
+			final ch:Character = (side == "left") ? dad : boyfriend;
+			final midpoint = FlxPoint.get(ch.x - ch.offset.x + ch.frameWidth / 2, ch.y - ch.offset.y + ch.frameHeight / 2 + 30);
 
 			var p = new FlxSprite();
 			p.loadGraphic(graphic);
 
 			p.antialiasing = ClientPrefs.globalAntialiasing;
-			p.scrollFactor.set(0.9, 0.9);
 			p.active = false;
 
 			final scale = 0.3 + CoolUtil.randomFloat(0, 0.8);
@@ -7436,8 +7434,8 @@ class PlayState extends MusicBeatState
 			final angle = CoolUtil.randomFloat(0, Math.PI * 2);
 			final radius = Math.pow(CoolUtil.randomFloat(0, 1), 0.7) * spread;
 
-			p.x = midpoint.x + CoolUtil.cos(angle) * radius;
-			p.y = midpoint.y + CoolUtil.sin(angle) * radius * stretchY;
+			p.x = midpoint.x + CoolUtil.cos(angle) * radius - p.width / 2;
+			p.y = midpoint.y + CoolUtil.sin(angle) * radius * stretchY - p.height / 2;
 
 			add(p);
 
