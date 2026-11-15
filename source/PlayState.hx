@@ -1886,7 +1886,7 @@ class PlayState extends MusicBeatState
 			}
 			vocals.pause();
 			FlxG.sound.music.pause();
-			Song.Conductor.songPosition += Std.int(videoSpr.bitmap.length - videoSpr.bitmap.time);
+			Song.Conductor.songPosition += Std.int(Math.max(0, videoSpr.bitmap.length - videoSpr.bitmap.time - (endingSong ? 0 : 1500)));
 			//O único problema é esse coiso ai :skull:
 			notes.forEachAlive(function(daNote:Note)
 			{
