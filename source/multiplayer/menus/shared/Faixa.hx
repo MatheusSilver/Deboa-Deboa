@@ -63,6 +63,8 @@ class Faixa extends FlxSpriteGroup
 		var loader:Loader = new Loader();
 		loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void
 		{
+			if (icon == null || !icon.exists)
+				return;
 			if (!GJClient.avatarURL.contains("no-avatar"))
 			{
 				var bmp:Bitmap = cast(loader.content, Bitmap);
@@ -235,6 +237,8 @@ class FaixaLobby extends FlxSpriteGroup
 	var imageLoaded:Bool = false;
 	function modifySprite(bmd:BitmapData)
 	{
+		if (icon == null || !icon.exists)
+			return;
 		icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
 		icon.setGraphicSize(62, 62); // aparentemente aquele numero do link é uma mentira :womp: :womp:
 		icon.updateHitbox();

@@ -140,7 +140,8 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
 		amigosList.add(fakeBG);
         
         var amiguineos:Array<User> = friendsCache == null ? GJClient.getFriendsList() : friendsCache; // pra evitar ele a ficar dando fetch toda hora
-        friendsCache = amiguineos;
+        if (amiguineos.length > 0)
+            friendsCache = amiguineos;
         // ninguém nunca me respondeu, estou triste :cry:
         var x1:Float = 1; // bora x1?
         var x2:Int = 0;
@@ -198,7 +199,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
         canSwipeRight = amigos[ultimoAmigo].x > numeroSuperManeiro;
         canSwipeLeft = amigos[0].x <= 15;
 
-        if (Main.isKeyboard){
+        if (!Main.getMouseVisibility()){
             if(controls.UI_LEFT_P)
             {
                 curSelection = Std.int(Math.max(0, curSelection-1));
@@ -239,7 +240,7 @@ class GameJoltFriendsMenu extends MusicBeatSubstate
             }
         }
 
-        if(amigos[0].x > 15)
+        if(amigos[0].x > 15 || amigos[ultimoAmigo].x - amigos[0].x < numeroSuperManeiro - 15)
         {
             var offset = amigos[0].x - 15;
             for(amigo in amigos)
@@ -451,6 +452,8 @@ class FriendObject extends FlxSpriteGroup
     }
 
     function colocarIcon(bmp:Bitmap) {
+		if (icon == null || !icon.exists)
+			return;
 		var bmd:BitmapData = bmp.bitmapData;
         icon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
 		icon.setGraphicSize(Std.int(icon.width), Std.int(icon.height));

@@ -43,6 +43,8 @@ class GameJoltUserObject extends FlxSpriteGroup
 			{
 				var loader:Loader = new Loader();
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, function(event:Event):Void {
+					if (userIcon == null || !userIcon.exists)
+						return;
 					var bmp:Bitmap = cast(loader.content, Bitmap);
 					var bmd:BitmapData = bmp.bitmapData;
 					userIcon.loadGraphic(FlxGraphic.fromBitmapData(bmd, false));
