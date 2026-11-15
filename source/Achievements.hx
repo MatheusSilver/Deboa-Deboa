@@ -108,7 +108,9 @@ class Achievements {
 					if(GJList==null) GJList = [];
 					for(trophie in GJList)
 						{
-							unlockAchievement(getAchievementID(trophie.id), false, false);
+							var achievementName:String = getAchievementID(Std.parseInt(Std.string(trophie.id)));
+							if (achievementName != "")
+								unlockAchievement(achievementName, false, false);
 						}
 					GJList = [];
 					if(onSuccess != null)
@@ -118,14 +120,21 @@ class Achievements {
 					if(onFail != null)
 						onFail();
 				}, true, function(?result:Null<Dynamic>) {
-					if(result.trophies == null)
+					if(result == null || result.trophies == null)
+					{
 						GJList = [];
 						return;
+					}
 					GJList = result.trophies;
 					//trace("GJList: "+ GJList); eu vou explodir
 				});
 
 			}
+			else if (onFail != null)
+				onFail();
+			#else
+			if (onFail != null)
+				onFail();
 			#end
 		}
 

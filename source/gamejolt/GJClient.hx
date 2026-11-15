@@ -746,7 +746,10 @@ class GJClient
                                 return;*/
                             result = response.toJson();
                             if(result==null)
+                            {
+                                if (onFail != null) onFail();
                                 return;
+                            }
                             result = result.response;
                             success = response.toJson().response.success == 'true';
 

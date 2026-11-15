@@ -25,7 +25,7 @@ class ProgressionUtil
 		}
 
 		//trace("Total de musicas freeplay: "+ freeplayMusicas + "\n" + "Progresso freeplay: " + FreeplayState.progressFreeplay);
-		return flixel.FlxG.save.data.freeplayProgress == freeplayMusicas+1;
+		return Std.parseInt(Std.string(flixel.FlxG.save.data.freeplayProgress)) == freeplayMusicas+1;
 	}
 
 	public static function terminouTudo():Bool {

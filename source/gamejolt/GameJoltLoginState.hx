@@ -101,6 +101,19 @@ class GameJoltLoginState extends MusicBeatState
 		}
 	override function update(elapsed:Float)
 		{
+            if (userBar.hasFocus || tokenBar.hasFocus)
+            {
+                FlxG.sound.muteKeys = [];
+                FlxG.sound.volumeDownKeys = [];
+                FlxG.sound.volumeUpKeys = [];
+            }
+            else
+            {
+                FlxG.sound.muteKeys = TitleState.muteKeys;
+                FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
+                FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
+            }
+
             if(esconderTexto && msgBar.alpha>0)
             {
                 msgBar.alpha = msgBar.alpha - 0.005;
@@ -224,6 +237,10 @@ class GameJoltLoginState extends MusicBeatState
                 Achievements.syncAchievementsGJ();
                 MainMenuStateMobile.verificaDnvIdiota = true;
                 if(InviteBackEnd.instance==null) {new InviteBackEnd();}
+                FlxG.sound.soundTrayEnabled = true;
+                FlxG.sound.muteKeys = TitleState.muteKeys;
+                FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
+                FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
                 MusicBeatState.switchState(new ajustes.AjustesState());
             }
 
@@ -308,7 +325,7 @@ class GameJoltLoginState extends MusicBeatState
                 trace("Salvando o progresso local na gj");
             } else if (numGJ > numLocal) {
                 FreeplayState.progressFreeplay = numGJ;
-                FlxG.save.data.freeplayProgress = dataGJ;
+                FlxG.save.data.freeplayProgress = numGJ;
                 trace("Salvando o progresso gj no local");
             } else if (numGJ == numLocal) {
                 GJClient.setData(Std.string(FreeplayState.progressFreeplay), "progressFreeplay");
