@@ -61,7 +61,6 @@ class AchievementsMenuState extends MusicBeatState
 			var achieveAlbum:String = Achievements.getAchievementCategory(i);
 			var optionText:Alphabet = new Alphabet(-150, (250 * i) + 100, '', false, false);
 			optionText.isMenuTrem = true;
-			optionText.x += 25;
 			optionText.xAdd = 25;
 			optionText.targetY = i;
 			grpOptions.add(optionText);
