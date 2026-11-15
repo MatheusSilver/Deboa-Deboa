@@ -729,15 +729,12 @@ class GJClient
                         if(type != null) {
                             switch(type) {
                                 case USER:
-                                    var daFormat:Null<User> = null;
-                                    if (response.toJson().response.users[0] != null)
+                                    var daJson:Dynamic = response.toJson();
+                                    if (daJson != null && daJson.response != null && daJson.response.users != null && daJson.response.users[0] != null)
                                     {
-                                        if (response.toJson().response.users[0] != null)
-                                        {
-                                            daFormat = cast response.toJson().response.users[0];
-                                        }
+                                        var daFormat:Null<User> = cast daJson.response.users[0];
+                                        inviteObject.setInfo(daFormat);
                                     }
-                                    inviteObject.setInfo(daFormat);
                                 case INVITE:
                                     callbackGetDesafios(response, customCallback);
                             }

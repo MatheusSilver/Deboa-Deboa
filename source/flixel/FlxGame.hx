@@ -659,9 +659,12 @@ class FlxGame extends Sprite
 
 		for(invite in invites)
 		{
+			if (invite.user == null)
+				continue;
 			var invite2:gamejolt.InviteBackEnd.InviteObject = new gamejolt.InviteBackEnd.InviteObject(invite.x, invite.y, invite.user.id, invite.index, invite.user);
 			invite2.setInfo(invite.user, true);
 			invite2.updatePos(false);
+			invite2.visible = !CoolUtil.checkPlayState();
 			invites2.push(invite2);
 			_state.add(invite2);
 		}

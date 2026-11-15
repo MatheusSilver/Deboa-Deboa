@@ -40,7 +40,6 @@ class InviteBackEnd extends FlxGroup
         cam = new FlxCamera();
         cam.bgColor.alpha = 0;
         FlxG.cameras.add(cam, false);
-        GJClient.getDesafios(spawnarInvite);
         reInit();
         FlxG.game.onSwitchState=function(invites:Array<InviteObject>) {
             curInvites = invites;
@@ -254,6 +253,8 @@ class InviteObject extends FlxSpriteGroup
 
     public function setInfo(usuario:User, ?jaTinha:Bool = false)
     {
+        if (usuario == null)
+            return;
         user = usuario;
         texto.text = '${user.username} ${Linguagem.LangUtil.getString("menu_friends_invite_request", "menu")}';
         if(jaTinha)
@@ -293,6 +294,7 @@ class InviteObject extends FlxSpriteGroup
     public function decline(?force:Bool = false)
     {
         if(!canDecline && !force) return;
+        if(CoolUtil.checkPlayState() && !force) return;
         if(FlxG.state!=null){
             if(FlxG.state.subState!=null)
             {
