@@ -3210,7 +3210,7 @@ class PlayState extends MusicBeatState
 						if (strumScroll && daNote.isSustainNote)
 						{
 							if (daNote.animation.curAnim.name.endsWith('end'))
-								daNote.y += 0.4515 * (fakeCrochet / 4) * songSpeed - daNote.frameHeight * daNote.scale.y;
+								daNote.y += 0.4515 * (fakeCrochet / 4) * songSpeed * daNote.holdHeightFactor - daNote.frameHeight * daNote.scale.y;
 							daNote.y += (Note.swagWidth / 2) - (60.5 * (songSpeed  - 1));
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (songSpeed  - 1);
 						}

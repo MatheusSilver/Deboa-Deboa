@@ -3,6 +3,12 @@ package;
 import PlayState;
 import editors.ChartingState;
 import flixel.FlxSprite;
+import flixel.graphics.frames.FlxFrame;
+import lime.graphics.Image;
+import lime.graphics.PixelFormat;
+import openfl.display.BitmapData;
+import openfl.utils.AssetType;
+import openfl.utils.Assets as OpenFlAssets;
 import modifiers.ModifiersManager;
 
 using StringTools;
@@ -66,6 +72,7 @@ class Note extends FlxSprite
 	var jatrocou:Bool = true;
 
 	public var offsetX:Float = 0;
+	public var holdHeightFactor:Float = 1;
 	public var offsetY:Float = 0;
 	public var offsetAngle:Float = 0;
 	public var multAlpha:Float = 1;
@@ -291,6 +298,7 @@ class Note extends FlxSprite
 				}
 
 			updateHitbox();
+			updateHoldHeightFactor();
 
 			offsetX -= width / 2;
 
@@ -326,7 +334,7 @@ class Note extends FlxSprite
 							prevNote.animation.play('redhold');
 					}
 
-				prevNote.scale.y = Song.Conductor.stepCrochet * 0.4515 * (PlayState.instance != null ? PlayState.instance.songSpeed : PlayState.SONG.speed) / prevNote.frameHeight;
+				prevNote.scale.y = Song.Conductor.stepCrochet * 0.4515 * (PlayState.instance != null ? PlayState.instance.songSpeed : PlayState.SONG.speed) * prevNote.holdHeightFactor / prevNote.frameHeight;
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
 			}
@@ -378,7 +386,7 @@ class Note extends FlxSprite
 		arraySkin[arraySkin.length - 1] = prefix + arraySkin[arraySkin.length - 1] + suffix;
 
 		var lastScaleY:Float = scale.y;
-		var lastFrameHeight:Int = frameHeight;
+		var lastOpaqueHeight:Float = frameHeight / holdHeightFactor;
 		var blahblah:String = arraySkin.join('/');
 		if (PlayState.isPixelStage)
 		{
@@ -436,10 +444,13 @@ class Note extends FlxSprite
 		if (isSustainNote)
 		{
 			if (animName != null)
+			{
 				animation.play(animName, true);
+				updateHoldHeightFactor();
+			}
 			scale.y = lastScaleY;
 			if (animName != null && !animName.endsWith('end'))
-				scale.y *= lastFrameHeight / frameHeight;
+				scale.y *= lastOpaqueHeight * holdHeightFactor / frameHeight;
 			updateHitbox();
 		}
 		else
@@ -454,6 +465,105 @@ class Note extends FlxSprite
 			setGraphicSize(ChartingState.GRID_SIZE, ChartingState.GRID_SIZE);
 			updateHitbox();
 		}
+	}
+
+	static var holdHeightFactors:Map<String, Float> = new Map();
+
+	function updateHoldHeightFactor():Void
+	{
+		holdHeightFactor = 1;
+		if (!isSustainNote || animation.curAnim == null || frames == null)
+			return;
+		var holdName:String = animation.curAnim.name;
+		if (holdName.endsWith('end'))
+			holdName = holdName.substr(0, holdName.length - 3);
+		var frame:FlxFrame = holdFrame(holdName);
+		if (frame == null || frame.parent == null)
+			return;
+		var key:String = holdFrameKey(frame);
+		if (!holdHeightFactors.exists(key))
+		{
+			var pending:Array<FlxFrame> = [];
+			for (name in animation.getNameList())
+			{
+				var other:FlxFrame = name.endsWith('hold') ? holdFrame(name) : null;
+				if (other != null && other.parent == frame.parent && !holdHeightFactors.exists(holdFrameKey(other)))
+					pending.push(other);
+			}
+			if (pending.indexOf(frame) < 0)
+				pending.push(frame);
+			measureHoldFrames(pending);
+		}
+		holdHeightFactor = holdHeightFactors.get(key);
+	}
+
+	function holdFrame(name:String):FlxFrame
+	{
+		var anim = animation.getByName(name);
+		return (anim != null && anim.frames.length > 0) ? frames.frames[anim.frames[0]] : null;
+	}
+
+	static function holdFrameKey(frame:FlxFrame):String
+	{
+		return frame.parent.key + '|' + frame.frame.x + '|' + frame.frame.y + '|' + frame.frame.width + '|' + frame.frame.height + '|' + frame.sourceSize.y;
+	}
+
+	static function measureHoldFrames(holdFrames:Array<FlxFrame>):Void
+	{
+		var parent = holdFrames[0].parent;
+		var copy:BitmapData = null;
+		try
+		{
+			var image:Image = parent.bitmap != null ? parent.bitmap.image : null;
+			if (image == null)
+			{
+				var path:String = Paths.getPath('images/' + parent.key + '.png', AssetType.IMAGE);
+				if (OpenFlAssets.exists(path, AssetType.IMAGE))
+				{
+					copy = OpenFlAssets.getBitmapData(path, false);
+					if (copy != null)
+						image = copy.image;
+				}
+			}
+			if (image != null)
+				for (frame in holdFrames)
+					holdHeightFactors.set(holdFrameKey(frame), holdHeightFactorOf(frame, image));
+		}
+		catch (e:Dynamic) {}
+		if (copy != null)
+			copy.dispose();
+		for (frame in holdFrames)
+			if (!holdHeightFactors.exists(holdFrameKey(frame)))
+				holdHeightFactors.set(holdFrameKey(frame), 1);
+	}
+
+	static function holdHeightFactorOf(frame:FlxFrame, image:Image):Float
+	{
+		if (frame.angle != FlxFrameAngle.ANGLE_0)
+			return 1;
+		var x:Int = Std.int(frame.frame.x);
+		var y:Int = Std.int(frame.frame.y);
+		var w:Int = Std.int(frame.frame.width);
+		var h:Int = Std.int(frame.frame.height);
+		var body:Float = rowAlpha(image, x, y + Std.int(h / 2), w);
+		var top:Int = 0;
+		while (top < h / 4 && rowAlpha(image, x, y + top, w) < body * 0.7)
+			top++;
+		var bottom:Int = 0;
+		while (bottom < h / 4 && rowAlpha(image, x, y + h - 1 - bottom, w) < body * 0.7)
+			bottom++;
+		var faded:Float = frame.sourceSize.y - h + top + bottom;
+		if (body > 0 && faded > 0 && faded < frame.sourceSize.y)
+			return frame.sourceSize.y / (frame.sourceSize.y - faded);
+		return 1;
+	}
+
+	static function rowAlpha(image:Image, x:Int, y:Int, w:Int):Float
+	{
+		var sum:Float = 0;
+		for (i in 0...w)
+			sum += (image.getPixel32(x + i, y, PixelFormat.ARGB32) >>> 24) & 0xFF;
+		return sum / w;
 	}
 
 	function loadNoteAnims()
