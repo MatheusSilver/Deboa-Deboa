@@ -46,6 +46,7 @@
 	<define name="LUA_ALLOWED" />
 	<!-- Yeah Yeah -->
 	<define name="ACHIEVEMENTS_ALLOWED" />
+	<define name="UNLOCK_SONGS_ALLOWED" />
 
 	<!-- DONT ENABLE THIS -->
 	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>

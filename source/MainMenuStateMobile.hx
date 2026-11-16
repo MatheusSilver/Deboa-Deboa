@@ -95,7 +95,7 @@ class MainMenuStateMobile extends MusicBeatState
 		Song.Conductor.changeBPM(112);
 		instance = this;
 		GameJoltLoginState.syncProgress();
-		terminouHistoria = ProgressionUtil.terminouHistoria();
+		terminouHistoria = ProgressionUtil.terminouHistoria() || ProgressionUtil.musicasLiberadas();
 
 		#if rpc
 		// Updating Discord Rich Presence
@@ -206,6 +206,24 @@ class MainMenuStateMobile extends MusicBeatState
 		versionShit.setFormat("sonic-1-hud-font.ttf", 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		versionShit.updateHitbox();
 		add(versionShit);
+
+		#if UNLOCK_SONGS_ALLOWED
+		if (!ProgressionUtil.musicasLiberadas() && !ProgressionUtil.todasMusicasAbertas())
+		{
+			unlockButton = new FlxButton(12, 589);
+			unlockButton.loadGraphic(Paths.image('buttons_base/yes_no_button', 'preload'));
+			unlockButton.setGraphicSize(Std.int(unlockButton.width * 0.5));
+			unlockButton.updateHitbox();
+			unlockButton.alpha = 0.75;
+			add(unlockButton);
+
+			var unlockText:FlxText = new FlxText(unlockButton.x + 62, unlockButton.y, 143, Linguagem.LangUtil.getString('menu_unlock_songs', 'menu', '\n'));
+			unlockText.setFormat(Linguagem.LangUtil.getFont('sonic-1'), 20, 0xFFC8F5FC, CENTER);
+			unlockText.scrollFactor.set();
+			unlockText.y = unlockButton.y + (unlockButton.height - unlockText.height) / 2;
+			add(unlockText);
+		}
+		#end
 
 		new FlxTimer().start(0.1*(1 + 2*optionShit.length) + 0.3, function(tmr:FlxTimer){
 			if(newVersion)
@@ -330,8 +348,10 @@ class MainMenuStateMobile extends MusicBeatState
 	}
 
 	var selectingFriends:Bool = false;
+	var selectingUnlock:Bool = false;
+	var unlockButton:FlxButton;
 	private function handle_input():Void{
-		if(!selectingFriends)
+		if(!selectingFriends && !selectingUnlock)
 		{
 			if (controls.UI_DOWN_P)
 				{
@@ -339,7 +359,7 @@ class MainMenuStateMobile extends MusicBeatState
 						curSelected = 0;
 					else{
 						curSelected +=1;
-						if (optionShit[curSelected] == "freeplay" && !ProgressionUtil.terminouHistoria())
+						if (optionShit[curSelected] == "freeplay" && !terminouHistoria)
 							curSelected +=1;
 						if (optionShit[curSelected] == "multiplayer" && (!GJClient.logged || !passouCY))
 							curSelected +=1;
@@ -363,6 +383,11 @@ class MainMenuStateMobile extends MusicBeatState
 				selectingFriends = true;
 				GlobalSoundManager.play(scrollMenu);
 			}
+			else if(controls.UI_LEFT_P && unlockButton != null && InviteBackEnd.curInvites.length == 0)
+			{
+				selectingUnlock = true;
+				GlobalSoundManager.play(scrollMenu);
+			}
 
 		}
 		else
@@ -370,6 +395,19 @@ class MainMenuStateMobile extends MusicBeatState
 			if(controls.UI_RIGHT_P)
 			{
 				selectingFriends = false;
+				selectingUnlock = false;
+			}
+			else if(controls.UI_DOWN_P && selectingFriends && unlockButton != null && InviteBackEnd.curInvites.length == 0)
+			{
+				selectingFriends = false;
+				selectingUnlock = true;
+				GlobalSoundManager.play(scrollMenu);
+			}
+			else if(controls.UI_UP_P && selectingUnlock && GJClient.logged)
+			{
+				selectingUnlock = false;
+				selectingFriends = true;
+				GlobalSoundManager.play(scrollMenu);
 			}
 		}
 	}
@@ -415,7 +453,7 @@ class MainMenuStateMobile extends MusicBeatState
 				handle_input();
 				if(clicavel && !checkiftouch){
 					menuItems.forEach(function(spr:FlxSprite){
-						if(!selectingFriends || Main.getMouseVisibility())
+						if(!(selectingFriends || selectingUnlock) || Main.getMouseVisibility())
 						{
 							if((optionShit[spr.ID] == "freeplay" #if !debug && terminouHistoria #end) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY&&!TitleState.ModoOffline))
 								{
@@ -446,9 +484,9 @@ class MainMenuStateMobile extends MusicBeatState
 									}
 								}
 						}
-						else if(selectingFriends && !Main.getMouseVisibility())
+						else if((selectingFriends || selectingUnlock) && !Main.getMouseVisibility())
 						{
-							spr.alpha=(optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY) || (optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer") ? 0.75 : 1;
+							spr.alpha=selectingUnlock ? 0.75 : (optionShit[spr.ID] == "freeplay" && passouCY) || (optionShit[spr.ID]=="multiplayer"&&GJClient.logged&&passouCY) || (optionShit[spr.ID] != "freeplay" && optionShit[spr.ID] != "multiplayer") ? 0.75 : 1;
 						}
 					});
 
@@ -457,6 +495,18 @@ class MainMenuStateMobile extends MusicBeatState
 						FlxTween.tween(gamejoltUser, {x: -1200}, 0.5, {ease: FlxEase.expoInOut});
 						friendsMenu = new GameJoltFriendsMenu();
 						openSubState(friendsMenu);
+					}
+
+					if(selectingUnlock && InviteBackEnd.curInvites.length > 0)
+						selectingUnlock = false;
+					if(unlockButton != null && !selectedSomethin && InviteBackEnd.curInvites.length == 0)
+					{
+						var focado:Bool = Main.getMouseVisibility() ? BSLTouchUtils.over(unlockButton) : selectingUnlock;
+						if(focado && unlockButton.alpha != 1)
+							GlobalSoundManager.play(scrollMenu);
+						unlockButton.alpha = focado ? 1 : 0.75;
+						if(Main.getMouseVisibility() ? BSLTouchUtils.apertasimples(unlockButton) : (selectingUnlock && controls.ACCEPT))
+							abrirDesbloqueio();
 					}
 				}
 			}
@@ -496,6 +546,23 @@ class MainMenuStateMobile extends MusicBeatState
 
 		super.update(elapsed);
 
+	}
+
+	function abrirDesbloqueio():Void
+	{
+		canClick = false;
+		GlobalSoundManager.play(confirmMenu);
+		openSubState(new PopUpConfirmSubState('unlock_songs', 'unlock_songs', camAchievement, function()
+		{
+			ClientPrefs.musicasDesbloqueadas = true;
+			ClientPrefs.save();
+			closeSubState();
+			MusicBeatState.switchState(new MainMenuStateMobile());
+		}, function()
+		{
+			canClick = true;
+			closeSubState();
+		}, 100, true));
 	}
 
 	public function convidar(multiplayerState:MultiplayerMainMenuState)

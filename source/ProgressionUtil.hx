@@ -32,6 +32,20 @@ class ProgressionUtil
 		return terminouFreeplay() && terminouHistoria();
 	}
 
+	public static function musicasLiberadas():Bool {
+		return #if UNLOCK_SONGS_ALLOWED ClientPrefs.musicasDesbloqueadas == true #else false #end;
+	}
+
+	public static function todasMusicasAbertas():Bool {
+		if (!terminouHistoria())
+			return false;
+		var freeplayMusicas:Int = 0;
+		for (i in 0...WeekData.freeplayList.length)
+			freeplayMusicas += WeekData.weeksLoaded.get(WeekData.freeplayList[i]).songs.length;
+		var progresso:Null<Int> = Std.parseInt(Std.string(flixel.FlxG.save.data.freeplayProgress));
+		return progresso != null && progresso >= freeplayMusicas;
+	}
+
 	public static function getSaveSum():Int {
 		var sum:Int = 0;
 		for (i in 0...MenuPreHistoria.curSave.length) {

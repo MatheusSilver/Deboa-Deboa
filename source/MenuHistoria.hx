@@ -183,7 +183,7 @@ class MenuHistoria extends MusicBeatSubstate
 		if (curSelected >= musicas.length)
 			curSelected = 0;
 
-		if (musicasLockadas[curSelected] == true)
+		if (musicaTrancada(curSelected))
 		{
 			flixel.tweens.FlxTween.tween(lockSprite, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
 			flixel.tweens.FlxTween.tween(blackLock, {alpha: 0.55}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});
@@ -227,6 +227,11 @@ class MenuHistoria extends MusicBeatSubstate
 		trace('Giving achievement '+ achievementname);
 	}
 	#end
+
+	function musicaTrancada(i:Int):Bool
+	{
+		return musicasLockadas[i] == true && !ProgressionUtil.musicasLiberadas();
+	}
 
 	function applySave()
 	{
@@ -333,7 +338,7 @@ class MenuHistoria extends MusicBeatSubstate
 				movedBack = true;
 				// curSelected = 0;
 			}
-			else if (FlxG.keys.justPressed.SPACE && musicasLockadas[curSelected] != true)
+			else if (FlxG.keys.justPressed.SPACE && !musicaTrancada(curSelected))
 			{
 				var previewFolder:String = Paths.formatToSongPath(musicas[curSelected]);
 				var poop:String = Highscore.formatSong(previewFolder, 2);
@@ -369,12 +374,12 @@ class MenuHistoria extends MusicBeatSubstate
 				}
 			}
 
-			if (controls.ACCEPT && apertavel #if !debug && musicasLockadas[curSelected] != true #end)
+			if (controls.ACCEPT && apertavel #if !debug && !musicaTrancada(curSelected) #end)
 			{
 				selectSong(true);
 			}
 			#if !debug
-			else if (controls.ACCEPT && apertavel && musicasLockadas[curSelected] == true)
+			else if (controls.ACCEPT && apertavel && musicaTrancada(curSelected))
 			{
 				GlobalSoundManager.play('negado');
 			}
@@ -631,7 +636,7 @@ class MenuHistoria extends MusicBeatSubstate
 		var leWeek:WeekData = WeekData.weeksLoaded.get(dapreselected);
 		WeekData.setDirectoryFromWeek(leWeek);
 
-		if (musicasLockadas[curSelected] == true)
+		if (musicaTrancada(curSelected))
 		{
 			flixel.tweens.FlxTween.tween(lockSprite, {alpha: 1}, 0.5, {ease: flixel.tweens.FlxEase.expoInOut});
 			flixel.tweens.FlxTween.tween(blackLock, {alpha: 0.55}, 0.25, {ease: flixel.tweens.FlxEase.expoInOut});

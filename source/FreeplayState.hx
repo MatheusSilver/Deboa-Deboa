@@ -130,11 +130,12 @@ class FreeplayState extends MusicBeatState
 		borda.antialiasing = ClientPrefs.globalAntialiasing;
 		#if debug progressFreeplay = songs.length; #end
 
-		BSLSwipeUtils.max_y = Std.int(FlxG.width / (progressFreeplay));
+		var musicasVisiveis:Int = ProgressionUtil.musicasLiberadas() ? songs.length : progressFreeplay;
+		BSLSwipeUtils.max_y = Std.int(FlxG.width / (musicasVisiveis));
 		BSLSwipeUtils.mouseScrollMultiplier = 1;
 		BSLSwipeUtils.reset_manual = false;
 
-		for (i in 0...progressFreeplay) {
+		for (i in 0...musicasVisiveis) {
 			if(i >= songs.length)
 				break;
 			var songText:Alphabet = new Alphabet(0, (70 * i), songs[i].display.toLowerCase(), false, false, 0.05, 0.7, 'alfabetovio');

@@ -8,3 +8,4 @@ desc_tutorial_2_mobile  You can use touch, keyboard,<X>and gamepad at the same t
 desc_tutorial_3 The input mode is switched<X>automatically based on<X>the input being used.	
 desc_tutorial_4 You can use the mouse scroll wheel in menus,<X>configure gamepad buttons in the<x>control settings, and more.	
 desc_changelog	v0.13.0<X>beep bop
+desc_unlock_songs	If you select YES,<X>every song in the game<X>will be unlocked.<X>This cannot be undone.

@@ -64,6 +64,7 @@ class ClientPrefs
 	public static var multiplayerPopUp:Null<Bool> = false;
 	public static var freeplayPopUp:Null<Bool> = false;
 	public static var modifiersPopUp:Null<Bool> = false; 
+	public static var musicasDesbloqueadas:Null<Bool> = false;
 
 	public static var keyBinds:Map<String, Array<FlxKey>> = new Map<String, Array<FlxKey>>();
 	public static var keyBindsGamepad:Map<String, Array<FlxGamepadInputID>> = new Map<String, Array<FlxGamepadInputID>>();

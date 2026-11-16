@@ -138,6 +138,8 @@ class MenuPreHistoria extends MusicBeatState
 		{
 			curWeek = weekAnimNum;
 			irDireto = false;
+			if (ProgressionUtil.musicasLiberadas())
+				makeAnimUnlock = false;
 		}
 
 		if(MainMenuStateMobile.passouCY && !ClientPrefs.multiplayerPopUp) {
@@ -196,7 +198,7 @@ class MenuPreHistoria extends MusicBeatState
 		var save:Array<String> = curSave.split(",");
 		for (s in save)
 		{
-			if (s != "0")
+			if (s != "0" || ProgressionUtil.musicasLiberadas())
 			{
 				lockedWeeks.push(false);
 			}
