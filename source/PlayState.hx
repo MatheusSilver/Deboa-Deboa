@@ -2055,27 +2055,29 @@ class PlayState extends MusicBeatState
 					antialias = false;
 				}
 
-				// head bopping for bg characters on Mall
+			
 				if (curSong.toLowerCase() != 'sunshine')
 				{
 					switch (swagCounter)
 					{
 						case 0:
 							intro3.play();
+
 						case 1:
-							var ready:FlxSprite;
-							ready = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
+							var ready:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
 							ready.scrollFactor.set();
-							ready.updateHitbox();
 
 							if (PlayState.isPixelStage)
 								ready.setGraphicSize(Std.int(ready.width * daPixelZoom));
 
-							ready.screenCenter();
+							ready.updateHitbox();
+							ready.screenCenter(XY);
 							ready.antialiasing = antialias;
+
 							add(ready);
 							countDownSprites.push(ready);
-							FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, Song.Conductor.crochet / 1000, {
+
+							FlxTween.tween(ready, {y: ready.y + 100, alpha: 0}, Song.Conductor.crochet / 1000, {
 								ease: FlxEase.cubeInOut,
 								onComplete: function(twn:FlxTween)
 								{
@@ -2084,20 +2086,24 @@ class PlayState extends MusicBeatState
 									ready.destroy();
 								}
 							});
+
 							intro2.play();
+
 						case 2:
-							var set:FlxSprite;
-							set = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
+							var set:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 							set.scrollFactor.set();
 
 							if (PlayState.isPixelStage)
 								set.setGraphicSize(Std.int(set.width * daPixelZoom));
 
-							set.screenCenter();
+							set.updateHitbox();
+							set.screenCenter(XY);
 							set.antialiasing = antialias;
+
 							add(set);
 							countDownSprites.push(set);
-							FlxTween.tween(set, {y: set.y += 100, alpha: 0}, Song.Conductor.crochet / 1000, {
+
+							FlxTween.tween(set, {y: set.y + 100, alpha: 0}, Song.Conductor.crochet / 1000, {
 								ease: FlxEase.cubeInOut,
 								onComplete: function(twn:FlxTween)
 								{
@@ -2106,23 +2112,24 @@ class PlayState extends MusicBeatState
 									set.destroy();
 								}
 							});
-							intro1.play();
-						case 3:
-							var go:FlxSprite; // bruh + meme = breme
 
-							go = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+							intro1.play();
+
+						case 3:
+							var go:FlxSprite = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 							go.scrollFactor.set();
 
 							if (PlayState.isPixelStage)
 								go.setGraphicSize(Std.int(go.width * daPixelZoom));
 
 							go.updateHitbox();
-
-							go.screenCenter();
+							go.screenCenter(XY);
 							go.antialiasing = antialias;
+
 							add(go);
 							countDownSprites.push(go);
-							FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Song.Conductor.crochet / 1000, {
+
+							FlxTween.tween(go, {y: go.y + 100, alpha: 0}, Song.Conductor.crochet / 1000, {
 								ease: FlxEase.cubeInOut,
 								onComplete: function(twn:FlxTween)
 								{
@@ -2131,15 +2138,17 @@ class PlayState extends MusicBeatState
 									go.destroy();
 								}
 							});
+
 							new FlxTimer().start(1, function(tmr:FlxTimer)
 							{
 								canPause = true;
 							});
 
 							introgo.play();
+
 						case 4:
 					}
-				} // solução preguiçosa, fodasi
+				}
 
 				notes.forEachAlive(function(note:Note)
 				{
