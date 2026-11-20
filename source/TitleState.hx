@@ -195,7 +195,7 @@ class TitleState extends MusicBeatState
 		if (!initialized) {
 			if (FlxG.sound.music == null) {
 				FlxG.sound.playMusic(Paths.music('newmenu', 'preload'), 0);
-				FlxG.sound.music.fadeIn(4, 0, 0.7);
+				FlxG.sound.music.fadeIn(2, 0, 0.7);
 			}
 		}
 
