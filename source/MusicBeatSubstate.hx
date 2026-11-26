@@ -60,7 +60,7 @@ class MusicBeatSubstate extends FlxSubState
 	override function update(elapsed:Float)
 	{
 		#if desktop mouseActuallyMoved = (FlxG.mouse.screenX != lastMouseX || FlxG.mouse.screenY != lastMouseY); #end
-		if (Main.getMouseVisibility() && (FlxG.keys.justPressed.ANY || GamepadUtil.anyGamepadButtonPressed())){
+		if (Main.getMouseVisibility() && ((FlxG.keys.justPressed.ANY || GamepadUtil.anyGamepadButtonPressed())) && !pressed_excluded_keys()){
 			if (!Main.isKeyboard && FlxG.keys.pressed.ANY) Main.isKeyboard = true;
 			else if (Main.isKeyboard && GamepadUtil.anyGamepadButtonPressed()) Main.isKeyboard = false;
 
@@ -68,6 +68,8 @@ class MusicBeatSubstate extends FlxSubState
 			
 		}else if (Main.mouse_allowed && #if !mobile mouseActuallyMoved #else BSLTouchUtils.justTouched() #end){
 			Main.mouseVisibility(true);
+		}else if (!Main.mouse_allowed){ // Se não for permitido não tem pra que checar se move ou se há toque, e o mesmo pra visibilidade.
+			Main.mouseVisibility(false);
 		}
 		
 		//everyStep();
@@ -81,6 +83,19 @@ class MusicBeatSubstate extends FlxSubState
 
 
 		super.update(elapsed);
+	}
+
+	static function pressed_excluded_keys():Bool
+	{
+		for (key in TitleState.volumeDownKeys)
+			if (FlxG.keys.checkStatus(key, PRESSED))
+				return true;
+
+		for (key in TitleState.volumeUpKeys)
+			if (FlxG.keys.checkStatus(key, PRESSED))
+				return true;
+
+		return false;
 	}
 
 	private function updateCurStep():Void
